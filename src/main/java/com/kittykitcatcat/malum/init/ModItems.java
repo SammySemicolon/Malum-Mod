@@ -99,7 +99,7 @@ public class ModItems
                 evil_pumpkin = setup(new BlockItem(ModBlocks.evil_pumpkin, new Item.Properties().group(MALUM_MOD_GROUP)), "evil_pumpkin"),
                 lit_evil_pumpkin = setup(new BlockItem(ModBlocks.lit_evil_pumpkin, new Item.Properties().group(MALUM_MOD_GROUP)), "lit_evil_pumpkin"),
                 block_of_flesh = setup(new BlockItem(ModBlocks.block_of_flesh, new Item.Properties().group(MALUM_MOD_GROUP)), "block_of_flesh"),
-d
+
                 spirit_leaves = setup(new BlockItem(ModBlocks.spirit_leaves, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_leaves"),
                 spirit_log = setup(new BlockItem(ModBlocks.spirit_log, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_log"),
                 spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_sapling"),
