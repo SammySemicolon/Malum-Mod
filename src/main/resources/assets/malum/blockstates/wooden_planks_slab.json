@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "malum:block/wooden_planks_slab" },
+        "type=top": { "model": "malum:block/wooden_planks_slab_top" },
+        "type=double": { "model": "malum:block/wooden_planks" }
+    }
+}

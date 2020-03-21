@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "malum:block/refined_smooth_stone_slab" },
+        "type=top": { "model": "malum:block/refined_smooth_stone_slab_top" },
+        "type=double": { "model": "malum:block/refined_smooth_stone" }
+    }
+}

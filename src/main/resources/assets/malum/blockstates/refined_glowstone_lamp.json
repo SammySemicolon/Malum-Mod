@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "lit=false": { "model": "malum:block/refined_glowstone_lamp_unlit" },
+        "lit=true": { "model": "malum:block/refined_glowstone_lamp" }
+    }
+	
+}

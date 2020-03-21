@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "malum:blocks/wooden_beam_top",
+    "side": "malum:blocks/wooden_beam"
+  }
+}

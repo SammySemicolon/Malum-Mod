@@ -1,0 +1,142 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+version = '1.15.2-1.0'
+group = 'com.kittykitcatcat.malum' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'malum'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+
+minecraft {
+    // The mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   Snapshot are built nightly.
+    // stable_#            Stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not always work.
+    // Simply re-run your setup task after changing the mappings to update your workspace.
+    mappings channel: 'snapshot', version: '20200225-1.15.1'
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                malum {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                malum {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'malum', '--all', '--output', file('src/generated/resources/')
+
+            mods {
+                malum {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories 
+{ 
+	maven { url = "https://maven.theillusivec4.top/" } 
+	maven 
+	{
+		name = "Progwml6 maven"
+		url = "https://dvs1.progwml6.com/files/maven/"
+	}
+	maven 
+	{
+		name = "ModMaven"
+		url = "https://modmaven.k-4u.nl"
+	}
+	
+    maven { url 'https://maven.blamejared.com' }
+}
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.15.2-31.1.27'
+    compile fg.deobf("vazkii.patchouli:Patchouli:1.1-25.4") { transitive = false }
+
+    compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
+    
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.1-2.0-beta:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.15.1-2.0-beta")
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "malum",
+            "Specification-Vendor": "malumsareus",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"malumsareus",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar') 
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}

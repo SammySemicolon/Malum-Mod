@@ -1,0 +1,6 @@
+{
+  "parent": "block/leaves",
+  "textures": {
+		"all": "malum:blocks/spirit_leaves"
+  }
+}

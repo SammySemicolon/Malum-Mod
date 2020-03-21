@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "malum:blocks/refined_smooth_stone",
+    "top": "malum:blocks/refined_smooth_stone",
+    "side": "malum:blocks/refined_smooth_stone"
+  }
+}

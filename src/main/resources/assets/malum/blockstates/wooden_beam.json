@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": {"model": "malum:block/wooden_beam"},
+    "axis=z": {"model": "malum:block/wooden_beam", "x": 90},
+    "axis=x": {"model": "malum:block/wooden_beam", "x": 90, "y": 90}
+  }
+}
