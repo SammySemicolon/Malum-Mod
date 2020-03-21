@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+		"all": "malum:blocks/block_of_flesh_7"
+  }
+}
