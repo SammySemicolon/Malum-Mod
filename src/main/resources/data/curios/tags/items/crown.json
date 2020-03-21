@@ -1,4 +1,4 @@
 {
   "replace": "false",
-  "values": ["malum:phantom_wings_curio"]
+  "values": ["malum:phantom_wings_curio","malum:crossbow_reload_curio","malum:shulker_on_heal_curio"]
 }

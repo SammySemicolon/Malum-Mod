@@ -34,9 +34,9 @@ import java.util.Random;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
-public class PhantomWingsCurio extends Item implements ICurio
+public class PhantomWingsCurioItem extends Item implements ICurio
 {
-    public PhantomWingsCurio(Properties builder)
+    public PhantomWingsCurioItem(Properties builder)
     {
         super(builder);
     }

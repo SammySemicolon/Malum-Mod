@@ -16,11 +16,13 @@ import java.util.List;
 public class ModRecipes
 {
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST    )
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void registerRecipes(FMLCommonSetupEvent event)
     {
         BlockTransmutationRecipe.initRecipes();
     }
+
+
     public static List<BlockTransmutationRecipe> blockTransmutationRecipes = new ArrayList<>();
 
     public static void addBlockTransmutationRecipe(BlockTransmutationRecipe recipe)

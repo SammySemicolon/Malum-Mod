@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelArmorSoulCrystal extends ModelArmor
+public class ModelArmorTier1 extends ModelArmor
 {
 
     private final ModelRenderer torso;
@@ -25,7 +25,7 @@ public class ModelArmorSoulCrystal extends ModelArmor
     private final ModelRenderer boot_l;
     private final ModelRenderer boot_wing_l;
 
-    public ModelArmorSoulCrystal(EquipmentSlotType slot)
+    public ModelArmorTier1(EquipmentSlotType slot)
     {
         super(slot, 64, 64);
         textureWidth = 64;

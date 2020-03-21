@@ -3,7 +3,13 @@ package com.kittykitcatcat.malum.init;
 import com.google.common.base.Preconditions;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.items.TransmutationGemItem;
-import com.kittykitcatcat.malum.items.curios.PhantomWingsCurio;
+import com.kittykitcatcat.malum.items.armor.ItemArmorTier1;
+import com.kittykitcatcat.malum.items.armor.ItemArmorTier2;
+import com.kittykitcatcat.malum.items.curios.CrossbowReloadCurioItem;
+import com.kittykitcatcat.malum.items.curios.PhantomWingsCurioItem;
+import com.kittykitcatcat.malum.items.curios.ShulkerOnHealCurioItem;
+import com.kittykitcatcat.malum.items.tools.*;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -20,6 +26,8 @@ import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 import static com.kittykitcatcat.malum.MalumMod.MODID;
+import static com.kittykitcatcat.malum.init.ModItemTiers.TIER1_ITEM;
+import static com.kittykitcatcat.malum.init.ModItemTiers.TIER2_ITEM;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -52,11 +60,33 @@ public class ModItems
     public static Item gold_coin;
     public static Item spirit_charcoal;
     //TOOLS
+
+    public static Item soul_crystal_hoe;
+    public static Item soul_crystal_axe;
+    public static Item soul_crystal_sword;
+    public static Item soul_crystal_shovel;
+    public static Item soul_crystal_pickaxe;
+    public static Item soul_crystal_shoes;
+    public static Item soul_crystal_leggings;
+    public static Item soul_crystal_chestplate;
+    public static Item soul_crystal_helm;
+    public static Item soul_steel_hoe;
+    public static Item soul_steel_axe;
+    public static Item soul_steel_sword;
+    public static Item soul_steel_shovel;
+    public static Item soul_steel_pickaxe;
+    public static Item soul_steel_shoes;
+    public static Item soul_steel_leggings;
+    public static Item soul_steel_chestplate;
+    public static Item soul_steel_helm;
+
     public static Item spiritwood_stave;
     public static Item simple_dagger;
     public static Item block_transmutation_tool;
     //CURIOS
     public static Item phantom_wings_curio;
+    public static Item crossbow_reload_curio;
+    public static Item shulker_on_heal_curio;
     //FUNCTIONAL BLOCKS
 
     public static Item spirit_furnace;
@@ -88,59 +118,85 @@ public class ModItems
     public static Item refined_glowstone_lamp;
     public static Item smooth_stone_stairs;
 
+    static Item.Properties basic_properties = new Item.Properties().group(MALUM_MOD_GROUP);
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event)
     {
         final IForgeRegistry<Item> registry = event.getRegistry();
         registry.registerAll(
-                spirit_stone = setup(new BlockItem(ModBlocks.wooden_planks, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_stone"),
-                dark_spirit_stone = setup(new BlockItem(ModBlocks.refined_glowstone_block, new Item.Properties().group(MALUM_MOD_GROUP)), "dark_spirit_stone"),
-                enchanted_quartz = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "enchanted_quartz"),
-                transmissive_ingot = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "transmissive_ingot"),
-                vacant_gemstone = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "vacant_gemstone"),
-                unrefined_spirited_steel = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "unrefined_spirited_steel"),
-                gold_coin = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "gold_coin"),
-                spirit_charcoal = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_charcoal"),
+                spirit_stone = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "spirit_stone"),
+                dark_spirit_stone = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "dark_spirit_stone"),
+                enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
+                transmissive_ingot = setup(new Item(basic_properties), "transmissive_ingot"),
+                vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
+                unrefined_spirited_steel = setup(new Item(basic_properties), "unrefined_spirited_steel"),
+                gold_coin = setup(new Item(basic_properties), "gold_coin"),
+                spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
 
-                spiritwood_stave = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "spiritwood_stave"),
-                simple_dagger = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "simple_dagger"),
-                block_transmutation_tool = setup(new TransmutationGemItem(new Item.Properties().group(MALUM_MOD_GROUP)), "block_transmutation_tool"),
+                soul_crystal_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, basic_properties), "soul_crystal_hoe"),
+                soul_crystal_axe = setup(new ModAxeItem(TIER1_ITEM, 0, 0, basic_properties), "soul_crystal_axe"),
+                soul_crystal_sword = setup(new ModSwordItem(TIER1_ITEM, 0, 0, basic_properties), "soul_crystal_sword"),
+                soul_crystal_shovel = setup(new ModShovelItem(TIER1_ITEM, 0, 0, basic_properties), "soul_crystal_shovel"),
+                soul_crystal_pickaxe = setup(new ModPickaxeItem(TIER1_ITEM, 0, 0, basic_properties), "soul_crystal_pickaxe"),
 
-                phantom_wings_curio = setup(new PhantomWingsCurio(new Item.Properties().group(MALUM_MOD_GROUP)), "phantom_wings_curio"),
+                soul_crystal_shoes = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, basic_properties), "soul_crystal_shoes"),
+                soul_crystal_leggings = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.LEGS, basic_properties), "soul_crystal_leggings"),
+                soul_crystal_chestplate = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.CHEST, basic_properties), "soul_crystal_chestplate"),
+                soul_crystal_helm = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.HEAD, basic_properties), "soul_crystal_helm"),
 
-                wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks"),
-                wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks_slab"),
-                wooden_planks_stairs = setup(new BlockItem(ModBlocks.wooden_planks_stairs, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks_stairs"),
+                soul_steel_hoe = setup(new ModHoeItem(TIER2_ITEM, 0, basic_properties), "soul_steel_hoe"),
+                soul_steel_axe = setup(new ModAxeItem(TIER2_ITEM, 0, 0, basic_properties), "soul_steel_axe"),
+                soul_steel_sword = setup(new ModSwordItem(TIER2_ITEM, 0, 0, basic_properties), "soul_steel_sword"),
+                soul_steel_shovel = setup(new ModShovelItem(TIER2_ITEM, 0, 0, basic_properties), "soul_steel_shovel"),
+                soul_steel_pickaxe = setup(new ModPickaxeItem(TIER2_ITEM, 0, 0, basic_properties), "soul_steel_pickaxe"),
 
-                wooden_beam = setup(new BlockItem(ModBlocks.wooden_beam, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_beam"),
-                wooden_casing = setup(new BlockItem(ModBlocks.wooden_casing, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_casing"),
+                soul_steel_shoes = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.FEET, basic_properties), "soul_steel_shoes"),
+                soul_steel_leggings = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.LEGS, basic_properties), "soul_steel_leggings"),
+                soul_steel_chestplate = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.CHEST, basic_properties), "soul_steel_chestplate"),
+                soul_steel_helm = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.HEAD, basic_properties), "soul_steel_helm"),
 
-                refined_bricks = setup(new BlockItem(ModBlocks.refined_bricks, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_bricks"),
-                refined_bricks_slab = setup(new BlockItem(ModBlocks.refined_bricks_slab, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_bricks_slab"),
-                refined_bricks_stairs = setup(new BlockItem(ModBlocks.refined_bricks_stairs, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_bricks_stairs"),
 
-                spirit_planks = setup(new BlockItem(ModBlocks.spirit_planks, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_planks"),
-                spirit_planks_slab = setup(new BlockItem(ModBlocks.spirit_planks_slab, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_planks_slab"),
-                spirit_planks_stairs = setup(new BlockItem(ModBlocks.spirit_planks_stairs, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_planks_stairs"),
+                spiritwood_stave = setup(new Item(basic_properties), "spiritwood_stave"),
+                simple_dagger = setup(new Item(basic_properties), "simple_dagger"),
+                block_transmutation_tool = setup(new TransmutationGemItem(basic_properties), "block_transmutation_tool"),
 
-                refined_pathway = setup(new BlockItem(ModBlocks.refined_pathway, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_pathway"),
-                refined_pathway_slab = setup(new BlockItem(ModBlocks.refined_pathway_slab, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_pathway_slab"),
-                refined_pathway_stairs = setup(new BlockItem(ModBlocks.refined_pathway_stairs, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_pathway_stairs"),
+                phantom_wings_curio = setup(new PhantomWingsCurioItem(basic_properties), "phantom_wings_curio"),
+                crossbow_reload_curio = setup(new CrossbowReloadCurioItem(basic_properties), "crossbow_reload_curio"),
+                shulker_on_heal_curio = setup(new ShulkerOnHealCurioItem(basic_properties), "shulker_on_heal_curio"),
 
-                refined_smooth_stone = setup(new BlockItem(ModBlocks.refined_smooth_stone, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_smooth_stone"),
-                refined_smooth_stone_slab = setup(new BlockItem(ModBlocks.refined_smooth_stone_slab, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_smooth_stone_slab"),
-                refined_smooth_stone_stairs = setup(new BlockItem(ModBlocks.refined_smooth_stone_stairs, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_smooth_stone_stairs"),
+                wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "wooden_planks"),
+                wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, basic_properties), "wooden_planks_slab"),
+                wooden_planks_stairs = setup(new BlockItem(ModBlocks.wooden_planks_stairs, basic_properties), "wooden_planks_stairs"),
 
-                evil_pumpkin = setup(new BlockItem(ModBlocks.evil_pumpkin, new Item.Properties().group(MALUM_MOD_GROUP)), "evil_pumpkin"),
-                lit_evil_pumpkin = setup(new BlockItem(ModBlocks.lit_evil_pumpkin, new Item.Properties().group(MALUM_MOD_GROUP)), "lit_evil_pumpkin"),
-                block_of_flesh = setup(new BlockItem(ModBlocks.block_of_flesh, new Item.Properties().group(MALUM_MOD_GROUP)), "block_of_flesh"),
+                wooden_beam = setup(new BlockItem(ModBlocks.wooden_beam, basic_properties), "wooden_beam"),
+                wooden_casing = setup(new BlockItem(ModBlocks.wooden_casing, basic_properties), "wooden_casing"),
 
-                spirit_leaves = setup(new BlockItem(ModBlocks.spirit_leaves, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_leaves"),
-                spirit_log = setup(new BlockItem(ModBlocks.spirit_log, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_log"),
-                spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_sapling"),
+                refined_bricks = setup(new BlockItem(ModBlocks.refined_bricks, basic_properties), "refined_bricks"),
+                refined_bricks_slab = setup(new BlockItem(ModBlocks.refined_bricks_slab, basic_properties), "refined_bricks_slab"),
+                refined_bricks_stairs = setup(new BlockItem(ModBlocks.refined_bricks_stairs, basic_properties), "refined_bricks_stairs"),
 
-                refined_glowstone_block = setup(new BlockItem(ModBlocks.refined_glowstone_block, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_glowstone_block"),
-                refined_glowstone_lamp = setup(new BlockItem(ModBlocks.refined_glowstone_lamp, new Item.Properties().group(MALUM_MOD_GROUP)), "refined_glowstone_lamp")
+                spirit_planks = setup(new BlockItem(ModBlocks.spirit_planks, basic_properties), "spirit_planks"),
+                spirit_planks_slab = setup(new BlockItem(ModBlocks.spirit_planks_slab, basic_properties), "spirit_planks_slab"),
+                spirit_planks_stairs = setup(new BlockItem(ModBlocks.spirit_planks_stairs, basic_properties), "spirit_planks_stairs"),
+
+                refined_pathway = setup(new BlockItem(ModBlocks.refined_pathway, basic_properties), "refined_pathway"),
+                refined_pathway_slab = setup(new BlockItem(ModBlocks.refined_pathway_slab, basic_properties), "refined_pathway_slab"),
+                refined_pathway_stairs = setup(new BlockItem(ModBlocks.refined_pathway_stairs, basic_properties), "refined_pathway_stairs"),
+
+                refined_smooth_stone = setup(new BlockItem(ModBlocks.refined_smooth_stone, basic_properties), "refined_smooth_stone"),
+                refined_smooth_stone_slab = setup(new BlockItem(ModBlocks.refined_smooth_stone_slab, basic_properties), "refined_smooth_stone_slab"),
+                refined_smooth_stone_stairs = setup(new BlockItem(ModBlocks.refined_smooth_stone_stairs, basic_properties), "refined_smooth_stone_stairs"),
+
+                evil_pumpkin = setup(new BlockItem(ModBlocks.evil_pumpkin, basic_properties), "evil_pumpkin"),
+                lit_evil_pumpkin = setup(new BlockItem(ModBlocks.lit_evil_pumpkin, basic_properties), "lit_evil_pumpkin"),
+                block_of_flesh = setup(new BlockItem(ModBlocks.block_of_flesh, basic_properties), "block_of_flesh"),
+
+                spirit_leaves = setup(new BlockItem(ModBlocks.spirit_leaves, basic_properties), "spirit_leaves"),
+                spirit_log = setup(new BlockItem(ModBlocks.spirit_log, basic_properties), "spirit_log"),
+                spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, basic_properties), "spirit_sapling"),
+
+                refined_glowstone_block = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "refined_glowstone_block"),
+                refined_glowstone_lamp = setup(new BlockItem(ModBlocks.refined_glowstone_lamp, basic_properties), "refined_glowstone_lamp")
         );
     }
 
