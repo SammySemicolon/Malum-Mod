@@ -41,7 +41,6 @@ public class SpiritFurnaceBottomBlock extends Block
     public static void setRenderLayer(FMLClientSetupEvent event)
     {
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace_bottom, RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace_top, RenderType.getCutout());
     }
     public SpiritFurnaceBottomBlock(Properties properties)
     {

@@ -201,7 +201,6 @@ public class ModItems
 
                 refined_glowstone_block = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "refined_glowstone_block"),
                 refined_glowstone_lamp = setup(new BlockItem(ModBlocks.refined_glowstone_lamp, basic_properties), "refined_glowstone_lamp")
->>>>>>> f2352164e34f0f10b3b5c737f092f4dedcd127da
         );
     }
 
