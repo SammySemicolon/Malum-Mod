@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.blocks.spiritfurnace;
 
+import com.kittykitcatcat.malum.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -38,6 +39,16 @@ public class SpiritFurnaceTopBlock extends Block
     {
         worldIn.setBlockState(pos.down(), Blocks.AIR.getDefaultState());
         super.onBlockHarvested(worldIn, pos, state, player);
+    }
+
+    @Override
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
+    {
+        if (!worldIn.getBlockState(currentPos.down()).getBlock().equals(ModBlocks.spirit_furnace_bottom))
+        {
+            worldIn.setBlockState(currentPos, Blocks.AIR.getDefaultState(), 3);
+        }
+        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
