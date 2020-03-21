@@ -4,6 +4,9 @@
     "cut=1": {"model": "malum:block/block_of_flesh_1"},
     "cut=2": {"model": "malum:block/block_of_flesh_2"},
     "cut=3": {"model": "malum:block/block_of_flesh_3"},
-    "cut=4": {"model": "malum:block/block_of_flesh_4"}
+    "cut=4": {"model": "malum:block/block_of_flesh_4"},
+    "cut=5": {"model": "malum:block/block_of_flesh_5"},
+    "cut=6": {"model": "malum:block/block_of_flesh_6"},
+    "cut=7": {"model": "malum:block/block_of_flesh_7"}
   }
 }

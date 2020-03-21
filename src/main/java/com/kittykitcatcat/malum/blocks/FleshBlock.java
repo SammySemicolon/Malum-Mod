@@ -31,7 +31,7 @@ public class FleshBlock extends Block
         super(properties);
         this.setDefaultState(this.getDefaultState().with(CUT, 0));
     }
-    public static final IntegerProperty CUT = IntegerProperty.create("cut", 0, 4);
+    public static final IntegerProperty CUT = IntegerProperty.create("cut", 0, 7);
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> p_206840_1_)
     {
@@ -49,7 +49,7 @@ public class FleshBlock extends Block
                     if (player.getHeldItem(handIn).getItem() instanceof SwordItem)
                     {
                         BlockState newState;
-                        if (state.get(CUT) < 4)
+                        if (state.get(CUT) < 7)
                         {
                             newState = state.with(CUT, state.get(CUT)+1);
                         }
@@ -82,7 +82,7 @@ public class FleshBlock extends Block
             {
                 if (world.getBlockState(pos.down()).isAir())
                 {
-                    if (MathHelper.nextInt(world.rand, 0, 6 - stateIn.get(CUT)) == 0)
+                    if (MathHelper.nextInt(world.rand, 0, 8 - stateIn.get(CUT)) == 0)
                     {
                         for (int i = 0; i <= stateIn.get(CUT); i++)
                         {

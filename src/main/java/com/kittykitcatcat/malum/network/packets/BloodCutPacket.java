@@ -44,7 +44,7 @@ public class BloodCutPacket
             DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
                 World world = Minecraft.getInstance().world;
                 Vec3d pos = new Vec3d(x,y,z);
-                if (strength == 4)
+                if (strength == 7)
                 {
                     for (int i = 0; i <= 20; i++)
                     {
