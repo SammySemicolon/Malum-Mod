@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 @Mod("malum")
 public class MalumMod
 {
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "malum";
     public MalumMod() {
         MinecraftForge.EVENT_BUS.register(this);
