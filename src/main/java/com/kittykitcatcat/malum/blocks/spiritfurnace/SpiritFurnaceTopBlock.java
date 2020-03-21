@@ -2,6 +2,7 @@ package com.kittykitcatcat.malum.blocks.spiritfurnace;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
@@ -33,6 +34,13 @@ public class SpiritFurnaceTopBlock extends Block
     }
 
     @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+    {
+        worldIn.setBlockState(pos.down(), Blocks.AIR.getDefaultState());
+        super.onBlockHarvested(worldIn, pos, state, player);
+    }
+
+    @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (!worldIn.isRemote())
@@ -47,22 +55,6 @@ public class SpiritFurnaceTopBlock extends Block
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
-        blockStateBuilder.add(WATERLOGGED);
         blockStateBuilder.add(HORIZONTAL_FACING);
-    }
-
-    @Nonnull
-    public IFluidState getFluidState(BlockState p_204507_1_)
-    {
-        return p_204507_1_.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(p_204507_1_);
-    }
-
-    @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext p_196258_1_)
-    {
-        IWorld lvt_2_1_ = p_196258_1_.getWorld();
-        BlockPos lvt_3_1_ = p_196258_1_.getPos();
-        boolean lvt_4_1_ = lvt_2_1_.getFluidState(lvt_3_1_).getFluid() == Fluids.WATER;
-        return this.getDefaultState().with(WATERLOGGED, lvt_4_1_);
     }
 }

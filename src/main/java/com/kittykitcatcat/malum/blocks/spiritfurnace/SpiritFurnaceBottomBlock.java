@@ -66,6 +66,12 @@ public class SpiritFurnaceBottomBlock extends Block
     }
 
     @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+    {
+        worldIn.setBlockState(pos.up(), Blocks.AIR.getDefaultState());
+        super.onBlockHarvested(worldIn, pos, state, player);
+    }
+    @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
     {
         if (worldIn.getBlockState(pos.up()).getBlock().equals(Blocks.AIR))

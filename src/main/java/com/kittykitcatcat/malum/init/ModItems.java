@@ -164,6 +164,8 @@ public class ModItems
                 crossbow_reload_curio = setup(new CrossbowReloadCurioItem(basic_properties), "crossbow_reload_curio"),
                 shulker_on_heal_curio = setup(new ShulkerOnHealCurioItem(basic_properties), "shulker_on_heal_curio"),
 
+                spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace_bottom, basic_properties), "spirit_furnace"),
+
                 wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "wooden_planks"),
                 wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, basic_properties), "wooden_planks_slab"),
                 wooden_planks_stairs = setup(new BlockItem(ModBlocks.wooden_planks_stairs, basic_properties), "wooden_planks_stairs"),
