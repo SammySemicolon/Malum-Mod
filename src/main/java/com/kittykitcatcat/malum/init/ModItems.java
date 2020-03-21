@@ -2,6 +2,7 @@ package com.kittykitcatcat.malum.init;
 
 import com.google.common.base.Preconditions;
 import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.items.TransmutationGemItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -40,7 +41,10 @@ public class ModItems
             return iconSupplier.get();
         }
     }
-
+    //MATERIALS
+    //TOOLS
+    public static Item block_transmutation_tool;
+    //BLOCKS
     public static Item wooden_planks;
     public static Item wooden_planks_slab;
     public static Item wooden_planks_stairs;
@@ -73,6 +77,7 @@ public class ModItems
     {
         final IForgeRegistry<Item> registry = event.getRegistry();
         registry.registerAll(
+                block_transmutation_tool = setup(new TransmutationGemItem(new Item.Properties().group(MALUM_MOD_GROUP)), "block_transmutation_tool"),
                 wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks"),
                 wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks_slab"),
                 wooden_planks_stairs = setup(new BlockItem(ModBlocks.wooden_planks_stairs, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks_stairs"),
@@ -99,7 +104,7 @@ public class ModItems
                 evil_pumpkin = setup(new BlockItem(ModBlocks.evil_pumpkin, new Item.Properties().group(MALUM_MOD_GROUP)), "evil_pumpkin"),
                 lit_evil_pumpkin = setup(new BlockItem(ModBlocks.lit_evil_pumpkin, new Item.Properties().group(MALUM_MOD_GROUP)), "lit_evil_pumpkin"),
                 block_of_flesh = setup(new BlockItem(ModBlocks.block_of_flesh, new Item.Properties().group(MALUM_MOD_GROUP)), "block_of_flesh"),
-d
+
                 spirit_leaves = setup(new BlockItem(ModBlocks.spirit_leaves, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_leaves"),
                 spirit_log = setup(new BlockItem(ModBlocks.spirit_log, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_log"),
                 spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_sapling"),
