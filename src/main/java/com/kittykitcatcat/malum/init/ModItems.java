@@ -125,6 +125,7 @@ public class ModItems
     {
         final IForgeRegistry<Item> registry = event.getRegistry();
         registry.registerAll(
+
                 spirit_stone = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "dark_spirit_stone"),
                 enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
@@ -200,6 +201,7 @@ public class ModItems
 
                 refined_glowstone_block = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "refined_glowstone_block"),
                 refined_glowstone_lamp = setup(new BlockItem(ModBlocks.refined_glowstone_lamp, basic_properties), "refined_glowstone_lamp")
+>>>>>>> f2352164e34f0f10b3b5c737f092f4dedcd127da
         );
     }
 
