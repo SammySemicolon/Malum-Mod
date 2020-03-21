@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -87,5 +88,10 @@ public class SpiritFurnaceBottomBlock extends Block
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
+    }
+    @Nullable
+    public BlockState getStateForPlacement(BlockItemUseContext context)
+    {
+        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 }
