@@ -1,6 +1,8 @@
 package com.kittykitcatcat.malum.blocks;
 
 
+import com.kittykitcatcat.malum.network.NetworkManager;
+import com.kittykitcatcat.malum.network.packets.BloodCutPacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -14,6 +16,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 public class FleshBlock extends Block
 {
@@ -50,6 +53,10 @@ public class FleshBlock extends Block
                         }
                         worldIn.setBlockState(pos,newState, 3);
                         worldIn.notifyBlockUpdate(pos, state, newState, 3);
+
+                        NetworkManager.INSTANCE.send(
+                                PacketDistributor.TRACKING_CHUNK.with(() -> worldIn.getChunkAt(pos)),
+                                new BloodCutPacket(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, state.get(CUT)));
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }
