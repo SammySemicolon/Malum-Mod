@@ -3,6 +3,7 @@ package com.kittykitcatcat.malum.init;
 import com.google.common.base.Preconditions;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.items.TransmutationGemItem;
+import com.kittykitcatcat.malum.items.curios.PhantomWingsCurio;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -54,6 +55,8 @@ public class ModItems
     public static Item spiritwood_stave;
     public static Item simple_dagger;
     public static Item block_transmutation_tool;
+    //CURIOS
+    public static Item phantom_wings_curio;
     //FUNCTIONAL BLOCKS
 
     public static Item spirit_furnace;
@@ -102,6 +105,9 @@ public class ModItems
                 spiritwood_stave = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "spiritwood_stave"),
                 simple_dagger = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "simple_dagger"),
                 block_transmutation_tool = setup(new TransmutationGemItem(new Item.Properties().group(MALUM_MOD_GROUP)), "block_transmutation_tool"),
+
+                phantom_wings_curio = setup(new PhantomWingsCurio(new Item.Properties().group(MALUM_MOD_GROUP)), "phantom_wings_curio"),
+
                 wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks"),
                 wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks_slab"),
                 wooden_planks_stairs = setup(new BlockItem(ModBlocks.wooden_planks_stairs, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks_stairs"),
