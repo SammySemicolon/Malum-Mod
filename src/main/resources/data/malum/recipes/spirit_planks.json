@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:spirit_log"
+    }
+  ],
+  "result": {
+    "item": "malum:spirit_planks",
+    "count": 4
+  }
+}

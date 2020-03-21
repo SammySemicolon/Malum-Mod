@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "malum:spirit_log"
+  },
+  "result": "malum:spirit_charcoal",
+  "experience": 1.0,
+  "cookingtime": 200
+}

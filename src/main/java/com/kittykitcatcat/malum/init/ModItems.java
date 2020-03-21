@@ -118,7 +118,8 @@ public class ModItems
     public static Item refined_glowstone_lamp;
     public static Item smooth_stone_stairs;
 
-    static Item.Properties basic_properties = new Item.Properties().group(MALUM_MOD_GROUP);
+    static Item.Properties basic_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64);
+    static Item.Properties tool_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(1);
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event)
     {
@@ -133,36 +134,36 @@ public class ModItems
                 gold_coin = setup(new Item(basic_properties), "gold_coin"),
                 spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
 
-                soul_crystal_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, basic_properties), "soul_crystal_hoe"),
-                soul_crystal_axe = setup(new ModAxeItem(TIER1_ITEM, 0, 0, basic_properties), "soul_crystal_axe"),
-                soul_crystal_sword = setup(new ModSwordItem(TIER1_ITEM, 0, 0, basic_properties), "soul_crystal_sword"),
-                soul_crystal_shovel = setup(new ModShovelItem(TIER1_ITEM, 0, 0, basic_properties), "soul_crystal_shovel"),
-                soul_crystal_pickaxe = setup(new ModPickaxeItem(TIER1_ITEM, 0, 0, basic_properties), "soul_crystal_pickaxe"),
+                soul_crystal_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, tool_properties), "soul_crystal_hoe"),
+                soul_crystal_axe = setup(new ModAxeItem(TIER1_ITEM, 0, 0, tool_properties), "soul_crystal_axe"),
+                soul_crystal_sword = setup(new ModSwordItem(TIER1_ITEM, 0, 0, tool_properties), "soul_crystal_sword"),
+                soul_crystal_shovel = setup(new ModShovelItem(TIER1_ITEM, 0, 0, tool_properties), "soul_crystal_shovel"),
+                soul_crystal_pickaxe = setup(new ModPickaxeItem(TIER1_ITEM, 0, 0, tool_properties), "soul_crystal_pickaxe"),
 
-                soul_crystal_shoes = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, basic_properties), "soul_crystal_shoes"),
-                soul_crystal_leggings = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.LEGS, basic_properties), "soul_crystal_leggings"),
-                soul_crystal_chestplate = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.CHEST, basic_properties), "soul_crystal_chestplate"),
-                soul_crystal_helm = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.HEAD, basic_properties), "soul_crystal_helm"),
+                soul_crystal_shoes = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, tool_properties), "soul_crystal_shoes"),
+                soul_crystal_leggings = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.LEGS, tool_properties), "soul_crystal_leggings"),
+                soul_crystal_chestplate = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.CHEST, tool_properties), "soul_crystal_chestplate"),
+                soul_crystal_helm = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_crystal_helm"),
 
-                soul_steel_hoe = setup(new ModHoeItem(TIER2_ITEM, 0, basic_properties), "soul_steel_hoe"),
-                soul_steel_axe = setup(new ModAxeItem(TIER2_ITEM, 0, 0, basic_properties), "soul_steel_axe"),
-                soul_steel_sword = setup(new ModSwordItem(TIER2_ITEM, 0, 0, basic_properties), "soul_steel_sword"),
-                soul_steel_shovel = setup(new ModShovelItem(TIER2_ITEM, 0, 0, basic_properties), "soul_steel_shovel"),
-                soul_steel_pickaxe = setup(new ModPickaxeItem(TIER2_ITEM, 0, 0, basic_properties), "soul_steel_pickaxe"),
+                soul_steel_hoe = setup(new ModHoeItem(TIER2_ITEM, 0, tool_properties), "soul_steel_hoe"),
+                soul_steel_axe = setup(new ModAxeItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_axe"),
+                soul_steel_sword = setup(new ModSwordItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_sword"),
+                soul_steel_shovel = setup(new ModShovelItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_shovel"),
+                soul_steel_pickaxe = setup(new ModPickaxeItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_pickaxe"),
 
-                soul_steel_shoes = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.FEET, basic_properties), "soul_steel_shoes"),
-                soul_steel_leggings = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.LEGS, basic_properties), "soul_steel_leggings"),
-                soul_steel_chestplate = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.CHEST, basic_properties), "soul_steel_chestplate"),
-                soul_steel_helm = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.HEAD, basic_properties), "soul_steel_helm"),
+                soul_steel_shoes = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.FEET, tool_properties), "soul_steel_shoes"),
+                soul_steel_leggings = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.LEGS, tool_properties), "soul_steel_leggings"),
+                soul_steel_chestplate = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.CHEST, tool_properties), "soul_steel_chestplate"),
+                soul_steel_helm = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_steel_helm"),
 
 
-                spiritwood_stave = setup(new Item(basic_properties), "spiritwood_stave"),
-                simple_dagger = setup(new Item(basic_properties), "simple_dagger"),
-                block_transmutation_tool = setup(new TransmutationGemItem(basic_properties), "block_transmutation_tool"),
+                spiritwood_stave = setup(new Item(tool_properties), "spiritwood_stave"),
+                simple_dagger = setup(new Item(tool_properties), "simple_dagger"),
+                block_transmutation_tool = setup(new TransmutationGemItem(tool_properties), "block_transmutation_tool"),
 
-                phantom_wings_curio = setup(new PhantomWingsCurioItem(basic_properties), "phantom_wings_curio"),
-                crossbow_reload_curio = setup(new CrossbowReloadCurioItem(basic_properties), "crossbow_reload_curio"),
-                shulker_on_heal_curio = setup(new ShulkerOnHealCurioItem(basic_properties), "shulker_on_heal_curio"),
+                phantom_wings_curio = setup(new PhantomWingsCurioItem(tool_properties), "phantom_wings_curio"),
+                crossbow_reload_curio = setup(new CrossbowReloadCurioItem(tool_properties), "crossbow_reload_curio"),
+                shulker_on_heal_curio = setup(new ShulkerOnHealCurioItem(tool_properties), "shulker_on_heal_curio"),
 
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace_bottom, basic_properties), "spirit_furnace"),
 

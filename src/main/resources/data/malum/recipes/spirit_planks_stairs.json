@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "d  ",
+    "dd ",
+    "ddd"
+  ],
+  "key": {
+    "d": {
+      "item": "malum:spirit_planks"
+    }
+  },
+  "result": {
+    "item": "malum:spirit_planks_stairs",
+    "count": 4
+  }
+}
