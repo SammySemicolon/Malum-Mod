@@ -42,8 +42,21 @@ public class ModItems
         }
     }
     //MATERIALS
+    public static Item spirit_stone;
+    public static Item dark_spirit_stone;
+    public static Item enchanted_quartz;
+    public static Item transmissive_ingot;
+    public static Item vacant_gemstone;
+    public static Item unrefined_spirited_steel;
+    public static Item gold_coin;
+    public static Item spirit_charcoal;
     //TOOLS
+    public static Item spiritwood_stave;
+    public static Item simple_dagger;
     public static Item block_transmutation_tool;
+    //FUNCTIONAL BLOCKS
+
+    public static Item spirit_furnace;
     //BLOCKS
     public static Item wooden_planks;
     public static Item wooden_planks_slab;
@@ -77,6 +90,17 @@ public class ModItems
     {
         final IForgeRegistry<Item> registry = event.getRegistry();
         registry.registerAll(
+                spirit_stone = setup(new BlockItem(ModBlocks.wooden_planks, new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_stone"),
+                dark_spirit_stone = setup(new BlockItem(ModBlocks.refined_glowstone_block, new Item.Properties().group(MALUM_MOD_GROUP)), "dark_spirit_stone"),
+                enchanted_quartz = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "enchanted_quartz"),
+                transmissive_ingot = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "transmissive_ingot"),
+                vacant_gemstone = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "vacant_gemstone"),
+                unrefined_spirited_steel = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "unrefined_spirited_steel"),
+                gold_coin = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "gold_coin"),
+                spirit_charcoal = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "spirit_charcoal"),
+
+                spiritwood_stave = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "spiritwood_stave"),
+                simple_dagger = setup(new Item(new Item.Properties().group(MALUM_MOD_GROUP)), "simple_dagger"),
                 block_transmutation_tool = setup(new TransmutationGemItem(new Item.Properties().group(MALUM_MOD_GROUP)), "block_transmutation_tool"),
                 wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks"),
                 wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, new Item.Properties().group(MALUM_MOD_GROUP)), "wooden_planks_slab"),

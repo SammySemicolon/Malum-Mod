@@ -1,8 +1,10 @@
 package com.kittykitcatcat.malum.blocks;
 
 
+import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.network.NetworkManager;
 import com.kittykitcatcat.malum.network.packets.BloodCutPacket;
+import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticleData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -15,8 +17,12 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.PacketDistributor;
+
+import java.util.Random;
 
 public class FleshBlock extends Block
 {
@@ -64,5 +70,30 @@ public class FleshBlock extends Block
             }
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, p_225533_6_);
+    }
+
+    @Override
+    public void animateTick(BlockState stateIn, World world, BlockPos pos, Random rand)
+    {
+        super.animateTick(stateIn, world, pos, rand);
+        if (world.isRemote)
+        {
+            if (stateIn.get(CUT) != 0)
+            {
+                if (world.getBlockState(pos.down()).isAir())
+                {
+                    if (MathHelper.nextInt(world.rand, 0, 6 - stateIn.get(CUT)) == 0)
+                    {
+                        for (int i = 0; i <= stateIn.get(CUT); i++)
+                        {
+                            Vec3d velocity = MalumHelper.randVelocity(world, -0.2f, -0.1f);
+                            Vec3d particlePos = MalumHelper.randPos(pos, world, -0.5f, 0.5f);
+                            world.addParticle(new BloodParticleData(),
+                                    particlePos.x,pos.getY()-0.1f,particlePos.z, 0f,velocity.y,0f);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
