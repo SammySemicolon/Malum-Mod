@@ -13,6 +13,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -26,6 +29,30 @@ public class SpiritFurnaceTopBlock extends Block
     {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
+    {
+        //bottom 2 cubes
+        VoxelShape shape1 = Block.makeCuboidShape(1, 0, 1, 15, 2, 15);
+        VoxelShape shape2 = Block.makeCuboidShape(0, 2, 0, 16, 3, 16);
+        //top 2 cubes north south
+        VoxelShape shape3 = Block.makeCuboidShape(0.5, 3, 0, 15.5, 13, 16);
+        VoxelShape shape4 = Block.makeCuboidShape(2.5, 13, 0, 13.5, 15, 16);
+        //top 2 cubes west east
+        VoxelShape shape5 = Block.makeCuboidShape(0, 3, 0.5, 16, 13, 15.5);
+        VoxelShape shape6 = Block.makeCuboidShape(0, 13, 2.5, 16, 15, 13.5);
+        VoxelShape shapeNS = VoxelShapes.or(shape1,shape2,shape3,shape4);
+        VoxelShape shapeWE = VoxelShapes.or(shape1,shape2,shape5,shape6);
+        if (state.get(HORIZONTAL_FACING).equals(Direction.NORTH) || state.get(HORIZONTAL_FACING).equals(Direction.SOUTH))
+        {
+            return shapeNS;
+        }
+        else
+        {
+            return shapeWE;
+        }
     }
 
     @Override

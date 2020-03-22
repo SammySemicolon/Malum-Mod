@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.Vec3d;
@@ -48,7 +49,7 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
             if (!item.isEmpty())
             {
                 matrixStack.push();
-                matrixStack.translate(0.5f + direction.getX() * 0.2f, 1.4f, 0.5f + direction.getZ() * 0.2f);
+                matrixStack.translate(0.5f + direction.getX() * 0.2f, 1.3125, 0.5f + direction.getZ() * 0.2f);
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(blockEntity.getWorld().getGameTime() * 3));
                 matrixStack.scale(0.5f, 0.5f, 0.5f);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
