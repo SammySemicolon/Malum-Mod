@@ -8,6 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -29,6 +30,16 @@ public class SpiritFurnaceTopBlock extends Block
     {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
+    }
+    @Override
+    public boolean hasTileEntity(final BlockState state)
+    {
+        return true;
+    }
+    @Override
+    public TileEntity createTileEntity(final BlockState state, final IBlockReader world)
+    {
+        return new SpiritFurnaceTopTileEntity();
     }
 
     @Override
@@ -84,9 +95,9 @@ public class SpiritFurnaceTopBlock extends Block
         {
             if (handIn != Hand.OFF_HAND)
             {
-                if (worldIn.getTileEntity(pos.down()) instanceof SpiritFurnaceTileEntity)
+                if (worldIn.getTileEntity(pos.down()) instanceof SpiritFurnaceBottomTileEntity)
                 {
-                    SpiritFurnaceTileEntity furnaceTileEntity = (SpiritFurnaceTileEntity) worldIn.getTileEntity(pos.down());
+                    SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos.down());
                     ItemStack heldItem = player.getHeldItem(handIn);
                     ItemStack inputItem = furnaceTileEntity.getInputStack(furnaceTileEntity.inventory);
                     //when input is empty

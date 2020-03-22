@@ -41,7 +41,7 @@ public class SpiritFurnaceBottomBlock extends Block
     public static void setRenderLayer(FMLClientSetupEvent event)
     {
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace_bottom, RenderType.getCutout());
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_tile_entity, SpiritFurnaceBottomRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_bottom_tile_entity, SpiritFurnaceBottomRenderer::new);
 
     }
     public SpiritFurnaceBottomBlock(Properties properties)
@@ -64,7 +64,7 @@ public class SpiritFurnaceBottomBlock extends Block
     @Override
     public TileEntity createTileEntity(final BlockState state, final IBlockReader world)
     {
-        return new SpiritFurnaceTileEntity();
+        return new SpiritFurnaceBottomTileEntity();
     }
 
     @Override
@@ -74,9 +74,9 @@ public class SpiritFurnaceBottomBlock extends Block
         {
             if (handIn != Hand.OFF_HAND)
             {
-                if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceTileEntity)
+                if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceBottomTileEntity)
                 {
-                    SpiritFurnaceTileEntity furnaceTileEntity = (SpiritFurnaceTileEntity) worldIn.getTileEntity(pos);
+                    SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos);
                     ItemStack heldItem = player.getHeldItem(handIn);
                     ItemStack fuelItem = furnaceTileEntity.getFuelStack(furnaceTileEntity.inventory);
                     //when input is empty

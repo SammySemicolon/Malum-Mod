@@ -8,10 +8,8 @@ import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 @OnlyIn(value = Dist.CLIENT)
-public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnaceTileEntity>
+public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnaceBottomTileEntity>
 {
 
     public SpiritFurnaceBottomRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
@@ -29,7 +27,7 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
 
 
     @Override
-    public void render(SpiritFurnaceTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
+    public void render(SpiritFurnaceBottomTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {
         if (this.renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(this.renderDispatcher.renderInfo.getProjectedView().x, this.renderDispatcher.renderInfo.getProjectedView().y, this.renderDispatcher.renderInfo.getProjectedView().z) < 128d)
         {
