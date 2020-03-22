@@ -72,7 +72,10 @@ public class SpiritFurnaceBottomBlock extends Block
         {
             if (handIn != Hand.OFF_HAND)
             {
-
+                if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceTileEntity)
+                {
+                    SpiritFurnaceTileEntity furnaceTileEntity = (SpiritFurnaceTileEntity) worldIn.getTileEntity(pos);
+                }
             }
         }
         return ActionResultType.PASS;

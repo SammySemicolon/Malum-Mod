@@ -1,11 +1,16 @@
 package com.kittykitcatcat.malum;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.IProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemStackHandler;
 
 @SuppressWarnings("unused")
 public class MalumHelper
@@ -15,6 +20,18 @@ public class MalumHelper
         return newState.with(property, oldState.get(property));
     }
 
+    public static void setStackInTEInventory(ItemStackHandler inventory, ItemStack stack, int slot)
+    {
+        inventory.setStackInSlot(slot, stack);
+    }
+    public static void addStackToTEInventory(ItemStackHandler inventory, ItemStack stack, int slot)
+    {
+        inventory.getStackInSlot(0).setCount(inventory.getStackInSlot(0).getCount() + stack.getCount());
+    }
+    public static void giveItemStackToPlayer(PlayerEntity target, ItemStack stack)
+    {
+        target.world.addEntity(new ItemEntity(target.world, target.getPosX(), target.getPosY(),target.getPosZ(), stack));
+    }
     public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)
     {
         BlockState oldState = world.getBlockState(pos);

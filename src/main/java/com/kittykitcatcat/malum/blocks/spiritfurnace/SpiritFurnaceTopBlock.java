@@ -1,16 +1,13 @@
 package com.kittykitcatcat.malum.blocks.spiritfurnace;
 
+import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -20,10 +17,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import static net.minecraft.block.ChestBlock.WATERLOGGED;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritFurnaceTopBlock extends Block
@@ -63,12 +56,54 @@ public class SpiritFurnaceTopBlock extends Block
         {
             if (handIn != Hand.OFF_HAND)
             {
+                if (worldIn.getTileEntity(pos.down()) instanceof SpiritFurnaceTileEntity)
+                {
+                    SpiritFurnaceTileEntity furnaceTileEntity = (SpiritFurnaceTileEntity) worldIn.getTileEntity(pos.down());
+                    ItemStack heldItem = player.getHeldItem(handIn);
+                    ItemStack inputItem = furnaceTileEntity.getInputStack(furnaceTileEntity.inventory);
+                    //when input is empty
+                    //right clicking adds held item to input
+                    if (inputItem.isEmpty())
+                    {
+                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, heldItem, 1);
+                        player.setHeldItem(handIn, ItemStack.EMPTY);
+                        player.swingArm(handIn);
+                        return ActionResultType.SUCCESS;
+                    }
+                    //otherwise
+                    //right clicking adds input to hand if its empty
+                    else if (heldItem.isEmpty())
+                    {
+                        player.setHeldItem(handIn, inputItem);
+                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 1);
+                        player.swingArm(handIn);
+                        return ActionResultType.SUCCESS;
+                    }
 
+                    //right clicking with an item matching input adds its count to input
+                    if (heldItem.getItem().equals(inputItem.getItem()))
+                    {
+                        int countLeft = 64 - inputItem.getCount();
+                        if (countLeft != 0) //can still fit more item
+                        {
+                            if (heldItem.getCount() <= countLeft)
+                            {
+                                MalumHelper.addStackToTEInventory(furnaceTileEntity.inventory, heldItem, 1);
+                                heldItem.setCount(0);
+                            }
+                            else
+                            {
+                                MalumHelper.addStackToTEInventory(furnaceTileEntity.inventory, heldItem, 1);
+                                heldItem.setCount(heldItem.getCount() - countLeft);
+                            }
+                        }
+                        return ActionResultType.SUCCESS;
+                    }
+                }
             }
         }
         return ActionResultType.PASS;
     }
-
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
