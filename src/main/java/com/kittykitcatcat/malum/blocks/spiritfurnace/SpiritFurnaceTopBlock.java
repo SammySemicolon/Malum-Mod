@@ -17,6 +17,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import static com.kittykitcatcat.malum.MalumHelper.updateState;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritFurnaceTopBlock extends Block
@@ -66,6 +67,8 @@ public class SpiritFurnaceTopBlock extends Block
                     if (inputItem.isEmpty())
                     {
                         MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, heldItem, 1);
+                        updateState(worldIn, state,pos);
+                        updateState(worldIn, state,pos.down());
                         player.setHeldItem(handIn, ItemStack.EMPTY);
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
@@ -76,6 +79,8 @@ public class SpiritFurnaceTopBlock extends Block
                     {
                         player.setHeldItem(handIn, inputItem);
                         MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 1);
+                        updateState(worldIn, state,pos);
+                        updateState(worldIn, state,pos.down());
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }
@@ -83,29 +88,28 @@ public class SpiritFurnaceTopBlock extends Block
                     //right clicking with an item matching input adds its count to input
                     if (heldItem.getItem().equals(inputItem.getItem()))
                     {
-                        int countLeft = 64 - inputItem.getCount();
-                        if (countLeft != 0) //can still fit more item
+                        int cachedCount = heldItem.getCount();
+                        for (int i = 0; i < cachedCount; i++)
                         {
-                            if (heldItem.getCount() <= countLeft)
+                            if (inputItem.getCount() < 64)
                             {
-                                MalumHelper.addStackToTEInventory(furnaceTileEntity.inventory, heldItem, 1);
-                                heldItem.setCount(0);
-                            }
-                            else
-                            {
-                                MalumHelper.addStackToTEInventory(furnaceTileEntity.inventory, heldItem, 1);
-                                heldItem.setCount(heldItem.getCount() - countLeft);
+                                MalumHelper.increaseStackSizeInTEInventory(furnaceTileEntity.inventory, 1, 1);
+                                updateState(worldIn, state, pos);
+                                updateState(worldIn, state, pos.down());
+                                heldItem.setCount(heldItem.getCount() - 1);
                             }
                         }
+                        player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }
                 }
             }
         }
-        return ActionResultType.PASS;
+        return ActionResultType.FAIL;
     }
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
     }
+
 }

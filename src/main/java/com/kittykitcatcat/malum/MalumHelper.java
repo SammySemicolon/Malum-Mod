@@ -19,14 +19,25 @@ public class MalumHelper
     {
         return newState.with(property, oldState.get(property));
     }
-
+    public static void updateState(World world, BlockState state, BlockPos pos)
+    {
+        world.notifyBlockUpdate(pos, state,state,3);
+    }
+    public static void updateState(World world, BlockState state, BlockState newState, BlockPos pos)
+    {
+        world.notifyBlockUpdate(pos, state,newState,3);
+    }
     public static void setStackInTEInventory(ItemStackHandler inventory, ItemStack stack, int slot)
     {
         inventory.setStackInSlot(slot, stack);
     }
     public static void addStackToTEInventory(ItemStackHandler inventory, ItemStack stack, int slot)
     {
-        inventory.getStackInSlot(0).setCount(inventory.getStackInSlot(0).getCount() + stack.getCount());
+        inventory.getStackInSlot(slot).setCount(inventory.getStackInSlot(slot).getCount() + stack.getCount());
+    }
+    public static void increaseStackSizeInTEInventory(ItemStackHandler inventory, int amount, int slot)
+    {
+        inventory.getStackInSlot(slot).setCount(inventory.getStackInSlot(slot).getCount() + amount);
     }
     public static void giveItemStackToPlayer(PlayerEntity target, ItemStack stack)
     {

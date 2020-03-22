@@ -1,9 +1,10 @@
 package com.kittykitcatcat.malum.blocks.spiritfurnace;
 
-import com.google.common.eventbus.Subscribe;
+import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.init.ModBlocks;
+import com.kittykitcatcat.malum.init.ModItems;
+import com.kittykitcatcat.malum.init.ModTileEntities;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
@@ -19,20 +20,19 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import javax.annotation.Nullable;
 
+import static com.kittykitcatcat.malum.MalumHelper.updateState;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SpiritFurnaceBottomBlock extends Block
@@ -41,6 +41,8 @@ public class SpiritFurnaceBottomBlock extends Block
     public static void setRenderLayer(FMLClientSetupEvent event)
     {
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace_bottom, RenderType.getCutout());
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_tile_entity, SpiritFurnaceBottomRenderer::new);
+
     }
     public SpiritFurnaceBottomBlock(Properties properties)
     {
@@ -75,10 +77,55 @@ public class SpiritFurnaceBottomBlock extends Block
                 if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceTileEntity)
                 {
                     SpiritFurnaceTileEntity furnaceTileEntity = (SpiritFurnaceTileEntity) worldIn.getTileEntity(pos);
+                    ItemStack heldItem = player.getHeldItem(handIn);
+                    ItemStack fuelItem = furnaceTileEntity.getFuelStack(furnaceTileEntity.inventory);
+                    //when input is empty
+                    //right clicking adds held item to input
+                    if (fuelItem.isEmpty())
+                    {
+                        if (heldItem.getItem().equals(ModItems.spirit_charcoal))
+                        {
+                            MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, heldItem, 0);
+                            updateState(worldIn, state,pos);
+                            updateState(worldIn, state,pos.up());
+                            player.setHeldItem(handIn, ItemStack.EMPTY);
+                            player.swingArm(handIn);
+                            return ActionResultType.SUCCESS;
+                        }
+                    }
+                    //otherwise
+                    //right clicking adds input to hand if its empty
+                    else if (heldItem.isEmpty())
+                    {
+                        player.setHeldItem(handIn, fuelItem);
+                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 0);
+                        updateState(worldIn, state,pos);
+                        updateState(worldIn, state,pos.up());
+                        player.swingArm(handIn);
+                        return ActionResultType.SUCCESS;
+                    }
+
+                    //right clicking with an item matching input adds its count to input
+                    if (heldItem.getItem().equals(ModItems.spirit_charcoal))
+                    {
+                        int cachedCount = heldItem.getCount();
+                        for (int i = 0; i < cachedCount; i++)
+                        {
+                            if (fuelItem.getCount() < 64)
+                            {
+                                MalumHelper.increaseStackSizeInTEInventory(furnaceTileEntity.inventory, 1, 0);
+                                updateState(worldIn, state, pos);
+                                updateState(worldIn, state, pos.down());
+                                heldItem.setCount(heldItem.getCount() - 1);
+                            }
+                        }
+                        player.swingArm(handIn);
+                        return ActionResultType.SUCCESS;
+                    }
                 }
             }
         }
-        return ActionResultType.PASS;
+        return ActionResultType.FAIL;
     }
 
     @Override
