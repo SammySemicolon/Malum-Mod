@@ -7,6 +7,8 @@ import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStartPacket;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
+import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticleData;
+import com.kittykitcatcat.malum.particles.soulflameparticle.SoulFlameParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
@@ -23,8 +25,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -37,34 +41,13 @@ import java.util.Objects;
 
 import static com.kittykitcatcat.malum.network.NetworkManager.*;
 
+@Mod.EventBusSubscriber
 public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickableTileEntity
 {
     public SpiritFurnaceBottomTileEntity()
     {
         super(ModTileEntities.spirit_furnace_bottom_tile_entity);
     }
-    @Override
-    public CompoundNBT getUpdateTag()
-    {
-        return this.write(new CompoundNBT());
-    }
-    @Override
-    public void handleUpdateTag(CompoundNBT tag)
-    {
-        read(tag);
-    }
-    @Nullable
-    @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
-    {
-        return new SUpdateTileEntityPacket(pos, 0, getUpdateTag());
-    }
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
-    {
-        handleUpdateTag(pkt.getNbtCompound());
-    }
-
     public boolean isSmelting;
     public int burnTime;
     public int burnProgress;
@@ -122,7 +105,6 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         super.write(compound);
         compound.put("inventory", inventory.serializeNBT());
         compound.putInt("burnTime", burnTime);
-        compound.putBoolean("isSmelting", isSmelting);
         compound.putInt("burnProgress", burnProgress);
         return compound;
     }
@@ -133,7 +115,6 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         super.read(compound);
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
         burnTime = compound.getInt("burnTime");
-        isSmelting = compound.getBoolean("isSmelting");
         burnProgress = compound.getInt("burnProgress");
     }
 
@@ -257,5 +238,45 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         {
             burnTime--;
         }
+        //PARTICLES
+        if (isSmelting)
+        {
+            if (world.getGameTime() % 5 == 0)
+            {
+                spawnSoulFlame(world, pos, 0.25f,0.1f);
+            }
+            if (world.getGameTime() % 8 == 0)
+            {
+                spawnSoulFlame(world, pos.up(), 0.06f, 0.05f);
+            }
+        }
+    }
+    public static void spawnSoulFlame(World world, BlockPos pos, float offset, float speed)
+    {
+        Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vec3d velocity = MalumHelper.randVelocity(world, -speed, speed);
+        Vec3d particlePos = MalumHelper.randPos(pos, world, -offset, offset);
+        world.addParticle(new SoulFlameParticleData(), particlePos.getX() + 0.5 + direction.getX() * 0.2f, particlePos.getY() + 0.5, particlePos.getZ() + 0.5 + direction.getZ() * 0.2f, velocity.getX()+ direction.getX() * 0.08f, velocity.getY(), velocity.getZ()+ direction.getX() * 0.08f);
+    }
+    @Override
+    public CompoundNBT getUpdateTag()
+    {
+        return this.write(new CompoundNBT());
+    }
+    @Override
+    public void handleUpdateTag(CompoundNBT tag)
+    {
+        read(tag);
+    }
+    @Nullable
+    @Override
+    public SUpdateTileEntityPacket getUpdatePacket()
+    {
+        return new SUpdateTileEntityPacket(pos, 0, getUpdateTag());
+    }
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
+    {
+        handleUpdateTag(pkt.getNbtCompound());
     }
 }

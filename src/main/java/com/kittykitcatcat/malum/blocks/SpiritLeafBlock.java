@@ -2,8 +2,7 @@ package com.kittykitcatcat.malum.blocks;
 
 
 import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticleData;
-import com.kittykitcatcat.malum.particles.spiritleaf.SpiritLeafData;
+import com.kittykitcatcat.malum.particles.spiritleaf.SpiritLeafParticleData;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +31,7 @@ public class SpiritLeafBlock extends LeavesBlock
                 {
                     Vec3d velocity = MalumHelper.randVelocity(world, -0.2f, -0.1f);
                     Vec3d particlePos = MalumHelper.randPos(pos, world, -0.5f, 0.5f);
-                    world.addParticle(new SpiritLeafData(),
+                    world.addParticle(new SpiritLeafParticleData(),
                             particlePos.x,pos.getY()-0.1f,particlePos.z, 0f,velocity.y,0f);
                 }
             }

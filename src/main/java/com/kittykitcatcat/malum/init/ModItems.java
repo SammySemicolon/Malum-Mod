@@ -57,7 +57,7 @@ public class ModItems
     public static Item transmissive_ingot;
     public static Item vacant_gemstone;
     public static Item unrefined_spirited_steel;
-    public static Item gold_coin;
+    public static Item runic_ash;
     public static Item spirit_charcoal;
     //TOOLS
 
@@ -132,7 +132,7 @@ public class ModItems
                 transmissive_ingot = setup(new Item(basic_properties), "transmissive_ingot"),
                 vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
                 unrefined_spirited_steel = setup(new Item(basic_properties), "unrefined_spirited_steel"),
-                gold_coin = setup(new Item(basic_properties), "gold_coin"),
+                runic_ash = setup(new Item(basic_properties), "runic_ash"),
                 spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
 
                 soul_crystal_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, tool_properties), "soul_crystal_hoe"),
@@ -166,7 +166,7 @@ public class ModItems
                 crossbow_reload_curio = setup(new CrossbowReloadCurioItem(tool_properties), "crossbow_reload_curio"),
                 shulker_on_heal_curio = setup(new ShulkerOnHealCurioItem(tool_properties), "shulker_on_heal_curio"),
 
-                spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace_bottom, basic_properties), "spirit_furnace"),
+                spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
 
                 wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "wooden_planks"),
                 wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, basic_properties), "wooden_planks_slab"),

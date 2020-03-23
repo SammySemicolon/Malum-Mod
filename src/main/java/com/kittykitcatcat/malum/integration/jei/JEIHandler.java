@@ -3,6 +3,7 @@ package com.kittykitcatcat.malum.integration.jei;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
+import com.kittykitcatcat.malum.integration.jei.blockTransmutation.SpiritFurnaceRecipeCategory;
 import com.kittykitcatcat.malum.integration.jei.blockTransmutation.TransmutationRecipeCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -23,7 +24,8 @@ public class JEIHandler implements IModPlugin
     public void registerCategories(IRecipeCategoryRegistration registry)
     {
         registry.addRecipeCategories(
-            new TransmutationRecipeCategory(registry.getJeiHelpers().getGuiHelper())
+            new TransmutationRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+        new SpiritFurnaceRecipeCategory(registry.getJeiHelpers().getGuiHelper())
 
         );
     }
@@ -32,12 +34,14 @@ public class JEIHandler implements IModPlugin
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
         registry.addRecipes(ModRecipes.blockTransmutationRecipes, TransmutationRecipeCategory.UID);
+        registry.addRecipes(ModRecipes.spiritFurnaceRecipes, SpiritFurnaceRecipeCategory.UID);
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
         registry.addRecipeCatalyst(new ItemStack(ModItems.block_transmutation_tool), TransmutationRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ModItems.spirit_furnace), SpiritFurnaceRecipeCategory.UID);
     }
 
     @Nonnull

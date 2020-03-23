@@ -20,7 +20,7 @@ public class ModBlocks
 {
 
     //FUNCTIONAL BLOCKS
-    public static Block spirit_furnace_bottom;
+    public static Block spirit_furnace;
     public static Block spirit_furnace_top;
     //BUILDING
     public static Block spirit_sapling;
@@ -64,7 +64,7 @@ public class ModBlocks
     {
         IForgeRegistry<Block> registry = event.getRegistry();
         spirit_furnace_top = registerBlock(registry, new SpiritFurnaceTopBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().noDrops().lightValue(1)), "spirit_furnace_top");
-        spirit_furnace_bottom = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "spirit_furnace_bottom");
+        spirit_furnace = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "spirit_furnace_bottom");
 
         smooth_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.SMOOTH_STONE)), "smooth_stone_stairs");
 

@@ -9,7 +9,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -21,7 +23,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -31,6 +32,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import javax.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.kittykitcatcat.malum.MalumHelper.updateState;
 import static com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomTileEntity.spiritFuranceSlotEnum.fuel;
@@ -43,9 +47,8 @@ public class SpiritFurnaceBottomBlock extends Block
     @SubscribeEvent
     public static void setRenderLayer(FMLClientSetupEvent event)
     {
-        RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace_bottom, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace, RenderType.getCutout());
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_bottom_tile_entity, SpiritFurnaceBottomRenderer::new);
-
     }
     public SpiritFurnaceBottomBlock(Properties properties)
     {
@@ -70,6 +73,35 @@ public class SpiritFurnaceBottomBlock extends Block
         return new SpiritFurnaceBottomTileEntity();
     }
 
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos)
+    {
+        return state.get(LIT) ? 12 : 2;
+    }
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
+    {
+        if (!isMoving && !newState.getBlock().equals(ModBlocks.spirit_furnace))
+        {
+            if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceBottomTileEntity)
+            {
+                SpiritFurnaceBottomTileEntity tileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos);
+                List<ItemStack> stacks = new ArrayList<>();
+                for (int i = 0; i < tileEntity.inventory.getSlots() - 1; i++)
+                {
+                    if (!tileEntity.inventory.getStackInSlot(i).isEmpty())
+                    {
+                        stacks.add(tileEntity.inventory.getStackInSlot(i));
+                    }
+                }
+                for (ItemStack stack : stacks)
+                {
+                    Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, stack);
+                    worldIn.addEntity(entity);
+                }
+            }
+        }
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
+    }
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {

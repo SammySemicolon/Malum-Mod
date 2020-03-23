@@ -5,6 +5,8 @@ import com.kittykitcatcat.malum.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -20,6 +22,9 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.kittykitcatcat.malum.MalumHelper.updateState;
 import static com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomTileEntity.spiritFuranceSlotEnum.input;
@@ -80,6 +85,11 @@ public class SpiritFurnaceTopBlock extends Block
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos)
+    {
+        return state.get(LIT) ? 12 : 2;
+    }
    /* @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
     {
@@ -90,6 +100,23 @@ public class SpiritFurnaceTopBlock extends Block
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }*/
 
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
+    {
+        if (!isMoving && !newState.getBlock().equals(ModBlocks.spirit_furnace_top))
+        {
+            if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceTopTileEntity)
+            {
+                SpiritFurnaceTopTileEntity tileEntity = (SpiritFurnaceTopTileEntity) worldIn.getTileEntity(pos);
+                if (!tileEntity.inventory.getStackInSlot(0).isEmpty())
+                {
+                    Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, tileEntity.inventory.getStackInSlot(0));
+                    worldIn.addEntity(entity);
+                }
+            }
+        }
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
+    }
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {

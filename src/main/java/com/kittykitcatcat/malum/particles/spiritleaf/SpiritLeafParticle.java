@@ -1,14 +1,13 @@
 package com.kittykitcatcat.malum.particles.spiritleaf;
 
 import net.minecraft.client.particle.*;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class SpiritLeaf extends SpriteTexturedParticle
+public class SpiritLeafParticle extends SpriteTexturedParticle
 {
-    protected SpiritLeaf(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
+    protected SpiritLeafParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
     {
         super(world, x, y, z,xSpeed,ySpeed,zSpeed);
         motionX = xSpeed;
@@ -34,7 +33,7 @@ public class SpiritLeaf extends SpriteTexturedParticle
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements IParticleFactory<SpiritLeafData>
+    public static class Factory implements IParticleFactory<SpiritLeafParticleData>
     {
         private final IAnimatedSprite spriteSet;
 
@@ -43,9 +42,9 @@ public class SpiritLeaf extends SpriteTexturedParticle
             this.spriteSet = spriteSet;
         }
 
-        public Particle makeParticle(SpiritLeafData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
+        public Particle makeParticle(SpiritLeafParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            SpiritLeaf particle = new SpiritLeaf(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
+            SpiritLeafParticle particle = new SpiritLeafParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
             particle.selectSpriteRandomly(this.spriteSet);
             return particle;
         }

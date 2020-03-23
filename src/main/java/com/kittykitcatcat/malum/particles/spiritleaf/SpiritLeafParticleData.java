@@ -7,19 +7,19 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
 
-public class SpiritLeafData implements IParticleData
+public class SpiritLeafParticleData implements IParticleData
 {
-    public static final IDeserializer<SpiritLeafData> DESERIALIZER = new IDeserializer<SpiritLeafData>()
+    public static final IDeserializer<SpiritLeafParticleData> DESERIALIZER = new IDeserializer<SpiritLeafParticleData>()
     {
         @Override
-        public SpiritLeafData deserialize(ParticleType<SpiritLeafData> particleTypeIn, StringReader reader) throws CommandSyntaxException
+        public SpiritLeafParticleData deserialize(ParticleType<SpiritLeafParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException
         {
-            return new SpiritLeafData();
+            return new SpiritLeafParticleData();
         }
 
-        public SpiritLeafData read(ParticleType<SpiritLeafData> particleTypeIn, PacketBuffer buffer)
+        public SpiritLeafParticleData read(ParticleType<SpiritLeafParticleData> particleTypeIn, PacketBuffer buffer)
         {
-            return new SpiritLeafData();
+            return new SpiritLeafParticleData();
         }
     };
     @Override

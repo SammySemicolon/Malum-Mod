@@ -24,7 +24,7 @@ public class ModTileEntities
     public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> e)
     {
         e.getRegistry().registerAll(
-            TileEntityType.Builder.create((Supplier<TileEntity>) SpiritFurnaceBottomTileEntity::new, ModBlocks.spirit_furnace_bottom).build(null).setRegistryName("spirit_furnace_bottom_tile_entity"),
+            TileEntityType.Builder.create((Supplier<TileEntity>) SpiritFurnaceBottomTileEntity::new, ModBlocks.spirit_furnace).build(null).setRegistryName("spirit_furnace_bottom_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) SpiritFurnaceTopTileEntity::new, ModBlocks.spirit_furnace_top).build(null).setRegistryName("spirit_furnace_top_tile_entity")
         );
     }
