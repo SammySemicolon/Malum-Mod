@@ -1,0 +1,10 @@
+{
+	"transmutate": { "sounds":["malum:transmutate"], "subtitle": "malum.subtitle.transmutate" },
+  "ritual_end": { "sounds":["malum:ritual_end"], "subtitle": "malum.subtitle.ritual_end" },
+  "ritual_loop": { "sounds":["malum:ritual_loop"], "subtitle": "malum.subtitle.ritual_loop" },
+  "ritual_start": { "sounds":["malum:ritual_start"], "subtitle": "malum.subtitle.ritual_start" },
+  "drill_loop": { "sounds":["malum:drill_loop"], "subtitle": "malum.subtitle.drill_loop" },
+  "furnace_start": { "sounds":["malum:furnace_start"], "subtitle": "malum.subtitle.furnace_start" },
+  "furnace_loop": { "sounds":["malum:furnace_loop"], "subtitle": "malum.subtitle.furnace_loop" },
+  "furnace_stop": { "sounds":["malum:furnace_stop"], "subtitle": "malum.subtitle.furnace_stop" }
+}

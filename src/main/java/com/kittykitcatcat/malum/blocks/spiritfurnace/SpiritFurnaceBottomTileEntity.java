@@ -5,6 +5,8 @@ import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.network.packets.FurnaceSoundStartPacket;
+import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
@@ -23,6 +25,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -31,6 +34,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ListIterator;
 import java.util.Objects;
+
+import static com.kittykitcatcat.malum.network.NetworkManager.*;
 
 public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickableTileEntity
 {
@@ -157,23 +162,32 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
             world.setBlockState(pos, bottomState, 3);
             world.notifyBlockUpdate(pos.up(), world.getBlockState(pos.up()), topState, 3);
             world.setBlockState(pos.up(), topState, 3);
-            if (newIsSmelting)
+            if (!world.isRemote)
             {
-                //send start sound packet
-            }
-            else
-            {
-                //send end sound packet
+                if (newIsSmelting)
+                {
+                    INSTANCE.send(
+                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                            new FurnaceSoundStartPacket(pos.getX(), pos.getY(), pos.getZ()));
+                }
+                else
+                {
+                    INSTANCE.send(
+                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                            new FurnaceSoundStopPacket(pos.getX(), pos.getY(), pos.getZ()));
+                }
             }
         }
     }
     public void output(World world, BlockPos pos, Item item, int count)
     {
         Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        Vec3d entityPos = new Vec3d(pos).add(0.5,1.5,0.5).subtract(direction.getX(), 0, direction.getZ());
+        Vec3d entityPos = new Vec3d(pos).add(0.5,1.5,0.5).subtract(direction.getX() * 0.8f, 0, direction.getZ() * 0.8f);
         ItemStack stack = new ItemStack(item);
         stack.setCount(count);
-        world.addEntity(new ItemEntity(world,entityPos.x,entityPos.y,entityPos.z, stack));
+        ItemEntity entity = new ItemEntity(world,entityPos.x,entityPos.y,entityPos.z, stack);
+        entity.setMotion(-direction.getX() * 0.1f, 0.05f, -direction.getZ() * 0.1f);
+        world.addEntity(entity);
     }
     @Override
     public void tick()
@@ -216,14 +230,12 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
                 burnProgress++;
                 if (burnProgress >= recipe.getBurnTime())
                 {
-                    MalumMod.LOGGER.info("DONE");
                     MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.input.slot);
                     output(world, pos, recipe.getOutputItem(), recipe.getOutputCount());
                     burnProgress = 0;
                 }
                 if (burnTime <= 0)
                 {
-                    MalumMod.LOGGER.info("CONSUMED FUEL");
                     MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.fuel.slot);
                     burnTime = 800;
                 }
