@@ -33,7 +33,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import javax.annotation.Nullable;
 
 import static com.kittykitcatcat.malum.MalumHelper.updateState;
+import static com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomTileEntity.spiritFuranceSlotEnum.fuel;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
+import static net.minecraft.state.properties.BlockStateProperties.LIT;
+
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SpiritFurnaceBottomBlock extends Block
 {
@@ -47,7 +50,7 @@ public class SpiritFurnaceBottomBlock extends Block
     public SpiritFurnaceBottomBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, false));
     }
 
     @Override
@@ -78,7 +81,7 @@ public class SpiritFurnaceBottomBlock extends Block
                 {
                     SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos);
                     ItemStack heldItem = player.getHeldItem(handIn);
-                    ItemStack fuelItem = furnaceTileEntity.getFuelStack(furnaceTileEntity.inventory);
+                    ItemStack fuelItem = furnaceTileEntity.getItemStack(fuel);
                     //when input is empty
                     //right clicking adds held item to input
                     if (fuelItem.isEmpty())
@@ -125,10 +128,10 @@ public class SpiritFurnaceBottomBlock extends Block
                 }
             }
         }
-        return ActionResultType.FAIL;
+        return ActionResultType.SUCCESS;
     }
 
-    @Override
+    /*@Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
     {
         if (!worldIn.getBlockState(currentPos.up()).getBlock().equals(ModBlocks.spirit_furnace_top))
@@ -136,7 +139,7 @@ public class SpiritFurnaceBottomBlock extends Block
             worldIn.setBlockState(currentPos, Blocks.AIR.getDefaultState(), 3);
         }
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-    }
+    }*/
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
     {
@@ -161,10 +164,11 @@ public class SpiritFurnaceBottomBlock extends Block
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
+        blockStateBuilder.add(LIT);
     }
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(LIT, false);
     }
 }

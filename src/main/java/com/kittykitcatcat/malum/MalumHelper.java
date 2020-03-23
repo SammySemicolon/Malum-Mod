@@ -39,6 +39,10 @@ public class MalumHelper
     {
         inventory.getStackInSlot(slot).setCount(inventory.getStackInSlot(slot).getCount() + amount);
     }
+    public static void decreaseStackSizeInTEInventory(ItemStackHandler inventory, int amount, int slot)
+    {
+        inventory.getStackInSlot(slot).setCount(inventory.getStackInSlot(slot).getCount() - amount);
+    }
     public static void giveItemStackToPlayer(PlayerEntity target, ItemStack stack)
     {
         target.world.addEntity(new ItemEntity(target.world, target.getPosX(), target.getPosY(),target.getPosZ(), stack));

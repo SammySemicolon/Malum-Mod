@@ -14,6 +14,8 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import static com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomTileEntity.spiritFuranceSlotEnum.fuel;
+import static com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomTileEntity.spiritFuranceSlotEnum.input;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 @OnlyIn(value = Dist.CLIENT)
@@ -32,7 +34,7 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
         if (this.renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(this.renderDispatcher.renderInfo.getProjectedView().x, this.renderDispatcher.renderInfo.getProjectedView().y, this.renderDispatcher.renderInfo.getProjectedView().z) < 128d)
         {
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            ItemStack item = blockEntity.getFuelStack(blockEntity.inventory);
+            ItemStack item = blockEntity.getItemStack(fuel);
             Vec3i direction = blockEntity.getWorld().getBlockState(blockEntity.getPos()).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
             if (!item.isEmpty())
             {
@@ -43,7 +45,7 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
                 matrixStack.pop();
             }
-            item = blockEntity.getInputStack(blockEntity.inventory);
+            item = blockEntity.getItemStack(input);
             if (!item.isEmpty())
             {
                 matrixStack.push();

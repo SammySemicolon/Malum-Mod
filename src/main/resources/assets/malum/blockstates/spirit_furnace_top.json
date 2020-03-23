@@ -1,8 +1,12 @@
 {
   "variants": {
-    "facing=north": { "model": "malum:block/spirit_furnace_top" },
-    "facing=south": { "model": "malum:block/spirit_furnace_top", "y": 180 },
-    "facing=west":  { "model": "malum:block/spirit_furnace_top", "y": 270 },
-    "facing=east":  { "model": "malum:block/spirit_furnace_top", "y": 90 }
+    "facing=north,lit=false": { "model": "malum:block/spirit_furnace_top" },
+    "facing=south,lit=false": { "model": "malum:block/spirit_furnace_top", "y": 180 },
+    "facing=west,lit=false":  { "model": "malum:block/spirit_furnace_top", "y": 270 },
+    "facing=east,lit=false":  { "model": "malum:block/spirit_furnace_top", "y": 90 },
+    "facing=north,lit=true": { "model": "malum:block/spirit_furnace_top_lit" },
+    "facing=south,lit=true": { "model": "malum:block/spirit_furnace_top_lit", "y": 180 },
+    "facing=west,lit=true":  { "model": "malum:block/spirit_furnace_top_lit", "y": 270 },
+    "facing=east,lit=true":  { "model": "malum:block/spirit_furnace_top_lit", "y": 90 }
   }
 }

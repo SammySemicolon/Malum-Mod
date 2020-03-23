@@ -3,8 +3,8 @@
 	"parent": "block/block",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "malum:blocks/spirit_furnace_bottom",
-		"particle": "malum:blocks/spirit_furnace_bottom",
+		"0": "malum:blocks/spirit_furnace_bottom_lit",
+		"particle": "malum:blocks/spirit_furnace_bottom_lit",
                 "ambientocclusion": false
 	},
 	"elements": [

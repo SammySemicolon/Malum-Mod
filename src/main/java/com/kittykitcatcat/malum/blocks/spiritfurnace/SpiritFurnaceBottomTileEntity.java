@@ -1,16 +1,26 @@
 package com.kittykitcatcat.malum.blocks.spiritfurnace;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModItems;
+import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -19,6 +29,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ListIterator;
 import java.util.Objects;
 
 public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickableTileEntity
@@ -51,6 +62,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
 
     public boolean isSmelting;
     public int burnTime;
+    public int burnProgress;
     public ItemStackHandler inventory = new ItemStackHandler(3)
     {
         @Override
@@ -106,6 +118,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         compound.put("inventory", inventory.serializeNBT());
         compound.putInt("burnTime", burnTime);
         compound.putBoolean("isSmelting", isSmelting);
+        compound.putInt("burnProgress", burnProgress);
         return compound;
     }
 
@@ -116,32 +129,66 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
         burnTime = compound.getInt("burnTime");
         isSmelting = compound.getBoolean("isSmelting");
+        burnProgress = compound.getInt("burnProgress");
     }
 
-    public ItemStack getFuelStack(ItemStackHandler inventory)
+    public enum spiritFuranceSlotEnum
     {
-        return inventory.getStackInSlot(0);
+        fuel (0),
+        input (1);
+
+        private final int slot;
+        private spiritFuranceSlotEnum(int slot) { this.slot = slot;}
     }
-    public ItemStack getInputStack(ItemStackHandler inventory)
+
+    public ItemStack getItemStack(spiritFuranceSlotEnum spiritFuranceSlot)
     {
-        return inventory.getStackInSlot(1);
+        return inventory.getStackInSlot(spiritFuranceSlot.slot);
     }
-    public ItemStack getOutputStack(ItemStackHandler inventory)
+    public void updateIsSmelting(boolean newIsSmelting)
     {
-        return inventory.getStackInSlot(2);
+        if (world.getBlockState(pos).getBlock() instanceof SpiritFurnaceBottomBlock && world.getBlockState(pos.up()).getBlock() instanceof SpiritFurnaceTopBlock)
+        {
+            this.isSmelting = newIsSmelting;
+            BlockState bottomState = world.getBlockState(pos).with(BlockStateProperties.LIT, newIsSmelting);
+            BlockState topState = world.getBlockState(pos.up()).with(BlockStateProperties.LIT, newIsSmelting);
+
+            world.notifyBlockUpdate(pos, world.getBlockState(pos), bottomState, 3);
+            world.setBlockState(pos, bottomState, 3);
+            world.notifyBlockUpdate(pos.up(), world.getBlockState(pos.up()), topState, 3);
+            world.setBlockState(pos.up(), topState, 3);
+            if (newIsSmelting)
+            {
+                //send start sound packet
+            }
+            else
+            {
+                //send end sound packet
+            }
+        }
+    }
+    public void output(World world, BlockPos pos, Item item, int count)
+    {
+        Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vec3d entityPos = new Vec3d(pos).add(0.5,1.5,0.5).subtract(direction.getX(), 0, direction.getZ());
+        ItemStack stack = new ItemStack(item);
+        stack.setCount(count);
+        world.addEntity(new ItemEntity(world,entityPos.x,entityPos.y,entityPos.z, stack));
     }
     @Override
     public void tick()
     {
+        //INPUT FROM TOP BLOCK
         if (world.getTileEntity(pos.up()) instanceof SpiritFurnaceTopTileEntity)
         {
             SpiritFurnaceTopTileEntity topTileEntity = (SpiritFurnaceTopTileEntity) world.getTileEntity(pos.up());
             ItemStack stackToAdd = topTileEntity.inventory.getStackInSlot(0);
-            if (stackToAdd.getItem().equals(getInputStack(inventory).getItem()))
+            ItemStack inputStack = getItemStack(spiritFuranceSlotEnum.input);
+            if (stackToAdd.getItem().equals(inputStack.getItem()) || inputStack.isEmpty())
             {
-                if (stackToAdd.getCount() > 0 && getInputStack(inventory).getCount() < 64)
+                if (stackToAdd.getCount() > 0 && inputStack.getCount() < 64)
                 {
-                    if (getInputStack(inventory).equals(ItemStack.EMPTY))
+                    if (inputStack.equals(ItemStack.EMPTY))
                     {
                         MalumHelper.setStackInTEInventory(inventory, new ItemStack(stackToAdd.getItem()), 1);
                     }
@@ -152,6 +199,51 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
                     MalumHelper.setStackInTEInventory(topTileEntity.inventory, ItemStack.EMPTY, 0);
                 }
             }
+        }
+        //SMELTING
+        if (getItemStack(spiritFuranceSlotEnum.fuel).getItem().equals(ModItems.spirit_charcoal))
+        {
+            ItemStack inputStack = getItemStack(spiritFuranceSlotEnum.input);
+            if (ModRecipes.getSpiritFurnaceRecipe(inputStack.getItem()) != null)
+            {
+                if (!isSmelting)
+                {
+                    //send start packet here
+                    isSmelting = true;
+                    updateIsSmelting(isSmelting);
+                }
+                SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputStack.getItem());
+                burnProgress++;
+                if (burnProgress >= recipe.getBurnTime())
+                {
+                    MalumMod.LOGGER.info("DONE");
+                    MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.input.slot);
+                    output(world, pos, recipe.getOutputItem(), recipe.getOutputCount());
+                    burnProgress = 0;
+                }
+                if (burnTime <= 0)
+                {
+                    MalumMod.LOGGER.info("CONSUMED FUEL");
+                    MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.fuel.slot);
+                    burnTime = 800;
+                }
+            }
+            else if (isSmelting)
+            {
+                isSmelting = false;
+                burnProgress = 0;
+                updateIsSmelting(isSmelting);
+            }
+        }
+        else if (isSmelting)
+        {
+            burnProgress = 0;
+            isSmelting = false;
+            updateIsSmelting(isSmelting);
+        }
+        if (burnTime > 0)
+        {
+            burnTime--;
         }
     }
 }

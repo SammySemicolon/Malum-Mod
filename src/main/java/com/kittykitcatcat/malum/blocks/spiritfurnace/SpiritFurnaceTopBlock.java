@@ -22,14 +22,16 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import static com.kittykitcatcat.malum.MalumHelper.updateState;
+import static com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomTileEntity.spiritFuranceSlotEnum.input;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
+import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
 public class SpiritFurnaceTopBlock extends Block
 {
     public SpiritFurnaceTopBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, false));
     }
     @Override
     public boolean hasTileEntity(final BlockState state)
@@ -78,7 +80,7 @@ public class SpiritFurnaceTopBlock extends Block
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
-    @Override
+   /* @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
     {
         if (!worldIn.getBlockState(currentPos.down()).getBlock().equals(ModBlocks.spirit_furnace_bottom))
@@ -86,7 +88,7 @@ public class SpiritFurnaceTopBlock extends Block
             worldIn.setBlockState(currentPos, Blocks.AIR.getDefaultState(), 3);
         }
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-    }
+    }*/
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
@@ -99,7 +101,7 @@ public class SpiritFurnaceTopBlock extends Block
                 {
                     SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos.down());
                     ItemStack heldItem = player.getHeldItem(handIn);
-                    ItemStack inputItem = furnaceTileEntity.getInputStack(furnaceTileEntity.inventory);
+                    ItemStack inputItem = furnaceTileEntity.getItemStack(input);
                     //when input is empty
                     //right clicking adds held item to input
                     if (inputItem.isEmpty())
@@ -143,11 +145,11 @@ public class SpiritFurnaceTopBlock extends Block
                 }
             }
         }
-        return ActionResultType.FAIL;
+        return ActionResultType.SUCCESS;
     }
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
+        blockStateBuilder.add(LIT);
     }
-
 }

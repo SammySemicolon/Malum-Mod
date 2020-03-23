@@ -39,6 +39,6 @@ public class SpiritFurnaceRecipe
     }
     public static void initRecipes()
     {
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.DIAMOND, ModItems.vacant_gemstone, 1, 1600));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.DIAMOND, ModItems.vacant_gemstone, 1, 20));
     }
 }
