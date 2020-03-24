@@ -7,7 +7,6 @@ import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStartPacket;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
-import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticleData;
 import com.kittykitcatcat.malum.particles.soulflameparticle.SoulFlameParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
@@ -17,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -25,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.common.Mod;
@@ -36,10 +35,9 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ListIterator;
 import java.util.Objects;
 
-import static com.kittykitcatcat.malum.network.NetworkManager.*;
+import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 
 @Mod.EventBusSubscriber
 public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickableTileEntity
@@ -237,26 +235,44 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         if (burnTime > 0)
         {
             burnTime--;
+            if (world.getGameTime() % 5 == 0)
+            {
+                spawnSoulFlame(world, pos, 0.2f,0.15f);
+            }
         }
         //PARTICLES
         if (isSmelting)
         {
-            if (world.getGameTime() % 5 == 0)
-            {
-                spawnSoulFlame(world, pos, 0.25f,0.1f);
-            }
             if (world.getGameTime() % 8 == 0)
             {
-                spawnSoulFlame(world, pos.up(), 0.06f, 0.05f);
+                spawnSoulFlame(world, pos.up(), 0.2f, 0.1f);
+            }
+            if (world.getGameTime() % 4 == 0)
+            {
+                spawnSmoke(world,pos);
             }
         }
     }
     public static void spawnSoulFlame(World world, BlockPos pos, float offset, float speed)
     {
         Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        MalumMod.LOGGER.info(direction);
         Vec3d velocity = MalumHelper.randVelocity(world, -speed, speed);
         Vec3d particlePos = MalumHelper.randPos(pos, world, -offset, offset);
-        world.addParticle(new SoulFlameParticleData(), particlePos.getX() + 0.5 + direction.getX() * 0.2f, particlePos.getY() + 0.5, particlePos.getZ() + 0.5 + direction.getZ() * 0.2f, velocity.getX()+ direction.getX() * 0.08f, velocity.getY(), velocity.getZ()+ direction.getX() * 0.08f);
+        world.addParticle(new SoulFlameParticleData(), particlePos.getX() + 0.5 + direction.getX() * 0.4f, particlePos.getY() + 0.5, particlePos.getZ() + 0.5 + direction.getZ() * 0.4f, velocity.getX(), velocity.getY(), velocity.getZ());
+    }
+    public static void spawnSmoke(World world, BlockPos pos)
+    {
+        Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vec3d particlePos = MalumHelper.randPos(pos, world, -0.3f, 0.3f);
+        if (direction.getZ() != 0)
+        {
+            world.addParticle(ParticleTypes.SMOKE, particlePos.getX() + 0.5, particlePos.getY() + 2, particlePos.getZ() + 0.5 - direction.getZ() * 0.4f, 0, 0.04, 0);
+        }
+        if (direction.getX() != 0)
+        {
+            world.addParticle(ParticleTypes.SMOKE, particlePos.getX() + 0.5 - direction.getX() * 0.4f, particlePos.getY() + 2, particlePos.getZ() + 0.5, 0, 0.04, 0);
+        }
     }
     @Override
     public CompoundNBT getUpdateTag()

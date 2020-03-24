@@ -2,6 +2,7 @@ package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.blocks.*;
+import com.kittykitcatcat.malum.blocks.spiritbellows.SpiritBellowsBlock;
 import com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceTopBlock;
 import net.minecraft.block.Block;
@@ -22,6 +23,7 @@ public class ModBlocks
     //FUNCTIONAL BLOCKS
     public static Block spirit_furnace;
     public static Block spirit_furnace_top;
+    public static Block spirit_bellows;
     //BUILDING
     public static Block spirit_sapling;
     public static Block spirit_log;
@@ -65,6 +67,7 @@ public class ModBlocks
         IForgeRegistry<Block> registry = event.getRegistry();
         spirit_furnace_top = registerBlock(registry, new SpiritFurnaceTopBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().noDrops().lightValue(1)), "spirit_furnace_top");
         spirit_furnace = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "spirit_furnace_bottom");
+        spirit_bellows = registerBlock(registry, new SpiritBellowsBlock(Block.Properties.from(Blocks.BLACK_WOOL).notSolid().lightValue(1)), "spirit_bellows");
 
         smooth_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.SMOOTH_STONE)), "smooth_stone_stairs");
 

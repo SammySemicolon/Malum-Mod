@@ -89,6 +89,7 @@ public class ModItems
     public static Item shulker_on_heal_curio;
     //FUNCTIONAL BLOCKS
 
+    public static Item spirit_bellows;
     public static Item spirit_furnace;
     //BLOCKS
     public static Item wooden_planks;
@@ -126,6 +127,7 @@ public class ModItems
         final IForgeRegistry<Item> registry = event.getRegistry();
         registry.registerAll(
 
+                spirit_bellows = setup(new BlockItem(ModBlocks.spirit_bellows, basic_properties), "spirit_bellows"),
                 spirit_stone = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "dark_spirit_stone"),
                 enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
