@@ -91,6 +91,8 @@ public class ModItems
 
     public static Item spirit_bellows;
     public static Item spirit_furnace;
+    public static Item soul_binder;
+    public static Item ritual_anchor;
     //BLOCKS
     public static Item wooden_planks;
     public static Item wooden_planks_slab;
@@ -128,8 +130,11 @@ public class ModItems
         registry.registerAll(
 
                 spirit_bellows = setup(new BlockItem(ModBlocks.spirit_bellows, basic_properties), "spirit_bellows"),
-                spirit_stone = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "spirit_stone"),
-                dark_spirit_stone = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "dark_spirit_stone"),
+                soul_binder = setup(new BlockItem(ModBlocks.soul_binder, basic_properties), "soul_binder"),
+                ritual_anchor = setup(new BlockItem(ModBlocks.ritual_anchor, basic_properties), "ritual_anchor"),
+
+                spirit_stone = setup(new BlockItem(ModBlocks.spirit_stone, basic_properties), "spirit_stone"),
+                dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
                 enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
                 transmissive_ingot = setup(new Item(basic_properties), "transmissive_ingot"),
                 vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
@@ -160,7 +165,7 @@ public class ModItems
                 soul_steel_helm = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_steel_helm"),
 
 
-                spiritwood_stave = setup(new Item(tool_properties), "spiritwood_stave"),
+                spiritwood_stave = setup(new ItemSpiritwoodStave(tool_properties), "spiritwood_stave"),
                 simple_dagger = setup(new Item(tool_properties), "simple_dagger"),
                 block_transmutation_tool = setup(new TransmutationGemItem(tool_properties), "block_transmutation_tool"),
 
@@ -202,8 +207,11 @@ public class ModItems
                 spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, basic_properties), "spirit_sapling"),
 
                 refined_glowstone_block = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "refined_glowstone_block"),
-                refined_glowstone_lamp = setup(new BlockItem(ModBlocks.refined_glowstone_lamp, basic_properties), "refined_glowstone_lamp")
-        );
+                refined_glowstone_lamp = setup(new BlockItem(ModBlocks.refined_glowstone_lamp, basic_properties), "refined_glowstone_lamp"),
+
+                smooth_stone_stairs = setup(new BlockItem(ModBlocks.smooth_stone_stairs, basic_properties), "smooth_stone_stairs")
+
+                );
     }
 
     @Nonnull

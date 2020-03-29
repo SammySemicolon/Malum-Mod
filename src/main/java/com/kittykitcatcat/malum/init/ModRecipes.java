@@ -2,7 +2,9 @@ package com.kittykitcatcat.malum.init;
 
 
 import com.kittykitcatcat.malum.recipes.BlockTransmutationRecipe;
+import com.kittykitcatcat.malum.recipes.RitualAnchorInput;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
+import com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -17,14 +19,44 @@ import java.util.List;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModRecipes
 {
-
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void registerRecipes(FMLCommonSetupEvent event)
     {
         SpiritFurnaceRecipe.initRecipes();
         BlockTransmutationRecipe.initRecipes();
+        SpiritInfusionRecipe.initRecipes();
     }
 
+    public static List<SpiritInfusionRecipe> spiritInfusionRecipes = new ArrayList<>();
+
+    public static void addSpiritInfusionRecipe(SpiritInfusionRecipe recipe)
+    {
+        if (!spiritInfusionRecipes.contains(recipe))
+        {
+            spiritInfusionRecipes.add(recipe);
+        }
+    }
+
+    public static SpiritInfusionRecipe getSpiritInfusionRecipe(String soul, List<RitualAnchorInput> items, Item catalyst)
+    {
+        if (catalyst != null)
+        {
+            for (SpiritInfusionRecipe recipe : spiritInfusionRecipes)
+            {
+                if (catalyst.equals(recipe.getCatalyst()))
+                {
+                    if (recipe.getInputs().equals(items))
+                    {
+                        if (soul.equals(recipe.getSoul()))
+                        {
+                            return recipe;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
     public static List<BlockTransmutationRecipe> blockTransmutationRecipes = new ArrayList<>();
 

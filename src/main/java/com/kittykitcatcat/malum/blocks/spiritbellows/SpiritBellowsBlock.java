@@ -29,6 +29,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -55,15 +56,74 @@ public class SpiritBellowsBlock extends Block
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_bellows, RenderType.getCutout());
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_bellows_tile_entity, SpiritBellowsRenderer::new);
     }
-    public static final BooleanProperty UPGRADED = BooleanProperty.create("upgraded");
     public static final BooleanProperty RENDER = BooleanProperty.create("render");
 
     public SpiritBellowsBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(RENDER, false).with(UPGRADED, false));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(RENDER, false));
     }
 
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    {
+        if (!worldIn.isRemote())
+        {
+            if (handIn != Hand.OFF_HAND)
+            {
+                if (worldIn.getTileEntity(pos) instanceof SpiritBellowsTileEntity)
+                {
+                    SpiritBellowsTileEntity bellowsTileEntity = (SpiritBellowsTileEntity) worldIn.getTileEntity(pos);
+                    ItemStack heldItem = player.getHeldItem(handIn);
+                    ItemStack fuelItem = bellowsTileEntity.inventory.getStackInSlot(0);
+                    //when input is empty
+                    //right clicking adds held item to input
+                    if (fuelItem.isEmpty())
+                    {
+                        if (heldItem.getItem().equals(ModItems.spirit_charcoal))
+                        {
+                            MalumHelper.setStackInTEInventory(bellowsTileEntity.inventory, heldItem, 0);
+                            updateState(worldIn, state, pos);
+                            updateState(worldIn, state, pos.up());
+                            player.setHeldItem(handIn, ItemStack.EMPTY);
+                            player.swingArm(handIn);
+                            return ActionResultType.SUCCESS;
+                        }
+                    }
+                    //otherwise
+                    //right clicking adds input to hand if its empty
+                    else if (heldItem.isEmpty())
+                    {
+                        player.setHeldItem(handIn, fuelItem);
+                        MalumHelper.setStackInTEInventory(bellowsTileEntity.inventory, ItemStack.EMPTY, 0);
+                        updateState(worldIn, state, pos);
+                        updateState(worldIn, state, pos.up());
+                        player.swingArm(handIn);
+                        return ActionResultType.SUCCESS;
+                    }
+
+                    //right clicking with an item matching input adds its count to input
+                    if (heldItem.getItem().equals(ModItems.spirit_charcoal))
+                    {
+                        int cachedCount = heldItem.getCount();
+                        for (int i = 0; i < cachedCount; i++)
+                        {
+                            if (fuelItem.getCount() < 64)
+                            {
+                                MalumHelper.increaseStackSizeInTEInventory(bellowsTileEntity.inventory, 1, 0);
+                                updateState(worldIn, state, pos);
+                                updateState(worldIn, state, pos.down());
+                                heldItem.setCount(heldItem.getCount() - 1);
+                            }
+                        }
+                        player.swingArm(handIn);
+                        return ActionResultType.SUCCESS;
+                    }
+                }
+            }
+        }
+        return ActionResultType.SUCCESS;
+    }
     @Override
     public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
     {
@@ -85,11 +145,11 @@ public class SpiritBellowsBlock extends Block
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
         blockStateBuilder.add(RENDER);
-        blockStateBuilder.add(UPGRADED);
     }
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing()).with(RENDER, false).with(UPGRADED, false);
+
+        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing()).with(RENDER, false);
     }
 }

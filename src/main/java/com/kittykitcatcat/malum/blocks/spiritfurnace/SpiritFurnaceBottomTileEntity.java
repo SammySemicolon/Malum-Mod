@@ -194,18 +194,22 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
             }
         }
         //SMELTING
-        if (getItemStack(spiritFuranceSlotEnum.fuel).getItem().equals(ModItems.spirit_charcoal))
+        ItemStack inputStack = getItemStack(spiritFuranceSlotEnum.input);
+        if (ModRecipes.getSpiritFurnaceRecipe(inputStack.getItem()) != null)
         {
-            ItemStack inputStack = getItemStack(spiritFuranceSlotEnum.input);
-            if (ModRecipes.getSpiritFurnaceRecipe(inputStack.getItem()) != null)
+            if (burnTime <= 0 && getItemStack(spiritFuranceSlotEnum.fuel).getItem().equals(ModItems.spirit_charcoal))
             {
+                MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.fuel.slot);
+                burnTime = 800;
+            }
+            if (burnTime > 0)
+            {
+                SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputStack.getItem());
                 if (!isSmelting)
                 {
-                    //send start packet here
                     isSmelting = true;
                     updateIsSmelting(isSmelting);
                 }
-                SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputStack.getItem());
                 burnProgress++;
                 if (burnProgress >= recipe.getBurnTime())
                 {
@@ -213,16 +217,10 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
                     output(world, pos, recipe.getOutputItem(), recipe.getOutputCount());
                     burnProgress = 0;
                 }
-                if (burnTime <= 0)
-                {
-                    MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.fuel.slot);
-                    burnTime = 800;
-                }
             }
             else if (isSmelting)
             {
                 isSmelting = false;
-                burnProgress = 0;
                 updateIsSmelting(isSmelting);
             }
         }
@@ -235,17 +233,20 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         if (burnTime > 0)
         {
             burnTime--;
-            if (world.getGameTime() % 5 == 0)
-            {
-                spawnSoulFlame(world, pos, 0.2f,0.15f);
-            }
         }
         //PARTICLES
+        if (burnTime > 0)
+        {
+            if (world.getGameTime() % 5 == 0)
+            {
+                spawnSoulFlame(world, pos, 0.25f,0.08f);
+            }
+        }
         if (isSmelting)
         {
             if (world.getGameTime() % 8 == 0)
             {
-                spawnSoulFlame(world, pos.up(), 0.2f, 0.1f);
+                spawnSoulFlame(world, pos.up(), 0.06f, 0.05f);
             }
             if (world.getGameTime() % 4 == 0)
             {
@@ -256,22 +257,21 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
     public static void spawnSoulFlame(World world, BlockPos pos, float offset, float speed)
     {
         Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        MalumMod.LOGGER.info(direction);
         Vec3d velocity = MalumHelper.randVelocity(world, -speed, speed);
         Vec3d particlePos = MalumHelper.randPos(pos, world, -offset, offset);
-        world.addParticle(new SoulFlameParticleData(), particlePos.getX() + 0.5 + direction.getX() * 0.4f, particlePos.getY() + 0.5, particlePos.getZ() + 0.5 + direction.getZ() * 0.4f, velocity.getX(), velocity.getY(), velocity.getZ());
+        world.addParticle(new SoulFlameParticleData(), particlePos.getX() + 0.5 + direction.getX() * 0.2f, particlePos.getY() + 0.5, particlePos.getZ() + 0.5 + direction.getZ() * 0.2f, velocity.getX(), velocity.getY(), velocity.getZ());
     }
     public static void spawnSmoke(World world, BlockPos pos)
     {
         Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        Vec3d particlePos = MalumHelper.randPos(pos, world, -0.3f, 0.3f);
+        Vec3d particlePos = MalumHelper.randPos(pos, world, -0.3d, 0.3d);
         if (direction.getZ() != 0)
         {
-            world.addParticle(ParticleTypes.SMOKE, particlePos.getX() + 0.5, particlePos.getY() + 2, particlePos.getZ() + 0.5 - direction.getZ() * 0.4f, 0, 0.04, 0);
+            world.addParticle(ParticleTypes.SMOKE, particlePos.getX() + 0.5d, particlePos.getY() + 2, particlePos.getZ() + 0.5 - direction.getZ() * 0.4f, 0, 0.04, 0);
         }
         if (direction.getX() != 0)
         {
-            world.addParticle(ParticleTypes.SMOKE, particlePos.getX() + 0.5 - direction.getX() * 0.4f, particlePos.getY() + 2, particlePos.getZ() + 0.5, 0, 0.04, 0);
+            world.addParticle(ParticleTypes.SMOKE, particlePos.getX() + 0.5d - direction.getX() * 0.4d, particlePos.getY() + 2, particlePos.getZ() + 0.5, 0, 0.04, 0);
         }
     }
     @Override

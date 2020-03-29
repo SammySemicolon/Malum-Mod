@@ -19,7 +19,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Random;
 
 import static com.kittykitcatcat.malum.blocks.spiritbellows.SpiritBellowsBlock.RENDER;
-import static com.kittykitcatcat.malum.blocks.spiritbellows.SpiritBellowsBlock.UPGRADED;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 @OnlyIn(value = Dist.CLIENT)
@@ -39,12 +38,12 @@ public class SpiritBellowsRenderer extends TileEntityRenderer<SpiritBellowsTileE
         {
             BlockPos blockpos = blockEntity.getPos();
             BlockRendererDispatcher blockDispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
-            BlockState renderState = ModBlocks.spirit_bellows.getDefaultState().with(HORIZONTAL_FACING, blockEntity.getBlockState().get(HORIZONTAL_FACING)).with(RENDER, true).with(UPGRADED, blockEntity.getBlockState().get(UPGRADED));
+            BlockState renderState = ModBlocks.spirit_bellows.getDefaultState().with(HORIZONTAL_FACING, blockEntity.getBlockState().get(HORIZONTAL_FACING)).with(RENDER, true);
             RenderType renderType = RenderTypeLookup.getRenderType(renderState);
             net.minecraftforge.client.ForgeHooksClient.setRenderLayer(renderType);
             float scaleY = blockEntity.stretch;
             matrixStack.push();
-            matrixStack.translate(0,(-scaleY/2)+0.625,0);
+            matrixStack.translate(0,(-scaleY/2)+0.5,0);
             matrixStack.scale(1,scaleY,1);
             blockDispatcher.getBlockModelRenderer().renderModel(
                     blockEntity.getWorld(),

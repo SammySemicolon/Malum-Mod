@@ -5,6 +5,31 @@ import org.antlr.v4.runtime.misc.NotNull;
 
 public class CapabilityData
 {
+
+    float drainProgress;
+
+    boolean isHusk;
+
+    public float getDrainProgress()
+    {
+        return drainProgress;
+    }
+
+    public void setDrainProgress(float drainProgress)
+    {
+        this.drainProgress = drainProgress;
+    }
+
+    public boolean isHusk()
+    {
+        return isHusk;
+    }
+
+    public void setHusk(boolean husk)
+    {
+        isHusk = husk;
+    }
+
     //phantom necklace
     double startedFlying;
 
@@ -20,6 +45,7 @@ public class CapabilityData
     }
 
     boolean canFly;
+
     @NotNull
     public boolean getCanFly()
     {
@@ -30,6 +56,7 @@ public class CapabilityData
     {
         this.canFly = canFly;
     }
+
     double totalFlightTime;
 
     //ender staff
@@ -39,6 +66,7 @@ public class CapabilityData
     public CapabilityData()
     {
     }
+
     @NotNull
     public double getTeleortChargeTime()
     {

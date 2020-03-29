@@ -2,9 +2,12 @@ package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.blocks.*;
+import com.kittykitcatcat.malum.blocks.ritualanchor.RitualAnchorBlock;
+import com.kittykitcatcat.malum.blocks.souljar.SoulJarBlock;
 import com.kittykitcatcat.malum.blocks.spiritbellows.SpiritBellowsBlock;
 import com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceTopBlock;
+import com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LogBlock;
@@ -24,7 +27,13 @@ public class ModBlocks
     public static Block spirit_furnace;
     public static Block spirit_furnace_top;
     public static Block spirit_bellows;
+    public static Block soul_binder;
+    public static Block ritual_anchor;
+    public static Block soul_jar;
     //BUILDING
+    public static Block spirit_stone;
+    public static Block dark_spirit_stone;
+
     public static Block spirit_sapling;
     public static Block spirit_log;
     public static Block spirit_leaves;
@@ -68,8 +77,13 @@ public class ModBlocks
         spirit_furnace_top = registerBlock(registry, new SpiritFurnaceTopBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().noDrops().lightValue(1)), "spirit_furnace_top");
         spirit_furnace = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "spirit_furnace_bottom");
         spirit_bellows = registerBlock(registry, new SpiritBellowsBlock(Block.Properties.from(Blocks.BLACK_WOOL).notSolid().lightValue(1)), "spirit_bellows");
+        soul_binder = registerBlock(registry, new SoulBinderBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "soul_binder");
+        ritual_anchor = registerBlock(registry, new RitualAnchorBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "ritual_anchor");
+        soul_jar = registerBlock(registry, new SoulJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().lightValue(1)), "soul_jar");
 
         smooth_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.SMOOTH_STONE)), "smooth_stone_stairs");
+        dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
+        spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone");
 
         evil_pumpkin = registerBlock(registry, new ModHorizontalBlock(Block.Properties.from(Blocks.CARVED_PUMPKIN)), "evil_pumpkin");
         lit_evil_pumpkin = registerBlock(registry, new ModHorizontalBlock(Block.Properties.from(Blocks.JACK_O_LANTERN)), "lit_evil_pumpkin");

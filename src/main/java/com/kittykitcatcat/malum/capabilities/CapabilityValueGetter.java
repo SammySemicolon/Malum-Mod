@@ -1,5 +1,7 @@
 package com.kittykitcatcat.malum.capabilities;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -9,7 +11,25 @@ public class CapabilityValueGetter
 
     @CapabilityInject(CapabilityData.class)
     public static Capability<CapabilityData> CAPABILITY;
+    public static boolean getIsHusk(PlayerEntity player)
+    {
+        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::isHusk).orElse(false);
+    }
+    public static float getDrainProgress(PlayerEntity player)
+    {
+        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getDrainProgress).orElse(0f);
+    }
 
+    public static void setDrainProgress(LivingEntity playerEntity, float drainProgress)
+    {
+        playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note ->
+                note.setDrainProgress(drainProgress));
+    }
+    public static void setIsHusk(Entity playerEntity, boolean isHusk)
+    {
+        playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note ->
+                note.setIsTeleporting(isHusk));
+    }
 
     public static boolean getIsTeleporting(PlayerEntity player)
     {
