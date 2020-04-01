@@ -45,7 +45,7 @@ public class ModRecipes
             {
                 if (catalyst.equals(recipe.getCatalyst()))
                 {
-                    if (recipe.getInputs().equals(items))
+                    if (RitualAnchorInput.isEqualList(recipe.getInputs(), items))
                     {
                         if (soul.equals(recipe.getSoul()))
                         {

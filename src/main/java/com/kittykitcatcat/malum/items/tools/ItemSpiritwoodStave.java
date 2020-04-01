@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.items.tools;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import com.kittykitcatcat.malum.init.ModItems;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.Entity;
@@ -52,8 +53,14 @@ public class ItemSpiritwoodStave extends Item
                     LivingEntity target = findEntity(player);
                     if (isEntityValid(target))
                     {
-                        moveCamera(player, target);
-
+                        //moveCamera(player, target);
+                        float drainProgress = CapabilityValueGetter.getDrainProgress(player);
+                        CapabilityValueGetter.setDrainProgress(player, drainProgress+1);
+                        if (drainProgress >= 80)
+                        {
+                            CapabilityValueGetter.setDrainProgress(player, 0);
+                            drainSoul(player,target);
+                        }
                     }
                     else
                     {
@@ -66,6 +73,10 @@ public class ItemSpiritwoodStave extends Item
                 }
             }
         }
+    }
+    public static void drainSoul(PlayerEntity playerEntity, LivingEntity target)
+    {
+
     }
     public static void moveCamera(PlayerEntity playerEntity, LivingEntity target)
     {

@@ -72,10 +72,10 @@ public class SpiritInfusionRecipe
     {
         ModRecipes.addSpiritInfusionRecipe(new SpiritInfusionRecipe(
                         Items.DIAMOND,
-                        new RitualAnchorInput(Items.ACACIA_LOG, Items.ACACIA_PLANKS, Items.ACACIA_LOG, Items.ACACIA_PLANKS),
-                        new RitualAnchorInput(Items.ACACIA_LOG, Items.ACACIA_PLANKS, Items.ACACIA_LOG, Items.ACACIA_PLANKS),
-                        new RitualAnchorInput(Items.ACACIA_LOG, Items.ACACIA_PLANKS, Items.ACACIA_LOG, Items.ACACIA_PLANKS),
-                        new RitualAnchorInput(Items.ACACIA_LOG, Items.ACACIA_PLANKS, Items.ACACIA_LOG, Items.ACACIA_PLANKS),
+                        new RitualAnchorInput(Items.ACACIA_LOG, Items.ACACIA_LOG, Items.ACACIA_LOG, Items.ACACIA_LOG),
+                        new RitualAnchorInput(Items.ACACIA_PLANKS, Items.ACACIA_PLANKS, Items.ACACIA_PLANKS, Items.ACACIA_PLANKS),
+                        new RitualAnchorInput(Items.ACACIA_FENCE, Items.ACACIA_FENCE, Items.ACACIA_FENCE, Items.ACACIA_FENCE),
+                        new RitualAnchorInput(Items.ACACIA_SAPLING, Items.ACACIA_SAPLING, Items.ACACIA_SAPLING, Items.ACACIA_SAPLING),
                 new ItemStack(Items.NETHER_STAR),
                 new CarryOverNBTResult(),
                         1000,

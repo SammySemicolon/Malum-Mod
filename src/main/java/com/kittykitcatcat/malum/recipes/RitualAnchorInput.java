@@ -24,17 +24,19 @@ public class RitualAnchorInput
     }
     public static boolean isEqualList(List<RitualAnchorInput> listA, List<RitualAnchorInput> listB)
     {
-        if (listA.size() != listB.size() && listA.size() != 4)
+        if ((listA.size() == listB.size() && listA.size() == 4))
         {
-            return false;
-        }
-        for (int i = 0; i < listB.size(); i++)
-        {
-            if (!isEqual(listA.get(i), listB.get(i)))
+            for (int i = 0; i < 4; i++)
             {
-                return false;
+                for (int i2 = i; i2 < listB.size()+1; i2++)
+                {
+                    if (!isEqual(listA.get(i2%4), listB.get(i2%4)))
+                    {
+                        return true;
+                    }
+                }
             }
         }
-        return true;
+        return false;
     }
 }

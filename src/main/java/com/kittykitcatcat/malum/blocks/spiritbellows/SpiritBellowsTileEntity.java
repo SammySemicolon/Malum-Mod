@@ -112,72 +112,72 @@ public class SpiritBellowsTileEntity extends TileEntity implements ITickableTile
     @Override
     public void tick()
     {
-//        if (stretch > 1f)
-//        {
-//            stretching = true;
-//            stretch = 1f;
-//        }
-//        if (stretch < 0.56f)
-//        {
-//            stretching = false;
-//        }
-//        if (stretching)
-//        {
-//            if (active)
-//            {
-//                stretch -= 0.04f;
-//            }
-//        }
-//        else
-//        {
-//            stretch +=0.02f;
-//        }
-//        Direction direction = getBlockState().get(HORIZONTAL_FACING);
-//        BlockPos furnacePos = pos.add(direction.getDirectionVec());
-//        if (world.getBlockState(furnacePos).getBlock().equals(ModBlocks.spirit_furnace))
-//        {
-//            BlockState state = world.getBlockState(furnacePos);
-//            if (!state.get(HORIZONTAL_FACING).equals(direction.getOpposite()) && !state.get(HORIZONTAL_FACING).equals(direction))
-//            {
-//                if (world.getTileEntity(furnacePos) instanceof SpiritFurnaceBottomTileEntity)
-//                {
-//                    SpiritFurnaceBottomTileEntity furnaceEntity = (SpiritFurnaceBottomTileEntity) world.getTileEntity(furnacePos);
-//                    if (furnaceEntity.isSmelting)
-//                    {
-//                        active = true;
-//                        if (world.getGameTime() % 4 == 0)
-//                        {
-//                            furnaceEntity.burnProgress++;
-//                            if (burnTime > 0)
-//                            {
-//                                furnaceEntity.burnProgress++;
-//                            }
-//                            furnaceEntity.markDirty();
-//                        }
-//                        if (burnTime <= 0)
-//                        {
-//                            if (inventory.getStackInSlot(0).getCount() > 0)
-//                            {
-//                                MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, 0);
-//                                burnTime = 400;
-//                            }
-//                        }
-//                    }
-//                    else
-//                    {
-//                        active = false;
-//                    }
-//                }
-//            }
-//        }
-//        else
-//        {
-//            active = false;
-//        }
-//        if (burnTime > 0)
-//        {
-//            burnTime--;
-//        }
+        if (stretch > 1f)
+        {
+            stretching = true;
+            stretch = 1f;
+        }
+        if (stretch < 0.56f)
+        {
+            stretching = false;
+        }
+        if (stretching)
+        {
+            if (active)
+            {
+                stretch -= 0.04f;
+            }
+        }
+        else
+        {
+            stretch +=0.02f;
+        }
+        Direction direction = getBlockState().get(HORIZONTAL_FACING);
+        BlockPos furnacePos = pos.add(direction.getDirectionVec());
+        if (world.getBlockState(furnacePos).getBlock().equals(ModBlocks.spirit_furnace))
+        {
+            BlockState state = world.getBlockState(furnacePos);
+            if (!state.get(HORIZONTAL_FACING).equals(direction.getOpposite()) && !state.get(HORIZONTAL_FACING).equals(direction))
+            {
+                if (world.getTileEntity(furnacePos) instanceof SpiritFurnaceBottomTileEntity)
+                {
+                    SpiritFurnaceBottomTileEntity furnaceEntity = (SpiritFurnaceBottomTileEntity) world.getTileEntity(furnacePos);
+                    if (furnaceEntity.isSmelting)
+                    {
+                        active = true;
+                        if (world.getGameTime() % 4 == 0)
+                        {
+                            furnaceEntity.burnProgress++;
+                            if (burnTime > 0)
+                            {
+                                furnaceEntity.burnProgress++;
+                            }
+                            furnaceEntity.markDirty();
+                        }
+                        if (burnTime <= 0)
+                        {
+                            if (inventory.getStackInSlot(0).getCount() > 0)
+                            {
+                                MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, 0);
+                                burnTime = 400;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        active = false;
+                    }
+                }
+            }
+        }
+        else
+        {
+            active = false;
+        }
+        if (burnTime > 0)
+        {
+            burnTime--;
+        }
     }
     @Override
     public CompoundNBT getUpdateTag()
