@@ -242,7 +242,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
                 spawnSoulFlame(world, pos, 0.25f,0.08f);
             }
         }
-        if (isSmelting)
+        if (isSmelting && burnProgress > 0)
         {
             if (world.getGameTime() % 8 == 0)
             {

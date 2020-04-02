@@ -20,6 +20,9 @@ public final class ModSounds
     public static final SoundEvent furnace_start = makeSoundEvent("furnace_start");
     public static final SoundEvent furnace_loop = makeSoundEvent("furnace_loop");
     public static final SoundEvent furnace_stop = makeSoundEvent("furnace_stop");
+    public static final SoundEvent soul_harvest_success = makeSoundEvent("soul_harvest_success");
+    public static final SoundEvent soul_harvest_loop = makeSoundEvent("soul_harvest_loop");
+    public static final SoundEvent soul_harvest_fail = makeSoundEvent("soul_harvest_fail");
 
     private static SoundEvent makeSoundEvent(String name)
     {
@@ -39,6 +42,9 @@ public final class ModSounds
         r.register(furnace_start);
         r.register(furnace_loop);
         r.register(furnace_stop);
+        r.register(soul_harvest_success);
+        r.register(soul_harvest_loop);
+        r.register(soul_harvest_fail);
 
     }
 

@@ -6,5 +6,8 @@
   "drill_loop": { "sounds":["malum:drill_loop"], "subtitle": "malum.subtitle.drill_loop" },
   "furnace_start": { "sounds":["malum:furnace_start"], "subtitle": "malum.subtitle.furnace_start" },
   "furnace_loop": { "sounds":["malum:furnace_loop"], "subtitle": "malum.subtitle.furnace_loop" },
-  "furnace_stop": { "sounds":["malum:furnace_stop"], "subtitle": "malum.subtitle.furnace_stop" }
+  "furnace_stop": { "sounds":["malum:furnace_stop"], "subtitle": "malum.subtitle.furnace_stop" },
+  "soul_harvest_loop": { "sounds":["malum:soul_harvest_loop"], "subtitle": "malum.subtitle.soul_harvest_loop" },
+  "soul_harvest_fail": { "sounds":["malum:soul_harvest_fail"], "subtitle": "malum.subtitle.soul_harvest_fail" },
+  "soul_harvest_success": { "sounds":["malum:soul_harvest_success"], "subtitle": "malum.subtitle.soul_harvest_success" }
 }

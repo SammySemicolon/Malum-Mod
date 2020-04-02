@@ -1,8 +1,12 @@
 package com.kittykitcatcat.malum.items.tools;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.SpiritData;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import com.kittykitcatcat.malum.init.ModItems;
+import com.kittykitcatcat.malum.init.ModSounds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,10 +19,13 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,6 +39,74 @@ public class ItemSpiritwoodStave extends Item
         super(properties);
     }
 
+    //VISUAL AND CLIENT STUFF
+    @SubscribeEvent
+    public static void zoomIn(FOVUpdateEvent event)
+    {
+        if (event.getEntity() != null)
+        {
+            PlayerEntity player = event.getEntity();
+            if (player.getHeldItemMainhand().getItem().equals(ModItems.spiritwood_stave))
+            {
+                float drainProgress = CapabilityValueGetter.getDrainProgress(player);
+                event.setNewfov(event.getFov()-drainProgress/100);
+            }
+        }
+    }
+    @SubscribeEvent
+    public static void previewTarget(PlayerEvent.LivingUpdateEvent event)
+    {
+        if (event.getEntityLiving() instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            if (player.getHeldItemMainhand().getItem().equals(ModItems.spiritwood_stave))
+            {
+                if (findEntity(player) != null)
+                {
+                    LivingEntity target = findEntity(player);
+                    if (isEntityValid(target))
+                    {
+                        target.addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false));
+                    }
+                }
+            }
+        }
+    }
+    //LOGIC HANDLING
+    @SubscribeEvent
+    public static void cancelDrain(LivingEntityUseItemEvent.Start event)
+    {
+        if (event.getEntityLiving() instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            if (player.getHeldItemMainhand().getItem().equals(ModItems.spiritwood_stave))
+            {
+                if (player.getHeldItemMainhand().getTag() != null)
+                {
+                    if (player.getHeldItemMainhand().getTag().contains("entityRegistryName"))
+                    {
+                        event.setCanceled(true);
+                    }
+                }
+            }
+        }
+    }
+    @SubscribeEvent
+    public static void stopDrain(LivingEntityUseItemEvent.Stop event)
+    {
+        if (event.getEntityLiving() instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            if (player.getHeldItemMainhand().getItem().equals(ModItems.spiritwood_stave))
+            {
+                if (CapabilityValueGetter.getDrainProgress(player) > 0)
+                {
+                    CapabilityValueGetter.setDrainProgress(player, 0);
+                    stopDrain(player);
+                }
+            }
+        }
+    }
     @SubscribeEvent
     public static void drainSoul(LivingEntityUseItemEvent.Tick event)
     {
@@ -53,81 +128,22 @@ public class ItemSpiritwoodStave extends Item
                     LivingEntity target = findEntity(player);
                     if (isEntityValid(target))
                     {
-                        //moveCamera(player, target);
-                        float drainProgress = CapabilityValueGetter.getDrainProgress(player);
-                        CapabilityValueGetter.setDrainProgress(player, drainProgress+1);
-                        if (drainProgress >= 80)
-                        {
-                            CapabilityValueGetter.setDrainProgress(player, 0);
-                            drainSoul(player,target);
-                        }
+                        attemptDrain(player,target);
                     }
                     else
                     {
+                        stopDrain(player);
                         event.setCanceled(true);
                     }
                 }
                 else
                 {
-                    event.setCanceled(true);
-                }
-            }
-        }
-    }
-    public static void drainSoul(PlayerEntity playerEntity, LivingEntity target)
-    {
-
-    }
-    public static void moveCamera(PlayerEntity playerEntity, LivingEntity target)
-    {
-        double minX = target.getBoundingBox().minX;
-        double minY = target.getBoundingBox().minY;
-        double minZ = target.getBoundingBox().minZ;
-        double maxX = target.getBoundingBox().maxX;
-        double maxY = target.getBoundingBox().maxY;
-        double maxZ = target.getBoundingBox().maxZ;
-        Vec3d boundingVec = (new Vec3d(minX,minY,minZ).add(maxX,maxY,maxZ)).mul(0.5,0.5,0.5);
-        faceLocation(boundingVec, playerEntity);
-    }
-    public static void faceLocation(Vec3d lookat, PlayerEntity player) {
-        double d0 = lookat.getX() + 0.5 - player.getPosX();
-        double d1 = lookat.getY() + 0.5 - player.getPosY() - player.getEyeHeight();
-        double d2 = lookat.getZ() + 0.5 - player.getPosZ();
-
-        double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        float yaw = (float) (Math.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
-        float pitch = (float) (-(Math.atan2(d1, d3) * (180D / Math.PI)));
-        rotatePlayer(player, player.rotationYaw + (yaw - player.rotationYaw) / 4, player.rotationPitch + (pitch - player.rotationPitch) / 4);
-    }
-
-    public static void rotatePlayer(PlayerEntity player, float yaw, float pitch) {
-        final float oldYawHead = player.rotationYawHead;
-        player.rotationYawHead = yaw;
-        player.prevRotationYawHead += player.rotationYawHead - oldYawHead;
-        final float oldYaw = player.rotationYaw;
-        player.rotationYaw = yaw;
-        player.prevRotationYaw += player.rotationYaw - oldYaw;
-
-        final float oldPitch = player.rotationPitch;
-        player.rotationPitch = pitch;
-        player.prevRotationPitch += player.rotationPitch - oldPitch;
-    }
-
-    @SubscribeEvent
-    public static void previewTarget(PlayerEvent.LivingUpdateEvent event)
-    {
-        if (event.getEntityLiving() instanceof PlayerEntity)
-        {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getHeldItemMainhand().getItem().equals(ModItems.spiritwood_stave))
-            {
-                if (findEntity(player) != null)
-                {
-                    LivingEntity target = findEntity(player);
-                    if (isEntityValid(target))
+                    if (CapabilityValueGetter.getDrainProgress(player) > 0) //FAIL
                     {
-                        target.addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false));
+                        CapabilityValueGetter.setDrainProgress(player, 0);
+                        stopDrain(player);
                     }
+                    event.setCanceled(true);
                 }
             }
         }
@@ -135,23 +151,6 @@ public class ItemSpiritwoodStave extends Item
     public static boolean isEntityValid(LivingEntity target)
     {
         return target.getHealth() <= target.getMaxHealth() / 10 || target.getHealth() <= 2;
-    }
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (itemstack.getTag() != null)
-        {
-            if (!itemstack.getTag().contains("entityRegistryName"))
-            {
-                playerIn.setActiveHand(handIn);
-            }
-        }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
-    }
-    @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand)
-    {
-        return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }
     public static LivingEntity findEntity(PlayerEntity player)
     {
@@ -178,8 +177,61 @@ public class ItemSpiritwoodStave extends Item
         }
         return null;
     }
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+    public static void attemptDrain(PlayerEntity player, LivingEntity target)
+    {
+        //moveCamera(player, target);
+        float drainProgress = CapabilityValueGetter.getDrainProgress(player);
+        CapabilityValueGetter.setDrainProgress(player, drainProgress+1);
+        if (drainProgress == 1)
+        {
+            startDrain(player);
+        }
+        if (drainProgress >= 86)
+        {
+            CapabilityValueGetter.setDrainProgress(player, 0);
+            drainSoul(player,target);
+        }
+    }
+    public static void drainSoul(PlayerEntity player, LivingEntity target)
+    {
+        float purity = 1f;
+        SpiritData data = new SpiritData(target, purity);
+        data.writeSpiritDataIntoNBT(player.getHeldItemMainhand().getOrCreateTag());
+        player.world.playSound(Minecraft.getInstance().player, player.getPosition(), ModSounds.soul_harvest_success, SoundCategory.PLAYERS, 1F, 1F);
+        Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS);
+    }
+    public static void startDrain(PlayerEntity player)
+    {
+        player.world.playSound(Minecraft.getInstance().player, player.getPosition(), ModSounds.soul_harvest_loop, SoundCategory.PLAYERS, 1F, 1F);
+    }
+    public static void stopDrain(PlayerEntity player)
+    {
+        player.world.playSound(Minecraft.getInstance().player, player.getPosition(), ModSounds.soul_harvest_fail, SoundCategory.PLAYERS, 1F, 1F);
+        Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS);
+    }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        if (itemstack.getTag() != null)
+        {
+            if (!itemstack.getTag().contains("entityRegistryName"))
+            {
+                playerIn.setActiveHand(handIn);
+            }
+        }
+        return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+    //ACTUAL ITEM
+    public UseAction getUseAction(ItemStack stack)
+    {
+        if (stack.getTag() != null)
+        {
+            if (!stack.getTag().contains("entityRegistryName"))
+            {
+                return UseAction.BOW;
+            }
+        }
+        return UseAction.NONE;
     }
     @Override
     public int getUseDuration(ItemStack stack) {
