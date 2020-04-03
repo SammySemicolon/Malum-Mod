@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.blocks.souljar;
 
+import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -7,6 +8,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
@@ -18,20 +20,17 @@ public class SoulJarTileEntity extends TileEntity implements ITickableTileEntity
         super(ModTileEntities.soul_jar_tile_entity);
     }
     public float purity;
+    public float delayedPurity;
     public String entityRegistryName;
-    public String entityDisplayName;
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
         super.write(compound);
         compound.putFloat("purity", purity);
+        compound.putFloat("delayedPurity", delayedPurity);
         if (entityRegistryName != null)
         {
             compound.putString("entityRegistryName", entityRegistryName);
-        }
-        if (entityDisplayName != null)
-        {
-            compound.putString("entityDisplayName", entityDisplayName);
         }
         return compound;
     }
@@ -40,12 +39,19 @@ public class SoulJarTileEntity extends TileEntity implements ITickableTileEntity
     {
         super.read(compound);
         entityRegistryName = compound.getString("entityRegistryName");
-        entityDisplayName = compound.getString("entityDisplayName");
         purity = compound.getFloat("purity");
+        delayedPurity = compound.getFloat("delayedPurity");
     }
     @Override
     public void tick()
     {
+        if (purity != 0)
+        {
+            delayedPurity = MathHelper.lerp(0.95f, purity, delayedPurity);
+        }
+        MalumMod.LOGGER.info(purity);
+        MalumMod.LOGGER.info(delayedPurity);
+        MalumMod.LOGGER.info(entityRegistryName);
     }
 
     @Override

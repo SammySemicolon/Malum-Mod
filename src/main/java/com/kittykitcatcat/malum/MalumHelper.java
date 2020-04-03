@@ -1,8 +1,8 @@
 package com.kittykitcatcat.malum;
 
-import com.sun.org.apache.xalan.internal.xsltc.cmdline.Transform;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.Vector3d;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -10,8 +10,16 @@ import net.minecraft.state.IProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class MalumHelper
@@ -95,5 +103,18 @@ public class MalumHelper
         double y = MathHelper.nextDouble(world.rand, min, max) + pos.getY();
         double z = MathHelper.nextDouble(world.rand, min, max) + pos.getZ();
         return new Vec3d(x,y,z);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void makeTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, ArrayList<ITextComponent> stringArrayList)
+    {
+        if (!Screen.hasShiftDown())
+        {
+            tooltip.add(new TranslationTextComponent("malum.tooltip.sneak.desc"));
+        }
+        else
+        {
+            tooltip.addAll(stringArrayList);
+        }
     }
 }

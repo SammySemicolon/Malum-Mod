@@ -1,6 +1,10 @@
 package com.kittykitcatcat.malum.blocks.soulbinder;
 
+import com.kittykitcatcat.malum.SpiritData;
+import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.recipes.RitualAnchorInput;
+import com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -18,7 +22,10 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Objects;
+
+import static com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock.findList;
 
 public class SoulBinderTileEntity extends TileEntity implements ITickableTileEntity
 {
@@ -85,6 +92,21 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
     @Override
     public void tick()
     {
+        if (!inventory.getStackInSlot(0).isEmpty())
+        {
+            ItemStack stack = inventory.getStackInSlot(0);
+            List<RitualAnchorInput> anchorInputs = findList(pos, world);
+            for (SpiritInfusionRecipe recipe : ModRecipes.spiritInfusionRecipes)
+            {
+                if (RitualAnchorInput.isEqualList(anchorInputs, recipe.getInputs()))
+                {
+                    if (stack.getItem().equals(recipe.getCatalyst()))
+                    {
+
+                    }
+                }
+            }
+        }
     }
 
     public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);

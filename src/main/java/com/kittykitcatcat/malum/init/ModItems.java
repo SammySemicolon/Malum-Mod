@@ -59,17 +59,18 @@ public class ModItems
     public static Item unrefined_spirited_steel;
     public static Item runic_ash;
     public static Item spirit_charcoal;
+    public static Item royal_steel_ingot;
     //TOOLS
 
-    public static Item soul_crystal_hoe;
-    public static Item soul_crystal_axe;
-    public static Item soul_crystal_sword;
-    public static Item soul_crystal_shovel;
-    public static Item soul_crystal_pickaxe;
-    public static Item soul_crystal_shoes;
-    public static Item soul_crystal_leggings;
-    public static Item soul_crystal_chestplate;
-    public static Item soul_crystal_helm;
+    public static Item royal_steel_hoe;
+    public static Item royal_steel_axe;
+    public static Item royal_steel_sword;
+    public static Item royal_steel_shovel;
+    public static Item royal_steel_pickaxe;
+    public static Item royal_steel_shoes;
+    public static Item royal_steel_leggings;
+    public static Item royal_steel_chestplate;
+    public static Item royal_steel_helm;
     public static Item soul_steel_hoe;
     public static Item soul_steel_axe;
     public static Item soul_steel_sword;
@@ -141,17 +142,18 @@ public class ModItems
                 unrefined_spirited_steel = setup(new Item(basic_properties), "unrefined_spirited_steel"),
                 runic_ash = setup(new Item(basic_properties), "runic_ash"),
                 spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
+                royal_steel_ingot = setup(new Item(basic_properties), "royal_steel_ingot"),
 
-                soul_crystal_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, tool_properties), "soul_crystal_hoe"),
-                soul_crystal_axe = setup(new ModAxeItem(TIER1_ITEM, 0, 0, tool_properties), "soul_crystal_axe"),
-                soul_crystal_sword = setup(new ModSwordItem(TIER1_ITEM, 0, 0, tool_properties), "soul_crystal_sword"),
-                soul_crystal_shovel = setup(new ModShovelItem(TIER1_ITEM, 0, 0, tool_properties), "soul_crystal_shovel"),
-                soul_crystal_pickaxe = setup(new ModPickaxeItem(TIER1_ITEM, 0, 0, tool_properties), "soul_crystal_pickaxe"),
+                royal_steel_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, tool_properties), "royal_steel_hoe"),
+                royal_steel_axe = setup(new ModAxeItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_axe"),
+                royal_steel_sword = setup(new ModSwordItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_sword"),
+                royal_steel_shovel = setup(new ModShovelItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_shovel"),
+                royal_steel_pickaxe = setup(new ModPickaxeItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_pickaxe"),
 
-                soul_crystal_shoes = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, tool_properties), "soul_crystal_shoes"),
-                soul_crystal_leggings = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.LEGS, tool_properties), "soul_crystal_leggings"),
-                soul_crystal_chestplate = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.CHEST, tool_properties), "soul_crystal_chestplate"),
-                soul_crystal_helm = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_crystal_helm"),
+                royal_steel_shoes = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, tool_properties), "royal_steel_shoes"),
+                royal_steel_leggings = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.LEGS, tool_properties), "royal_steel_leggings"),
+                royal_steel_chestplate = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.CHEST, tool_properties), "royal_steel_chestplate"),
+                royal_steel_helm = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.HEAD, tool_properties), "royal_steel_helm"),
 
                 soul_steel_hoe = setup(new ModHoeItem(TIER2_ITEM, 0, tool_properties), "soul_steel_hoe"),
                 soul_steel_axe = setup(new ModAxeItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_axe"),
@@ -211,7 +213,7 @@ public class ModItems
 
                 smooth_stone_stairs = setup(new BlockItem(ModBlocks.smooth_stone_stairs, basic_properties), "smooth_stone_stairs")
 
-                );
+        );
     }
 
     @Nonnull

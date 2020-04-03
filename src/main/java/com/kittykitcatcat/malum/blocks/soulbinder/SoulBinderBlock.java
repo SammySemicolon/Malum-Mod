@@ -2,7 +2,10 @@ package com.kittykitcatcat.malum.blocks.soulbinder;
 
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.SpiritData;
 import com.kittykitcatcat.malum.blocks.ritualanchor.RitualAnchorTileEntity;
+import com.kittykitcatcat.malum.blocks.souljar.SoulJarBlock;
+import com.kittykitcatcat.malum.blocks.souljar.SoulJarTileEntity;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
@@ -18,12 +21,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,6 +38,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.kittykitcatcat.malum.MalumHelper.updateState;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
@@ -83,47 +87,29 @@ public class SoulBinderBlock extends Block
                 if (worldIn.getTileEntity(pos) instanceof SoulBinderTileEntity)
                 {
                     ItemStack heldItem = player.getHeldItem(handIn);
-                    List<RitualAnchorInput> anchorInputs = new ArrayList<>();
-                    for (anchorOffset offset : anchorOffset.values())
-                    {
-                        BlockPos anchorPos = pos.add(offset.offsetX, 0, offset.offsetY);
-                        if (getAnchorAt(anchorPos, worldIn) != null)
-                        {
-                            List<Item> anchorItems = new ArrayList<>();
-                            RitualAnchorTileEntity anchorTileEntity = getAnchorAt(anchorPos, worldIn);
-                            for (int i = 0; i < anchorTileEntity.inventory.getSlots(); i++)
-                            {
-                                if (!anchorTileEntity.inventory.getStackInSlot(i).isEmpty())
-                                {
-                                    anchorItems.add(anchorTileEntity.inventory.getStackInSlot(i).getItem());
-                                }
-                            }
-                            if (anchorItems.size() == 4)
-                            {
-                                anchorInputs.add(new RitualAnchorInput(anchorItems.get(0), anchorItems.get(1), anchorItems.get(2), anchorItems.get(3)));
-                            }
-                        }
-                    }
 
                     SoulBinderTileEntity soulBinderTileEntity = (SoulBinderTileEntity) worldIn.getTileEntity(pos);
                     ItemStack inputItem = soulBinderTileEntity.getInputStack(soulBinderTileEntity.inventory);
-
-                    for (SpiritInfusionRecipe recipe : ModRecipes.spiritInfusionRecipes)
+                    List<RitualAnchorInput> anchorInputs = findList(pos, worldIn);
+                    if (inputItem.isEmpty())
                     {
-                        if (inputItem.isEmpty())
+                        for (SpiritInfusionRecipe recipe : ModRecipes.spiritInfusionRecipes)
                         {
                             if (RitualAnchorInput.isEqualList(anchorInputs, recipe.getInputs()))
                             {
                                 if (heldItem.getItem().equals(recipe.getCatalyst()))
                                 {
-                                    ItemStack newItem = heldItem.copy();
-                                    newItem.setCount(1);
-                                    MalumHelper.setStackInTEInventory(soulBinderTileEntity.inventory, newItem, 0);
-                                    updateState(worldIn, state, pos);
-                                    updateState(worldIn, state, pos.down());
-                                    heldItem.setCount(heldItem.getCount() - 1);
-                                    player.swingArm(handIn);
-                                    return ActionResultType.SUCCESS;
+                                    if (SpiritData.findSpiritData(3, recipe, pos, worldIn) != null)
+                                    {
+                                        ItemStack newItem = heldItem.copy();
+                                        newItem.setCount(1);
+                                        MalumHelper.setStackInTEInventory(soulBinderTileEntity.inventory, newItem, 0);
+                                        updateState(worldIn, state, pos);
+                                        updateState(worldIn, state, pos.down());
+                                        heldItem.setCount(heldItem.getCount() - 1);
+                                        player.swingArm(handIn);
+                                        return ActionResultType.SUCCESS;
+                                    }
                                 }
                             }
                         }
@@ -132,6 +118,31 @@ public class SoulBinderBlock extends Block
             }
         }
         return ActionResultType.SUCCESS;
+    }
+    public static List<RitualAnchorInput> findList(BlockPos pos,World worldIn)
+    {
+        List<RitualAnchorInput> anchorInputs = new ArrayList<>();
+        for (anchorOffset offset : anchorOffset.values())
+        {
+            BlockPos anchorPos = pos.add(offset.offsetX, 0, offset.offsetY);
+            if (getAnchorAt(anchorPos, worldIn) != null)
+            {
+                List<Item> anchorItems = new ArrayList<>();
+                RitualAnchorTileEntity anchorTileEntity = getAnchorAt(anchorPos, worldIn);
+                for (int i = 0; i < anchorTileEntity.inventory.getSlots(); i++)
+                {
+                    if (!anchorTileEntity.inventory.getStackInSlot(i).isEmpty())
+                    {
+                        anchorItems.add(anchorTileEntity.inventory.getStackInSlot(i).getItem());
+                    }
+                }
+                if (anchorItems.size() == 4)
+                {
+                    anchorInputs.add(new RitualAnchorInput(anchorItems.get(0), anchorItems.get(1), anchorItems.get(2), anchorItems.get(3)));
+                }
+            }
+        }
+        return anchorInputs;
     }
     @Override
     public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)

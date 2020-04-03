@@ -7,6 +7,7 @@ import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModSounds;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -24,12 +25,20 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+
+import javax.annotation.Nullable;
+import java.util.List;
+
+import static com.kittykitcatcat.malum.SpiritData.*;
 
 @Mod.EventBusSubscriber
 public class ItemSpiritwoodStave extends Item
@@ -37,6 +46,13 @@ public class ItemSpiritwoodStave extends Item
     public ItemSpiritwoodStave(Properties properties)
     {
         super(properties);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    {
+        makeDefaultTooltip(stack,worldIn,tooltip,flagIn);
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     //VISUAL AND CLIENT STUFF
@@ -198,7 +214,7 @@ public class ItemSpiritwoodStave extends Item
         SpiritData data = new SpiritData(target, purity);
         data.writeSpiritDataIntoNBT(player.getHeldItemMainhand().getOrCreateTag());
         player.world.playSound(Minecraft.getInstance().player, player.getPosition(), ModSounds.soul_harvest_success, SoundCategory.PLAYERS, 1F, 1F);
-        Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS);
+        DistExecutor.runWhenOn(Dist.CLIENT, ()-> ()-> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS));
     }
     public static void startDrain(PlayerEntity player)
     {

@@ -27,7 +27,7 @@ public class ItemArmorTier1 extends ArmorItem
     @Nullable
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
     {
-        return "malum:textures/armor/soul_crystal_armour.png";
+        return "malum:textures/armor/royal_steel_armour.png";
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -37,7 +37,7 @@ public class ModRecipes
         }
     }
 
-    public static SpiritInfusionRecipe getSpiritInfusionRecipe(String soul, List<RitualAnchorInput> items, Item catalyst)
+    public static SpiritInfusionRecipe getSpiritInfusionRecipe(List<RitualAnchorInput> items, Item catalyst)
     {
         if (catalyst != null)
         {
@@ -47,10 +47,7 @@ public class ModRecipes
                 {
                     if (RitualAnchorInput.isEqualList(recipe.getInputs(), items))
                     {
-                        if (soul.equals(recipe.getSoul()))
-                        {
-                            return recipe;
-                        }
+                        return recipe;
                     }
                 }
             }
@@ -58,6 +55,20 @@ public class ModRecipes
         return null;
     }
 
+    public static SpiritInfusionRecipe getSpiritInfusionRecipe(Item catalyst)
+    {
+        if (catalyst != null)
+        {
+            for (SpiritInfusionRecipe recipe : spiritInfusionRecipes)
+            {
+                if (catalyst.equals(recipe.getCatalyst()))
+                {
+                    return recipe;
+                }
+            }
+        }
+        return null;
+    }
     public static List<BlockTransmutationRecipe> blockTransmutationRecipes = new ArrayList<>();
 
     public static void addBlockTransmutationRecipe(BlockTransmutationRecipe recipe)

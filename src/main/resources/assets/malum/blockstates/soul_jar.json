@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": {"model": "malum:block/soul_jar"}
+    "render=0": {"model": "malum:block/soul_jar"},
+    "render=1": {"model": "malum:block/soul_jar_soul_render"},
+    "render=2": {"model": "malum:block/soul_jar_pointer_render"}
   }
 }

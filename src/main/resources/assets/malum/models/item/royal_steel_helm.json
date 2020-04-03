@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "malum:items/soul_crystal_leggings"
+    "layer0": "malum:items/royal_steel_helm"
   }
 }
