@@ -94,6 +94,7 @@ public class ModItems
     public static Item spirit_furnace;
     public static Item soul_binder;
     public static Item ritual_anchor;
+    public static Item soul_jar;
     //BLOCKS
     public static Item wooden_planks;
     public static Item wooden_planks_slab;
@@ -133,6 +134,7 @@ public class ModItems
                 spirit_bellows = setup(new BlockItem(ModBlocks.spirit_bellows, basic_properties), "spirit_bellows"),
                 soul_binder = setup(new BlockItem(ModBlocks.soul_binder, basic_properties), "soul_binder"),
                 ritual_anchor = setup(new BlockItem(ModBlocks.ritual_anchor, basic_properties), "ritual_anchor"),
+                soul_jar = setup(new BlockItem(ModBlocks.soul_jar, basic_properties), "soul_jar"),
 
                 spirit_stone = setup(new BlockItem(ModBlocks.spirit_stone, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),

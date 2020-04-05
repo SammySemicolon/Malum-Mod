@@ -2,6 +2,7 @@ package com.kittykitcatcat.malum.capabilities;
 
 import com.kittykitcatcat.malum.MalumMod;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.LazyOptional;
@@ -16,7 +17,7 @@ public class CapabilityEvents
     @SubscribeEvent
     public static void onEntityConstructing(AttachCapabilitiesEvent<Entity> event)
     {
-        if (event.getObject() instanceof PlayerEntity)
+        if (event.getObject() instanceof LivingEntity)
         {
             if (!event.getObject().getCapability(CapabilityValueGetter.CAPABILITY).isPresent())
             {

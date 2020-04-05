@@ -97,6 +97,10 @@ public class ItemSpiritwoodStave extends Item
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (player.getHeldItemMainhand().getItem().equals(ModItems.spiritwood_stave))
             {
+                if (findEntity(player) == null)
+                {
+                    event.setCanceled(true);
+                }
                 if (player.getHeldItemMainhand().getTag() != null)
                 {
                     if (player.getHeldItemMainhand().getTag().contains("entityRegistryName"))
@@ -162,11 +166,16 @@ public class ItemSpiritwoodStave extends Item
                     event.setCanceled(true);
                 }
             }
+            else if (CapabilityValueGetter.getDrainProgress(player) > 0) //FAIL
+            {
+                CapabilityValueGetter.setDrainProgress(player, 0);
+                stopDrain(player);
+            }
         }
     }
     public static boolean isEntityValid(LivingEntity target)
     {
-        return target.getHealth() <= target.getMaxHealth() / 10 || target.getHealth() <= 2;
+        return (target.getHealth() <= target.getMaxHealth() / 10 || target.getHealth() <= 2) && !CapabilityValueGetter.getIsHusk(target);
     }
     public static LivingEntity findEntity(PlayerEntity player)
     {
@@ -195,14 +204,13 @@ public class ItemSpiritwoodStave extends Item
     }
     public static void attemptDrain(PlayerEntity player, LivingEntity target)
     {
-        //moveCamera(player, target);
         float drainProgress = CapabilityValueGetter.getDrainProgress(player);
         CapabilityValueGetter.setDrainProgress(player, drainProgress+1);
         if (drainProgress == 1)
         {
             startDrain(player);
         }
-        if (drainProgress >= 86)
+        if (drainProgress >= 85)
         {
             CapabilityValueGetter.setDrainProgress(player, 0);
             drainSoul(player,target);
@@ -213,6 +221,7 @@ public class ItemSpiritwoodStave extends Item
         float purity = 1f;
         SpiritData data = new SpiritData(target, purity);
         data.writeSpiritDataIntoNBT(player.getHeldItemMainhand().getOrCreateTag());
+        CapabilityValueGetter.setIsHusk(target, true);
         player.world.playSound(Minecraft.getInstance().player, player.getPosition(), ModSounds.soul_harvest_success, SoundCategory.PLAYERS, 1F, 1F);
         DistExecutor.runWhenOn(Dist.CLIENT, ()-> ()-> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS));
     }

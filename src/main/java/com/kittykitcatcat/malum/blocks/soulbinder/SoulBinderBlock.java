@@ -61,13 +61,13 @@ public class SoulBinderBlock extends Block
     }
     public enum anchorOffset
     {
-        anchor1(3, 3),
-        anchor2(3, -3),
-        anchor3(-3, -3),
-        anchor4(-3, 3);
+        anchor1(2, 2),
+        anchor2(2, -2),
+        anchor3(-2, -2),
+        anchor4(-2, 2);
 
-        private final int offsetY;
-        private final int offsetX;
+        public final int offsetY;
+        public final int offsetX;
         private anchorOffset(int offsetX, int offsetY) { this.offsetX = offsetX; this.offsetY = offsetY;}
     }
     public static RitualAnchorTileEntity getAnchorAt(BlockPos blockPos, World world)
@@ -99,7 +99,7 @@ public class SoulBinderBlock extends Block
                             {
                                 if (heldItem.getItem().equals(recipe.getCatalyst()))
                                 {
-                                    if (SpiritData.findSpiritData(3, recipe, pos, worldIn) != null)
+                                    if (SpiritData.findSpiritData(2, recipe, pos, worldIn) != null)
                                     {
                                         ItemStack newItem = heldItem.copy();
                                         newItem.setCount(1);

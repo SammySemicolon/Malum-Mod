@@ -5,13 +5,14 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 
 public class CapabilityValueGetter
 {
 
     @CapabilityInject(CapabilityData.class)
     public static Capability<CapabilityData> CAPABILITY;
-    public static boolean getIsHusk(PlayerEntity player)
+    public static boolean getIsHusk(LivingEntity player)
     {
         return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::isHusk).orElse(false);
     }
@@ -28,7 +29,7 @@ public class CapabilityValueGetter
     public static void setIsHusk(Entity playerEntity, boolean isHusk)
     {
         playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note ->
-                note.setIsTeleporting(isHusk));
+                note.setHusk(isHusk));
     }
 
     public static boolean getIsTeleporting(PlayerEntity player)

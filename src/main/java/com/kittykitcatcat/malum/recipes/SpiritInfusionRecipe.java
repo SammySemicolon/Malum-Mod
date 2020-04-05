@@ -61,6 +61,10 @@ public class SpiritInfusionRecipe
         return catalyst;
     }
 
+    public ItemStack getOutputStack()
+    {
+        return outputStack;
+    }
     public List<RitualAnchorInput> getInputs()
     {
         return items;
@@ -81,7 +85,7 @@ public class SpiritInfusionRecipe
                 new RitualAnchorInput(Items.ACACIA_SAPLING, Items.ACACIA_SAPLING, Items.ACACIA_SAPLING, Items.ACACIA_SAPLING),
                 new ItemStack(Items.NETHER_STAR),
                 new CarryOverNBTResult(),
-                1000,
+                40,
                 new SpiritData("minecraft:zombie", 2)
         ));
     }

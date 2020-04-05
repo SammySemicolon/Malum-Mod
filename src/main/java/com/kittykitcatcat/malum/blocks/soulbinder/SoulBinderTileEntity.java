@@ -1,11 +1,14 @@
 package com.kittykitcatcat.malum.blocks.soulbinder;
 
 import com.kittykitcatcat.malum.SpiritData;
+import com.kittykitcatcat.malum.blocks.ritualanchor.RitualAnchorTileEntity;
+import com.kittykitcatcat.malum.blocks.souljar.SoulJarTileEntity;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.recipes.RitualAnchorInput;
 import com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
@@ -13,6 +16,8 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.common.Mod;
@@ -26,6 +31,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock.findList;
+import static com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock.getAnchorAt;
 
 public class SoulBinderTileEntity extends TileEntity implements ITickableTileEntity
 {
@@ -102,7 +108,43 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                 {
                     if (stack.getItem().equals(recipe.getCatalyst()))
                     {
-
+                        if (SpiritData.findSpiritData(2, recipe, pos, world) != null)
+                        {
+                            SpiritData data = SpiritData.findSpiritData(2, recipe, pos, world);
+                            BlockPos jarPos = SpiritData.findBlockByData(2, data, pos, world);
+                            infusionProgress++;
+                            if (infusionProgress >= recipe.getInfusionTime())
+                            {
+                                if (world.getTileEntity(jarPos) instanceof SoulJarTileEntity)
+                                {
+                                    SoulJarTileEntity tileEntity = (SoulJarTileEntity) world.getTileEntity(jarPos);
+                                    tileEntity.purity -= recipe.getData().purity;
+                                    infusionProgress = 0;
+                                    ItemStack outputStack = recipe.getOutputStack();
+                                    if (recipe.getInfusionResult() != null)
+                                    {
+                                        recipe.getInfusionResult().result(stack, outputStack);
+                                    }
+                                    for (SoulBinderBlock.anchorOffset offset : SoulBinderBlock.anchorOffset.values())
+                                    {
+                                        BlockPos anchorPos = pos.add(offset.offsetX, 0, offset.offsetY);
+                                        if (getAnchorAt(anchorPos, world) != null)
+                                        {
+                                            if (world.getTileEntity(anchorPos) instanceof RitualAnchorTileEntity)
+                                            {
+                                                RitualAnchorTileEntity anchorTileEntity = (RitualAnchorTileEntity) world.getTileEntity(anchorPos);
+                                                for (int i = 0; i<4;i++)
+                                                {
+                                                    anchorTileEntity.inventory.setStackInSlot(i, ItemStack.EMPTY);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    inventory.setStackInSlot(0, ItemStack.EMPTY);
+                                    world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.1,pos.getZ()+0.5, outputStack));
+                                }
+                            }
+                        }
                     }
                 }
             }
