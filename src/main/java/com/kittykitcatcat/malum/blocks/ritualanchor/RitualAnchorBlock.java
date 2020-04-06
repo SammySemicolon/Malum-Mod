@@ -59,39 +59,30 @@ public class RitualAnchorBlock extends Block
                 {
                     RitualAnchorTileEntity ritualAnchorTileEntity = (RitualAnchorTileEntity) worldIn.getTileEntity(pos);
                     ItemStack heldItem = player.getHeldItem(handIn);
-                    if (player.isCrouching())
+                    if (heldItem.isEmpty())
                     {
-                        if (heldItem.isEmpty())
+                        if (!ritualAnchorTileEntity.inventory.getStackInSlot(0).isEmpty())
                         {
-                            for (int i = ritualAnchorTileEntity.inventory.getSlots() - 1; i >= 0; i--)
-                            {
-                                if (!ritualAnchorTileEntity.inventory.getStackInSlot(i).isEmpty())
-                                {
-                                    MalumHelper.giveItemStackToPlayer(player, ritualAnchorTileEntity.inventory.getStackInSlot(i));
-                                    MalumHelper.setStackInTEInventory(ritualAnchorTileEntity.inventory, ItemStack.EMPTY, i);
-                                    return ActionResultType.SUCCESS;
-                                }
-                            }
+                            MalumHelper.giveItemStackToPlayer(player, ritualAnchorTileEntity.inventory.getStackInSlot(0));
+                            MalumHelper.setStackInTEInventory(ritualAnchorTileEntity.inventory, ItemStack.EMPTY, 0);
+                            return ActionResultType.SUCCESS;
                         }
                     }
                     else
                     {
-                        for (int i = 0; i < ritualAnchorTileEntity.inventory.getSlots(); i++)
+                        if (ritualAnchorTileEntity.inventory.isItemValid(0, heldItem))
                         {
-                            if (ritualAnchorTileEntity.inventory.isItemValid(i, heldItem))
+                            ItemStack inputItem = ritualAnchorTileEntity.getInputStack(ritualAnchorTileEntity.inventory, 0);
+                            if (inputItem.isEmpty())
                             {
-                                ItemStack inputItem = ritualAnchorTileEntity.getInputStack(ritualAnchorTileEntity.inventory, i);
-                                if (inputItem.isEmpty())
-                                {
-                                    ItemStack newItem = heldItem.copy();
-                                    newItem.setCount(1);
-                                    MalumHelper.setStackInTEInventory(ritualAnchorTileEntity.inventory, newItem, i);
-                                    updateState(worldIn, state, pos);
-                                    updateState(worldIn, state, pos.down());
-                                    heldItem.setCount(heldItem.getCount() - 1);
-                                    player.swingArm(handIn);
-                                    return ActionResultType.SUCCESS;
-                                }
+                                ItemStack newItem = heldItem.copy();
+                                newItem.setCount(1);
+                                MalumHelper.setStackInTEInventory(ritualAnchorTileEntity.inventory, newItem, 0);
+                                updateState(worldIn, state, pos);
+                                updateState(worldIn, state, pos.down());
+                                heldItem.setCount(heldItem.getCount() - 1);
+                                player.swingArm(handIn);
+                                return ActionResultType.SUCCESS;
                             }
                         }
                     }

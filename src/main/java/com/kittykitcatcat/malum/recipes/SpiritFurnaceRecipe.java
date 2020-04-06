@@ -3,50 +3,43 @@ package com.kittykitcatcat.malum.recipes;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 public class SpiritFurnaceRecipe
 {
 
-    private Item inputItem;
-    private Item outputItem;
-    private Item sideItem;
-    private int outputCount;
+    private ItemStack inputItem;
+    private ItemStack outputItem;
+    private ItemStack sideItem;
     private int burnTime;
 
-    public SpiritFurnaceRecipe(Item inputItem, Item outputItem, int outputCount, int burnTime)
+    public SpiritFurnaceRecipe(ItemStack inputItem, ItemStack outputItem, int burnTime)
     {
         this.inputItem = inputItem;
         this.outputItem = outputItem;
-        this.outputCount = outputCount;
         this.burnTime = burnTime;
     }
 
-    public SpiritFurnaceRecipe(Item inputItem, Item outputItem, Item sideItem, int outputCount, int burnTime)
+    public SpiritFurnaceRecipe(ItemStack inputItem, ItemStack outputItem, ItemStack sideItem, int burnTime)
     {
         this.inputItem = inputItem;
         this.outputItem = outputItem;
         this.sideItem = sideItem;
-        this.outputCount = outputCount;
         this.burnTime = burnTime;
     }
 
-    public Item getInputItem()
+    public ItemStack getInputItem()
     {
         return inputItem;
     }
 
-    public Item getOutputItem()
+    public ItemStack getOutputItem()
     {
         return outputItem;
     }
 
-    public int getOutputCount()
-    {
-        return outputCount;
-    }
-
-    public Item getSideItem()
+    public ItemStack getSideItem()
     {
         return sideItem;
     }
@@ -58,11 +51,13 @@ public class SpiritFurnaceRecipe
 
     public static void initRecipes()
     {
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.QUARTZ, ModItems.enchanted_quartz, ModItems.runic_ash, 1, 3200));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.DIAMOND, ModItems.vacant_gemstone, ModItems.runic_ash, 1, 1600));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.IRON_INGOT, ModItems.unrefined_spirited_steel, ModItems.runic_ash, 1, 800));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.GOLD_INGOT, ModItems.transmissive_ingot, ModItems.runic_ash, 1, 400));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.STONE, ModItems.spirit_stone, 1, 100));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.OBSIDIAN, ModItems.dark_spirit_stone, 1, 6400));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.QUARTZ), new ItemStack(ModItems.enchanted_quartz), new ItemStack(ModItems.runic_ash), 3200));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.DIAMOND), new ItemStack(ModItems.vacant_gemstone), new ItemStack(ModItems.runic_ash), 1600));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.spirited_steel_ingot), new ItemStack(ModItems.runic_ash), 800));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.GOLD_INGOT), new ItemStack(ModItems.transmissive_ingot), new ItemStack(ModItems.runic_ash),  400));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.STONE), new ItemStack(ModItems.spirit_stone), 100));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.OBSIDIAN), new ItemStack(ModItems.dark_spirit_stone),  6400));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.ENDER_PEARL), new ItemStack(ModItems.stygian_pearl),  6400));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.NETHER_STAR), new ItemStack(ModItems.cursed_nebulous),  64000));
     }
 }

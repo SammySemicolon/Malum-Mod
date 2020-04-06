@@ -112,9 +112,11 @@ public class CapabilityData
 
     public void saveNBTData(CompoundNBT compound)
     {
+        compound.putBoolean("husk", isHusk);
     }
 
     public void loadNBTData(CompoundNBT compound)
     {
+        isHusk = compound.getBoolean("husk");
     }
 }

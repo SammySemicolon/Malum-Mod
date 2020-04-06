@@ -14,32 +14,40 @@ import java.util.List;
 public class SpiritInfusionRecipe
 {
     Item catalyst;
-    List<RitualAnchorInput> items = new ArrayList<>();
+    List<Item> items = new ArrayList<>();
     int infusionTime;
     SpiritData data;
 
     ItemStack outputStack;
     ISpiritInfusionResult infusionResult;
 
-    public SpiritInfusionRecipe(Item catalyst, RitualAnchorInput input1, RitualAnchorInput input2, RitualAnchorInput input3, RitualAnchorInput input4, ItemStack outputStack, int infusionTime, SpiritData data)
+    public SpiritInfusionRecipe(Item catalyst, Item input1, Item input2, Item input3, Item input4, Item input5, Item input6, Item input7, Item input8, ItemStack outputStack, int infusionTime, SpiritData data)
     {
         this.catalyst = catalyst;
         items.add(input1);
         items.add(input2);
         items.add(input3);
         items.add(input4);
+        items.add(input5);
+        items.add(input6);
+        items.add(input7);
+        items.add(input8);
         this.infusionTime = infusionTime;
         this.outputStack = outputStack;
         this.data = data;
     }
 
-    public SpiritInfusionRecipe(Item catalyst, RitualAnchorInput input1, RitualAnchorInput input2, RitualAnchorInput input3, RitualAnchorInput input4, ItemStack outputStack, ISpiritInfusionResult infusionResult, int infusionTime, SpiritData data)
+    public SpiritInfusionRecipe(Item catalyst, Item input1, Item input2, Item input3, Item input4, Item input5, Item input6, Item input7, Item input8,  ItemStack outputStack, ISpiritInfusionResult infusionResult, int infusionTime, SpiritData data)
     {
         this.catalyst = catalyst;
         items.add(input1);
         items.add(input2);
         items.add(input3);
         items.add(input4);
+        items.add(input5);
+        items.add(input6);
+        items.add(input7);
+        items.add(input8);
         this.infusionTime = infusionTime;
         this.outputStack = outputStack;
         this.data = data;
@@ -65,7 +73,7 @@ public class SpiritInfusionRecipe
     {
         return outputStack;
     }
-    public List<RitualAnchorInput> getInputs()
+    public List<Item> getItems()
     {
         return items;
     }
@@ -78,11 +86,15 @@ public class SpiritInfusionRecipe
     public static void initRecipes()
     {
         ModRecipes.addSpiritInfusionRecipe(new SpiritInfusionRecipe(
+                Items.APPLE,
                 Items.DIAMOND,
-                new RitualAnchorInput(Items.ACACIA_LOG, Items.ACACIA_LOG, Items.ACACIA_LOG, Items.ACACIA_LOG),
-                new RitualAnchorInput(Items.ACACIA_PLANKS, Items.ACACIA_PLANKS, Items.ACACIA_PLANKS, Items.ACACIA_PLANKS),
-                new RitualAnchorInput(Items.ACACIA_FENCE, Items.ACACIA_FENCE, Items.ACACIA_FENCE, Items.ACACIA_FENCE),
-                new RitualAnchorInput(Items.ACACIA_SAPLING, Items.ACACIA_SAPLING, Items.ACACIA_SAPLING, Items.ACACIA_SAPLING),
+                Items.DIAMOND,
+                Items.DIAMOND,
+                Items.DIAMOND,
+                Items.DIAMOND,
+                Items.DIAMOND,
+                Items.DIAMOND,
+                Items.DIAMOND,
                 new ItemStack(Items.NETHER_STAR),
                 new CarryOverNBTResult(),
                 40,

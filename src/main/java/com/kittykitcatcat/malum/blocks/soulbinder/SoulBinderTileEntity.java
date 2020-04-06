@@ -5,10 +5,10 @@ import com.kittykitcatcat.malum.blocks.ritualanchor.RitualAnchorTileEntity;
 import com.kittykitcatcat.malum.blocks.souljar.SoulJarTileEntity;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import com.kittykitcatcat.malum.recipes.RitualAnchorInput;
 import com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
@@ -17,10 +17,8 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -101,10 +99,10 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
         if (!inventory.getStackInSlot(0).isEmpty())
         {
             ItemStack stack = inventory.getStackInSlot(0);
-            List<RitualAnchorInput> anchorInputs = findList(pos, world);
+            List<Item> anchorInputs = findList(pos, world);
             for (SpiritInfusionRecipe recipe : ModRecipes.spiritInfusionRecipes)
             {
-                if (RitualAnchorInput.isEqualList(anchorInputs, recipe.getInputs()))
+                if (anchorInputs.equals(recipe.getItems()))
                 {
                     if (stack.getItem().equals(recipe.getCatalyst()))
                     {
@@ -133,10 +131,8 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                                             if (world.getTileEntity(anchorPos) instanceof RitualAnchorTileEntity)
                                             {
                                                 RitualAnchorTileEntity anchorTileEntity = (RitualAnchorTileEntity) world.getTileEntity(anchorPos);
-                                                for (int i = 0; i<4;i++)
-                                                {
-                                                    anchorTileEntity.inventory.setStackInSlot(i, ItemStack.EMPTY);
-                                                }
+
+                                                anchorTileEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                                             }
                                         }
                                     }

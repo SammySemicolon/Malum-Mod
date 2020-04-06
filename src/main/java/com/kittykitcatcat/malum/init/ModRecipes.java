@@ -2,11 +2,11 @@ package com.kittykitcatcat.malum.init;
 
 
 import com.kittykitcatcat.malum.recipes.BlockTransmutationRecipe;
-import com.kittykitcatcat.malum.recipes.RitualAnchorInput;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -37,7 +37,7 @@ public class ModRecipes
         }
     }
 
-    public static SpiritInfusionRecipe getSpiritInfusionRecipe(List<RitualAnchorInput> items, Item catalyst)
+    public static SpiritInfusionRecipe getSpiritInfusionRecipe(List<Item> items, Item catalyst)
     {
         if (catalyst != null)
         {
@@ -45,7 +45,7 @@ public class ModRecipes
             {
                 if (catalyst.equals(recipe.getCatalyst()))
                 {
-                    if (RitualAnchorInput.isEqualList(recipe.getInputs(), items))
+                    if (items.equals(recipe.getItems()))
                     {
                         return recipe;
                     }
@@ -105,13 +105,13 @@ public class ModRecipes
         }
     }
 
-    public static SpiritFurnaceRecipe getSpiritFurnaceRecipe(Item item)
+    public static SpiritFurnaceRecipe getSpiritFurnaceRecipe(ItemStack item)
     {
-        if (item != null)
+        if (item.isEmpty())
         {
             for (SpiritFurnaceRecipe recipe : spiritFurnaceRecipes)
             {
-                if (recipe.getInputItem().equals(item))
+                if (recipe.getInputItem().getItem().equals(item.getItem()))
                 {
                     return recipe;
                 }

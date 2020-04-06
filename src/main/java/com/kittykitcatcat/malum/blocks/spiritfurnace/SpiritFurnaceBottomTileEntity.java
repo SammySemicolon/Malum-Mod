@@ -22,6 +22,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -158,12 +159,10 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
             }
         }
     }
-    public void output(World world, BlockPos pos, Item item, int count)
+    public void output(World world, BlockPos pos, ItemStack stack)
     {
         Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
         Vec3d entityPos = new Vec3d(pos).add(0.5,1.5,0.5).subtract(direction.getX() * 0.8f, 0, direction.getZ() * 0.8f);
-        ItemStack stack = new ItemStack(item);
-        stack.setCount(count);
         ItemEntity entity = new ItemEntity(world,entityPos.x,entityPos.y,entityPos.z, stack);
         entity.setMotion(-direction.getX() * 0.1f, 0.05f, -direction.getZ() * 0.1f);
         world.addEntity(entity);
@@ -195,7 +194,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         }
         //SMELTING
         ItemStack inputStack = getItemStack(spiritFuranceSlotEnum.input);
-        if (ModRecipes.getSpiritFurnaceRecipe(inputStack.getItem()) != null)
+        if (ModRecipes.getSpiritFurnaceRecipe(inputStack) != null)
         {
             if (burnTime <= 0 && getItemStack(spiritFuranceSlotEnum.fuel).getItem().equals(ModItems.spirit_charcoal))
             {
@@ -204,7 +203,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
             }
             if (burnTime > 0)
             {
-                SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputStack.getItem());
+                SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputStack);
                 if (!isSmelting)
                 {
                     isSmelting = true;
@@ -214,7 +213,14 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
                 if (burnProgress >= recipe.getBurnTime())
                 {
                     MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.input.slot);
-                    output(world, pos, recipe.getOutputItem(), recipe.getOutputCount());
+                    output(world, pos, recipe.getOutputItem());
+                    if (recipe.getSideItem() != null)
+                    {
+                        if (MathHelper.nextInt(world.rand, 0, 4) == 0)
+                        {
+                            output(world, pos, recipe.getSideItem());
+                        }
+                    }
                     burnProgress = 0;
                 }
             }

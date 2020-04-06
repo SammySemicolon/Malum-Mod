@@ -2,6 +2,8 @@ package com.kittykitcatcat.malum.init;
 
 import com.google.common.base.Preconditions;
 import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.items.ItemSpiritwoodStave;
+import com.kittykitcatcat.malum.items.RunicDagger;
 import com.kittykitcatcat.malum.items.TransmutationGemItem;
 import com.kittykitcatcat.malum.items.armor.ItemArmorTier1;
 import com.kittykitcatcat.malum.items.armor.ItemArmorTier2;
@@ -10,10 +12,7 @@ import com.kittykitcatcat.malum.items.curios.PhantomWingsCurioItem;
 import com.kittykitcatcat.malum.items.curios.ShulkerOnHealCurioItem;
 import com.kittykitcatcat.malum.items.tools.*;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,15 +50,25 @@ public class ModItems
         }
     }
     //MATERIALS
+    public static Item spirit_charcoal;
     public static Item spirit_stone;
     public static Item dark_spirit_stone;
-    public static Item enchanted_quartz;
+    public static Item spirited_steel_ingot;
+    public static Item spirited_steel_nugget;
     public static Item transmissive_ingot;
+    public static Item transmissive_nugget;
+    public static Item enchanted_quartz;
     public static Item vacant_gemstone;
-    public static Item unrefined_spirited_steel;
+    public static Item stygian_pearl;
     public static Item runic_ash;
-    public static Item spirit_charcoal;
     public static Item royal_steel_ingot;
+    public static Item arcane_apparatus;
+    public static Item cursed_nebulous;
+    public static Item stellar_apparatus;
+
+    public static Item runic_dagger;
+    public static Item spiritwood_stave;
+    public static Item block_transmutation_tool;
     //TOOLS
 
     public static Item royal_steel_hoe;
@@ -71,6 +80,7 @@ public class ModItems
     public static Item royal_steel_leggings;
     public static Item royal_steel_chestplate;
     public static Item royal_steel_helm;
+
     public static Item soul_steel_hoe;
     public static Item soul_steel_axe;
     public static Item soul_steel_sword;
@@ -81,20 +91,17 @@ public class ModItems
     public static Item soul_steel_chestplate;
     public static Item soul_steel_helm;
 
-    public static Item spiritwood_stave;
-    public static Item simple_dagger;
-    public static Item block_transmutation_tool;
     //CURIOS
     public static Item phantom_wings_curio;
     public static Item crossbow_reload_curio;
     public static Item shulker_on_heal_curio;
     //FUNCTIONAL BLOCKS
 
-    public static Item spirit_bellows;
     public static Item spirit_furnace;
+    public static Item spirit_bellows;
+    public static Item soul_jar;
     public static Item soul_binder;
     public static Item ritual_anchor;
-    public static Item soul_jar;
     //BLOCKS
     public static Item wooden_planks;
     public static Item wooden_planks_slab;
@@ -131,20 +138,26 @@ public class ModItems
         final IForgeRegistry<Item> registry = event.getRegistry();
         registry.registerAll(
 
-                spirit_bellows = setup(new BlockItem(ModBlocks.spirit_bellows, basic_properties), "spirit_bellows"),
-                soul_binder = setup(new BlockItem(ModBlocks.soul_binder, basic_properties), "soul_binder"),
-                ritual_anchor = setup(new BlockItem(ModBlocks.ritual_anchor, basic_properties), "ritual_anchor"),
-                soul_jar = setup(new BlockItem(ModBlocks.soul_jar, basic_properties), "soul_jar"),
 
+                spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
                 spirit_stone = setup(new BlockItem(ModBlocks.spirit_stone, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
-                enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
+                spirited_steel_ingot = setup(new Item(basic_properties), "spirited_steel_ingot"),
+                spirited_steel_nugget = setup(new Item(basic_properties), "spirited_steel_nugget"),
                 transmissive_ingot = setup(new Item(basic_properties), "transmissive_ingot"),
+                transmissive_nugget = setup(new Item(basic_properties), "transmissive_nugget"),
+                enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
                 vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
-                unrefined_spirited_steel = setup(new Item(basic_properties), "unrefined_spirited_steel"),
                 runic_ash = setup(new Item(basic_properties), "runic_ash"),
-                spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
+                stygian_pearl = setup(new Item(basic_properties), "stygian_pearl"),
                 royal_steel_ingot = setup(new Item(basic_properties), "royal_steel_ingot"),
+                arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
+                cursed_nebulous = setup(new Item(basic_properties), "cursed_nebulous"),
+                stellar_apparatus = setup(new Item(basic_properties), "stellar_apparatus"),
+
+                runic_dagger = setup(new RunicDagger(ItemTier.STONE, 0,0.6f,tool_properties), "runic_dagger"),
+                spiritwood_stave = setup(new ItemSpiritwoodStave(tool_properties), "spiritwood_stave"),
+                block_transmutation_tool = setup(new TransmutationGemItem(tool_properties), "block_transmutation_tool"),
 
                 royal_steel_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, tool_properties), "royal_steel_hoe"),
                 royal_steel_axe = setup(new ModAxeItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_axe"),
@@ -168,16 +181,15 @@ public class ModItems
                 soul_steel_chestplate = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.CHEST, tool_properties), "soul_steel_chestplate"),
                 soul_steel_helm = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_steel_helm"),
 
-
-                spiritwood_stave = setup(new ItemSpiritwoodStave(tool_properties), "spiritwood_stave"),
-                simple_dagger = setup(new Item(tool_properties), "simple_dagger"),
-                block_transmutation_tool = setup(new TransmutationGemItem(tool_properties), "block_transmutation_tool"),
-
                 phantom_wings_curio = setup(new PhantomWingsCurioItem(tool_properties), "phantom_wings_curio"),
                 crossbow_reload_curio = setup(new CrossbowReloadCurioItem(tool_properties), "crossbow_reload_curio"),
                 shulker_on_heal_curio = setup(new ShulkerOnHealCurioItem(tool_properties), "shulker_on_heal_curio"),
 
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
+                spirit_bellows = setup(new BlockItem(ModBlocks.spirit_bellows, basic_properties), "spirit_bellows"),
+                soul_jar = setup(new BlockItem(ModBlocks.soul_jar, basic_properties), "soul_jar"),
+                ritual_anchor = setup(new BlockItem(ModBlocks.ritual_anchor, basic_properties), "ritual_anchor"),
+                soul_binder = setup(new BlockItem(ModBlocks.soul_binder, basic_properties), "soul_binder"),
 
                 wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "wooden_planks"),
                 wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, basic_properties), "wooden_planks_slab"),

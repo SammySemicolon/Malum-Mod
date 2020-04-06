@@ -49,7 +49,7 @@ public class RitualAnchorTileEntity extends TileEntity implements ITickableTileE
         active = compound.getBoolean("active");
         infusionTime = compound.getInt("infusionTime");
     }
-    public ItemStackHandler inventory = new ItemStackHandler(4)
+    public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
         public int getSlotLimit(int slot)

@@ -1,4 +1,4 @@
-package com.kittykitcatcat.malum.integration.jei.blockTransmutation;
+package com.kittykitcatcat.malum.integration.jei.spiritFurnace;
 
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModItems;
@@ -11,10 +11,16 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnaceRecipe>
 {
@@ -91,26 +97,32 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
     @Override
     public void setIngredients(SpiritFurnaceRecipe spiritFurnaceRecipe, IIngredients iIngredients)
     {
-        iIngredients.setInput(VanillaTypes.ITEM, new ItemStack(spiritFurnaceRecipe.getInputItem()));
-        iIngredients.setOutput(VanillaTypes.ITEM, new ItemStack(spiritFurnaceRecipe.getOutputItem()));
+        iIngredients.setInput(VanillaTypes.ITEM, spiritFurnaceRecipe.getInputItem());
+        List<ItemStack> list = new ArrayList<>();
+        if (spiritFurnaceRecipe.getSideItem() != null)
+        {
+            list.add(spiritFurnaceRecipe.getSideItem());
+        }
+        list.add(spiritFurnaceRecipe.getOutputItem());
+        iIngredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(list.stream().map(ItemStack::copy).filter(s -> !s.isEmpty()).collect(Collectors.toList())));
     }
 
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritFurnaceRecipe spiritFurnaceRecipe, IIngredients iIngredients)
     {
         iRecipeLayout.getItemStacks().init(0, true, 3, 17);
-        iRecipeLayout.getItemStacks().set(0, new ItemStack(spiritFurnaceRecipe.getInputItem()));
+        iRecipeLayout.getItemStacks().set(0, spiritFurnaceRecipe.getInputItem());
         if (spiritFurnaceRecipe.getSideItem() != null)
         {
             iRecipeLayout.getItemStacks().init(2, true, 82, 5);
-            iRecipeLayout.getItemStacks().set(2, new ItemStack(spiritFurnaceRecipe.getOutputItem()));
+            iRecipeLayout.getItemStacks().set(2, spiritFurnaceRecipe.getOutputItem());
             iRecipeLayout.getItemStacks().init(3, true, 82, 28);
-            iRecipeLayout.getItemStacks().set(3, new ItemStack(spiritFurnaceRecipe.getSideItem()));
+            iRecipeLayout.getItemStacks().set(3, spiritFurnaceRecipe.getSideItem());
         }
         else
         {
             iRecipeLayout.getItemStacks().init(2, true, 82, 17);
-            iRecipeLayout.getItemStacks().set(2, new ItemStack(spiritFurnaceRecipe.getOutputItem()));
+            iRecipeLayout.getItemStacks().set(2, spiritFurnaceRecipe.getOutputItem());
         }
     }
 }

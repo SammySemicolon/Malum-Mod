@@ -3,7 +3,7 @@ package com.kittykitcatcat.malum.integration.jei;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
-import com.kittykitcatcat.malum.integration.jei.blockTransmutation.SpiritFurnaceRecipeCategory;
+import com.kittykitcatcat.malum.integration.jei.spiritFurnace.SpiritFurnaceRecipeCategory;
 import com.kittykitcatcat.malum.integration.jei.blockTransmutation.TransmutationRecipeCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;

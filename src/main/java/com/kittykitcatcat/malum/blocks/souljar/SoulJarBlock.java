@@ -1,25 +1,18 @@
 package com.kittykitcatcat.malum.blocks.souljar;
 
-import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.blocks.ritualanchor.RitualAnchorTileEntity;
-import com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderRenderer;
 import com.kittykitcatcat.malum.init.ModBlocks;
-import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import com.kittykitcatcat.malum.items.tools.ItemSpiritwoodStave;
+import com.kittykitcatcat.malum.items.ItemSpiritwoodStave;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -32,7 +25,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import static com.kittykitcatcat.malum.MalumHelper.updateState;
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SoulJarBlock extends Block

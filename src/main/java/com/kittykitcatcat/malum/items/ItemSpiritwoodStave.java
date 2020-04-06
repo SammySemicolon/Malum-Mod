@@ -1,4 +1,4 @@
-package com.kittykitcatcat.malum.items.tools;
+package com.kittykitcatcat.malum.items;
 
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.MalumMod;
@@ -97,7 +97,7 @@ public class ItemSpiritwoodStave extends Item
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (player.getHeldItemMainhand().getItem().equals(ModItems.spiritwood_stave))
             {
-                if (findEntity(player) == null)
+                if (findEntity(player) == null || findEntity(player) != null && isEntityValid(findEntity(player)))
                 {
                     event.setCanceled(true);
                 }

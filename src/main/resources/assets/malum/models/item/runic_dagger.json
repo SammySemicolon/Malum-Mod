@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "malum:items/simple_dagger"
+    "layer0": "malum:items/runic_dagger"
   }
 }
