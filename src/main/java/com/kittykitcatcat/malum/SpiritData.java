@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -113,11 +114,11 @@ public class SpiritData
             {
                 CompoundNBT nbt = stack.getTag();
                 SpiritData data = new SpiritData(nbt.getString("entityRegistryName"),nbt.getFloat("purity"));
-                String name = "malum.tooltip.name.desc";
-                String purity = "malum.tooltip.purity.desc";
                 ArrayList<ITextComponent> arrayList = new ArrayList<>();
-                arrayList.add(new TranslationTextComponent(name).appendSibling(new StringTextComponent(" " + data.getType().get().getName().getString())));
-                arrayList.add(new TranslationTextComponent(purity).appendSibling(new StringTextComponent(" " + data.purity)));
+                arrayList.add(new TranslationTextComponent("malum.tooltip.name.desc").applyTextStyle(TextFormatting.GRAY)
+                        .appendSibling(new StringTextComponent(" " + data.getType().get().getName().getString()).applyTextStyle(TextFormatting.DARK_PURPLE)));
+                arrayList.add(new TranslationTextComponent("malum.tooltip.purity.desc").applyTextStyle(TextFormatting.GRAY)
+                        .appendSibling(new StringTextComponent(" " + data.purity).applyTextStyle(TextFormatting.DARK_PURPLE)));
                 makeTooltip(stack,worldIn,tooltip,flagIn,arrayList);
             }
         }

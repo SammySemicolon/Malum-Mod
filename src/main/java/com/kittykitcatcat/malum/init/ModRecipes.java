@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.init;
 
 
+import com.kittykitcatcat.malum.recipes.BlockCorruptionRecipe;
 import com.kittykitcatcat.malum.recipes.BlockTransmutationRecipe;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe;
@@ -25,6 +26,7 @@ public class ModRecipes
         SpiritFurnaceRecipe.initRecipes();
         BlockTransmutationRecipe.initRecipes();
         SpiritInfusionRecipe.initRecipes();
+        BlockCorruptionRecipe.initRecipes();
     }
 
     public static List<SpiritInfusionRecipe> spiritInfusionRecipes = new ArrayList<>();
@@ -112,6 +114,31 @@ public class ModRecipes
             for (SpiritFurnaceRecipe recipe : spiritFurnaceRecipes)
             {
                 if (recipe.getInputItem().getItem().equals(item.getItem()))
+                {
+                    return recipe;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static List<BlockCorruptionRecipe> blockCorruptionRecipes = new ArrayList<>();
+
+    public static void addBlockCorruptionRecipe(BlockCorruptionRecipe recipe)
+    {
+        if (!blockCorruptionRecipes.contains(recipe))
+        {
+            blockCorruptionRecipes.add(recipe);
+        }
+    }
+
+    public static BlockCorruptionRecipe getBlockCorruptionRecipe(BlockState sourceBlock)
+    {
+        if (sourceBlock != null)
+        {
+            for (BlockCorruptionRecipe recipe : blockCorruptionRecipes)
+            {
+                if (recipe.getBlock() == sourceBlock.getBlock())
                 {
                     return recipe;
                 }

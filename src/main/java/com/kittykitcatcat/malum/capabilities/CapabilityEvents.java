@@ -17,7 +17,7 @@ public class CapabilityEvents
     @SubscribeEvent
     public static void onEntityConstructing(AttachCapabilitiesEvent<Entity> event)
     {
-        if (event.getObject() instanceof LivingEntity)
+        if (event.getObject() instanceof LivingEntity || event.getObject() instanceof PlayerEntity)
         {
             if (!event.getObject().getCapability(CapabilityValueGetter.CAPABILITY).isPresent())
             {

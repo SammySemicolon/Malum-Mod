@@ -5,6 +5,7 @@ import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.integration.jei.spiritFurnace.SpiritFurnaceRecipeCategory;
 import com.kittykitcatcat.malum.integration.jei.blockTransmutation.TransmutationRecipeCategory;
+import com.kittykitcatcat.malum.integration.jei.spiritInfusion.SpiritInfusionRecipeCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -24,9 +25,9 @@ public class JEIHandler implements IModPlugin
     public void registerCategories(IRecipeCategoryRegistration registry)
     {
         registry.addRecipeCategories(
-            new TransmutationRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
-        new SpiritFurnaceRecipeCategory(registry.getJeiHelpers().getGuiHelper())
-
+        new TransmutationRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+        new SpiritFurnaceRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+        new SpiritInfusionRecipeCategory(registry.getJeiHelpers().getGuiHelper())
         );
     }
 
@@ -35,6 +36,7 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipes(ModRecipes.blockTransmutationRecipes, TransmutationRecipeCategory.UID);
         registry.addRecipes(ModRecipes.spiritFurnaceRecipes, SpiritFurnaceRecipeCategory.UID);
+        registry.addRecipes(ModRecipes.spiritInfusionRecipes, SpiritInfusionRecipeCategory.UID);
     }
 
     @Override
@@ -42,6 +44,7 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipeCatalyst(new ItemStack(ModItems.block_transmutation_tool), TransmutationRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ModItems.spirit_furnace), SpiritFurnaceRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ModItems.soul_binder), SpiritInfusionRecipeCategory.UID);
     }
 
     @Nonnull

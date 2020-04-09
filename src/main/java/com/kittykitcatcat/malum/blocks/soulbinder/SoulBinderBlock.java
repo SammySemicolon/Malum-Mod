@@ -125,6 +125,10 @@ public class SoulBinderBlock extends Block
                 {
                     anchorItems.add(anchorTileEntity.inventory.getStackInSlot(0).getItem());
                 }
+                else
+                {
+                    anchorItems.add(Items.AIR);
+                }
             }
         }
         return anchorItems;

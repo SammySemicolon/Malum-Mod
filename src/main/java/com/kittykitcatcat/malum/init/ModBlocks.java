@@ -30,7 +30,11 @@ public class ModBlocks
     public static Block soul_binder;
     public static Block ritual_anchor;
     public static Block soul_jar;
+
     //BUILDING
+    public static Block blighted_dirt;
+    public static Block blighted_grass;
+
     public static Block spirit_stone;
     public static Block dark_spirit_stone;
 
@@ -80,6 +84,9 @@ public class ModBlocks
         soul_binder = registerBlock(registry, new SoulBinderBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "soul_binder");
         ritual_anchor = registerBlock(registry, new RitualAnchorBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "ritual_anchor");
         soul_jar = registerBlock(registry, new SoulJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().lightValue(1)), "soul_jar");
+
+        blighted_dirt = registerBlock(registry, new Block(Block.Properties.from(Blocks.DIRT)), "blighted_dirt");
+        blighted_grass = registerBlock(registry, new Block(Block.Properties.from(Blocks.GRASS_BLOCK)), "blighted_grass");
 
         smooth_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.SMOOTH_STONE)), "smooth_stone_stairs");
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");

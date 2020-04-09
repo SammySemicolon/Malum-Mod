@@ -54,11 +54,10 @@ public class RitualAnchorRenderer extends TileEntityRenderer<RitualAnchorTileEnt
                     {
                         break;
                     }
-                    Vec3d pos = getItemPositions(blockEntity.getWorld().getGameTime(), blockEntity.inventory.getSlots(), a);
                     matrixStack.push();
-                    matrixStack.translate(pos.x, pos.y, pos.z);
+                    matrixStack.translate(0.5,1.2,0.5);
                     matrixStack.rotate(Vector3f.YP.rotationDegrees(a * 10f + blockEntity.getWorld().getGameTime() * 3));
-                    matrixStack.scale(0.25f, 0.25f, 0.25f);
+                    matrixStack.scale(0.5f, 0.5f, 0.5f);
                     itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
                     matrixStack.pop();
                 }

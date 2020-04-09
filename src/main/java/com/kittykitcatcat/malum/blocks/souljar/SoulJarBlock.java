@@ -2,7 +2,7 @@ package com.kittykitcatcat.malum.blocks.souljar;
 
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import com.kittykitcatcat.malum.items.ItemSpiritwoodStave;
+import com.kittykitcatcat.malum.items.SpiritwoodStaveItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.RenderType;
@@ -61,7 +61,7 @@ public class SoulJarBlock extends Block
                 {
                     SoulJarTileEntity tileEntity = (SoulJarTileEntity) worldIn.getTileEntity(pos);
                     ItemStack heldItem = player.getHeldItem(handIn);
-                    if (heldItem.getItem() instanceof ItemSpiritwoodStave)
+                    if (heldItem.getItem() instanceof SpiritwoodStaveItem)
                     {
                         if (heldItem.getTag() != null)
                         {
