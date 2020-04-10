@@ -32,24 +32,13 @@ public class CapabilityValueGetter
                 note.setHusk(isHusk));
     }
 
-    public static boolean getIsTeleporting(PlayerEntity player)
+    public static float getTeleportChargeTime(PlayerEntity player)
     {
-        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getTeleporting).orElse(false);
-    }
-
-    public static double getTeleportChargeTime(PlayerEntity player)
-    {
-        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getTeleortChargeTime).orElse(0d);
-    }
-
-    public static void setIsTeleporting(PlayerEntity playerEntity, boolean isTeleporting)
-    {
-        playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note ->
-            note.setIsTeleporting(isTeleporting));
+        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getTeleortChargeTime).orElse(0f);
     }
 
 
-    public static void setTeleportChargeTime(PlayerEntity playerEntity, double teleportChargeTime)
+    public static void setTeleportChargeTime(PlayerEntity playerEntity, float teleportChargeTime)
     {
         playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note ->
             note.setTeleportChargeTime(teleportChargeTime));

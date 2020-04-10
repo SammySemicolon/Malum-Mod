@@ -86,8 +86,6 @@ public class SoulBinderBlock extends Block
                     {
                         for (SpiritInfusionRecipe recipe : ModRecipes.spiritInfusionRecipes)
                         {
-                            MalumMod.LOGGER.info("1111111111" + recipe.getItems());
-                            MalumMod.LOGGER.info("2222222222" + items);
                             if (items.equals(recipe.getItems()))
                             {
                                 if (heldItem.getItem().equals(recipe.getCatalyst()))

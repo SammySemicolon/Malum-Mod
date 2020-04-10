@@ -162,4 +162,17 @@ public class MalumHelper
         }
         return t;
     }
+
+    public static Vec3d tryTeleportPlayer(PlayerEntity playerEntity, Vec3d direction, Vec3d newPosition, int i)
+    {
+        Vec3d cachedPosition = playerEntity.getPositionVec();
+        Vec3d testPosition = (playerEntity.getPositionVec()).add(direction.mul(i, i, i));
+        playerEntity.teleportKeepLoaded(testPosition.x, testPosition.y, testPosition.z);
+        if (!playerEntity.world.checkBlockCollision(playerEntity.getBoundingBox()))
+        {
+            newPosition = testPosition;
+        }
+        playerEntity.teleportKeepLoaded(cachedPosition.x, cachedPosition.y, cachedPosition.z);
+        return newPosition;
+    }
 }

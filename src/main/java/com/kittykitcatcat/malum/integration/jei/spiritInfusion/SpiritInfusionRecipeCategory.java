@@ -104,42 +104,42 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     {
         if (spiritFurnaceRecipe.getItems().get(0) != Items.AIR)
         {
-            iRecipeLayout.getItemStacks().init(0, true, 53, 6);
+            iRecipeLayout.getItemStacks().init(0, true, 77, 6);
             iRecipeLayout.getItemStacks().set(0, new ItemStack(spiritFurnaceRecipe.getItems().get(0)));
         }
         if (spiritFurnaceRecipe.getItems().get(1) != Items.AIR)
         {
-            iRecipeLayout.getItemStacks().init(1, true, 77, 6);
+            iRecipeLayout.getItemStacks().init(1, true, 101, 6);
             iRecipeLayout.getItemStacks().set(1, new ItemStack(spiritFurnaceRecipe.getItems().get(1)));
         }
         if (spiritFurnaceRecipe.getItems().get(2) != Items.AIR)
         {
-            iRecipeLayout.getItemStacks().init(2, true, 101, 6);
+            iRecipeLayout.getItemStacks().init(2, true, 101, 30);
             iRecipeLayout.getItemStacks().set(2, new ItemStack(spiritFurnaceRecipe.getItems().get(2)));
         }
         if (spiritFurnaceRecipe.getItems().get(3) != Items.AIR)
         {
-            iRecipeLayout.getItemStacks().init(3, true, 53, 30);
+            iRecipeLayout.getItemStacks().init(3, true, 101, 54);
             iRecipeLayout.getItemStacks().set(3, new ItemStack(spiritFurnaceRecipe.getItems().get(3)));
         }
         if (spiritFurnaceRecipe.getItems().get(4) != Items.AIR)
         {
-            iRecipeLayout.getItemStacks().init(4, true, 101, 54);
+            iRecipeLayout.getItemStacks().init(4, true, 77, 54);
             iRecipeLayout.getItemStacks().set(4, new ItemStack(spiritFurnaceRecipe.getItems().get(4)));
         }
         if (spiritFurnaceRecipe.getItems().get(5) != Items.AIR)
         {
-            iRecipeLayout.getItemStacks().init(5, true, 77, 54);
+            iRecipeLayout.getItemStacks().init(5, true, 53, 54);
             iRecipeLayout.getItemStacks().set(5, new ItemStack(spiritFurnaceRecipe.getItems().get(5)));
         }
         if (spiritFurnaceRecipe.getItems().get(6) != Items.AIR)
         {
-            iRecipeLayout.getItemStacks().init(6, true, 53, 54);
+            iRecipeLayout.getItemStacks().init(6, true, 53, 30);
             iRecipeLayout.getItemStacks().set(6, new ItemStack(spiritFurnaceRecipe.getItems().get(6)));
         }
         if (spiritFurnaceRecipe.getItems().get(7) != Items.AIR)
         {
-            iRecipeLayout.getItemStacks().init(7, true, 101, 30);
+            iRecipeLayout.getItemStacks().init(7, true, 53, 6);
             iRecipeLayout.getItemStacks().set(7, new ItemStack(spiritFurnaceRecipe.getItems().get(7)));
         }
         if (spiritFurnaceRecipe.getData() != null)

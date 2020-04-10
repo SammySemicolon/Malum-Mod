@@ -23,7 +23,7 @@ public class BlockTransmutationRecipe
     }
 
 
-    public static void attemptBlockTransmutation(BlockState state, World world, BlockPos pos)
+    public static boolean attemptBlockTransmutation(BlockState state, World world, BlockPos pos)
     {
         BlockTransmutationRecipe recipe = ModRecipes.getBlockTransmutationRecipe(state);
         if (recipe != null)
@@ -31,7 +31,9 @@ public class BlockTransmutationRecipe
             Block replacementBlock = recipe.getReplacementBlock();
             BlockState replacementState = replacementBlock.getDefaultState();
             setBlockStateWithExistingProperties(world, pos, replacementState);
+            return true;
         }
+        return false;
     }
 
 

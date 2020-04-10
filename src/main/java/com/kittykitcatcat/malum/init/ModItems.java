@@ -68,6 +68,7 @@ public class ModItems
     public static Item spiritwood_stave;
     public static Item block_transmutation_tool;
     public static Item ender_artifact;
+    public static Item ender_stave;
     //TOOLS
 
     public static Item royal_steel_hoe;
@@ -164,6 +165,7 @@ public class ModItems
                 spiritwood_stave = setup(new SpiritwoodStaveItem(tool_properties), "spiritwood_stave"),
                 block_transmutation_tool = setup(new TransmutationGemItem(tool_properties), "block_transmutation_tool"),
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
+                ender_stave = setup(new EnderStaveItem(tool_properties), "ender_stave"),
 
                 royal_steel_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, tool_properties), "royal_steel_hoe"),
                 royal_steel_axe = setup(new ModAxeItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_axe"),

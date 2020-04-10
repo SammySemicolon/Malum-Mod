@@ -5,18 +5,23 @@ import com.kittykitcatcat.malum.blocks.ritualanchor.RitualAnchorTileEntity;
 import com.kittykitcatcat.malum.blocks.souljar.SoulJarTileEntity;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.particles.soulharvestparticle.SoulHarvestParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.Vector3d;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -111,6 +116,23 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                             SpiritData data = SpiritData.findSpiritData(2, recipe, pos, world);
                             BlockPos jarPos = SpiritData.findBlockByData(2, data, pos, world);
                             infusionProgress++;
+
+                            for (SoulBinderBlock.anchorOffset offset : SoulBinderBlock.anchorOffset.values())
+                            {
+                                BlockPos anchorPos = pos.add(offset.offsetX, 0, offset.offsetY);
+                                if (getAnchorAt(anchorPos, world) != null)
+                                {
+                                    if (world.getTileEntity(anchorPos) instanceof RitualAnchorTileEntity)
+                                    {
+                                        RitualAnchorTileEntity anchorTileEntity = (RitualAnchorTileEntity) world.getTileEntity(anchorPos);
+                                        if (anchorTileEntity.inventory.getStackInSlot(0) != ItemStack.EMPTY)
+                                        {
+                                            Vec3d particlePos = new Vec3d(anchorPos.getX(), anchorPos.getY(), anchorPos.getZ()).add(0.5,1.2,0.5);
+                                            world.addParticle(new ItemParticleData(ParticleTypes.ITEM, anchorTileEntity.inventory.getStackInSlot(0)), particlePos.getX(), particlePos.getY(), particlePos.getZ(), 0, 0, 0);
+                                        }
+                                    }
+                                }
+                            }
                             if (infusionProgress >= recipe.getInfusionTime())
                             {
                                 if (world.getTileEntity(jarPos) instanceof SoulJarTileEntity)
@@ -131,7 +153,6 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                                             if (world.getTileEntity(anchorPos) instanceof RitualAnchorTileEntity)
                                             {
                                                 RitualAnchorTileEntity anchorTileEntity = (RitualAnchorTileEntity) world.getTileEntity(anchorPos);
-
                                                 anchorTileEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                                             }
                                         }

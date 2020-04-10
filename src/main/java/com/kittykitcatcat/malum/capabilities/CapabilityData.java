@@ -59,32 +59,20 @@ public class CapabilityData
 
     double totalFlightTime;
 
-    //ender staff
-    boolean isTeleporting;
-    double teleportChargeTime;
+    float teleportChargeTime;
 
     public CapabilityData()
     {
     }
 
     @NotNull
-    public double getTeleortChargeTime()
+    public float getTeleortChargeTime()
     {
         return teleportChargeTime;
     }
 
-    @NotNull
-    public boolean getTeleporting()
-    {
-        return isTeleporting;
-    }
 
-    public void setIsTeleporting(boolean canTeleport)
-    {
-        this.isTeleporting = canTeleport;
-    }
-
-    public void setTeleportChargeTime(double teleportChargeTime)
+    public void setTeleportChargeTime(float teleportChargeTime)
     {
         this.teleportChargeTime = teleportChargeTime;
     }
@@ -106,7 +94,6 @@ public class CapabilityData
         canFly = source.canFly;
         totalFlightTime = source.totalFlightTime;
         teleportChargeTime = source.teleportChargeTime;
-        isTeleporting = source.isTeleporting;
     }
 
 
