@@ -1,10 +1,16 @@
 package com.kittykitcatcat.malum.blocks.soulbinder;
 
+import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.SpiritData;
 import com.kittykitcatcat.malum.blocks.ritualanchor.RitualAnchorTileEntity;
 import com.kittykitcatcat.malum.blocks.souljar.SoulJarTileEntity;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.network.packets.SpiritInfusionFinishSoundPacket;
+import com.kittykitcatcat.malum.network.packets.SpiritInfusionSoundStartPacket;
+import com.kittykitcatcat.malum.network.packets.SpiritInfusionStopLoopSoundPacket;
+import com.kittykitcatcat.malum.network.packets.SpiritWhisperPacket;
+import com.kittykitcatcat.malum.particles.souleruptionparticle.SoulEruptionParticleData;
 import com.kittykitcatcat.malum.particles.soulharvestparticle.SoulHarvestParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe;
 import net.minecraft.block.BlockState;
@@ -21,9 +27,11 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -35,6 +43,7 @@ import java.util.Objects;
 
 import static com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock.findList;
 import static com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock.getAnchorAt;
+import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 
 public class SoulBinderTileEntity extends TileEntity implements ITickableTileEntity
 {
@@ -44,6 +53,7 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
     }
     public boolean active;
     public int infusionProgress;
+    BlockPos jarPos;
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
@@ -51,6 +61,9 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
         compound.put("inventory", inventory.serializeNBT());
         compound.putBoolean("active", active);
         compound.putInt("infusionTime", infusionProgress);
+        compound.putInt("blockPosX", jarPos.getX());
+        compound.putInt("blockPosY", jarPos.getY());
+        compound.putInt("blockPosZ", jarPos.getZ());
         return compound;
     }
     public ItemStack getInputStack(ItemStackHandler inventory)
@@ -64,6 +77,7 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
         active = compound.getBoolean("active");
         infusionProgress = compound.getInt("infusionTime");
+        jarPos = new BlockPos(compound.getInt("blockPosX"), compound.getInt("blockPosY"), compound.getInt("blockPosZ"));
     }
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
@@ -113,10 +127,33 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                     {
                         if (SpiritData.findSpiritData(2, recipe, pos, world) != null)
                         {
-                            SpiritData data = SpiritData.findSpiritData(2, recipe, pos, world);
-                            BlockPos jarPos = SpiritData.findBlockByData(2, data, pos, world);
-                            infusionProgress++;
+                            BlockPos jarPos = SpiritData.findDataBlock(2, recipe, pos, world);
 
+                            if (infusionProgress == 0)
+                            {
+                                if (!world.isRemote)
+                                {
+                                    INSTANCE.send(
+                                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                            new SpiritInfusionSoundStartPacket(pos.getX(), pos.getY(), pos.getZ()));
+                                }
+                            }
+                            if (infusionProgress == recipe.getInfusionTime() - 30)
+                            {
+                                if (!world.isRemote)
+                                {
+                                    INSTANCE.send(
+                                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                            new SpiritInfusionFinishSoundPacket(pos.getX(), pos.getY(), pos.getZ()));
+                                }
+                            }
+                            infusionProgress++;
+                            if (MathHelper.nextInt(world.rand, 0, 20) == 0)
+                            {
+                                INSTANCE.send(
+                                        PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                        new SpiritWhisperPacket(pos.getX(), pos.getY(), pos.getZ()));
+                            }
                             for (SoulBinderBlock.anchorOffset offset : SoulBinderBlock.anchorOffset.values())
                             {
                                 BlockPos anchorPos = pos.add(offset.offsetX, 0, offset.offsetY);
@@ -127,8 +164,13 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                                         RitualAnchorTileEntity anchorTileEntity = (RitualAnchorTileEntity) world.getTileEntity(anchorPos);
                                         if (anchorTileEntity.inventory.getStackInSlot(0) != ItemStack.EMPTY)
                                         {
-                                            Vec3d particlePos = new Vec3d(anchorPos.getX(), anchorPos.getY(), anchorPos.getZ()).add(0.5,1.2,0.5);
-                                            world.addParticle(new ItemParticleData(ParticleTypes.ITEM, anchorTileEntity.inventory.getStackInSlot(0)), particlePos.getX(), particlePos.getY(), particlePos.getZ(), 0, 0, 0);
+                                            Vec3d targetPos = new Vec3d(pos.getX() + 0.5, pos.getY() + 1.8, pos.getZ() + 0.5);
+                                            Vec3d particlePos = MalumHelper.randPos(new Vec3d(anchorPos.getX(), anchorPos.getY(), anchorPos.getZ()).add(0.5,1.2,0.5), world, -0.3, 0.3);
+                                            double d0 = targetPos.x - particlePos.x;
+                                            double d1 = targetPos.y - particlePos.y;
+                                            double d2 = targetPos.z - particlePos.z;
+                                            Vec3d velocity = new Vec3d(d0,d1,d2).mul(0.1,0.3,0.1);
+                                            world.addParticle(new ItemParticleData(ParticleTypes.ITEM, anchorTileEntity.inventory.getStackInSlot(0)), particlePos.getX(), particlePos.getY(), particlePos.getZ(), velocity.x,velocity.y,velocity.z);
                                         }
                                     }
                                 }
@@ -157,7 +199,14 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                                             }
                                         }
                                     }
+                                    if (!world.isRemote)
+                                    {
+                                        INSTANCE.send(
+                                                PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                                new SpiritInfusionStopLoopSoundPacket(pos.getX(), pos.getY(), pos.getZ()));
+                                    }
                                     inventory.setStackInSlot(0, ItemStack.EMPTY);
+                                    world.addParticle(new SoulEruptionParticleData(), pos.getX()+0.5,pos.getY()+1.1,pos.getZ()+0.5,0,0,0);
                                     world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.1,pos.getZ()+0.5, outputStack));
                                 }
                             }

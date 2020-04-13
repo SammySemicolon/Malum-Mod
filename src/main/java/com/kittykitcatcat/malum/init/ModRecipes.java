@@ -109,7 +109,7 @@ public class ModRecipes
 
     public static SpiritFurnaceRecipe getSpiritFurnaceRecipe(ItemStack item)
     {
-        if (item.isEmpty())
+        if (!item.isEmpty())
         {
             for (SpiritFurnaceRecipe recipe : spiritFurnaceRecipes)
             {

@@ -123,10 +123,10 @@ public class MalumHelper
 
     public static Vec3d randPos(Vec3d pos, World world, double min, double max)
     {
-        double x = MathHelper.nextDouble(world.rand, min, max) + pos.getX();
-        double y = MathHelper.nextDouble(world.rand, min, max) + pos.getY();
-        double z = MathHelper.nextDouble(world.rand, min, max) + pos.getZ();
-        return new Vec3d(x, y, z);
+        double x = MathHelper.nextDouble(world.rand, min, max);
+        double y = MathHelper.nextDouble(world.rand, min, max);
+        double z = MathHelper.nextDouble(world.rand, min, max);
+        return pos.add(x,y,z);
     }
 
     @OnlyIn(Dist.CLIENT)

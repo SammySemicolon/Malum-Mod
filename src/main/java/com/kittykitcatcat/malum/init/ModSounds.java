@@ -13,16 +13,21 @@ import net.minecraftforge.registries.IForgeRegistry;
 public final class ModSounds
 {
     public static final SoundEvent transmutate = makeSoundEvent("transmutate");
-    public static final SoundEvent ritual_start = makeSoundEvent("ritual_start");
-    public static final SoundEvent ritual_end = makeSoundEvent("ritual_end");
-    public static final SoundEvent ritual_loop = makeSoundEvent("ritual_loop");
-    public static final SoundEvent drill_loop = makeSoundEvent("drill_loop");
+    public static final SoundEvent spirit_infusion_start = makeSoundEvent("spirit_infusion_start");
+    public static final SoundEvent spirit_infusion_loop = makeSoundEvent("spirit_infusion_loop");
+    public static final SoundEvent spirit_infusion_stop = makeSoundEvent("spirit_infusion_stop");
+    public static final SoundEvent spirit_whisper = makeSoundEvent("spirit_whisper");
+    public static final SoundEvent soul_jar_fill = makeSoundEvent("soul_jar_fill");
+    public static final SoundEvent soul_jar_place = makeSoundEvent("soul_jar_place");
+    public static final SoundEvent soul_jar_break = makeSoundEvent("soul_jar_break");
+    public static final SoundEvent soul_jar_breaking = makeSoundEvent("soul_jar_breaking");
     public static final SoundEvent furnace_start = makeSoundEvent("furnace_start");
     public static final SoundEvent furnace_loop = makeSoundEvent("furnace_loop");
     public static final SoundEvent furnace_stop = makeSoundEvent("furnace_stop");
     public static final SoundEvent soul_harvest_success = makeSoundEvent("soul_harvest_success");
     public static final SoundEvent soul_harvest_loop = makeSoundEvent("soul_harvest_loop");
     public static final SoundEvent soul_harvest_fail = makeSoundEvent("soul_harvest_fail");
+    public static final SoundEvent bonk = makeSoundEvent("bonk");
 
     private static SoundEvent makeSoundEvent(String name)
     {
@@ -35,16 +40,21 @@ public final class ModSounds
     {
         IForgeRegistry<SoundEvent> r = evt.getRegistry();
         r.register(transmutate);
-        r.register(ritual_start);
-        r.register(ritual_end);
-        r.register(ritual_loop);
-        r.register(drill_loop);
+        r.register(spirit_infusion_start);
+        r.register(spirit_infusion_loop);
+        r.register(spirit_infusion_stop);
+        r.register(spirit_whisper);
+        r.register(soul_jar_fill);
+        r.register(soul_jar_place);
+        r.register(soul_jar_break);
+        r.register(soul_jar_breaking);
         r.register(furnace_start);
         r.register(furnace_loop);
         r.register(furnace_stop);
         r.register(soul_harvest_success);
         r.register(soul_harvest_loop);
         r.register(soul_harvest_fail);
+        r.register(bonk);
 
     }
 

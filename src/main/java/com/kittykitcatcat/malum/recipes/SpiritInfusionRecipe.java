@@ -121,6 +121,14 @@ public class SpiritInfusionRecipe
         ));
 
         ModRecipes.addSpiritInfusionRecipe(new SpiritInfusionRecipe(
+                AIR, IRON_INGOT, IRON_BLOCK,
+                AIR, IRON_BLOCK, IRON_INGOT,
+                STICK, AIR, AIR,
+                new ItemStack(ultimate_weapon),
+                640,
+                new SpiritData("minecraft:iron_golem", 1.5f)
+        ));
+        ModRecipes.addSpiritInfusionRecipe(new SpiritInfusionRecipe(
                 AIR, vacant_gemstone, AIR,
                 spirited_steel_ingot, vacant_gemstone, spirited_steel_ingot,
                 spirit_stone, spirited_steel_ingot, spirit_stone,

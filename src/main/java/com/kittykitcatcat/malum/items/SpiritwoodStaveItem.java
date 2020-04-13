@@ -4,21 +4,16 @@ import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.SpiritData;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
-import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModSounds;
-import com.kittykitcatcat.malum.particles.soulflameparticle.SoulFlameParticleData;
 import com.kittykitcatcat.malum.particles.soulharvestparticle.SoulHarvestParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
@@ -27,14 +22,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -43,7 +36,8 @@ import net.minecraftforge.fml.common.Mod;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static com.kittykitcatcat.malum.SpiritData.*;
+import static com.kittykitcatcat.malum.SpiritData.makeDefaultTooltip;
+import static com.kittykitcatcat.malum.SpiritData.spiritProperty;
 import static net.minecraft.util.Hand.MAIN_HAND;
 
 @Mod.EventBusSubscriber
@@ -177,7 +171,6 @@ public class SpiritwoodStaveItem extends Item
                 SpiritwoodStaveItem item = (SpiritwoodStaveItem) player.getHeldItemMainhand().getItem();
                 if (item.isDefaultFunction(player.getHeldItemMainhand()))
                 {
-
                     if (findEntity(player) != null)
                     {
                         if (!item.canSuck(player.getHeldItemMainhand(), findEntity(player)))

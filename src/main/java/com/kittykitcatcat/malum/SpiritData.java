@@ -57,36 +57,11 @@ public class SpiritData
     public static void decreaseSpiritPurity(PlayerEntity playerEntity, CompoundNBT nbt, float amount)
     {
         nbt.putFloat("purity", nbt.getFloat("purity") -amount);
-        if (nbt.getFloat("purity") <= 0)
+        if (nbt.getFloat("purity") <= 0.0001)
         {
             nbt.remove("entityRegistryName");
             nbt.remove("purity");
         }
-    }
-    public static BlockPos findBlockByData(int radius, SpiritData data, BlockPos pos, World worldIn)
-    {
-        for (int x = -radius; x <= radius; x++)
-        {
-            for (int z = -radius; z <= radius; z++)
-            {
-                int posX = pos.getX() + x;
-                int posZ = pos.getZ() + z;
-                BlockPos blockPos = new BlockPos(posX,pos.getY(),posZ);
-                BlockState state1 = worldIn.getBlockState(blockPos);
-                if (state1.getBlock().equals(ModBlocks.soul_jar))
-                {
-                    if (worldIn.getTileEntity(blockPos) instanceof SoulJarTileEntity)
-                    {
-                        SoulJarTileEntity tileEntity = (SoulJarTileEntity) worldIn.getTileEntity(blockPos);
-                        if (tileEntity.purity == data.purity && tileEntity.entityRegistryName.equals(data.entityRegistryName))
-                        {
-                            return blockPos;
-                        }
-                    }
-                }
-            }
-        }
-        return BlockPos.ZERO;
     }
     public static SpiritData findSpiritData(int radius, SpiritInfusionRecipe recipe, BlockPos pos, World worldIn)
     {
@@ -109,6 +84,35 @@ public class SpiritData
                             if (tileEntity.purity >= data.purity)
                             {
                                 return new SpiritData(tileEntity.entityRegistryName, tileEntity.purity);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public static BlockPos findDataBlock(int radius, SpiritInfusionRecipe recipe, BlockPos pos, World worldIn)
+    {
+        for (int x = -radius; x <= radius; x++)
+        {
+            for (int z = -radius; z <= radius; z++)
+            {
+                int posX = pos.getX() + x;
+                int posZ = pos.getZ() + z;
+                BlockPos blockPos = new BlockPos(posX,pos.getY(),posZ);
+                BlockState state1 = worldIn.getBlockState(blockPos);
+                if (state1.getBlock().equals(ModBlocks.soul_jar))
+                {
+                    if (worldIn.getTileEntity(blockPos) instanceof SoulJarTileEntity)
+                    {
+                        SpiritData data = recipe.getData();
+                        SoulJarTileEntity tileEntity = (SoulJarTileEntity) worldIn.getTileEntity(blockPos);
+                        if (data.entityRegistryName.equals(tileEntity.entityRegistryName))
+                        {
+                            if (tileEntity.purity >= data.purity)
+                            {
+                                return blockPos;
                             }
                         }
                     }

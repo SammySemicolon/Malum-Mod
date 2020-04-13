@@ -91,6 +91,7 @@ public class ModItems
     public static Item soul_steel_chestplate;
     public static Item soul_steel_helm;
 
+    public static Item ultimate_weapon;
     //CURIOS
     public static Item phantom_wings_curio;
     public static Item crossbow_reload_curio;
@@ -188,6 +189,8 @@ public class ModItems
                 soul_steel_leggings = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.LEGS, tool_properties), "soul_steel_leggings"),
                 soul_steel_chestplate = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.CHEST, tool_properties), "soul_steel_chestplate"),
                 soul_steel_helm = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_steel_helm"),
+
+                ultimate_weapon = setup(new BonkItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
 
                 phantom_wings_curio = setup(new PhantomWingsCurioItem(tool_properties), "phantom_wings_curio"),
                 crossbow_reload_curio = setup(new CrossbowReloadCurioItem(tool_properties), "crossbow_reload_curio"),

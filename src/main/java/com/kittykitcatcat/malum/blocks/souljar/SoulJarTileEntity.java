@@ -2,6 +2,8 @@ package com.kittykitcatcat.malum.blocks.souljar;
 
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
+import com.kittykitcatcat.malum.network.packets.SpiritWhisperPacket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
@@ -9,9 +11,12 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
+
+import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 
 public class SoulJarTileEntity extends TileEntity implements ITickableTileEntity
 {
@@ -47,11 +52,17 @@ public class SoulJarTileEntity extends TileEntity implements ITickableTileEntity
     {
         if (purity != 0)
         {
+            if (MathHelper.nextInt(world.rand, 0, 200) == 0)
+            {
+                if (!world.isRemote)
+                {
+                    INSTANCE.send(
+                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                            new SpiritWhisperPacket(pos.getX(), pos.getY(), pos.getZ()));
+                }
+            }
             delayedPurity = MathHelper.lerp(0.95f, purity, delayedPurity);
         }
-        MalumMod.LOGGER.info(purity);
-        MalumMod.LOGGER.info(delayedPurity);
-        MalumMod.LOGGER.info(entityRegistryName);
     }
 
     @Override

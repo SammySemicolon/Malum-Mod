@@ -299,6 +299,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
     {
+
         handleUpdateTag(pkt.getNbtCompound());
     }
 }

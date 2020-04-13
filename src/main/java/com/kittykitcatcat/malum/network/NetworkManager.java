@@ -32,5 +32,10 @@ public class NetworkManager
         INSTANCE.registerMessage(index++, CanFlyPacket.class, CanFlyPacket::encode, CanFlyPacket::decode, CanFlyPacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, FurnaceSoundStartPacket.class, FurnaceSoundStartPacket::encode, FurnaceSoundStartPacket::decode, FurnaceSoundStartPacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, FurnaceSoundStopPacket.class, FurnaceSoundStopPacket::encode, FurnaceSoundStopPacket::decode, FurnaceSoundStopPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, BonkPacket.class, BonkPacket::encode, BonkPacket::decode, BonkPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritWhisperPacket.class, SpiritWhisperPacket::encode, SpiritWhisperPacket::decode, SpiritWhisperPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritInfusionSoundStartPacket.class, SpiritInfusionSoundStartPacket::encode, SpiritInfusionSoundStartPacket::decode, SpiritInfusionSoundStartPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritInfusionStopLoopSoundPacket.class, SpiritInfusionStopLoopSoundPacket::encode, SpiritInfusionStopLoopSoundPacket::decode, SpiritInfusionStopLoopSoundPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritInfusionFinishSoundPacket.class, SpiritInfusionFinishSoundPacket::encode, SpiritInfusionFinishSoundPacket::decode, SpiritInfusionFinishSoundPacket::whenThisPacketIsReceived);
     }
 }

@@ -42,20 +42,32 @@ public class SoulBinderBlock extends Block
         RenderTypeLookup.setRenderLayer(ModBlocks.soul_binder, RenderType.getCutout());
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.soul_binder_tile_entity, SoulBinderRenderer::new);
     }
+
+    @Override
+    public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity)
+    {
+        if (world.getTileEntity(pos) instanceof SoulBinderTileEntity)
+        {
+            SoulBinderTileEntity tileEntity = (SoulBinderTileEntity) world.getTileEntity(pos);
+            return !tileEntity.active;
+        }
+        return true;
+    }
+
     public SoulBinderBlock(Properties properties)
     {
         super(properties);
     }
     public enum anchorOffset
     {
-        anchor1(0, 3),
+        anchor1(3, 0),
         anchor2(2, 2),
-        anchor3(3, 0),
-        anchor4(2, -2),
-        anchor5(0, -3),
+        anchor3(0, 3),
+        anchor4(-2, 2),
+        anchor5(-3, 0),
         anchor6(-2, -2),
-        anchor7(-3, 0),
-        anchor8(-2, 2);
+        anchor7(0, -3),
+        anchor8(2, -2);
 
         public final int offsetY;
         public final int offsetX;

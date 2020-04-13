@@ -41,16 +41,13 @@ public class SpiritBellowsTileEntity extends TileEntity implements ITickableTile
     public boolean active;
     public boolean stretching;
     public float stretch;
-    public int burnTime;
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
         super.write(compound);
-        compound.put("inventory", inventory.serializeNBT());
         compound.putBoolean("active", active);
         compound.putBoolean("stretching",stretching);
         compound.putFloat("stretch",stretch);
-        compound.putInt("burnTime", burnTime);
         return compound;
     }
 
@@ -58,56 +55,9 @@ public class SpiritBellowsTileEntity extends TileEntity implements ITickableTile
     public void read(CompoundNBT compound)
     {
         super.read(compound);
-        inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
         active = compound.getBoolean("active");
         stretching = compound.getBoolean("stretching");
         stretch = compound.getFloat("stretch");
-        burnTime = compound.getInt("burnTime");
-    }
-    public ItemStackHandler inventory = new ItemStackHandler(1)
-    {
-        @Override
-        public int getSlotLimit(int slot)
-        {
-            return 64;
-        }
-        @Override
-        public boolean isItemValid(int slot, @Nonnull ItemStack stack)
-        {
-            if(stack.getItem().equals(ModItems.spirit_charcoal))
-            {
-                return true;
-            }
-            return false;
-        }
-        @Nonnull
-        @Override
-        public ItemStack extractItem(int slot, int amount, boolean simulate)
-        {
-            return ItemStack.EMPTY;
-        }
-        @Override
-        protected void onContentsChanged(int slot)
-        {
-            SpiritBellowsTileEntity.this.markDirty();
-            if (!world.isRemote)
-            {
-                updateContainingBlockInfo();
-                BlockState state = world.getBlockState(pos);
-                world.notifyBlockUpdate(pos, state, state, 3);
-            }
-        }
-    };
-    public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
-    {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-        {
-            return lazyOptional.cast();
-        }
-        return super.getCapability(cap, side);
     }
     @Override
     public void tick()
@@ -148,19 +98,7 @@ public class SpiritBellowsTileEntity extends TileEntity implements ITickableTile
                         if (world.getGameTime() % 4 == 0)
                         {
                             furnaceEntity.burnProgress++;
-                            if (burnTime > 0)
-                            {
-                                furnaceEntity.burnProgress++;
-                            }
                             furnaceEntity.markDirty();
-                        }
-                        if (burnTime <= 0)
-                        {
-                            if (inventory.getStackInSlot(0).getCount() > 0)
-                            {
-                                MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, 0);
-                                burnTime = 400;
-                            }
                         }
                     }
                     else
@@ -173,10 +111,6 @@ public class SpiritBellowsTileEntity extends TileEntity implements ITickableTile
         else
         {
             active = false;
-        }
-        if (burnTime > 0)
-        {
-            burnTime--;
         }
     }
     @Override
