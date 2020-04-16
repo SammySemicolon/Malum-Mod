@@ -1,0 +1,32 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "malum:items/spiritwood_ring"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "power": 1
+      },
+      "model": "malum:item/spirited_steel_ring"
+    },
+    {
+      "predicate": {
+        "power": 2
+      },
+      "model": "malum:item/prismarine_ring"
+    },
+    {
+      "predicate": {
+        "power": 3
+      },
+      "model": "malum:item/ender_ring"
+    },
+    {
+      "predicate": {
+        "power": 4
+      },
+      "model": "malum:item/stellar_ring"
+    }
+  ]
+}

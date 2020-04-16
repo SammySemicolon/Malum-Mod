@@ -6,6 +6,8 @@ import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.items.SpiritwoodStaveItem;
+import com.kittykitcatcat.malum.network.packets.SoulJarFillPacket;
+import com.kittykitcatcat.malum.network.packets.SpiritWhisperPacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -36,6 +38,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 
@@ -43,6 +46,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import static com.kittykitcatcat.malum.MalumHelper.updateState;
+import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SoulJarBlock extends Block
@@ -140,6 +144,9 @@ public class SoulJarBlock extends Block
                                 heldItem.getTag().remove("entityRegistryName");
                                 heldItem.getTag().remove("entityDisplayName");
                                 player.swingArm(handIn);
+                                INSTANCE.send(
+                                        PacketDistributor.TRACKING_CHUNK.with(() -> worldIn.getChunkAt(pos)),
+                                        new SoulJarFillPacket(pos.getX(), pos.getY(), pos.getZ()));
                                 return ActionResultType.SUCCESS;
                             }
                             if (heldRegistryName.equals(tileEntity.entityRegistryName))
@@ -153,6 +160,10 @@ public class SoulJarBlock extends Block
                                     heldItem.getTag().remove("entityRegistryName");
                                     heldItem.getTag().remove("entityDisplayName");
                                     player.swingArm(handIn);
+
+                                    INSTANCE.send(
+                                            PacketDistributor.TRACKING_CHUNK.with(() -> worldIn.getChunkAt(pos)),
+                                            new SoulJarFillPacket(pos.getX(), pos.getY(), pos.getZ()));
                                 }
                                 else
                                 {
@@ -170,6 +181,9 @@ public class SoulJarBlock extends Block
                                         }
                                     }
                                     player.swingArm(handIn);
+                                    INSTANCE.send(
+                                            PacketDistributor.TRACKING_CHUNK.with(() -> worldIn.getChunkAt(pos)),
+                                            new SoulJarFillPacket(pos.getX(), pos.getY(), pos.getZ()));
                                     return ActionResultType.SUCCESS;
                                 }
                                 return ActionResultType.SUCCESS;

@@ -63,6 +63,10 @@ public class SoulJarTileEntity extends TileEntity implements ITickableTileEntity
             }
             delayedPurity = MathHelper.lerp(0.95f, purity, delayedPurity);
         }
+        else
+        {
+            delayedPurity = 0;
+        }
     }
 
     @Override

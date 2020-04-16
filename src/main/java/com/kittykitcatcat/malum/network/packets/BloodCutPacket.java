@@ -48,14 +48,14 @@ public class BloodCutPacket
                 {
                     for (int i = 0; i <= 20; i++)
                     {
-                        Vec3d velocity = MalumHelper.randVelocity(world, -0.2f, 0.2f);
-                        Vec3d particlePos = MalumHelper.randPos(pos, world, -0.4f, 0.4f);
+                        Vec3d velocity = MalumHelper.randVelocity(world.rand, -0.2f, 0.2f);
+                        Vec3d particlePos = MalumHelper.randPos(pos, world.rand, -0.4f, 0.4f);
                         world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(new BlockPos(x,y,z))), particlePos.getX(),particlePos.getY(),particlePos.getZ(), velocity.getX(),velocity.getY(),velocity.getZ());
                     }
                     for (int i = 0; i <= 20; i++)
                     {
-                        Vec3d velocity = MalumHelper.randVelocity(world, -0.3f, 0.3f);
-                        Vec3d particlePos = MalumHelper.randPos(pos, world, -0.5f, 0.5f);
+                        Vec3d velocity = MalumHelper.randVelocity(world.rand, -0.3f, 0.3f);
+                        Vec3d particlePos = MalumHelper.randPos(pos, world.rand, -0.5f, 0.5f);
                         world.addParticle(new BloodParticleData(), particlePos.getX(),particlePos.getY(),particlePos.getZ(), velocity.getX(),velocity.getY(),velocity.getZ());
                     }
                     world.playSound(pos.getX(),pos.getY(),pos.getZ(), SoundEvents.BLOCK_CORAL_BLOCK_FALL, SoundCategory.BLOCKS, 1, 1, true);

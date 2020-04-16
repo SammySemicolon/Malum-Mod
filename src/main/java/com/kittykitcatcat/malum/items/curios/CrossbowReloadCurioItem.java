@@ -40,6 +40,7 @@ public class CrossbowReloadCurioItem extends Item implements ICurio
                     SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL,
                     1.0f, 1.0f);
             }
+
             @Override
             public boolean canRightClickEquip()
             {

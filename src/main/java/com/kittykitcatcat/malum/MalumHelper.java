@@ -8,6 +8,8 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.state.IProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -24,6 +26,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings("unused")
 public class MalumHelper
@@ -85,6 +88,19 @@ public class MalumHelper
         world.setBlockState(pos, finalState);
     }
 
+    public static ItemStack stackWithNBT(ItemStack originalStack,String tag, INBT inbt)
+    {
+        CompoundNBT nbt = originalStack.getOrCreateTag();
+        nbt.put(tag, inbt);
+        return originalStack;
+    }
+
+    public static ItemStack stackWithCount(Item item, int count)
+    {
+        ItemStack stack = new ItemStack(item);
+        stack.setCount(count);
+        return stack;
+    }
     public static double lerp(double point1, double point2, double alpha)
     {
         return point1 + alpha * (point2 - point1);
@@ -98,35 +114,29 @@ public class MalumHelper
         return new Vec3d(point1.x, y, point1.z);
     }
 
-    public static Vec3d randVelocity(World world, double min, double max)
+    public static Vec3d randVelocity(Random rand, double min, double max)
     {
-        double x = MathHelper.nextDouble(world.rand, min, max);
-        double y = MathHelper.nextDouble(world.rand, min, max);
-        double z = MathHelper.nextDouble(world.rand, min, max);
+        double x = MathHelper.nextDouble(rand, min, max);
+        double y = MathHelper.nextDouble(rand, min, max);
+        double z = MathHelper.nextDouble(rand, min, max);
         return new Vec3d(x, y, z);
     }
 
-    public static ItemStack itemStack(Item item, int count)
-    {
-        ItemStack stack = new ItemStack(item);
-        stack.setCount(count);
-        return stack;
-    }
 
-    public static Vec3d randPos(BlockPos pos, World world, double min, double max)
+    public static Vec3d randPos(BlockPos pos, Random rand, double min, double max)
     {
-        double x = MathHelper.nextDouble(world.rand, min, max) + pos.getX();
-        double y = MathHelper.nextDouble(world.rand, min, max) + pos.getY();
-        double z = MathHelper.nextDouble(world.rand, min, max) + pos.getZ();
+        double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
+        double y = MathHelper.nextDouble(rand, min, max) + pos.getY();
+        double z = MathHelper.nextDouble(rand, min, max) + pos.getZ();
         return new Vec3d(x, y, z);
     }
 
-    public static Vec3d randPos(Vec3d pos, World world, double min, double max)
+    public static Vec3d randPos(Vec3d pos, Random rand, double min, double max)
     {
-        double x = MathHelper.nextDouble(world.rand, min, max);
-        double y = MathHelper.nextDouble(world.rand, min, max);
-        double z = MathHelper.nextDouble(world.rand, min, max);
-        return pos.add(x,y,z);
+        double x = MathHelper.nextDouble(rand, min, max);
+        double y = MathHelper.nextDouble(rand, min, max);
+        double z = MathHelper.nextDouble(rand, min, max);
+        return new Vec3d(pos.x + x, pos.y + y, pos.z + z);
     }
 
     @OnlyIn(Dist.CLIENT)

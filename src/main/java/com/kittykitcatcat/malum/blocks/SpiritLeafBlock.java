@@ -29,8 +29,8 @@ public class SpiritLeafBlock extends LeavesBlock
             {
                 if (MathHelper.nextInt(world.rand, 0, 4) == 0)
                 {
-                    Vec3d velocity = MalumHelper.randVelocity(world, -0.2f, -0.1f);
-                    Vec3d particlePos = MalumHelper.randPos(pos, world, -0.5f, 0.5f);
+                    Vec3d velocity = MalumHelper.randVelocity(world.rand, -0.2f, -0.1f);
+                    Vec3d particlePos = MalumHelper.randPos(pos, world.rand, -0.5f, 0.5f);
                     world.addParticle(new SpiritLeafParticleData(),
                             particlePos.x,pos.getY()-0.1f,particlePos.z, 0f,velocity.y,0f);
                 }

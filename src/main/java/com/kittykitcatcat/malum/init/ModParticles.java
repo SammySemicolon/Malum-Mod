@@ -5,6 +5,8 @@ import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticle;
 import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticleData;
 import com.kittykitcatcat.malum.particles.bonk.BonkParticle;
 import com.kittykitcatcat.malum.particles.bonk.BonkParticleData;
+import com.kittykitcatcat.malum.particles.loosesoulparticle.LooseSoulParticle;
+import com.kittykitcatcat.malum.particles.loosesoulparticle.LooseSoulParticleData;
 import com.kittykitcatcat.malum.particles.souleruptionparticle.SoulEruptionParticle;
 import com.kittykitcatcat.malum.particles.souleruptionparticle.SoulEruptionParticleData;
 import com.kittykitcatcat.malum.particles.soulflameparticle.SoulFlameParticle;
@@ -33,6 +35,7 @@ public class ModParticles
         Minecraft.getInstance().particles.registerFactory(soulEruption, SoulEruptionParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(soulHarvest, SoulHarvestParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(bonk, BonkParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(looseSoul, LooseSoulParticle.Factory::new);
     }
     public static ParticleType<SpiritLeafParticleData> spiritLeaf;
     public static ParticleType<BloodParticleData> bloodParticle;
@@ -40,6 +43,7 @@ public class ModParticles
     public static ParticleType<SoulEruptionParticleData> soulEruption;
     public static ParticleType<SoulHarvestParticleData> soulHarvest;
     public static ParticleType<BonkParticleData> bonk;
+    public static ParticleType<LooseSoulParticleData> looseSoul;
     @SubscribeEvent
     public static void registerTypeRegistry(RegistryEvent.Register<ParticleType<?>> event)
     {
@@ -49,5 +53,6 @@ public class ModParticles
         soulEruption = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "soul_eruption", new ParticleType<>(false, SoulEruptionParticleData.DESERIALIZER));
         soulHarvest = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "soul_harvest", new ParticleType<>(false, SoulHarvestParticleData.DESERIALIZER));
         bonk = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "bonk", new ParticleType<>(false, BonkParticleData.DESERIALIZER));
+        looseSoul = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "loose_soul", new ParticleType<>(false, LooseSoulParticleData.DESERIALIZER));
     }
 }

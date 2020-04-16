@@ -232,7 +232,7 @@ public class SpiritwoodStaveItem extends Item
         {
             startDrain(player);
         }
-        if (drainProgress >= 85)
+        if (drainProgress >= 170)
         {
             CapabilityValueGetter.setDrainProgress(player, 0);
             drainSoul(player, target);

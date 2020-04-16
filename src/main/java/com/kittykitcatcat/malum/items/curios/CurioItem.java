@@ -41,7 +41,6 @@ public class CurioItem
             @Override
             public INBT writeNBT(Capability<ICurio> capability, ICurio instance, Direction side)
             {
-
                 return new CompoundNBT();
             }
 

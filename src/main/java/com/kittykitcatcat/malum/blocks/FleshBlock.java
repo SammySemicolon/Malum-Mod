@@ -86,8 +86,8 @@ public class FleshBlock extends Block
                     {
                         for (int i = 0; i <= stateIn.get(CUT); i++)
                         {
-                            Vec3d velocity = MalumHelper.randVelocity(world, -0.2f, -0.1f);
-                            Vec3d particlePos = MalumHelper.randPos(pos, world, -0.5f, 0.5f);
+                            Vec3d velocity = MalumHelper.randVelocity(world.rand, -0.2f, -0.1f);
+                            Vec3d particlePos = MalumHelper.randPos(pos, world.rand, -0.5f, 0.5f);
                             world.addParticle(new BloodParticleData(),
                                     particlePos.x,pos.getY()-0.1f,particlePos.z, 0f,velocity.y,0f);
                         }

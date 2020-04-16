@@ -38,6 +38,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+import static com.kittykitcatcat.malum.MalumMod.*;
 import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 
 @Mod.EventBusSubscriber
@@ -263,14 +264,14 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
     public static void spawnSoulFlame(World world, BlockPos pos, float offset, float speed)
     {
         Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        Vec3d velocity = MalumHelper.randVelocity(world, -speed, speed);
-        Vec3d particlePos = MalumHelper.randPos(pos, world, -offset, offset);
+        Vec3d velocity = MalumHelper.randVelocity(random, -speed, speed);
+        Vec3d particlePos = MalumHelper.randPos(pos, random, -offset, offset);
         world.addParticle(new SoulFlameParticleData(), particlePos.getX() + 0.5 + direction.getX() * 0.2f, particlePos.getY() + 0.5, particlePos.getZ() + 0.5 + direction.getZ() * 0.2f, velocity.getX(), velocity.getY(), velocity.getZ());
     }
     public static void spawnSmoke(World world, BlockPos pos)
     {
         Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        Vec3d particlePos = MalumHelper.randPos(pos, world, -0.3d, 0.3d);
+        Vec3d particlePos = MalumHelper.randPos(pos, random, -0.3d, 0.3d);
         if (direction.getZ() != 0)
         {
             world.addParticle(ParticleTypes.SMOKE, particlePos.getX() + 0.5d, particlePos.getY() + 2, particlePos.getZ() + 0.5 - direction.getZ() * 0.4f, 0, 0.04, 0);

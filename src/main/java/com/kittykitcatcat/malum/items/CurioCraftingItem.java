@@ -25,12 +25,12 @@ import static com.kittykitcatcat.malum.SpiritData.spiritProperty;
 @Mod.EventBusSubscriber
 public class CurioCraftingItem extends Item
 {
-    public static final IItemPropertyGetter curioProperty = (stack, world, entity) -> stack.getTag() != null && stack.getTag().contains("curioPower") ? stack.getTag().getInt("curioPower") : 0;
+    public static final IItemPropertyGetter curioProperty = (stack, world, entity) -> stack.getTag() != null && stack.getTag().contains("power") ? stack.getTag().getInt("power") : 0;
 
     public CurioCraftingItem(Properties properties)
     {
         super(properties);
-        this.addPropertyOverride(new ResourceLocation("power"), spiritProperty);
+        this.addPropertyOverride(new ResourceLocation("power"), curioProperty);
     }
 
     @Override
@@ -38,15 +38,12 @@ public class CurioCraftingItem extends Item
     {
         if (stack.getTag() != null)
         {
-            if (stack.getTag().contains("curioPower"))
+            if (stack.getTag().contains("power"))
             {
                 CompoundNBT nbt = stack.getTag();
                 ArrayList<ITextComponent> arrayList = new ArrayList<>();
                 arrayList.add(new TranslationTextComponent("malum.tooltip.power.desc").applyTextStyle(TextFormatting.GRAY)
                         .appendSibling(new StringTextComponent(" " + nbt.getInt("curioPower")).applyTextStyle(TextFormatting.DARK_PURPLE)));
-                arrayList.add(new TranslationTextComponent("malum.tooltip.purity.desc").applyTextStyle(TextFormatting.GRAY)
-                        .appendSibling(new StringTextComponent(" " + data.purity).applyTextStyle(TextFormatting.DARK_PURPLE)));
-                makeTooltip(stack, worldIn, tooltip, flagIn, arrayList);
             }
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);

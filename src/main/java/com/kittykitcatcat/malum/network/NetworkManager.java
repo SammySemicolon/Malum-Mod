@@ -37,5 +37,6 @@ public class NetworkManager
         INSTANCE.registerMessage(index++, SpiritInfusionSoundStartPacket.class, SpiritInfusionSoundStartPacket::encode, SpiritInfusionSoundStartPacket::decode, SpiritInfusionSoundStartPacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, SpiritInfusionStopLoopSoundPacket.class, SpiritInfusionStopLoopSoundPacket::encode, SpiritInfusionStopLoopSoundPacket::decode, SpiritInfusionStopLoopSoundPacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, SpiritInfusionFinishSoundPacket.class, SpiritInfusionFinishSoundPacket::encode, SpiritInfusionFinishSoundPacket::decode, SpiritInfusionFinishSoundPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SoulJarFillPacket.class, SoulJarFillPacket::encode, SoulJarFillPacket::decode, SoulJarFillPacket::whenThisPacketIsReceived);
     }
 }

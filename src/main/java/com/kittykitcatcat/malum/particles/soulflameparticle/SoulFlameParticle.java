@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.particles.soulflameparticle;
 
 import net.minecraft.client.particle.*;
+import net.minecraft.particles.ItemParticleData;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -10,11 +11,10 @@ public class SoulFlameParticle extends SimpleAnimatedParticle
 
     private final IAnimatedSprite spriteSet;
     public float scale;
-    protected SoulFlameParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet, float scale)
+    protected SoulFlameParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet)
     {
-        super(world, xSpeed, ySpeed, zSpeed, spriteSet, scale);
+        super(world, xSpeed, ySpeed, zSpeed, spriteSet, 0);
         this.spriteSet = spriteSet;
-        this.scale = scale;
         motionX = xSpeed;
         motionY = ySpeed;
         motionZ = zSpeed;
@@ -70,7 +70,7 @@ public class SoulFlameParticle extends SimpleAnimatedParticle
 
         public Particle makeParticle(SoulFlameParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            SoulFlameParticle particle = new SoulFlameParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet, 0);
+            SoulFlameParticle particle = new SoulFlameParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet);
             particle.selectSpriteRandomly(this.spriteSet);
             if (xSpeed > 2f || xSpeed < -2f || ySpeed > 2f || ySpeed < -2f || zSpeed > 2f || zSpeed < -2f)
             {

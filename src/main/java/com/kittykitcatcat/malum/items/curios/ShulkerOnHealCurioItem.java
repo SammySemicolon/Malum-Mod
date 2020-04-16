@@ -91,7 +91,7 @@ public class ShulkerOnHealCurioItem extends Item implements ICurio
                     if (target != null)
                     {
                         ShulkerBulletEntity shulkerBulletEntity = new ShulkerBulletEntity(entity.world, entity, target, Direction.Axis.Y);
-                        Vec3d velocity = MalumHelper.randVelocity(target.world, -0.5f, 0.5f);
+                        Vec3d velocity = MalumHelper.randVelocity(target.world.rand, -0.5f, 0.5f);
                         shulkerBulletEntity.addVelocity(velocity.x, 0.4, velocity.z);
                         shulkerBulletEntity.getTags().add("noLevitate");
                         entity.world.addEntity(shulkerBulletEntity);

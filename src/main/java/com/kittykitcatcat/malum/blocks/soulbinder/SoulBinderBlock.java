@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -104,11 +105,12 @@ public class SoulBinderBlock extends Block
                                 {
                                     if (SpiritData.findSpiritData(2, recipe, pos, worldIn) != null)
                                     {
+                                        soulBinderTileEntity.jarPos = SpiritData.findDataBlock(2, recipe, pos,worldIn);
                                         ItemStack newItem = heldItem.copy();
                                         newItem.setCount(1);
                                         MalumHelper.setStackInTEInventory(soulBinderTileEntity.inventory, newItem, 0);
+
                                         updateState(worldIn, state, pos);
-                                        updateState(worldIn, state, pos.down());
                                         heldItem.setCount(heldItem.getCount() - 1);
                                         player.swingArm(handIn);
                                         return ActionResultType.SUCCESS;

@@ -1,11 +1,9 @@
 package com.kittykitcatcat.malum.network.packets;
 
 import com.kittykitcatcat.malum.init.ModSounds;
-import com.kittykitcatcat.malum.sounds.FurnaceLoopSound;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,11 +12,10 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class SpiritWhisperPacket
+public class SoulJarFillPacket
 {
-
     private double x, y, z;
-    public SpiritWhisperPacket(double x, double y, double z)
+    public SoulJarFillPacket(double x, double y, double z)
     {
         this.x = x;
         this.y = y;
@@ -37,16 +34,16 @@ public class SpiritWhisperPacket
         context.get().enqueueWork(() ->
             DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
                 World world = Minecraft.getInstance().world;
-                world.playSound(x,y,z, ModSounds.spirit_whisper, SoundCategory.BLOCKS, 0.6f, MathHelper.nextFloat(world.rand, 0.9f, 1.6f), true);
+                world.playSound(x,y,z, ModSounds.soul_jar_fill, SoundCategory.BLOCKS, 0.6f, MathHelper.nextFloat(world.rand, 0.9f, 1.2f), true);
             }));
         context.get().setPacketHandled(true);
     }
 
-    public static SpiritWhisperPacket decode(PacketBuffer buf)
+    public static SoulJarFillPacket decode(PacketBuffer buf)
     {
         double x = buf.readDouble();
         double y = buf.readDouble();
         double z = buf.readDouble();
-        return new SpiritWhisperPacket(x, y, z);
+        return new SoulJarFillPacket(x, y, z);
     }
 }

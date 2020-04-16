@@ -52,6 +52,8 @@ public class ModItems
     public static Item spirit_charcoal;
     public static Item spirit_stone;
     public static Item dark_spirit_stone;
+    public static Item spirit_slik;
+    public static Item evil_leather;
     public static Item spirited_steel_ingot;
     public static Item spirited_steel_nugget;
     public static Item transmissive_ingot;
@@ -64,6 +66,8 @@ public class ModItems
     public static Item arcane_apparatus;
     public static Item cursed_nebulous;
     public static Item stellar_apparatus;
+
+    public static Item curio_material;
 
     public static Item spiritwood_stave;
     public static Item block_transmutation_tool;
@@ -150,6 +154,8 @@ public class ModItems
                 spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
                 spirit_stone = setup(new BlockItem(ModBlocks.spirit_stone, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
+                spirit_slik = setup(new Item(basic_properties), "spirit_slik"),
+                evil_leather = setup(new Item(basic_properties), "evil_leather"),
                 spirited_steel_ingot = setup(new Item(basic_properties), "spirited_steel_ingot"),
                 spirited_steel_nugget = setup(new Item(basic_properties), "spirited_steel_nugget"),
                 transmissive_ingot = setup(new Item(basic_properties), "transmissive_ingot"),
@@ -163,6 +169,7 @@ public class ModItems
                 cursed_nebulous = setup(new Item(basic_properties), "cursed_nebulous"),
                 stellar_apparatus = setup(new Item(basic_properties), "stellar_apparatus"),
 
+                curio_material = setup(new CurioCraftingItem(tool_properties), "curio_material"),
                 spiritwood_stave = setup(new SpiritwoodStaveItem(tool_properties), "spiritwood_stave"),
                 block_transmutation_tool = setup(new TransmutationGemItem(tool_properties), "block_transmutation_tool"),
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
