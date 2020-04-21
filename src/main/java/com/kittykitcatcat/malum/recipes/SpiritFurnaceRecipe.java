@@ -51,10 +51,12 @@ public class SpiritFurnaceRecipe
 
     public static void initRecipes()
     {
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.QUARTZ), new ItemStack(ModItems.enchanted_quartz), new ItemStack(ModItems.runic_ash), 3200));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.DIAMOND), new ItemStack(ModItems.vacant_gemstone), new ItemStack(ModItems.runic_ash), 1600));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.spirited_steel_ingot), new ItemStack(ModItems.runic_ash), 800));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.GOLD_INGOT), new ItemStack(ModItems.transmissive_ingot), new ItemStack(ModItems.runic_ash),  400));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.spirited_steel_ingot), new ItemStack(ModItems.runic_ash), 800));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.DIAMOND), new ItemStack(ModItems.vacant_gemstone), new ItemStack(ModItems.runic_ash), 1600));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.QUARTZ), new ItemStack(ModItems.enchanted_quartz), new ItemStack(ModItems.runic_ash), 3200));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.LEATHER), new ItemStack(ModItems.evil_leather), 400));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.STRING), new ItemStack(ModItems.spirit_silk), 400));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.STONE), new ItemStack(ModItems.spirit_stone), 100));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.OBSIDIAN), new ItemStack(ModItems.dark_spirit_stone),  6400));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(new ItemStack(Items.ENDER_PEARL), new ItemStack(ModItems.stygian_pearl),  6400));

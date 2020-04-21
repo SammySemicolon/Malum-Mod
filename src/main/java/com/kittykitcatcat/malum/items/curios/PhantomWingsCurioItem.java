@@ -44,7 +44,7 @@ public class PhantomWingsCurioItem extends Item implements ICurio
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
-        return CurioItem.createProvider(new ICurio()
+        return CurioThingIDK.createProvider(new ICurio()
         {
             private final ResourceLocation WING_TEXTURE =
                 new ResourceLocation(MalumMod.MODID, "textures/armor/phantom_wings.png");

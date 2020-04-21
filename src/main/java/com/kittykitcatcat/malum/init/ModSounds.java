@@ -27,6 +27,7 @@ public final class ModSounds
     public static final SoundEvent soul_harvest_success = makeSoundEvent("soul_harvest_success");
     public static final SoundEvent soul_harvest_loop = makeSoundEvent("soul_harvest_loop");
     public static final SoundEvent soul_harvest_fail = makeSoundEvent("soul_harvest_fail");
+    public static final SoundEvent shattering_sound = makeSoundEvent("shattering_sound");
     public static final SoundEvent bonk = makeSoundEvent("bonk");
 
     private static SoundEvent makeSoundEvent(String name)
@@ -54,6 +55,7 @@ public final class ModSounds
         r.register(soul_harvest_success);
         r.register(soul_harvest_loop);
         r.register(soul_harvest_fail);
+        r.register(shattering_sound);
         r.register(bonk);
 
     }

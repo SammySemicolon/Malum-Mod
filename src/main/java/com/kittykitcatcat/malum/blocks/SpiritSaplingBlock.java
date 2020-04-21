@@ -47,13 +47,6 @@ public class SpiritSaplingBlock extends BushBlock implements IGrowable
         return true;
     }
 
-
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
-    {
-        return worldIn.getBlockState(pos.down()).getBlock().equals(ModBlocks.blighted_grass) || worldIn.getBlockState(pos.down()).getBlock().equals(ModBlocks.blighted_dirt);
-    }
-
     @Override
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient)
     {

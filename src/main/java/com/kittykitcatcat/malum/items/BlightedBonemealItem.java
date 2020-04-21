@@ -28,29 +28,12 @@ public class BlightedBonemealItem extends Item
             World world = context.getWorld();
             BlockPos pos = context.getPos();
             BlockState state = world.getBlockState(pos);
-            int radius = 4;
             if (ModRecipes.getBlockCorruptionRecipe(state) != null)
             {
-                for (int x = -radius; x <= radius; x++)
-                {
-                    for (int z = -radius; z <= radius; z++)
-                    {
-                        for (int y = -radius; y <= radius; y++)
-                        {
-                            if (!((x == -radius || x == radius) && (z == -radius || z == radius)))
-                            {
-                                BlockPos additionalPos = pos.add(x,y,z);
-                                BlockState additionalState = world.getBlockState(additionalPos);
-                                if (ModRecipes.getBlockCorruptionRecipe(additionalState) != null)
-                                {
-                                    BlockCorruptionRecipe.attemptCorruption(additionalState,world,additionalPos);
-                                }
-                            }
-                        }
-                    }
-                }
+                BlockCorruptionRecipe.attemptCorruption(state,world,pos);
                 playerEntity.addStat(Stats.ITEM_USED.get(this));
                 playerEntity.swingArm(context.getHand());
+                playerEntity.getHeldItem(context.getHand()).shrink(1);
                 return ActionResultType.SUCCESS;
             }
         }

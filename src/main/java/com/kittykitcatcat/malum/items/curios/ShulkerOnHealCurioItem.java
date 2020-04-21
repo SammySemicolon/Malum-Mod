@@ -6,23 +6,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
-import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
@@ -45,7 +39,7 @@ public class ShulkerOnHealCurioItem extends Item implements ICurio
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
-        return CurioItem.createProvider(new ICurio()
+        return CurioThingIDK.createProvider(new ICurio()
         {
             @Override
             public void playEquipSound(LivingEntity entityLivingBase)

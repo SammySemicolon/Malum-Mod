@@ -1,6 +1,5 @@
 package com.kittykitcatcat.malum.items.curios;
 
-import com.kittykitcatcat.malum.MalumMod;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
@@ -31,7 +30,7 @@ public class CrossbowReloadCurioItem extends Item implements ICurio
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
-        return CurioItem.createProvider(new ICurio()
+        return CurioThingIDK.createProvider(new ICurio()
         {
             @Override
             public void playEquipSound(LivingEntity entityLivingBase)
@@ -53,24 +52,27 @@ public class CrossbowReloadCurioItem extends Item implements ICurio
     {
         if (event.getSource().getImmediateSource() instanceof ArrowEntity)
         {
-            if (event.getSource().getTrueSource() instanceof PlayerEntity)
+            if (((ArrowEntity) event.getSource().getImmediateSource()).getShotFromCrossbow())
             {
-                PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
-                if (CuriosAPI.getCurioEquipped(stack1 -> stack1.getItem() instanceof CrossbowReloadCurioItem, playerEntity).isPresent())
+                if (event.getSource().getTrueSource() instanceof PlayerEntity)
                 {
-                    if (MathHelper.nextInt(playerEntity.world.rand, 0, 99) <= 50)
+                    PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+                    if (CuriosAPI.getCurioEquipped(stack1 -> stack1.getItem() instanceof CrossbowReloadCurioItem, playerEntity).isPresent())
                     {
                         if (playerEntity.getHeldItemMainhand().getItem() instanceof CrossbowItem)
                         {
-                            ItemStack crossbow = playerEntity.getHeldItemMainhand();
-                            if (crossbow.getTag() != null)
+                            if (MathHelper.nextInt(playerEntity.world.rand, 0, 99) <= 50)
                             {
-                                ListNBT listnbt = new ListNBT();
-                                crossbow.getTag().putBoolean("Charged", true);
-                                CompoundNBT compoundnbt1 = new CompoundNBT();
-                                new ItemStack(Items.ARROW).write(compoundnbt1);
-                                listnbt.add(compoundnbt1);
-                                crossbow.getTag().put("ChargedProjectiles", listnbt);
+                                ItemStack crossbow = playerEntity.getHeldItemMainhand();
+                                if (crossbow.getTag() != null)
+                                {
+                                    ListNBT listnbt = new ListNBT();
+                                    crossbow.getTag().putBoolean("Charged", true);
+                                    CompoundNBT compoundnbt1 = new CompoundNBT();
+                                    new ItemStack(Items.ARROW).write(compoundnbt1);
+                                    listnbt.add(compoundnbt1);
+                                    crossbow.getTag().put("ChargedProjectiles", listnbt);
+                                }
                             }
                         }
                     }

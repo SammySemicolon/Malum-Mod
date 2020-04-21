@@ -8,10 +8,7 @@ import com.kittykitcatcat.malum.blocks.spiritbellows.SpiritBellowsBlock;
 import com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.kittykitcatcat.malum.blocks.spiritfurnace.SpiritFurnaceTopBlock;
 import com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.RedstoneLampBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,14 +29,18 @@ public class ModBlocks
     public static Block soul_jar;
 
     //BUILDING
-    public static Block blighted_dirt;
-    public static Block blighted_grass;
+
+    public static Block deadwood_log;
+    public static Block stripped_deadwood_log;
+    public static Block deadwood_leaves;
+    public static Block deadwood_planks;
 
     public static Block spirit_stone;
     public static Block dark_spirit_stone;
 
     public static Block spirit_sapling;
     public static Block spirit_log;
+    public static Block stripped_spirit_log;
     public static Block spirit_leaves;
 
     public static Block evil_pumpkin;
@@ -85,8 +86,11 @@ public class ModBlocks
         ritual_anchor = registerBlock(registry, new RitualAnchorBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "ritual_anchor");
         soul_jar = registerBlock(registry, new SoulJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().lightValue(1)), "soul_jar");
 
-        blighted_dirt = registerBlock(registry, new Block(Block.Properties.from(Blocks.DIRT)), "blighted_dirt");
-        blighted_grass = registerBlock(registry, new Block(Block.Properties.from(Blocks.GRASS_BLOCK)), "blighted_grass");
+        deadwood_leaves = registerBlock(registry, new LeavesBlock(Block.Properties.from(Blocks.OAK_LEAVES)), "deadwood_leaves");
+        deadwood_log = registerBlock(registry, new LogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.OAK_LOG)), "deadwood_log");
+        stripped_deadwood_log = registerBlock(registry, new LogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.STRIPPED_OAK_LOG)), "stripped_deadwood_log");
+
+        deadwood_planks = registerBlock(registry, new Block(Block.Properties.from(Blocks.OAK_PLANKS)), "deadwood_planks");
 
         smooth_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.SMOOTH_STONE)), "smooth_stone_stairs");
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
@@ -124,6 +128,7 @@ public class ModBlocks
         spirit_sapling = registerBlock(registry, new SpiritSaplingBlock(Block.Properties.from(Blocks.JUNGLE_SAPLING)), "spirit_sapling");
         spirit_leaves = registerBlock(registry, new SpiritLeafBlock(Block.Properties.from(Blocks.OAK_LEAVES)), "spirit_leaves");
         spirit_log = registerBlock(registry, new LogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.OAK_LOG)), "spirit_log");
+        stripped_spirit_log = registerBlock(registry, new LogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.STRIPPED_OAK_LOG)), "stripped_spirit_log");
 
         block_of_flesh = registerBlock(registry, new FleshBlock(Block.Properties.from(Blocks.FIRE_CORAL_BLOCK).hardnessAndResistance(2)), "block_of_flesh");
 

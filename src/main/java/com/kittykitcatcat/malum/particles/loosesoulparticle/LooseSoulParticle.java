@@ -24,8 +24,6 @@ public class LooseSoulParticle extends SimpleAnimatedParticle
         motionY = MathHelper.nextFloat(random, -0.4f, 0.4f);
         this.spriteSet = spriteSet;
         setMaxAge(80);
-        particleAngle = 214;
-        prevParticleAngle = 214;
         canCollide = false;
         targetPos = new Vec3d(targetX,targetY,targetZ);
         setPosition(startingX,targetY-0.1f,startingZ);

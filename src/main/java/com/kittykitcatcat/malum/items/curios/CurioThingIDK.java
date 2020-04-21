@@ -32,8 +32,9 @@ import top.theillusivec4.curios.api.capability.ICurio;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CurioItem
+public class CurioThingIDK
 {
+
     public static void register()
     {
         CapabilityManager.INSTANCE.register(ICurio.class, new Capability.IStorage<ICurio>()

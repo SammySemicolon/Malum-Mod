@@ -6,5 +6,9 @@
   "malum.tooltip.sneak.desc.a": "Hold",
   "malum.tooltip.sneak.desc.b": "Sneak",
   "malum.tooltip.name.desc": "Contains spirit of",
-  "malum.tooltip.purity.desc": "With a purity value of"
+  "malum.tooltip.purity.desc": "With a purity value of",
+  "malum.tooltip.modifier.fiery": "Block break make tool fast, enemy not fire be fire and hurt more",
+  "malum.tooltip.modifier.withering": "Enemy get wither! it stack too",
+  "malum.tooltip.modifier.living": "Tool damage go bye bye",
+  "malum.tooltip.modifier.shattering": "Tyrfind woohoo"
 }

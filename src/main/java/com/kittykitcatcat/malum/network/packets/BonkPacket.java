@@ -38,8 +38,6 @@ public class BonkPacket
                 DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
                 {
                     PlayerEntity playerEntity = Minecraft.getInstance().player;
-                    World world = Minecraft.getInstance().world;
-                    playerEntity.world.playSound(playerEntity, playerEntity.getPosition(), ModSounds.bonk, SoundCategory.PLAYERS, 1F, MathHelper.nextFloat(world.rand, 1.5f, 2.0f));
                     playerEntity.world.addParticle(new BonkParticleData(), x, y, z, 0, 0, 0);
 
                 }));

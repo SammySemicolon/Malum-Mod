@@ -52,7 +52,7 @@ public class ModItems
     public static Item spirit_charcoal;
     public static Item spirit_stone;
     public static Item dark_spirit_stone;
-    public static Item spirit_slik;
+    public static Item spirit_silk;
     public static Item evil_leather;
     public static Item spirited_steel_ingot;
     public static Item spirited_steel_nugget;
@@ -62,12 +62,14 @@ public class ModItems
     public static Item vacant_gemstone;
     public static Item stygian_pearl;
     public static Item runic_ash;
+    public static Item exothermic_ash;
+    public static Item exothermic_cell;
     public static Item royal_steel_ingot;
+    public static Item soul_steel_ingot;
+    public static Item soul_steel_nugget;
     public static Item arcane_apparatus;
     public static Item cursed_nebulous;
     public static Item stellar_apparatus;
-
-    public static Item curio_material;
 
     public static Item spiritwood_stave;
     public static Item block_transmutation_tool;
@@ -96,6 +98,7 @@ public class ModItems
     public static Item soul_steel_helm;
 
     public static Item ultimate_weapon;
+    public static Item big_crossbow;
     //CURIOS
     public static Item phantom_wings_curio;
     public static Item crossbow_reload_curio;
@@ -108,8 +111,10 @@ public class ModItems
     public static Item soul_binder;
     public static Item ritual_anchor;
     //BLOCKS
-    public static Item blighted_dirt;
-    public static Item blighted_grass;
+    public static Item deadwood_leaves;
+    public static Item deadwood_planks;
+    public static Item deadwood_log;
+    public static Item stripped_deadwood_log;
     public static Item wooden_planks;
     public static Item wooden_planks_slab;
     public static Item wooden_planks_stairs;
@@ -129,6 +134,7 @@ public class ModItems
     public static Item block_of_flesh;
     public static Item spirit_leaves;
     public static Item spirit_log;
+    public static Item stripped_spirit_log;
     public static Item spirit_sapling;
     public static Item spirit_planks;
     public static Item spirit_planks_slab;
@@ -154,7 +160,7 @@ public class ModItems
                 spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
                 spirit_stone = setup(new BlockItem(ModBlocks.spirit_stone, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
-                spirit_slik = setup(new Item(basic_properties), "spirit_slik"),
+                spirit_silk = setup(new Item(basic_properties), "spirit_silk"),
                 evil_leather = setup(new Item(basic_properties), "evil_leather"),
                 spirited_steel_ingot = setup(new Item(basic_properties), "spirited_steel_ingot"),
                 spirited_steel_nugget = setup(new Item(basic_properties), "spirited_steel_nugget"),
@@ -163,13 +169,16 @@ public class ModItems
                 enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
                 vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
                 runic_ash = setup(new Item(basic_properties), "runic_ash"),
+                exothermic_ash = setup(new Item(basic_properties), "exothermic_ash"),
+                exothermic_cell = setup(new Item(basic_properties), "exothermic_cell"),
                 stygian_pearl = setup(new Item(basic_properties), "stygian_pearl"),
                 royal_steel_ingot = setup(new Item(basic_properties), "royal_steel_ingot"),
                 arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
+                soul_steel_ingot = setup(new Item(basic_properties), "soul_steel_ingot"),
+                soul_steel_nugget = setup(new Item(basic_properties), "soul_steel_nugget"),
                 cursed_nebulous = setup(new Item(basic_properties), "cursed_nebulous"),
                 stellar_apparatus = setup(new Item(basic_properties), "stellar_apparatus"),
 
-                curio_material = setup(new CurioCraftingItem(tool_properties), "curio_material"),
                 spiritwood_stave = setup(new SpiritwoodStaveItem(tool_properties), "spiritwood_stave"),
                 block_transmutation_tool = setup(new TransmutationGemItem(tool_properties), "block_transmutation_tool"),
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
@@ -198,6 +207,7 @@ public class ModItems
                 soul_steel_helm = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_steel_helm"),
 
                 ultimate_weapon = setup(new BonkItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
+                big_crossbow = setup(new BigFuckingCrossbowItem(tool_properties.maxDamage(824)), "big_crossbow"),
 
                 phantom_wings_curio = setup(new PhantomWingsCurioItem(tool_properties), "phantom_wings_curio"),
                 crossbow_reload_curio = setup(new CrossbowReloadCurioItem(tool_properties), "crossbow_reload_curio"),
@@ -209,8 +219,11 @@ public class ModItems
                 ritual_anchor = setup(new BlockItem(ModBlocks.ritual_anchor, basic_properties), "ritual_anchor"),
                 soul_binder = setup(new BlockItem(ModBlocks.soul_binder, basic_properties), "soul_binder"),
 
-                blighted_dirt = setup(new BlockItem(ModBlocks.blighted_dirt, basic_properties), "blighted_dirt"),
-                blighted_grass = setup(new BlockItem(ModBlocks.blighted_grass, basic_properties), "blighted_grass"),
+                deadwood_leaves = setup(new BlockItem(ModBlocks.deadwood_leaves, basic_properties), "deadwood_leaves"),
+                deadwood_log = setup(new BlockItem(ModBlocks.deadwood_log, basic_properties), "deadwood_log"),
+                stripped_deadwood_log = setup(new BlockItem(ModBlocks.stripped_deadwood_log, basic_properties), "stripped_deadwood_log"),
+
+                deadwood_planks = setup(new BlockItem(ModBlocks.deadwood_planks, basic_properties), "deadwood_planks"),
 
                 wooden_planks = setup(new BlockItem(ModBlocks.wooden_planks, basic_properties), "wooden_planks"),
                 wooden_planks_slab = setup(new BlockItem(ModBlocks.wooden_planks_slab, basic_properties), "wooden_planks_slab"),
@@ -241,6 +254,7 @@ public class ModItems
 
                 spirit_leaves = setup(new BlockItem(ModBlocks.spirit_leaves, basic_properties), "spirit_leaves"),
                 spirit_log = setup(new BlockItem(ModBlocks.spirit_log, basic_properties), "spirit_log"),
+                stripped_spirit_log = setup(new BlockItem(ModBlocks.stripped_spirit_log, basic_properties), "stripped_spirit_log"),
                 spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, basic_properties), "spirit_sapling"),
 
                 refined_glowstone_block = setup(new BlockItem(ModBlocks.refined_glowstone_block, basic_properties), "refined_glowstone_block"),

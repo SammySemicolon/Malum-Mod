@@ -95,6 +95,14 @@ public class MalumHelper
         return originalStack;
     }
 
+    public static ItemStack stackWithItemChanged(ItemStack originalStack,Item item)
+    {
+        ItemStack stack = new ItemStack(item, originalStack.getCount());
+        if (originalStack.getTag() != null) {
+            stack.setTag(originalStack.getTag().copy());
+        }
+        return stack;
+    }
     public static ItemStack stackWithCount(Item item, int count)
     {
         ItemStack stack = new ItemStack(item);
@@ -139,6 +147,14 @@ public class MalumHelper
         return new Vec3d(pos.x + x, pos.y + y, pos.z + z);
     }
 
+    public static Vec3d frontOfEntity(Entity entity, PlayerEntity playerEntity)
+    {
+        return new Vec3d(((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2) - playerEntity.getLookVec().x / 2, ((entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2) - playerEntity.getLookVec().y / 2, ((entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2) - playerEntity.getLookVec().z / 2);
+    }
+    public static Vec3d entityCenter(Entity entity)
+    {
+        return new Vec3d((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2, (entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2, (entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2);
+    }
     @OnlyIn(Dist.CLIENT)
     public static void makeTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, ArrayList<ITextComponent> components)
     {

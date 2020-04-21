@@ -161,7 +161,7 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                                 }
                             }
                             infusionProgress++;
-                            if (MathHelper.nextInt(world.rand, 0, 20) == 0)
+                            if (MathHelper.nextInt(world.rand, 0, 80) == 0)
                             {
                                 if (!world.isRemote)
                                 {
@@ -191,7 +191,7 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                                     }
                                 }
                             }
-                            if (infusionProgress % 4 == 0)
+                            if (infusionProgress % 3 == 0)
                             {
                                 Vec3d targetPos = randPos(new Vec3d(pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5), random, -2, 2);
                                 Vec3d particlePos = randPos(new Vec3d(pos.getX(), pos.getY(), pos.getZ()).add(0.5, 1.2, 0.5), random, -0.3, 0.3);
@@ -233,7 +233,7 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                                                 new SpiritInfusionStopLoopSoundPacket(pos.getX(), pos.getY(), pos.getZ()));
                                     }
                                     inventory.setStackInSlot(0, ItemStack.EMPTY);
-                                    world.addParticle(new SoulHarvestParticleData(), pos.getX() + 0.5, pos.getY() + 1.4, pos.getZ() + 0.5, 0, 0, 0);
+                                    world.addParticle(new SoulHarvestParticleData(), pos.getX() + 0.5, pos.getY() + 2.2, pos.getZ() + 0.5, 0, 0, 0);
                                     world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, outputStack));
                                 }
                             }
