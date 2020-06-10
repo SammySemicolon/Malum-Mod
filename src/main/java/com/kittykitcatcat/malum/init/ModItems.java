@@ -64,6 +64,7 @@ public class ModItems
     public static Item runic_ash;
     public static Item exothermic_ash;
     public static Item exothermic_cell;
+    public static Item shadow_alloy;
     public static Item royal_steel_ingot;
     public static Item soul_steel_ingot;
     public static Item soul_steel_nugget;
@@ -172,6 +173,7 @@ public class ModItems
                 exothermic_ash = setup(new Item(basic_properties), "exothermic_ash"),
                 exothermic_cell = setup(new Item(basic_properties), "exothermic_cell"),
                 stygian_pearl = setup(new Item(basic_properties), "stygian_pearl"),
+                shadow_alloy = setup(new Item(basic_properties), "shadow_alloy"),
                 royal_steel_ingot = setup(new Item(basic_properties), "royal_steel_ingot"),
                 arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
                 soul_steel_ingot = setup(new Item(basic_properties), "soul_steel_ingot"),

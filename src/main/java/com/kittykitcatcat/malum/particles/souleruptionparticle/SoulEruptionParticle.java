@@ -16,6 +16,7 @@ public class SoulEruptionParticle extends SimpleAnimatedParticle
         motionX = xSpeed;
         motionY = ySpeed;
         motionZ = zSpeed;
+        selectSpriteWithAge(spriteSet);
         setPosition(x, y, z);
         setMaxAge(40);
     }
@@ -52,13 +53,7 @@ public class SoulEruptionParticle extends SimpleAnimatedParticle
 
         public Particle makeParticle(SoulEruptionParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            SoulEruptionParticle particle = new SoulEruptionParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet);
-            particle.selectSpriteRandomly(this.spriteSet);
-            if (xSpeed > 2f || xSpeed < -2f || ySpeed > 2f || ySpeed < -2f || zSpeed > 2f || zSpeed < -2f)
-            {
-                particle.setExpired();
-            }
-            return particle;
+            return new SoulEruptionParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet);
         }
     }
 }

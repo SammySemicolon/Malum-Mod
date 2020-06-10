@@ -17,6 +17,7 @@ public class SoulHarvestParticle extends SimpleAnimatedParticle
         motionX = xSpeed;
         motionY = ySpeed;
         motionZ = zSpeed;
+        selectSpriteWithAge(spriteSet);
         setPosition(x, y, z);
         setMaxAge(36);
     }
@@ -53,13 +54,7 @@ public class SoulHarvestParticle extends SimpleAnimatedParticle
 
         public Particle makeParticle(SoulHarvestParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            SoulHarvestParticle particle = new SoulHarvestParticle(worldIn, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet);
-            particle.selectSpriteRandomly(this.spriteSet);
-            if (xSpeed > 2f || xSpeed < -2f || ySpeed > 2f || ySpeed < -2f || zSpeed > 2f || zSpeed < -2f)
-            {
-                particle.setExpired();
-            }
-            return particle;
+            return new SoulHarvestParticle(worldIn, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet);
         }
     }
 }

@@ -43,20 +43,60 @@ import static net.minecraft.util.Hand.MAIN_HAND;
 @Mod.EventBusSubscriber
 public class SpiritwoodStaveItem extends Item
 {
+    //region item
     public SpiritwoodStaveItem(Properties properties)
     {
         super(properties);
         this.addPropertyOverride(new ResourceLocation("spirit"), spiritProperty);
     }
-
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         makeDefaultTooltip(stack, worldIn, tooltip, flagIn);
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
+    {
+        if (handIn.equals(MAIN_HAND))
+        {
+            ItemStack itemstack = playerIn.getHeldItem(handIn);
+            if (itemstack.getItem() instanceof SpiritwoodStaveItem)
+            {
+                if (((SpiritwoodStaveItem) itemstack.getItem()).isDefaultFunction(playerIn.getHeldItemMainhand()))
+                {
+                    if (!SpiritData.hasSpiritDataInNBT(itemstack.getOrCreateTag()))
+                    {
+                        if (findEntity(playerIn) != null)
+                        {
+                            playerIn.setActiveHand(handIn);
+                        }
+                    }
+                }
+                else if (((SpiritwoodStaveItem) itemstack.getItem()).canUseAltFunction(playerIn.getHeldItemMainhand()))
+                {
+                    playerIn.setActiveHand(handIn);
+                }
+            }
+        }
+        return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
 
-    public boolean isDefaultFunction(ItemStack stack)
+    //ACTUAL ITEM
+    @Override
+    public UseAction getUseAction(ItemStack stack)
+    {
+        return UseAction.BOW;
+    }
+
+    @Override
+    public int getUseDuration(ItemStack stack)
+    {
+        return 72000;
+    }
+    //endregion
+    //region helper methods
+    public boolean isDefaultFunction(ItemStack stack) //used when making staff extensions
     {
         return true;
     }
@@ -64,11 +104,78 @@ public class SpiritwoodStaveItem extends Item
     {
         return true;
     }
-    public boolean canSuck(ItemStack stack, LivingEntity entity)
+    public boolean canDrain(ItemStack stack, LivingEntity entity)
     {
-        return !stack.getOrCreateTag().contains("entityRegistryName");
+        return !SpiritData.hasSpiritDataInNBT(stack.getOrCreateTag());
     }
-    //VISUAL AND CLIENT STUFF
+    public static void attemptDrain(PlayerEntity player, LivingEntity target)
+    {
+        float drainProgress = CapabilityValueGetter.getDrainProgress(player);
+        CapabilityValueGetter.setDrainProgress(player, drainProgress + 1);
+        target.addPotionEffect(new EffectInstance(Effects.NAUSEA, 25, 1, true, false));
+        if (drainProgress == 1)
+        {
+            startDrain(player);
+        }
+        if (drainProgress >= 170)
+        {
+            CapabilityValueGetter.setDrainProgress(player, 0);
+            drain(player, target);
+        }
+    }
+    public static void startDrain(PlayerEntity player)
+    {
+        player.world.playSound(player, player.getPosition(), ModSounds.soul_harvest_loop, SoundCategory.PLAYERS, 1F, 1F);
+    }
+    public static void drain(PlayerEntity player, LivingEntity target)
+    {
+        float purity = 1f;
+        SpiritData data = new SpiritData(target, purity);
+        data.writeSpiritDataIntoNBT(player.getHeldItemMainhand().getOrCreateTag());
+        CapabilityValueGetter.setIsHusk(target, true);
+        target.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 1200, 1));
+        target.addPotionEffect(new EffectInstance(Effects.NAUSEA, 1200, 1, true, false));
+        player.addStat(Stats.ITEM_USED.get(player.getHeldItemMainhand().getItem()));
+        player.swingArm(MAIN_HAND);
+        player.world.playSound(player, player.getPosition(), ModSounds.soul_harvest_success, SoundCategory.PLAYERS, 1F, 1F);
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS));
+        player.world.addParticle(new SoulHarvestParticleData(), MalumHelper.entityFacingPlayer(target,player).x,MalumHelper.entityFacingPlayer(target,player).y,MalumHelper.entityFacingPlayer(target,player).z, 0, 0, 0);
+    }
+    public static void stopDrain(PlayerEntity player)
+    {
+        CapabilityValueGetter.setDrainProgress(player, 0);
+        player.world.playSound(null, player.getPosition(), ModSounds.soul_harvest_fail, SoundCategory.PLAYERS, 1F, 1F);
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS));
+        player.getCooldownTracker().setCooldown(player.getHeldItemMainhand().getItem(), 20);
+    }
+
+    public static boolean isEntityValid(LivingEntity target)
+    {
+        return (target.getHealth() <= target.getMaxHealth() / 10 || target.getHealth() <= 2) && !CapabilityValueGetter.getIsHusk(target);
+    }
+    public static LivingEntity findEntity(PlayerEntity player)
+    {
+        World world = player.world;
+
+        Vec3d pos = player.getPositionVector();
+        float strength = 5f;
+        Vec3d looKVec = pos.add(player.getLookVec().mul(strength / 2, strength / 2, strength / 2));
+        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(pos.x - strength, pos.y - strength, pos.z - strength, pos.x + strength, pos.y + strength, pos.z + strength));
+        if (!list.isEmpty())
+        {
+            Entity entity = MalumHelper.getClosestEntity(list, looKVec.x, looKVec.y, looKVec.z);
+            if (entity instanceof LivingEntity)
+            {
+                if (isEntityValid((LivingEntity) entity))
+                {
+                    return (LivingEntity) entity;
+                }
+            }
+        }
+        return null;
+    }
+    //endregion
+    //region events
     @SubscribeEvent
     public static void zoomIn(FOVUpdateEvent event)
     {
@@ -101,7 +208,7 @@ public class SpiritwoodStaveItem extends Item
                     if (findEntity(player) != null)
                     {
                         LivingEntity target = findEntity(player);
-                        if (item.canSuck(player.getHeldItemMainhand(), target))
+                        if (item.canDrain(player.getHeldItemMainhand(), target))
                         {
                             target.addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false));
                         }
@@ -110,8 +217,6 @@ public class SpiritwoodStaveItem extends Item
             }
         }
     }
-
-    //LOGIC HANDLING
     @SubscribeEvent
     public static void cancelDrain(LivingEntityUseItemEvent.Start event)
     {
@@ -129,7 +234,7 @@ public class SpiritwoodStaveItem extends Item
                     }
                     else
                     {
-                        if (!item.canSuck(player.getHeldItemMainhand(), findEntity(player)))
+                        if (!item.canDrain(player.getHeldItemMainhand(), findEntity(player)))
                         {
                             event.setCanceled(true);
                         }
@@ -151,17 +256,13 @@ public class SpiritwoodStaveItem extends Item
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (player.getHeldItemMainhand().getItem() instanceof SpiritwoodStaveItem)
             {
-                if (CapabilityValueGetter.getDrainProgress(player) > 0)
-                {
-                    CapabilityValueGetter.setDrainProgress(player, 0);
-                    stopDrain(player);
-                }
+                stopDrain(player);
             }
         }
     }
 
     @SubscribeEvent
-    public static void drainSoul(LivingEntityUseItemEvent.Tick event)
+    public static void drain(LivingEntityUseItemEvent.Tick event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
@@ -173,7 +274,7 @@ public class SpiritwoodStaveItem extends Item
                 {
                     if (findEntity(player) != null)
                     {
-                        if (!item.canSuck(player.getHeldItemMainhand(), findEntity(player)))
+                        if (!item.canDrain(player.getHeldItemMainhand(), findEntity(player)))
                         {
                             event.setCanceled(true);
                         }
@@ -182,7 +283,6 @@ public class SpiritwoodStaveItem extends Item
                     }
                     else
                     {
-                        CapabilityValueGetter.setDrainProgress(player, 0);
                         stopDrain(player);
                         event.setCanceled(true);
                     }
@@ -190,121 +290,9 @@ public class SpiritwoodStaveItem extends Item
             }
             else if (CapabilityValueGetter.getDrainProgress(player) > 0) //FAIL
             {
-                CapabilityValueGetter.setDrainProgress(player, 0);
                 stopDrain(player);
             }
         }
     }
-
-    public static boolean isEntityValid(LivingEntity target)
-    {
-        return (target.getHealth() <= target.getMaxHealth() / 10 || target.getHealth() <= 2) && !CapabilityValueGetter.getIsHusk(target);
-    }
-
-    public static LivingEntity findEntity(PlayerEntity player)
-    {
-        World world = player.world;
-
-        Vec3d pos = player.getPositionVector();
-        float strength = 5f;
-        Vec3d looKVec = pos.add(player.getLookVec().mul(strength / 2, strength / 2, strength / 2));
-        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(pos.x - strength, pos.y - strength, pos.z - strength, pos.x + strength, pos.y + strength, pos.z + strength));
-        if (!list.isEmpty())
-        {
-            Entity entity = MalumHelper.getClosestEntity(list, looKVec.x, looKVec.y, looKVec.z);
-            if (entity instanceof LivingEntity)
-            {
-                if (isEntityValid((LivingEntity) entity))
-                {
-                    return (LivingEntity) entity;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static void attemptDrain(PlayerEntity player, LivingEntity target)
-    {
-        float drainProgress = CapabilityValueGetter.getDrainProgress(player);
-        CapabilityValueGetter.setDrainProgress(player, drainProgress + 1);
-        target.addPotionEffect(new EffectInstance(Effects.NAUSEA, 25, 1, true, false));
-        if (drainProgress == 1)
-        {
-            startDrain(player);
-        }
-        if (drainProgress >= 170)
-        {
-            CapabilityValueGetter.setDrainProgress(player, 0);
-            drainSoul(player, target);
-        }
-    }
-
-    public static void drainSoul(PlayerEntity player, LivingEntity target)
-    {
-        float purity = 1f;
-        SpiritData data = new SpiritData(target, purity);
-        data.writeSpiritDataIntoNBT(player.getHeldItemMainhand().getOrCreateTag());
-        CapabilityValueGetter.setIsHusk(target, true);
-        target.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 1200, 1));
-        target.addPotionEffect(new EffectInstance(Effects.NAUSEA, 1200, 1, true, false));
-
-        player.addStat(Stats.ITEM_USED.get(player.getHeldItemMainhand().getItem()));
-        player.swingArm(MAIN_HAND);
-        player.world.playSound(player, player.getPosition(), ModSounds.soul_harvest_success, SoundCategory.PLAYERS, 1F, 1F);
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS));
-        Vec3d particlePos = target.getPositionVec().add(0, target.getEyeHeight(), 0).subtract(player.getLookVec());
-        player.world.addParticle(new SoulHarvestParticleData(), particlePos.getX(), particlePos.getY(), particlePos.getZ(), 0, 0, 0);
-    }
-
-    public static void startDrain(PlayerEntity player)
-    {
-        player.world.playSound(player, player.getPosition(), ModSounds.soul_harvest_loop, SoundCategory.PLAYERS, 1F, 1F);
-    }
-
-    public static void stopDrain(PlayerEntity player)
-    {
-        player.world.playSound(player, player.getPosition(), ModSounds.soul_harvest_fail, SoundCategory.PLAYERS, 1F, 1F);
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "soul_harvest_loop"), SoundCategory.PLAYERS));
-        player.getCooldownTracker().setCooldown(player.getHeldItemMainhand().getItem(), 20);
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
-    {
-        if (handIn.equals(MAIN_HAND))
-        {
-            ItemStack itemstack = playerIn.getHeldItem(handIn);
-            if (itemstack.getItem() instanceof SpiritwoodStaveItem)
-            {
-                if (((SpiritwoodStaveItem) itemstack.getItem()).isDefaultFunction(playerIn.getHeldItemMainhand()))
-                {
-                    if (!itemstack.getOrCreateTag().contains("entityRegistryName"))
-                    {
-                        if (findEntity(playerIn) != null)
-                        {
-                            playerIn.setActiveHand(handIn);
-                        }
-                    }
-                }
-                else if (((SpiritwoodStaveItem) itemstack.getItem()).canUseAltFunction(playerIn.getHeldItemMainhand()))
-                {
-                    playerIn.setActiveHand(handIn);
-                }
-            }
-        }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
-    }
-
-    //ACTUAL ITEM
-    @Override
-    public UseAction getUseAction(ItemStack stack)
-    {
-        return UseAction.BOW;
-    }
-
-    @Override
-    public int getUseDuration(ItemStack stack)
-    {
-        return 72000;
-    }
+    //endregion
 }

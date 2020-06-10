@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.recipes;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.SpiritData;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
@@ -8,6 +9,7 @@ import com.kittykitcatcat.malum.recipes.spiritinfusionresults.CarryOverNBTResult
 import com.kittykitcatcat.malum.recipes.spiritinfusionresults.ISpiritInfusionResult;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.IntNBT;
 
 import java.util.ArrayList;
@@ -28,6 +30,23 @@ public class SpiritInfusionRecipe
     ItemStack outputStack;
     ISpiritInfusionResult infusionResult;
 
+    public static boolean isEqual(List<Item> items1, List<Item> items2)
+    {
+        for (int o =0; o <= 8; o += 2)
+        {
+            List<Item> testList = new ArrayList<>();
+            for (int i = o; i < items1.size()+o; i++)
+            {
+                int slot = i % items1.size();
+                testList.add(items1.get(slot));
+            }
+            if (testList.equals(items2))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public SpiritInfusionRecipe(Item input0, Item input1, Item input2, Item input3, Item catalyst,  Item input4, Item input5, Item input6, Item input7, ItemStack outputStack, int infusionTime, SpiritData data)
     {
         items.add(input1);
@@ -95,12 +114,28 @@ public class SpiritInfusionRecipe
     public static void initRecipes()
     {
         ModRecipes.addSpiritInfusionRecipe(new SpiritInfusionRecipe(
-                runic_ash, transmissive_ingot, runic_ash,
+                runic_ash, AIR, OBSIDIAN,
                 AIR, spirited_steel_ingot, AIR,
-                runic_ash, transmissive_ingot, runic_ash,
-                stackWithCount(royal_steel_ingot, 6),
+                OBSIDIAN, AIR, COAL_BLOCK,
+                stackWithCount(shadow_alloy, 2),
                 160,
-                new SpiritData("minecraft:zombie", 0.5f)
+                new SpiritData("minecraft:wither_skeleton", 0.5f)
+        ));
+        ModRecipes.addSpiritInfusionRecipe(new SpiritInfusionRecipe(
+                runic_ash, transmissive_ingot, runic_ash,
+                AIR, shadow_alloy, AIR,
+                runic_ash, spirited_steel_ingot, runic_ash,
+                stackWithCount(royal_steel_ingot, 6),
+                320,
+                new SpiritData("minecraft:ghast", 0.25f)
+        ));
+        ModRecipes.addSpiritInfusionRecipe(new SpiritInfusionRecipe(
+                ENDER_PEARL, OBSIDIAN, END_STONE,
+                AIR, shadow_alloy, AIR,
+                END_STONE, OBSIDIAN, ENDER_PEARL,
+                stackWithCount(soul_steel_ingot, 4),
+                640,
+                new SpiritData("minecraft:enderman", 2f)
         ));
         ModRecipes.addSpiritInfusionRecipe(new SpiritInfusionRecipe(
                 AIR, runic_ash, AIR,

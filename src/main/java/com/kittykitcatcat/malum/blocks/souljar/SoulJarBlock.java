@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.blocks.souljar;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.SpiritData;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModSounds;
@@ -63,38 +64,6 @@ public class SoulJarBlock extends Block
     {
         event.getBlockColors().register((state, world, pos, tintIndex) ->
         {
-            /*if (world != null)
-            {
-                if (state.has(RENDER))
-                {
-                    if (state.get(RENDER) == 1)
-                    {
-                        if (world.getTileEntity(pos) instanceof SoulJarTileEntity)
-                        {
-                            SoulJarTileEntity tileEntity = (SoulJarTileEntity) world.getTileEntity(pos);
-                            if (!tileEntity.entityRegistryName.isEmpty())
-                            {
-                                SpiritData data = new SpiritData(tileEntity.entityRegistryName, tileEntity.purity);
-                                if (data.getType().isPresent())
-                                {
-                                    EntityType type = data.getType().get();
-                                    for (Item item : Registry.ITEM)
-                                    {
-                                        if (item instanceof SpawnEggItem)
-                                        {
-                                            SpawnEggItem eggItem = (SpawnEggItem) item;
-                                            if (type.equals(eggItem.getType(null)))
-                                            {
-                                                return eggItem.getColor(0);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }*/
             return 0xabcdef;
         }, ModBlocks.soul_jar);
     }
@@ -133,61 +102,22 @@ public class SoulJarBlock extends Block
                     ItemStack heldItem = player.getHeldItem(handIn);
                     if (heldItem.getItem() instanceof SpiritwoodStaveItem)
                     {
-                        if (heldItem.getTag() != null)
+                        if (SpiritData.hasSpiritDataInNBT(heldItem.getOrCreateTag()))
                         {
-                            String heldRegistryName = heldItem.getTag().getString("entityRegistryName");
-                            if (tileEntity.purity == 0)
+                            SpiritData data = SpiritData.readSpiritDataFromNBT(heldItem.getOrCreateTag());
+                            if (tileEntity.data == null)
                             {
-                                tileEntity.purity = heldItem.getTag().getFloat("purity");
-                                tileEntity.entityRegistryName = heldRegistryName;
-                                heldItem.getTag().remove("purity");
-                                heldItem.getTag().remove("entityRegistryName");
-                                heldItem.getTag().remove("entityDisplayName");
-                                player.swingArm(handIn);
-                                INSTANCE.send(
-                                        PacketDistributor.TRACKING_CHUNK.with(() -> worldIn.getChunkAt(pos)),
-                                        new SoulJarFillPacket(pos.getX(), pos.getY(), pos.getZ()));
-                                return ActionResultType.SUCCESS;
+                                tileEntity.data = data;
+                                heldItem.getOrCreateTag().remove("purity");
+                                heldItem.getOrCreateTag().remove("entityRegistryName");
                             }
-                            if (heldRegistryName.equals(tileEntity.entityRegistryName))
+                            else
                             {
-                                float toAdd = heldItem.getTag().getFloat("purity");
-                                float alreadyIn = tileEntity.purity;
-                                if (toAdd + alreadyIn <= 5f)
-                                {
-                                    tileEntity.purity += toAdd;
-                                    heldItem.getTag().remove("purity");
-                                    heldItem.getTag().remove("entityRegistryName");
-                                    heldItem.getTag().remove("entityDisplayName");
-                                    player.swingArm(handIn);
-
-                                    INSTANCE.send(
-                                            PacketDistributor.TRACKING_CHUNK.with(() -> worldIn.getChunkAt(pos)),
-                                            new SoulJarFillPacket(pos.getX(), pos.getY(), pos.getZ()));
-                                }
-                                else
-                                {
-                                    float empty = 5f - alreadyIn;
-                                    for (float f = 0; f < empty; f += 0.01f)
-                                    {
-                                        tileEntity.purity += 0.01f;
-                                        if (tileEntity.purity >= 5f)
-                                        {
-                                            heldItem.getTag().remove("purity");
-                                            heldItem.getTag().remove("entityRegistryName");
-                                            heldItem.getTag().remove("entityDisplayName");
-                                            player.swingArm(handIn);
-                                            return ActionResultType.SUCCESS;
-                                        }
-                                    }
-                                    player.swingArm(handIn);
-                                    INSTANCE.send(
-                                            PacketDistributor.TRACKING_CHUNK.with(() -> worldIn.getChunkAt(pos)),
-                                            new SoulJarFillPacket(pos.getX(), pos.getY(), pos.getZ()));
-                                    return ActionResultType.SUCCESS;
-                                }
-                                return ActionResultType.SUCCESS;
+                                tileEntity.data.mergeData(data, 5);
                             }
+                            INSTANCE.send(
+                                    PacketDistributor.TRACKING_CHUNK.with(() -> worldIn.getChunkAt(pos)),
+                                    new SoulJarFillPacket(pos.getX(), pos.getY(), pos.getZ()));
                         }
                     }
                 }

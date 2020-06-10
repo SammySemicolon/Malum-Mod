@@ -1,6 +1,8 @@
 package com.kittykitcatcat.malum.particles.boom;
 
+import com.kittykitcatcat.malum.MalumMod;
 import net.minecraft.client.particle.*;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -16,6 +18,9 @@ public class BoomParticle extends SimpleAnimatedParticle
         motionX = xSpeed;
         motionY = ySpeed;
         motionZ = zSpeed;
+        selectSpriteWithAge(spriteSet);
+        particleAngle = MathHelper.nextFloat(MalumMod.random, 0, 360);
+        prevParticleAngle = particleAngle;
         setPosition(x, y, z);
         setMaxAge(20);
     }
@@ -52,13 +57,7 @@ public class BoomParticle extends SimpleAnimatedParticle
 
         public Particle makeParticle(BoomParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            BoomParticle particle = new BoomParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet);
-            particle.selectSpriteRandomly(this.spriteSet);
-            if (xSpeed > 2f || xSpeed < -2f || ySpeed > 2f || ySpeed < -2f || zSpeed > 2f || zSpeed < -2f)
-            {
-                particle.setExpired();
-            }
-            return particle;
+            return new BoomParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet);
         }
     }
 }

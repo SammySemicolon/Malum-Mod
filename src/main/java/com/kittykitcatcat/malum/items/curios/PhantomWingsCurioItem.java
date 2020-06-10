@@ -47,7 +47,7 @@ public class PhantomWingsCurioItem extends Item implements ICurio
         return CurioThingIDK.createProvider(new ICurio()
         {
             private final ResourceLocation WING_TEXTURE =
-                new ResourceLocation(MalumMod.MODID, "textures/armor/phantom_wings.png");
+                    new ResourceLocation(MalumMod.MODID, "textures/armor/phantom_wings.png");
             private Object left_wing_model;
             private Object right_wing_model;
 
@@ -55,8 +55,8 @@ public class PhantomWingsCurioItem extends Item implements ICurio
             public void playEquipSound(LivingEntity entityLivingBase)
             {
                 entityLivingBase.world.playSound(null, entityLivingBase.getPosition(),
-                    SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL,
-                    1.0f, 1.0f);
+                        SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL,
+                        1.0f, 1.0f);
             }
 
             @Override
@@ -95,7 +95,7 @@ public class PhantomWingsCurioItem extends Item implements ICurio
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(rotationY));
 
                 ((ModelRightWing) right_wing_model).render(matrixStack, vertexBuilder, light, NO_OVERLAY, 1.0F,
-                    1.0F, 1.0F, 1.0F);
+                        1.0F, 1.0F, 1.0F);
 
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(-rotationY));
                 matrixStack.rotate(Vector3f.ZP.rotationDegrees(rotationXAgain));
@@ -105,12 +105,13 @@ public class PhantomWingsCurioItem extends Item implements ICurio
                 matrixStack.rotate(Vector3f.ZP.rotationDegrees(rotationXAgain));
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(-rotationY));
                 ((ModelLeftWing) left_wing_model).render(matrixStack, vertexBuilder, light, NO_OVERLAY, 1.0F,
-                    1.0F, 1.0F, 1.0F);
+                        1.0F, 1.0F, 1.0F);
 
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(rotationY));
                 matrixStack.rotate(Vector3f.ZP.rotationDegrees(-rotationXAgain));
                 matrixStack.rotate(Vector3f.ZP.rotationDegrees(-rotationX));
             }
+
             //THIS CODE IS SHIT, CLEAN IT UP SOMEDAY
             @Override
             public void onCurioTick(String identifier, int index, LivingEntity entityLivingBase)
@@ -129,8 +130,8 @@ public class PhantomWingsCurioItem extends Item implements ICurio
                                 if (!isJumpHeld)
                                 {
                                     NetworkManager.INSTANCE.send(
-                                        PacketDistributor.SERVER.noArg(),
-                                        new CanFlyPacket(true));
+                                            PacketDistributor.SERVER.noArg(),
+                                            new CanFlyPacket(true));
                                     CapabilityValueGetter.setCanFly((PlayerEntity) entityLivingBase, true);
                                 }
                             }
@@ -139,23 +140,23 @@ public class PhantomWingsCurioItem extends Item implements ICurio
                         {
                             if (CapabilityValueGetter.getTotalFlightTime((PlayerEntity) entityLivingBase) > 0f)
                             {
-                                        NetworkManager.INSTANCE.send(
-                                    PacketDistributor.SERVER.noArg(),
-                                    new TotalFlightTimePacket(CapabilityValueGetter.getTotalFlightTime((PlayerEntity) entityLivingBase) - 2d));
+                                NetworkManager.INSTANCE.send(
+                                        PacketDistributor.SERVER.noArg(),
+                                        new TotalFlightTimePacket(CapabilityValueGetter.getTotalFlightTime((PlayerEntity) entityLivingBase) - 2d));
                                 CapabilityValueGetter.setTotalFlightTime((PlayerEntity) entityLivingBase, CapabilityValueGetter.getTotalFlightTime((PlayerEntity) entityLivingBase) - 2d);
                             }
                             if (canFly)
                             {
                                 NetworkManager.INSTANCE.send(
-                                    PacketDistributor.SERVER.noArg(),
-                                    new CanFlyPacket(false));
+                                        PacketDistributor.SERVER.noArg(),
+                                        new CanFlyPacket(false));
                                 CapabilityValueGetter.setCanFly((PlayerEntity) entityLivingBase, false);
                             }
                             if (flightTime != 20)
                             {
                                 NetworkManager.INSTANCE.send(
-                                    PacketDistributor.SERVER.noArg(),
-                                    new FlightTimePacket(20));
+                                        PacketDistributor.SERVER.noArg(),
+                                        new FlightTimePacket(20));
                                 CapabilityValueGetter.setAvaiableFlightTime((PlayerEntity) entityLivingBase, 20);
                             }
                         }
@@ -166,31 +167,25 @@ public class PhantomWingsCurioItem extends Item implements ICurio
                                 if (CapabilityValueGetter.getTotalFlightTime((PlayerEntity) entityLivingBase) < 60f)
                                 {
                                     NetworkManager.INSTANCE.send(
-                                        PacketDistributor.SERVER.noArg(),
-                                        new TotalFlightTimePacket(CapabilityValueGetter.getTotalFlightTime((PlayerEntity) entityLivingBase) + 1d));
+                                            PacketDistributor.SERVER.noArg(),
+                                            new TotalFlightTimePacket(CapabilityValueGetter.getTotalFlightTime((PlayerEntity) entityLivingBase) + 1d));
                                     CapabilityValueGetter.setTotalFlightTime((PlayerEntity) entityLivingBase, CapabilityValueGetter.getTotalFlightTime((PlayerEntity) entityLivingBase) + 1);
                                 }
                                 if (isJumpHeld)
                                 {
-                                    float yaw = entityLivingBase.rotationYaw;
-                                    float pitch = entityLivingBase.rotationPitch;
-                                    float f = -MathHelper.sin(yaw * ((float) Math.PI / 180F)) * MathHelper.cos(pitch * ((float) Math.PI / 180F));
-                                    float f1 = -MathHelper.sin(pitch * ((float) Math.PI / 180F));
-                                    float f2 = MathHelper.cos(yaw * ((float) Math.PI / 180F)) * MathHelper.cos(pitch * ((float) Math.PI / 180F));
-                                    Vec3d direction = new Vec3d(f, f1, f2);
-                                    Vec3d particlePosition = entityLivingBase.getPositionVec().add(MathHelper.nextDouble(entityLivingBase.world.rand, -0.5, 0.5), MathHelper.nextDouble(new Random(), -0.15, 0.15), MathHelper.nextDouble(new Random(), -0.5, 0.5)).subtract(direction);
+                                    Vec3d particlePosition = entityLivingBase.getPositionVec().add(MathHelper.nextDouble(entityLivingBase.world.rand, -0.5, 0.5), MathHelper.nextDouble(new Random(), -0.15, 0.15), MathHelper.nextDouble(new Random(), -0.5, 0.5)).subtract(entityLivingBase.getLookVec());
                                     entityLivingBase.world.addParticle(ParticleTypes.MYCELIUM, particlePosition.x, particlePosition.y, particlePosition.z, 0, 0, 0);
                                     if (flightTime > 0d)
                                     {
                                         if (entityLivingBase.getMotion().y < 0.2)
                                         {
-                                            entityLivingBase.setMotion(entityLivingBase.getMotion().add(0,0.1,0));
+                                            entityLivingBase.setMotion(entityLivingBase.getMotion().add(0, 0.1, 0));
                                         }
-                                        entityLivingBase.setMotion(entityLivingBase.getMotion().add(0,0.05,0));
+                                        entityLivingBase.setMotion(entityLivingBase.getMotion().add(0, 0.05, 0));
 
                                         NetworkManager.INSTANCE.send(
-                                            PacketDistributor.SERVER.noArg(),
-                                            new FlightTimePacket(CapabilityValueGetter.getAvaiableFlightTime((PlayerEntity) entityLivingBase) - 1d));
+                                                PacketDistributor.SERVER.noArg(),
+                                                new FlightTimePacket(CapabilityValueGetter.getAvaiableFlightTime((PlayerEntity) entityLivingBase) - 1d));
                                         CapabilityValueGetter.setAvaiableFlightTime((PlayerEntity) entityLivingBase, CapabilityValueGetter.getAvaiableFlightTime((PlayerEntity) entityLivingBase) - 1d);
                                     }
                                     else
@@ -206,11 +201,9 @@ public class PhantomWingsCurioItem extends Item implements ICurio
                     }
                 }
             }
-
             @Override
             public boolean canRightClickEquip()
             {
-
                 return true;
             }
         });

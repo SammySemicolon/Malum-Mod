@@ -2,37 +2,35 @@ package com.kittykitcatcat.malum.items.tools;
 
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModSounds;
-import com.kittykitcatcat.malum.network.packets.BoomPacket;
+import com.kittykitcatcat.malum.particles.boom.BoomParticleData;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.kittykitcatcat.malum.MalumHelper.*;
+import static com.kittykitcatcat.malum.MalumHelper.entityFacingPlayer;
 import static com.kittykitcatcat.malum.MalumHelper.makeTooltip;
-import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 
 @Mod.EventBusSubscriber
 public class ModifierEventHandler
@@ -83,11 +81,9 @@ public class ModifierEventHandler
                     event.getEntityLiving().setFire(4);
                     event.setAmount(event.getAmount() * 1.25f);
                     entity.world.playSound(null,entity.getPosX(), entity.getPosY(),entity.getPosZ(),SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1,1.8f);
-                    if (!entity.world.isRemote)
+                    if (entity.world instanceof ServerWorld)
                     {
-                        INSTANCE.send(
-                                PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) entity),
-                                new BoomPacket(frontOfEntity(event.getEntityLiving(),entity).x, frontOfEntity(event.getEntityLiving(),entity).y, frontOfEntity(event.getEntityLiving(),entity).z));
+                        ((ServerWorld) entity.getEntityWorld()).spawnParticle(new BoomParticleData(), entityFacingPlayer(event.getEntityLiving(), entity).x + MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f), entityFacingPlayer(event.getEntityLiving(), entity).y + 1 + MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f), entityFacingPlayer(event.getEntityLiving(), entity).z + MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f), 1, 0, 0, 0, 0);
                     }
                 }
             }

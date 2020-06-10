@@ -1,6 +1,8 @@
 package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.particles.bfcshockwave.BigFuckingShockwave;
+import com.kittykitcatcat.malum.particles.bfcshockwave.BigFuckingShockwaveData;
 import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticle;
 import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticleData;
 import com.kittykitcatcat.malum.particles.bonk.BonkParticle;
@@ -39,6 +41,7 @@ public class ModParticles
         Minecraft.getInstance().particles.registerFactory(bonk, BonkParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(boom, BoomParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(looseSoul, LooseSoulParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(bfcShockwave, BigFuckingShockwave.Factory::new);
     }
     public static ParticleType<SpiritLeafParticleData> spiritLeaf;
     public static ParticleType<BloodParticleData> bloodParticle;
@@ -48,6 +51,7 @@ public class ModParticles
     public static ParticleType<BonkParticleData> bonk;
     public static ParticleType<BoomParticleData> boom;
     public static ParticleType<LooseSoulParticleData> looseSoul;
+    public static ParticleType<BigFuckingShockwaveData> bfcShockwave;
     @SubscribeEvent
     public static void registerTypeRegistry(RegistryEvent.Register<ParticleType<?>> event)
     {
@@ -59,5 +63,6 @@ public class ModParticles
         bonk = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "bonk", new ParticleType<>(false, BonkParticleData.DESERIALIZER));
         boom = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "boom", new ParticleType<>(false, BoomParticleData.DESERIALIZER));
         looseSoul = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "loose_soul", new ParticleType<>(false, LooseSoulParticleData.DESERIALIZER));
+        bfcShockwave = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "bfc_shockwave", new ParticleType<>(false, BigFuckingShockwaveData.DESERIALIZER));
     }
 }

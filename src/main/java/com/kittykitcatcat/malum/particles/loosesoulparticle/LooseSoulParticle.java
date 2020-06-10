@@ -1,32 +1,27 @@
 package com.kittykitcatcat.malum.particles.loosesoulparticle;
 
-import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.particles.spiritleaf.SpiritLeafParticle;
 import net.minecraft.client.particle.*;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import static com.kittykitcatcat.malum.MalumMod.*;
-
 public class LooseSoulParticle extends SimpleAnimatedParticle
 {
 
     private final IAnimatedSprite spriteSet;
-    public float scale;
     public Vec3d targetPos;
-    protected LooseSoulParticle(World world, double startingX, double startingZ, double targetX, double targetY, double targetZ,double unused, IAnimatedSprite spriteSet)
+    protected LooseSoulParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z,double targetX, double targetY, double targetZ, IAnimatedSprite spriteSet)
     {
-        super(world, startingX, targetY-0.1f, startingZ, spriteSet, 0);
-        motionX = MathHelper.nextFloat(random, -0.4f, 0.4f);
-        motionZ = MathHelper.nextFloat(random, -0.1f, 0.2f);
-        motionY = MathHelper.nextFloat(random, -0.4f, 0.4f);
+        super(world, xSpeed, ySpeed, zSpeed, spriteSet, 0);
         this.spriteSet = spriteSet;
-        setMaxAge(80);
-        canCollide = false;
+        motionX = xSpeed;
+        motionY = ySpeed;
+        motionZ = zSpeed;
         targetPos = new Vec3d(targetX,targetY,targetZ);
-        setPosition(startingX,targetY-0.1f,startingZ);
+        setPosition(x, y, z);
+        setMaxAge(100);
     }
 
     @Override
@@ -34,25 +29,6 @@ public class LooseSoulParticle extends SimpleAnimatedParticle
     {
         super.tick();
         selectSpriteWithAge(spriteSet);
-        if (age < 10)
-        {
-            if (scale < 0.25f)
-            {
-                scale += 0.025f;
-            }
-        }
-        if (age > maxAge - 15)
-        {
-            if (scale > 0)
-            {
-                scale -= 0.05f;
-            }
-            if (scale < 0)
-            {
-                scale =0f;
-            }
-        }
-
         float turnSpeed = 0.15f;
         float moveSpeed = 0.02f;
         Vec3d velocity = targetPos.subtract(posX, posY, posZ).normalize().mul(moveSpeed, moveSpeed, moveSpeed);
@@ -71,11 +47,6 @@ public class LooseSoulParticle extends SimpleAnimatedParticle
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-    @Override
-    public float getScale(float p_217561_1_)
-    {
-        return scale;
-    }
 
     @OnlyIn(Dist.CLIENT)
     public static class Factory implements IParticleFactory<LooseSoulParticleData>
@@ -86,10 +57,9 @@ public class LooseSoulParticle extends SimpleAnimatedParticle
         {
             this.spriteSet = spriteSet;
         }
-
-        public Particle makeParticle(LooseSoulParticleData data, World worldIn, double startingX, double startingZ, double targetPosX, double targetPosY, double targetPosZ,double age)
+        public Particle makeParticle(LooseSoulParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            LooseSoulParticle particle = new LooseSoulParticle(worldIn,startingX, startingZ, targetPosX,targetPosY,targetPosZ,age,spriteSet);
+            LooseSoulParticle particle = new LooseSoulParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, data.X, data.Y, data.Z, spriteSet);
             particle.selectSpriteRandomly(this.spriteSet);
             return particle;
         }

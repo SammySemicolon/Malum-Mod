@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.kittykitcatcat.malum.MalumHelper.randPos;
+import static com.kittykitcatcat.malum.MalumHelper.randVelocity;
 import static com.kittykitcatcat.malum.MalumMod.*;
 import static com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock.findList;
 import static com.kittykitcatcat.malum.blocks.soulbinder.SoulBinderBlock.getAnchorAt;
@@ -136,40 +137,40 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
             List<Item> anchorInputs = findList(pos, world);
             for (SpiritInfusionRecipe recipe : ModRecipes.spiritInfusionRecipes)
             {
-                if (anchorInputs.equals(recipe.getItems()))
+                if (SpiritInfusionRecipe.isEqual(anchorInputs, recipe.getItems()))
                 {
                     if (stack.getItem().equals(recipe.getCatalyst()))
                     {
+                        if (infusionProgress == 0)
+                        {
+                            if (!world.isRemote)
+                            {
+                                INSTANCE.send(
+                                        PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                        new SpiritInfusionSoundStartPacket(pos.getX(), pos.getY(), pos.getZ()));
+                            }
+                        }
+                        if (infusionProgress == recipe.getInfusionTime() - 30)
+                        {
+                            if (!world.isRemote)
+                            {
+                                INSTANCE.send(
+                                        PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                        new SpiritInfusionFinishSoundPacket(pos.getX(), pos.getY(), pos.getZ()));
+                            }
+                        }
+                        infusionProgress++;
+                        if (MathHelper.nextInt(world.rand, 0, 80) == 0)
+                        {
+                            if (!world.isRemote)
+                            {
+                                INSTANCE.send(
+                                        PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                        new SpiritWhisperPacket(pos.getX(), pos.getY(), pos.getZ()));
+                            }
+                        }
                         if (SpiritData.findSpiritData(2, recipe, pos, world) != null)
                         {
-                            if (infusionProgress == 0)
-                            {
-                                if (!world.isRemote)
-                                {
-                                    INSTANCE.send(
-                                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
-                                            new SpiritInfusionSoundStartPacket(pos.getX(), pos.getY(), pos.getZ()));
-                                }
-                            }
-                            if (infusionProgress == recipe.getInfusionTime() - 30)
-                            {
-                                if (!world.isRemote)
-                                {
-                                    INSTANCE.send(
-                                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
-                                            new SpiritInfusionFinishSoundPacket(pos.getX(), pos.getY(), pos.getZ()));
-                                }
-                            }
-                            infusionProgress++;
-                            if (MathHelper.nextInt(world.rand, 0, 80) == 0)
-                            {
-                                if (!world.isRemote)
-                                {
-                                    INSTANCE.send(
-                                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
-                                            new SpiritWhisperPacket(pos.getX(), pos.getY(), pos.getZ()));
-                                }
-                            }
                             for (SoulBinderBlock.anchorOffset offset : SoulBinderBlock.anchorOffset.values())
                             {
                                 BlockPos anchorPos = pos.add(offset.offsetX, 0, offset.offsetY);
@@ -191,52 +192,58 @@ public class SoulBinderTileEntity extends TileEntity implements ITickableTileEnt
                                     }
                                 }
                             }
-                            if (infusionProgress % 3 == 0)
-                            {
-                                Vec3d targetPos = randPos(new Vec3d(pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5), random, -2, 2);
-                                Vec3d particlePos = randPos(new Vec3d(pos.getX(), pos.getY(), pos.getZ()).add(0.5, 1.2, 0.5), random, -0.3, 0.3);
-                                world.addParticle(new LooseSoulParticleData(), particlePos.getX(), particlePos.getZ(), targetPos.x, targetPos.y, targetPos.z, 0);
-                            }
 
                             if (infusionProgress >= recipe.getInfusionTime())
                             {
                                 if (world.getTileEntity(jarPos) instanceof SoulJarTileEntity)
                                 {
                                     SoulJarTileEntity tileEntity = (SoulJarTileEntity) world.getTileEntity(jarPos);
-                                    tileEntity.purity -= recipe.getData().purity;
-                                    infusionProgress = 0;
-                                    ItemStack outputStack = recipe.getOutputStack();
-                                    if (recipe.getInfusionResult() != null)
+                                    if (tileEntity.data.isPureEnough(recipe.getData().purity))
                                     {
-                                        recipe.getInfusionResult().result(stack, outputStack);
-                                    }
-                                    for (SoulBinderBlock.anchorOffset offset : SoulBinderBlock.anchorOffset.values())
-                                    {
-                                        BlockPos anchorPos = pos.add(offset.offsetX, 0, offset.offsetY);
-                                        if (getAnchorAt(anchorPos, world) != null)
+                                        tileEntity.data.reducePurity(recipe.getData().purity);
+                                        infusionProgress = 0;
+                                        ItemStack outputStack = recipe.getOutputStack();
+                                        if (recipe.getInfusionResult() != null)
                                         {
-                                            if (world.getTileEntity(anchorPos) instanceof RitualAnchorTileEntity)
+                                            recipe.getInfusionResult().result(stack, outputStack);
+                                        }
+                                        //remove all items from anchors
+                                        for (SoulBinderBlock.anchorOffset offset : SoulBinderBlock.anchorOffset.values())
+                                        {
+                                            BlockPos anchorPos = pos.add(offset.offsetX, 0, offset.offsetY);
+                                            if (getAnchorAt(anchorPos, world) != null)
                                             {
-                                                RitualAnchorTileEntity anchorTileEntity = (RitualAnchorTileEntity) world.getTileEntity(anchorPos);
-                                                if (!anchorTileEntity.inventory.getStackInSlot(0).isEmpty())
+                                                if (world.getTileEntity(anchorPos) instanceof RitualAnchorTileEntity)
                                                 {
-                                                    anchorTileEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                                                    world.addParticle(new SoulEruptionParticleData(), anchorPos.getX() + 0.5, anchorPos.getY() + 1.4, anchorPos.getZ() + 0.5, 0, 0, 0);
+                                                    RitualAnchorTileEntity anchorTileEntity = (RitualAnchorTileEntity) world.getTileEntity(anchorPos);
+                                                    if (!anchorTileEntity.inventory.getStackInSlot(0).isEmpty())
+                                                    {
+                                                        anchorTileEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                                                        world.addParticle(new SoulEruptionParticleData(), anchorPos.getX() + 0.5, anchorPos.getY() + 1.4, anchorPos.getZ() + 0.5, 0, 0, 0);
+                                                    }
                                                 }
                                             }
                                         }
+                                        if (!world.isRemote)
+                                        {
+                                            INSTANCE.send(
+                                                    PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                                    new SpiritInfusionStopLoopSoundPacket(pos.getX(), pos.getY(), pos.getZ()));
+                                        }
+                                        inventory.setStackInSlot(0, ItemStack.EMPTY);
+                                        world.addParticle(new SoulHarvestParticleData(), pos.getX() + 0.5, pos.getY() + 2.2, pos.getZ() + 0.5, 0, 0, 0);
+                                        world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, outputStack));
                                     }
-                                    if (!world.isRemote)
-                                    {
-                                        INSTANCE.send(
-                                                PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
-                                                new SpiritInfusionStopLoopSoundPacket(pos.getX(), pos.getY(), pos.getZ()));
-                                    }
-                                    inventory.setStackInSlot(0, ItemStack.EMPTY);
-                                    world.addParticle(new SoulHarvestParticleData(), pos.getX() + 0.5, pos.getY() + 2.2, pos.getZ() + 0.5, 0, 0, 0);
-                                    world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, outputStack));
                                 }
                             }
+                        }
+                        if (infusionProgress % 3 == 0)
+                        {
+                            Vec3d targetPos = randPos(new Vec3d(pos.getX(), pos.getY(), pos.getZ()).add(0.5, 1.2, 0.5), random, -2, 2);
+                            Vec3d particlePos = randPos(new Vec3d(pos.getX(), pos.getY(), pos.getZ()).add(0.5, 1.2, 0.5), random, -0.3, 0.3);
+                            Vec3d velocity = randVelocity(random, -0.5,0.5);
+                            world.addParticle(new LooseSoulParticleData(targetPos.x,targetPos.y,targetPos.z), particlePos.getX(), particlePos.getY(),particlePos.getZ(), velocity.x,velocity.y,velocity.z);
+                            world.addParticle(new LooseSoulParticleData(targetPos.x,targetPos.y,targetPos.z), particlePos.getX(), particlePos.getY(),particlePos.getZ(), velocity.x,velocity.y,velocity.z);
                         }
                     }
                 }

@@ -2,8 +2,6 @@ package com.kittykitcatcat.malum.items.tools;
 
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModSounds;
-import com.kittykitcatcat.malum.network.packets.BonkPacket;
-import com.kittykitcatcat.malum.network.packets.BoomPacket;
 import com.kittykitcatcat.malum.particles.bonk.BonkParticleData;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -15,13 +13,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static com.kittykitcatcat.malum.MalumHelper.frontOfEntity;
-import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
+import static com.kittykitcatcat.malum.MalumHelper.entityFacingPlayer;
 
 public class BonkItem extends SwordItem
 {
@@ -33,9 +30,10 @@ public class BonkItem extends SwordItem
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        ModifierEventHandler.makeDefaultTooltip(stack,worldIn,tooltip,flagIn);
+        ModifierEventHandler.makeDefaultTooltip(stack, worldIn, tooltip, flagIn);
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
+
     @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
@@ -43,11 +41,11 @@ public class BonkItem extends SwordItem
         {
             target.addVelocity(attacker.getLookVec().x * 2, 0.2, attacker.getLookVec().z * 2);
             attacker.world.playSound(null, attacker.getPosition(), ModSounds.bonk, SoundCategory.PLAYERS, 1F, MathHelper.nextFloat(attacker.world.rand, 1.5f, 2.0f));
-            INSTANCE.send(
-                    PacketDistributor.TRACKING_CHUNK.with(() -> attacker.world.getChunkAt(attacker.getPosition())),
-                    new BonkPacket(frontOfEntity(target, (PlayerEntity) attacker).x + MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f), frontOfEntity(target, (PlayerEntity) attacker).y+ 1+ MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f), frontOfEntity(target, (PlayerEntity) attacker).z+ MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f)));
+            if (attacker.getEntityWorld() instanceof ServerWorld)
+            {
+                ((ServerWorld) attacker.getEntityWorld()).spawnParticle(new BonkParticleData(), entityFacingPlayer(target, (PlayerEntity) attacker).x + MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f), entityFacingPlayer(target, (PlayerEntity) attacker).y + 1 + MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f), entityFacingPlayer(target, (PlayerEntity) attacker).z + MathHelper.nextFloat(MalumMod.random, -0.25f, 0.25f), 1, 0, 0, 0, 0);
+            }
         }
         return super.hitEntity(stack, target, attacker);
     }
 }
-

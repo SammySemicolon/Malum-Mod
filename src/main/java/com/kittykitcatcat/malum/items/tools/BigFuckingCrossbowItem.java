@@ -1,38 +1,46 @@
 package com.kittykitcatcat.malum.items.tools;
 
 import com.google.common.collect.Lists;
+import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModSounds;
+import com.kittykitcatcat.malum.particles.bfcshockwave.BigFuckingShockwaveData;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.ICrossbowUser;
-import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.FireworkRocketEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
+import static com.kittykitcatcat.malum.MalumHelper.entityCenter;
+import static com.kittykitcatcat.malum.MalumHelper.frontOfEntity;
+
+@Mod.EventBusSubscriber
 public class BigFuckingCrossbowItem extends CrossbowItem
 {
     /**
@@ -248,7 +256,6 @@ public class BigFuckingCrossbowItem extends CrossbowItem
     {
         if (!worldIn.isRemote)
         {
-            boolean flag = projectile.getItem() == Items.FIREWORK_ROCKET;
             AbstractArrowEntity arrow = createArrow(worldIn, shooter, crossbow, projectile);
             if (isCreativeMode || projectileAngle != 0.0F)
             {
@@ -275,7 +282,7 @@ public class BigFuckingCrossbowItem extends CrossbowItem
             worldIn.addEntity(arrow);
             worldIn.playSound(null, shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, soundPitch);
             worldIn.playSound(null, shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), ModSounds.shattering_sound, SoundCategory.PLAYERS, 0.3F, 2f);
-            worldIn.playSound(null,shooter.getPosX(), shooter.getPosY(),shooter.getPosZ(),SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 0.3f,2f);
+            worldIn.playSound(null, shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 0.3f, 2f);
 
             shooter.setMotion(-shooter.getLookVec().x, -shooter.getLookVec().y / 2, -shooter.getLookVec().z);
             shooter.velocityChanged = true;
@@ -293,6 +300,7 @@ public class BigFuckingCrossbowItem extends CrossbowItem
 
         abstractarrowentity.setHitSound(SoundEvents.ITEM_CROSSBOW_HIT);
         abstractarrowentity.setShotFromCrossbow(true);
+        abstractarrowentity.addTag("big_fucking_crossbow_shot");
         int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.PIERCING, crossbow);
         if (i > 0)
         {
@@ -300,6 +308,34 @@ public class BigFuckingCrossbowItem extends CrossbowItem
         }
 
         return abstractarrowentity;
+    }
+    @SubscribeEvent
+    public static void makeBoltGoBOOM(ProjectileImpactEvent event)
+    {
+        if (event.getEntity() instanceof ArrowEntity)
+        {
+            ArrowEntity entity = (ArrowEntity) event.getEntity();
+            if (entity.getTags().contains("big_fucking_crossbow_shot"))
+            {
+                if (entity.getEntityWorld() instanceof ServerWorld)
+                {
+                    ((ServerWorld) entity.getEntityWorld()).spawnParticle(new BigFuckingShockwaveData(), frontOfEntity(event.getEntity()).x, frontOfEntity(event.getEntity()).y, frontOfEntity(event.getEntity()).z, 1,0,0,0,0);
+                }
+                for (Entity target : entity.world.getEntitiesWithinAABBExcludingEntity(entity, new AxisAlignedBB(entity.getPosX() - 3, entity.getPosY() - 3, entity.getPosZ() - 3, entity.getPosX() + 3, entity.getPosY() + 3, entity.getPosZ() + 3)))
+                {
+                    if (target instanceof LivingEntity)
+                    {
+                        if (!target.equals(entity.getShooter()))
+                        {
+                            target.attackEntityFrom(DamageSource.causeArrowDamage(entity, entity.getShooter()), (float) entity.getDamage());
+                        }
+                        Vec3d direction = target.getPositionVec().subtract(entity.getPositionVec());
+                        ((LivingEntity) target).knockBack(entity, 1f, -direction.x, -direction.z);
+                        target.velocityChanged = true;
+                    }
+                }
+            }
+        }
     }
 
     public static void fireProjectiles(World worldIn, LivingEntity shooter, Hand handIn, ItemStack stack, float velocityIn, float inaccuracyIn)

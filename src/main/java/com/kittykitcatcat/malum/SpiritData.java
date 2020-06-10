@@ -55,10 +55,53 @@ public class SpiritData
 
     public void writeSpiritDataIntoNBT(CompoundNBT nbt)
     {
-        nbt.putString("entityRegistryName", entityRegistryName);
-        nbt.putFloat("purity", purity);
+        if (entityRegistryName != null)
+        {
+            nbt.putString("entityRegistryName", entityRegistryName);
+        }
+        if (purity != 0)
+        {
+            nbt.putFloat("purity", purity);
+        }
     }
 
+    public static boolean hasSpiritDataInNBT(CompoundNBT nbt)
+    {
+        return nbt.contains("entityRegistryName") && nbt.contains("purity");
+    }
+    public static SpiritData readSpiritDataFromNBT(CompoundNBT nbt)
+    {
+       return new SpiritData(nbt.getString("entityRegistryName"), nbt.getFloat("purity"));
+    }
+    public boolean isPureEnough(float amount)
+    {
+        return purity >= amount;
+    }
+    public boolean isEqualEntity(SpiritData data)
+    {
+        return entityRegistryName.equals(data.entityRegistryName);
+    }
+    public void mergeData(SpiritData data, float capacity)
+    {
+        float cachedPurity = data.purity;
+        for (float f = 0; f <= cachedPurity; f+= 0.01f)
+        {
+            data.reducePurity(0.01f);
+            purity+= 0.01f;
+            if (purity >= capacity)
+            {
+                return;
+            }
+        }
+    }
+    public void reducePurity(float amount)
+    {
+        purity -= amount;
+        if (purity <= 0)
+        {
+            entityRegistryName = null;
+        }
+    }
     public static void decreaseSpiritPurity(PlayerEntity playerEntity, CompoundNBT nbt, float amount)
     {
         nbt.putFloat("purity", nbt.getFloat("purity") - amount);
@@ -85,11 +128,11 @@ public class SpiritData
                     {
                         SpiritData data = recipe.getData();
                         SoulJarTileEntity tileEntity = (SoulJarTileEntity) worldIn.getTileEntity(blockPos);
-                        if (data.entityRegistryName.equals(tileEntity.entityRegistryName))
+                        if (data.entityRegistryName.equals(tileEntity.data.entityRegistryName))
                         {
-                            if (tileEntity.purity >= data.purity)
+                            if (tileEntity.data.purity >= data.purity)
                             {
-                                return new SpiritData(tileEntity.entityRegistryName, tileEntity.purity);
+                                return tileEntity.data;
                             }
                         }
                     }
@@ -115,9 +158,9 @@ public class SpiritData
                     {
                         SpiritData data = recipe.getData();
                         SoulJarTileEntity tileEntity = (SoulJarTileEntity) worldIn.getTileEntity(blockPos);
-                        if (data.entityRegistryName.equals(tileEntity.entityRegistryName))
+                        if (data.entityRegistryName.equals(tileEntity.data.entityRegistryName))
                         {
-                            if (tileEntity.purity >= data.purity)
+                            if (tileEntity.data.purity >= data.purity)
                             {
                                 return blockPos;
                             }

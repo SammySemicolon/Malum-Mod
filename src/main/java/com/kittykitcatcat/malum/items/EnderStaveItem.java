@@ -52,7 +52,7 @@ public class EnderStaveItem extends SpiritwoodStaveItem
     }
 
     @Override
-    public boolean canSuck(ItemStack stack, LivingEntity entity)
+    public boolean canDrain(ItemStack stack, LivingEntity entity)
     {
         return entity.getType().getRegistryName().toString().equals("minecraft:enderman") && !stack.getOrCreateTag().contains("entityRegistryName");
     }

@@ -1,10 +1,8 @@
 package com.kittykitcatcat.malum.blocks.souljar;
 
-import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.SpiritData;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
 import com.kittykitcatcat.malum.network.packets.SpiritWhisperPacket;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -12,7 +10,6 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 
@@ -24,18 +21,15 @@ public class SoulJarTileEntity extends TileEntity implements ITickableTileEntity
     {
         super(ModTileEntities.soul_jar_tile_entity);
     }
-    public float purity;
     public float delayedPurity;
-    public String entityRegistryName;
+    public SpiritData data;
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
         super.write(compound);
-        compound.putFloat("purity", purity);
-        compound.putFloat("delayedPurity", delayedPurity);
-        if (entityRegistryName != null)
+        if (data != null)
         {
-            compound.putString("entityRegistryName", entityRegistryName);
+            data.writeSpiritDataIntoNBT(compound);
         }
         return compound;
     }
@@ -43,29 +37,33 @@ public class SoulJarTileEntity extends TileEntity implements ITickableTileEntity
     public void read(CompoundNBT compound)
     {
         super.read(compound);
-        entityRegistryName = compound.getString("entityRegistryName");
-        purity = compound.getFloat("purity");
-        delayedPurity = compound.getFloat("delayedPurity");
+        if (SpiritData.hasSpiritDataInNBT(compound))
+        {
+            data = SpiritData.readSpiritDataFromNBT(compound);
+        }
     }
     @Override
     public void tick()
     {
-        if (purity != 0)
+        if (data != null)
         {
-            if (MathHelper.nextInt(world.rand, 0, 200) == 0)
+            if (data.purity != 0)
             {
-                if (!world.isRemote)
+                if (MathHelper.nextInt(world.rand, 0, 200) == 0)
                 {
-                    INSTANCE.send(
-                            PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
-                            new SpiritWhisperPacket(pos.getX(), pos.getY(), pos.getZ()));
+                    if (!world.isRemote)
+                    {
+                        INSTANCE.send(
+                                PacketDistributor.TRACKING_CHUNK.with(() -> this.world.getChunkAt(pos)),
+                                new SpiritWhisperPacket(pos.getX(), pos.getY(), pos.getZ()));
+                    }
                 }
+                delayedPurity = MathHelper.lerp(0.95f, data.purity, delayedPurity);
             }
-            delayedPurity = MathHelper.lerp(0.95f, purity, delayedPurity);
-        }
-        else
-        {
-            delayedPurity = 0;
+            else
+            {
+                delayedPurity = 0;
+            }
         }
     }
 

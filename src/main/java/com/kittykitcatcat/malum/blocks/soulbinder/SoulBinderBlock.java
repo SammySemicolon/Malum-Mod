@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kittykitcatcat.malum.MalumHelper.updateState;
+import static com.kittykitcatcat.malum.recipes.SpiritInfusionRecipe.isEqual;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SoulBinderBlock extends Block
@@ -99,7 +100,7 @@ public class SoulBinderBlock extends Block
                     {
                         for (SpiritInfusionRecipe recipe : ModRecipes.spiritInfusionRecipes)
                         {
-                            if (items.equals(recipe.getItems()))
+                            if (isEqual(items, recipe.getItems()))
                             {
                                 if (heldItem.getItem().equals(recipe.getCatalyst()))
                                 {

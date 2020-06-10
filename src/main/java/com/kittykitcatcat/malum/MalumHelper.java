@@ -147,7 +147,11 @@ public class MalumHelper
         return new Vec3d(pos.x + x, pos.y + y, pos.z + z);
     }
 
-    public static Vec3d frontOfEntity(Entity entity, PlayerEntity playerEntity)
+    public static Vec3d frontOfEntity(Entity entity)
+    {
+        return new Vec3d(((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2) + entity.getMotion().x / 2, ((entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2) + entity.getMotion().y / 2, ((entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2) + entity.getMotion().z / 2);
+    }
+    public static Vec3d entityFacingPlayer(Entity entity, PlayerEntity playerEntity)
     {
         return new Vec3d(((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2) - playerEntity.getLookVec().x / 2, ((entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2) - playerEntity.getLookVec().y / 2, ((entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2) - playerEntity.getLookVec().z / 2);
     }
