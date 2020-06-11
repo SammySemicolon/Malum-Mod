@@ -34,7 +34,7 @@ public class ModItemTiers
             16,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
             1.0F,
-            () -> Ingredient.fromItems(ModItems.lit_evil_pumpkin));
+            () -> Ingredient.fromItems(ModItems.shadow_alloy));
 
     public static final ArmorTier TIER2_ARMOR = new ArmorTier(
             "soul_steel",
@@ -43,7 +43,7 @@ public class ModItemTiers
             22,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
             1.0F,
-            () -> Ingredient.fromItems(ModItems.evil_pumpkin));
+            () -> Ingredient.fromItems(ModItems.soul_steel_ingot));
     private static class ItemTier implements IItemTier
     {
         private final int harvestLevel;

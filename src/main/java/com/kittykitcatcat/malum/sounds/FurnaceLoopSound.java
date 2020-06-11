@@ -4,8 +4,6 @@ import com.kittykitcatcat.malum.init.ModSounds;
 import net.minecraft.client.audio.TickableSound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class FurnaceLoopSound extends TickableSound
 {

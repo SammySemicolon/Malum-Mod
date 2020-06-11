@@ -1,7 +1,6 @@
 package com.kittykitcatcat.malum.particles.soulflameparticle;
 
 import net.minecraft.client.particle.*;
-import net.minecraft.particles.ItemParticleData;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

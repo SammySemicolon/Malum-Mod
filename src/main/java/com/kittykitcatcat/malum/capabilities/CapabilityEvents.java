@@ -31,15 +31,10 @@ public class CapabilityEvents
     {
         if (event.isWasDeath())
         {
-            // We need to copyFrom the capabilities
             LazyOptional<CapabilityData> capability = event.getOriginal().getCapability(CapabilityValueGetter.CAPABILITY);
             capability.ifPresent(oldStore ->
-            {
-                event.getOriginal().getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(newStore ->
-                {
-                    newStore.copyFrom(oldStore);
-                });
-            });
+                    event.getOriginal().getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(newStore ->
+                            newStore.copyFrom(oldStore)));
         }
     }
 }

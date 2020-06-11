@@ -1,6 +1,5 @@
 package com.kittykitcatcat.malum.init;
 
-import com.kittykitcatcat.malum.MalumMod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;

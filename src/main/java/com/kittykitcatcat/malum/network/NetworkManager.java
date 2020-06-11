@@ -1,7 +1,8 @@
 package com.kittykitcatcat.malum.network;
 
 import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.network.packets.*;
+import com.kittykitcatcat.malum.network.packets.FurnaceSoundStartPacket;
+import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,16 +27,7 @@ public class NetworkManager
     public static void registerNetworkStuff(FMLCommonSetupEvent event)
     {
         int index = 0;
-        INSTANCE.registerMessage(index++, BloodCutPacket.class, BloodCutPacket::encode, BloodCutPacket::decode, BloodCutPacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, TotalFlightTimePacket.class, TotalFlightTimePacket::encode, TotalFlightTimePacket::decode, TotalFlightTimePacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, FlightTimePacket.class, FlightTimePacket::encode, FlightTimePacket::decode, FlightTimePacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, CanFlyPacket.class, CanFlyPacket::encode, CanFlyPacket::decode, CanFlyPacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, FurnaceSoundStartPacket.class, FurnaceSoundStartPacket::encode, FurnaceSoundStartPacket::decode, FurnaceSoundStartPacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, FurnaceSoundStopPacket.class, FurnaceSoundStopPacket::encode, FurnaceSoundStopPacket::decode, FurnaceSoundStopPacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, SpiritWhisperPacket.class, SpiritWhisperPacket::encode, SpiritWhisperPacket::decode, SpiritWhisperPacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, SpiritInfusionSoundStartPacket.class, SpiritInfusionSoundStartPacket::encode, SpiritInfusionSoundStartPacket::decode, SpiritInfusionSoundStartPacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, SpiritInfusionStopLoopSoundPacket.class, SpiritInfusionStopLoopSoundPacket::encode, SpiritInfusionStopLoopSoundPacket::decode, SpiritInfusionStopLoopSoundPacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, SpiritInfusionFinishSoundPacket.class, SpiritInfusionFinishSoundPacket::encode, SpiritInfusionFinishSoundPacket::decode, SpiritInfusionFinishSoundPacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, SoulJarFillPacket.class, SoulJarFillPacket::encode, SoulJarFillPacket::decode, SoulJarFillPacket::whenThisPacketIsReceived);
     }
 }

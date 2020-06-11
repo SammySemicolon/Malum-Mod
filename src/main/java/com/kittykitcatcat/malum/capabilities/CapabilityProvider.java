@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 
 public class CapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT>
 {
-
     private CapabilityData capabilities = new CapabilityData();
 
     @Nonnull
