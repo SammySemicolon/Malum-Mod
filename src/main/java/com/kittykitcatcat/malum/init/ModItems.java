@@ -3,6 +3,7 @@ package com.kittykitcatcat.malum.init;
 import com.google.common.base.Preconditions;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.items.EnderArtifactItem;
+import com.kittykitcatcat.malum.items.SpiritwoodStave;
 import com.kittykitcatcat.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.kittykitcatcat.malum.items.armor.ItemArmorTier2;
 import com.kittykitcatcat.malum.items.tools.*;
@@ -62,6 +63,7 @@ public class ModItems
     public static Item cursed_nebulous;
     public static Item stellar_apparatus;
 
+    public static Item spiritwood_stave;
     public static Item ender_artifact;
     //TOOLS
     public static Item spirited_steel_battle_shoes;
@@ -126,6 +128,7 @@ public class ModItems
                 cursed_nebulous = setup(new Item(basic_properties), "cursed_nebulous"),
                 stellar_apparatus = setup(new Item(basic_properties), "stellar_apparatus"),
 
+                spiritwood_stave = setup(new SpiritwoodStave(tool_properties), "spiritwood_stave"),
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
 
                 spirited_steel_battle_shoes = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirited_steel_battle_shoes"),

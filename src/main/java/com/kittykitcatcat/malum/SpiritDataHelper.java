@@ -37,13 +37,23 @@ public class SpiritDataHelper
         int i = 0;
         if (player.inventory.getCurrentItem().getItem() instanceof SoulStorage)
         {
-            if (((SoulStorage) player.inventory.getCurrentItem().getItem()).capacity() != i)
+            ItemStack stack = player.inventory.getCurrentItem();
+            if (stack.getOrCreateTag().getString(typeNBT).equals(spirit))
             {
-                increaseSpiritOfItem(player.inventory.getCurrentItem(), 1, ((SoulStorage) player.inventory.getCurrentItem().getItem()).capacity(), spirit);
-                i++;
-                if (i >= amount)
+                if (stack.getOrCreateTag().getInt(countNBT) < ((SoulStorage) stack.getItem()).capacity())
                 {
-                    return;
+                    for (int k = 0; k < amount; k++)
+                    {
+                        boolean increase = increaseSpiritOfItem(stack, ((SoulStorage) stack.getItem()).capacity(), spirit);
+                        if (increase)
+                        {
+                            i++;
+                            if (i >= amount)
+                            {
+                                return;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -51,16 +61,25 @@ public class SpiritDataHelper
         {
             if (stack.getItem() instanceof SoulStorage)
             {
-                increaseSpiritOfItem(stack, 1, ((SoulStorage) stack.getItem()).capacity(),spirit);
-                i++;
-                if (i >= amount)
+                if (stack.getOrCreateTag().getInt(countNBT) < ((SoulStorage) stack.getItem()).capacity())
                 {
-                    return;
+                    for (int k = 0; k < amount; k++)
+                    {
+                        boolean increase = increaseSpiritOfItem(stack, ((SoulStorage) stack.getItem()).capacity(), spirit);
+                        if (increase)
+                        {
+                            i++;
+                            if (i >= amount)
+                            {
+                                return;
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-    public static void increaseSpiritOfItem(ItemStack stack, int amount, int cap, String spirit)
+    public static boolean increaseSpiritOfItem(ItemStack stack,int cap, String spirit)
     {
         if (stack.getTag() != null)
         {
@@ -69,15 +88,18 @@ public class SpiritDataHelper
             {
                 if (doesItemHaveSpirit(stack, spirit))
                 {
-                    nbt.putInt(countNBT, Math.min(nbt.getInt(countNBT) + amount, cap));
+                    nbt.putInt(countNBT, Math.min(nbt.getInt(countNBT) + 1, cap));
+                    return true;
                 }
             }
             else
             {
                 nbt.putString(typeNBT, spirit);
-                nbt.putInt(countNBT, Math.min(nbt.getInt(countNBT) + amount, cap));
+                nbt.putInt(countNBT, 1);
+                return true;
             }
         }
+        return false;
     }
     public static boolean doesItemHaveSpirit(ItemStack stack, String spirit)
     {
