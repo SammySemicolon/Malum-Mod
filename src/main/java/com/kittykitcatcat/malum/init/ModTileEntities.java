@@ -14,6 +14,9 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModTileEntities
 {
+    @ObjectHolder("malum:soul_storing_tile_entity")
+    public static TileEntityType<SpiritFurnaceTopTileEntity> soul_storing_tile_entity;
+
     @ObjectHolder("malum:spirit_furnace_bottom_tile_entity")
     public static TileEntityType<SpiritFurnaceBottomTileEntity> spirit_furnace_bottom_tile_entity;
 

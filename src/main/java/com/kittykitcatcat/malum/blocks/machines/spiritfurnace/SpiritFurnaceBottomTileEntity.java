@@ -42,7 +42,6 @@ import java.util.Objects;
 import static com.kittykitcatcat.malum.MalumMod.random;
 import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 
-@Mod.EventBusSubscriber
 public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickableTileEntity
 {
     public SpiritFurnaceBottomTileEntity()
