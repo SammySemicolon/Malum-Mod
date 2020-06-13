@@ -3,12 +3,14 @@ package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
+import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStartPacket;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
 import com.kittykitcatcat.malum.particles.soulflameparticle.SoulFlameParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -19,6 +21,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -162,7 +165,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
     {
         Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
         Vec3d entityPos = new Vec3d(pos).add(0.5,1.5,0.5).subtract(direction.getX() * 0.8f, 0, direction.getZ() * 0.8f);
-        ItemEntity entity = new ItemEntity(world,entityPos.x,entityPos.y,entityPos.z, stack);
+        ItemEntity entity = new ItemEntity(world,entityPos.x,entityPos.y,entityPos.z, stack.copy());
         entity.setMotion(-direction.getX() * 0.1f, 0.05f, -direction.getZ() * 0.1f);
         world.addEntity(entity);
     }
@@ -220,6 +223,13 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
                             output(world, pos, recipe.getSideItem());
                         }
                     }
+                    for (int i =0; i<20;i++)
+                    {
+                        spawnSmoke(world,pos);
+                        spawnSoulFlame(world, pos, 0.25f,0.1f);
+                        spawnSoulFlame(world, pos.up(), 0.06f, 0.05f);
+                    }
+                    world.playSound(null, pos, ModSounds.furnace_start, SoundCategory.BLOCKS, 1F, 1F);
                     burnProgress = 0;
                 }
             }
@@ -251,9 +261,9 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         {
             if (world.getGameTime() % 8 == 0)
             {
-                spawnSoulFlame(world, pos.up(), 0.06f, 0.05f);
+                spawnSoulFlame(world, pos.up(), 0.06f, 0.03f);
             }
-            if (world.getGameTime() % 4 == 0)
+            if (world.getGameTime() % 2 == 0)
             {
                 spawnSmoke(world,pos);
             }
@@ -298,7 +308,6 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
     {
-
         handleUpdateTag(pkt.getNbtCompound());
     }
 }

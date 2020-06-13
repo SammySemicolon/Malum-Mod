@@ -86,15 +86,6 @@ public class SpiritFurnaceTopBlock extends Block
     {
         return state.get(LIT) ? 12 : 2;
     }
-   /* @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
-    {
-        if (!worldIn.getBlockState(currentPos.down()).getBlock().equals(ModBlocks.spirit_furnace_bottom))
-        {
-            worldIn.setBlockState(currentPos, Blocks.AIR.getDefaultState(), 3);
-        }
-        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-    }*/
 
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
@@ -140,7 +131,7 @@ public class SpiritFurnaceTopBlock extends Block
                     //right clicking adds input to hand if its empty
                     else if (heldItem.isEmpty())
                     {
-                        player.setHeldItem(handIn, inputItem);
+                        MalumHelper.giveItemStackToPlayer(player, inputItem);
                         MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 1);
                         updateState(worldIn, state,pos);
                         updateState(worldIn, state,pos.down());

@@ -3,7 +3,7 @@ package com.kittykitcatcat.malum.init;
 import com.google.common.base.Preconditions;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.items.EnderArtifactItem;
-import com.kittykitcatcat.malum.items.armor.ItemArmorTier1;
+import com.kittykitcatcat.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.kittykitcatcat.malum.items.armor.ItemArmorTier2;
 import com.kittykitcatcat.malum.items.tools.*;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -19,7 +19,6 @@ import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 import static com.kittykitcatcat.malum.MalumMod.MODID;
-import static com.kittykitcatcat.malum.init.ModItemTiers.TIER1_ITEM;
 import static com.kittykitcatcat.malum.init.ModItemTiers.TIER2_ITEM;
 
 @SuppressWarnings("unused")
@@ -57,10 +56,6 @@ public class ModItems
     public static Item vacant_gemstone;
     public static Item stygian_pearl;
     public static Item runic_ash;
-    public static Item exothermic_ash;
-    public static Item exothermic_cell;
-    public static Item shadow_alloy;
-    public static Item royal_steel_ingot;
     public static Item soul_steel_ingot;
     public static Item soul_steel_nugget;
     public static Item arcane_apparatus;
@@ -69,16 +64,10 @@ public class ModItems
 
     public static Item ender_artifact;
     //TOOLS
-
-    public static Item royal_steel_hoe;
-    public static Item royal_steel_axe;
-    public static Item royal_steel_sword;
-    public static Item royal_steel_shovel;
-    public static Item royal_steel_pickaxe;
-    public static Item royal_steel_shoes;
-    public static Item royal_steel_leggings;
-    public static Item royal_steel_chestplate;
-    public static Item royal_steel_helm;
+    public static Item spirited_steel_battle_shoes;
+    public static Item spirited_steel_battle_leggings;
+    public static Item spirited_steel_battle_chestplate;
+    public static Item spirited_steel_battle_helm;
 
     public static Item soul_steel_hoe;
     public static Item soul_steel_axe;
@@ -96,7 +85,6 @@ public class ModItems
     //FUNCTIONAL BLOCKS
 
     public static Item spirit_furnace;
-    public static Item spirit_bellows;
     //BLOCKS
     public static Item block_of_flesh;
     public static Item spirit_leaves;
@@ -131,11 +119,7 @@ public class ModItems
                 enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
                 vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
                 runic_ash = setup(new Item(basic_properties), "runic_ash"),
-                exothermic_ash = setup(new Item(basic_properties), "exothermic_ash"),
-                exothermic_cell = setup(new Item(basic_properties), "exothermic_cell"),
                 stygian_pearl = setup(new Item(basic_properties), "stygian_pearl"),
-                shadow_alloy = setup(new Item(basic_properties), "shadow_alloy"),
-                royal_steel_ingot = setup(new Item(basic_properties), "royal_steel_ingot"),
                 arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
                 soul_steel_ingot = setup(new Item(basic_properties), "soul_steel_ingot"),
                 soul_steel_nugget = setup(new Item(basic_properties), "soul_steel_nugget"),
@@ -144,16 +128,10 @@ public class ModItems
 
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
 
-                royal_steel_hoe = setup(new ModHoeItem(TIER1_ITEM, 0, tool_properties), "royal_steel_hoe"),
-                royal_steel_axe = setup(new ModAxeItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_axe"),
-                royal_steel_sword = setup(new ModSwordItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_sword"),
-                royal_steel_shovel = setup(new ModShovelItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_shovel"),
-                royal_steel_pickaxe = setup(new ModPickaxeItem(TIER1_ITEM, 0, 0, tool_properties), "royal_steel_pickaxe"),
-
-                royal_steel_shoes = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, tool_properties), "royal_steel_shoes"),
-                royal_steel_leggings = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.LEGS, tool_properties), "royal_steel_leggings"),
-                royal_steel_chestplate = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.CHEST, tool_properties), "royal_steel_chestplate"),
-                royal_steel_helm = setup(new ItemArmorTier1(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.HEAD, tool_properties), "royal_steel_helm"),
+                spirited_steel_battle_shoes = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirited_steel_battle_shoes"),
+                spirited_steel_battle_leggings = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirited_steel_battle_leggings"),
+                spirited_steel_battle_chestplate = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirited_steel_battle_chestplate"),
+                spirited_steel_battle_helm = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.HEAD, tool_properties), "spirited_steel_battle_helm"),
 
                 soul_steel_hoe = setup(new ModHoeItem(TIER2_ITEM, 0, tool_properties), "soul_steel_hoe"),
                 soul_steel_axe = setup(new ModAxeItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_axe"),
@@ -169,7 +147,6 @@ public class ModItems
                 ultimate_weapon = setup(new BonkItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
 
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
-                spirit_bellows = setup(new BlockItem(ModBlocks.spirit_bellows, basic_properties), "spirit_bellows"),
 
                 spirit_planks = setup(new BlockItem(ModBlocks.spirit_planks, basic_properties), "spirit_planks"),
                 spirit_planks_slab = setup(new BlockItem(ModBlocks.spirit_planks_slab, basic_properties), "spirit_planks_slab"),

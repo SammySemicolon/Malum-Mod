@@ -1,8 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-    "bottom": "malum:blocks/refined_pathway",
-    "top": "malum:blocks/refined_pathway",
-    "side": "malum:blocks/refined_pathway"
-  }
-}

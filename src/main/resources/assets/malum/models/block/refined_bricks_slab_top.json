@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "malum:blocks/refined_bricks",
-        "top": "malum:blocks/refined_bricks",
-        "side": "malum:blocks/refined_bricks"
-    }
-}

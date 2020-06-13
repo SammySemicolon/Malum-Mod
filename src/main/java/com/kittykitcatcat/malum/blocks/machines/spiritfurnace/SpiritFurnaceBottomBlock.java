@@ -131,7 +131,7 @@ public class SpiritFurnaceBottomBlock extends Block
                     //right clicking adds input to hand if its empty
                     else if (heldItem.isEmpty())
                     {
-                        player.setHeldItem(handIn, fuelItem);
+                        MalumHelper.giveItemStackToPlayer(player, fuelItem);
                         MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 0);
                         updateState(worldIn, state,pos);
                         updateState(worldIn, state,pos.up());

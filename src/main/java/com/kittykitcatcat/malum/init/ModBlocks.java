@@ -1,7 +1,6 @@
 package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.blocks.machines.spiritbellows.SpiritBellowsBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopBlock;
 import com.kittykitcatcat.malum.blocks.special.FleshBlock;
@@ -9,9 +8,8 @@ import com.kittykitcatcat.malum.blocks.special.SpiritLeafBlock;
 import com.kittykitcatcat.malum.blocks.special.SpiritSaplingBlock;
 import com.kittykitcatcat.malum.blocks.utility.ModSlabBlock;
 import com.kittykitcatcat.malum.blocks.utility.ModStairsBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LogBlock;
+import com.kittykitcatcat.malum.world.biomes.SpiritwoodTree;
+import net.minecraft.block.*;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,7 +24,6 @@ public class ModBlocks
     //FUNCTIONAL BLOCKS
     public static Block spirit_furnace;
     public static Block spirit_furnace_top;
-    public static Block spirit_bellows;
 
     //BUILDING
 
@@ -49,16 +46,15 @@ public class ModBlocks
         IForgeRegistry<Block> registry = event.getRegistry();
         spirit_furnace_top = registerBlock(registry, new SpiritFurnaceTopBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().noDrops().lightValue(1)), "spirit_furnace_top");
         spirit_furnace = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "spirit_furnace_bottom");
-        spirit_bellows = registerBlock(registry, new SpiritBellowsBlock(Block.Properties.from(Blocks.BLACK_WOOL).notSolid().lightValue(1)), "spirit_bellows");
 
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone");
 
         spirit_planks = registerBlock(registry, new Block(Block.Properties.from(Blocks.OAK_PLANKS)), "spirit_planks");
-        spirit_planks_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OAK_PLANKS)), "spirit_planks_slab");
-        spirit_planks_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OAK_PLANKS)), "spirit_planks_stairs");
+        spirit_planks_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OAK_SLAB)), "spirit_planks_slab");
+        spirit_planks_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OAK_STAIRS)), "spirit_planks_stairs");
 
-        spirit_sapling = registerBlock(registry, new SpiritSaplingBlock(Block.Properties.from(Blocks.JUNGLE_SAPLING)), "spirit_sapling");
+        spirit_sapling = registerBlock(registry, new SpiritSaplingBlock(new SpiritwoodTree(), Block.Properties.from(Blocks.JUNGLE_SAPLING)), "spirit_sapling");
         spirit_leaves = registerBlock(registry, new SpiritLeafBlock(Block.Properties.from(Blocks.OAK_LEAVES)), "spirit_leaves");
         spirit_log = registerBlock(registry, new LogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.OAK_LOG)), "spirit_log");
         stripped_spirit_log = registerBlock(registry, new LogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.STRIPPED_OAK_LOG)), "stripped_spirit_log");

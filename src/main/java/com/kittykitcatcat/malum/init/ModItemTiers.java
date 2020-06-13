@@ -34,7 +34,7 @@ public class ModItemTiers
             16,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
             1.0F,
-            () -> Ingredient.fromItems(ModItems.shadow_alloy));
+            () -> Ingredient.fromItems(ModItems.spirited_steel_ingot));
 
     public static final ArmorTier TIER2_ARMOR = new ArmorTier(
             "soul_steel",

@@ -1,8 +1,0 @@
-{
-    "parent": "block/orientable",
-    "textures": {
-        "top": "block/pumpkin_top",
-        "front": "malum:blocks/evil_pumpkin",
-        "side": "block/pumpkin_side"
-    }
-}

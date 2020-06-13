@@ -1,8 +1,0 @@
-{
-  "parent": "block/slab",
-  "textures": {
-    "bottom": "malum:blocks/wooden_planks",
-    "top": "malum:blocks/wooden_planks",
-    "side": "malum:blocks/wooden_planks"
-  }
-}

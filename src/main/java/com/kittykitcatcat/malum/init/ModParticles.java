@@ -7,8 +7,6 @@ import com.kittykitcatcat.malum.particles.bonk.BonkParticle;
 import com.kittykitcatcat.malum.particles.bonk.BonkParticleData;
 import com.kittykitcatcat.malum.particles.soulflameparticle.SoulFlameParticle;
 import com.kittykitcatcat.malum.particles.soulflameparticle.SoulFlameParticleData;
-import com.kittykitcatcat.malum.particles.soulsmoke.SoulSmokeParticle;
-import com.kittykitcatcat.malum.particles.soulsmoke.SoulSmokeParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.registry.Registry;
@@ -26,18 +24,15 @@ public class ModParticles
         Minecraft.getInstance().particles.registerFactory(bloodParticle, BloodParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(soulFlame, SoulFlameParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(bonk, BonkParticle.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(soulSmoke, SoulSmokeParticle.Factory::new);
     }
     public static ParticleType<BloodParticleData> bloodParticle;
     public static ParticleType<SoulFlameParticleData> soulFlame;
     public static ParticleType<BonkParticleData> bonk;
-    public static ParticleType<SoulSmokeParticleData> soulSmoke;
     @SubscribeEvent
     public static void registerTypeRegistry(RegistryEvent.Register<ParticleType<?>> event)
     {
         bloodParticle = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "blood_particle", new ParticleType<>(false, BloodParticleData.DESERIALIZER));
         soulFlame = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "soul_flame", new ParticleType<>(false, SoulFlameParticleData.DESERIALIZER));
         bonk = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "bonk", new ParticleType<>(false, BonkParticleData.DESERIALIZER));
-        soulSmoke = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "soul_smoke", new ParticleType<>(false, SoulSmokeParticleData.DESERIALIZER));
     }
 }

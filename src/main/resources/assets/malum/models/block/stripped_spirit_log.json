@@ -2,6 +2,6 @@
   "parent": "block/cube_column",
   "textures": {
     "end": "malum:blocks/stripped_spirit_log_top",
-    "side": "malum:blocks/strilled_spirit_log"
+    "side": "malum:blocks/stripped_spirit_log"
   }
 }

@@ -19,7 +19,7 @@ public class SoulFlameParticle extends SimpleAnimatedParticle
         motionZ = zSpeed;
         selectSpriteWithAge(spriteSet);
         setPosition(x, y, z);
-        setMaxAge(80);
+        setMaxAge(75);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SoulFlameParticle extends SimpleAnimatedParticle
         {
             if (scale > 0f)
             {
-                scale -= 0.025f;
+                scale -= 0.05f;
             }
         }
     }
