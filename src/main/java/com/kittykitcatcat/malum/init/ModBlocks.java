@@ -3,6 +3,7 @@ package com.kittykitcatcat.malum.init;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopBlock;
+import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarBlock;
 import com.kittykitcatcat.malum.blocks.special.FleshBlock;
 import com.kittykitcatcat.malum.blocks.special.SpiritLeafBlock;
 import com.kittykitcatcat.malum.blocks.special.SpiritSaplingBlock;
@@ -45,7 +46,7 @@ public class ModBlocks
     public static void registerBlocks(RegistryEvent.Register<Block> event)
     {
         IForgeRegistry<Block> registry = event.getRegistry();
-        spirit_jar = registerBlock(registry, new Block(Block.Properties.from(Blocks.GLASS).notSolid().noDrops().lightValue(1)), "spirit_jar");
+        spirit_jar = registerBlock(registry, new SpiritJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().noDrops().lightValue(1)), "spirit_jar");
 
         spirit_furnace_top = registerBlock(registry, new SpiritFurnaceTopBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().noDrops().lightValue(1)), "spirit_furnace_top");
         spirit_furnace = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "spirit_furnace_bottom");

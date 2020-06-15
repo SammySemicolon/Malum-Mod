@@ -1,6 +1,6 @@
 package com.kittykitcatcat.malum;
 
-import com.kittykitcatcat.malum.blocks.utility.soulstorage.SoulStoringTileEntity;
+import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,20 +15,42 @@ public class SpiritDataHelper
     public static String countNBT = "malum:spiritCount";
     public static String typeNBT = "malum:spiritType";
 
-    public static boolean doesStorageHaveSpirit(World world, Block block, BlockPos pos)
+    public static boolean increaseSpiritOfStorage(SpiritStoringTileEntity tileEntity, int cap,String spirit)
     {
-        if (block instanceof SoulStorage)
+        if (doesStorageHaveSpirit(tileEntity))
         {
-            if (world.getTileEntity(pos) instanceof SoulStoringTileEntity)
+            if (doesStorageHaveSpirit(tileEntity, spirit))
             {
-                SoulStoringTileEntity tileEntity = (SoulStoringTileEntity) world.getTileEntity(pos);
-                if (tileEntity.type != null)
+                if (tileEntity.count < cap)
                 {
-                    if (tileEntity.count > 0)
-                    {
-                        return true;
-                    }
+                    tileEntity.count = Math.min(tileEntity.count + 1, cap);
+                    return true;
                 }
+            }
+        }
+        else
+        {
+            tileEntity.type = spirit;
+            tileEntity.count = 1;
+            return true;
+        }
+        return false;
+    }
+    public static boolean doesStorageHaveSpirit(SpiritStoringTileEntity tileEntity)
+    {
+        if (tileEntity.type != null)
+        {
+            return tileEntity.count > 0;
+        }
+        return false;
+    }
+    public static boolean doesStorageHaveSpirit(SpiritStoringTileEntity tileEntity, String spirit)
+    {
+        if (tileEntity.type != null)
+        {
+            if (tileEntity.type.equals(spirit))
+            {
+                return tileEntity.count > 0;
             }
         }
         return false;
@@ -46,7 +68,7 @@ public class SpiritDataHelper
                 {
                     for (int k = 0; k < amount; k++)
                     {
-                        boolean increase = increaseSpiritOfItem(stack, ((SoulStorage) stack.getItem()).capacity(), spirit);
+                        boolean increase = increaseSpiritOfItem(stack, spirit);
                         if (increase)
                         {
                             i++;
@@ -67,7 +89,7 @@ public class SpiritDataHelper
                 {
                     for (int k = 0; k < amount; k++)
                     {
-                        boolean increase = increaseSpiritOfItem(stack, ((SoulStorage) stack.getItem()).capacity(), spirit);
+                        boolean increase = increaseSpiritOfItem(stack, spirit);
                         if (increase)
                         {
                             i++;
@@ -81,7 +103,7 @@ public class SpiritDataHelper
             }
         }
     }
-    public static boolean increaseSpiritOfItem(ItemStack stack,int cap, String spirit)
+    public static boolean increaseSpiritOfItem(ItemStack stack,String spirit)
     {
         if (stack.getItem() instanceof SoulStorage)
         {
@@ -94,7 +116,7 @@ public class SpiritDataHelper
                     {
                         if (nbt.getInt(countNBT) < ((SoulStorage) stack.getItem()).capacity())
                         {
-                            nbt.putInt(countNBT, Math.min(nbt.getInt(countNBT) + 1, cap));
+                            nbt.putInt(countNBT, Math.min(nbt.getInt(countNBT) + 1, ((SoulStorage) stack.getItem()).capacity()));
                             return true;
                         }
                     }
@@ -109,6 +131,7 @@ public class SpiritDataHelper
         }
         return false;
     }
+
     public static boolean doesItemHaveSpirit(ItemStack stack, String spirit)
     {
         if (stack.getTag() != null)

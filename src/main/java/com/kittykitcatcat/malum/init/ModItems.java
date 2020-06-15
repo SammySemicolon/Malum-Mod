@@ -2,10 +2,7 @@ package com.kittykitcatcat.malum.init;
 
 import com.google.common.base.Preconditions;
 import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.items.EnderArtifactItem;
-import com.kittykitcatcat.malum.items.SpiritCapacitor;
-import com.kittykitcatcat.malum.items.SpiritVault;
-import com.kittykitcatcat.malum.items.SpiritwoodStave;
+import com.kittykitcatcat.malum.items.*;
 import com.kittykitcatcat.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.kittykitcatcat.malum.items.armor.ItemArmorTier2;
 import com.kittykitcatcat.malum.items.curios.CurioSpiritwoodNecklace;
@@ -162,7 +159,7 @@ public class ModItems
 
                 spiritwood_bark_necklace = setup(new CurioSpiritwoodNecklace(tool_properties), "spiritwood_bark_necklace"),
 
-                spirit_jar = setup(new BlockItem(ModBlocks.spirit_jar, basic_properties), "spirit_jar"),
+                spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, basic_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
 
                 spirit_planks = setup(new BlockItem(ModBlocks.spirit_planks, basic_properties), "spirit_planks"),

@@ -2,6 +2,8 @@ package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopTileEntity;
+import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarTileEntity;
+import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
@@ -15,7 +17,10 @@ import java.util.function.Supplier;
 public class ModTileEntities
 {
     @ObjectHolder("malum:soul_storing_tile_entity")
-    public static TileEntityType<SpiritFurnaceTopTileEntity> soul_storing_tile_entity;
+    public static TileEntityType<SpiritStoringTileEntity> soul_storing_tile_entity;
+
+    @ObjectHolder("malum:spirit_jar_tile_entity")
+    public static TileEntityType<SpiritJarTileEntity> spirit_jar_tile_entity;
 
     @ObjectHolder("malum:spirit_furnace_bottom_tile_entity")
     public static TileEntityType<SpiritFurnaceBottomTileEntity> spirit_furnace_bottom_tile_entity;
@@ -29,7 +34,8 @@ public class ModTileEntities
     {
         e.getRegistry().registerAll(
             TileEntityType.Builder.create((Supplier<TileEntity>) SpiritFurnaceBottomTileEntity::new, ModBlocks.spirit_furnace).build(null).setRegistryName("spirit_furnace_bottom_tile_entity"),
-                TileEntityType.Builder.create((Supplier<TileEntity>) SpiritFurnaceTopTileEntity::new, ModBlocks.spirit_furnace_top).build(null).setRegistryName("spirit_furnace_top_tile_entity")
+                TileEntityType.Builder.create((Supplier<TileEntity>) SpiritFurnaceTopTileEntity::new, ModBlocks.spirit_furnace_top).build(null).setRegistryName("spirit_furnace_top_tile_entity"),
+                TileEntityType.Builder.create((Supplier<TileEntity>) SpiritJarTileEntity::new, ModBlocks.spirit_jar).build(null).setRegistryName("spirit_jar_tile_entity")
         );
     }
 }

@@ -7,11 +7,11 @@ import net.minecraft.tileentity.TileEntityType;
 import static com.kittykitcatcat.malum.SpiritDataHelper.countNBT;
 import static com.kittykitcatcat.malum.SpiritDataHelper.typeNBT;
 
-public class SoulStoringTileEntity extends TileEntity
+public class SpiritStoringTileEntity extends TileEntity
 {
     public String type;
     public int count;
-    public SoulStoringTileEntity(TileEntityType<? extends SoulStoringTileEntity> tileEntityType)
+    public SpiritStoringTileEntity(TileEntityType<? extends SpiritStoringTileEntity> tileEntityType)
     {
         super(tileEntityType);
     }
