@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@SuppressWarnings("unused")
 public class MalumHelper
 {
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, IProperty<T> property)
@@ -109,19 +108,6 @@ public class MalumHelper
         stack.setCount(count);
         return stack;
     }
-    public static double lerp(double point1, double point2, double alpha)
-    {
-        return point1 + alpha * (point2 - point1);
-    }
-
-    public static Vec3d lerp(Vec3d point1, Vec3d point2, double alpha)
-    {
-        double x = lerp(point1.x, point2.x, alpha);
-        double y = lerp(point1.y, point2.y, alpha);
-        double z = lerp(point1.z, point2.z, alpha);
-        return new Vec3d(point1.x, y, point1.z);
-    }
-
     public static Vec3d randVelocity(Random rand, double min, double max)
     {
         double x = MathHelper.nextDouble(rand, min, max);

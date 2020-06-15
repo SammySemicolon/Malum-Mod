@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "malum:block/lit_evil_pumpkin" },
-        "facing=south": { "model": "malum:block/lit_evil_pumpkin", "y": 180 },
-        "facing=west":  { "model": "malum:block/lit_evil_pumpkin", "y": 270 },
-        "facing=east":  { "model": "malum:block/lit_evil_pumpkin", "y": 90 }
-    }
-}

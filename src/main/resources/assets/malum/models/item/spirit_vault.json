@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "malum:items/spirit_vault"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spirit": 1
+      },
+      "model": "malum:item/spirit_vault_full"
+    }
+  ]
+}

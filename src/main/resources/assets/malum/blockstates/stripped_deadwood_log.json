@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "axis=y": {"model": "malum:block/stripped_deadwood_log"},
-    "axis=z": {"model": "malum:block/stripped_deadwood_log", "x": 90},
-    "axis=x": {"model": "malum:block/stripped_deadwood_log", "x": 90, "y": 90}
-  }
-}

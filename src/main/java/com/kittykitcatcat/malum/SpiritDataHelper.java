@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SoulStoringTileEntity;
+import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -34,6 +35,7 @@ public class SpiritDataHelper
     }
     public static void harvestSpirit(PlayerEntity player, String spirit, int amount)
     {
+        amount+= CapabilityValueGetter.getExtraSpirits(player);
         int i = 0;
         if (player.inventory.getCurrentItem().getItem() instanceof SoulStorage)
         {
@@ -81,22 +83,28 @@ public class SpiritDataHelper
     }
     public static boolean increaseSpiritOfItem(ItemStack stack,int cap, String spirit)
     {
-        if (stack.getTag() != null)
+        if (stack.getItem() instanceof SoulStorage)
         {
-            CompoundNBT nbt = stack.getTag();
-            if (doesItemHaveSpirit(stack))
+            if (stack.getTag() != null)
             {
-                if (doesItemHaveSpirit(stack, spirit))
+                CompoundNBT nbt = stack.getTag();
+                if (doesItemHaveSpirit(stack))
                 {
-                    nbt.putInt(countNBT, Math.min(nbt.getInt(countNBT) + 1, cap));
+                    if (doesItemHaveSpirit(stack, spirit))
+                    {
+                        if (nbt.getInt(countNBT) < ((SoulStorage) stack.getItem()).capacity())
+                        {
+                            nbt.putInt(countNBT, Math.min(nbt.getInt(countNBT) + 1, cap));
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    nbt.putString(typeNBT, spirit);
+                    nbt.putInt(countNBT, 1);
                     return true;
                 }
-            }
-            else
-            {
-                nbt.putString(typeNBT, spirit);
-                nbt.putInt(countNBT, 1);
-                return true;
             }
         }
         return false;
