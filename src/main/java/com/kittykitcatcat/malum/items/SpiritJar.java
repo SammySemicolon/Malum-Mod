@@ -1,15 +1,13 @@
 package com.kittykitcatcat.malum.items;
 
 import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.SoulStorage;
-import com.kittykitcatcat.malum.SpiritDataHelper;
+import com.kittykitcatcat.malum.SpiritStorage;
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -22,7 +20,7 @@ import java.util.List;
 import static com.kittykitcatcat.malum.SpiritDataHelper.countNBT;
 import static com.kittykitcatcat.malum.SpiritDataHelper.typeNBT;
 
-public class SpiritJar extends BlockItem implements SoulStorage
+public class SpiritJar extends BlockItem implements SpiritStorage
 {
 
     public SpiritJar(Block blockIn, Properties builder)

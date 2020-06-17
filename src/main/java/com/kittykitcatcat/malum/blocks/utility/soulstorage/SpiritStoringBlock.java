@@ -1,6 +1,6 @@
 package com.kittykitcatcat.malum.blocks.utility.soulstorage;
 
-import com.kittykitcatcat.malum.SoulStorage;
+import com.kittykitcatcat.malum.SpiritStorage;
 import com.kittykitcatcat.malum.SpiritDataHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,7 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class SpiritStoringBlock extends Block implements SoulStorage
+public class SpiritStoringBlock extends Block implements SpiritStorage
 {
     public SpiritStoringBlock(Properties properties)
     {

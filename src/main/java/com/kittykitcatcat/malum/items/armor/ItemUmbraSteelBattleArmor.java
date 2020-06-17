@@ -1,6 +1,6 @@
 package com.kittykitcatcat.malum.items.armor;
 
-import com.kittykitcatcat.malum.models.ModelSpiritedSteelBattleArmor;
+import com.kittykitcatcat.malum.models.ModelArmorTier2;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -13,27 +13,26 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class ItemSpiritedSteelBattleArmor extends ArmorItem
+public class ItemUmbraSteelBattleArmor extends ArmorItem
 {
-
-    public ItemSpiritedSteelBattleArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
+    public ItemUmbraSteelBattleArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @OnlyIn(value = Dist.CLIENT)
     @Override
     @Nullable
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
     {
-        return "malum:textures/armor/spirited_steel_armor.png";
+        return "malum:textures/armor/soul_steel_armour.png";
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @OnlyIn(value = Dist.CLIENT)
     @Nullable
     @Override
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default)
     {
-        return (A) new ModelSpiritedSteelBattleArmor(slot);
+        return (A) new ModelArmorTier2(slot);
     }
 }

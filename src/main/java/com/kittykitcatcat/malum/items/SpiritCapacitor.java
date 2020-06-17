@@ -1,7 +1,7 @@
 package com.kittykitcatcat.malum.items;
 
 import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.SoulStorage;
+import com.kittykitcatcat.malum.SpiritStorage;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,7 +16,7 @@ import java.util.List;
 import static com.kittykitcatcat.malum.SpiritDataHelper.countNBT;
 import static com.kittykitcatcat.malum.SpiritDataHelper.typeNBT;
 
-public class SpiritCapacitor extends Item implements SoulStorage
+public class SpiritCapacitor extends Item implements SpiritStorage
 {
     public SpiritCapacitor(Properties builder)
     {

@@ -14,35 +14,44 @@ import java.util.function.Supplier;
 
 public class ModItemTiers
 {
-    public static final ItemTier TIER1_ITEM = new ItemTier(
+    public static final ItemTier SPIRITED_STEEL_ITEM = new ItemTier(
         3,
         880,
         7.0F,
         2.5F,
-        22);
-    public static final ItemTier TIER2_ITEM = new ItemTier(
-        3,
+        12);
+    public static final ItemTier UMBRAL_ALLOY_ITEM = new ItemTier(
+        5,
         1820,
         9.0F,
         3.5F,
         24);
 
-    public static final ArmorTier TIER1_ARMOR = new ArmorTier(
+    public static final ArmorTier SPIRITED_STEEL_ARMOR = new ArmorTier(
             "soul_crystal",
             18,
-            new int[]{2, 5, 7, 3},
+            new int[]{2, 5, 7, 2},
             16,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
             1.0F,
             () -> Ingredient.fromItems(ModItems.spirited_steel_ingot));
 
-    public static final ArmorTier TIER2_ARMOR = new ArmorTier(
+    public static final ArmorTier SPIRIT_HUNTER_ARMOR = new ArmorTier(
+            "soul_crystal",
+            18,
+            new int[]{2, 4, 6, 1},
+            32,
+            SoundEvents.ITEM_ARMOR_EQUIP_GOLD,
+            0.5F,
+            () -> Ingredient.fromItems(ModItems.spirit_fabric));
+
+    public static final ArmorTier UMBRAL_ALLOY_ARMOR = new ArmorTier(
             "soul_steel",
+            25,
+            new int[]{7, 10, 8, 5},
             24,
-            new int[]{3, 6, 8, 3},
-            22,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
-            1.0F,
+            1.5F,
             () -> Ingredient.fromItems(ModItems.soul_steel_ingot));
     private static class ItemTier implements IItemTier
     {
@@ -108,13 +117,13 @@ public class ModItemTiers
         private final float toughness;
         private final LazyValue<Ingredient> repairMaterial;
 
-        private ArmorTier(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float p_i48533_8_, Supplier<Ingredient> repairMaterialSupplier) {
+        private ArmorTier(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float toughness, Supplier<Ingredient> repairMaterialSupplier) {
             this.name = nameIn;
             this.maxDamageFactor = maxDamageFactorIn;
             this.damageReductionAmountArray = damageReductionAmountsIn;
             this.enchantability = enchantabilityIn;
             this.soundEvent = equipSoundIn;
-            this.toughness = p_i48533_8_;
+            this.toughness = toughness;
             this.repairMaterial = new LazyValue<>(repairMaterialSupplier);
         }
 

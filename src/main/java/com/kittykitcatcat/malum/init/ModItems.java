@@ -3,8 +3,9 @@ package com.kittykitcatcat.malum.init;
 import com.google.common.base.Preconditions;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.items.*;
+import com.kittykitcatcat.malum.items.armor.ItemSpiritHunterArmor;
 import com.kittykitcatcat.malum.items.armor.ItemSpiritedSteelBattleArmor;
-import com.kittykitcatcat.malum.items.armor.ItemArmorTier2;
+import com.kittykitcatcat.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.kittykitcatcat.malum.items.curios.CurioSpiritwoodNecklace;
 import com.kittykitcatcat.malum.items.tools.*;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -20,7 +21,8 @@ import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 import static com.kittykitcatcat.malum.MalumMod.MODID;
-import static com.kittykitcatcat.malum.init.ModItemTiers.TIER2_ITEM;
+import static com.kittykitcatcat.malum.init.ModItemTiers.SPIRITED_STEEL_ITEM;
+import static com.kittykitcatcat.malum.init.ModItemTiers.UMBRAL_ALLOY_ITEM;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -48,6 +50,7 @@ public class ModItems
     public static Item spirit_stone;
     public static Item dark_spirit_stone;
     public static Item spirit_silk;
+    public static Item spirit_fabric;
     public static Item evil_leather;
     public static Item spirited_steel_ingot;
     public static Item spirited_steel_nugget;
@@ -73,6 +76,14 @@ public class ModItems
     public static Item spirited_steel_battle_leggings;
     public static Item spirited_steel_battle_chestplate;
     public static Item spirited_steel_battle_helm;
+
+    public static Item spirit_hunter_shoes;
+    public static Item spirit_hunter_leggings;
+    public static Item spirit_hunter_chestplate;
+    public static Item spirit_hunter_helm;
+
+    public static Item spirited_steel_buster_sword;
+    public static Item spirited_steel_excavator;
 
     public static Item soul_steel_hoe;
     public static Item soul_steel_axe;
@@ -139,27 +150,34 @@ public class ModItems
                 spirit_capacitor = setup(new SpiritCapacitor(tool_properties), "spirit_capacitor"),
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
 
-                spirited_steel_battle_shoes = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirited_steel_battle_shoes"),
-                spirited_steel_battle_leggings = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirited_steel_battle_leggings"),
-                spirited_steel_battle_chestplate = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirited_steel_battle_chestplate"),
-                spirited_steel_battle_helm = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.TIER1_ARMOR, EquipmentSlotType.HEAD, tool_properties), "spirited_steel_battle_helm"),
+                spirited_steel_battle_shoes = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.SPIRITED_STEEL_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirited_steel_battle_shoes"),
+                spirited_steel_battle_leggings = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.SPIRITED_STEEL_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirited_steel_battle_leggings"),
+                spirited_steel_battle_chestplate = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.SPIRITED_STEEL_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirited_steel_battle_chestplate"),
+                spirited_steel_battle_helm = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.SPIRITED_STEEL_ARMOR, EquipmentSlotType.HEAD, tool_properties), "spirited_steel_battle_helm"),
 
-                soul_steel_hoe = setup(new ModHoeItem(TIER2_ITEM, 0, tool_properties), "soul_steel_hoe"),
-                soul_steel_axe = setup(new ModAxeItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_axe"),
-                soul_steel_sword = setup(new ModSwordItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_sword"),
-                soul_steel_shovel = setup(new ModShovelItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_shovel"),
-                soul_steel_pickaxe = setup(new ModPickaxeItem(TIER2_ITEM, 0, 0, tool_properties), "soul_steel_pickaxe"),
+                spirit_hunter_shoes = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirit_hunter_shoes"),
+                spirit_hunter_leggings = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirit_hunter_leggings"),
+                spirit_hunter_chestplate = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirit_hunter_chestplate"),
+                spirit_hunter_helm = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.HEAD, tool_properties), "spirit_hunter_helm"),
 
-                soul_steel_shoes = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.FEET, tool_properties), "soul_steel_shoes"),
-                soul_steel_leggings = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.LEGS, tool_properties), "soul_steel_leggings"),
-                soul_steel_chestplate = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.CHEST, tool_properties), "soul_steel_chestplate"),
-                soul_steel_helm = setup(new ItemArmorTier2(ModItemTiers.TIER2_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_steel_helm"),
+                spirited_steel_buster_sword = setup(new ModSwordItem(SPIRITED_STEEL_ITEM, 6, -0.8f, tool_properties), "spirited_steel_buster_sword"),
+
+                soul_steel_hoe = setup(new ModHoeItem(UMBRAL_ALLOY_ITEM, 0, tool_properties), "soul_steel_hoe"),
+                soul_steel_axe = setup(new ModAxeItem(UMBRAL_ALLOY_ITEM, 0, 0, tool_properties), "soul_steel_axe"),
+                soul_steel_sword = setup(new ModSwordItem(UMBRAL_ALLOY_ITEM, 0, 0, tool_properties), "soul_steel_sword"),
+                soul_steel_shovel = setup(new ModShovelItem(UMBRAL_ALLOY_ITEM, 0, 0, tool_properties), "soul_steel_shovel"),
+                soul_steel_pickaxe = setup(new ModPickaxeItem(UMBRAL_ALLOY_ITEM, 0, 0, tool_properties), "soul_steel_pickaxe"),
+
+                soul_steel_shoes = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.FEET, tool_properties), "soul_steel_shoes"),
+                soul_steel_leggings = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.LEGS, tool_properties), "soul_steel_leggings"),
+                soul_steel_chestplate = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.CHEST, tool_properties), "soul_steel_chestplate"),
+                soul_steel_helm = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.HEAD, tool_properties), "soul_steel_helm"),
 
                 ultimate_weapon = setup(new BonkItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
 
                 spiritwood_bark_necklace = setup(new CurioSpiritwoodNecklace(tool_properties), "spiritwood_bark_necklace"),
 
-                spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, basic_properties), "spirit_jar"),
+                spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
 
                 spirit_planks = setup(new BlockItem(ModBlocks.spirit_planks, basic_properties), "spirit_planks"),

@@ -18,7 +18,6 @@ import java.util.Random;
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEvents
 {
-
     @SubscribeEvent
     public static void bindTERs(FMLClientSetupEvent event)
     {

@@ -8,9 +8,8 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelSpiritedBattleArmor extends ModelArmor
+public class ModelSpiritedSteelBattleArmor extends ModelArmor
 {
-
     private final ModelRenderer torso;
     private final ModelRenderer chestplate_slope;
     private final ModelRenderer head;
@@ -25,7 +24,7 @@ public class ModelSpiritedBattleArmor extends ModelArmor
     private final ModelRenderer boot_l;
     private final ModelRenderer boot_wing_l;
 
-    public ModelSpiritedBattleArmor(EquipmentSlotType slot)
+    public ModelSpiritedSteelBattleArmor(EquipmentSlotType slot)
     {
         super(slot, 64, 64);
         textureWidth = 64;

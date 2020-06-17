@@ -1,8 +1,7 @@
 package com.kittykitcatcat.malum.items;
 
 import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.SoulStorage;
+import com.kittykitcatcat.malum.SpiritStorage;
 import com.kittykitcatcat.malum.SpiritDataHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -21,7 +20,7 @@ import java.util.List;
 import static com.kittykitcatcat.malum.SpiritDataHelper.countNBT;
 import static com.kittykitcatcat.malum.SpiritDataHelper.typeNBT;
 
-public class SpiritwoodStave extends Item implements SoulStorage
+public class SpiritwoodStave extends Item implements SpiritStorage
 {
     public SpiritwoodStave(Properties builder)
     {
