@@ -8,7 +8,7 @@ public class ModPickaxeItem extends PickaxeItem
 {
     public ModPickaxeItem(IItemTier material, int damage, float speed, Properties properties)
     {
-        super(material, damage + 1, speed - 2.8f, properties.addToolType(ToolType.PICKAXE, material.getHarvestLevel()));
+        super(material, damage + 1, speed - 2.8f, properties.maxDamage(material.getMaxUses()).addToolType(ToolType.PICKAXE, material.getHarvestLevel()));
     }
 
 }

@@ -32,6 +32,35 @@ public class ModBlocks
     public static Block spirit_stone;
     public static Block dark_spirit_stone;
 
+    public static Block spirit_stone_brick;
+    public static Block dark_spirit_stone_brick;
+    public static Block smooth_spirit_stone;
+    public static Block smooth_dark_spirit_stone;
+    public static Block patterned_spirit_stone;
+    public static Block patterned_dark_spirit_stone;
+    public static Block spirit_stone_pillar;
+    public static Block dark_spirit_stone_pillar;
+
+    public static Block spirit_stone_slab;
+    public static Block dark_spirit_stone_slab;
+
+    public static Block spirit_stone_brick_slab;
+    public static Block dark_spirit_stone_brick_slab;
+    public static Block smooth_spirit_stone_slab;
+    public static Block smooth_dark_spirit_stone_slab;
+    public static Block patterned_spirit_stone_slab;
+    public static Block patterned_dark_spirit_stone_slab;
+
+    public static Block spirit_stone_stairs;
+    public static Block dark_spirit_stone_stairs;
+
+    public static Block spirit_stone_brick_stairs;
+    public static Block dark_spirit_stone_brick_stairs;
+    public static Block smooth_spirit_stone_stairs;
+    public static Block smooth_dark_spirit_stone_stairs;
+    public static Block patterned_spirit_stone_stairs;
+    public static Block patterned_dark_spirit_stone_stairs;
+
     public static Block spirit_sapling;
     public static Block spirit_log;
     public static Block stripped_spirit_log;
@@ -53,6 +82,35 @@ public class ModBlocks
 
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone");
+        dark_spirit_stone_brick = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_brick");
+        spirit_stone_brick = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone_brick");
+        patterned_dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "patterned_dark_spirit_stone");
+        patterned_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "patterned_spirit_stone");
+        smooth_dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "smooth_dark_spirit_stone");
+        smooth_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "smooth_spirit_stone");
+
+        dark_spirit_stone_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_slab");
+        spirit_stone_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.STONE)), "spirit_stone_slab");
+
+        dark_spirit_stone_brick_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_brick_slab");
+        spirit_stone_brick_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.STONE)), "spirit_stone_brick_slab");
+        patterned_dark_spirit_stone_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OBSIDIAN)), "patterned_dark_spirit_stone_slab");
+        patterned_spirit_stone_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.STONE)), "patterned_spirit_stone_slab");
+        smooth_dark_spirit_stone_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OBSIDIAN)), "smooth_dark_spirit_stone_slab");
+        smooth_spirit_stone_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.STONE)), "smooth_spirit_stone_slab");
+
+        dark_spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_stairs");
+        spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.STONE)), "spirit_stone_stairs");
+
+        dark_spirit_stone_brick_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_brick_stairs");
+        spirit_stone_brick_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.STONE)), "spirit_stone_brick_stairs");
+        patterned_dark_spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OBSIDIAN)), "patterned_dark_spirit_stone_stairs");
+        patterned_spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.STONE)), "patterned_spirit_stone_stairs");
+        smooth_dark_spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OBSIDIAN)), "smooth_dark_spirit_stone_stairs");
+        smooth_spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.STONE)), "smooth_spirit_stone_stairs");
+
+        dark_spirit_stone_pillar = registerBlock(registry, new LogBlock(MaterialColor.STONE, Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_pillar");
+        spirit_stone_pillar = registerBlock(registry, new LogBlock(MaterialColor.STONE, Block.Properties.from(Blocks.STONE)), "spirit_stone_pillar");
 
         spirit_planks = registerBlock(registry, new Block(Block.Properties.from(Blocks.OAK_PLANKS)), "spirit_planks");
         spirit_planks_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OAK_SLAB)), "spirit_planks_slab");
@@ -60,8 +118,8 @@ public class ModBlocks
 
         spirit_sapling = registerBlock(registry, new SpiritSaplingBlock(new SpiritwoodTree(), Block.Properties.from(Blocks.JUNGLE_SAPLING)), "spirit_sapling");
         spirit_leaves = registerBlock(registry, new SpiritLeafBlock(Block.Properties.from(Blocks.OAK_LEAVES)), "spirit_leaves");
-        spirit_log = registerBlock(registry, new LogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.OAK_LOG)), "spirit_log");
-        stripped_spirit_log = registerBlock(registry, new LogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.STRIPPED_OAK_LOG)), "stripped_spirit_log");
+        spirit_log = registerBlock(registry, new LogBlock(MaterialColor.PURPLE, Block.Properties.from(Blocks.OAK_LOG)), "spirit_log");
+        stripped_spirit_log = registerBlock(registry, new LogBlock(MaterialColor.PURPLE, Block.Properties.from(Blocks.STRIPPED_OAK_LOG)), "stripped_spirit_log");
 
         block_of_flesh = registerBlock(registry, new FleshBlock(Block.Properties.from(Blocks.FIRE_CORAL_BLOCK).hardnessAndResistance(2)), "block_of_flesh");
 

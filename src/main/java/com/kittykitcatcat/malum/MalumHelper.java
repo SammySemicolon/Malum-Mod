@@ -1,32 +1,43 @@
 package com.kittykitcatcat.malum;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ChestBlock;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.ISidedInventoryProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.state.IProperty;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.HopperTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
+
+import static org.apache.logging.log4j.core.util.Assert.isEmpty;
 
 public class MalumHelper
 {
@@ -87,27 +98,30 @@ public class MalumHelper
         world.setBlockState(pos, finalState);
     }
 
-    public static ItemStack stackWithNBT(ItemStack originalStack,String tag, INBT inbt)
+    public static ItemStack stackWithNBT(ItemStack originalStack, String tag, INBT inbt)
     {
         CompoundNBT nbt = originalStack.getOrCreateTag();
         nbt.put(tag, inbt);
         return originalStack;
     }
 
-    public static ItemStack stackWithItemChanged(ItemStack originalStack,Item item)
+    public static ItemStack stackWithItemChanged(ItemStack originalStack, Item item)
     {
         ItemStack stack = new ItemStack(item, originalStack.getCount());
-        if (originalStack.getTag() != null) {
+        if (originalStack.getTag() != null)
+        {
             stack.setTag(originalStack.getTag().copy());
         }
         return stack;
     }
+
     public static ItemStack stackWithCount(Item item, int count)
     {
         ItemStack stack = new ItemStack(item);
         stack.setCount(count);
         return stack;
     }
+
     public static Vec3d randVelocity(Random rand, double min, double max)
     {
         double x = MathHelper.nextDouble(rand, min, max);
@@ -125,58 +139,94 @@ public class MalumHelper
         return new Vec3d(x, y, z);
     }
 
+    public static Vec3d randPosofEntity(Entity entity, Random rand)
+    {
+        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX, entity.getBoundingBox().maxX);
+        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY, entity.getBoundingBox().maxY);
+        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ, entity.getBoundingBox().maxZ);
+        return new Vec3d(x, y, z);
+    }
+
+    public static Vec3d randExtendedPosofEntity(Entity entity, Random rand)
+    {
+        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX - (entity.getBoundingBox().getXSize() / 4), entity.getBoundingBox().maxX) + (entity.getBoundingBox().getXSize() / 4);
+        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY - (entity.getBoundingBox().getYSize() / 4), entity.getBoundingBox().maxY) + (entity.getBoundingBox().getYSize() / 4);
+        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() / 4), entity.getBoundingBox().maxZ) + (entity.getBoundingBox().getZSize() / 4);
+        return new Vec3d(x, y, z);
+    }
+
     public static Vec3d randPos(Vec3d pos, Random rand, double min, double max)
     {
-        double x = MathHelper.nextDouble(rand, min, max);
-        double y = MathHelper.nextDouble(rand, min, max);
-        double z = MathHelper.nextDouble(rand, min, max);
-        return new Vec3d(pos.x + x, pos.y + y, pos.z + z);
+        double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
+        double y = MathHelper.nextDouble(rand, min, max) + pos.getY();
+        double z = MathHelper.nextDouble(rand, min, max) + pos.getZ();
+        return new Vec3d(x, y, z);
     }
 
     public static Vec3d frontOfEntity(Entity entity)
     {
         return new Vec3d(((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2) + entity.getMotion().x / 2, ((entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2) + entity.getMotion().y / 2, ((entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2) + entity.getMotion().z / 2);
     }
+
     public static Vec3d entityFacingPlayer(Entity entity, PlayerEntity playerEntity)
     {
         return new Vec3d(((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2) - playerEntity.getLookVec().x / 2, ((entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2) - playerEntity.getLookVec().y / 2, ((entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2) - playerEntity.getLookVec().z / 2);
     }
+
     public static Vec3d entityCenter(Entity entity)
     {
         return new Vec3d((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2, (entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2, (entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2);
     }
+
     @OnlyIn(Dist.CLIENT)
     public static void makeTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, ArrayList<ITextComponent> components)
     {
         if (!Screen.hasShiftDown())
         {
             tooltip.add(new TranslationTextComponent("malum.tooltip.sneak.desc.a").applyTextStyle(TextFormatting.GRAY)
-                    .appendSibling(new StringTextComponent(" [").applyTextStyle(TextFormatting.GRAY))
-                    .appendSibling(new TranslationTextComponent("malum.tooltip.sneak.desc.b").applyTextStyle(TextFormatting.DARK_PURPLE))
-                    .appendSibling(new StringTextComponent("]").applyTextStyle(TextFormatting.GRAY)));
+                    .appendSibling(makeImportantComponent("malum.tooltip.sneak.desc.b", false)));
         }
         else
         {
+            tooltip.add(new TranslationTextComponent("malum.tooltip.sneak.desc.a").applyTextStyle(TextFormatting.WHITE)
+                    .appendSibling(makeImportantComponent("malum.tooltip.sneak.desc.b", true)));
             tooltip.addAll(components);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static ITextComponent makeImportantComponent(String message, boolean litUp)
+    {
+        if (litUp)
+        {
+            return new StringTextComponent("[").applyTextStyle(TextFormatting.WHITE)
+                    .appendSibling(new TranslationTextComponent(message).applyTextStyle(TextFormatting.LIGHT_PURPLE))
+                    .appendSibling(new StringTextComponent("] ").applyTextStyle(TextFormatting.WHITE)).applyTextStyle(TextFormatting.BOLD);
+        }
+        else
+        {
+            return new StringTextComponent("[").applyTextStyle(TextFormatting.GRAY)
+                    .appendSibling(new TranslationTextComponent(message).applyTextStyle(TextFormatting.DARK_PURPLE))
+                    .appendSibling(new StringTextComponent("] ").applyTextStyle(TextFormatting.GRAY)).applyTextStyle(TextFormatting.BOLD);
         }
     }
 
     @Nullable
     public static Entity getClosestEntity(List<Entity> entities, double x, double y, double z)
     {
-        double d0 = -1.0D;
-        Entity t = null;
+        double cachedDistance = -1.0D;
+        Entity resultEntity = null;
 
-        for (Entity t1 : entities)
+        for (Entity entity : entities)
         {
-            double d1 = t1.getDistanceSq(x, y, z);
-            if (d0 == -1.0D || d1 < d0)
+            double newDistance = entity.getDistanceSq(x, y, z);
+            if (cachedDistance == -1.0D || newDistance < cachedDistance)
             {
-                d0 = d1;
-                t = t1;
+                cachedDistance = newDistance;
+                resultEntity = entity;
             }
         }
-        return t;
+        return resultEntity;
     }
 
     public static Vec3d tryTeleportPlayer(PlayerEntity playerEntity, Vec3d direction, Vec3d newPosition, int i)

@@ -24,19 +24,6 @@ public class SpiritVault extends Item implements SpiritStorage
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
-    {
-        if (stack.hasTag())
-        {
-            ArrayList<ITextComponent> components = new ArrayList<>();
-            components.add(new StringTextComponent(stack.getTag().getString(typeNBT)));
-            components.add(new StringTextComponent(stack.getTag().getInt(countNBT) + "/" + capacity()));
-            MalumHelper.makeTooltip(stack, worldIn, tooltip, flagIn, components);
-        }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-    }
-
-    @Override
     public int capacity()
     {
         return 20;

@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "malum:items/creative_spiritwood_stave"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spirit": 1
+      },
+      "model": "malum:item/creative_spiritwood_stave_full"
+    }
+  ]
+}

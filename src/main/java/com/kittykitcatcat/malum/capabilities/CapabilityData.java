@@ -20,10 +20,10 @@ public class CapabilityData
         husk = compound.getBoolean("husk");
     }
 
-    public float harvestSpeedMultiplayer;
-    public float getHarvestSpeedMultiplayer()
+    public float spiritIntegrityMultiplier;
+    public float getSpiritIntegrityMultiplier()
     {
-        return harvestSpeedMultiplayer;
+        return spiritIntegrityMultiplier;
     }
 
     public int extraSpirits;
@@ -32,15 +32,7 @@ public class CapabilityData
         return extraSpirits;
     }
 
-    public float extraHuskDamage;
-
-    public float getExtraHuskDamage()
-    {
-        return extraHuskDamage;
-    }
-
     boolean husk;
-
     public boolean getHusk()
     {
         return husk;

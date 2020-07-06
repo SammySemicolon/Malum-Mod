@@ -1,6 +1,5 @@
 package com.kittykitcatcat.malum.models;
 //Made with Blockbench, by Daniel Astral (@TrisAstral)
-//Paste this code into your mod.
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

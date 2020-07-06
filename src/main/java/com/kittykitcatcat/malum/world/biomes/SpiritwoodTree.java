@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class SpiritwoodTree extends Tree
 {
-
     public SpiritwoodTree() {
     }
 

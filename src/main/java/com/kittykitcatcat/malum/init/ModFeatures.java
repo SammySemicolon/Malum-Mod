@@ -18,13 +18,12 @@ import static com.kittykitcatcat.malum.world.biomes.SpiritForest.addSpiritwoodTr
 public class ModFeatures
 {
     public static Biome spirit_forest;
-
     // BIOME REGISTRATION
     @SubscribeEvent
     public static void onBiomeRegistry(final RegistryEvent.Register<Biome> BiomeRegistryEvent)
     {
         IForgeRegistry<Biome> registry = BiomeRegistryEvent.getRegistry();
-        spirit_forest = register(registry, new SpiritForest(), "spirit_forest", 4, BiomeManager.BiomeType.WARM, BiomeDictionary.Type.CONIFEROUS);
+        spirit_forest = register(registry, new SpiritForest(), "spirit_forest", 100, BiomeManager.BiomeType.WARM, BiomeDictionary.Type.CONIFEROUS);
 
         for (Biome biome : ForgeRegistries.BIOMES)
         {

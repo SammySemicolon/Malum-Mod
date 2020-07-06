@@ -1,5 +1,7 @@
 package com.kittykitcatcat.malum.world.biomes;
 
+import com.google.common.collect.ImmutableList;
+import com.kittykitcatcat.malum.OpenSimplexNoise;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
@@ -10,6 +12,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.MultipleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
@@ -19,7 +22,13 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
+
+import java.awt.*;
+
+import static net.minecraft.world.biome.DefaultBiomeFeatures.DARK_OAK_TREE_CONFIG;
 
 public class SpiritForest extends Biome
 {
@@ -32,13 +41,13 @@ public class SpiritForest extends Biome
 
     public static void addSpiritwoodTreeCommon(Biome biomeIn)
     {
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.NORMAL_TREE.withConfiguration(spiritwood_tree_config).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(14, 0.2F, 8))));
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(Feature.NORMAL_TREE.withConfiguration(spiritwood_tree_config).withChance(0.1F), Feature.DARK_OAK_TREE.withConfiguration(DARK_OAK_TREE_CONFIG).withChance(0.9F)), Feature.DARK_OAK_TREE.withConfiguration(DARK_OAK_TREE_CONFIG))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(5, 0.3F, 3))));
     }
 
     public SpiritForest()
     {
-        super((new Builder()).surfaceBuilder(new ConfiguredSurfaceBuilder<SurfaceBuilderConfig>(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Blocks.GRASS_BLOCK.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.SAND.getDefaultState())))
-                .precipitation(RainType.RAIN).category(Category.PLAINS).downfall(0.8f).depth(0.3f).scale(0.1f).temperature(0.25f).waterColor(0x5786E5).waterFogColor(0x38577F).parent(null));
+        super((new Builder()).surfaceBuilder(new ConfiguredSurfaceBuilder<>(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Blocks.GRASS_BLOCK.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.SAND.getDefaultState())))
+                .precipitation(RainType.RAIN).category(Category.PLAINS).depth(0.1F).scale(0.2F).temperature(0.7F).downfall(0.8F).waterColor(4159204).waterFogColor(329011).parent(null));
 
         this.addStructure(Feature.MINESHAFT.withConfiguration(new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL)));
         this.addStructure(Feature.STRONGHOLD.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
@@ -76,10 +85,39 @@ public class SpiritForest extends Biome
 
     }
 
-    @Override
-    public int getGrassColor(double posX, double posZ)
+    protected long noiseSeed;
+    protected OpenSimplexNoise noiseGen;
+
+    public void setSeed(long seed)
     {
-        return 0x508948;
+        if (this.noiseSeed != seed || this.noiseGen == null)
+        {
+            this.noiseGen = new OpenSimplexNoise(seed);
+        }
+        this.noiseSeed = seed;
+    }
+
+
+    /*
+     * set grass color
+     */
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public int getGrassColor(double double1, double double2)
+    {
+        setSeed(631);
+        double d0 = noiseGen.eval(double1 * 0.02D, double2 * 0.02D);
+        if (d0 < 0)
+        {
+            d0++;
+        }
+        Color baseColor = new Color(15, 104, 24);
+        Color targetColor = new Color(63, 118, 20);
+        int red = Math.max(0, baseColor.getRed() + (int)(targetColor.getRed() * d0));
+        int green = Math.max(0, baseColor.getGreen() + (int)(targetColor.getGreen() * d0));
+        int blue = Math.max(0, baseColor.getBlue() + (int)(targetColor.getBlue() * d0));
+        Color color = new Color(Math.min(red,255),Math.min(green,255),Math.min(blue,255));
+        return (-16777216 | color.getRed() << 16 | color.getGreen() << 8 | color.getBlue());
     }
 
     @Override
@@ -87,5 +125,4 @@ public class SpiritForest extends Biome
     {
         return 0x305B2A;
     }
-
 }

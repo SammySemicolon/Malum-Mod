@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "malum:blocks/spirit_stone_pillar_top",
+    "side": "malum:blocks/spirit_stone_pillar"
+  }
+}

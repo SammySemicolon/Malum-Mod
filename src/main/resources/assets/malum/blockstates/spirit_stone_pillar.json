@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": {"model": "malum:block/spirit_stone_pillar"},
+    "axis=z": {"model": "malum:block/spirit_stone_pillar", "x": 90},
+    "axis=x": {"model": "malum:block/spirit_stone_pillar", "x": 90, "y": 90}
+  }
+}

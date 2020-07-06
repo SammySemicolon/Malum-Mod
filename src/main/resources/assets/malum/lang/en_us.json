@@ -1,14 +1,29 @@
 {
   "itemGroup.malum": "Malum",
-  "malum.tooltip.teleport.desc": "to teleport you in the direction you're facing",
-  "malum.tooltip.use.desc": "Uses souls of",
-  "malum.tooltip.only.desc": "Can only harvest souls of",
-  "malum.tooltip.sneak.desc.a": "Hold",
-  "malum.tooltip.sneak.desc.b": "Sneak",
-  "malum.tooltip.name.desc": "Contains spirit of",
-  "malum.tooltip.purity.desc": "With a purity value of",
-  "malum.tooltip.modifier.fiery": "Block break make tool fast, enemy not fire be fire and hurt more",
-  "malum.tooltip.modifier.withering": "Enemy get wither! it stack too",
-  "malum.tooltip.modifier.living": "Tool damage go bye bye",
-  "malum.tooltip.modifier.shattering": "Tyrfind woohoo"
+  
+  "malum.tooltip.sneak.desc.a": "Hold ",
+  "malum.tooltip.sneak.desc.b": "sneak",
+  
+  "malum.tooltip.sstorage.desc": " Contains ",
+  
+  "malum.tooltip.sconsumer.desc.a": " Has ",
+  "malum.tooltip.sconsumer.desc.b": "spirit integrity",
+  "malum.tooltip.sconsumer.desc.c": " Uses ",
+  "malum.tooltip.sconsumer.desc.d": "spirits to ",
+  
+  "malum.tooltip.bow.desc": "enhance draw speed and release when fully drawn",
+  
+  "malum.tooltip.lectern.desc.a": " Increases experience gain from ",
+  "malum.tooltip.lectern.desc.b": "killing husks",
+  "malum.tooltip.lectern.desc.c": " Gained experience goes ",
+  "malum.tooltip.lectern.desc.d": "directly to your experience bar",
+  "malum.tooltip.lectern.desc.e": "further enhance this effect",
+  
+  "malum.tooltip.aegis.desc.a": " Grants resistance to ",
+  "malum.tooltip.aegis.desc.b": "husk attacks",
+  
+  "malum.tooltip.spirit.desc.a": "spirit",
+  "malum.tooltip.spirit.desc.b": "Spirit",
+  "malum.tooltip.spirit.desc.c": "spirits",
+  "malum.tooltip.spirit.desc.d": "Spirits"
 }

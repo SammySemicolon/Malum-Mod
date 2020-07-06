@@ -1,16 +1,16 @@
 package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStartPacket;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
-import com.kittykitcatcat.malum.particles.soulflameparticle.SoulFlameParticleData;
+import com.kittykitcatcat.malum.particles.soulflame.SoulFlameParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -29,7 +29,6 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -41,6 +40,7 @@ import java.util.Objects;
 
 import static com.kittykitcatcat.malum.MalumMod.random;
 import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
+import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickableTileEntity
 {
@@ -124,7 +124,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         input (1);
 
         private final int slot;
-        private spiritFuranceSlotEnum(int slot) { this.slot = slot;}
+        spiritFuranceSlotEnum(int slot) { this.slot = slot;}
     }
 
     public ItemStack getItemStack(spiritFuranceSlotEnum spiritFuranceSlot)
@@ -162,10 +162,32 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
     }
     public void output(World world, BlockPos pos, ItemStack stack)
     {
-        Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        Vec3d entityPos = new Vec3d(pos).add(0.5,1.5,0.5).subtract(direction.getX() * 0.8f, 0, direction.getZ() * 0.8f);
-        ItemEntity entity = new ItemEntity(world,entityPos.x,entityPos.y,entityPos.z, stack.copy());
-        entity.setMotion(-direction.getX() * 0.1f, 0.05f, -direction.getZ() * 0.1f);
+        Direction direction = getBlockState().get(HORIZONTAL_FACING);
+        TileEntity inputTileEntity = world.getTileEntity(pos.subtract(direction.getDirectionVec()).add(0, 1, 0));
+        if (inputTileEntity != null)
+        {
+            inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).ifPresent(itemHandler ->
+            {
+                for (int j = 0; j < itemHandler.getSlots(); j++)
+                {
+                    ItemStack inserted = itemHandler.insertItem(j, stack.copy(), false);
+                    stack.setCount(0);
+                    if (inserted.isEmpty())
+                    {
+                        break;
+                    }
+                }
+            });
+        }
+        if (stack.getCount() == 0)
+        {
+            return;
+        }
+        MalumMod.LOGGER.info(stack.getCount());
+        Vec3i directionVec = direction.getDirectionVec();
+        Vec3d entityPos = new Vec3d(pos).add(0.5, 1.5, 0.5).subtract(directionVec.getX() * 0.8f, 0, directionVec.getZ() * 0.8f);
+        ItemEntity entity = new ItemEntity(world, entityPos.x, entityPos.y, entityPos.z, stack.copy());
+        entity.setMotion(-directionVec.getX() * 0.1f, 0.05f, -directionVec.getZ() * 0.1f);
         world.addEntity(entity);
     }
     @Override
@@ -200,7 +222,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
             if (burnTime <= 0 && getItemStack(spiritFuranceSlotEnum.fuel).getItem().equals(ModItems.spirit_charcoal))
             {
                 MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.fuel.slot);
-                burnTime = 800;
+                burnTime = 3200;
             }
             if (burnTime > 0)
             {
@@ -214,12 +236,12 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
                 if (burnProgress >= recipe.getBurnTime())
                 {
                     MalumHelper.decreaseStackSizeInTEInventory(inventory, 1, spiritFuranceSlotEnum.input.slot);
-                    output(world, pos, recipe.getOutputItem());
+                    output(world, pos, recipe.getOutputItem().copy());
                     if (recipe.getSideItem() != null)
                     {
                         if (MathHelper.nextInt(world.rand, 0, 4) == 0)
                         {
-                            output(world, pos, recipe.getSideItem());
+                            output(world, pos, recipe.getSideItem().copy());
                         }
                     }
                     for (int i =0; i<20;i++)

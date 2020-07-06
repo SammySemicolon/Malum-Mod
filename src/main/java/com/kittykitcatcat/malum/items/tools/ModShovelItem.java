@@ -8,7 +8,7 @@ public class ModShovelItem extends ShovelItem
 {
     public ModShovelItem(IItemTier material, int damage, float speed, Properties properties)
     {
-        super(material, damage + 1.5f, speed - 3f, properties.addToolType(ToolType.SHOVEL, material.getHarvestLevel()));
+        super(material, damage + 1.5f, speed - 3f, properties.maxDamage(material.getMaxUses()).addToolType(ToolType.SHOVEL, material.getHarvestLevel()));
     }
 
 }

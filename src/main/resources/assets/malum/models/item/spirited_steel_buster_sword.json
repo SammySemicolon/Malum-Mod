@@ -2,5 +2,27 @@
   "parent": "item/handheld",
   "textures": {
     "layer0": "malum:items/spirited_steel_buster_sword"
-  }
+  },
+    "display": {
+        "thirdperson_righthand": {
+            "rotation": [ 0, -90, 55 ],
+            "translation": [ 0, 10.0, 0.5 ],
+            "scale": [ 1.6, 1.6, 1.6 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 0, 90, -55 ],
+            "translation": [ 0, 10.0, 0.5 ],
+            "scale": [ 1.6, 1.6, 1.6 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, -90, 25 ],
+            "translation": [ 1.13, 4.2, 1.13 ],
+            "scale": [ 1.1, 1.1, 1.1 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 90, -25 ],
+            "translation": [ 1.13, 4.2, 1.13 ],
+            "scale": [ 1.1, 1.1, 1.1 ]
+        }
+    }
 }

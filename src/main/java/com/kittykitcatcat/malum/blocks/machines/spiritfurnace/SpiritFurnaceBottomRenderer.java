@@ -2,8 +2,10 @@ package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -27,7 +29,6 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
         super(rendererDispatcherIn);
     }
 
-
     @Override
     public void render(SpiritFurnaceBottomTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {
@@ -39,9 +40,9 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
             if (!item.isEmpty())
             {
                 matrixStack.push();
-                matrixStack.translate(0.5 + direction.getX() * 0.2f, 0.5, 0.5 + direction.getZ() * 0.2f);
+                matrixStack.translate(0.5 + direction.getX() * 0.2f, 0.25, 0.5 + direction.getZ() * 0.2f);
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(blockEntity.getWorld().getGameTime() * 3));
-                matrixStack.scale(0.5f, 0.5f, 0.5f);
+                matrixStack.scale(0.45f, 0.45f, 0.45f);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
                 matrixStack.pop();
             }
@@ -49,7 +50,7 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
             if (!item.isEmpty())
             {
                 matrixStack.push();
-                matrixStack.translate(0.5f + direction.getX() * 0.2f, 1.3125, 0.5f + direction.getZ() * 0.2f);
+                matrixStack.translate(0.5f + direction.getX() * 0.2f, 1.4, 0.5f + direction.getZ() * 0.2f);
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(blockEntity.getWorld().getGameTime() * 3));
                 matrixStack.scale(0.5f, 0.5f, 0.5f);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);

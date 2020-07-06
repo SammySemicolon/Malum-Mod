@@ -3,6 +3,7 @@ package com.kittykitcatcat.malum.network;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStartPacket;
 import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
+import com.kittykitcatcat.malum.network.packets.HuskChangePacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,5 +30,6 @@ public class NetworkManager
         int index = 0;
         INSTANCE.registerMessage(index++, FurnaceSoundStartPacket.class, FurnaceSoundStartPacket::encode, FurnaceSoundStartPacket::decode, FurnaceSoundStartPacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, FurnaceSoundStopPacket.class, FurnaceSoundStopPacket::encode, FurnaceSoundStopPacket::decode, FurnaceSoundStopPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, HuskChangePacket.class, HuskChangePacket::encode, HuskChangePacket::decode, HuskChangePacket::whenThisPacketIsReceived);
     }
 }

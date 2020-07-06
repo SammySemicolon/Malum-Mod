@@ -2,17 +2,161 @@ package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static com.kittykitcatcat.malum.MalumHelper.makeImportantComponent;
+import static com.kittykitcatcat.malum.MalumHelper.makeTooltip;
 
 @SuppressWarnings("unused")
 public class SpiritDataHelper
 {
     public static String countNBT = "malum:spiritCount";
     public static String typeNBT = "malum:spiritType";
-    public static String usesNBT = "malum:spiritUsesRemaining";
+    public static String spiritDurabilityNBT = "malum:spiritDurability";
 
+    //region TOOLTIPS
+    public static String getName(String name)
+    {
+        return getType(name).map(entityType -> entityType.getName().getString()).orElse(null);
+    }
+    public static String getSpirit(LivingEntity entity)
+    {
+        return entity.getType().getRegistryName().toString();
+    }
+    public static Optional<EntityType<?>> getType(String name)
+    {
+        return EntityType.byKey(name);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static ITextComponent makeGenericTooltip(String message, String importantMessage)
+    {
+        //message [importantMessage]
+        return new TranslationTextComponent(message).applyTextStyle(TextFormatting.WHITE) //message
+                .appendSibling(makeImportantComponent(importantMessage, true)); //[importantMessage]
+    }
+    @OnlyIn(Dist.CLIENT)
+    public static ITextComponent makeGenericSpiritDependantTooltip(String message, String spirit)
+    {
+        //Uses [spiritType] spirits to [message]
+        return new TranslationTextComponent("malum.tooltip.sconsumer.desc.c") //Uses
+                .appendSibling(makeImportantComponent(spirit, true))
+                .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.d"))
+                .appendSibling(makeImportantComponent(message, true));
+    }
+    @OnlyIn(Dist.CLIENT)
+    public static void makeSpiritTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    {
+        if (stack.getTag() != null)
+        {
+            ArrayList<ITextComponent> newComponents = new ArrayList<>();
+            if (stack.getItem() instanceof SpiritStorage)
+            {
+                if (doesItemHaveSpirit(stack))
+                {
+                    SpiritStorage spiritStorage = (SpiritStorage) stack.getItem();
+                    //contains [amount/max] [spiritType] spirits
+                    newComponents.add(new TranslationTextComponent("malum.tooltip.sstorage.desc").applyTextStyle(TextFormatting.WHITE) //contains
+                            .appendSibling(makeImportantComponent(stack.getTag().getInt(countNBT) + "/" + spiritStorage.capacity(),true)) //[amount/max]
+                            .appendSibling(makeImportantComponent(getName(stack.getTag().getString(typeNBT)), true)) //[spiritType]
+                            .appendSibling(new TranslationTextComponent("malum.tooltip.spirit.desc.c").applyTextStyle(TextFormatting.WHITE))); //spirits
+                }
+            }
+            if (stack.getItem() instanceof SpiritConsumer)
+            {
+                SpiritConsumer spiritStorage = (SpiritConsumer) stack.getItem();
+                //has [amount/max] spirit integrity
+                newComponents.add(new TranslationTextComponent("malum.tooltip.sconsumer.desc.a").applyTextStyle(TextFormatting.WHITE) //has
+                        .appendSibling(makeImportantComponent(stack.getTag().getInt(spiritDurabilityNBT) + "/" + spiritStorage.durability(), true)) //[amount/max]
+                        .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.b")).applyTextStyle(TextFormatting.WHITE)); //spirit integrity
+
+            }
+            if (stack.getItem() instanceof SpiritDescription)
+            {
+                SpiritDescription spiritStorage = (SpiritDescription) stack.getItem();
+                //has [amount/max] spirit integrity
+                newComponents.addAll(spiritStorage.components());
+            }
+            if (!newComponents.isEmpty())
+            {
+                makeTooltip(stack, worldIn, tooltip, flagIn, newComponents);
+            }
+        }
+    }
+    //endregion
+
+    //region BLOCKS
+
+    public static boolean extractSpiritFromStorage(ItemStack stack, SpiritStoringTileEntity tileEntity, int cap, String spirit)
+    {
+        if (doesStorageHaveSpirit(tileEntity))
+        {
+            if (doesItemHaveSpirit(stack))
+            {
+                if (doesItemHaveSpirit(stack, spirit))
+                {
+                    if (stack.getTag().getInt(countNBT) < ((SpiritStorage) stack.getItem()).capacity())
+                    {
+                        decreaseSpiritOfStorage(tileEntity, spirit);
+                        increaseSpiritOfItem(stack, spirit);
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                decreaseSpiritOfStorage(tileEntity, spirit);
+                stack.getTag().putString(typeNBT, spirit);
+                stack.getTag().putInt(countNBT, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean insertSpiritIntoStorage(ItemStack stack, SpiritStoringTileEntity tileEntity, int cap, String spirit)
+    {
+        if (doesItemHaveSpirit(stack))
+        {
+            if (doesStorageHaveSpirit(tileEntity))
+            {
+                if (doesStorageHaveSpirit(tileEntity, spirit))
+                {
+                    if (doesItemHaveSpirit(stack, spirit))
+                    {
+                        if (tileEntity.count < cap)
+                        {
+                            increaseSpiritOfStorage(tileEntity, cap, spirit);
+                            decreaseSpiritOfItem(stack,spirit);
+                            return true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                increaseSpiritOfStorage(tileEntity, cap, spirit);
+                decreaseSpiritOfItem(stack,spirit);
+                return true;
+            }
+        }
+        return false;
+    }
     public static boolean decreaseSpiritOfStorage(SpiritStoringTileEntity tileEntity,String spirit)
     {
         if (doesStorageHaveSpirit(tileEntity))
@@ -72,6 +216,9 @@ public class SpiritDataHelper
         }
         return false;
     }
+    //endregion
+
+    //region COUNT
     public static void harvestSpirit(PlayerEntity player, String spirit, int amount)
     {
         amount+= CapabilityValueGetter.getExtraSpirits(player);
@@ -203,4 +350,54 @@ public class SpiritDataHelper
         }
         return false;
     }
+    //endregion
+
+    //region DURABILITY
+
+    public static boolean consumeSpirit(PlayerEntity player, ItemStack targetStack)
+    {
+        if (targetStack.getItem() instanceof SpiritConsumer)
+        {
+            if (targetStack.getTag() != null)
+            {
+                CompoundNBT nbt = targetStack.getTag();
+
+                if (nbt.getInt(spiritDurabilityNBT) > 0)
+                {
+                    nbt.putInt(spiritDurabilityNBT, nbt.getInt(spiritDurabilityNBT) - 1);
+                    return true;
+                }
+                else
+                {
+                    nbt.remove(spiritDurabilityNBT);
+                    for (ItemStack stack : player.inventory.mainInventory)
+                    {
+                        if (stack.getItem() instanceof SpiritStorage)
+                        {
+                            if (stack.getOrCreateTag().getInt(countNBT) > 0)
+                            {
+                                boolean success = decreaseSpiritOfItem(stack, ((SpiritConsumer) targetStack.getItem()).spirit());
+                                if (success)
+                                {
+                                    nbt.putInt(spiritDurabilityNBT, ((SpiritConsumer) targetStack.getItem()).durability());
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public static boolean doesItemHaveSpiritDurability(ItemStack stack)
+    {
+        if (stack.getTag() != null)
+        {
+            CompoundNBT nbt = stack.getTag();
+            return nbt.contains(spiritDurabilityNBT);
+        }
+        return false;
+    }
+    //endregion
 }
