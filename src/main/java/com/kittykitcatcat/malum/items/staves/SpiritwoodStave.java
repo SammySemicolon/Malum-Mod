@@ -1,42 +1,14 @@
 package com.kittykitcatcat.malum.items.staves;
 
-import com.kittykitcatcat.malum.SpiritDataHelper;
 import com.kittykitcatcat.malum.SpiritStorage;
-import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
+import com.kittykitcatcat.malum.items.staves.effects.ModEffect;
+import net.minecraft.item.ShieldItem;
 
-public class SpiritwoodStave extends Item implements SpiritStorage
+public class SpiritwoodStave extends ModStave implements SpiritStorage
 {
-    public SpiritwoodStave(Properties builder)
+    public SpiritwoodStave(Properties builder, ModEffect effect)
     {
-        super(builder);
-    }
-
-    @Override
-    public boolean doesSneakBypassUse(ItemStack stack, IWorldReader world, BlockPos pos, PlayerEntity player)
-    {
-        return true;
-    }
-
-    @Override
-    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
-    {
-        if (stack.getTag() == null)
-        {
-            stack.setTag(new CompoundNBT());
-        }
-        if (!CapabilityValueGetter.getHusk(target))
-        {
-            CapabilityValueGetter.setHusk(target, true);
-            SpiritDataHelper.harvestSpirit((PlayerEntity) attacker, SpiritDataHelper.getSpirit(target), 1);
-        }
-        return super.hitEntity(stack, target, attacker);
+        super(builder, effect);
     }
 
     @Override

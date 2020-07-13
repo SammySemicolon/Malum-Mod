@@ -57,21 +57,20 @@ public class SoulStoringBlockRenderer extends TileEntityRenderer<SpiritStoringTi
                     lookingAtPos = mouseOver.getPos();
                     time = 0;
                 }
-                else if (time < 1)
-                {
-                    time += 0.1;
-                }
+
                 if (world.getTileEntity(mouseOver.getPos()) instanceof SpiritStoringTileEntity)
                 {
+                    if (lookingAtPos != null && lookingAtPos.equals(mouseOver.getPos()) && time < 1)
+                    {
+                        time += 0.1;
+                    }
                     SpiritStoringTileEntity tileEntity = (SpiritStoringTileEntity) world.getTileEntity(mouseOver.getPos());
                     if (tileEntity.getPos().equals(blockEntity.getPos()))
                     {
                         if (tileEntity.type != null)
                         {
-
                             ITextComponent component = makeImportantComponent(tileEntity.count + "/" + ((SpiritStorage) tileEntity.getBlockState().getBlock()).capacity(), true) //[amount/max]
                                     .appendSibling(makeImportantComponent(getName(tileEntity.type), true)); //[spiritType]
-
                             String text = component.getFormattedText();
                             matrixStack.push();
                             matrixStack.translate(0.5, 1.5, 0.5);

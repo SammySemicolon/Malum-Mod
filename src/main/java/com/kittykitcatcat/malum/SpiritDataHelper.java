@@ -3,11 +3,14 @@ package com.kittykitcatcat.malum;
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -20,16 +23,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.kittykitcatcat.malum.MalumHelper.makeImportantComponent;
-import static com.kittykitcatcat.malum.MalumHelper.makeTooltip;
+import static com.kittykitcatcat.malum.MalumHelper.*;
 
 @SuppressWarnings("unused")
 public class SpiritDataHelper
 {
-    public static String countNBT = "malum:spiritCount";
-    public static String typeNBT = "malum:spiritType";
-    public static String spiritDurabilityNBT = "malum:spiritDurability";
+    public static final String countNBT = "malum:spiritCount";
+    public static final String typeNBT = "malum:spiritType";
+    public static final String spiritDurabilityNBT = "malum:spiritDurability";
 
+    //region HARVESTING
+
+    public static boolean isEntityValid(PlayerEntity playerEntity,LivingEntity livingEntity)  //TODO make this not shit
+    {
+        if (livingEntity.getHealth() > playerEntity.getHealth())
+        {
+            return false;
+        }
+        if (CapabilityValueGetter.getHusk(livingEntity))
+        {
+            return false;
+        }
+        if (livingEntity.getType().equals(EntityType.ENDER_DRAGON) || livingEntity.getType().equals(EntityType.WITHER))
+        {
+            return false;
+        }
+        return true;
+    }
+    public static LivingEntity findEntity(PlayerEntity player, float strength)
+    {
+        World world = player.world;
+
+        Vec3d pos = player.getPositionVector();
+        Vec3d looKVec = pos.add(player.getLookVec().mul(strength, strength, strength));
+        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(pos.x - strength, pos.y - strength, pos.z - strength, pos.x + strength, pos.y + strength, pos.z + strength));
+        if (!list.isEmpty())
+        {
+            Entity entity = getClosestEntity(list, looKVec.x, looKVec.y, looKVec.z);
+            if (entity instanceof LivingEntity)
+            {
+                if (isEntityValid(player, (LivingEntity) entity))
+                {
+                    return (LivingEntity) entity;
+                }
+            }
+        }
+        return null;
+    }
+    //endregion
     //region TOOLTIPS
     public static String getName(String name)
     {
@@ -122,7 +163,7 @@ public class SpiritDataHelper
             else
             {
                 decreaseSpiritOfStorage(tileEntity, spirit);
-                stack.getTag().putString(typeNBT, spirit);
+                stack.getOrCreateTag().putString(typeNBT, spirit);
                 stack.getTag().putInt(countNBT, 1);
                 return true;
             }
@@ -131,29 +172,26 @@ public class SpiritDataHelper
     }
     public static boolean insertSpiritIntoStorage(ItemStack stack, SpiritStoringTileEntity tileEntity, int cap, String spirit)
     {
-        if (doesItemHaveSpirit(stack))
+        if (doesStorageHaveSpirit(tileEntity))
         {
-            if (doesStorageHaveSpirit(tileEntity))
+            if (doesStorageHaveSpirit(tileEntity, spirit))
             {
-                if (doesStorageHaveSpirit(tileEntity, spirit))
+                if (doesItemHaveSpirit(stack, spirit))
                 {
-                    if (doesItemHaveSpirit(stack, spirit))
+                    if (tileEntity.count < cap)
                     {
-                        if (tileEntity.count < cap)
-                        {
-                            increaseSpiritOfStorage(tileEntity, cap, spirit);
-                            decreaseSpiritOfItem(stack,spirit);
-                            return true;
-                        }
+                        increaseSpiritOfStorage(tileEntity, cap, spirit);
+                        decreaseSpiritOfItem(stack, spirit);
+                        return true;
                     }
                 }
             }
-            else
-            {
-                increaseSpiritOfStorage(tileEntity, cap, spirit);
-                decreaseSpiritOfItem(stack,spirit);
-                return true;
-            }
+        }
+        else
+        {
+            increaseSpiritOfStorage(tileEntity, cap, spirit);
+            decreaseSpiritOfItem(stack, spirit);
+            return true;
         }
         return false;
     }
@@ -228,7 +266,7 @@ public class SpiritDataHelper
             ItemStack stack = player.inventory.getCurrentItem();
             if (stack.getOrCreateTag().getString(typeNBT).equals(spirit))
             {
-                if (stack.getOrCreateTag().getInt(countNBT) < ((SpiritStorage) stack.getItem()).capacity())
+                if (stack.getTag().getInt(countNBT) < ((SpiritStorage) stack.getItem()).capacity())
                 {
                     for (int k = 0; k < amount; k++)
                     {

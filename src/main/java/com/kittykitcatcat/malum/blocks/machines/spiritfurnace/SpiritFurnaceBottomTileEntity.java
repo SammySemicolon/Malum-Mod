@@ -118,7 +118,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         burnProgress = compound.getInt("burnProgress");
     }
 
-    public enum spiritFuranceSlotEnum
+    public enum  spiritFuranceSlotEnum
     {
         fuel (0),
         input (1);

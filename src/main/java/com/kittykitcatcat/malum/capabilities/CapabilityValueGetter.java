@@ -34,6 +34,16 @@ public class CapabilityValueGetter
         playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note -> note.spiritIntegrityMultiplier = spiritIntegrityMultiplier);
     }
 
+
+    public static LivingEntity getCachedTarget(LivingEntity player)
+    {
+        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getCachedTarget).orElse(null);
+    }
+    public static void setCachedTarget(Entity playerEntity, LivingEntity cachedTarget)
+    {
+        playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note -> note.cachedTarget = cachedTarget);
+    }
+
     public static boolean getHusk(LivingEntity livingEntity)
     {
         return livingEntity.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getHusk).orElse(false);

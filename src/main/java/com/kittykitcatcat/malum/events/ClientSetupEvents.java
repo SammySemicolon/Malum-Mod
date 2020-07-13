@@ -4,8 +4,10 @@ import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBotto
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SoulStoringBlockRenderer;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.items.shield.ItemTileEntityRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,6 +29,7 @@ public class ClientSetupEvents
         if (evt.getMap().getTextureLocation() == PlayerContainer.LOCATION_BLOCKS_TEXTURE)
         {
             evt.addSprite(new ResourceLocation(MODID, "gui/empty_trinket_slot"));
+            evt.addSprite(ItemTileEntityRenderer.skull_shield_texture);
         }
     }
     @SubscribeEvent

@@ -12,15 +12,10 @@
   "malum.tooltip.sconsumer.desc.d": "spirits to ",
   
   "malum.tooltip.bow.desc": "enhance draw speed and release when fully drawn",
+
+  "malum.tooltip.lectern.desc": "increase experience gained from killing soulless enemies",
   
-  "malum.tooltip.lectern.desc.a": " Increases experience gain from ",
-  "malum.tooltip.lectern.desc.b": "killing husks",
-  "malum.tooltip.lectern.desc.c": " Gained experience goes ",
-  "malum.tooltip.lectern.desc.d": "directly to your experience bar",
-  "malum.tooltip.lectern.desc.e": "further enhance this effect",
-  
-  "malum.tooltip.aegis.desc.a": " Grants resistance to ",
-  "malum.tooltip.aegis.desc.b": "husk attacks",
+  "malum.tooltip.aegis.desc": "Reduces damage taken from soulless enemies",
   
   "malum.tooltip.spirit.desc.a": "spirit",
   "malum.tooltip.spirit.desc.b": "Spirit",

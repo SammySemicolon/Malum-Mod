@@ -24,9 +24,9 @@ public final class ModSounds
     public static final SoundEvent furnace_start = makeSoundEvent("furnace_start");
     public static final SoundEvent furnace_loop = makeSoundEvent("furnace_loop");
     public static final SoundEvent furnace_stop = makeSoundEvent("furnace_stop");
-    public static final SoundEvent soul_harvest_success = makeSoundEvent("soul_harvest_success");
-    public static final SoundEvent soul_harvest_loop = makeSoundEvent("soul_harvest_loop");
-    public static final SoundEvent soul_harvest_fail = makeSoundEvent("soul_harvest_fail");
+    public static final SoundEvent spirit_harvest_drain = makeSoundEvent("spirit_harvest_drain");
+    public static final SoundEvent spirit_harvest_failure = makeSoundEvent("spirit_harvest_failure");
+    public static final SoundEvent spirit_harvest_success = makeSoundEvent("spirit_harvest_success");
     public static final SoundEvent shattering_sound = makeSoundEvent("shattering_sound");
     public static final SoundEvent bonk = makeSoundEvent("bonk");
 
@@ -52,9 +52,9 @@ public final class ModSounds
         r.register(furnace_start);
         r.register(furnace_loop);
         r.register(furnace_stop);
-        r.register(soul_harvest_success);
-        r.register(soul_harvest_loop);
-        r.register(soul_harvest_fail);
+        r.register(spirit_harvest_success);
+        r.register(spirit_harvest_drain);
+        r.register(spirit_harvest_failure);
         r.register(shattering_sound);
         r.register(bonk);
 

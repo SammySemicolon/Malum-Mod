@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.capability.ICurio;
 
@@ -48,7 +49,7 @@ public class CurioVacantAegis extends Item implements ICurio, SpiritDescription
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericTooltip("malum.tooltip.aegis.desc.a", "malum.tooltip.aegis.desc.b"));
+        components.add(new TranslationTextComponent("malum.tooltip.aegis.desc"));
         return components;
     }
 }

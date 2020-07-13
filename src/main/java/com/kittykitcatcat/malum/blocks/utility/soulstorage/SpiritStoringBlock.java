@@ -46,7 +46,10 @@ public class SpiritStoringBlock extends Block implements SpiritStorage
                 }
                 else
                 {
-                    insertSpiritIntoStorage(player.getHeldItem(handIn), tileEntity, block.capacity(), stack.getTag().getString(SpiritDataHelper.typeNBT));
+                    if (SpiritDataHelper.doesItemHaveSpirit(stack))
+                    {
+                        insertSpiritIntoStorage(player.getHeldItem(handIn), tileEntity, block.capacity(), stack.getTag().getString(SpiritDataHelper.typeNBT));
+                    }
                 }
             }
         }

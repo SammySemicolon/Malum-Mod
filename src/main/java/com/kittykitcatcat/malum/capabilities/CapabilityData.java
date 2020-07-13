@@ -1,7 +1,9 @@
 package com.kittykitcatcat.malum.capabilities;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,13 @@ public class CapabilityData
     public float getSpiritIntegrityMultiplier()
     {
         return spiritIntegrityMultiplier;
+    }
+
+    public LivingEntity cachedTarget;
+
+    public LivingEntity getCachedTarget()
+    {
+        return cachedTarget;
     }
 
     public int extraSpirits;

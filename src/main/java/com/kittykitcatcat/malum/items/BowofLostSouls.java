@@ -28,7 +28,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
         {
             if (livingEntity == null)
             {
-                return 0.0F;
+                return 0F;
             }
             else
             {
@@ -92,9 +92,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
                         }
 
                         stack.damageItem(1, playerentity, (p_220009_1_) ->
-                        {
-                            p_220009_1_.sendBreakAnimation(playerentity.getActiveHand());
-                        });
+                                p_220009_1_.sendBreakAnimation(playerentity.getActiveHand()));
                         if (flag1 || playerentity.abilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW))
                         {
                             abstractarrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
@@ -177,7 +175,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
     @Override
     public int durability()
     {
-        return 9;
+        return 10;
     }
 
     @Override

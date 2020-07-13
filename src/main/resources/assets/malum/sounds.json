@@ -12,8 +12,8 @@
   "furnace_start": { "sounds":["malum:furnace_start"], "subtitle": "malum.subtitle.furnace_start" },
   "furnace_loop": { "sounds":["malum:furnace_loop"], "subtitle": "malum.subtitle.furnace_loop" },
   "furnace_stop": { "sounds":["malum:furnace_stop"], "subtitle": "malum.subtitle.furnace_stop" },
-  "soul_harvest_loop": { "sounds":["malum:soul_harvest_loop"], "subtitle": "malum.subtitle.soul_harvest_loop" },
-  "soul_harvest_fail": { "sounds":["malum:soul_harvest_fail"], "subtitle": "malum.subtitle.soul_harvest_fail" },
-  "soul_harvest_success": { "sounds":["malum:soul_harvest_success"], "subtitle": "malum.subtitle.soul_harvest_success" },
+  "spirit_harvest_drain": { "sounds":["malum:spirit_harvest_drain"], "subtitle": "malum.subtitle.spirit_harvest_drain" },
+  "spirit_harvest_failure": { "sounds":["malum:spirit_harvest_failure"], "subtitle": "malum.subtitle.spirit_harvest_failure" },
+  "spirit_harvest_success": { "sounds":["malum:spirit_harvest_success"], "subtitle": "malum.subtitle.spirit_harvest_success" },
   "shattering_sound": { "sounds":["malum:shattering_sound"], "subtitle": "malum.subtitle.shattering_sound" }
 }

@@ -9,6 +9,8 @@ import com.kittykitcatcat.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.kittykitcatcat.malum.items.curios.CurioEnchantedLectern;
 import com.kittykitcatcat.malum.items.curios.CurioSpiritwoodNecklace;
 import com.kittykitcatcat.malum.items.curios.CurioVacantAegis;
+import com.kittykitcatcat.malum.items.shield.ItemTileEntityRenderer;
+import com.kittykitcatcat.malum.items.shield.ModShieldItem;
 import com.kittykitcatcat.malum.items.staves.CreativeStave;
 import com.kittykitcatcat.malum.items.staves.SpiritwoodStave;
 import com.kittykitcatcat.malum.items.tools.*;
@@ -103,6 +105,7 @@ public class ModItems
     public static Item vacant_rapier;
     public static Item ultimate_weapon;
     public static Item bow_of_lost_souls;
+    public static Item skull_bulwark;
     //CURIOS
     public static Item spiritwood_bark_necklace;
     public static Item enchanted_lectern;
@@ -186,7 +189,7 @@ public class ModItems
                 cursed_nebulous = setup(new Item(basic_properties), "cursed_nebulous"),
                 stellar_apparatus = setup(new Item(basic_properties), "stellar_apparatus"),
 
-                spiritwood_stave = setup(new SpiritwoodStave(tool_properties), "spiritwood_stave"),
+                spiritwood_stave = setup(new SpiritwoodStave(tool_properties, null), "spiritwood_stave"),
                 spirit_vault = setup(new SpiritVault(tool_properties), "spirit_vault"),
                 spirit_capacitor = setup(new SpiritCapacitor(tool_properties), "spirit_capacitor"),
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
@@ -220,6 +223,7 @@ public class ModItems
                 vacant_rapier = setup(new VacantRapier(ItemTier.DIAMOND, -4, 1.2f, tool_properties), "vacant_rapier"),
                 ultimate_weapon = setup(new BonkItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
                 bow_of_lost_souls = setup(new BowofLostSouls(tool_properties.maxDamage(576)), "bow_of_lost_souls"),
+                skull_bulwark = setup(new ModShieldItem(tool_properties.setISTER(() -> ItemTileEntityRenderer::new)), "skull_bulwark"),
 
                 spiritwood_bark_necklace = setup(new CurioSpiritwoodNecklace(tool_properties), "spiritwood_bark_necklace"),
 

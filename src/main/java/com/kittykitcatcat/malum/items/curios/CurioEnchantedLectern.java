@@ -63,9 +63,7 @@ public class CurioEnchantedLectern extends Item implements ICurio, SpiritConsume
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericTooltip("malum.tooltip.lectern.desc.a", "malum.tooltip.lectern.desc.b"));
-        components.add(makeGenericTooltip("malum.tooltip.lectern.desc.c", "malum.tooltip.lectern.desc.d"));
-        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.lectern.desc.e", SpiritDataHelper.getName(spirit())));
+        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.lectern.desc", SpiritDataHelper.getName(spirit())));
         return components;
     }
 }
