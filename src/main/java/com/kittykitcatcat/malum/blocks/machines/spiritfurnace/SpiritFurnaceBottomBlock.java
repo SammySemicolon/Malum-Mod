@@ -108,48 +108,11 @@ public class SpiritFurnaceBottomBlock extends Block
                 if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceBottomTileEntity)
                 {
                     SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos);
-                    ItemStack heldItem = player.getHeldItem(handIn);
-                    ItemStack fuelItem = furnaceTileEntity.getItemStack(fuel);
-                    //when input is empty
-                    //right clicking adds held item to input
-                    if (fuelItem.isEmpty())
+                    boolean success =MalumHelper.stackRestrictedItemTEHandling(player, ModItems.spirit_charcoal, player.getHeldItemMainhand(), furnaceTileEntity.inventory, fuel.slot);
+                    if (success)
                     {
-                        if (heldItem.getItem().equals(ModItems.spirit_charcoal))
-                        {
-                            MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, heldItem, 0);
-                            updateState(worldIn, state, pos);
-                            updateState(worldIn, state, pos.up());
-                            player.setHeldItem(handIn, ItemStack.EMPTY);
-                            player.swingArm(handIn);
-                            return ActionResultType.SUCCESS;
-                        }
-                    }
-                    //otherwise
-                    //right clicking adds input to hand if its empty
-                    else if (heldItem.isEmpty())
-                    {
-                        MalumHelper.giveItemStackToPlayer(player, fuelItem);
-                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 0);
                         updateState(worldIn, state, pos);
                         updateState(worldIn, state, pos.up());
-                        player.swingArm(handIn);
-                        return ActionResultType.SUCCESS;
-                    }
-
-                    //right clicking with an item matching input adds its count to input
-                    if (heldItem.getItem().equals(ModItems.spirit_charcoal))
-                    {
-                        int cachedCount = heldItem.getCount();
-                        for (int i = 0; i < cachedCount; i++)
-                        {
-                            if (fuelItem.getCount() < 64)
-                            {
-                                MalumHelper.increaseStackSizeInTEInventory(furnaceTileEntity.inventory, 1, 0);
-                                updateState(worldIn, state, pos);
-                                updateState(worldIn, state, pos.down());
-                                heldItem.setCount(heldItem.getCount() - 1);
-                            }
-                        }
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }
@@ -159,15 +122,6 @@ public class SpiritFurnaceBottomBlock extends Block
         return ActionResultType.SUCCESS;
     }
 
-    /*@Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
-    {
-        if (!worldIn.getBlockState(currentPos.up()).getBlock().equals(ModBlocks.spirit_furnace_top))
-        {
-            worldIn.setBlockState(currentPos, Blocks.AIR.getDefaultState(), 3);
-        }
-        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-    }*/
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
     {
@@ -184,11 +138,7 @@ public class SpiritFurnaceBottomBlock extends Block
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
     {
-        if (worldIn.getBlockState(pos.up()).getBlock().equals(Blocks.AIR))
-        {
-            return true;
-        }
-        return false;
+        return worldIn.getBlockState(pos.up()).getBlock().equals(Blocks.AIR);
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)

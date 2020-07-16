@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+		"all": "malum:blocks/arcane_spirit_stone"
+  }
+}

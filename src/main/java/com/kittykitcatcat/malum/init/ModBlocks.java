@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarBlock;
@@ -10,12 +11,16 @@ import com.kittykitcatcat.malum.blocks.special.SpiritSaplingBlock;
 import com.kittykitcatcat.malum.blocks.utility.ModSlabBlock;
 import com.kittykitcatcat.malum.blocks.utility.ModStairsBlock;
 import com.kittykitcatcat.malum.world.biomes.SpiritwoodTree;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LogBlock;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import static com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorBlock.mirrorTypeEnum.*;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -26,7 +31,13 @@ public class ModBlocks
     public static Block spirit_jar;
     public static Block spirit_furnace;
     public static Block spirit_furnace_top;
+    public static Block basic_mirror;
+    public static Block input_mirror;
+    public static Block output_mirror;
 
+    //ORES
+
+    public static Block arcane_spirit_stone;
     //BUILDING
 
     public static Block spirit_stone;
@@ -77,8 +88,13 @@ public class ModBlocks
         IForgeRegistry<Block> registry = event.getRegistry();
         spirit_jar = registerBlock(registry, new SpiritJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().noDrops().lightValue(1)), "spirit_jar");
 
-        spirit_furnace_top = registerBlock(registry, new SpiritFurnaceTopBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().noDrops().lightValue(1)), "spirit_furnace_top");
-        spirit_furnace = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().lightValue(1)), "spirit_furnace_bottom");
+        spirit_furnace_top = registerBlock(registry, new SpiritFurnaceTopBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().noDrops()), "spirit_furnace_top");
+        spirit_furnace = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid()), "spirit_furnace_bottom");
+        basic_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), basic), "basic_mirror");
+        input_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), input), "input_mirror");
+        output_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), output), "output_mirror");
+
+        arcane_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_spirit_stone");
 
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone");

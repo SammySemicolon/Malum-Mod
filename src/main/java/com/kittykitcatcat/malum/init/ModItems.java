@@ -56,6 +56,8 @@ public class ModItems
     public static Item spirit_charcoal;
     public static Item spirit_stone;
     public static Item dark_spirit_stone;
+    public static Item arcane_spirit_stone;
+    public static Item arcane_shard;
     public static Item spirit_silk;
     public static Item spirit_fabric;
     public static Item evil_leather;
@@ -68,6 +70,8 @@ public class ModItems
     public static Item stygian_pearl;
     public static Item stygian_shard;
     public static Item runic_ash;
+    public static Item ectoplasm;
+    public static Item resonant_lens;
     public static Item soul_steel_ingot;
     public static Item soul_steel_nugget;
     public static Item arcane_apparatus;
@@ -113,8 +117,10 @@ public class ModItems
 
     //FUNCTIONAL BLOCKS
     public static Item spirit_jar;
-
     public static Item spirit_furnace;
+    public static Item basic_mirror;
+    public static Item input_mirror;
+    public static Item output_mirror;
     //BLOCKS
     public static Item spirit_stone_brick;
     public static Item dark_spirit_stone_brick;
@@ -161,6 +167,7 @@ public class ModItems
     public static Item creative_spiritwood_stave;
 
     static Item.Properties basic_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64);
+    static Item.Properties rare_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64).rarity(Rarity.UNCOMMON);
     static Item.Properties tool_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(1);
     static Item.Properties hidden_properties = new Item.Properties().maxStackSize(1);
     @SubscribeEvent
@@ -171,6 +178,8 @@ public class ModItems
                 spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
                 spirit_stone = setup(new BlockItem(ModBlocks.spirit_stone, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
+                arcane_spirit_stone = setup(new BlockItem(ModBlocks.arcane_spirit_stone, basic_properties), "arcane_spirit_stone"),
+                arcane_shard = setup(new Item(basic_properties), "arcane_shard"),
                 spirit_silk = setup(new Item(basic_properties), "spirit_silk"),
                 spirit_fabric = setup(new Item(basic_properties), "spirit_fabric"),
                 evil_leather = setup(new Item(basic_properties), "evil_leather"),
@@ -181,13 +190,15 @@ public class ModItems
                 enchanted_quartz = setup(new Item(basic_properties), "enchanted_quartz"),
                 vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
                 runic_ash = setup(new Item(basic_properties), "runic_ash"),
+                ectoplasm = setup(new Item(basic_properties), "ectoplasm"),
+                resonant_lens = setup(new Item(basic_properties), "resonant_lens"),
                 stygian_pearl = setup(new Item(basic_properties), "stygian_pearl"),
                 stygian_shard = setup(new Item(basic_properties), "stygian_shard"),
                 arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
                 soul_steel_ingot = setup(new Item(basic_properties), "soul_steel_ingot"),
                 soul_steel_nugget = setup(new Item(basic_properties), "soul_steel_nugget"),
-                cursed_nebulous = setup(new Item(basic_properties), "cursed_nebulous"),
-                stellar_apparatus = setup(new Item(basic_properties), "stellar_apparatus"),
+                cursed_nebulous = setup(new SimpleFoiledItem(rare_properties), "cursed_nebulous"),
+                stellar_apparatus = setup(new SimpleFoiledItem(rare_properties), "stellar_apparatus"),
 
                 spiritwood_stave = setup(new SpiritwoodStave(tool_properties, null), "spiritwood_stave"),
                 spirit_vault = setup(new SpiritVault(tool_properties), "spirit_vault"),
@@ -229,6 +240,9 @@ public class ModItems
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
+                basic_mirror = setup(new BlockItem(ModBlocks.basic_mirror, basic_properties), "basic_mirror"),
+                input_mirror = setup(new BlockItem(ModBlocks.input_mirror, basic_properties), "input_mirror"),
+                output_mirror = setup(new BlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
 
                 spirit_stone_brick = setup(new BlockItem(ModBlocks.spirit_stone_brick, basic_properties), "spirit_stone_brick"),
                 dark_spirit_stone_brick = setup(new BlockItem(ModBlocks.dark_spirit_stone_brick, basic_properties), "dark_spirit_stone_brick"),

@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum;
 
+import com.kittykitcatcat.malum.init.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -8,11 +9,17 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.state.IProperty;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -24,6 +31,9 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
@@ -33,6 +43,8 @@ import java.util.Random;
 
 public class MalumHelper
 {
+
+    //region BLOCKSTATES
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, IProperty<T> property)
     {
         return newState.with(property, oldState.get(property));
@@ -47,17 +59,79 @@ public class MalumHelper
     {
         world.notifyBlockUpdate(pos, state, newState, 3);
     }
+    //endregion
+    //region TE STACK HANDLING
 
+    public static boolean stackRestrictedItemTEHandling(PlayerEntity player, Item restrictedItem, ItemStack heldItem, ItemStackHandler inventory, int slot)
+    {
+        ItemStack targetItem = inventory.getStackInSlot(slot);
+        if (heldItem.getItem().equals(targetItem.getItem()))
+        {
+            if (heldItem.getItem().equals(restrictedItem))
+            {
+                int cachedCount = heldItem.getCount();
+                for (int i = 0; i < cachedCount; i++)
+                {
+                    if (targetItem.getCount() < targetItem.getMaxStackSize())
+                    {
+                        MalumHelper.addStackToTEInventory(inventory, heldItem, 0);
+                        heldItem.setCount(heldItem.getCount() - 1);
+                    }
+                }
+                return true;
+            }
+        }
+        if (targetItem.isEmpty())
+        {
+            if (heldItem.getItem().equals(restrictedItem))
+            {
+                MalumHelper.setStackInTEInventory(inventory, heldItem, 0);
+            }
+        }
+        else
+        {
+            MalumHelper.giveItemStackToPlayer(player, targetItem);
+            MalumHelper.setStackInTEInventory(inventory, ItemStack.EMPTY, 0);
+        }
+        return true;
+    }
+    public static boolean basicItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
+    {
+        ItemStack targetItem = inventory.getStackInSlot(slot);
+        if (heldItem.getItem().equals(targetItem.getItem()))
+        {
+            int cachedCount = heldItem.getCount();
+            for (int i = 0; i < cachedCount; i++)
+            {
+                if (targetItem.getCount() < targetItem.getMaxStackSize())
+                {
+                    MalumHelper.addStackToTEInventory(inventory, heldItem, 0);
+                    heldItem.setCount(heldItem.getCount() - 1);
+
+                }
+            }
+            return true;
+        }
+        if (targetItem.isEmpty())
+        {
+            MalumHelper.setStackInTEInventory(inventory, heldItem, 0);
+            player.setHeldItem(hand, ItemStack.EMPTY);
+        }
+        else
+        {
+            MalumHelper.giveItemStackToPlayer(player, targetItem);
+            MalumHelper.setStackInTEInventory(inventory, ItemStack.EMPTY, 0);
+        }
+        return true;
+    }
     public static void setStackInTEInventory(ItemStackHandler inventory, ItemStack stack, int slot)
     {
         inventory.setStackInSlot(slot, stack);
     }
-
     public static void addStackToTEInventory(ItemStackHandler inventory, ItemStack stack, int slot)
     {
         inventory.getStackInSlot(slot).setCount(inventory.getStackInSlot(slot).getCount() + stack.getCount());
     }
-
     public static void increaseStackSizeInTEInventory(ItemStackHandler inventory, int amount, int slot)
     {
         inventory.getStackInSlot(slot).setCount(inventory.getStackInSlot(slot).getCount() + amount);
@@ -68,9 +142,33 @@ public class MalumHelper
         inventory.getStackInSlot(slot).setCount(inventory.getStackInSlot(slot).getCount() - amount);
     }
 
-    public static void giveItemStackToPlayer(PlayerEntity target, ItemStack stack)
+    public static void putStackInTE(TileEntity inputTileEntity, Direction direction, ItemStack stack)
     {
-        target.world.addEntity(new ItemEntity(target.world, target.getPosX(), target.getPosY(), target.getPosZ(), stack));
+        IItemHandler inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
+
+        if (!stack.isEmpty())
+        {
+            ItemStack simulate = ItemHandlerHelper.insertItem(inventory, stack, true);
+            int count = stack.getCount() - simulate.getCount();
+            ItemHandlerHelper.insertItem(inventory, stack.split(count), false);
+        }
+        inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).ifPresent(itemHandler ->
+        {
+            for (int j = 0; j < itemHandler.getSlots(); j++)
+            {
+                ItemStack remaining = ItemHandlerHelper.insertItem(itemHandler, stack, false);
+                if (remaining.isEmpty())
+                {
+                    return;
+                }
+                stack.setCount(remaining.getCount());
+            }
+        });
+    }
+    //endregion
+    public static void giveItemStackToPlayer(PlayerEntity playerEntity, ItemStack stack)
+    {
+        ItemHandlerHelper.giveItemToPlayer(playerEntity, stack);
     }
 
     public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)

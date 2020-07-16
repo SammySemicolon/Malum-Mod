@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.events;
 
+import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorRenderer;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomRenderer;
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SoulStoringBlockRenderer;
 import com.kittykitcatcat.malum.init.ModBlocks;
@@ -7,7 +8,6 @@ import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.items.shield.ItemTileEntityRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,6 +36,9 @@ public class ClientSetupEvents
     public static void bindTERs(FMLClientSetupEvent event)
     {
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_bottom_tile_entity, SpiritFurnaceBottomRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.basic_mirror_tile_entity, BasicMirrorRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.input_mirror_tile_entity, BasicMirrorRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.output_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_jar_tile_entity, SoulStoringBlockRenderer::new);
     }
 
@@ -44,5 +47,6 @@ public class ClientSetupEvents
     {
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_jar, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.basic_mirror, RenderType.getTranslucent());
     }
 }

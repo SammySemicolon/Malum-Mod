@@ -92,36 +92,13 @@ public class SpiritFurnaceTopBlock extends Block
                     SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos.down());
                     ItemStack heldItem = player.getHeldItem(handIn);
                     ItemStack inputItem = furnaceTileEntity.getItemStack(input);
-                    //when input is empty
-                    //right clicking adds held item to input
-                    if (inputItem.isEmpty())
-                    {
-                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, heldItem, 1);
-                        updateState(worldIn, state,pos);
-                        updateState(worldIn, state,pos.down());
-                        player.setHeldItem(handIn, ItemStack.EMPTY);
-                        player.swingArm(handIn);
-                        return ActionResultType.SUCCESS;
-                    }
-                    //otherwise
-                    //right clicking adds input to hand if its empty
-                    else if (heldItem.isEmpty())
-                    {
-                        MalumHelper.giveItemStackToPlayer(player, inputItem);
-                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 1);
-                        updateState(worldIn, state,pos);
-                        updateState(worldIn, state,pos.down());
-                        player.swingArm(handIn);
-                        return ActionResultType.SUCCESS;
-                    }
 
-                    //right clicking with an item matching input adds its count to input
                     if (heldItem.getItem().equals(inputItem.getItem()))
                     {
                         int cachedCount = heldItem.getCount();
                         for (int i = 0; i < cachedCount; i++)
                         {
-                            if (inputItem.getCount() < 64)
+                            if (inputItem.getCount() < inputItem.getMaxStackSize())
                             {
                                 MalumHelper.increaseStackSizeInTEInventory(furnaceTileEntity.inventory, 1, 1);
                                 updateState(worldIn, state, pos);
@@ -132,6 +109,22 @@ public class SpiritFurnaceTopBlock extends Block
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }
+                    if (inputItem.isEmpty())
+                    {
+                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, heldItem, 1);
+                        updateState(worldIn, state,pos);
+                        updateState(worldIn, state,pos.down());
+                        player.setHeldItem(handIn, ItemStack.EMPTY);
+                    }
+                    else
+                    {
+                        MalumHelper.giveItemStackToPlayer(player, inputItem);
+                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 1);
+                        updateState(worldIn, state,pos);
+                        updateState(worldIn, state,pos.down());
+                    }
+                    player.swingArm(handIn);
+                    return ActionResultType.SUCCESS;
                 }
             }
         }

@@ -123,7 +123,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         fuel (0),
         input (1);
 
-        private final int slot;
+        public final int slot;
         spiritFuranceSlotEnum(int slot) { this.slot = slot;}
     }
 
