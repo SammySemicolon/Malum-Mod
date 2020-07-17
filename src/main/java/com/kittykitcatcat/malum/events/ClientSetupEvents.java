@@ -2,6 +2,7 @@ package com.kittykitcatcat.malum.events;
 
 import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorRenderer;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomRenderer;
+import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopRenderer;
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SoulStoringBlockRenderer;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModTileEntities;
@@ -36,6 +37,7 @@ public class ClientSetupEvents
     public static void bindTERs(FMLClientSetupEvent event)
     {
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_bottom_tile_entity, SpiritFurnaceBottomRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_top_tile_entity, SpiritFurnaceTopRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.basic_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.input_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.output_mirror_tile_entity, BasicMirrorRenderer::new);

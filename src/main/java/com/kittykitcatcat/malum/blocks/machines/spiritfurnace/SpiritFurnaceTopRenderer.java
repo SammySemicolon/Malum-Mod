@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 
+import com.kittykitcatcat.malum.MalumMod;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -17,16 +18,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 @OnlyIn(value = Dist.CLIENT)
-public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnaceBottomTileEntity>
+public class SpiritFurnaceTopRenderer extends TileEntityRenderer<SpiritFurnaceTopTileEntity>
 {
 
-    public SpiritFurnaceBottomRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
+    public SpiritFurnaceTopRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
         super(rendererDispatcherIn);
     }
 
     @Override
-    public void render(SpiritFurnaceBottomTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
+    public void render(SpiritFurnaceTopTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {
         if (this.renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(this.renderDispatcher.renderInfo.getProjectedView().x, this.renderDispatcher.renderInfo.getProjectedView().y, this.renderDispatcher.renderInfo.getProjectedView().z) < 128d)
         {
@@ -36,9 +37,9 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
             if (!item.isEmpty())
             {
                 matrixStack.push();
-                matrixStack.translate(0.5 + direction.getX() * 0.2f, 0.25, 0.5 + direction.getZ() * 0.2f);
+                matrixStack.translate(0.5f + direction.getX() * 0.2f, 0.4, 0.5f + direction.getZ() * 0.2f);
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(blockEntity.getWorld().getGameTime() * 3));
-                matrixStack.scale(0.45f, 0.45f, 0.45f);
+                matrixStack.scale(0.5f, 0.5f, 0.5f);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
                 matrixStack.pop();
             }

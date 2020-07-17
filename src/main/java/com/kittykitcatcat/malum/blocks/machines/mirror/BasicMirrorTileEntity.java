@@ -117,11 +117,12 @@ public class BasicMirrorTileEntity extends TileEntity implements ITickableTileEn
     {
         read(tag);
     }
-    @Nullable
     @Override
     public SUpdateTileEntityPacket getUpdatePacket()
     {
-        return new SUpdateTileEntityPacket(pos, 0, getUpdateTag());
+        CompoundNBT nbt = new CompoundNBT();
+        this.write(nbt);
+        return new SUpdateTileEntityPacket(pos, 0, nbt);
     }
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
@@ -132,47 +133,32 @@ public class BasicMirrorTileEntity extends TileEntity implements ITickableTileEn
     @Override
     public void tick()
     {
-        if (transferCooldown <= 0)
+        if (!world.isRemote)
         {
-            BasicMirrorBlock block = (BasicMirrorBlock) getBlockState().getBlock();
-            ItemStack stack = inventory.getStackInSlot(0);
-            if (block.type == mirrorTypeEnum.input)
+            if (transferCooldown <= 0)
             {
-                if (stack != ItemStack.EMPTY)
+                if (inventory.getStackInSlot(0).isEmpty())
                 {
-                    Direction direction = getBlockState().get(HORIZONTAL_FACING);
-                    TileEntity inputTileEntity = world.getTileEntity(pos.subtract(direction.getDirectionVec()));
-                    if (inputTileEntity != null)
+                    List<Entity> entities = world.getEntitiesInAABBexcluding(null, new AxisAlignedBB(pos, pos.add(1, 1, 1)), null);
+                    if (!entities.isEmpty())
                     {
-                        MalumHelper.putStackInTE(inputTileEntity,direction,stack);
-                        if (inputTileEntity instanceof BasicMirrorTileEntity)
+                        for (Entity entity : entities)
                         {
-                            ((BasicMirrorTileEntity) inputTileEntity).transferCooldown = 10;
+                            if (entity instanceof ItemEntity)
+                            {
+                                ItemEntity itemEntity = (ItemEntity) entity;
+                                inventory.setStackInSlot(0, itemEntity.getItem());
+                                itemEntity.remove();
+                            }
                         }
                     }
                 }
+                transferCooldown = 10;
             }
-            if (inventory.getStackInSlot(0).isEmpty())
+            else
             {
-                List<Entity> entities = world.getEntitiesInAABBexcluding(null, new AxisAlignedBB(pos, pos.add(1, 1, 1)), null);
-                if (!entities.isEmpty())
-                {
-                    for (Entity entity : entities)
-                    {
-                        if (entity instanceof ItemEntity)
-                        {
-                            ItemEntity itemEntity = (ItemEntity) entity;
-                            MalumHelper.setStackInTEInventory(inventory, itemEntity.getItem(), 0);
-                            itemEntity.remove();
-                        }
-                    }
-                }
+                transferCooldown--;
             }
-            transferCooldown = 10;
-        }
-        else
-        {
-            transferCooldown--;
         }
     }
 }

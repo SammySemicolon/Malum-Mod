@@ -16,41 +16,66 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-import static com.kittykitcatcat.malum.MalumHelper.updateState;
+import static net.minecraft.state.properties.AttachFace.CEILING;
+import static net.minecraft.state.properties.AttachFace.FLOOR;
+import static net.minecraft.state.properties.BlockStateProperties.FACE;
+import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
+
 
 public class BasicMirrorBlock extends HorizontalFaceBlock
 {
-
-    public enum mirrorTypeEnum
-    {
-        basic (0),
-        input (1),
-        output (2);
-
-        public final int type;
-        mirrorTypeEnum(int type) { this.type = type;}
-    }
     public mirrorTypeEnum type;
+
     public BasicMirrorBlock(Properties properties, mirrorTypeEnum type)
     {
         super(properties);
         this.type = type;
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(FACE, AttachFace.WALL));
     }
+
+    public enum mirrorTypeEnum
+    {
+        basic(0),
+        input(1),
+        output(2);
+
+        public final int type;
+
+        mirrorTypeEnum(int type) { this.type = type;}
+    }
+
+    public static TileEntity getTileEntityForTransfer(World world, BlockPos pos)
+    {
+        Direction direction = world.getBlockState(pos).get(HORIZONTAL_FACING);
+        Vec3i directionVector = direction.getDirectionVec();
+        if (world.getBlockState(pos).get(FACE).equals(CEILING))
+        {
+            directionVector = new Vec3i(0, -1, 0);
+        }
+        if (world.getBlockState(pos).get(FACE).equals(FLOOR))
+        {
+            directionVector = new Vec3i(0, 1, 0);
+        }
+        return world.getTileEntity(pos.subtract(directionVector));
+    }
+
     protected static final VoxelShape AABB_NORTH = Block.makeCuboidShape(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D);
     protected static final VoxelShape AABB_SOUTH = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 1.0D);
     protected static final VoxelShape AABB_WEST = Block.makeCuboidShape(15.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     protected static final VoxelShape AABB_EAST = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 1.0D, 16.0D, 16.0D);
     protected static final VoxelShape AABB_DOWN = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
     protected static final VoxelShape AABB_UP = Block.makeCuboidShape(0.0D, 15.0D, 0.0D, 16.0D, 15.0D, 16.0D);
+
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
+    {
         return true;
     }
 
@@ -80,7 +105,8 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
         }
     }
 
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    {
         builder.add(HORIZONTAL_FACING, FACE);
     }
 
@@ -148,7 +174,7 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
                     if (success)
                     {
                         mirrorTileEntity.transferCooldown = 10;
-                        updateState(worldIn, state, pos);
+                        player.world.notifyBlockUpdate(mirrorTileEntity.getPos(), mirrorTileEntity.getBlockState(), mirrorTileEntity.getBlockState(), 3);
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }
@@ -157,5 +183,4 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
         }
         return ActionResultType.SUCCESS;
     }
-
 }

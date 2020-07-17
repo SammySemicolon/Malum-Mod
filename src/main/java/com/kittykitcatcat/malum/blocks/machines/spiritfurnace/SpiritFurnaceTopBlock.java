@@ -8,7 +8,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -16,14 +15,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import static com.kittykitcatcat.malum.MalumHelper.updateState;
-import static com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity.spiritFuranceSlotEnum.input;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
@@ -87,44 +81,16 @@ public class SpiritFurnaceTopBlock extends Block
         {
             if (handIn != Hand.OFF_HAND)
             {
-                if (worldIn.getTileEntity(pos.down()) instanceof SpiritFurnaceBottomTileEntity)
+                if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceTopTileEntity)
                 {
-                    SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos.down());
-                    ItemStack heldItem = player.getHeldItem(handIn);
-                    ItemStack inputItem = furnaceTileEntity.getItemStack(input);
-
-                    if (heldItem.getItem().equals(inputItem.getItem()))
+                    SpiritFurnaceTopTileEntity furnaceTileEntity = (SpiritFurnaceTopTileEntity) worldIn.getTileEntity(pos);
+                    boolean success = MalumHelper.basicItemTEHandling(player, handIn, player.getHeldItem(handIn), furnaceTileEntity.inventory, 0);
+                    if (success)
                     {
-                        int cachedCount = heldItem.getCount();
-                        for (int i = 0; i < cachedCount; i++)
-                        {
-                            if (inputItem.getCount() < inputItem.getMaxStackSize())
-                            {
-                                MalumHelper.increaseStackSizeInTEInventory(furnaceTileEntity.inventory, 1, 1);
-                                updateState(worldIn, state, pos);
-                                updateState(worldIn, state, pos.down());
-                                heldItem.setCount(heldItem.getCount() - 1);
-                            }
-                        }
+                        player.world.notifyBlockUpdate(pos, state, state, 3);
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }
-                    if (inputItem.isEmpty())
-                    {
-                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, heldItem, 1);
-                        updateState(worldIn, state,pos);
-                        updateState(worldIn, state,pos.down());
-                        player.setHeldItem(handIn, ItemStack.EMPTY);
-                    }
-                    else
-                    {
-                        MalumHelper.giveItemStackToPlayer(player, inputItem);
-                        MalumHelper.setStackInTEInventory(furnaceTileEntity.inventory, ItemStack.EMPTY, 1);
-                        updateState(worldIn, state,pos);
-                        updateState(worldIn, state,pos.down());
-                    }
-                    player.swingArm(handIn);
-                    return ActionResultType.SUCCESS;
                 }
             }
         }

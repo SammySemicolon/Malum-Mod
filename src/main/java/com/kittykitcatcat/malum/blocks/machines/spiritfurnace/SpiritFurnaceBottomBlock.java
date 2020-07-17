@@ -3,12 +3,9 @@ package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModItems;
-import com.kittykitcatcat.malum.init.ModTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -25,30 +22,20 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
-import static com.kittykitcatcat.malum.MalumHelper.updateState;
-import static com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity.spiritFuranceSlotEnum.fuel;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
 public class SpiritFurnaceBottomBlock extends Block
 {
-
     public SpiritFurnaceBottomBlock(Properties properties)
     {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, false));
     }
-
+    //region stupid things i have to put here
     @Override
     public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
     {
@@ -68,6 +55,24 @@ public class SpiritFurnaceBottomBlock extends Block
     }
 
     @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
+    {
+        return worldIn.getBlockState(pos.up()).getBlock().equals(Blocks.AIR);
+    }
+
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
+    {
+        blockStateBuilder.add(HORIZONTAL_FACING);
+        blockStateBuilder.add(LIT);
+    }
+
+    @Nullable
+    public BlockState getStateForPlacement(BlockItemUseContext context)
+    {
+        return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(LIT, false);
+    }
+    //endregion
+    @Override
     public int getLightValue(BlockState state, IBlockReader world, BlockPos pos)
     {
         return state.get(LIT) ? 12 : 2;
@@ -80,17 +85,9 @@ public class SpiritFurnaceBottomBlock extends Block
             if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceBottomTileEntity)
             {
                 SpiritFurnaceBottomTileEntity tileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos);
-                List<ItemStack> stacks = new ArrayList<>();
-                for (int i = 0; i < tileEntity.inventory.getSlots() - 1; i++)
+                if (tileEntity.inventory.getStackInSlot(0) != ItemStack.EMPTY)
                 {
-                    if (!tileEntity.inventory.getStackInSlot(i).isEmpty())
-                    {
-                        stacks.add(tileEntity.inventory.getStackInSlot(i));
-                    }
-                }
-                for (ItemStack stack : stacks)
-                {
-                    Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, stack);
+                    Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, tileEntity.inventory.getStackInSlot(0).copy());
                     worldIn.addEntity(entity);
                 }
             }
@@ -108,11 +105,10 @@ public class SpiritFurnaceBottomBlock extends Block
                 if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceBottomTileEntity)
                 {
                     SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos);
-                    boolean success =MalumHelper.stackRestrictedItemTEHandling(player, ModItems.spirit_charcoal, player.getHeldItemMainhand(), furnaceTileEntity.inventory, fuel.slot);
+                    boolean success = MalumHelper.stackRestrictedItemTEHandling(player, handIn, ModItems.spirit_charcoal, player.getHeldItemMainhand(), furnaceTileEntity.inventory, 0);
                     if (success)
                     {
-                        updateState(worldIn, state, pos);
-                        updateState(worldIn, state, pos.up());
+                        player.world.notifyBlockUpdate(pos, state, state, 3);
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }
@@ -133,23 +129,5 @@ public class SpiritFurnaceBottomBlock extends Block
     {
         worldIn.setBlockState(pos.up(), Blocks.AIR.getDefaultState());
         super.onBlockHarvested(worldIn, pos, state, player);
-    }
-
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
-    {
-        return worldIn.getBlockState(pos.up()).getBlock().equals(Blocks.AIR);
-    }
-
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
-    {
-        blockStateBuilder.add(HORIZONTAL_FACING);
-        blockStateBuilder.add(LIT);
-    }
-
-    @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(LIT, false);
     }
 }
