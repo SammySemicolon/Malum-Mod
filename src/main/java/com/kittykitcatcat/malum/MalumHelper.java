@@ -1,12 +1,15 @@
 package com.kittykitcatcat.malum;
 
+import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.state.IProperty;
@@ -62,6 +65,26 @@ public class MalumHelper
     //endregion
     //region TE STACK HANDLING
 
+    public static void funkyItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
+    {
+        ItemStackHandler inventory = funkEngineTileEntity.inventory;
+        ItemStack targetItem = inventory.getStackInSlot(slot);
+        if (targetItem.isEmpty())
+        {
+            if (heldItem.getItem() instanceof MusicDiscItem)
+            {
+                inventory.setStackInSlot(0,heldItem);
+                player.setHeldItem(hand, ItemStack.EMPTY);
+                funkEngineTileEntity.playSound();
+            }
+        }
+        else
+        {
+            MalumHelper.giveItemStackToPlayer(player, targetItem);
+            inventory.setStackInSlot(0,ItemStack.EMPTY);
+            funkEngineTileEntity.stopSound();
+        }
+    }
     public static boolean stackRestrictedItemTEHandling(PlayerEntity player,Hand hand, Item restrictedItem, ItemStack heldItem, ItemStackHandler inventory, int slot)
     {
         ItemStack targetItem = inventory.getStackInSlot(slot);
@@ -126,7 +149,23 @@ public class MalumHelper
     }
     public static boolean inputStackIntoTE(TileEntity inputTileEntity, Direction direction, ItemStack stack)
     {
-        IItemHandler inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).orElseThrow(null);
+        IItemHandler inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).orElse(null);
+        for (int j = 0; j < inventory.getSlots(); j++)
+        {
+            ItemStack simulate = ItemHandlerHelper.insertItem(inventory, stack, true);
+            int count = stack.getCount() - simulate.getCount();
+            ItemHandlerHelper.insertItem(inventory, stack.split(count), false);
+            inputTileEntity.getWorld().notifyBlockUpdate(inputTileEntity.getPos(), inputTileEntity.getBlockState(), inputTileEntity.getBlockState(), 3);
+            if (simulate.isEmpty())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean inputStackIntoTE(TileEntity inputTileEntity, ItemStack stack)
+    {
+        IItemHandler inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
         for (int j = 0; j < inventory.getSlots(); j++)
         {
             ItemStack simulate = ItemHandlerHelper.insertItem(inventory, stack, true);
@@ -187,22 +226,6 @@ public class MalumHelper
         return new Vec3d(x, y, z);
     }
 
-    public static Vec3d randPosofEntity(Entity entity, Random rand)
-    {
-        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX, entity.getBoundingBox().maxX);
-        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY, entity.getBoundingBox().maxY);
-        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ, entity.getBoundingBox().maxZ);
-        return new Vec3d(x, y, z);
-    }
-
-    public static Vec3d randExtendedPosofEntity(Entity entity, Random rand)
-    {
-        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX - (entity.getBoundingBox().getXSize() / 4), entity.getBoundingBox().maxX) + (entity.getBoundingBox().getXSize() / 4);
-        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY - (entity.getBoundingBox().getYSize() / 4), entity.getBoundingBox().maxY) + (entity.getBoundingBox().getYSize() / 4);
-        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() / 4), entity.getBoundingBox().maxZ) + (entity.getBoundingBox().getZSize() / 4);
-        return new Vec3d(x, y, z);
-    }
-
     public static Vec3d randPos(Vec3d pos, Random rand, double min, double max)
     {
         double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
@@ -213,12 +236,12 @@ public class MalumHelper
 
     public static Vec3d frontOfEntity(Entity entity)
     {
-        return new Vec3d(((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2) + entity.getMotion().x / 2, ((entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2) + entity.getMotion().y / 2, ((entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2) + entity.getMotion().z / 2);
+        return entityCenter(entity).add(entity.getLookVec());
     }
 
     public static Vec3d entityFacingPlayer(Entity entity, PlayerEntity playerEntity)
     {
-        return new Vec3d(((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2) - playerEntity.getLookVec().x / 2, ((entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2) - playerEntity.getLookVec().y / 2, ((entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2) - playerEntity.getLookVec().z / 2);
+        return entityCenter(entity).add(playerEntity.getLookVec().mul(0.5,0.5,0.5));
     }
 
     public static Vec3d entityCenter(Entity entity)
@@ -226,6 +249,21 @@ public class MalumHelper
         return new Vec3d((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2, (entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2, (entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2);
     }
 
+    public static Vec3d randPosofEntity(Entity entity, Random rand)
+    {
+        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX, entity.getBoundingBox().maxX);
+        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY, entity.getBoundingBox().maxY);
+        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ, entity.getBoundingBox().maxZ);
+        return new Vec3d(x, y, z);
+    }
+
+    public static Vec3d randExtendedPosofEntity(Entity entity, Random rand, float multiplier)
+    {
+        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX - (entity.getBoundingBox().getXSize() * multiplier), entity.getBoundingBox().maxX) + (entity.getBoundingBox().getXSize() * multiplier);
+        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY - (entity.getBoundingBox().getYSize() * multiplier), entity.getBoundingBox().maxY) + (entity.getBoundingBox().getYSize() * multiplier);
+        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() * multiplier), entity.getBoundingBox().maxZ) + (entity.getBoundingBox().getZSize() * multiplier);
+        return new Vec3d(x, y, z);
+    }
     @OnlyIn(Dist.CLIENT)
     public static void makeTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, ArrayList<ITextComponent> components)
     {
@@ -277,10 +315,27 @@ public class MalumHelper
         return resultEntity;
     }
 
-    public static Vec3d tryTeleportPlayer(PlayerEntity playerEntity, Vec3d direction, Vec3d newPosition, int i)
+    @Nullable
+    public static Entity getClosestEntity(List<Entity> entities, Vec3d pos)
+    {
+        double cachedDistance = -1.0D;
+        Entity resultEntity = null;
+
+        for (Entity entity : entities)
+        {
+            double newDistance = entity.getDistanceSq(pos.x,pos.y,pos.z);
+            if (cachedDistance == -1.0D || newDistance < cachedDistance)
+            {
+                cachedDistance = newDistance;
+                resultEntity = entity;
+            }
+        }
+        return resultEntity;
+    }
+    public static Vec3d tryTeleportPlayer(PlayerEntity playerEntity, Vec3d testPosition)
     {
         Vec3d cachedPosition = playerEntity.getPositionVec();
-        Vec3d testPosition = (playerEntity.getPositionVec()).add(direction.mul(i, i, i));
+        Vec3d newPosition = cachedPosition;
         playerEntity.teleportKeepLoaded(testPosition.x, testPosition.y, testPosition.z);
         if (!playerEntity.world.checkBlockCollision(playerEntity.getBoundingBox()))
         {

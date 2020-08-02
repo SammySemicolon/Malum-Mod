@@ -10,15 +10,21 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.kittykitcatcat.malum.MalumHelper.makeImportantComponent;
 
 public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnaceRecipe>
 {
@@ -43,8 +49,10 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
     @Override
     public void draw(SpiritFurnaceRecipe recipe, double mouseX, double mouseY)
     {
+
         GlStateManager.enableAlphaTest();
         GlStateManager.enableBlend();
+
         if(recipe.getSideItem() != null)
         {
             overlay.draw();
@@ -55,6 +63,14 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
         }
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();
+
+        ITextComponent timeComponent = new TranslationTextComponent("malum.recipe.time.desc") //Uses
+                .appendSibling(makeImportantComponent("" + recipe.getBurnTime(), true));
+        String experienceString = timeComponent.getFormattedText();
+        Minecraft minecraft = Minecraft.getInstance();
+        FontRenderer fontRenderer = minecraft.fontRenderer;
+        int stringWidth = fontRenderer.getStringWidth(experienceString);
+        fontRenderer.drawString(experienceString, background.getWidth() - stringWidth, 0, 0xFF808080);
     }
 
     @Nonnull
@@ -95,13 +111,13 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
     @Override
     public void setIngredients(SpiritFurnaceRecipe spiritFurnaceRecipe, IIngredients iIngredients)
     {
-        iIngredients.setInput(VanillaTypes.ITEM, spiritFurnaceRecipe.getInputItem());
+        iIngredients.setInput(VanillaTypes.ITEM, new ItemStack(spiritFurnaceRecipe.getInputItem()));
         List<ItemStack> list = new ArrayList<>();
         if (spiritFurnaceRecipe.getSideItem() != null)
         {
-            list.add(spiritFurnaceRecipe.getSideItem());
+            list.add(new ItemStack(spiritFurnaceRecipe.getSideItem()));
         }
-        list.add(spiritFurnaceRecipe.getOutputItem());
+        list.add(new ItemStack(spiritFurnaceRecipe.getOutputItem()));
         iIngredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(list.stream().map(ItemStack::copy).filter(s -> !s.isEmpty()).collect(Collectors.toList())));
     }
 
@@ -109,18 +125,18 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritFurnaceRecipe spiritFurnaceRecipe, IIngredients iIngredients)
     {
         iRecipeLayout.getItemStacks().init(0, true, 3, 17);
-        iRecipeLayout.getItemStacks().set(0, spiritFurnaceRecipe.getInputItem());
+        iRecipeLayout.getItemStacks().set(0, new ItemStack(spiritFurnaceRecipe.getInputItem()));
         if (spiritFurnaceRecipe.getSideItem() != null)
         {
             iRecipeLayout.getItemStacks().init(2, true, 82, 5);
-            iRecipeLayout.getItemStacks().set(2, spiritFurnaceRecipe.getOutputItem());
+            iRecipeLayout.getItemStacks().set(2, new ItemStack(spiritFurnaceRecipe.getOutputItem()));
             iRecipeLayout.getItemStacks().init(3, true, 82, 28);
-            iRecipeLayout.getItemStacks().set(3, spiritFurnaceRecipe.getSideItem());
+            iRecipeLayout.getItemStacks().set(3, new ItemStack(spiritFurnaceRecipe.getSideItem()));
         }
         else
         {
             iRecipeLayout.getItemStacks().init(2, true, 82, 17);
-            iRecipeLayout.getItemStacks().set(2, spiritFurnaceRecipe.getOutputItem());
+            iRecipeLayout.getItemStacks().set(2, new ItemStack(spiritFurnaceRecipe.getOutputItem()));
         }
     }
 }

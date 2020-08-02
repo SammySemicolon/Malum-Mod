@@ -20,25 +20,20 @@ public class InputMirrorTileEntity extends BasicMirrorTileEntity implements ITic
     @Override
     public void tick()
     {
-        super.tick();
-        if (transferCooldown <= 0)
+        if (!world.isRemote)
         {
-            ItemStack stack = inventory.getStackInSlot(0);
-            if (stack != ItemStack.EMPTY)
+            if (transfer)
             {
+                ItemStack stack = inventory.getStackInSlot(0);
                 TileEntity inputTileEntity = getTileEntityForTransfer(world, pos);
                 if (inputTileEntity != null)
                 {
                     Direction direction = getBlockState().get(HORIZONTAL_FACING);
                     MalumHelper.inputStackIntoTE(inputTileEntity, direction, stack);
-                    if (inputTileEntity instanceof BasicMirrorTileEntity)
-                    {
-                        ((BasicMirrorTileEntity) inputTileEntity).transferCooldown = 10;
-                    }
                     world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), 3);
-                    transferCooldown = 10;
                 }
             }
+            super.tick();
         }
     }
 }

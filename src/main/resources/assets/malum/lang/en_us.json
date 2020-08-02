@@ -1,6 +1,7 @@
 {
   "itemGroup.malum": "Malum",
-  
+
+  "malum.recipe.time.desc": "Burn time ",
   "malum.tooltip.sneak.desc.a": "Hold ",
   "malum.tooltip.sneak.desc.b": "sneak",
   

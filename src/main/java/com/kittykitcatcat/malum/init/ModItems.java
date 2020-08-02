@@ -9,10 +9,10 @@ import com.kittykitcatcat.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.kittykitcatcat.malum.items.curios.CurioEnchantedLectern;
 import com.kittykitcatcat.malum.items.curios.CurioSpiritwoodNecklace;
 import com.kittykitcatcat.malum.items.curios.CurioVacantAegis;
-import com.kittykitcatcat.malum.items.shield.ItemTileEntityRenderer;
-import com.kittykitcatcat.malum.items.shield.ModShieldItem;
+import com.kittykitcatcat.malum.items.curios.CurioVampireNecklace;
 import com.kittykitcatcat.malum.items.staves.CreativeStave;
 import com.kittykitcatcat.malum.items.staves.SpiritwoodStave;
+import com.kittykitcatcat.malum.items.staves.effects.ResonantBlinkEffect;
 import com.kittykitcatcat.malum.items.tools.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -58,6 +58,7 @@ public class ModItems
     public static Item dark_spirit_stone;
     public static Item arcane_spirit_stone;
     public static Item arcane_shard;
+    public static Item archaic_sulphur;
     public static Item spirit_silk;
     public static Item spirit_fabric;
     public static Item evil_leather;
@@ -68,7 +69,6 @@ public class ModItems
     public static Item enchanted_quartz;
     public static Item vacant_gemstone;
     public static Item stygian_pearl;
-    public static Item stygian_shard;
     public static Item runic_ash;
     public static Item ectoplasm;
     public static Item resonant_lens;
@@ -79,6 +79,8 @@ public class ModItems
     public static Item stellar_apparatus;
 
     public static Item spiritwood_stave;
+    public static Item resonant_stave;
+
     public static Item spirit_vault;
     public static Item spirit_capacitor;
     public static Item ender_artifact;
@@ -109,11 +111,16 @@ public class ModItems
     public static Item vacant_rapier;
     public static Item ultimate_weapon;
     public static Item bow_of_lost_souls;
-    public static Item skull_bulwark;
     //CURIOS
     public static Item spiritwood_bark_necklace;
     public static Item enchanted_lectern;
     public static Item vacant_aegis;
+    public static Item vampire_necklace;
+    public static Item ethereal_bulwark;
+    public static Item necrotic_catalyst;
+    public static Item phantom_wings;
+    public static Item propulsion_engine;
+    public static Item sulphuric_brazier;
 
     //FUNCTIONAL BLOCKS
     public static Item spirit_jar;
@@ -121,6 +128,8 @@ public class ModItems
     public static Item basic_mirror;
     public static Item input_mirror;
     public static Item output_mirror;
+    public static Item redstone_clock;
+    public static Item funk_engine;
     //BLOCKS
     public static Item spirit_stone_brick;
     public static Item dark_spirit_stone_brick;
@@ -159,7 +168,7 @@ public class ModItems
     public static Item spirit_planks_slab;
     public static Item spirit_planks_stairs;
 
-    //OTHER
+    //HIDDEN
 
     public static Item jei_spirit;
 
@@ -180,6 +189,7 @@ public class ModItems
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
                 arcane_spirit_stone = setup(new BlockItem(ModBlocks.arcane_spirit_stone, basic_properties), "arcane_spirit_stone"),
                 arcane_shard = setup(new Item(basic_properties), "arcane_shard"),
+                archaic_sulphur = setup(new Item(basic_properties), "archaic_sulphur"),
                 spirit_silk = setup(new Item(basic_properties), "spirit_silk"),
                 spirit_fabric = setup(new Item(basic_properties), "spirit_fabric"),
                 evil_leather = setup(new Item(basic_properties), "evil_leather"),
@@ -193,7 +203,6 @@ public class ModItems
                 ectoplasm = setup(new Item(basic_properties), "ectoplasm"),
                 resonant_lens = setup(new Item(basic_properties), "resonant_lens"),
                 stygian_pearl = setup(new Item(basic_properties), "stygian_pearl"),
-                stygian_shard = setup(new Item(basic_properties), "stygian_shard"),
                 arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
                 soul_steel_ingot = setup(new Item(basic_properties), "soul_steel_ingot"),
                 soul_steel_nugget = setup(new Item(basic_properties), "soul_steel_nugget"),
@@ -201,6 +210,7 @@ public class ModItems
                 stellar_apparatus = setup(new SimpleFoiledItem(rare_properties), "stellar_apparatus"),
 
                 spiritwood_stave = setup(new SpiritwoodStave(tool_properties, null), "spiritwood_stave"),
+                resonant_stave = setup(new SpiritwoodStave(tool_properties, new ResonantBlinkEffect()), "resonant_stave"),
                 spirit_vault = setup(new SpiritVault(tool_properties), "spirit_vault"),
                 spirit_capacitor = setup(new SpiritCapacitor(tool_properties), "spirit_capacitor"),
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
@@ -217,8 +227,6 @@ public class ModItems
 
                 spirited_steel_buster_sword = setup(new ModSwordItem(SPIRITED_STEEL_ITEM, 6, -0.8f, tool_properties), "spirited_steel_buster_sword"),
                 spirited_steel_excavator = setup(new ModExcavatorItem( 6, -0.8f, SPIRITED_STEEL_ITEM, Collections.emptySet(), tool_properties.maxDamage(1000)), "spirited_steel_excavator"),
-                enchanted_lectern = setup(new CurioEnchantedLectern(tool_properties), "enchanted_lectern"),
-                vacant_aegis = setup(new CurioVacantAegis(tool_properties), "vacant_aegis"),
 
                 soul_steel_hoe = setup(new ModHoeItem(UMBRAL_ALLOY_ITEM, 0, tool_properties), "soul_steel_hoe"),
                 soul_steel_axe = setup(new ModAxeItem(UMBRAL_ALLOY_ITEM, 0, 0, tool_properties), "soul_steel_axe"),
@@ -234,15 +242,19 @@ public class ModItems
                 vacant_rapier = setup(new VacantRapier(ItemTier.DIAMOND, -4, 1.2f, tool_properties), "vacant_rapier"),
                 ultimate_weapon = setup(new BonkItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
                 bow_of_lost_souls = setup(new BowofLostSouls(tool_properties.maxDamage(576)), "bow_of_lost_souls"),
-                skull_bulwark = setup(new ModShieldItem(tool_properties.setISTER(() -> ItemTileEntityRenderer::new)), "skull_bulwark"),
 
                 spiritwood_bark_necklace = setup(new CurioSpiritwoodNecklace(tool_properties), "spiritwood_bark_necklace"),
+                enchanted_lectern = setup(new CurioEnchantedLectern(tool_properties), "enchanted_lectern"),
+                vacant_aegis = setup(new CurioVacantAegis(tool_properties), "vacant_aegis"),
+                vampire_necklace = setup(new CurioVampireNecklace(tool_properties), "vampire_necklace"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
                 basic_mirror = setup(new BlockItem(ModBlocks.basic_mirror, basic_properties), "basic_mirror"),
                 input_mirror = setup(new BlockItem(ModBlocks.input_mirror, basic_properties), "input_mirror"),
                 output_mirror = setup(new BlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
+                redstone_clock = setup(new BlockItem(ModBlocks.redstone_clock, basic_properties), "redstone_clock"),
+                funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
 
                 spirit_stone_brick = setup(new BlockItem(ModBlocks.spirit_stone_brick, basic_properties), "spirit_stone_brick"),
                 dark_spirit_stone_brick = setup(new BlockItem(ModBlocks.dark_spirit_stone_brick, basic_properties), "dark_spirit_stone_brick"),

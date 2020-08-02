@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.blocks.machines.mirror;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.items.staves.BasicStave;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFaceBlock;
@@ -8,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.tileentity.TileEntity;
@@ -25,8 +27,6 @@ import net.minecraft.world.World;
 
 import static net.minecraft.state.properties.AttachFace.CEILING;
 import static net.minecraft.state.properties.AttachFace.FLOOR;
-import static net.minecraft.state.properties.BlockStateProperties.FACE;
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 
 public class BasicMirrorBlock extends HorizontalFaceBlock
@@ -63,7 +63,11 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
         {
             directionVector = new Vec3i(0, 1, 0);
         }
-        return world.getTileEntity(pos.subtract(directionVector));
+        if (!(world.getTileEntity(pos.subtract(directionVector)) instanceof BasicMirrorTileEntity))
+        {
+            return world.getTileEntity(pos.subtract(directionVector));
+        }
+        return null;
     }
 
     protected static final VoxelShape AABB_NORTH = Block.makeCuboidShape(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D);
@@ -167,13 +171,29 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
         {
             if (handIn != Hand.OFF_HAND)
             {
+                ItemStack stack = player.getHeldItem(handIn);
                 if (worldIn.getTileEntity(pos) instanceof BasicMirrorTileEntity)
                 {
                     BasicMirrorTileEntity mirrorTileEntity = (BasicMirrorTileEntity) worldIn.getTileEntity(pos);
-                    boolean success = MalumHelper.basicItemTEHandling(player, handIn, player.getHeldItem(handIn), mirrorTileEntity.inventory, 0);
+                    if (stack.getItem() instanceof BasicStave)
+                    {
+                        CompoundNBT nbt = stack.getOrCreateTag();
+                        if (player.isSneaking() && mirrorTileEntity instanceof InputMirrorTileEntity)
+                        {
+                            nbt.putInt("blockPosX", pos.getX());
+                            nbt.putInt("blockPosY", pos.getY());
+                            nbt.putInt("blockPosZ", pos.getZ());
+                        }
+                        else if (nbt.contains("blockPosX"))
+                        {
+                            mirrorTileEntity.linkedMirrorPos = new BlockPos(nbt.getInt("blockPosX"),nbt.getInt("blockPosY"),nbt.getInt("blockPosZ"));
+                        }
+                        return ActionResultType.SUCCESS;
+                    }
+                    boolean success = MalumHelper.basicItemTEHandling(player, handIn, stack, mirrorTileEntity.inventory, 0);
                     if (success)
                     {
-                        mirrorTileEntity.transferCooldown = 10;
+                        mirrorTileEntity.cancelNextTransfer = true;
                         player.world.notifyBlockUpdate(mirrorTileEntity.getPos(), mirrorTileEntity.getBlockState(), mirrorTileEntity.getBlockState(), 3);
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;

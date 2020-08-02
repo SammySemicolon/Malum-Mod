@@ -1,6 +1,6 @@
 package com.kittykitcatcat.malum.items.armor;
 
-import com.kittykitcatcat.malum.models.ModelArmorTier2;
+import com.kittykitcatcat.malum.models.ModelUmbralSteelArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -33,6 +33,6 @@ public class ItemUmbraSteelBattleArmor extends ArmorItem
     @Override
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default)
     {
-        return (A) new ModelArmorTier2(slot);
+        return (A) new ModelUmbralSteelArmor(slot);
     }
 }

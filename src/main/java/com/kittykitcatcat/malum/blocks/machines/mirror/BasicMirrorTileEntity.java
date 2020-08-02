@@ -1,16 +1,13 @@
 package com.kittykitcatcat.malum.blocks.machines.mirror;
 
-import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,10 +23,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-import static com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorBlock.*;
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
-
-public class BasicMirrorTileEntity extends TileEntity implements ITickableTileEntity
+public class BasicMirrorTileEntity extends BasicTileEntity implements ITickableTileEntity
 {
     public BasicMirrorTileEntity()
     {
@@ -40,7 +34,8 @@ public class BasicMirrorTileEntity extends TileEntity implements ITickableTileEn
         super(type);
     }
     public BlockPos linkedMirrorPos;
-    public int transferCooldown;
+    public boolean cancelNextTransfer;
+    public boolean transfer;
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
@@ -93,7 +88,8 @@ public class BasicMirrorTileEntity extends TileEntity implements ITickableTileEn
             compound.putInt("blockPosY", linkedMirrorPos.getY());
             compound.putInt("blockPosZ", linkedMirrorPos.getZ());
         }
-        compound.putInt("transferCooldown", transferCooldown);
+        compound.putBoolean("cancelNextTransfer", cancelNextTransfer);
+        compound.putBoolean("canTransfer", transfer);
         return compound;
     }
 
@@ -108,56 +104,25 @@ public class BasicMirrorTileEntity extends TileEntity implements ITickableTileEn
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
     }
     @Override
-    public CompoundNBT getUpdateTag()
-    {
-        return this.write(new CompoundNBT());
-    }
-    @Override
-    public void handleUpdateTag(CompoundNBT tag)
-    {
-        read(tag);
-    }
-    @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
-    {
-        CompoundNBT nbt = new CompoundNBT();
-        this.write(nbt);
-        return new SUpdateTileEntityPacket(pos, 0, nbt);
-    }
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
-    {
-        handleUpdateTag(pkt.getNbtCompound());
-    }
-
-    @Override
     public void tick()
     {
         if (!world.isRemote)
         {
-            if (transferCooldown <= 0)
+            if (world.getGameTime() % 10L == 0L)
             {
-                if (inventory.getStackInSlot(0).isEmpty())
+                if (cancelNextTransfer)
                 {
-                    List<Entity> entities = world.getEntitiesInAABBexcluding(null, new AxisAlignedBB(pos, pos.add(1, 1, 1)), null);
-                    if (!entities.isEmpty())
-                    {
-                        for (Entity entity : entities)
-                        {
-                            if (entity instanceof ItemEntity)
-                            {
-                                ItemEntity itemEntity = (ItemEntity) entity;
-                                inventory.setStackInSlot(0, itemEntity.getItem());
-                                itemEntity.remove();
-                            }
-                        }
-                    }
+                    transfer = false;
+                    cancelNextTransfer = false;
                 }
-                transferCooldown = 10;
+                else
+                {
+                    transfer = true;
+                }
             }
-            else
+            else if (transfer)
             {
-                transferCooldown--;
+                transfer = false;
             }
         }
     }

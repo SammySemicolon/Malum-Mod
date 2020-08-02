@@ -17,31 +17,6 @@ public class SpiritJarTileEntity extends SpiritStoringTileEntity implements ITic
     }
 
     @Override
-    public CompoundNBT getUpdateTag()
-    {
-        return write(new CompoundNBT());
-    }
-
-    @Override
-    public void handleUpdateTag(CompoundNBT tag)
-    {
-        read(tag);
-    }
-
-    @Nullable
-    @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
-    {
-        return new SUpdateTileEntityPacket(pos, 0, getUpdateTag());
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
-    {
-        handleUpdateTag(pkt.getNbtCompound());
-    }
-
-    @Override
     public void tick()
     {
 

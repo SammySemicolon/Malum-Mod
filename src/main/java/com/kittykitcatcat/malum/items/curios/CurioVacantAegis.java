@@ -15,8 +15,6 @@ import top.theillusivec4.curios.api.capability.ICurio;
 
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericTooltip;
-
 public class CurioVacantAegis extends Item implements ICurio, SpiritDescription
 {
     public CurioVacantAegis(Properties builder)

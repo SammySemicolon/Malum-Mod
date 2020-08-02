@@ -1,5 +1,7 @@
 package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 
+import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
+import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
@@ -17,39 +19,14 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 
-public class SpiritFurnaceTopTileEntity extends TileEntity implements ITickableTileEntity
+public class SpiritFurnaceTopTileEntity extends BasicTileEntity implements ITickableTileEntity
 {
     public SpiritFurnaceTopTileEntity()
     {
         super(ModTileEntities.spirit_furnace_top_tile_entity);
     }
-
-    @Override
-    public CompoundNBT getUpdateTag()
-    {
-        return this.write(new CompoundNBT());
-    }
-
-    @Override
-    public void handleUpdateTag(CompoundNBT tag)
-    {
-        read(tag);
-    }
-
-    @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
-    {
-        CompoundNBT nbt = new CompoundNBT();
-        this.write(nbt);
-        return new SUpdateTileEntityPacket(pos, 0, nbt);
-    }
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
-    {
-        handleUpdateTag(pkt.getNbtCompound());
-    }
-
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
@@ -57,7 +34,12 @@ public class SpiritFurnaceTopTileEntity extends TileEntity implements ITickableT
         {
             return 64;
         }
-
+        @Nonnull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate)
+        {
+            return ItemStack.EMPTY;
+        }
         @Override
         protected void onContentsChanged(int slot)
         {
@@ -71,7 +53,6 @@ public class SpiritFurnaceTopTileEntity extends TileEntity implements ITickableT
         }
     };
     public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);
-
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
@@ -82,11 +63,11 @@ public class SpiritFurnaceTopTileEntity extends TileEntity implements ITickableT
         }
         return super.getCapability(cap, side);
     }
-
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
         super.write(compound);
+        compound.put("inventory", inventory.serializeNBT());
         return compound;
     }
 
@@ -94,11 +75,10 @@ public class SpiritFurnaceTopTileEntity extends TileEntity implements ITickableT
     public void read(CompoundNBT compound)
     {
         super.read(compound);
+        inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
     }
-
     @Override
     public void tick()
     {
-
     }
 }

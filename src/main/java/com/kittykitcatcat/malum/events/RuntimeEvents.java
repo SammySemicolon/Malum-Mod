@@ -2,13 +2,12 @@ package com.kittykitcatcat.malum.events;
 
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.SpiritDataHelper;
-import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.items.BowofLostSouls;
 import com.kittykitcatcat.malum.items.curios.CurioEnchantedLectern;
 import com.kittykitcatcat.malum.items.curios.CurioVacantAegis;
-import com.kittykitcatcat.malum.items.staves.ModStave;
+import com.kittykitcatcat.malum.items.curios.CurioVampireNecklace;
+import com.kittykitcatcat.malum.items.staves.BasicStave;
 import com.kittykitcatcat.malum.network.packets.HuskChangePacket;
 import com.kittykitcatcat.malum.particles.tinyskull.TinySkullParticleData;
 import net.minecraft.client.Minecraft;
@@ -36,9 +35,11 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import top.theillusivec4.curios.api.CuriosAPI;
 
 import static com.kittykitcatcat.malum.SpiritDataHelper.*;
-import static com.kittykitcatcat.malum.SpiritDataHelper.findEntity;
-import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.*;
+import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.getCachedTarget;
+import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.setCachedTarget;
+import static com.kittykitcatcat.malum.items.staves.BasicStave.findEntity;
 import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
+import static net.minecraft.util.SoundCategory.PLAYERS;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber()
@@ -53,11 +54,17 @@ public class RuntimeEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getActiveItemStack().getItem() instanceof ModStave ||player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof ModStave || player.getHeldItem(Hand.OFF_HAND).getItem() instanceof ModStave)
+            if (player.getHeldItemOffhand().getItem() instanceof BasicStave || player.getHeldItemMainhand().getItem() instanceof BasicStave)
             {
-                if (player.world.getGameTime() % 4L == 0L)
+                if (!player.isSneaking())
                 {
-                    setCachedTarget(player, findEntity(player, 5));
+                    if (!(player.getActiveItemStack().getItem() instanceof BasicStave))
+                    {
+                        if (player.world.getGameTime() % 4L == 0L)
+                        {
+                            setCachedTarget(player, findEntity(player));
+                        }
+                    }
                 }
             }
         }
@@ -68,7 +75,7 @@ public class RuntimeEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof ModStave || player.getHeldItem(Hand.OFF_HAND).getItem() instanceof ModStave)
+            if (player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof BasicStave || player.getHeldItem(Hand.OFF_HAND).getItem() instanceof BasicStave)
             {
                 LivingEntity cachedTarget = getCachedTarget(player);
                 if (cachedTarget != null && !getHusk(cachedTarget))
@@ -83,24 +90,23 @@ public class RuntimeEvents
     //region HELPER METHODS
     public static boolean tryCancel(PlayerEntity playerEntity, ItemStack stack)
     {
-        setCachedTarget(playerEntity, findEntity(playerEntity, 5));
         if (getCachedTarget(playerEntity) == null || getCachedTarget(playerEntity) != null && getHusk(getCachedTarget(playerEntity)))
         {
             playerEntity.swingArm(playerEntity.getActiveHand());
-            playerEntity.resetActiveHand();
-            playerEntity.world.playSound(null,playerEntity.getPosition(), ModSounds.spirit_harvest_failure, SoundCategory.PLAYERS,1f,1);
+            playerEntity.world.playSound(null, playerEntity.getPosition(), ModSounds.spirit_harvest_failure, PLAYERS, 1f, 1);
             DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "spirit_harvest_drain"), SoundCategory.PLAYERS));
             playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 10);
+            playerEntity.resetActiveHand();
             return true;
         }
         return false;
     }
     public static void end(PlayerEntity playerEntity, ItemStack stack, LivingEntity cachedTarget)
     {
-        playerEntity.world.playSound(playerEntity,playerEntity.getPosition(), ModSounds.spirit_harvest_success, SoundCategory.PLAYERS,1f,1);
+        playerEntity.world.playSound(playerEntity,playerEntity.getPosition(), ModSounds.spirit_harvest_success, PLAYERS,1f,1);
         setHusk(cachedTarget, true);
         harvestSpirit(playerEntity, getSpirit(cachedTarget), 1);
-        setCachedTarget(playerEntity, findEntity(playerEntity, 5));
+        setCachedTarget(playerEntity, findEntity(playerEntity));
         playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
         playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 40);
     }
@@ -113,10 +119,10 @@ public class RuntimeEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getActiveItemStack().getItem() instanceof ModStave)
+            if (player.getActiveItemStack().getItem() instanceof BasicStave)
             {
                 ItemStack heldItem = player.getActiveItemStack();
-                ModStave stave = (ModStave) heldItem.getItem();
+                BasicStave stave = (BasicStave) heldItem.getItem();
                 LivingEntity cachedTarget = getCachedTarget(player);
                 if (tryCancel(player, heldItem))
                 {
@@ -131,10 +137,10 @@ public class RuntimeEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getActiveItemStack().getItem() instanceof ModStave)
+            if (player.getActiveItemStack().getItem() instanceof BasicStave)
             {
                 ItemStack heldItem = player.getActiveItemStack();
-                ModStave stave = (ModStave) heldItem.getItem();
+                BasicStave stave = (BasicStave) heldItem.getItem();
                 LivingEntity cachedTarget = getCachedTarget(player);
                 if (tryCancel(player, heldItem))
                 {
@@ -157,11 +163,11 @@ public class RuntimeEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getActiveItemStack().getItem() instanceof ModStave)
+            if (player.getActiveItemStack().getItem() instanceof BasicStave)
             {
                 player.swingArm(player.getActiveHand());
-                player.world.playSound(null,player.getPosition(), ModSounds.spirit_harvest_failure, SoundCategory.PLAYERS,1f,1);
-                DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "spirit_harvest_drain"), SoundCategory.PLAYERS));
+                player.world.playSound(null,player.getPosition(), ModSounds.spirit_harvest_failure, PLAYERS,1f,1);
+                DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().getSoundHandler().stop(new ResourceLocation(MalumMod.MODID, "spirit_harvest_drain"), PLAYERS));
                 player.getCooldownTracker().setCooldown(player.getActiveItemStack().getItem(), 10);
             }
         }
@@ -207,7 +213,7 @@ public class RuntimeEvents
             World world = livingEntity.getEntityWorld();
             if (getHusk(livingEntity))
             {
-                Vec3d pos = MalumHelper.randExtendedPosofEntity(livingEntity, world.rand);
+                Vec3d pos = MalumHelper.randExtendedPosofEntity(livingEntity, world.rand, 0.5f);
                 if (world.rand.nextInt(4) == 0)
                 {
                     world.addParticle(new TinySkullParticleData(), pos.x, pos.y, pos.z, 0, 0.04, 0);
@@ -219,6 +225,28 @@ public class RuntimeEvents
 
     //region CURIOS
 
+    @SubscribeEvent
+    public static void vampireNecklaceAegisEffect(LivingHurtEvent event)
+    {
+        if (event.getSource().getTrueSource() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+            if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioVampireNecklace, playerEntity).isPresent())
+            {
+                if (playerEntity.world.rand.nextDouble() < 0.2f || event.getEntityLiving().getHealth() <= 0)
+                {
+                    CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioVampireNecklace, playerEntity).ifPresent(triple ->
+                    {
+                        boolean success = consumeSpirit(playerEntity, triple.right);
+                        if (success)
+                        {
+                            playerEntity.heal(2);
+                        }
+                    });
+                }
+            }
+        }
+    }
     @SubscribeEvent
     public static void vacantAegisEffect(LivingHurtEvent event)
     {

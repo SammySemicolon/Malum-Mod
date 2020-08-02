@@ -1,35 +1,25 @@
 package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 
 import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
-import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import com.kittykitcatcat.malum.network.packets.FurnaceSoundStartPacket;
-import com.kittykitcatcat.malum.network.packets.FurnaceSoundStopPacket;
-import com.kittykitcatcat.malum.particles.soulflame.SoulFlameParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -38,19 +28,17 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-import static com.kittykitcatcat.malum.MalumMod.random;
-import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickableTileEntity
+public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements ITickableTileEntity
 {
     public SpiritFurnaceBottomTileEntity()
     {
         super(ModTileEntities.spirit_furnace_bottom_tile_entity);
     }
-    public boolean isSmelting;
     public int burnTime;
     public int burnProgress;
+    public boolean isSmelting;
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
@@ -99,6 +87,7 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         compound.put("inventory", inventory.serializeNBT());
         compound.putInt("burnTime", burnTime);
         compound.putInt("burnProgress", burnProgress);
+        compound.putBoolean("isSmelting", isSmelting);
         return compound;
     }
 
@@ -109,31 +98,98 @@ public class SpiritFurnaceBottomTileEntity extends TileEntity implements ITickab
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
         burnTime = compound.getInt("burnTime");
         burnProgress = compound.getInt("burnProgress");
+        isSmelting = compound.getBoolean("isSmelting");
+    }
+
+    public void updateState(boolean isSmelting)
+    {
+        if (this.isSmelting != isSmelting)
+        {
+            this.isSmelting = isSmelting;
+            BlockState state = world.getBlockState(pos);
+            BlockState topState = world.getBlockState(pos.up());
+            if (state.getBlock() instanceof SpiritFurnaceBottomBlock && topState.getBlock() instanceof SpiritFurnaceTopBlock)
+            {
+                BlockState newState = state.with(BlockStateProperties.LIT, isSmelting);
+                BlockState newTopState = topState.with(BlockStateProperties.LIT, isSmelting);
+
+                world.notifyBlockUpdate(pos, state, newState, 3);
+                world.setBlockState(pos, newState, 3);
+                world.notifyBlockUpdate(pos.up(), topState, newTopState, 3);
+                world.setBlockState(pos.up(), newTopState, 3);
+            }
+        }
+    }
+    public void output(World world, BlockPos pos, ItemStack stack)
+    {
+        Direction direction = getBlockState().get(HORIZONTAL_FACING);
+        TileEntity inputTileEntity = world.getTileEntity(pos.subtract(direction.getDirectionVec()).add(0, 1, 0));
+        if (inputTileEntity != null)
+        {
+            boolean success = MalumHelper.inputStackIntoTE(inputTileEntity, direction.getOpposite(),stack);
+            if (success)
+            {
+                return;
+            }
+        }
+        Vec3i directionVec = direction.getDirectionVec();
+        Vec3d entityPos = new Vec3d(pos).add(0.5, 1.5, 0.5).subtract(directionVec.getX() * 0.8f, 0, directionVec.getZ() * 0.8f);
+        ItemEntity entity = new ItemEntity(world, entityPos.x, entityPos.y, entityPos.z, stack.copy());
+        entity.setMotion(-directionVec.getX() * 0.1f, 0.05f, -directionVec.getZ() * 0.1f);
+        world.addEntity(entity);
     }
     @Override
     public void tick()
     {
-    }
-    @Override
-    public CompoundNBT getUpdateTag()
-    {
-        return this.write(new CompoundNBT());
-    }
-    @Override
-    public void handleUpdateTag(CompoundNBT tag)
-    {
-        read(tag);
-    }
-    @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
-    {
-        CompoundNBT nbt = new CompoundNBT();
-        this.write(nbt);
-        return new SUpdateTileEntityPacket(pos, 0, nbt);
-    }
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
-    {
-        handleUpdateTag(pkt.getNbtCompound());
+        BlockPos topPos = pos.up();
+        if (world.getTileEntity(topPos) instanceof SpiritFurnaceTopTileEntity)
+        {
+            SpiritFurnaceTopTileEntity topTileEntity = (SpiritFurnaceTopTileEntity) world.getTileEntity(topPos);
+            ItemStack fuelItem = inventory.getStackInSlot(0);
+            ItemStack inputItem = topTileEntity.inventory.getStackInSlot(0);
+            if (inputItem.isEmpty())
+            {
+                updateState(false);
+            }
+            if (ModRecipes.getSpiritFurnaceRecipe(inputItem) != null)
+            {
+                SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputItem);
+                if (!fuelItem.isEmpty())
+                {
+                    if (burnTime == 0)
+                    {
+                        fuelItem.shrink(1);
+                        burnTime = 1600;
+                    }
+                }
+                if (burnTime != 0)
+                {
+                    updateState(true);
+                    burnProgress++;
+                    burnTime--;
+                    if (burnProgress > recipe.getBurnTime())
+                    {
+                        output(world, pos, new ItemStack(recipe.getOutputItem()));
+                        if (recipe.getSideItem() != null)
+                        {
+                            if (world.rand.nextInt(recipe.getSideItemChance()) == 0)
+                            {
+                                output(world, pos, new ItemStack(recipe.getSideItem()));
+                            }
+                        }
+                        burnProgress = 0;
+                    }
+                }
+                else
+                {
+                    burnProgress = 0;
+                    updateState(false);
+                }
+            }
+            else
+            {
+                updateState(false);
+            }
+        }
     }
 }

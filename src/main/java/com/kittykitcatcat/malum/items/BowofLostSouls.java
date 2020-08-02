@@ -130,7 +130,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
 
     public static float getDrawTime(ItemStack stack)
     {
-        return SpiritDataHelper.doesItemHaveSpiritDurability(stack) ? 16f : 20f;
+        return SpiritDataHelper.doesItemHaveSpiritIntegrity(stack) ? 16f : 20f;
     }
 
     public int getUseDuration(ItemStack stack)

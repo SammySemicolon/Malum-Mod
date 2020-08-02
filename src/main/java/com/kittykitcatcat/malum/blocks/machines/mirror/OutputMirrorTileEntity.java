@@ -2,7 +2,6 @@ package com.kittykitcatcat.malum.blocks.machines.mirror;
 
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -25,29 +24,37 @@ public class OutputMirrorTileEntity extends BasicMirrorTileEntity implements ITi
         if (!world.isRemote)
         {
             super.tick();
-            if (transferCooldown <= 0)
+            if (transfer)
             {
-                ItemStack stack = inventory.getStackInSlot(0);
-                if (stack == ItemStack.EMPTY)
+                if (linkedMirrorPos != null)
                 {
-                    TileEntity inputTileEntity = getTileEntityForTransfer(world, pos);
+                    TileEntity inputTileEntity = world.getTileEntity(linkedMirrorPos);
                     if (inputTileEntity != null)
                     {
-                        Direction direction = getBlockState().get(HORIZONTAL_FACING);
-                        IItemHandler inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).orElseThrow(null);
-                        for (int j = 0; j < inventory.getSlots(); j++)
+                        if (inputTileEntity instanceof InputMirrorTileEntity)
                         {
-                            if (!inventory.getStackInSlot(j).isEmpty())
+                            if (!inventory.getStackInSlot(0).isEmpty())
                             {
-                                MalumHelper.inputStackIntoTE(this, direction.getOpposite(), inventory.getStackInSlot(j));
-                                if (inputTileEntity instanceof BasicMirrorTileEntity)
-                                {
-                                    ((BasicMirrorTileEntity) inputTileEntity).transferCooldown = 10;
-                                }
-                                world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), 3);
-                                transferCooldown = 10;
+                                MalumHelper.inputStackIntoTE(inputTileEntity, inventory.getStackInSlot(0));
+                                ((InputMirrorTileEntity) inputTileEntity).cancelNextTransfer = true;
+                                world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 3);
                                 return;
                             }
+                        }
+                    }
+                }
+                TileEntity inputTileEntity = getTileEntityForTransfer(world, pos);
+                if (inputTileEntity != null)
+                {
+                    Direction direction = getBlockState().get(HORIZONTAL_FACING);
+                    IItemHandler inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).orElseThrow(null);
+                    for (int j = 0; j < inventory.getSlots(); j++)
+                    {
+                        if (!inventory.getStackInSlot(j).isEmpty())
+                        {
+                            MalumHelper.inputStackIntoTE(this, direction.getOpposite(), inventory.getStackInSlot(j));
+                            world.notifyBlockUpdate(inputTileEntity.getPos(), inputTileEntity.getBlockState(), inputTileEntity.getBlockState(), 3);
+                            return;
                         }
                     }
                 }

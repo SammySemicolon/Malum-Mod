@@ -1,11 +1,13 @@
 package com.kittykitcatcat.malum.init;
 
+import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.InputMirrorTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.OutputMirrorTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarTileEntity;
+import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -19,6 +21,9 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModTileEntities
 {
+    @ObjectHolder("malum:basic_tile_entity")
+    public static TileEntityType<BasicTileEntity> basic_tile_entity;
+
     @ObjectHolder("malum:soul_storing_tile_entity")
     public static TileEntityType<SpiritStoringTileEntity> soul_storing_tile_entity;
 
@@ -39,6 +44,10 @@ public class ModTileEntities
 
     @ObjectHolder("malum:output_mirror_tile_entity")
     public static TileEntityType<OutputMirrorTileEntity> output_mirror_tile_entity;
+
+    @ObjectHolder("malum:funk_engine_tile_entity")
+    public static TileEntityType<FunkEngineTileEntity> funk_engine_tile_entity;
+
     @SubscribeEvent
     public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> e)
     {
@@ -48,7 +57,8 @@ public class ModTileEntities
                 TileEntityType.Builder.create((Supplier<TileEntity>) SpiritJarTileEntity::new, ModBlocks.spirit_jar).build(null).setRegistryName("spirit_jar_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) BasicMirrorTileEntity::new, ModBlocks.basic_mirror).build(null).setRegistryName("basic_mirror_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) InputMirrorTileEntity::new, ModBlocks.input_mirror).build(null).setRegistryName("input_mirror_tile_entity"),
-                TileEntityType.Builder.create((Supplier<TileEntity>) OutputMirrorTileEntity::new, ModBlocks.output_mirror).build(null).setRegistryName("output_mirror_tile_entity")
+                TileEntityType.Builder.create((Supplier<TileEntity>) OutputMirrorTileEntity::new, ModBlocks.output_mirror).build(null).setRegistryName("output_mirror_tile_entity"),
+                TileEntityType.Builder.create((Supplier<TileEntity>) FunkEngineTileEntity::new, ModBlocks.funk_engine).build(null).setRegistryName("funk_engine_tile_entity")
         );
     }
 }

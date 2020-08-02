@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.items.armor;
 
+
 import com.kittykitcatcat.malum.models.ModelSpiritedSteelBattleArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;

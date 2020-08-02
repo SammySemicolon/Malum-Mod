@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelArmorTier2 extends ModelArmor
+public class ModelUmbralSteelArmor extends ModelArmor
 {
     private final ModelRenderer torso;
     private final ModelRenderer chestplate_slope2;
@@ -23,7 +23,7 @@ public class ModelArmorTier2 extends ModelArmor
     private final ModelRenderer boot_l;
     private final ModelRenderer boot_wing_l2;
 
-    public ModelArmorTier2(EquipmentSlotType slot)
+    public ModelUmbralSteelArmor(EquipmentSlotType slot)
     {
         super(slot, 64, 98);
         textureWidth = 64;

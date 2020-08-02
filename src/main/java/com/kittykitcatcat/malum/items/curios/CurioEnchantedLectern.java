@@ -17,7 +17,6 @@ import top.theillusivec4.curios.api.capability.ICurio;
 import java.util.ArrayList;
 
 import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericSpiritDependantTooltip;
-import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericTooltip;
 
 public class CurioEnchantedLectern extends Item implements ICurio, SpiritConsumer, SpiritDescription
 {

@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.blocks.utility.soulstorage;
 
+import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -7,7 +8,7 @@ import net.minecraft.tileentity.TileEntityType;
 import static com.kittykitcatcat.malum.SpiritDataHelper.countNBT;
 import static com.kittykitcatcat.malum.SpiritDataHelper.typeNBT;
 
-public class SpiritStoringTileEntity extends TileEntity
+public class SpiritStoringTileEntity extends BasicTileEntity
 {
     public String type;
     public int count;

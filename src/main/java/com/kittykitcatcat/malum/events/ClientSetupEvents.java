@@ -6,7 +6,6 @@ import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopRe
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SoulStoringBlockRenderer;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import com.kittykitcatcat.malum.items.shield.ItemTileEntityRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.inventory.container.PlayerContainer;
@@ -30,7 +29,6 @@ public class ClientSetupEvents
         if (evt.getMap().getTextureLocation() == PlayerContainer.LOCATION_BLOCKS_TEXTURE)
         {
             evt.addSprite(new ResourceLocation(MODID, "gui/empty_trinket_slot"));
-            evt.addSprite(ItemTileEntityRenderer.skull_shield_texture);
         }
     }
     @SubscribeEvent
@@ -49,6 +47,5 @@ public class ClientSetupEvents
     {
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_jar, RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(ModBlocks.basic_mirror, RenderType.getTranslucent());
     }
 }

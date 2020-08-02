@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineBlock;
 import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopBlock;
@@ -14,6 +15,7 @@ import com.kittykitcatcat.malum.world.biomes.SpiritwoodTree;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LogBlock;
+import net.minecraft.block.RedstoneTorchBlock;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,6 +36,8 @@ public class ModBlocks
     public static Block basic_mirror;
     public static Block input_mirror;
     public static Block output_mirror;
+    public static Block funk_engine;
+    public static Block redstone_clock;
 
     //ORES
 
@@ -93,6 +97,8 @@ public class ModBlocks
         basic_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), basic), "basic_mirror");
         input_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), input), "input_mirror");
         output_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), output), "output_mirror");
+        funk_engine = registerBlock(registry, new FunkEngineBlock(Block.Properties.from(Blocks.STONE)), "funk_engine");
+        redstone_clock = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "redstone_clock");
 
         arcane_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_spirit_stone");
 
