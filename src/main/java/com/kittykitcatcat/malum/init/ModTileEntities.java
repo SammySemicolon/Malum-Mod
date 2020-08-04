@@ -4,11 +4,13 @@ import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.InputMirrorTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.OutputMirrorTileEntity;
+import com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarTileEntity;
 import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
+import net.minecraft.block.RedstoneTorchBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
@@ -48,6 +50,9 @@ public class ModTileEntities
     @ObjectHolder("malum:funk_engine_tile_entity")
     public static TileEntityType<FunkEngineTileEntity> funk_engine_tile_entity;
 
+    @ObjectHolder("malum:redstone_clock_tile_entity")
+    public static TileEntityType<RedstoneClockTileEntity> redstone_clock_tile_entity;
+
     @SubscribeEvent
     public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> e)
     {
@@ -58,7 +63,8 @@ public class ModTileEntities
                 TileEntityType.Builder.create((Supplier<TileEntity>) BasicMirrorTileEntity::new, ModBlocks.basic_mirror).build(null).setRegistryName("basic_mirror_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) InputMirrorTileEntity::new, ModBlocks.input_mirror).build(null).setRegistryName("input_mirror_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) OutputMirrorTileEntity::new, ModBlocks.output_mirror).build(null).setRegistryName("output_mirror_tile_entity"),
-                TileEntityType.Builder.create((Supplier<TileEntity>) FunkEngineTileEntity::new, ModBlocks.funk_engine).build(null).setRegistryName("funk_engine_tile_entity")
+                TileEntityType.Builder.create((Supplier<TileEntity>) FunkEngineTileEntity::new, ModBlocks.funk_engine).build(null).setRegistryName("funk_engine_tile_entity"),
+                TileEntityType.Builder.create((Supplier<TileEntity>) RedstoneClockTileEntity::new, ModBlocks.redstone_clock).build(null).setRegistryName("redstone_clock_tile_entity")
         );
     }
 }

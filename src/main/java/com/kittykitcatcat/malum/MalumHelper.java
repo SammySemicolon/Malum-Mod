@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
+import com.kittykitcatcat.malum.init.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -16,6 +17,7 @@ import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -23,6 +25,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -45,6 +48,11 @@ public class MalumHelper
         return newState.with(property, oldState.get(property));
     }
 
+    public static void makeMachineToggleSound(World world, BlockPos pos)
+    {
+        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,0.4f + MalumMod.random.nextFloat());
+    }
+
     public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)
     {
         BlockState oldState = world.getBlockState(pos);
@@ -65,7 +73,7 @@ public class MalumHelper
     //endregion
     //region TE STACK HANDLING
 
-    public static void funkyItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
+    public static boolean funkyItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
     {
         ItemStackHandler inventory = funkEngineTileEntity.inventory;
         ItemStack targetItem = inventory.getStackInSlot(slot);
@@ -75,15 +83,17 @@ public class MalumHelper
             {
                 inventory.setStackInSlot(0,heldItem);
                 player.setHeldItem(hand, ItemStack.EMPTY);
-                funkEngineTileEntity.playSound();
+                return true;
             }
         }
         else
         {
+            funkEngineTileEntity.stopSound();
             MalumHelper.giveItemStackToPlayer(player, targetItem);
             inventory.setStackInSlot(0,ItemStack.EMPTY);
-            funkEngineTileEntity.stopSound();
+            return false;
         }
+        return false;
     }
     public static boolean stackRestrictedItemTEHandling(PlayerEntity player,Hand hand, Item restrictedItem, ItemStack heldItem, ItemStackHandler inventory, int slot)
     {
@@ -269,13 +279,13 @@ public class MalumHelper
     {
         if (!Screen.hasShiftDown())
         {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.sneak.desc.a").applyTextStyle(TextFormatting.GRAY)
-                    .appendSibling(makeImportantComponent("malum.tooltip.sneak.desc.b", false)));
+            tooltip.add(new TranslationTextComponent("malum.tooltip.hold.desc").applyTextStyle(TextFormatting.GRAY)
+                    .appendSibling(makeImportantComponent("malum.tooltip.sneak.desc", false)));
         }
         else
         {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.sneak.desc.a").applyTextStyle(TextFormatting.WHITE)
-                    .appendSibling(makeImportantComponent("malum.tooltip.sneak.desc.b", true)));
+            tooltip.add(new TranslationTextComponent("malum.tooltip.hold.desc").applyTextStyle(TextFormatting.WHITE)
+                    .appendSibling(makeImportantComponent("malum.tooltip.sneak.desc", true)));
             tooltip.addAll(components);
         }
     }

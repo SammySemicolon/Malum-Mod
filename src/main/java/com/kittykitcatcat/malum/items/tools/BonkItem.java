@@ -9,6 +9,7 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.server.ServerWorld;
 
@@ -27,6 +28,7 @@ public class BonkItem extends SwordItem
         if (attacker instanceof PlayerEntity)
         {
             target.addVelocity(attacker.getLookVec().x * 2, 0.2, attacker.getLookVec().z * 2);
+            attacker.world.playSound(null, attacker.getPosition(), SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.PLAYERS, 1F, MathHelper.nextFloat(attacker.world.rand, 1.5f, 2.0f));
             attacker.world.playSound(null, attacker.getPosition(), ModSounds.bonk, SoundCategory.PLAYERS, 1F, MathHelper.nextFloat(attacker.world.rand, 1.5f, 2.0f));
             if (attacker.getEntityWorld() instanceof ServerWorld)
             {

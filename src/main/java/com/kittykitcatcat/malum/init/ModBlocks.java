@@ -3,6 +3,7 @@ package com.kittykitcatcat.malum.init;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineBlock;
 import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorBlock;
+import com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarBlock;
@@ -15,7 +16,6 @@ import com.kittykitcatcat.malum.world.biomes.SpiritwoodTree;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LogBlock;
-import net.minecraft.block.RedstoneTorchBlock;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,7 +41,7 @@ public class ModBlocks
 
     //ORES
 
-    public static Block arcane_spirit_stone;
+    public static Block arcane_stone;
     //BUILDING
 
     public static Block spirit_stone;
@@ -98,9 +98,9 @@ public class ModBlocks
         input_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), input), "input_mirror");
         output_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), output), "output_mirror");
         funk_engine = registerBlock(registry, new FunkEngineBlock(Block.Properties.from(Blocks.STONE)), "funk_engine");
-        redstone_clock = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "redstone_clock");
+        redstone_clock = registerBlock(registry, new RedstoneClockBlock(Block.Properties.from(Blocks.STONE)), "redstone_clock");
 
-        arcane_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_spirit_stone");
+        arcane_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_stone");
 
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone");

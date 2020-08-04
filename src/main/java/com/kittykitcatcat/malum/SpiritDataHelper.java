@@ -73,48 +73,46 @@ public class SpiritDataHelper
     @OnlyIn(Dist.CLIENT)
     public static void makeSpiritTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        if (stack.getTag() != null)
+        ArrayList<ITextComponent> newComponents = new ArrayList<>();
+        if (stack.getItem() instanceof SpiritStorage)
         {
-            ArrayList<ITextComponent> newComponents = new ArrayList<>();
-            if (stack.getItem() instanceof SpiritStorage)
+            if (doesItemHaveSpirit(stack))
             {
-                if (doesItemHaveSpirit(stack))
+                SpiritStorage spiritStorage = (SpiritStorage) stack.getItem();
+                if (spiritStorage.capacity() != 0)
                 {
-                    SpiritStorage spiritStorage = (SpiritStorage) stack.getItem();
-                    if (spiritStorage.capacity() != 0)
-                    {
-                        //contains [amount/max] [spiritType] spirits
-                        newComponents.add(new TranslationTextComponent("malum.tooltip.sstorage.desc").applyTextStyle(TextFormatting.WHITE) //contains
-                                .appendSibling(makeImportantComponent(stack.getTag().getInt(countNBT) + "/" + spiritStorage.capacity(), true)) //[amount/max]
-                                .appendSibling(makeImportantComponent(getName(stack.getTag().getString(typeNBT)), true)) //[spiritType]
-                                .appendSibling(new TranslationTextComponent("malum.tooltip.spirit.desc.c").applyTextStyle(TextFormatting.WHITE))); //spirits
-                    }
+                    newComponents.add(new TranslationTextComponent("malum.tooltip.sstorage.desc").applyTextStyle(TextFormatting.WHITE) //contains
+                            .appendSibling(makeImportantComponent(stack.getTag().getInt(countNBT) + "/" + spiritStorage.capacity(), true)) //[amount/max]
+                            .appendSibling(makeImportantComponent(getName(stack.getTag().getString(typeNBT)), true)) //[spiritType]
+                            .appendSibling(new TranslationTextComponent("malum.tooltip.spirit.desc.c").applyTextStyle(TextFormatting.WHITE))); //spirits
                 }
             }
-            if (stack.getItem() instanceof SpiritConsumer)
+        }
+        if (stack.getItem() instanceof SpiritConsumer)
+        {
+            if (stack.getTag() != null)
             {
                 SpiritConsumer spiritStorage = (SpiritConsumer) stack.getItem();
                 if (spiritStorage.durability() != 0)
                 {
-                    //has [amount/max] spirit integrity
                     newComponents.add(new TranslationTextComponent("malum.tooltip.sconsumer.desc.a").applyTextStyle(TextFormatting.WHITE) //has
                             .appendSibling(makeImportantComponent(stack.getTag().getInt(spiritIntegrityNBT) + "/" + spiritStorage.durability(), true)) //[amount/max]
                             .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.b")).applyTextStyle(TextFormatting.WHITE)); //spirit integrity
                 }
             }
-            if (stack.getItem() instanceof SpiritDescription)
+        }
+
+        if (stack.getItem() instanceof SpiritDescription)
+        {
+            SpiritDescription spiritStorage = (SpiritDescription) stack.getItem();
+            if (spiritStorage.components() != null && !spiritStorage.components().isEmpty())
             {
-                SpiritDescription spiritStorage = (SpiritDescription) stack.getItem();
-                //has [amount/max] spirit integrity
-                if (spiritStorage.components() != null && !spiritStorage.components().isEmpty())
-                {
-                    newComponents.addAll(spiritStorage.components());
-                }
+                newComponents.addAll(spiritStorage.components());
             }
-            if (!newComponents.isEmpty())
-            {
-                makeTooltip(stack, worldIn, tooltip, flagIn, newComponents);
-            }
+        }
+        if (!newComponents.isEmpty())
+        {
+            makeTooltip(stack, worldIn, tooltip, flagIn, newComponents);
         }
     }
     //endregion

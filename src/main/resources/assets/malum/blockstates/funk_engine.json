@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,has_record=false": { "model": "malum:block/funk_engine" },
+    "facing=south,has_record=false": { "model": "malum:block/funk_engine", "y": 180 },
+    "facing=west,has_record=false":  { "model": "malum:block/funk_engine", "y": 270 },
+    "facing=east,has_record=false":  { "model": "malum:block/funk_engine", "y": 90 },
+    "facing=north,has_record=true": { "model": "malum:block/funk_engine_playing" },
+    "facing=south,has_record=true": { "model": "malum:block/funk_engine_playing", "y": 180 },
+    "facing=west,has_record=true":  { "model": "malum:block/funk_engine_playing", "y": 270 },
+    "facing=east,has_record=true":  { "model": "malum:block/funk_engine_playing", "y": 90 }
+  }
+}

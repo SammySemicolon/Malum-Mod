@@ -27,10 +27,10 @@ import static com.kittykitcatcat.malum.SpiritDataHelper.getName;
 import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 
 @OnlyIn(value = Dist.CLIENT)
-public class SoulStoringBlockRenderer extends TileEntityRenderer<SpiritStoringTileEntity>
+public class SpiritStoringBlockRenderer extends TileEntityRenderer<SpiritStoringTileEntity>
 {
 
-    public SoulStoringBlockRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
+    public SpiritStoringBlockRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
         super(rendererDispatcherIn);
     }
@@ -60,14 +60,14 @@ public class SoulStoringBlockRenderer extends TileEntityRenderer<SpiritStoringTi
 
                 if (world.getTileEntity(mouseOver.getPos()) instanceof SpiritStoringTileEntity)
                 {
-                    if (lookingAtPos != null && lookingAtPos.equals(mouseOver.getPos()) && time < 1)
-                    {
-                        time += 0.1;
-                    }
                     SpiritStoringTileEntity tileEntity = (SpiritStoringTileEntity) world.getTileEntity(mouseOver.getPos());
-                    if (tileEntity.getPos().equals(blockEntity.getPos()))
+                    if (tileEntity.type != null)
                     {
-                        if (tileEntity.type != null)
+                        if (lookingAtPos != null && lookingAtPos.equals(mouseOver.getPos()) && time < 1)
+                        {
+                            time += 0.1;
+                        }
+                        if (tileEntity.getPos().equals(blockEntity.getPos()))
                         {
                             ITextComponent component = makeImportantComponent(tileEntity.count + "/" + ((SpiritStorage) tileEntity.getBlockState().getBlock()).capacity(), true) //[amount/max]
                                     .appendSibling(makeImportantComponent(getName(tileEntity.type), true)); //[spiritType]

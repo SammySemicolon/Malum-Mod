@@ -30,6 +30,7 @@ import java.util.function.Supplier;
 import static com.kittykitcatcat.malum.MalumMod.MODID;
 import static com.kittykitcatcat.malum.init.ModItemTiers.SPIRITED_STEEL_ITEM;
 import static com.kittykitcatcat.malum.init.ModItemTiers.UMBRAL_ALLOY_ITEM;
+import static com.kittykitcatcat.malum.init.ModSounds.*;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -56,7 +57,7 @@ public class ModItems
     public static Item spirit_charcoal;
     public static Item spirit_stone;
     public static Item dark_spirit_stone;
-    public static Item arcane_spirit_stone;
+    public static Item arcane_stone;
     public static Item arcane_shard;
     public static Item archaic_sulphur;
     public static Item spirit_silk;
@@ -175,9 +176,18 @@ public class ModItems
     //CREATIVE
     public static Item creative_spiritwood_stave;
 
+    //MISC
+    public static Item music_disc_redstone_pulse;
+    public static Item music_disc_netherborne;
+    public static Item music_disc_skeletons_in_the_night;
+    public static Item music_disc_prismatropolis;
+    public static Item music_disc_aetherborne;
+    public static Item music_disc_the_bone_brigade_blues;
+
     static Item.Properties basic_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64);
     static Item.Properties rare_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64).rarity(Rarity.UNCOMMON);
     static Item.Properties tool_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(1);
+    static Item.Properties music_disc_properties = new Item.Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE);
     static Item.Properties hidden_properties = new Item.Properties().maxStackSize(1);
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event)
@@ -187,7 +197,7 @@ public class ModItems
                 spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
                 spirit_stone = setup(new BlockItem(ModBlocks.spirit_stone, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
-                arcane_spirit_stone = setup(new BlockItem(ModBlocks.arcane_spirit_stone, basic_properties), "arcane_spirit_stone"),
+                arcane_stone = setup(new BlockItem(ModBlocks.arcane_stone, basic_properties), "arcane_stone"),
                 arcane_shard = setup(new Item(basic_properties), "arcane_shard"),
                 archaic_sulphur = setup(new Item(basic_properties), "archaic_sulphur"),
                 spirit_silk = setup(new Item(basic_properties), "spirit_silk"),
@@ -254,7 +264,7 @@ public class ModItems
                 input_mirror = setup(new BlockItem(ModBlocks.input_mirror, basic_properties), "input_mirror"),
                 output_mirror = setup(new BlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
                 redstone_clock = setup(new BlockItem(ModBlocks.redstone_clock, basic_properties), "redstone_clock"),
-                funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
+                funk_engine = setup(new FunkEngineBlockItem(basic_properties), "funk_engine"),
 
                 spirit_stone_brick = setup(new BlockItem(ModBlocks.spirit_stone_brick, basic_properties), "spirit_stone_brick"),
                 dark_spirit_stone_brick = setup(new BlockItem(ModBlocks.dark_spirit_stone_brick, basic_properties), "dark_spirit_stone_brick"),
@@ -294,7 +304,14 @@ public class ModItems
                 spirit_log = setup(new BlockItem(ModBlocks.spirit_log, basic_properties), "spirit_log"),
                 spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, basic_properties), "spirit_sapling"),
 
-                creative_spiritwood_stave = setup(new CreativeStave(tool_properties), "creative_spiritwood_stave")
+                creative_spiritwood_stave = setup(new CreativeStave(tool_properties), "creative_spiritwood_stave"),
+
+                music_disc_redstone_pulse = setup(new MusicDiscItem(1, () -> redstone_pulse,music_disc_properties), "music_disc_redstone_pulse"),
+                music_disc_netherborne = setup(new MusicDiscItem(2,() -> netherborne,music_disc_properties), "music_disc_netherborne"),
+                music_disc_skeletons_in_the_night = setup(new MusicDiscItem(3,() -> skeletons_in_the_night,music_disc_properties), "music_disc_skeletons_in_the_night"),
+                music_disc_prismatropolis = setup(new MusicDiscItem(4,() -> prismatropolis,music_disc_properties), "music_disc_prismatropolis"),
+                music_disc_aetherborne = setup(new MusicDiscItem(5,() -> aetherborne,music_disc_properties), "music_disc_aetherborne"),
+                music_disc_the_bone_brigade_blues = setup(new MusicDiscItem(6,() -> the_bone_brigade_blues,music_disc_properties), "music_disc_the_bone_brigade_blues")
         );
     }
 

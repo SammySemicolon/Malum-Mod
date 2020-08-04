@@ -7,8 +7,10 @@ import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.JukeboxBlock;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -154,9 +156,10 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             if (ModRecipes.getSpiritFurnaceRecipe(inputItem) != null)
             {
                 SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputItem);
+                burnTime--;
                 if (!fuelItem.isEmpty())
                 {
-                    if (burnTime == 0)
+                    if (burnTime <= 0)
                     {
                         fuelItem.shrink(1);
                         burnTime = 1600;
@@ -166,7 +169,6 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                 {
                     updateState(true);
                     burnProgress++;
-                    burnTime--;
                     if (burnProgress > recipe.getBurnTime())
                     {
                         output(world, pos, new ItemStack(recipe.getOutputItem()));
@@ -177,6 +179,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                                 output(world, pos, new ItemStack(recipe.getSideItem()));
                             }
                         }
+                        inputItem.shrink(1);
                         burnProgress = 0;
                     }
                 }

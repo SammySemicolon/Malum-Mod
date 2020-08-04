@@ -16,6 +16,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
@@ -65,12 +66,11 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
         GlStateManager.disableAlphaTest();
 
         ITextComponent timeComponent = new TranslationTextComponent("malum.recipe.time.desc") //Uses
-                .appendSibling(makeImportantComponent("" + recipe.getBurnTime(), true));
+                .appendSibling(new StringTextComponent("" + recipe.getBurnTime()));
         String experienceString = timeComponent.getFormattedText();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
-        int stringWidth = fontRenderer.getStringWidth(experienceString);
-        fontRenderer.drawString(experienceString, background.getWidth() - stringWidth, 0, 0xFF808080);
+        fontRenderer.drawString(experienceString, 0, 10, 0xFF808080);
     }
 
     @Nonnull

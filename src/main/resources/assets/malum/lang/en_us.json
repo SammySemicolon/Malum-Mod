@@ -1,25 +1,52 @@
 {
   "itemGroup.malum": "Malum",
 
-  "malum.recipe.time.desc": "Burn time ",
-  "malum.tooltip.sneak.desc.a": "Hold ",
-  "malum.tooltip.sneak.desc.b": "sneak",
-  
+  "malum.recipe.time.desc": "Recipe time: ",
+  "malum.tooltip.hold.desc": "Hold: ",
+  "malum.tooltip.sneak.desc": "Sneak",
+  "malum.tooltip.playing.desc": "Playing: ",
+  "malum.tooltip.type.desc": "Type: ",
+  "malum.tooltip.tickRate.desc": "Tick rate: ",
+  "malum.tooltip.toggle.desc": "Toggle",
+  "malum.tooltip.pulse.desc": "Pulse",
+
+  "item.malum.spirit_charcoal": "Spirit Charcoal",
+  "block.malum.spirit_stone": "Spirit Stone",
+  "block.malum.dark_spirit_stone": "Dark Spirit Stone",
+  "block.malum.arcane_stone": "Arcane Stone",
+  "item.malum.arcane_shard": "Arcane Shard",
+  "item.malum.archaic_sulphur": "Archaic Sulphur",
+  "item.malum.spirit_silk": "Spirit Silk",
+  "item.malum.spirit_fabric": "Spirit Fabric",
+  "item.malum.evil_leather": "Evil Leather",
+  "item.malum.spirited_steel_ingot": "Spirited Steel Ingot",
+  "item.malum.music_disc_redstone_pulse": "Music Disc",
+  "item.malum.music_disc_netherborne": "Music Disc",
+  "item.malum.music_disc_skeletons_in_the_night": "Music Disc",
+  "item.malum.music_disc_prismatropolis": "Music Disc",
+  "item.malum.music_disc_aetherborne": "Music Disc",
+  "item.malum.music_disc_the_bone_brigade_blues": "Music Disc",
+
   "malum.tooltip.sstorage.desc": " Contains ",
-  
   "malum.tooltip.sconsumer.desc.a": " Has ",
   "malum.tooltip.sconsumer.desc.b": "spirit integrity",
   "malum.tooltip.sconsumer.desc.c": " Uses ",
   "malum.tooltip.sconsumer.desc.d": "spirits to ",
-  
-  "malum.tooltip.bow.desc": "enhance draw speed and release when fully drawn",
 
+  "malum.tooltip.bow.desc": "enhance draw speed and release when fully drawn",
   "malum.tooltip.lectern.desc": "increase experience gained from killing soulless enemies",
-  
   "malum.tooltip.aegis.desc": "Reduces damage taken from soulless enemies",
-  
+  "malum.tooltip.funkengine.desc": "Can't stop the funky",
+  "malum.tooltip.artifact.desc": "Opens your ender chest",
   "malum.tooltip.spirit.desc.a": "spirit",
   "malum.tooltip.spirit.desc.b": "Spirit",
   "malum.tooltip.spirit.desc.c": "spirits",
-  "malum.tooltip.spirit.desc.d": "Spirits"
+  "malum.tooltip.spirit.desc.d": "Spirits",
+
+  "item.malum.music_disc_redstone_pulse.desc": "Firel - Redstone pulse",
+  "item.malum.music_disc_netherborne.desc": "Firel - Netherborne",
+  "item.malum.music_disc_skeletons_in_the_night.desc": "Firel - Skeletons in the night",
+  "item.malum.music_disc_prismatropolis.desc": "Firel - Prismatropolis",
+  "item.malum.music_disc_aetherborne.desc": "Firel - Aetherborne",
+  "item.malum.music_disc_the_bone_brigade_blues.desc": "Shady Salesman - The bone brigade blues"
 }

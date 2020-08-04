@@ -12,7 +12,7 @@ public class ModExcavatorItem extends ToolItem
 {
     public ModExcavatorItem(float damage, float speed, IItemTier tier, Set<Block> effectiveBlocksIn, Properties properties)
     {
-        super(damage + 3, speed - 3.4f, tier, effectiveBlocksIn, properties.maxDamage(tier.getMaxUses()).addToolType(ToolType.PICKAXE, tier.getHarvestLevel()).addToolType(ToolType.AXE, tier.getHarvestLevel()).addToolType(ToolType.SHOVEL, tier.getHarvestLevel()));
+        super(damage + 1, speed - 3f, tier, effectiveBlocksIn, properties.maxDamage(tier.getMaxUses()).addToolType(ToolType.PICKAXE, tier.getHarvestLevel()).addToolType(ToolType.AXE, tier.getHarvestLevel()).addToolType(ToolType.SHOVEL, tier.getHarvestLevel()));
     }
 }
 

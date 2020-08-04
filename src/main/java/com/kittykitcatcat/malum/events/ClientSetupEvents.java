@@ -1,9 +1,11 @@
 package com.kittykitcatcat.malum.events;
 
+import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineRenderer;
 import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorRenderer;
+import com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockRenderer;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomRenderer;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopRenderer;
-import com.kittykitcatcat.malum.blocks.utility.soulstorage.SoulStoringBlockRenderer;
+import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringBlockRenderer;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import net.minecraft.client.renderer.RenderType;
@@ -39,7 +41,10 @@ public class ClientSetupEvents
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.basic_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.input_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.output_mirror_tile_entity, BasicMirrorRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_jar_tile_entity, SoulStoringBlockRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_jar_tile_entity, SpiritStoringBlockRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.funk_engine_tile_entity, FunkEngineRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.redstone_clock_tile_entity, RedstoneClockRenderer::new);
+
     }
 
     @SubscribeEvent
@@ -47,5 +52,7 @@ public class ClientSetupEvents
     {
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_jar, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.funk_engine, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.redstone_clock, RenderType.getCutout());
     }
 }
