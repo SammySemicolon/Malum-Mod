@@ -33,7 +33,6 @@ public class BasicMirrorTileEntity extends BasicTileEntity implements ITickableT
     {
         super(type);
     }
-    public BlockPos linkedMirrorPos;
     public boolean cancelNextTransfer;
     public boolean transfer;
     public ItemStackHandler inventory = new ItemStackHandler(1)
@@ -82,12 +81,6 @@ public class BasicMirrorTileEntity extends BasicTileEntity implements ITickableT
     {
         super.write(compound);
         compound.put("inventory", inventory.serializeNBT());
-        if (linkedMirrorPos != null)
-        {
-            compound.putInt("blockPosX", linkedMirrorPos.getX());
-            compound.putInt("blockPosY", linkedMirrorPos.getY());
-            compound.putInt("blockPosZ", linkedMirrorPos.getZ());
-        }
         compound.putBoolean("cancelNextTransfer", cancelNextTransfer);
         compound.putBoolean("canTransfer", transfer);
         return compound;
@@ -97,10 +90,6 @@ public class BasicMirrorTileEntity extends BasicTileEntity implements ITickableT
     public void read(CompoundNBT compound)
     {
         super.read(compound);
-        if (compound.contains("blockPosX"))
-        {
-            linkedMirrorPos = new BlockPos(compound.getInt("blockPosX"), compound.getInt("blockPosY"), compound.getInt("blockPosZ"));
-        }
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
     }
     @Override

@@ -175,21 +175,28 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
                 if (worldIn.getTileEntity(pos) instanceof BasicMirrorTileEntity)
                 {
                     BasicMirrorTileEntity mirrorTileEntity = (BasicMirrorTileEntity) worldIn.getTileEntity(pos);
+
                     if (stack.getItem() instanceof BasicStave)
                     {
                         CompoundNBT nbt = stack.getOrCreateTag();
-                        if (player.isSneaking() && mirrorTileEntity instanceof InputMirrorTileEntity)
+                        if (mirrorTileEntity instanceof InputMirrorTileEntity)
                         {
                             nbt.putInt("blockPosX", pos.getX());
                             nbt.putInt("blockPosY", pos.getY());
                             nbt.putInt("blockPosZ", pos.getZ());
                         }
-                        else if (nbt.contains("blockPosX"))
+                        if (nbt.contains("blockPosX") && mirrorTileEntity instanceof OutputMirrorTileEntity)
                         {
-                            mirrorTileEntity.linkedMirrorPos = new BlockPos(nbt.getInt("blockPosX"),nbt.getInt("blockPosY"),nbt.getInt("blockPosZ"));
+                            BlockPos linkedPos = new BlockPos(nbt.getInt("blockPosX"),nbt.getInt("blockPosY"),nbt.getInt("blockPosZ"));
+                            if (worldIn.getTileEntity(linkedPos) instanceof InputMirrorTileEntity)
+                            {
+                                InputMirrorTileEntity inputMirrorTileEntity = (InputMirrorTileEntity) worldIn.getTileEntity(linkedPos);
+                                inputMirrorTileEntity.linkedPositions.add(pos);
+                            }
                         }
                         return ActionResultType.SUCCESS;
                     }
+
                     boolean success = MalumHelper.basicItemTEHandling(player, handIn, stack, mirrorTileEntity.inventory, 0);
                     if (success)
                     {

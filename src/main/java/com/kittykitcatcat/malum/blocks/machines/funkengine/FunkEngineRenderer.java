@@ -78,7 +78,7 @@ public class FunkEngineRenderer extends TileEntityRenderer<FunkEngineTileEntity>
                                 Matrix4f matrix4f = matrixStack.getLast().getMatrix();
                                 FontRenderer fontrenderer = renderDispatcher.getFontRenderer();
                                 float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
-                                fontrenderer.renderString(text, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, light);
+                                fontrenderer.renderString(text, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
                                 matrixStack.pop();
                             }
                         }

@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.blocks.machines.redstoneclock;
 
+import com.kittykitcatcat.malum.MalumMod;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -21,7 +22,6 @@ import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 @OnlyIn(value = Dist.CLIENT)
 public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileEntity>
 {
-
     public RedstoneClockRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
         super(rendererDispatcherIn);
@@ -70,13 +70,12 @@ public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileE
                                 .appendSibling(makeImportantComponent(tileEntity.type == 0 ? "malum.tooltip.toggle.desc" : "malum.tooltip.pulse.desc", true));
                         String toggleText = toggleComponent.getFormattedText();
                         float xToggleOffset = (float) (-fontrenderer.getStringWidth(toggleText) / 2);
-
                         matrixStack.push();
                         Matrix4f matrix4fPulse = matrixStack.getLast().getMatrix();
                         matrixStack.translate(0.5, 1.4, 0.5);
                         matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
                         matrixStack.scale(-0.025F * time, -0.025F * time, 0.025F * time);
-                        fontrenderer.renderString(pulseText, xPulseOffset, 0, -1, true, matrix4fPulse, iRenderTypeBuffer, false, (int) 0f << 24, light);
+                        fontrenderer.renderString(pulseText, xPulseOffset, 0, -1, true, matrix4fPulse, iRenderTypeBuffer, false, (int) 0f << 24, 192);
                         matrixStack.pop();
 
                         matrixStack.push();
@@ -84,7 +83,7 @@ public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileE
                         matrixStack.translate(0.5, 1.6, 0.5);
                         matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
                         matrixStack.scale(-0.025F * time, -0.025F * time, 0.025F * time);
-                        fontrenderer.renderString(toggleText, xToggleOffset, 0, -1, true, matrix4fToggle, iRenderTypeBuffer, false, (int) 0f << 24, light);
+                        fontrenderer.renderString(toggleText, xToggleOffset, 0, -1, true, matrix4fToggle, iRenderTypeBuffer, false, (int) 0f << 24, 192);
                         matrixStack.pop();
                     }
                 }

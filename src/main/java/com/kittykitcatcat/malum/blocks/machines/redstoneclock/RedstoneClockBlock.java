@@ -3,6 +3,7 @@ package com.kittykitcatcat.malum.blocks.machines.redstoneclock;
 import com.kittykitcatcat.malum.MalumHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.RedstoneDiodeBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "druidcraft:darkwood_slab",
-	"druidcraft:elder_slab"
+    "malum:spirit_plank"
   ]
 }

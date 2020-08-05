@@ -10,6 +10,7 @@ public class LensMagicParticle extends SimpleAnimatedParticle
 
     private final IAnimatedSprite spriteSet;
     public float scale;
+    public float cachedScale;
     protected LensMagicParticle(World world, float scale, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet)
     {
         super(world, xSpeed, ySpeed, zSpeed, spriteSet, 0);
@@ -17,6 +18,7 @@ public class LensMagicParticle extends SimpleAnimatedParticle
         motionX = xSpeed;
         motionY = ySpeed;
         this.scale = scale;
+        cachedScale = scale;
         motionZ = zSpeed;
         selectSpriteWithAge(spriteSet);
         setPosition(x, y, z);
@@ -35,7 +37,7 @@ public class LensMagicParticle extends SimpleAnimatedParticle
         {
             if (scale > 0f)
             {
-                scale -= 0.025f;
+                scale -= cachedScale/10;
             }
         }
     }

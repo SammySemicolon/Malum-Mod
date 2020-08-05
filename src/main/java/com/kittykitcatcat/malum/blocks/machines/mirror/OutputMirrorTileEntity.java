@@ -26,23 +26,6 @@ public class OutputMirrorTileEntity extends BasicMirrorTileEntity implements ITi
             super.tick();
             if (transfer)
             {
-                if (linkedMirrorPos != null)
-                {
-                    TileEntity inputTileEntity = world.getTileEntity(linkedMirrorPos);
-                    if (inputTileEntity != null)
-                    {
-                        if (inputTileEntity instanceof InputMirrorTileEntity)
-                        {
-                            if (!inventory.getStackInSlot(0).isEmpty())
-                            {
-                                MalumHelper.inputStackIntoTE(inputTileEntity, inventory.getStackInSlot(0));
-                                ((InputMirrorTileEntity) inputTileEntity).cancelNextTransfer = true;
-                                world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 3);
-                                return;
-                            }
-                        }
-                    }
-                }
                 TileEntity inputTileEntity = getTileEntityForTransfer(world, pos);
                 if (inputTileEntity != null)
                 {
@@ -52,8 +35,12 @@ public class OutputMirrorTileEntity extends BasicMirrorTileEntity implements ITi
                     {
                         if (!inventory.getStackInSlot(j).isEmpty())
                         {
-                            MalumHelper.inputStackIntoTE(this, direction.getOpposite(), inventory.getStackInSlot(j));
-                            world.notifyBlockUpdate(inputTileEntity.getPos(), inputTileEntity.getBlockState(), inputTileEntity.getBlockState(), 3);
+                            boolean success = MalumHelper.inputStackIntoTE(this, direction.getOpposite(), inventory.getStackInSlot(j));
+                            if (success)
+                            {
+                                cancelNextTransfer = true;
+                                world.notifyBlockUpdate(inputTileEntity.getPos(), inputTileEntity.getBlockState(), inputTileEntity.getBlockState(), 3);
+                            }
                             return;
                         }
                     }

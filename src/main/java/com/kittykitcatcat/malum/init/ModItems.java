@@ -162,12 +162,13 @@ public class ModItems
     public static Item smooth_dark_spirit_stone_stairs;
 
     public static Item block_of_flesh;
+    public static Item archaic_sulphur_lamp;
     public static Item spirit_leaves;
     public static Item spirit_log;
     public static Item spirit_sapling;
     public static Item spirit_planks;
-    public static Item spirit_planks_slab;
-    public static Item spirit_planks_stairs;
+    public static Item spirit_slab;
+    public static Item spirit_stairs;
 
     //HIDDEN
 
@@ -296,9 +297,11 @@ public class ModItems
                 smooth_dark_spirit_stone_stairs = setup(new BlockItem(ModBlocks.smooth_dark_spirit_stone_stairs, basic_properties), "smooth_dark_spirit_stone_stairs"),
 
                 spirit_planks = setup(new BlockItem(ModBlocks.spirit_planks, basic_properties), "spirit_planks"),
-                spirit_planks_slab = setup(new BlockItem(ModBlocks.spirit_planks_slab, basic_properties), "spirit_planks_slab"),
-                spirit_planks_stairs = setup(new BlockItem(ModBlocks.spirit_planks_stairs, basic_properties), "spirit_planks_stairs"),
+                spirit_slab = setup(new BlockItem(ModBlocks.spirit_slab, basic_properties), "spirit_slab"),
+                spirit_stairs = setup(new BlockItem(ModBlocks.spirit_stairs, basic_properties), "spirit_stairs"),
+
                 block_of_flesh = setup(new BlockItem(ModBlocks.block_of_flesh, basic_properties), "block_of_flesh"),
+                archaic_sulphur_lamp = setup(new BlockItem(ModBlocks.archaic_sulphur_lamp, basic_properties), "archaic_sulphur_lamp"),
 
                 spirit_leaves = setup(new BlockItem(ModBlocks.spirit_leaves, basic_properties), "spirit_leaves"),
                 spirit_log = setup(new BlockItem(ModBlocks.spirit_log, basic_properties), "spirit_log"),

@@ -50,12 +50,6 @@ public class FunkEngineBlock extends Block
         blockStateBuilder.add(HAS_RECORD);
     }
 
-    @Override
-    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos)
-    {
-        return state.get(HAS_RECORD) ? 12 : 2;
-    }
-
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
         if (state.getBlock() != newState.getBlock())
@@ -65,6 +59,7 @@ public class FunkEngineBlock extends Block
                 FunkEngineTileEntity funkEngineTileEntity = (FunkEngineTileEntity) worldIn.getTileEntity(pos);
                 if (funkEngineTileEntity.inventory.getStackInSlot(0) != ItemStack.EMPTY)
                 {
+
                     funkEngineTileEntity.stopSound();
                     Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, funkEngineTileEntity.inventory.getStackInSlot(0).copy());
                     worldIn.addEntity(entity);

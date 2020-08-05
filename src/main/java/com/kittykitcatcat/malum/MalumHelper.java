@@ -269,9 +269,16 @@ public class MalumHelper
 
     public static Vec3d randExtendedPosofEntity(Entity entity, Random rand, float multiplier)
     {
-        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX - (entity.getBoundingBox().getXSize() * multiplier), entity.getBoundingBox().maxX) + (entity.getBoundingBox().getXSize() * multiplier);
-        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY - (entity.getBoundingBox().getYSize() * multiplier), entity.getBoundingBox().maxY) + (entity.getBoundingBox().getYSize() * multiplier);
-        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() * multiplier), entity.getBoundingBox().maxZ) + (entity.getBoundingBox().getZSize() * multiplier);
+        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX - (entity.getBoundingBox().getXSize() * multiplier), entity.getBoundingBox().maxX + (entity.getBoundingBox().getXSize() * multiplier));
+        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY - (entity.getBoundingBox().getYSize() * multiplier), entity.getBoundingBox().maxY + (entity.getBoundingBox().getYSize() * multiplier));
+        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() * multiplier), entity.getBoundingBox().maxZ + (entity.getBoundingBox().getZSize() * multiplier));
+        return new Vec3d(x, y, z);
+    }
+    public static Vec3d randSimulatedExtendedPosofEntity(Entity entity, Vec3d pos, Random rand, float multiplier)
+    {
+        double x = MathHelper.nextDouble(rand, pos.x - (entity.getBoundingBox().getXSize() * multiplier), pos.x + (entity.getBoundingBox().getXSize() * multiplier));
+        double y = MathHelper.nextDouble(rand, pos.y - (entity.getBoundingBox().getYSize() * multiplier), pos.y + (entity.getBoundingBox().getYSize() * multiplier));
+        double z = MathHelper.nextDouble(rand, pos.z - (entity.getBoundingBox().getZSize() * multiplier), pos.z + (entity.getBoundingBox().getZSize() * multiplier));
         return new Vec3d(x, y, z);
     }
     @OnlyIn(Dist.CLIENT)

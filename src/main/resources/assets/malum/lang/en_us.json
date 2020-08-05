@@ -1,6 +1,8 @@
 {
   "itemGroup.malum": "Malum",
 
+  "malum.gui.spirit_furnace": "Spirit Furnace",
+
   "malum.recipe.time.desc": "Recipe time: ",
   "malum.tooltip.hold.desc": "Hold: ",
   "malum.tooltip.sneak.desc": "Sneak",
@@ -20,6 +22,7 @@
   "item.malum.spirit_fabric": "Spirit Fabric",
   "item.malum.evil_leather": "Evil Leather",
   "item.malum.spirited_steel_ingot": "Spirited Steel Ingot",
+  "item.malum.spirited_steel_nugget": "Spirited Steel Nugget",
   "item.malum.music_disc_redstone_pulse": "Music Disc",
   "item.malum.music_disc_netherborne": "Music Disc",
   "item.malum.music_disc_skeletons_in_the_night": "Music Disc",

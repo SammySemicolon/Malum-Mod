@@ -44,9 +44,15 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
 
         @Nonnull
         @Override
-        public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate)
+        public ItemStack extractItem(int slot, int amount, boolean simulate)
         {
             return ItemStack.EMPTY;
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack)
+        {
+            return false;
         }
 
         @Override

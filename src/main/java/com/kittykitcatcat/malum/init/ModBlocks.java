@@ -43,6 +43,7 @@ public class ModBlocks
 
     public static Block arcane_stone;
     //BUILDING
+    public static Block archaic_sulphur_lamp;
 
     public static Block spirit_stone;
     public static Block dark_spirit_stone;
@@ -82,8 +83,8 @@ public class ModBlocks
     public static Block spirit_leaves;
 
     public static Block spirit_planks;
-    public static Block spirit_planks_stairs;
-    public static Block spirit_planks_slab;
+    public static Block spirit_stairs;
+    public static Block spirit_slab;
 
     public static Block block_of_flesh;
     @SubscribeEvent
@@ -101,6 +102,8 @@ public class ModBlocks
         redstone_clock = registerBlock(registry, new RedstoneClockBlock(Block.Properties.from(Blocks.STONE)), "redstone_clock");
 
         arcane_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_stone");
+
+        archaic_sulphur_lamp = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE).lightValue(30)), "archaic_sulphur_lamp");
 
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone");
@@ -135,8 +138,8 @@ public class ModBlocks
         spirit_stone_pillar = registerBlock(registry, new LogBlock(MaterialColor.STONE, Block.Properties.from(Blocks.STONE)), "spirit_stone_pillar");
 
         spirit_planks = registerBlock(registry, new Block(Block.Properties.from(Blocks.OAK_PLANKS)), "spirit_planks");
-        spirit_planks_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OAK_SLAB)), "spirit_planks_slab");
-        spirit_planks_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OAK_STAIRS)), "spirit_planks_stairs");
+        spirit_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OAK_SLAB)), "spirit_slab");
+        spirit_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OAK_STAIRS)), "spirit_stairs");
 
         spirit_sapling = registerBlock(registry, new SpiritSaplingBlock(new SpiritwoodTree(), Block.Properties.from(Blocks.JUNGLE_SAPLING)), "spirit_sapling");
         spirit_leaves = registerBlock(registry, new SpiritLeafBlock(Block.Properties.from(Blocks.OAK_LEAVES)), "spirit_leaves");
