@@ -70,7 +70,7 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
         String experienceString = timeComponent.getFormattedText();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
-        fontRenderer.drawString(experienceString, 0, 5, 0xFF808080);
+        fontRenderer.drawString(experienceString, 0, 2, 0xFF808080);
     }
 
     @Nonnull

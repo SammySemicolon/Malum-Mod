@@ -60,7 +60,7 @@ public class ResonantBlinkEffect extends ModEffect
     {
         super.effect(playerEntity, stack);
         Vec3d direction = playerEntity.getLookVec();
-        int distance = 8;
+        int distance = 12;
         for (int i = distance; i > 0; i--)
         {
             Vec3d newPosition = MalumHelper.tryTeleportPlayer(playerEntity, playerEntity.getPositionVec().add(direction.mul(i, i, i)));
@@ -71,7 +71,7 @@ public class ResonantBlinkEffect extends ModEffect
                 {
                     makeVisuals(playerEntity, playerEntity.getPositionVec(), 0.3f);
                     playerEntity.teleportKeepLoaded(newPosition.x, newPosition.y, newPosition.z);
-                    makeVisuals(playerEntity, newPosition,-0.3f);
+                    makeVisuals(playerEntity, newPosition,-0.2f);
                     playerEntity.setMotion(direction.mul(0.25,0.25,0.25));
                     playerEntity.velocityChanged = true;
                 }
@@ -88,7 +88,7 @@ public class ResonantBlinkEffect extends ModEffect
         {
             Vec3d particlePos = MalumHelper.randSimulatedExtendedPosofEntity(playerEntity, pos, random, 1.25f);
             Vec3d particleVelocity = particlePos.subtract(pos).normalize().mul(velocityMultiplier, velocityMultiplier, velocityMultiplier);
-            playerEntity.world.addParticle(new LensMagicParticleData(0.1f + random.nextFloat() * 0.2f), particlePos.x, particlePos.y, particlePos.z, particleVelocity.x, particleVelocity.y, particleVelocity.z);
+            playerEntity.world.addParticle(new LensMagicParticleData(0.15f + random.nextFloat() * 0.2f), particlePos.x, particlePos.y, particlePos.z, particleVelocity.x, particleVelocity.y, particleVelocity.z);
         }
     }
 }
