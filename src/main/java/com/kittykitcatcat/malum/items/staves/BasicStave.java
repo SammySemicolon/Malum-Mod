@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kittykitcatcat.malum.MalumHelper.getClosestEntity;
-import static com.kittykitcatcat.malum.MalumHelper.stackWithCount;
 import static com.kittykitcatcat.malum.SpiritDataHelper.getHusk;
 import static com.kittykitcatcat.malum.items.staves.effects.ModEffect.effectTypeEnum.*;
 import static net.minecraft.util.SoundCategory.PLAYERS;

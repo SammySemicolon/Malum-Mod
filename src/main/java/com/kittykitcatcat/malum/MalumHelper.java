@@ -1,9 +1,19 @@
 package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
+import com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity;
+import com.kittykitcatcat.malum.blocks.utility.FancyRenderer;
 import com.kittykitcatcat.malum.init.ModSounds;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,12 +23,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.particles.BlockParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
@@ -39,6 +53,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.kittykitcatcat.malum.MalumMod.random;
+import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
+
 public class MalumHelper
 {
 
@@ -48,11 +65,12 @@ public class MalumHelper
         return newState.with(property, oldState.get(property));
     }
 
-    public static void makeMachineToggleSound(World world, BlockPos pos)
+    public static void makeMachineToggleSound(World world, BlockPos pos, float pitch)
     {
-        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,0.4f + MalumMod.random.nextFloat());
+        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS,1f,1f + random.nextFloat() * 0.5f);
+        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,pitch + random.nextFloat());
     }
-
+    
     public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)
     {
         BlockState oldState = world.getBlockState(pos);
@@ -71,8 +89,8 @@ public class MalumHelper
     }
 
     //endregion
+    
     //region TE STACK HANDLING
-
     public static boolean funkyItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
     {
         ItemStackHandler inventory = funkEngineTileEntity.inventory;
@@ -190,6 +208,8 @@ public class MalumHelper
         return false;
     }
     //endregion
+    
+    //region STACK HANDLING
     public static void giveItemStackToPlayer(PlayerEntity playerEntity, ItemStack stack)
     {
         ItemHandlerHelper.giveItemToPlayer(playerEntity, stack);
@@ -218,40 +238,15 @@ public class MalumHelper
         stack.setCount(count);
         return stack;
     }
-
-    public static Vec3d randVelocity(Random rand, double min, double max)
+    //endregion
+    
+    //region VECTOR STUFF AND THINGS
+    public static Vec3d randVelocity(double min, double max)
     {
-        double x = MathHelper.nextDouble(rand, min, max);
-        double y = MathHelper.nextDouble(rand, min, max);
-        double z = MathHelper.nextDouble(rand, min, max);
+        double x = MathHelper.nextDouble(random, min, max);
+        double y = MathHelper.nextDouble(random, min, max);
+        double z = MathHelper.nextDouble(random, min, max);
         return new Vec3d(x, y, z);
-    }
-
-
-    public static Vec3d randPos(BlockPos pos, Random rand, double min, double max)
-    {
-        double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
-        double y = MathHelper.nextDouble(rand, min, max) + pos.getY();
-        double z = MathHelper.nextDouble(rand, min, max) + pos.getZ();
-        return new Vec3d(x, y, z);
-    }
-
-    public static Vec3d randPos(Vec3d pos, Random rand, double min, double max)
-    {
-        double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
-        double y = MathHelper.nextDouble(rand, min, max) + pos.getY();
-        double z = MathHelper.nextDouble(rand, min, max) + pos.getZ();
-        return new Vec3d(x, y, z);
-    }
-
-    public static Vec3d frontOfEntity(Entity entity)
-    {
-        return entityCenter(entity).add(entity.getLookVec());
-    }
-
-    public static Vec3d entityFacingPlayer(Entity entity, PlayerEntity playerEntity)
-    {
-        return entityCenter(entity).add(playerEntity.getLookVec().mul(0.5,0.5,0.5));
     }
 
     public static Vec3d entityCenter(Entity entity)
@@ -261,26 +256,41 @@ public class MalumHelper
 
     public static Vec3d randPosofEntity(Entity entity, Random rand)
     {
-        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX, entity.getBoundingBox().maxX);
-        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY, entity.getBoundingBox().maxY);
-        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ, entity.getBoundingBox().maxZ);
+        double x = MathHelper.nextDouble(random, entity.getBoundingBox().minX, entity.getBoundingBox().maxX);
+        double y = MathHelper.nextDouble(random, entity.getBoundingBox().minY, entity.getBoundingBox().maxY);
+        double z = MathHelper.nextDouble(random, entity.getBoundingBox().minZ, entity.getBoundingBox().maxZ);
         return new Vec3d(x, y, z);
     }
 
     public static Vec3d randExtendedPosofEntity(Entity entity, Random rand, float multiplier)
     {
-        double x = MathHelper.nextDouble(rand, entity.getBoundingBox().minX - (entity.getBoundingBox().getXSize() * multiplier), entity.getBoundingBox().maxX + (entity.getBoundingBox().getXSize() * multiplier));
-        double y = MathHelper.nextDouble(rand, entity.getBoundingBox().minY - (entity.getBoundingBox().getYSize() * multiplier), entity.getBoundingBox().maxY + (entity.getBoundingBox().getYSize() * multiplier));
-        double z = MathHelper.nextDouble(rand, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() * multiplier), entity.getBoundingBox().maxZ + (entity.getBoundingBox().getZSize() * multiplier));
+        double x = MathHelper.nextDouble(random, entity.getBoundingBox().minX - (entity.getBoundingBox().getXSize() * multiplier), entity.getBoundingBox().maxX + (entity.getBoundingBox().getXSize() * multiplier));
+        double y = MathHelper.nextDouble(random, entity.getBoundingBox().minY - (entity.getBoundingBox().getYSize() * multiplier), entity.getBoundingBox().maxY + (entity.getBoundingBox().getYSize() * multiplier));
+        double z = MathHelper.nextDouble(random, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() * multiplier), entity.getBoundingBox().maxZ + (entity.getBoundingBox().getZSize() * multiplier));
         return new Vec3d(x, y, z);
     }
     public static Vec3d randSimulatedExtendedPosofEntity(Entity entity, Vec3d pos, Random rand, float multiplier)
     {
-        double x = MathHelper.nextDouble(rand, pos.x - (entity.getBoundingBox().getXSize() * multiplier), pos.x + (entity.getBoundingBox().getXSize() * multiplier));
-        double y = MathHelper.nextDouble(rand, pos.y - (entity.getBoundingBox().getYSize() * multiplier), pos.y + (entity.getBoundingBox().getYSize() * multiplier));
-        double z = MathHelper.nextDouble(rand, pos.z - (entity.getBoundingBox().getZSize() * multiplier), pos.z + (entity.getBoundingBox().getZSize() * multiplier));
+        double x = MathHelper.nextDouble(random, pos.x - (entity.getBoundingBox().getXSize() * multiplier), pos.x + (entity.getBoundingBox().getXSize() * multiplier));
+        double y = MathHelper.nextDouble(random, pos.y - (entity.getBoundingBox().getYSize() * multiplier), pos.y + (entity.getBoundingBox().getYSize() * multiplier));
+        double z = MathHelper.nextDouble(random, pos.z - (entity.getBoundingBox().getZSize() * multiplier), pos.z + (entity.getBoundingBox().getZSize() * multiplier));
         return new Vec3d(x, y, z);
     }
+    public static Vec3d tryTeleportPlayer(PlayerEntity playerEntity, Vec3d testPosition)
+    {
+        Vec3d cachedPosition = playerEntity.getPositionVec();
+        Vec3d newPosition = cachedPosition;
+        playerEntity.teleportKeepLoaded(testPosition.x, testPosition.y, testPosition.z);
+        if (!playerEntity.world.checkBlockCollision(playerEntity.getBoundingBox()))
+        {
+            newPosition = testPosition;
+        }
+        playerEntity.teleportKeepLoaded(cachedPosition.x, cachedPosition.y, cachedPosition.z);
+        return newPosition;
+    }
+    //endregion
+    
+    //region TOOLTIP THINGIES
     @OnlyIn(Dist.CLIENT)
     public static void makeTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, ArrayList<ITextComponent> components)
     {
@@ -313,24 +323,9 @@ public class MalumHelper
                     .appendSibling(new StringTextComponent("] ").applyTextStyle(TextFormatting.GRAY)).applyTextStyle(TextFormatting.BOLD);
         }
     }
-
-    @Nullable
-    public static Entity getClosestEntity(List<Entity> entities, double x, double y, double z)
-    {
-        double cachedDistance = -1.0D;
-        Entity resultEntity = null;
-
-        for (Entity entity : entities)
-        {
-            double newDistance = entity.getDistanceSq(x, y, z);
-            if (cachedDistance == -1.0D || newDistance < cachedDistance)
-            {
-                cachedDistance = newDistance;
-                resultEntity = entity;
-            }
-        }
-        return resultEntity;
-    }
+    //endregion
+    
+    //region ENTITY STUFF
 
     @Nullable
     public static Entity getClosestEntity(List<Entity> entities, Vec3d pos)
@@ -349,16 +344,73 @@ public class MalumHelper
         }
         return resultEntity;
     }
-    public static Vec3d tryTeleportPlayer(PlayerEntity playerEntity, Vec3d testPosition)
+    //endregion
+    public static void renderTEdataInTheCoolFancyWay(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
     {
-        Vec3d cachedPosition = playerEntity.getPositionVec();
-        Vec3d newPosition = cachedPosition;
-        playerEntity.teleportKeepLoaded(testPosition.x, testPosition.y, testPosition.z);
-        if (!playerEntity.world.checkBlockCollision(playerEntity.getBoundingBox()))
+        if (renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(renderDispatcher.renderInfo.getProjectedView().x, renderDispatcher.renderInfo.getProjectedView().y, renderDispatcher.renderInfo.getProjectedView().z) < 128d)
         {
-            newPosition = testPosition;
+            Minecraft minecraft = Minecraft.getInstance();
+            World world = minecraft.world;
+            if (minecraft.objectMouseOver == null || world == null)
+            {
+                return;
+            }
+            if (minecraft.objectMouseOver.getType().equals(BLOCK))
+            {
+                BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
+                if ((renderer.lookingAtFace() == null || !renderer.lookingAtFace().equals(mouseOver.getFace())) || (renderer.lookingAtPos() == null || !renderer.lookingAtPos().equals(mouseOver.getPos())))
+                {
+                    renderer.setLookingAtFace( mouseOver.getFace());
+                    renderer.setLookingAtPos( mouseOver.getPos());
+                    renderer.setTime(0);
+                }
+                if (world.getTileEntity(mouseOver.getPos()) != null)
+                {
+                    if (world.getTileEntity(mouseOver.getPos()).equals(blockEntity))
+                    {
+                        TileEntity tileEntity = world.getTileEntity(mouseOver.getPos());
+                        Vector3f direction = mouseOver.getFace().toVector3f();
+                        if (tileEntity.getPos().equals(blockEntity.getPos()))
+                        {
+                            if (renderer.lookingAtPos() != null && renderer.lookingAtPos().equals(mouseOver.getPos()) && renderer.time() < 1)
+                            {
+                                renderer.setTime(renderer.time() + 0.1f);
+                            }
+                            FontRenderer fontrenderer = renderDispatcher.getFontRenderer();
+                            float spacing = 0.2f;
+                            int current = components.size() + 1;
+                            for (ITextComponent component : components)
+                            {
+                                String text = component.getFormattedText();
+                                float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
+                                matrixStack.push();
+                
+                                Matrix4f matrix4f = matrixStack.getLast().getMatrix();
+                
+                                matrixStack.translate(0.5, 0.5, 0.5);
+                
+                                matrixStack.translate(direction.getX(), direction.getY(), direction.getZ());
+                                
+                                matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
+                                float positionOffset = current * spacing - (float)components.size() * spacing / 2;
+                                matrixStack.translate(0, positionOffset, 0);
+                
+                                matrixStack.scale(-0.025F * renderer.time(), -0.025F * renderer.time(), 0.025F * renderer.time());
+                
+                                fontrenderer.renderString(text, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
+                
+                                matrixStack.pop();
+                                current--;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                renderer.setLookingAtPos(null);
+                renderer.setTime(0);
+            }
         }
-        playerEntity.teleportKeepLoaded(cachedPosition.x, cachedPosition.y, cachedPosition.z);
-        return newPosition;
     }
 }

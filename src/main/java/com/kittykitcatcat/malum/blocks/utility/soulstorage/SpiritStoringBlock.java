@@ -9,7 +9,11 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -17,17 +21,22 @@ import net.minecraft.world.World;
 
 import static com.kittykitcatcat.malum.SpiritDataHelper.extractSpiritFromStorage;
 import static com.kittykitcatcat.malum.SpiritDataHelper.insertSpiritIntoStorage;
+import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
+import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
-public class SpiritStoringBlock extends Block implements SpiritStorage
+public abstract class SpiritStoringBlock extends Block implements SpiritStorage
 {
+    public static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 2);
     public SpiritStoringBlock(Properties properties)
     {
         super(properties);
     }
+    
     @Override
-    public int capacity()
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
-        return 0;
+        builder.add(TYPE);
+        super.fillStateContainer(builder);
     }
     
     @Override
@@ -42,13 +51,19 @@ public class SpiritStoringBlock extends Block implements SpiritStorage
                 SpiritStoringTileEntity tileEntity = (SpiritStoringTileEntity) worldIn.getTileEntity(pos);
                 if (player.isSneaking())
                 {
-                    extractSpiritFromStorage(player.getHeldItem(handIn), tileEntity, ((SpiritStorage) stack.getItem()).capacity(), tileEntity.type);
+                    for (int i = 0; i < tileEntity.count; i++)
+                    {
+                        extractSpiritFromStorage(player.getHeldItem(handIn), tileEntity, ((SpiritStorage) stack.getItem()).capacity(), tileEntity.type);
+                    }
                 }
                 else
                 {
                     if (SpiritDataHelper.doesItemHaveSpirit(stack))
                     {
-                        insertSpiritIntoStorage(player.getHeldItem(handIn), tileEntity, block.capacity(), stack.getTag().getString(SpiritDataHelper.typeNBT));
+                        for (int i = 0; i < tileEntity.count; i++)
+                        {
+                            insertSpiritIntoStorage(player.getHeldItem(handIn), tileEntity, block.capacity(), stack.getTag().getString(SpiritDataHelper.typeNBT));
+                        }
                     }
                 }
             }

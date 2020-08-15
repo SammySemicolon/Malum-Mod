@@ -5,6 +5,7 @@ import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.items.BowofLostSouls;
 import com.kittykitcatcat.malum.items.curios.CurioEnchantedLectern;
+import com.kittykitcatcat.malum.items.curios.CurioNecroticCatalyst;
 import com.kittykitcatcat.malum.items.curios.CurioVacantAegis;
 import com.kittykitcatcat.malum.items.curios.CurioVampireNecklace;
 import com.kittykitcatcat.malum.items.staves.BasicStave;
@@ -224,9 +225,32 @@ public class RuntimeEvents
     //endregion
 
     //region CURIOS
-
     @SubscribeEvent
-    public static void vampireNecklaceAegisEffect(LivingHurtEvent event)
+    public static void necroticCatalystEffect(LivingEvent.LivingUpdateEvent event)
+    {
+        if (event.getEntityLiving() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
+            if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioNecroticCatalyst, playerEntity).isPresent())
+            {
+                if (playerEntity.world.rand.nextDouble() < 0.2f);
+                {
+                    if (playerEntity.getFoodStats().needFood())
+                    {
+                        CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioNecroticCatalyst, playerEntity).ifPresent(triple -> {
+                            boolean success = consumeSpirit(playerEntity, triple.right);
+                            if (success)
+                            {
+                                playerEntity.getFoodStats().addStats(1, 1);
+                            }
+                        });
+                    }
+                }
+            }
+        }
+    }
+    @SubscribeEvent
+    public static void vampireNecklaceEffect(LivingHurtEvent event)
     {
         if (event.getSource().getTrueSource() instanceof PlayerEntity)
         {

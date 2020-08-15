@@ -103,7 +103,7 @@ public class ModBlocks
 
         arcane_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_stone");
 
-        archaic_sulphur_lamp = registerBlock(registry, new Block(Block.Properties.from(Blocks.GLOWSTONE).lightValue(30)), "archaic_sulphur_lamp");
+        archaic_sulphur_lamp = registerBlock(registry, new Block(Block.Properties.from(Blocks.GLOWSTONE).lightValue(60)), "archaic_sulphur_lamp");
 
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone");

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": {"model": "malum:block/spirit_jar"}
+    "type=0": {"model": "malum:block/spirit_jar"},
+    "type=1": {"model": "malum:block/spirit_jar_spirit"},
+    "type=2": {"model": "malum:block/spirit_jar_connected"}
   }
 }

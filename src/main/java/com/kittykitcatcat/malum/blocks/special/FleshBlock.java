@@ -2,13 +2,17 @@ package com.kittykitcatcat.malum.blocks.special;
 
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticleData;
+import com.kittykitcatcat.malum.particles.bonk.BonkParticleData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
+import net.minecraft.particles.BlockParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
@@ -17,8 +21,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
+import static com.kittykitcatcat.malum.MalumMod.random;
 
 public class FleshBlock extends Block
 {
@@ -27,12 +35,14 @@ public class FleshBlock extends Block
         super(properties);
         this.setDefaultState(this.getDefaultState().with(CUT, 0));
     }
+
     public static final IntegerProperty CUT = IntegerProperty.create("cut", 0, 7);
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> p_206840_1_)
     {
         p_206840_1_.add(CUT);
     }
+
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult p_225533_6_)
     {
@@ -40,32 +50,29 @@ public class FleshBlock extends Block
         {
             if (handIn != Hand.OFF_HAND)
             {
-                if (player.getHeldItem(handIn) != ItemStack.EMPTY)
+                if (player.getHeldItem(handIn).getItem() instanceof SwordItem)
                 {
-                    if (player.getHeldItem(handIn).getItem() instanceof SwordItem)
+                    int currentCut = state.get(CUT);
+                    if (currentCut < 7)
                     {
-                        BlockState newState;
-                        if (state.get(CUT) < 7)
-                        {
-                            newState = state.with(CUT, state.get(CUT)+1);
-                            worldIn.playSound(null, pos, SoundEvents.BLOCK_CORAL_BLOCK_PLACE, SoundCategory.BLOCKS, 1,1);
-                        }
-                        else
-                        {
-                            newState = Blocks.AIR.getDefaultState();
-                            for (int i = 0; i <= 20; i++)
-                            {
-                                Vec3d velocity = MalumHelper.randVelocity(worldIn.rand, -0.3f, 0.3f);
-                                Vec3d particlePos = MalumHelper.randPos(pos, worldIn.rand, -0.5f, 0.5f);
-                                worldIn.addParticle(new BloodParticleData(), particlePos.getX(),particlePos.getY(),particlePos.getZ(), velocity.getX(),velocity.getY(),velocity.getZ());
-                            }
-                            worldIn.playSound(null, pos, SoundEvents.BLOCK_CORAL_BLOCK_BREAK, SoundCategory.BLOCKS, 1,1);
-                        }
-                        worldIn.setBlockState(pos,newState, 3);
-                        worldIn.notifyBlockUpdate(pos, state, newState, 3);
-                        player.swingArm(handIn);
-                        return ActionResultType.SUCCESS;
+                        currentCut++;
                     }
+                    if (worldIn instanceof ServerWorld)
+                    {
+                        for (int i = 0; i < currentCut * 3; i++)
+                        {
+                            Vec3d position = new Vec3d(pos.getX(), pos.getY(), pos.getZ()).add(MathHelper.nextDouble(random, 0,1),MathHelper.nextDouble(random, 0,1),MathHelper.nextDouble(random, 0,1));
+                            ((ServerWorld) worldIn).spawnParticle(new BlockParticleData(ParticleTypes.BLOCK, state), position.x,position.y,position.z, currentCut * 3, 0,0,0, 0.4f);
+                        }
+                    }
+                    worldIn.playSound(null, pos, SoundEvents.BLOCK_CORAL_BLOCK_PLACE, SoundCategory.BLOCKS, 1 + random.nextFloat() * 0.2f, 1 + random.nextFloat() * 0.2f);
+                    worldIn.playSound(null, pos, SoundEvents.BLOCK_CORAL_BLOCK_BREAK, SoundCategory.BLOCKS, 1 + random.nextFloat() * 0.2f, 1 + random.nextFloat() * 0.2f);
+                    worldIn.playSound(null, pos, SoundEvents.BLOCK_CORAL_BLOCK_HIT, SoundCategory.BLOCKS, 1 + random.nextFloat() * 0.2f, 1 + random.nextFloat() * 0.2f);
+                    BlockState newState = state.with(CUT,currentCut);
+                    worldIn.setBlockState(pos, newState, 3);
+                    worldIn.notifyBlockUpdate(pos, state, newState, 3);
+                    player.swingArm(handIn);
+                    return ActionResultType.SUCCESS;
                 }
             }
         }

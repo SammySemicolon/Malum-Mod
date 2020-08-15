@@ -6,10 +6,7 @@ import com.kittykitcatcat.malum.items.*;
 import com.kittykitcatcat.malum.items.armor.ItemSpiritHunterArmor;
 import com.kittykitcatcat.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.kittykitcatcat.malum.items.armor.ItemUmbraSteelBattleArmor;
-import com.kittykitcatcat.malum.items.curios.CurioEnchantedLectern;
-import com.kittykitcatcat.malum.items.curios.CurioSpiritwoodNecklace;
-import com.kittykitcatcat.malum.items.curios.CurioVacantAegis;
-import com.kittykitcatcat.malum.items.curios.CurioVampireNecklace;
+import com.kittykitcatcat.malum.items.curios.*;
 import com.kittykitcatcat.malum.items.staves.CreativeStave;
 import com.kittykitcatcat.malum.items.staves.SpiritwoodStave;
 import com.kittykitcatcat.malum.items.staves.effects.ResonantBlinkEffect;
@@ -258,6 +255,7 @@ public class ModItems
                 enchanted_lectern = setup(new CurioEnchantedLectern(tool_properties), "enchanted_lectern"),
                 vacant_aegis = setup(new CurioVacantAegis(tool_properties), "vacant_aegis"),
                 vampire_necklace = setup(new CurioVampireNecklace(tool_properties), "vampire_necklace"),
+                necrotic_catalyst = setup(new CurioNecroticCatalyst(tool_properties), "necrotic_catalyst"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),

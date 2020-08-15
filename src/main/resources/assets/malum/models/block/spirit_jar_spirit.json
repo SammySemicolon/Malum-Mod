@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"2": "malum:blocks/spirit_jar_spirit"
+	},
+	"elements": [
+		{
+			"from": [4.2, 0.2, 4.2],
+			"to": [11.8, 11.8, 11.8],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 6, 8]},
+			"faces": {
+				"north": {"uv": [4, 4, 8, 10], "texture": "#2"},
+				"east": {"uv": [0, 4, 4, 10], "texture": "#2"},
+				"south": {"uv": [12, 4, 16, 10], "texture": "#2"},
+				"west": {"uv": [8, 4, 12, 10], "texture": "#2"},
+				"up": {"uv": [8, 4, 4, 0], "texture": "#2"},
+				"down": {"uv": [12, 0, 8, 4], "texture": "#2"}
+			}
+		}
+	]
+}
