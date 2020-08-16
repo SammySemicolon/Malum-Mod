@@ -1,9 +1,10 @@
 {
   "itemGroup.malum": "Malum",
 
-  "malum.gui.spirit_furnace": "Spirit Furnace",
+  "malum.gui.spiritfurnace": "Spirit Furnace",
 
   "malum.recipe.time.desc": "Recipe time: ",
+  "malum.fuel.time.desc": "Fuel time: ",
   "malum.tooltip.hold.desc": "Hold: ",
   "malum.tooltip.sneak.desc": "Sneak",
   "malum.tooltip.playing.desc": "Playing: ",
@@ -11,6 +12,7 @@
   "malum.tooltip.tickRate.desc": "Tick rate: ",
   "malum.tooltip.toggle.desc": "Toggle",
   "malum.tooltip.pulse.desc": "Pulse",
+  "malum.tooltip.transferamount.desc": "Transfer Amount: ",
 
   "item.malum.spirit_charcoal": "Spirit Charcoal",
   "block.malum.spirit_stone": "Spirit Stone",
@@ -40,7 +42,8 @@
   "malum.tooltip.lectern.desc": "increase experience gained from killing soulless enemies",
   "malum.tooltip.aegis.desc": "Reduces damage taken from soulless enemies",
   "malum.tooltip.funkengine.desc": "Can't stop the funky",
-  "malum.tooltip.artifact.desc": "Opens your ender chest",
+  "malum.tooltip.artifact.desc": "Open your ender chest",
+  "malum.tooltip.resonantblink.desc.d": "Teleport you forward",
   "malum.tooltip.spirit.desc.a": "spirit",
   "malum.tooltip.spirit.desc.b": "Spirit",
   "malum.tooltip.spirit.desc.c": "spirits",

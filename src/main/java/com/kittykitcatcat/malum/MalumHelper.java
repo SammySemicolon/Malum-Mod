@@ -3,7 +3,9 @@ package com.kittykitcatcat.malum;
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity;
 import com.kittykitcatcat.malum.blocks.utility.FancyRenderer;
+import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModSounds;
+import com.kittykitcatcat.malum.recipes.SpiritFurnaceFuelData;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -67,8 +69,8 @@ public class MalumHelper
 
     public static void makeMachineToggleSound(World world, BlockPos pos, float pitch)
     {
-        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS,1f,1f + random.nextFloat() * 0.5f);
-        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,pitch + random.nextFloat());
+        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS,1f,pitch);
+        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,pitch);
     }
     
     public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)
@@ -113,30 +115,27 @@ public class MalumHelper
         }
         return false;
     }
-    public static boolean stackRestrictedItemTEHandling(PlayerEntity player,Hand hand, Item restrictedItem, ItemStack heldItem, ItemStackHandler inventory, int slot)
+    public static boolean spiritFurnaceItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
     {
         ItemStack targetItem = inventory.getStackInSlot(slot);
         if (heldItem.getItem().equals(targetItem.getItem()))
         {
-            if (heldItem.getItem().equals(restrictedItem))
+            int cachedCount = heldItem.getCount();
+            for (int i = 0; i < cachedCount; i++)
             {
-                int cachedCount = heldItem.getCount();
-                for (int i = 0; i < cachedCount; i++)
+                if (targetItem.getCount() < targetItem.getMaxStackSize())
                 {
-                    if (targetItem.getCount() < targetItem.getMaxStackSize())
-                    {
-                        targetItem.grow(1);
-                        heldItem.shrink(1);
-                    }
+                    targetItem.grow(1);
+                    heldItem.shrink(1);
                 }
-                return true;
             }
+            return true;
         }
         if (targetItem.isEmpty())
         {
-            if (heldItem.getItem().equals(restrictedItem))
+            if (ModRecipes.getSpiritFurnaceFuelData(heldItem) != null)
             {
-                inventory.setStackInSlot(0,heldItem);
+                inventory.setStackInSlot(0, heldItem);
                 player.setHeldItem(hand, ItemStack.EMPTY);
             }
         }
@@ -345,6 +344,71 @@ public class MalumHelper
         return resultEntity;
     }
     //endregion
+    
+    public static void renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
+    {
+        if (renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(renderDispatcher.renderInfo.getProjectedView().x, renderDispatcher.renderInfo.getProjectedView().y, renderDispatcher.renderInfo.getProjectedView().z) < 128d)
+        {
+            Minecraft minecraft = Minecraft.getInstance();
+            World world = minecraft.world;
+            if (minecraft.objectMouseOver == null || world == null)
+            {
+                return;
+            }
+            if (minecraft.objectMouseOver.getType().equals(BLOCK))
+            {
+                BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
+                if (renderer.lookingAtPos() == null || !renderer.lookingAtPos().equals(mouseOver.getPos()))
+                {
+                    renderer.setLookingAtPos( mouseOver.getPos());
+                    renderer.setTime(0);
+                }
+                if (world.getTileEntity(mouseOver.getPos()) != null)
+                {
+                    if (world.getTileEntity(mouseOver.getPos()).equals(blockEntity))
+                    {
+                        TileEntity tileEntity = world.getTileEntity(mouseOver.getPos());
+                        if (tileEntity.getPos().equals(blockEntity.getPos()))
+                        {
+                            if (renderer.lookingAtPos() != null && renderer.lookingAtPos().equals(mouseOver.getPos()) && renderer.time() < 1)
+                            {
+                                renderer.setTime(renderer.time() + 0.1f);
+                            }
+                            FontRenderer fontrenderer = renderDispatcher.getFontRenderer();
+                            float spacing = 0.2f;
+                            int current = components.size() + 1;
+                            for (ITextComponent component : components)
+                            {
+                                String text = component.getFormattedText();
+                                float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
+                                matrixStack.push();
+                                
+                                Matrix4f matrix4f = matrixStack.getLast().getMatrix();
+                                
+                                matrixStack.translate(0.5, 0.5, 0.5);
+                                
+                                matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
+                                float positionOffset = current * spacing - (float)components.size() * spacing / 2;
+                                matrixStack.translate(0, positionOffset, 0);
+                                
+                                matrixStack.scale(-0.025F * renderer.time(), -0.025F * renderer.time(), 0.025F * renderer.time());
+                                
+                                fontrenderer.renderString(text, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
+                                
+                                matrixStack.pop();
+                                current--;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                renderer.setLookingAtPos(null);
+                renderer.setTime(0);
+            }
+        }
+    }
     public static void renderTEdataInTheCoolFancyWay(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
     {
         if (renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(renderDispatcher.renderInfo.getProjectedView().x, renderDispatcher.renderInfo.getProjectedView().y, renderDispatcher.renderInfo.getProjectedView().z) < 128d)

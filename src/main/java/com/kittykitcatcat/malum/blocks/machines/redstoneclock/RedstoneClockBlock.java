@@ -89,7 +89,7 @@ public class RedstoneClockBlock extends Block
                 if (worldIn.getTileEntity(pos) instanceof RedstoneClockTileEntity)
                 {
                     RedstoneClockTileEntity redstoneClockTileEntity = (RedstoneClockTileEntity) worldIn.getTileEntity(pos);
-                    float pitch = 0;
+                    float pitch;
                     if (player.isSneaking())
                     {
                         redstoneClockTileEntity.type++;
@@ -108,7 +108,7 @@ public class RedstoneClockBlock extends Block
                         }
                         pitch = (float)redstoneClockTileEntity.tickMultiplier / redstoneClockTileEntity.cooldown.length;
                     }
-                    MalumHelper.makeMachineToggleSound(worldIn, pos, pitch / 2);
+                    MalumHelper.makeMachineToggleSound(worldIn, pos, 1f + pitch);
                     player.world.notifyBlockUpdate(pos, state, state, 3);
                     player.swingArm(handIn);
                     return ActionResultType.SUCCESS;

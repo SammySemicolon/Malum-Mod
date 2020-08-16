@@ -1,131 +1,58 @@
 package com.kittykitcatcat.malum.blocks.machines.mirror;
 
-import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorBlock.getTileEntityForTransfer;
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
-
-public class InputMirrorTileEntity extends BasicMirrorTileEntity implements ITickableTileEntity
+public class InputMirrorTileEntity extends LinkableMirrorTileEntity implements ITickableTileEntity
 {
     public InputMirrorTileEntity()
     {
         super(ModTileEntities.input_mirror_tile_entity);
     }
-
-    public int currentMirror;
-    public List<BlockPos> linkedPositions;
+    
     @Override
-    public CompoundNBT write(CompoundNBT compound)
+    public void link(BlockPos linkPos)
     {
-        compound.putInt("currentMirror", currentMirror);
-        if (linkedPositions != null && !linkedPositions.isEmpty())
+        super.link(linkPos);
+        if (world.getTileEntity(linkPos) instanceof OutputMirrorTileEntity)
         {
-            compound.putInt("mirrorCount", linkedPositions.size());
-            for(int i = 0; i < linkedPositions.size(); i++)
-            {
-                BlockPos pos = linkedPositions.get(i);
-                compound.putInt("blockPosX" + i, pos.getX());
-                compound.putInt("blockPosY" + i, pos.getY());
-                compound.putInt("blockPosZ" + i, pos.getZ());
-            }
+            linkedPositions.add(linkPos);
         }
-        return super.write(compound);
     }
-
-    @Override
-    public void read(CompoundNBT compound)
-    {
-        currentMirror = compound.getInt("currentMirror");
-        if (compound.contains("mirrorCount"))
-        {
-            for(int i = 0; i < compound.getInt("mirrorCount"); i++)
-            {
-                int x = compound.getInt("blockPosX" + i);
-                int y = compound.getInt("blockPosY" + i);
-                int z = compound.getInt("blockPosZ" + i);
-                BlockPos pos = new BlockPos(x,y,z);
-                if (linkedPositions == null)
-                {
-                    linkedPositions = new ArrayList<>();
-                }
-                linkedPositions.add(pos);
-            }
-        }
-        super.read(compound);
-    }
-
+    
     @Override
     public void tick()
     {
         if (!world.isRemote)
         {
-            if (transfer)
+            if (transferCooldown <= 0)
             {
-                if (linkedPositions == null)
+                TileEntity attachedTileEntity = getAttachedTileEntity(world, pos);
+                if (attachedTileEntity != null)
                 {
-                    linkedPositions = new ArrayList<>();
-                }
-                ItemStack stack = inventory.getStackInSlot(0);
-
-                TileEntity inputTileEntity = getTileEntityForTransfer(world, pos);
-                if (inputTileEntity != null)
-                {
-                    Direction direction = getBlockState().get(HORIZONTAL_FACING);
-                    boolean success = MalumHelper.inputStackIntoTE(inputTileEntity, direction, stack);
-                    if (success)
+                    boolean success = transferItem(this, attachedTileEntity, transferAmounts[transferAmount]);
+                    if (!success)
                     {
-                        cancelNextTransfer = true;
-                        world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), 3);
+                        transferCooldown = 10;
                     }
                 }
-                if (stack.isEmpty())
+                BasicMirrorTileEntity linkedMirror = getCurrentMirrorTileEntity();
+                if (linkedMirror != null)
                 {
-                    if (!linkedPositions.isEmpty())
+                    boolean success = transferItem(linkedMirror, this, transferAmounts[transferAmount]);
+                    if (!success)
                     {
-                        BlockPos linkedMirrorPos = linkedPositions.get(currentMirror);
-                        if (linkedMirrorPos != null)
-                        {
-                            TileEntity tileEntity = world.getTileEntity(linkedMirrorPos);
-                            if (tileEntity != null)
-                            {
-                                if (tileEntity instanceof OutputMirrorTileEntity)
-                                {
-                                    OutputMirrorTileEntity mirrorTileEntity = (OutputMirrorTileEntity) tileEntity;
-                                    ItemStack mirrorStack = mirrorTileEntity.inventory.getStackInSlot(0);
-                                    if (!mirrorStack.isEmpty())
-                                    {
-                                        boolean success = MalumHelper.inputStackIntoTE(this, mirrorStack);
-                                        if (success)
-                                        {
-                                            mirrorTileEntity.cancelNextTransfer = true;
-                                            cancelNextTransfer = true;
-                                            world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 3);
-                                            world.notifyBlockUpdate(tileEntity.getPos(), tileEntity.getBlockState(), tileEntity.getBlockState(), 3);
-                                            return;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        transferCooldown = 10;
                     }
                 }
-                currentMirror++;
-                if (currentMirror >= linkedPositions.size())
+                else
                 {
-                    currentMirror = 0;
+                    transferCooldown = 10;
                 }
             }
-            super.tick();
+            transferCooldown--;
         }
     }
 }

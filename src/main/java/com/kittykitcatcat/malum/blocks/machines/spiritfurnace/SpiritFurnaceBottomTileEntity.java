@@ -5,6 +5,7 @@ import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.recipes.SpiritFurnaceFuelData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.JukeboxBlock;
@@ -51,7 +52,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
         @Override
         public boolean isItemValid(int slot, @Nonnull ItemStack stack)
         {
-            return stack.getItem().equals(ModItems.spirit_charcoal);
+            return ModRecipes.getSpiritFurnaceFuelData(stack) != null;
         }
         @Nonnull
         @Override
@@ -159,13 +160,17 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                 burnTime--;
                 if (!fuelItem.isEmpty())
                 {
-                    if (burnTime <= 0)
+                    SpiritFurnaceFuelData data = ModRecipes.getSpiritFurnaceFuelData(fuelItem);
+                    if (data != null)
                     {
-                        fuelItem.shrink(1);
-                        burnTime = 1600;
+                        if (burnTime < 0)
+                        {
+                            fuelItem.shrink(1);
+                            burnTime = data.getFuelTime() + 1;
+                        }
                     }
                 }
-                if (burnTime != 0)
+                if (burnTime >= 0)
                 {
                     updateState(true);
                     burnProgress++;

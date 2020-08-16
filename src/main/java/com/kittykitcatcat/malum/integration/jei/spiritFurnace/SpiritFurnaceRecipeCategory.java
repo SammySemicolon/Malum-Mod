@@ -38,12 +38,12 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
 
     public SpiritFurnaceRecipeCategory(IGuiHelper guiHelper)
     {
-        background = guiHelper.createBlankDrawable(103, 48);
+        background = guiHelper.createBlankDrawable(105, 53);
         localizedName = I18n.format("malum.jei.spirit_furnace");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_furnace_overlay.png"),
-            0, 0, 101, 49);
+            0, 0, 103, 51);
         overlay_noSide = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_furnace_overlay_no_side.png"),
-                0, 0, 101, 49);
+                0, 0, 103, 51);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ModItems.spirit_furnace));
     }
 
@@ -67,10 +67,10 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
 
         ITextComponent timeComponent = new TranslationTextComponent("malum.recipe.time.desc") //Uses
                 .appendSibling(new StringTextComponent("" + recipe.getBurnTime()));
-        String experienceString = timeComponent.getFormattedText();
+        String formattedText = timeComponent.getFormattedText();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
-        fontRenderer.drawString(experienceString, 0, 2, 0xFF808080);
+        fontRenderer.drawString(formattedText, -1, 1, 0xFF808080);
     }
 
     @Nonnull

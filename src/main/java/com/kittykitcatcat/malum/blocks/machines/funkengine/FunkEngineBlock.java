@@ -59,7 +59,6 @@ public class FunkEngineBlock extends Block
                 FunkEngineTileEntity funkEngineTileEntity = (FunkEngineTileEntity) worldIn.getTileEntity(pos);
                 if (funkEngineTileEntity.inventory.getStackInSlot(0) != ItemStack.EMPTY)
                 {
-
                     funkEngineTileEntity.stopSound();
                     Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, funkEngineTileEntity.inventory.getStackInSlot(0).copy());
                     worldIn.addEntity(entity);

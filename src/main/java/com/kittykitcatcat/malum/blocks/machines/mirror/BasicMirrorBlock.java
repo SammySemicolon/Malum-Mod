@@ -25,6 +25,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
+import static com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.redstoneClockFunctionTypeEnum.values;
 import static net.minecraft.state.properties.AttachFace.CEILING;
 import static net.minecraft.state.properties.AttachFace.FLOOR;
 
@@ -49,25 +50,6 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
         public final int type;
 
         mirrorTypeEnum(int type) { this.type = type;}
-    }
-
-    public static TileEntity getTileEntityForTransfer(World world, BlockPos pos)
-    {
-        Direction direction = world.getBlockState(pos).get(HORIZONTAL_FACING);
-        Vec3i directionVector = direction.getDirectionVec();
-        if (world.getBlockState(pos).get(FACE).equals(CEILING))
-        {
-            directionVector = new Vec3i(0, -1, 0);
-        }
-        if (world.getBlockState(pos).get(FACE).equals(FLOOR))
-        {
-            directionVector = new Vec3i(0, 1, 0);
-        }
-        if (!(world.getTileEntity(pos.subtract(directionVector)) instanceof BasicMirrorTileEntity))
-        {
-            return world.getTileEntity(pos.subtract(directionVector));
-        }
-        return null;
     }
 
     protected static final VoxelShape AABB_NORTH = Block.makeCuboidShape(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D);
@@ -133,7 +115,7 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
         {
             case basic:
             {
-                return new BasicMirrorTileEntity();
+                return new HolderMirrorTileEntity();
             }
             case input:
             {
@@ -144,7 +126,7 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
                 return new OutputMirrorTileEntity();
             }
         }
-        return new BasicMirrorTileEntity();
+        return null; //if this EVER runs you're in some deep shit, it shouldn't though
     }
 
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
@@ -175,32 +157,42 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
                 if (worldIn.getTileEntity(pos) instanceof BasicMirrorTileEntity)
                 {
                     BasicMirrorTileEntity mirrorTileEntity = (BasicMirrorTileEntity) worldIn.getTileEntity(pos);
-
+    
                     if (stack.getItem() instanceof BasicStave)
                     {
                         CompoundNBT nbt = stack.getOrCreateTag();
-                        if (mirrorTileEntity instanceof InputMirrorTileEntity)
+                        if (mirrorTileEntity instanceof LinkableMirrorTileEntity)
                         {
                             nbt.putInt("blockPosX", pos.getX());
                             nbt.putInt("blockPosY", pos.getY());
                             nbt.putInt("blockPosZ", pos.getZ());
                         }
-                        if (nbt.contains("blockPosX") && mirrorTileEntity instanceof OutputMirrorTileEntity)
+                        if (nbt.contains("blockPosX"))
                         {
-                            BlockPos linkedPos = new BlockPos(nbt.getInt("blockPosX"),nbt.getInt("blockPosY"),nbt.getInt("blockPosZ"));
-                            if (worldIn.getTileEntity(linkedPos) instanceof InputMirrorTileEntity)
+                            BlockPos linkedPos = new BlockPos(nbt.getInt("blockPosX"), nbt.getInt("blockPosY"), nbt.getInt("blockPosZ"));
+                            if (worldIn.getTileEntity(linkedPos) instanceof LinkableMirrorTileEntity)
                             {
-                                InputMirrorTileEntity inputMirrorTileEntity = (InputMirrorTileEntity) worldIn.getTileEntity(linkedPos);
-                                inputMirrorTileEntity.linkedPositions.add(pos);
+                                ((LinkableMirrorTileEntity) worldIn.getTileEntity(linkedPos)).link(pos);
                             }
                         }
                         return ActionResultType.SUCCESS;
                     }
-
+                    if (!(mirrorTileEntity instanceof HolderMirrorTileEntity))
+                    {
+                        if (mirrorTileEntity.inventory.getStackInSlot(0).isEmpty() && stack.isEmpty())
+                        {
+                            mirrorTileEntity.transferAmount++;
+                            if (mirrorTileEntity.transferAmount >= mirrorTileEntity.transferAmounts.length)
+                            {
+                                mirrorTileEntity.transferAmount = 0;
+                            }
+                            float pitch = (float) mirrorTileEntity.transferAmount / mirrorTileEntity.transferAmounts.length;
+                            MalumHelper.makeMachineToggleSound(worldIn, pos, 1f + pitch);
+                        }
+                    }
                     boolean success = MalumHelper.basicItemTEHandling(player, handIn, stack, mirrorTileEntity.inventory, 0);
                     if (success)
                     {
-                        mirrorTileEntity.cancelNextTransfer = true;
                         player.world.notifyBlockUpdate(mirrorTileEntity.getPos(), mirrorTileEntity.getBlockState(), mirrorTileEntity.getBlockState(), 3);
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;

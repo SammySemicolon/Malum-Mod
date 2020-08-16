@@ -51,18 +51,28 @@ public abstract class SpiritStoringBlock extends Block implements SpiritStorage
                 SpiritStoringTileEntity tileEntity = (SpiritStoringTileEntity) worldIn.getTileEntity(pos);
                 if (player.isSneaking())
                 {
-                    for (int i = 0; i < tileEntity.count; i++)
+                    int cachedCount = tileEntity.count;
+                    for (int i = 0; i < cachedCount; i++)
                     {
-                        extractSpiritFromStorage(player.getHeldItem(handIn), tileEntity, ((SpiritStorage) stack.getItem()).capacity(), tileEntity.type);
+                        boolean success = extractSpiritFromStorage(player.getHeldItem(handIn), tileEntity, ((SpiritStorage) stack.getItem()).capacity(), tileEntity.type);
+                        if (!success)
+                        {
+                            break;
+                        }
                     }
                 }
                 else
                 {
                     if (SpiritDataHelper.doesItemHaveSpirit(stack))
                     {
-                        for (int i = 0; i < tileEntity.count; i++)
+                        int cachedCount = stack.getTag().getInt(SpiritDataHelper.countNBT);
+                        for (int i = 0; i < cachedCount; i++)
                         {
-                            insertSpiritIntoStorage(player.getHeldItem(handIn), tileEntity, block.capacity(), stack.getTag().getString(SpiritDataHelper.typeNBT));
+                            boolean success = insertSpiritIntoStorage(player.getHeldItem(handIn), tileEntity, block.capacity(), stack.getTag().getString(SpiritDataHelper.typeNBT));
+                            if (!success)
+                            {
+                                break;
+                            }
                         }
                     }
                 }

@@ -6,7 +6,6 @@ import com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockRende
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomRenderer;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopRenderer;
 import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarRenderer;
-import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringBlockRenderer;
 import com.kittykitcatcat.malum.init.ModBlocks;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import net.minecraft.client.renderer.RenderType;

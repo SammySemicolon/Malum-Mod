@@ -36,9 +36,9 @@ public class SpiritFurnaceBottomRenderer extends TileEntityRenderer<SpiritFurnac
             if (!item.isEmpty())
             {
                 matrixStack.push();
-                matrixStack.translate(0.5 + direction.getX() * 0.2f, 0.25, 0.5 + direction.getZ() * 0.2f);
+                matrixStack.translate(0.5 + direction.getX() * 0.2f, 0.28, 0.5 + direction.getZ() * 0.2f);
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(blockEntity.getWorld().getGameTime() * 3));
-                matrixStack.scale(0.45f, 0.45f, 0.45f);
+                matrixStack.scale(0.35f, 0.35f, 0.35f);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
                 matrixStack.pop();
             }
