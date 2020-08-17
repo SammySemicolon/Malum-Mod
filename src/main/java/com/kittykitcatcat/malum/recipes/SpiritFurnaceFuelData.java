@@ -30,7 +30,7 @@ public class SpiritFurnaceFuelData
     {
         ModRecipes.addSpiritFurnaceFuelData(new SpiritFurnaceFuelData(ModItems.spirit_charcoal, 1600));
         ModRecipes.addSpiritFurnaceFuelData(new SpiritFurnaceFuelData(ModItems.necrotic_catalyst, 400));
-        ModRecipes.addSpiritFurnaceFuelData(new SpiritFurnaceFuelData(ModItems.soul_steel_helm, 4000));
+        ModRecipes.addSpiritFurnaceFuelData(new SpiritFurnaceFuelData(ModItems.umbral_steel_helm, 4000));
         ModRecipes.addSpiritFurnaceFuelData(new SpiritFurnaceFuelData(ModItems.vampire_necklace, 4000));
         ModRecipes.addSpiritFurnaceFuelData(new SpiritFurnaceFuelData(ModItems.funk_engine, 40000));
     }

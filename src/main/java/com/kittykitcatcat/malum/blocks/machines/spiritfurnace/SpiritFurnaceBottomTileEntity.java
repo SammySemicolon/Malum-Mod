@@ -2,21 +2,25 @@ package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
-import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
+import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.particles.spiritflame.SpiritFlameParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceFuelData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.JukeboxBlock;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -31,6 +35,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+import static com.kittykitcatcat.malum.MalumHelper.*;
+import static com.kittykitcatcat.malum.MalumMod.*;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements ITickableTileEntity
@@ -42,6 +48,8 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
     public int burnTime;
     public int burnProgress;
     public boolean isSmelting;
+    public SimpleSound sound;
+    
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
@@ -121,6 +129,22 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                 world.notifyBlockUpdate(pos.up(), topState, newTopState, 3);
                 world.setBlockState(pos.up(), newTopState, 3);
             }
+            if (isSmelting)
+            {
+                world.playSound(null, pos, ModSounds.furnace_start, SoundCategory.BLOCKS,1,1);
+            }
+            else
+            {
+                if (sound != null)
+                {
+                    if (Minecraft.getInstance().getSoundHandler().isPlaying(sound))
+                    {
+                        Minecraft.getInstance().getSoundHandler().stop(sound);
+                        world.playSound(null, pos, ModSounds.furnace_stop, SoundCategory.BLOCKS,1,1);
+                    }
+                }
+                sound = null;
+            }
         }
     }
     public void output(World world, BlockPos pos, ItemStack stack)
@@ -129,7 +153,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
         TileEntity inputTileEntity = world.getTileEntity(pos.subtract(direction.getDirectionVec()).add(0, 1, 0));
         if (inputTileEntity != null)
         {
-            boolean success = MalumHelper.inputStackIntoTE(inputTileEntity, direction.getOpposite(),stack);
+            boolean success = inputStackIntoTE(inputTileEntity, direction.getOpposite(),stack);
             if (success)
             {
                 return;
@@ -140,6 +164,34 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
         ItemEntity entity = new ItemEntity(world, entityPos.x, entityPos.y, entityPos.z, stack.copy());
         entity.setMotion(-directionVec.getX() * 0.1f, 0.05f, -directionVec.getZ() * 0.1f);
         world.addEntity(entity);
+    }
+    
+    public static void spawnSpiritFlame(World world, BlockPos pos)
+    {
+        Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vec3d velocity = randomVector(world.rand, -0.02, 0.02);
+        Vec3d particlePos = vectorFromBlockPos(pos).add(randomVector(world.rand, 0.4, 0.6)).add(direction.getX() * 0.2f, 0, direction.getZ() * 0.2f);
+        if (world.rand.nextFloat() > 0.25f)
+        {
+            world.addParticle(ParticleTypes.SMOKE, particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
+        }
+        else
+        {
+            world.addParticle(new SpiritFlameParticleData(), particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
+        }
+    }
+    public static void spawnSmoke(World world, BlockPos pos)
+    {
+        Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vec3d particlePos = vectorFromBlockPos(pos).add(0.5, 1.75, 0.5).add(randomVector(world.rand, -0.3, 0.3));
+        if (direction.getZ() != 0)
+        {
+            world.addParticle(ParticleTypes.SMOKE, particlePos.x, particlePos.y, particlePos.getZ() - direction.getZ() * 0.4f, 0, 0.06, 0);
+        }
+        if (direction.getX() != 0)
+        {
+            world.addParticle(ParticleTypes.SMOKE, particlePos.x - direction.getX() * 0.4d, particlePos.y, particlePos.getZ(), 0, 0.06, 0);
+        }
     }
     @Override
     public void tick()
@@ -157,7 +209,6 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             if (ModRecipes.getSpiritFurnaceRecipe(inputItem) != null)
             {
                 SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputItem);
-                burnTime--;
                 if (!fuelItem.isEmpty())
                 {
                     SpiritFurnaceFuelData data = ModRecipes.getSpiritFurnaceFuelData(fuelItem);
@@ -166,15 +217,35 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                         if (burnTime < 0)
                         {
                             fuelItem.shrink(1);
-                            burnTime = data.getFuelTime() + 1;
+                            burnTime = data.getFuelTime();
                         }
                     }
                 }
                 if (burnTime >= 0)
                 {
+                    if (sound != null)
+                    {
+                        if (!Minecraft.getInstance().getSoundHandler().isPlaying(sound))
+                        {
+                            Minecraft.getInstance().getSoundHandler().play(sound);
+                        }
+                    }
+                    else
+                    {
+                        sound = SimpleSound.master(ModSounds.furnace_loop,1);
+                    }
                     updateState(true);
                     burnProgress++;
-                    if (burnProgress > recipe.getBurnTime())
+                    if (world.getGameTime() % 4L == 0L)
+                    {
+                        spawnSpiritFlame(world, pos);
+                        spawnSpiritFlame(world, pos.add(0, 1, 0));
+                    }
+                    if (world.getGameTime() % 3L == 0L)
+                    {
+                        spawnSmoke(world, pos);
+                    }
+                    if (burnProgress >= recipe.getBurnTime())
                     {
                         output(world, pos, new ItemStack(recipe.getOutputItem()));
                         if (recipe.getSideItem() != null)
@@ -193,6 +264,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                     burnProgress = 0;
                     updateState(false);
                 }
+                burnTime--;
             }
             else
             {

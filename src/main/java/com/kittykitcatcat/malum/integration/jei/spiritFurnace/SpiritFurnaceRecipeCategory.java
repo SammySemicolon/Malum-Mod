@@ -50,7 +50,6 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
     @Override
     public void draw(SpiritFurnaceRecipe recipe, double mouseX, double mouseY)
     {
-
         GlStateManager.enableAlphaTest();
         GlStateManager.enableBlend();
 
@@ -62,6 +61,7 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
         {
             overlay_noSide.draw();
         }
+        
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();
 

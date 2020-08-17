@@ -2,6 +2,7 @@ package com.kittykitcatcat.malum.events;
 
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.SpiritDataHelper;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.items.BowofLostSouls;
 import com.kittykitcatcat.malum.items.curios.CurioEnchantedLectern;
@@ -12,6 +13,8 @@ import com.kittykitcatcat.malum.items.staves.BasicStave;
 import com.kittykitcatcat.malum.network.packets.HuskChangePacket;
 import com.kittykitcatcat.malum.particles.tinyskull.TinySkullParticleData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,6 +37,8 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 import top.theillusivec4.curios.api.CuriosAPI;
+
+import java.util.Optional;
 
 import static com.kittykitcatcat.malum.SpiritDataHelper.*;
 import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.getCachedTarget;
@@ -174,7 +179,7 @@ public class RuntimeEvents
         }
     }
     //endregion
-    //endregion
+    
     //region HUSKS
     @SubscribeEvent
     public static void syncHuskData(PlayerEvent.StartTracking event)

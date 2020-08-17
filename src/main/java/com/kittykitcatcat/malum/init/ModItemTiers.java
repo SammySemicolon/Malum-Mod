@@ -24,7 +24,7 @@ public class ModItemTiers
         5,
         1820,
         9.0F,
-        3.5F,
+        4F,
         24);
 
     public static final ArmorTier SPIRITED_STEEL_ARMOR = new ArmorTier(
@@ -51,8 +51,8 @@ public class ModItemTiers
             new int[]{7, 10, 8, 5},
             24,
             SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
-            1.5F,
-            () -> Ingredient.fromItems(ModItems.soul_steel_ingot));
+            2.5F,
+            () -> Ingredient.fromItems(ModItems.umbral_steel_ingot));
     private static class ItemTier implements IItemTier
     {
         private final int harvestLevel;

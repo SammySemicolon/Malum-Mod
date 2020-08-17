@@ -240,11 +240,18 @@ public class MalumHelper
     //endregion
     
     //region VECTOR STUFF AND THINGS
-    public static Vec3d randVelocity(double min, double max)
+    public static Vec3d randomVector(Random random, double min, double max)
     {
         double x = MathHelper.nextDouble(random, min, max);
         double y = MathHelper.nextDouble(random, min, max);
         double z = MathHelper.nextDouble(random, min, max);
+        return new Vec3d(x, y, z);
+    }
+    public static Vec3d vectorFromBlockPos(BlockPos pos)
+    {
+        double x = pos.getX();
+        double y = pos.getY();
+        double z = pos.getZ();
         return new Vec3d(x, y, z);
     }
 

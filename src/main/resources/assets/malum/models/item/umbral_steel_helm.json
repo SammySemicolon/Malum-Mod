@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "malum:items/soul_steel_chestplate"
+    "layer0": "malum:items/umbral_steel_helm"
   }
 }
