@@ -54,7 +54,7 @@ public class SpiritFurnaceFuelDataCategory implements IRecipeCategory<SpiritFurn
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();
         
-        ITextComponent timeComponent = new TranslationTextComponent("malum.fuel.time.desc")
+        ITextComponent timeComponent = new TranslationTextComponent("malum.fuel.time")
                 .appendSibling(new StringTextComponent("" + data.getFuelTime()));
         String formattedText = timeComponent.getFormattedText();
         Minecraft minecraft = Minecraft.getInstance();

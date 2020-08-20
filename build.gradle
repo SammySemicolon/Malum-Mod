@@ -20,15 +20,14 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: 'snapshot', version: '20200605-1.15.1'
-    
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
     runs {
         client {
             workingDirectory project.file('run')
 
-            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {
@@ -43,7 +42,6 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {

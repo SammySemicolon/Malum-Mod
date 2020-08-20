@@ -45,7 +45,7 @@ public class ResonantBlinkEffect extends ModEffect
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.resonantblink.desc", SpiritDataHelper.getName(spirit())));
+        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.resonantblink.effect", SpiritDataHelper.getName(spirit())));
         return components;
     }
 

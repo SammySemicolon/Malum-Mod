@@ -88,7 +88,7 @@ public class CurioNecroticCatalyst extends Item implements ICurio, SpiritConsume
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.necroticcatalyst.desc", SpiritDataHelper.getName(spirit())));
+        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.necroticcatalyst.effect", SpiritDataHelper.getName(spirit())));
         return components;
     }
 }

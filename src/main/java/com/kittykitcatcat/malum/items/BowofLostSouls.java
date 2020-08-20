@@ -188,7 +188,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.bow.desc", SpiritDataHelper.getName(spirit())));
+        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.bow", SpiritDataHelper.getName(spirit())));
         return components;
     }
 }

@@ -69,10 +69,10 @@ public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileE
     public void render(RedstoneClockTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(new TranslationTextComponent("malum.tooltip.tickRate.desc")
+        components.add(new TranslationTextComponent("malum.tooltip.tickRate")
                 .appendSibling(makeImportantComponent("" + blockEntity.cooldown[blockEntity.tickMultiplier], true)));
-        components.add(new TranslationTextComponent("malum.tooltip.type.desc")
-                .appendSibling(makeImportantComponent(blockEntity.type == 0 ? "malum.tooltip.toggle.desc" : "malum.tooltip.pulse.desc", true)));
+        components.add(new TranslationTextComponent("malum.tooltip.type")
+                .appendSibling(makeImportantComponent(blockEntity.type == 0 ? "malum.tooltip.toggle" : "malum.tooltip.pulse", true)));
         
         renderTEdataInTheCoolFancyWay(blockEntity,this,matrixStack,iRenderTypeBuffer,renderDispatcher, components);
     }

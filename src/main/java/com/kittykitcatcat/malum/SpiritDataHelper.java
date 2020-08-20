@@ -2,6 +2,7 @@ package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
+import com.kittykitcatcat.malum.init.ModTooltips;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,6 +25,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.kittykitcatcat.malum.MalumHelper.*;
+import static com.kittykitcatcat.malum.init.ModTooltips.*;
+import static net.minecraft.util.text.TextFormatting.*;
 
 @SuppressWarnings("unused")
 public class SpiritDataHelper
@@ -58,14 +61,14 @@ public class SpiritDataHelper
     public static ITextComponent makeImportantMessage(String message, String importantMessage)
     {
         //message [importantMessage]
-        return new TranslationTextComponent(message).applyTextStyle(TextFormatting.WHITE) //message
+        return new TranslationTextComponent(message).applyTextStyle(WHITE) //message
                 .appendSibling(makeImportantComponent(importantMessage, true)); //[importantMessage]
     }
     @OnlyIn(Dist.CLIENT)
     public static ITextComponent makeGenericSpiritDependantTooltip(String message, String spirit)
     {
         //Uses [spiritType] spirits to [message]
-        return new TranslationTextComponent("malum.tooltip.sconsumer.desc.c") //Uses
+        return new TranslationTextComponent("malum.tooltip.sconsumer.desc.c").applyTextStyle(WHITE) //Uses
                 .appendSibling(makeImportantComponent(spirit, true))
                 .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.d"))
                 .appendSibling(makeImportantComponent(message, true));
@@ -74,6 +77,10 @@ public class SpiritDataHelper
     public static void makeSpiritTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         ArrayList<ITextComponent> newComponents = new ArrayList<>();
+        if (tooltips.containsKey(stack.getItem()))
+        {
+            newComponents.addAll(tooltips.get(stack.getItem()));
+        }
         if (stack.getItem() instanceof SpiritStorage)
         {
             if (doesItemHaveSpirit(stack))
@@ -81,10 +88,10 @@ public class SpiritDataHelper
                 SpiritStorage spiritStorage = (SpiritStorage) stack.getItem();
                 if (spiritStorage.capacity() != 0)
                 {
-                    newComponents.add(new TranslationTextComponent("malum.tooltip.sstorage.desc").applyTextStyle(TextFormatting.WHITE) //contains
+                    newComponents.add(new TranslationTextComponent("malum.tooltip.sstorage.desc").applyTextStyle(WHITE) //contains
                             .appendSibling(makeImportantComponent(stack.getTag().getInt(countNBT) + "/" + spiritStorage.capacity(), true)) //[amount/max]
                             .appendSibling(makeImportantComponent(getName(stack.getTag().getString(typeNBT)), true)) //[spiritType]
-                            .appendSibling(new TranslationTextComponent("malum.tooltip.spirit.desc.c").applyTextStyle(TextFormatting.WHITE))); //spirits
+                            .appendSibling(new TranslationTextComponent("malum.tooltip.spirit.desc.c").applyTextStyle(WHITE))); //spirits
                 }
             }
         }
@@ -95,9 +102,9 @@ public class SpiritDataHelper
                 SpiritConsumer spiritStorage = (SpiritConsumer) stack.getItem();
                 if (spiritStorage.durability() != 0)
                 {
-                    newComponents.add(new TranslationTextComponent("malum.tooltip.sconsumer.desc.a").applyTextStyle(TextFormatting.WHITE) //has
+                    newComponents.add(new TranslationTextComponent("malum.tooltip.sconsumer.desc.a").applyTextStyle(WHITE) //has
                             .appendSibling(makeImportantComponent(stack.getTag().getInt(spiritIntegrityNBT) + "/" + spiritStorage.durability(), true)) //[amount/max]
-                            .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.b")).applyTextStyle(TextFormatting.WHITE)); //spirit integrity
+                            .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.b")).applyTextStyle(WHITE)); //spirit integrity
                 }
             }
         }

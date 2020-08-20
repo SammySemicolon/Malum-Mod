@@ -1,43 +1,35 @@
 package com.kittykitcatcat.malum.particles.spiritflame;
 
+import com.kittykitcatcat.malum.particles.MalumParticle;
+import com.kittykitcatcat.malum.particles.ParticlePhase;
+import com.kittykitcatcat.malum.particles.ScalePhase;
+import com.kittykitcatcat.malum.particles.skull.SkullParticle;
 import net.minecraft.client.particle.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class SpiritFlameParticle extends SimpleAnimatedParticle
+public class SpiritFlameParticle extends MalumParticle
 {
-
-    private final IAnimatedSprite spriteSet;
-    public float scale;
-    protected SpiritFlameParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet)
+    
+    protected SpiritFlameParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, float scale, IAnimatedSprite spriteSet)
     {
-        super(world, xSpeed, ySpeed, zSpeed, spriteSet, 0);
-        this.spriteSet = spriteSet;
-        motionX = xSpeed;
-        motionY = ySpeed;
-        scale = 0.25f;
-        motionZ = zSpeed;
-        selectSpriteWithAge(spriteSet);
-        setPosition(x, y, z);
-        setMaxAge(72);
+        super(world, xSpeed, ySpeed, zSpeed,x,y,z, spriteSet,
+                new ParticlePhase(1,20, 0,1),
+                new ParticlePhase(2,20, 20),
+                new ScalePhase(2,20, 20, scale,false));
+        //0-19 entrance
+        //20-39 animation
     }
-
+    
+    
     @Override
     public void tick()
     {
         super.tick();
-        selectSpriteWithAge(spriteSet);
         motionX *= 0.9f;
         motionY *= 0.9f;
         motionZ *= 0.9f;
-        if (age >= 62)
-        {
-            if (scale > 0f)
-            {
-                scale -= 0.025f;
-            }
-        }
     }
 
     @Override
@@ -64,7 +56,7 @@ public class SpiritFlameParticle extends SimpleAnimatedParticle
 
         public Particle makeParticle(SpiritFlameParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            return new SpiritFlameParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet);
+            return new SpiritFlameParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, data.scale, spriteSet);
         }
     }
 }

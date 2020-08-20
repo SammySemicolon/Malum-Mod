@@ -15,7 +15,7 @@ import top.theillusivec4.curios.api.capability.ICurio;
 
 import java.util.ArrayList;
 
-public class CurioVacantAegis extends Item implements ICurio, SpiritDescription
+public class CurioVacantAegis extends Item implements ICurio
 {
     public CurioVacantAegis(Properties builder)
     {
@@ -41,13 +41,5 @@ public class CurioVacantAegis extends Item implements ICurio, SpiritDescription
                 return true;
             }
         });
-    }
-
-    @Override
-    public ArrayList<ITextComponent> components()
-    {
-        ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(new TranslationTextComponent("malum.tooltip.aegis.desc"));
-        return components;
     }
 }

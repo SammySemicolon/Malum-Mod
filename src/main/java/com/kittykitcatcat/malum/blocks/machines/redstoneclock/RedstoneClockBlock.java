@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.blocks.machines.redstoneclock;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.particles.skull.SkullParticleData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RedstoneDiodeBlock;

@@ -36,6 +36,7 @@ public class ClientSetupEvents
     @SubscribeEvent
     public static void bindTERs(FMLClientSetupEvent event)
     {
+        
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_bottom_tile_entity, SpiritFurnaceBottomRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_top_tile_entity, SpiritFurnaceTopRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.basic_mirror_tile_entity, BasicMirrorRenderer::new);
@@ -44,7 +45,6 @@ public class ClientSetupEvents
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_jar_tile_entity, SpiritJarRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.funk_engine_tile_entity, FunkEngineRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.redstone_clock_tile_entity, RedstoneClockRenderer::new);
-
     }
 
     @SubscribeEvent

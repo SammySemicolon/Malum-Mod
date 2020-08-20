@@ -57,7 +57,7 @@ public class EnderArtifactItem extends Item implements SpiritConsumer, SpiritDes
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.artifact.desc", SpiritDataHelper.getName(spirit())));
+        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.artifact", SpiritDataHelper.getName(spirit())));
         return components;
     }
 }

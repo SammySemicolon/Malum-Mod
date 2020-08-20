@@ -84,13 +84,7 @@ public class FunkEngineRenderer extends TileEntityRenderer<FunkEngineTileEntity>
         {
             MusicDiscItem discItem = (MusicDiscItem) blockEntity.inventory.getStackInSlot(0).getItem();
             ArrayList<ITextComponent> components = new ArrayList<>();
-            components.add(new StringTextComponent("uwu"));
-            components.add(new StringTextComponent("UwU"));
-            components.add(new StringTextComponent("owo"));
-            components.add(new StringTextComponent("OwO"));
-            components.add(new StringTextComponent(">w<"));
-            components.add(new StringTextComponent(">W<"));
-            components.add(new TranslationTextComponent("malum.tooltip.playing.desc").appendSibling(makeImportantComponent(discItem.getRecordDescription().getFormattedText(), true)));
+            components.add(new TranslationTextComponent("malum.tooltip.playing").appendSibling(makeImportantComponent(discItem.getRecordDescription().getFormattedText(), true)));
             renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
         }
     }

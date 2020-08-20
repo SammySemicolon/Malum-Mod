@@ -11,8 +11,6 @@ import com.kittykitcatcat.malum.particles.skull.SkullParticle;
 import com.kittykitcatcat.malum.particles.skull.SkullParticleData;
 import com.kittykitcatcat.malum.particles.spiritflame.SpiritFlameParticle;
 import com.kittykitcatcat.malum.particles.spiritflame.SpiritFlameParticleData;
-import com.kittykitcatcat.malum.particles.tinyskull.TinySkullParticle;
-import com.kittykitcatcat.malum.particles.tinyskull.TinySkullParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.registry.Registry;
@@ -32,14 +30,12 @@ public class ModParticles
         Minecraft.getInstance().particles.registerFactory(lensMagic, LensMagicParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(bonk, BonkParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(skull, SkullParticle.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(tinySkull, TinySkullParticle.Factory::new);
     }
     public static ParticleType<BloodParticleData> bloodParticle;
     public static ParticleType<SpiritFlameParticleData> spiritFlame;
     public static ParticleType<LensMagicParticleData> lensMagic;
     public static ParticleType<BonkParticleData> bonk;
     public static ParticleType<SkullParticleData> skull;
-    public static ParticleType<TinySkullParticleData> tinySkull;
     @SubscribeEvent
     public static void registerTypeRegistry(RegistryEvent.Register<ParticleType<?>> event)
     {
@@ -48,6 +44,5 @@ public class ModParticles
         lensMagic = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "lens_magic", new ParticleType<>(false, LensMagicParticleData.DESERIALIZER));
         bonk = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "bonk", new ParticleType<>(false, BonkParticleData.DESERIALIZER));
         skull = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "skull", new ParticleType<>(false, SkullParticleData.DESERIALIZER));
-        tinySkull = Registry.register(Registry.PARTICLE_TYPE, MalumMod.MODID + ":" + "tiny_skull", new ParticleType<>(false, TinySkullParticleData.DESERIALIZER));
     }
 }

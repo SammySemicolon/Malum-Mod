@@ -1,10 +1,10 @@
 package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 
-import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTileEntities;
+import com.kittykitcatcat.malum.particles.skull.SkullParticleData;
 import com.kittykitcatcat.malum.particles.spiritflame.SpiritFlameParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceFuelData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
@@ -14,7 +14,7 @@ import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleType;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -33,10 +34,10 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.Array;
 import java.util.Objects;
 
 import static com.kittykitcatcat.malum.MalumHelper.*;
-import static com.kittykitcatcat.malum.MalumMod.*;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements ITickableTileEntity
@@ -166,24 +167,19 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
         world.addEntity(entity);
     }
     
-    public static void spawnSpiritFlame(World world, BlockPos pos)
+    public void spawnSpiritFlame(BlockPos pos)
     {
-        Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vec3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
         Vec3d velocity = randomVector(world.rand, -0.02, 0.02);
         Vec3d particlePos = vectorFromBlockPos(pos).add(randomVector(world.rand, 0.4, 0.6)).add(direction.getX() * 0.2f, 0, direction.getZ() * 0.2f);
-        if (world.rand.nextFloat() > 0.25f)
-        {
-            world.addParticle(ParticleTypes.SMOKE, particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
-        }
-        else
-        {
-            world.addParticle(new SpiritFlameParticleData(), particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
-        }
+        
+        world.addParticle(new SpiritFlameParticleData(MathHelper.nextFloat(world.rand, 0.25f, 0.4f)), particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
     }
-    public static void spawnSmoke(World world, BlockPos pos)
+    public void spawnTopSmoke(BlockPos pos)
     {
-        Vec3i direction = world.getBlockState(pos).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vec3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
         Vec3d particlePos = vectorFromBlockPos(pos).add(0.5, 1.75, 0.5).add(randomVector(world.rand, -0.3, 0.3));
+        
         if (direction.getZ() != 0)
         {
             world.addParticle(ParticleTypes.SMOKE, particlePos.x, particlePos.y, particlePos.getZ() - direction.getZ() * 0.4f, 0, 0.06, 0);
@@ -202,49 +198,15 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             SpiritFurnaceTopTileEntity topTileEntity = (SpiritFurnaceTopTileEntity) world.getTileEntity(topPos);
             ItemStack fuelItem = inventory.getStackInSlot(0);
             ItemStack inputItem = topTileEntity.inventory.getStackInSlot(0);
-            if (inputItem.isEmpty())
-            {
-                updateState(false);
-            }
             if (ModRecipes.getSpiritFurnaceRecipe(inputItem) != null)
             {
                 SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputItem);
-                if (!fuelItem.isEmpty())
+                if (burnTime > 0)
                 {
-                    SpiritFurnaceFuelData data = ModRecipes.getSpiritFurnaceFuelData(fuelItem);
-                    if (data != null)
-                    {
-                        if (burnTime < 0)
-                        {
-                            fuelItem.shrink(1);
-                            burnTime = data.getFuelTime();
-                        }
-                    }
-                }
-                if (burnTime >= 0)
-                {
-                    if (sound != null)
-                    {
-                        if (!Minecraft.getInstance().getSoundHandler().isPlaying(sound))
-                        {
-                            Minecraft.getInstance().getSoundHandler().play(sound);
-                        }
-                    }
-                    else
-                    {
-                        sound = SimpleSound.master(ModSounds.furnace_loop,1);
-                    }
+                    soundAndParticles();
                     updateState(true);
                     burnProgress++;
-                    if (world.getGameTime() % 4L == 0L)
-                    {
-                        spawnSpiritFlame(world, pos);
-                        spawnSpiritFlame(world, pos.add(0, 1, 0));
-                    }
-                    if (world.getGameTime() % 3L == 0L)
-                    {
-                        spawnSmoke(world, pos);
-                    }
+                    burnTime--;
                     if (burnProgress >= recipe.getBurnTime())
                     {
                         output(world, pos, new ItemStack(recipe.getOutputItem()));
@@ -264,11 +226,54 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                     burnProgress = 0;
                     updateState(false);
                 }
-                burnTime--;
+                if (!fuelItem.isEmpty())
+                {
+                    SpiritFurnaceFuelData data = ModRecipes.getSpiritFurnaceFuelData(fuelItem);
+                    if (data != null)
+                    {
+                        if (burnTime <= 0)
+                        {
+                            fuelItem.shrink(1);
+                            burnTime = data.getFuelTime();
+                        }
+                    }
+                }
             }
-            else
+            else // reset if no valid item is present
             {
                 updateState(false);
+            }
+        }
+    }
+    public void soundAndParticles()
+    {
+        if (sound != null)
+        {
+            if (!Minecraft.getInstance().getSoundHandler().isPlaying(sound))
+            {
+                Minecraft.getInstance().getSoundHandler().play(sound);
+            }
+        }
+        else
+        {
+            sound = new SimpleSound(ModSounds.furnace_loop,SoundCategory.BLOCKS,1,1,pos);
+        }
+        if (burnProgress > 0)
+        {
+            if (world.getGameTime() % 4L == 0L)
+            {
+                spawnTopSmoke(pos);
+            }
+            if (world.getGameTime() % 8L == 0L)
+            {
+                spawnSpiritFlame(pos.add(0, 1, 0));
+            }
+        }
+        if (burnTime > 0)
+        {
+            if (world.getGameTime() % 3L == 0L)
+            {
+                spawnSpiritFlame(pos);
             }
         }
     }

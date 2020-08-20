@@ -11,7 +11,7 @@ import com.kittykitcatcat.malum.items.curios.CurioVacantAegis;
 import com.kittykitcatcat.malum.items.curios.CurioVampireNecklace;
 import com.kittykitcatcat.malum.items.staves.BasicStave;
 import com.kittykitcatcat.malum.network.packets.HuskChangePacket;
-import com.kittykitcatcat.malum.particles.tinyskull.TinySkullParticleData;
+import com.kittykitcatcat.malum.particles.skull.SkullParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -92,8 +92,8 @@ public class RuntimeEvents
         }
     }
     //endregion
-
-    //region HELPER METHODS
+    
+    //region HARVESTING
     public static boolean tryCancel(PlayerEntity playerEntity, ItemStack stack)
     {
         if (getCachedTarget(playerEntity) == null || getCachedTarget(playerEntity) != null && getHusk(getCachedTarget(playerEntity)))
@@ -116,9 +116,7 @@ public class RuntimeEvents
         playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
         playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 40);
     }
-    //endregion
 
-    //region LOGIC
     @SubscribeEvent
     public static void cancelHarvestFromStarting(LivingEntityUseItemEvent.Start event)
     {
@@ -222,7 +220,7 @@ public class RuntimeEvents
                 Vec3d pos = MalumHelper.randExtendedPosofEntity(livingEntity, world.rand, 0.5f);
                 if (world.rand.nextInt(4) == 0)
                 {
-                    world.addParticle(new TinySkullParticleData(), pos.x, pos.y, pos.z, 0, 0.04, 0);
+                    world.addParticle(new SkullParticleData(0.25f), pos.x, pos.y, pos.z, 0, 0.04, 0);
                 }
             }
         }

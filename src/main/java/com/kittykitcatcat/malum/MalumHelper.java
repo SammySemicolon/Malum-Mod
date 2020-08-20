@@ -302,13 +302,13 @@ public class MalumHelper
     {
         if (!Screen.hasShiftDown())
         {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.hold.desc").applyTextStyle(TextFormatting.GRAY)
-                    .appendSibling(makeImportantComponent("malum.tooltip.sneak.desc", false)));
+            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").applyTextStyle(TextFormatting.GRAY)
+                    .appendSibling(makeImportantComponent("malum.tooltip.sneak", false)));
         }
         else
         {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.hold.desc").applyTextStyle(TextFormatting.WHITE)
-                    .appendSibling(makeImportantComponent("malum.tooltip.sneak.desc", true)));
+            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").applyTextStyle(TextFormatting.WHITE)
+                    .appendSibling(makeImportantComponent("malum.tooltip.sneak", true)));
             tooltip.addAll(components);
         }
     }

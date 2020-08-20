@@ -65,7 +65,7 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();
 
-        ITextComponent timeComponent = new TranslationTextComponent("malum.recipe.time.desc") //Uses
+        ITextComponent timeComponent = new TranslationTextComponent("malum.recipe.time") //Uses
                 .appendSibling(new StringTextComponent("" + recipe.getBurnTime()));
         String formattedText = timeComponent.getFormattedText();
         Minecraft minecraft = Minecraft.getInstance();

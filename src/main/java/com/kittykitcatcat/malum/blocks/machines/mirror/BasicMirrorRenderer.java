@@ -86,7 +86,7 @@ public class BasicMirrorRenderer extends TileEntityRenderer<BasicMirrorTileEntit
         if (!(blockEntity instanceof HolderMirrorTileEntity))
         {
             ArrayList<ITextComponent> components = new ArrayList<>();
-            components.add(new TranslationTextComponent("malum.tooltip.transferamount.desc").appendSibling(makeImportantComponent("" + blockEntity.transferAmounts[blockEntity.transferAmount], true)));
+            components.add(new TranslationTextComponent("malum.tooltip.transferamount").appendSibling(makeImportantComponent("" + blockEntity.transferAmounts[blockEntity.transferAmount], true)));
     
             renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
         }
