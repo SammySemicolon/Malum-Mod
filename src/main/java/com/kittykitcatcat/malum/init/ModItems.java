@@ -189,7 +189,7 @@ public class ModItems
     static Item.Properties music_disc_properties = new Item.Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE);
     static Item.Properties hidden_properties = new Item.Properties().maxStackSize(1);
     @SubscribeEvent
-    public static void registerItems(final RegistryEvent.Register<Item> event)
+    public static void registerItems(RegistryEvent.Register<Item> event)
     {
         final IForgeRegistry<Item> registry = event.getRegistry();
         registry.registerAll(
@@ -250,13 +250,14 @@ public class ModItems
                 umbral_steel_excavator = setup(new ModExcavatorItem( 4, -0.4f, UMBRAL_ALLOY_ITEM, Collections.emptySet(), tool_properties.maxDamage(2000)), "umbral_steel_excavator"),
 
                 vacant_rapier = setup(new VacantRapier(ItemTier.DIAMOND, -4, 1.2f, tool_properties), "vacant_rapier"),
-                ultimate_weapon = setup(new BonkItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
+                ultimate_weapon = setup(new UltimateWeaponItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
                 bow_of_lost_souls = setup(new BowofLostSouls(tool_properties.maxDamage(576)), "bow_of_lost_souls"),
 
                 spiritwood_bark_necklace = setup(new CurioSpiritwoodNecklace(tool_properties), "spiritwood_bark_necklace"),
                 enchanted_lectern = setup(new CurioEnchantedLectern(tool_properties), "enchanted_lectern"),
                 vacant_aegis = setup(new CurioVacantAegis(tool_properties), "vacant_aegis"),
                 vampire_necklace = setup(new CurioVampireNecklace(tool_properties), "vampire_necklace"),
+                ethereal_bulwark = setup(new CurioEtherealBulwark(tool_properties), "ethereal_bulwark"),
                 necrotic_catalyst = setup(new CurioNecroticCatalyst(tool_properties), "necrotic_catalyst"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),

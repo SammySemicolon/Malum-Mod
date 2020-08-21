@@ -1,7 +1,6 @@
 package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
-import com.kittykitcatcat.malum.blocks.machines.mirror.BasicMirrorTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.HolderMirrorTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.InputMirrorTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.mirror.OutputMirrorTileEntity;
@@ -10,8 +9,7 @@ import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBotto
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarTileEntity;
 import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
-import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
-import net.minecraft.block.RedstoneTorchBlock;
+import com.kittykitcatcat.malum.blocks.utility.spiritstorage.SpiritStoringTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
@@ -19,7 +17,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
-import javax.xml.ws.Holder;
 import java.util.function.Supplier;
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

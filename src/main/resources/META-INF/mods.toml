@@ -1,17 +1,14 @@
-modLoader="javafml" #mandatory
-loaderVersion="[28,)" #mandatory (26 is current forge version)
-issueTrackerURL="http://my.issue.tracker/" #optional
-[[mods]] #mandatory
-modId="malum" #mandatory
-version="${file.jarVersion}" #mandatory
-displayName="Malum" #mandatory
-updateJSONURL="http://myurl.me/" #optional
-displayURL="http://example.com/" #optional
-logoFile="malum.png" #optional
-credits="The Modding Community" #optional
-authors="KittyKitCatCat and Queso" #optional
+modLoader="javafml"
+loaderVersion="[28,)"
+[[mods]]
+modId="malum"
+version="${file.jarVersion}"
+displayName="Malum"
+logoFile="malum.png"
+credits="The Modding Community"
+authors="The Malum Team"
 description='''
-Test
+test
 '''
 [[dependencies.malum]]
     modId="curios"

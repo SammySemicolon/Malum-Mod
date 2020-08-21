@@ -1,19 +1,14 @@
 package com.kittykitcatcat.malum;
 
-import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
+import com.kittykitcatcat.malum.blocks.utility.spiritstorage.SpiritStoringTileEntity;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
-import com.kittykitcatcat.malum.init.ModTooltips;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;

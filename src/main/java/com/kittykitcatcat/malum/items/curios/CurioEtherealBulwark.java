@@ -1,0 +1,95 @@
+
+package com.kittykitcatcat.malum.items.curios;
+
+import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.items.staves.BasicStave;
+import com.kittykitcatcat.malum.models.ModelEtherealMagic;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import top.theillusivec4.curios.api.capability.ICurio;
+
+import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
+
+public class CurioEtherealBulwark extends Item implements ICurio
+{
+    public CurioEtherealBulwark(Properties builder)
+    {
+        super(builder);
+    }
+    
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
+    {
+        return CurioProvider.createProvider(new ICurio()
+        {
+            @Override
+            public void playEquipSound(LivingEntity entityLivingBase)
+            {
+                entityLivingBase.world.playSound(null, entityLivingBase.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+            }
+            @Override
+            public boolean canRightClickEquip()
+            {
+                return true;
+            }
+    
+            @Override
+            public boolean hasRender(String identifier, LivingEntity livingEntity)
+            {
+                return true;
+            }
+    
+            private final ResourceLocation ethereal_texture =
+                    new ResourceLocation(MalumMod.MODID, "textures/other/ethereal_magic.png");
+            private Object ethereal_magic_model;
+            @Override
+            public void render(String identifier, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
+            {
+                if (livingEntity instanceof PlayerEntity)
+                {
+                    PlayerEntity playerEntity = (PlayerEntity) livingEntity;
+                    ItemStack heldItem = playerEntity.getActiveItemStack();
+                    if (heldItem.getItem() instanceof BasicStave)
+                    {
+                        float scale = Math.min(heldItem.getUseDuration() - playerEntity.getItemInUseCount(), 20) / 20f;
+                        float rotation = playerEntity.world.getGameTime() * 3f;
+                        
+                        if (!(ethereal_magic_model instanceof ModelEtherealMagic))
+                        {
+                            ethereal_magic_model = new ModelEtherealMagic();
+                        }
+                        ModelEtherealMagic magic_model = (ModelEtherealMagic) ethereal_magic_model;
+                        IVertexBuilder vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, magic_model.getRenderType(ethereal_texture), false, false);
+                        
+                        RenderHelper.translateIfSneaking(matrixStack, livingEntity);
+                        Minecraft.getInstance().getTextureManager().bindTexture(ethereal_texture);
+                        GlStateManager.enableCull();
+                        GlStateManager.enableBlend();
+
+                        matrixStack.rotate(Vector3f.YP.rotationDegrees(rotation));
+                        matrixStack.scale(scale,scale,scale);
+                        magic_model.render(matrixStack, vertexBuilder, light, NO_OVERLAY, 1.0F,
+                                1.0F, 1.0F, 0.25f);
+                        GlStateManager.disableCull();
+                        GlStateManager.disableBlend();
+                    }
+                }
+            }
+        });
+    }
+    
+}

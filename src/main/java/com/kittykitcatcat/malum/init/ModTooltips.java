@@ -32,6 +32,13 @@ public class ModTooltips
     
         addTooltip(spiritwood_stave, new TranslationTextComponent("malum.tooltip.basicstave.desc")
                 .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+        addTooltip(resonant_stave, new TranslationTextComponent("malum.tooltip.basicstave.desc")
+                .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+        addTooltip(fiery_stave, new TranslationTextComponent("malum.tooltip.basicstave.desc")
+                .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+        addTooltip(bone_stave, new TranslationTextComponent("malum.tooltip.basicstave.desc")
+                .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+        
         addTooltip(creative_spiritwood_stave, new TranslationTextComponent("malum.tooltip.creativestave.desc")
                 .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
     }

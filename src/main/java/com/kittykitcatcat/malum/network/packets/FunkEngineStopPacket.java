@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.network.packets;
 
+import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import net.minecraft.client.Minecraft;
@@ -43,14 +44,8 @@ public class FunkEngineStopPacket
                     if (tileEntity instanceof FunkEngineTileEntity)
                     {
                         FunkEngineTileEntity funkEngineTileEntity = (FunkEngineTileEntity) tileEntity;
-                        SimpleSound sound = funkEngineTileEntity.getSound();
-                        if (sound != null)
-                        {
-                            if (Minecraft.getInstance().getSoundHandler().isPlaying(sound))
-                            {
-                                Minecraft.getInstance().getSoundHandler().stop(sound);
-                            }
-                        }
+                        
+                        MalumHelper.stopPlayingSound(funkEngineTileEntity.sound);
                         funkEngineTileEntity.sound = null;
                     }
                 }));

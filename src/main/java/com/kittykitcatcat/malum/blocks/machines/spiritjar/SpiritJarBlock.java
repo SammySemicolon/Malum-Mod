@@ -1,15 +1,10 @@
 package com.kittykitcatcat.malum.blocks.machines.spiritjar;
 
-import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringBlock;
+import com.kittykitcatcat.malum.blocks.utility.spiritstorage.SpiritStoringBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.state.IntegerProperty;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
-import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
 public class SpiritJarBlock extends SpiritStoringBlock
 {

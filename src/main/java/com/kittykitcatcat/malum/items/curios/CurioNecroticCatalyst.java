@@ -46,32 +46,6 @@ public class CurioNecroticCatalyst extends Item implements ICurio, SpiritConsume
             }
         });
     }
-    
-    @Override
-    public void onCurioTick(String identifier, int index, LivingEntity livingEntity)
-    {
-    }
-    
-    @Override
-    public void onUsingTick(ItemStack stack, LivingEntity player, int count)
-    {
-        if (player instanceof PlayerEntity)
-        {
-            PlayerEntity playerEntity = (PlayerEntity) player;
-            if (playerEntity.world.getGameTime() % 10L == 0L)
-            {
-                if (playerEntity.world.rand.nextDouble() < 0.2f && playerEntity.getFoodStats().needFood())
-                {
-                    boolean success = consumeSpirit(playerEntity, stack);
-                    if (success)
-                    {
-                        playerEntity.getFoodStats().addStats(1,1);
-                    }
-                }
-            }
-        }
-    }
-    
     @Override
     public int durability()
     {

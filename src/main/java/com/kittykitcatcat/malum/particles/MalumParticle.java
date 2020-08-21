@@ -19,8 +19,8 @@ public class MalumParticle extends SimpleAnimatedParticle
     
     protected MalumParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet, ParticlePhase... phases)
     {
-        super(world, xSpeed, ySpeed, zSpeed, spriteSet, 0);
-        animationCooldown = 1;
+        super(world, x, y, z, spriteSet, 0);
+        animationCooldown = 4;
         this.phases = new ArrayList<>();
         this.phases.addAll(Arrays.asList(phases));
         this.spriteSet = spriteSet;

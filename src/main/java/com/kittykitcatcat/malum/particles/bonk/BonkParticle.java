@@ -1,45 +1,21 @@
 package com.kittykitcatcat.malum.particles.bonk;
 
+import com.kittykitcatcat.malum.particles.MalumParticle;
+import com.kittykitcatcat.malum.particles.ParticlePhase;
+import com.kittykitcatcat.malum.particles.ScalePhase;
 import net.minecraft.client.particle.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class BonkParticle extends SimpleAnimatedParticle
+public class BonkParticle extends MalumParticle
 {
-
-    private final IAnimatedSprite spriteSet;
-    protected BonkParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet)
+    protected BonkParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, float scale, IAnimatedSprite spriteSet)
     {
-        super(world, xSpeed, ySpeed, zSpeed, spriteSet, 0);
-        this.spriteSet = spriteSet;
-        motionX = xSpeed;
-        motionY = ySpeed;
-        motionZ = zSpeed;
-        selectSpriteWithAge(spriteSet);
-        setPosition(x, y, z);
-        setMaxAge(40);
+        super(world, xSpeed, ySpeed, zSpeed,x,y,z, spriteSet,
+                new ScalePhase(1,25, 0, scale,false));
+        //0-24 entrance
     }
-
-    @Override
-    public void tick()
-    {
-        super.tick();
-        selectSpriteWithAge(spriteSet);
-    }
-
-    @Override
-    public float getScale(float p_217561_1_)
-    {
-        return 1f;
-    }
-
-    @Override
-    public IParticleRenderType getRenderType()
-    {
-        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
-    }
-
 
     @OnlyIn(Dist.CLIENT)
     public static class Factory implements IParticleFactory<BonkParticleData>
@@ -53,7 +29,7 @@ public class BonkParticle extends SimpleAnimatedParticle
 
         public Particle makeParticle(BonkParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            return new BonkParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet);
+            return new BonkParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, data.scale, spriteSet);
         }
     }
 }

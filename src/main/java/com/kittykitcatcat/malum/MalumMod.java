@@ -15,6 +15,5 @@ public class MalumMod
     public static final String MODID = "malum";
     public static final Random random = new Random();
     public MalumMod() {
-        MinecraftForge.EVENT_BUS.register(this);
     }
 }

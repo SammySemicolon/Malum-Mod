@@ -10,6 +10,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -60,19 +61,13 @@ import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 
 public class MalumHelper
 {
-
+    
     //region BLOCKSTATES
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, IProperty<T> property)
     {
         return newState.with(property, oldState.get(property));
     }
 
-    public static void makeMachineToggleSound(World world, BlockPos pos, float pitch)
-    {
-        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS,1f,pitch);
-        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,pitch);
-    }
-    
     public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)
     {
         BlockState oldState = world.getBlockState(pos);
@@ -352,6 +347,7 @@ public class MalumHelper
     }
     //endregion
     
+    //region RENDERING NONSENSE
     public static void renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
     {
         if (renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(renderDispatcher.renderInfo.getProjectedView().x, renderDispatcher.renderInfo.getProjectedView().y, renderDispatcher.renderInfo.getProjectedView().z) < 128d)
@@ -484,4 +480,35 @@ public class MalumHelper
             }
         }
     }
+    //endregion
+    
+    //region SOUND MAGIC
+    
+    public static boolean playLoopingSound(SimpleSound sound)
+    {
+        if (sound != null)
+        {
+            if (!Minecraft.getInstance().getSoundHandler().isPlaying(sound))
+            {
+                Minecraft.getInstance().getSoundHandler().play(sound);
+            }
+        }
+        return sound == null;
+    }
+    public static void stopPlayingSound(SimpleSound sound)
+    {
+        if (sound != null)
+        {
+            if (Minecraft.getInstance().getSoundHandler().isPlaying(sound))
+            {
+                Minecraft.getInstance().getSoundHandler().stop(sound);
+            }
+        }
+    }
+    public static void makeMachineToggleSound(World world, BlockPos pos, float pitch)
+    {
+        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS,1f,pitch);
+        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,pitch);
+    }
+    //endregion
 }

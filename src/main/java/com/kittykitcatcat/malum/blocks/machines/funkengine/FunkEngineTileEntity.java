@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.blocks.machines.funkengine;
 
 import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
+import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTileEntities;
 import com.kittykitcatcat.malum.network.packets.FunkEngineStopPacket;
 import net.minecraft.block.BlockState;
@@ -11,6 +12,7 @@ import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,6 +27,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+import static com.kittykitcatcat.malum.MalumHelper.playLoopingSound;
+import static com.kittykitcatcat.malum.MalumHelper.stopPlayingSound;
 import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
 
 public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTileEntity
@@ -94,7 +98,25 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
         super.read(compound);
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
     }
-
+    @Override
+    public void remove()
+    {
+        stopPlayingSound(sound);
+        super.remove();
+    }
+    @Override
+    public void tick()
+    {
+        if (world.isRemote())
+        {
+            if (inventory.getStackInSlot(0).getItem() instanceof MusicDiscItem)
+            {
+                SimpleSound sound = getSound();
+                playLoopingSound(sound);
+            }
+        }
+    }
+    
     public void stopSound()
     {
         if (!world.isRemote)
@@ -107,7 +129,7 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
             }
         }
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     public SimpleSound getSound()
     {
@@ -115,9 +137,10 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
         if (stack.getItem() instanceof MusicDiscItem)
         {
             MusicDiscItem item = (MusicDiscItem) stack.getItem();
-            if (sound == null)
+            boolean success = playLoopingSound(sound);
+            if (success)
             {
-                sound = SimpleSound.record(item.getSound(), pos.getX(), pos.getY(), pos.getZ());
+                sound = new SimpleSound(item.getSound(), SoundCategory.RECORDS, 1, 1, pos);
             }
             return sound;
         }
@@ -127,23 +150,5 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
         }
         return null;
     }
-
-    @Override
-    public void tick()
-    {
-        if (world.isRemote())
-        {
-            if (inventory.getStackInSlot(0).getItem() instanceof MusicDiscItem)
-            {
-                SimpleSound sound = getSound();
-                if (sound != null)
-                {
-                    if (!Minecraft.getInstance().getSoundHandler().isPlaying(sound))
-                    {
-                        Minecraft.getInstance().getSoundHandler().play(sound);
-                    }
-                }
-            }
-        }
-    }
+    
 }

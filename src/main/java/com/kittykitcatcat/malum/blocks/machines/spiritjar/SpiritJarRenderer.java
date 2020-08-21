@@ -4,9 +4,8 @@ import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.SpiritDataHelper;
 import com.kittykitcatcat.malum.SpiritStorage;
 import com.kittykitcatcat.malum.blocks.utility.FancyRenderer;
-import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringBlock;
+import com.kittykitcatcat.malum.blocks.utility.spiritstorage.SpiritStoringBlock;
 import com.kittykitcatcat.malum.init.ModBlocks;
-import com.kittykitcatcat.malum.items.SpiritJar;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -94,29 +93,17 @@ public class SpiritJarRenderer extends TileEntityRenderer<SpiritJarTileEntity> i
         {
             BlockPos blockpos = blockEntity.getPos();
             BlockState renderState = ModBlocks.spirit_jar.getDefaultState().with(SpiritStoringBlock.TYPE, 1);
-            if (renderState.getBlock() instanceof SpiritStoringBlock)
-            {
-                float scale = blockEntity.count / (float)((SpiritStoringBlock) renderState.getBlock()).capacity();
-                matrixStack.push();
-                matrixStack.scale(1,scale,1);
-                RenderType renderType = RenderTypeLookup.getRenderType(renderState);
-                setRenderLayer(renderType);
-                BlockRendererDispatcher blockDispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
+            float scale = blockEntity.count / (float) ((SpiritStoringBlock) renderState.getBlock()).capacity();
+            matrixStack.push();
+            matrixStack.scale(0.8f, scale * 0.8f, 0.8f);
+            matrixStack.translate(0.2, 0, 0.2);
+            RenderType renderType = RenderTypeLookup.getRenderType(renderState);
+            setRenderLayer(renderType);
+            BlockRendererDispatcher blockDispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
     
-                blockDispatcher.getBlockModelRenderer().renderModel(
-                        blockEntity.getWorld(),
-                        blockDispatcher.getModelForState(renderState),
-                        renderState,
-                        blockpos,
-                        matrixStack,
-                        iRenderTypeBuffer.getBuffer(renderType),
-                        false,
-                        MalumMod.random,
-                        renderState.getPositionRandom(blockpos),
-                        OverlayTexture.NO_OVERLAY,
-                        net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
-                matrixStack.pop();
-            }
+            blockDispatcher.getBlockModelRenderer().renderModel(blockEntity.getWorld(), blockDispatcher.getModelForState(renderState), renderState, blockpos, matrixStack, iRenderTypeBuffer.getBuffer(renderType), false, blockEntity.getWorld().rand, renderState.getPositionRandom(blockpos), OverlayTexture.NO_OVERLAY, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
+            matrixStack.pop();
+            
         }
     }
 }

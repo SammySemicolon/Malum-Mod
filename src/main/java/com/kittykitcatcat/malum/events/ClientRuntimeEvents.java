@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class ClientRuntimeEvents
 {
-
     @SubscribeEvent
     public static void addSpiritTooltips(ItemTooltipEvent event)
     {

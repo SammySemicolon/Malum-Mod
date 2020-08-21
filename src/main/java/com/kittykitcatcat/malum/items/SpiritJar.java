@@ -2,7 +2,7 @@ package com.kittykitcatcat.malum.items;
 
 import com.kittykitcatcat.malum.SpiritDataHelper;
 import com.kittykitcatcat.malum.SpiritStorage;
-import com.kittykitcatcat.malum.blocks.utility.soulstorage.SpiritStoringTileEntity;
+import com.kittykitcatcat.malum.blocks.utility.spiritstorage.SpiritStoringTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;

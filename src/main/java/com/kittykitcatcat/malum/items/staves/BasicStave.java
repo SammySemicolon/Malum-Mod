@@ -73,7 +73,7 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
 
     //region HARVESTING
 
-    public static boolean isEntityValid(PlayerEntity playerEntity, LivingEntity livingEntity)
+    public boolean isEntityValid(PlayerEntity playerEntity, LivingEntity livingEntity)
     {
         if (livingEntity.getHealth() > playerEntity.getHealth() && !playerEntity.isCreative())
         {
@@ -93,7 +93,20 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
             {
                 if (entity instanceof LivingEntity)
                 {
-                    if (isEntityValid(player, (LivingEntity) entity))
+                    BasicStave stave = null;
+                    if (player.getHeldItemMainhand().getItem() instanceof BasicStave)
+                    {
+                        stave = (BasicStave) player.getHeldItemMainhand().getItem();
+                    }
+                    if (player.getHeldItemOffhand().getItem() instanceof BasicStave)
+                    {
+                        stave = (BasicStave) player.getHeldItemOffhand().getItem();
+                    }
+                    if (stave == null)
+                    {
+                        return null;
+                    }
+                    if (stave.isEntityValid(player, (LivingEntity) entity))
                     {
                         Vec3d vecA = player.getLookVec().normalize();
                         Vec3d vecB = (entity.getPositionVec().subtract(player.getPositionVec())).normalize();
@@ -155,7 +168,6 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (!playerIn.isSneaking())
         {
-            playerIn.world.playSound(null, playerIn.getPosition(),ModSounds.spirit_harvest_drain, PLAYERS, 1,1);
             playerIn.setActiveHand(handIn);
         }
         else if (effect != null)
