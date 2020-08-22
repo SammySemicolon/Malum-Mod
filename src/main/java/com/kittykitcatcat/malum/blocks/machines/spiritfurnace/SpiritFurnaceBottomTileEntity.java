@@ -1,21 +1,17 @@
 package com.kittykitcatcat.malum.blocks.machines.spiritfurnace;
 
-import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.ClientHandler;
 import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTileEntities;
-import com.kittykitcatcat.malum.particles.skull.SkullParticleData;
 import com.kittykitcatcat.malum.particles.spiritflame.SpiritFlameParticleData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceFuelData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -27,15 +23,16 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.lang.reflect.Array;
 import java.util.Objects;
 
 import static com.kittykitcatcat.malum.MalumHelper.*;
@@ -51,7 +48,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
     public int burnTime;
     public int burnProgress;
     public boolean isSmelting;
-    public SimpleSound sound;
+    public Object sound;
     
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
@@ -118,7 +115,10 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
     @Override
     public void remove()
     {
-        stopPlayingSound(sound);
+        if (world.isRemote())
+        {
+            ClientHandler.spiritFurnaceStop(this);
+        }
         super.remove();
     }
     
@@ -131,9 +131,29 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             SpiritFurnaceTopTileEntity topTileEntity = (SpiritFurnaceTopTileEntity) world.getTileEntity(topPos);
             ItemStack fuelItem = inventory.getStackInSlot(0);
             ItemStack inputItem = topTileEntity.inventory.getStackInSlot(0);
-            
-            soundAndParticles();
-            
+    
+            if (isSmelting)
+            {
+                if (world.isRemote())
+                {
+                    ClientHandler.spiritFurnaceTick(this);
+                }
+                if (world.getGameTime() % 4L == 0L)
+                {
+                    spawnTopSmoke();
+                }
+                if (world.getGameTime() % 8L == 0L)
+                {
+                    spawnTopSpiritFlame();
+                }
+            }
+            if (burnTime > 0)
+            {
+                if (world.getGameTime() % 3L == 0L)
+                {
+                    spawnSpiritFlame();
+                }
+            }
             if (ModRecipes.getSpiritFurnaceRecipe(inputItem) != null)
             {
                 SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputItem);
@@ -182,39 +202,6 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             burnTime--;
         }
     }
-    public void soundAndParticles()
-    {
-        if (isSmelting)
-        {
-            boolean success = playLoopingSound(sound);
-            if (success)
-            {
-                sound = new SimpleSound(ModSounds.furnace_loop, SoundCategory.BLOCKS, 1, 1, pos);
-            }
-    
-            if (world.getGameTime() % 4L == 0L)
-            {
-                spawnTopSmoke();
-            }
-            if (world.getGameTime() % 8L == 0L)
-            {
-                spawnTopSpiritFlame();
-            }
-        }
-        else
-        {
-            stopPlayingSound(sound);
-            sound = null;
-        }
-        if (burnTime > 0)
-        {
-            if (world.getGameTime() % 3L == 0L)
-            {
-                spawnSpiritFlame();
-            }
-        }
-    }
-    
     public void updateState(boolean isSmelting)
     {
         if (this.isSmelting != isSmelting)
@@ -238,9 +225,11 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             }
             else
             {
-                stopPlayingSound(sound);
+                if (FMLEnvironment.dist == Dist.CLIENT)
+                {
+                    ClientHandler.spiritFurnaceStop(this);
+                }
                 world.playSound(null, pos, ModSounds.furnace_stop, SoundCategory.BLOCKS,1,1);
-                sound = null;
             }
         }
     }

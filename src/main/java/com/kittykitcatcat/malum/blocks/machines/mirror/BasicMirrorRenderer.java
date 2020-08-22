@@ -1,6 +1,6 @@
 package com.kittykitcatcat.malum.blocks.machines.mirror;
 
-import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.ClientHandler;
 import com.kittykitcatcat.malum.blocks.utility.FancyRenderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
@@ -12,8 +12,6 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.AttachFace;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -24,9 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.MalumHelper.*;
-import static com.kittykitcatcat.malum.MalumHelper.makeImportantComponent;
-import static com.kittykitcatcat.malum.MalumHelper.renderTEdataInTheCoolFancyWay;
+import static com.kittykitcatcat.malum.ClientHandler.makeImportantComponent;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 import static net.minecraft.state.properties.AttachFace.*;
 import static net.minecraft.state.properties.BlockStateProperties.*;
@@ -88,7 +84,7 @@ public class BasicMirrorRenderer extends TileEntityRenderer<BasicMirrorTileEntit
             ArrayList<ITextComponent> components = new ArrayList<>();
             components.add(new TranslationTextComponent("malum.tooltip.transferamount").appendSibling(makeImportantComponent("" + blockEntity.transferAmounts[blockEntity.transferAmount], true)));
     
-            renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
+            ClientHandler.renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
         }
         if (this.renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(this.renderDispatcher.renderInfo.getProjectedView().x, this.renderDispatcher.renderInfo.getProjectedView().y, this.renderDispatcher.renderInfo.getProjectedView().z) < 128d)
         {

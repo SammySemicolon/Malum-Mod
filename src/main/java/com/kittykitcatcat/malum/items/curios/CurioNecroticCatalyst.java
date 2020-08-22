@@ -5,7 +5,6 @@ import com.kittykitcatcat.malum.SpiritConsumer;
 import com.kittykitcatcat.malum.SpiritDataHelper;
 import com.kittykitcatcat.malum.SpiritDescription;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -13,13 +12,11 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.ICurio;
 
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.SpiritDataHelper.consumeSpirit;
-import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericSpiritDependantTooltip;
+import static com.kittykitcatcat.malum.ClientHandler.makeGenericSpiritDependantTooltip;
 
 public class CurioNecroticCatalyst extends Item implements ICurio, SpiritConsumer, SpiritDescription
 {

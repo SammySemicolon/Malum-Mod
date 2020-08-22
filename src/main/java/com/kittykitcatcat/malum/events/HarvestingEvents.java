@@ -1,7 +1,6 @@
 package com.kittykitcatcat.malum.events;
 
-import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.ClientHandler;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.items.staves.BasicStave;
 import net.minecraft.client.Minecraft;
@@ -13,16 +12,11 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 
-import static com.kittykitcatcat.malum.MalumHelper.playLoopingSound;
 import static com.kittykitcatcat.malum.SpiritDataHelper.*;
 import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.getCachedTarget;
 import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.setCachedTarget;
@@ -38,23 +32,34 @@ public class HarvestingEvents
     {
         if (getCachedTarget(playerEntity) == null) //shut the fuck up
         {
-            playerEntity.swingArm(playerEntity.getActiveHand());
-            playerEntity.world.playSound(null, playerEntity.getPosition(), ModSounds.spirit_harvest_failure, PLAYERS, 1f, 1);
-            MalumHelper.stopPlayingSound(sound);
-            playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 10);
-            playerEntity.resetActiveHand();
+            cancel(playerEntity, stack);
             return true;
         }
         return false;
     }
+    public static void cancel(PlayerEntity playerEntity, ItemStack stack)
+    {
+        playerEntity.swingArm(playerEntity.getActiveHand());
+        
+        playerEntity.world.playSound(null, playerEntity.getPosition(), ModSounds.spirit_harvest_failure, PLAYERS, 1f, 1);
+        if (playerEntity.world.isRemote())
+        {
+            ClientHandler.spiritHarvestStop();
+        }
+        playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 10);
+        playerEntity.resetActiveHand();
+    }
     public static void success(PlayerEntity playerEntity, ItemStack stack, LivingEntity cachedTarget)
     {
-        playerEntity.world.playSound(playerEntity,playerEntity.getPosition(), ModSounds.spirit_harvest_success, PLAYERS,1f,1);
+        playerEntity.world.playSound(null,playerEntity.getPosition(), ModSounds.spirit_harvest_success, PLAYERS,1f,1);
+        
         setHusk(cachedTarget, true);
         harvestSpirit(playerEntity, getSpirit(cachedTarget), 1);
         setCachedTarget(playerEntity, findEntity(playerEntity));
         playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
         playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 40);
+        playerEntity.resetActiveHand();
+    
     }
     @SubscribeEvent
     public static void updateCachedTarget(PlayerEvent.LivingUpdateEvent event)
@@ -117,11 +122,6 @@ public class HarvestingEvents
                 {
                     event.setCanceled(true);
                 }
-                else
-                {
-                    sound = new SimpleSound(ModSounds.spirit_harvest_drain, SoundCategory.RECORDS, 1, 1, player.getPosition());
-                    Minecraft.getInstance().getSoundHandler().play(sound);
-                }
             }
         }
     }
@@ -140,8 +140,11 @@ public class HarvestingEvents
                 }
                 if ((heldItem.getUseDuration() - player.getItemInUseCount()) > 100)
                 {
-                    success(player, heldItem, getCachedTarget(player));
-                    event.setCanceled(true);
+                    if (!tryCancel(player, heldItem))
+                    {
+                        success(player, heldItem, getCachedTarget(player));
+                        event.setCanceled(true);
+                    }
                 }
             }
         }
@@ -154,7 +157,7 @@ public class HarvestingEvents
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (player.getActiveItemStack().getItem() instanceof BasicStave)
             {
-                tryCancel(player,player.getActiveItemStack());
+                cancel(player, player.getActiveItemStack());
             }
         }
     }

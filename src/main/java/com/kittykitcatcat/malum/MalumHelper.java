@@ -1,33 +1,16 @@
 package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
-import com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity;
-import com.kittykitcatcat.malum.blocks.utility.FancyRenderer;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModSounds;
-import com.kittykitcatcat.malum.recipes.SpiritFurnaceFuelData;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -35,29 +18,19 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static com.kittykitcatcat.malum.MalumMod.random;
-import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 
 public class MalumHelper
 {
@@ -88,7 +61,7 @@ public class MalumHelper
     //endregion
     
     //region TE STACK HANDLING
-    public static boolean funkyItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
+    public static boolean basicTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
     {
         ItemStackHandler inventory = funkEngineTileEntity.inventory;
         ItemStack targetItem = inventory.getStackInSlot(slot);
@@ -103,7 +76,6 @@ public class MalumHelper
         }
         else
         {
-            funkEngineTileEntity.stopSound();
             MalumHelper.giveItemStackToPlayer(player, targetItem);
             inventory.setStackInSlot(0,ItemStack.EMPTY);
             return false;
@@ -291,39 +263,6 @@ public class MalumHelper
     }
     //endregion
     
-    //region TOOLTIP THINGIES
-    @OnlyIn(Dist.CLIENT)
-    public static void makeTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, ArrayList<ITextComponent> components)
-    {
-        if (!Screen.hasShiftDown())
-        {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").applyTextStyle(TextFormatting.GRAY)
-                    .appendSibling(makeImportantComponent("malum.tooltip.sneak", false)));
-        }
-        else
-        {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").applyTextStyle(TextFormatting.WHITE)
-                    .appendSibling(makeImportantComponent("malum.tooltip.sneak", true)));
-            tooltip.addAll(components);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static ITextComponent makeImportantComponent(String message, boolean litUp)
-    {
-        if (litUp)
-        {
-            return new StringTextComponent("[").applyTextStyle(TextFormatting.WHITE)
-                    .appendSibling(new TranslationTextComponent(message).applyTextStyle(TextFormatting.LIGHT_PURPLE))
-                    .appendSibling(new StringTextComponent("] ").applyTextStyle(TextFormatting.WHITE)).applyTextStyle(TextFormatting.BOLD);
-        }
-        else
-        {
-            return new StringTextComponent("[").applyTextStyle(TextFormatting.GRAY)
-                    .appendSibling(new TranslationTextComponent(message).applyTextStyle(TextFormatting.DARK_PURPLE))
-                    .appendSibling(new StringTextComponent("] ").applyTextStyle(TextFormatting.GRAY)).applyTextStyle(TextFormatting.BOLD);
-        }
-    }
     //endregion
     
     //region ENTITY STUFF
@@ -347,164 +286,10 @@ public class MalumHelper
     }
     //endregion
     
-    //region RENDERING NONSENSE
-    public static void renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
-    {
-        if (renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(renderDispatcher.renderInfo.getProjectedView().x, renderDispatcher.renderInfo.getProjectedView().y, renderDispatcher.renderInfo.getProjectedView().z) < 128d)
-        {
-            Minecraft minecraft = Minecraft.getInstance();
-            World world = minecraft.world;
-            if (minecraft.objectMouseOver == null || world == null)
-            {
-                return;
-            }
-            if (minecraft.objectMouseOver.getType().equals(BLOCK))
-            {
-                BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
-                if (renderer.lookingAtPos() == null || !renderer.lookingAtPos().equals(mouseOver.getPos()))
-                {
-                    renderer.setLookingAtPos( mouseOver.getPos());
-                    renderer.setTime(0);
-                }
-                if (world.getTileEntity(mouseOver.getPos()) != null)
-                {
-                    if (world.getTileEntity(mouseOver.getPos()).equals(blockEntity))
-                    {
-                        TileEntity tileEntity = world.getTileEntity(mouseOver.getPos());
-                        if (tileEntity.getPos().equals(blockEntity.getPos()))
-                        {
-                            if (renderer.lookingAtPos() != null && renderer.lookingAtPos().equals(mouseOver.getPos()) && renderer.time() < 1)
-                            {
-                                renderer.setTime(renderer.time() + 0.1f);
-                            }
-                            FontRenderer fontrenderer = renderDispatcher.getFontRenderer();
-                            float spacing = 0.2f;
-                            int current = components.size() + 1;
-                            for (ITextComponent component : components)
-                            {
-                                String text = component.getFormattedText();
-                                float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
-                                matrixStack.push();
-                                
-                                Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-                                
-                                matrixStack.translate(0.5, 0.5, 0.5);
-                                
-                                matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
-                                float positionOffset = current * spacing - (float)components.size() * spacing / 2;
-                                matrixStack.translate(0, positionOffset, 0);
-                                
-                                matrixStack.scale(-0.025F * renderer.time(), -0.025F * renderer.time(), 0.025F * renderer.time());
-                                
-                                fontrenderer.renderString(text, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
-                                
-                                matrixStack.pop();
-                                current--;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                renderer.setLookingAtPos(null);
-                renderer.setTime(0);
-            }
-        }
-    }
-    public static void renderTEdataInTheCoolFancyWay(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
-    {
-        if (renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(renderDispatcher.renderInfo.getProjectedView().x, renderDispatcher.renderInfo.getProjectedView().y, renderDispatcher.renderInfo.getProjectedView().z) < 128d)
-        {
-            Minecraft minecraft = Minecraft.getInstance();
-            World world = minecraft.world;
-            if (minecraft.objectMouseOver == null || world == null)
-            {
-                return;
-            }
-            if (minecraft.objectMouseOver.getType().equals(BLOCK))
-            {
-                BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
-                if ((renderer.lookingAtFace() == null || !renderer.lookingAtFace().equals(mouseOver.getFace())) || (renderer.lookingAtPos() == null || !renderer.lookingAtPos().equals(mouseOver.getPos())))
-                {
-                    renderer.setLookingAtFace( mouseOver.getFace());
-                    renderer.setLookingAtPos( mouseOver.getPos());
-                    renderer.setTime(0);
-                }
-                if (world.getTileEntity(mouseOver.getPos()) != null)
-                {
-                    if (world.getTileEntity(mouseOver.getPos()).equals(blockEntity))
-                    {
-                        TileEntity tileEntity = world.getTileEntity(mouseOver.getPos());
-                        Vector3f direction = mouseOver.getFace().toVector3f();
-                        if (tileEntity.getPos().equals(blockEntity.getPos()))
-                        {
-                            if (renderer.lookingAtPos() != null && renderer.lookingAtPos().equals(mouseOver.getPos()) && renderer.time() < 1)
-                            {
-                                renderer.setTime(renderer.time() + 0.1f);
-                            }
-                            FontRenderer fontrenderer = renderDispatcher.getFontRenderer();
-                            float spacing = 0.2f;
-                            int current = components.size() + 1;
-                            for (ITextComponent component : components)
-                            {
-                                String text = component.getFormattedText();
-                                float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
-                                matrixStack.push();
-                
-                                Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-                
-                                matrixStack.translate(0.5, 0.5, 0.5);
-                
-                                matrixStack.translate(direction.getX(), direction.getY(), direction.getZ());
-                                
-                                matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
-                                float positionOffset = current * spacing - (float)components.size() * spacing / 2;
-                                matrixStack.translate(0, positionOffset, 0);
-                
-                                matrixStack.scale(-0.025F * renderer.time(), -0.025F * renderer.time(), 0.025F * renderer.time());
-                
-                                fontrenderer.renderString(text, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
-                
-                                matrixStack.pop();
-                                current--;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                renderer.setLookingAtPos(null);
-                renderer.setTime(0);
-            }
-        }
-    }
     //endregion
     
     //region SOUND MAGIC
     
-    public static boolean playLoopingSound(SimpleSound sound)
-    {
-        if (sound != null)
-        {
-            if (!Minecraft.getInstance().getSoundHandler().isPlaying(sound))
-            {
-                Minecraft.getInstance().getSoundHandler().play(sound);
-            }
-        }
-        return sound == null;
-    }
-    public static void stopPlayingSound(SimpleSound sound)
-    {
-        if (sound != null)
-        {
-            if (Minecraft.getInstance().getSoundHandler().isPlaying(sound))
-            {
-                Minecraft.getInstance().getSoundHandler().stop(sound);
-            }
-        }
-    }
     public static void makeMachineToggleSound(World world, BlockPos pos, float pitch)
     {
         world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS,1f,pitch);

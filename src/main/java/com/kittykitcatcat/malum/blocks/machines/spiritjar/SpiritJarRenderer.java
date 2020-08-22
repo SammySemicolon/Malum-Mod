@@ -1,6 +1,5 @@
 package com.kittykitcatcat.malum.blocks.machines.spiritjar;
 
-import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.SpiritDataHelper;
 import com.kittykitcatcat.malum.SpiritStorage;
 import com.kittykitcatcat.malum.blocks.utility.FancyRenderer;
@@ -24,8 +23,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.MalumHelper.makeImportantComponent;
-import static com.kittykitcatcat.malum.MalumHelper.renderTEdataInTheCoolFancyWay;
+import static com.kittykitcatcat.malum.ClientHandler.makeImportantComponent;
+import static com.kittykitcatcat.malum.ClientHandler.renderTEdataInTheCoolFancyWay;
 import static com.kittykitcatcat.malum.SpiritDataHelper.getName;
 import static net.minecraftforge.client.ForgeHooksClient.*;
 

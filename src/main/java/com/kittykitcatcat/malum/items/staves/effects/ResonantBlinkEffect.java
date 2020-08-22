@@ -1,24 +1,21 @@
 package com.kittykitcatcat.malum.items.staves.effects;
 
 import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.SpiritDataHelper;
 import com.kittykitcatcat.malum.particles.lensmagic.LensMagicParticleData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 import static com.kittykitcatcat.malum.MalumMod.random;
 import static com.kittykitcatcat.malum.SpiritDataHelper.consumeSpirit;
-import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericSpiritDependantTooltip;
+import static com.kittykitcatcat.malum.ClientHandler.makeGenericSpiritDependantTooltip;
 
 @Nullable
 public class ResonantBlinkEffect extends ModEffect

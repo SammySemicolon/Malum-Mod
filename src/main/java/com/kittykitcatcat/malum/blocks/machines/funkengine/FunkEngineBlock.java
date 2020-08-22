@@ -1,12 +1,9 @@
 package com.kittykitcatcat.malum.blocks.machines.funkengine;
 
 import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -77,7 +74,7 @@ public class FunkEngineBlock extends Block
                 {
                     FunkEngineTileEntity funkEngineTileEntity = (FunkEngineTileEntity) worldIn.getTileEntity(pos);
                     ItemStack stack = player.getHeldItemMainhand();
-                    boolean value = MalumHelper.funkyItemTEHandling(player, handIn, stack, funkEngineTileEntity, 0);
+                    boolean value = MalumHelper.basicTEHandling(player, handIn, stack, funkEngineTileEntity, 0);
                     BlockState newState = state.with(HAS_RECORD, value);
                     worldIn.setBlockState(pos, newState);
                     player.world.notifyBlockUpdate(pos, state, newState, 3);

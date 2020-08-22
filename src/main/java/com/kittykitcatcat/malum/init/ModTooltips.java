@@ -1,6 +1,6 @@
 package com.kittykitcatcat.malum.init;
 
-import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.ClientHandler;
 import net.minecraft.item.Item;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -28,19 +28,19 @@ public class ModTooltips
         tooltips = new HashMap<>();
         addTooltip(funk_engine, new TranslationTextComponent("malum.tooltip.funkengine.desc"),
                 new TranslationTextComponent("malum.tooltip.funkengine.effect.a")
-                        .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.funkengine.effect.b", true)));
+                        .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.funkengine.effect.b", true)));
     
         addTooltip(spiritwood_stave, new TranslationTextComponent("malum.tooltip.basicstave.desc")
-                .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+                .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
         addTooltip(resonant_stave, new TranslationTextComponent("malum.tooltip.basicstave.desc")
-                .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+                .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
         addTooltip(fiery_stave, new TranslationTextComponent("malum.tooltip.basicstave.desc")
-                .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+                .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
         addTooltip(bone_stave, new TranslationTextComponent("malum.tooltip.basicstave.desc")
-                .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+                .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
         
         addTooltip(creative_spiritwood_stave, new TranslationTextComponent("malum.tooltip.creativestave.desc")
-                .appendSibling(MalumHelper.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
+                .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.basicstave.effect", true)));
     }
     public static void addTooltip(Item item, ITextComponent... components)
     {

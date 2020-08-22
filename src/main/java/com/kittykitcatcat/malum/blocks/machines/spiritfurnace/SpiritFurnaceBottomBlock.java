@@ -35,7 +35,6 @@ public class SpiritFurnaceBottomBlock extends Block
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, false));
     }
-    //region stupid things i have to put here
     @Override
     public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
     {

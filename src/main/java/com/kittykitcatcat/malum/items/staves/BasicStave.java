@@ -1,5 +1,6 @@
 package com.kittykitcatcat.malum.items.staves;
 
+import com.kittykitcatcat.malum.ClientHandler;
 import com.kittykitcatcat.malum.SpiritConsumer;
 import com.kittykitcatcat.malum.SpiritDescription;
 import com.kittykitcatcat.malum.init.ModSounds;
@@ -168,6 +169,10 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (!playerIn.isSneaking())
         {
+            if (worldIn.isRemote())
+            {
+                ClientHandler.spiritHarvestStart(playerIn);
+            }
             playerIn.setActiveHand(handIn);
         }
         else if (effect != null)

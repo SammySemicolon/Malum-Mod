@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import static com.kittykitcatcat.malum.MalumMod.random;
 import static com.kittykitcatcat.malum.SpiritDataHelper.consumeSpirit;
-import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericSpiritDependantTooltip;
+import static com.kittykitcatcat.malum.ClientHandler.makeGenericSpiritDependantTooltip;
 
 @Nullable
 public class MatingEffect extends ModEffect

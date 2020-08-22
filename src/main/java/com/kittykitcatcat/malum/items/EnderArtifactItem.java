@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 
 import static com.kittykitcatcat.malum.SpiritDataHelper.consumeSpirit;
-import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericSpiritDependantTooltip;
+import static com.kittykitcatcat.malum.ClientHandler.makeGenericSpiritDependantTooltip;
 import static net.minecraft.block.EnderChestBlock.CONTAINER_NAME;
 
 public class EnderArtifactItem extends Item implements SpiritConsumer, SpiritDescription

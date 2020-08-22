@@ -11,9 +11,6 @@ import net.minecraft.util.text.ITextComponent;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.SpiritDataHelper.consumeSpirit;
-import static com.kittykitcatcat.malum.SpiritDataHelper.simulatedConsumeSpirit;
-
 @Nullable
 public abstract class ModEffect implements SpiritConsumer, SpiritDescription
 {

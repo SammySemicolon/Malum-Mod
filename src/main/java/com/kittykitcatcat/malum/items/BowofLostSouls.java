@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericSpiritDependantTooltip;
+import static com.kittykitcatcat.malum.ClientHandler.makeGenericSpiritDependantTooltip;
 
 public class BowofLostSouls extends ShootableItem implements SpiritConsumer, SpiritDescription
 {

@@ -25,8 +25,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.kittykitcatcat.malum.MalumHelper.makeImportantComponent;
-
 public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnaceRecipe>
 {
     public static final ResourceLocation UID = new ResourceLocation(MalumMod.MODID, "spirit_furnace");

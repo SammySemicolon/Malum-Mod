@@ -1,6 +1,6 @@
 package com.kittykitcatcat.malum.events;
 
-import com.kittykitcatcat.malum.SpiritDataHelper;
+import com.kittykitcatcat.malum.ClientHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,7 +15,7 @@ public class ClientRuntimeEvents
     {
         if (event.getPlayer() != null)
         {
-            SpiritDataHelper.makeSpiritTooltip(event.getItemStack(), event.getPlayer().world, event.getToolTip(), event.getFlags());
+            ClientHandler.makeSpiritTooltip(event.getItemStack(), event.getPlayer().world, event.getToolTip(), event.getFlags());
         }
     }
 }

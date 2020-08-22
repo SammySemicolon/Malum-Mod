@@ -1,49 +1,30 @@
 package com.kittykitcatcat.malum.events;
 
 import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.SpiritDataHelper;
-import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.items.BowofLostSouls;
 import com.kittykitcatcat.malum.items.curios.*;
 import com.kittykitcatcat.malum.items.staves.BasicStave;
 import com.kittykitcatcat.malum.network.packets.HuskChangePacket;
 import com.kittykitcatcat.malum.particles.skull.SkullParticleData;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 import top.theillusivec4.curios.api.CuriosAPI;
 
-import java.util.Optional;
-
 import static com.kittykitcatcat.malum.MalumMod.random;
-import static com.kittykitcatcat.malum.SpiritDataHelper.*;
-import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.getCachedTarget;
-import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.setCachedTarget;
-import static com.kittykitcatcat.malum.items.staves.BasicStave.findEntity;
+import static com.kittykitcatcat.malum.SpiritDataHelper.consumeSpirit;
+import static com.kittykitcatcat.malum.SpiritDataHelper.getHusk;
 import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
-import static net.minecraft.util.SoundCategory.PLAYERS;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber()

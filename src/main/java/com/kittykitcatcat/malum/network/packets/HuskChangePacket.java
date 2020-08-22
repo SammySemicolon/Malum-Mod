@@ -1,15 +1,13 @@
 package com.kittykitcatcat.malum.network.packets;
 
-import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
+
+import static com.kittykitcatcat.malum.ClientHandler.setHusk;
 
 public class HuskChangePacket
 {
@@ -33,14 +31,7 @@ public class HuskChangePacket
         context.get().enqueueWork(() ->
                 DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
                 {
-                    World world = Minecraft.getInstance().world;
-                    if (world != null)
-                    {
-                        if (world.getEntityByID(id) instanceof LivingEntity)
-                        {
-                            CapabilityValueGetter.setHusk((LivingEntity) world.getEntityByID(id), value);
-                        }
-                    }
+                    setHusk(id, value);
                 }));
         context.get().setPacketHandled(true);
     }

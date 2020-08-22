@@ -26,9 +26,6 @@ public class NetworkManager
     public static void registerNetworkStuff(FMLCommonSetupEvent event)
     {
         int index = 0;
-        INSTANCE.registerMessage(index++, FurnaceSoundStartPacket.class, FurnaceSoundStartPacket::encode, FurnaceSoundStartPacket::decode, FurnaceSoundStartPacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, FurnaceSoundStopPacket.class, FurnaceSoundStopPacket::encode, FurnaceSoundStopPacket::decode, FurnaceSoundStopPacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, HuskChangePacket.class, HuskChangePacket::encode, HuskChangePacket::decode, HuskChangePacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, FunkEngineStopPacket.class, FunkEngineStopPacket::encode, FunkEngineStopPacket::decode, FunkEngineStopPacket::whenThisPacketIsReceived);
     }
 }

@@ -15,8 +15,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.MalumHelper.makeImportantComponent;
-import static com.kittykitcatcat.malum.MalumHelper.renderTEdataInTheCoolFancyWay;
+import static com.kittykitcatcat.malum.ClientHandler.makeImportantComponent;
+import static com.kittykitcatcat.malum.ClientHandler.renderTEdataInTheCoolFancyWay;
 
 @OnlyIn(value = Dist.CLIENT)
 public class FunkEngineRenderer extends TileEntityRenderer<FunkEngineTileEntity> implements FancyRenderer

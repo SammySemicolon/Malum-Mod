@@ -16,7 +16,7 @@ import top.theillusivec4.curios.api.capability.ICurio;
 
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.SpiritDataHelper.makeGenericSpiritDependantTooltip;
+import static com.kittykitcatcat.malum.ClientHandler.makeGenericSpiritDependantTooltip;
 
 public class CurioVampireNecklace extends Item implements ICurio, SpiritConsumer, SpiritDescription
 {
