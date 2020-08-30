@@ -62,7 +62,7 @@ public class CurioVampireNecklace extends Item implements ICurio, SpiritConsumer
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.vampirenecklace.effect", SpiritDataHelper.getName(spirit())));
+        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.vampire_necklace.effect", SpiritDataHelper.getName(spirit())));
         return components;
     }
 }

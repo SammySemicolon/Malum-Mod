@@ -28,7 +28,7 @@ public class ModItemTiers
         24);
 
     public static final ArmorTier SPIRITED_STEEL_ARMOR = new ArmorTier(
-            "soul_crystal",
+            "spirited_steel_armor",
             18,
             new int[]{2, 5, 7, 2},
             16,
@@ -37,7 +37,7 @@ public class ModItemTiers
             () -> Ingredient.fromItems(ModItems.spirited_steel_ingot));
 
     public static final ArmorTier SPIRIT_HUNTER_ARMOR = new ArmorTier(
-            "soul_crystal",
+            "spirit_hunter_armor",
             18,
             new int[]{2, 4, 6, 1},
             32,
@@ -46,7 +46,7 @@ public class ModItemTiers
             () -> Ingredient.fromItems(ModItems.spirit_fabric));
 
     public static final ArmorTier UMBRAL_ALLOY_ARMOR = new ArmorTier(
-            "soul_steel",
+            "umbral_alloy_armor",
             25,
             new int[]{7, 10, 8, 5},
             24,

@@ -16,16 +16,13 @@ public class CapabilityData
     public void saveNBTData(CompoundNBT compound)
     {
         compound.putBoolean("husk", husk);
+        compound.putBoolean("rogue", rogue);
+        
     }
     public void loadNBTData(CompoundNBT compound)
     {
         husk = compound.getBoolean("husk");
-    }
-
-    public float spiritIntegrityMultiplier;
-    public float getSpiritIntegrityMultiplier()
-    {
-        return spiritIntegrityMultiplier;
+        rogue = compound.getBoolean("rogue");
     }
 
     public LivingEntity cachedTarget;
@@ -35,15 +32,18 @@ public class CapabilityData
         return cachedTarget;
     }
 
-    public int extraSpirits;
-    public int getExtraSpirits()
-    {
-        return extraSpirits;
-    }
-
     boolean husk;
+    
     public boolean getHusk()
     {
         return husk;
     }
+    
+    public boolean rogue;
+    
+    public boolean getRogue()
+    {
+        return rogue;
+    }
+    
 }

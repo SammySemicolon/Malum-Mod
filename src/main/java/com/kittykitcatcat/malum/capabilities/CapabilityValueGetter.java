@@ -4,9 +4,13 @@ import com.kittykitcatcat.malum.network.packets.HuskChangePacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.TargetGoal;
+import net.minecraft.util.EntityPredicates;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import static com.kittykitcatcat.malum.network.NetworkManager.INSTANCE;
@@ -15,35 +19,30 @@ public class CapabilityValueGetter
 {
     @CapabilityInject(CapabilityData.class)
     public static Capability<CapabilityData> CAPABILITY;
-
-    public static int getExtraSpirits(LivingEntity player)
+    public static LazyOptional<LivingEntity> getCachedTarget(LivingEntity player)
     {
-        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getExtraSpirits).orElse(1);
-    }
-    public static void setExtraSpirits(Entity playerEntity, int extraSpirits)
-    {
-        playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note -> note.extraSpirits = extraSpirits);
-    }
-
-    public static float getSpiritIntegrityMultiplier(LivingEntity player)
-    {
-        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getSpiritIntegrityMultiplier).orElse(1f);
-    }
-    public static void setSpiritIntegrityMultiplier(Entity playerEntity, float spiritIntegrityMultiplier)
-    {
-        playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note -> note.spiritIntegrityMultiplier = spiritIntegrityMultiplier);
-    }
-
-
-    public static LivingEntity getCachedTarget(LivingEntity player)
-    {
-        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getCachedTarget).orElse(null);
+        return player.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getCachedTarget);
     }
     public static void setCachedTarget(Entity playerEntity, LivingEntity cachedTarget)
     {
         playerEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note -> note.cachedTarget = cachedTarget);
     }
-
+    
+    public static boolean getRogue(LivingEntity livingEntity)
+    {
+        return livingEntity.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getHusk).orElse(false);
+    }
+    public static void setRogue(LivingEntity livingEntity, boolean rouge)
+    {
+        livingEntity.getCapability(CapabilityValueGetter.CAPABILITY).ifPresent(note -> note.rogue = rouge);
+        if (livingEntity instanceof MobEntity)
+        {
+            MobEntity mobEntity = (MobEntity) livingEntity;
+            NearestAttackableTargetGoal<MobEntity> targetGoal = new NearestAttackableTargetGoal<>(mobEntity, MobEntity.class, 0, false, false, EntityPredicates.IS_LIVING_ALIVE);
+            mobEntity.goalSelector.addGoal(621, targetGoal);
+        }
+    }
+    
     public static boolean getHusk(LivingEntity livingEntity)
     {
         return livingEntity.getCapability(CapabilityValueGetter.CAPABILITY).map(CapabilityData::getHusk).orElse(false);

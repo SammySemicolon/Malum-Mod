@@ -1,10 +1,12 @@
 package com.kittykitcatcat.malum.blocks.machines.redstoneclock;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.particles.lensmagic.LensMagicParticleData;
 import com.kittykitcatcat.malum.particles.skull.SkullParticleData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RedstoneDiodeBlock;
+import net.minecraft.client.renderer.entity.EnderDragonRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -79,7 +81,7 @@ public class RedstoneClockBlock extends Block
     {
         return new RedstoneClockTileEntity();
     }
-
+    
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {

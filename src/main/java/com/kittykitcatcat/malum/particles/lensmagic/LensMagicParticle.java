@@ -1,72 +1,51 @@
 package com.kittykitcatcat.malum.particles.lensmagic;
 
+import com.kittykitcatcat.malum.MalumMod;
+import com.kittykitcatcat.malum.particles.MalumParticle;
+import com.kittykitcatcat.malum.particles.ParticlePhase;
 import net.minecraft.client.particle.*;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class LensMagicParticle extends SimpleAnimatedParticle
+public class LensMagicParticle extends MalumParticle
 {
-
-    private final IAnimatedSprite spriteSet;
-    public float scale;
-    public float cachedScale;
-    protected LensMagicParticle(World world, float scale, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet)
+    protected LensMagicParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, float scale, IAnimatedSprite spriteSet)
     {
-        super(world, xSpeed, ySpeed, zSpeed, spriteSet, 0);
-        this.spriteSet = spriteSet;
-        motionX = xSpeed;
-        motionY = ySpeed;
+        super(world, xSpeed, ySpeed, zSpeed,x,y,z, spriteSet,
+                new ParticlePhase(1,20, 0,1),
+                new ParticlePhase(MathHelper.nextInt(MalumMod.random, 1,3),20, 20),
+                new ParticlePhase(1,20, 40, true));
+        
         this.scale = scale;
-        cachedScale = scale;
-        motionZ = zSpeed;
-        selectSpriteWithAge(spriteSet);
-        setPosition(x, y, z);
-        setMaxAge(75);
+        //0-19 entrance
+        //20-39 animation
+        //40-59 exit
     }
-
+    
     @Override
     public void tick()
     {
         super.tick();
-        selectSpriteWithAge(spriteSet);
-        motionX *= 0.9f;
-        motionY *= 0.9f;
-        motionZ *= 0.9f;
-        if (age >= 65)
-        {
-            if (scale > 0f)
-            {
-                scale -= cachedScale/10;
-            }
-        }
+        motionX *= 0.85f;
+        motionY *= 0.85f;
+        motionZ *= 0.85f;
     }
-
-    @Override
-    public IParticleRenderType getRenderType()
-    {
-        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
-    }
-
-    @Override
-    public float getScale(float p_217561_1_)
-    {
-        return scale;
-    }
-
+    
     @OnlyIn(Dist.CLIENT)
     public static class Factory implements IParticleFactory<LensMagicParticleData>
     {
         private final IAnimatedSprite spriteSet;
-
+        
         public Factory(IAnimatedSprite spriteSet)
         {
             this.spriteSet = spriteSet;
         }
-
+        
         public Particle makeParticle(LensMagicParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            return new LensMagicParticle(worldIn, data.scale, xSpeed, ySpeed, zSpeed, x,y,z, spriteSet);
+            return new LensMagicParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, data.scale, spriteSet);
         }
     }
 }

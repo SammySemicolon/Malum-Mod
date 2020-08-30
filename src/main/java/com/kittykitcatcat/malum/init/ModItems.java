@@ -9,6 +9,7 @@ import com.kittykitcatcat.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.kittykitcatcat.malum.items.curios.*;
 import com.kittykitcatcat.malum.items.staves.CreativeStave;
 import com.kittykitcatcat.malum.items.staves.SpiritwoodStave;
+import com.kittykitcatcat.malum.items.staves.effects.MatingEffect;
 import com.kittykitcatcat.malum.items.staves.effects.ResonantBlinkEffect;
 import com.kittykitcatcat.malum.items.tools.*;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -116,6 +117,8 @@ public class ModItems
     public static Item vacant_aegis;
     public static Item vampire_necklace;
     public static Item ethereal_bulwark;
+    public static Item miracle_pearl;
+    public static Item jester_hat;
     public static Item necrotic_catalyst;
     public static Item phantom_wings;
     public static Item propulsion_engine;
@@ -221,7 +224,7 @@ public class ModItems
                 spiritwood_stave = setup(new SpiritwoodStave(tool_properties, null), "spiritwood_stave"),
                 resonant_stave = setup(new SpiritwoodStave(tool_properties, new ResonantBlinkEffect()), "resonant_stave"),
                 fiery_stave = setup(new SpiritwoodStave(tool_properties, new ResonantBlinkEffect()), "fiery_stave"),
-                bone_stave = setup(new SpiritwoodStave(tool_properties, new ResonantBlinkEffect()), "bone_stave"),
+                bone_stave = setup(new SpiritwoodStave(tool_properties, new MatingEffect()), "bone_stave"),
                 
                 
                 spirit_vault = setup(new SpiritVault(tool_properties), "spirit_vault"),
@@ -258,6 +261,9 @@ public class ModItems
                 vacant_aegis = setup(new CurioVacantAegis(tool_properties), "vacant_aegis"),
                 vampire_necklace = setup(new CurioVampireNecklace(tool_properties), "vampire_necklace"),
                 ethereal_bulwark = setup(new CurioEtherealBulwark(tool_properties), "ethereal_bulwark"),
+                miracle_pearl = setup(new CurioMiraclePearl(tool_properties), "miracle_pearl"),
+                jester_hat = setup(new CurioJesterHat(tool_properties), "jester_hat"),
+        
                 necrotic_catalyst = setup(new CurioNecroticCatalyst(tool_properties), "necrotic_catalyst"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),

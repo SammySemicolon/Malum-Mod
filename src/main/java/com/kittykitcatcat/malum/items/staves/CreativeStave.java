@@ -34,7 +34,7 @@ public class CreativeStave extends Item implements SpiritStorage
         {
             stack.setTag(new CompoundNBT());
         }
-        CapabilityValueGetter.setHusk(target, true);
+        SpiritDataHelper.setHusk(target, true);
         if (attacker.isSneaking())
         {
             stack.getTag().putString(typeNBT, SpiritDataHelper.getSpirit(target));
@@ -42,7 +42,7 @@ public class CreativeStave extends Item implements SpiritStorage
         }
         else
         {
-            SpiritDataHelper.harvestSpirit((PlayerEntity) attacker, SpiritDataHelper.getSpirit(target), 1);
+            SpiritDataHelper.harvestSpirit((PlayerEntity) attacker, target, SpiritDataHelper.getSpirit(target), 1);
         }
         return super.hitEntity(stack, target, attacker);
     }

@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:arcane_stone"
+          "name": "malum:spirit_furnace"
         }
       ],
       "conditions": [

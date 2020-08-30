@@ -20,7 +20,7 @@ public class MalumParticle extends SimpleAnimatedParticle
     protected MalumParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet, ParticlePhase... phases)
     {
         super(world, x, y, z, spriteSet, 0);
-        animationCooldown = 4;
+        animationCooldown = 2;
         this.phases = new ArrayList<>();
         this.phases.addAll(Arrays.asList(phases));
         this.spriteSet = spriteSet;
@@ -28,14 +28,11 @@ public class MalumParticle extends SimpleAnimatedParticle
         motionY = ySpeed;
         motionZ = zSpeed;
         setPosition(x, y, z);
-        int age = 0;
+        scale = 1f;
         for (ParticlePhase phase : this.phases)
         {
             phase.init(this);
-            age += phase.frameCount * phase.loopCount;
         }
-        age += animationCooldown;
-        setMaxAge(age);
         setSprite(0);
     }
     
@@ -44,7 +41,10 @@ public class MalumParticle extends SimpleAnimatedParticle
         if (spriteSet instanceof ParticleManager.AnimatedSpriteImpl)
         {
             ParticleManager.AnimatedSpriteImpl animatedSprite = (ParticleManager.AnimatedSpriteImpl) spriteSet;
-            setSprite(animatedSprite.sprites.get(spriteIndex));
+            if (spriteIndex < animatedSprite.sprites.size() && spriteIndex >= 0)
+            {
+                setSprite(animatedSprite.sprites.get(spriteIndex));
+            }
         }
     }
     
@@ -57,7 +57,11 @@ public class MalumParticle extends SimpleAnimatedParticle
     @Override
     public void tick()
     {
-        super.tick();
+        
+        prevPosX = posX;
+        prevPosY = posY;
+        prevPosZ = posZ;
+        move(motionX, motionY, motionZ);
         ParticlePhase phase = phases.get(currentPhase);
         int currentFrame = phase.startingFrame + phase.tick(this);
         setSprite(currentFrame);

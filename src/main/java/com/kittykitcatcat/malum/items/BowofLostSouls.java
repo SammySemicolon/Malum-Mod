@@ -175,7 +175,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
     @Override
     public int durability()
     {
-        return 10;
+        return 20;
     }
 
     @Override
@@ -188,7 +188,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.bow", SpiritDataHelper.getName(spirit())));
+        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.bow.effect", SpiritDataHelper.getName(spirit())));
         return components;
     }
 }

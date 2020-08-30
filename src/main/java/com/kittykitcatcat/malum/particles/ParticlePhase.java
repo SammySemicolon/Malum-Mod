@@ -11,6 +11,7 @@ public class ParticlePhase
     
     public int firstOffset;
     
+    public boolean finalPhase;
     public ParticlePhase(int loopCount, int frameCount, int startingFrame)
     {
         this.loopCount = loopCount;
@@ -23,6 +24,22 @@ public class ParticlePhase
         this.frameCount = frameCount;
         this.startingFrame = startingFrame;
         this.firstOffset = firstOffset;
+    }
+    
+    public ParticlePhase(int loopCount, int frameCount, int startingFrame,boolean finalPhase)
+    {
+        this.loopCount = loopCount;
+        this.frameCount = frameCount;
+        this.startingFrame = startingFrame;
+        this.finalPhase = finalPhase;
+    }
+    public ParticlePhase(int loopCount, int frameCount, int startingFrame, int firstOffset,boolean finalPhase)
+    {
+        this.loopCount = loopCount;
+        this.frameCount = frameCount;
+        this.startingFrame = startingFrame;
+        this.firstOffset = firstOffset;
+        this.finalPhase = finalPhase;
     }
     public void init(MalumParticle particle)
     {
@@ -43,12 +60,17 @@ public class ParticlePhase
                 if (particle.currentPhase+1 < particle.phases.size())
                 {
                     particle.currentPhase++;
+                    ParticlePhase nextPhase = particle.phases.get(particle.currentPhase);
+                    nextPhase.currentFrame = firstOffset;
                     if (firstOffset != 0)
                     {
-                        ParticlePhase nextPhase = particle.phases.get(particle.currentPhase);
-                        nextPhase.currentFrame = firstOffset;
                         return firstOffset + nextPhase.startingFrame;
                     }
+                }
+                if (finalPhase)
+                {
+                    particle.animationCooldown = 621;
+                    particle.setExpired();
                 }
             }
         }

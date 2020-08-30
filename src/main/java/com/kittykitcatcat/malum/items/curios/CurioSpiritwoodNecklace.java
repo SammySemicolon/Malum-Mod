@@ -32,18 +32,6 @@ public class CurioSpiritwoodNecklace extends Item implements ICurio
             }
 
             @Override
-            public void onEquipped(String identifier, LivingEntity livingEntity)
-            {
-                CapabilityValueGetter.setExtraSpirits(livingEntity, CapabilityValueGetter.getExtraSpirits(livingEntity)+1);
-            }
-
-            @Override
-            public void onUnequipped(String identifier, LivingEntity livingEntity)
-            {
-                CapabilityValueGetter.setExtraSpirits(livingEntity, CapabilityValueGetter.getExtraSpirits(livingEntity)-1);
-            }
-
-            @Override
             public boolean canRightClickEquip()
             {
                 return true;

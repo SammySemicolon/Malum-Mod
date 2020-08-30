@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.events;
 
 import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import com.kittykitcatcat.malum.items.BowofLostSouls;
 import com.kittykitcatcat.malum.items.curios.*;
 import com.kittykitcatcat.malum.items.staves.BasicStave;
@@ -11,6 +12,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -48,11 +50,26 @@ public class RuntimeEvents
     @SubscribeEvent
     public static void cancelHuskTargetEvent(LivingSetAttackTargetEvent event)
     {
-        if (event.getTarget() instanceof PlayerEntity)
+        if (event.getEntityLiving() instanceof MobEntity)
         {
-            if (event.getEntityLiving() instanceof MobEntity)
+            if (getHusk(event.getEntityLiving()))
             {
-                if (getHusk(event.getEntityLiving()))
+                if (CapabilityValueGetter.getRogue(event.getEntityLiving()))
+                {
+                    if (!CapabilityValueGetter.getRogue(event.getTarget()))
+                    {
+                        ((MobEntity) event.getEntityLiving()).setAttackTarget(null);
+                    }
+                    if (event.getTarget() instanceof PlayerEntity)
+                    {
+                        PlayerEntity playerEntity = (PlayerEntity) event.getTarget();
+                        if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioJesterHat, playerEntity).isPresent())
+                        {
+                            ((MobEntity) event.getEntityLiving()).setAttackTarget(null);
+                        }
+                    }
+                }
+                else
                 {
                     ((MobEntity) event.getEntityLiving()).setAttackTarget(null);
                 }
@@ -180,6 +197,59 @@ public class RuntimeEvents
                     event.setDroppedExperience(event.getDroppedExperience()*2);
                 }
             }
+        }
+    }
+    
+    @SubscribeEvent
+    public static void barkNecklaceEffect(SpiritHarvestEvent.Pre event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioSpiritwoodNecklace, playerEntity).isPresent())
+        {
+            event.extraSpirits +=1;
+        }
+    }
+    
+    @SubscribeEvent
+    public static void seerOfMiraclesEffect(SpiritHarvestEvent.Pre event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
+        {
+            event.extraSpirits +=1;
+        }
+    }
+    
+    @SubscribeEvent
+    public static void seerOfMiraclesEffect(SpiritIntegrityUpdateEvent.Fill event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
+        {
+            event.integrityChange *= 1.5f;
+        }
+    }
+    
+    @SubscribeEvent
+    public static void seerOfMiraclesEffect(SpiritIntegrityUpdateEvent.Decrease event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
+        {
+            if (MathHelper.nextInt(random, 0, 3) == 0)
+            {
+                event.setCanceled(true);
+            }
+        }
+    }
+    
+    @SubscribeEvent
+    public static void jesterHatEffect(SpiritHarvestEvent.Post event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioJesterHat, playerEntity).isPresent())
+        {
+            CapabilityValueGetter.setRogue(event.target, true);
         }
     }
     //endregion

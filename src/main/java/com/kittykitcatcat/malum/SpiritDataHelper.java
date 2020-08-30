@@ -2,6 +2,9 @@ package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.utility.spiritstorage.SpiritStoringTileEntity;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
+import com.kittykitcatcat.malum.events.SpiritHarvestEvent;
+import com.kittykitcatcat.malum.events.SpiritIntegrityUpdateEvent;
+import com.kittykitcatcat.malum.init.ModEventFactory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -156,14 +159,16 @@ public class SpiritDataHelper
     //endregion
 
     //region COUNT
-    public static void harvestSpirit(PlayerEntity player, String spirit, int amount)
+    public static void harvestSpirit(PlayerEntity player, LivingEntity target, String spirit, int amount)
     {
-        amount+= CapabilityValueGetter.getExtraSpirits(player);
+        SpiritHarvestEvent.Pre preEvent = ModEventFactory.preSpiritHarvest(target,player);
+        amount += preEvent.extraSpirits;
         int i = 0;
         if (player.inventory.getCurrentItem().getItem() instanceof SpiritStorage)
         {
             ItemStack stack = player.inventory.getCurrentItem();
-            if (stack.getOrCreateTag().getString(typeNBT).equals(spirit))
+            
+            if (stack.getOrCreateTag().getString(typeNBT).equals(spirit) || !stack.getTag().contains(typeNBT))
             {
                 if (stack.getTag().getInt(countNBT) < ((SpiritStorage) stack.getItem()).capacity())
                 {
@@ -175,6 +180,7 @@ public class SpiritDataHelper
                             i++;
                             if (i >= amount)
                             {
+                                ModEventFactory.postSpiritHarvest(target,player,i);
                                 return;
                             }
                         }
@@ -196,6 +202,7 @@ public class SpiritDataHelper
                             i++;
                             if (i >= amount)
                             {
+                                ModEventFactory.postSpiritHarvest(target,player,i);
                                 return;
                             }
                         }
@@ -203,6 +210,7 @@ public class SpiritDataHelper
                 }
             }
         }
+        ModEventFactory.postSpiritHarvest(target,player,i);
     }
     public static boolean decreaseSpiritOfItem(ItemStack stack,String spirit)
     {
@@ -289,7 +297,13 @@ public class SpiritDataHelper
             CompoundNBT nbt = targetStack.getOrCreateTag();
             if (nbt.getInt(spiritIntegrityNBT) > 0)
             {
-                nbt.putInt(spiritIntegrityNBT, nbt.getInt(spiritIntegrityNBT) - 1);
+                int change = 1;
+                SpiritIntegrityUpdateEvent.Decrease event = ModEventFactory.decreaseSpiritIntegrity(targetStack, player,change);
+                change = event.integrityChange;
+                if (!event.isCanceled())
+                {
+                    nbt.putInt(spiritIntegrityNBT, nbt.getInt(spiritIntegrityNBT) - change);
+                }
                 return true;
             }
             else
@@ -304,7 +318,10 @@ public class SpiritDataHelper
                             boolean success = decreaseSpiritOfItem(stack, ((SpiritConsumer) targetStack.getItem()).spirit());
                             if (success)
                             {
-                                nbt.putInt(spiritIntegrityNBT, ((SpiritConsumer) targetStack.getItem()).durability());
+                                int value = ((SpiritConsumer) targetStack.getItem()).durability();
+                                SpiritIntegrityUpdateEvent.Fill event = ModEventFactory.fillSpiritIntegrity(targetStack, player,value);
+                                value = event.integrityChange;
+                                nbt.putInt(spiritIntegrityNBT, value);
                                 return true;
                             }
                         }

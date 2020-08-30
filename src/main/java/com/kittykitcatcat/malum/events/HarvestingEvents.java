@@ -12,6 +12,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Hand;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,7 +31,7 @@ public class HarvestingEvents
     public static SimpleSound sound;
     public static boolean tryCancel(PlayerEntity playerEntity, ItemStack stack)
     {
-        if (getCachedTarget(playerEntity) == null) //shut the fuck up
+        if (!getCachedTarget(playerEntity).isPresent()) //shut the fuck up
         {
             cancel(playerEntity, stack);
             return true;
@@ -54,7 +55,7 @@ public class HarvestingEvents
         playerEntity.world.playSound(null,playerEntity.getPosition(), ModSounds.spirit_harvest_success, PLAYERS,1f,1);
         
         setHusk(cachedTarget, true);
-        harvestSpirit(playerEntity, getSpirit(cachedTarget), 1);
+        harvestSpirit(playerEntity, cachedTarget, getSpirit(cachedTarget), 1);
         setCachedTarget(playerEntity, findEntity(playerEntity));
         playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
         playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 40);
@@ -101,10 +102,10 @@ public class HarvestingEvents
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof BasicStave || player.getHeldItem(Hand.OFF_HAND).getItem() instanceof BasicStave)
             {
-                LivingEntity cachedTarget = getCachedTarget(player);
-                if (cachedTarget != null) //shut the fuck up
+                LazyOptional<LivingEntity> cachedTarget = getCachedTarget(player);
+                if (cachedTarget.isPresent())
                 {
-                    cachedTarget.addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false));
+                    cachedTarget.ifPresent(c -> c.addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false)));
                 }
             }
         }
@@ -142,7 +143,12 @@ public class HarvestingEvents
                 {
                     if (!tryCancel(player, heldItem))
                     {
-                        success(player, heldItem, getCachedTarget(player));
+    
+                        LazyOptional<LivingEntity> cachedTarget = getCachedTarget(player);
+                        if (cachedTarget.isPresent())
+                        {
+                            cachedTarget.ifPresent(c -> success(player, heldItem, c));
+                        }
                         event.setCanceled(true);
                     }
                 }
