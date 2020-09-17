@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.events;
 
 import com.kittykitcatcat.malum.ClientHandler;
+import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.items.staves.BasicStave;
 import net.minecraft.client.Minecraft;
@@ -31,7 +32,7 @@ public class HarvestingEvents
     public static SimpleSound sound;
     public static boolean tryCancel(PlayerEntity playerEntity, ItemStack stack)
     {
-        if (!getCachedTarget(playerEntity).isPresent()) //shut the fuck up
+        if (!getCachedTarget(playerEntity).isPresent())
         {
             cancel(playerEntity, stack);
             return true;
@@ -60,7 +61,6 @@ public class HarvestingEvents
         playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
         playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 40);
         playerEntity.resetActiveHand();
-    
     }
     @SubscribeEvent
     public static void updateCachedTarget(PlayerEvent.LivingUpdateEvent event)
@@ -85,7 +85,7 @@ public class HarvestingEvents
                     }
                     else
                     {
-                        if (getCachedTarget(player) != null) //shut the fuck up
+                        if (getCachedTarget(player).isPresent())
                         {
                             setCachedTarget(player, null);
                         }
@@ -143,7 +143,6 @@ public class HarvestingEvents
                 {
                     if (!tryCancel(player, heldItem))
                     {
-    
                         LazyOptional<LivingEntity> cachedTarget = getCachedTarget(player);
                         if (cachedTarget.isPresent())
                         {

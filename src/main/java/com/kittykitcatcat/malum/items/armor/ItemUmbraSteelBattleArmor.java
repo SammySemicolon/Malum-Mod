@@ -1,9 +1,12 @@
 package com.kittykitcatcat.malum.items.armor;
 
+import com.kittykitcatcat.malum.MalumHelper;
+import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.models.ModelUmbralSteelArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
@@ -13,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class ItemUmbraSteelBattleArmor extends ArmorItem
+public class ItemUmbraSteelBattleArmor extends ModArmor
 {
     public ItemUmbraSteelBattleArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
@@ -27,7 +30,12 @@ public class ItemUmbraSteelBattleArmor extends ArmorItem
     {
         return "malum:textures/armor/soul_steel_armour.png";
     }
-
+    
+    public static boolean hasArmorSet(PlayerEntity playerEntity)
+    {
+        return MalumHelper.hasArmorSet(playerEntity, ModItems.umbral_steel_helm, ModItems.umbral_steel_chestplate, ModItems.umbral_steel_leggings, ModItems.umbral_steel_shoes);
+    }
+    
     @OnlyIn(value = Dist.CLIENT)
     @Nullable
     @Override

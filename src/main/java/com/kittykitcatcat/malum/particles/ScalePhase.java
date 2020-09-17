@@ -32,6 +32,10 @@ public class ScalePhase extends ParticlePhase
             {
                 particle.scale -= scaleChange;
             }
+            else
+            {
+                particle.setExpired();
+            }
         }
         return super.tick(particle);
     }

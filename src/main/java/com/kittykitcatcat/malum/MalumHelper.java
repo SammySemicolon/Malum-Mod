@@ -1,11 +1,13 @@
 package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
+import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
@@ -34,7 +36,6 @@ import static com.kittykitcatcat.malum.MalumMod.random;
 
 public class MalumHelper
 {
-    
     //region BLOCKSTATES
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, IProperty<T> property)
     {
@@ -176,6 +177,15 @@ public class MalumHelper
     //endregion
     
     //region STACK HANDLING
+    
+    public static boolean hasArmorSet(PlayerEntity player, Item helmet, Item chest, Item leggings, Item feet)
+    {
+        if (player != null || player.inventory != null)
+        {
+            return player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(helmet) && player.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem().equals(chest) && player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem().equals(leggings) && player.getItemStackFromSlot(EquipmentSlotType.FEET).getItem().equals(feet);
+        }
+        return false;
+    }
     public static void giveItemStackToPlayer(PlayerEntity playerEntity, ItemStack stack)
     {
         ItemHandlerHelper.giveItemToPlayer(playerEntity, stack);
@@ -263,8 +273,6 @@ public class MalumHelper
     }
     //endregion
     
-    //endregion
-    
     //region ENTITY STUFF
 
     @Nullable
@@ -284,8 +292,6 @@ public class MalumHelper
         }
         return resultEntity;
     }
-    //endregion
-    
     //endregion
     
     //region SOUND MAGIC

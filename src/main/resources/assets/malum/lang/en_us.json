@@ -17,6 +17,10 @@
   "malum.tooltip.pulse": "Pulse",
   "malum.tooltip.transfer_amount": "Transfer Amount: ",
 
+  "malum.tooltip.spirit_harvest": "Spirit harvests ",
+  "malum.tooltip.setbonus.spirited_steel": "grant you strength",
+  "malum.tooltip.setbonus.umbral_steel": "create umbral traces",
+
   "malum.tooltip.extra_spirit.effect.a": "Spirit harvests yield ",
   "malum.tooltip.extra_spirit.effect.b": " extra spirit",
   "malum.tooltip.extra_integrity.effect": "Increases spirit integrity by ",

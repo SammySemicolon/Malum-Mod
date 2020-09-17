@@ -13,7 +13,7 @@ public class SkullParticle extends MalumParticle
     protected SkullParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, float scale, IAnimatedSprite spriteSet)
     {
         super(world, xSpeed, ySpeed, zSpeed,x,y,z, spriteSet,
-                new ParticlePhase(1,12, 0,12),
+                new ParticlePhase(1,12, 0,11),
                 new ParticlePhase(2,20, 12),
                 new ScalePhase(2,20, 12, scale,false));
         //0-11 entrance
@@ -33,5 +33,14 @@ public class SkullParticle extends MalumParticle
         {
             return new SkullParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, data.scale, spriteSet);
         }
+    }
+    
+    @Override
+    public void tick()
+    {
+        super.tick();
+        motionX *= 0.9f;
+        motionY *= 0.9f;
+        motionZ *= 0.9f;
     }
 }

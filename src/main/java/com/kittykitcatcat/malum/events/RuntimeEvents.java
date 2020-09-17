@@ -3,6 +3,9 @@ package com.kittykitcatcat.malum.events;
 import com.kittykitcatcat.malum.MalumHelper;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
 import com.kittykitcatcat.malum.items.BowofLostSouls;
+import com.kittykitcatcat.malum.items.armor.ItemSpiritHunterArmor;
+import com.kittykitcatcat.malum.items.armor.ItemSpiritedSteelBattleArmor;
+import com.kittykitcatcat.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.kittykitcatcat.malum.items.curios.*;
 import com.kittykitcatcat.malum.items.staves.BasicStave;
 import com.kittykitcatcat.malum.network.packets.HuskChangePacket;
@@ -12,6 +15,8 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -52,26 +57,29 @@ public class RuntimeEvents
     {
         if (event.getEntityLiving() instanceof MobEntity)
         {
-            if (getHusk(event.getEntityLiving()))
+            if (event.getTarget() != null)
             {
-                if (CapabilityValueGetter.getRogue(event.getEntityLiving()))
+                if (getHusk(event.getEntityLiving()))
                 {
-                    if (!CapabilityValueGetter.getRogue(event.getTarget()))
+                    if (CapabilityValueGetter.getRogue(event.getEntityLiving()))
                     {
-                        ((MobEntity) event.getEntityLiving()).setAttackTarget(null);
-                    }
-                    if (event.getTarget() instanceof PlayerEntity)
-                    {
-                        PlayerEntity playerEntity = (PlayerEntity) event.getTarget();
-                        if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioJesterHat, playerEntity).isPresent())
+                        if (CapabilityValueGetter.getRogue(event.getTarget()))
                         {
                             ((MobEntity) event.getEntityLiving()).setAttackTarget(null);
                         }
+                        if (event.getTarget() instanceof PlayerEntity)
+                        {
+                            PlayerEntity playerEntity = (PlayerEntity) event.getTarget();
+                            if (CuriosAPI.getCurioEquipped(stack -> stack.getItem() instanceof CurioJesterHat, playerEntity).isPresent())
+                            {
+                                ((MobEntity) event.getEntityLiving()).setAttackTarget(null);
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    ((MobEntity) event.getEntityLiving()).setAttackTarget(null);
+                    else
+                    {
+                        ((MobEntity) event.getEntityLiving()).setAttackTarget(null);
+                    }
                 }
             }
         }
@@ -197,6 +205,42 @@ public class RuntimeEvents
                     event.setDroppedExperience(event.getDroppedExperience()*2);
                 }
             }
+        }
+    }
+    
+    @SubscribeEvent
+    public static void armorSetbonusEffects(SpiritHarvestEvent.Pre event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (ItemSpiritHunterArmor.hasArmorSet(playerEntity))
+        {
+            event.extraSpirits +=1;
+        }
+        if (ItemUmbraSteelBattleArmor.hasArmorSet(playerEntity))
+        {
+            event.extraSpirits +=2;
+        }
+    }
+    @SubscribeEvent
+    public static void armorSetbonusEffects(SpiritHarvestEvent.Post event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (ItemSpiritedSteelBattleArmor.hasArmorSet(playerEntity))
+        {
+            playerEntity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 100, 1));
+        }
+        if (ItemUmbraSteelBattleArmor.hasArmorSet(playerEntity))
+        {
+            //make umbral trace
+        }
+    }
+    @SubscribeEvent
+    public static void armorSetbonusEffects(SpiritIntegrityUpdateEvent.Fill event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (ItemSpiritHunterArmor.hasArmorSet(playerEntity) || ItemUmbraSteelBattleArmor.hasArmorSet(playerEntity))
+        {
+            event.integrityChange *= 1.25f;
         }
     }
     

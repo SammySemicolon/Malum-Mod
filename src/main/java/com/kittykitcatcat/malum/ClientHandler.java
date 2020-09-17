@@ -4,7 +4,14 @@ import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.kittykitcatcat.malum.blocks.utility.FancyRenderer;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
+import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModSounds;
+import com.kittykitcatcat.malum.init.ModTooltips;
+import com.kittykitcatcat.malum.items.armor.ItemSpiritHunterArmor;
+import com.kittykitcatcat.malum.items.armor.ItemSpiritedSteelBattleArmor;
+import com.kittykitcatcat.malum.items.armor.ItemUmbraSteelBattleArmor;
+import com.kittykitcatcat.malum.items.armor.ModArmor;
+import com.kittykitcatcat.malum.models.ModelUmbralSteelArmor;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
@@ -303,16 +310,52 @@ public class ClientHandler
         //Uses [spiritType] spirits to [message]
         return new TranslationTextComponent("malum.tooltip.sconsumer.desc.c").applyTextStyle(WHITE) //Uses
                 .appendSibling(makeImportantComponent(spirit, true))
-                .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.d"))
+                .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.d").applyTextStyle(WHITE))
                 .appendSibling(makeImportantComponent(message, true));
     }
     
-    public static void makeSpiritTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    public static void makeSpiritTooltip(PlayerEntity playerEntity, ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         ArrayList<ITextComponent> newComponents = new ArrayList<>();
         if (tooltips.containsKey(stack.getItem()))
         {
             newComponents.addAll(tooltips.get(stack.getItem()));
+        }
+        if (stack.getItem() instanceof ModArmor)
+        {
+            for(ItemStack armorItem : playerEntity.getArmorInventoryList())
+            {
+                if (armorItem != stack) continue;
+                {
+                    if (stack.getItem() instanceof ItemSpiritHunterArmor)
+                    {
+                        if (ItemSpiritHunterArmor.hasArmorSet(playerEntity))
+                        {
+                            newComponents.add(ModTooltips.extraSpirit(1));
+                            newComponents.add(ModTooltips.extraIntegrity(25));
+                        }
+                    }
+                    if (stack.getItem() instanceof ItemSpiritedSteelBattleArmor)
+                    {
+                        if (ItemSpiritedSteelBattleArmor.hasArmorSet(playerEntity))
+                        {
+                            newComponents.add(new TranslationTextComponent("malum.tooltip.spirit_harvest")
+                                    .appendSibling(makeImportantComponent("malum.tooltip.setbonus.spirited_steel", true)));
+                        }
+                    }
+                    if (stack.getItem() instanceof ItemUmbraSteelBattleArmor)
+                    {
+                        if (ItemUmbraSteelBattleArmor.hasArmorSet(playerEntity))
+                        {
+                            newComponents.add(ModTooltips.extraSpirit(2));
+                            newComponents.add(ModTooltips.extraIntegrity(25));
+                            newComponents.add(new TranslationTextComponent("malum.tooltip.spirit_harvest")
+                                    .appendSibling(makeImportantComponent("malum.tooltip.setbonus.umbral_steel", true)));
+                        }
+                    }
+                }
+                break;
+            }
         }
         if (stack.getItem() instanceof SpiritStorage)
         {

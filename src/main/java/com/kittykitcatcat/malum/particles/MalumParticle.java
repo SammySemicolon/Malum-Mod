@@ -57,7 +57,6 @@ public class MalumParticle extends SimpleAnimatedParticle
     @Override
     public void tick()
     {
-        
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;

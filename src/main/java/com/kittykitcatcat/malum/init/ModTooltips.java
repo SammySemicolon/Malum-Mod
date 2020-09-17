@@ -40,7 +40,7 @@ public class ModTooltips
         addTooltip(creative_spiritwood_stave, new TranslationTextComponent("malum.tooltip.creative_stave.desc")
                 .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.basic_stave.effect.b", true)));
     
-        addTooltip(miracle_pearl, extraSpirit(1), extraIntegrity("50%"), chanceIntegrity(25));
+        addTooltip(miracle_pearl, extraSpirit(1), extraIntegrity(50), chanceIntegrity(25));
         addTooltip(spiritwood_bark_necklace, extraSpirit(1));
     
         addTooltip(ethereal_bulwark, new TranslationTextComponent("malum.tooltip.ethereal_bulwark.effect"));
@@ -62,15 +62,10 @@ public class ModTooltips
                 .appendSibling(new StringTextComponent(String.valueOf(amount)))
                 .appendSibling(new TranslationTextComponent("malum.tooltip.extra_spirit.effect.b"));
     }
-    public static ITextComponent extraIntegrity(String amount)
-    {
-        return new TranslationTextComponent("malum.tooltip.extra_integrity.effect")
-                .appendSibling(new StringTextComponent(String.valueOf(amount)));
-    }
     public static ITextComponent extraIntegrity(int amount)
     {
         return new TranslationTextComponent("malum.tooltip.extra_integrity.effect")
-                .appendSibling(new StringTextComponent(String.valueOf(amount)));
+                .appendSibling(new StringTextComponent(amount + "%"));
     }
     public static ITextComponent chanceIntegrity(int amount)
     {
