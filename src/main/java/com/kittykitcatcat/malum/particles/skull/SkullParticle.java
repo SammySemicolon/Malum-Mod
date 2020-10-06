@@ -3,14 +3,16 @@ package com.kittykitcatcat.malum.particles.skull;
 import com.kittykitcatcat.malum.particles.MalumParticle;
 import com.kittykitcatcat.malum.particles.ParticlePhase;
 import com.kittykitcatcat.malum.particles.ScalePhase;
+import com.kittykitcatcat.malum.particles.lensmagic.LensMagicParticleData;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class SkullParticle extends MalumParticle
 {
-    protected SkullParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, float scale, IAnimatedSprite spriteSet)
+    protected SkullParticle(ClientWorld world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, float scale, IAnimatedSprite spriteSet)
     {
         super(world, xSpeed, ySpeed, zSpeed,x,y,z, spriteSet,
                 new ParticlePhase(1,12, 0,11),
@@ -28,10 +30,10 @@ public class SkullParticle extends MalumParticle
         {
             this.spriteSet = spriteSet;
         }
-
-        public Particle makeParticle(SkullParticleData data, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
+        @Override
+        public Particle makeParticle(SkullParticleData data, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            return new SkullParticle(worldIn, xSpeed, ySpeed, zSpeed, x,y,z, data.scale, spriteSet);
+            return new SkullParticle(world, xSpeed, ySpeed, zSpeed, x,y,z, data.scale, spriteSet);
         }
     }
     

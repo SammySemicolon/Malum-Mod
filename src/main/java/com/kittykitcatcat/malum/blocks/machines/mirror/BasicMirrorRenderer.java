@@ -7,25 +7,27 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 
 import static com.kittykitcatcat.malum.ClientHandler.makeImportantComponent;
+import static com.kittykitcatcat.malum.ClientHandler.makeTranslationComponent;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
-import static net.minecraft.state.properties.AttachFace.*;
-import static net.minecraft.state.properties.BlockStateProperties.*;
+import static net.minecraft.state.properties.AttachFace.CEILING;
+import static net.minecraft.state.properties.AttachFace.FLOOR;
+import static net.minecraft.state.properties.BlockStateProperties.FACE;
+import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 @OnlyIn(value = Dist.CLIENT)
 public class BasicMirrorRenderer extends TileEntityRenderer<BasicMirrorTileEntity> implements FancyRenderer
@@ -82,18 +84,18 @@ public class BasicMirrorRenderer extends TileEntityRenderer<BasicMirrorTileEntit
         if (!(blockEntity instanceof HolderMirrorTileEntity))
         {
             ArrayList<ITextComponent> components = new ArrayList<>();
-            components.add(new TranslationTextComponent("malum.tooltip.transferamount").appendSibling(makeImportantComponent("" + blockEntity.transferAmounts[blockEntity.transferAmount], true)));
+            components.add(makeTranslationComponent("malum.tooltip.transferamount").append(makeImportantComponent("" + blockEntity.transferAmounts[blockEntity.transferAmount], true)));
     
             ClientHandler.renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
         }
-        if (this.renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(this.renderDispatcher.renderInfo.getProjectedView().x, this.renderDispatcher.renderInfo.getProjectedView().y, this.renderDispatcher.renderInfo.getProjectedView().z) < 128d)
+        if (this.renderDispatcher.renderInfo != null)
         {
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             ItemStack item = blockEntity.inventory.getStackInSlot(0);
             if (!item.isEmpty())
             {
                 BlockState blockState = blockEntity.getBlockState();
-                Vec3i direction = blockEntity.getBlockState().get(HORIZONTAL_FACING).getDirectionVec();
+                Vector3i direction = blockEntity.getBlockState().get(HORIZONTAL_FACING).getDirectionVec();
                 matrixStack.push();
                 float directionMultiplier = 0.3f;
                 if (blockState.get(FACE) == FLOOR || blockState.get(FACE) == CEILING)

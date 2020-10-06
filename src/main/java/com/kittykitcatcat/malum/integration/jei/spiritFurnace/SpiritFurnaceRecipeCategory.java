@@ -1,8 +1,10 @@
 package com.kittykitcatcat.malum.integration.jei.spiritFurnace;
 
+import com.kittykitcatcat.malum.ClientHandler;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -25,6 +27,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.kittykitcatcat.malum.ClientHandler.makeTranslationComponent;
+
 public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnaceRecipe>
 {
     public static final ResourceLocation UID = new ResourceLocation(MalumMod.MODID, "spirit_furnace");
@@ -46,29 +50,29 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
     }
 
     @Override
-    public void draw(SpiritFurnaceRecipe recipe, double mouseX, double mouseY)
+    public void draw(SpiritFurnaceRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY)
     {
         GlStateManager.enableAlphaTest();
         GlStateManager.enableBlend();
 
         if(recipe.getSideItem() != null)
         {
-            overlay.draw();
+            overlay.draw(matrixStack);
         }
         else
         {
-            overlay_noSide.draw();
+            overlay_noSide.draw(matrixStack);
         }
         
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();
 
-        ITextComponent timeComponent = new TranslationTextComponent("malum.recipe.time") //Uses
-                .appendSibling(new StringTextComponent("" + recipe.getBurnTime()));
-        String formattedText = timeComponent.getFormattedText();
+        ITextComponent timeComponent = makeTranslationComponent("malum.recipe.time") //Uses
+                .append(new StringTextComponent("" + recipe.getBurnTime()));
+        String formattedText = timeComponent.getUnformattedComponentText();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
-        fontRenderer.drawString(formattedText, -1, 1, 0xFF808080);
+        fontRenderer.drawString(matrixStack,formattedText, -1, 1, 0xFF808080);
     }
 
     @Nonnull

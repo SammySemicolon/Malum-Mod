@@ -1,9 +1,11 @@
 package com.kittykitcatcat.malum.integration.jei.spiritFurnace;
 
+import com.kittykitcatcat.malum.ClientHandler;
 import com.kittykitcatcat.malum.MalumMod;
 import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceFuelData;
 import com.kittykitcatcat.malum.recipes.SpiritFurnaceRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -42,24 +44,23 @@ public class SpiritFurnaceFuelDataCategory implements IRecipeCategory<SpiritFurn
             0, -1, 59, 20);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ModItems.spirit_charcoal));
     }
-
     @Override
-    public void draw(SpiritFurnaceFuelData data, double mouseX, double mouseY)
+    public void draw(SpiritFurnaceFuelData data,MatrixStack matrixStack, double mouseX, double mouseY)
     {
         GlStateManager.enableAlphaTest();
         GlStateManager.enableBlend();
     
-        overlay.draw();
+        overlay.draw(matrixStack);
     
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();
         
-        ITextComponent timeComponent = new TranslationTextComponent("malum.fuel.time")
-                .appendSibling(new StringTextComponent("" + data.getFuelTime()));
-        String formattedText = timeComponent.getFormattedText();
+        ITextComponent timeComponent = ClientHandler.makeTranslationComponent("malum.fuel.time")
+                .append(new StringTextComponent("" + data.getFuelTime()));
+        String formattedText = timeComponent.getUnformattedComponentText();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
-        fontRenderer.drawString(formattedText, 22, 7, 0xFF808080);
+        fontRenderer.drawString(matrixStack,formattedText, 22, 7, 0xFF808080);
     }
 
     @Nonnull

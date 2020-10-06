@@ -1,7 +1,6 @@
 package com.kittykitcatcat.malum;
 
 import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
-import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModRecipes;
 import com.kittykitcatcat.malum.init.ModSounds;
 import net.minecraft.block.BlockState;
@@ -13,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -21,7 +20,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -37,28 +36,28 @@ import static com.kittykitcatcat.malum.MalumMod.random;
 public class MalumHelper
 {
     //region BLOCKSTATES
-    public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, IProperty<T> property)
+    public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, Property<T> property)
     {
         return newState.with(property, oldState.get(property));
     }
-
+    
     public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)
     {
         BlockState oldState = world.getBlockState(pos);
-
+        
         BlockState finalState = newState;
-        for (IProperty<?> property : oldState.getProperties())
+        for (Property<?> property : oldState.getProperties())
         {
-            if (newState.has(property))
+            if (newState.hasProperty(property))
             {
                 finalState = newStateWithOldProperty(oldState, finalState, property);
             }
         }
-
+        
         world.notifyBlockUpdate(pos, oldState, finalState, 3);
         world.setBlockState(pos, finalState);
     }
-
+    
     //endregion
     
     //region TE STACK HANDLING
@@ -190,14 +189,14 @@ public class MalumHelper
     {
         ItemHandlerHelper.giveItemToPlayer(playerEntity, stack);
     }
-
+    
     public static ItemStack stackWithNBT(ItemStack originalStack, String tag, INBT inbt)
     {
         CompoundNBT nbt = originalStack.getOrCreateTag();
         nbt.put(tag, inbt);
         return originalStack;
     }
-
+    
     public static ItemStack stackWithItemChanged(ItemStack originalStack, Item item)
     {
         ItemStack stack = new ItemStack(item, originalStack.getCount());
@@ -207,7 +206,7 @@ public class MalumHelper
         }
         return stack;
     }
-
+    
     public static ItemStack stackWithCount(Item item, int count)
     {
         ItemStack stack = new ItemStack(item);
@@ -217,54 +216,54 @@ public class MalumHelper
     //endregion
     
     //region VECTOR STUFF AND THINGS
-    public static Vec3d randomVector(Random random, double min, double max)
+    public static Vector3d randomVector(Random random, double min, double max)
     {
         double x = MathHelper.nextDouble(random, min, max);
         double y = MathHelper.nextDouble(random, min, max);
         double z = MathHelper.nextDouble(random, min, max);
-        return new Vec3d(x, y, z);
+        return new Vector3d(x, y, z);
     }
-    public static Vec3d vectorFromBlockPos(BlockPos pos)
+    public static Vector3d vectorFromBlockPos(BlockPos pos)
     {
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();
-        return new Vec3d(x, y, z);
+        return new Vector3d(x, y, z);
     }
-
-    public static Vec3d entityCenter(Entity entity)
+    
+    public static Vector3d entityCenter(Entity entity)
     {
-        return new Vec3d((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2, (entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2, (entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2);
+        return new Vector3d((entity.getBoundingBox().minX + entity.getBoundingBox().maxX) / 2, (entity.getBoundingBox().minY + entity.getBoundingBox().maxY) / 2, (entity.getBoundingBox().minZ + entity.getBoundingBox().maxZ) / 2);
     }
-
-    public static Vec3d randPosofEntity(Entity entity, Random rand)
+    
+    public static Vector3d randPosofEntity(Entity entity, Random rand)
     {
         double x = MathHelper.nextDouble(random, entity.getBoundingBox().minX, entity.getBoundingBox().maxX);
         double y = MathHelper.nextDouble(random, entity.getBoundingBox().minY, entity.getBoundingBox().maxY);
         double z = MathHelper.nextDouble(random, entity.getBoundingBox().minZ, entity.getBoundingBox().maxZ);
-        return new Vec3d(x, y, z);
+        return new Vector3d(x, y, z);
     }
-
-    public static Vec3d randExtendedPosofEntity(Entity entity, Random rand, float multiplier)
+    
+    public static Vector3d randExtendedPosofEntity(Entity entity, Random rand, float multiplier)
     {
         double x = MathHelper.nextDouble(random, entity.getBoundingBox().minX - (entity.getBoundingBox().getXSize() * multiplier), entity.getBoundingBox().maxX + (entity.getBoundingBox().getXSize() * multiplier));
         double y = MathHelper.nextDouble(random, entity.getBoundingBox().minY - (entity.getBoundingBox().getYSize() * multiplier), entity.getBoundingBox().maxY + (entity.getBoundingBox().getYSize() * multiplier));
         double z = MathHelper.nextDouble(random, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() * multiplier), entity.getBoundingBox().maxZ + (entity.getBoundingBox().getZSize() * multiplier));
-        return new Vec3d(x, y, z);
+        return new Vector3d(x, y, z);
     }
-    public static Vec3d randSimulatedExtendedPosofEntity(Entity entity, Vec3d pos, Random rand, float multiplier)
+    public static Vector3d randSimulatedExtendedPosofEntity(Entity entity, Vector3d pos, Random rand, float multiplier)
     {
         double x = MathHelper.nextDouble(random, pos.x - (entity.getBoundingBox().getXSize() * multiplier), pos.x + (entity.getBoundingBox().getXSize() * multiplier));
         double y = MathHelper.nextDouble(random, pos.y - (entity.getBoundingBox().getYSize() * multiplier), pos.y + (entity.getBoundingBox().getYSize() * multiplier));
         double z = MathHelper.nextDouble(random, pos.z - (entity.getBoundingBox().getZSize() * multiplier), pos.z + (entity.getBoundingBox().getZSize() * multiplier));
-        return new Vec3d(x, y, z);
+        return new Vector3d(x, y, z);
     }
-    public static Vec3d tryTeleportPlayer(PlayerEntity playerEntity, Vec3d testPosition)
+    public static Vector3d tryTeleportPlayer(PlayerEntity playerEntity, Vector3d testPosition)
     {
-        Vec3d cachedPosition = playerEntity.getPositionVec();
-        Vec3d newPosition = cachedPosition;
+        Vector3d cachedPosition = playerEntity.getPositionVec();
+        Vector3d newPosition = cachedPosition;
         playerEntity.teleportKeepLoaded(testPosition.x, testPosition.y, testPosition.z);
-        if (!playerEntity.world.checkBlockCollision(playerEntity.getBoundingBox()))
+        if (!playerEntity.world.checkNoEntityCollision(playerEntity))
         {
             newPosition = testPosition;
         }
@@ -274,13 +273,13 @@ public class MalumHelper
     //endregion
     
     //region ENTITY STUFF
-
+    
     @Nullable
-    public static Entity getClosestEntity(List<Entity> entities, Vec3d pos)
+    public static Entity getClosestEntity(List<Entity> entities, Vector3d pos)
     {
         double cachedDistance = -1.0D;
         Entity resultEntity = null;
-
+        
         for (Entity entity : entities)
         {
             double newDistance = entity.getDistanceSq(pos.x,pos.y,pos.z);

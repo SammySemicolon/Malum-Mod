@@ -12,7 +12,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import top.theillusivec4.curios.api.capability.ICurio;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.ArrayList;
 
@@ -31,11 +31,10 @@ public class CurioNecroticCatalyst extends Item implements ICurio, SpiritConsume
         return CurioProvider.createProvider(new ICurio()
         {
             @Override
-            public void playEquipSound(LivingEntity entityLivingBase)
+            public void playRightClickEquipSound(LivingEntity livingEntity)
             {
-                entityLivingBase.world.playSound(null, entityLivingBase.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-    
             @Override
             public boolean canRightClickEquip()
             {

@@ -2,6 +2,7 @@ package com.kittykitcatcat.malum.init;
 
 import com.kittykitcatcat.malum.ClientHandler;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import static com.kittykitcatcat.malum.ClientHandler.*;
 import static com.kittykitcatcat.malum.init.ModItems.*;
 
 @SuppressWarnings("unused")
@@ -28,24 +30,24 @@ public class ModTooltips
     {
         tooltips = new HashMap<>();
         addTooltip(funk_engine,
-                new TranslationTextComponent("malum.tooltip.funk_engine.desc"),
-                new TranslationTextComponent("malum.tooltip.funk_engine.effect.a")
-                        .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.funk_engine.effect.b", true)));
+                makeTranslationComponent("malum.tooltip.funk_engine.desc"),
+                makeTranslationComponent("malum.tooltip.funk_engine.effect.a")
+                        .append(makeImportantComponent("malum.tooltip.funk_engine.effect.b", true)));
     
         addTooltip(spiritwood_stave, staveComponent());
         addTooltip(resonant_stave, staveComponent());
         addTooltip(fiery_stave, staveComponent());
         addTooltip(bone_stave, staveComponent());
         
-        addTooltip(creative_spiritwood_stave, new TranslationTextComponent("malum.tooltip.creative_stave.desc")
-                .appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.basic_stave.effect.b", true)));
+        addTooltip(creative_spiritwood_stave, makeTranslationComponent("malum.tooltip.creative_stave.desc")
+                .append(makeImportantComponent("malum.tooltip.basic_stave.effect.b", true)));
     
         addTooltip(miracle_pearl, extraSpirit(1), extraIntegrity(50), chanceIntegrity(25));
         addTooltip(spiritwood_bark_necklace, extraSpirit(1));
     
-        addTooltip(ethereal_bulwark, new TranslationTextComponent("malum.tooltip.ethereal_bulwark.effect"));
-        addTooltip(vacant_aegis, new TranslationTextComponent("malum.tooltip.vacant_aegis.effect"));
-        addTooltip(vacant_rapier, new TranslationTextComponent("malum.tooltip.vacant_rapier.effect"));
+        addTooltip(ethereal_bulwark, makeTranslationComponent("malum.tooltip.ethereal_bulwark.effect"));
+        addTooltip(vacant_aegis, makeTranslationComponent("malum.tooltip.vacant_aegis.effect"));
+        addTooltip(vacant_rapier, makeTranslationComponent("malum.tooltip.vacant_rapier.effect"));
     }
     public static void addTooltip(Item item, ITextComponent... components)
     {
@@ -54,23 +56,23 @@ public class ModTooltips
     }
     public static ITextComponent staveComponent()
     {
-        return new TranslationTextComponent("malum.tooltip.basic_stave.effect.a").appendSibling(ClientHandler.makeImportantComponent("malum.tooltip.basic_stave.effect.b", true));
+        return makeTranslationComponent("malum.tooltip.basic_stave.effect.a").append(makeImportantComponent("malum.tooltip.basic_stave.effect.b", true));
     }
     public static ITextComponent extraSpirit(int amount)
     {
-        return new TranslationTextComponent("malum.tooltip.extra_spirit.effect.a")
-                .appendSibling(new StringTextComponent(String.valueOf(amount)))
-                .appendSibling(new TranslationTextComponent("malum.tooltip.extra_spirit.effect.b"));
+        return makeTranslationComponent("malum.tooltip.extra_spirit.effect.a")
+                .append(new StringTextComponent(String.valueOf(amount)))
+                .append(makeTranslationComponent("malum.tooltip.extra_spirit.effect.b"));
     }
     public static ITextComponent extraIntegrity(int amount)
     {
-        return new TranslationTextComponent("malum.tooltip.extra_integrity.effect")
-                .appendSibling(new StringTextComponent(amount + "%"));
+        return makeTranslationComponent("malum.tooltip.extra_integrity.effect")
+                .append(new StringTextComponent(amount + "%"));
     }
     public static ITextComponent chanceIntegrity(int amount)
     {
-        return new TranslationTextComponent("malum.tooltip.chance_integrity.effect")
-                .appendSibling(new StringTextComponent(amount + "%"));
+        return makeTranslationComponent("malum.tooltip.chance_integrity.effect")
+                .append(new StringTextComponent(amount + "%"));
         
     }
 }

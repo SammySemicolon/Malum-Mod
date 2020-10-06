@@ -8,11 +8,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import top.theillusivec4.curios.api.capability.ICurio;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.ArrayList;
 
@@ -24,28 +25,12 @@ public class CurioEnchantedLectern extends Item implements ICurio, SpiritConsume
     {
         super(builder);
     }
-
+    
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
-    {
-        return CurioProvider.createProvider(new ICurio()
-        {
-            @Override
-            public void playEquipSound(LivingEntity entityLivingBase)
-            {
-                entityLivingBase.world.playSound(null, entityLivingBase.getPosition(),
-                        SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL,
-                        1.0f, 1.0f);
-            }
-
-            @Override
-            public boolean canRightClickEquip()
-            {
-                return true;
-            }
+    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused) {
+        return CurioProvider.createProvider(new ICurio() {
         });
     }
-
     @Override
     public int durability()
     {

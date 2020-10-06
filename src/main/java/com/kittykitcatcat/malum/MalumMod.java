@@ -1,9 +1,10 @@
 package com.kittykitcatcat.malum;
 
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
 import java.util.Random;
 
@@ -14,6 +15,7 @@ public class MalumMod
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "malum";
     public static final Random random = new Random();
+    public static final ICuriosHelper curioHelper = CuriosApi.getCuriosHelper();
     public MalumMod() {
     }
 }

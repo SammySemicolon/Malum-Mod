@@ -1,5 +1,6 @@
 modLoader="javafml"
-loaderVersion="[28,)"
+loaderVersion="[33,)"
+license="All rights reserved"
 [[mods]]
 modId="malum"
 version="${file.jarVersion}"

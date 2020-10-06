@@ -4,22 +4,18 @@ import com.kittykitcatcat.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.kittykitcatcat.malum.blocks.utility.FancyRenderer;
 import com.kittykitcatcat.malum.capabilities.CapabilityValueGetter;
-import com.kittykitcatcat.malum.init.ModItems;
 import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.init.ModTooltips;
 import com.kittykitcatcat.malum.items.armor.ItemSpiritHunterArmor;
 import com.kittykitcatcat.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.kittykitcatcat.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.kittykitcatcat.malum.items.armor.ModArmor;
-import com.kittykitcatcat.malum.models.ModelUmbralSteelArmor;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -29,13 +25,10 @@ import net.minecraft.item.MusicDiscItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -144,37 +137,41 @@ public class ClientHandler
     {
         if (!Screen.hasShiftDown())
         {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").applyTextStyle(TextFormatting.GRAY)
-                    .appendSibling(makeImportantComponent("malum.tooltip.sneak", false)));
+            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").mergeStyle(TextFormatting.GRAY)
+                    .append(makeImportantComponent("malum.tooltip.sneak", false)));
         }
         else
         {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").applyTextStyle(TextFormatting.WHITE)
-                    .appendSibling(makeImportantComponent("malum.tooltip.sneak", true)));
+            tooltip.add(makeTranslationComponent("malum.tooltip.hold")
+                    .append(makeImportantComponent("malum.tooltip.sneak", true)));
             tooltip.addAll(components);
         }
     }
     
-    public static ITextComponent makeImportantComponent(String message, boolean litUp)
+    public static IFormattableTextComponent makeTranslationComponent(String message)
+    {
+        return new TranslationTextComponent(message).mergeStyle(TextFormatting.WHITE);
+    }
+    public static IFormattableTextComponent makeImportantComponent(String message, boolean litUp)
     {
         if (litUp)
         {
-            return new StringTextComponent("[").applyTextStyle(TextFormatting.WHITE)
-                    .appendSibling(new TranslationTextComponent(message).applyTextStyle(TextFormatting.LIGHT_PURPLE))
-                    .appendSibling(new StringTextComponent("] ").applyTextStyle(TextFormatting.WHITE)).applyTextStyle(TextFormatting.BOLD);
+            return new StringTextComponent("[").mergeStyle(TextFormatting.WHITE)
+                    .append(new TranslationTextComponent(message).mergeStyle(TextFormatting.LIGHT_PURPLE))
+                    .append(new StringTextComponent("] ").mergeStyle(TextFormatting.WHITE)).mergeStyle(TextFormatting.BOLD);
         }
         else
         {
-            return new StringTextComponent("[").applyTextStyle(TextFormatting.GRAY)
-                    .appendSibling(new TranslationTextComponent(message).applyTextStyle(TextFormatting.DARK_PURPLE))
-                    .appendSibling(new StringTextComponent("] ").applyTextStyle(TextFormatting.GRAY)).applyTextStyle(TextFormatting.BOLD);
+            return new StringTextComponent("[").mergeStyle(TextFormatting.GRAY)
+                    .append(new TranslationTextComponent(message).mergeStyle(TextFormatting.DARK_PURPLE))
+                    .append(new StringTextComponent("] ").mergeStyle(TextFormatting.GRAY)).mergeStyle(TextFormatting.BOLD);
         }
     }
     
     //region RENDERING NONSENSE
     public static void renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
     {
-        if (renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(renderDispatcher.renderInfo.getProjectedView().x, renderDispatcher.renderInfo.getProjectedView().y, renderDispatcher.renderInfo.getProjectedView().z) < 128d)
+        if (renderDispatcher.renderInfo != null)
         {
             Minecraft minecraft = Minecraft.getInstance();
             World world = minecraft.world;
@@ -206,7 +203,7 @@ public class ClientHandler
                             int current = components.size() + 1;
                             for (ITextComponent component : components)
                             {
-                                String text = component.getFormattedText();
+                                String text = component.getUnformattedComponentText();
                                 float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
                                 matrixStack.push();
                                 
@@ -239,7 +236,7 @@ public class ClientHandler
     
     public static void renderTEdataInTheCoolFancyWay(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
     {
-        if (renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(renderDispatcher.renderInfo.getProjectedView().x, renderDispatcher.renderInfo.getProjectedView().y, renderDispatcher.renderInfo.getProjectedView().z) < 128d)
+        if (renderDispatcher.renderInfo != null)
         {
             Minecraft minecraft = Minecraft.getInstance();
             World world = minecraft.world;
@@ -273,7 +270,7 @@ public class ClientHandler
                             int current = components.size() + 1;
                             for (ITextComponent component : components)
                             {
-                                String text = component.getFormattedText();
+                                String text = component.getUnformattedComponentText();
                                 float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
                                 matrixStack.push();
                 
@@ -308,10 +305,10 @@ public class ClientHandler
     public static ITextComponent makeGenericSpiritDependantTooltip(String message, String spirit)
     {
         //Uses [spiritType] spirits to [message]
-        return new TranslationTextComponent("malum.tooltip.sconsumer.desc.c").applyTextStyle(WHITE) //Uses
-                .appendSibling(makeImportantComponent(spirit, true))
-                .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.d").applyTextStyle(WHITE))
-                .appendSibling(makeImportantComponent(message, true));
+        return makeTranslationComponent("malum.tooltip.sconsumer.desc.c") //Uses
+                .append(makeImportantComponent(spirit, true))
+                .append(makeTranslationComponent("malum.tooltip.sconsumer.desc.d"))
+                .append(makeImportantComponent(message, true));
     }
     
     public static void makeSpiritTooltip(PlayerEntity playerEntity, ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
@@ -339,8 +336,8 @@ public class ClientHandler
                     {
                         if (ItemSpiritedSteelBattleArmor.hasArmorSet(playerEntity))
                         {
-                            newComponents.add(new TranslationTextComponent("malum.tooltip.spirit_harvest")
-                                    .appendSibling(makeImportantComponent("malum.tooltip.setbonus.spirited_steel", true)));
+                            newComponents.add(makeTranslationComponent("malum.tooltip.spirit_harvest")
+                                    .append(makeImportantComponent("malum.tooltip.setbonus.spirited_steel", true)));
                         }
                     }
                     if (stack.getItem() instanceof ItemUmbraSteelBattleArmor)
@@ -349,8 +346,8 @@ public class ClientHandler
                         {
                             newComponents.add(ModTooltips.extraSpirit(2));
                             newComponents.add(ModTooltips.extraIntegrity(25));
-                            newComponents.add(new TranslationTextComponent("malum.tooltip.spirit_harvest")
-                                    .appendSibling(makeImportantComponent("malum.tooltip.setbonus.umbral_steel", true)));
+                            newComponents.add(makeTranslationComponent("malum.tooltip.spirit_harvest")
+                                    .append(makeImportantComponent("malum.tooltip.setbonus.umbral_steel", true)));
                         }
                     }
                 }
@@ -364,10 +361,10 @@ public class ClientHandler
                 SpiritStorage spiritStorage = (SpiritStorage) stack.getItem();
                 if (spiritStorage.capacity() != 0)
                 {
-                    newComponents.add(new TranslationTextComponent("malum.tooltip.sstorage.desc").applyTextStyle(WHITE) //contains
-                            .appendSibling(makeImportantComponent(stack.getTag().getInt(SpiritDataHelper.countNBT) + "/" + spiritStorage.capacity(), true)) //[amount/max]
-                            .appendSibling(makeImportantComponent(SpiritDataHelper.getName(stack.getTag().getString(SpiritDataHelper.typeNBT)), true)) //[spiritType]
-                            .appendSibling(new TranslationTextComponent("malum.tooltip.spirit.desc.c").applyTextStyle(WHITE))); //spirits
+                    newComponents.add(makeTranslationComponent("malum.tooltip.sstorage.desc") //contains
+                            .append(makeImportantComponent(stack.getTag().getInt(SpiritDataHelper.countNBT) + "/" + spiritStorage.capacity(), true)) //[amount/max]
+                            .append(makeImportantComponent(SpiritDataHelper.getName(stack.getTag().getString(SpiritDataHelper.typeNBT)), true)) //[spiritType]
+                            .append(makeTranslationComponent("malum.tooltip.spirit.desc.c"))); //spirits
                 }
             }
         }
@@ -378,9 +375,9 @@ public class ClientHandler
                 SpiritConsumer spiritStorage = (SpiritConsumer) stack.getItem();
                 if (spiritStorage.durability() != 0)
                 {
-                    newComponents.add(new TranslationTextComponent("malum.tooltip.sconsumer.desc.a").applyTextStyle(WHITE) //has
-                            .appendSibling(makeImportantComponent(stack.getTag().getInt(SpiritDataHelper.spiritIntegrityNBT) + "/" + spiritStorage.durability(), true)) //[amount/max]
-                            .appendSibling(new TranslationTextComponent("malum.tooltip.sconsumer.desc.b")).applyTextStyle(WHITE)); //spirit integrity
+                    newComponents.add(makeTranslationComponent("malum.tooltip.sconsumer.desc.a") //has
+                            .append(makeImportantComponent(stack.getTag().getInt(SpiritDataHelper.spiritIntegrityNBT) + "/" + spiritStorage.durability(), true)) //[amount/max]
+                            .append(makeTranslationComponent("malum.tooltip.sconsumer.desc.b"))); //spirit integrity
                 }
             }
         }

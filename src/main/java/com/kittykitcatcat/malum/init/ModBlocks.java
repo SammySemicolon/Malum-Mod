@@ -8,15 +8,10 @@ import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceBotto
 import com.kittykitcatcat.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopBlock;
 import com.kittykitcatcat.malum.blocks.machines.spiritjar.SpiritJarBlock;
 import com.kittykitcatcat.malum.blocks.special.FleshBlock;
-import com.kittykitcatcat.malum.blocks.special.SpiritLeafBlock;
-import com.kittykitcatcat.malum.blocks.special.SpiritSaplingBlock;
 import com.kittykitcatcat.malum.blocks.utility.ModSlabBlock;
 import com.kittykitcatcat.malum.blocks.utility.ModStairsBlock;
-import com.kittykitcatcat.malum.world.biomes.SpiritwoodTree;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.material.MaterialColor;
+import com.kittykitcatcat.malum.world.SpiritwoodTree;
+import net.minecraft.block.*;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,8 +37,8 @@ public class ModBlocks
     //ORES
 
     public static Block arcane_stone;
+    public static Block archaic_crystal_ore;
     //BUILDING
-    public static Block archaic_sulphur_lamp;
 
     public static Block spirit_stone;
     public static Block dark_spirit_stone;
@@ -91,7 +86,7 @@ public class ModBlocks
     public static void registerBlocks(RegistryEvent.Register<Block> event)
     {
         IForgeRegistry<Block> registry = event.getRegistry();
-        spirit_jar = registerBlock(registry, new SpiritJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().noDrops().lightValue(1)), "spirit_jar");
+        spirit_jar = registerBlock(registry, new SpiritJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().noDrops().setLightLevel((state) -> 15)), "spirit_jar");
 
         spirit_furnace_top = registerBlock(registry, new SpiritFurnaceTopBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid().noDrops()), "spirit_furnace_top");
         spirit_furnace = registerBlock(registry, new SpiritFurnaceBottomBlock(Block.Properties.from(Blocks.SMOOTH_STONE).notSolid()), "spirit_furnace_bottom");
@@ -102,9 +97,8 @@ public class ModBlocks
         redstone_clock = registerBlock(registry, new RedstoneClockBlock(Block.Properties.from(Blocks.STONE)), "redstone_clock");
 
         arcane_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_stone");
-
-        archaic_sulphur_lamp = registerBlock(registry, new Block(Block.Properties.from(Blocks.GLOWSTONE).lightValue(60)), "archaic_sulphur_lamp");
-
+        archaic_crystal_ore = registerBlock(registry, new Block(Block.Properties.from(Blocks.DIAMOND_ORE)), "archaic_crystal_ore");
+        
         dark_spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "spirit_stone");
         dark_spirit_stone_brick = registerBlock(registry, new Block(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_brick");
@@ -133,18 +127,18 @@ public class ModBlocks
         patterned_spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.STONE)), "patterned_spirit_stone_stairs");
         smooth_dark_spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OBSIDIAN)), "smooth_dark_spirit_stone_stairs");
         smooth_spirit_stone_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.STONE)), "smooth_spirit_stone_stairs");
-
-        dark_spirit_stone_pillar = registerBlock(registry, new LogBlock(MaterialColor.STONE, Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_pillar");
-        spirit_stone_pillar = registerBlock(registry, new LogBlock(MaterialColor.STONE, Block.Properties.from(Blocks.STONE)), "spirit_stone_pillar");
+        
+        dark_spirit_stone_pillar = registerBlock(registry, new RotatedPillarBlock(Block.Properties.from(Blocks.OBSIDIAN)), "dark_spirit_stone_pillar");
+        spirit_stone_pillar = registerBlock(registry, new RotatedPillarBlock(Block.Properties.from(Blocks.STONE)), "spirit_stone_pillar");
 
         spirit_planks = registerBlock(registry, new Block(Block.Properties.from(Blocks.OAK_PLANKS)), "spirit_planks");
         spirit_slab = registerBlock(registry, new ModSlabBlock(Block.Properties.from(Blocks.OAK_SLAB)), "spirit_slab");
         spirit_stairs = registerBlock(registry, new ModStairsBlock(Block.Properties.from(Blocks.OAK_STAIRS)), "spirit_stairs");
 
-        spirit_sapling = registerBlock(registry, new SpiritSaplingBlock(new SpiritwoodTree(), Block.Properties.from(Blocks.JUNGLE_SAPLING)), "spirit_sapling");
-        spirit_leaves = registerBlock(registry, new SpiritLeafBlock(Block.Properties.from(Blocks.OAK_LEAVES)), "spirit_leaves");
-        spirit_log = registerBlock(registry, new LogBlock(MaterialColor.PURPLE, Block.Properties.from(Blocks.OAK_LOG)), "spirit_log");
-        stripped_spirit_log = registerBlock(registry, new LogBlock(MaterialColor.PURPLE, Block.Properties.from(Blocks.STRIPPED_OAK_LOG)), "stripped_spirit_log");
+        spirit_sapling = registerBlock(registry, new SaplingBlock(new SpiritwoodTree(), Block.Properties.from(Blocks.JUNGLE_SAPLING)), "spirit_sapling");
+        spirit_leaves = registerBlock(registry, new LeavesBlock(Block.Properties.from(Blocks.OAK_LEAVES)), "spirit_leaves");
+        spirit_log = registerBlock(registry, new RotatedPillarBlock(Block.Properties.from(Blocks.OAK_LOG)), "spirit_log");
+        stripped_spirit_log = registerBlock(registry, new RotatedPillarBlock(Block.Properties.from(Blocks.STRIPPED_OAK_LOG)), "stripped_spirit_log");
 
         block_of_flesh = registerBlock(registry, new FleshBlock(Block.Properties.from(Blocks.FIRE_CORAL_BLOCK).hardnessAndResistance(2)), "block_of_flesh");
 

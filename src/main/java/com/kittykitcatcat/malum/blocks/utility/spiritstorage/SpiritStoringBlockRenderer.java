@@ -75,7 +75,7 @@ public class SpiritStoringBlockRenderer extends TileEntityRenderer<SpiritStoring
         {
             ArrayList<ITextComponent> components = new ArrayList<>();
             components.add(makeImportantComponent(blockEntity.count + "/" + ((SpiritStorage) blockEntity.getBlockState().getBlock()).capacity(), true) //[amount/max]
-                    .appendSibling(makeImportantComponent(getName(blockEntity.type), true))); //[spiritType]
+                    .append(makeImportantComponent(getName(blockEntity.type), true))); //[spiritType]
     
             renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
         }

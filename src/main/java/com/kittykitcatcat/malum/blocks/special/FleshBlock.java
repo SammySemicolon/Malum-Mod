@@ -1,15 +1,9 @@
 package com.kittykitcatcat.malum.blocks.special;
 
 
-import com.kittykitcatcat.malum.MalumHelper;
-import com.kittykitcatcat.malum.MalumMod;
-import com.kittykitcatcat.malum.particles.bloodparticle.BloodParticleData;
-import com.kittykitcatcat.malum.particles.bonk.BonkParticleData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
@@ -22,7 +16,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -61,7 +55,7 @@ public class FleshBlock extends Block
                     {
                         for (int i = 0; i < currentCut * 3; i++)
                         {
-                            Vec3d position = new Vec3d(pos.getX(), pos.getY(), pos.getZ()).add(MathHelper.nextDouble(random, 0,1),MathHelper.nextDouble(random, 0,1),MathHelper.nextDouble(random, 0,1));
+                            Vector3d position = new Vector3d(pos.getX(), pos.getY(), pos.getZ()).add(MathHelper.nextDouble(random, 0,1),MathHelper.nextDouble(random, 0,1),MathHelper.nextDouble(random, 0,1));
                             ((ServerWorld) worldIn).spawnParticle(new BlockParticleData(ParticleTypes.BLOCK, state), position.x,position.y,position.z, currentCut * 3, 0,0,0, 0.4f);
                         }
                     }

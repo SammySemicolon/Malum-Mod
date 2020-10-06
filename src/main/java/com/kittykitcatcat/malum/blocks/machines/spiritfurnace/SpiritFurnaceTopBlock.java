@@ -40,11 +40,6 @@ public class SpiritFurnaceTopBlock extends Block
     }
 
     @Override
-    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
-    {
-        return false;
-    }
-    @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
     {
         worldIn.setBlockState(pos.down(), Blocks.AIR.getDefaultState());

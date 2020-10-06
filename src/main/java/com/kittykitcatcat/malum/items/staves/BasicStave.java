@@ -3,9 +3,7 @@ package com.kittykitcatcat.malum.items.staves;
 import com.kittykitcatcat.malum.ClientHandler;
 import com.kittykitcatcat.malum.SpiritConsumer;
 import com.kittykitcatcat.malum.SpiritDescription;
-import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.items.staves.effects.ModEffect;
-import com.kittykitcatcat.malum.items.staves.effects.ModEffect.effectTypeEnum;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +18,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -30,8 +28,8 @@ import java.util.List;
 
 import static com.kittykitcatcat.malum.MalumHelper.getClosestEntity;
 import static com.kittykitcatcat.malum.SpiritDataHelper.getHusk;
-import static com.kittykitcatcat.malum.items.staves.effects.ModEffect.effectTypeEnum.*;
-import static net.minecraft.util.SoundCategory.PLAYERS;
+import static com.kittykitcatcat.malum.items.staves.effects.ModEffect.effectTypeEnum.blockInteraction;
+import static com.kittykitcatcat.malum.items.staves.effects.ModEffect.effectTypeEnum.rightClick;
 
 public abstract class BasicStave extends Item implements SpiritConsumer, SpiritDescription
 {
@@ -85,7 +83,7 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
     public static LivingEntity findEntity(PlayerEntity player)
     {
         World world = player.world;
-        Vec3d pos = player.getPositionVec();
+        Vector3d pos = player.getPositionVec();
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(pos.x - 10, pos.y - 10, pos.z - 10, pos.x + 10, pos.y + 10, pos.z + 10));
         List<Entity> finalList = new ArrayList<>();
         if (!list.isEmpty())
@@ -109,8 +107,8 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
                     }
                     if (stave.isEntityValid(player, (LivingEntity) entity))
                     {
-                        Vec3d vecA = player.getLookVec().normalize();
-                        Vec3d vecB = (entity.getPositionVec().subtract(player.getPositionVec())).normalize();
+                        Vector3d vecA = player.getLookVec().normalize();
+                        Vector3d vecB = (entity.getPositionVec().subtract(player.getPositionVec())).normalize();
                         double angle = 2.0d * Math.atan((vecA.subtract(vecB)).length() / (vecA.add(vecB)).length());
                         if (angle <= 0.6f && angle >= -0.6f)
                         {

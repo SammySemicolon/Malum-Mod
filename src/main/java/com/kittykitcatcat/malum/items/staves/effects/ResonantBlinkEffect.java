@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nullable;
@@ -56,11 +56,11 @@ public class ResonantBlinkEffect extends ModEffect
     public void effect(PlayerEntity playerEntity, ItemStack stack)
     {
         super.effect(playerEntity, stack);
-        Vec3d direction = playerEntity.getLookVec();
+        Vector3d direction = playerEntity.getLookVec();
         int distance = 12;
         for (int i = distance; i > 0; i--)
         {
-            Vec3d newPosition = MalumHelper.tryTeleportPlayer(playerEntity, playerEntity.getPositionVec().add(direction.mul(i, i, i)));
+            Vector3d newPosition = MalumHelper.tryTeleportPlayer(playerEntity, playerEntity.getPositionVec().add(direction.mul(i, i, i)));
             if (!newPosition.equals(playerEntity.getPositionVec()))
             {
                 boolean success = consumeSpirit(playerEntity, stack);
@@ -77,14 +77,14 @@ public class ResonantBlinkEffect extends ModEffect
         }
     }
 
-    public static void makeVisuals(PlayerEntity playerEntity,Vec3d pos, float velocityMultiplier)
+    public static void makeVisuals(PlayerEntity playerEntity,Vector3d pos, float velocityMultiplier)
     {
         playerEntity.world.playSound(null, playerEntity.getPosition(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1f, 0.8f + random.nextFloat());
 
         for (int i = 0; i < 20; i++)
         {
-            Vec3d particlePos = MalumHelper.randSimulatedExtendedPosofEntity(playerEntity, pos, random, 1.25f);
-            Vec3d particleVelocity = particlePos.subtract(pos).normalize().mul(velocityMultiplier, velocityMultiplier, velocityMultiplier);
+            Vector3d particlePos = MalumHelper.randSimulatedExtendedPosofEntity(playerEntity, pos, random, 1.25f);
+            Vector3d particleVelocity = particlePos.subtract(pos).normalize().mul(velocityMultiplier, velocityMultiplier, velocityMultiplier);
             playerEntity.world.addParticle(new LensMagicParticleData(0.15f + random.nextFloat() * 0.2f), particlePos.x, particlePos.y, particlePos.z, particleVelocity.x, particleVelocity.y, particleVelocity.z);
         }
     }

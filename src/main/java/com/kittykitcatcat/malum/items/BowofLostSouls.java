@@ -24,19 +24,6 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
     public BowofLostSouls(Item.Properties builder)
     {
         super(builder);
-        this.addPropertyOverride(new ResourceLocation("pull"), (stack, world, livingEntity) ->
-        {
-            if (livingEntity == null)
-            {
-                return 0F;
-            }
-            else
-            {
-                return !(livingEntity.getActiveItemStack().getItem() instanceof BowofLostSouls) ? 0.0F : (float) (stack.getUseDuration() - livingEntity.getItemInUseCount()) / getDrawTime(stack);
-            }
-        });
-        this.addPropertyOverride(new ResourceLocation("pulling"), (stack, world, livingEntity) ->
-                livingEntity != null && livingEntity.isHandActive() && livingEntity.getActiveItemStack() == stack ? 1.0F : 0.0F);
     }
 
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft)
@@ -68,7 +55,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
                         ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
                         AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
                         abstractarrowentity = customeArrow(abstractarrowentity);
-                        abstractarrowentity.shoot(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+                        abstractarrowentity.func_234612_a_(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
                         if (f == 1.0F)
                         {
                             abstractarrowentity.setIsCritical(true);
@@ -166,7 +153,13 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
     {
         return ARROWS;
     }
-
+    
+    @Override
+    public int func_230305_d_()
+    {
+        return 15;
+    }
+    
     public AbstractArrowEntity customeArrow(AbstractArrowEntity arrow)
     {
         return arrow;

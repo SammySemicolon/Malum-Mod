@@ -15,8 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.ClientHandler.makeImportantComponent;
-import static com.kittykitcatcat.malum.ClientHandler.renderTEdataInTheCoolFancyWay;
+import static com.kittykitcatcat.malum.ClientHandler.*;
 
 @OnlyIn(value = Dist.CLIENT)
 public class FunkEngineRenderer extends TileEntityRenderer<FunkEngineTileEntity> implements FancyRenderer
@@ -74,7 +73,7 @@ public class FunkEngineRenderer extends TileEntityRenderer<FunkEngineTileEntity>
         {
             MusicDiscItem discItem = (MusicDiscItem) blockEntity.inventory.getStackInSlot(0).getItem();
             ArrayList<ITextComponent> components = new ArrayList<>();
-            components.add(new TranslationTextComponent("malum.tooltip.playing").appendSibling(makeImportantComponent(discItem.getRecordDescription().getFormattedText(), true)));
+            components.add(makeTranslationComponent("malum.tooltip.playing").append(makeImportantComponent(discItem.getDescription().getUnformattedComponentText(), true)));
             renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
         }
     }

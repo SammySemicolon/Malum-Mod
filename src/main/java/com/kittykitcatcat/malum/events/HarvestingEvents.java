@@ -6,6 +6,7 @@ import com.kittykitcatcat.malum.init.ModSounds;
 import com.kittykitcatcat.malum.items.staves.BasicStave;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -13,11 +14,15 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Hand;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Optional;
+import java.util.UUID;
 
 import static com.kittykitcatcat.malum.SpiritDataHelper.*;
 import static com.kittykitcatcat.malum.capabilities.CapabilityValueGetter.getCachedTarget;
@@ -32,7 +37,7 @@ public class HarvestingEvents
     public static SimpleSound sound;
     public static boolean tryCancel(PlayerEntity playerEntity, ItemStack stack)
     {
-        if (!getCachedTarget(playerEntity).isPresent())
+        if (getCachedTarget(playerEntity) == null)
         {
             cancel(playerEntity, stack);
             return true;
@@ -57,7 +62,7 @@ public class HarvestingEvents
         
         setHusk(cachedTarget, true);
         harvestSpirit(playerEntity, cachedTarget, getSpirit(cachedTarget), 1);
-        setCachedTarget(playerEntity, findEntity(playerEntity));
+        setCachedTarget(playerEntity, null);
         playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
         playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 40);
         playerEntity.resetActiveHand();
@@ -68,26 +73,26 @@ public class HarvestingEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (!player.isSneaking()) //sneaking is reserved for stave effects
+            if (player.world.getGameTime() % 4L == 0L) //dont do it too often
             {
-                if (!player.isHandActive()) //we dont wanna update the target if the player is harvesting a spirit
+                if (!player.isSneaking()) //sneaking is reserved for stave effects
                 {
-                    if (player.getHeldItemOffhand().getItem() instanceof BasicStave || player.getHeldItemMainhand().getItem() instanceof BasicStave) //only if player holds stave
+                    if (!player.isHandActive()) //we dont wanna update the target if the player is harvesting a spirit
                     {
-                        if (player.world.getGameTime() % 4L == 0L) //dont do it too often
+                        if (player.getHeldItemOffhand().getItem() instanceof BasicStave || player.getHeldItemMainhand().getItem() instanceof BasicStave) //only if player holds stave
                         {
                             LivingEntity entity = findEntity(player);
                             if (entity != null && !entity.equals(getCachedTarget(player)))
                             {
-                                setCachedTarget(player, findEntity(player));
+                                setCachedTarget(player, entity.getUniqueID());
                             }
                         }
-                    }
-                    else
-                    {
-                        if (getCachedTarget(player).isPresent())
+                        else
                         {
-                            setCachedTarget(player, null);
+                            if (getCachedTarget(player) != null)
+                            {
+                                setCachedTarget(player, null);
+                            }
                         }
                     }
                 }
@@ -102,10 +107,17 @@ public class HarvestingEvents
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof BasicStave || player.getHeldItem(Hand.OFF_HAND).getItem() instanceof BasicStave)
             {
-                LazyOptional<LivingEntity> cachedTarget = getCachedTarget(player);
-                if (cachedTarget.isPresent())
+                UUID cachedTarget = getCachedTarget(player);
+                if (cachedTarget != null)
                 {
-                    cachedTarget.ifPresent(c -> c.addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false)));
+                    if (player.world instanceof ServerWorld)
+                    {
+                        Entity entity = ((ServerWorld) player.world).getEntityByUuid(cachedTarget);
+                        if (entity instanceof LivingEntity)
+                        {
+                            ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false));
+                        }
+                    }
                 }
             }
         }
@@ -143,12 +155,19 @@ public class HarvestingEvents
                 {
                     if (!tryCancel(player, heldItem))
                     {
-                        LazyOptional<LivingEntity> cachedTarget = getCachedTarget(player);
-                        if (cachedTarget.isPresent())
+                        UUID cachedTarget = getCachedTarget(player);
+                        if (cachedTarget != null)
                         {
-                            cachedTarget.ifPresent(c -> success(player, heldItem, c));
+                            if (player.world instanceof ServerWorld)
+                            {
+                                Entity entity = ((ServerWorld) player.world).getEntityByUuid(cachedTarget);
+                                if (entity instanceof LivingEntity)
+                                {
+                                    success(player, heldItem, (LivingEntity) entity);
+                                    event.setCanceled(true);
+                                }
+                            }
                         }
-                        event.setCanceled(true);
                     }
                 }
             }

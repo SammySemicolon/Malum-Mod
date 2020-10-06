@@ -1,6 +1,7 @@
 package com.kittykitcatcat.malum.blocks.utility.spiritstorage;
 
 import com.kittykitcatcat.malum.blocks.utility.BasicTileEntity;
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 
@@ -31,9 +32,9 @@ public class SpiritStoringTileEntity extends BasicTileEntity
     }
 
     @Override
-    public void read(CompoundNBT compound)
+    public void read(BlockState state, CompoundNBT compound)
     {
-        super.read(compound);
+        super.read(state,compound);
         if (compound.contains(typeNBT))
         {
             type = compound.getString(typeNBT);

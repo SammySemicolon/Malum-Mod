@@ -83,9 +83,7 @@ public class SpiritJarRenderer extends TileEntityRenderer<SpiritJarTileEntity> i
         if (SpiritDataHelper.doesStorageHaveSpirit(blockEntity))
         {
             ArrayList<ITextComponent> components = new ArrayList<>();
-            components.add(makeImportantComponent(blockEntity.count + "/" + ((SpiritStorage) blockEntity.getBlockState().getBlock()).capacity(), true) //[amount/max]
-                    .appendSibling(makeImportantComponent(getName(blockEntity.type), true))); //[spiritType]
-        
+            components.add(makeImportantComponent(blockEntity.count + "/" + ((SpiritStorage) blockEntity.getBlockState().getBlock()).capacity(), true).append(makeImportantComponent(getName(blockEntity.type), true)));
             renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
         }
         if (this.renderDispatcher.renderInfo != null)
@@ -96,7 +94,7 @@ public class SpiritJarRenderer extends TileEntityRenderer<SpiritJarTileEntity> i
             matrixStack.push();
             matrixStack.scale(0.8f, scale * 0.8f, 0.8f);
             matrixStack.translate(0.2, 0, 0.2);
-            RenderType renderType = RenderTypeLookup.getRenderType(renderState);
+            RenderType renderType = RenderTypeLookup.func_239221_b_(renderState);
             setRenderLayer(renderType);
             BlockRendererDispatcher blockDispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
     

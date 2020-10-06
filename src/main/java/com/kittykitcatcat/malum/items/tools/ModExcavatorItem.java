@@ -2,10 +2,8 @@ package com.kittykitcatcat.malum.items.tools;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolItem;
 import net.minecraftforge.common.ToolType;
 
@@ -22,7 +20,7 @@ public class ModExcavatorItem extends ToolItem
     public float getDestroySpeed(ItemStack stack, BlockState state)
     {
         float efficiency = super.getDestroySpeed(stack, state);
-        if (state.getBlock().equals(Blocks.OBSIDIAN))
+        if (state.hardness >= 50f)
         {
             efficiency *= 100f;
         }

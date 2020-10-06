@@ -1,21 +1,13 @@
 package com.kittykitcatcat.malum.blocks.machines.mirror;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.minecraft.state.properties.AttachFace.CEILING;
-import static net.minecraft.state.properties.AttachFace.FLOOR;
-import static net.minecraft.state.properties.BlockStateProperties.FACE;
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class LinkableMirrorTileEntity extends BasicMirrorTileEntity implements ITickableTileEntity
 {
@@ -73,7 +65,7 @@ public class LinkableMirrorTileEntity extends BasicMirrorTileEntity implements I
     }
 
     @Override
-    public void read(CompoundNBT compound)
+    public void read(BlockState state,CompoundNBT compound)
     {
         currentMirror = compound.getInt("currentMirror");
         if (compound.contains("mirrorCount"))
@@ -91,7 +83,7 @@ public class LinkableMirrorTileEntity extends BasicMirrorTileEntity implements I
                 linkedPositions.add(pos);
             }
         }
-        super.read(compound);
+        super.read(state, compound);
     }
     
     @Override

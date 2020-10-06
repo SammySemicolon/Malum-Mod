@@ -57,7 +57,8 @@ public class ModItems
     public static Item dark_spirit_stone;
     public static Item arcane_stone;
     public static Item arcane_shard;
-    public static Item archaic_sulphur;
+    public static Item archaic_crystal_ore;
+    public static Item archaic_crystal;
     public static Item spirit_silk;
     public static Item spirit_fabric;
     public static Item evil_leather;
@@ -201,7 +202,8 @@ public class ModItems
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
                 arcane_stone = setup(new BlockItem(ModBlocks.arcane_stone, basic_properties), "arcane_stone"),
                 arcane_shard = setup(new Item(basic_properties), "arcane_shard"),
-                archaic_sulphur = setup(new Item(basic_properties), "archaic_sulphur"),
+                archaic_crystal_ore = setup(new BlockItem(ModBlocks.archaic_crystal_ore,basic_properties), "archaic_crystal_ore"),
+                archaic_crystal = setup(new Item(basic_properties), "archaic_crystal"),
                 spirit_silk = setup(new Item(basic_properties), "spirit_silk"),
                 spirit_fabric = setup(new Item(basic_properties), "spirit_fabric"),
                 evil_leather = setup(new Item(basic_properties), "evil_leather"),
@@ -308,7 +310,6 @@ public class ModItems
                 spirit_stairs = setup(new BlockItem(ModBlocks.spirit_stairs, basic_properties), "spirit_stairs"),
 
                 block_of_flesh = setup(new BlockItem(ModBlocks.block_of_flesh, basic_properties), "block_of_flesh"),
-                archaic_sulphur_lamp = setup(new BlockItem(ModBlocks.archaic_sulphur_lamp, basic_properties), "archaic_sulphur_lamp"),
 
                 spirit_leaves = setup(new BlockItem(ModBlocks.spirit_leaves, basic_properties), "spirit_leaves"),
                 spirit_log = setup(new BlockItem(ModBlocks.spirit_log, basic_properties), "spirit_log"),

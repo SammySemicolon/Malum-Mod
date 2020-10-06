@@ -72,9 +72,9 @@ public class SpiritFurnaceTopTileEntity extends BasicTileEntity implements ITick
     }
 
     @Override
-    public void read(CompoundNBT compound)
+    public void read(BlockState state, CompoundNBT compound)
     {
-        super.read(compound);
+        super.read(state,compound);
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
     }
     @Override

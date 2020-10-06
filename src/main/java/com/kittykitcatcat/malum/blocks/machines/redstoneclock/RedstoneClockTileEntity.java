@@ -47,9 +47,9 @@ public class RedstoneClockTileEntity extends BasicTileEntity implements ITickabl
     }
 
     @Override
-    public void read(CompoundNBT compound)
+    public void read(BlockState state, CompoundNBT compound)
     {
-        super.read(compound);
+        super.read(state,compound);
         type = compound.getInt("type");
         tickMultiplier = compound.getInt("tickMultiplier");
         timer = compound.getInt("timer");

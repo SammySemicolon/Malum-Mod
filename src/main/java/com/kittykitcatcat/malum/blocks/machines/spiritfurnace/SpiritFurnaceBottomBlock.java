@@ -36,12 +36,6 @@ public class SpiritFurnaceBottomBlock extends Block
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, false));
     }
     @Override
-    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
-    {
-        return false;
-    }
-
-    @Override
     public boolean hasTileEntity(final BlockState state)
     {
         return true;

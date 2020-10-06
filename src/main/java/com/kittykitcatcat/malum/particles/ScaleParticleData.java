@@ -1,5 +1,8 @@
 package com.kittykitcatcat.malum.particles;
 
+import com.kittykitcatcat.malum.particles.bonk.BonkParticleData;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 

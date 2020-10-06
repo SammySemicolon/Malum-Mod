@@ -20,8 +20,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.Capability;
@@ -101,11 +101,11 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
         compound.putBoolean("isSmelting", isSmelting);
         return compound;
     }
-
+    
     @Override
-    public void read(CompoundNBT compound)
+    public void read(BlockState state, CompoundNBT compound)
     {
-        super.read(compound);
+        super.read(state,compound);
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
         burnTime = compound.getInt("burnTime");
         burnProgress = compound.getInt("burnProgress");
@@ -131,7 +131,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             SpiritFurnaceTopTileEntity topTileEntity = (SpiritFurnaceTopTileEntity) world.getTileEntity(topPos);
             ItemStack fuelItem = inventory.getStackInSlot(0);
             ItemStack inputItem = topTileEntity.inventory.getStackInSlot(0);
-    
+            
             if (isSmelting)
             {
                 if (world.isRemote())
@@ -157,7 +157,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             if (ModRecipes.getSpiritFurnaceRecipe(inputItem) != null)
             {
                 SpiritFurnaceRecipe recipe = ModRecipes.getSpiritFurnaceRecipe(inputItem);
-    
+                
                 if (!fuelItem.isEmpty())
                 {
                     SpiritFurnaceFuelData data = ModRecipes.getSpiritFurnaceFuelData(fuelItem);
@@ -245,8 +245,8 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                 return;
             }
         }
-        Vec3i directionVec = direction.getDirectionVec();
-        Vec3d entityPos = new Vec3d(pos).add(0.5, 1.5, 0.5).subtract(directionVec.getX() * 0.8f, 0, directionVec.getZ() * 0.8f);
+        Vector3i directionVec = direction.getDirectionVec();
+        Vector3d entityPos = vectorFromBlockPos(pos).add(0.5, 1.5, 0.5).subtract(directionVec.getX() * 0.8f, 0, directionVec.getZ() * 0.8f);
         ItemEntity entity = new ItemEntity(world, entityPos.x, entityPos.y, entityPos.z, stack.copy());
         entity.setMotion(-directionVec.getX() * 0.1f, 0.05f, -directionVec.getZ() * 0.1f);
         world.addEntity(entity);
@@ -254,24 +254,24 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
     
     public void spawnSpiritFlame()
     {
-        Vec3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        Vec3d velocity = randomVector(random, -0.02, 0.02);
-        Vec3d particlePos = vectorFromBlockPos(pos).add(randomVector(random, 0.3, 0.7)).add(direction.getX() * 0.3f, 0, direction.getZ() * 0.3f);
+        Vector3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vector3d velocity = randomVector(random, -0.02, 0.02);
+        Vector3d particlePos = vectorFromBlockPos(pos).add(randomVector(random, 0.3, 0.7)).add(direction.getX() * 0.3f, 0, direction.getZ() * 0.3f);
         
         world.addParticle(new SpiritFlameParticleData(MathHelper.nextFloat(random, 0.25f, 0.4f)), particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
     }
     public void spawnTopSpiritFlame()
     {
-        Vec3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        Vec3d velocity = randomVector(random, -0.02, 0.02);
-        Vec3d particlePos = vectorFromBlockPos(pos).add(randomVector(random, 0.2, 0.8)).add(direction.getX() * 0.2f, 1, direction.getZ() * 0.2f);
+        Vector3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vector3d velocity = randomVector(random, -0.02, 0.02);
+        Vector3d particlePos = vectorFromBlockPos(pos).add(randomVector(random, 0.2, 0.8)).add(direction.getX() * 0.2f, 1, direction.getZ() * 0.2f);
         
         world.addParticle(new SpiritFlameParticleData(MathHelper.nextFloat(random, 0.25f, 0.4f)), particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
     }
     public void spawnTopSmoke()
     {
-        Vec3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
-        Vec3d particlePos = vectorFromBlockPos(pos).add(0.5, 1.75, 0.5).add(randomVector(random, -0.3, 0.3));
+        Vector3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vector3d particlePos = vectorFromBlockPos(pos).add(0.5, 1.75, 0.5).add(randomVector(random, -0.3, 0.3));
         
         if (direction.getZ() != 0)
         {

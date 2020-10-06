@@ -18,16 +18,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-import static com.kittykitcatcat.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.redstoneClockFunctionTypeEnum.values;
-import static net.minecraft.state.properties.AttachFace.CEILING;
-import static net.minecraft.state.properties.AttachFace.FLOOR;
 
 
 public class BasicMirrorBlock extends HorizontalFaceBlock
@@ -94,12 +90,6 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(HORIZONTAL_FACING, FACE);
-    }
-
-    @Override
-    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
-    {
-        return false;
     }
 
     @Override

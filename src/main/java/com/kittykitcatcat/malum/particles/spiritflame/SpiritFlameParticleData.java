@@ -2,8 +2,11 @@ package com.kittykitcatcat.malum.particles.spiritflame;
 
 import com.kittykitcatcat.malum.init.ModParticles;
 import com.kittykitcatcat.malum.particles.ScaleParticleData;
+import com.kittykitcatcat.malum.particles.lensmagic.LensMagicParticleData;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
@@ -33,4 +36,22 @@ public class SpiritFlameParticleData extends ScaleParticleData
     {
         return ModParticles.spiritFlame;
     }
+    
+    public static class Type extends ParticleType<SpiritFlameParticleData>
+    {
+        public Type(boolean alwaysShow)
+        {
+            super(alwaysShow, SpiritFlameParticleData.DESERIALIZER);
+        }
+        
+        @Override
+        public Codec<SpiritFlameParticleData> func_230522_e_()
+        {
+            return CODEC;
+        }
+    }
+    public static Codec<SpiritFlameParticleData> CODEC = RecordCodecBuilder
+            .create((instance) -> instance.group(
+                    Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)
+            ).apply(instance, SpiritFlameParticleData::new));
 }

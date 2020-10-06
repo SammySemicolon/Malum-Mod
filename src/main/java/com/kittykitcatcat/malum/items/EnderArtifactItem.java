@@ -3,7 +3,9 @@ package com.kittykitcatcat.malum.items;
 import com.kittykitcatcat.malum.SpiritConsumer;
 import com.kittykitcatcat.malum.SpiritDataHelper;
 import com.kittykitcatcat.malum.SpiritDescription;
+import net.minecraft.block.EnderChestBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
@@ -11,13 +13,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
 import static com.kittykitcatcat.malum.SpiritDataHelper.consumeSpirit;
 import static com.kittykitcatcat.malum.ClientHandler.makeGenericSpiritDependantTooltip;
-import static net.minecraft.block.EnderChestBlock.CONTAINER_NAME;
 
 public class EnderArtifactItem extends Item implements SpiritConsumer, SpiritDescription
 {
@@ -34,7 +36,7 @@ public class EnderArtifactItem extends Item implements SpiritConsumer, SpiritDes
         if (success)
         {
             playerIn.world.playSound(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.BLOCK_ENDER_CHEST_OPEN, SoundCategory.PLAYERS, 1f, 0f, true);
-            playerIn.openContainer(new SimpleNamedContainerProvider((p_220114_1_, p_220114_2_, p_220114_3_) -> ChestContainer.createGeneric9X3(p_220114_1_, p_220114_2_, playerIn.getInventoryEnderChest()), CONTAINER_NAME));
+            playerIn.openContainer(new SimpleNamedContainerProvider((p_220114_1_, p_220114_2_, p_220114_3_) -> ChestContainer.createGeneric9X3(p_220114_1_, p_220114_2_, playerIn.getInventoryEnderChest()), new TranslationTextComponent("container.enderchest")));
             playerIn.addStat(Stats.ITEM_USED.get(this));
             return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
         }

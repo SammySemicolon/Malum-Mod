@@ -43,4 +43,5 @@ public class ItemUmbraSteelBattleArmor extends ModArmor
     {
         return (A) new ModelUmbralSteelArmor(slot);
     }
+    
 }

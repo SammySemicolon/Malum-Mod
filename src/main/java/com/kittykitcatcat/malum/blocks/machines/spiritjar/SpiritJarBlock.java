@@ -25,12 +25,6 @@ public class SpiritJarBlock extends SpiritStoringBlock
     }
 
     @Override
-    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos)
-    {
-        return false;
-    }
-
-    @Override
     public boolean hasTileEntity(final BlockState state)
     {
         return true;

@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundNBT;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class CapabilityData
 {
@@ -17,17 +18,24 @@ public class CapabilityData
     {
         compound.putBoolean("husk", husk);
         compound.putBoolean("rogue", rogue);
-        
+        compound.putUniqueId("rogueOwner", rogueOwner);
     }
     public void loadNBTData(CompoundNBT compound)
     {
         husk = compound.getBoolean("husk");
         rogue = compound.getBoolean("rogue");
+        rogueOwner = compound.getUniqueId("rogueOwner");
     }
+    public UUID rogueOwner;
+    
+    public UUID getRogueOwner()
+    {
+        return rogueOwner;
+    }
+    
+    public UUID cachedTarget;
 
-    public LivingEntity cachedTarget;
-
-    public LivingEntity getCachedTarget()
+    public UUID getCachedTarget()
     {
         return cachedTarget;
     }

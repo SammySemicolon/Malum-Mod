@@ -1,9 +1,9 @@
 package com.kittykitcatcat.malum.particles;
 
-import com.kittykitcatcat.malum.MalumMod;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class MalumParticle extends SimpleAnimatedParticle
     public float scale;
     public int animationCooldown;
     
-    protected MalumParticle(World world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet, ParticlePhase... phases)
+    protected MalumParticle(ClientWorld world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet, ParticlePhase... phases)
     {
         super(world, x, y, z, spriteSet, 0);
         animationCooldown = 2;

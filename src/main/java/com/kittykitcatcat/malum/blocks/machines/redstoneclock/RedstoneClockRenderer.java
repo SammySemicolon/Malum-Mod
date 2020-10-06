@@ -14,8 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 
-import static com.kittykitcatcat.malum.ClientHandler.makeImportantComponent;
-import static com.kittykitcatcat.malum.ClientHandler.renderTEdataInTheCoolFancyWay;
+import static com.kittykitcatcat.malum.ClientHandler.*;
 
 @OnlyIn(value = Dist.CLIENT)
 public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileEntity> implements FancyRenderer
@@ -69,10 +68,10 @@ public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileE
     public void render(RedstoneClockTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(new TranslationTextComponent("malum.tooltip.tickRate")
-                .appendSibling(makeImportantComponent("" + blockEntity.cooldown[blockEntity.tickMultiplier], true)));
-        components.add(new TranslationTextComponent("malum.tooltip.type")
-                .appendSibling(makeImportantComponent(blockEntity.type == 0 ? "malum.tooltip.toggle" : "malum.tooltip.pulse", true)));
+        components.add(makeTranslationComponent("malum.tooltip.tickRate")
+                .append(makeImportantComponent("" + blockEntity.cooldown[blockEntity.tickMultiplier], true)));
+        components.add(makeTranslationComponent("malum.tooltip.type")
+                .append(makeImportantComponent(blockEntity.type == 0 ? "malum.tooltip.toggle" : "malum.tooltip.pulse", true)));
         
         renderTEdataInTheCoolFancyWay(blockEntity,this,matrixStack,iRenderTypeBuffer,renderDispatcher, components);
     }
