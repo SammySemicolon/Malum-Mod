@@ -5,6 +5,8 @@ import com.sammy.malum.init.ModRecipes;
 import com.sammy.malum.init.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
@@ -22,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -177,6 +180,13 @@ public class MalumHelper
     
     //region STACK HANDLING
     
+    public static void addDrop(LivingDropsEvent event, ItemStack stack)
+    {
+        LivingEntity entity = event.getEntityLiving();
+        ItemEntity entityitem = new ItemEntity(entity.world, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ, stack);
+        entityitem.setPickupDelay(10);
+        event.getDrops().add(entityitem);
+    }
     public static boolean hasArmorSet(PlayerEntity player, Item helmet, Item chest, Item leggings, Item feet)
     {
         if (player != null || player.inventory != null)

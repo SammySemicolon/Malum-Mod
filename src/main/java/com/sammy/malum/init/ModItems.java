@@ -11,6 +11,7 @@ import com.sammy.malum.items.staves.effects.MatingEffect;
 import com.sammy.malum.items.staves.effects.ResonantBlinkEffect;
 import com.sammy.malum.items.*;
 import com.sammy.malum.items.curios.*;
+import com.sammy.malum.items.tools.ModBusterSwordItem;
 import com.sammy.malum.items.tools.ModExcavatorItem;
 import com.sammy.malum.items.tools.ModSwordItem;
 import com.sammy.malum.items.tools.UltimateWeaponItem;
@@ -250,10 +251,10 @@ public class ModItems
                 umbral_steel_chestplate = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.CHEST, tool_properties), "umbral_steel_chestplate"),
                 umbral_steel_helm = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.HEAD, tool_properties), "umbral_steel_helm"),
         
-                spirited_steel_buster_sword = setup(new ModSwordItem(SPIRITED_STEEL_ITEM, 6, -0.8f, tool_properties), "spirited_steel_buster_sword"),
+                spirited_steel_buster_sword = setup(new ModBusterSwordItem(SPIRITED_STEEL_ITEM, 6, -0.8f, tool_properties), "spirited_steel_buster_sword"),
                 spirited_steel_excavator = setup(new ModExcavatorItem( 3, -0.4f, SPIRITED_STEEL_ITEM, Collections.emptySet(), tool_properties.maxDamage(1000)), "spirited_steel_excavator"),
         
-                umbral_steel_buster_sword = setup(new ModSwordItem(UMBRAL_ALLOY_ITEM, 9, -0.8f, tool_properties), "umbral_steel_buster_sword"),
+                umbral_steel_buster_sword = setup(new ModBusterSwordItem(UMBRAL_ALLOY_ITEM, 9, -0.8f, tool_properties), "umbral_steel_buster_sword"),
                 umbral_steel_excavator = setup(new ModExcavatorItem( 4, -0.4f, UMBRAL_ALLOY_ITEM, Collections.emptySet(), tool_properties.maxDamage(2000)), "umbral_steel_excavator"),
 
                 vacant_rapier = setup(new VacantRapier(ItemTier.DIAMOND, -4, 1.2f, tool_properties), "vacant_rapier"),

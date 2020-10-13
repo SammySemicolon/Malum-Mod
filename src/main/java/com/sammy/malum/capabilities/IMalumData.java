@@ -15,6 +15,6 @@ public interface IMalumData
     void setCachedTarget(UUID uuid);
     void setHusk(boolean husk);
     void copy(IMalumData data);
-    void saveNBTData(CompoundNBT compound);
+    CompoundNBT saveNBTData();
     void loadNBTData(CompoundNBT compound);
 }

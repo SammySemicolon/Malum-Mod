@@ -1,20 +1,25 @@
 package com.sammy.malum.events;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.capabilities.MalumDataProvider;
 import com.sammy.malum.items.BowofLostSouls;
 import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
 import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.sammy.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.sammy.malum.items.staves.BasicStave;
+import com.sammy.malum.items.tools.ModBusterSwordItem;
 import com.sammy.malum.network.packets.HuskChangePacket;
 import com.sammy.malum.particles.skull.SkullParticleData;
 import com.sammy.malum.items.curios.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.SkullItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.MathHelper;
@@ -26,8 +31,9 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
+import top.theillusivec4.curios.api.CuriosApi;
 
-import static com.sammy.malum.MalumMod.curioHelper;
+import static com.sammy.malum.MalumHelper.addDrop;
 import static com.sammy.malum.MalumMod.random;
 import static com.sammy.malum.SpiritDataHelper.consumeSpirit;
 import static com.sammy.malum.capabilities.MalumDataProvider.*;
@@ -51,7 +57,7 @@ public class RuntimeEvents
             }
         }
     }
-
+    
     @SubscribeEvent
     public static void cancelHuskTargetEvent(LivingSetAttackTargetEvent event)
     {
@@ -86,7 +92,7 @@ public class RuntimeEvents
             }
         }
     }
-
+    
     @SubscribeEvent
     public static void handleHuskLivingUpdate(LivingEvent.LivingUpdateEvent event)
     {
@@ -105,7 +111,7 @@ public class RuntimeEvents
         }
     }
     //endregion
-
+    
     //region CURIOS
     @SubscribeEvent
     public static void necroticCatalystEffect(LivingEvent.LivingUpdateEvent event)
@@ -113,13 +119,13 @@ public class RuntimeEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-            if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioNecroticCatalyst, playerEntity).isPresent())
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioNecroticCatalyst, playerEntity).isPresent())
             {
-                if (random.nextDouble() < 0.2f)
+                if (playerEntity.getFoodStats().needFood())
                 {
-                    if (playerEntity.getFoodStats().needFood())
+                    if (random.nextDouble() < 0.2f)
                     {
-                        curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioNecroticCatalyst, playerEntity).ifPresent(triple -> {
+                        CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioNecroticCatalyst, playerEntity).ifPresent(triple -> {
                             boolean success = consumeSpirit(playerEntity, triple.right);
                             if (success)
                             {
@@ -137,11 +143,11 @@ public class RuntimeEvents
         if (event.getSource().getTrueSource() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
-            if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioVampireNecklace, playerEntity).isPresent())
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioVampireNecklace, playerEntity).isPresent())
             {
                 if (random.nextDouble() < 0.2f || event.getEntityLiving().getHealth() <= 0)
                 {
-                    curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioVampireNecklace, playerEntity).ifPresent(triple ->
+                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioVampireNecklace, playerEntity).ifPresent(triple ->
                     {
                         boolean success = consumeSpirit(playerEntity, triple.right);
                         if (success)
@@ -159,7 +165,7 @@ public class RuntimeEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-            if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioEtherealBulwark, playerEntity).isPresent())
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioEtherealBulwark, playerEntity).isPresent())
             {
                 if (playerEntity.getActiveItemStack().getItem() instanceof BasicStave)
                 {
@@ -174,7 +180,7 @@ public class RuntimeEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-            if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioVacantAegis, playerEntity).isPresent())
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioVacantAegis, playerEntity).isPresent())
             {
                 if (event.getSource().getTrueSource() instanceof LivingEntity)
                 {
@@ -192,11 +198,11 @@ public class RuntimeEvents
         if (event.getAttackingPlayer() != null)
         {
             PlayerEntity playerEntity = event.getAttackingPlayer();
-            if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).isPresent())
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).isPresent())
             {
                 if (getHusk(event.getEntityLiving()))
                 {
-                    curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).ifPresent(triple ->
+                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).ifPresent(triple ->
                     {
                         boolean success = consumeSpirit(playerEntity, triple.right);
                         if (success)
@@ -250,7 +256,7 @@ public class RuntimeEvents
     public static void barkNecklaceEffect(SpiritHarvestEvent.Pre event)
     {
         PlayerEntity playerEntity = event.playerEntity;
-        if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioSpiritwoodNecklace, playerEntity).isPresent())
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioSpiritwoodNecklace, playerEntity).isPresent())
         {
             event.extraSpirits +=1;
         }
@@ -260,7 +266,7 @@ public class RuntimeEvents
     public static void seerOfMiraclesEffect(SpiritHarvestEvent.Pre event)
     {
         PlayerEntity playerEntity = event.playerEntity;
-        if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
         {
             event.extraSpirits +=1;
         }
@@ -270,7 +276,7 @@ public class RuntimeEvents
     public static void seerOfMiraclesEffect(SpiritIntegrityUpdateEvent.Fill event)
     {
         PlayerEntity playerEntity = event.playerEntity;
-        if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
         {
             event.integrityChange *= 1.5f;
         }
@@ -280,7 +286,7 @@ public class RuntimeEvents
     public static void seerOfMiraclesEffect(SpiritIntegrityUpdateEvent.Decrease event)
     {
         PlayerEntity playerEntity = event.playerEntity;
-        if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
         {
             if (MathHelper.nextInt(random, 0, 3) == 0)
             {
@@ -293,14 +299,56 @@ public class RuntimeEvents
     public static void jesterHatEffect(SpiritHarvestEvent.Post event)
     {
         PlayerEntity playerEntity = event.playerEntity;
-        if (curioHelper.findEquippedCurio(stack -> stack.getItem() instanceof CurioJesterHat, playerEntity).isPresent())
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioJesterHat, playerEntity).isPresent())
         {
             setRogueOwner(event.target, playerEntity.getUniqueID());
         }
     }
     //endregion
-
+    
     //region ITEMS
+    @SubscribeEvent
+    public static void busterSwordDropHeads(LivingDropsEvent event)
+    {
+        if (event.getEntity() instanceof LivingEntity)
+        {
+            if (event.isRecentlyHit())
+            {
+                if (event.getSource().getTrueSource() instanceof PlayerEntity)
+                {
+                    PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+                    ItemStack stack = playerEntity.getActiveItemStack();
+                    if (stack.getItem() instanceof ModBusterSwordItem)
+                    {
+                        float chance = 40 + event.getLootingLevel() * 10 / 100f;
+                        LivingEntity entity = event.getEntityLiving();
+                        if (random.nextFloat() <= chance)
+                        {
+                            if (entity instanceof AbstractSkeletonEntity)
+                            {
+                                addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
+                            }
+                            if (entity instanceof ZombieEntity && !(entity instanceof ZombifiedPiglinEntity))
+                            {
+                                addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
+                            }
+                            if (entity instanceof CreeperEntity)
+                            {
+                                addDrop(event, new ItemStack(Items.CREEPER_HEAD));
+                            }
+                            if (entity instanceof PlayerEntity)
+                            {
+                                ItemStack head = new ItemStack(Items.PLAYER_HEAD);
+                                head.getOrCreateTag().putString("SkullOwner", ((PlayerEntity) entity).getGameProfile().getName());
+                                addDrop(event, stack);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     @SubscribeEvent
     public static void autofireBowofLostSouls(LivingEntityUseItemEvent.Tick event)
     {

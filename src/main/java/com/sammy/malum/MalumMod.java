@@ -15,7 +15,6 @@ public class MalumMod
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "malum";
     public static final Random random = new Random();
-    public static final ICuriosHelper curioHelper = CuriosApi.getCuriosHelper();
     public MalumMod() {
     }
 }

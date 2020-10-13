@@ -16,12 +16,20 @@ public class MalumData implements IMalumData
     @Override
     public Optional<UUID> getRogueOwner()
     {
+        if (rogueOwner == null)
+        {
+            return Optional.empty();
+        }
         return Optional.of(rogueOwner);
     }
     
     @Override
     public Optional<UUID> getCachedTarget()
     {
+        if (cachedTarget == null)
+        {
+            return Optional.empty();
+        }
         return Optional.of(cachedTarget);
     }
     
@@ -64,16 +72,30 @@ public class MalumData implements IMalumData
     }
     
     @Override
-    public void saveNBTData(CompoundNBT compound)
+    public CompoundNBT saveNBTData()
     {
-        compound.putBoolean("husk", husk);
-        compound.putUniqueId("rogueOwner", rogueOwner);
+        CompoundNBT nbt = new CompoundNBT();
+        if (husk)
+        {
+            nbt.putBoolean("husk", true);
+        }
+        if (rogueOwner != null)
+        {
+            nbt.putUniqueId("rogueOwner", rogueOwner);
+        }
+        return nbt;
     }
     
     @Override
     public void loadNBTData(CompoundNBT compound)
     {
-        husk = compound.getBoolean("husk");
-        rogueOwner = compound.getUniqueId("rogueOwner");
+        if (compound.contains("husk"))
+        {
+            husk = compound.getBoolean("husk");
+        }
+        if (compound.contains("rogueOwner"))
+        {
+            rogueOwner = compound.getUniqueId("rogueOwner");
+        }
     }
 }

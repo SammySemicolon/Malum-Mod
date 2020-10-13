@@ -10,9 +10,7 @@ public class MalumDataStorage implements Capability.IStorage<IMalumData> {
     @Nullable
     @Override
     public INBT writeNBT(Capability<IMalumData> capability, IMalumData instance, Direction side) {
-        CompoundNBT nbt = new CompoundNBT();
-        instance.saveNBTData(nbt);
-        return nbt;
+        return instance.saveNBTData();
     }
 
     @Override

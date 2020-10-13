@@ -5,9 +5,9 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 
 
-public class ModBusterSword extends ModSwordItem
+public class ModBusterSwordItem extends ModSwordItem
 {
-    public ModBusterSword(IItemTier material, int attackDamage, float attackSpeed, Properties properties)
+    public ModBusterSwordItem(IItemTier material, int attackDamage, float attackSpeed, Properties properties)
     {
         super(material, attackDamage, attackSpeed, properties.maxDamage(material.getMaxUses()));
     }
@@ -15,6 +15,10 @@ public class ModBusterSword extends ModSwordItem
     @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
+        if (target.isAlive())
+        {
+        
+        }
         return super.hitEntity(stack, target, attacker);
     }
 }

@@ -20,11 +20,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 public class CapabilityEvents
 {
     @SubscribeEvent
-    public void init(FMLCommonSetupEvent e) {
-        CapabilityManager.INSTANCE.register(IMalumData.class, new MalumDataStorage(), MalumData::new);
-    }
-    
-    @SubscribeEvent
     public static void onAttatchCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof PlayerEntity) {
             event.addCapability(new ResourceLocation(MalumMod.MODID, "malum_data"), new MalumDataProvider());
