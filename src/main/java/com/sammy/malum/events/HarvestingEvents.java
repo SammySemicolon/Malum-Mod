@@ -33,12 +33,6 @@ public class HarvestingEvents
     public static SimpleSound sound;
     public static boolean tryCancel(PlayerEntity playerEntity, ItemStack stack)
     {
-        playerEntity.getCapability(CAPABILITY).ifPresent(data -> {
-            if (data.getCachedTarget() == null)
-            {
-                cancel(playerEntity, stack);
-            }
-        });
         if (getCachedTarget(playerEntity) == null)
         {
             cancel(playerEntity, stack);
@@ -49,7 +43,7 @@ public class HarvestingEvents
     public static void cancel(PlayerEntity playerEntity, ItemStack stack)
     {
         playerEntity.swingArm(playerEntity.getActiveHand());
-        
+        setCachedTarget(playerEntity, null);
         playerEntity.world.playSound(null, playerEntity.getPosition(), ModSounds.spirit_harvest_failure, PLAYERS, 1f, 1);
         if (playerEntity.world.isRemote())
         {
@@ -61,10 +55,9 @@ public class HarvestingEvents
     public static void success(PlayerEntity playerEntity, ItemStack stack, LivingEntity cachedTarget)
     {
         playerEntity.world.playSound(null,playerEntity.getPosition(), ModSounds.spirit_harvest_success, PLAYERS,1f,1);
-        
         setHusk(cachedTarget, true);
-        harvestSpirit(playerEntity, cachedTarget, getSpirit(cachedTarget), 1);
         setCachedTarget(playerEntity, null);
+        harvestSpirit(playerEntity, cachedTarget, getSpirit(cachedTarget), 1);
         playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
         playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 40);
         playerEntity.resetActiveHand();
