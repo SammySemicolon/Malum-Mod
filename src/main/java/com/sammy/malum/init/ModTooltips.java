@@ -43,10 +43,12 @@ public class ModTooltips
         addTooltip(spiritwood_bark_necklace, extraSpirit(1));
     
         addTooltip(ethereal_bulwark, makeTranslationComponent("malum.tooltip.ethereal_bulwark.effect"));
-        addTooltip(vacant_aegis, makeTranslationComponent("malum.tooltip.vacant_aegis.effect"));
+        addTooltip(vacant_aegis, makeTranslationComponent("malum.tooltip.vacant_aegis.effect.a"));
+        addTooltip(vacant_aegis, makeTranslationComponent("malum.tooltip.vacant_aegis.effect.b"));
         addTooltip(phantom_ring, makeTranslationComponent("malum.tooltip.phantom_ring.effect"));
         addTooltip(phantom_wings, makeTranslationComponent("malum.tooltip.phantom_wings.effect"));
         addTooltip(netherborne_capacitor, makeTranslationComponent("malum.tooltip.netherborne_capacitor.effect"));
+        addTooltip(gilded_gauntlet, makeTranslationComponent("malum.tooltip.gilded_gauntlet.effect"));
         addTooltip(vacant_rapier, makeTranslationComponent("malum.tooltip.vacant_rapier.effect"));
     }
     public static void addTooltip(Item item, ITextComponent... components)

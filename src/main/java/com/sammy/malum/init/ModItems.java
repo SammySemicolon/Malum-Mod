@@ -29,8 +29,8 @@ import java.util.Collections;
 import java.util.function.Supplier;
 
 import static com.sammy.malum.MalumMod.MODID;
-import static com.sammy.malum.init.ModItemTiers.SPIRITED_STEEL_ITEM;
-import static com.sammy.malum.init.ModItemTiers.UMBRAL_ALLOY_ITEM;
+import static com.sammy.malum.init.ModItemTiers.ItemTier.SPIRITED_STEEL_ITEM;
+import static com.sammy.malum.init.ModItemTiers.ItemTier.UMBRAL_ALLOY_ITEM;
 import static com.sammy.malum.init.ModSounds.*;
 
 @SuppressWarnings("unused")
@@ -126,12 +126,14 @@ public class ModItems
     public static Item miracle_pearl;
     public static Item jester_hat;
     public static Item necrotic_catalyst;
-    public static Item phantom_ring;//
-    public static Item phantom_wings;//
-    public static Item ignition_reactor;//
+    public static Item phantom_ring;
+    public static Item phantom_wings;
+    public static Item ignition_reactor;
     public static Item netherborne_capacitor;
     public static Item totem_of_eternal_life;
     public static Item good_luck_charm;
+    public static Item sinister_mask;
+    public static Item gilded_gauntlet;
 
     //FUNCTIONAL BLOCKS
     public static Item spirit_jar;
@@ -199,6 +201,7 @@ public class ModItems
     static Item.Properties basic_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64);
     static Item.Properties rare_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64).rarity(Rarity.UNCOMMON);
     static Item.Properties tool_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(1);
+    static Item.Properties curio_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(1).maxDamage(1);
     static Item.Properties music_disc_properties = new Item.Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE);
     static Item.Properties hidden_properties = new Item.Properties().maxStackSize(1);
     @SubscribeEvent
@@ -240,49 +243,49 @@ public class ModItems
                 spirit_vault = setup(new SpiritVault(tool_properties), "spirit_vault"),
                 spirit_capacitor = setup(new SpiritCapacitor(tool_properties), "spirit_capacitor"),
                 
-                spirit_hunter_shoes = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirit_hunter_shoes"),
-                spirit_hunter_leggings = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirit_hunter_leggings"),
-                spirit_hunter_chestplate = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirit_hunter_chestplate"),
-                spirit_hunter_helm = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.HEAD, tool_properties), "spirit_hunter_helm"),
+                spirit_hunter_shoes = setup(new ItemSpiritHunterArmor(ModItemTiers.ArmorMaterial.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirit_hunter_shoes"),
+                spirit_hunter_leggings = setup(new ItemSpiritHunterArmor(ModItemTiers.ArmorMaterial.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirit_hunter_leggings"),
+                spirit_hunter_chestplate = setup(new ItemSpiritHunterArmor(ModItemTiers.ArmorMaterial.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirit_hunter_chestplate"),
+                spirit_hunter_helm = setup(new ItemSpiritHunterArmor(ModItemTiers.ArmorMaterial.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.HEAD, tool_properties), "spirit_hunter_helm"),
 
-                spirited_steel_battle_shoes = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.SPIRITED_STEEL_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirited_steel_battle_shoes"),
-                spirited_steel_battle_leggings = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.SPIRITED_STEEL_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirited_steel_battle_leggings"),
-                spirited_steel_battle_chestplate = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.SPIRITED_STEEL_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirited_steel_battle_chestplate"),
-                spirited_steel_battle_helm = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.SPIRITED_STEEL_ARMOR, EquipmentSlotType.HEAD, tool_properties), "spirited_steel_battle_helm"),
-                
-                umbral_steel_shoes = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.FEET, tool_properties), "umbral_steel_shoes"),
-                umbral_steel_leggings = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.LEGS, tool_properties), "umbral_steel_leggings"),
-                umbral_steel_chestplate = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.CHEST, tool_properties), "umbral_steel_chestplate"),
-                umbral_steel_helm = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.UMBRAL_ALLOY_ARMOR, EquipmentSlotType.HEAD, tool_properties), "umbral_steel_helm"),
+                spirited_steel_battle_shoes = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.ArmorMaterial.SPIRITED_STEEL_BATTLE_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirited_steel_battle_shoes"),
+                spirited_steel_battle_leggings = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.ArmorMaterial.SPIRITED_STEEL_BATTLE_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirited_steel_battle_leggings"),
+                spirited_steel_battle_chestplate = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.ArmorMaterial.SPIRITED_STEEL_BATTLE_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirited_steel_battle_chestplate"),
+                spirited_steel_battle_helm = setup(new ItemSpiritedSteelBattleArmor(ModItemTiers.ArmorMaterial.SPIRITED_STEEL_BATTLE_ARMOR, EquipmentSlotType.HEAD, tool_properties), "spirited_steel_battle_helm"),
+
+                umbral_steel_shoes = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.ArmorMaterial.UMBRAL_ALLOY_BATTLE_ARMOR, EquipmentSlotType.FEET, tool_properties), "umbral_steel_shoes"),
+                umbral_steel_leggings = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.ArmorMaterial.UMBRAL_ALLOY_BATTLE_ARMOR, EquipmentSlotType.LEGS, tool_properties), "umbral_steel_leggings"),
+                umbral_steel_chestplate = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.ArmorMaterial.UMBRAL_ALLOY_BATTLE_ARMOR, EquipmentSlotType.CHEST, tool_properties), "umbral_steel_chestplate"),
+                umbral_steel_helm = setup(new ItemUmbraSteelBattleArmor(ModItemTiers.ArmorMaterial.UMBRAL_ALLOY_BATTLE_ARMOR, EquipmentSlotType.HEAD, tool_properties), "umbral_steel_helm"),
         
                 spirited_steel_buster_sword = setup(new ModBusterSwordItem(SPIRITED_STEEL_ITEM, 6, -0.8f, tool_properties), "spirited_steel_buster_sword"),
-                spirited_steel_excavator = setup(new ModExcavatorItem( 3, -0.4f, SPIRITED_STEEL_ITEM, Collections.emptySet(), tool_properties.maxDamage(1000)), "spirited_steel_excavator"),
+                spirited_steel_excavator = setup(new ModExcavatorItem( 3, -0.4f, SPIRITED_STEEL_ITEM, Collections.emptySet(), tool_properties), "spirited_steel_excavator"),
         
                 umbral_steel_buster_sword = setup(new ModBusterSwordItem(UMBRAL_ALLOY_ITEM, 9, -0.8f, tool_properties), "umbral_steel_buster_sword"),
-                umbral_steel_excavator = setup(new ModExcavatorItem( 4, -0.4f, UMBRAL_ALLOY_ITEM, Collections.emptySet(), tool_properties.maxDamage(2000)), "umbral_steel_excavator"),
+                umbral_steel_excavator = setup(new ModExcavatorItem( 4, -0.4f, UMBRAL_ALLOY_ITEM, Collections.emptySet(), tool_properties), "umbral_steel_excavator"),
 
                 vacant_rapier = setup(new VacantRapier(ItemTier.DIAMOND, -4, 1.2f, tool_properties), "vacant_rapier"),
                 ultimate_weapon = setup(new UltimateWeaponItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
-                bow_of_lost_souls = setup(new BowofLostSouls(tool_properties.maxDamage(576)), "bow_of_lost_souls"),
-                breaker_blade = setup(new ModBusterSwordItem(UMBRAL_ALLOY_ITEM, 11, -0.9f, tool_properties), "breaker_blade"),
+                bow_of_lost_souls = setup(new BowofLostSouls(tool_properties), "bow_of_lost_souls"),
+                breaker_blade = setup(new ModBusterSwordItem(UMBRAL_ALLOY_ITEM, 12, -0.9f, tool_properties), "breaker_blade"),
         
                 ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
                 shulker_storage = setup(new ShulkerStorage(tool_properties), "shulker_storage"),
         
-                spiritwood_bark_necklace = setup(new CurioSpiritwoodNecklace(tool_properties), "spiritwood_bark_necklace"),
-                enchanted_lectern = setup(new CurioEnchantedLectern(tool_properties), "enchanted_lectern"),
-                vacant_aegis = setup(new CurioVacantAegis(tool_properties), "vacant_aegis"),
-                vampire_necklace = setup(new CurioVampireNecklace(tool_properties), "vampire_necklace"),
-                ethereal_bulwark = setup(new CurioEtherealBulwark(tool_properties), "ethereal_bulwark"),
-                miracle_pearl = setup(new CurioMiraclePearl(tool_properties), "miracle_pearl"),
-                jester_hat = setup(new CurioJesterHat(tool_properties), "jester_hat"),
-                necrotic_catalyst = setup(new CurioNecroticCatalyst(tool_properties), "necrotic_catalyst"),
-                phantom_ring = setup(new CurioPhantomRing(tool_properties), "phantom_ring"),
-                phantom_wings = setup(new CurioPhantomWings(tool_properties), "phantom_wings"),
-                ignition_reactor = setup(new CurioIgnitionReactor(tool_properties), "ignition_reactor"),
-                netherborne_capacitor = setup(new CurioNetherborneCapacitor(tool_properties), "netherborne_capacitor"),
-                totem_of_eternal_life = setup(new CurioTotemOfEternalLife(tool_properties), "totem_of_eternal_life"),
-                good_luck_charm = setup(new CurioGoodLuckCharm(tool_properties), "good_luck_charm"),
+                spiritwood_bark_necklace = setup(new CurioSpiritwoodNecklace(curio_properties), "spiritwood_bark_necklace"),
+                enchanted_lectern = setup(new CurioEnchantedLectern(curio_properties), "enchanted_lectern"),
+                vacant_aegis = setup(new CurioVacantAegis(curio_properties), "vacant_aegis"),
+                vampire_necklace = setup(new CurioVampireNecklace(curio_properties), "vampire_necklace"),
+                ethereal_bulwark = setup(new CurioEtherealBulwark(curio_properties), "ethereal_bulwark"),
+                miracle_pearl = setup(new CurioMiraclePearl(curio_properties), "miracle_pearl"),
+                jester_hat = setup(new CurioJesterHat(curio_properties), "jester_hat"),
+                necrotic_catalyst = setup(new CurioNecroticCatalyst(curio_properties), "necrotic_catalyst"),
+                phantom_ring = setup(new CurioPhantomRing(curio_properties), "phantom_ring"),
+                phantom_wings = setup(new CurioPhantomWings(curio_properties), "phantom_wings"),
+                ignition_reactor = setup(new CurioIgnitionReactor(curio_properties), "ignition_reactor"),
+                netherborne_capacitor = setup(new CurioNetherborneCapacitor(curio_properties), "netherborne_capacitor"),
+                totem_of_eternal_life = setup(new CurioTotemOfEternalLife(curio_properties), "totem_of_eternal_life"),
+                good_luck_charm = setup(new CurioGoodLuckCharm(curio_properties), "good_luck_charm"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),

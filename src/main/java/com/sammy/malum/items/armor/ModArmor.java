@@ -9,5 +9,6 @@ public class ModArmor extends ArmorItem
     public ModArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
+        builder.maxDamage(materialIn.getDurability(slot));
     }
 }

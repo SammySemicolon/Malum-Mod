@@ -18,14 +18,14 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.UUID;
 
-public class CurioVacantAegis extends Item implements ICurio
+public class CurioGildedGauntlet extends Item implements ICurio
 {
-    public CurioVacantAegis(Properties builder)
+    public CurioGildedGauntlet(Properties builder)
     {
         super(builder);
     }
     
-    private static final UUID ARMOR_UUID = UUID.fromString("495ee836-14bb-4bfe-9811-44b62ed81b76");
+    private static final UUID ATTACK_SPEED_UUID = UUID.fromString("495ee836-14bb-4bfe-9811-44b62ed81b76");
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
@@ -37,16 +37,17 @@ public class CurioVacantAegis extends Item implements ICurio
                 Multimap<Attribute, AttributeModifier> atts = HashMultimap.create();
                 if (CuriosApi.getCuriosHelper().getCurioTags(stack.getItem()).contains(identifier))
                 {
-                    atts.put(Attributes.ARMOR, new AttributeModifier(ARMOR_UUID, "Armor bonus", 4, AttributeModifier.Operation.ADDITION));
+                    atts.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_UUID, "Attack Speed bonus", 0.2, AttributeModifier.Operation.MULTIPLY_TOTAL));
                 }
                 return atts;
             }
+    
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity)
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-
+    
             @Override
             public boolean canRightClickEquip()
             {

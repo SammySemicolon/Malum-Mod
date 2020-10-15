@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.potion.Potions;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
@@ -121,6 +122,21 @@ public class RuntimeEvents
     
     //region CURIOS
     @SubscribeEvent
+    public static void goodLuckCharmEffect(LootingLevelEvent event)
+    {
+        if (event.getDamageSource().getTrueSource() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getDamageSource().getTrueSource();
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioGoodLuckCharm, playerEntity).ifPresent(triple -> {
+                boolean success = consumeSpirit(playerEntity, triple.right);
+                if (success)
+                {
+                    event.setLootingLevel(event.getLootingLevel()+4);
+                }
+            });
+        }
+    }
+    @SubscribeEvent
     public static void necroticCatalystEffect(LivingEvent.LivingUpdateEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
@@ -182,21 +198,34 @@ public class RuntimeEvents
         }
     }
     @SubscribeEvent
-    public static void vacantAegisEffect(LivingHurtEvent event)
+    public static void sinisterMaskEffect(PotionEvent.PotionAddedEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-            if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioVacantAegis, playerEntity).isPresent())
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioSinisterMask, playerEntity).isPresent())
             {
-                if (event.getSource().getTrueSource() instanceof LivingEntity)
+                if (!event.getPotionEffect().getPotion().isBeneficial())
                 {
-                    if (getHusk((LivingEntity) event.getSource().getTrueSource()))
-                    {
-                        event.setAmount(event.getAmount() * 0.7f);
-                    }
+                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioSinisterMask, playerEntity).ifPresent(triple -> {
+                        boolean success = consumeSpirit(playerEntity, triple.right);
+                        if (success)
+                        {
+                            playerEntity.removePotionEffect(event.getPotionEffect().getPotion());
+                            playerEntity.addPotionEffect(new EffectInstance(Effects.STRENGTH,event.getPotionEffect().getDuration() ,event.getPotionEffect().getAmplifier()));
+                        }
+                    });
                 }
             }
+        }
+    }
+    @SubscribeEvent
+    public static void vacantAegisEffect(SpiritHarvestEvent.Post event)
+    {
+        PlayerEntity playerEntity = event.playerEntity;
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioVacantAegis, playerEntity).isPresent())
+        {
+            playerEntity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 200, 1));
         }
     }
     @SubscribeEvent
@@ -323,23 +352,31 @@ public class RuntimeEvents
         if (event.getSource().getTrueSource() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
-            if (playerEntity.getMotion().y < 0)
+            if (playerEntity.swingingHand != null)
             {
-                LivingEntity target = event.getEntityLiving();
                 ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
-                if (!playerEntity.getCooldownTracker().hasCooldown(stack.getItem()))
+                if (stack.getItem() instanceof ModBusterSwordItem)
                 {
-                    playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 100);
-                    if (stack.getItem().equals(ModItems.breaker_blade))
+                    if (!playerEntity.getCooldownTracker().hasCooldown(stack.getItem()))
                     {
-                        event.setAmount(event.getAmount() + target.getTotalArmorValue());
-                    }
-                    event.setAmount(event.getAmount() * 2f);
-                    playerEntity.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.4f, 0.8f);
-                    playerEntity.playSound(SoundEvents.BLOCK_ANVIL_HIT, SoundCategory.PLAYERS, 1.2f, 0.8f);
-                    playerEntity.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 0.8f);
-                    target.addVelocity(playerEntity.getLookVec().x /2, 0.1, playerEntity.getLookVec().z /2);
+                        LivingEntity target = event.getEntityLiving();
+                        int cooldown = 100;
     
+                        if (CuriosApi.getCuriosHelper().findEquippedCurio(curio -> curio.getItem() instanceof CurioGildedGauntlet, playerEntity).isPresent())
+                        {
+                            cooldown = 40;
+                        }
+                        playerEntity.getCooldownTracker().setCooldown(stack.getItem(), cooldown);
+                        if (stack.getItem().equals(ModItems.breaker_blade))
+                        {
+                            event.setAmount(event.getAmount() + target.getTotalArmorValue());
+                        }
+                        event.setAmount(event.getAmount() * 2f);
+                        playerEntity.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.4f, 0.8f);
+                        playerEntity.playSound(SoundEvents.BLOCK_ANVIL_HIT, SoundCategory.PLAYERS, 1.2f, 0.8f);
+                        playerEntity.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 0.8f);
+                        target.addVelocity(playerEntity.getLookVec().x / 2, 0.1, playerEntity.getLookVec().z / 2);
+                    }
                 }
             }
         }
@@ -355,7 +392,7 @@ public class RuntimeEvents
                 ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
                 if (stack.getItem() instanceof ModBusterSwordItem)
                 {
-                    float chance = 10 + event.getLootingLevel() * 10 / 100f;
+                    float chance = (10 + event.getLootingLevel() * 10) / 100f;
                     LivingEntity entity = event.getEntityLiving();
                     if (random.nextFloat() <= chance)
                     {

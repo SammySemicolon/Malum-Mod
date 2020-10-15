@@ -97,7 +97,7 @@ public class SpiritFurnaceBottomBlock extends Block
                 if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceBottomTileEntity)
                 {
                     SpiritFurnaceBottomTileEntity furnaceTileEntity = (SpiritFurnaceBottomTileEntity) worldIn.getTileEntity(pos);
-                    boolean success = MalumHelper.spiritFurnaceItemTEHandling(player, handIn, player.getHeldItemMainhand(), furnaceTileEntity.inventory, 0);
+                    boolean success = MalumHelper.basicItemTEHandling(player, handIn, player.getHeldItemMainhand(), furnaceTileEntity.inventory, 0);
                     if (success)
                     {
                         player.world.notifyBlockUpdate(pos, state, state, 3);

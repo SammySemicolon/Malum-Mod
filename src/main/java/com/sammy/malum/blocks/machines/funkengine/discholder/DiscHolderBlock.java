@@ -25,9 +25,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static com.sammy.malum.MalumHelper.funkyMultiStackTEHandling;
-import static net.minecraft.state.properties.BlockStateProperties.HAS_RECORD;
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class DiscHolderBlock extends Block
 {

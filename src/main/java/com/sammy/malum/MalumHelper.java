@@ -64,40 +64,6 @@ public class MalumHelper
     //endregion
     
     //region TE STACK HANDLING
-    public static boolean funkyMultiStackTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory)
-    {
-        int slotToTransfer = -1;
-    
-        if (heldItem.isEmpty())
-        {
-            for (int i = inventory.getSlots(); i >0; i--)
-            {
-                ItemStack targetItem = inventory.getStackInSlot(i);
-                if (!targetItem.isEmpty())
-                {
-                    slotToTransfer = i;
-                    break;
-                }
-            }
-        }
-        else if (heldItem.getItem() instanceof MusicDiscItem)
-        {
-            for (int i = 0; i < inventory.getSlots(); i++)
-            {
-                ItemStack targetItem = inventory.getStackInSlot(i);
-                if (targetItem.isEmpty())
-                {
-                    slotToTransfer = i;
-                    break;
-                }
-            }
-        }
-        if (slotToTransfer != -1)
-        {
-            return singleItemTEHandling(player,hand,heldItem,inventory, slotToTransfer);
-        }
-        return false;
-    }
     public static boolean multiStackTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory)
     {
         int slotToTransfer = -1;
@@ -152,37 +118,6 @@ public class MalumHelper
             inventory.setStackInSlot(0,ItemStack.EMPTY);
         }
         return false;
-    }
-    public static boolean spiritFurnaceItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
-    {
-        ItemStack targetItem = inventory.getStackInSlot(slot);
-        if (heldItem.getItem().equals(targetItem.getItem()))
-        {
-            int cachedCount = heldItem.getCount();
-            for (int i = 0; i < cachedCount; i++)
-            {
-                if (targetItem.getCount() < targetItem.getMaxStackSize())
-                {
-                    targetItem.grow(1);
-                    heldItem.shrink(1);
-                }
-            }
-            return true;
-        }
-        if (targetItem.isEmpty())
-        {
-            if (ModRecipes.getSpiritFurnaceFuelData(heldItem) != null)
-            {
-                inventory.setStackInSlot(0, heldItem);
-                player.setHeldItem(hand, ItemStack.EMPTY);
-            }
-        }
-        else
-        {
-            MalumHelper.giveItemStackToPlayer(player, targetItem);
-            inventory.setStackInSlot(0,ItemStack.EMPTY);
-        }
-        return true;
     }
     public static boolean singleItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
     {

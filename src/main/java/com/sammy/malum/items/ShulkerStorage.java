@@ -40,21 +40,25 @@ public class ShulkerStorage extends Item
         TileEntity tile = world.getTileEntity(pos);
         if (nbt.contains("storing"))
         {
+            BlockPos newPos = pos.add(context.getFace().getDirectionVec());
+            BlockState oldState = world.getBlockState(newPos);
+            if (!oldState.isAir(world,newPos))
+            {
+                return ActionResultType.FAIL;
+            }
             nbt.remove("storing");
-            BlockPos newPow = pos.add(context.getFace().getDirectionVec());
-            BlockState oldState = world.getBlockState(newPow);
             BlockState newState = NBTUtil.readBlockState(nbt.getCompound("blockStateData"));
-            world.setBlockState(newPow, newState);
-            TileEntity newTile = world.getTileEntity(newPow);
+            world.setBlockState(newPos, newState);
+            TileEntity newTile = world.getTileEntity(newPos);
             if (newTile != null)
             {
                 CompoundNBT tileData = nbt.getCompound("tileData");
-                tileData.putInt("x", newPow.getX());
-                tileData.putInt("y", newPow.getY());
-                tileData.putInt("z", newPow.getZ());
+                tileData.putInt("x", newPos.getX());
+                tileData.putInt("y", newPos.getY());
+                tileData.putInt("z", newPos.getZ());
                 newTile.read(newState, tileData);
                 newTile.markDirty();
-                world.markChunkDirty(newPow, newTile);
+                world.markChunkDirty(newPos, newTile);
                 nbt.remove("tileData");
             }
             world.notifyBlockUpdate(pos, oldState,newState, 3);
@@ -64,7 +68,7 @@ public class ShulkerStorage extends Item
             context.getPlayer().swingArm(context.getHand());
             for (int i = 0; i < 20; i++)
             {
-                Vector3d startingPos = MalumHelper.vectorFromBlockPos(newPow).add(0.5,0.5,0.5);
+                Vector3d startingPos = MalumHelper.vectorFromBlockPos(newPos).add(0.5,0.5,0.5);
                 Vector3d particlePos = startingPos.add(MalumHelper.randomVector(MalumMod.random,-1,1));
                 Vector3d particleVelocity = particlePos.subtract(startingPos).normalize().mul(-0.1f, -0.1f, -0.1f);
                 world.addParticle(new LensMagicParticleData(0.15f + random.nextFloat() * 0.2f), particlePos.x, particlePos.y, particlePos.z, particleVelocity.x, particleVelocity.y, particleVelocity.z);
@@ -82,7 +86,7 @@ public class ShulkerStorage extends Item
             nbt.put("blockStateData", NBTUtil.writeBlockState(state));
             world.removeTileEntity(pos);
             world.destroyBlock(pos, false);
-            world.notifyBlockUpdate(pos, state,state, 3);
+            world.notifyBlockUpdate(pos, state,world.getBlockState(pos), 3);
             world.playSound(context.getPlayer(), pos, SoundEvents.ENTITY_SHULKER_CLOSE, SoundCategory.PLAYERS,1,0.8f);
             world.playSound(context.getPlayer(), pos, SoundEvents.ENTITY_SHULKER_TELEPORT, SoundCategory.PLAYERS,1,1.5f);
             context.getPlayer().swingArm(context.getHand());

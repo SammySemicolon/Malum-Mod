@@ -18,13 +18,13 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.ClientHandler.makeGenericSpiritDependantTooltip;
 
-public class CurioGoodLuckCharm extends Item implements ICurio, SpiritConsumer, SpiritDescription
+public class CurioSinisterMask extends Item implements ICurio, SpiritConsumer, SpiritDescription
 {
-    public CurioGoodLuckCharm(Properties builder)
+    public CurioSinisterMask(Properties builder)
     {
         super(builder);
     }
-
+    
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
@@ -35,7 +35,7 @@ public class CurioGoodLuckCharm extends Item implements ICurio, SpiritConsumer, 
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-
+    
             @Override
             public boolean canRightClickEquip()
             {
@@ -46,20 +46,20 @@ public class CurioGoodLuckCharm extends Item implements ICurio, SpiritConsumer, 
     @Override
     public int durability()
     {
-        return 25;
+        return 20;
     }
     
     @Override
     public String spirit()
     {
-        return "minecraft:vex";
+        return "minecraft:wither_skeleton";
     }
     
     @Override
     public ArrayList<ITextComponent> components()
     {
         ArrayList<ITextComponent> components = new ArrayList<>();
-        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.good_luck_charm.effect", SpiritDataHelper.getName(spirit())));
+        components.add(makeGenericSpiritDependantTooltip("malum.tooltip.sinister_mask.effect", SpiritDataHelper.getName(spirit())));
         return components;
     }
 }
