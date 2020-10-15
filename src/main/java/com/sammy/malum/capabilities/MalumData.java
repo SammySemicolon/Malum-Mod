@@ -7,20 +7,20 @@ import java.util.UUID;
 
 public class MalumData implements IMalumData
 {
-    public UUID rogueOwner;
+    public UUID spiritOwner;
     
     public UUID cachedTarget;
     
     boolean husk;
     
     @Override
-    public Optional<UUID> getRogueOwner()
+    public Optional<UUID> getSpiritOwner()
     {
-        if (rogueOwner == null)
+        if (spiritOwner == null)
         {
             return Optional.empty();
         }
-        return Optional.of(rogueOwner);
+        return Optional.of(spiritOwner);
     }
     
     @Override
@@ -40,9 +40,9 @@ public class MalumData implements IMalumData
     }
     
     @Override
-    public void setRogueOwner(UUID uuid)
+    public void setSpiritOwner(UUID uuid)
     {
-        rogueOwner =uuid;
+        spiritOwner =uuid;
     }
     
     @Override
@@ -60,9 +60,9 @@ public class MalumData implements IMalumData
     @Override
     public void copy(IMalumData data)
     {
-        if (data.getRogueOwner().isPresent())
+        if (data.getSpiritOwner().isPresent())
         {
-            rogueOwner = data.getRogueOwner().get();
+            spiritOwner = data.getSpiritOwner().get();
         }
         if (data.getCachedTarget().isPresent())
         {
@@ -79,9 +79,9 @@ public class MalumData implements IMalumData
         {
             nbt.putBoolean("husk", true);
         }
-        if (rogueOwner != null)
+        if (spiritOwner != null)
         {
-            nbt.putUniqueId("rogueOwner", rogueOwner);
+            nbt.putUniqueId("spiritOwner", spiritOwner);
         }
         return nbt;
     }
@@ -95,7 +95,7 @@ public class MalumData implements IMalumData
         }
         if (compound.contains("rogueOwner"))
         {
-            rogueOwner = compound.getUniqueId("rogueOwner");
+            spiritOwner = compound.getUniqueId("spiritOwner");
         }
     }
 }

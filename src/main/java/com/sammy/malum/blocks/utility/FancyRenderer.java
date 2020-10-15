@@ -8,8 +8,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(value = Dist.CLIENT)
 public interface FancyRenderer
 {
-    
-    
     Direction lookingAtFace();
     BlockPos lookingAtPos();
     float time();

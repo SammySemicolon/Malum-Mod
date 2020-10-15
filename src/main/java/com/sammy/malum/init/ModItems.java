@@ -88,7 +88,6 @@ public class ModItems
 
     public static Item spirit_vault;
     public static Item spirit_capacitor;
-    public static Item ender_artifact;
     //TOOLS
     
     public static Item spirit_hunter_shoes;
@@ -115,6 +114,9 @@ public class ModItems
     public static Item vacant_rapier;
     public static Item ultimate_weapon;
     public static Item bow_of_lost_souls;
+    public static Item breaker_blade;
+    public static Item ender_artifact;
+    public static Item shulker_storage;
     //CURIOS
     public static Item spiritwood_bark_necklace;
     public static Item enchanted_lectern;
@@ -124,9 +126,12 @@ public class ModItems
     public static Item miracle_pearl;
     public static Item jester_hat;
     public static Item necrotic_catalyst;
-    public static Item phantom_wings;
-    public static Item propulsion_engine;
-    public static Item sulphuric_brazier;
+    public static Item phantom_ring;//
+    public static Item phantom_wings;//
+    public static Item ignition_reactor;//
+    public static Item netherborne_capacitor;
+    public static Item totem_of_eternal_life;
+    public static Item good_luck_charm;
 
     //FUNCTIONAL BLOCKS
     public static Item spirit_jar;
@@ -136,6 +141,7 @@ public class ModItems
     public static Item output_mirror;
     public static Item redstone_clock;
     public static Item funk_engine;
+    public static Item disc_holder;
     //BLOCKS
     public static Item spirit_stone_brick;
     public static Item dark_spirit_stone_brick;
@@ -231,11 +237,9 @@ public class ModItems
                 fiery_stave = setup(new SpiritwoodStave(tool_properties, new ResonantBlinkEffect()), "fiery_stave"),
                 bone_stave = setup(new SpiritwoodStave(tool_properties, new MatingEffect()), "bone_stave"),
                 
-                
                 spirit_vault = setup(new SpiritVault(tool_properties), "spirit_vault"),
                 spirit_capacitor = setup(new SpiritCapacitor(tool_properties), "spirit_capacitor"),
-                ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
-        
+                
                 spirit_hunter_shoes = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.FEET, tool_properties), "spirit_hunter_shoes"),
                 spirit_hunter_leggings = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.LEGS, tool_properties), "spirit_hunter_leggings"),
                 spirit_hunter_chestplate = setup(new ItemSpiritHunterArmor(ModItemTiers.SPIRIT_HUNTER_ARMOR, EquipmentSlotType.CHEST, tool_properties), "spirit_hunter_chestplate"),
@@ -260,7 +264,11 @@ public class ModItems
                 vacant_rapier = setup(new VacantRapier(ItemTier.DIAMOND, -4, 1.2f, tool_properties), "vacant_rapier"),
                 ultimate_weapon = setup(new UltimateWeaponItem(ItemTier.DIAMOND, 0, 0.4f, tool_properties), "ultimate_weapon"),
                 bow_of_lost_souls = setup(new BowofLostSouls(tool_properties.maxDamage(576)), "bow_of_lost_souls"),
-
+                breaker_blade = setup(new ModBusterSwordItem(UMBRAL_ALLOY_ITEM, 11, -0.9f, tool_properties), "breaker_blade"),
+        
+                ender_artifact = setup(new EnderArtifactItem(tool_properties), "ender_artifact"),
+                shulker_storage = setup(new ShulkerStorage(tool_properties), "shulker_storage"),
+        
                 spiritwood_bark_necklace = setup(new CurioSpiritwoodNecklace(tool_properties), "spiritwood_bark_necklace"),
                 enchanted_lectern = setup(new CurioEnchantedLectern(tool_properties), "enchanted_lectern"),
                 vacant_aegis = setup(new CurioVacantAegis(tool_properties), "vacant_aegis"),
@@ -268,8 +276,13 @@ public class ModItems
                 ethereal_bulwark = setup(new CurioEtherealBulwark(tool_properties), "ethereal_bulwark"),
                 miracle_pearl = setup(new CurioMiraclePearl(tool_properties), "miracle_pearl"),
                 jester_hat = setup(new CurioJesterHat(tool_properties), "jester_hat"),
-        
                 necrotic_catalyst = setup(new CurioNecroticCatalyst(tool_properties), "necrotic_catalyst"),
+                phantom_ring = setup(new CurioPhantomRing(tool_properties), "phantom_ring"),
+                phantom_wings = setup(new CurioPhantomWings(tool_properties), "phantom_wings"),
+                ignition_reactor = setup(new CurioIgnitionReactor(tool_properties), "ignition_reactor"),
+                netherborne_capacitor = setup(new CurioNetherborneCapacitor(tool_properties), "netherborne_capacitor"),
+                totem_of_eternal_life = setup(new CurioTotemOfEternalLife(tool_properties), "totem_of_eternal_life"),
+                good_luck_charm = setup(new CurioGoodLuckCharm(tool_properties), "good_luck_charm"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
@@ -278,6 +291,7 @@ public class ModItems
                 output_mirror = setup(new BlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
                 redstone_clock = setup(new BlockItem(ModBlocks.redstone_clock, basic_properties), "redstone_clock"),
                 funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
+                disc_holder = setup(new BlockItem(ModBlocks.disc_holder, basic_properties), "disc_holder"),
 
                 spirit_stone_brick = setup(new BlockItem(ModBlocks.spirit_stone_brick, basic_properties), "spirit_stone_brick"),
                 dark_spirit_stone_brick = setup(new BlockItem(ModBlocks.dark_spirit_stone_brick, basic_properties), "dark_spirit_stone_brick"),

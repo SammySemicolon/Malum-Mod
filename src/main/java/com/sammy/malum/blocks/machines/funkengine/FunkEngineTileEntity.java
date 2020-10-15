@@ -81,9 +81,9 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
     }
     
     @Override
-    public void read(BlockState state, CompoundNBT compound)
+    public void read(CompoundNBT compound)
     {
-        super.read(state,compound);
+        super.read(compound);
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
     }
     

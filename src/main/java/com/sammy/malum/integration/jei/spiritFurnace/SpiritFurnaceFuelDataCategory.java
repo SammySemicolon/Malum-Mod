@@ -51,7 +51,7 @@ public class SpiritFurnaceFuelDataCategory implements IRecipeCategory<SpiritFurn
         
         ITextComponent timeComponent = ClientHandler.makeTranslationComponent("malum.fuel.time")
                 .append(new StringTextComponent("" + data.getFuelTime()));
-        String formattedText = timeComponent.getUnformattedComponentText();
+        String formattedText = timeComponent.getString();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
         fontRenderer.drawString(matrixStack,formattedText, 22, 7, 0xFF808080);

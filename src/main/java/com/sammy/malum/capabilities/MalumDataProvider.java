@@ -63,22 +63,22 @@ public class MalumDataProvider implements ICapabilitySerializable<INBT> {
         }
     }
     
-    public static UUID getRogueOwner(LivingEntity livingEntity)
+    public static UUID getSpiritOwner(LivingEntity livingEntity)
     {
         if (livingEntity.getCapability(CAPABILITY).isPresent())
         {
-            if (livingEntity.getCapability(CAPABILITY).map(IMalumData::getRogueOwner).isPresent())
+            if (livingEntity.getCapability(CAPABILITY).map(IMalumData::getSpiritOwner).isPresent())
             {
-                return livingEntity.getCapability(CAPABILITY).map(IMalumData::getRogueOwner).get().orElse(null);
+                return livingEntity.getCapability(CAPABILITY).map(IMalumData::getSpiritOwner).get().orElse(null);
             }
         }
         return null;
     }
-    public static void setRogueOwner(LivingEntity livingEntity, UUID rogueOwner)
+    public static void setSpiritOwner(LivingEntity livingEntity, UUID spiritOwner)
     {
         if (livingEntity.getCapability(CAPABILITY).isPresent())
         {
-            livingEntity.getCapability(CAPABILITY).ifPresent(note -> note.setRogueOwner(rogueOwner));
+            livingEntity.getCapability(CAPABILITY).ifPresent(note -> note.setSpiritOwner(spiritOwner));
         }
         if (livingEntity instanceof MobEntity)
         {

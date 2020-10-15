@@ -88,26 +88,23 @@ public class BasicMirrorRenderer extends TileEntityRenderer<BasicMirrorTileEntit
     
             ClientHandler.renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
         }
-        if (this.renderDispatcher.renderInfo != null)
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        ItemStack item = blockEntity.inventory.getStackInSlot(0);
+        if (!item.isEmpty())
         {
-            ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            ItemStack item = blockEntity.inventory.getStackInSlot(0);
-            if (!item.isEmpty())
+            BlockState blockState = blockEntity.getBlockState();
+            Vector3i direction = blockEntity.getBlockState().get(HORIZONTAL_FACING).getDirectionVec();
+            matrixStack.push();
+            float directionMultiplier = 0.3f;
+            if (blockState.get(FACE) == FLOOR || blockState.get(FACE) == CEILING)
             {
-                BlockState blockState = blockEntity.getBlockState();
-                Vector3i direction = blockEntity.getBlockState().get(HORIZONTAL_FACING).getDirectionVec();
-                matrixStack.push();
-                float directionMultiplier = 0.3f;
-                if (blockState.get(FACE) == FLOOR || blockState.get(FACE) == CEILING)
-                {
-                    directionMultiplier = 0f;
-                }
-                matrixStack.translate(0.5f - direction.getX() * directionMultiplier, 0.5f, 0.5f - direction.getZ() * directionMultiplier);
-                matrixStack.rotate(Vector3f.YP.rotationDegrees(blockEntity.getWorld().getGameTime() * 3));
-                matrixStack.scale(0.45f, 0.45f, 0.45f);
-                itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
-                matrixStack.pop();
+                directionMultiplier = 0f;
             }
+            matrixStack.translate(0.5f - direction.getX() * directionMultiplier, 0.5f, 0.5f - direction.getZ() * directionMultiplier);
+            matrixStack.rotate(Vector3f.YP.rotationDegrees(blockEntity.getWorld().getGameTime() * 3));
+            matrixStack.scale(0.45f, 0.45f, 0.45f);
+            itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
+            matrixStack.pop();
         }
     }
 }

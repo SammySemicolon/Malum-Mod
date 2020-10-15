@@ -22,7 +22,7 @@ public class ModelSpiritedSteelBattleArmor extends ModelArmor
     private final ModelRenderer thigh_guard_l;
     private final ModelRenderer boot_l;
     private final ModelRenderer boot_wing_l;
-
+    
     public ModelSpiritedSteelBattleArmor(EquipmentSlotType slot)
     {
         super(slot, 64, 64);
@@ -111,19 +111,6 @@ public class ModelSpiritedSteelBattleArmor extends ModelArmor
         boot_wing_l.setTextureOffset(0, 36).addBox(5.0F, -5.5071F, 1.2071F, 1.0F, 4.0F, 7.0F, 0.0F, false);
     }
 
-    public void setRotationAngles(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
-    {
-        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        head.copyModelAngles(bipedHead);
-        torso.copyModelAngles(bipedBody);
-        arm_l.copyModelAngles(bipedLeftArm);
-        arm_r.copyModelAngles(bipedRightArm);
-        leg_l.copyModelAngles(bipedLeftLeg);
-        leg_r.copyModelAngles(bipedRightLeg);
-        boot_l.copyModelAngles(bipedLeftLeg);
-        boot_r.copyModelAngles(bipedRightLeg);
-    }
-
     @Override
     public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)
     {
@@ -164,12 +151,5 @@ public class ModelSpiritedSteelBattleArmor extends ModelArmor
             bipedLeftLeg = boot_l;
         }
         super.render(ms, buffer, light, overlay, r, g, b, a);
-    }
-
-    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
     }
 }

@@ -1,8 +1,8 @@
 package com.sammy.malum.events;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.capabilities.MalumDataProvider;
+import com.sammy.malum.init.ModItems;
+import com.sammy.malum.init.ModSounds;
 import com.sammy.malum.items.BowofLostSouls;
 import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
 import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;
@@ -19,9 +19,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.SkullItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -32,6 +33,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 import top.theillusivec4.curios.api.CuriosApi;
+
+import java.util.UUID;
 
 import static com.sammy.malum.MalumHelper.addDrop;
 import static com.sammy.malum.MalumMod.random;
@@ -69,16 +72,20 @@ public class RuntimeEvents
             {
                 if (getHusk(livingEntity))
                 {
-                    if (getRogueOwner(livingEntity) != null)
+                    if (getSpiritOwner(livingEntity) != null)
                     {
-                        if (getRogueOwner(target).equals(getRogueOwner(livingEntity)))
+                        UUID spiritOwner = getSpiritOwner(livingEntity);
+                        if (getSpiritOwner(target) != null)
                         {
-                            ((MobEntity) livingEntity).setAttackTarget(null);
+                            if (spiritOwner.equals(getSpiritOwner(target)))
+                            {
+                                ((MobEntity) livingEntity).setAttackTarget(null);
+                            }
                         }
                         if (event.getTarget() instanceof PlayerEntity)
                         {
                             PlayerEntity playerEntity = (PlayerEntity)target;
-                            if (target.getUniqueID().equals(getRogueOwner(livingEntity)))
+                            if (playerEntity.getUniqueID().equals(getSpiritOwner(livingEntity)))
                             {
                                 ((MobEntity)livingEntity).setAttackTarget(null);
                             }
@@ -299,49 +306,76 @@ public class RuntimeEvents
     public static void jesterHatEffect(SpiritHarvestEvent.Post event)
     {
         PlayerEntity playerEntity = event.playerEntity;
-        if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioJesterHat, playerEntity).isPresent())
-        {
-            setRogueOwner(event.target, playerEntity.getUniqueID());
-        }
+        CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioJesterHat, playerEntity).ifPresent(triple -> {
+            boolean success = consumeSpirit(playerEntity, triple.right);
+            if (success)
+            {
+                setSpiritOwner(event.target, playerEntity.getUniqueID());
+            }
+        });
     }
     //endregion
     
     //region ITEMS
     @SubscribeEvent
+    public static void busterSwordSpecialAttack(LivingHurtEvent event)
+    {
+        if (event.getSource().getTrueSource() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+            if (playerEntity.getMotion().y < 0)
+            {
+                LivingEntity target = event.getEntityLiving();
+                ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
+                if (!playerEntity.getCooldownTracker().hasCooldown(stack.getItem()))
+                {
+                    playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 100);
+                    if (stack.getItem().equals(ModItems.breaker_blade))
+                    {
+                        event.setAmount(event.getAmount() + target.getTotalArmorValue());
+                    }
+                    event.setAmount(event.getAmount() * 2f);
+                    playerEntity.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.4f, 0.8f);
+                    playerEntity.playSound(SoundEvents.BLOCK_ANVIL_HIT, SoundCategory.PLAYERS, 1.2f, 0.8f);
+                    playerEntity.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 0.8f);
+                    target.addVelocity(playerEntity.getLookVec().x /2, 0.1, playerEntity.getLookVec().z /2);
+    
+                }
+            }
+        }
+    }
+    @SubscribeEvent
     public static void busterSwordDropHeads(LivingDropsEvent event)
     {
         if (event.getEntity() instanceof LivingEntity)
         {
-            if (event.isRecentlyHit())
+            if (event.getSource().getTrueSource() instanceof PlayerEntity)
             {
-                if (event.getSource().getTrueSource() instanceof PlayerEntity)
+                PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+                ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
+                if (stack.getItem() instanceof ModBusterSwordItem)
                 {
-                    PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
-                    ItemStack stack = playerEntity.getActiveItemStack();
-                    if (stack.getItem() instanceof ModBusterSwordItem)
+                    float chance = 10 + event.getLootingLevel() * 10 / 100f;
+                    LivingEntity entity = event.getEntityLiving();
+                    if (random.nextFloat() <= chance)
                     {
-                        float chance = 40 + event.getLootingLevel() * 10 / 100f;
-                        LivingEntity entity = event.getEntityLiving();
-                        if (random.nextFloat() <= chance)
+                        if (entity instanceof AbstractSkeletonEntity)
                         {
-                            if (entity instanceof AbstractSkeletonEntity)
-                            {
-                                addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
-                            }
-                            if (entity instanceof ZombieEntity && !(entity instanceof ZombifiedPiglinEntity))
-                            {
-                                addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
-                            }
-                            if (entity instanceof CreeperEntity)
-                            {
-                                addDrop(event, new ItemStack(Items.CREEPER_HEAD));
-                            }
-                            if (entity instanceof PlayerEntity)
-                            {
-                                ItemStack head = new ItemStack(Items.PLAYER_HEAD);
-                                head.getOrCreateTag().putString("SkullOwner", ((PlayerEntity) entity).getGameProfile().getName());
-                                addDrop(event, stack);
-                            }
+                            addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
+                        }
+                        if (entity instanceof ZombieEntity && !(entity instanceof ZombifiedPiglinEntity))
+                        {
+                            addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
+                        }
+                        if (entity instanceof CreeperEntity)
+                        {
+                            addDrop(event, new ItemStack(Items.CREEPER_HEAD));
+                        }
+                        if (entity instanceof PlayerEntity)
+                        {
+                            ItemStack head = new ItemStack(Items.PLAYER_HEAD);
+                            head.getOrCreateTag().putString("SkullOwner", ((PlayerEntity) entity).getGameProfile().getName());
+                            addDrop(event, stack);
                         }
                     }
                 }

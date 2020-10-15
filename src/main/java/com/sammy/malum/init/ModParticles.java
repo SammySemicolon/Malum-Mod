@@ -28,7 +28,7 @@ public class ModParticles
     public static void registerParticleTypes(RegistryEvent.Register<ParticleType<?>> event)
     {
         spiritFlame = registerParticle(event.getRegistry(), new SpiritFlameParticleData.Type(false),"spirit_flame");
-        lensMagic = registerParticle(event.getRegistry(), new LensMagicParticleData.Type(false),"lensMagic");
+        lensMagic = registerParticle(event.getRegistry(), new LensMagicParticleData.Type(false),"lens_magic");
         bonk = registerParticle(event.getRegistry(), new BonkParticleData.Type(false),"bonk");
         skull = registerParticle(event.getRegistry(), new SkullParticleData.Type(false),"skull");
     }

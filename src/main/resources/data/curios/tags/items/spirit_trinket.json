@@ -1,4 +1,17 @@
 {
   "replace": "false",
-  "values": ["malum:spiritwood_bark_necklace", "malum:enchanted_lectern", "malum:vacant_aegis", "malum:vampire_necklace", "malum:necrotic_catalyst", "malum:ethereal_bulwark", "malum:miracle_pearl", "malum:jester_hat"]
+  "values": ["malum:spiritwood_bark_necklace",
+    "malum:enchanted_lectern",
+    "malum:vacant_aegis",
+    "malum:vampire_necklace",
+    "malum:necrotic_catalyst",
+    "malum:ethereal_bulwark",
+    "malum:miracle_pearl",
+    "malum:jester_hat",
+    "malum:phantom_ring",
+    "malum:ignition_reactor",
+    "malum:phantom_wings",
+    "malum:totem_of_eternal_life",
+    "malum:netherborne_capacitor",
+    "malum:good_luck_charm"]
 }

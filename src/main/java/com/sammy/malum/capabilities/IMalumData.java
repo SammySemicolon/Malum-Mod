@@ -8,11 +8,11 @@ import java.util.UUID;
 
 public interface IMalumData
 {
-    Optional<UUID> getRogueOwner();
-    Optional<UUID> getCachedTarget();
     boolean getHusk();
-    void setRogueOwner(UUID uuid);
+    void setSpiritOwner(UUID uuid);
+    Optional<UUID> getSpiritOwner();
     void setCachedTarget(UUID uuid);
+    Optional<UUID> getCachedTarget();
     void setHusk(boolean husk);
     void copy(IMalumData data);
     CompoundNBT saveNBTData();

@@ -50,7 +50,6 @@ public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileE
         lookingAtPos = pos;
     }
     
-    
     @Override
     public float time()
     {

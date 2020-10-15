@@ -6,6 +6,7 @@ import com.sammy.malum.capabilities.MalumData;
 import com.sammy.malum.capabilities.MalumDataProvider;
 import com.sammy.malum.capabilities.MalumDataStorage;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -21,7 +22,7 @@ public class CapabilityEvents
 {
     @SubscribeEvent
     public static void onAttatchCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof PlayerEntity) {
+        if (event.getObject() instanceof LivingEntity) {
             event.addCapability(new ResourceLocation(MalumMod.MODID, "malum_data"), new MalumDataProvider());
         }
     }

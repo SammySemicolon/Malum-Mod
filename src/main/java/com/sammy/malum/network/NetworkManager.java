@@ -1,6 +1,7 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.network.packets.FinishFunkEngineDisc;
 import com.sammy.malum.network.packets.HuskChangePacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,5 +28,6 @@ public class NetworkManager
     {
         int index = 0;
         INSTANCE.registerMessage(index++, HuskChangePacket.class, HuskChangePacket::encode, HuskChangePacket::decode, HuskChangePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, FinishFunkEngineDisc.class, FinishFunkEngineDisc::encode, FinishFunkEngineDisc::decode, FinishFunkEngineDisc::whenThisPacketIsReceived);
     }
 }

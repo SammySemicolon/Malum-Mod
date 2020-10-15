@@ -126,11 +126,11 @@ public class BasicMirrorTileEntity extends BasicTileEntity
         compound.put("inventory", inventory.serializeNBT());
         return compound;
     }
-
+    
     @Override
-    public void read(BlockState state, CompoundNBT compound)
+    public void read(CompoundNBT compound)
     {
-        super.read(state,compound);
+        super.read(compound);
         transferAmount = compound.getInt("transferAmount");
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
     }

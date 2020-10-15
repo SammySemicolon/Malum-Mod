@@ -28,11 +28,7 @@ public class HuskChangePacket
 
     public void whenThisPacketIsReceived(Supplier<NetworkEvent.Context> context)
     {
-        context.get().enqueueWork(() ->
-                DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
-                {
-                    setHusk(id, value);
-                }));
+        context.get().enqueueWork(() -> setHusk(id, value));
         context.get().setPacketHandled(true);
     }
 

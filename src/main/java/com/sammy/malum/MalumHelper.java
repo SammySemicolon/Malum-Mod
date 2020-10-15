@@ -64,7 +64,76 @@ public class MalumHelper
     //endregion
     
     //region TE STACK HANDLING
-    public static boolean basicTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
+    public static boolean funkyMultiStackTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory)
+    {
+        int slotToTransfer = -1;
+    
+        if (heldItem.isEmpty())
+        {
+            for (int i = inventory.getSlots(); i >0; i--)
+            {
+                ItemStack targetItem = inventory.getStackInSlot(i);
+                if (!targetItem.isEmpty())
+                {
+                    slotToTransfer = i;
+                    break;
+                }
+            }
+        }
+        else if (heldItem.getItem() instanceof MusicDiscItem)
+        {
+            for (int i = 0; i < inventory.getSlots(); i++)
+            {
+                ItemStack targetItem = inventory.getStackInSlot(i);
+                if (targetItem.isEmpty())
+                {
+                    slotToTransfer = i;
+                    break;
+                }
+            }
+        }
+        if (slotToTransfer != -1)
+        {
+            return singleItemTEHandling(player,hand,heldItem,inventory, slotToTransfer);
+        }
+        return false;
+    }
+    public static boolean multiStackTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory)
+    {
+        int slotToTransfer = -1;
+    
+        if (heldItem.isEmpty())
+        {
+            for (int i = inventory.getSlots()-1; i >= 0; i--)
+            {
+                MalumMod.LOGGER.info(i);
+                ItemStack targetItem = inventory.getStackInSlot(i);
+                if (!targetItem.isEmpty())
+                {
+                    slotToTransfer = i;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < inventory.getSlots(); i++)
+            {
+                ItemStack targetItem = inventory.getStackInSlot(i);
+                if (targetItem.isEmpty())
+                {
+                    slotToTransfer = i;
+                    break;
+                }
+            }
+        }
+        if (slotToTransfer != -1)
+        {
+            return singleItemTEHandling(player,hand,heldItem,inventory, slotToTransfer);
+        }
+        return false;
+    }
+    public static boolean funkyItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
     {
         ItemStackHandler inventory = funkEngineTileEntity.inventory;
         ItemStack targetItem = inventory.getStackInSlot(slot);
@@ -81,7 +150,6 @@ public class MalumHelper
         {
             MalumHelper.giveItemStackToPlayer(player, targetItem);
             inventory.setStackInSlot(0,ItemStack.EMPTY);
-            return false;
         }
         return false;
     }
@@ -116,6 +184,22 @@ public class MalumHelper
         }
         return true;
     }
+    public static boolean singleItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
+    {
+        ItemStack targetItem = inventory.getStackInSlot(slot);
+        if (targetItem.isEmpty())
+        {
+            inventory.setStackInSlot(slot,heldItem);
+            player.setHeldItem(hand, ItemStack.EMPTY);
+            return true;
+        }
+        else
+        {
+            MalumHelper.giveItemStackToPlayer(player, targetItem);
+            inventory.setStackInSlot(slot,ItemStack.EMPTY);
+            return false;
+        }
+    }
     public static boolean basicItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
     {
         ItemStack targetItem = inventory.getStackInSlot(slot);
@@ -132,17 +216,7 @@ public class MalumHelper
             }
             return true;
         }
-        if (targetItem.isEmpty())
-        {
-            inventory.setStackInSlot(0,heldItem);
-            player.setHeldItem(hand, ItemStack.EMPTY);
-        }
-        else
-        {
-            MalumHelper.giveItemStackToPlayer(player, targetItem);
-            inventory.setStackInSlot(0,ItemStack.EMPTY);
-        }
-        return true;
+        return singleItemTEHandling(player,hand,heldItem,inventory,slot);
     }
     public static boolean inputStackIntoTE(TileEntity inputTileEntity, Direction direction, ItemStack stack)
     {

@@ -9,6 +9,7 @@ import com.sammy.malum.particles.spiritflame.SpiritFlameParticleData;
 import com.sammy.malum.recipes.SpiritFurnaceFuelData;
 import com.sammy.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -103,9 +104,9 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
     }
     
     @Override
-    public void read(BlockState state, CompoundNBT compound)
+    public void read(CompoundNBT compound)
     {
-        super.read(state,compound);
+        super.read(compound);
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
         burnTime = compound.getInt("burnTime");
         burnProgress = compound.getInt("burnProgress");

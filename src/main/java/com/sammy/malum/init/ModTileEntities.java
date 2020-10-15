@@ -1,6 +1,7 @@
 package com.sammy.malum.init;
 
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
+import com.sammy.malum.blocks.machines.funkengine.discholder.DiscHolderTileEntity;
 import com.sammy.malum.blocks.machines.mirror.HolderMirrorTileEntity;
 import com.sammy.malum.blocks.machines.mirror.InputMirrorTileEntity;
 import com.sammy.malum.blocks.machines.mirror.OutputMirrorTileEntity;
@@ -48,7 +49,10 @@ public class ModTileEntities
 
     @ObjectHolder("malum:funk_engine_tile_entity")
     public static TileEntityType<FunkEngineTileEntity> funk_engine_tile_entity;
-
+    
+    @ObjectHolder("malum:disc_holder_tile_entity")
+    public static TileEntityType<DiscHolderTileEntity> disc_holder_tile_entity;
+    
     @ObjectHolder("malum:redstone_clock_tile_entity")
     public static TileEntityType<RedstoneClockTileEntity> redstone_clock_tile_entity;
 
@@ -63,6 +67,7 @@ public class ModTileEntities
                 TileEntityType.Builder.create((Supplier<TileEntity>) InputMirrorTileEntity::new, ModBlocks.input_mirror).build(null).setRegistryName("input_mirror_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) OutputMirrorTileEntity::new, ModBlocks.output_mirror).build(null).setRegistryName("output_mirror_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) FunkEngineTileEntity::new, ModBlocks.funk_engine).build(null).setRegistryName("funk_engine_tile_entity"),
+                TileEntityType.Builder.create((Supplier<TileEntity>) DiscHolderTileEntity::new, ModBlocks.disc_holder).build(null).setRegistryName("disc_holder_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) RedstoneClockTileEntity::new, ModBlocks.redstone_clock).build(null).setRegistryName("redstone_clock_tile_entity")
         );
     }

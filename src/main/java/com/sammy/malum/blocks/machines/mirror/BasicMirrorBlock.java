@@ -176,6 +176,8 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
                             {
                                 mirrorTileEntity.transferAmount = 0;
                             }
+                            player.world.notifyBlockUpdate(pos,state,state, 3);
+                            player.swingArm(handIn);
                             float pitch = (float) mirrorTileEntity.transferAmount / mirrorTileEntity.transferAmounts.length;
                             MalumHelper.makeMachineToggleSound(worldIn, pos, 1f + pitch);
                         }
@@ -183,7 +185,7 @@ public class BasicMirrorBlock extends HorizontalFaceBlock
                     boolean success = MalumHelper.basicItemTEHandling(player, handIn, stack, mirrorTileEntity.inventory, 0);
                     if (success)
                     {
-                        player.world.notifyBlockUpdate(mirrorTileEntity.getPos(), mirrorTileEntity.getBlockState(), mirrorTileEntity.getBlockState(), 3);
+                        player.world.notifyBlockUpdate(pos,state,state, 3);
                         player.swingArm(handIn);
                         return ActionResultType.SUCCESS;
                     }

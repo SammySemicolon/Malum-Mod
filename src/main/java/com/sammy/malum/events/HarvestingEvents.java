@@ -3,6 +3,7 @@ package com.sammy.malum.events;
 import com.sammy.malum.ClientHandler;
 import com.sammy.malum.capabilities.MalumDataProvider;
 import com.sammy.malum.init.ModSounds;
+import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
 import com.sammy.malum.items.staves.BasicStave;
 import com.sammy.malum.SpiritDataHelper;
 import net.minecraft.client.audio.SimpleSound;
@@ -19,6 +20,7 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.UUID;
 
@@ -146,7 +148,13 @@ public class HarvestingEvents
                 {
                     event.setCanceled(true);
                 }
-                if ((heldItem.getUseDuration() - player.getItemInUseCount()) > 100)
+                int time = 100;
+    
+                if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioNetherborneCapacitor, player).isPresent())
+                {
+                    time = 50;
+                }
+                if ((heldItem.getUseDuration() - player.getItemInUseCount()) > time)
                 {
                     if (!tryCancel(player, heldItem))
                     {

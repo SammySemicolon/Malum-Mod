@@ -42,7 +42,10 @@ public class SpiritFurnaceTopBlock extends Block
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
     {
-        worldIn.setBlockState(pos.down(), Blocks.AIR.getDefaultState());
+        if (worldIn.getBlockState(pos.up()).getBlock() instanceof SpiritFurnaceBottomBlock)
+        {
+            worldIn.setBlockState(pos.down(), Blocks.AIR.getDefaultState());
+        }
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 

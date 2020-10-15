@@ -4,6 +4,8 @@ import com.sammy.malum.ClientHandler;
 import com.sammy.malum.SpiritConsumer;
 import com.sammy.malum.SpiritDescription;
 import com.sammy.malum.capabilities.MalumDataProvider;
+import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
+import com.sammy.malum.items.curios.CurioVampireNecklace;
 import com.sammy.malum.items.staves.effects.ModEffect;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -23,6 +25,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +78,10 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
     {
         if (livingEntity.getHealth() > playerEntity.getHealth() && !playerEntity.isCreative())
         {
-            return false;
+            if (!CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioNetherborneCapacitor, playerEntity).isPresent())
+            {
+                return false;
+            }
         }
         return !getHusk(livingEntity);
     }

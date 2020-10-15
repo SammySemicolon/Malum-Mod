@@ -67,7 +67,7 @@ public class SpiritFurnaceRecipeCategory implements IRecipeCategory<SpiritFurnac
 
         ITextComponent timeComponent = makeTranslationComponent("malum.recipe.time") //Uses
                 .append(new StringTextComponent("" + recipe.getBurnTime()));
-        String formattedText = timeComponent.getUnformattedComponentText();
+        String formattedText = timeComponent.getString();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
         fontRenderer.drawString(matrixStack,formattedText, -1, 1, 0xFF808080);

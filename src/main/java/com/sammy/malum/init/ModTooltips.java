@@ -44,6 +44,9 @@ public class ModTooltips
     
         addTooltip(ethereal_bulwark, makeTranslationComponent("malum.tooltip.ethereal_bulwark.effect"));
         addTooltip(vacant_aegis, makeTranslationComponent("malum.tooltip.vacant_aegis.effect"));
+        addTooltip(phantom_ring, makeTranslationComponent("malum.tooltip.phantom_ring.effect"));
+        addTooltip(phantom_wings, makeTranslationComponent("malum.tooltip.phantom_wings.effect"));
+        addTooltip(netherborne_capacitor, makeTranslationComponent("malum.tooltip.netherborne_capacitor.effect"));
         addTooltip(vacant_rapier, makeTranslationComponent("malum.tooltip.vacant_rapier.effect"));
     }
     public static void addTooltip(Item item, ITextComponent... components)

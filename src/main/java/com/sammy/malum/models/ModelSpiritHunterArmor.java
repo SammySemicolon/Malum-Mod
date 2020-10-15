@@ -104,18 +104,7 @@ public class ModelSpiritHunterArmor extends ModelArmor {
 		belt.setTextureOffset(39, 3).addBox(-0.25F, 9.5F, -2.5F, 2.0F, 3.0F, 1.0F, 0.15F, false);
 		belt.setTextureOffset(39, 3).addBox(-1.75F, 9.5F, -2.5F, 2.0F, 3.0F, 1.0F, 0.15F, false);
 	}
-	public void setRotationAngles(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		this.head.copyModelAngles(this.bipedHead);
-		this.body.copyModelAngles(this.bipedBody);
-		this.belt.copyModelAngles(this.bipedBody);
-		this.leftarm.copyModelAngles(this.bipedLeftArm);
-		this.rightarm.copyModelAngles(this.bipedRightArm);
-		this.leftleg.copyModelAngles(this.bipedLeftLeg);
-		this.rightleg.copyModelAngles(this.bipedRightLeg);
-		this.leftboot.copyModelAngles(this.bipedLeftLeg);
-		this.rightboot.copyModelAngles(this.bipedRightLeg);
-	}
+	
 	@Override
 	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
 
@@ -150,12 +139,5 @@ public class ModelSpiritHunterArmor extends ModelArmor {
 			bipedLeftLeg = leftboot;
 		}
 		super.render(ms, buffer, light, overlay, r, g, b, a);
-	}
-
-	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z)
-	{
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
 	}
 }

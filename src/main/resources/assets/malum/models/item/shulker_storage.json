@@ -1,0 +1,14 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "malum:items/shulker_storage"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "storing": 1
+            },
+            "model": "malum:item/shulker_storage_full"
+        }
+    ]
+}

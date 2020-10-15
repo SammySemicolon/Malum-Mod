@@ -10,8 +10,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.LazyValue;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 
 import javax.annotation.Nullable;
 
@@ -20,8 +22,17 @@ public class ItemUmbraSteelBattleArmor extends ModArmor
     public ItemUmbraSteelBattleArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
+        this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelUmbralSteelArmor(slot)), () -> () -> null);
     }
-
+    private final LazyValue<BipedModel<?>> model;
+    
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    @SuppressWarnings("unchecked")
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original)
+    {
+        return (A) model.getValue();
+    }
     @OnlyIn(value = Dist.CLIENT)
     @Override
     @Nullable
@@ -33,14 +44,6 @@ public class ItemUmbraSteelBattleArmor extends ModArmor
     public static boolean hasArmorSet(PlayerEntity playerEntity)
     {
         return MalumHelper.hasArmorSet(playerEntity, ModItems.umbral_steel_helm, ModItems.umbral_steel_chestplate, ModItems.umbral_steel_leggings, ModItems.umbral_steel_shoes);
-    }
-    
-    @OnlyIn(value = Dist.CLIENT)
-    @Nullable
-    @Override
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default)
-    {
-        return (A) new ModelUmbralSteelArmor(slot);
     }
     
 }

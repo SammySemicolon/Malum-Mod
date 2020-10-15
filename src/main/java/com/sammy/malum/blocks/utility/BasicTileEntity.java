@@ -24,18 +24,30 @@ public abstract class BasicTileEntity extends TileEntity
     public void read(BlockState state, CompoundNBT compound)
     {
         super.read(state, compound);
+        read(compound);
     }
     @Override
     public CompoundNBT getUpdateTag()
     {
         return write(new CompoundNBT());
     }
-
+    
     @Override
     public SUpdateTileEntityPacket getUpdatePacket()
     {
         CompoundNBT nbt = new CompoundNBT();
         this.write(nbt);
         return new SUpdateTileEntityPacket(pos, 0, nbt);
+    }
+    
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet)
+    {
+        super.onDataPacket(net, packet);
+        read(packet.getNbtCompound());
+    }
+    public void read(CompoundNBT compound)
+    {
+    
     }
 }

@@ -43,11 +43,11 @@ public class RedstoneClockTileEntity extends BasicTileEntity implements ITickabl
         compound.putInt("powered", powered);
         return compound;
     }
-
+    
     @Override
-    public void read(BlockState state, CompoundNBT compound)
+    public void read(CompoundNBT compound)
     {
-        super.read(state,compound);
+        super.read(compound);
         type = compound.getInt("type");
         tickMultiplier = compound.getInt("tickMultiplier");
         timer = compound.getInt("timer");

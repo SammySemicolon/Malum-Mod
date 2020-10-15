@@ -2,6 +2,7 @@ package com.sammy.malum.blocks.utility.spiritstorage;
 
 import com.sammy.malum.SpiritStorage;
 import com.sammy.malum.SpiritDataHelper;
+import com.sammy.malum.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -79,16 +80,19 @@ public abstract class SpiritStoringBlock extends Block implements SpiritStorage
 
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
-        if (!isMoving)
+        if (!isMoving && !newState.getBlock().equals(state.getBlock()))
         {
             if (worldIn.getTileEntity(pos) instanceof SpiritStoringTileEntity)
             {
                 SpiritStoringTileEntity tileEntity = (SpiritStoringTileEntity) worldIn.getTileEntity(pos);
                 ItemStack stack = new ItemStack(state.getBlock().asItem());
-                stack.setTag(new CompoundNBT());
-                for (int i = 0; i < tileEntity.count; i++)
+                if (tileEntity.count != 0)
                 {
-                    SpiritDataHelper.increaseSpiritOfItem(stack, tileEntity.type);
+                    stack.setTag(new CompoundNBT());
+                    for (int i = 0; i < tileEntity.count; i++)
+                    {
+                        SpiritDataHelper.increaseSpiritOfItem(stack, tileEntity.type);
+                    }
                 }
                 Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, stack);
                 worldIn.addEntity(entity);

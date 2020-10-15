@@ -63,10 +63,11 @@ public class LinkableMirrorTileEntity extends BasicMirrorTileEntity implements I
         }
         return super.write(compound);
     }
-
+    
     @Override
-    public void read(BlockState state,CompoundNBT compound)
+    public void read(CompoundNBT compound)
     {
+        super.read(compound);
         currentMirror = compound.getInt("currentMirror");
         if (compound.contains("mirrorCount"))
         {
@@ -83,7 +84,6 @@ public class LinkableMirrorTileEntity extends BasicMirrorTileEntity implements I
                 linkedPositions.add(pos);
             }
         }
-        super.read(state, compound);
     }
     
     @Override

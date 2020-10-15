@@ -1,6 +1,8 @@
 package com.sammy.malum.events;
 
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineRenderer;
+import com.sammy.malum.blocks.machines.funkengine.discholder.DiscHolderRenderer;
+import com.sammy.malum.blocks.machines.funkengine.discholder.DiscHolderTileEntity;
 import com.sammy.malum.blocks.machines.mirror.BasicMirrorRenderer;
 import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockRenderer;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomRenderer;
@@ -46,6 +48,7 @@ public class ClientSetupEvents
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.output_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_jar_tile_entity, SpiritJarRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.funk_engine_tile_entity, FunkEngineRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.disc_holder_tile_entity, DiscHolderRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.redstone_clock_tile_entity, RedstoneClockRenderer::new);
     }
     
@@ -53,11 +56,28 @@ public class ClientSetupEvents
     public static void setModelProperties(FMLClientSetupEvent event)
     {
     
-        registerProperty(ModItems.bow_of_lost_souls, new ResourceLocation("pull"), (itemStack, world, livingEntity) -> {
-            if (livingEntity == null) {
+        registerProperty(ModItems.shulker_storage, new ResourceLocation("storing"), (itemStack, world, livingEntity) -> {
+            if (livingEntity == null)
+            {
                 return 0.0F;
-            } else {
-                return livingEntity.getActiveItemStack() != itemStack ? 0.0F : (float)(itemStack.getUseDuration() - livingEntity.getItemInUseCount()) / 20.0F;
+            }
+            else
+            {
+               if (itemStack.getTag() != null && itemStack.getTag().contains("storing"))
+               {
+                   return 1.0F;
+               }
+            }
+            return 0.0F;
+        });
+        registerProperty(ModItems.bow_of_lost_souls, new ResourceLocation("pull"), (itemStack, world, livingEntity) -> {
+            if (livingEntity == null)
+            {
+                return 0.0F;
+            }
+            else
+            {
+                return livingEntity.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - livingEntity.getItemInUseCount()) / 20.0F;
             }
         });
         registerProperty(ModItems.bow_of_lost_souls, new ResourceLocation("pulling"), (itemStack, world, livingEntity) -> livingEntity != null && livingEntity.isHandActive() && livingEntity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);

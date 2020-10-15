@@ -85,9 +85,7 @@ public class SpiritJarRenderer extends TileEntityRenderer<SpiritJarTileEntity> i
             ArrayList<ITextComponent> components = new ArrayList<>();
             components.add(makeImportantComponent(blockEntity.count + "/" + ((SpiritStorage) blockEntity.getBlockState().getBlock()).capacity(), true).append(makeImportantComponent(getName(blockEntity.type), true)));
             renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
-        }
-        if (this.renderDispatcher.renderInfo != null)
-        {
+    
             BlockPos blockpos = blockEntity.getPos();
             BlockState renderState = ModBlocks.spirit_jar.getDefaultState().with(SpiritStoringBlock.TYPE, 1);
             float scale = blockEntity.count / (float) ((SpiritStoringBlock) renderState.getBlock()).capacity();
@@ -100,7 +98,6 @@ public class SpiritJarRenderer extends TileEntityRenderer<SpiritJarTileEntity> i
     
             blockDispatcher.getBlockModelRenderer().renderModel(blockEntity.getWorld(), blockDispatcher.getModelForState(renderState), renderState, blockpos, matrixStack, iRenderTypeBuffer.getBuffer(renderType), false, blockEntity.getWorld().rand, renderState.getPositionRandom(blockpos), OverlayTexture.NO_OVERLAY, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
             matrixStack.pop();
-            
         }
     }
 }

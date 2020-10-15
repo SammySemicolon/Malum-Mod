@@ -3,6 +3,7 @@ package com.sammy.malum.blocks.machines.spiritfurnace;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
 import com.sammy.malum.init.ModTileEntities;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -66,13 +67,14 @@ public class SpiritFurnaceTopTileEntity extends BasicTileEntity implements ITick
         compound.put("inventory", inventory.serializeNBT());
         return compound;
     }
-
+    
     @Override
-    public void read(BlockState state, CompoundNBT compound)
+    public void read(CompoundNBT compound)
     {
-        super.read(state,compound);
+        super.read(compound);
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
     }
+    
     @Override
     public void tick()
     {

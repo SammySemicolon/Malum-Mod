@@ -11,6 +11,7 @@ import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.sammy.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.sammy.malum.items.armor.ModArmor;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
@@ -29,6 +30,7 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -54,7 +56,12 @@ public class ClientHandler
     public static SimpleSound sound;
     public static void spiritHarvestStart(PlayerEntity playerEntity)
     {
-        sound = new SimpleSound(ModSounds.spirit_harvest_drain, SoundCategory.BLOCKS, 1, 1, playerEntity.getPosition());
+        float pitch = 1;
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioNetherborneCapacitor, playerEntity).isPresent())
+        {
+            pitch = 2;
+        }
+        sound = new SimpleSound(ModSounds.spirit_harvest_drain, SoundCategory.BLOCKS, 1, pitch, playerEntity.getPosition());
         Minecraft.getInstance().getSoundHandler().play(sound);
     }
     public static void spiritHarvestStop()
@@ -201,7 +208,7 @@ public class ClientHandler
                             int current = components.size() + 1;
                             for (ITextComponent component : components)
                             {
-                                String text = component.getUnformattedComponentText();
+                                String text = component.getString();
                                 float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
                                 matrixStack.push();
                                 
@@ -268,7 +275,7 @@ public class ClientHandler
                             int current = components.size() + 1;
                             for (ITextComponent component : components)
                             {
-                                String text = component.getUnformattedComponentText();
+                                String text = component.getString();
                                 float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
                                 matrixStack.push();
                 
