@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bab",
+    "aca",
+    "bab"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:redstone"
+    },
+    "b": {
+      "item": "malum:dark_spirit_stone"
+    },
+    "c": {
+      "item": "malum:arcane_apparatus"
+    }
+  },
+  "result": {
+    "item": "malum:redstone_clock"
+  }
+}

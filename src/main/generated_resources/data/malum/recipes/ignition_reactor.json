@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "baa",
+    "bcd",
+    " aa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:iron_ingot"
+    },
+    "b": {
+      "item": "minecraft:iron_block"
+    },
+    "c": {
+      "item": "minecraft:fire_charge"
+    },
+    "d": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result": {
+    "item": "malum:ignition_reactor"
+  }
+}

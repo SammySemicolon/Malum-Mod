@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:spiritwood_stave"
+    ]
+  },
+  "criteria": {
+    "has_spirit_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:spirit_planks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:spiritwood_stave"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spirit_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

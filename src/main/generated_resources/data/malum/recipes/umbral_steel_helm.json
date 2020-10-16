@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aea",
+    "bdb",
+    "aca"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:umbral_steel_ingot"
+    },
+    "b": {
+      "item": "malum:arcane_apparatus"
+    },
+    "c": {
+      "item": "minecraft:netherite_helmet"
+    },
+    "d": {
+      "item": "malum:spirited_steel_battle_helm"
+    },
+    "e": {
+      "item": "malum:spirit_hunter_helm"
+    }
+  },
+  "result": {
+    "item": "malum:umbral_steel_helm"
+  }
+}

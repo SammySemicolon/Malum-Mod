@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:netherborne_capacitor"
+    ]
+  },
+  "criteria": {
+    "has_scrap": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:netherite_scrap"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:netherborne_capacitor"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_scrap",
+      "has_the_recipe"
+    ]
+  ]
+}

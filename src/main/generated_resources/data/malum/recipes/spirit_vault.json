@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " a ",
+    "aba",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "malum:transmissive_ingot"
+    },
+    "b": {
+      "item": "malum:stygian_pearl"
+    }
+  },
+  "result": {
+    "item": "malum:spirit_vault"
+  }
+}

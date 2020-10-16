@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:transmissive_nugget"
+    },
+    {
+      "item": "malum:transmissive_nugget"
+    },
+    {
+      "item": "malum:transmissive_nugget"
+    },
+    {
+      "item": "malum:transmissive_nugget"
+    },
+    {
+      "item": "malum:transmissive_nugget"
+    },
+    {
+      "item": "malum:transmissive_nugget"
+    },
+    {
+      "item": "malum:transmissive_nugget"
+    },
+    {
+      "item": "malum:transmissive_nugget"
+    },
+    {
+      "item": "malum:transmissive_nugget"
+    }
+  ],
+  "result": {
+    "item": "malum:transmissive_ingot"
+  }
+}

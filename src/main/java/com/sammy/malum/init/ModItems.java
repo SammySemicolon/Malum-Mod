@@ -286,6 +286,8 @@ public class ModItems
                 netherborne_capacitor = setup(new CurioNetherborneCapacitor(curio_properties), "netherborne_capacitor"),
                 totem_of_eternal_life = setup(new CurioTotemOfEternalLife(curio_properties), "totem_of_eternal_life"),
                 good_luck_charm = setup(new CurioGoodLuckCharm(curio_properties), "good_luck_charm"),
+                sinister_mask = setup(new CurioSinisterMask(curio_properties), "sinister_mask"),
+                gilded_gauntlet = setup(new CurioGildedGauntlet(curio_properties), "gilded_gauntlet"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),

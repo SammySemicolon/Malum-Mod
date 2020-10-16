@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:output_mirror"
+    ]
+  },
+  "criteria": {
+    "has_resonant_lens": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:resonant_lens"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:output_mirror"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_resonant_lens",
+      "has_the_recipe"
+    ]
+  ]
+}

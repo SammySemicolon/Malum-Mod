@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "cac",
+    "aba",
+    "cac"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:arcane_apparatus"
+    },
+    "b": {
+      "item": "malum:cursed_nebulous"
+    },
+    "c": {
+      "item": "malum:archaic_crystal"
+    }
+  },
+  "result": {
+    "item": "malum:stellar_apparatus"
+  }
+}

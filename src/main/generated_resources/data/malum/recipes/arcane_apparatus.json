@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "cac",
+    "aba",
+    "cac"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:spirited_steel_ingot"
+    },
+    "b": {
+      "item": "malum:stygian_pearl"
+    },
+    "c": {
+      "item": "malum:arcane_shard"
+    }
+  },
+  "result": {
+    "item": "malum:arcane_apparatus"
+  }
+}

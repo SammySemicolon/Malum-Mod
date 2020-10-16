@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " bb",
+    " bb",
+    "a  "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:stick"
+    },
+    "b": {
+      "item": "malum:spirited_steel_ingot"
+    }
+  },
+  "result": {
+    "item": "malum:ultimate_weapon"
+  }
+}

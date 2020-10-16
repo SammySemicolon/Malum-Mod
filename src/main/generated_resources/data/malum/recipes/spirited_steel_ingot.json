@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:spirited_steel_nugget"
+    },
+    {
+      "item": "malum:spirited_steel_nugget"
+    },
+    {
+      "item": "malum:spirited_steel_nugget"
+    },
+    {
+      "item": "malum:spirited_steel_nugget"
+    },
+    {
+      "item": "malum:spirited_steel_nugget"
+    },
+    {
+      "item": "malum:spirited_steel_nugget"
+    },
+    {
+      "item": "malum:spirited_steel_nugget"
+    },
+    {
+      "item": "malum:spirited_steel_nugget"
+    },
+    {
+      "item": "malum:spirited_steel_nugget"
+    }
+  ],
+  "result": {
+    "item": "malum:spirited_steel_ingot"
+  }
+}

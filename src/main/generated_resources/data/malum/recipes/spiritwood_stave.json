@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  b",
+    " bb",
+    "a  "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:stick"
+    },
+    "b": {
+      "item": "malum:spirit_planks"
+    }
+  },
+  "result": {
+    "item": "malum:spiritwood_stave"
+  }
+}

@@ -25,6 +25,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.InputEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
@@ -35,6 +36,18 @@ import static com.sammy.malum.capabilities.MalumDataProvider.*;
 
 public abstract class BasicStave extends Item implements SpiritConsumer, SpiritDescription
 {
+    
+    public enum staveOptionEnum
+    {
+        spiritHarvest(0),
+        augmentFunction(1),
+        none(2);
+        
+        public final int type;
+    
+        staveOptionEnum(int type) { this.type = type;}
+    }
+    
     @Override
     public int durability()
     {

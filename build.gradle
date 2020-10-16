@@ -13,11 +13,13 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.16.3-1.0'
-group = 'com.kittykitcatcat.malum'
+group = 'com.sammy.malum'
 archivesBaseName = 'malum'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
-
+sourceSets {
+    main.resources.srcDirs += 'src/main/generated_resources'
+}
 minecraft {    
     mappings channel: 'snapshot', version: '20200916-1.16.2'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -54,15 +56,15 @@ minecraft {
         data {
             workingDirectory project.file('run')
 
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.markers', ''
 
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'malum', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'malum', '--all', '--output', file('src/main/generated_resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                malum {
-                    source sourceSets.main
+                self {
+                    sources sourceSets.main
                 }
             }
         }
@@ -91,8 +93,8 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25")
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.3-4.0.1.0:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.3-4.0.1.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.3-4.0.2.0:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.3-4.0.2.0")
 }
 
 jar {

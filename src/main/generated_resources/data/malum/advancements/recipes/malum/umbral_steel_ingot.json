@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:umbral_steel_ingot"
+    ]
+  },
+  "criteria": {
+    "has_umbral_steel_nugget": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:umbral_steel_nugget"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:umbral_steel_ingot"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_umbral_steel_nugget",
+      "has_the_recipe"
+    ]
+  ]
+}

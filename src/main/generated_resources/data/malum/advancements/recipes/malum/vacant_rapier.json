@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:vacant_rapier"
+    ]
+  },
+  "criteria": {
+    "has_vacant_gemstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:vacant_gemstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:vacant_rapier"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_vacant_gemstone",
+      "has_the_recipe"
+    ]
+  ]
+}

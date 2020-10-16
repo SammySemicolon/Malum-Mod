@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:stellar_apparatus"
+    ]
+  },
+  "criteria": {
+    "has_stygian_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:cursed_nebulous"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:stellar_apparatus"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stygian_pearl",
+      "has_the_recipe"
+    ]
+  ]
+}

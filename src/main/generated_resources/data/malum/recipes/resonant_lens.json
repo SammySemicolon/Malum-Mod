@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " a ",
+    "aba",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "malum:ectoplasm"
+    },
+    "b": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "malum:resonant_lens",
+    "count": 4
+  }
+}

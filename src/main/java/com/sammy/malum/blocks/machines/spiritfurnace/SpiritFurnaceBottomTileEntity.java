@@ -177,12 +177,12 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                     burnProgress++;
                     if (burnProgress >= recipe.getBurnTime())
                     {
-                        output(world, pos, new ItemStack(recipe.getOutputItem()));
+                        output(new ItemStack(recipe.getOutputItem()));
                         if (recipe.getSideItem() != null)
                         {
                             if (random.nextInt(recipe.getSideItemChance()) == 0)
                             {
-                                output(world, pos, new ItemStack(recipe.getSideItem()));
+                                output(new ItemStack(recipe.getSideItem()));
                             }
                         }
                         inputItem.shrink(1);
@@ -234,9 +234,9 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             }
         }
     }
-    public void output(World world, BlockPos pos, ItemStack stack)
+    public void output(ItemStack stack)
     {
-        Direction direction = getBlockState().get(HORIZONTAL_FACING);
+        Direction direction = world.getBlockState(pos.up()).get(HORIZONTAL_FACING);
         TileEntity inputTileEntity = world.getTileEntity(pos.subtract(direction.getDirectionVec()).add(0, 1, 0));
         if (inputTileEntity != null)
         {
@@ -263,7 +263,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
     }
     public void spawnTopSpiritFlame()
     {
-        Vector3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vector3i direction = world.getBlockState(pos.up()).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
         Vector3d velocity = randomVector(random, -0.02, 0.02);
         Vector3d particlePos = vectorFromBlockPos(pos).add(randomVector(random, 0.2, 0.8)).add(direction.getX() * 0.2f, 1, direction.getZ() * 0.2f);
         
@@ -271,7 +271,7 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
     }
     public void spawnTopSmoke()
     {
-        Vector3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
+        Vector3i direction = world.getBlockState(pos.up()).get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();
         Vector3d particlePos = vectorFromBlockPos(pos).add(0.5, 1.75, 0.5).add(randomVector(random, -0.3, 0.3));
         
         if (direction.getZ() != 0)

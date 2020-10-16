@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:transmissive_nugget"
+    ]
+  },
+  "criteria": {
+    "has_transmissive_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:transmissive_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:transmissive_nugget"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_transmissive_ingot",
+      "has_the_recipe"
+    ]
+  ]
+}

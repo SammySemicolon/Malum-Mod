@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:transmissive_nugget"
+    },
+    "b": {
+      "item": "malum:runic_ash"
+    }
+  },
+  "result": {
+    "item": "malum:spirit_capacitor"
+  }
+}

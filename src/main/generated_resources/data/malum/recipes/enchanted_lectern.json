@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bb ",
+    "bba",
+    " aa"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:spirit_planks"
+    },
+    "b": {
+      "item": "malum:enchanted_quartz"
+    }
+  },
+  "result": {
+    "item": "malum:enchanted_lectern"
+  }
+}

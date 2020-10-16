@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "malum:arcane_spirit_stone"
-  },
-  "result": "malum:arcane_shard",
-  "experience": 5.0,
-  "cookingtime": 200
-}

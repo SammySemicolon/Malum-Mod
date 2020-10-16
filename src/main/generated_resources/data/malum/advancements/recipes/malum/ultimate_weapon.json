@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:ultimate_weapon"
+    ]
+  },
+  "criteria": {
+    "has_spirited_steel_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:spirited_steel_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:ultimate_weapon"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spirited_steel_ingot",
+      "has_the_recipe"
+    ]
+  ]
+}

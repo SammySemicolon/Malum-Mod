@@ -16,9 +16,9 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public class SpiritDataHelper
 {
-    public static final String countNBT = "malum:spiritCount";
-    public static final String typeNBT = "malum:spiritType";
-    public static final String spiritIntegrityNBT = "malum:spiritIntegrity";
+    public static final String countNBT = "malum:spirit_count";
+    public static final String typeNBT = "malum:spirit_type";
+    public static final String spiritIntegrityNBT = "malum:spirit_integrity";
 
     public static Optional<EntityType<?>> getType(String name)
     {

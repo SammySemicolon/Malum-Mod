@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:bow_of_lost_souls"
+    ]
+  },
+  "criteria": {
+    "has_spirit_silk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:spirit_silk"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:bow_of_lost_souls"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spirit_silk",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -30,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -198,7 +199,7 @@ public class RuntimeEvents
         }
     }
     @SubscribeEvent
-    public static void sinisterMaskEffect(PotionEvent.PotionAddedEvent event)
+    public static void sinisterMaskEffect(PotionEvent.PotionApplicableEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
@@ -211,7 +212,7 @@ public class RuntimeEvents
                         boolean success = consumeSpirit(playerEntity, triple.right);
                         if (success)
                         {
-                            playerEntity.removePotionEffect(event.getPotionEffect().getPotion());
+                            event.setResult(Event.Result.DENY);
                             playerEntity.addPotionEffect(new EffectInstance(Effects.STRENGTH,event.getPotionEffect().getDuration() ,event.getPotionEffect().getAmplifier()));
                         }
                     });

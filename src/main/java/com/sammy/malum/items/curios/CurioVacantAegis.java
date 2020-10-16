@@ -42,6 +42,11 @@ public class CurioVacantAegis extends Item implements ICurio
                 return atts;
             }
             @Override
+            public boolean showAttributesTooltip(String identifier)
+            {
+                return false;
+            }
+            @Override
             public void playRightClickEquipSound(LivingEntity livingEntity)
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);

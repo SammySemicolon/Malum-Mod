@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bcb",
+    "ada",
+    "bab"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:arcane_shard"
+    },
+    "b": {
+      "item": "malum:dark_spirit_stone"
+    },
+    "c": {
+      "item": "malum:arcane_apparatus"
+    },
+    "d": {
+      "item": "minecraft:jukebox"
+    }
+  },
+  "result": {
+    "item": "malum:funk_engine"
+  }
+}

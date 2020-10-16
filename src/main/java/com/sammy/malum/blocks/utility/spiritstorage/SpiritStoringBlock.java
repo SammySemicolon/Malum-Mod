@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -77,27 +78,26 @@ public abstract class SpiritStoringBlock extends Block implements SpiritStorage
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
-
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
+    @Override
+    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player)
     {
-        if (!isMoving && !newState.getBlock().equals(state.getBlock()))
+        TileEntity te = world.getTileEntity(pos);
+        if (te instanceof SpiritStoringTileEntity)
         {
-            if (worldIn.getTileEntity(pos) instanceof SpiritStoringTileEntity)
+            SpiritStoringTileEntity spiritStoringTileEntity = (SpiritStoringTileEntity) te;
+            if (!world.isRemote && spiritStoringTileEntity.count > 0)
             {
-                SpiritStoringTileEntity tileEntity = (SpiritStoringTileEntity) worldIn.getTileEntity(pos);
                 ItemStack stack = new ItemStack(state.getBlock().asItem());
-                if (tileEntity.count != 0)
+                stack.setTag(new CompoundNBT());
+                for (int i = 0; i < spiritStoringTileEntity.count; i++)
                 {
-                    stack.setTag(new CompoundNBT());
-                    for (int i = 0; i < tileEntity.count; i++)
-                    {
-                        SpiritDataHelper.increaseSpiritOfItem(stack, tileEntity.type);
-                    }
+                    SpiritDataHelper.increaseSpiritOfItem(stack, spiritStoringTileEntity.type);
                 }
-                Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, stack);
-                worldIn.addEntity(entity);
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+                itemEntity.setDefaultPickupDelay();
+                world.addEntity(itemEntity);
             }
         }
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
+        super.onBlockHarvested(world, pos, state, player);
     }
 }

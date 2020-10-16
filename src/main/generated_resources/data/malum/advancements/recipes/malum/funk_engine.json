@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:funk_engine"
+    ]
+  },
+  "criteria": {
+    "has_arcane_apparatus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:arcane_apparatus"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:funk_engine"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_arcane_apparatus",
+      "has_the_recipe"
+    ]
+  ]
+}

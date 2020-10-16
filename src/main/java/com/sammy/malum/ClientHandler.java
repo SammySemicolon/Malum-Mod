@@ -12,6 +12,10 @@ import com.sammy.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.items.armor.ModArmor;
 import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
+import com.sammy.malum.items.staves.BasicStave;
+import com.sammy.malum.items.staves.SpiritwoodStave;
+import com.sammy.malum.network.packets.HuskChangePacket;
+import com.sammy.malum.network.packets.UpdateStaveNBT;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
@@ -21,6 +25,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
@@ -31,12 +36,16 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.fml.network.PacketDistributor;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sammy.malum.capabilities.MalumDataProvider.getHusk;
+import static com.sammy.malum.network.NetworkManager.INSTANCE;
 import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 
 public class ClientHandler
@@ -317,6 +326,26 @@ public class ClientHandler
                 .append(makeImportantComponent(message, true));
     }
     
+    public static void modifyStaveData(InputEvent.MouseScrollEvent event)
+    {
+        PlayerEntity playerEntity = Minecraft.getInstance().player;
+        if (playerEntity.isSneaking())
+        {
+            ItemStack stack = playerEntity.getHeldItemMainhand();
+            if (!(stack.getItem() instanceof BasicStave))
+            {
+                stack = playerEntity.getHeldItemOffhand();
+            }
+            if (stack.getItem() instanceof BasicStave)
+            {
+                int actualChange = event.getScrollDelta() > 0 ? 1 : -1;
+                int finalNBT = stack.getTag().getInt("malum:staveOption") + actualChange;
+                INSTANCE.sendToServer(new UpdateStaveNBT(stack, finalNBT));
+                
+                event.setCanceled(true);
+            }
+        }
+    }
     public static void makeSpiritTooltip(PlayerEntity playerEntity, ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         ArrayList<ITextComponent> newComponents = new ArrayList<>();

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aea",
+    "bdb",
+    "aca"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:umbral_steel_ingot"
+    },
+    "b": {
+      "item": "malum:arcane_apparatus"
+    },
+    "c": {
+      "item": "minecraft:netherite_boots"
+    },
+    "d": {
+      "item": "malum:spirited_steel_battle_shoes"
+    },
+    "e": {
+      "item": "malum:spirit_hunter_shoes"
+    }
+  },
+  "result": {
+    "item": "malum:umbral_steel_shoes"
+  }
+}

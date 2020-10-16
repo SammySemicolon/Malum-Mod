@@ -169,10 +169,10 @@
   "malum.tooltip.resonant_blink.effect": "Teleport you forward",
   "malum.tooltip.mating.effect": "Make animals have sex",
 
-  "malum.tooltip.creative_stave.desc": "A slightly overpowered stave capable of ",
+  "malum.tooltip.creative_stave.desc": " A slightly overpowered stave capable of ",
 
-  "malum.tooltip.basic_stave.effect.a": "A powerful stave capable of ",
-  "malum.tooltip.basic_stave.effect.b": "Harvesting Spirits",
+  "malum.tooltip.basic_stave.desc": " A powerful stave capable of ",
+  "malum.tooltip.basic_stave.effect": "Harvesting Spirits",
 
   "malum.tooltip.spirit.desc.a": "spirit",
   "malum.tooltip.spirit.desc.b": "Spirit",

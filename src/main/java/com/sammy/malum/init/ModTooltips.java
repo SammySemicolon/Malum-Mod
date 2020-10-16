@@ -43,8 +43,7 @@ public class ModTooltips
         addTooltip(spiritwood_bark_necklace, extraSpirit(1));
     
         addTooltip(ethereal_bulwark, makeTranslationComponent("malum.tooltip.ethereal_bulwark.effect"));
-        addTooltip(vacant_aegis, makeTranslationComponent("malum.tooltip.vacant_aegis.effect.a"));
-        addTooltip(vacant_aegis, makeTranslationComponent("malum.tooltip.vacant_aegis.effect.b"));
+        addTooltip(vacant_aegis, makeTranslationComponent("malum.tooltip.vacant_aegis.effect.a"), makeTranslationComponent("malum.tooltip.vacant_aegis.effect.b"));
         addTooltip(phantom_ring, makeTranslationComponent("malum.tooltip.phantom_ring.effect"));
         addTooltip(phantom_wings, makeTranslationComponent("malum.tooltip.phantom_wings.effect"));
         addTooltip(netherborne_capacitor, makeTranslationComponent("malum.tooltip.netherborne_capacitor.effect"));
@@ -58,7 +57,7 @@ public class ModTooltips
     }
     public static ITextComponent staveComponent()
     {
-        return makeTranslationComponent("malum.tooltip.basic_stave.effect.a").append(makeImportantComponent("malum.tooltip.basic_stave.effect.b", true));
+        return makeTranslationComponent("malum.tooltip.basic_stave.desc").append(makeImportantComponent("malum.tooltip.basic_stave.effect", true));
     }
     public static ITextComponent extraSpirit(int amount)
     {

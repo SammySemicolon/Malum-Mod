@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:resonant_lens"
+    ]
+  },
+  "criteria": {
+    "has_ectoplasm": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:ectoplasm"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:resonant_lens"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ectoplasm",
+      "has_the_recipe"
+    ]
+  ]
+}
