@@ -2,6 +2,7 @@ package com.sammy.malum.blocks.machines.mirror;
 
 import com.sammy.malum.ClientHandler;
 import com.sammy.malum.blocks.utility.FancyRenderer;
+import com.sammy.malum.blocks.utility.IFancyRenderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -30,52 +31,23 @@ import static net.minecraft.state.properties.BlockStateProperties.FACE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 @OnlyIn(value = Dist.CLIENT)
-public class BasicMirrorRenderer extends TileEntityRenderer<BasicMirrorTileEntity> implements FancyRenderer
+public class BasicMirrorRenderer extends FancyRenderer<BasicMirrorTileEntity>
 {
-
     public BasicMirrorRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
         super(rendererDispatcherIn);
     }
-    public Direction lookingAtFace;
-    public BlockPos lookingAtPos;
-    public float time;
     
     @Override
-    public Direction lookingAtFace()
+    public int maxOptions()
     {
-        return lookingAtFace;
+        return 2;
     }
     
     @Override
-    public void setLookingAtFace(Direction direction)
+    public boolean isConfigurable()
     {
-        lookingAtFace = direction;
-    }
-    
-    @Override
-    public BlockPos lookingAtPos()
-    {
-        return lookingAtPos;
-    }
-    
-    @Override
-    public void setLookingAtPos(BlockPos pos)
-    {
-        lookingAtPos = pos;
-    }
-    
-    
-    @Override
-    public float time()
-    {
-        return time;
-    }
-    
-    @Override
-    public void setTime(float time)
-    {
-        this.time = time;
+        return true;
     }
     
     @Override
@@ -86,7 +58,7 @@ public class BasicMirrorRenderer extends TileEntityRenderer<BasicMirrorTileEntit
             ArrayList<ITextComponent> components = new ArrayList<>();
             components.add(makeTranslationComponent("malum.tooltip.transferamount").append(makeImportantComponent("" + blockEntity.transferAmounts[blockEntity.transferAmount], true)));
     
-            ClientHandler.renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
+            ClientHandler.renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher,false, components);
         }
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ItemStack item = blockEntity.inventory.getStackInSlot(0);

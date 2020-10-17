@@ -2,6 +2,7 @@ package com.sammy.malum.blocks.machines.mirror;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
+import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -26,7 +27,7 @@ import static net.minecraft.state.properties.AttachFace.FLOOR;
 import static net.minecraft.state.properties.BlockStateProperties.FACE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class BasicMirrorTileEntity extends BasicTileEntity
+public class BasicMirrorTileEntity extends ConfigurableTileEntity
 {
     public BasicMirrorTileEntity(TileEntityType type)
     {

@@ -30,11 +30,10 @@ public class SpiritStoringTileEntity extends BasicTileEntity
         }
         return compound;
     }
-
     @Override
-    public void read(BlockState state, CompoundNBT compound)
+    public void read(CompoundNBT compound)
     {
-        super.read(state,compound);
+        super.read(compound);
         if (compound.contains(typeNBT))
         {
             type = compound.getString(typeNBT);

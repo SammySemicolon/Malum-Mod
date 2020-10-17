@@ -14,9 +14,4 @@ public class ModSlabBlock extends SlabBlock
     {
         super(properties);
     }
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
-    {
-        return state.getShape(worldIn, pos);
-    }
 }

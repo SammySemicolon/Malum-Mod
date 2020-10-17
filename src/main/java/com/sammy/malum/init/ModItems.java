@@ -143,7 +143,6 @@ public class ModItems
     public static Item output_mirror;
     public static Item redstone_clock;
     public static Item funk_engine;
-    public static Item disc_holder;
     //BLOCKS
     public static Item spirit_stone_brick;
     public static Item dark_spirit_stone_brick;
@@ -296,7 +295,6 @@ public class ModItems
                 output_mirror = setup(new BlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
                 redstone_clock = setup(new BlockItem(ModBlocks.redstone_clock, basic_properties), "redstone_clock"),
                 funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
-                disc_holder = setup(new BlockItem(ModBlocks.disc_holder, basic_properties), "disc_holder"),
 
                 spirit_stone_brick = setup(new BlockItem(ModBlocks.spirit_stone_brick, basic_properties), "spirit_stone_brick"),
                 dark_spirit_stone_brick = setup(new BlockItem(ModBlocks.dark_spirit_stone_brick, basic_properties), "dark_spirit_stone_brick"),

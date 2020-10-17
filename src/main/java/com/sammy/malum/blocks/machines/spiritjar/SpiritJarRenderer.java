@@ -3,6 +3,7 @@ package com.sammy.malum.blocks.machines.spiritjar;
 import com.sammy.malum.SpiritDataHelper;
 import com.sammy.malum.SpiritStorage;
 import com.sammy.malum.blocks.utility.FancyRenderer;
+import com.sammy.malum.blocks.utility.IFancyRenderer;
 import com.sammy.malum.blocks.utility.spiritstorage.SpiritStoringBlock;
 import com.sammy.malum.init.ModBlocks;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -29,54 +30,12 @@ import static com.sammy.malum.SpiritDataHelper.getName;
 import static net.minecraftforge.client.ForgeHooksClient.*;
 
 @OnlyIn(value = Dist.CLIENT)
-public class SpiritJarRenderer extends TileEntityRenderer<SpiritJarTileEntity> implements FancyRenderer
+public class SpiritJarRenderer extends FancyRenderer<SpiritJarTileEntity>
 {
     public SpiritJarRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
         super(rendererDispatcherIn);
     }
-    
-    public Direction lookingAtFace;
-    public BlockPos lookingAtPos;
-    public float time;
-    
-    @Override
-    public Direction lookingAtFace()
-    {
-        return lookingAtFace;
-    }
-    
-    @Override
-    public void setLookingAtFace(Direction direction)
-    {
-        lookingAtFace = direction;
-    }
-    
-    @Override
-    public BlockPos lookingAtPos()
-    {
-        return lookingAtPos;
-    }
-    
-    @Override
-    public void setLookingAtPos(BlockPos pos)
-    {
-        lookingAtPos = pos;
-    }
-    
-    
-    @Override
-    public float time()
-    {
-        return time;
-    }
-    
-    @Override
-    public void setTime(float time)
-    {
-        this.time = time;
-    }
-    
     @Override
     public void render(SpiritJarTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {
@@ -84,7 +43,7 @@ public class SpiritJarRenderer extends TileEntityRenderer<SpiritJarTileEntity> i
         {
             ArrayList<ITextComponent> components = new ArrayList<>();
             components.add(makeImportantComponent(blockEntity.count + "/" + ((SpiritStorage) blockEntity.getBlockState().getBlock()).capacity(), true).append(makeImportantComponent(getName(blockEntity.type), true)));
-            renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, components);
+            renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher,true, components);
     
             BlockPos blockpos = blockEntity.getPos();
             BlockState renderState = ModBlocks.spirit_jar.getDefaultState().with(SpiritStoringBlock.TYPE, 1);

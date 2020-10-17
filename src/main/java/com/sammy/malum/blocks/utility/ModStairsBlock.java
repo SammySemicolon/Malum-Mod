@@ -11,7 +11,7 @@ public class ModStairsBlock extends StairsBlock
 {
     public ModStairsBlock(Properties properties)
     {
-        super(Blocks.AIR.getDefaultState(), properties);
+        super(Blocks.AIR::getDefaultState, properties);
     }
 
     @Override

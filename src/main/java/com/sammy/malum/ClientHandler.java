@@ -2,7 +2,9 @@ package com.sammy.malum;
 
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
-import com.sammy.malum.blocks.utility.FancyRenderer;
+import com.sammy.malum.blocks.utility.BasicTileEntity;
+import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
+import com.sammy.malum.blocks.utility.IFancyRenderer;
 import com.sammy.malum.capabilities.MalumDataProvider;
 import com.sammy.malum.init.ModSounds;
 import com.sammy.malum.init.ModTooltips;
@@ -13,8 +15,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.items.armor.ModArmor;
 import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
 import com.sammy.malum.items.staves.BasicStave;
-import com.sammy.malum.items.staves.SpiritwoodStave;
-import com.sammy.malum.network.packets.HuskChangePacket;
+import com.sammy.malum.network.packets.UpdateSelectedOption;
 import com.sammy.malum.network.packets.UpdateStaveNBT;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
@@ -25,26 +26,23 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
+import org.apache.http.client.methods.Configurable;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sammy.malum.capabilities.MalumDataProvider.getHusk;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 
@@ -64,6 +62,7 @@ public class ClientHandler
     
     
     public static SimpleSound sound;
+    
     public static void spiritHarvestStart(PlayerEntity playerEntity)
     {
         float pitch = 1;
@@ -74,6 +73,7 @@ public class ClientHandler
         sound = new SimpleSound(ModSounds.spirit_harvest_drain, SoundCategory.BLOCKS, 1, pitch, playerEntity.getPosition());
         Minecraft.getInstance().getSoundHandler().play(sound);
     }
+    
     public static void spiritHarvestStop()
     {
         stopPlayingSound(sound);
@@ -88,6 +88,7 @@ public class ClientHandler
             tileEntity.sound = new SimpleSound(ModSounds.furnace_loop, SoundCategory.BLOCKS, 1, 1, tileEntity.getPos());
         }
     }
+    
     public static void spiritFurnaceStop(SpiritFurnaceBottomTileEntity tileEntity)
     {
         if (tileEntity.sound instanceof SimpleSound)
@@ -114,6 +115,7 @@ public class ClientHandler
             funkEngineStop(tileEntity);
         }
     }
+    
     public static void funkEngineStop(FunkEngineTileEntity tileEntity)
     {
         if (tileEntity.sound instanceof SimpleSound)
@@ -122,6 +124,7 @@ public class ClientHandler
             tileEntity.sound = null;
         }
     }
+    
     public static boolean playLoopingSound(Object sound)
     {
         if (sound instanceof SimpleSound)
@@ -152,13 +155,11 @@ public class ClientHandler
     {
         if (!Screen.hasShiftDown())
         {
-            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").mergeStyle(TextFormatting.GRAY)
-                    .append(makeImportantComponent("malum.tooltip.sneak", false)));
+            tooltip.add(new TranslationTextComponent("malum.tooltip.hold").mergeStyle(TextFormatting.GRAY).append(makeImportantComponent("malum.tooltip.sneak", false)));
         }
         else
         {
-            tooltip.add(makeTranslationComponent("malum.tooltip.hold")
-                    .append(makeImportantComponent("malum.tooltip.sneak", true)));
+            tooltip.add(makeTranslationComponent("malum.tooltip.hold").append(makeImportantComponent("malum.tooltip.sneak", true)));
             tooltip.addAll(components);
         }
     }
@@ -167,24 +168,22 @@ public class ClientHandler
     {
         return new TranslationTextComponent(message).mergeStyle(TextFormatting.WHITE);
     }
+    
     public static IFormattableTextComponent makeImportantComponent(String message, boolean litUp)
     {
         if (litUp)
         {
-            return new StringTextComponent("[").mergeStyle(TextFormatting.WHITE)
-                    .append(new TranslationTextComponent(message).mergeStyle(TextFormatting.LIGHT_PURPLE))
-                    .append(new StringTextComponent("] ").mergeStyle(TextFormatting.WHITE)).mergeStyle(TextFormatting.BOLD);
+            return new StringTextComponent("[").mergeStyle(TextFormatting.WHITE).append(new TranslationTextComponent(message).mergeStyle(TextFormatting.LIGHT_PURPLE)).append(new StringTextComponent("] ").mergeStyle(TextFormatting.WHITE)).mergeStyle(TextFormatting.BOLD);
         }
         else
         {
-            return new StringTextComponent("[").mergeStyle(TextFormatting.GRAY)
-                    .append(new TranslationTextComponent(message).mergeStyle(TextFormatting.DARK_PURPLE))
-                    .append(new StringTextComponent("] ").mergeStyle(TextFormatting.GRAY)).mergeStyle(TextFormatting.BOLD);
+            return new StringTextComponent("[").mergeStyle(TextFormatting.GRAY).append(new TranslationTextComponent(message).mergeStyle(TextFormatting.DARK_PURPLE)).append(new StringTextComponent("] ").mergeStyle(TextFormatting.GRAY)).mergeStyle(TextFormatting.BOLD);
         }
     }
     
     //region RENDERING NONSENSE
-    public static void renderTEdataInTheCoolFancyWayWithoutCaringAboutSides(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
+    
+    public static void renderTEdataInTheCoolFancyWay(BasicTileEntity blockEntity, IFancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, boolean careAboutFaces, ArrayList<ITextComponent> components)
     {
         if (renderDispatcher.renderInfo != null)
         {
@@ -197,43 +196,71 @@ public class ClientHandler
             if (minecraft.objectMouseOver.getType().equals(BLOCK))
             {
                 BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
-                if (renderer.lookingAtPos() == null || !renderer.lookingAtPos().equals(mouseOver.getPos()))
+                
+                if (careAboutFaces)
                 {
-                    renderer.setLookingAtPos( mouseOver.getPos());
-                    renderer.setTime(0);
+                    if ((renderer.lookingAtFace() == null || !renderer.lookingAtFace().equals(mouseOver.getFace())) || (renderer.lookingAtPos() == null || !renderer.lookingAtPos().equals(mouseOver.getPos())))
+                    {
+                        renderer.setLookingAtFace(mouseOver.getFace());
+                        renderer.setLookingAtPos(mouseOver.getPos());
+                        renderer.setTime(0);
+                    }
+                }
+                else
+                {
+                    if (renderer.lookingAtPos() == null || !renderer.lookingAtPos().equals(mouseOver.getPos()))
+                    {
+                        renderer.setLookingAtFace(mouseOver.getFace());
+                        renderer.setLookingAtPos(mouseOver.getPos());
+                        renderer.setTime(0);
+                    }
                 }
                 if (world.getTileEntity(mouseOver.getPos()) != null)
                 {
                     if (world.getTileEntity(mouseOver.getPos()).equals(blockEntity))
                     {
-                        TileEntity tileEntity = world.getTileEntity(mouseOver.getPos());
+                        BasicTileEntity tileEntity = (BasicTileEntity) world.getTileEntity(mouseOver.getPos());
+                        Vector3f direction = mouseOver.getFace().toVector3f();
+                        if (!careAboutFaces)
+                        {
+                            direction = new Vector3f(0,0,0);
+                        }
                         if (tileEntity.getPos().equals(blockEntity.getPos()))
                         {
-                            if (renderer.lookingAtPos() != null && renderer.lookingAtPos().equals(mouseOver.getPos()) && renderer.time() < 1)
+                            if (renderer.lookingAtPos() != null && renderer.lookingAtPos().equals(mouseOver.getPos()) && renderer.getTime() < 1)
                             {
-                                renderer.setTime(renderer.time() + 0.1f);
+                                renderer.setTime(renderer.getTime() + 0.1f);
                             }
                             FontRenderer fontrenderer = renderDispatcher.getFontRenderer();
                             float spacing = 0.2f;
                             int current = components.size() + 1;
+                            if (renderer.isConfigurable())
+                            {
+                                if (tileEntity instanceof ConfigurableTileEntity)
+                                {
+                                    ITextComponent updatedComponent = new StringTextComponent(" >").append(components.get(renderer.getSelectedOption(((ConfigurableTileEntity) tileEntity).option)));
+                                    components.set(renderer.getSelectedOption(((ConfigurableTileEntity) tileEntity).option), updatedComponent);
+                                }
+                            }
                             for (ITextComponent component : components)
                             {
                                 String text = component.getString();
                                 float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
                                 matrixStack.push();
-                                
+    
                                 Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-                                
+    
                                 matrixStack.translate(0.5, 0.5, 0.5);
+    
+                                matrixStack.translate(direction.getX(), direction.getY(), direction.getZ());
                                 
                                 matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
-                                float positionOffset = current * spacing - (float)components.size() * spacing / 2;
+                                float positionOffset = current * spacing - (float) components.size() * spacing / 2;
                                 matrixStack.translate(0, positionOffset, 0);
-                                
-                                matrixStack.scale(-0.025F * renderer.time(), -0.025F * renderer.time(), 0.025F * renderer.time());
-                                
-                                fontrenderer.renderString(text, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
-                                
+    
+                                matrixStack.scale(-0.025F * renderer.getTime(), -0.025F * renderer.getTime(), 0.025F * renderer.getTime());
+    
+                                fontrenderer.func_243247_a(component, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
                                 matrixStack.pop();
                                 current--;
                             }
@@ -249,81 +276,11 @@ public class ClientHandler
         }
     }
     
-    public static void renderTEdataInTheCoolFancyWay(TileEntity blockEntity, FancyRenderer renderer, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, TileEntityRendererDispatcher renderDispatcher, ArrayList<ITextComponent> components)
-    {
-        if (renderDispatcher.renderInfo != null)
-        {
-            Minecraft minecraft = Minecraft.getInstance();
-            World world = minecraft.world;
-            if (minecraft.objectMouseOver == null || world == null)
-            {
-                return;
-            }
-            if (minecraft.objectMouseOver.getType().equals(BLOCK))
-            {
-                BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
-                if ((renderer.lookingAtFace() == null || !renderer.lookingAtFace().equals(mouseOver.getFace())) || (renderer.lookingAtPos() == null || !renderer.lookingAtPos().equals(mouseOver.getPos())))
-                {
-                    renderer.setLookingAtFace( mouseOver.getFace());
-                    renderer.setLookingAtPos( mouseOver.getPos());
-                    renderer.setTime(0);
-                }
-                if (world.getTileEntity(mouseOver.getPos()) != null)
-                {
-                    if (world.getTileEntity(mouseOver.getPos()).equals(blockEntity))
-                    {
-                        TileEntity tileEntity = world.getTileEntity(mouseOver.getPos());
-                        Vector3f direction = mouseOver.getFace().toVector3f();
-                        if (tileEntity.getPos().equals(blockEntity.getPos()))
-                        {
-                            if (renderer.lookingAtPos() != null && renderer.lookingAtPos().equals(mouseOver.getPos()) && renderer.time() < 1)
-                            {
-                                renderer.setTime(renderer.time() + 0.1f);
-                            }
-                            FontRenderer fontrenderer = renderDispatcher.getFontRenderer();
-                            float spacing = 0.2f;
-                            int current = components.size() + 1;
-                            for (ITextComponent component : components)
-                            {
-                                String text = component.getString();
-                                float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
-                                matrixStack.push();
-                
-                                Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-                
-                                matrixStack.translate(0.5, 0.5, 0.5);
-                
-                                matrixStack.translate(direction.getX(), direction.getY(), direction.getZ());
-                                
-                                matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
-                                float positionOffset = current * spacing - (float)components.size() * spacing / 2;
-                                matrixStack.translate(0, positionOffset, 0);
-                
-                                matrixStack.scale(-0.025F * renderer.time(), -0.025F * renderer.time(), 0.025F * renderer.time());
-                
-                                fontrenderer.renderString(text, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
-                
-                                matrixStack.pop();
-                                current--;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                renderer.setLookingAtPos(null);
-                renderer.setTime(0);
-            }
-        }
-    }
     public static ITextComponent makeGenericSpiritDependantTooltip(String message, String spirit)
     {
         //Uses [spiritType] spirits to [message]
         return makeTranslationComponent("malum.tooltip.sconsumer.desc.c") //Uses
-                .append(makeImportantComponent(spirit, true))
-                .append(makeTranslationComponent("malum.tooltip.sconsumer.desc.d"))
-                .append(makeImportantComponent(message, true));
+                .append(makeImportantComponent(spirit, true)).append(makeTranslationComponent("malum.tooltip.sconsumer.desc.d")).append(makeImportantComponent(message, true));
     }
     
     public static void modifyStaveData(InputEvent.MouseScrollEvent event)
@@ -332,20 +289,41 @@ public class ClientHandler
         if (playerEntity.isSneaking())
         {
             ItemStack stack = playerEntity.getHeldItemMainhand();
+            boolean offhand = false;
             if (!(stack.getItem() instanceof BasicStave))
             {
+                offhand = true;
                 stack = playerEntity.getHeldItemOffhand();
             }
             if (stack.getItem() instanceof BasicStave)
             {
+                Minecraft minecraft = Minecraft.getInstance();
+                World world = minecraft.world;
+                if (minecraft.objectMouseOver != null && minecraft.objectMouseOver.getType().equals(BLOCK))
+                {
+                    BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
+                    BlockPos pos = mouseOver.getPos();
+                    if (world.getTileEntity(pos) instanceof BasicTileEntity)
+                    {
+                        int actualChange = event.getScrollDelta() > 0 ? 1 : -1;
+                        INSTANCE.sendToServer(new UpdateSelectedOption(pos, actualChange));
+                        event.setCanceled(true);
+                        return;
+                    }
+                }
                 int actualChange = event.getScrollDelta() > 0 ? 1 : -1;
-                int finalNBT = stack.getTag().getInt("malum:staveOption") + actualChange;
-                INSTANCE.sendToServer(new UpdateStaveNBT(stack, finalNBT));
-                
+                int slot = offhand ? -621 : playerEntity.inventory.getSlotFor(stack);
+                INSTANCE.sendToServer(new UpdateStaveNBT(slot, actualChange));
                 event.setCanceled(true);
             }
         }
     }
+    public static void makeStaveMessage(PlayerEntity playerEntity, int i)
+    {
+        ITextComponent component = makeTranslationComponent("malum.tooltip.stave.option").append(makeImportantComponent(BasicStave.getEnum(i).string, true));
+        playerEntity.sendStatusMessage(component, true);
+    }
+    
     public static void makeSpiritTooltip(PlayerEntity playerEntity, ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
         ArrayList<ITextComponent> newComponents = new ArrayList<>();
@@ -355,7 +333,7 @@ public class ClientHandler
         }
         if (stack.getItem() instanceof ModArmor)
         {
-            for(ItemStack armorItem : playerEntity.getArmorInventoryList())
+            for (ItemStack armorItem : playerEntity.getArmorInventoryList())
             {
                 if (armorItem != stack) continue;
                 {
@@ -371,8 +349,7 @@ public class ClientHandler
                     {
                         if (ItemSpiritedSteelBattleArmor.hasArmorSet(playerEntity))
                         {
-                            newComponents.add(makeTranslationComponent("malum.tooltip.spirit_harvest")
-                                    .append(makeImportantComponent("malum.tooltip.setbonus.spirited_steel", true)));
+                            newComponents.add(makeTranslationComponent("malum.tooltip.spirit_harvest").append(makeImportantComponent("malum.tooltip.setbonus.spirited_steel", true)));
                         }
                     }
                     if (stack.getItem() instanceof ItemUmbraSteelBattleArmor)
@@ -381,8 +358,7 @@ public class ClientHandler
                         {
                             newComponents.add(ModTooltips.extraSpirit(2));
                             newComponents.add(ModTooltips.extraIntegrity(25));
-                            newComponents.add(makeTranslationComponent("malum.tooltip.spirit_harvest")
-                                    .append(makeImportantComponent("malum.tooltip.setbonus.umbral_steel", true)));
+                            newComponents.add(makeTranslationComponent("malum.tooltip.spirit_harvest").append(makeImportantComponent("malum.tooltip.setbonus.umbral_steel", true)));
                         }
                     }
                 }
@@ -416,7 +392,7 @@ public class ClientHandler
                 }
             }
         }
-
+    
         if (stack.getItem() instanceof SpiritDescription)
         {
             SpiritDescription spiritStorage = (SpiritDescription) stack.getItem();

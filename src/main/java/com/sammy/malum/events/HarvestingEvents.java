@@ -10,6 +10,7 @@ import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -39,6 +40,18 @@ public class HarvestingEvents
         {
             cancel(playerEntity, stack);
             return true;
+        }
+        else
+        {
+            if (playerEntity instanceof ServerPlayerEntity)
+            {
+                boolean isAlive = ((ServerPlayerEntity) playerEntity).getServerWorld().getEntityByUuid(getCachedTarget(playerEntity)).isAlive();
+                if (!isAlive)
+                {
+                    cancel(playerEntity, stack);
+                    return true;
+                }
+            }
         }
         return false;
     }

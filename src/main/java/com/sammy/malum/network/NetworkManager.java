@@ -1,6 +1,7 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.network.packets.UpdateSelectedOption;
 import com.sammy.malum.network.packets.UpdateStaveNBT;
 import com.sammy.malum.network.packets.HuskChangePacket;
 import net.minecraft.util.ResourceLocation;
@@ -29,5 +30,7 @@ public class NetworkManager
         int index = 0;
         INSTANCE.registerMessage(index++, HuskChangePacket.class, HuskChangePacket::encode, HuskChangePacket::decode, HuskChangePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, UpdateStaveNBT.class, UpdateStaveNBT::encode, UpdateStaveNBT::decode, UpdateStaveNBT::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, UpdateSelectedOption.class, UpdateSelectedOption::encode, UpdateSelectedOption::decode, UpdateSelectedOption::whenThisPacketIsReceived);
+    
     }
 }

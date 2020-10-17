@@ -1,6 +1,7 @@
 package com.sammy.malum.blocks.machines.redstoneclock;
 
 import com.sammy.malum.blocks.utility.BasicTileEntity;
+import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import com.sammy.malum.init.ModTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
@@ -9,7 +10,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 
 import static com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.redstoneClockFunctionTypeEnum.*;
 
-public class RedstoneClockTileEntity extends BasicTileEntity implements ITickableTileEntity
+public class RedstoneClockTileEntity extends ConfigurableTileEntity implements ITickableTileEntity
 {
     public RedstoneClockTileEntity()
     {

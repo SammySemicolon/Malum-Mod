@@ -31,6 +31,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sammy.malum.ClientHandler.makeTranslationComponent;
 import static com.sammy.malum.MalumHelper.getClosestEntity;
 import static com.sammy.malum.capabilities.MalumDataProvider.*;
 
@@ -39,15 +40,23 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
     
     public enum staveOptionEnum
     {
-        spiritHarvest(0),
-        augmentFunction(1),
-        none(2);
-        
+        spiritHarvest(0, "malum.tooltip.stave.option.a"), augmentFunction(1, "malum.tooltip.stave.option.b"), blockBinding(2, "malum.tooltip.stave.option.c"), none(3, "malum.tooltip.stave.option.d");
+    
         public final int type;
+        public final String string;
     
-        staveOptionEnum(int type) { this.type = type;}
+        staveOptionEnum(int type, String string)
+        {
+            this.type = type;
+            this.string = string;
+        }
     }
-    
+    public static staveOptionEnum getEnum(int i)
+    {
+        int length = staveOptionEnum.values().length;
+        int index = (length + i % length) % length;
+        return staveOptionEnum.values()[index];
+    }
     @Override
     public int durability()
     {

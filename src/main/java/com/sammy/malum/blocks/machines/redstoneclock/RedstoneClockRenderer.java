@@ -1,6 +1,7 @@
 package com.sammy.malum.blocks.machines.redstoneclock;
 
 import com.sammy.malum.blocks.utility.FancyRenderer;
+import com.sammy.malum.blocks.utility.IFancyRenderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -16,50 +17,23 @@ import java.util.ArrayList;
 import static com.sammy.malum.ClientHandler.*;
 
 @OnlyIn(value = Dist.CLIENT)
-public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileEntity> implements FancyRenderer
+public class RedstoneClockRenderer extends FancyRenderer<RedstoneClockTileEntity>
 {
     public RedstoneClockRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
         super(rendererDispatcherIn);
     }
-    public Direction lookingAtFace;
-    public BlockPos lookingAtPos;
-    public float time;
-    
+   
     @Override
-    public Direction lookingAtFace()
+    public int maxOptions()
     {
-        return lookingAtFace;
+        return 2;
     }
     
     @Override
-    public void setLookingAtFace(Direction direction)
+    public boolean isConfigurable()
     {
-        lookingAtFace = direction;
-    }
-    
-    @Override
-    public BlockPos lookingAtPos()
-    {
-        return lookingAtPos;
-    }
-    
-    @Override
-    public void setLookingAtPos(BlockPos pos)
-    {
-        lookingAtPos = pos;
-    }
-    
-    @Override
-    public float time()
-    {
-        return time;
-    }
-    
-    @Override
-    public void setTime(float time)
-    {
-        this.time = time;
+        return true;
     }
     
     @Override
@@ -71,7 +45,7 @@ public class RedstoneClockRenderer extends TileEntityRenderer<RedstoneClockTileE
         components.add(makeTranslationComponent("malum.tooltip.type")
                 .append(makeImportantComponent(blockEntity.type == 0 ? "malum.tooltip.toggle" : "malum.tooltip.pulse", true)));
         
-        renderTEdataInTheCoolFancyWay(blockEntity,this,matrixStack,iRenderTypeBuffer,renderDispatcher, components);
+        renderTEdataInTheCoolFancyWay(blockEntity,this,matrixStack,iRenderTypeBuffer,renderDispatcher,true, components);
     }
     
 }

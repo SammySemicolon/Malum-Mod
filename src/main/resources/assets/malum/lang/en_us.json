@@ -19,6 +19,12 @@
   "malum.tooltip.ordered": "Ordered",
   "malum.tooltip.shuffled": "Shuffled",
 
+  "malum.tooltip.stave.option": "Selected: ",
+  "malum.tooltip.stave.option.a": "1 Spirit Harvesting",
+  "malum.tooltip.stave.option.b": "2 Augment Ability",
+  "malum.tooltip.stave.option.c": "3 Linking Blocks",
+  "malum.tooltip.stave.option.d": "4 None",
+
   "malum.tooltip.spirit_harvest": " Spirit harvests ",
   "malum.tooltip.setbonus.spirited_steel": "grant you strength",
   "malum.tooltip.setbonus.umbral_steel": "create umbral traces",

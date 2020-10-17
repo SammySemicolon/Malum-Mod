@@ -1,8 +1,6 @@
 package com.sammy.malum.events;
 
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineRenderer;
-import com.sammy.malum.blocks.machines.funkengine.discholder.DiscHolderRenderer;
-import com.sammy.malum.blocks.machines.funkengine.discholder.DiscHolderTileEntity;
 import com.sammy.malum.blocks.machines.mirror.BasicMirrorRenderer;
 import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockRenderer;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomRenderer;
@@ -48,7 +46,6 @@ public class ClientSetupEvents
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.output_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_jar_tile_entity, SpiritJarRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.funk_engine_tile_entity, FunkEngineRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.disc_holder_tile_entity, DiscHolderRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.redstone_clock_tile_entity, RedstoneClockRenderer::new);
     }
     
