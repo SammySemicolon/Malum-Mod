@@ -38,7 +38,6 @@ public class UpdateSelectedOption
                 configurableTileEntity.markDirty();
                 playerEntity.world.notifyBlockUpdate(pos, playerEntity.world.getBlockState(pos),playerEntity.world.getBlockState(pos), 3);
             }
-            PiglinEntity
         });
         context.get().setPacketHandled(true);
     }

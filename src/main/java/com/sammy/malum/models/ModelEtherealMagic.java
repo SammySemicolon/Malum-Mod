@@ -5,19 +5,21 @@ package com.sammy.malum.models;// Made with Blockbench 3.6.5
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 
-public class ModelEtherealMagic extends EntityModel<LivingEntity>
+public class ModelEtherealMagic extends BipedModel<LivingEntity>
 {
 	private final ModelRenderer shieldA;
 	private final ModelRenderer shieldB;
 	private final ModelRenderer shieldC;
 
 	public ModelEtherealMagic() {
+		super(RenderType::getEntityTranslucent,1f,0,32,32);
 		textureWidth = 32;
 		textureHeight = 32;
 		
@@ -48,7 +50,6 @@ public class ModelEtherealMagic extends EntityModel<LivingEntity>
 	
 	@Override
 	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		
 		shieldA.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
 		shieldB.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
 		shieldC.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);

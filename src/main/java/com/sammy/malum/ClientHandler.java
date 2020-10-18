@@ -1,5 +1,7 @@
 package com.sammy.malum;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
@@ -15,6 +17,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.items.armor.ModArmor;
 import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
 import com.sammy.malum.items.staves.BasicStave;
+import com.sammy.malum.models.ModelEtherealMagic;
+import com.sammy.malum.models.ModelKittysTail;
 import com.sammy.malum.network.packets.UpdateSelectedOption;
 import com.sammy.malum.network.packets.UpdateStaveNBT;
 import net.minecraft.client.Minecraft;
@@ -22,12 +26,15 @@ import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderTypeBuffers;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -36,14 +43,17 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import org.apache.http.client.methods.Configurable;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
+import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 
 public class ClientHandler

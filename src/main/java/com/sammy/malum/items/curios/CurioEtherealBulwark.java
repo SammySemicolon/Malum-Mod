@@ -54,7 +54,6 @@ public class CurioEtherealBulwark extends Item implements ICurio
             @Override
             public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
             {
-    
                 if (livingEntity instanceof PlayerEntity)
                 {
                     PlayerEntity playerEntity = (PlayerEntity) livingEntity;
@@ -70,16 +69,15 @@ public class CurioEtherealBulwark extends Item implements ICurio
                         }
                         ModelEtherealMagic magic_model = (ModelEtherealMagic) ethereal_magic_model;
                         IVertexBuilder vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, magic_model.getRenderType(ethereal_texture), false, false);
-            
+    
                         RenderHelper.translateIfSneaking(matrixStack, livingEntity);
                         Minecraft.getInstance().getTextureManager().bindTexture(ethereal_texture);
                         GlStateManager.enableCull();
                         GlStateManager.enableBlend();
             
                         matrixStack.rotate(Vector3f.YP.rotationDegrees(rotation));
-                        matrixStack.scale(scale,scale,scale);
-                        magic_model.render(matrixStack, vertexBuilder, light, NO_OVERLAY, 1.0F,
-                                1.0F, 1.0F, 0.25f);
+                        matrixStack.scale(scale, scale, scale);
+                        magic_model.render(matrixStack, vertexBuilder, light, NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1f);
                         GlStateManager.disableCull();
                         GlStateManager.disableBlend();
                     }
