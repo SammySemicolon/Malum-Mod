@@ -11,7 +11,9 @@ public class MalumData implements IMalumData
     
     public UUID cachedTarget;
     
-    boolean husk;
+    public boolean dread;
+    
+    public boolean charm;
     
     @Override
     public Optional<UUID> getSpiritOwner()
@@ -34,9 +36,21 @@ public class MalumData implements IMalumData
     }
     
     @Override
-    public boolean getHusk()
+    public boolean getDread()
     {
-        return husk;
+        return dread;
+    }
+    
+    @Override
+    public void setDread(boolean dread)
+    {
+        this.dread = dread;
+    }
+    
+    @Override
+    public boolean getCharm()
+    {
+        return charm;
     }
     
     @Override
@@ -52,9 +66,9 @@ public class MalumData implements IMalumData
     }
     
     @Override
-    public void setHusk(boolean husk)
+    public void setCharm(boolean charm)
     {
-        this.husk = husk;
+        this.charm = charm;
     }
     
     @Override
@@ -68,16 +82,21 @@ public class MalumData implements IMalumData
         {
             cachedTarget = data.getCachedTarget().get();
         }
-        husk = data.getHusk();
+        charm = data.getCharm();
+        dread = data.getDread();
     }
     
     @Override
     public CompoundNBT saveNBTData()
     {
         CompoundNBT nbt = new CompoundNBT();
-        if (husk)
+        if (dread)
         {
-            nbt.putBoolean("husk", true);
+            nbt.putBoolean("dread", true);
+        }
+        if (charm)
+        {
+            nbt.putBoolean("charm", true);
         }
         if (spiritOwner != null)
         {
@@ -89,11 +108,16 @@ public class MalumData implements IMalumData
     @Override
     public void loadNBTData(CompoundNBT compound)
     {
-        if (compound.contains("husk"))
+        if (compound.contains("dread"))
         {
-            husk = compound.getBoolean("husk");
+            dread = compound.getBoolean("dread");
         }
-        if (compound.contains("rogueOwner"))
+        if (compound.contains("charm"))
+        {
+            charm = compound.getBoolean("charm");
+        }
+        
+        if (compound.contains("spiritOwner"))
         {
             spiritOwner = compound.getUniqueId("spiritOwner");
         }

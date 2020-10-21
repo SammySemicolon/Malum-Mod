@@ -2,6 +2,7 @@ package com.sammy.malum.init;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineBlock;
+import com.sammy.malum.blocks.machines.ignisfurnace.IgnisFurnaceBlock;
 import com.sammy.malum.blocks.machines.mirror.BasicMirrorBlock;
 import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockBlock;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomBlock;
@@ -31,6 +32,7 @@ public class ModBlocks
     public static Block output_mirror;
     public static Block funk_engine;
     public static Block redstone_clock;
+    public static Block ignis_furnace;
 
     //ORES
 
@@ -92,8 +94,8 @@ public class ModBlocks
         input_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), BasicMirrorBlock.mirrorTypeEnum.input), "input_mirror");
         output_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), BasicMirrorBlock.mirrorTypeEnum.output), "output_mirror");
         funk_engine = registerBlock(registry, new FunkEngineBlock(Block.Properties.from(Blocks.STONE)), "funk_engine");
-    
         redstone_clock = registerBlock(registry, new RedstoneClockBlock(Block.Properties.from(Blocks.STONE)), "redstone_clock");
+        ignis_furnace = registerBlock(registry, new IgnisFurnaceBlock(Block.Properties.from(Blocks.STONE)), "ignis_furnace");
 
         arcane_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_stone");
         archaic_crystal_ore = registerBlock(registry, new Block(Block.Properties.from(Blocks.DIAMOND_ORE)), "archaic_crystal_ore");

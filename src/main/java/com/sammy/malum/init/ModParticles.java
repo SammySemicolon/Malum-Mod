@@ -2,6 +2,8 @@ package com.sammy.malum.init;
 
 import com.sammy.malum.particles.bonk.BonkParticle;
 import com.sammy.malum.particles.bonk.BonkParticleData;
+import com.sammy.malum.particles.charm.HeartParticle;
+import com.sammy.malum.particles.charm.HeartParticleData;
 import com.sammy.malum.particles.lensmagic.LensMagicParticle;
 import com.sammy.malum.particles.lensmagic.LensMagicParticleData;
 import com.sammy.malum.particles.skull.SkullParticle;
@@ -24,6 +26,7 @@ public class ModParticles
     public static ParticleType<LensMagicParticleData> lensMagic;
     public static ParticleType<BonkParticleData> bonk;
     public static ParticleType<SkullParticleData> skull;
+    public static ParticleType<HeartParticleData> heart;
     @SubscribeEvent
     public static void registerParticleTypes(RegistryEvent.Register<ParticleType<?>> event)
     {
@@ -31,6 +34,7 @@ public class ModParticles
         lensMagic = registerParticle(event.getRegistry(), new LensMagicParticleData.Type(false),"lens_magic");
         bonk = registerParticle(event.getRegistry(), new BonkParticleData.Type(false),"bonk");
         skull = registerParticle(event.getRegistry(), new SkullParticleData.Type(false),"skull");
+        heart = registerParticle(event.getRegistry(), new HeartParticleData.Type(false),"heart");
     }
     private static <T extends ParticleType<?>> T registerParticle(IForgeRegistry<ParticleType<?>> registry, T type, String name)
     {
@@ -45,5 +49,6 @@ public class ModParticles
         Minecraft.getInstance().particles.registerFactory(lensMagic, LensMagicParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(bonk, BonkParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(skull, SkullParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(heart, HeartParticle.Factory::new);
     }
 }

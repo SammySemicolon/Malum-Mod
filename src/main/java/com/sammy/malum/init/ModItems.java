@@ -134,6 +134,7 @@ public class ModItems
     public static Item good_luck_charm;
     public static Item sinister_mask;
     public static Item gilded_gauntlet;
+    public static Item band_of_friendship;
 
     //FUNCTIONAL BLOCKS
     public static Item spirit_jar;
@@ -143,6 +144,7 @@ public class ModItems
     public static Item output_mirror;
     public static Item redstone_clock;
     public static Item funk_engine;
+    public static Item ignis_furnace;
     //BLOCKS
     public static Item spirit_stone_brick;
     public static Item dark_spirit_stone_brick;
@@ -196,6 +198,7 @@ public class ModItems
     public static Item music_disc_prismatropolis;
     public static Item music_disc_aetherborne;
     public static Item music_disc_the_bone_brigade_blues;
+    public static Item music_disc_ender_alley;
 
     static Item.Properties basic_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64);
     static Item.Properties rare_properties = new Item.Properties().group(MALUM_MOD_GROUP).maxStackSize(64).rarity(Rarity.UNCOMMON);
@@ -287,6 +290,7 @@ public class ModItems
                 good_luck_charm = setup(new CurioGoodLuckCharm(curio_properties), "good_luck_charm"),
                 sinister_mask = setup(new CurioSinisterMask(curio_properties), "sinister_mask"),
                 gilded_gauntlet = setup(new CurioGildedGauntlet(curio_properties), "gilded_gauntlet"),
+                band_of_friendship = setup(new CurioBandOfFriendship(curio_properties), "band_of_friendship"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
                 spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
@@ -295,6 +299,7 @@ public class ModItems
                 output_mirror = setup(new BlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
                 redstone_clock = setup(new BlockItem(ModBlocks.redstone_clock, basic_properties), "redstone_clock"),
                 funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
+                ignis_furnace = setup(new BlockItem(ModBlocks.ignis_furnace, basic_properties), "ignis_furnace"),
 
                 spirit_stone_brick = setup(new BlockItem(ModBlocks.spirit_stone_brick, basic_properties), "spirit_stone_brick"),
                 dark_spirit_stone_brick = setup(new BlockItem(ModBlocks.dark_spirit_stone_brick, basic_properties), "dark_spirit_stone_brick"),
@@ -342,7 +347,8 @@ public class ModItems
                 music_disc_skeletons_in_the_night = setup(new MusicDiscItem(3,() -> skeletons_in_the_night,music_disc_properties), "music_disc_skeletons_in_the_night"),
                 music_disc_prismatropolis = setup(new MusicDiscItem(4,() -> prismatropolis,music_disc_properties), "music_disc_prismatropolis"),
                 music_disc_aetherborne = setup(new MusicDiscItem(5,() -> aetherborne,music_disc_properties), "music_disc_aetherborne"),
-                music_disc_the_bone_brigade_blues = setup(new MusicDiscItem(6,() -> the_bone_brigade_blues,music_disc_properties), "music_disc_the_bone_brigade_blues")
+                music_disc_the_bone_brigade_blues = setup(new MusicDiscItem(6,() -> the_bone_brigade_blues,music_disc_properties), "music_disc_the_bone_brigade_blues"),
+                music_disc_ender_alley = setup(new MusicDiscItem(6,() -> ender_alley,music_disc_properties), "music_disc_ender_alley")
         );
     }
 

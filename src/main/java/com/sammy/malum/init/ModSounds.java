@@ -1,6 +1,8 @@
 package com.sammy.malum.init;
 
 import com.sammy.malum.MalumMod;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,13 +32,13 @@ public final class ModSounds
     public static final SoundEvent aetherborne = makeSoundEvent("aetherborne");
 
     public static final SoundEvent the_bone_brigade_blues = makeSoundEvent("the_bone_brigade_blues");
+    public static final SoundEvent ender_alley = makeSoundEvent("ender_alley");
 
     private static SoundEvent makeSoundEvent(String name)
     {
         ResourceLocation loc = new ResourceLocation(MalumMod.MODID, name);
         return new SoundEvent(loc).setRegistryName(name);
     }
-
     @SubscribeEvent
     public static void registerSounds(RegistryEvent.Register<SoundEvent> evt)
     {
@@ -58,5 +60,6 @@ public final class ModSounds
         r.register(prismatropolis);
         r.register(aetherborne);
         r.register(the_bone_brigade_blues);
+        r.register(ender_alley);
     }
 }

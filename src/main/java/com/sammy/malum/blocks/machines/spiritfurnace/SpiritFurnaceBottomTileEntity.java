@@ -177,12 +177,12 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
                     burnProgress++;
                     if (burnProgress >= recipe.getBurnTime())
                     {
-                        output(new ItemStack(recipe.getOutputItem()));
+                        output(new ItemStack(recipe.getOutputItem()), pos.up());
                         if (recipe.getSideItem() != null)
                         {
                             if (random.nextInt(recipe.getSideItemChance()) == 0)
                             {
-                                output(new ItemStack(recipe.getSideItem()));
+                                output(new ItemStack(recipe.getSideItem()), pos.up());
                             }
                         }
                         inputItem.shrink(1);
@@ -234,25 +234,6 @@ public class SpiritFurnaceBottomTileEntity extends BasicTileEntity implements IT
             }
         }
     }
-    public void output(ItemStack stack)
-    {
-        Direction direction = world.getBlockState(pos.up()).get(HORIZONTAL_FACING);
-        TileEntity inputTileEntity = world.getTileEntity(pos.subtract(direction.getDirectionVec()).add(0, 1, 0));
-        if (inputTileEntity != null)
-        {
-            boolean success = inputStackIntoTE(inputTileEntity, direction.getOpposite(),stack);
-            if (success)
-            {
-                return;
-            }
-        }
-        Vector3i directionVec = direction.getDirectionVec();
-        Vector3d entityPos = vectorFromBlockPos(pos).add(0.5, 1.5, 0.5).subtract(directionVec.getX() * 0.8f, 0, directionVec.getZ() * 0.8f);
-        ItemEntity entity = new ItemEntity(world, entityPos.x, entityPos.y, entityPos.z, stack.copy());
-        entity.setMotion(-directionVec.getX() * 0.1f, 0.05f, -directionVec.getZ() * 0.1f);
-        world.addEntity(entity);
-    }
-    
     public void spawnSpiritFlame()
     {
         Vector3i direction = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING).getDirectionVec();

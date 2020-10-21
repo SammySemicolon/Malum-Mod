@@ -19,25 +19,30 @@ public class SpiritDataHelper
     public static final String countNBT = "malum:spirit_count";
     public static final String typeNBT = "malum:spirit_type";
     public static final String spiritIntegrityNBT = "malum:spirit_integrity";
-
+    
     public static Optional<EntityType<?>> getType(String name)
     {
         return EntityType.byKey(name);
+    }
+    
+    public static boolean hasSpirit(LivingEntity livingEntity) {
+        return MalumDataProvider.getDread(livingEntity) || MalumDataProvider.getCharm(livingEntity);
     }
     //region TOOLTIPS
     public static String getName(String name)
     {
         return getType(name).map(entityType -> entityType.getName().getString()).orElse(null);
     }
+    
     public static String getSpirit(LivingEntity entity)
     {
         return entity.getType().getRegistryName().toString();
     }
     
     //endregion
-
+    
     //region BLOCKS
-
+    
     public static boolean extractSpiritFromStorage(ItemStack stack, SpiritStoringTileEntity tileEntity, int cap, String spirit)
     {
         if (doesStorageHaveSpirit(tileEntity))
@@ -64,6 +69,7 @@ public class SpiritDataHelper
         }
         return false;
     }
+    
     public static boolean insertSpiritIntoStorage(ItemStack stack, SpiritStoringTileEntity tileEntity, int cap, String spirit)
     {
         if (doesStorageHaveSpirit(tileEntity))
@@ -89,7 +95,8 @@ public class SpiritDataHelper
         }
         return false;
     }
-    public static boolean decreaseSpiritOfStorage(SpiritStoringTileEntity tileEntity,String spirit)
+    
+    public static boolean decreaseSpiritOfStorage(SpiritStoringTileEntity tileEntity, String spirit)
     {
         if (doesStorageHaveSpirit(tileEntity))
         {
@@ -108,7 +115,8 @@ public class SpiritDataHelper
         }
         return false;
     }
-    public static boolean increaseSpiritOfStorage(SpiritStoringTileEntity tileEntity, int cap,String spirit)
+    
+    public static boolean increaseSpiritOfStorage(SpiritStoringTileEntity tileEntity, int cap, String spirit)
     {
         if (doesStorageHaveSpirit(tileEntity))
         {
@@ -129,6 +137,7 @@ public class SpiritDataHelper
         }
         return false;
     }
+    
     public static boolean doesStorageHaveSpirit(SpiritStoringTileEntity tileEntity)
     {
         if (tileEntity.type != null)
@@ -137,6 +146,7 @@ public class SpiritDataHelper
         }
         return false;
     }
+    
     public static boolean doesStorageHaveSpirit(SpiritStoringTileEntity tileEntity, String spirit)
     {
         if (tileEntity.type != null)
@@ -149,11 +159,11 @@ public class SpiritDataHelper
         return false;
     }
     //endregion
-
+    
     //region COUNT
     public static void harvestSpirit(PlayerEntity player, LivingEntity target, String spirit, int amount)
     {
-        SpiritHarvestEvent.Pre preEvent = ModEventFactory.preSpiritHarvest(target,player);
+        SpiritHarvestEvent.Pre preEvent = ModEventFactory.preSpiritHarvest(target, player);
         amount += preEvent.extraSpirits;
         int i = 0;
         if (player.inventory.getCurrentItem().getItem() instanceof SpiritStorage)
@@ -172,7 +182,7 @@ public class SpiritDataHelper
                             i++;
                             if (i >= amount)
                             {
-                                ModEventFactory.postSpiritHarvest(target,player,i);
+                                ModEventFactory.postSpiritHarvest(target, player, i);
                                 return;
                             }
                         }
@@ -194,7 +204,7 @@ public class SpiritDataHelper
                             i++;
                             if (i >= amount)
                             {
-                                ModEventFactory.postSpiritHarvest(target,player,i);
+                                ModEventFactory.postSpiritHarvest(target, player, i);
                                 return;
                             }
                         }
@@ -202,9 +212,10 @@ public class SpiritDataHelper
                 }
             }
         }
-        ModEventFactory.postSpiritHarvest(target,player,i);
+        ModEventFactory.postSpiritHarvest(target, player, i);
     }
-    public static boolean decreaseSpiritOfItem(ItemStack stack,String spirit)
+    
+    public static boolean decreaseSpiritOfItem(ItemStack stack, String spirit)
     {
         if (stack.getItem() instanceof SpiritStorage)
         {
@@ -231,7 +242,8 @@ public class SpiritDataHelper
         }
         return false;
     }
-    public static boolean increaseSpiritOfItem(ItemStack stack,String spirit)
+    
+    public static boolean increaseSpiritOfItem(ItemStack stack, String spirit)
     {
         if (stack.getItem() instanceof SpiritStorage)
         {
@@ -256,7 +268,7 @@ public class SpiritDataHelper
         }
         return false;
     }
-
+    
     public static boolean doesItemHaveSpirit(ItemStack stack, String spirit)
     {
         CompoundNBT nbt = stack.getOrCreateTag();
@@ -269,6 +281,7 @@ public class SpiritDataHelper
         }
         return false;
     }
+    
     public static boolean doesItemHaveSpirit(ItemStack stack)
     {
         CompoundNBT nbt = stack.getOrCreateTag();
@@ -279,9 +292,9 @@ public class SpiritDataHelper
         return false;
     }
     //endregion
-
+    
     //region DURABILITY
-
+    
     public static boolean consumeSpirit(PlayerEntity player, ItemStack targetStack)
     {
         if (targetStack.getItem() instanceof SpiritConsumer)
@@ -290,7 +303,7 @@ public class SpiritDataHelper
             if (nbt.getInt(spiritIntegrityNBT) > 0)
             {
                 int change = 1;
-                SpiritIntegrityUpdateEvent.Decrease event = ModEventFactory.decreaseSpiritIntegrity(targetStack, player,change);
+                SpiritIntegrityUpdateEvent.Decrease event = ModEventFactory.decreaseSpiritIntegrity(targetStack, player, change);
                 change = event.integrityChange;
                 if (!event.isCanceled())
                 {
@@ -311,7 +324,7 @@ public class SpiritDataHelper
                             if (success)
                             {
                                 int value = ((SpiritConsumer) targetStack.getItem()).durability();
-                                SpiritIntegrityUpdateEvent.Fill event = ModEventFactory.fillSpiritIntegrity(targetStack, player,value);
+                                SpiritIntegrityUpdateEvent.Fill event = ModEventFactory.fillSpiritIntegrity(targetStack, player, value);
                                 value = event.integrityChange;
                                 nbt.putInt(spiritIntegrityNBT, value);
                                 return true;
@@ -323,6 +336,7 @@ public class SpiritDataHelper
         }
         return false;
     }
+    
     public static boolean doesItemHaveSpiritIntegrity(ItemStack stack)
     {
         if (stack.getTag() != null)
@@ -332,9 +346,5 @@ public class SpiritDataHelper
         }
         return false;
     }
-    //endregion
-
-    //region VALUES
-
     //endregion
 }

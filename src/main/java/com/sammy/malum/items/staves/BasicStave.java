@@ -2,10 +2,9 @@ package com.sammy.malum.items.staves;
 
 import com.sammy.malum.ClientHandler;
 import com.sammy.malum.SpiritConsumer;
+import com.sammy.malum.SpiritDataHelper;
 import com.sammy.malum.SpiritDescription;
-import com.sammy.malum.capabilities.MalumDataProvider;
 import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
-import com.sammy.malum.items.curios.CurioVampireNecklace;
 import com.sammy.malum.items.staves.effects.ModEffect;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -25,14 +24,13 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.InputEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sammy.malum.ClientHandler.makeTranslationComponent;
 import static com.sammy.malum.MalumHelper.getClosestEntity;
+import static com.sammy.malum.SpiritDataHelper.*;
 import static com.sammy.malum.capabilities.MalumDataProvider.*;
 
 public abstract class BasicStave extends Item implements SpiritConsumer, SpiritDescription
@@ -50,6 +48,14 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
             this.type = type;
             this.string = string;
         }
+    }
+    public static staveOptionEnum getEnum(ItemStack stack)
+    {
+        if (!(stack.getItem() instanceof BasicStave))
+        {
+            return staveOptionEnum.none;
+        }
+        return getEnum(stack.getOrCreateTag().getInt("malum:staveOption"));
     }
     public static staveOptionEnum getEnum(int i)
     {
@@ -105,7 +111,11 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
                 return false;
             }
         }
-        return !getHusk(livingEntity);
+        if (hasSpirit(livingEntity))
+        {
+            return false;
+        }
+        return true;
     }
     public static LivingEntity findEntity(PlayerEntity player)
     {
@@ -173,12 +183,12 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
     public ActionResultType onItemUse(ItemUseContext context)
     {
         PlayerEntity playerEntity = context.getPlayer();
-        if (playerEntity.isSneaking() && effect != null)
+        ItemStack stack = context.getItem();
+        if (getEnum(stack).equals(staveOptionEnum.augmentFunction) && effect != null)
         {
             if (effect.type() == ModEffect.effectTypeEnum.blockInteraction)
             {
                 BlockState state = context.getWorld().getBlockState(context.getPos());
-                ItemStack stack = context.getItem();
                 playerEntity.swingArm(context.getHand());
                 effect.effect(playerEntity, context.getItem(), state);
                 playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
@@ -191,8 +201,8 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (!playerIn.isSneaking())
+        ItemStack stack = playerIn.getHeldItem(handIn);
+        if (getEnum(stack).equals(staveOptionEnum.spiritHarvest))
         {
             if (worldIn.isRemote())
             {
@@ -200,17 +210,17 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
             }
             playerIn.setActiveHand(handIn);
         }
-        else if (effect != null)
+        if (getEnum(stack).equals(staveOptionEnum.augmentFunction) && effect != null)
         {
             if (effect.type() == ModEffect.effectTypeEnum.rightClick)
             {
                 playerIn.swingArm(handIn);
-                effect.effect(playerIn, itemstack);
+                effect.effect(playerIn, stack);
                 playerIn.addStat(Stats.ITEM_USED.get(playerIn.getHeldItemMainhand().getItem()));
                 playerIn.getCooldownTracker().setCooldown(playerIn.getHeldItemMainhand().getItem(), effect.cooldown());
-                return ActionResult.resultSuccess(itemstack);
+                return ActionResult.resultSuccess(stack);
             }
         }
-        return ActionResult.resultSuccess(itemstack);
+        return ActionResult.resultSuccess(stack);
     }
 }

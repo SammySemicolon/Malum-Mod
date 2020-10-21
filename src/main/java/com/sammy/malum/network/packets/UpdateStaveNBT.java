@@ -2,20 +2,11 @@ package com.sammy.malum.network.packets;
 
 import com.sammy.malum.ClientHandler;
 import com.sammy.malum.items.staves.BasicStave;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.function.Supplier;
-
-import static com.sammy.malum.capabilities.MalumDataProvider.getHusk;
-import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class UpdateStaveNBT
 {

@@ -1,6 +1,7 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.network.packets.SpiritHarvestFailurePacket;
 import com.sammy.malum.network.packets.UpdateSelectedOption;
 import com.sammy.malum.network.packets.UpdateStaveNBT;
 import com.sammy.malum.network.packets.HuskChangePacket;
@@ -31,6 +32,7 @@ public class NetworkManager
         INSTANCE.registerMessage(index++, HuskChangePacket.class, HuskChangePacket::encode, HuskChangePacket::decode, HuskChangePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, UpdateStaveNBT.class, UpdateStaveNBT::encode, UpdateStaveNBT::decode, UpdateStaveNBT::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, UpdateSelectedOption.class, UpdateSelectedOption::encode, UpdateSelectedOption::decode, UpdateSelectedOption::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritHarvestFailurePacket.class, SpiritHarvestFailurePacket::encode, SpiritHarvestFailurePacket::decode, SpiritHarvestFailurePacket::whenThisPacketIsReceived);
     
     }
 }

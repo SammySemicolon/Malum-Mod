@@ -13,5 +13,6 @@
   "skeletons_in_the_night": { "sounds":["malum:skeletons_in_the_night"], "subtitle": "malum.subtitle.skeletons_in_the_night" },
   "the_bone_brigade_blues": { "sounds":["malum:the_bone_brigade_blues"], "subtitle": "malum.subtitle.the_bone_brigade_blues" },
   "prismatropolis": { "sounds":["malum:prismatropolis"], "subtitle": "malum.subtitle.prismatropolis" },
-  "aetherborne": { "sounds":["malum:aetherborne"], "subtitle": "malum.subtitle.aetherborne" }
+  "aetherborne": { "sounds":["malum:aetherborne"], "subtitle": "malum.subtitle.aetherborne" },
+  "ender_alley": { "sounds":["malum:ender_alley"], "subtitle": "malum.subtitle.ender_alley" }
 }

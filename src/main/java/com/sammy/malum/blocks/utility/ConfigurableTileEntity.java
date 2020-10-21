@@ -1,11 +1,7 @@
 package com.sammy.malum.blocks.utility;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-
-import static com.sammy.malum.SpiritDataHelper.countNBT;
-import static com.sammy.malum.SpiritDataHelper.typeNBT;
 
 public class ConfigurableTileEntity extends BasicTileEntity
 {

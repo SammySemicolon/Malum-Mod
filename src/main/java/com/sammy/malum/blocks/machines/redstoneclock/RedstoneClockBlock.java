@@ -1,6 +1,8 @@
 package com.sammy.malum.blocks.machines.redstoneclock;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.blocks.utility.ConfigurableBlock;
+import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,9 +16,11 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import static com.sammy.malum.MalumHelper.machineOption;
+import static com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.*;
 import static net.minecraft.state.properties.BlockStateProperties.*;
 
-public class RedstoneClockBlock extends Block
+public class RedstoneClockBlock extends ConfigurableBlock
 {
     public RedstoneClockBlock(Properties properties)
     {
@@ -78,41 +82,33 @@ public class RedstoneClockBlock extends Block
     }
     
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    public void configureTileEntity(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit, ConfigurableTileEntity tileEntity, int option, boolean isSneaking)
     {
-        if (!worldIn.isRemote())
+        if (tileEntity instanceof RedstoneClockTileEntity)
         {
-            if (handIn != Hand.OFF_HAND)
+            RedstoneClockTileEntity redstoneClockTileEntity = (RedstoneClockTileEntity) tileEntity;
+            int change = isSneaking ? -1 : 1;
+            float pitch = 0f;
+            int finalOption = machineOption(option, 2);
+            switch (finalOption)
             {
-                if (worldIn.getTileEntity(pos) instanceof RedstoneClockTileEntity)
+                case 1:
                 {
-                    RedstoneClockTileEntity redstoneClockTileEntity = (RedstoneClockTileEntity) worldIn.getTileEntity(pos);
-                    float pitch;
-                    if (player.isSneaking())
-                    {
-                        redstoneClockTileEntity.type++;
-                        if (redstoneClockTileEntity.type >= RedstoneClockTileEntity.redstoneClockFunctionTypeEnum.values().length)
-                        {
-                            redstoneClockTileEntity.type = 0;
-                        }
-                        pitch = (float)redstoneClockTileEntity.type / RedstoneClockTileEntity.redstoneClockFunctionTypeEnum.values().length;
-                    }
-                    else
-                    {
-                        redstoneClockTileEntity.tickMultiplier++;
-                        if (redstoneClockTileEntity.tickMultiplier >= redstoneClockTileEntity.cooldown.length)
-                        {
-                            redstoneClockTileEntity.tickMultiplier = 0;
-                        }
-                        pitch = (float)redstoneClockTileEntity.tickMultiplier / redstoneClockTileEntity.cooldown.length;
-                    }
-                    MalumHelper.makeMachineToggleSound(worldIn, pos, 1f + pitch);
-                    player.world.notifyBlockUpdate(pos, state, state, 3);
-                    player.swingArm(handIn);
-                    return ActionResultType.SUCCESS;
+                    redstoneClockTileEntity.type = machineOption(change + redstoneClockTileEntity.type, redstoneClockFunctionTypeEnum.values().length);
+                    pitch = (float)redstoneClockTileEntity.type / redstoneClockFunctionTypeEnum.values().length;
+                    break;
+                }
+                case 0:
+                {
+                    redstoneClockTileEntity.tickMultiplier = machineOption(change + redstoneClockTileEntity.tickMultiplier, redstoneClockTileEntity.cooldown.length);
+                    pitch = (float)redstoneClockTileEntity.tickMultiplier / redstoneClockTileEntity.cooldown.length;
+                    break;
                 }
             }
+            MalumHelper.makeMachineToggleSound(worldIn, pos, 1f + pitch);
+            MalumHelper.makeMachineToggleSound(worldIn, pos, 1f + pitch);
+            player.world.notifyBlockUpdate(pos, state, state, 3);
+            player.swingArm(handIn);
         }
-        return ActionResultType.SUCCESS;
     }
 }

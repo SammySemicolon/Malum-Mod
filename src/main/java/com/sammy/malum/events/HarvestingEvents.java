@@ -1,11 +1,14 @@
 package com.sammy.malum.events;
 
 import com.sammy.malum.ClientHandler;
-import com.sammy.malum.capabilities.MalumDataProvider;
+import com.sammy.malum.SpiritDataHelper;
 import com.sammy.malum.init.ModSounds;
+import com.sammy.malum.items.curios.CurioBandOfFriendship;
+import com.sammy.malum.items.curios.CurioGoodLuckCharm;
 import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
 import com.sammy.malum.items.staves.BasicStave;
-import com.sammy.malum.SpiritDataHelper;
+import com.sammy.malum.network.packets.HuskChangePacket;
+import com.sammy.malum.network.packets.SpiritHarvestFailurePacket;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -21,12 +24,15 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.network.PacketDistributor;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.UUID;
 
 import static com.sammy.malum.SpiritDataHelper.*;
 import static com.sammy.malum.capabilities.MalumDataProvider.*;
+import static com.sammy.malum.items.staves.BasicStave.getEnum;
+import static com.sammy.malum.network.NetworkManager.INSTANCE;
 import static net.minecraft.util.SoundCategory.PLAYERS;
 
 @SuppressWarnings("unused")
@@ -36,20 +42,24 @@ public class HarvestingEvents
     public static SimpleSound sound;
     public static boolean tryCancel(PlayerEntity playerEntity, ItemStack stack)
     {
-        if (getCachedTarget(playerEntity) == null)
+        if (playerEntity instanceof ServerPlayerEntity)
         {
-            cancel(playerEntity, stack);
-            return true;
-        }
-        else
-        {
-            if (playerEntity instanceof ServerPlayerEntity)
+            if (getCachedTarget(playerEntity) == null)
             {
-                boolean isAlive = ((ServerPlayerEntity) playerEntity).getServerWorld().getEntityByUuid(getCachedTarget(playerEntity)).isAlive();
-                if (!isAlive)
+                cancel(playerEntity, stack);
+                return true;
+            }
+            else
+            {
+                Entity entity = ((ServerPlayerEntity) playerEntity).getServerWorld().getEntityByUuid(getCachedTarget(playerEntity));
+                if (entity instanceof LivingEntity)
                 {
-                    cancel(playerEntity, stack);
-                    return true;
+                    boolean isAlive = entity.isAlive();
+                    if (!isAlive || SpiritDataHelper.hasSpirit((LivingEntity) entity))
+                    {
+                        cancel(playerEntity, stack);
+                        return true;
+                    }
                 }
             }
         }
@@ -60,17 +70,24 @@ public class HarvestingEvents
         playerEntity.swingArm(playerEntity.getActiveHand());
         setCachedTarget(playerEntity, null);
         playerEntity.world.playSound(null, playerEntity.getPosition(), ModSounds.spirit_harvest_failure, PLAYERS, 1f, 1);
-        if (playerEntity.world.isRemote())
+        if (playerEntity instanceof ServerPlayerEntity)
         {
-            ClientHandler.spiritHarvestStop();
+            INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) playerEntity), new SpiritHarvestFailurePacket());
         }
         playerEntity.getCooldownTracker().setCooldown(stack.getItem(), 10);
         playerEntity.resetActiveHand();
     }
     public static void success(PlayerEntity playerEntity, ItemStack stack, LivingEntity cachedTarget)
     {
-        playerEntity.world.playSound(null,playerEntity.getPosition(), ModSounds.spirit_harvest_success, PLAYERS,1f,1);
-        setHusk(cachedTarget, true);
+        playerEntity.world.playSound(null, playerEntity.getPosition(), ModSounds.spirit_harvest_success, PLAYERS, 1f, 1);
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(band -> band.getItem() instanceof CurioBandOfFriendship, playerEntity).isPresent())
+        {
+            setCharm(cachedTarget, true);
+        }
+        else
+        {
+            setDread(cachedTarget, true);
+        }
         setCachedTarget(playerEntity, null);
         harvestSpirit(playerEntity, cachedTarget, getSpirit(cachedTarget), 1);
         playerEntity.addStat(Stats.ITEM_USED.get(stack.getItem()));
@@ -80,29 +97,34 @@ public class HarvestingEvents
     @SubscribeEvent
     public static void updateCachedTarget(PlayerEvent.LivingUpdateEvent event)
     {
-        if (event.getEntityLiving() instanceof PlayerEntity)
+        if (event.getEntityLiving() instanceof ServerPlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (player.world.getGameTime() % 4L == 0L) //dont do it too often
             {
-                if (!player.isSneaking()) //sneaking is reserved for stave effects
+                if (!player.isHandActive()) //we dont wanna update the target if the player is harvesting a spirit
                 {
-                    if (!player.isHandActive()) //we dont wanna update the target if the player is harvesting a spirit
+                    ItemStack stack = player.getHeldItemMainhand();
+                    if (!(stack.getItem() instanceof BasicStave))
                     {
-                        if (player.getHeldItemOffhand().getItem() instanceof BasicStave || player.getHeldItemMainhand().getItem() instanceof BasicStave) //only if player holds stave
+                        stack = player.getHeldItemOffhand();
+                    }
+                    if (stack.getItem() instanceof BasicStave)
+                    {
+                        if (getEnum(stack).equals(BasicStave.staveOptionEnum.spiritHarvest))
                         {
                             LivingEntity entity = BasicStave.findEntity(player);
-                            if (entity != null && !entity.equals(getCachedTarget(player)))
+                            if (entity != null)
                             {
                                 setCachedTarget(player, entity.getUniqueID());
                             }
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (getCachedTarget(player) != null)
                         {
-                            if (getCachedTarget(player) != null)
-                            {
-                                setCachedTarget(player, null);
-                            }
+                            setCachedTarget(player, null);
                         }
                     }
                 }
@@ -112,20 +134,28 @@ public class HarvestingEvents
     @SubscribeEvent
     public static void previewCachedTarget(PlayerEvent.LivingUpdateEvent event)
     {
-        if (event.getEntityLiving() instanceof PlayerEntity)
+        if (event.getEntityLiving() instanceof ServerPlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getHeldItem(Hand.MAIN_HAND).getItem() instanceof BasicStave || player.getHeldItem(Hand.OFF_HAND).getItem() instanceof BasicStave)
+            ItemStack stack = player.getHeldItemMainhand();
+            if (!(stack.getItem() instanceof BasicStave))
             {
-                UUID cachedTarget = getCachedTarget(player);
-                if (cachedTarget != null)
+                stack = player.getHeldItemOffhand();
+            }
+            if (stack.getItem() instanceof BasicStave)
+            {
+                if (getEnum(stack).equals(BasicStave.staveOptionEnum.spiritHarvest))
                 {
-                    if (player.world instanceof ServerWorld)
+                    UUID cachedTarget = getCachedTarget(player);
+                    if (cachedTarget != null)
                     {
-                        Entity entity = ((ServerWorld) player.world).getEntityByUuid(cachedTarget);
-                        if (entity instanceof LivingEntity)
+                        if (player.world instanceof ServerWorld)
                         {
-                            ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false));
+                            Entity entity = ((ServerWorld) player.world).getEntityByUuid(cachedTarget);
+                            if (entity instanceof LivingEntity)
+                            {
+                                ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 1, true, false));
+                            }
                         }
                     }
                 }
@@ -136,10 +166,11 @@ public class HarvestingEvents
     @SubscribeEvent
     public static void harvestStart(LivingEntityUseItemEvent.Start event)
     {
-        if (event.getEntityLiving() instanceof PlayerEntity)
+        if (event.getEntityLiving() instanceof ServerPlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getActiveItemStack().getItem() instanceof BasicStave)
+            ItemStack stack = player.getActiveItemStack();
+            if (getEnum(stack).equals(BasicStave.staveOptionEnum.spiritHarvest))
             {
                 if (tryCancel(player, player.getActiveItemStack()))
                 {
@@ -151,25 +182,25 @@ public class HarvestingEvents
     @SubscribeEvent
     public static void harvestTick(LivingEntityUseItemEvent.Tick event)
     {
-        if (event.getEntityLiving() instanceof PlayerEntity)
+        if (event.getEntityLiving() instanceof ServerPlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (player.getActiveItemStack().getItem() instanceof BasicStave)
+            ItemStack stack = player.getActiveItemStack();
+            if (getEnum(stack).equals(BasicStave.staveOptionEnum.spiritHarvest))
             {
-                ItemStack heldItem = player.getActiveItemStack();
-                if (tryCancel(player, heldItem))
+                if (tryCancel(player, stack))
                 {
                     event.setCanceled(true);
                 }
                 int time = 100;
-    
-                if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioNetherborneCapacitor, player).isPresent())
+        
+                if (CuriosApi.getCuriosHelper().findEquippedCurio(curio -> curio.getItem() instanceof CurioNetherborneCapacitor, player).isPresent())
                 {
                     time = 50;
                 }
-                if ((heldItem.getUseDuration() - player.getItemInUseCount()) > time)
+                if ((stack.getUseDuration() - player.getItemInUseCount()) > time)
                 {
-                    if (!tryCancel(player, heldItem))
+                    if (!tryCancel(player, stack))
                     {
                         UUID cachedTarget = getCachedTarget(player);
                         if (cachedTarget != null)
@@ -179,7 +210,7 @@ public class HarvestingEvents
                                 Entity entity = ((ServerWorld) player.world).getEntityByUuid(cachedTarget);
                                 if (entity instanceof LivingEntity)
                                 {
-                                    success(player, heldItem, (LivingEntity) entity);
+                                    success(player, stack, (LivingEntity) entity);
                                     event.setCanceled(true);
                                 }
                             }
@@ -192,7 +223,7 @@ public class HarvestingEvents
     @SubscribeEvent
     public static void stopHarvest(LivingEntityUseItemEvent.Stop event)
     {
-        if (event.getEntityLiving() instanceof PlayerEntity)
+        if (event.getEntityLiving() instanceof ServerPlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (player.getActiveItemStack().getItem() instanceof BasicStave)

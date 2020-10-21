@@ -1,8 +1,6 @@
 package com.sammy.malum.items.staves;
 
-import com.sammy.malum.SpiritDataHelper;
 import com.sammy.malum.SpiritStorage;
-import com.sammy.malum.capabilities.MalumDataProvider;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -36,7 +34,7 @@ public class CreativeStave extends Item implements SpiritStorage
         {
             stack.setTag(new CompoundNBT());
         }
-        setHusk(target, true);
+        setDread(target, true);
         if (attacker.isSneaking())
         {
             stack.getTag().putString(typeNBT, getSpirit(target));

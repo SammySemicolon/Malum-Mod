@@ -3,6 +3,7 @@ package com.sammy.malum;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.sammy.malum.init.ModRecipes;
 import com.sammy.malum.init.ModSounds;
+import com.sammy.malum.items.staves.BasicStave;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -318,6 +319,13 @@ public class MalumHelper
     {
         world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS,1f,pitch);
         world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,pitch);
+    }
+    //endregion
+    
+    //region NUMBERS AND LIKE OTHER THINGS TOO IG
+    public static int machineOption(int i, int length)
+    {
+        return (length + i % length) % length;
     }
     //endregion
 }

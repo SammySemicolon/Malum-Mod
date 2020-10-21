@@ -1,4 +1,4 @@
-package com.sammy.malum.models;// Made with Blockbench 3.6.6
+package com.sammy.malum.models.vanity;// Made with Blockbench 3.6.6
 // Exported for Minecraft version 1.15
 // Paste this class into your mod and generate all required imports
 
@@ -9,25 +9,26 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 
-public class ModelCherrysThings extends BipedModel<LivingEntity>
+public class ModelCherrysBracelets<T extends LivingEntity> extends BipedModel<T>
 {
 	private final ModelRenderer rightBracelet;
 	private final ModelRenderer leftBracelet;
 
-	public ModelCherrysThings() {
+	public ModelCherrysBracelets() {
 		super(1);
 		textureWidth = 64;
 		textureHeight = 64;
-
+		
+		
 		rightBracelet = new ModelRenderer(this);
 		rightBracelet.setRotationPoint(0.0F, 0.0F, 0.0F);
 		bipedRightArm.addChild(rightBracelet);
-		rightBracelet.setTextureOffset(0, 0).addBox(-3.0F, 5.0F, -2.0F, 3.0F, 1.0F, 4.0F, 0.3F, false);
-
+		rightBracelet.setTextureOffset(0, 0).addBox(-2.0F, 5.0F, -2.0F, 3.0F, 1.0F, 4.0F, 0.3F, false);
+		
 		leftBracelet = new ModelRenderer(this);
 		leftBracelet.setRotationPoint(0.0F, 0.0F, 0.0F);
 		bipedLeftArm.addChild(leftBracelet);
-		leftBracelet.setTextureOffset(0, 0).addBox(0.0F, 5.0F, -2.0F, 3.0F, 1.0F, 4.0F, 0.3F, false);
+		leftBracelet.setTextureOffset(0, 0).addBox(-1.0F, 5.0F, -2.0F, 3.0F, 1.0F, 4.0F, 0.3F, false);
 	}
 
 	@Override
@@ -37,12 +38,10 @@ public class ModelCherrysThings extends BipedModel<LivingEntity>
 
 	@Override
 	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		
 		bipedRightArm = rightBracelet;
 		bipedLeftArm = leftBracelet;
 		rightBracelet.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
 		leftBracelet.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-		
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

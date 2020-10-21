@@ -15,6 +15,11 @@ public class ScalePhase extends ParticlePhase
     
     public void init(MalumParticle particle)
     {
+        if (additive)
+        {
+            particle.scale = 0;
+            return;
+        }
         particle.scale = baseScale;
     }
     public int tick(MalumParticle particle)

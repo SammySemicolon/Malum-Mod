@@ -88,21 +88,29 @@ public class MalumDataProvider implements ICapabilitySerializable<INBT> {
         }
     }
     
-    public static boolean getHusk(LivingEntity livingEntity)
+    public static boolean getDread(LivingEntity livingEntity)
     {
         if (livingEntity.getCapability(CAPABILITY).isPresent())
         {
-            return livingEntity.getCapability(CAPABILITY).map(IMalumData::getHusk).get();
+            return livingEntity.getCapability(CAPABILITY).map(IMalumData::getDread).get();
         }
         return false;
     }
-    public static void setHusk(LivingEntity livingEntity, boolean husk)
+    public static boolean getCharm(LivingEntity livingEntity)
     {
         if (livingEntity.getCapability(CAPABILITY).isPresent())
         {
-            livingEntity.getCapability(CAPABILITY).ifPresent(note -> note.setHusk(husk));
+            return livingEntity.getCapability(CAPABILITY).map(IMalumData::getCharm).get();
         }
-        if (husk)
+        return false;
+    }
+    public static void setDread(LivingEntity livingEntity, boolean dread)
+    {
+        if (livingEntity.getCapability(CAPABILITY).isPresent())
+        {
+            livingEntity.getCapability(CAPABILITY).ifPresent(note -> note.setDread(dread));
+        }
+        if (dread)
         {
             if (livingEntity instanceof MobEntity)
             {
@@ -113,7 +121,27 @@ public class MalumDataProvider implements ICapabilitySerializable<INBT> {
         {
             INSTANCE.send(
                     PacketDistributor.TRACKING_CHUNK.with(() -> livingEntity.world.getChunkAt(livingEntity.getPosition())),
-                    new HuskChangePacket(livingEntity.getEntityId(), husk));
+                    new HuskChangePacket(livingEntity.getEntityId(), dread,false));
+        }
+    }
+    public static void setCharm(LivingEntity livingEntity, boolean charm)
+    {
+        if (livingEntity.getCapability(CAPABILITY).isPresent())
+        {
+            livingEntity.getCapability(CAPABILITY).ifPresent(note -> note.setCharm(charm));
+        }
+        if (charm)
+        {
+            if (livingEntity instanceof MobEntity)
+            {
+                ((MobEntity) livingEntity).setAttackTarget(null);
+            }
+        }
+        if (livingEntity.world instanceof ServerWorld)
+        {
+            INSTANCE.send(
+                    PacketDistributor.TRACKING_CHUNK.with(() -> livingEntity.world.getChunkAt(livingEntity.getPosition())),
+                    new HuskChangePacket(livingEntity.getEntityId(), false, charm));
         }
     }
 }

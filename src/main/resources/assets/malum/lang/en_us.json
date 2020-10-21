@@ -144,6 +144,7 @@
   "item.malum.music_disc_prismatropolis": "Music Disc",
   "item.malum.music_disc_aetherborne": "Music Disc",
   "item.malum.music_disc_the_bone_brigade_blues": "Music Disc",
+  "item.malum.music_disc_ender_alley": "Music Disc",
 
   "malum.tooltip.sstorage.desc": " Contains ",
   "malum.tooltip.sconsumer.desc.a": " Has ",
@@ -190,5 +191,6 @@
   "item.malum.music_disc_skeletons_in_the_night.desc": "Firel - Skeletons in the night",
   "item.malum.music_disc_prismatropolis.desc": "Firel - Prismatropolis",
   "item.malum.music_disc_aetherborne.desc": "Firel - Aetherborne",
-  "item.malum.music_disc_the_bone_brigade_blues.desc": "Shady Salesman - The bone brigade blues"
+  "item.malum.music_disc_the_bone_brigade_blues.desc": "Shady Salesman - The Bone Brigade Blues",
+  "item.malum.music_disc_ender_alley.desc": "Shady Salesman - Ender Alley"
 }

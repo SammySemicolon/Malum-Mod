@@ -2,7 +2,6 @@ package com.sammy.malum.events;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.init.ModItems;
-import com.sammy.malum.init.ModSounds;
 import com.sammy.malum.items.BowofLostSouls;
 import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
 import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;
@@ -10,6 +9,7 @@ import com.sammy.malum.items.armor.ItemUmbraSteelBattleArmor;
 import com.sammy.malum.items.staves.BasicStave;
 import com.sammy.malum.items.tools.ModBusterSwordItem;
 import com.sammy.malum.network.packets.HuskChangePacket;
+import com.sammy.malum.particles.charm.HeartParticleData;
 import com.sammy.malum.particles.skull.SkullParticleData;
 import com.sammy.malum.items.curios.*;
 import net.minecraft.entity.LivingEntity;
@@ -21,7 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.potion.Potions;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
@@ -41,6 +40,7 @@ import java.util.UUID;
 import static com.sammy.malum.MalumHelper.addDrop;
 import static com.sammy.malum.MalumMod.random;
 import static com.sammy.malum.SpiritDataHelper.consumeSpirit;
+import static com.sammy.malum.SpiritDataHelper.hasSpirit;
 import static com.sammy.malum.capabilities.MalumDataProvider.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
@@ -58,7 +58,7 @@ public class RuntimeEvents
             {
                 INSTANCE.send(
                         PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getEntityLiving()),
-                        new HuskChangePacket(event.getTarget().getEntityId(), getHusk((LivingEntity) event.getTarget())));
+                        new HuskChangePacket(event.getTarget().getEntityId(), getDread((LivingEntity) event.getTarget()),getCharm((LivingEntity) event.getTarget())));
             }
         }
     }
@@ -72,7 +72,7 @@ public class RuntimeEvents
             LivingEntity target = event.getTarget();
             if (target != null)
             {
-                if (getHusk(livingEntity))
+                if (hasSpirit(livingEntity))
                 {
                     if (getSpiritOwner(livingEntity) != null)
                     {
@@ -109,12 +109,23 @@ public class RuntimeEvents
         {
             LivingEntity livingEntity = event.getEntityLiving();
             World world = livingEntity.getEntityWorld();
-            if (getHusk(livingEntity))
+            if (hasSpirit(livingEntity))
             {
-                Vector3d pos = MalumHelper.randExtendedPosofEntity(livingEntity, random, 0.5f);
-                if (random.nextInt(4) == 0)
+                if (getDread(livingEntity))
                 {
-                    world.addParticle(new SkullParticleData(0.25f), pos.x, pos.y, pos.z, 0, 0.04, 0);
+                    Vector3d pos = MalumHelper.randExtendedPosofEntity(livingEntity, random, 0.5f);
+                    if (random.nextInt(4) == 0)
+                    {
+                        world.addParticle(new SkullParticleData(0.25f), pos.x, pos.y, pos.z, 0, 0.04, 0);
+                    }
+                }
+                if (getCharm(livingEntity))
+                {
+                    Vector3d pos = MalumHelper.randExtendedPosofEntity(livingEntity, random, 0.5f);
+                    if (random.nextInt(4) == 0)
+                    {
+                        world.addParticle(new HeartParticleData(0.25f), pos.x, pos.y, pos.z, 0, 0.04, 0);
+                    }
                 }
             }
         }
@@ -237,7 +248,7 @@ public class RuntimeEvents
             PlayerEntity playerEntity = event.getAttackingPlayer();
             if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).isPresent())
             {
-                if (getHusk(event.getEntityLiving()))
+                if (hasSpirit(event.getEntityLiving()))
                 {
                     CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).ifPresent(triple ->
                     {
