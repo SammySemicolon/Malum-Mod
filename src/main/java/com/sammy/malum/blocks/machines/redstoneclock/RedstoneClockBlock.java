@@ -1,7 +1,7 @@
 package com.sammy.malum.blocks.machines.redstoneclock;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.blocks.utility.ConfigurableBlock;
+import com.sammy.malum.blocks.utility.IConfigurableBlock;
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,7 +20,7 @@ import static com.sammy.malum.MalumHelper.machineOption;
 import static com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.redstoneClockFunctionTypeEnum;
 import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
-public class RedstoneClockBlock extends Block implements ConfigurableBlock
+public class RedstoneClockBlock extends Block implements IConfigurableBlock
 {
     public RedstoneClockBlock(Properties properties)
     {

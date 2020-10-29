@@ -1,7 +1,7 @@
 package com.sammy.malum.blocks.machines.mirror;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.blocks.utility.ConfigurableBlock;
+import com.sammy.malum.blocks.utility.IConfigurableBlock;
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import com.sammy.malum.items.MirrorBlockItem;
 import net.minecraft.block.Block;
@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 
 import static com.sammy.malum.MalumHelper.machineOption;
 
-public class BasicMirrorBlock extends HorizontalFaceBlock implements ConfigurableBlock
+public class BasicMirrorBlock extends HorizontalFaceBlock implements IConfigurableBlock
 {
     protected static final VoxelShape AABB_NORTH = Block.makeCuboidShape(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D);
     protected static final VoxelShape AABB_SOUTH = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 1.0D);

@@ -86,5 +86,6 @@ public class ClientSetupEvents
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_jar, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.funk_engine, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.redstone_clock, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.bounding_block, RenderType.getTranslucent());
     }
 }

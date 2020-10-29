@@ -2,6 +2,7 @@ package com.sammy.malum.init;
 
 import com.google.common.base.Preconditions;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.blocks.machines.ignisfurnace.SpiritFurnaceBlock;
 import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryBlock;
 import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
 import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;
@@ -293,7 +294,7 @@ public class ModItems
                 band_of_friendship = setup(new CurioBandOfFriendship(curio_properties), "band_of_friendship"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
-                spirit_furnace = setup(new BlockItem(ModBlocks.spirit_furnace, basic_properties), "spirit_furnace"),
+                spirit_furnace = setup(new MultiblockItem(ModBlocks.spirit_furnace, basic_properties, SpiritFurnaceBlock.structure), "spirit_furnace"),
                 basic_mirror = setup(new BlockItem(ModBlocks.basic_mirror, basic_properties), "basic_mirror"),
                 input_mirror = setup(new BlockItem(ModBlocks.input_mirror, basic_properties), "input_mirror"),
                 output_mirror = setup(new BlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),

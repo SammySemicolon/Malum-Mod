@@ -77,7 +77,7 @@ public class FunkEngineBlock extends Block
                 {
                     FunkEngineTileEntity funkEngineTileEntity = (FunkEngineTileEntity) worldIn.getTileEntity(pos);
                     ItemStack stack = player.getHeldItemMainhand();
-                    boolean value = MalumHelper.funkyItemTEHandling(player, handIn, stack, funkEngineTileEntity, 0);
+                    boolean value = MalumHelper.singleItemTEHandling(player, handIn, stack, funkEngineTileEntity.inventory, 0);
                     BlockState newState = state.with(HAS_RECORD, value);
                     worldIn.setBlockState(pos, newState);
                     player.world.notifyBlockUpdate(pos, state, newState, 3);

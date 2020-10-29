@@ -5,6 +5,7 @@ import com.sammy.malum.blocks.utility.BasicTileEntity;
 import com.sammy.malum.init.ModTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.MusicDiscItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
@@ -39,7 +40,7 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
         @Override
         public boolean isItemValid(int slot, @Nonnull ItemStack stack)
         {
-            return false;
+            return stack.getItem() instanceof MusicDiscItem;
         }
         
         @Override

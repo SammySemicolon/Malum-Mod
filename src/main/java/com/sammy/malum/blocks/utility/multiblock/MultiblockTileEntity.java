@@ -14,7 +14,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,14 +30,13 @@ import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FAC
 
 public abstract class MultiblockTileEntity extends BasicTileEntity implements ITickableTileEntity
 {
-    public MultiblockStructure structure;
-    public MultiblockTileEntity(TileEntityType type, MultiblockStructure structure)
+    public MultiblockTileEntity(TileEntityType type)
     {
         super(type);
-        this.structure = structure;
     }
     
     public List<BlockPos> positions;
+    
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
@@ -87,6 +91,11 @@ public abstract class MultiblockTileEntity extends BasicTileEntity implements IT
             }
         }
         super.remove();
+    }
+    
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, BlockPos pos)
+    {
+        return getCapability(cap);
     }
     
     @Override

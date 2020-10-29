@@ -10,7 +10,7 @@ public class SpiritSmelteryTileEntity extends MultiblockTileEntity implements IT
     
     public SpiritSmelteryTileEntity()
     {
-        super(ModTileEntities.spirit_smeltery_tile_entity, SpiritSmelteryBlock.structure);
+        super(ModTileEntities.spirit_smeltery_tile_entity);
     }
     
     @Override

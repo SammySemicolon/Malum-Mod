@@ -6,8 +6,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +61,36 @@ public class BoundingBlockTileEntity extends BasicTileEntity implements ITickabl
             }
         }
         super.remove();
+    }
+    
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap)
+    {
+        if (ownerPos != null)
+        {
+            TileEntity tileEntity = world.getTileEntity(ownerPos);
+            if (tileEntity instanceof MultiblockTileEntity)
+            {
+                return ((MultiblockTileEntity) tileEntity).getCapability(cap, pos);
+            }
+        }
+        return super.getCapability(cap);
+    }
+    
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side)
+    {
+        if (ownerPos != null)
+        {
+            TileEntity tileEntity = world.getTileEntity(ownerPos);
+            if (tileEntity instanceof MultiblockTileEntity)
+            {
+                return ((MultiblockTileEntity) tileEntity).getCapability(cap, pos);
+            }
+        }
+        return super.getCapability(cap, side);
     }
     
     @Override

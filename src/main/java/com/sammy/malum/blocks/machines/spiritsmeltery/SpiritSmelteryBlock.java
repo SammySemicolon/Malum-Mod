@@ -46,7 +46,7 @@ public class SpiritSmelteryBlock extends MultiblockBlock
     
     public SpiritSmelteryBlock(Properties properties)
     {
-        super(properties,structure);
+        super(properties);
     }
     
     @Override

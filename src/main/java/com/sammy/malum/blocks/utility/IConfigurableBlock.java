@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
 
-public interface ConfigurableBlock
+public interface IConfigurableBlock
 {
     int options();
     

@@ -111,20 +111,4 @@ public class SpiritFurnaceBottomBlock extends Block
         }
         return ActionResultType.SUCCESS;
     }
-    
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
-    {
-        worldIn.setBlockState(pos.up(), ModBlocks.spirit_furnace_top.getDefaultState().with(HORIZONTAL_FACING, state.get(HORIZONTAL_FACING)));
-    }
-    
-    @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
-    {
-        if (worldIn.getBlockState(pos.up()).getBlock() instanceof SpiritFurnaceTopBlock)
-        {
-            worldIn.setBlockState(pos.up(), Blocks.AIR.getDefaultState());
-        }
-        super.onBlockHarvested(worldIn, pos, state, player);
-    }
 }

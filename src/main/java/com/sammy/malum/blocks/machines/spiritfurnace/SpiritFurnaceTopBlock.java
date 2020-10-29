@@ -58,24 +58,6 @@ public class SpiritFurnaceTopBlock extends Block
     }
     
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
-    {
-        if (!isMoving && !newState.getBlock().equals(ModBlocks.spirit_furnace_top))
-        {
-            if (worldIn.getTileEntity(pos) instanceof SpiritFurnaceTopTileEntity)
-            {
-                SpiritFurnaceTopTileEntity tileEntity = (SpiritFurnaceTopTileEntity) worldIn.getTileEntity(pos);
-                if (!tileEntity.inventory.getStackInSlot(0).isEmpty())
-                {
-                    Entity entity = new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.9f, pos.getZ() + 0.5f, tileEntity.inventory.getStackInSlot(0));
-                    worldIn.addEntity(entity);
-                }
-            }
-        }
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
-    }
-    
-    @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (!worldIn.isRemote())

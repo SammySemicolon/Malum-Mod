@@ -99,15 +99,14 @@ public class MalumHelper
         return false;
     }
     
-    public static boolean funkyItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
+    public static boolean singleItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
     {
-        ItemStackHandler inventory = funkEngineTileEntity.inventory;
         ItemStack targetItem = inventory.getStackInSlot(slot);
         if (targetItem.isEmpty())
         {
-            if (heldItem.getItem() instanceof MusicDiscItem)
+            if (inventory.isItemValid(slot,heldItem))
             {
-                inventory.setStackInSlot(0, heldItem);
+                inventory.setStackInSlot(slot, heldItem);
                 player.setHeldItem(hand, ItemStack.EMPTY);
                 return true;
             }
@@ -115,26 +114,10 @@ public class MalumHelper
         else
         {
             MalumHelper.giveItemStackToPlayer(player, targetItem);
-            inventory.setStackInSlot(0, ItemStack.EMPTY);
-        }
-        return false;
-    }
-    
-    public static boolean singleItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
-    {
-        ItemStack targetItem = inventory.getStackInSlot(slot);
-        if (targetItem.isEmpty())
-        {
-            inventory.setStackInSlot(slot, heldItem);
-            player.setHeldItem(hand, ItemStack.EMPTY);
-            return true;
-        }
-        else
-        {
-            MalumHelper.giveItemStackToPlayer(player, targetItem);
             inventory.setStackInSlot(slot, ItemStack.EMPTY);
             return false;
         }
+        return false;
     }
     
     public static boolean basicItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
