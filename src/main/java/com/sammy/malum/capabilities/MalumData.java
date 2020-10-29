@@ -9,7 +9,9 @@ public class MalumData implements IMalumData
 {
     public UUID spiritOwner;
     
-    public UUID cachedTarget;
+    public UUID harvestTarget;
+    
+    public UUID gauntletTarget;
     
     public boolean dread;
     
@@ -26,13 +28,41 @@ public class MalumData implements IMalumData
     }
     
     @Override
-    public Optional<UUID> getCachedTarget()
+    public void setSpiritOwner(UUID uuid)
     {
-        if (cachedTarget == null)
+        spiritOwner = uuid;
+    }
+    
+    @Override
+    public Optional<UUID> getHarvestTarget()
+    {
+        if (harvestTarget == null)
         {
             return Optional.empty();
         }
-        return Optional.of(cachedTarget);
+        return Optional.of(harvestTarget);
+    }
+    
+    @Override
+    public void setHarvestTarget(UUID uuid)
+    {
+        harvestTarget = uuid;
+    }
+    
+    @Override
+    public Optional<UUID> getGauntletTarget()
+    {
+        if (gauntletTarget == null)
+        {
+            return Optional.empty();
+        }
+        return Optional.of(gauntletTarget);
+    }
+    
+    @Override
+    public void setGauntletTarget(UUID uuid)
+    {
+        gauntletTarget = uuid;
     }
     
     @Override
@@ -54,18 +84,6 @@ public class MalumData implements IMalumData
     }
     
     @Override
-    public void setSpiritOwner(UUID uuid)
-    {
-        spiritOwner =uuid;
-    }
-    
-    @Override
-    public void setCachedTarget(UUID uuid)
-    {
-        cachedTarget = uuid;
-    }
-    
-    @Override
     public void setCharm(boolean charm)
     {
         this.charm = charm;
@@ -78,9 +96,9 @@ public class MalumData implements IMalumData
         {
             spiritOwner = data.getSpiritOwner().get();
         }
-        if (data.getCachedTarget().isPresent())
+        if (data.getHarvestTarget().isPresent())
         {
-            cachedTarget = data.getCachedTarget().get();
+            harvestTarget = data.getHarvestTarget().get();
         }
         charm = data.getCharm();
         dread = data.getDread();
@@ -116,7 +134,6 @@ public class MalumData implements IMalumData
         {
             charm = compound.getBoolean("charm");
         }
-        
         if (compound.contains("spiritOwner"))
         {
             spiritOwner = compound.getUniqueId("spiritOwner");

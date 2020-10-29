@@ -9,7 +9,7 @@ public class SpiritCapacitor extends Item implements SpiritStorage
     {
         super(builder);
     }
-
+    
     @Override
     public int capacity()
     {

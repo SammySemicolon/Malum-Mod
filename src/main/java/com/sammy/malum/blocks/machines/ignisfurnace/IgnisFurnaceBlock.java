@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
-import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
 public class IgnisFurnaceBlock extends Block
 {
@@ -31,30 +30,31 @@ public class IgnisFurnaceBlock extends Block
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
     }
+    
     @Override
     public boolean hasTileEntity(final BlockState state)
     {
         return true;
     }
-
+    
     @Override
     public TileEntity createTileEntity(final BlockState state, final IBlockReader world)
     {
         return new IgnisFurnaceTileEntity();
     }
-
-
+    
+    
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
     }
-
+    
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
         return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
-
+    
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
         if (!isMoving && !newState.getBlock().equals(ModBlocks.spirit_furnace))
@@ -71,7 +71,7 @@ public class IgnisFurnaceBlock extends Block
         }
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
-
+    
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {

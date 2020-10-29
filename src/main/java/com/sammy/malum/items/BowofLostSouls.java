@@ -10,7 +10,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.*;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
@@ -25,7 +28,24 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
     {
         super(builder);
     }
-
+    
+    public static float getArrowVelocity(ItemStack stack, int charge)
+    {
+        float f = (float) charge / getDrawTime(stack);
+        f = (f * f + f * 2.0F) / 3.0F;
+        if (f > 1.0F)
+        {
+            f = 1.0F;
+        }
+        
+        return f;
+    }
+    
+    public static float getDrawTime(ItemStack stack)
+    {
+        return SpiritDataHelper.doesItemHaveSpiritIntegrity(stack) ? 16f : 20f;
+    }
+    
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft)
     {
         if (entityLiving instanceof PlayerEntity)
@@ -33,19 +53,18 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
             PlayerEntity playerentity = (PlayerEntity) entityLiving;
             boolean flag = playerentity.abilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
             ItemStack itemstack = playerentity.findAmmo(stack);
-
+            
             int i = this.getUseDuration(stack) - timeLeft;
             i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, worldIn, playerentity, i, !itemstack.isEmpty() || flag);
-            if (i < 0)
-                return;
-
+            if (i < 0) { return; }
+            
             if (!itemstack.isEmpty() || flag)
             {
                 if (itemstack.isEmpty())
                 {
                     itemstack = new ItemStack(Items.ARROW);
                 }
-
+                
                 float f = getArrowVelocity(itemstack, i);
                 if (!((double) f < 0.1D))
                 {
@@ -60,34 +79,33 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
                         {
                             abstractarrowentity.setIsCritical(true);
                         }
-
+                        
                         int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
                         if (j > 0)
                         {
                             abstractarrowentity.setDamage(abstractarrowentity.getDamage() + (double) j * 0.5D + 0.5D);
                         }
-
+                        
                         int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
                         if (k > 0)
                         {
                             abstractarrowentity.setKnockbackStrength(k);
                         }
-
+                        
                         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0)
                         {
                             abstractarrowentity.setFire(100);
                         }
-
-                        stack.damageItem(1, playerentity, (p_220009_1_) ->
-                                p_220009_1_.sendBreakAnimation(playerentity.getActiveHand()));
+                        
+                        stack.damageItem(1, playerentity, (p_220009_1_) -> p_220009_1_.sendBreakAnimation(playerentity.getActiveHand()));
                         if (flag1 || playerentity.abilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW))
                         {
                             abstractarrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
                         }
-
+                        
                         worldIn.addEntity(abstractarrowentity);
                     }
-
+                    
                     worldIn.playSound(null, playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
                     if (!flag1 && !playerentity.abilities.isCreativeMode)
                     {
@@ -102,42 +120,24 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
             }
         }
     }
-
-    public static float getArrowVelocity(ItemStack stack, int charge)
-    {
-        float f = (float) charge / getDrawTime(stack);
-        f = (f * f + f * 2.0F) / 3.0F;
-        if (f > 1.0F)
-        {
-            f = 1.0F;
-        }
-
-        return f;
-    }
-
-    public static float getDrawTime(ItemStack stack)
-    {
-        return SpiritDataHelper.doesItemHaveSpiritIntegrity(stack) ? 16f : 20f;
-    }
-
+    
     public int getUseDuration(ItemStack stack)
     {
         return 72000;
     }
-
+    
     public UseAction getUseAction(ItemStack stack)
     {
         return UseAction.BOW;
     }
-
+    
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         boolean flag = !playerIn.findAmmo(itemstack).isEmpty();
         ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
-        if (ret != null)
-            return ret;
-
+        if (ret != null) { return ret; }
+        
         if (!playerIn.abilities.isCreativeMode && !flag)
         {
             return ActionResult.resultFail(itemstack);
@@ -148,7 +148,7 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
             return ActionResult.resultConsume(itemstack);
         }
     }
-
+    
     public Predicate<ItemStack> getInventoryAmmoPredicate()
     {
         return ARROWS;
@@ -164,19 +164,19 @@ public class BowofLostSouls extends ShootableItem implements SpiritConsumer, Spi
     {
         return arrow;
     }
-
+    
     @Override
     public int durability()
     {
         return 20;
     }
-
+    
     @Override
     public String spirit()
     {
         return "minecraft:skeleton";
     }
-
+    
     @Override
     public ArrayList<ITextComponent> components()
     {

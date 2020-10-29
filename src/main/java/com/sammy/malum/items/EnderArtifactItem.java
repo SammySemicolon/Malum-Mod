@@ -24,7 +24,7 @@ public class EnderArtifactItem extends Item implements SpiritConsumer, SpiritDes
     {
         super(builder);
     }
-
+    
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
@@ -39,19 +39,19 @@ public class EnderArtifactItem extends Item implements SpiritConsumer, SpiritDes
         }
         return new ActionResult<>(ActionResultType.FAIL, itemstack);
     }
-
+    
     @Override
     public int durability()
     {
         return 50;
     }
-
+    
     @Override
     public String spirit()
     {
         return "minecraft:enderman";
     }
-
+    
     @Override
     public ArrayList<ITextComponent> components()
     {

@@ -4,7 +4,6 @@ package com.sammy.malum.items.armor;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.init.ModItems;
 import com.sammy.malum.models.ModelSpiritedSteelBattleArmor;
-import com.sammy.malum.models.ModelUmbralSteelArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -21,13 +20,19 @@ import javax.annotation.Nullable;
 
 public class ItemSpiritedSteelBattleArmor extends ModArmor
 {
-
+    
+    private final LazyValue<BipedModel<?>> model;
+    
     public ItemSpiritedSteelBattleArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
         this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelSpiritedSteelBattleArmor(slot)), () -> () -> null);
     }
-    private final LazyValue<BipedModel<?>> model;
+    
+    public static boolean hasArmorSet(PlayerEntity playerEntity)
+    {
+        return MalumHelper.hasArmorSet(playerEntity, ModItems.spirited_steel_battle_helm, ModItems.spirited_steel_battle_chestplate, ModItems.spirited_steel_battle_leggings, ModItems.spirited_steel_battle_shoes);
+    }
     
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -43,10 +48,5 @@ public class ItemSpiritedSteelBattleArmor extends ModArmor
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
     {
         return "malum:textures/armor/spirited_steel_armor.png";
-    }
-
-    public static boolean hasArmorSet(PlayerEntity playerEntity)
-    {
-        return MalumHelper.hasArmorSet(playerEntity, ModItems.spirited_steel_battle_helm, ModItems.spirited_steel_battle_chestplate, ModItems.spirited_steel_battle_leggings, ModItems.spirited_steel_battle_shoes);
     }
 }

@@ -10,6 +10,6 @@ public class ModPickaxeItem extends PickaxeItem
     {
         super(material, damage + 1, speed - 2.8f, properties.maxDamage(material.getMaxUses()).addToolType(ToolType.PICKAXE, material.getHarvestLevel()));
     }
-
+    
 }
 

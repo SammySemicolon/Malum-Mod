@@ -10,9 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 
 import static com.sammy.malum.SpiritDataHelper.*;
-import static com.sammy.malum.SpiritDataHelper.countNBT;
-import static com.sammy.malum.SpiritDataHelper.typeNBT;
-import static com.sammy.malum.capabilities.MalumDataProvider.*;
+import static com.sammy.malum.capabilities.MalumDataProvider.setDread;
 
 public class CreativeStave extends Item implements SpiritStorage
 {
@@ -20,13 +18,13 @@ public class CreativeStave extends Item implements SpiritStorage
     {
         super(builder);
     }
-
+    
     @Override
     public boolean doesSneakBypassUse(ItemStack stack, IWorldReader world, BlockPos pos, PlayerEntity player)
     {
         return true;
     }
-
+    
     @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
@@ -42,11 +40,11 @@ public class CreativeStave extends Item implements SpiritStorage
         }
         else
         {
-            harvestSpirit((PlayerEntity) attacker, target, getSpirit(target), 1);
+            harvestSpirit((PlayerEntity) attacker, stack, target, getSpirit(target), 1);
         }
         return super.hitEntity(stack, target, attacker);
     }
-
+    
     @Override
     public int capacity()
     {

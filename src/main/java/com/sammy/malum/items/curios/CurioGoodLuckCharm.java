@@ -1,4 +1,3 @@
-
 package com.sammy.malum.items.curios;
 
 import com.sammy.malum.SpiritConsumer;
@@ -24,7 +23,7 @@ public class CurioGoodLuckCharm extends Item implements ICurio, SpiritConsumer, 
     {
         super(builder);
     }
-
+    
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
@@ -35,7 +34,7 @@ public class CurioGoodLuckCharm extends Item implements ICurio, SpiritConsumer, 
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-
+            
             @Override
             public boolean canRightClickEquip()
             {
@@ -43,6 +42,7 @@ public class CurioGoodLuckCharm extends Item implements ICurio, SpiritConsumer, 
             }
         });
     }
+    
     @Override
     public int durability()
     {

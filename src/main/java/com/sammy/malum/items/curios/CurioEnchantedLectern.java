@@ -1,4 +1,3 @@
-
 package com.sammy.malum.items.curios;
 
 import com.sammy.malum.SpiritConsumer;
@@ -23,22 +22,24 @@ public class CurioEnchantedLectern extends Item implements ICurio, SpiritConsume
     }
     
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused) {
-        return CurioProvider.createProvider(new ICurio() {
-        });
+    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
+    {
+        return CurioProvider.createProvider(new ICurio()
+        {});
     }
+    
     @Override
     public int durability()
     {
         return 20;
     }
-
+    
     @Override
     public String spirit()
     {
         return "minecraft:witch";
     }
-
+    
     @Override
     public ArrayList<ITextComponent> components()
     {

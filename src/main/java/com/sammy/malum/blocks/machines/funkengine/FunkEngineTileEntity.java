@@ -20,11 +20,6 @@ import java.util.Objects;
 
 public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTileEntity
 {
-    public FunkEngineTileEntity()
-    {
-        super(ModTileEntities.funk_engine_tile_entity);
-    }
-    
     public Object sound;
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
@@ -33,20 +28,20 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
         {
             return 1;
         }
-    
+        
         @Nonnull
         @Override
         public ItemStack extractItem(int slot, int amount, boolean simulate)
         {
             return ItemStack.EMPTY;
         }
-    
+        
         @Override
         public boolean isItemValid(int slot, @Nonnull ItemStack stack)
         {
             return false;
         }
-    
+        
         @Override
         protected void onContentsChanged(int slot)
         {
@@ -60,6 +55,10 @@ public class FunkEngineTileEntity extends BasicTileEntity implements ITickableTi
         }
     };
     public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);
+    public FunkEngineTileEntity()
+    {
+        super(ModTileEntities.funk_engine_tile_entity);
+    }
     
     @Nonnull
     @Override

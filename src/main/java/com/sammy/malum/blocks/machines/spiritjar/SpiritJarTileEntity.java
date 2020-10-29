@@ -10,10 +10,10 @@ public class SpiritJarTileEntity extends SpiritStoringTileEntity implements ITic
     {
         super(ModTileEntities.spirit_jar_tile_entity);
     }
-
+    
     @Override
     public void tick()
     {
-
+    
     }
 }

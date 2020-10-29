@@ -13,14 +13,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class FancyRenderer<T extends TileEntity> extends TileEntityRenderer<T> implements IFancyRenderer
 {
+    public Direction lookingAtFace;
+    public BlockPos lookingAtPos;
+    public float time;
     public FancyRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
         super(rendererDispatcherIn);
     }
-    
-    public Direction lookingAtFace;
-    public BlockPos lookingAtPos;
-    public float time;
     
     @Override
     public Direction lookingAtFace()
@@ -71,13 +70,7 @@ public class FancyRenderer<T extends TileEntity> extends TileEntityRenderer<T> i
         int length = maxOptions();
         return (length + option % length) % length;
     }
-    
-    @Override
-    public boolean isConfigurable()
-    {
-        return false;
-    }
-    
+
     @Override
     public void render(T tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)
     {

@@ -9,12 +9,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public interface IFancyRenderer
 {
     Direction lookingAtFace();
+    
     void setLookingAtFace(Direction direction);
+    
     BlockPos lookingAtPos();
+    
     void setLookingAtPos(BlockPos pos);
+    
     int maxOptions();
+    
     int getSelectedOption(int option);
-    boolean isConfigurable();
+
     float getTime();
+    
     void setTime(float time);
 }

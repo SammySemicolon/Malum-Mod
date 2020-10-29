@@ -34,42 +34,44 @@ public class SpiritFurnaceBottomBlock extends Block
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, false));
     }
+    
     @Override
     public boolean hasTileEntity(final BlockState state)
     {
         return true;
     }
-
+    
     @Override
     public TileEntity createTileEntity(final BlockState state, final IBlockReader world)
     {
         return new SpiritFurnaceBottomTileEntity();
     }
-
+    
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
     {
         return worldIn.getBlockState(pos.up()).getBlock().equals(Blocks.AIR);
     }
-
+    
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
         blockStateBuilder.add(LIT);
     }
-
+    
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
         return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(LIT, false);
     }
+    
     //endregion
     @Override
     public int getLightValue(BlockState state, IBlockReader world, BlockPos pos)
     {
         return state.get(LIT) ? 12 : 2;
     }
-
+    
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
         if (!isMoving && !newState.getBlock().equals(ModBlocks.spirit_furnace))
@@ -86,7 +88,7 @@ public class SpiritFurnaceBottomBlock extends Block
         }
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
-
+    
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
@@ -109,13 +111,13 @@ public class SpiritFurnaceBottomBlock extends Block
         }
         return ActionResultType.SUCCESS;
     }
-
+    
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
     {
         worldIn.setBlockState(pos.up(), ModBlocks.spirit_furnace_top.getDefaultState().with(HORIZONTAL_FACING, state.get(HORIZONTAL_FACING)));
     }
-
+    
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
     {

@@ -6,10 +6,12 @@ import net.minecraft.tileentity.TileEntityType;
 public class ConfigurableTileEntity extends BasicTileEntity
 {
     public int option;
+    
     public ConfigurableTileEntity(TileEntityType<? extends ConfigurableTileEntity> tileEntityType)
     {
         super(tileEntityType);
     }
+    
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {

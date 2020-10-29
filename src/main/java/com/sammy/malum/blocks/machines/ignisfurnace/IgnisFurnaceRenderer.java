@@ -19,12 +19,12 @@ import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 @OnlyIn(value = Dist.CLIENT)
 public class IgnisFurnaceRenderer extends TileEntityRenderer<IgnisFurnaceTileEntity>
 {
-
+    
     public IgnisFurnaceRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
     {
         super(rendererDispatcherIn);
     }
-
+    
     @Override
     public void render(IgnisFurnaceTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {

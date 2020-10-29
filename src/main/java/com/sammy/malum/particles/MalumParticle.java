@@ -10,8 +10,8 @@ import java.util.Arrays;
 
 public class MalumParticle extends SimpleAnimatedParticle
 {
-    public ArrayList<ParticlePhase> phases;
     public final IAnimatedSprite spriteSet;
+    public ArrayList<ParticlePhase> phases;
     public int currentPhase;
     public float scale;
     public int animationCooldown;

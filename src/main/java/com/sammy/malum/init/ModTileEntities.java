@@ -9,7 +9,9 @@ import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopTileEntity;
 import com.sammy.malum.blocks.machines.spiritjar.SpiritJarTileEntity;
+import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryTileEntity;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
+import com.sammy.malum.blocks.utility.multiblock.BoundingBlockTileEntity;
 import com.sammy.malum.blocks.utility.spiritstorage.SpiritStoringTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -53,8 +55,11 @@ public class ModTileEntities
     @ObjectHolder("malum:redstone_clock_tile_entity")
     public static TileEntityType<RedstoneClockTileEntity> redstone_clock_tile_entity;
     
-    @ObjectHolder("malum:ignis_furnace_tile_entity")
-    public static TileEntityType<IgnisFurnaceTileEntity> ignis_furnace_tile_entity;
+    @ObjectHolder("malum:spirit_smeltery_tile_entity")
+    public static TileEntityType<SpiritSmelteryTileEntity> spirit_smeltery_tile_entity;
+    
+    @ObjectHolder("malum:bounding_block_tile_entity")
+    public static TileEntityType<BoundingBlockTileEntity> bounding_block_tile_entity;
 
     @SubscribeEvent
     public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> e)
@@ -68,7 +73,8 @@ public class ModTileEntities
                 TileEntityType.Builder.create((Supplier<TileEntity>) OutputMirrorTileEntity::new, ModBlocks.output_mirror).build(null).setRegistryName("output_mirror_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) FunkEngineTileEntity::new, ModBlocks.funk_engine).build(null).setRegistryName("funk_engine_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) RedstoneClockTileEntity::new, ModBlocks.redstone_clock).build(null).setRegistryName("redstone_clock_tile_entity"),
-                TileEntityType.Builder.create((Supplier<TileEntity>) IgnisFurnaceTileEntity::new, ModBlocks.ignis_furnace).build(null).setRegistryName("ignis_furnace_tile_entity")
+                TileEntityType.Builder.create((Supplier<TileEntity>) SpiritSmelteryTileEntity::new, ModBlocks.spirit_smeltery).build(null).setRegistryName("spirit_smeltery_tile_entity"),
+                TileEntityType.Builder.create((Supplier<TileEntity>) BoundingBlockTileEntity::new, ModBlocks.bounding_block).build(null).setRegistryName("bounding_block_tile_entity")
         );
     }
 }

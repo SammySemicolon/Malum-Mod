@@ -19,12 +19,18 @@ import javax.annotation.Nullable;
 
 public class ItemUmbraSteelBattleArmor extends ModArmor
 {
+    private final LazyValue<BipedModel<?>> model;
+    
     public ItemUmbraSteelBattleArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
         this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelUmbralSteelArmor(slot)), () -> () -> null);
     }
-    private final LazyValue<BipedModel<?>> model;
+    
+    public static boolean hasArmorSet(PlayerEntity playerEntity)
+    {
+        return MalumHelper.hasArmorSet(playerEntity, ModItems.umbral_steel_helm, ModItems.umbral_steel_chestplate, ModItems.umbral_steel_leggings, ModItems.umbral_steel_shoes);
+    }
     
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -33,17 +39,13 @@ public class ItemUmbraSteelBattleArmor extends ModArmor
     {
         return (A) model.getValue();
     }
+    
     @OnlyIn(value = Dist.CLIENT)
     @Override
     @Nullable
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
     {
         return "malum:textures/armor/soul_steel_armour.png";
-    }
-    
-    public static boolean hasArmorSet(PlayerEntity playerEntity)
-    {
-        return MalumHelper.hasArmorSet(playerEntity, ModItems.umbral_steel_helm, ModItems.umbral_steel_chestplate, ModItems.umbral_steel_leggings, ModItems.umbral_steel_shoes);
     }
     
 }

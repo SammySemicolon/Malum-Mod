@@ -10,6 +10,7 @@ public class SpiritIntegrityUpdateEvent extends LivingEvent
     public final ItemStack stack;
     public final PlayerEntity playerEntity;
     public int integrityChange;
+    
     public SpiritIntegrityUpdateEvent(ItemStack stack, PlayerEntity playerEntity, int integrityChange)
     {
         super(playerEntity);
@@ -17,19 +18,21 @@ public class SpiritIntegrityUpdateEvent extends LivingEvent
         this.playerEntity = playerEntity;
         this.integrityChange = integrityChange;
     }
+    
     @Cancelable
     public static class Decrease extends SpiritIntegrityUpdateEvent
     {
         public Decrease(ItemStack stack, PlayerEntity playerEntity, int integrityChange)
         {
-            super(stack, playerEntity,integrityChange);
+            super(stack, playerEntity, integrityChange);
         }
     }
+    
     public static class Fill extends SpiritIntegrityUpdateEvent
     {
         public Fill(ItemStack stack, PlayerEntity playerEntity, int integrityChange)
         {
-            super(stack, playerEntity,integrityChange);
+            super(stack, playerEntity, integrityChange);
         }
     }
 }

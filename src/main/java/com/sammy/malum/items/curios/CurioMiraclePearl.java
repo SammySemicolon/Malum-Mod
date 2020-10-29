@@ -1,4 +1,3 @@
-
 package com.sammy.malum.items.curios;
 
 import net.minecraft.entity.LivingEntity;
@@ -27,7 +26,7 @@ public class CurioMiraclePearl extends Item implements ICurio
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-    
+            
             @Override
             public boolean canRightClickEquip()
             {

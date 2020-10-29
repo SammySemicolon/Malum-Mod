@@ -8,9 +8,11 @@ import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockBlock;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopBlock;
 import com.sammy.malum.blocks.machines.spiritjar.SpiritJarBlock;
+import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryBlock;
 import com.sammy.malum.blocks.special.FleshBlock;
 import com.sammy.malum.blocks.utility.ModSlabBlock;
 import com.sammy.malum.blocks.utility.ModStairsBlock;
+import com.sammy.malum.blocks.utility.multiblock.BoundingBlock;
 import com.sammy.malum.world.SpiritwoodTree;
 import net.minecraft.block.*;
 import net.minecraftforge.event.RegistryEvent;
@@ -32,8 +34,9 @@ public class ModBlocks
     public static Block output_mirror;
     public static Block funk_engine;
     public static Block redstone_clock;
-    public static Block ignis_furnace;
-
+    public static Block spirit_smeltery;
+    
+    public static Block bounding_block;
     //ORES
 
     public static Block arcane_stone;
@@ -95,7 +98,9 @@ public class ModBlocks
         output_mirror = registerBlock(registry, new BasicMirrorBlock(Block.Properties.from(Blocks.GLASS).notSolid(), BasicMirrorBlock.mirrorTypeEnum.output), "output_mirror");
         funk_engine = registerBlock(registry, new FunkEngineBlock(Block.Properties.from(Blocks.STONE)), "funk_engine");
         redstone_clock = registerBlock(registry, new RedstoneClockBlock(Block.Properties.from(Blocks.STONE)), "redstone_clock");
-        ignis_furnace = registerBlock(registry, new IgnisFurnaceBlock(Block.Properties.from(Blocks.STONE)), "ignis_furnace");
+        spirit_smeltery = registerBlock(registry, new SpiritSmelteryBlock(Block.Properties.from(Blocks.STONE)), "spirit_smeltery");
+        
+        bounding_block = registerBlock(registry, new BoundingBlock(Block.Properties.from(Blocks.STONE).noDrops()), "bounding_block");
 
         arcane_stone = registerBlock(registry, new Block(Block.Properties.from(Blocks.STONE)), "arcane_stone");
         archaic_crystal_ore = registerBlock(registry, new Block(Block.Properties.from(Blocks.DIAMOND_ORE)), "archaic_crystal_ore");

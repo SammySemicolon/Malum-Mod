@@ -23,19 +23,21 @@ public abstract class BasicTileEntity extends TileEntity
     {
         super(type);
     }
+    
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
         super.write(compound);
         return compound;
     }
-
+    
     @Override
     public void read(BlockState state, CompoundNBT compound)
     {
         super.read(state, compound);
         read(compound);
     }
+    
     @Override
     public CompoundNBT getUpdateTag()
     {
@@ -56,6 +58,7 @@ public abstract class BasicTileEntity extends TileEntity
         super.onDataPacket(net, packet);
         read(packet.getNbtCompound());
     }
+    
     public void read(CompoundNBT compound)
     {
     
@@ -67,7 +70,7 @@ public abstract class BasicTileEntity extends TileEntity
         TileEntity inputTileEntity = world.getTileEntity(pos.subtract(direction.getDirectionVec()));
         if (inputTileEntity != null)
         {
-            boolean success = inputStackIntoTE(inputTileEntity, direction.getOpposite(),stack);
+            boolean success = inputStackIntoTE(inputTileEntity, direction.getOpposite(), stack);
             if (success)
             {
                 return;

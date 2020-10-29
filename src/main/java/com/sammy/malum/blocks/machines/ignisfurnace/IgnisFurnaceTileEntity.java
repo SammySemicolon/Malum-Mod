@@ -26,12 +26,7 @@ import static net.minecraft.item.crafting.IRecipeType.SMELTING;
 
 public class IgnisFurnaceTileEntity extends BasicTileEntity implements ITickableTileEntity
 {
-    public IgnisFurnaceTileEntity()
-    {
-        super(ModTileEntities.ignis_furnace_tile_entity);
-    }
     public int burnProgress;
-    
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
@@ -46,6 +41,7 @@ public class IgnisFurnaceTileEntity extends BasicTileEntity implements ITickable
         {
             return ItemStack.EMPTY;
         }
+        
         @Override
         protected void onContentsChanged(int slot)
         {
@@ -59,6 +55,11 @@ public class IgnisFurnaceTileEntity extends BasicTileEntity implements ITickable
         }
     };
     public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);
+    public IgnisFurnaceTileEntity()
+    {
+        super(ModTileEntities.spirit_smeltery_tile_entity);
+    }
+    
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
@@ -69,6 +70,7 @@ public class IgnisFurnaceTileEntity extends BasicTileEntity implements ITickable
         }
         return super.getCapability(cap, side);
     }
+    
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
@@ -102,7 +104,7 @@ public class IgnisFurnaceTileEntity extends BasicTileEntity implements ITickable
                 Ingredient ingredient = furnaceRecipe.getIngredients().get(0);
                 if (ingredient.test(inputItem))
                 {
-                    output(furnaceRecipe.getRecipeOutput().copy(),pos);
+                    output(furnaceRecipe.getRecipeOutput().copy(), pos);
                 }
                 burnProgress = 0;
             }

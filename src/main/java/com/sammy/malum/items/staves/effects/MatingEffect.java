@@ -24,19 +24,19 @@ public class MatingEffect extends ModEffect
     {
         return 5;
     }
-
+    
     @Override
     public String spirit()
     {
         return "minecraft:skeleton";
     }
-
+    
     @Override
     public int cooldown()
     {
         return 100;
     }
-
+    
     @Override
     public ArrayList<ITextComponent> components()
     {
@@ -44,13 +44,13 @@ public class MatingEffect extends ModEffect
         components.add(makeGenericSpiritDependantTooltip("malum.tooltip.mating.effect", SpiritDataHelper.getName(spirit())));
         return components;
     }
-
+    
     @Override
     public effectTypeEnum type()
     {
         return effectTypeEnum.rightClick;
     }
-
+    
     @Override
     public void effect(PlayerEntity playerEntity, ItemStack stack)
     {
@@ -60,19 +60,15 @@ public class MatingEffect extends ModEffect
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(playerEntity, new AxisAlignedBB(pos.getX() - 10, pos.getY() - 10, pos.getZ() - 10, pos.getX() + 10, pos.getY() + 10, pos.getZ() + 10));
         if (!list.isEmpty())
         {
-            for (Entity entity : list)
+            boolean success = SpiritDataHelper.consumeSpirit(playerEntity, stack);
+            if (success)
             {
-                if (entity instanceof AnimalEntity)
+                for (Entity entity : list)
                 {
-                    boolean success = SpiritDataHelper.consumeSpirit(playerEntity, stack);
-                    if (success)
+                    if (entity instanceof AnimalEntity)
                     {
                         AnimalEntity animalEntity = (AnimalEntity) entity;
                         animalEntity.setInLove(playerEntity);
-                    }
-                    else
-                    {
-                        return;
                     }
                 }
             }

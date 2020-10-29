@@ -1,7 +1,6 @@
 package com.sammy.malum.blocks.utility.spiritstorage;
 
 import com.sammy.malum.blocks.utility.BasicTileEntity;
-import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 
@@ -12,10 +11,12 @@ public class SpiritStoringTileEntity extends BasicTileEntity
 {
     public String type;
     public int count;
+    
     public SpiritStoringTileEntity(TileEntityType<? extends SpiritStoringTileEntity> tileEntityType)
     {
         super(tileEntityType);
     }
+    
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
@@ -30,6 +31,7 @@ public class SpiritStoringTileEntity extends BasicTileEntity
         }
         return compound;
     }
+    
     @Override
     public void read(CompoundNBT compound)
     {

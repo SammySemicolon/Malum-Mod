@@ -1,9 +1,7 @@
 package com.sammy.malum;
 
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
-import com.sammy.malum.init.ModRecipes;
 import com.sammy.malum.init.ModSounds;
-import com.sammy.malum.items.staves.BasicStave;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -68,10 +66,10 @@ public class MalumHelper
     public static boolean multiStackTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory)
     {
         int slotToTransfer = -1;
-    
+        
         if (heldItem.isEmpty())
         {
-            for (int i = inventory.getSlots()-1; i >= 0; i--)
+            for (int i = inventory.getSlots() - 1; i >= 0; i--)
             {
                 MalumMod.LOGGER.info(i);
                 ItemStack targetItem = inventory.getStackInSlot(i);
@@ -96,10 +94,11 @@ public class MalumHelper
         }
         if (slotToTransfer != -1)
         {
-            return singleItemTEHandling(player,hand,heldItem,inventory, slotToTransfer);
+            return singleItemTEHandling(player, hand, heldItem, inventory, slotToTransfer);
         }
         return false;
     }
+    
     public static boolean funkyItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, FunkEngineTileEntity funkEngineTileEntity, int slot)
     {
         ItemStackHandler inventory = funkEngineTileEntity.inventory;
@@ -108,7 +107,7 @@ public class MalumHelper
         {
             if (heldItem.getItem() instanceof MusicDiscItem)
             {
-                inventory.setStackInSlot(0,heldItem);
+                inventory.setStackInSlot(0, heldItem);
                 player.setHeldItem(hand, ItemStack.EMPTY);
                 return true;
             }
@@ -116,26 +115,28 @@ public class MalumHelper
         else
         {
             MalumHelper.giveItemStackToPlayer(player, targetItem);
-            inventory.setStackInSlot(0,ItemStack.EMPTY);
+            inventory.setStackInSlot(0, ItemStack.EMPTY);
         }
         return false;
     }
+    
     public static boolean singleItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
     {
         ItemStack targetItem = inventory.getStackInSlot(slot);
         if (targetItem.isEmpty())
         {
-            inventory.setStackInSlot(slot,heldItem);
+            inventory.setStackInSlot(slot, heldItem);
             player.setHeldItem(hand, ItemStack.EMPTY);
             return true;
         }
         else
         {
             MalumHelper.giveItemStackToPlayer(player, targetItem);
-            inventory.setStackInSlot(slot,ItemStack.EMPTY);
+            inventory.setStackInSlot(slot, ItemStack.EMPTY);
             return false;
         }
     }
+    
     public static boolean basicItemTEHandling(PlayerEntity player, Hand hand, ItemStack heldItem, ItemStackHandler inventory, int slot)
     {
         ItemStack targetItem = inventory.getStackInSlot(slot);
@@ -152,8 +153,9 @@ public class MalumHelper
             }
             return true;
         }
-        return singleItemTEHandling(player,hand,heldItem,inventory,slot);
+        return singleItemTEHandling(player, hand, heldItem, inventory, slot);
     }
+    
     public static boolean inputStackIntoTE(TileEntity inputTileEntity, Direction direction, ItemStack stack)
     {
         IItemHandler inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction).orElse(null);
@@ -170,6 +172,7 @@ public class MalumHelper
         }
         return false;
     }
+    
     public static boolean inputStackIntoTE(TileEntity inputTileEntity, ItemStack stack)
     {
         IItemHandler inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
@@ -197,6 +200,7 @@ public class MalumHelper
         entityitem.setPickupDelay(10);
         event.getDrops().add(entityitem);
     }
+    
     public static boolean hasArmorSet(PlayerEntity player, Item helmet, Item chest, Item leggings, Item feet)
     {
         if (player != null || player.inventory != null)
@@ -205,6 +209,7 @@ public class MalumHelper
         }
         return false;
     }
+    
     public static void giveItemStackToPlayer(PlayerEntity playerEntity, ItemStack stack)
     {
         ItemHandlerHelper.giveItemToPlayer(playerEntity, stack);
@@ -243,6 +248,7 @@ public class MalumHelper
         double z = MathHelper.nextDouble(random, min, max);
         return new Vector3d(x, y, z);
     }
+    
     public static Vector3d vectorFromBlockPos(BlockPos pos)
     {
         double x = pos.getX();
@@ -271,6 +277,7 @@ public class MalumHelper
         double z = MathHelper.nextDouble(random, entity.getBoundingBox().minZ - (entity.getBoundingBox().getZSize() * multiplier), entity.getBoundingBox().maxZ + (entity.getBoundingBox().getZSize() * multiplier));
         return new Vector3d(x, y, z);
     }
+    
     public static Vector3d randSimulatedExtendedPosofEntity(Entity entity, Vector3d pos, Random rand, float multiplier)
     {
         double x = MathHelper.nextDouble(random, pos.x - (entity.getBoundingBox().getXSize() * multiplier), pos.x + (entity.getBoundingBox().getXSize() * multiplier));
@@ -278,6 +285,7 @@ public class MalumHelper
         double z = MathHelper.nextDouble(random, pos.z - (entity.getBoundingBox().getZSize() * multiplier), pos.z + (entity.getBoundingBox().getZSize() * multiplier));
         return new Vector3d(x, y, z);
     }
+    
     public static Vector3d tryTeleportPlayer(PlayerEntity playerEntity, Vector3d testPosition)
     {
         Vector3d cachedPosition = playerEntity.getPositionVec();
@@ -294,6 +302,7 @@ public class MalumHelper
     
     //region ENTITY STUFF
     
+    
     @Nullable
     public static Entity getClosestEntity(List<Entity> entities, Vector3d pos)
     {
@@ -302,7 +311,7 @@ public class MalumHelper
         
         for (Entity entity : entities)
         {
-            double newDistance = entity.getDistanceSq(pos.x,pos.y,pos.z);
+            double newDistance = entity.getDistanceSq(pos.x, pos.y, pos.z);
             if (cachedDistance == -1.0D || newDistance < cachedDistance)
             {
                 cachedDistance = newDistance;
@@ -317,8 +326,8 @@ public class MalumHelper
     
     public static void makeMachineToggleSound(World world, BlockPos pos, float pitch)
     {
-        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS,1f,pitch);
-        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS,1f,pitch);
+        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 1f, pitch);
+        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS, 1f, pitch);
     }
     //endregion
     

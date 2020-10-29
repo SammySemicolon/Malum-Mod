@@ -11,10 +11,6 @@ import net.minecraft.particles.ParticleType;
 
 public class HeartParticleData extends ScaleParticleData
 {
-    public HeartParticleData(float scale)
-    {
-        super(scale);
-    }
     public static final IDeserializer<HeartParticleData> DESERIALIZER = new IDeserializer<HeartParticleData>()
     {
         @Override
@@ -28,6 +24,12 @@ public class HeartParticleData extends ScaleParticleData
             return new HeartParticleData(buffer.readFloat());
         }
     };
+    public static Codec<HeartParticleData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)).apply(instance, HeartParticleData::new));
+    
+    public HeartParticleData(float scale)
+    {
+        super(scale);
+    }
     
     @Override
     public ParticleType<?> getType()
@@ -48,8 +50,4 @@ public class HeartParticleData extends ScaleParticleData
             return CODEC;
         }
     }
-    public static Codec<HeartParticleData> CODEC = RecordCodecBuilder
-            .create((instance) -> instance.group(
-                    Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)
-            ).apply(instance, HeartParticleData::new));
 }

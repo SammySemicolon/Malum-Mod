@@ -15,24 +15,24 @@ public class SpiritJarBlock extends SpiritStoringBlock
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(TYPE, 0));
     }
-
+    
     
     @Override
     public int capacity()
     {
         return 20;
     }
-
+    
     @Override
     public boolean hasTileEntity(final BlockState state)
     {
         return true;
     }
-
+    
     @Override
     public TileEntity createTileEntity(final BlockState state, final IBlockReader world)
     {
         return new SpiritJarTileEntity();
     }
-
+    
 }

@@ -1,6 +1,5 @@
 package com.sammy.malum.blocks.machines.redstoneclock;
 
-import com.sammy.malum.blocks.utility.BasicTileEntity;
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import com.sammy.malum.init.ModTileEntities;
 import net.minecraft.block.BlockState;
@@ -8,31 +7,21 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 
-import static com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.redstoneClockFunctionTypeEnum.*;
+import static com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.redstoneClockFunctionTypeEnum.pulse;
+import static com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.redstoneClockFunctionTypeEnum.toggle;
 
 public class RedstoneClockTileEntity extends ConfigurableTileEntity implements ITickableTileEntity
 {
+    public int type;
+    public int tickMultiplier;
+    public int timer;
+    public int powered;
+    int[] cooldown = new int[]{10, 20, 40, 80, 160, 320, 640};
+    
     public RedstoneClockTileEntity()
     {
         super(ModTileEntities.redstone_clock_tile_entity);
     }
-
-    public enum redstoneClockFunctionTypeEnum
-    {
-        toggle(0),
-        pulse(1);
-
-        public final int type;
-
-        redstoneClockFunctionTypeEnum(int type) { this.type = type;}
-    }
-
-    int[] cooldown = new int[]{10, 20, 40, 80, 160, 320, 640};
-    public int type;
-    public int tickMultiplier;
-
-    public int timer;
-    public int powered;
 
     @Override
     public CompoundNBT write(CompoundNBT compound)
@@ -54,7 +43,7 @@ public class RedstoneClockTileEntity extends ConfigurableTileEntity implements I
         timer = compound.getInt("timer");
         powered = compound.getInt("powered");
     }
-
+    
     @Override
     public void tick()
     {
@@ -91,5 +80,14 @@ public class RedstoneClockTileEntity extends ConfigurableTileEntity implements I
         {
             world.setBlockState(pos, state);
         }
+    }
+    
+    public enum redstoneClockFunctionTypeEnum
+    {
+        toggle(0), pulse(1);
+        
+        public final int type;
+        
+        redstoneClockFunctionTypeEnum(int type) { this.type = type;}
     }
 }

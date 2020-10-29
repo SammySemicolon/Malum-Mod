@@ -3,7 +3,9 @@ package com.sammy.malum.particles.lensmagic;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.particles.MalumParticle;
 import com.sammy.malum.particles.ParticlePhase;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.IAnimatedSprite;
+import net.minecraft.client.particle.IParticleFactory;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -13,10 +15,7 @@ public class LensMagicParticle extends MalumParticle
 {
     protected LensMagicParticle(ClientWorld world, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, float scale, IAnimatedSprite spriteSet)
     {
-        super(world, xSpeed, ySpeed, zSpeed,x,y,z, spriteSet,
-                new ParticlePhase(1,20, 0,1),
-                new ParticlePhase(MathHelper.nextInt(MalumMod.random, 1,3),20, 20),
-                new ParticlePhase(1,20, 40, true));
+        super(world, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet, new ParticlePhase(1, 20, 0, 1), new ParticlePhase(MathHelper.nextInt(MalumMod.random, 1, 3), 20, 20), new ParticlePhase(1, 20, 40, true));
         
         this.scale = scale;
         //0-19 entrance
@@ -42,10 +41,11 @@ public class LensMagicParticle extends MalumParticle
         {
             this.spriteSet = spriteSet;
         }
+        
         @Override
         public Particle makeParticle(LensMagicParticleData data, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed)
         {
-            return new LensMagicParticle(world, xSpeed, ySpeed, zSpeed, x,y,z, data.scale, spriteSet);
+            return new LensMagicParticle(world, xSpeed, ySpeed, zSpeed, x, y, z, data.scale, spriteSet);
         }
     }
 }

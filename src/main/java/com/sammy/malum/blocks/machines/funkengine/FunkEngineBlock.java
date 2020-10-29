@@ -20,7 +20,8 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static net.minecraft.state.properties.BlockStateProperties.*;
+import static net.minecraft.state.properties.BlockStateProperties.HAS_RECORD;
+import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class FunkEngineBlock extends Block
 {
@@ -29,24 +30,25 @@ public class FunkEngineBlock extends Block
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(HAS_RECORD, false));
     }
+    
     @Override
     public boolean hasTileEntity(final BlockState state)
     {
         return true;
     }
-
+    
     @Override
     public TileEntity createTileEntity(final BlockState state, final IBlockReader world)
     {
         return new FunkEngineTileEntity();
     }
-
+    
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);
         blockStateBuilder.add(HAS_RECORD);
     }
-
+    
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
         if (state.getBlock() != newState.getBlock())
@@ -63,6 +65,7 @@ public class FunkEngineBlock extends Block
         }
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
+    
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
@@ -85,10 +88,11 @@ public class FunkEngineBlock extends Block
         }
         return ActionResultType.SUCCESS;
     }
+    
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
         return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(HAS_RECORD, false);
     }
-
+    
 }

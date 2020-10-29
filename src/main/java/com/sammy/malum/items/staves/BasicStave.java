@@ -2,15 +2,12 @@ package com.sammy.malum.items.staves;
 
 import com.sammy.malum.ClientHandler;
 import com.sammy.malum.SpiritConsumer;
-import com.sammy.malum.SpiritDataHelper;
 import com.sammy.malum.SpiritDescription;
-import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
 import com.sammy.malum.items.staves.effects.ModEffect;
+import com.sammy.malum.items.utility.ConfigurableItem;
+import com.sammy.malum.items.utility.Option;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
@@ -18,51 +15,29 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static com.sammy.malum.MalumHelper.getClosestEntity;
-import static com.sammy.malum.SpiritDataHelper.*;
-import static com.sammy.malum.capabilities.MalumDataProvider.*;
-
-public abstract class BasicStave extends Item implements SpiritConsumer, SpiritDescription
+public abstract class BasicStave extends ConfigurableItem implements SpiritConsumer, SpiritDescription
 {
+    public ArrayList<Option> options;
+    ModEffect effect;
     
-    public enum staveOptionEnum
+    public BasicStave(Properties builder, ModEffect effect)
     {
-        spiritHarvest(0, "malum.tooltip.stave.option.a"), augmentFunction(1, "malum.tooltip.stave.option.b"), blockBinding(2, "malum.tooltip.stave.option.c"), none(3, "malum.tooltip.stave.option.d");
+        super(builder);
+        this.effect = effect;
+        options = new ArrayList<>();
+        addOption(0, "malum.tooltip.stave.option.a"); //spirit harvest
+        addOption(1, "malum.tooltip.stave.option.b"); //augment function
+        addOption(2, "malum.tooltip.stave.option.c"); //block configuration
+        addOption(3, "malum.tooltip.stave.option.d"); //none
+    }
     
-        public final int type;
-        public final String string;
-    
-        staveOptionEnum(int type, String string)
-        {
-            this.type = type;
-            this.string = string;
-        }
-    }
-    public static staveOptionEnum getEnum(ItemStack stack)
-    {
-        if (!(stack.getItem() instanceof BasicStave))
-        {
-            return staveOptionEnum.none;
-        }
-        return getEnum(stack.getOrCreateTag().getInt("malum:staveOption"));
-    }
-    public static staveOptionEnum getEnum(int i)
-    {
-        int length = staveOptionEnum.values().length;
-        int index = (length + i % length) % length;
-        return staveOptionEnum.values()[index];
-    }
     @Override
     public int durability()
     {
@@ -72,17 +47,17 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
         }
         return 0;
     }
-
+    
     @Override
     public String spirit()
     {
-       if (effect != null)
-       {
-           return effect.spirit();
-       }
-       return null;
+        if (effect != null)
+        {
+            return effect.spirit();
+        }
+        return null;
     }
-
+    
     @Override
     public ArrayList<ITextComponent> components()
     {
@@ -92,99 +67,30 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
         }
         return null;
     }
-
-    ModEffect effect;
-    public BasicStave(Properties builder, ModEffect effect)
-    {
-        super(builder);
-        this.effect = effect;
-    }
-
-    //region HARVESTING
-
-    public boolean isEntityValid(PlayerEntity playerEntity, LivingEntity livingEntity)
-    {
-        if (livingEntity.getHealth() > playerEntity.getHealth() && !playerEntity.isCreative())
-        {
-            if (!CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioNetherborneCapacitor, playerEntity).isPresent())
-            {
-                return false;
-            }
-        }
-        if (hasSpirit(livingEntity))
-        {
-            return false;
-        }
-        return true;
-    }
-    public static LivingEntity findEntity(PlayerEntity player)
-    {
-        World world = player.world;
-        Vector3d pos = player.getPositionVec();
-        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(pos.x - 10, pos.y - 10, pos.z - 10, pos.x + 10, pos.y + 10, pos.z + 10));
-        List<Entity> finalList = new ArrayList<>();
-        if (!list.isEmpty())
-        {
-            for (Entity entity : list)
-            {
-                if (entity instanceof LivingEntity)
-                {
-                    BasicStave stave = null;
-                    if (player.getHeldItemMainhand().getItem() instanceof BasicStave)
-                    {
-                        stave = (BasicStave) player.getHeldItemMainhand().getItem();
-                    }
-                    if (player.getHeldItemOffhand().getItem() instanceof BasicStave)
-                    {
-                        stave = (BasicStave) player.getHeldItemOffhand().getItem();
-                    }
-                    if (stave == null)
-                    {
-                        return null;
-                    }
-                    if (stave.isEntityValid(player, (LivingEntity) entity))
-                    {
-                        Vector3d vecA = player.getLookVec().normalize();
-                        Vector3d vecB = (entity.getPositionVec().subtract(player.getPositionVec())).normalize();
-                        double angle = 2.0d * Math.atan((vecA.subtract(vecB)).length() / (vecA.add(vecB)).length());
-                        if (angle <= 0.6f && angle >= -0.6f)
-                        {
-                            finalList.add(entity);
-                        }
-                    }
-                }
-            }
-        }
-        if (!finalList.isEmpty())
-        {
-            return (LivingEntity) getClosestEntity(finalList, player.getPositionVec());
-        }
-        return null;
-    }
-    //endregion
+    
     @Override
     public boolean doesSneakBypassUse(ItemStack stack, IWorldReader world, BlockPos pos, PlayerEntity player)
     {
         return true;
     }
-
+    
     @Override
     public UseAction getUseAction(ItemStack stack)
     {
         return UseAction.BOW;
     }
-
+    
     public int getUseDuration(ItemStack stack)
     {
         return 72000;
     }
-
+    
     @Override
     public ActionResultType onItemUse(ItemUseContext context)
     {
         PlayerEntity playerEntity = context.getPlayer();
         ItemStack stack = context.getItem();
-        if (getEnum(stack).equals(staveOptionEnum.augmentFunction) && effect != null)
+        if (getOption(stack).option == 1 && effect != null)
         {
             if (effect.type() == ModEffect.effectTypeEnum.blockInteraction)
             {
@@ -198,11 +104,11 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
         }
         return super.onItemUse(context);
     }
-
+    
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        if (getEnum(stack).equals(staveOptionEnum.spiritHarvest))
+        if (getOption(stack).option == 0)
         {
             if (worldIn.isRemote())
             {
@@ -210,7 +116,7 @@ public abstract class BasicStave extends Item implements SpiritConsumer, SpiritD
             }
             playerIn.setActiveHand(handIn);
         }
-        if (getEnum(stack).equals(staveOptionEnum.augmentFunction) && effect != null)
+        if (getOption(stack).option == 1 && effect != null)
         {
             if (effect.type() == ModEffect.effectTypeEnum.rightClick)
             {

@@ -25,9 +25,11 @@ public class SpiritDataHelper
         return EntityType.byKey(name);
     }
     
-    public static boolean hasSpirit(LivingEntity livingEntity) {
+    public static boolean lacksSpirit(LivingEntity livingEntity)
+    {
         return MalumDataProvider.getDread(livingEntity) || MalumDataProvider.getCharm(livingEntity);
     }
+    
     //region TOOLTIPS
     public static String getName(String name)
     {
@@ -161,31 +163,39 @@ public class SpiritDataHelper
     //endregion
     
     //region COUNT
-    public static void harvestSpirit(PlayerEntity player, LivingEntity target, String spirit, int amount)
+    public static void harvestSpirit(PlayerEntity player, ItemStack heldStack, LivingEntity target, String spirit, int amount)
     {
         SpiritHarvestEvent.Pre preEvent = ModEventFactory.preSpiritHarvest(target, player);
         amount += preEvent.extraSpirits;
         int i = 0;
-        if (player.inventory.getCurrentItem().getItem() instanceof SpiritStorage)
+        if (heldStack.getItem() instanceof SpiritStorage)
         {
-            ItemStack stack = player.inventory.getCurrentItem();
-            
-            if (stack.getOrCreateTag().getString(typeNBT).equals(spirit) || !stack.getTag().contains(typeNBT))
+            for (int k = 0; k < amount; k++)
             {
-                if (stack.getTag().getInt(countNBT) < ((SpiritStorage) stack.getItem()).capacity())
+                boolean increase = increaseSpiritOfItem(heldStack, spirit);
+                if (increase)
                 {
-                    for (int k = 0; k < amount; k++)
+                    i++;
+                    if (i >= amount)
                     {
-                        boolean increase = increaseSpiritOfItem(stack, spirit);
-                        if (increase)
-                        {
-                            i++;
-                            if (i >= amount)
-                            {
-                                ModEventFactory.postSpiritHarvest(target, player, i);
-                                return;
-                            }
-                        }
+                        ModEventFactory.postSpiritHarvest(target, player, i);
+                        return;
+                    }
+                }
+            }
+        }
+        if (player.getHeldItemOffhand().getItem() instanceof SpiritStorage)
+        {
+            for (int k = 0; k < amount; k++)
+            {
+                boolean increase = increaseSpiritOfItem(player.getHeldItemOffhand(), spirit);
+                if (increase)
+                {
+                    i++;
+                    if (i >= amount)
+                    {
+                        ModEventFactory.postSpiritHarvest(target, player, i);
+                        return;
                     }
                 }
             }
@@ -194,19 +204,16 @@ public class SpiritDataHelper
         {
             if (stack.getItem() instanceof SpiritStorage)
             {
-                if (stack.getOrCreateTag().getInt(countNBT) < ((SpiritStorage) stack.getItem()).capacity())
+                for (int k = 0; k < amount; k++)
                 {
-                    for (int k = 0; k < amount; k++)
+                    boolean increase = increaseSpiritOfItem(stack, spirit);
+                    if (increase)
                     {
-                        boolean increase = increaseSpiritOfItem(stack, spirit);
-                        if (increase)
+                        i++;
+                        if (i >= amount)
                         {
-                            i++;
-                            if (i >= amount)
-                            {
-                                ModEventFactory.postSpiritHarvest(target, player, i);
-                                return;
-                            }
+                            ModEventFactory.postSpiritHarvest(target, player, i);
+                            return;
                         }
                     }
                 }

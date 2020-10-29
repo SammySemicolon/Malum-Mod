@@ -16,6 +16,7 @@ public class ModEventFactory extends ForgeEventFactory
         MinecraftForge.EVENT_BUS.post(event);
         return event;
     }
+    
     public static SpiritHarvestEvent.Post postSpiritHarvest(LivingEntity target, PlayerEntity playerEntity, int spiritCount)
     {
         SpiritHarvestEvent.Post event = new SpiritHarvestEvent.Post(target, playerEntity, spiritCount);
@@ -29,6 +30,7 @@ public class ModEventFactory extends ForgeEventFactory
         MinecraftForge.EVENT_BUS.post(event);
         return event;
     }
+    
     public static SpiritIntegrityUpdateEvent.Fill fillSpiritIntegrity(ItemStack stack, PlayerEntity playerEntity, int integrityChange)
     {
         SpiritIntegrityUpdateEvent.Fill event = new SpiritIntegrityUpdateEvent.Fill(stack, playerEntity, integrityChange);

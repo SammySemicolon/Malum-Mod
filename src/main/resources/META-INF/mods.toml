@@ -6,10 +6,21 @@ modId="malum"
 version="${file.jarVersion}"
 displayName="Malum"
 logoFile="malum.png"
-credits="The Modding Community"
+credits="The Minecraft Modding Discord and everyone there.
+It's an amazing place full of a ton of amazing people, this mod wouldn't be possible without them.
+
+Jester Hat by Xelo
+Tail by TheU1t1mateGuy
+"
 authors="The Malum Team"
 description='''
-test
+Malum is a mod about harvesting spirits of innocent creatures.
+With these spirits, you can do fun crazy stuff, like:
+Breed animals,
+Fire a bow,
+Erase space and time,
+Open your enderchest
+And more!
 '''
 [[dependencies.malum]]
     modId="forge"

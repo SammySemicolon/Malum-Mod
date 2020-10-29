@@ -3,7 +3,6 @@ package com.sammy.malum.blocks.machines.spiritfurnace;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
 import com.sammy.malum.init.ModTileEntities;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -20,10 +19,6 @@ import java.util.Objects;
 
 public class SpiritFurnaceTopTileEntity extends BasicTileEntity implements ITickableTileEntity
 {
-    public SpiritFurnaceTopTileEntity()
-    {
-        super(ModTileEntities.spirit_furnace_top_tile_entity);
-    }
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
@@ -31,12 +26,14 @@ public class SpiritFurnaceTopTileEntity extends BasicTileEntity implements ITick
         {
             return 64;
         }
+        
         @Nonnull
         @Override
         public ItemStack extractItem(int slot, int amount, boolean simulate)
         {
             return ItemStack.EMPTY;
         }
+        
         @Override
         protected void onContentsChanged(int slot)
         {
@@ -50,6 +47,11 @@ public class SpiritFurnaceTopTileEntity extends BasicTileEntity implements ITick
         }
     };
     public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);
+    public SpiritFurnaceTopTileEntity()
+    {
+        super(ModTileEntities.spirit_furnace_top_tile_entity);
+    }
+    
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
@@ -60,6 +62,7 @@ public class SpiritFurnaceTopTileEntity extends BasicTileEntity implements ITick
         }
         return super.getCapability(cap, side);
     }
+    
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {

@@ -21,45 +21,51 @@ import java.util.UUID;
 
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
-public class MalumDataProvider implements ICapabilitySerializable<INBT> {
-
+public class MalumDataProvider implements ICapabilitySerializable<INBT>
+{
+    
     @CapabilityInject(IMalumData.class)
     public static final Capability<IMalumData> CAPABILITY = null;
-
-    private LazyOptional<IMalumData> instance = LazyOptional.of(CAPABILITY::getDefaultInstance);
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return cap == CAPABILITY ? instance.cast() : LazyOptional.empty();
-    }
-
-    @Override
-    public INBT serializeNBT() {
-        return CAPABILITY.getStorage().writeNBT(CAPABILITY, this.instance.orElseThrow(()->new IllegalArgumentException()), null);
-    }
-
-    @Override
-    public void deserializeNBT(INBT nbt) {
-        CAPABILITY.getStorage().readNBT(CAPABILITY,this.instance.orElseThrow(()->new IllegalArgumentException()), null,nbt);
-    }
     
-    public static UUID getCachedTarget(PlayerEntity player)
+    private final LazyOptional<IMalumData> instance = LazyOptional.of(CAPABILITY::getDefaultInstance);
+    
+    public static UUID getHarvestTarget(PlayerEntity player)
     {
         if (player.getCapability(CAPABILITY).isPresent())
         {
-            if (player.getCapability(CAPABILITY).map(IMalumData::getCachedTarget).isPresent())
+            if (player.getCapability(CAPABILITY).map(IMalumData::getHarvestTarget).isPresent())
             {
-                return player.getCapability(CAPABILITY).map(IMalumData::getCachedTarget).get().orElse(null);
+                return player.getCapability(CAPABILITY).map(IMalumData::getHarvestTarget).get().orElse(null);
             }
         }
         return null;
     }
-    public static void setCachedTarget(PlayerEntity entity, UUID cachedTarget)
+    
+    public static void setHarvestTarget(PlayerEntity entity, UUID cachedTarget)
     {
         if (entity.getCapability(CAPABILITY).isPresent())
         {
-            entity.getCapability(CAPABILITY).ifPresent(note -> note.setCachedTarget(cachedTarget));
+            entity.getCapability(CAPABILITY).ifPresent(note -> note.setHarvestTarget(cachedTarget));
+        }
+    }
+    
+    public static UUID getGauntletTarget(PlayerEntity player)
+    {
+        if (player.getCapability(CAPABILITY).isPresent())
+        {
+            if (player.getCapability(CAPABILITY).map(IMalumData::getGauntletTarget).isPresent())
+            {
+                return player.getCapability(CAPABILITY).map(IMalumData::getGauntletTarget).get().orElse(null);
+            }
+        }
+        return null;
+    }
+    
+    public static void setGauntletTarget(PlayerEntity entity, UUID cachedTarget)
+    {
+        if (entity.getCapability(CAPABILITY).isPresent())
+        {
+            entity.getCapability(CAPABILITY).ifPresent(note -> note.setGauntletTarget(cachedTarget));
         }
     }
     
@@ -74,6 +80,7 @@ public class MalumDataProvider implements ICapabilitySerializable<INBT> {
         }
         return null;
     }
+    
     public static void setSpiritOwner(LivingEntity livingEntity, UUID spiritOwner)
     {
         if (livingEntity.getCapability(CAPABILITY).isPresent())
@@ -96,6 +103,7 @@ public class MalumDataProvider implements ICapabilitySerializable<INBT> {
         }
         return false;
     }
+    
     public static boolean getCharm(LivingEntity livingEntity)
     {
         if (livingEntity.getCapability(CAPABILITY).isPresent())
@@ -104,6 +112,7 @@ public class MalumDataProvider implements ICapabilitySerializable<INBT> {
         }
         return false;
     }
+    
     public static void setDread(LivingEntity livingEntity, boolean dread)
     {
         if (livingEntity.getCapability(CAPABILITY).isPresent())
@@ -119,11 +128,10 @@ public class MalumDataProvider implements ICapabilitySerializable<INBT> {
         }
         if (livingEntity.world instanceof ServerWorld)
         {
-            INSTANCE.send(
-                    PacketDistributor.TRACKING_CHUNK.with(() -> livingEntity.world.getChunkAt(livingEntity.getPosition())),
-                    new HuskChangePacket(livingEntity.getEntityId(), dread,false));
+            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> livingEntity.world.getChunkAt(livingEntity.getPosition())), new HuskChangePacket(livingEntity.getEntityId(), dread, false));
         }
     }
+    
     public static void setCharm(LivingEntity livingEntity, boolean charm)
     {
         if (livingEntity.getCapability(CAPABILITY).isPresent())
@@ -139,9 +147,26 @@ public class MalumDataProvider implements ICapabilitySerializable<INBT> {
         }
         if (livingEntity.world instanceof ServerWorld)
         {
-            INSTANCE.send(
-                    PacketDistributor.TRACKING_CHUNK.with(() -> livingEntity.world.getChunkAt(livingEntity.getPosition())),
-                    new HuskChangePacket(livingEntity.getEntityId(), false, charm));
+            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> livingEntity.world.getChunkAt(livingEntity.getPosition())), new HuskChangePacket(livingEntity.getEntityId(), false, charm));
         }
+    }
+    
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
+    {
+        return cap == CAPABILITY ? instance.cast() : LazyOptional.empty();
+    }
+    
+    @Override
+    public INBT serializeNBT()
+    {
+        return CAPABILITY.getStorage().writeNBT(CAPABILITY, this.instance.orElseThrow(() -> new IllegalArgumentException()), null);
+    }
+    
+    @Override
+    public void deserializeNBT(INBT nbt)
+    {
+        CAPABILITY.getStorage().readNBT(CAPABILITY, this.instance.orElseThrow(() -> new IllegalArgumentException()), null, nbt);
     }
 }

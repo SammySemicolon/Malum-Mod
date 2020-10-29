@@ -3,7 +3,6 @@ package com.sammy.malum.items.armor;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.init.ModItems;
 import com.sammy.malum.models.ModelSpiritHunterArmor;
-import com.sammy.malum.models.ModelUmbralSteelArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -20,13 +19,19 @@ import javax.annotation.Nullable;
 
 public class ItemSpiritHunterArmor extends ModArmor
 {
-
+    
+    private final LazyValue<BipedModel<?>> model;
+    
     public ItemSpiritHunterArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
         this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelSpiritHunterArmor(slot)), () -> () -> null);
     }
-    private final LazyValue<BipedModel<?>> model;
+    
+    public static boolean hasArmorSet(PlayerEntity playerEntity)
+    {
+        return MalumHelper.hasArmorSet(playerEntity, ModItems.spirit_hunter_helm, ModItems.spirit_hunter_chestplate, ModItems.spirit_hunter_leggings, ModItems.spirit_hunter_shoes);
+    }
     
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -35,6 +40,7 @@ public class ItemSpiritHunterArmor extends ModArmor
     {
         return (A) model.getValue();
     }
+    
     @OnlyIn(Dist.CLIENT)
     @Override
     @Nullable
@@ -43,10 +49,4 @@ public class ItemSpiritHunterArmor extends ModArmor
         return "malum:textures/armor/spirit_hunter_armor.png";
     }
     
-    
-    public static boolean hasArmorSet(PlayerEntity playerEntity)
-    {
-        return MalumHelper.hasArmorSet(playerEntity, ModItems.spirit_hunter_helm, ModItems.spirit_hunter_chestplate, ModItems.spirit_hunter_leggings, ModItems.spirit_hunter_shoes);
-    }
-
 }

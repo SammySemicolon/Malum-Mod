@@ -1,4 +1,3 @@
-
 package com.sammy.malum.items.curios;
 
 import com.sammy.malum.SpiritConsumer;
@@ -35,7 +34,7 @@ public class CurioJesterHat extends Item implements ICurio, SpiritConsumer, Spir
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-    
+            
             @Override
             public boolean canRightClickEquip()
             {
@@ -43,18 +42,19 @@ public class CurioJesterHat extends Item implements ICurio, SpiritConsumer, Spir
             }
         });
     }
+    
     @Override
     public int durability()
     {
         return 10;
     }
-
+    
     @Override
     public String spirit()
     {
         return "minecraft:pillager";
     }
-
+    
     @Override
     public ArrayList<ITextComponent> components()
     {

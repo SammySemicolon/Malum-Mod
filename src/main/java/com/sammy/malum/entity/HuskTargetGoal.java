@@ -1,6 +1,5 @@
 package com.sammy.malum.entity;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
@@ -11,7 +10,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
 public class HuskTargetGoal<T extends LivingEntity> extends TargetGoal
 {
@@ -31,6 +29,7 @@ public class HuskTargetGoal<T extends LivingEntity> extends TargetGoal
         targetEntitySelector = (new EntityPredicate()).setDistance(this.getTargetDistance()).setCustomPredicate(null);
         
     }
+    
     public boolean shouldExecute()
     {
         findNearestTarget();

@@ -1,7 +1,6 @@
 package com.sammy.malum.blocks.machines.mirror;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.blocks.utility.BasicTileEntity;
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
@@ -22,6 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+import static com.sammy.malum.MalumHelper.inputStackIntoTE;
 import static net.minecraft.state.properties.AttachFace.CEILING;
 import static net.minecraft.state.properties.AttachFace.FLOOR;
 import static net.minecraft.state.properties.BlockStateProperties.FACE;
@@ -29,11 +29,48 @@ import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FAC
 
 public class BasicMirrorTileEntity extends ConfigurableTileEntity
 {
+    public int transferAmount;
+    public int transferCooldown;
+    public ItemStackHandler inventory = new ItemStackHandler(1)
+    {
+        @Override
+        public int getSlotLimit(int slot)
+        {
+            return 64;
+        }
+        
+        @Override
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack)
+        {
+            return true;
+        }
+        
+        @Nonnull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate)
+        {
+            return ItemStack.EMPTY;
+        }
+        
+        @Override
+        protected void onContentsChanged(int slot)
+        {
+            BasicMirrorTileEntity.this.markDirty();
+            if (!world.isRemote)
+            {
+                updateContainingBlockInfo();
+                BlockState state = world.getBlockState(pos);
+                world.notifyBlockUpdate(pos, state, state, 3);
+            }
+        }
+    };
+    public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);
+    int[] transferAmounts = new int[]{1, 2, 4, 8, 16, 32, 64};
     public BasicMirrorTileEntity(TileEntityType type)
     {
         super(type);
     }
-    
+
     public static boolean transferItem(TileEntity itemSender, TileEntity itemReceiver, int transferAmount)
     {
         IItemHandler senderInventory = itemSender.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
@@ -42,7 +79,7 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
             ItemStack stack = senderInventory.getStackInSlot(i);
             for (int j = 0; j < transferAmount; j++)
             {
-                boolean success = MalumHelper.inputStackIntoTE(itemReceiver, stack.split(1));
+                boolean success = inputStackIntoTE(itemReceiver, stack.split(1));
                 if (success)
                 {
                     itemSender.getWorld().notifyBlockUpdate(itemSender.getPos(), itemSender.getBlockState(), itemSender.getBlockState(), 3);
@@ -51,12 +88,13 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
                 else
                 {
                     stack.grow(1);
-                    return true;
+                    return false;
                 }
             }
         }
         return false;
     }
+
     public static TileEntity getAttachedTileEntity(World world, BlockPos pos)
     {
         Direction direction = world.getBlockState(pos).get(HORIZONTAL_FACING);
@@ -75,40 +113,7 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
         }
         return null;
     }
-    int[] transferAmounts = new int[]{1, 2, 4, 8, 16, 32, 64};
-    public int transferAmount;
-    public int transferCooldown;
-    public ItemStackHandler inventory = new ItemStackHandler(1)
-    {
-        @Override
-        public int getSlotLimit(int slot)
-        {
-            return 64;
-        }
-        @Override
-        public boolean isItemValid(int slot, @Nonnull ItemStack stack)
-        {
-            return true;
-        }
-        @Nonnull
-        @Override
-        public ItemStack extractItem(int slot, int amount, boolean simulate)
-        {
-            return ItemStack.EMPTY;
-        }
-        @Override
-        protected void onContentsChanged(int slot)
-        {
-            BasicMirrorTileEntity.this.markDirty();
-            if (!world.isRemote)
-            {
-                updateContainingBlockInfo();
-                BlockState state = world.getBlockState(pos);
-                world.notifyBlockUpdate(pos, state, state, 3);
-            }
-        }
-    };
-    public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);
+    
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
@@ -119,6 +124,7 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
         }
         return super.getCapability(cap, side);
     }
+    
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {

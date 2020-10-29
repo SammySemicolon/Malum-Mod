@@ -1,20 +1,16 @@
 package com.sammy.malum.particles.skull;
 
-import com.sammy.malum.init.ModParticles;
-import com.sammy.malum.particles.ScaleParticleData;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.sammy.malum.init.ModParticles;
+import com.sammy.malum.particles.ScaleParticleData;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.ParticleType;
 
 public class SkullParticleData extends ScaleParticleData
 {
-    public SkullParticleData(float scale)
-    {
-        super(scale);
-    }
     public static final IDeserializer<SkullParticleData> DESERIALIZER = new IDeserializer<SkullParticleData>()
     {
         @Override
@@ -28,6 +24,12 @@ public class SkullParticleData extends ScaleParticleData
             return new SkullParticleData(buffer.readFloat());
         }
     };
+    public static Codec<SkullParticleData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)).apply(instance, SkullParticleData::new));
+    
+    public SkullParticleData(float scale)
+    {
+        super(scale);
+    }
     
     @Override
     public ParticleType<?> getType()
@@ -48,8 +50,4 @@ public class SkullParticleData extends ScaleParticleData
             return CODEC;
         }
     }
-    public static Codec<SkullParticleData> CODEC = RecordCodecBuilder
-            .create((instance) -> instance.group(
-                    Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)
-            ).apply(instance, SkullParticleData::new));
 }

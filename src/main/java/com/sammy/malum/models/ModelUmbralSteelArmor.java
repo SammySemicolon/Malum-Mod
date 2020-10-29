@@ -4,7 +4,6 @@ package com.sammy.malum.models;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
 public class ModelUmbralSteelArmor extends ModelArmor
@@ -28,7 +27,7 @@ public class ModelUmbralSteelArmor extends ModelArmor
         super(slot, 64, 98);
         textureWidth = 64;
         textureHeight = 96;
-    
+        
         torso = new ModelRenderer(this);
         torso.setRotationPoint(0.0F, 6.0F, 0.0F);
         torso.setTextureOffset(32, 22);
@@ -43,14 +42,14 @@ public class ModelUmbralSteelArmor extends ModelArmor
         torso.setTextureOffset(54, 6);
         torso.addBox(2.0F, -1.0F, 3.0F, 3, 6, 2, 0.0F, false);
         torso.addBox(-5.0F, -1.0F, 3.0F, 3, 6, 2, 0.0F, true);
-    
+        
         chestplate_slope2 = new ModelRenderer(this);
         chestplate_slope2.setRotationPoint(0.0F, -1.0F, -3.0F);
         setRotationAngle(chestplate_slope2, 0.2618F, 0.0F, 0.0F);
         torso.addChild(chestplate_slope2);
         chestplate_slope2.setTextureOffset(18, 31);
         chestplate_slope2.addBox(-3.0F, 5.75F, -1.5F, 6, 2, 1, 0.0F, false);
-    
+        
         head = new ModelRenderer(this);
         head.setRotationPoint(0.0F, 0.0F, 0.0F);
         head.addBox(-4.5F, -9.0F, -5.0F, 9, 4, 10, 0.0F, false);
@@ -71,7 +70,7 @@ public class ModelUmbralSteelArmor extends ModelArmor
         head.addBox(3.0F, -5.0F, -5.0F, 2, 6, 4, 0.0F, false);
         head.setTextureOffset(11, 25);
         head.addBox(-3.0F, -2.0F, -5.0F, 6, 4, 2, 0.0F, false);
-    
+        
         arm_r = new ModelRenderer(this);
         arm_r.setRotationPoint(-4.0F, 2.0F, 0.0F);
         arm_r.setTextureOffset(0, 53);
@@ -84,7 +83,7 @@ public class ModelUmbralSteelArmor extends ModelArmor
         arm_r.addBox(-5.0F, -5.0F, -2.0F, 3, 5, 6, 0.0F, true);
         arm_r.setTextureOffset(52, 41);
         arm_r.addBox(-4.5F, 5.0F, -1.5F, 2, 7, 3, 0.0F, true);
-    
+        
         arm_l = new ModelRenderer(this);
         arm_l.setRotationPoint(4.0F, 2.0F, 0.0F);
         arm_l.setTextureOffset(0, 53);
@@ -97,12 +96,12 @@ public class ModelUmbralSteelArmor extends ModelArmor
         arm_l.addBox(0.5F, 2.0F, -2.5F, 3, 4, 5, 0.0F, false);
         arm_l.setTextureOffset(52, 41);
         arm_l.addBox(2.5F, 5.0F, -1.5F, 2, 7, 3, 0.0F, false);
-    
+        
         leg_r = new ModelRenderer(this);
         leg_r.setRotationPoint(-2.0F, 12.0F, 0.0F);
         leg_r.setTextureOffset(34, 65);
         leg_r.addBox(-2.5F, -0.5F, -2.5F, 5, 7, 5, 0.0F, true);
-    
+        
         thigh_guard_r2 = new ModelRenderer(this);
         thigh_guard_r2.setRotationPoint(0.0F, 0.0F, 0.0F);
         setRotationAngle(thigh_guard_r2, 0.0F, 0.0F, 0.1745F);
@@ -111,25 +110,25 @@ public class ModelUmbralSteelArmor extends ModelArmor
         thigh_guard_r2.addBox(-3.0F, -1.0F, -3.0F, 3, 7, 6, 0.0F, true);
         thigh_guard_r2.setTextureOffset(0, 78);
         thigh_guard_r2.addBox(-4.0F, 4.0F, -3.0F, 1, 2, 6, 0.0F, true);
-    
+        
         boot_r = new ModelRenderer(this);
         boot_r.setRotationPoint(0.0F, 4.0F, 0.0F);
         leg_r.addChild(boot_r);
         boot_r.setTextureOffset(0, 65);
         boot_r.addBox(-3.0F, 6.0F, -3.0F, 6, 7, 6, 0.0F, true);
-    
+        
         boot_wing_r2 = new ModelRenderer(this);
         boot_wing_r2.setRotationPoint(-5.0F, 5.0F, 0.0F);
         setRotationAngle(boot_wing_r2, 0.7854F, 0.0F, 0.0F);
         boot_r.addChild(boot_wing_r2);
         boot_wing_r2.setTextureOffset(24, 65);
         boot_wing_r2.addBox(1.0F, 1.0F, -5.0F, 1, 4, 4, 0.0F, true);
-    
+        
         leg_l = new ModelRenderer(this);
         leg_l.setRotationPoint(2.0F, 12.0F, 0.0F);
         leg_l.setTextureOffset(34, 65);
         leg_l.addBox(-2.5F, -0.5F, -2.5F, 5, 7, 5, 0.0F, false);
-    
+        
         thigh_guard_l2 = new ModelRenderer(this);
         thigh_guard_l2.setRotationPoint(0.0F, 0.0F, 0.0F);
         setRotationAngle(thigh_guard_l2, 0.0F, 0.0F, -0.1745F);
@@ -138,13 +137,13 @@ public class ModelUmbralSteelArmor extends ModelArmor
         thigh_guard_l2.addBox(0.0F, -1.0F, -3.0F, 3, 7, 6, 0.0F, false);
         thigh_guard_l2.setTextureOffset(0, 78);
         thigh_guard_l2.addBox(3.0F, 4.0F, -3.0F, 1, 2, 6, 0.0F, false);
-    
+        
         boot_l = new ModelRenderer(this);
         boot_l.setRotationPoint(0.0F, 4.0F, 0.0F);
         leg_l.addChild(boot_l);
         boot_l.setTextureOffset(0, 65);
         boot_l.addBox(-3.0F, 6.0F, -3.0F, 6, 7, 6, 0.0F, false);
-    
+        
         boot_wing_l2 = new ModelRenderer(this);
         boot_wing_l2.setRotationPoint(5.0F, 5.0F, 0.0F);
         setRotationAngle(boot_wing_l2, 0.7854F, 0.0F, 0.0F);

@@ -5,6 +5,8 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.ArrayList;
+
 public class InputMirrorTileEntity extends LinkableMirrorTileEntity implements ITickableTileEntity
 {
     public InputMirrorTileEntity()
@@ -18,6 +20,10 @@ public class InputMirrorTileEntity extends LinkableMirrorTileEntity implements I
         super.link(linkPos);
         if (world.getTileEntity(linkPos) instanceof OutputMirrorTileEntity)
         {
+            if (linkedPositions == null)
+            {
+                linkedPositions = new ArrayList<>();
+            }
             linkedPositions.add(linkPos);
         }
     }
@@ -38,18 +44,20 @@ public class InputMirrorTileEntity extends LinkableMirrorTileEntity implements I
                         transferCooldown = 10;
                     }
                 }
-                BasicMirrorTileEntity linkedMirror = getCurrentMirrorTileEntity();
-                if (linkedMirror != null)
+                if (linkedPositions != null && !linkedPositions.isEmpty())
                 {
-                    boolean success = transferItem(linkedMirror, this, transferAmounts[transferAmount]);
-                    if (!success)
+                    for (int i = 0; i < linkedPositions.size(); i++)
                     {
-                        transferCooldown = 10;
+                        BasicMirrorTileEntity linkedMirror = getCurrentMirrorTileEntity();
+                        if (linkedMirror != null)
+                        {
+                            boolean success = transferItem(linkedMirror, this, transferAmounts[transferAmount]);
+                            if (!success)
+                            {
+                                transferCooldown = 10;
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    transferCooldown = 10;
                 }
             }
             transferCooldown--;

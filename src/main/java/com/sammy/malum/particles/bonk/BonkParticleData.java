@@ -1,11 +1,11 @@
 package com.sammy.malum.particles.bonk;
 
-import com.sammy.malum.init.ModParticles;
-import com.sammy.malum.particles.ScaleParticleData;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.sammy.malum.init.ModParticles;
+import com.sammy.malum.particles.ScaleParticleData;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.ParticleType;
 
@@ -18,12 +18,13 @@ public class BonkParticleData extends ScaleParticleData
         {
             return new BonkParticleData(reader.readFloat());
         }
-
+        
         public BonkParticleData read(ParticleType<BonkParticleData> particleTypeIn, PacketBuffer buffer)
         {
             return new BonkParticleData(buffer.readFloat());
         }
     };
+    public static Codec<BonkParticleData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)).apply(instance, BonkParticleData::new));
     
     public BonkParticleData(float scale)
     {
@@ -35,6 +36,7 @@ public class BonkParticleData extends ScaleParticleData
     {
         return ModParticles.bonk;
     }
+    
     public static class Type extends ParticleType<BonkParticleData>
     {
         public Type(boolean alwaysShow)
@@ -48,8 +50,4 @@ public class BonkParticleData extends ScaleParticleData
             return CODEC;
         }
     }
-    public static Codec<BonkParticleData> CODEC = RecordCodecBuilder
-            .create((instance) -> instance.group(
-                    Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)
-            ).apply(instance, BonkParticleData::new));
 }

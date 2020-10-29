@@ -9,7 +9,7 @@ public class SpiritwoodStave extends BasicStave implements SpiritStorage
     {
         super(builder, effect);
     }
-
+    
     @Override
     public int capacity()
     {

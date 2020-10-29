@@ -28,17 +28,19 @@ public class SpiritFurnaceTopBlock extends Block
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, false));
     }
+    
     @Override
     public boolean hasTileEntity(final BlockState state)
     {
         return true;
     }
+    
     @Override
     public TileEntity createTileEntity(final BlockState state, final IBlockReader world)
     {
         return new SpiritFurnaceTopTileEntity();
     }
-
+    
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
     {
@@ -48,13 +50,13 @@ public class SpiritFurnaceTopBlock extends Block
         }
         super.onBlockHarvested(worldIn, pos, state, player);
     }
-
+    
     @Override
     public int getLightValue(BlockState state, IBlockReader world, BlockPos pos)
     {
         return state.get(LIT) ? 12 : 2;
     }
-
+    
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
@@ -72,6 +74,7 @@ public class SpiritFurnaceTopBlock extends Block
         }
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
+    
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
@@ -94,6 +97,7 @@ public class SpiritFurnaceTopBlock extends Block
         }
         return ActionResultType.SUCCESS;
     }
+    
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(HORIZONTAL_FACING);

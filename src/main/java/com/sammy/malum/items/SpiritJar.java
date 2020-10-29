@@ -15,17 +15,16 @@ import static com.sammy.malum.SpiritDataHelper.typeNBT;
 
 public class SpiritJar extends BlockItem implements SpiritStorage
 {
-
+    
     public SpiritJar(Block blockIn, Properties builder)
     {
         super(blockIn, builder);
     }
-
+    
     @Override
     protected boolean placeBlock(BlockItemUseContext context, BlockState state)
     {
         boolean success = super.placeBlock(context, state);
-        context.getWorld().setBlockState(context.getPos(), state, 11);
         if (success)
         {
             ItemStack stack = context.getItem();
@@ -42,7 +41,7 @@ public class SpiritJar extends BlockItem implements SpiritStorage
         }
         return success;
     }
-
+    
     @Override
     public int capacity()
     {

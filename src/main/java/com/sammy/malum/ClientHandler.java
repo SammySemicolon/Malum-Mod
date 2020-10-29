@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
@@ -11,10 +12,10 @@ import com.sammy.malum.init.ModTooltips;
 import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
 import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.sammy.malum.items.armor.ItemUmbraSteelBattleArmor;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.items.armor.ModArmor;
 import com.sammy.malum.items.curios.CurioNetherborneCapacitor;
 import com.sammy.malum.items.staves.BasicStave;
+import com.sammy.malum.items.utility.IConfigurableItem;
 import com.sammy.malum.network.packets.UpdateSelectedOption;
 import com.sammy.malum.network.packets.UpdateStaveNBT;
 import net.minecraft.client.Minecraft;
@@ -47,6 +48,8 @@ import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 
 public class ClientHandler
 {
+    public static SimpleSound sound = null;
+    
     public static void setDread(int id, boolean value)
     {
         World world = Minecraft.getInstance().world;
@@ -70,8 +73,6 @@ public class ClientHandler
             }
         }
     }
-    
-    public static SimpleSound sound;
     
     public static void spiritHarvestStart(PlayerEntity playerEntity)
     {
@@ -233,7 +234,7 @@ public class ClientHandler
                         Vector3f direction = mouseOver.getFace().toVector3f();
                         if (!careAboutFaces)
                         {
-                            direction = new Vector3f(0,0,0);
+                            direction = new Vector3f(0, 0, 0);
                         }
                         if (tileEntity.getPos().equals(blockEntity.getPos()))
                         {
@@ -244,7 +245,7 @@ public class ClientHandler
                             FontRenderer fontrenderer = renderDispatcher.getFontRenderer();
                             float spacing = 0.2f;
                             int current = components.size() + 1;
-                            if (renderer.isConfigurable())
+                            if (renderer.maxOptions() > 1)
                             {
                                 if (tileEntity instanceof ConfigurableTileEntity)
                                 {
@@ -257,19 +258,19 @@ public class ClientHandler
                                 String text = component.getString();
                                 float xOffset = (float) (-fontrenderer.getStringWidth(text) / 2);
                                 matrixStack.push();
-    
+                                
                                 Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-    
+                                
                                 matrixStack.translate(0.5, 0.5, 0.5);
-    
+                                
                                 matrixStack.translate(direction.getX(), direction.getY(), direction.getZ());
                                 
                                 matrixStack.rotate(renderDispatcher.renderInfo.getRotation());
                                 float positionOffset = current * spacing - (float) components.size() * spacing / 2;
                                 matrixStack.translate(0, positionOffset, 0);
-    
+                                
                                 matrixStack.scale(-0.025F * renderer.getTime(), -0.025F * renderer.getTime(), 0.025F * renderer.getTime());
-    
+                                
                                 fontrenderer.func_243247_a(component, xOffset, 0, -1, true, matrix4f, iRenderTypeBuffer, false, (int) 0f << 24, 192);
                                 matrixStack.pop();
                                 current--;
@@ -293,18 +294,19 @@ public class ClientHandler
                 .append(makeImportantComponent(spirit, true)).append(makeTranslationComponent("malum.tooltip.sconsumer.desc.d")).append(makeImportantComponent(message, true));
     }
     
-    public static void modifyStaveData(InputEvent.MouseScrollEvent event)
+    public static void handleScrolling(InputEvent.MouseScrollEvent event)
     {
         PlayerEntity playerEntity = Minecraft.getInstance().player;
         if (!playerEntity.isHandActive())
         {
             ItemStack stack = playerEntity.getHeldItemMainhand();
             boolean offhand = false;
-            if (!(stack.getItem() instanceof BasicStave))
+            if (!(stack.getItem() instanceof IConfigurableItem))
             {
                 offhand = true;
                 stack = playerEntity.getHeldItemOffhand();
             }
+            
             if (stack.getItem() instanceof BasicStave)
             {
                 Minecraft minecraft = Minecraft.getInstance();
@@ -313,7 +315,7 @@ public class ClientHandler
                 {
                     BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
                     BlockPos pos = mouseOver.getPos();
-                    if (world.getTileEntity(pos) instanceof BasicTileEntity)
+                    if (world.getTileEntity(pos) instanceof ConfigurableTileEntity)
                     {
                         int actualChange = event.getScrollDelta() > 0 ? 1 : -1;
                         INSTANCE.sendToServer(new UpdateSelectedOption(pos, actualChange));
@@ -321,6 +323,9 @@ public class ClientHandler
                         return;
                     }
                 }
+            }
+            if (stack.getItem() instanceof IConfigurableItem)
+            {
                 if (playerEntity.isSneaking())
                 {
                     int actualChange = event.getScrollDelta() > 0 ? 1 : -1;
@@ -331,9 +336,10 @@ public class ClientHandler
             }
         }
     }
-    public static void makeStaveMessage(PlayerEntity playerEntity, int i)
+    
+    public static void makeItemConfigMessage(IConfigurableItem item, PlayerEntity playerEntity, int i)
     {
-        ITextComponent component = makeTranslationComponent("malum.tooltip.stave.option").append(makeImportantComponent(BasicStave.getEnum(i).string, true));
+        ITextComponent component = makeTranslationComponent("malum.tooltip.selected").append(makeImportantComponent(item.getOption(i).tooltip, true));
         playerEntity.sendStatusMessage(component, true);
     }
     
@@ -348,7 +354,7 @@ public class ClientHandler
         {
             for (ItemStack armorItem : playerEntity.getArmorInventoryList())
             {
-                if (armorItem != stack) continue;
+                if (armorItem != stack) { continue; }
                 {
                     if (stack.getItem() instanceof ItemSpiritHunterArmor)
                     {
@@ -405,7 +411,7 @@ public class ClientHandler
                 }
             }
         }
-    
+        
         if (stack.getItem() instanceof SpiritDescription)
         {
             SpiritDescription spiritStorage = (SpiritDescription) stack.getItem();

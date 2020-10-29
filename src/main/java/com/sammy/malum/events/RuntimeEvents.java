@@ -6,12 +6,12 @@ import com.sammy.malum.items.BowofLostSouls;
 import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
 import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;
 import com.sammy.malum.items.armor.ItemUmbraSteelBattleArmor;
+import com.sammy.malum.items.curios.*;
 import com.sammy.malum.items.staves.BasicStave;
 import com.sammy.malum.items.tools.ModBusterSwordItem;
 import com.sammy.malum.network.packets.HuskChangePacket;
 import com.sammy.malum.particles.charm.HeartParticleData;
 import com.sammy.malum.particles.skull.SkullParticleData;
-import com.sammy.malum.items.curios.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.*;
@@ -40,7 +40,7 @@ import java.util.UUID;
 import static com.sammy.malum.MalumHelper.addDrop;
 import static com.sammy.malum.MalumMod.random;
 import static com.sammy.malum.SpiritDataHelper.consumeSpirit;
-import static com.sammy.malum.SpiritDataHelper.hasSpirit;
+import static com.sammy.malum.SpiritDataHelper.lacksSpirit;
 import static com.sammy.malum.capabilities.MalumDataProvider.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
@@ -56,9 +56,7 @@ public class RuntimeEvents
         {
             if (event.getEntityLiving().world instanceof ServerWorld)
             {
-                INSTANCE.send(
-                        PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getEntityLiving()),
-                        new HuskChangePacket(event.getTarget().getEntityId(), getDread((LivingEntity) event.getTarget()),getCharm((LivingEntity) event.getTarget())));
+                INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getEntityLiving()), new HuskChangePacket(event.getTarget().getEntityId(), getDread((LivingEntity) event.getTarget()), getCharm((LivingEntity) event.getTarget())));
             }
         }
     }
@@ -72,7 +70,7 @@ public class RuntimeEvents
             LivingEntity target = event.getTarget();
             if (target != null)
             {
-                if (hasSpirit(livingEntity))
+                if (lacksSpirit(livingEntity))
                 {
                     if (getSpiritOwner(livingEntity) != null)
                     {
@@ -86,10 +84,10 @@ public class RuntimeEvents
                         }
                         if (event.getTarget() instanceof PlayerEntity)
                         {
-                            PlayerEntity playerEntity = (PlayerEntity)target;
+                            PlayerEntity playerEntity = (PlayerEntity) target;
                             if (playerEntity.getUniqueID().equals(getSpiritOwner(livingEntity)))
                             {
-                                ((MobEntity)livingEntity).setAttackTarget(null);
+                                ((MobEntity) livingEntity).setAttackTarget(null);
                             }
                         }
                     }
@@ -109,7 +107,7 @@ public class RuntimeEvents
         {
             LivingEntity livingEntity = event.getEntityLiving();
             World world = livingEntity.getEntityWorld();
-            if (hasSpirit(livingEntity))
+            if (lacksSpirit(livingEntity))
             {
                 if (getDread(livingEntity))
                 {
@@ -143,11 +141,12 @@ public class RuntimeEvents
                 boolean success = consumeSpirit(playerEntity, triple.right);
                 if (success)
                 {
-                    event.setLootingLevel(event.getLootingLevel()+4);
+                    event.setLootingLevel(event.getLootingLevel() + 4);
                 }
             });
         }
     }
+    
     @SubscribeEvent
     public static void necroticCatalystEffect(LivingEvent.LivingUpdateEvent event)
     {
@@ -172,6 +171,7 @@ public class RuntimeEvents
             }
         }
     }
+    
     @SubscribeEvent
     public static void vampireNecklaceEffect(LivingHurtEvent event)
     {
@@ -182,8 +182,7 @@ public class RuntimeEvents
             {
                 if (random.nextDouble() < 0.2f || event.getEntityLiving().getHealth() <= 0)
                 {
-                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioVampireNecklace, playerEntity).ifPresent(triple ->
-                    {
+                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioVampireNecklace, playerEntity).ifPresent(triple -> {
                         boolean success = consumeSpirit(playerEntity, triple.right);
                         if (success)
                         {
@@ -194,6 +193,7 @@ public class RuntimeEvents
             }
         }
     }
+    
     @SubscribeEvent
     public static void etherealBulwarkEffect(LivingHurtEvent event)
     {
@@ -209,6 +209,7 @@ public class RuntimeEvents
             }
         }
     }
+    
     @SubscribeEvent
     public static void sinisterMaskEffect(PotionEvent.PotionApplicableEvent event)
     {
@@ -224,13 +225,14 @@ public class RuntimeEvents
                         if (success)
                         {
                             event.setResult(Event.Result.DENY);
-                            playerEntity.addPotionEffect(new EffectInstance(Effects.STRENGTH,event.getPotionEffect().getDuration() ,event.getPotionEffect().getAmplifier()));
+                            playerEntity.addPotionEffect(new EffectInstance(Effects.STRENGTH, event.getPotionEffect().getDuration(), event.getPotionEffect().getAmplifier()));
                         }
                     });
                 }
             }
         }
     }
+    
     @SubscribeEvent
     public static void vacantAegisEffect(SpiritHarvestEvent.Post event)
     {
@@ -240,6 +242,7 @@ public class RuntimeEvents
             playerEntity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 200, 1));
         }
     }
+    
     @SubscribeEvent
     public static void enchantedLecternEffect(LivingExperienceDropEvent event)
     {
@@ -248,17 +251,16 @@ public class RuntimeEvents
             PlayerEntity playerEntity = event.getAttackingPlayer();
             if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).isPresent())
             {
-                if (hasSpirit(event.getEntityLiving()))
+                if (lacksSpirit(event.getEntityLiving()))
                 {
-                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).ifPresent(triple ->
-                    {
+                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioEnchantedLectern, playerEntity).ifPresent(triple -> {
                         boolean success = consumeSpirit(playerEntity, triple.right);
                         if (success)
                         {
-                            event.setDroppedExperience(event.getDroppedExperience()*2);
+                            event.setDroppedExperience(event.getDroppedExperience() * 2);
                         }
                     });
-                    event.setDroppedExperience(event.getDroppedExperience()*2);
+                    event.setDroppedExperience(event.getDroppedExperience() * 2);
                 }
             }
         }
@@ -270,13 +272,14 @@ public class RuntimeEvents
         PlayerEntity playerEntity = event.playerEntity;
         if (ItemSpiritHunterArmor.hasArmorSet(playerEntity))
         {
-            event.extraSpirits +=1;
+            event.extraSpirits += 1;
         }
         if (ItemUmbraSteelBattleArmor.hasArmorSet(playerEntity))
         {
-            event.extraSpirits +=2;
+            event.extraSpirits += 2;
         }
     }
+    
     @SubscribeEvent
     public static void armorSetbonusEffects(SpiritHarvestEvent.Post event)
     {
@@ -290,6 +293,7 @@ public class RuntimeEvents
             //make umbral trace
         }
     }
+    
     @SubscribeEvent
     public static void armorSetbonusEffects(SpiritIntegrityUpdateEvent.Fill event)
     {
@@ -306,7 +310,7 @@ public class RuntimeEvents
         PlayerEntity playerEntity = event.playerEntity;
         if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioSpiritwoodNecklace, playerEntity).isPresent())
         {
-            event.extraSpirits +=1;
+            event.extraSpirits += 1;
         }
     }
     
@@ -316,7 +320,7 @@ public class RuntimeEvents
         PlayerEntity playerEntity = event.playerEntity;
         if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioMiraclePearl, playerEntity).isPresent())
         {
-            event.extraSpirits +=1;
+            event.extraSpirits += 1;
         }
     }
     
@@ -373,7 +377,7 @@ public class RuntimeEvents
                     {
                         LivingEntity target = event.getEntityLiving();
                         int cooldown = 100;
-    
+                        
                         if (CuriosApi.getCuriosHelper().findEquippedCurio(curio -> curio.getItem() instanceof CurioGildedGauntlet, playerEntity).isPresent())
                         {
                             cooldown = 40;
@@ -393,6 +397,7 @@ public class RuntimeEvents
             }
         }
     }
+    
     @SubscribeEvent
     public static void busterSwordDropHeads(LivingDropsEvent event)
     {

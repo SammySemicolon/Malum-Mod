@@ -1,20 +1,16 @@
 package com.sammy.malum.particles.lensmagic;
 
-import com.sammy.malum.init.ModParticles;
-import com.sammy.malum.particles.ScaleParticleData;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.sammy.malum.init.ModParticles;
+import com.sammy.malum.particles.ScaleParticleData;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.ParticleType;
 
 public class LensMagicParticleData extends ScaleParticleData
 {
-    public LensMagicParticleData(float scale)
-    {
-        super(scale);
-    }
     public static final IDeserializer<LensMagicParticleData> DESERIALIZER = new IDeserializer<LensMagicParticleData>()
     {
         @Override
@@ -28,12 +24,19 @@ public class LensMagicParticleData extends ScaleParticleData
             return new LensMagicParticleData(buffer.readFloat());
         }
     };
+    public static Codec<LensMagicParticleData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)).apply(instance, LensMagicParticleData::new));
+    
+    public LensMagicParticleData(float scale)
+    {
+        super(scale);
+    }
     
     @Override
     public ParticleType<?> getType()
     {
         return ModParticles.lensMagic;
     }
+    
     public static class Type extends ParticleType<LensMagicParticleData>
     {
         public Type(boolean alwaysShow)
@@ -47,8 +50,4 @@ public class LensMagicParticleData extends ScaleParticleData
             return CODEC;
         }
     }
-    public static Codec<LensMagicParticleData> CODEC = RecordCodecBuilder
-            .create((instance) -> instance.group(
-                    Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)
-            ).apply(instance, LensMagicParticleData::new));
 }

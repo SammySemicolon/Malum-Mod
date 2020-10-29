@@ -1,4 +1,3 @@
-
 package com.sammy.malum.items.curios;
 
 import com.google.common.collect.HashMultimap;
@@ -20,12 +19,13 @@ import java.util.UUID;
 
 public class CurioGildedGauntlet extends Item implements ICurio
 {
+    private static final UUID ATTACK_SPEED_UUID = UUID.fromString("495ee836-14bb-4bfe-9811-44b62ed81b76");
+    
     public CurioGildedGauntlet(Properties builder)
     {
         super(builder);
     }
     
-    private static final UUID ATTACK_SPEED_UUID = UUID.fromString("495ee836-14bb-4bfe-9811-44b62ed81b76");
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
@@ -41,19 +41,19 @@ public class CurioGildedGauntlet extends Item implements ICurio
                 }
                 return atts;
             }
-    
+            
             @Override
             public boolean showAttributesTooltip(String identifier)
             {
                 return false;
             }
-    
+            
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity)
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-    
+            
             @Override
             public boolean canRightClickEquip()
             {

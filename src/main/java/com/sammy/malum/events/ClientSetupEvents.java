@@ -35,6 +35,7 @@ public class ClientSetupEvents
             evt.addSprite(new ResourceLocation(MODID, "gui/empty_trinket_slot"));
         }
     }
+    
     @SubscribeEvent
     public static void bindTERs(FMLClientSetupEvent event)
     {
@@ -51,7 +52,6 @@ public class ClientSetupEvents
     @SubscribeEvent
     public static void setModelProperties(FMLClientSetupEvent event)
     {
-    
         registerProperty(ModItems.shulker_storage, new ResourceLocation("storing"), (itemStack, world, livingEntity) -> {
             if (livingEntity == null)
             {
@@ -59,10 +59,10 @@ public class ClientSetupEvents
             }
             else
             {
-               if (itemStack.getTag() != null && itemStack.getTag().contains("storing"))
-               {
-                   return 1.0F;
-               }
+                if (itemStack.getTag() != null && itemStack.getTag().contains("storing"))
+                {
+                    return 1.0F;
+                }
             }
             return 0.0F;
         });
@@ -78,6 +78,7 @@ public class ClientSetupEvents
         });
         registerProperty(ModItems.bow_of_lost_souls, new ResourceLocation("pulling"), (itemStack, world, livingEntity) -> livingEntity != null && livingEntity.isHandActive() && livingEntity.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
     }
+    
     @SubscribeEvent
     public static void setRenderLayer(FMLClientSetupEvent event)
     {

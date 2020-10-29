@@ -17,43 +17,45 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import static com.sammy.malum.MalumHelper.machineOption;
-import static com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.*;
-import static net.minecraft.state.properties.BlockStateProperties.*;
+import static com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity.redstoneClockFunctionTypeEnum;
+import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
-public class RedstoneClockBlock extends ConfigurableBlock
+public class RedstoneClockBlock extends Block implements ConfigurableBlock
 {
     public RedstoneClockBlock(Properties properties)
     {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(LIT, false));
     }
+    
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
         blockStateBuilder.add(LIT);
     }
-
+    
     @Override
     public boolean hasTileEntity(final BlockState state)
     {
         return true;
     }
-
-    public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
+    
+    public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side)
+    {
         return blockState.get(LIT) ? 15 : 0;
     }
-
+    
     @Override
     public int getStrongPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side)
     {
         return blockState.get(LIT) ? 15 : 0;
     }
-
+    
     @Override
     public boolean canProvidePower(BlockState state)
     {
         return true;
     }
-
+    
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
     {
@@ -65,7 +67,7 @@ public class RedstoneClockBlock extends ConfigurableBlock
             }
         }
     }
-
+    
     @Override
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving)
     {
@@ -74,11 +76,23 @@ public class RedstoneClockBlock extends ConfigurableBlock
             worldIn.notifyNeighborsOfStateChange(pos.offset(direction), this);
         }
     }
-
+    
     @Override
     public TileEntity createTileEntity(final BlockState state, final IBlockReader world)
     {
         return new RedstoneClockTileEntity();
+    }
+    
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    {
+        return activateBlock(state, worldIn, pos, player, handIn, hit);
+    }
+    
+    @Override
+    public int options()
+    {
+        return 2;
     }
     
     @Override
@@ -89,19 +103,19 @@ public class RedstoneClockBlock extends ConfigurableBlock
             RedstoneClockTileEntity redstoneClockTileEntity = (RedstoneClockTileEntity) tileEntity;
             int change = isSneaking ? -1 : 1;
             float pitch = 0f;
-            int finalOption = machineOption(option, 2);
+            int finalOption = machineOption(option, options());
             switch (finalOption)
             {
                 case 1:
                 {
                     redstoneClockTileEntity.type = machineOption(change + redstoneClockTileEntity.type, redstoneClockFunctionTypeEnum.values().length);
-                    pitch = (float)redstoneClockTileEntity.type / redstoneClockFunctionTypeEnum.values().length;
+                    pitch = (float) redstoneClockTileEntity.type / redstoneClockFunctionTypeEnum.values().length;
                     break;
                 }
                 case 0:
                 {
                     redstoneClockTileEntity.tickMultiplier = machineOption(change + redstoneClockTileEntity.tickMultiplier, redstoneClockTileEntity.cooldown.length);
-                    pitch = (float)redstoneClockTileEntity.tickMultiplier / redstoneClockTileEntity.cooldown.length;
+                    pitch = (float) redstoneClockTileEntity.tickMultiplier / redstoneClockTileEntity.cooldown.length;
                     break;
                 }
             }

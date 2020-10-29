@@ -10,7 +10,7 @@ public class ModAxeItem extends AxeItem
     {
         super(material, damage + 6, speed - 3.2f, properties.maxDamage(material.getMaxUses()).addToolType(ToolType.AXE, material.getHarvestLevel()));
     }
-
+    
 }
 
 

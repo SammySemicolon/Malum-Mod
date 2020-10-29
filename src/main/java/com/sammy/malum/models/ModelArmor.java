@@ -9,15 +9,15 @@ import net.minecraft.inventory.EquipmentSlotType;
 public class ModelArmor extends BipedModel<LivingEntity>
 {
     protected final EquipmentSlotType slot;
-
-    public ModelArmor(EquipmentSlotType slot, int height, int width) //oops
+    
+    public ModelArmor(EquipmentSlotType slot, int width, int height)
     {
         super(1);
         this.slot = slot;
-        this.textureHeight = height;
         this.textureWidth = width;
+        this.textureHeight = height;
     }
-
+    
     @Override
     public void setRotationAngles(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
@@ -50,7 +50,7 @@ public class ModelArmor extends BipedModel<LivingEntity>
         this.bipedRightLeg.setRotationPoint(-1.9F, 11.0F, 0.0F);
         this.bipedHeadwear.copyModelAngles(this.bipedHead);
     }
-
+    
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z)
     {
         modelRenderer.rotateAngleX = x;

@@ -1,20 +1,16 @@
 package com.sammy.malum.particles.spiritflame;
 
-import com.sammy.malum.init.ModParticles;
-import com.sammy.malum.particles.ScaleParticleData;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.sammy.malum.init.ModParticles;
+import com.sammy.malum.particles.ScaleParticleData;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.ParticleType;
 
 public class SpiritFlameParticleData extends ScaleParticleData
 {
-    public SpiritFlameParticleData(float scale)
-    {
-        super(scale);
-    }
     public static final IDeserializer<SpiritFlameParticleData> DESERIALIZER = new IDeserializer<SpiritFlameParticleData>()
     {
         @Override
@@ -22,12 +18,18 @@ public class SpiritFlameParticleData extends ScaleParticleData
         {
             return new SpiritFlameParticleData(reader.readFloat());
         }
-
+        
         public SpiritFlameParticleData read(ParticleType<SpiritFlameParticleData> particleTypeIn, PacketBuffer buffer)
         {
             return new SpiritFlameParticleData(buffer.readFloat());
         }
     };
+    public static Codec<SpiritFlameParticleData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)).apply(instance, SpiritFlameParticleData::new));
+    
+    public SpiritFlameParticleData(float scale)
+    {
+        super(scale);
+    }
     
     @Override
     public ParticleType<?> getType()
@@ -48,8 +50,4 @@ public class SpiritFlameParticleData extends ScaleParticleData
             return CODEC;
         }
     }
-    public static Codec<SpiritFlameParticleData> CODEC = RecordCodecBuilder
-            .create((instance) -> instance.group(
-                    Codec.FLOAT.fieldOf("scale").forGetter(i -> i.scale)
-            ).apply(instance, SpiritFlameParticleData::new));
 }

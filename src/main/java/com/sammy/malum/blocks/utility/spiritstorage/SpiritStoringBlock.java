@@ -1,11 +1,9 @@
 package com.sammy.malum.blocks.utility.spiritstorage;
 
-import com.sammy.malum.SpiritStorage;
 import com.sammy.malum.SpiritDataHelper;
-import com.sammy.malum.init.ModBlocks;
+import com.sammy.malum.SpiritStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -25,6 +23,7 @@ import static com.sammy.malum.SpiritDataHelper.insertSpiritIntoStorage;
 public abstract class SpiritStoringBlock extends Block implements SpiritStorage
 {
     public static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 2);
+    
     public SpiritStoringBlock(Properties properties)
     {
         super(properties);
@@ -78,6 +77,7 @@ public abstract class SpiritStoringBlock extends Block implements SpiritStorage
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
+    
     @Override
     public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player)
     {

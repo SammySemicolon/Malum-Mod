@@ -6,10 +6,12 @@ import net.minecraft.particles.IParticleData;
 public abstract class ScaleParticleData implements IParticleData
 {
     public float scale;
+    
     public ScaleParticleData(float scale)
     {
         this.scale = scale;
     }
+    
     @Override
     public void write(PacketBuffer buffer)
     {

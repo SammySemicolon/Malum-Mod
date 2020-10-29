@@ -11,12 +11,12 @@ public class VacantRapier extends ModSwordItem
     {
         super(material, attackDamage, attackSpeed, properties);
     }
-
+    
     @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
         target.hurtResistantTime = 12;
         return super.hitEntity(stack, target, attacker);
     }
-
+    
 }

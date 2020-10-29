@@ -43,34 +43,34 @@ public class CurioProvider
             {
                 return new CompoundNBT();
             }
-
+            
             @Override
-            public void readNBT(
-                Capability<ICurio> capability, ICurio instance, Direction side,
-                INBT nbt
-            )
+            public void readNBT(Capability<ICurio> capability, ICurio instance, Direction side, INBT nbt)
             {
-
+            
             }
         }, CurioWrapper::new);
     }
-
+    
     public static ICapabilityProvider createProvider(final ICurio curio)
     {
         return new Provider(curio);
     }
-
+    
     private static class CurioWrapper implements ICurio
     {
-
+    
     }
+    
     public static class Provider implements ICapabilityProvider
     {
         final LazyOptional<ICurio> capability;
+        
         Provider(ICurio curio)
         {
             this.capability = LazyOptional.of(() -> curio);
         }
+        
         @SuppressWarnings("ConstantConditions")
         @Nonnull
         @Override
