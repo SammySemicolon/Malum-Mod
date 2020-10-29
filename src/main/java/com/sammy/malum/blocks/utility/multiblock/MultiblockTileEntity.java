@@ -30,10 +30,6 @@ public abstract class MultiblockTileEntity extends BasicTileEntity implements IT
     {
         super(type);
         this.structure = structure;
-        for (BlockPos pos : structure.occupiedPositions)
-        {
-            pos.add(this.pos);
-        }
     }
     
     public List<BlockPos> positions;

@@ -2,6 +2,7 @@ package com.sammy.malum.items;
 
 import com.sammy.malum.blocks.utility.multiblock.BoundingBlockTileEntity;
 import com.sammy.malum.blocks.utility.multiblock.MultiblockStructure;
+import com.sammy.malum.blocks.utility.multiblock.MultiblockTileEntity;
 import com.sammy.malum.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,6 +12,10 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+
+import static net.minecraft.world.World.isValid;
 
 public class MultiblockItem extends BlockItem
 {
@@ -29,7 +34,7 @@ public class MultiblockItem extends BlockItem
         for (BlockPos pos : structure.occupiedPositions)
         {
             BlockPos targetPos = placePos.add(pos);
-            if (!World.isValid(targetPos) && !world.getBlockState(targetPos).getMaterial().isReplaceable())
+            if (!isValid(targetPos) || !world.getBlockState(targetPos).getMaterial().isReplaceable())
             {
                 return false;
             }
@@ -43,14 +48,24 @@ public class MultiblockItem extends BlockItem
         for (BlockPos pos : structure.occupiedPositions)
         {
             BlockPos targetPos = placePos.add(pos);
-            if (!World.isValid(targetPos) && !world.getBlockState(targetPos).getMaterial().isReplaceable())
+            if (isValid(targetPos) && world.getBlockState(targetPos).getMaterial().isReplaceable())
             {
                 world.setBlockState(targetPos, ModBlocks.bounding_block.getDefaultState());
                 if (world.getTileEntity(targetPos) instanceof BoundingBlockTileEntity)
                 {
-                    BoundingBlockTileEntity tileEntity = (BoundingBlockTileEntity) world.getTileEntity(pos);
+                    BoundingBlockTileEntity tileEntity = (BoundingBlockTileEntity) world.getTileEntity(targetPos);
                     tileEntity.ownerPos = placePos;
                 }
+            }
+        }
+        if (world.getTileEntity(placePos)instanceof MultiblockTileEntity)
+        {
+            MultiblockTileEntity tileEntity = (MultiblockTileEntity) world.getTileEntity(placePos);
+            tileEntity.positions = new ArrayList<>();
+            for (BlockPos pos : structure.occupiedPositions)
+            {
+                BlockPos targetPos = placePos.add(pos);
+                tileEntity.positions.add(targetPos);
             }
         }
         return super.onBlockPlaced(placePos, world, player, stack, state);

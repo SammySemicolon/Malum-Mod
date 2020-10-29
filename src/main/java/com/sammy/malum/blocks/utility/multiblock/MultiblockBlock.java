@@ -12,4 +12,5 @@ public class MultiblockBlock extends Block
         super(properties);
         this.structure = structure;
     }
+    
 }
