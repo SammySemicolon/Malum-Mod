@@ -115,7 +115,7 @@ public class MalumHelper
         {
             MalumHelper.giveItemStackToPlayer(player, targetItem);
             inventory.setStackInSlot(slot, ItemStack.EMPTY);
-            return false;
+            return true;
         }
         return false;
     }

@@ -170,17 +170,20 @@ public class HarvestingEvents
     @SubscribeEvent
     public static void harvestStart(LivingEntityUseItemEvent.Start event)
     {
-        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-        ItemStack stack = event.getItem();
-        if (stack.getItem() instanceof BasicStave)
+        if (event.getEntityLiving() instanceof PlayerEntity)
         {
-            if (((BasicStave) stack.getItem()).getOption(stack).option == 0)
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            ItemStack stack = event.getItem();
+            if (stack.getItem() instanceof BasicStave)
             {
-                
-                if (tryCancel(player, event.getItem()))
+                if (((BasicStave) stack.getItem()).getOption(stack).option == 0)
                 {
-                    player.resetActiveHand();
-                    event.setCanceled(true);
+            
+                    if (tryCancel(player, event.getItem()))
+                    {
+                        player.resetActiveHand();
+                        event.setCanceled(true);
+                    }
                 }
             }
         }

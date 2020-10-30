@@ -297,7 +297,7 @@ public class ModItems
                 spirit_furnace = setup(new MultiblockItem(ModBlocks.spirit_furnace, basic_properties, SpiritFurnaceBlock.structure), "spirit_furnace"),
                 basic_mirror = setup(new BlockItem(ModBlocks.basic_mirror, basic_properties), "basic_mirror"),
                 input_mirror = setup(new BlockItem(ModBlocks.input_mirror, basic_properties), "input_mirror"),
-                output_mirror = setup(new BlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
+                output_mirror = setup(new MirrorBlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
                 redstone_clock = setup(new BlockItem(ModBlocks.redstone_clock, basic_properties), "redstone_clock"),
                 funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
                 spirit_smeltery = setup(new MultiblockItem(ModBlocks.spirit_smeltery, basic_properties, SpiritSmelteryBlock.structure), "spirit_smeltery"),

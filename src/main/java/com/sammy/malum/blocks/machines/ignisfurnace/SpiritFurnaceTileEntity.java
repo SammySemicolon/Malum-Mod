@@ -67,14 +67,27 @@ public class SpiritFurnaceTileEntity extends MultiblockTileEntity implements ITi
     };
     public final LazyOptional<IItemHandler> fuelInventoryOptional = LazyOptional.of(() -> fuelInventory);
     
+    
+    @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, BlockPos pos)
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap)
     {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
         {
             return fuelInventoryOptional.cast();
         }
-        return super.getCapability(cap, pos);
+        return super.getCapability(cap);
+    }
+    
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
+    {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+        {
+            return fuelInventoryOptional.cast();
+        }
+        return super.getCapability(cap, side);
     }
     
     public ItemStackHandler smeltableInventory = new ItemStackHandler(1)
@@ -106,16 +119,16 @@ public class SpiritFurnaceTileEntity extends MultiblockTileEntity implements ITi
     };
     public final LazyOptional<IItemHandler> smeltableInventoryOptional = LazyOptional.of(() -> smeltableInventory);
     
-    @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, BlockPos pos)
     {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
         {
             return smeltableInventoryOptional.cast();
         }
-        return super.getCapability(cap, side);
+        return super.getCapability(cap, pos);
     }
+    
     public ItemStack getItem(stackSlotEnum slot)
     {
         if (slot == stackSlotEnum.fuel)

@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoundingBlockTileEntity extends BasicTileEntity implements ITickableTileEntity
+public class BoundingBlockTileEntity extends BasicTileEntity
 {
     public BlockPos ownerPos;
     public BoundingBlockTileEntity()
@@ -91,10 +91,5 @@ public class BoundingBlockTileEntity extends BasicTileEntity implements ITickabl
             }
         }
         return super.getCapability(cap, side);
-    }
-    
-    @Override
-    public void tick()
-    {
     }
 }
