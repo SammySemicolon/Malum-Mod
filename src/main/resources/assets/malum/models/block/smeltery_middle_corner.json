@@ -2,11 +2,11 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "malum:block/furnace_1",
-		"3": "malum:block/furnace_3",
-		"4": "malum:block/furnace_4",
-		"5": "malum:block/furnace_5",
-		"particle": "malum:block/furnace_0"
+		"1": "malum:blocks/furnace_1",
+		"3": "malum:blocks/furnace_3",
+		"4": "malum:blocks/furnace_4",
+		"5": "malum:blocks/furnace_5",
+		"particle": "malum:blocks/furnace_0"
 	},
 	"elements": [
 		{

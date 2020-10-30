@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "x=0,y=0,z=1": { "model": "malum:block/smeltery_lower_edge" },
+    "x=0,y=0,z=-1": { "model": "malum:block/smeltery_lower_edge", "y": 180 },
+    "x=1,y=0,z=0": { "model": "malum:block/smeltery_lower_edge", "y": 270 },
+    "x=-1,y=0,z=0": { "model": "malum:block/smeltery_lower_edge", "y": 90 }
+  }
+}
