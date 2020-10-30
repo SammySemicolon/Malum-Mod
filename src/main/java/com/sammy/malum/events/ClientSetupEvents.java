@@ -6,6 +6,7 @@ import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockRenderer;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomRenderer;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopRenderer;
 import com.sammy.malum.blocks.machines.spiritjar.SpiritJarRenderer;
+import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryRenderer;
 import com.sammy.malum.init.ModBlocks;
 import com.sammy.malum.init.ModItems;
 import com.sammy.malum.init.ModTileEntities;
@@ -47,6 +48,7 @@ public class ClientSetupEvents
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_jar_tile_entity, SpiritJarRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.funk_engine_tile_entity, FunkEngineRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.redstone_clock_tile_entity, RedstoneClockRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_smeltery_tile_entity, SpiritSmelteryRenderer::new);
     }
     
     @SubscribeEvent
@@ -86,6 +88,5 @@ public class ClientSetupEvents
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_jar, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.funk_engine, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.redstone_clock, RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.bounding_block, RenderType.getTranslucent());
     }
 }

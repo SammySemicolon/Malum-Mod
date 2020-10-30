@@ -294,13 +294,13 @@ public class ModItems
                 band_of_friendship = setup(new CurioBandOfFriendship(curio_properties), "band_of_friendship"),
 
                 spirit_jar = setup(new SpiritJar(ModBlocks.spirit_jar, tool_properties), "spirit_jar"),
-                spirit_furnace = setup(new MultiblockItem(ModBlocks.spirit_furnace, basic_properties, SpiritFurnaceBlock.structure), "spirit_furnace"),
+                spirit_furnace = setup(new MultiblockItem(ModBlocks.spirit_furnace, ModBlocks.spirit_furnace_bounding_block, basic_properties, SpiritFurnaceBlock.structure), "spirit_furnace"),
                 basic_mirror = setup(new BlockItem(ModBlocks.basic_mirror, basic_properties), "basic_mirror"),
                 input_mirror = setup(new BlockItem(ModBlocks.input_mirror, basic_properties), "input_mirror"),
                 output_mirror = setup(new MirrorBlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
                 redstone_clock = setup(new BlockItem(ModBlocks.redstone_clock, basic_properties), "redstone_clock"),
                 funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
-                spirit_smeltery = setup(new MultiblockItem(ModBlocks.spirit_smeltery, basic_properties, SpiritSmelteryBlock.structure), "spirit_smeltery"),
+                spirit_smeltery = setup(new MultiblockItem(ModBlocks.spirit_smeltery, ModBlocks.spirit_smeltery_bounding_block, basic_properties, SpiritSmelteryBlock.structure), "spirit_smeltery"),
 
                 spirit_stone_brick = setup(new BlockItem(ModBlocks.spirit_stone_brick, basic_properties), "spirit_stone_brick"),
                 dark_spirit_stone_brick = setup(new BlockItem(ModBlocks.dark_spirit_stone_brick, basic_properties), "dark_spirit_stone_brick"),

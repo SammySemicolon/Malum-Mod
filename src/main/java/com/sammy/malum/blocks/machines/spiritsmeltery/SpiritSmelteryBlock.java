@@ -60,4 +60,5 @@ public class SpiritSmelteryBlock extends MultiblockBlock
     {
         return new SpiritSmelteryTileEntity();
     }
+    
 }

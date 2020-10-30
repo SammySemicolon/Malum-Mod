@@ -1,5 +1,6 @@
 package com.sammy.malum.items;
 
+import com.sammy.malum.blocks.utility.multiblock.BoundingBlock;
 import com.sammy.malum.blocks.utility.multiblock.BoundingBlockTileEntity;
 import com.sammy.malum.blocks.utility.multiblock.MultiblockStructure;
 import com.sammy.malum.blocks.utility.multiblock.MultiblockTileEntity;
@@ -20,9 +21,11 @@ import static net.minecraft.world.World.isValid;
 public class MultiblockItem extends BlockItem
 {
     public MultiblockStructure structure;
-    public MultiblockItem(Block blockIn, Properties builder, MultiblockStructure structure)
+    BoundingBlock boundingBlock;
+    public MultiblockItem(Block blockIn, Block boundingBlock, Properties builder, MultiblockStructure structure)
     {
         super(blockIn, builder);
+        this.boundingBlock = (BoundingBlock) boundingBlock;
         this.structure = structure;
     }
     
@@ -50,7 +53,7 @@ public class MultiblockItem extends BlockItem
             BlockPos targetPos = placePos.add(pos);
             if (isValid(targetPos) && world.getBlockState(targetPos).getMaterial().isReplaceable())
             {
-                world.setBlockState(targetPos, ModBlocks.bounding_block.getDefaultState());
+                world.setBlockState(targetPos, boundingBlock.state(placePos,world,player,stack,state,pos));
                 if (world.getTileEntity(targetPos) instanceof BoundingBlockTileEntity)
                 {
                     BoundingBlockTileEntity tileEntity = (BoundingBlockTileEntity) world.getTileEntity(targetPos);

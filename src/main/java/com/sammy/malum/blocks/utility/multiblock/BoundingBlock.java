@@ -5,6 +5,8 @@ import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.state.IntegerProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -16,9 +18,16 @@ import net.minecraft.world.server.ServerWorld;
 
 public class BoundingBlock extends Block
 {
+    public static final IntegerProperty x = IntegerProperty.create("x", 0, 2);
+    public static final IntegerProperty y = IntegerProperty.create("y", 0, 2);
+    public static final IntegerProperty z = IntegerProperty.create("z", 0, 2);
     public BoundingBlock(Properties properties)
     {
         super(properties);
+    }
+    public BlockState state(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)
+    {
+        return getDefaultState();
     }
     @Override
     public boolean hasTileEntity(final BlockState state)

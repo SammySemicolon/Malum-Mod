@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "malum:block/furnace_0",
+		"3": "malum:block/furnace_3",
+		"particle": "malum:block/furnace_0"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 23]},
+			"faces": {
+				"north": {"uv": [8.004, 0.004, 15.996, 7.996], "texture": "#0"},
+				"east": {"uv": [0.004, 0.004, 7.996, 7.996], "texture": "#0"},
+				"west": {"uv": [7.996, 0.004, 0.004, 7.996], "texture": "#0"},
+				"up": {"uv": [7.996, 0.004, 0.004, 7.996], "texture": "#0"},
+				"down": {"uv": [0.004, 0.004, 7.996, 7.996], "rotation": 180, "texture": "#3", "cullface": "down"}
+			}
+		}
+	]
+}

@@ -2,6 +2,7 @@ package com.sammy.malum.blocks.machines.spiritsmeltery;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.OpenSimplexNoise;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
@@ -25,7 +26,10 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
+import static com.mojang.blaze3d.platform.GlStateManager.DestFactor.ONE;
+import static com.mojang.blaze3d.platform.GlStateManager.SourceFactor.SRC_ALPHA;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
+import static org.lwjgl.opengl.GL11.*;
 
 @OnlyIn(value = Dist.CLIENT)
 public class SpiritSmelteryRenderer extends TileEntityRenderer<SpiritSmelteryTileEntity>
@@ -41,7 +45,7 @@ public class SpiritSmelteryRenderer extends TileEntityRenderer<SpiritSmelteryTil
         super(rendererDispatcherIn);
     }
     
-    public ResourceLocation texture = new ResourceLocation(MalumMod.MODID + "textures/other/field_square.png");
+    public ResourceLocation texture = new ResourceLocation(MalumMod.MODID, "textures/other/field_square.png");
     protected long noiseSeed;
     protected OpenSimplexNoise noiseGen;
     
@@ -55,7 +59,7 @@ public class SpiritSmelteryRenderer extends TileEntityRenderer<SpiritSmelteryTil
         this.noiseSeed = seed;
     }
     
-    public int getGrassColor(double double1, double double2)
+    public int getThing(double double1, double double2)
     {
         setSeed(999999);
         
@@ -63,48 +67,47 @@ public class SpiritSmelteryRenderer extends TileEntityRenderer<SpiritSmelteryTil
         return (int) (d0 * 9999999D);
     }
     
+    public static int lightx = 0xF000F0;
+    public static int lighty = 0xF000F0;
+    
     @Override
     public void render(SpiritSmelteryTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {
+        matrixStack.push();
+        int x = blockEntity.getPos().getX();
+        int y = blockEntity.getPos().getY();
+        int z = blockEntity.getPos().getZ();
+        matrixStack.translate(0.5,1.5,0.5);
         Minecraft.getInstance().getTextureManager().bindTexture(texture);
         GlStateManager.disableCull();
         GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.param, GlStateManager.DestFactor.ONE.param);
+        GlStateManager.blendFunc(SRC_ALPHA.param, ONE.param);
         GlStateManager.disableLighting();
         GlStateManager.enableAlphaTest();
-        int dfunc = GL11.glGetInteger(GL11.GL_DEPTH_FUNC);
-        GlStateManager.depthFunc(GL11.GL_LEQUAL);
-        int func = GL11.glGetInteger(GL11.GL_ALPHA_TEST_FUNC);
-        float ref = GL11.glGetFloat(GL11.GL_ALPHA_TEST_REF);
-        GlStateManager.alphaFunc(GL11.GL_ALWAYS, 0);
+        int dfunc = glGetInteger(GL_DEPTH_FUNC);
+        GlStateManager.depthFunc(GL_LEQUAL);
+        int func = glGetInteger(GL_ALPHA_TEST_FUNC);
+        float ref = glGetFloat(GL_ALPHA_TEST_REF);
+        GlStateManager.alphaFunc(GL_ALWAYS, 0);
         Tessellator tess = Tessellator.getInstance();
-        GlStateManager.shadeModel(GL11.GL_SMOOTH);
+        GlStateManager.shadeModel(GL_SMOOTH);
         GlStateManager.depthMask(false);
-        int seed = blockEntity.getWorld().getSeed();
-        renderChart(blockEntity, x, y, z, tess, (cx, cz) -> EmberGenUtil.getEmberDensity(seed, cx, cz), new Color(255, 64, 16), new Color(255, 192, 16), new Color(255, 255, 8));
-        renderChart(blockEntity, x, y, z, tess, (cx, cz) -> {
-            float v = EmberGenUtil.getEmberStability(seed, cx, cz);
-            return v * v * v;
-        }, new Color(16, 64, 255), new Color(16, 192, 255), new Color(8, 255, 255));
+        renderChart(blockEntity, x, y, z, tess, (cx, cz) -> getThing(x,z));
         GlStateManager.depthMask(true);
-        GlStateManager.shadeModel(GL11.GL_FLAT);
+        GlStateManager.shadeModel(GL_FLAT);
         GlStateManager.alphaFunc(func, ref);
         GlStateManager.depthFunc(dfunc);
         GlStateManager.enableLighting();
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.param, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.param);
+        GlStateManager.blendFunc(SRC_ALPHA.param, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.param);
         GlStateManager.disableAlphaTest();
         GlStateManager.disableBlend();
-        
+        matrixStack.pop();
     }
     
-    public void renderChart(SpiritSmelteryTileEntity blockEntity, double x, double y, double z, Tessellator tess, IChartSource source, Color color1, Color color2, Color color3)
+    public void renderChart(SpiritSmelteryTileEntity blockEntity, double x, double y, double z, Tessellator tess, IChartSource source)
     {
         BufferBuilder buffer = tess.getBuffer();
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
-        float red1 = color1.getRed() / 255f;
-        float green1 = color1.getGreen() / 255f;
-        float blue1 = color1.getBlue() / 255f;
-        float alpha1 = color1.getAlpha() / 255f;
+        buffer.begin(GL_QUADS, DefaultVertexFormats.POSITION_TEX_LIGHTMAP_COLOR);
         for (float i = -160; i < 160; i += 32)
         {
             for (float j = -160; j < 160; j += 32)
@@ -113,36 +116,12 @@ public class SpiritSmelteryRenderer extends TileEntityRenderer<SpiritSmelteryTil
                 float amountur = source.get(blockEntity.getPos().getX() + (int) i / 2 + 16, blockEntity.getPos().getZ() + (int) j / 2);
                 float amountdr = source.get(blockEntity.getPos().getX() + (int) i / 2 + 16, blockEntity.getPos().getZ() + (int) j / 2 + 16);
                 float amountdl = source.get(blockEntity.getPos().getX() + (int) i / 2, blockEntity.getPos().getZ() + (int) j / 2 + 16);
-                float alphaul = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i), Math.abs(j)) / 160f));
-                float alphaur = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i + 32f), Math.abs(j)) / 160f));
-                float alphadr = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i + 32f), Math.abs(j + 32f)) / 160f));
-                float alphadl = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i), Math.abs(j + 32f)) / 160f));
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountul * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(0, 0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red1, green1, blue1, alpha1 * alphaul).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountur * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(1.0f, 0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red1, green1, blue1, alpha1 * alphaur).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountdr * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(1.0f, 1.0f).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red1, green1, alpha1 * blue1, alphadr).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountdl * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(0, 1.0f).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red1, green1, blue1, alpha1 * alphadl).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountul * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(0, 0).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountur * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(1.0f, 0).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountdr * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(1.0f, 1.0f).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountdl * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(0, 1.0f).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
             }
         }
-            /*for (float i = -160; i < 160; i += 32){
-            	for (float j = -160; j < 160; j += 32){
-            		float amountul = source.get(tile.getPos().getX()+(int)i/2, tile.getPos().getZ()+(int)j/2);
-            		float amountur = source.get(tile.getPos().getX()+(int)i/2+16, tile.getPos().getZ()+(int)j/2);
-            		float amountdr = source.get(tile.getPos().getX()+(int)i/2+16, tile.getPos().getZ()+(int)j/2+16);
-            		float amountdl = source.get(tile.getPos().getX()+(int)i/2, tile.getPos().getZ()+(int)j/2+16);
-            		float alphaul = Math.min(1.0f,Math.max(0.0f,1.0f-Math.max(Math.abs(i), Math.abs(j))/160f))*amountul;
-            		float alphaur = Math.min(1.0f,Math.max(0.0f,1.0f-Math.max(Math.abs(i+32f), Math.abs(j))/160f))*amountur;
-            		float alphadr = Math.min(1.0f,Math.max(0.0f,1.0f-Math.max(Math.abs(i+32f), Math.abs(j+32f))/160f))*amountdr;
-            		float alphadl = Math.min(1.0f,Math.max(0.0f,1.0f-Math.max(Math.abs(i), Math.abs(j+32f))/160f))*amountdl;
-            		buffer.pos(x+0.5f+1.25f*(i/160f), y+0.5f+amountul*0.25f, z+0.5f+1.25f*(j/160f)).tex(0, 0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(1.0f, 0.5f, 0.0625f, alphaul).endVertex();
-            		buffer.pos(x+0.5f+1.25f*(i/160f)+0.25f, y+0.5f+amountur*0.25f, z+0.5f+1.25f*(j/160f)).tex(1.0, 0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(1.0f, 0.5f, 0.0625f, alphaur).endVertex();
-            		buffer.pos(x+0.5f+1.25f*(i/160f)+0.25f, y+0.5f+amountdr*0.25f, z+0.5f+1.25f*(j/160f)+0.25f).tex(1.0, 1.0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(1.0f, 0.5f, 0.0625f, alphadr).endVertex();
-            		buffer.pos(x+0.5f+1.25f*(i/160f), y+0.5f+amountdl*0.25f, z+0.5f+1.25f*(j/160f)+0.25f).tex(0, 1.0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(1.0f, 0.5f, 0.0625f, alphadl).endVertex();
-                }
-            }*/
-        float red2 = color2.getRed() / 255f;
-        float green2 = color2.getGreen() / 255f;
-        float blue2 = color2.getBlue() / 255f;
-        float alpha2 = color2.getAlpha() / 255f;
         for (float i = -160; i < 160; i += 32)
         {
             for (float j = -160; j < 160; j += 32)
@@ -151,20 +130,12 @@ public class SpiritSmelteryRenderer extends TileEntityRenderer<SpiritSmelteryTil
                 float amountur = source.get(blockEntity.getPos().getX() + (int) i / 2 + 16, blockEntity.getPos().getZ() + (int) j / 2);
                 float amountdr = source.get(blockEntity.getPos().getX() + (int) i / 2 + 16, blockEntity.getPos().getZ() + (int) j / 2 + 16);
                 float amountdl = source.get(blockEntity.getPos().getX() + (int) i / 2, blockEntity.getPos().getZ() + (int) j / 2 + 16);
-                float alphaul = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i), Math.abs(j)) / 160f) * amountul * amountul);
-                float alphaur = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i + 32f), Math.abs(j)) / 160f) * amountur * amountur);
-                float alphadr = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i + 32f), Math.abs(j + 32f)) / 160f) * amountdr * amountdr);
-                float alphadl = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i), Math.abs(j + 32f)) / 160f) * amountdl * amountdl);
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountul * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(0, 0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red2, green2, blue2, alpha2 * 0.875f * alphaul).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountur * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(1.0f, 0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red2, green2, blue2, alpha2 * 0.875f * alphaur).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountdr * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(1.0f, 1.0f).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red2, green2, blue2, alpha2 * 0.875f * alphadr).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountdl * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(0, 1.0f).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red2, green2, blue2, alpha2 * 0.875f * alphadl).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountul * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(0, 0).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountur * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(1.0f, 0).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountdr * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(1.0f, 1.0f).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountdl * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(0, 1.0f).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
             }
         }
-        float red3 = color3.getRed() / 255f;
-        float green3 = color3.getGreen() / 255f;
-        float blue3 = color3.getBlue() / 255f;
-        float alpha3 = color3.getAlpha() / 255f;
         for (float i = -160; i < 160; i += 32)
         {
             for (float j = -160; j < 160; j += 32)
@@ -173,14 +144,10 @@ public class SpiritSmelteryRenderer extends TileEntityRenderer<SpiritSmelteryTil
                 float amountur = source.get(blockEntity.getPos().getX() + (int) i / 2 + 16, blockEntity.getPos().getZ() + (int) j / 2);
                 float amountdr = source.get(blockEntity.getPos().getX() + (int) i / 2 + 16, blockEntity.getPos().getZ() + (int) j / 2 + 16);
                 float amountdl = source.get(blockEntity.getPos().getX() + (int) i / 2, blockEntity.getPos().getZ() + (int) j / 2 + 16);
-                float alphaul = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i), Math.abs(j)) / 160f) * amountul * amountul * amountul);
-                float alphaur = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i + 32f), Math.abs(j)) / 160f) * amountur * amountur * amountur);
-                float alphadr = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i + 32f), Math.abs(j + 32f)) / 160f) * amountdr * amountdr * amountdr);
-                float alphadl = Math.min(1.0f, Math.max(0.0f, 1.0f - Math.max(Math.abs(i), Math.abs(j + 32f)) / 160f) * amountdl * amountdl * amountdl);
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountul * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(0, 0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red3, green3, blue3, alpha3 * alphaul).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountur * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(1.0f, 0).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red3, green3, blue3, alpha3 * alphaur).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountdr * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(1.0f, 1.0f).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red3, green3, blue3, alpha3 * alphadr).endVertex();
-                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountdl * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(0, 1.0f).lightmap(RenderUtil.lightx, RenderUtil.lighty).color(red3, green3, blue3, alpha3 * alphadl).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountul * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(0, 0).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountur * 0.25f, z + 0.5f + 1.25f * (j / 160f)).tex(1.0f, 0).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f) + 0.25f, y + 0.5f + amountdr * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(1.0f, 1.0f).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
+                buffer.pos(x + 0.5f + 1.25f * (i / 160f), y + 0.5f + amountdl * 0.25f, z + 0.5f + 1.25f * (j / 160f) + 0.25f).tex(0, 1.0f).lightmap(lightx, lighty).color(1,1,1,1).endVertex();
             }
         }
         tess.draw();

@@ -76,7 +76,7 @@ public class ModTileEntities
                 TileEntityType.Builder.create((Supplier<TileEntity>) RedstoneClockTileEntity::new, ModBlocks.redstone_clock).build(null).setRegistryName("redstone_clock_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) SpiritFurnaceTileEntity::new, ModBlocks.spirit_furnace).build(null).setRegistryName("spirit_furnace_tile_entity"),
                 TileEntityType.Builder.create((Supplier<TileEntity>) SpiritSmelteryTileEntity::new, ModBlocks.spirit_smeltery).build(null).setRegistryName("spirit_smeltery_tile_entity"),
-                TileEntityType.Builder.create((Supplier<TileEntity>) BoundingBlockTileEntity::new, ModBlocks.bounding_block).build(null).setRegistryName("bounding_block_tile_entity")
+                TileEntityType.Builder.create((Supplier<TileEntity>) BoundingBlockTileEntity::new, ModBlocks.spirit_furnace_bounding_block, ModBlocks.spirit_smeltery_bounding_block).build(null).setRegistryName("bounding_block_tile_entity")
         );
     }
 }

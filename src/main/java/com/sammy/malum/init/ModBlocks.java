@@ -3,12 +3,14 @@ package com.sammy.malum.init;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineBlock;
 import com.sammy.malum.blocks.machines.ignisfurnace.SpiritFurnaceBlock;
+import com.sammy.malum.blocks.machines.ignisfurnace.SpiritFurnaceBoundingBlock;
 import com.sammy.malum.blocks.machines.mirror.BasicMirrorBlock;
 import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockBlock;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomBlock;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopBlock;
 import com.sammy.malum.blocks.machines.spiritjar.SpiritJarBlock;
 import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryBlock;
+import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryBoundingBlock;
 import com.sammy.malum.blocks.special.FleshBlock;
 import com.sammy.malum.blocks.utility.ModSlabBlock;
 import com.sammy.malum.blocks.utility.ModStairsBlock;
@@ -35,7 +37,8 @@ public class ModBlocks
     public static Block redstone_clock;
     public static Block spirit_smeltery;
     
-    public static Block bounding_block;
+    public static Block spirit_furnace_bounding_block;
+    public static Block spirit_smeltery_bounding_block;
     //ORES
 
     public static Block arcane_stone;
@@ -102,7 +105,8 @@ public class ModBlocks
         redstone_clock = registerBlock(registry, new RedstoneClockBlock(spirit_stone_properties), "redstone_clock");
         spirit_smeltery = registerBlock(registry, new SpiritSmelteryBlock(spirit_stone_properties), "spirit_smeltery");
     
-        bounding_block = registerBlock(registry, new BoundingBlock(spirit_stone_properties.notSolid().noDrops()), "bounding_block");
+        spirit_furnace_bounding_block = registerBlock(registry, new SpiritFurnaceBoundingBlock(spirit_stone_properties.notSolid().noDrops()), "spirit_furnace_bounding_block");
+        spirit_smeltery_bounding_block = registerBlock(registry, new SpiritSmelteryBoundingBlock(spirit_stone_properties.notSolid().noDrops()), "spirit_smeltery_bounding_block");
     
         arcane_stone = registerBlock(registry, new Block(spirit_stone_properties), "arcane_stone");
         archaic_crystal_ore = registerBlock(registry, new Block(Block.Properties.from(Blocks.DIAMOND_ORE)), "archaic_crystal_ore");
