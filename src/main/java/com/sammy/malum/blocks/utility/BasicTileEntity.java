@@ -12,6 +12,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import static com.sammy.malum.MalumHelper.inputStackIntoTE;
 import static com.sammy.malum.MalumHelper.vectorFromBlockPos;
@@ -64,22 +67,25 @@ public abstract class BasicTileEntity extends TileEntity
     
     }
     
-    public void output(ItemStack stack, BlockPos pos)
+    public boolean output(ItemStack stack, BlockPos pos)
     {
-        Direction direction = world.getBlockState(pos).get(HORIZONTAL_FACING);
-        TileEntity inputTileEntity = world.getTileEntity(pos.subtract(direction.getDirectionVec()));
+        TileEntity inputTileEntity = world.getTileEntity(pos);
         if (inputTileEntity != null)
         {
-            boolean success = inputStackIntoTE(inputTileEntity, direction.getOpposite(), stack);
-            if (success)
+            LazyOptional<IItemHandler> inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+            if (inventory.isPresent())
             {
-                return;
+                return inputStackIntoTE(inputTileEntity, stack);
             }
         }
-        Vector3i directionVec = direction.getDirectionVec();
-        Vector3d entityPos = vectorFromBlockPos(pos).add(0.5, 0.5, 0.5).subtract(directionVec.getX() * 0.8f, 0, directionVec.getZ() * 0.8f);
+        dropItem(stack,pos);
+        return true;
+    }
+    public void dropItem(ItemStack stack, BlockPos pos)
+    {
+        Vector3d entityPos = vectorFromBlockPos(pos).add(0.5, 0.5, 0.5).subtract(0,0,0);
         ItemEntity entity = new ItemEntity(world, entityPos.x, entityPos.y, entityPos.z, stack.copy());
-        entity.setMotion(-directionVec.getX() * 0.1f, 0.05f, -directionVec.getZ() * 0.1f);
+        entity.setMotion(0, 0, 0);
         world.addEntity(entity);
     }
 }

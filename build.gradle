@@ -72,7 +72,8 @@ minecraft {
 }
 
 repositories 
-{ 
+{
+    maven { url = "https://maven.hypherionmc.me" }
 	maven { url = "https://maven.theillusivec4.top/" } 
 	maven 
 	{
@@ -89,6 +90,9 @@ repositories
 }
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.3-34.1.11'
+
+    implementation 'net.hypherionmc:HyperLightingCore-1.16.3:1.0.1:api'
+    runtimeOnly 'net.hypherionmc:HyperLightingCore-1.16.3:1.0.1'
 
     compileOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25")

@@ -1,5 +1,6 @@
 package com.sammy.malum.blocks.machines.mirror;
 
+import com.ibm.icu.util.Output;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.blocks.utility.IConfigurableBlock;
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
@@ -187,6 +188,8 @@ public class BasicMirrorBlock extends HorizontalFaceBlock implements IConfigurab
             {
                 case 1:
                 {
+                    mirrorTileEntity.specialFunction = machineOption(change + mirrorTileEntity.specialFunction, 3);
+                    pitch = (float) mirrorTileEntity.specialFunction / 3;
                     break;
                 }
                 case 0:

@@ -3,8 +3,6 @@ package com.sammy.malum.events;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineRenderer;
 import com.sammy.malum.blocks.machines.mirror.BasicMirrorRenderer;
 import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockRenderer;
-import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomRenderer;
-import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopRenderer;
 import com.sammy.malum.blocks.machines.spiritjar.SpiritJarRenderer;
 import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryRenderer;
 import com.sammy.malum.init.ModBlocks;
@@ -12,6 +10,7 @@ import com.sammy.malum.init.ModItems;
 import com.sammy.malum.init.ModTileEntities;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,6 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import static com.sammy.malum.MalumMod.MODID;
+import static com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryRenderer.spirit_fluid_texture;
 import static net.minecraft.item.ItemModelsProperties.registerProperty;
 
 @SuppressWarnings("unused")
@@ -38,10 +38,17 @@ public class ClientSetupEvents
     }
     
     @SubscribeEvent
+    public static void onTextureStitch(TextureStitchEvent.Pre event) {
+        if (!event.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
+        {
+            return;
+        }
+        event.addSprite(spirit_fluid_texture);
+    }
+    
+    @SubscribeEvent
     public static void bindTERs(FMLClientSetupEvent event)
     {
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_bottom_tile_entity, SpiritFurnaceBottomRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_furnace_top_tile_entity, SpiritFurnaceTopRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.basic_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.input_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.output_mirror_tile_entity, BasicMirrorRenderer::new);
@@ -88,5 +95,7 @@ public class ClientSetupEvents
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_jar, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.funk_engine, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.redstone_clock, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace_bounding_block, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.spirit_smeltery_bounding_block, RenderType.getCutout());
     }
 }

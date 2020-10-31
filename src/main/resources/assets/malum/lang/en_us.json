@@ -17,6 +17,10 @@
   "malum.tooltip.pulse": "Pulse",
   "malum.tooltip.transfer_amount": "Transfer Amount: ",
   "malum.tooltip.selected": "Selected: ",
+  "malum.tooltip.mirror_will": "The mirror will additionally: ",
+  "malum.tooltip.nothing": "Do absolutely nothing",
+  "malum.tooltip.drop_items": "Drop stored items",
+  "malum.tooltip.pickup_items": "Pickup nearby items",
 
   "malum.tooltip.stave.option.a": "Spirit Harvesting",
   "malum.tooltip.stave.option.b": "Augment Ability",

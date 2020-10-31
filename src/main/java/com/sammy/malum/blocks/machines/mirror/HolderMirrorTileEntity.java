@@ -8,4 +8,5 @@ public class HolderMirrorTileEntity extends BasicMirrorTileEntity
     {
         super(ModTileEntities.basic_mirror_tile_entity);
     }
+    
 }

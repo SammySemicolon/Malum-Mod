@@ -1,7 +1,6 @@
-package com.sammy.malum.blocks.machines.ignisfurnace;
+package com.sammy.malum.blocks.machines.spiritfurnace;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.sammy.malum.blocks.utility.multiblock.MultiblockBlock;
 import com.sammy.malum.blocks.utility.multiblock.MultiblockStructure;
 import net.minecraft.block.Block;
@@ -23,7 +22,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
-import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
 public class SpiritFurnaceBlock extends MultiblockBlock
 {

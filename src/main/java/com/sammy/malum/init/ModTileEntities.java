@@ -1,13 +1,11 @@
 package com.sammy.malum.init;
 
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
-import com.sammy.malum.blocks.machines.ignisfurnace.SpiritFurnaceTileEntity;
+import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceTileEntity;
 import com.sammy.malum.blocks.machines.mirror.HolderMirrorTileEntity;
 import com.sammy.malum.blocks.machines.mirror.InputMirrorTileEntity;
 import com.sammy.malum.blocks.machines.mirror.OutputMirrorTileEntity;
 import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockTileEntity;
-import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
-import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceTopTileEntity;
 import com.sammy.malum.blocks.machines.spiritjar.SpiritJarTileEntity;
 import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryTileEntity;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
@@ -33,12 +31,6 @@ public class ModTileEntities
 
     @ObjectHolder("malum:spirit_jar_tile_entity")
     public static TileEntityType<SpiritJarTileEntity> spirit_jar_tile_entity;
-
-    @ObjectHolder("malum:spirit_furnace_bottom_tile_entity")
-    public static TileEntityType<SpiritFurnaceBottomTileEntity> spirit_furnace_bottom_tile_entity;
-
-    @ObjectHolder("malum:spirit_furnace_top_tile_entity")
-    public static TileEntityType<SpiritFurnaceTopTileEntity> spirit_furnace_top_tile_entity;
 
     @ObjectHolder("malum:basic_mirror_tile_entity")
     public static TileEntityType<HolderMirrorTileEntity> basic_mirror_tile_entity;

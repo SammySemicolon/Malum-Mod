@@ -61,7 +61,7 @@ public class FancyRenderer<T extends TileEntity> extends TileEntityRenderer<T> i
     @Override
     public int maxOptions()
     {
-        return 0;
+        return 1;
     }
     
     @Override

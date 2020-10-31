@@ -1,13 +1,17 @@
 package com.sammy.malum.blocks.machines.mirror;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
@@ -19,9 +23,11 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Objects;
 
 import static com.sammy.malum.MalumHelper.inputStackIntoTE;
+import static net.minecraft.item.ItemStack.EMPTY;
 import static net.minecraft.state.properties.AttachFace.CEILING;
 import static net.minecraft.state.properties.AttachFace.FLOOR;
 import static net.minecraft.state.properties.BlockStateProperties.FACE;
@@ -31,6 +37,9 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
 {
     public int transferAmount;
     public int transferCooldown;
+    public int specialFunction;
+    public boolean isFiltered;
+    public Item filter;
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
@@ -64,6 +73,7 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
             }
         }
     };
+    
     public final LazyOptional<IItemHandler> lazyOptional = LazyOptional.of(() -> inventory);
     int[] transferAmounts = new int[]{1, 2, 4, 8, 16, 32, 64};
     public BasicMirrorTileEntity(TileEntityType type)
@@ -131,6 +141,8 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
         super.write(compound);
         compound.putInt("transferAmount", transferAmount);
         compound.put("inventory", inventory.serializeNBT());
+        compound.putInt("specialFunction", specialFunction);
+        compound.putBoolean("isFiltered", isFiltered);
         return compound;
     }
     
@@ -140,6 +152,47 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
         super.read(compound);
         transferAmount = compound.getInt("transferAmount");
         inventory.deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
+        specialFunction = compound.getInt("specialFunction");
+        isFiltered = compound.getBoolean("isFiltered");
     }
-    
+    public void globalLogic()
+    {
+        if (specialFunction == 1)
+        {
+            List<Entity> entities = findEntities();
+            if (!entities.isEmpty())
+            {
+                for (Entity entity : entities)
+                {
+                    if (entity instanceof ItemEntity)
+                    {
+                        ItemStack stack = ((ItemEntity) entity).getItem();
+                        boolean success = inputStackIntoTE(this, stack);
+                        if (success)
+                        {
+                            getWorld().notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 3);
+                        }
+                    }
+                }
+            }
+        }
+        if (specialFunction == 2)
+        {
+            ItemStack stack = inventory.getStackInSlot(0);
+            if (!stack.isEmpty())
+            {
+                ItemEntity entity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+                entity.setVelocity(0, 0, 0);
+                boolean success = world.addEntity(entity);
+                if (success)
+                {
+                    inventory.setStackInSlot(0, EMPTY);
+                }
+            }
+        }
+    }
+    public List<Entity> findEntities()
+    {
+        return world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 0.5f, pos.getY() + 1, pos.getZ() + 0.5f), e -> (e instanceof ItemEntity));
+    }
 }

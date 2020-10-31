@@ -37,9 +37,9 @@ public class BasicMirrorRenderer extends FancyRenderer<BasicMirrorTileEntity>
     @Override
     public int maxOptions()
     {
-        return 1;
+        return 2;
     }
-
+    
     @Override
     public void render(BasicMirrorTileEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer iRenderTypeBuffer, int light, int overlay)
     {
@@ -47,7 +47,27 @@ public class BasicMirrorRenderer extends FancyRenderer<BasicMirrorTileEntity>
         {
             ArrayList<ITextComponent> components = new ArrayList<>();
             components.add(makeTranslationComponent("malum.tooltip.transfer_amount").append(makeImportantComponent("" + blockEntity.transferAmounts[blockEntity.transferAmount], true)));
-            
+            String whatMirrorDo = "what???";
+            switch (blockEntity.specialFunction)
+            {
+                case 0:
+                {
+                    whatMirrorDo = "malum.tooltip.nothing";
+                    break;
+                }
+                case 1:
+                {
+                    whatMirrorDo = "malum.tooltip.pickup_items";
+                    break;
+                }
+                case 2:
+                {
+                    whatMirrorDo = "malum.tooltip.drop_items";
+                    break;
+                }
+            }
+            components.add(makeTranslationComponent("malum.tooltip.mirror_will").append(makeImportantComponent(whatMirrorDo, true)));
+    
             ClientHandler.renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, false, components);
         }
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();

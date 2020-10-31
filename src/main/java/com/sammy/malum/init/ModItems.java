@@ -2,7 +2,7 @@ package com.sammy.malum.init;
 
 import com.google.common.base.Preconditions;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.blocks.machines.ignisfurnace.SpiritFurnaceBlock;
+import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBlock;
 import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryBlock;
 import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
 import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;

@@ -1,4 +1,4 @@
-package com.sammy.malum.blocks.machines.ignisfurnace;
+package com.sammy.malum.blocks.machines.spiritfurnace;
 
 import com.sammy.malum.blocks.utility.multiblock.BoundingBlock;
 import net.minecraft.block.Block;

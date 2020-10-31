@@ -2,7 +2,6 @@ package com.sammy.malum;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
-import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBottomTileEntity;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import com.sammy.malum.blocks.utility.IFancyRenderer;
@@ -91,23 +90,23 @@ public class ClientHandler
         sound = null;
     }
     
-    public static void spiritFurnaceTick(SpiritFurnaceBottomTileEntity tileEntity)
-    {
-        boolean success = playLoopingSound(tileEntity.sound);
-        if (success)
-        {
-            tileEntity.sound = new SimpleSound(ModSounds.furnace_loop, SoundCategory.BLOCKS, 1, 1, tileEntity.getPos());
-        }
-    }
-    
-    public static void spiritFurnaceStop(SpiritFurnaceBottomTileEntity tileEntity)
-    {
-        if (tileEntity.sound instanceof SimpleSound)
-        {
-            stopPlayingSound((SimpleSound) tileEntity.sound);
-            tileEntity.sound = null;
-        }
-    }
+//    public static void spiritFurnaceTick(SpiritFurnaceBottomTileEntity tileEntity)
+//    {
+//        boolean success = playLoopingSound(tileEntity.sound);
+//        if (success)
+//        {
+//            tileEntity.sound = new SimpleSound(ModSounds.furnace_loop, SoundCategory.BLOCKS, 1, 1, tileEntity.getPos());
+//        }
+//    }
+//
+//    public static void spiritFurnaceStop(SpiritFurnaceBottomTileEntity tileEntity)
+//    {
+//        if (tileEntity.sound instanceof SimpleSound)
+//        {
+//            stopPlayingSound((SimpleSound) tileEntity.sound);
+//            tileEntity.sound = null;
+//        }
+//    }
     
     public static void funkEngineTick(FunkEngineTileEntity tileEntity)
     {

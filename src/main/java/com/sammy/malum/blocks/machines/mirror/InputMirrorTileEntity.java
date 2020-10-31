@@ -59,6 +59,7 @@ public class InputMirrorTileEntity extends LinkableMirrorTileEntity implements I
                         }
                     }
                 }
+                globalLogic();
             }
             transferCooldown--;
         }
