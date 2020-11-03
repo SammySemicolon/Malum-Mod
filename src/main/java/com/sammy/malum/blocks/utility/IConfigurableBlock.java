@@ -15,7 +15,7 @@ public interface IConfigurableBlock
 {
     int options();
     
-    default void configureTileEntity(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit, ConfigurableTileEntity tileEntity, int option, boolean isSneaking)
+    default void configureTileEntity(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit, IConfigurableTileEntity tileEntity, int option, boolean isSneaking)
     {
     
     }
@@ -25,19 +25,19 @@ public interface IConfigurableBlock
         return ActionResultType.FAIL;
     }
     
-    default ActionResultType activateBlock(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    default ActionResultType activateConfigurableBlock(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (!worldIn.isRemote())
         {
-            if (worldIn.getTileEntity(pos) instanceof ConfigurableTileEntity)
+            if (worldIn.getTileEntity(pos) instanceof IConfigurableTileEntity)
             {
                 ItemStack stack = player.getHeldItem(handIn);
                 if (stack.getItem() instanceof BasicStave)
                 {
                     if (((BasicStave) stack.getItem()).getOption(stack).option == 2)
                     {
-                        ConfigurableTileEntity tileEntity = (ConfigurableTileEntity) worldIn.getTileEntity(pos);
-                        configureTileEntity(state, worldIn, pos, player, handIn, hit, tileEntity, tileEntity.option, player.isSneaking());
+                        IConfigurableTileEntity tileEntity = (IConfigurableTileEntity) worldIn.getTileEntity(pos);
+                        configureTileEntity(state, worldIn, pos, player, handIn, hit, tileEntity, tileEntity.getOption(), player.isSneaking());
                         return ActionResultType.SUCCESS;
                     }
                 }

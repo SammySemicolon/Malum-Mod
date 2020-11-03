@@ -2,6 +2,7 @@ package com.sammy.malum.init;
 
 import com.google.common.base.Preconditions;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.blocks.machines.crystallineaccelerator.CrystallineAccelerator;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBlock;
 import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryBlock;
 import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
@@ -74,10 +75,13 @@ public class ModItems
     public static Item vacant_gemstone;
     public static Item stygian_pearl;
     public static Item runic_ash;
+    
     public static Item ectoplasm;
     public static Item resonant_lens;
     public static Item umbral_steel_ingot;
     public static Item umbral_steel_nugget;
+    
+    public static Item runic_mechanism;
     public static Item arcane_apparatus;
     public static Item cursed_nebulous;
     public static Item stellar_apparatus;
@@ -143,10 +147,14 @@ public class ModItems
     public static Item basic_mirror;
     public static Item input_mirror;
     public static Item output_mirror;
+    public static Item redstone_battery;
     public static Item redstone_clock;
     public static Item funk_engine;
     public static Item spirit_smeltery;
+    public static Item crystalline_accelerator;
     //BLOCKS
+    public static Item spirit_glass;
+    
     public static Item spirit_stone_brick;
     public static Item dark_spirit_stone_brick;
     public static Item patterned_spirit_stone;
@@ -230,11 +238,14 @@ public class ModItems
                 vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
                 stygian_pearl = setup(new Item(basic_properties), "stygian_pearl"),
                 runic_ash = setup(new Item(basic_properties), "runic_ash"),
+                
                 ectoplasm = setup(new Item(basic_properties), "ectoplasm"),
                 resonant_lens = setup(new Item(basic_properties), "resonant_lens"),
-                arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
                 umbral_steel_ingot = setup(new Item(basic_properties), "umbral_steel_ingot"),
                 umbral_steel_nugget = setup(new Item(basic_properties), "umbral_steel_nugget"),
+                
+                runic_mechanism = setup(new Item(basic_properties), "runic_mechanism"),
+                arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
                 cursed_nebulous = setup(new SimpleFoiledItem(rare_properties), "cursed_nebulous"),
                 stellar_apparatus = setup(new SimpleFoiledItem(rare_properties), "stellar_apparatus"),
 
@@ -298,10 +309,14 @@ public class ModItems
                 basic_mirror = setup(new BlockItem(ModBlocks.basic_mirror, basic_properties), "basic_mirror"),
                 input_mirror = setup(new BlockItem(ModBlocks.input_mirror, basic_properties), "input_mirror"),
                 output_mirror = setup(new MirrorBlockItem(ModBlocks.output_mirror, basic_properties), "output_mirror"),
+                redstone_battery = setup(new BlockItem(ModBlocks.redstone_battery, basic_properties), "redstone_battery"),
                 redstone_clock = setup(new BlockItem(ModBlocks.redstone_clock, basic_properties), "redstone_clock"),
                 funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
                 spirit_smeltery = setup(new MultiblockItem(ModBlocks.spirit_smeltery, ModBlocks.spirit_smeltery_bounding_block, basic_properties, SpiritSmelteryBlock.structure), "spirit_smeltery"),
-
+                crystalline_accelerator = setup(new MultiblockItem(ModBlocks.crystalline_accelerator, ModBlocks.crystalline_accelerator_bounding_block, basic_properties, CrystallineAccelerator.structure), "crystalline_accelerator"),
+        
+                spirit_glass = setup(new BlockItem(ModBlocks.spirit_glass, basic_properties), "spirit_glass"),
+        
                 spirit_stone_brick = setup(new BlockItem(ModBlocks.spirit_stone_brick, basic_properties), "spirit_stone_brick"),
                 dark_spirit_stone_brick = setup(new BlockItem(ModBlocks.dark_spirit_stone_brick, basic_properties), "dark_spirit_stone_brick"),
                 patterned_spirit_stone = setup(new BlockItem(ModBlocks.patterned_spirit_stone, basic_properties), "patterned_spirit_stone"),

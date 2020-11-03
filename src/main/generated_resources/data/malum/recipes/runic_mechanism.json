@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "malum:runic_ash"
+    },
+    {
+      "item": "malum:vacant_gemstone"
+    },
+    {
+      "item": "malum:arcane_shard"
+    },
+    {
+      "item": "malum:spirit_stone"
+    },
+    {
+      "item": "malum:dark_spirit_stone"
+    }
+  ],
+  "result": {
+    "item": "malum:runic_mechanism",
+    "count": 2
+  }
+}

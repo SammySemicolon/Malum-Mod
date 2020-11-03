@@ -87,8 +87,9 @@ public class MalumMod
                 //combined materials
                 ShapedRecipeBuilder.shapedRecipe(spirit_fabric, 2).key('a', spirit_silk).key('b', ItemTags.WOOL).addCriterion("has_spirit_silk", hasItem(spirit_silk)).patternLine(" a ").patternLine("aba").patternLine(" a ").build(consumer);
                 ShapedRecipeBuilder.shapedRecipe(resonant_lens, 4).key('a', ectoplasm).key('b', GLASS_PANE).addCriterion("has_ectoplasm", hasItem(ectoplasm)).patternLine(" a ").patternLine("aba").patternLine(" a ").build(consumer);
+                ShapelessRecipeBuilder.shapelessRecipe(runic_mechanism, 2).addIngredient(IRON_INGOT).addIngredient(runic_ash).addIngredient(vacant_gemstone).addIngredient(arcane_shard).addIngredient(spirit_stone).addIngredient(dark_spirit_stone).addCriterion("has_runic_ash", hasItem(runic_ash)).build(consumer);
                 ShapedRecipeBuilder.shapedRecipe(arcane_apparatus).key('a', spirited_steel_ingot).key('b', stygian_pearl).key('c', arcane_shard).addCriterion("has_stygian_pearl", hasItem(stygian_pearl)).patternLine("cac").patternLine("aba").patternLine("cac").build(consumer);
-                ShapedRecipeBuilder.shapedRecipe(stellar_apparatus).key('a', arcane_apparatus).key('b', cursed_nebulous).key('c', archaic_crystal).addCriterion("has_stygian_pearl", hasItem(cursed_nebulous)).patternLine("cac").patternLine("aba").patternLine("cac").build(consumer);
+                ShapedRecipeBuilder.shapedRecipe(stellar_apparatus).key('a', arcane_apparatus).key('b', cursed_nebulous).key('c', runic_mechanism).addCriterion("has_stygian_pearl", hasItem(cursed_nebulous)).patternLine("cac").patternLine("aba").patternLine("cac").build(consumer);
                 
                 //spirit storage
                 ShapedRecipeBuilder.shapedRecipe(spirit_vault).key('a', transmissive_ingot).key('b', stygian_pearl).addCriterion("has_stygian_pearl", hasItem(stygian_pearl)).patternLine(" a ").patternLine("aba").patternLine(" a ").build(consumer);
@@ -121,8 +122,8 @@ public class MalumMod
                 ShapedRecipeBuilder.shapedRecipe(input_mirror).key('a', basic_mirror).key('b', HOPPER).patternLine("b").patternLine("a").addCriterion("has_resonant_lens", hasItem(resonant_lens)).build(consumer);
                 ShapedRecipeBuilder.shapedRecipe(output_mirror).key('a', basic_mirror).key('b', HOPPER).patternLine("a").patternLine("b").addCriterion("has_resonant_lens", hasItem(resonant_lens)).build(consumer);
                 
-                ShapedRecipeBuilder.shapedRecipe(redstone_clock).key('a', REDSTONE).key('b', dark_spirit_stone).key('c', arcane_apparatus).patternLine("bab").patternLine("aca").patternLine("bab").addCriterion("has_arcane_apparatus", hasItem(arcane_apparatus)).build(consumer);
-                ShapedRecipeBuilder.shapedRecipe(funk_engine).key('a', arcane_shard).key('b', dark_spirit_stone).key('c', arcane_apparatus).key('d', JUKEBOX).patternLine("bcb").patternLine("ada").patternLine("bab").addCriterion("has_arcane_apparatus", hasItem(arcane_apparatus)).build(consumer);
+                ShapedRecipeBuilder.shapedRecipe(redstone_clock).key('a', REDSTONE_BLOCK).key('b', dark_spirit_stone).key('c', spirit_stone).key('d', runic_mechanism).patternLine("bdb").patternLine("dad").patternLine("cdc").addCriterion("has_runic_mechanism", hasItem(runic_mechanism)).build(consumer);
+                ShapedRecipeBuilder.shapedRecipe(funk_engine).key('a', JUKEBOX).key('b', dark_spirit_stone).key('c', spirit_stone).key('d', runic_mechanism).patternLine("bdb").patternLine("dad").patternLine("cdc").addCriterion("has_runic_mechanism", hasItem(runic_mechanism)).build(consumer);
                 
                 
                 //armor

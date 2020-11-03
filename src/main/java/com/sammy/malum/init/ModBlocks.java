@@ -1,7 +1,10 @@
 package com.sammy.malum.init;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.blocks.machines.crystallineaccelerator.CrystallineAccelerator;
+import com.sammy.malum.blocks.machines.crystallineaccelerator.CrystallineAcceleratorBoundingBlock;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineBlock;
+import com.sammy.malum.blocks.machines.redstonebattery.RedstoneBatteryBlock;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBlock;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBoundingBlock;
 import com.sammy.malum.blocks.machines.mirror.BasicMirrorBlock;
@@ -31,11 +34,14 @@ public class ModBlocks
     public static Block input_mirror;
     public static Block output_mirror;
     public static Block funk_engine;
+    public static Block redstone_battery;
     public static Block redstone_clock;
     public static Block spirit_smeltery;
+    public static Block crystalline_accelerator;
     
     public static Block spirit_furnace_bounding_block;
     public static Block spirit_smeltery_bounding_block;
+    public static Block crystalline_accelerator_bounding_block;
     //ORES
 
     public static Block arcane_stone;
@@ -44,6 +50,7 @@ public class ModBlocks
 
     public static Block spirit_stone;
     public static Block dark_spirit_stone;
+    public static Block spirit_glass;
 
     public static Block spirit_stone_brick;
     public static Block dark_spirit_stone_brick;
@@ -100,16 +107,22 @@ public class ModBlocks
         output_mirror = registerBlock(registry, new BasicMirrorBlock(mirror_properties, BasicMirrorBlock.mirrorTypeEnum.output), "output_mirror");
         funk_engine = registerBlock(registry, new FunkEngineBlock(spirit_stone_properties), "funk_engine");
         redstone_clock = registerBlock(registry, new RedstoneClockBlock(spirit_stone_properties), "redstone_clock");
+        redstone_battery = registerBlock(registry, new RedstoneBatteryBlock(spirit_stone_properties), "redstone_battery");
         spirit_smeltery = registerBlock(registry, new SpiritSmelteryBlock(spirit_stone_properties), "spirit_smeltery");
+        crystalline_accelerator = registerBlock(registry, new CrystallineAccelerator(spirit_stone_properties), "crystalline_accelerator");
     
         spirit_furnace_bounding_block = registerBlock(registry, new SpiritFurnaceBoundingBlock(spirit_stone_properties.notSolid().noDrops()), "spirit_furnace_bounding_block");
         spirit_smeltery_bounding_block = registerBlock(registry, new SpiritSmelteryBoundingBlock(spirit_stone_properties.notSolid().noDrops()), "spirit_smeltery_bounding_block");
+        crystalline_accelerator_bounding_block = registerBlock(registry, new CrystallineAcceleratorBoundingBlock(spirit_stone_properties.notSolid().noDrops()), "crystalline_accelerator_bounding_block");
     
         arcane_stone = registerBlock(registry, new Block(spirit_stone_properties), "arcane_stone");
         archaic_crystal_ore = registerBlock(registry, new Block(Block.Properties.from(Blocks.DIAMOND_ORE)), "archaic_crystal_ore");
     
         dark_spirit_stone = registerBlock(registry, new Block(dark_spirit_stone_properties), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(spirit_stone_properties), "spirit_stone");
+    
+        spirit_glass = registerBlock(registry, new Block(spirit_stone_properties), "spirit_glass");
+    
         dark_spirit_stone_brick = registerBlock(registry, new Block(dark_spirit_stone_properties), "dark_spirit_stone_brick");
         spirit_stone_brick = registerBlock(registry, new Block(spirit_stone_properties), "spirit_stone_brick");
         patterned_dark_spirit_stone = registerBlock(registry, new Block(dark_spirit_stone_properties), "patterned_dark_spirit_stone");

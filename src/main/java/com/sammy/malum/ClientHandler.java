@@ -2,8 +2,11 @@ package com.sammy.malum;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineTileEntity;
+import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceTileEntity;
+import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryTileEntity;
 import com.sammy.malum.blocks.utility.BasicTileEntity;
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
+import com.sammy.malum.blocks.utility.IConfigurableTileEntity;
 import com.sammy.malum.blocks.utility.IFancyRenderer;
 import com.sammy.malum.capabilities.MalumDataProvider;
 import com.sammy.malum.init.ModSounds;
@@ -90,7 +93,7 @@ public class ClientHandler
         sound = null;
     }
     
-//    public static void spiritFurnaceTick(SpiritFurnaceBottomTileEntity tileEntity)
+//    public static void spiritFurnaceTick(SpiritFurnaceTileEntity tileEntity)
 //    {
 //        boolean success = playLoopingSound(tileEntity.sound);
 //        if (success)
@@ -99,7 +102,7 @@ public class ClientHandler
 //        }
 //    }
 //
-//    public static void spiritFurnaceStop(SpiritFurnaceBottomTileEntity tileEntity)
+//    public static void spiritFurnaceStop(SpiritFurnaceTileEntity tileEntity)
 //    {
 //        if (tileEntity.sound instanceof SimpleSound)
 //        {
@@ -246,10 +249,10 @@ public class ClientHandler
                             int current = components.size() + 1;
                             if (renderer.maxOptions() > 1)
                             {
-                                if (tileEntity instanceof ConfigurableTileEntity)
+                                if (tileEntity instanceof IConfigurableTileEntity)
                                 {
                                     ITextComponent updatedComponent = new StringTextComponent(" >").append(components.get(renderer.getSelectedOption(((ConfigurableTileEntity) tileEntity).option)));
-                                    components.set(renderer.getSelectedOption(((ConfigurableTileEntity) tileEntity).option), updatedComponent);
+                                    components.set(renderer.getSelectedOption(((IConfigurableTileEntity) tileEntity).getOption()), updatedComponent);
                                 }
                             }
                             for (ITextComponent component : components)
@@ -305,27 +308,27 @@ public class ClientHandler
                 offhand = true;
                 stack = playerEntity.getHeldItemOffhand();
             }
-            
-            if (stack.getItem() instanceof BasicStave)
+    
+            if (playerEntity.isSneaking())
             {
-                Minecraft minecraft = Minecraft.getInstance();
-                World world = minecraft.world;
-                if (minecraft.objectMouseOver != null && minecraft.objectMouseOver.getType().equals(BLOCK))
+                if (stack.getItem() instanceof BasicStave)
                 {
-                    BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
-                    BlockPos pos = mouseOver.getPos();
-                    if (world.getTileEntity(pos) instanceof ConfigurableTileEntity)
+                    Minecraft minecraft = Minecraft.getInstance();
+                    World world = minecraft.world;
+                    if (minecraft.objectMouseOver != null && minecraft.objectMouseOver.getType().equals(BLOCK))
                     {
-                        int actualChange = event.getScrollDelta() > 0 ? 1 : -1;
-                        INSTANCE.sendToServer(new UpdateSelectedOption(pos, actualChange));
-                        event.setCanceled(true);
-                        return;
+                        BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
+                        BlockPos pos = mouseOver.getPos();
+                        if (world.getTileEntity(pos) instanceof IConfigurableTileEntity)
+                        {
+                            int actualChange = event.getScrollDelta() > 0 ? 1 : -1;
+                            INSTANCE.sendToServer(new UpdateSelectedOption(pos, actualChange));
+                            event.setCanceled(true);
+                            return;
+                        }
                     }
                 }
-            }
-            if (stack.getItem() instanceof IConfigurableItem)
-            {
-                if (playerEntity.isSneaking())
+                if (stack.getItem() instanceof IConfigurableItem)
                 {
                     int actualChange = event.getScrollDelta() > 0 ? 1 : -1;
                     int slot = offhand ? -621 : playerEntity.inventory.getSlotFor(stack);

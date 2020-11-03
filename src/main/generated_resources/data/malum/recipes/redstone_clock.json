@@ -1,19 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "bab",
-    "aca",
-    "bab"
+    "bdb",
+    "dad",
+    "cdc"
   ],
   "key": {
     "a": {
-      "item": "minecraft:redstone"
+      "item": "minecraft:redstone_block"
     },
     "b": {
       "item": "malum:dark_spirit_stone"
     },
     "c": {
-      "item": "malum:arcane_apparatus"
+      "item": "malum:spirit_stone"
+    },
+    "d": {
+      "item": "malum:runic_mechanism"
     }
   },
   "result": {

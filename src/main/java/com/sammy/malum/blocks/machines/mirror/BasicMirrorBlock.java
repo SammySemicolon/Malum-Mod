@@ -1,9 +1,8 @@
 package com.sammy.malum.blocks.machines.mirror;
 
-import com.ibm.icu.util.Output;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.blocks.utility.IConfigurableBlock;
-import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
+import com.sammy.malum.blocks.utility.IConfigurableTileEntity;
 import com.sammy.malum.items.MirrorBlockItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -150,7 +149,7 @@ public class BasicMirrorBlock extends HorizontalFaceBlock implements IConfigurab
                 return ActionResultType.SUCCESS;
             }
         }
-        return activateBlock(state, worldIn, pos, player, handIn, hit);
+        return activateConfigurableBlock(state, worldIn, pos, player, handIn, hit);
     }
     
     @Override
@@ -172,7 +171,7 @@ public class BasicMirrorBlock extends HorizontalFaceBlock implements IConfigurab
     }
     
     @Override
-    public void configureTileEntity(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit, ConfigurableTileEntity tileEntity, int option, boolean isSneaking)
+    public void configureTileEntity(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit, IConfigurableTileEntity tileEntity, int option, boolean isSneaking)
     {
         if (tileEntity instanceof BasicMirrorTileEntity)
         {

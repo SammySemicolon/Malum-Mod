@@ -1,6 +1,7 @@
 package com.sammy.malum.init;
 
 
+import com.sammy.malum.recipes.CrystallineAcceleratorRecipe;
 import com.sammy.malum.recipes.SpiritFurnaceFuelData;
 import com.sammy.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,7 @@ public class ModRecipes
     {
         SpiritFurnaceRecipe.initRecipes();
         SpiritFurnaceFuelData.initData();
+        CrystallineAcceleratorRecipe.initData();
     }
 
     public static List<SpiritFurnaceRecipe> spiritFurnaceRecipes = new ArrayList<>();
@@ -69,6 +71,31 @@ public class ModRecipes
                 if (data.getFuelItem().equals(item.getItem()))
                 {
                     return data;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public static List<CrystallineAcceleratorRecipe> crystallineAcceleratorRecipes = new ArrayList<>();
+    
+    public static void addCrystallineAcceleratorRecipe(CrystallineAcceleratorRecipe recipe)
+    {
+        if (!crystallineAcceleratorRecipes.contains(recipe))
+        {
+            crystallineAcceleratorRecipes.add(recipe);
+        }
+    }
+    
+    public static CrystallineAcceleratorRecipe getCrystallineAcceleratorRecipe(ItemStack stack)
+    {
+        if (!stack.isEmpty())
+        {
+            for (CrystallineAcceleratorRecipe recipe : crystallineAcceleratorRecipes)
+            {
+                if (recipe.getInputItem().getItem().equals(stack.getItem()))
+                {
+                    return recipe;
                 }
             }
         }

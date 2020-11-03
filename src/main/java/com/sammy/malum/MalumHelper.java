@@ -307,10 +307,14 @@ public class MalumHelper
     
     //region SOUND MAGIC
     
+    public static float getMachineSoundVolume()
+    {
+        return MathHelper.nextFloat(random,0.2f,0.4f);
+    }
     public static void makeMachineToggleSound(World world, BlockPos pos, float pitch)
     {
-        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 1f, pitch);
-        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS, 1f, pitch);
+        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, getMachineSoundVolume(), pitch);
+        world.playSound(null, pos, ModSounds.machine_toggle_sound, SoundCategory.BLOCKS, getMachineSoundVolume(), pitch);
     }
     //endregion
     

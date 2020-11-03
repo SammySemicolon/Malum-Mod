@@ -16,7 +16,7 @@ public class RedstoneClockTileEntity extends ConfigurableTileEntity implements I
     public int tickMultiplier;
     public int timer;
     public int powered;
-    int[] cooldown = new int[]{10, 20, 40, 80, 160, 320, 640};
+    public int[] cooldown = new int[]{10, 20, 40, 80, 160, 320, 640};
     
     public RedstoneClockTileEntity()
     {

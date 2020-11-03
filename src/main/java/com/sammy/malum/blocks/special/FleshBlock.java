@@ -53,11 +53,8 @@ public class FleshBlock extends Block
                     }
                     if (worldIn instanceof ServerWorld)
                     {
-                        for (int i = 0; i < currentCut * 3; i++)
-                        {
-                            Vector3d position = new Vector3d(pos.getX(), pos.getY(), pos.getZ()).add(MathHelper.nextDouble(random, 0, 1), MathHelper.nextDouble(random, 0, 1), MathHelper.nextDouble(random, 0, 1));
-                            ((ServerWorld) worldIn).spawnParticle(new BlockParticleData(ParticleTypes.BLOCK, state), position.x, position.y, position.z, currentCut * 3, 0, 0, 0, 0.4f);
-                        }
+                        Vector3d position = new Vector3d(pos.getX(), pos.getY(), pos.getZ()).add(MathHelper.nextDouble(random, 0, 1), MathHelper.nextDouble(random, 0, 1), MathHelper.nextDouble(random, 0, 1));
+                        ((ServerWorld) worldIn).spawnParticle(new BlockParticleData(ParticleTypes.BLOCK, state), position.x, position.y, position.z, currentCut * 3, 0, 0, 0, 0.4f);
                     }
                     worldIn.playSound(null, pos, SoundEvents.BLOCK_CORAL_BLOCK_PLACE, SoundCategory.BLOCKS, 1 + random.nextFloat() * 0.2f, 1 + random.nextFloat() * 0.2f);
                     worldIn.playSound(null, pos, SoundEvents.BLOCK_CORAL_BLOCK_BREAK, SoundCategory.BLOCKS, 1 + random.nextFloat() * 0.2f, 1 + random.nextFloat() * 0.2f);

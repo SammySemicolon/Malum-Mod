@@ -53,8 +53,9 @@ public class BoundingBlock extends Block
                     BoundingBlockTileEntity tileEntity = (BoundingBlockTileEntity) worldIn.getTileEntity(pos);
                     if (worldIn.getBlockState(tileEntity.ownerPos).getBlock() instanceof MultiblockBlock)
                     {
-                        MultiblockBlock block = (MultiblockBlock) worldIn.getBlockState(tileEntity.ownerPos).getBlock();
-                        return block.activateBlock(state, worldIn, tileEntity.ownerPos, player, handIn, hit, pos);
+                        BlockState multiblockState = worldIn.getBlockState(tileEntity.ownerPos);
+                        MultiblockBlock block = (MultiblockBlock) multiblockState.getBlock();
+                        return block.activateBlock(multiblockState, worldIn, tileEntity.ownerPos, player, handIn, hit, pos);
                     }
                 }
             }

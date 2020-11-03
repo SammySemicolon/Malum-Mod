@@ -1,9 +1,13 @@
 package com.sammy.malum.events;
 
+import com.sammy.malum.blocks.machines.crystallineaccelerator.CrystallineAcceleratorRenderer;
+import com.sammy.malum.blocks.machines.crystallineaccelerator.CrystallineAcceleratorTileEntity;
 import com.sammy.malum.blocks.machines.funkengine.FunkEngineRenderer;
 import com.sammy.malum.blocks.machines.mirror.BasicMirrorRenderer;
+import com.sammy.malum.blocks.machines.redstonebattery.RedstoneBatteryRenderer;
 import com.sammy.malum.blocks.machines.redstoneclock.RedstoneClockRenderer;
 import com.sammy.malum.blocks.machines.spiritjar.SpiritJarRenderer;
+import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryBoundingBlockRenderer;
 import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryRenderer;
 import com.sammy.malum.init.ModBlocks;
 import com.sammy.malum.init.ModItems;
@@ -54,8 +58,11 @@ public class ClientSetupEvents
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.output_mirror_tile_entity, BasicMirrorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_jar_tile_entity, SpiritJarRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.funk_engine_tile_entity, FunkEngineRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.redstone_battery_tile_entity, RedstoneBatteryRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.redstone_clock_tile_entity, RedstoneClockRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.spirit_smeltery_tile_entity, SpiritSmelteryRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.crystalline_accelerator_tile_entity, CrystallineAcceleratorRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.bounding_block_tile_entity, SpiritSmelteryBoundingBlockRenderer::new);
     }
     
     @SubscribeEvent
@@ -91,11 +98,14 @@ public class ClientSetupEvents
     @SubscribeEvent
     public static void setRenderLayer(FMLClientSetupEvent event)
     {
+        RenderTypeLookup.setRenderLayer(ModBlocks.spirit_glass, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_jar, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.funk_engine, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.redstone_clock, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.redstone_battery, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_furnace_bounding_block, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.spirit_smeltery_bounding_block, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.crystalline_accelerator_bounding_block, RenderType.getCutout());
     }
 }

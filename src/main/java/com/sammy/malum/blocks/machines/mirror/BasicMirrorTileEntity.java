@@ -2,12 +2,13 @@ package com.sammy.malum.blocks.machines.mirror;
 
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DropperBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.DispenserTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -40,6 +41,7 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
     public int specialFunction;
     public boolean isFiltered;
     public Item filter;
+    
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
         @Override
@@ -92,6 +94,7 @@ public class BasicMirrorTileEntity extends ConfigurableTileEntity
                 boolean success = inputStackIntoTE(itemReceiver, stack.split(1));
                 if (success)
                 {
+                    
                     itemSender.getWorld().notifyBlockUpdate(itemSender.getPos(), itemSender.getBlockState(), itemSender.getBlockState(), 3);
                     itemReceiver.getWorld().notifyBlockUpdate(itemReceiver.getPos(), itemReceiver.getBlockState(), itemReceiver.getBlockState(), 3);
                 }

@@ -3,9 +3,9 @@
 	"parent": "block/block",
 	"textures": {
 		"1": "malum:blocks/machine_frame",
-		"2": "malum:blocks/redstone_clock",
+		"2": "malum:blocks/machine_core",
 		"3": "malum:blocks/redstone_clock_overlay",
-		"particle": "malum:blocks/redstone_clock"
+		"particle": "malum:blocks/machine_core"
 	},
 	"elements": [
 		{

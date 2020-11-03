@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "bcb",
-    "ada",
-    "bab"
+    "bdb",
+    "dad",
+    "cdc"
   ],
   "key": {
     "a": {
-      "item": "malum:arcane_shard"
+      "item": "minecraft:jukebox"
     },
     "b": {
       "item": "malum:dark_spirit_stone"
     },
     "c": {
-      "item": "malum:arcane_apparatus"
+      "item": "malum:spirit_stone"
     },
     "d": {
-      "item": "minecraft:jukebox"
+      "item": "malum:runic_mechanism"
     }
   },
   "result": {

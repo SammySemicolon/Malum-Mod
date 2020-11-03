@@ -3,7 +3,7 @@ package com.sammy.malum.blocks.utility;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 
-public class ConfigurableTileEntity extends BasicTileEntity
+public class ConfigurableTileEntity extends BasicTileEntity implements IConfigurableTileEntity
 {
     public int option;
     
@@ -16,10 +16,7 @@ public class ConfigurableTileEntity extends BasicTileEntity
     public CompoundNBT write(CompoundNBT compound)
     {
         super.write(compound);
-        if (option != 0)
-        {
-            compound.putInt("option", option);
-        }
+        writeOption(compound);
         return compound;
     }
     
@@ -27,9 +24,18 @@ public class ConfigurableTileEntity extends BasicTileEntity
     public void read(CompoundNBT compound)
     {
         super.read(compound);
-        if (compound.contains("option"))
-        {
-            option = compound.getInt("option");
-        }
+        readOption(compound);
+    }
+    
+    @Override
+    public int getOption()
+    {
+        return option;
+    }
+    
+    @Override
+    public void setOption(int option)
+    {
+        this.option = option;
     }
 }

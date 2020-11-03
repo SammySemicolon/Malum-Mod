@@ -10,6 +10,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.Optional;
 
@@ -159,6 +161,14 @@ public class SpiritDataHelper
             }
         }
         return false;
+    }
+    public static SpiritStoringTileEntity findStorage(World world, BlockPos pos)
+    {
+        if (world.getTileEntity(pos) instanceof SpiritStoringTileEntity)
+        {
+            return (SpiritStoringTileEntity) world.getTileEntity(pos);
+        }
+        return null;
     }
     //endregion
     

@@ -2,7 +2,7 @@ package com.sammy.malum.blocks.machines.redstoneclock;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.blocks.utility.IConfigurableBlock;
-import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
+import com.sammy.malum.blocks.utility.IConfigurableTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -86,7 +86,7 @@ public class RedstoneClockBlock extends Block implements IConfigurableBlock
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        return activateBlock(state, worldIn, pos, player, handIn, hit);
+        return activateConfigurableBlock(state, worldIn, pos, player, handIn, hit);
     }
     
     @Override
@@ -96,7 +96,7 @@ public class RedstoneClockBlock extends Block implements IConfigurableBlock
     }
     
     @Override
-    public void configureTileEntity(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit, ConfigurableTileEntity tileEntity, int option, boolean isSneaking)
+    public void configureTileEntity(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit, IConfigurableTileEntity tileEntity, int option, boolean isSneaking)
     {
         if (tileEntity instanceof RedstoneClockTileEntity)
         {

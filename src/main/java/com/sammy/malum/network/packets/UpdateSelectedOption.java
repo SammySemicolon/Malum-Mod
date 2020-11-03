@@ -1,6 +1,7 @@
 package com.sammy.malum.network.packets;
 
 import com.sammy.malum.blocks.utility.ConfigurableTileEntity;
+import com.sammy.malum.blocks.utility.IConfigurableTileEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
@@ -36,11 +37,11 @@ public class UpdateSelectedOption
     {
         context.get().enqueueWork(() -> {
             ServerPlayerEntity playerEntity = context.get().getSender();
-            if (playerEntity.world.getTileEntity(pos) instanceof ConfigurableTileEntity)
+            if (playerEntity.world.getTileEntity(pos) instanceof IConfigurableTileEntity)
             {
-                ConfigurableTileEntity configurableTileEntity = (ConfigurableTileEntity) playerEntity.world.getTileEntity(pos);
-                configurableTileEntity.option += value;
-                configurableTileEntity.markDirty();
+                IConfigurableTileEntity configurableTileEntity = (IConfigurableTileEntity) playerEntity.world.getTileEntity(pos);
+                configurableTileEntity.setOption(configurableTileEntity.getOption() + value);;
+                playerEntity.world.getTileEntity(pos).markDirty();
                 playerEntity.world.notifyBlockUpdate(pos, playerEntity.world.getBlockState(pos), playerEntity.world.getBlockState(pos), 3);
             }
         });

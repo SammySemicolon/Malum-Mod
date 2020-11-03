@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_arcane_apparatus": {
+    "has_runic_mechanism": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:arcane_apparatus"
+            "item": "malum:runic_mechanism"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_arcane_apparatus",
+      "has_runic_mechanism",
       "has_the_recipe"
     ]
   ]

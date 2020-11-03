@@ -67,20 +67,20 @@ public abstract class BasicTileEntity extends TileEntity
     
     }
     
-    public boolean output(ItemStack stack, BlockPos pos)
-    {
-        TileEntity inputTileEntity = world.getTileEntity(pos);
-        if (inputTileEntity != null)
-        {
-            LazyOptional<IItemHandler> inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-            if (inventory.isPresent())
-            {
-                return inputStackIntoTE(inputTileEntity, stack);
-            }
-        }
-        dropItem(stack,pos);
-        return true;
-    }
+//    public boolean output(ItemStack stack, BlockPos pos)
+//    {
+//        TileEntity inputTileEntity = world.getTileEntity(pos);
+//        if (inputTileEntity != null)
+//        {
+//            LazyOptional<IItemHandler> inventory = inputTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+//            if (inventory.isPresent())
+//            {
+//                return inputStackIntoTE(inputTileEntity, stack);
+//            }
+//        }
+//        dropItem(stack,pos);
+//        return true;
+//    }
     public void dropItem(ItemStack stack, BlockPos pos)
     {
         Vector3d entityPos = vectorFromBlockPos(pos).add(0.5, 0.5, 0.5).subtract(0,0,0);
