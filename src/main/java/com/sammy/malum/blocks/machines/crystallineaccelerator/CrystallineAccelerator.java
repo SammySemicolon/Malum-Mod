@@ -5,6 +5,7 @@ import com.sammy.malum.blocks.utility.multiblock.MultiblockBlock;
 import com.sammy.malum.blocks.utility.multiblock.MultiblockStructure;
 import net.hypherionmc.hypcore.api.ColoredLightBlock;
 import net.hypherionmc.hypcore.api.ColoredLightEvent;
+import net.hypherionmc.hypcore.api.ColoredLightManager;
 import net.hypherionmc.hypcore.api.Light;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,8 +18,9 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.ModList;
 
-@ColoredLightBlock
+
 public class CrystallineAccelerator extends MultiblockBlock
 {
     //region structure
@@ -30,6 +32,9 @@ public class CrystallineAccelerator extends MultiblockBlock
     public CrystallineAccelerator(Properties properties)
     {
         super(properties);
+        if (ModList.get().isLoaded("hypcore")) {
+            ColoredLightManager.registerProvider(this, this::produceColoredLight);
+        }
     }
     
     @Override
@@ -67,7 +72,6 @@ public class CrystallineAccelerator extends MultiblockBlock
         }
         return super.activateBlock(state, worldIn, pos, player, handIn, hit, boundingBlockSource);
     }
-    @ColoredLightEvent
     public Light produceColoredLight(BlockPos pos, BlockState state) {
         return Light.builder().pos(pos).color(0.65f,0.2f,0.7f, 1.0f) .radius(8).build();
     }

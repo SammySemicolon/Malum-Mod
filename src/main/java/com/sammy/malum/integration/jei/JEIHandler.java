@@ -3,6 +3,7 @@ package com.sammy.malum.integration.jei;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.init.ModItems;
 import com.sammy.malum.init.ModRecipes;
+import com.sammy.malum.integration.jei.spiritFurnace.CrystallineAcceleratorRecipeCategory;
 import com.sammy.malum.integration.jei.spiritFurnace.SpiritFurnaceFuelDataCategory;
 import com.sammy.malum.integration.jei.spiritFurnace.SpiritFurnaceRecipeCategory;
 import mezz.jei.api.IModPlugin;
@@ -25,7 +26,8 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipeCategories(
                 new SpiritFurnaceRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
-                new SpiritFurnaceFuelDataCategory(registry.getJeiHelpers().getGuiHelper())
+                new SpiritFurnaceFuelDataCategory(registry.getJeiHelpers().getGuiHelper()),
+                new CrystallineAcceleratorRecipeCategory(registry.getJeiHelpers().getGuiHelper())
         );
     }
 
@@ -34,6 +36,7 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipes(ModRecipes.spiritFurnaceRecipes, SpiritFurnaceRecipeCategory.UID);
         registry.addRecipes(ModRecipes.spiritFurnaceFuelData, SpiritFurnaceFuelDataCategory.UID);
+        registry.addRecipes(ModRecipes.crystallineAcceleratorRecipes, CrystallineAcceleratorRecipeCategory.UID);
     }
 
     @Override
@@ -41,6 +44,9 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipeCatalyst(new ItemStack(ModItems.spirit_furnace), SpiritFurnaceRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ModItems.spirit_furnace), SpiritFurnaceFuelDataCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ModItems.spirit_smeltery), SpiritFurnaceRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ModItems.spirit_smeltery), SpiritFurnaceFuelDataCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ModItems.crystalline_accelerator), CrystallineAcceleratorRecipeCategory.UID);
     }
 
     @Nonnull

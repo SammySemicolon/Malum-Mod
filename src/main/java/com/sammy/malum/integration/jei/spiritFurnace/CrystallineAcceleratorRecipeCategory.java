@@ -3,6 +3,7 @@ package com.sammy.malum.integration.jei.spiritFurnace;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.SpiritDataHelper;
 import com.sammy.malum.init.ModItems;
 import com.sammy.malum.recipes.CrystallineAcceleratorRecipe;
 import com.sammy.malum.recipes.SpiritFurnaceRecipe;
@@ -33,15 +34,19 @@ public class CrystallineAcceleratorRecipeCategory implements IRecipeCategory<Cry
     public static final ResourceLocation UID = new ResourceLocation(MalumMod.MODID, "crystalline_accelerator");
     private final IDrawable background;
     private final String localizedName;
-    private final IDrawable overlay;
+    private final IDrawable outputOverlay;
+    private final IDrawable inputOverlay;
+    private final IDrawable basicOverlay;
     private final IDrawable icon;
     
     public CrystallineAcceleratorRecipeCategory(IGuiHelper guiHelper)
     {
-        background = guiHelper.createBlankDrawable(105, 53);
-        localizedName = I18n.format("malum.jei.spirit_furnace");
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/crystalline_accelerator_overlay.png"), 0, 0, 103, 51);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(ModItems.spirit_furnace));
+        background = guiHelper.createBlankDrawable(105, 90);
+        localizedName = I18n.format("malum.jei.crystalline_accelerator");
+        basicOverlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/crystalline_accelerator_overlay_basic.png"), 0, 0, 103, 88);
+        inputOverlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/crystalline_accelerator_overlay_input.png"), 0, 0, 103, 88);
+        outputOverlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/crystalline_accelerator_overlay_output.png"), 0, 0, 103, 88);
+        icon = guiHelper.createDrawableIngredient(new ItemStack(ModItems.crystalline_accelerator));
     }
     
     @Override
@@ -49,19 +54,36 @@ public class CrystallineAcceleratorRecipeCategory implements IRecipeCategory<Cry
     {
         GlStateManager.enableAlphaTest();
         GlStateManager.enableBlend();
-    
-        overlay.draw(matrixStack);
+        
+        switch (recipe.type)
+        {
+            case basic:
+            {
+                basicOverlay.draw(matrixStack);
+                break;
+            }
+            case inputSpirit:
+            {
+                inputOverlay.draw(matrixStack);
+                break;
+            }
+            case outputSpirit:
+            {
+                outputOverlay.draw(matrixStack);
+                break;
+            }
+        }
     
     
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();
     
         ITextComponent timeComponent = makeTranslationComponent("malum.recipe.time") //Uses
-                .append(new StringTextComponent("" + recipe.getBurnTime()));
+                .append(new StringTextComponent("" + recipe.getRecipeTime()));
         String formattedText = timeComponent.getString();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
-        fontRenderer.drawString(matrixStack, formattedText, -1, 1, 0xFF808080);
+        fontRenderer.drawString(matrixStack, formattedText, 12, 1, 0xFF808080);
     }
     
     @Nonnull
@@ -103,31 +125,23 @@ public class CrystallineAcceleratorRecipeCategory implements IRecipeCategory<Cry
     public void setIngredients(CrystallineAcceleratorRecipe crystallineAcceleratorRecipe, IIngredients iIngredients)
     {
         iIngredients.setInput(VanillaTypes.ITEM, new ItemStack(crystallineAcceleratorRecipe.getInputItem()));
-        List<ItemStack> list = new ArrayList<>();
-        if (crystallineAcceleratorRecipe.getSideItem() != null)
-        {
-            list.add(new ItemStack(crystallineAcceleratorRecipe.getSideItem()));
-        }
-        list.add(new ItemStack(crystallineAcceleratorRecipe.getOutputItem()));
-        iIngredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(list.stream().map(ItemStack::copy).filter(s -> !s.isEmpty()).collect(Collectors.toList())));
+        iIngredients.setOutput(VanillaTypes.ITEM,crystallineAcceleratorRecipe.getOutputItem().getDefaultInstance());
     }
     
     @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, CrystallineAcceleratorRecipe spiritFurnaceRecipe, IIngredients iIngredients)
+    public void setRecipe(IRecipeLayout iRecipeLayout, CrystallineAcceleratorRecipe crystallineAcceleratorRecipe, IIngredients iIngredients)
     {
-        iRecipeLayout.getItemStacks().init(0, true, 3, 17);
-        iRecipeLayout.getItemStacks().set(0, new ItemStack(spiritFurnaceRecipe.getInputItem()));
-        if (spiritFurnaceRecipe.getSideItem() != null)
+        iRecipeLayout.getItemStacks().init(0, true, 3, 21);
+        iRecipeLayout.getItemStacks().set(0, new ItemStack(crystallineAcceleratorRecipe.getInputItem(),crystallineAcceleratorRecipe.getInputCount()));
+        iRecipeLayout.getItemStacks().init(2, true, 83, 21);
+        iRecipeLayout.getItemStacks().set(2, new ItemStack(crystallineAcceleratorRecipe.getOutputItem(), crystallineAcceleratorRecipe.getOutputCount()));
+        if (crystallineAcceleratorRecipe.getInputSpirit() != null)
         {
-            iRecipeLayout.getItemStacks().init(2, true, 82, 5);
-            iRecipeLayout.getItemStacks().set(2, new ItemStack(spiritFurnaceRecipe.getOutputItem()));
-            iRecipeLayout.getItemStacks().init(3, true, 82, 28);
-            iRecipeLayout.getItemStacks().set(3, new ItemStack(spiritFurnaceRecipe.getSideItem()));
-        }
-        else
-        {
-            iRecipeLayout.getItemStacks().init(2, true, 82, 17);
-            iRecipeLayout.getItemStacks().set(2, new ItemStack(spiritFurnaceRecipe.getOutputItem()));
+            ItemStack stack = new ItemStack(ModItems.jei_spirit);
+            stack.getOrCreateTag().putInt(SpiritDataHelper.countNBT, crystallineAcceleratorRecipe.getInputSpiritCount());
+            stack.getTag().putString(SpiritDataHelper.typeNBT, crystallineAcceleratorRecipe.getInputSpirit());
+            iRecipeLayout.getItemStacks().init(3, true, 43, 68);
+            iRecipeLayout.getItemStacks().set(3, stack);
         }
     }
 }

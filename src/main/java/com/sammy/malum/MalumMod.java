@@ -96,7 +96,7 @@ public class MalumMod
                 ShapedRecipeBuilder.shapedRecipe(spirit_capacitor).key('a', transmissive_nugget).key('b', runic_ash).addCriterion("has_runic_ash", hasItem(runic_ash)).patternLine("aaa").patternLine("aba").patternLine("aaa").build(consumer);
                 
                 //tools
-                ShapedRecipeBuilder.shapedRecipe(spiritwood_stave).key('a', STICK).key('b', spirit_planks).addCriterion("has_spirit_planks", hasItem(spirit_planks)).patternLine("  b").patternLine(" bb").patternLine("a  ").build(consumer);
+                ShapedRecipeBuilder.shapedRecipe(spiritwood_stave).key('a', STICK).key('b', spirit_planks).key('c', arcane_shard).addCriterion("has_spirit_planks", hasItem(spirit_planks)).patternLine(" cb").patternLine(" bb").patternLine("a  ").build(consumer);
                 ShapedRecipeBuilder.shapedRecipe(spirited_steel_buster_sword).key('a', STICK).key('b', spirited_steel_ingot).addCriterion("has_spirited_steel_ingot", hasItem(spirited_steel_ingot)).patternLine("  b").patternLine(" bb").patternLine("ab ").build(consumer);
                 ShapedRecipeBuilder.shapedRecipe(spirited_steel_excavator).key('a', STICK).key('b', spirited_steel_ingot).addCriterion("has_spirited_steel_ingot", hasItem(spirited_steel_ingot)).patternLine("bbb").patternLine("bab").patternLine(" a ").build(consumer);
                 ShapedRecipeBuilder.shapedRecipe(umbral_steel_buster_sword).key('a', STICK).key('b', umbral_steel_ingot).addCriterion("has_umbral_ingot", hasItem(umbral_steel_ingot)).patternLine("  b").patternLine(" bb").patternLine("ab ").build(consumer);
@@ -118,6 +118,9 @@ public class MalumMod
                 ShapedRecipeBuilder.shapedRecipe(good_luck_charm).key('a', spirit_silk).key('b', GOLD_INGOT).key('c', EMERALD).patternLine(" a ").patternLine("a a").patternLine("bcb").addCriterion("has_spirit_silk", hasItem(spirit_silk)).build(consumer);
                 
                 //blocks
+                ShapedRecipeBuilder.shapedRecipe(spirit_furnace).key('a', dark_spirit_stone).key('b', spirit_stone).key('c', arcane_shard).key('d', FURNACE).key('e', BLAST_FURNACE).patternLine("ada").patternLine("bcb").patternLine("aea").addCriterion("has_spirit_stone", hasItem(spirit_stone)).build(consumer);
+                ShapedRecipeBuilder.shapedRecipe(crystalline_accelerator).key('a', dark_spirit_stone).key('b', spirit_stone).key('c', arcane_apparatus).key('d', spirit_glass).patternLine(" d ").patternLine("bcb").patternLine("aaa").addCriterion("has_spirit_glass", hasItem(spirit_glass)).build(consumer);
+    
                 ShapedRecipeBuilder.shapedRecipe(basic_mirror, 2).key('a', vacant_gemstone).key('b', IRON_INGOT).key('c', resonant_lens).patternLine("a a").patternLine("bcb").patternLine("a a").addCriterion("has_resonant_lens", hasItem(resonant_lens)).build(consumer);
                 ShapedRecipeBuilder.shapedRecipe(input_mirror).key('a', basic_mirror).key('b', HOPPER).patternLine("b").patternLine("a").addCriterion("has_resonant_lens", hasItem(resonant_lens)).build(consumer);
                 ShapedRecipeBuilder.shapedRecipe(output_mirror).key('a', basic_mirror).key('b', HOPPER).patternLine("a").patternLine("b").addCriterion("has_resonant_lens", hasItem(resonant_lens)).build(consumer);

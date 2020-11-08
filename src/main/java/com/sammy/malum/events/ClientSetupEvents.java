@@ -33,22 +33,15 @@ import static net.minecraft.item.ItemModelsProperties.registerProperty;
 public class ClientSetupEvents
 {
     @SubscribeEvent
-    public static void stitchTextures(TextureStitchEvent.Pre evt)
+    public static void stitchTextures(TextureStitchEvent.Pre event)
     {
-        if (evt.getMap().getTextureLocation() == PlayerContainer.LOCATION_BLOCKS_TEXTURE)
+        if (event.getMap().getTextureLocation() == PlayerContainer.LOCATION_BLOCKS_TEXTURE)
         {
-            evt.addSprite(new ResourceLocation(MODID, "gui/empty_trinket_slot"));
+            event.addSprite(new ResourceLocation(MODID, "gui/empty_trinket_slot"));
+            event.addSprite(spirit_fluid_texture);
         }
     }
     
-    @SubscribeEvent
-    public static void onTextureStitch(TextureStitchEvent.Pre event) {
-        if (!event.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE))
-        {
-            return;
-        }
-        event.addSprite(spirit_fluid_texture);
-    }
     
     @SubscribeEvent
     public static void bindTERs(FMLClientSetupEvent event)

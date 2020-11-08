@@ -42,6 +42,7 @@ public class SpiritFurnaceRecipe
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.OBSIDIAN, ModItems.dark_spirit_stone, ModItems.runic_ash, 2, 200));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.ENDER_PEARL, ModItems.stygian_pearl, 6400));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.NETHER_STAR, ModItems.cursed_nebulous, 64000));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.GLASS, ModItems.spirit_glass, 100));
     }
     
     public Item getInputItem()

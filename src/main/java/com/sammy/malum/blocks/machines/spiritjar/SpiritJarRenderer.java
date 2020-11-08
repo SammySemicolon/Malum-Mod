@@ -43,18 +43,6 @@ public class SpiritJarRenderer extends FancyRenderer<SpiritJarTileEntity>
             components.add(makeImportantComponent(blockEntity.count + "/" + ((SpiritStorage) blockEntity.getBlockState().getBlock()).capacity(), true).append(makeImportantComponent(getName(blockEntity.type), true)));
             renderTEdataInTheCoolFancyWay(blockEntity, this, matrixStack, iRenderTypeBuffer, renderDispatcher, true, components);
             
-            BlockPos blockpos = blockEntity.getPos();
-            BlockState renderState = ModBlocks.spirit_jar.getDefaultState().with(SpiritStoringBlock.TYPE, 1);
-            float scale = blockEntity.count / (float) ((SpiritStoringBlock) renderState.getBlock()).capacity();
-            matrixStack.push();
-            matrixStack.scale(0.8f, scale * 0.8f, 0.8f);
-            matrixStack.translate(0.2, 0, 0.2);
-            RenderType renderType = RenderTypeLookup.func_239221_b_(renderState);
-            setRenderLayer(renderType);
-            BlockRendererDispatcher blockDispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
-            
-            blockDispatcher.getBlockModelRenderer().renderModel(blockEntity.getWorld(), blockDispatcher.getModelForState(renderState), renderState, blockpos, matrixStack, iRenderTypeBuffer.getBuffer(renderType), false, blockEntity.getWorld().rand, renderState.getPositionRandom(blockpos), OverlayTexture.NO_OVERLAY, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
-            matrixStack.pop();
         }
     }
 }

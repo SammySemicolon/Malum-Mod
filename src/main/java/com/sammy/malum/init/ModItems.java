@@ -76,8 +76,12 @@ public class ModItems
     public static Item stygian_pearl;
     public static Item runic_ash;
     
+    public static Item enriched_crystal;
+    public static Item crystalline_compound;
+    public static Item crystalline_catalyst;
     public static Item ectoplasm;
     public static Item resonant_lens;
+    public static Item penumbral_adhesive;
     public static Item umbral_steel_ingot;
     public static Item umbral_steel_nugget;
     
@@ -185,7 +189,6 @@ public class ModItems
     public static Item smooth_dark_spirit_stone_stairs;
 
     public static Item block_of_flesh;
-    public static Item archaic_sulphur_lamp;
     public static Item spirit_leaves;
     public static Item spirit_log;
     public static Item spirit_sapling;
@@ -238,9 +241,13 @@ public class ModItems
                 vacant_gemstone = setup(new Item(basic_properties), "vacant_gemstone"),
                 stygian_pearl = setup(new Item(basic_properties), "stygian_pearl"),
                 runic_ash = setup(new Item(basic_properties), "runic_ash"),
-                
+        
+                enriched_crystal = setup(new Item(basic_properties), "enriched_crystal"),
+                crystalline_compound = setup(new Item(basic_properties), "crystalline_compound"),
+                crystalline_catalyst = setup(new Item(basic_properties), "crystalline_catalyst"),
                 ectoplasm = setup(new Item(basic_properties), "ectoplasm"),
                 resonant_lens = setup(new Item(basic_properties), "resonant_lens"),
+                penumbral_adhesive = setup(new Item(basic_properties), "penumbral_adhesive"),
                 umbral_steel_ingot = setup(new Item(basic_properties), "umbral_steel_ingot"),
                 umbral_steel_nugget = setup(new Item(basic_properties), "umbral_steel_nugget"),
                 
@@ -355,7 +362,8 @@ public class ModItems
                 spirit_leaves = setup(new BlockItem(ModBlocks.spirit_leaves, basic_properties), "spirit_leaves"),
                 spirit_log = setup(new BlockItem(ModBlocks.spirit_log, basic_properties), "spirit_log"),
                 spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, basic_properties), "spirit_sapling"),
-
+        
+                jei_spirit = setup(new SpiritVault(basic_properties), "jei_spirit"),
                 creative_spiritwood_stave = setup(new CreativeStave(tool_properties), "creative_spiritwood_stave"),
 
                 music_disc_redstone_pulse = setup(new MusicDiscItem(1, () -> redstone_pulse,music_disc_properties), "music_disc_redstone_pulse"),

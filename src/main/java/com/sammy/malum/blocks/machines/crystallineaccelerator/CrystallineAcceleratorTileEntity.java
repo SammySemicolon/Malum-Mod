@@ -1,6 +1,5 @@
 package com.sammy.malum.blocks.machines.crystallineaccelerator;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.SpiritDataHelper;
 import com.sammy.malum.blocks.utility.multiblock.MultiblockTileEntity;
 import com.sammy.malum.blocks.utility.spiritstorage.SpiritStoringBlock;
@@ -10,8 +9,8 @@ import com.sammy.malum.init.ModTileEntities;
 import com.sammy.malum.recipes.CrystallineAcceleratorRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -22,7 +21,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -38,6 +36,8 @@ import static com.sammy.malum.MalumHelper.getMachineSoundVolume;
 import static com.sammy.malum.MalumHelper.inputStackIntoTE;
 import static com.sammy.malum.MalumMod.random;
 import static com.sammy.malum.SpiritDataHelper.findStorage;
+import static com.sammy.malum.recipes.CrystallineAcceleratorRecipe.crystallineAcceleratorRecipeTypeEnum.inputSpirit;
+import static com.sammy.malum.recipes.CrystallineAcceleratorRecipe.crystallineAcceleratorRecipeTypeEnum.outputSpirit;
 
 public class CrystallineAcceleratorTileEntity extends MultiblockTileEntity implements ITickableTileEntity
 {
@@ -136,6 +136,28 @@ public class CrystallineAcceleratorTileEntity extends MultiblockTileEntity imple
             CrystallineAcceleratorRecipe recipe = ModRecipes.getCrystallineAcceleratorRecipe(stack);
             if (stack.getCount() >= recipe.getInputCount())
             {
+                if (recipe.type == inputSpirit)
+                {
+                    SpiritStoringTileEntity spiritStoringTileEntity = findStorage(world, pos.down());
+                    if (spiritStoringTileEntity != null)
+                    {
+                        if (SpiritDataHelper.doesStorageHaveSpirit(spiritStoringTileEntity, recipe.getInputSpirit()))
+                        {
+                            if (spiritStoringTileEntity.count < recipe.getInputSpiritCount())
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
                 if (world.getGameTime() % 10L == 0)
                 {
                     for (int i = 0; i <= 10; i++)
@@ -159,11 +181,26 @@ public class CrystallineAcceleratorTileEntity extends MultiblockTileEntity imple
                             spawnParticles();
                         }
                     }
-                    if (recipe.getOutputSpirit())
+                    if (recipe.type == outputSpirit)
                     {
                         SpiritStoringTileEntity spiritStoringTileEntity = findStorage(world, pos.down());
-                        SpiritStoringBlock block = (SpiritStoringBlock) world.getBlockState(pos.down()).getBlock();
-                        SpiritDataHelper.increaseSpiritOfStorage(spiritStoringTileEntity, block.capacity(), stack.getOrCreateTag().getString("infusedSpirit"));
+                        if (spiritStoringTileEntity != null)
+                        {
+                            SpiritStoringBlock block = (SpiritStoringBlock) world.getBlockState(pos.down()).getBlock();
+                            SpiritDataHelper.increaseSpiritOfStorage(spiritStoringTileEntity, block.capacity(), stack.getOrCreateTag().getString("infusedSpirit"));
+                        }
+                    }
+                    
+                    if (recipe.type == inputSpirit)
+                    {
+                        SpiritStoringTileEntity spiritStoringTileEntity = findStorage(world, pos.down());
+                        if (spiritStoringTileEntity != null)
+                        {
+                            for (int i = 0; i < recipe.getInputSpiritCount(); i++)
+                            {
+                                SpiritDataHelper.decreaseSpiritOfStorage(spiritStoringTileEntity, recipe.getInputSpirit());
+                            }
+                        }
                     }
                     progress = 0;
                 }

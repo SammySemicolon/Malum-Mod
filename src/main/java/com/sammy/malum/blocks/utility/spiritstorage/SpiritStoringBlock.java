@@ -22,19 +22,12 @@ import static com.sammy.malum.SpiritDataHelper.insertSpiritIntoStorage;
 
 public abstract class SpiritStoringBlock extends Block implements SpiritStorage
 {
-    public static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 2);
     
     public SpiritStoringBlock(Properties properties)
     {
         super(properties);
     }
     
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
-    {
-        builder.add(TYPE);
-        super.fillStateContainer(builder);
-    }
     
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)

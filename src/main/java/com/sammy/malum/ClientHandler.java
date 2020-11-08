@@ -20,6 +20,7 @@ import com.sammy.malum.items.staves.BasicStave;
 import com.sammy.malum.items.utility.IConfigurableItem;
 import com.sammy.malum.network.packets.UpdateSelectedOption;
 import com.sammy.malum.network.packets.UpdateStaveNBT;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
@@ -45,6 +46,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sammy.malum.SpiritDataHelper.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 
@@ -394,8 +396,8 @@ public class ClientHandler
                 if (spiritStorage.capacity() != 0)
                 {
                     newComponents.add(makeTranslationComponent("malum.tooltip.sstorage.desc") //contains
-                            .append(makeImportantComponent(stack.getTag().getInt(SpiritDataHelper.countNBT) + "/" + spiritStorage.capacity(), true)) //[amount/max]
-                            .append(makeImportantComponent(SpiritDataHelper.getName(stack.getTag().getString(SpiritDataHelper.typeNBT)), true)) //[spiritType]
+                            .append(makeImportantComponent(stack.getTag().getInt(countNBT) + "/" + spiritStorage.capacity(), true)) //[amount/max]
+                            .append(makeImportantComponent(SpiritDataHelper.getName(stack.getTag().getString(typeNBT)), true)) //[spiritType]
                             .append(makeTranslationComponent("malum.tooltip.spirit.desc.c"))); //spirits
                 }
             }
@@ -408,7 +410,7 @@ public class ClientHandler
                 if (spiritStorage.durability() != 0)
                 {
                     newComponents.add(makeTranslationComponent("malum.tooltip.sconsumer.desc.a") //has
-                            .append(makeImportantComponent(stack.getTag().getInt(SpiritDataHelper.spiritIntegrityNBT) + "/" + spiritStorage.durability(), true)) //[amount/max]
+                            .append(makeImportantComponent(stack.getTag().getInt(spiritIntegrityNBT) + "/" + spiritStorage.durability(), true)) //[amount/max]
                             .append(makeTranslationComponent("malum.tooltip.sconsumer.desc.b"))); //spirit integrity
                 }
             }
