@@ -7,6 +7,7 @@ import net.hypherionmc.hypcore.api.ColoredLightBlock;
 import net.hypherionmc.hypcore.api.ColoredLightEvent;
 import net.hypherionmc.hypcore.api.ColoredLightManager;
 import net.hypherionmc.hypcore.api.Light;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -14,11 +15,15 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.ModList;
+
+import java.util.stream.Stream;
 
 
 public class CrystallineAccelerator extends MultiblockBlock
@@ -36,14 +41,11 @@ public class CrystallineAccelerator extends MultiblockBlock
             ColoredLightManager.registerProvider(this, this::produceColoredLight);
         }
     }
-    
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        worldIn.getTileEntity(pos);
-        return super.getShape(state, worldIn, pos, context);
+        return Stream.of(Block.makeCuboidShape(0, 0, 0, 16, 5, 16), Block.makeCuboidShape(0, 11, 0, 16, 16, 16), Block.makeCuboidShape(2, 5, 2, 14, 11, 14), Block.makeCuboidShape(5, 5, 0, 11, 11, 2), Block.makeCuboidShape(5, 5, 14, 11, 11, 16), Block.makeCuboidShape(14, 5, 5, 16, 11, 11), Block.makeCuboidShape(0, 5, 5, 2, 11, 11)).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
     }
-    
     @Override
     public boolean hasTileEntity(final BlockState state)
     {

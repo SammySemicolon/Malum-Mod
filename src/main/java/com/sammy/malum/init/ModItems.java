@@ -363,7 +363,7 @@ public class ModItems
                 spirit_log = setup(new BlockItem(ModBlocks.spirit_log, basic_properties), "spirit_log"),
                 spirit_sapling = setup(new BlockItem(ModBlocks.spirit_sapling, basic_properties), "spirit_sapling"),
         
-                jei_spirit = setup(new SpiritVault(basic_properties), "jei_spirit"),
+                jei_spirit = setup(new JeiSpirit(basic_properties), "jei_spirit"),
                 creative_spiritwood_stave = setup(new CreativeStave(tool_properties), "creative_spiritwood_stave"),
 
                 music_disc_redstone_pulse = setup(new MusicDiscItem(1, () -> redstone_pulse,music_disc_properties), "music_disc_redstone_pulse"),

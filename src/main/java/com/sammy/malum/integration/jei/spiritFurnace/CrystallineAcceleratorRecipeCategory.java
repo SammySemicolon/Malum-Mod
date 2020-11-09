@@ -135,12 +135,12 @@ public class CrystallineAcceleratorRecipeCategory implements IRecipeCategory<Cry
         iRecipeLayout.getItemStacks().set(0, new ItemStack(crystallineAcceleratorRecipe.getInputItem(),crystallineAcceleratorRecipe.getInputCount()));
         iRecipeLayout.getItemStacks().init(2, true, 83, 21);
         iRecipeLayout.getItemStacks().set(2, new ItemStack(crystallineAcceleratorRecipe.getOutputItem(), crystallineAcceleratorRecipe.getOutputCount()));
-        if (crystallineAcceleratorRecipe.getInputSpirit() != null)
+        if (crystallineAcceleratorRecipe.type.equals(CrystallineAcceleratorRecipe.crystallineAcceleratorRecipeTypeEnum.inputSpirit))
         {
             ItemStack stack = new ItemStack(ModItems.jei_spirit);
             stack.getOrCreateTag().putInt(SpiritDataHelper.countNBT, crystallineAcceleratorRecipe.getInputSpiritCount());
             stack.getTag().putString(SpiritDataHelper.typeNBT, crystallineAcceleratorRecipe.getInputSpirit());
-            iRecipeLayout.getItemStacks().init(3, true, 43, 68);
+            iRecipeLayout.getItemStacks().init(3, true, 44, 68);
             iRecipeLayout.getItemStacks().set(3, stack);
         }
     }

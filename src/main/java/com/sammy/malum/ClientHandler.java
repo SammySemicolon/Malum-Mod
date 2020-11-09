@@ -393,7 +393,14 @@ public class ClientHandler
             if (SpiritDataHelper.doesItemHaveSpirit(stack))
             {
                 SpiritStorage spiritStorage = (SpiritStorage) stack.getItem();
-                if (spiritStorage.capacity() != 0)
+                if (spiritStorage.capacity() == -1)
+                {
+                    newComponents.add(makeTranslationComponent("malum.tooltip.sstorage.desc") //contains
+                            .append(makeImportantComponent("" + stack.getTag().getInt(countNBT), true)) //[amount/max]
+                            .append(makeImportantComponent(SpiritDataHelper.getName(stack.getTag().getString(typeNBT)), true)) //[spiritType]
+                            .append(makeTranslationComponent("malum.tooltip.spirit.desc.c"))); //spirits
+                }
+                else if (spiritStorage.capacity() != 0)
                 {
                     newComponents.add(makeTranslationComponent("malum.tooltip.sstorage.desc") //contains
                             .append(makeImportantComponent(stack.getTag().getInt(countNBT) + "/" + spiritStorage.capacity(), true)) //[amount/max]
