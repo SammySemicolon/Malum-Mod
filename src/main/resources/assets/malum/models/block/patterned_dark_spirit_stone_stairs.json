@@ -1,8 +1,0 @@
-{
-  "parent": "block/stairs",
-  "textures": {
-    "bottom": "malum:blocks/patterned_dark_spirit_stone",
-    "top": "malum:blocks/patterned_dark_spirit_stone",
-    "side": "malum:blocks/patterned_dark_spirit_stone"
-  }
-}

@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "malum:block/dark_spirit_stone_slab" },
-        "type=top": { "model": "malum:block/dark_spirit_stone_slab_top" },
-        "type=double": { "model": "malum:block/dark_spirit_stone" }
-    }
-}

@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "malum:block/spirit_furnace_bounding_block" },
-    "facing=south": { "model": "malum:block/spirit_furnace_bounding_block", "y": 180 },
-    "facing=west":  { "model": "malum:block/spirit_furnace_bounding_block", "y": 270 },
-    "facing=east":  { "model": "malum:block/spirit_furnace_bounding_block", "y": 90 }
-  }
-}

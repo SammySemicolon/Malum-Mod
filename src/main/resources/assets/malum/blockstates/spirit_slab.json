@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "malum:block/spirit_slab" },
-        "type=top": { "model": "malum:block/spirit_slab_top" },
-        "type=double": { "model": "malum:block/spirit_planks" }
-    }
-}

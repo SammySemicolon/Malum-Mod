@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "malum:blocks/spirit_planks",
-        "top": "malum:blocks/spirit_planks",
-        "side": "malum:blocks/spirit_planks"
-    }
-}

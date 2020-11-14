@@ -1,6 +1,0 @@
-{
-    "parent": "item/bow",
-    "textures": {
-        "layer0": "malum:items/bow_of_lost_souls_pulling_1"
-    }
-}
