@@ -2,7 +2,7 @@ package com.sammy.malum.items.staves.effects;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.SpiritDataHelper;
-import com.sammy.malum.particles.lensmagic.LensMagicParticleData;
+import com.sammy.malum.particles.particletypes.lensmagic.LensMagicParticleData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;

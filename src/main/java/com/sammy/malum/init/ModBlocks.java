@@ -42,10 +42,11 @@ public class ModBlocks
     public static Block spirit_furnace_bounding_block;
     public static Block spirit_smeltery_bounding_block;
     public static Block crystalline_accelerator_bounding_block;
+    
+    public static Block brittle_bedrock;
     //ORES
 
-    public static Block arcane_stone;
-    public static Block archaic_crystal_ore;
+    public static Block archaic_quartz_ore;
     //BUILDING
 
     public static Block spirit_stone;
@@ -94,12 +95,15 @@ public class ModBlocks
     
     public static Block.Properties spirit_stone_properties = Block.Properties.from(Blocks.SMOOTH_STONE);
     public static Block.Properties dark_spirit_stone_properties = Block.Properties.from(Blocks.OBSIDIAN);
+    
+    public static Block.Properties brittle_bedrock_properties = Block.Properties.from(Blocks.OBSIDIAN).hardnessAndResistance(100, 3600000);
+    
     public static Block.Properties mirror_properties = Block.Properties.from(Blocks.GLASS).notSolid();
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event)
     {
         IForgeRegistry<Block> registry = event.getRegistry();
-        spirit_jar = registerBlock(registry, new SpiritJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().noDrops().setLightLevel(s -> 15)), "spirit_jar");
+        spirit_jar = registerBlock(registry, new SpiritJarBlock(Block.Properties.from(Blocks.GLASS).notSolid().noDrops()), "spirit_jar");
     
         spirit_furnace = registerBlock(registry, new SpiritFurnaceBlock(spirit_stone_properties), "spirit_furnace");
         basic_mirror = registerBlock(registry, new BasicMirrorBlock(mirror_properties, BasicMirrorBlock.mirrorTypeEnum.basic), "basic_mirror");
@@ -115,13 +119,14 @@ public class ModBlocks
         spirit_smeltery_bounding_block = registerBlock(registry, new SpiritSmelteryBoundingBlock(spirit_stone_properties.notSolid().noDrops()), "spirit_smeltery_bounding_block");
         crystalline_accelerator_bounding_block = registerBlock(registry, new CrystallineAcceleratorBoundingBlock(spirit_stone_properties.notSolid().noDrops()), "crystalline_accelerator_bounding_block");
     
-        arcane_stone = registerBlock(registry, new Block(spirit_stone_properties), "arcane_stone");
-        archaic_crystal_ore = registerBlock(registry, new Block(Block.Properties.from(Blocks.DIAMOND_ORE)), "archaic_crystal_ore");
+        brittle_bedrock = registerBlock(registry, new Block(brittle_bedrock_properties), "brittle_bedrock");
+    
+        archaic_quartz_ore = registerBlock(registry, new Block(brittle_bedrock_properties), "archaic_quartz_ore");
     
         dark_spirit_stone = registerBlock(registry, new Block(dark_spirit_stone_properties), "dark_spirit_stone");
         spirit_stone = registerBlock(registry, new Block(spirit_stone_properties), "spirit_stone");
     
-        spirit_glass = registerBlock(registry, new Block(spirit_stone_properties), "spirit_glass");
+        spirit_glass = registerBlock(registry, new Block(Block.Properties.from(Blocks.GLASS)), "spirit_glass");
     
         dark_spirit_stone_brick = registerBlock(registry, new Block(dark_spirit_stone_properties), "dark_spirit_stone_brick");
         spirit_stone_brick = registerBlock(registry, new Block(spirit_stone_properties), "spirit_stone_brick");

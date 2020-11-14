@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " d ",
+    "bcb",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:dark_spirit_stone"
+    },
+    "b": {
+      "item": "malum:spirit_stone"
+    },
+    "c": {
+      "item": "malum:arcane_apparatus"
+    },
+    "d": {
+      "item": "malum:spirit_glass"
+    }
+  },
+  "result": {
+    "item": "malum:crystalline_accelerator"
+  }
+}

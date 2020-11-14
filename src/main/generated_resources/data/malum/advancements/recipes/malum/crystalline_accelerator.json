@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:crystalline_accelerator"
+    ]
+  },
+  "criteria": {
+    "has_spirit_glass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:spirit_glass"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:crystalline_accelerator"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spirit_glass",
+      "has_the_recipe"
+    ]
+  ]
+}

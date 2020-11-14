@@ -2,7 +2,7 @@ package com.sammy.malum.items.tools;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.init.ModSounds;
-import com.sammy.malum.particles.bonk.BonkParticleData;
+import com.sammy.malum.particles.particletypes.bonk.BonkParticleData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;

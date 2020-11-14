@@ -1,12 +1,11 @@
 package com.sammy.malum.blocks.machines.spiritsmeltery;
 
-import com.sammy.malum.ClientHandler;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.blocks.utility.IConfigurableTileEntity;
 import com.sammy.malum.blocks.utility.multiblock.MultiblockTileEntity;
 import com.sammy.malum.init.ModRecipes;
 import com.sammy.malum.init.ModTileEntities;
-import com.sammy.malum.particles.spiritflame.SpiritFlameParticleData;
+import com.sammy.malum.particles.particletypes.spiritflame.SpiritFlameParticleData;
 import com.sammy.malum.recipes.SpiritFurnaceRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -14,7 +13,6 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;

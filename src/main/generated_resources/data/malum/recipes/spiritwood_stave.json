@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "  b",
+    " cb",
     " bb",
     "a  "
   ],
@@ -11,6 +11,9 @@
     },
     "b": {
       "item": "malum:spirit_planks"
+    },
+    "c": {
+      "item": "minecraft:black_wool"
     }
   },
   "result": {

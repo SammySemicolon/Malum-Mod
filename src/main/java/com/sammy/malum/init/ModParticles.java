@@ -1,15 +1,15 @@
 package com.sammy.malum.init;
 
-import com.sammy.malum.particles.bonk.BonkParticle;
-import com.sammy.malum.particles.bonk.BonkParticleData;
-import com.sammy.malum.particles.charm.HeartParticle;
-import com.sammy.malum.particles.charm.HeartParticleData;
-import com.sammy.malum.particles.lensmagic.LensMagicParticle;
-import com.sammy.malum.particles.lensmagic.LensMagicParticleData;
-import com.sammy.malum.particles.skull.SkullParticle;
-import com.sammy.malum.particles.skull.SkullParticleData;
-import com.sammy.malum.particles.spiritflame.SpiritFlameParticle;
-import com.sammy.malum.particles.spiritflame.SpiritFlameParticleData;
+import com.sammy.malum.particles.particletypes.bonk.BonkParticle;
+import com.sammy.malum.particles.particletypes.bonk.BonkParticleData;
+import com.sammy.malum.particles.particletypes.charm.HeartParticle;
+import com.sammy.malum.particles.particletypes.charm.HeartParticleData;
+import com.sammy.malum.particles.particletypes.lensmagic.LensMagicParticle;
+import com.sammy.malum.particles.particletypes.lensmagic.LensMagicParticleData;
+import com.sammy.malum.particles.particletypes.skull.SkullParticle;
+import com.sammy.malum.particles.particletypes.skull.SkullParticleData;
+import com.sammy.malum.particles.particletypes.spiritflame.SpiritFlameParticle;
+import com.sammy.malum.particles.particletypes.spiritflame.SpiritFlameParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.particles.ParticleType;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;

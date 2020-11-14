@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ada",
+    "bcb",
+    "aea"
+  ],
+  "key": {
+    "a": {
+      "item": "malum:dark_spirit_stone"
+    },
+    "b": {
+      "item": "malum:spirit_stone"
+    },
+    "c": {
+      "item": "minecraft:black_wool"
+    },
+    "d": {
+      "item": "minecraft:furnace"
+    },
+    "e": {
+      "item": "minecraft:blast_furnace"
+    }
+  },
+  "result": {
+    "item": "malum:spirit_furnace"
+  }
+}

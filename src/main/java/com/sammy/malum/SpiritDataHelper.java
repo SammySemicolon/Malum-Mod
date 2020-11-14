@@ -2,8 +2,8 @@ package com.sammy.malum;
 
 import com.sammy.malum.blocks.utility.spiritstorage.SpiritStoringTileEntity;
 import com.sammy.malum.capabilities.MalumDataProvider;
-import com.sammy.malum.events.SpiritHarvestEvent;
-import com.sammy.malum.events.SpiritIntegrityUpdateEvent;
+import com.sammy.malum.events.customevents.SpiritHarvestEvent;
+import com.sammy.malum.events.customevents.SpiritIntegrityUpdateEvent;
 import com.sammy.malum.init.ModEventFactory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

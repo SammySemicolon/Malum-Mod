@@ -2,7 +2,7 @@ package com.sammy.malum.items;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.particles.lensmagic.LensMagicParticleData;
+import com.sammy.malum.particles.particletypes.lensmagic.LensMagicParticleData;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

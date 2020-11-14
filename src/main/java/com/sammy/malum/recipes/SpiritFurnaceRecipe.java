@@ -32,10 +32,10 @@ public class SpiritFurnaceRecipe
     
     public static void initRecipes()
     {
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.GOLD_INGOT, ModItems.transmissive_ingot, ModItems.archaic_crystal_ore, 6, 400));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.IRON_INGOT, ModItems.spirited_steel_ingot, ModItems.archaic_crystal_ore, 6, 400));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.DIAMOND, ModItems.vacant_gemstone, ModItems.archaic_crystal_ore, 4, 1600));
-        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.QUARTZ, ModItems.enchanted_quartz, ModItems.archaic_crystal_ore, 4, 1600));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.GOLD_INGOT, ModItems.transmissive_ingot, ModItems.archaic_quartz_ore, 6, 400));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.IRON_INGOT, ModItems.spirited_steel_ingot, ModItems.archaic_quartz_ore, 6, 400));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.DIAMOND, ModItems.vacant_gemstone, ModItems.archaic_quartz_ore, 4, 1600));
+        ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.QUARTZ, ModItems.enchanted_quartz, ModItems.archaic_quartz_ore, 4, 1600));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.LEATHER, ModItems.evil_leather, 400));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.STRING, ModItems.spirit_silk, 400));
         ModRecipes.addSpiritFurnaceRecipe(new SpiritFurnaceRecipe(Items.STONE, ModItems.spirit_stone, ModItems.runic_ash, 2, 200));

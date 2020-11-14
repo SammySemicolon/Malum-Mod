@@ -1,7 +1,7 @@
 package com.sammy.malum.init;
 
-import com.sammy.malum.events.SpiritHarvestEvent;
-import com.sammy.malum.events.SpiritIntegrityUpdateEvent;
+import com.sammy.malum.events.customevents.SpiritHarvestEvent;
+import com.sammy.malum.events.customevents.SpiritIntegrityUpdateEvent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

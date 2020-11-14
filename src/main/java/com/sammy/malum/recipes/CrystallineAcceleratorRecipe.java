@@ -54,8 +54,7 @@ public class CrystallineAcceleratorRecipe
         ModRecipes.addCrystallineAcceleratorRecipe(new CrystallineAcceleratorRecipe(ModItems.enchanted_quartz,1, 100, ModItems.enriched_crystal, 2, false));
         ModRecipes.addCrystallineAcceleratorRecipe(new CrystallineAcceleratorRecipe(ModItems.crystalline_compound,1, 1000, ModItems.enriched_crystal, 1, true));
     
-        ModRecipes.addCrystallineAcceleratorRecipe(new CrystallineAcceleratorRecipe(ModItems.arcane_stone,1, 200, ModItems.arcane_shard, 3, "minecraft:blaze", 1));
-        ModRecipes.addCrystallineAcceleratorRecipe(new CrystallineAcceleratorRecipe(ModItems.archaic_crystal_ore,1, 800, ModItems.archaic_crystal, 1, "minecraft:ghast", 1));
+        ModRecipes.addCrystallineAcceleratorRecipe(new CrystallineAcceleratorRecipe(ModItems.archaic_quartz_ore,1, 800, ModItems.archaic_quartz, 1, "minecraft:ghast", 1));
     
         ModRecipes.addCrystallineAcceleratorRecipe(new CrystallineAcceleratorRecipe(Items.COAL_ORE,1, 200, Items.COAL, 3, "minecraft:blaze", 1));
         ModRecipes.addCrystallineAcceleratorRecipe(new CrystallineAcceleratorRecipe(Items.LAPIS_ORE,1, 200, Items.LAPIS_LAZULI, 6, "minecraft:blaze", 1));

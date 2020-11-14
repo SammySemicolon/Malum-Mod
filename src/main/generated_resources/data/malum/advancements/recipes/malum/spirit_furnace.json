@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:spirit_furnace"
+    ]
+  },
+  "criteria": {
+    "has_spirit_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:spirit_stone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:spirit_furnace"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spirit_stone",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -5,15 +5,15 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.blocks.machines.crystallineaccelerator.CrystallineAccelerator;
 import com.sammy.malum.blocks.machines.spiritfurnace.SpiritFurnaceBlock;
 import com.sammy.malum.blocks.machines.spiritsmeltery.SpiritSmelteryBlock;
-import com.sammy.malum.items.armor.ItemSpiritHunterArmor;
-import com.sammy.malum.items.armor.ItemSpiritedSteelBattleArmor;
-import com.sammy.malum.items.armor.ItemUmbraSteelBattleArmor;
+import com.sammy.malum.items.equipment.armor.ItemSpiritHunterArmor;
+import com.sammy.malum.items.equipment.armor.ItemSpiritedSteelBattleArmor;
+import com.sammy.malum.items.equipment.armor.ItemUmbraSteelBattleArmor;
 import com.sammy.malum.items.staves.CreativeStave;
 import com.sammy.malum.items.staves.SpiritwoodStave;
 import com.sammy.malum.items.staves.effects.MatingEffect;
 import com.sammy.malum.items.staves.effects.ResonantBlinkEffect;
 import com.sammy.malum.items.*;
-import com.sammy.malum.items.curios.*;
+import com.sammy.malum.items.equipment.curios.*;
 import com.sammy.malum.items.tools.ModBusterSwordItem;
 import com.sammy.malum.items.tools.ModExcavatorItem;
 import com.sammy.malum.items.tools.UltimateWeaponItem;
@@ -60,10 +60,6 @@ public class ModItems
     public static Item spirit_charcoal;
     public static Item spirit_stone;
     public static Item dark_spirit_stone;
-    public static Item arcane_stone;
-    public static Item arcane_shard;
-    public static Item archaic_crystal_ore;
-    public static Item archaic_crystal;
     public static Item spirit_silk;
     public static Item spirit_fabric;
     public static Item evil_leather;
@@ -84,6 +80,7 @@ public class ModItems
     public static Item penumbral_adhesive;
     public static Item umbral_steel_ingot;
     public static Item umbral_steel_nugget;
+    public static Item archaic_quartz;
     
     public static Item runic_mechanism;
     public static Item arcane_apparatus;
@@ -157,6 +154,9 @@ public class ModItems
     public static Item spirit_smeltery;
     public static Item crystalline_accelerator;
     //BLOCKS
+    public static Item archaic_quartz_ore;
+    public static Item brittle_bedrock;
+    
     public static Item spirit_glass;
     
     public static Item spirit_stone_brick;
@@ -226,10 +226,6 @@ public class ModItems
                 spirit_charcoal = setup(new Item(basic_properties), "spirit_charcoal"),
                 spirit_stone = setup(new BlockItem(ModBlocks.spirit_stone, basic_properties), "spirit_stone"),
                 dark_spirit_stone = setup(new BlockItem(ModBlocks.dark_spirit_stone, basic_properties), "dark_spirit_stone"),
-                arcane_stone = setup(new BlockItem(ModBlocks.arcane_stone, basic_properties), "arcane_stone"),
-                arcane_shard = setup(new Item(basic_properties), "arcane_shard"),
-                archaic_crystal_ore = setup(new BlockItem(ModBlocks.archaic_crystal_ore,basic_properties), "archaic_crystal_ore"),
-                archaic_crystal = setup(new Item(basic_properties), "archaic_crystal"),
                 spirit_silk = setup(new Item(basic_properties), "spirit_silk"),
                 spirit_fabric = setup(new Item(basic_properties), "spirit_fabric"),
                 evil_leather = setup(new Item(basic_properties), "evil_leather"),
@@ -250,7 +246,8 @@ public class ModItems
                 penumbral_adhesive = setup(new Item(basic_properties), "penumbral_adhesive"),
                 umbral_steel_ingot = setup(new Item(basic_properties), "umbral_steel_ingot"),
                 umbral_steel_nugget = setup(new Item(basic_properties), "umbral_steel_nugget"),
-                
+                archaic_quartz = setup(new Item(basic_properties), "archaic_quartz"),
+        
                 runic_mechanism = setup(new Item(basic_properties), "runic_mechanism"),
                 arcane_apparatus = setup(new Item(basic_properties), "arcane_apparatus"),
                 cursed_nebulous = setup(new SimpleFoiledItem(rare_properties), "cursed_nebulous"),
@@ -321,6 +318,9 @@ public class ModItems
                 funk_engine = setup(new BlockItem(ModBlocks.funk_engine, basic_properties), "funk_engine"),
                 spirit_smeltery = setup(new MultiblockItem(ModBlocks.spirit_smeltery, ModBlocks.spirit_smeltery_bounding_block, basic_properties, SpiritSmelteryBlock.structure), "spirit_smeltery"),
                 crystalline_accelerator = setup(new MultiblockItem(ModBlocks.crystalline_accelerator, ModBlocks.crystalline_accelerator_bounding_block, basic_properties, CrystallineAccelerator.structure), "crystalline_accelerator"),
+        
+                archaic_quartz_ore = setup(new BlockItem(ModBlocks.archaic_quartz_ore,basic_properties), "archaic_quartz_ore"),
+                brittle_bedrock = setup(new BlockItem(ModBlocks.brittle_bedrock,basic_properties), "brittle_bedrock"),
         
                 spirit_glass = setup(new BlockItem(ModBlocks.spirit_glass, basic_properties), "spirit_glass"),
         
