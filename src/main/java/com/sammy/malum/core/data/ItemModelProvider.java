@@ -22,10 +22,6 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
     @Override
     protected void registerModels()
     {
-        blockItem(MalumItems.SPIRIT_STONE);
-        blockItem(MalumItems.SPIRIT_STONE_SLAB);
-        blockItem(MalumItems.SPIRIT_STONE_STAIRS);
-        
     }
     
     private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
@@ -41,12 +37,6 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/" + name));
-    }
-    
-    private void blockItem(RegistryObject<Item> i)
-    {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, prefix("block/" + name));
     }
     
     @Override

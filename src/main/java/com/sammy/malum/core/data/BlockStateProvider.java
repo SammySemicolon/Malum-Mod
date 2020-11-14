@@ -7,6 +7,7 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -39,7 +40,9 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     
     public void basicBlock(RegistryObject<Block> blockRegistryObject)
     {
-        simpleBlock(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
+        ModelFile modelFile = cubeAll(blockRegistryObject.get());
+        simpleBlock(blockRegistryObject.get(), modelFile);
+        this.simpleBlockItem(blockRegistryObject.get(), modelFile);
     }
     
     public void stairsBlock(RegistryObject<Block> blockRegistryObject)
