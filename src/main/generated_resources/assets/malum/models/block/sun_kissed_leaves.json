@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/leaves",
   "textures": {
     "all": "malum:block/sun_kissed_leaves"
   }

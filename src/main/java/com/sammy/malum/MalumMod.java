@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 
 import static com.sammy.malum.core.init.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.init.MalumFeatures.FEATURES;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
 
 @SuppressWarnings("unused")
@@ -30,6 +31,7 @@ public class MalumMod
     
         BLOCKS.register(modBus);
         ITEMS.register(modBus);
+        FEATURES.register(modBus);
         
         modBus.addListener(this::gatherData);
     }

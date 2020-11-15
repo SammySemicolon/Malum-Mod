@@ -3,11 +3,11 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -64,6 +64,14 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     
     public void basicBlock(RegistryObject<Block> blockRegistryObject)
     {
+        if (blockRegistryObject.get() instanceof MalumLeavesBlock)
+        {
+            String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+            ModelFile leaves = models().withExistingParent(name,new ResourceLocation("block/leaves")).texture("all", prefix("block/" + name));
+            
+            getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(leaves).build());
+            return;
+        }
         if (blockRegistryObject.get().getTranslationKey().endsWith("_wood"))
         {
             String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
