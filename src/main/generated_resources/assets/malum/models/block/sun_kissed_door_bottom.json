@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom",
+  "textures": {
+    "bottom": "malum:block/sun_kissed_door_bottom",
+    "top": "malum:block/sun_kissed_door_top"
+  }
+}

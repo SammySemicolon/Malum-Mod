@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "malum:block/tainted_sapling"
+    },
+    "stage=1": {
+      "model": "malum:block/tainted_sapling"
+    }
+  }
+}

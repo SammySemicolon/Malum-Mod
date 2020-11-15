@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "malum:block/very_tall_sun_kissed_grass_bottom"
+  }
+}

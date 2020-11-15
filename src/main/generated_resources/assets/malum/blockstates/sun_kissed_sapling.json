@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "malum:block/sun_kissed_sapling"
+    },
+    "stage=1": {
+      "model": "malum:block/sun_kissed_sapling"
+    }
+  }
+}

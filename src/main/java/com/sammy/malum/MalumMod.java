@@ -1,7 +1,9 @@
 package com.sammy.malum;
 
 import com.sammy.malum.core.data.BlockStateProvider;
+import com.sammy.malum.core.data.BlockTagProvider;
 import com.sammy.malum.core.data.ItemModelProvider;
+import com.sammy.malum.core.data.LangProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -36,5 +38,7 @@ public class MalumMod
     {
         evt.getGenerator().addProvider(new BlockStateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
         evt.getGenerator().addProvider(new ItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+        evt.getGenerator().addProvider(new LangProvider(evt.getGenerator()));
+        evt.getGenerator().addProvider(new BlockTagProvider(evt.getGenerator()));
     }
 }

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "malum:sun_kissed_planks_fence",
+    "malum:tainted_planks_fence",
+    "#minecraft:wooden_fences",
+    "minecraft:nether_brick_fence"
+  ]
+}

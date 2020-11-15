@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "side": "malum:block/sun_kissed_log",
+    "end": "malum:block/sun_kissed_log_top"
+  }
+}

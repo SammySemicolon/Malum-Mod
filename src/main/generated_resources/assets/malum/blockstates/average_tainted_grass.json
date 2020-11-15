@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "malum:block/average_tainted_grass"
+    }
+  }
+}
