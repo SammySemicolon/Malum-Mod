@@ -7,9 +7,9 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 
-public abstract class BasicTileEntity extends TileEntity
+public abstract class SimpleTileEntity extends TileEntity
 {
-    public BasicTileEntity(TileEntityType type)
+    public SimpleTileEntity(TileEntityType type)
     {
         super(type);
     }

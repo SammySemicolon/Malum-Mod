@@ -1,6 +1,8 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.core.MalumCreativeTab;
+import com.sammy.malum.core.systems.multiblock.MultiblockItem;
+import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -114,5 +116,8 @@ public class MalumItems
     //region crafting blocks
     public static final RegistryObject<Item> TAINTED_ARCANE_CRAFTING_TABLE = ITEMS.register("sun_kissed_arcane_crafting_table", () -> new BlockItem(MalumBlocks.TAINTED_ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> SUN_KISSED_ARCANE_CRAFTING_TABLE = ITEMS.register("tainted_arcane_crafting_table", () -> new BlockItem(MalumBlocks.SUN_KISSED_ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES));
+    
+    public static final RegistryObject<Item> BLIGHTING_FURNACE = ITEMS.register("blighting_furnace", () -> new MultiblockItem(MalumBlocks.BLIGHTING_FURNACE.get(), DEFAULT_PROPERTIES, MultiblockStructure.doubleTallBlock(MalumBlocks.BLIGHTING_FURNACE_TOP.get())));
+    
     //endregion
 }

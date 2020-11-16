@@ -2,6 +2,8 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.core.systems.multiblock.BoundingBlock;
+import com.sammy.malum.core.systems.multiblock.MultiblockBlock;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -10,6 +12,7 @@ import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -51,13 +54,14 @@ public class StartupEvents
             int g = malumLeavesBlock.minColor.getGreen();
             int b = malumLeavesBlock.minColor.getBlue();
             blockColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
-    
         });
     }
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(StartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof MultiblockBlock).forEach(StartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(StartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(StartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(StartupEvents::setCutout);

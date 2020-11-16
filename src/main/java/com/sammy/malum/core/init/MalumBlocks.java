@@ -2,7 +2,11 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
+import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlock;
+import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceBlock;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
+import com.sammy.malum.core.systems.multiblock.BoundingBlock;
+import com.sammy.malum.core.systems.multiblock.MultiblockBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -132,5 +136,9 @@ public class MalumBlocks
     //region crafting blocks
     public static final RegistryObject<Block> SUN_KISSED_ARCANE_CRAFTING_TABLE = BLOCKS.register("sun_kissed_arcane_crafting_table", () -> new ArcaneCraftingTableBlock(SUN_KISSED_WOOD_PROPERTIES));
     public static final RegistryObject<Block> TAINTED_ARCANE_CRAFTING_TABLE = BLOCKS.register("tainted_arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES));
+    
+    public static final RegistryObject<Block> BLIGHTING_FURNACE = BLOCKS.register("blighting_furnace", () -> new BlightingFurnaceBlock(TAINTED_ROCK_PROPERTIES.notSolid()));
+    public static final RegistryObject<Block> BLIGHTING_FURNACE_TOP = BLOCKS.register("blighting_furnace_top", () -> new BlightedFurnaceBoundingBlock(TAINTED_ROCK_PROPERTIES.notSolid()));
+    
     //endregion
 }

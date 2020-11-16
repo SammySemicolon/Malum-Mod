@@ -1,6 +1,5 @@
 package com.sammy.malum.core.systems.tileentities;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -10,7 +9,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 
-public abstract class SimpleInventoryTileEntity extends BasicTileEntity
+public abstract class SimpleInventoryTileEntity extends SimpleTileEntity
 {
     public SimpleInventoryTileEntity(TileEntityType type)
     {
