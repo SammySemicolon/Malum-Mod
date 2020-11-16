@@ -2,9 +2,6 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"texture_size": [32, 32],
-	"textures": {
-		"texture": "malum:block/arcane_workbench"
-	},
 	"elements": [
 		{
 			"from": [0, 0, 0],

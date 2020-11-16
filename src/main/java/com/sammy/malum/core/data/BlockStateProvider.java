@@ -69,7 +69,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         {
             String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
     
-            ModelFile arcaneCraftingTable = models().withExistingParent(name,prefix("block/arcane_crafting_table")).texture("all", prefix("block/" + name));
+            ModelFile arcaneCraftingTable = models().withExistingParent(name,prefix("block/arcane_crafting_table")).texture("texture", prefix("block/" + name));
             simpleBlock(blockRegistryObject.get(), arcaneCraftingTable);
             return;
         }
