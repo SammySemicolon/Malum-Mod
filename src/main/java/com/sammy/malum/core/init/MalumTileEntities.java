@@ -24,7 +24,7 @@ public class MalumTileEntities
 {
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
     
-    public static final RegistryObject<TileEntityType<?>> ARCANE_CRAFTING_TABLE_TILE_ENTITY = TILE_ENTITIES.register("arcane_crafting_table", ()-> TileEntityType.Builder.create((Supplier<TileEntity>) ArcaneCraftingTableTileEntity::new, MalumBlocks.SUN_KISSED_ARCANE_CRAFTING_TABLE.get(), MalumBlocks.TAINTED_ARCANE_CRAFTING_TABLE.get()).build(null));
+    public static final RegistryObject<TileEntityType<ArcaneCraftingTableTileEntity>> ARCANE_CRAFTING_TABLE_TILE_ENTITY = TILE_ENTITIES.register("arcane_crafting_table", ()-> TileEntityType.Builder.create(ArcaneCraftingTableTileEntity::new, MalumBlocks.SUN_KISSED_ARCANE_CRAFTING_TABLE.get(), MalumBlocks.TAINTED_ARCANE_CRAFTING_TABLE.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> BOUNDING_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("bounding_block", ()-> TileEntityType.Builder.create((Supplier<TileEntity>) BoundingBlockTileEntity::new, MalumBlocks.BLIGHTING_FURNACE_TOP.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> BLIGHTING_FURNACE_TILE_ENTITY = TILE_ENTITIES.register("blighting_furnace", ()-> TileEntityType.Builder.create((Supplier<TileEntity>) BlightingFurnaceTileEntity::new, MalumBlocks.BLIGHTING_FURNACE.get()).build(null));
 

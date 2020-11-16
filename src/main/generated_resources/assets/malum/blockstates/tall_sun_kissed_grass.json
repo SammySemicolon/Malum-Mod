@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "malum:block/tall_sun_kissed_grass"
+    "half=upper": {
+      "model": "malum:block/tall_sun_kissed_grass_top"
+    },
+    "half=lower": {
+      "model": "malum:block/tall_sun_kissed_grass_bottom"
     }
   }
 }

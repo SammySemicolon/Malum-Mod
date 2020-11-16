@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:block/average_sun_kissed_grass"
+    "layer0": "malum:block/tainted_grass"
   }
 }

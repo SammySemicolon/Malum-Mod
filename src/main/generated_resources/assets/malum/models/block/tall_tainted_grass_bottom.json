@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "malum:block/average_tainted_grass"
+    "cross": "malum:block/tall_tainted_grass_bottom"
   }
 }

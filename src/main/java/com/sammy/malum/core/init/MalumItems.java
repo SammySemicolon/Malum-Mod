@@ -5,8 +5,6 @@ import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.SignItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -101,16 +99,14 @@ public class MalumItems
     
     //region sun kissed biome plants
     public static final RegistryObject<Item> SHORT_SUN_KISSED_GRASS = ITEMS.register("short_sun_kissed_grass", () -> new BlockItem(MalumBlocks.SHORT_SUN_KISSED_GRASS.get(), DEFAULT_PROPERTIES));
-    public static final RegistryObject<Item> AVERAGE_SUN_KISSED_GRASS = ITEMS.register("average_sun_kissed_grass", () -> new BlockItem(MalumBlocks.AVERAGE_SUN_KISSED_GRASS.get(), DEFAULT_PROPERTIES));
+    public static final RegistryObject<Item> SUN_KISSED_GRASS = ITEMS.register("sun_kissed_grass", () -> new BlockItem(MalumBlocks.SUN_KISSED_GRASS.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> TALL_SUN_KISSED_GRASS = ITEMS.register("tall_sun_kissed_grass", () -> new BlockItem(MalumBlocks.TALL_SUN_KISSED_GRASS.get(), DEFAULT_PROPERTIES));
-    public static final RegistryObject<Item> VERY_TALL_SUN_KISSED_GRASS = ITEMS.register("very_tall_sun_kissed_grass", () -> new BlockItem(MalumBlocks.VERY_TALL_SUN_KISSED_GRASS.get(), DEFAULT_PROPERTIES));
     //endregion
     
     //region tainted biome plants
     public static final RegistryObject<Item> SHORT_TAINTED_GRASS = ITEMS.register("short_tainted_grass", () -> new BlockItem(MalumBlocks.SHORT_TAINTED_GRASS.get(), DEFAULT_PROPERTIES));
-    public static final RegistryObject<Item> AVERAGE_TAINTED_GRASS = ITEMS.register("average_tainted_grass", () -> new BlockItem(MalumBlocks.AVERAGE_TAINTED_GRASS.get(), DEFAULT_PROPERTIES));
+    public static final RegistryObject<Item> TAINTED_GRASS = ITEMS.register("tainted_grass", () -> new BlockItem(MalumBlocks.TAINTED_GRASS.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> TALL_TAINTED_GRASS = ITEMS.register("tall_tainted_grass", () -> new BlockItem(MalumBlocks.TALL_TAINTED_GRASS.get(), DEFAULT_PROPERTIES));
-    public static final RegistryObject<Item> VERY_TALL_TAINTED_GRASS = ITEMS.register("very_tall_tainted_grass", () -> new BlockItem(MalumBlocks.VERY_TALL_TAINTED_GRASS.get(), DEFAULT_PROPERTIES));
     //endregion
     
     //region crafting blocks

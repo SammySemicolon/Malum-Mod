@@ -1,6 +1,6 @@
 {
-  "block.malum.average_sun_kissed_grass": "Average Sun Kissed Grass",
-  "block.malum.average_tainted_grass": "Average Tainted Grass",
+  "block.malum.blighting_furnace": "Blighting Furnace",
+  "block.malum.blighting_furnace_top": "Blighting Furnace Top",
   "block.malum.chiseled_tainted_rock_bricks": "Chiseled Tainted Rock Bricks",
   "block.malum.cracked_tainted_rock_bricks": "Cracked Tainted Rock Bricks",
   "block.malum.cracked_tainted_rock_bricks_slab": "Cracked Tainted Rock Brick Slab",
@@ -25,6 +25,7 @@
   "block.malum.stripped_tainted_wood": "Stripped Tainted Wood",
   "block.malum.sun_kissed_arcane_crafting_table": "Sun Kissed Arcane Crafting Table",
   "block.malum.sun_kissed_door": "Sun Kissed Door",
+  "block.malum.sun_kissed_grass": "Sun Kissed Grass",
   "block.malum.sun_kissed_leaves": "Sun Kissed Leaves",
   "block.malum.sun_kissed_log": "Sun Kissed Log",
   "block.malum.sun_kissed_planks": "Sun Kissed Planks",
@@ -38,6 +39,7 @@
   "block.malum.sun_kissed_wood": "Sun Kissed Wood",
   "block.malum.tainted_arcane_crafting_table": "Tainted Arcane Crafting Table",
   "block.malum.tainted_door": "Tainted Door",
+  "block.malum.tainted_grass": "Tainted Grass",
   "block.malum.tainted_leaves": "Tainted Leaves",
   "block.malum.tainted_log": "Tainted Log",
   "block.malum.tainted_planks": "Tainted Planks",
@@ -61,7 +63,5 @@
   "block.malum.tainted_wood": "Tainted Wood",
   "block.malum.tall_sun_kissed_grass": "Tall Sun Kissed Grass",
   "block.malum.tall_tainted_grass": "Tall Tainted Grass",
-  "block.malum.very_tall_sun_kissed_grass": "Very Tall Sun Kissed Grass",
-  "block.malum.very_tall_tainted_grass": "Very Tall Tainted Grass",
   "itemGroup.malum": "Malum"
 }

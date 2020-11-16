@@ -1,6 +1,7 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.world.features.tree.HugeSunKissedBlockStateProvider;
 import com.sammy.malum.common.world.features.tree.SunKissedFoliagePlacer;
 import net.minecraft.util.registry.Registry;
@@ -11,9 +12,11 @@ import net.minecraft.world.gen.foliageplacer.MegaPineFoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 
+import static com.sammy.malum.MalumHelper.prefix;
+
 public class MalumFeatures
 {
-    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SUN_KISSED_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumHelper.prefix("sun_kissed_tree"),
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SUN_KISSED_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID +":"+ "sun_kissed_tree",
             Feature.TREE.withConfiguration(new BaseTreeFeatureConfig.Builder(
                     new SimpleBlockStateProvider(MalumBlocks.SUN_KISSED_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(MalumBlocks.SUN_KISSED_LEAVES.get().getDefaultState()),
@@ -24,7 +27,7 @@ public class MalumFeatures
                     new StraightTrunkPlacer(5, 2, 1),
                     new TwoLayerFeature(2, 0, 2)).build()));
     
-    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> HUGE_SUN_KISSED_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumHelper.prefix("sun_kissed_tree"),
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> HUGE_SUN_KISSED_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE,MalumMod.MODID +":"+ "huge_sun_kissed_tree",
             Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(
                     new SimpleBlockStateProvider(MalumBlocks.SUN_KISSED_LOG.get().getDefaultState()),
                     new HugeSunKissedBlockStateProvider(MalumBlocks.SUN_KISSED_LEAVES.get().getDefaultState()),

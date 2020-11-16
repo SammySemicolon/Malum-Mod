@@ -28,7 +28,6 @@ public class ArcaneCraftingTableRenderer extends TileEntityRenderer<ArcaneCrafti
     {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         int itemCount = 0;
-    
         for (int i = 0; i < blockEntity.inventory.slotCount; i++)
         {
             ItemStack item = blockEntity.inventory.getStackInSlot(i);
@@ -41,13 +40,18 @@ public class ArcaneCraftingTableRenderer extends TileEntityRenderer<ArcaneCrafti
                 break;
             }
         }
-        for (int i = 0; i < itemCount; i++)
+        for (int i = 0; i < blockEntity.inventory.slotCount; i++)
         {
             ItemStack item = blockEntity.inventory.getStackInSlot(i);
             if (!item.isEmpty())
             {
-                Vector2f pos = itemCoords(itemCount / 16f, i, itemCount);
-                matrixStack.translate(pos.x, 1.5f, pos.y);
+                matrixStack.push();
+                if (itemCount != 1)
+                {
+                    Vector2f pos = itemCoords(itemCount / 16f, i, itemCount);
+                    matrixStack.translate(pos.x, 0, pos.y);
+                }
+                matrixStack.translate(0.5f,1.25f,0.5f);
                 matrixStack.rotate(Vector3f.YP.rotationDegrees(blockEntity.getWorld().getGameTime() * 3));
                 matrixStack.scale(0.5f, 0.5f, 0.5f);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, light, NO_OVERLAY, matrixStack, iRenderTypeBuffer);
