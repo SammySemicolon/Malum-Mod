@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.core.init.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.init.MalumItems.ITEMS;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class StartupEvents
@@ -26,19 +29,30 @@ public class StartupEvents
     public static void setBlockColors(ColorHandlerEvent.Block event)
     {
         BlockColors blockColors = event.getBlockColors();
-        blockColors.register((state, reader, pos, color) -> {
+        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        MalumHelper.takeAll(blocks, block -> block.get() instanceof MalumLeavesBlock).forEach(block -> blockColors.register((state, reader, pos, color) -> {
             float i = state.get(MalumLeavesBlock.COLOR);
-            int r = (int) MathHelper.lerp(i / 9f, 215, 255);
-            int g = (int) MathHelper.lerp(i / 9f, 95, 204);
-            int b = (int) MathHelper.lerp(i / 9f, 56, 36);
+            MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) block.get();
+            int r = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
+            int g = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
+            int b = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
             return r << 16 | g << 8 | b;
-        }, MalumBlocks.SUN_KISSED_LEAVES.get());
+        }, block.get()));
+    
     }
     @SubscribeEvent
     public static void setItemColors(ColorHandlerEvent.Item event)
     {
         ItemColors blockColors = event.getItemColors();
-        blockColors.register((stack, i) -> 215 << 16 | 95 << 8 | 56, MalumItems.SUN_KISSED_LEAVES.get());
+        Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+        MalumHelper.takeAll(items, item -> item.get() instanceof BlockItem && ((BlockItem) item.get()).getBlock() instanceof MalumLeavesBlock).forEach(item -> {
+            MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
+            int r = malumLeavesBlock.minColor.getRed();
+            int g = malumLeavesBlock.minColor.getGreen();
+            int b = malumLeavesBlock.minColor.getBlue();
+            blockColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
+    
+        });
     }
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)

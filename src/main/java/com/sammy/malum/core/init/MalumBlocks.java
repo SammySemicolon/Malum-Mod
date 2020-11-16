@@ -1,6 +1,8 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
+import com.sammy.malum.common.world.features.tree.SunKissedTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -8,6 +10,8 @@ import net.minecraft.block.trees.OakTree;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.awt.*;
 
 import static com.sammy.malum.MalumMod.MODID;
 import static net.minecraft.block.PressurePlateBlock.Sensitivity.MOBS;
@@ -107,8 +111,8 @@ public class MalumBlocks
     public static final RegistryObject<Block> AVERAGE_SUN_KISSED_GRASS = BLOCKS.register("average_sun_kissed_grass", () -> new TallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES));
     public static final RegistryObject<Block> TALL_SUN_KISSED_GRASS = BLOCKS.register("tall_sun_kissed_grass", () -> new TallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES));
     public static final RegistryObject<Block> VERY_TALL_SUN_KISSED_GRASS = BLOCKS.register("very_tall_sun_kissed_grass", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES));
-    public static final RegistryObject<Block> SUN_KISSED_SAPLING = BLOCKS.register("sun_kissed_sapling", () -> new SaplingBlock(new OakTree(), SUN_KISSED_PLANTS_PROPERTIES));
-    public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(SUN_KISSED_LEAVES_PROPERTIES));
+    public static final RegistryObject<Block> SUN_KISSED_SAPLING = BLOCKS.register("sun_kissed_sapling", () -> new SaplingBlock(new SunKissedTree(), SUN_KISSED_PLANTS_PROPERTIES));
+    public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(SUN_KISSED_LEAVES_PROPERTIES, new Color(0,0,0), new Color(255,255,255)));
     
     //endregion
     
@@ -121,7 +125,12 @@ public class MalumBlocks
     public static final RegistryObject<Block> TALL_TAINTED_GRASS = BLOCKS.register("tall_tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES));
     public static final RegistryObject<Block> VERY_TALL_TAINTED_GRASS = BLOCKS.register("very_tall_tainted_grass", () -> new DoublePlantBlock(TAINTED_PLANTS_PROPERTIES));
     public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new SaplingBlock(new OakTree(), TAINTED_PLANTS_PROPERTIES));
-    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new MalumLeavesBlock(TAINTED_LEAVES_PROPERTIES));
+    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new MalumLeavesBlock(TAINTED_LEAVES_PROPERTIES, new Color(0,0,0), new Color(255,255,255)));
     
+    //endregion
+    
+    //region crafting blocks
+    public static final RegistryObject<Block> SUN_KISSED_ARCANE_CRAFTING_TABLE = BLOCKS.register("sun_kissed_arcane_crafting_table", () -> new ArcaneCraftingTableBlock(SUN_KISSED_WOOD_PROPERTIES));
+    public static final RegistryObject<Block> TAINTED_ARCANE_CRAFTING_TABLE = BLOCKS.register("tainted_arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES));
     //endregion
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "malum:block/arcane_crafting_table",
+  "textures": {
+    "all": "malum:block/tainted_arcane_crafting_table"
+  }
+}

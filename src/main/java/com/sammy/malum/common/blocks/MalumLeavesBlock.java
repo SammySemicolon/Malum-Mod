@@ -15,12 +15,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
+import java.awt.*;
+
 public class MalumLeavesBlock extends LeavesBlock
 {
     public static final IntegerProperty COLOR = IntegerProperty.create("color",0,9);
-    public MalumLeavesBlock(Properties properties)
+    public final Color maxColor;
+    public final Color minColor;
+    
+    public MalumLeavesBlock(Properties properties,Color maxColor,Color minColor)
     {
         super(properties);
+        this.maxColor = maxColor;
+        this.minColor = minColor;
         this.setDefaultState(this.stateContainer.getBaseState().with(COLOR, 0));
     
     }
