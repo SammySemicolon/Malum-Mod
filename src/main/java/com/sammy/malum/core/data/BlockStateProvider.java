@@ -58,6 +58,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractButtonBlock).forEach(this::buttonBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(this::tallPlantBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
         
         Collection<RegistryObject<Block>> slabs = MalumHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
         blocks.forEach(this::basicBlock);
@@ -137,6 +138,19 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 .modelForState().modelFile(pressurePlateDown).addModel()
                 .partialState().with(PressurePlateBlock.POWERED, false)
                 .modelForState().modelFile(pressurePlateUp).addModel();
+    }
+    
+    public void lanternBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile lantern = models().withExistingParent(name,new ResourceLocation("block/template_lantern")).texture("lantern", prefix("block/" + name));
+        ModelFile hangingLantern = models().withExistingParent(name+"_hanging",new ResourceLocation("block/template_hanging_lantern")).texture("lantern", prefix("block/" + name));
+        
+        getVariantBuilder(blockRegistryObject.get())
+                .partialState().with(LanternBlock.HANGING, true)
+                .modelForState().modelFile(hangingLantern).addModel()
+                .partialState().with(LanternBlock.HANGING, false)
+                .modelForState().modelFile(lantern).addModel();
     }
     
     public void buttonBlock(RegistryObject<Block> blockRegistryObject)

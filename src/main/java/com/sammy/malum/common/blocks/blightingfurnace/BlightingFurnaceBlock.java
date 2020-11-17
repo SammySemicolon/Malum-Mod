@@ -30,6 +30,13 @@ public class BlightingFurnaceBlock extends Block implements IMultiblock
     {
         return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
+    
+    @Override
+    public boolean hasTileEntity(BlockState state)
+    {
+        return true;
+    }
+    
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {

@@ -70,6 +70,7 @@ public class StartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(StartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(StartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(StartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(StartupEvents::setCutout);
     }
     public static void setCutout(RegistryObject<Block> b)
     {
@@ -84,7 +85,6 @@ public class StartupEvents
     public static void registerFeatures(FMLCommonSetupEvent event)
     {
         event.enqueueWork(MalumFeatures::new);
-        ArcaneCraftingRecipe.initRecipes();
     }
     @SubscribeEvent
     public static void bindTERs(FMLClientSetupEvent event)

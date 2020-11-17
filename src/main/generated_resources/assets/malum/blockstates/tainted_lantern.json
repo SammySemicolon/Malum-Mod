@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "malum:block/tainted_lantern"
+    },
+    "hanging=true": {
+      "model": "malum:block/tainted_lantern_hanging"
+    }
+  }
+}

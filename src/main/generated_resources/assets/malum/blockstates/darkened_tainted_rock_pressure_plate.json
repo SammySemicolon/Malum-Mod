@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "malum:block/darkened_tainted_rock_pressure_plate_up"
+    },
+    "powered=true": {
+      "model": "malum:block/darkened_tainted_rock_pressure_plate_down"
+    }
+  }
+}

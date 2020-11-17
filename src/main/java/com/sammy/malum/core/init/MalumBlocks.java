@@ -25,7 +25,6 @@ public class MalumBlocks
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     
     //region tainted rock
-    
     public static AbstractBlock.Properties TAINTED_ROCK_PROPERTIES = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.25F, 9.0F);
     public static final RegistryObject<Block> TAINTED_ROCK = BLOCKS.register("tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES));
     public static final RegistryObject<Block> TAINTED_ROCK_SLAB = BLOCKS.register("tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES));
@@ -58,7 +57,42 @@ public class MalumBlocks
     public static final RegistryObject<Block> TAINTED_ROCK_WALL = BLOCKS.register("tainted_rock_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES));
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES));
     public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> TAINTED_LANTERN = BLOCKS.register("tainted_lantern", () -> new LanternBlock(AbstractBlock.Properties.from(Blocks.LANTERN)));
     //endregion
+    
+    public static AbstractBlock.Properties DARKENED_TAINTED_ROCK_PROPERTIES = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(2.25F, 3600.0F);
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK = BLOCKS.register("darkened_tainted_rock", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_SLAB = BLOCKS.register("darkened_tainted_rock_slab", () -> new SlabBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_STAIRS = BLOCKS.register("darkened_tainted_rock_stairs", () -> new StairsBlock(DARKENED_TAINTED_ROCK.get().getDefaultState(), DARKENED_TAINTED_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> POLISHED_DARKENED_TAINTED_ROCK = BLOCKS.register("polished_darkened_tainted_rock", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> POLISHED_DARKENED_TAINTED_ROCK_SLAB = BLOCKS.register("polished_darkened_tainted_rock_slab", () -> new SlabBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> POLISHED_DARKENED_TAINTED_ROCK_STAIRS = BLOCKS.register("polished_darkened_tainted_rock_stairs", () -> new StairsBlock(DARKENED_TAINTED_ROCK.get().getDefaultState(), DARKENED_TAINTED_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> SMOOTH_DARKENED_TAINTED_ROCK = BLOCKS.register("smooth_darkened_tainted_rock", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> SMOOTH_DARKENED_TAINTED_ROCK_SLAB = BLOCKS.register("smooth_darkened_tainted_rock_slab", () -> new SlabBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> SMOOTH_DARKENED_TAINTED_ROCK_STAIRS = BLOCKS.register("smooth_darkened_tainted_rock_stairs", () -> new StairsBlock(DARKENED_TAINTED_ROCK.get().getDefaultState(), DARKENED_TAINTED_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_BRICKS = BLOCKS.register("darkened_tainted_rock_bricks", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("darkened_tainted_rock_bricks_slab", () -> new SlabBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("darkened_tainted_rock_bricks_stairs", () -> new StairsBlock(DARKENED_TAINTED_ROCK.get().getDefaultState(), DARKENED_TAINTED_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> CRACKED_DARKENED_TAINTED_ROCK_BRICKS = BLOCKS.register("cracked_darkened_tainted_rock_bricks", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRACKED_DARKENED_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_darkened_tainted_rock_bricks_slab", () -> new SlabBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRACKED_DARKENED_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_darkened_tainted_rock_bricks_stairs", () -> new StairsBlock(DARKENED_TAINTED_ROCK.get().getDefaultState(), DARKENED_TAINTED_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> MOSSY_DARKENED_TAINTED_ROCK_BRICKS = BLOCKS.register("mossy_darkened_tainted_rock_bricks", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> MOSSY_DARKENED_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("mossy_darkened_tainted_rock_bricks_slab", () -> new SlabBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> MOSSY_DARKENED_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("mossy_darkened_tainted_rock_bricks_stairs", () -> new StairsBlock(DARKENED_TAINTED_ROCK.get().getDefaultState(), DARKENED_TAINTED_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_PILLAR = BLOCKS.register("darkened_tainted_rock_pillar", () -> new RotatedPillarBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CHISELED_DARKENED_TAINTED_ROCK_BRICKS = BLOCKS.register("chiseled_darkened_tainted_rock_bricks", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_PRESSURE_PLATE = BLOCKS.register("darkened_tainted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_WALL = BLOCKS.register("darkened_tainted_rock_wall", () -> new WallBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("darkened_tainted_rock_bricks_wall", () -> new WallBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> MOSSY_DARKENED_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_darkened_tainted_rock_bricks_wall", () -> new WallBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> DARKENED_TAINTED_LANTERN = BLOCKS.register("darkened_tainted_lantern", () -> new LanternBlock(AbstractBlock.Properties.from(Blocks.LANTERN)));
     
     //region sun kissed wood
     public static AbstractBlock.Properties SUN_KISSED_WOOD_PROPERTIES = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.YELLOW).sound(SoundType.WOOD).hardnessAndResistance(1.75F, 4.0F);

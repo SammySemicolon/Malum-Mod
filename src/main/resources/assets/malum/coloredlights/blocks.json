@@ -1,0 +1,27 @@
+{
+  "enabled": true,
+  "lights": [
+    {
+      "name": "malum:tainted_lantern",
+      "r": 255,
+      "g": 210,
+      "b": 243,
+      "radius": 2,
+      "state": {
+        "property": "",
+        "value": ""
+      }
+    },
+    {
+      "name": "malum:darkened_tainted_lantern",
+      "r": 255,
+      "g": 210,
+      "b": 243,
+      "radius": 2,
+      "state": {
+        "property": "",
+        "value": ""
+      }
+    }
+  ]
+}

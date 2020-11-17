@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "malum:block/blighting_furnace"
+    "all": "malum:block/smooth_darkened_tainted_rock"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "malum:block/darkened_tainted_rock_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "malum:block/darkened_tainted_rock_pillar"
+    },
+    "axis=z": {
+      "model": "malum:block/darkened_tainted_rock_pillar_horizontal",
+      "x": 90
+    }
+  }
+}
