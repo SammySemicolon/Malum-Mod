@@ -5,8 +5,6 @@ import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBloc
 import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlock;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceBlock;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
-import com.sammy.malum.core.systems.multiblock.BoundingBlock;
-import com.sammy.malum.core.systems.multiblock.MultiblockBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;

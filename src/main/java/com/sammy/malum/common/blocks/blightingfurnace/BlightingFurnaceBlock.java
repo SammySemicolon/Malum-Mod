@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blocks.blightingfurnace;
 
-import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableTileEntity;
+import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class BlightingFurnaceBlock extends SimpleInventoryBlock
+public class BlightingFurnaceBlock extends Block implements IMultiblock
 {
     public BlightingFurnaceBlock(Properties properties)
     {
