@@ -20,7 +20,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 sourceSets {
     main.resources.srcDirs += 'src/main/generated_resources'
 }
-minecraft {    
+minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -89,7 +89,7 @@ repositories
     maven { url 'https://maven.blamejared.com' }
 }
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.3-34.1.11'
+    minecraft 'net.minecraftforge:forge:1.16.4-35.0.18'
 
     implementation 'net.hypherionmc:HyperLightingCore-1.16.3:1.0.3:api'
     runtimeOnly 'net.hypherionmc:HyperLightingCore-1.16.3:1.0.3'

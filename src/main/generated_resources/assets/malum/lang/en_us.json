@@ -20,6 +20,7 @@
   "block.malum.darkened_tainted_rock_slab": "Darkened Tainted Rock Slab",
   "block.malum.darkened_tainted_rock_stairs": "Darkened Tainted Rock Stairs",
   "block.malum.darkened_tainted_rock_wall": "Darkened Tainted Rock Wall",
+  "block.malum.darkened_zoom_rock": "Darkened Zoom Rock",
   "block.malum.mossy_darkened_tainted_rock_bricks": "Mossy Darkened Tainted Rock Bricks",
   "block.malum.mossy_darkened_tainted_rock_bricks_slab": "Mossy Darkened Tainted Rock Brick Slab",
   "block.malum.mossy_darkened_tainted_rock_bricks_stairs": "Mossy Darkened Tainted Rock Brick Stairs",
@@ -89,6 +90,8 @@
   "block.malum.tainted_wood": "Tainted Wood",
   "block.malum.tall_sun_kissed_grass": "Tall Sun Kissed Grass",
   "block.malum.tall_tainted_grass": "Tall Tainted Grass",
-  "item.malum.dark_flares": "Item.malum.dark_flares",
+  "block.malum.zoom_rock": "Zoom Rock",
+  "item.malum.dark_flares": "Dark Flares",
+  "item.malum.illustrious_fabric": "Illustrious Fabric",
   "itemGroup.malum": "Malum"
 }

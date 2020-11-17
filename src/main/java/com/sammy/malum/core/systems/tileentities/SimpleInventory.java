@@ -1,7 +1,9 @@
 package com.sammy.malum.core.systems.tileentities;
 
+import com.ibm.icu.impl.Pair;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
@@ -15,6 +17,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -26,7 +30,6 @@ public class SimpleInventory extends ItemStackHandler
     public int slotSize;
     public Predicate<ItemStack> inputPredicate;
     public Predicate<ItemStack> outputPredicate;
-    
     
     public SimpleInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate)
     {
@@ -46,9 +49,33 @@ public class SimpleInventory extends ItemStackHandler
         this.slotCount = slotCount;
         this.slotSize = slotSize;
     }
-    
+    public int nonEmptyItems()
+    {
+        int itemCount = 0;
+        for (int i = 0; i < slotCount; i++)
+        {
+            ItemStack item = getStackInSlot(i);
+            if (!item.isEmpty())
+            {
+                itemCount++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return itemCount;
+    }
+    public ArrayList<ItemStack> stacks()
+    {
+        ArrayList<ItemStack> stacks = new ArrayList<>();
+        for (int i = 0; i < slotCount; i++)
+        {
+            stacks.add(getStackInSlot(i));
+        }
+        return stacks;
+    }
     public final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this);
-    
     @Override
     public int getSlots()
     {

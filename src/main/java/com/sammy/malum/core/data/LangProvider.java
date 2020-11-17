@@ -29,18 +29,18 @@ public class LangProvider extends LanguageProvider
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+        MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         blocks.forEach(b -> {
             String name = b.get().getTranslationKey().replaceFirst("block.malum.", "");
             name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
             add(b.get().getTranslationKey(), name);
         });
-
         items.forEach(i -> {
             if (!(i.get() instanceof BlockItem))
             {
-                String type = i.get().getTranslationKey();
-                String name = type.substring(0, 1).toUpperCase() + type.substring(1);
-                add(i.get(), name);
+                String name = i.get().getTranslationKey().replaceFirst("item.malum.", "");
+                name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
+                add(i.get().getTranslationKey(), name);
             }
         });
         add("itemGroup.malum", "Malum");

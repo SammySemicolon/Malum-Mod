@@ -33,6 +33,7 @@ public class BlockTagProvider extends BlockTagsProvider
         getOrCreateBuilder(BUTTONS).add(getModBlocks(b -> b instanceof AbstractButtonBlock));
         getOrCreateBuilder(WOODEN_BUTTONS).add(getModBlocks(b -> b instanceof WoodButtonBlock));
         getOrCreateBuilder(PRESSURE_PLATES).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
+        getOrCreateBuilder(LOGS).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
         
         super.registerTags();
     }

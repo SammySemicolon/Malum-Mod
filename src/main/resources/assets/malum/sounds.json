@@ -1,0 +1,7 @@
+{
+  "tainted_rock_break": { "sounds":["malum:tainted_rock/break1","malum:tainted_rock/break2","malum:tainted_rock/break3","malum:tainted_rock/break4","malum:tainted_rock/break5"], "subtitle": "malum.subtitle.tainted_rock_break" },
+  "tainted_rock_step": { "sounds":["malum:tainted_rock/step1","malum:tainted_rock/step2","malum:tainted_rock/step3","malum:tainted_rock/step4","malum:tainted_rock/step5","malum:tainted_rock/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.tainted_rock_step" },
+  "tainted_rock_place": { "sounds":["malum:tainted_rock/break1","malum:tainted_rock/break2","malum:tainted_rock/break3","malum:tainted_rock/break4","malum:tainted_rock/break5"], "subtitle": "malum.subtitle.tainted_rock_place" },
+  "zoom_rock_step": { "sounds":["malum:zoom_rock/step1","malum:zoom_rock/step2","malum:zoom_rock/step3","malum:zoom_rock/step4","malum:zoom_rock/step5","block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.zoom_rock_step" },
+  "arcane_craft": { "sounds":["malum:arcane_craft/craft1","malum:arcane_craft/craft2"], "subtitle": "malum.subtitle.zoom_rock_step" }
+}

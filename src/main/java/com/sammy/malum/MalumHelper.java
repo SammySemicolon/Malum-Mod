@@ -1,9 +1,13 @@
 package com.sammy.malum;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.sammy.malum.MalumMod.MODID;
 
@@ -14,6 +18,26 @@ public class MalumHelper
         return new ResourceLocation(MODID, path);
     }
     
+    public static<T> ArrayList<T> toArrayList(T... items)
+    {
+        return new ArrayList<>(Arrays.asList(items));
+    }
+    public static<T> ArrayList<T> toArrayList(Stream<T> items)
+    {
+        return items.collect(Collectors.toCollection(ArrayList::new));
+    }
+    public static ArrayList<ItemStack> nonEmptyStackList(ArrayList<ItemStack> stacks)
+    {
+        ArrayList<ItemStack> nonEmptyStacks = new ArrayList<>();
+        for (ItemStack stack : stacks)
+        {
+            if (!stack.isEmpty())
+            {
+                nonEmptyStacks.add(stack);
+            }
+        }
+        return nonEmptyStacks;
+    }
     public static String toTitleCase(String givenString, String regex)
     {
         String[] stringArray = givenString.split(regex);

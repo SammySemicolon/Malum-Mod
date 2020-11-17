@@ -3,6 +3,7 @@ package com.sammy.malum.core.init;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableRenderer;
+import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.recipes.ArcaneCraftingRecipe;
@@ -71,6 +72,7 @@ public class StartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(StartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(StartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(StartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof ZoomRockBlock).forEach(StartupEvents::setCutout);
     }
     public static void setCutout(RegistryObject<Block> b)
     {

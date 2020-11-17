@@ -50,6 +50,7 @@ public class MalumItems
     public static final RegistryObject<Item> TAINTED_ROCK_BRICKS_WALL = ITEMS.register("tainted_rock_bricks_wall", () -> new BlockItem(MalumBlocks.TAINTED_ROCK_BRICKS_WALL.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> MOSSY_TAINTED_ROCK_BRICKS_WALL = ITEMS.register("mossy_tainted_rock_bricks_wall", () -> new BlockItem(MalumBlocks.MOSSY_TAINTED_ROCK_BRICKS_WALL.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> TAINTED_LANTERN = ITEMS.register("tainted_lantern", () -> new BlockItem(MalumBlocks.TAINTED_LANTERN.get(), DEFAULT_PROPERTIES));
+    public static final RegistryObject<Item> ZOOM_ROCK = ITEMS.register("zoom_rock", () -> new BlockItem(MalumBlocks.ZOOM_ROCK.get(), DEFAULT_PROPERTIES));
     //endregion
     
     //region darkened tainted rock
@@ -86,6 +87,7 @@ public class MalumItems
     public static final RegistryObject<Item> DARKENED_TAINTED_ROCK_BRICKS_WALL = ITEMS.register("darkened_tainted_rock_bricks_wall", () -> new BlockItem(MalumBlocks.DARKENED_TAINTED_ROCK_BRICKS_WALL.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> MOSSY_DARKENED_TAINTED_ROCK_BRICKS_WALL = ITEMS.register("mossy_darkened_tainted_rock_bricks_wall", () -> new BlockItem(MalumBlocks.MOSSY_DARKENED_TAINTED_ROCK_BRICKS_WALL.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> DARKENED_TAINTED_LANTERN = ITEMS.register("darkened_tainted_lantern", () -> new BlockItem(MalumBlocks.DARKENED_TAINTED_LANTERN.get(), DEFAULT_PROPERTIES));
+    public static final RegistryObject<Item> DARKENED_ZOOM_ROCK = ITEMS.register("darkened_zoom_rock", () -> new BlockItem(MalumBlocks.DARKENED_ZOOM_ROCK.get(), DEFAULT_PROPERTIES));
     
     //endregion
     //region sun kissed wood
@@ -155,6 +157,8 @@ public class MalumItems
     //endregion
     
     //region combined components
+    public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES));
+    
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES));
     //endregion
 }

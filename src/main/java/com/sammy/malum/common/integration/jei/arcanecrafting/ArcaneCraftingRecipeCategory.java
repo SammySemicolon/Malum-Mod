@@ -5,22 +5,16 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.recipes.ArcaneCraftingRecipe;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumHelper.prefix;
 
@@ -96,62 +90,62 @@ public class ArcaneCraftingRecipeCategory implements IRecipeCategory<ArcaneCraft
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, ArcaneCraftingRecipe arcaneCraftingRecipe, IIngredients iIngredients)
     {
-        for (int i = 0; i < arcaneCraftingRecipe.inputItems.length; i++)
+        for (int i = 0; i < arcaneCraftingRecipe.itemStacks.size(); i++)
         {
             switch (i)
             {
                 case 0:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 41, 11);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 1:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 62, 11);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 2:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 83, 11);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 3:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 83, 32);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 4:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 62, 32);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 5:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 41, 32);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 6:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 41, 51);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 7:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 62, 51);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 8:
                 {
                     iRecipeLayout.getItemStacks().init(i, true, 83, 51);
-                    iRecipeLayout.getItemStacks().set(i, new ItemStack(arcaneCraftingRecipe.inputItems[i], arcaneCraftingRecipe.inputItemCounts[i]));
+                    iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
             }

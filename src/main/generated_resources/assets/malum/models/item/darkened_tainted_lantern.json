@@ -1,3 +1,6 @@
 {
-  "parent": "malum:block/darkened_tainted_lantern"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "malum:item/darkened_tainted_lantern"
+  }
 }
