@@ -13,17 +13,20 @@ import static com.sammy.malum.MalumMod.MODID;
 public class MalumSounds
 {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MODID);
-    public static final RegistryObject<SoundEvent> TAINTED_ROCK_BREAK = register("tainted_rock_break");
-    public static final RegistryObject<SoundEvent> TAINTED_ROCK_STEP = register("tainted_rock_step");
-    public static final RegistryObject<SoundEvent> TAINTED_ROCK_PLACE = register("tainted_rock_place");
-    public static final RegistryObject<SoundEvent> ZOOM_ROCK_STEP = register("zoom_rock_step");
-    public static final RegistryObject<SoundEvent> ARCANE_CRAFT = register("arcane_craft");
+    public static final SoundEvent TAINTED_ROCK_BREAK = new SoundEvent(MalumHelper.prefix("tainted_rock_break"));
+    public static final SoundEvent TAINTED_ROCK_STEP = new SoundEvent(MalumHelper.prefix("tainted_rock_step"));
+    public static final SoundEvent TAINTED_ROCK_PLACE = new SoundEvent(MalumHelper.prefix("tainted_rock_place"));
+    public static final SoundEvent ZOOM_BLOCK_STEP = new SoundEvent(MalumHelper.prefix("zoom_rock_step"));
+    public static final SoundEvent ARCANE_CRAFT = new SoundEvent(MalumHelper.prefix("arcane_craft"));
     
-    public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK.get(), TAINTED_ROCK_STEP.get(), TAINTED_ROCK_PLACE.get(), SoundEvents.BLOCK_BASALT_HIT, SoundEvents.BLOCK_BASALT_FALL);
-    public static final SoundType ZOOM_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK.get(), ZOOM_ROCK_STEP.get(), TAINTED_ROCK_PLACE.get(), SoundEvents.BLOCK_BASALT_HIT, SoundEvents.BLOCK_BASALT_FALL);
-    
-    private static RegistryObject<SoundEvent> register(String key)
+    public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, SoundEvents.BLOCK_BASALT_HIT, SoundEvents.BLOCK_BASALT_FALL);
+    public static final SoundType ZOOM_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, ZOOM_BLOCK_STEP, TAINTED_ROCK_PLACE, SoundEvents.BLOCK_BASALT_HIT, SoundEvents.BLOCK_BASALT_FALL);
+    public static void init()
     {
-        return SOUNDS.register(key, ()-> new SoundEvent(MalumHelper.prefix(key)));
+        SOUNDS.register("tainted_rock_break", ()-> TAINTED_ROCK_BREAK);
+        SOUNDS.register("tainted_rock_step", ()-> TAINTED_ROCK_STEP);
+        SOUNDS.register("tainted_rock_place", ()-> TAINTED_ROCK_PLACE);
+        SOUNDS.register("zoom_rock_step", ()-> ZOOM_BLOCK_STEP);
+        SOUNDS.register("arcane_craft", ()-> ARCANE_CRAFT);
     }
 }

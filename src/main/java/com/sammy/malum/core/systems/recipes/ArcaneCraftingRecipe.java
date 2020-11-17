@@ -49,40 +49,43 @@ public class ArcaneCraftingRecipe
     {
         for (ArcaneCraftingRecipe recipe : recipes)
         {
-            return test(stacks, recipe);
+            ArcaneCraftingRecipe rightRecipeMaybe = test(stacks, recipe);
+            if (rightRecipeMaybe != null)
+            {
+                return rightRecipeMaybe;
+            }
         }
         return null;
     }
     public static ArcaneCraftingRecipe test(ArrayList<ItemStack> stacks, ArcaneCraftingRecipe recipe)
     {
-        ArrayList<ItemStack> missingStacks = MalumHelper.nonEmptyStackList(stacks);
-        if (missingStacks.isEmpty())
+        ArrayList<ItemStack> desiredStacks = MalumHelper.nonEmptyStackList(stacks);
+        ArrayList<Item> recipeItems = new ArrayList<>();
+        recipe.itemStacks.forEach(i -> recipeItems.add(i.getItem()));
+        if (desiredStacks.isEmpty())
         {
             return null;
         }
-        if (missingStacks.size() != recipe.inputItemCount)
+        if (desiredStacks.size() != recipe.itemStacks.size())
         {
             return null;
         }
-        for (int i = 0; i < recipe.inputItemCount; i++)
+        for (int i = 0; i < desiredStacks.size(); i++)
         {
-            if (missingStacks.isEmpty())
+            if (recipeItems.contains(desiredStacks.get(i).getItem()))
             {
-                return recipe;
-            }
-            if (missingStacks.get(i).getItem().equals(recipe.itemStacks.get(i).getItem()))
-            {
-                if (missingStacks.get(i).getCount() >= recipe.itemStacks.get(i).getCount())
+                int finalI = i;
+                ItemStack stack = desiredStacks.stream().filter(s -> s.getItem().equals(desiredStacks.get(finalI).getItem())).findFirst().get();
+                if (stack.getCount() < desiredStacks.get(i).getCount())
                 {
-                    missingStacks.remove(i);
-                    i = -1;
+                    return null;
                 }
             }
+            else
+            {
+                return null;
+            }
         }
-        if (missingStacks.isEmpty())
-        {
-            return recipe;
-        }
-        return null;
+        return recipe;
     }
 }

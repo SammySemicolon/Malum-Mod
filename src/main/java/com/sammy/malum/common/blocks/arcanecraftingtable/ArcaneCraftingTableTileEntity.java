@@ -22,16 +22,15 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
             protected void onContentsChanged(int slot)
             {
                 ArcaneCraftingTableTileEntity.this.markDirty();
-                if (!world.isRemote)
-                {
-                    updateContainingBlockInfo();
-                    BlockState state = world.getBlockState(pos);
-                    world.notifyBlockUpdate(pos, state, state, 3);
-                }
+                updateContainingBlockInfo();
+                BlockState state = world.getBlockState(pos);
+                updateState(state, world, pos);
             }
         };
     }
+    
     public int progress = 0;
+    
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
@@ -43,6 +42,7 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
     {
         super.readData(compound);
     }
+    
     @Override
     public void tick()
     {
@@ -57,18 +57,21 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
             progress++;
             if (progress >= 20)
             {
-                while (recipe != null)
+                ItemStack stack = new ItemStack(recipe.outputItem, recipe.outputItemCount);
+                world.addEntity(new ItemEntity(world, pos.getX() + 0.5f, pos.getY() + 1.25f, pos.getZ() + 0.5f, stack));
+                for (int i = 0; i < recipe.itemStacks.size(); i++)
                 {
-                    ItemStack stack = new ItemStack(recipe.outputItem, recipe.outputItemCount);
-                    world.addEntity(new ItemEntity(world, pos.getX() + 0.5f, pos.getY() + 1.25f, pos.getZ() + 0.5f, stack));
-                    for (int i = 0; i < inventory.nonEmptyItems(); i++)
-                    {
-                        inventory.getStackInSlot(i).shrink(recipe.itemStacks.get(i).getCount());
-                    }
-                    recipe = ArcaneCraftingRecipe.test(inventory.stacks(), recipe);
+                    int finalI = i;
+                    ItemStack shrinkStack = inventory.stacks().stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get();
+                    shrinkStack.shrink(recipe.itemStacks.stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get().getCount());
                 }
-                progress = 0;
+                progress -= 4;
+                
             }
+        }
+        else if (progress > 0)
+        {
+            progress--;
         }
     }
 }

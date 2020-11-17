@@ -38,7 +38,7 @@ public class MalumMod
         ITEMS.register(modBus);
         TILE_ENTITIES.register(modBus);
         BIOMES.register(modBus);
-        SOUNDS.register(modBus);
+        MalumSounds.init();
         
         modBus.addListener(this::gatherData);
     }
