@@ -6,6 +6,7 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.FeatureSpread;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.foliageplacer.SpruceFoliagePlacer;
 
@@ -38,6 +39,7 @@ public class SunKissedFoliagePlacer extends SpruceFoliagePlacer
                         worldGenerationReader.setBlockState(blockpos$mutable, baseTreeFeatureConfig.leavesProvider.getBlockState(random, blockpos$mutable).with(MalumLeavesBlock.COLOR, color), 19);
                         boundingBox.expandTo(new MutableBoundingBox(blockpos$mutable, blockpos$mutable));
                         posSet.add(blockpos$mutable.toImmutable());
+
                     }
                 }
             }

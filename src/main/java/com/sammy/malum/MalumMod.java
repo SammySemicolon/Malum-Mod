@@ -6,7 +6,6 @@ import com.sammy.malum.core.data.ItemModelProvider;
 import com.sammy.malum.core.data.LangProvider;
 import com.sammy.malum.core.init.MalumBiomes;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.MalumTileEntities;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -16,10 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
-import static com.sammy.malum.core.init.MalumBiomes.BIOMES;
 import static com.sammy.malum.core.init.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
-import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
 import static com.sammy.malum.core.init.MalumTileEntities.TILE_ENTITIES;
 
 @SuppressWarnings("unused")
@@ -37,7 +34,7 @@ public class MalumMod
         BLOCKS.register(modBus);
         ITEMS.register(modBus);
         TILE_ENTITIES.register(modBus);
-        BIOMES.register(modBus);
+        MalumBiomes.BIOMES.register(modBus);
         MalumSounds.init();
         
         modBus.addListener(this::gatherData);

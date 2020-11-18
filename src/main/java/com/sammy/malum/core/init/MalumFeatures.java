@@ -48,4 +48,5 @@ public class MalumFeatures
                             FeatureSpread.func_242253_a(13, 4)),
                     new GiantTrunkPlacer(13, 2, 14),
                     new TwoLayerFeature(1, 1, 2))).build()));
+
 }

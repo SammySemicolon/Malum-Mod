@@ -54,8 +54,7 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
         ArcaneCraftingRecipe recipe = ArcaneCraftingRecipe.getRecipe(inventory.stacks());
         if (recipe != null)
         {
-            progress++;
-            if (progress >= 20)
+            if (progress == 20)
             {
                 ItemStack stack = new ItemStack(recipe.outputItem, recipe.outputItemCount);
                 world.addEntity(new ItemEntity(world, pos.getX() + 0.5f, pos.getY() + 1.25f, pos.getZ() + 0.5f, stack));
@@ -65,8 +64,10 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
                     ItemStack shrinkStack = inventory.stacks().stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get();
                     shrinkStack.shrink(recipe.itemStacks.stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get().getCount());
                 }
-                progress -= 4;
-                
+            }
+            else
+            {
+                progress++;
             }
         }
         else if (progress > 0)
