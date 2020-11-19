@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.abstruceblock;
 
+import com.sammy.malum.MalumMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -21,7 +22,7 @@ public class AbstruseBlock extends Block
     @Override
     public boolean hasTileEntity(BlockState state)
     {
-        return false;
+        return true;
     }
     
     @Override
@@ -38,10 +39,7 @@ public class AbstruseBlock extends Block
             if (worldIn.getTileEntity(pos) instanceof AbstruseBlockTileEntity)
             {
                 AbstruseBlockTileEntity tileEntity = (AbstruseBlockTileEntity) worldIn.getTileEntity(pos);
-                if (tileEntity.owner.equals(entityIn))
-                {
-                    tileEntity.progress = 0;
-                }
+                tileEntity.progress = 0;
             }
         }
         super.onEntityWalk(worldIn, pos, entityIn);
@@ -50,9 +48,9 @@ public class AbstruseBlock extends Block
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
     {
-        if (worldIn.isRemote())
+        if (!worldIn.isRemote())
         {
-             if (placer instanceof PlayerEntity)
+            if (placer instanceof PlayerEntity)
             {
                 if (worldIn.getTileEntity(pos) instanceof AbstruseBlockTileEntity)
                 {

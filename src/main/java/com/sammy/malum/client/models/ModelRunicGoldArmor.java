@@ -7,6 +7,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Items;
 
 public class ModelRunicGoldArmor extends ModelArmor
 {
@@ -56,16 +57,16 @@ public class ModelRunicGoldArmor extends ModelArmor
 		head.setTextureOffset(36, 0).addBox(3.0F, -5.0F, -5.0F, 2.0F, 6.0F, 4.0F, 0.0F, false);
 		
 		arm_r = new ModelRenderer(this);
-		arm_r.setRotationPoint(-4.0F, 2.0F, 0.0F);
-		arm_r.setTextureOffset(44, 14).addBox(-5.0F, -4.0F, -3.0F, 4.0F, 6.0F, 6.0F, 0.0F, true);
-		arm_r.setTextureOffset(42, 26).addBox(-4.5F, 5.0F, -3.0F, 5.0F, 6.0F, 6.0F, 0.0F, true);
-		arm_r.setTextureOffset(48, 7).addBox(-4.5F, 3.0F, -2.5F, 3.0F, 2.0F, 5.0F, 0.0F, true);
+		arm_r.setRotationPoint(-5.0F, 2.0F, 0.0F);
+		arm_r.setTextureOffset(44, 14).addBox(-4.0F, -4.0F, -3.0F, 4.0F, 6.0F, 6.0F, 0.0F, true);
+		arm_r.setTextureOffset(42, 26).addBox(-3.5F, 5.0F, -3.0F, 5.0F, 6.0F, 6.0F, 0.0F, true);
+		arm_r.setTextureOffset(48, 7).addBox(-3.5F, 3.0F, -2.5F, 3.0F, 2.0F, 5.0F, 0.0F, true);
 		
 		arm_l = new ModelRenderer(this);
-		arm_l.setRotationPoint(4.0F, 2.0F, 0.0F);
-		arm_l.setTextureOffset(44, 14).addBox(1.0F, -4.0F, -3.0F, 4.0F, 6.0F, 6.0F, 0.0F, false);
-		arm_l.setTextureOffset(42, 26).addBox(-0.5F, 5.0F, -3.0F, 5.0F, 6.0F, 6.0F, 0.0F, false);
-		arm_l.setTextureOffset(48, 7).addBox(1.5F, 3.0F, -2.5F, 3.0F, 2.0F, 5.0F, 0.0F, false);
+		arm_l.setRotationPoint(5.0F, 2.0F, 0.0F);
+		arm_l.setTextureOffset(44, 14).addBox(0.0F, -4.0F, -3.0F, 4.0F, 6.0F, 6.0F, 0.0F, false);
+		arm_l.setTextureOffset(42, 26).addBox(-1.5F, 5.0F, -3.0F, 5.0F, 6.0F, 6.0F, 0.0F, false);
+		arm_l.setTextureOffset(48, 7).addBox(0.5F, 3.0F, -2.5F, 3.0F, 2.0F, 5.0F, 0.0F, false);
 		
 		leg_r = new ModelRenderer(this);
 		leg_r.setRotationPoint(-2.0F, 12.0F, 0.0F);
@@ -91,7 +92,6 @@ public class ModelRunicGoldArmor extends ModelArmor
 		leg_l = new ModelRenderer(this);
 		leg_l.setRotationPoint(2.0F, 12.0F, 0.0F);
 		leg_l.setTextureOffset(12, 47).addBox(-2.5F, -0.5F, -2.5F, 5.0F, 7.0F, 5.0F, 0.0F, false);
-		
 		thigh_guard_l = new ModelRenderer(this);
 		thigh_guard_l.setRotationPoint(0.0F, 0.0F, 0.0F);
 		leg_l.addChild(thigh_guard_l);
@@ -107,8 +107,7 @@ public class ModelRunicGoldArmor extends ModelArmor
 		boot_wing_l.setRotationPoint(0.0F, 0.0F, 0.0F);
 		boot_l.addChild(boot_wing_l);
 		setRotationAngle(boot_wing_l, 0.7854F, 0.0F, 0.0F);
-		boot_wing_l.setTextureOffset(25, 53).addBox(3.0F, 4.3639F, -8.364F, 1.0F, 4.0F, 7.0F, 0.0F, false);
-	}
+		boot_wing_l.setTextureOffset(25, 53).addBox(3.0F, 4.3639F, -8.364F, 1.0F, 4.0F, 7.0F, 0.0F, false);}
 	
 	@Override
 	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)

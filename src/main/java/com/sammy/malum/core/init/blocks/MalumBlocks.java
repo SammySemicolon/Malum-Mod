@@ -216,7 +216,7 @@ public class MalumBlocks
     //endregion
     
     //region contents
-    public static AbstractBlock.Properties ABSTRUSE_BLOCK_PROPERTIES = AbstractBlock.Properties.create(Material.WOOL, MaterialColor.BLUE).sound(SoundType.CLOTH).zeroHardnessAndResistance().noDrops().notSolid();
+    public static AbstractBlock.Properties ABSTRUSE_BLOCK_PROPERTIES = AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).zeroHardnessAndResistance().noDrops().notSolid();
     
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES));
     
