@@ -50,11 +50,14 @@ public class AbstruseBlock extends Block
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
     {
-        if (placer instanceof PlayerEntity)
+        if (worldIn.isRemote())
         {
-            if (worldIn.getTileEntity(pos) instanceof AbstruseBlockTileEntity)
+             if (placer instanceof PlayerEntity)
             {
-                ((AbstruseBlockTileEntity) worldIn.getTileEntity(pos)).owner = (PlayerEntity) placer;
+                if (worldIn.getTileEntity(pos) instanceof AbstruseBlockTileEntity)
+                {
+                    ((AbstruseBlockTileEntity) worldIn.getTileEntity(pos)).owner = (PlayerEntity) placer;
+                }
             }
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);

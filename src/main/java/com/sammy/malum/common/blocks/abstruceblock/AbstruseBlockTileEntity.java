@@ -18,9 +18,7 @@ public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickab
     public AbstruseBlockTileEntity()
     {
         super(MalumTileEntities.ABSTRUSE_BLOCK_TILE_ENTITY.get());
-
     }
-    
     public int progress = 0;
     public PlayerEntity owner;
     @Override
