@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.recipes.ArcaneCraftingRecipe;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -84,7 +85,8 @@ public class ArcaneCraftingRecipeCategory implements IRecipeCategory<ArcaneCraft
     @Override
     public void setIngredients(ArcaneCraftingRecipe arcaneCraftingRecipe, IIngredients iIngredients)
     {
-    
+        iIngredients.setInputs(VanillaTypes.ITEM,arcaneCraftingRecipe.itemStacks);
+        iIngredients.setOutput(VanillaTypes.ITEM, arcaneCraftingRecipe.outputItem.getDefaultInstance());
     }
     
     @Override

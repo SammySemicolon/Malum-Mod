@@ -1,6 +1,7 @@
 package com.sammy.malum.core.init.blocks;
 
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlock;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceBlock;
@@ -25,9 +26,11 @@ import static net.minecraft.block.PressurePlateBlock.Sensitivity.MOBS;
 public class MalumBlocks
 {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+    public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
     
     //region tainted rock
     public static AbstractBlock.Properties TAINTED_ROCK_PROPERTIES = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).sound(MalumSounds.TAINTED_ROCK).setRequiresTool().hardnessAndResistance(1.25F, 9.0F);
+    
     public static final RegistryObject<Block> TAINTED_ROCK = BLOCKS.register("tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES));
     public static final RegistryObject<Block> TAINTED_ROCK_SLAB = BLOCKS.register("tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES));
     public static final RegistryObject<Block> TAINTED_ROCK_STAIRS = BLOCKS.register("tainted_rock_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES));
@@ -63,6 +66,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> ZOOM_ROCK = BLOCKS.register("zoom_rock", () -> new ZoomRockBlock(TAINTED_ROCK_PROPERTIES.sound(MalumSounds.ZOOM_ROCK)));
     //endregion
     
+    //region darkened rock
     public static AbstractBlock.Properties DARKENED_TAINTED_ROCK_PROPERTIES = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.TAINTED_ROCK).hardnessAndResistance(2.25F, 3600.0F);
     
     public static final RegistryObject<Block> DARKENED_TAINTED_ROCK = BLOCKS.register("darkened_tainted_rock", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES));
@@ -98,6 +102,45 @@ public class MalumBlocks
     public static final RegistryObject<Block> MOSSY_DARKENED_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_darkened_tainted_rock_bricks_wall", () -> new WallBlock(DARKENED_TAINTED_ROCK_PROPERTIES));
     public static final RegistryObject<Block> DARKENED_TAINTED_LANTERN = BLOCKS.register("darkened_tainted_lantern", () -> new LanternBlock(AbstractBlock.Properties.from(Blocks.LANTERN)));
     public static final RegistryObject<Block> DARKENED_ZOOM_ROCK = BLOCKS.register("darkened_zoom_rock", () -> new ZoomRockBlock(DARKENED_TAINTED_ROCK_PROPERTIES.sound(MalumSounds.ZOOM_ROCK)));
+    //endregion
+    
+    //region crimson rock
+    public static AbstractBlock.Properties CRIMSON_ROCK_PROPERTIES = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.CRIMSON_ROCK).hardnessAndResistance(1.25F, 9.0F);
+    
+    public static final RegistryObject<Block> CRIMSON_ROCK = BLOCKS.register("crimson_rock", () -> new Block(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRIMSON_ROCK_SLAB = BLOCKS.register("crimson_rock_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRIMSON_ROCK_STAIRS = BLOCKS.register("crimson_rock_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> POLISHED_CRIMSON_ROCK = BLOCKS.register("polished_crimson_rock", () -> new Block(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> POLISHED_CRIMSON_ROCK_SLAB = BLOCKS.register("polished_crimson_rock_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> POLISHED_CRIMSON_ROCK_STAIRS = BLOCKS.register("polished_crimson_rock_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> SMOOTH_CRIMSON_ROCK = BLOCKS.register("smooth_crimson_rock", () -> new Block(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> SMOOTH_CRIMSON_ROCK_SLAB = BLOCKS.register("smooth_crimson_rock_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> SMOOTH_CRIMSON_ROCK_STAIRS = BLOCKS.register("smooth_crimson_rock_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS = BLOCKS.register("crimson_rock_bricks", () -> new Block(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS_SLAB = BLOCKS.register("crimson_rock_bricks_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS_STAIRS = BLOCKS.register("crimson_rock_bricks_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> CRACKED_CRIMSON_ROCK_BRICKS = BLOCKS.register("cracked_crimson_rock_bricks", () -> new Block(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRACKED_CRIMSON_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_crimson_rock_bricks_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRACKED_CRIMSON_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_crimson_rock_bricks_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> MOSSY_CRIMSON_ROCK_BRICKS = BLOCKS.register("mossy_crimson_rock_bricks", () -> new Block(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> MOSSY_CRIMSON_ROCK_BRICKS_SLAB = BLOCKS.register("mossy_crimson_rock_bricks_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> MOSSY_CRIMSON_ROCK_BRICKS_STAIRS = BLOCKS.register("mossy_crimson_rock_bricks_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> CRIMSON_ROCK_PILLAR = BLOCKS.register("crimson_rock_pillar", () -> new RotatedPillarBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CHISELED_CRIMSON_ROCK_BRICKS = BLOCKS.register("chiseled_crimson_rock_bricks", () -> new Block(CRIMSON_ROCK_PROPERTIES));
+    
+    public static final RegistryObject<Block> CRIMSON_ROCK_PRESSURE_PLATE = BLOCKS.register("crimson_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRIMSON_ROCK_WALL = BLOCKS.register("crimson_rock_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS_WALL = BLOCKS.register("crimson_rock_bricks_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> MOSSY_CRIMSON_ROCK_BRICKS_WALL = BLOCKS.register("mossy_crimson_rock_bricks_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES));
+    public static final RegistryObject<Block> CRIMSON_LANTERN = BLOCKS.register("crimson_lantern", () -> new LanternBlock(AbstractBlock.Properties.from(Blocks.LANTERN)));
+    public static final RegistryObject<Block> CRIMSON_ZOOM_ROCK = BLOCKS.register("crimson_zoom_rock", () -> new ZoomRockBlock(CRIMSON_ROCK_PROPERTIES.sound(MalumSounds.CRIMSON_ZOOM_ROCK)));
+    //endregion
     
     //region sun kissed wood
     public static AbstractBlock.Properties SUN_KISSED_WOOD_PROPERTIES = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.YELLOW).sound(SoundType.WOOD).hardnessAndResistance(1.75F, 4.0F);
@@ -172,6 +215,12 @@ public class MalumBlocks
     
     //endregion
     
+    //region contents
+    public static AbstractBlock.Properties ABSTRUSE_BLOCK_PROPERTIES = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLUE).sound(SoundType.WOOD).zeroHardnessAndResistance().noDrops().notSolid();
+    
+    public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES));
+    
+    //endregion
     //region crafting blocks
     public static final RegistryObject<Block> SUN_KISSED_ARCANE_CRAFTING_TABLE = BLOCKS.register("sun_kissed_arcane_crafting_table", () -> new ArcaneCraftingTableBlock(SUN_KISSED_WOOD_PROPERTIES.notSolid()));
     public static final RegistryObject<Block> TAINTED_ARCANE_CRAFTING_TABLE = BLOCKS.register("tainted_arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES.notSolid()));

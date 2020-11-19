@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init.blocks;
 
+import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlockTileEntity;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableTileEntity;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceTileEntity;
 import com.sammy.malum.core.systems.multiblock.BoundingBlockTileEntity;
@@ -20,5 +21,6 @@ public class MalumTileEntities
     public static final RegistryObject<TileEntityType<ArcaneCraftingTableTileEntity>> ARCANE_CRAFTING_TABLE_TILE_ENTITY = TILE_ENTITIES.register("arcane_crafting_table", ()-> TileEntityType.Builder.create(ArcaneCraftingTableTileEntity::new, MalumBlocks.SUN_KISSED_ARCANE_CRAFTING_TABLE.get(), MalumBlocks.TAINTED_ARCANE_CRAFTING_TABLE.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> BOUNDING_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("bounding_block", ()-> TileEntityType.Builder.create((Supplier<TileEntity>) BoundingBlockTileEntity::new, MalumBlocks.BLIGHTING_FURNACE_TOP.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> BLIGHTING_FURNACE_TILE_ENTITY = TILE_ENTITIES.register("blighting_furnace", ()-> TileEntityType.Builder.create((Supplier<TileEntity>) BlightingFurnaceTileEntity::new, MalumBlocks.BLIGHTING_FURNACE.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> ABSTRUSE_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("abstruse_block", ()-> TileEntityType.Builder.create((Supplier<TileEntity>) AbstruseBlockTileEntity::new, MalumBlocks.ABSTRUSE_BLOCK.get()).build(null));
 
 }

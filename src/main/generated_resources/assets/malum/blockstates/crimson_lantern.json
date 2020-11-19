@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "malum:block/crimson_lantern"
+    },
+    "hanging=true": {
+      "model": "malum:block/crimson_lantern_hanging"
+    }
+  }
+}
