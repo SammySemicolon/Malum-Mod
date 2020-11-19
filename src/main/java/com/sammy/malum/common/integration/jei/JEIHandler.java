@@ -2,7 +2,7 @@ package com.sammy.malum.common.integration.jei;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.integration.jei.arcanecrafting.ArcaneCraftingRecipeCategory;
-import com.sammy.malum.core.init.MalumBlocks;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.recipes.ArcaneCraftingRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;

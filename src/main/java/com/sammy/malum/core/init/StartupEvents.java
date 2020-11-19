@@ -4,6 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableRenderer;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
+import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -27,7 +28,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.init.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

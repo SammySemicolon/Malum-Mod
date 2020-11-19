@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 import static com.sammy.malum.MalumHelper.takeAll;
-import static com.sammy.malum.core.init.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
 
 public class BlockTagProvider extends BlockTagsProvider

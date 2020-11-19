@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "malum:block/lavender_top"
+    },
+    "half=lower": {
+      "model": "malum:block/lavender_bottom"
+    }
+  }
+}

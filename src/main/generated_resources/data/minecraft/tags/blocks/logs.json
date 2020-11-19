@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "malum:tainted_rock_pressure_plate",
+    "malum:darkened_tainted_rock_pressure_plate",
     "#minecraft:logs_that_burn",
     "#minecraft:crimson_stems",
     "#minecraft:warped_stems"

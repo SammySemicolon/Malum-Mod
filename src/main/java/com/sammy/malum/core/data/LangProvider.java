@@ -8,13 +8,11 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fml.RegistryObject;
-import org.apache.commons.lang3.text.WordUtils;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.init.MalumBlocks.*;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.*;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
 
 public class LangProvider extends LanguageProvider
@@ -43,7 +41,16 @@ public class LangProvider extends LanguageProvider
                 add(i.get().getTranslationKey(), name);
             }
         });
+        addTooltip("contains", "Contains: ");
+        addTooltip("sneak", "Sneak");
+        addTooltip("hold", "Hold: ");
+        addTooltip("essence", "Spirit Essence");
+        addTooltip("distillate", "Spirit Distillate");
         add("itemGroup.malum", "Malum");
+    }
+    public void addTooltip(String identifier, String tooltip)
+    {
+        add("malum.tooltip." + identifier, tooltip);
     }
     public String specialBlockNameChanges(String name)
     {

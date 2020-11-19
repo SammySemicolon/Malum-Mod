@@ -3,6 +3,7 @@
   "block.malum.blighting_furnace_top": "Blighting Furnace Top",
   "block.malum.chiseled_darkened_tainted_rock_bricks": "Chiseled Darkened Tainted Rock Bricks",
   "block.malum.chiseled_tainted_rock_bricks": "Chiseled Tainted Rock Bricks",
+  "block.malum.cornflower": "Cornflower",
   "block.malum.cracked_darkened_tainted_rock_bricks": "Cracked Darkened Tainted Rock Bricks",
   "block.malum.cracked_darkened_tainted_rock_bricks_slab": "Cracked Darkened Tainted Rock Brick Slab",
   "block.malum.cracked_darkened_tainted_rock_bricks_stairs": "Cracked Darkened Tainted Rock Brick Stairs",
@@ -21,6 +22,7 @@
   "block.malum.darkened_tainted_rock_stairs": "Darkened Tainted Rock Stairs",
   "block.malum.darkened_tainted_rock_wall": "Darkened Tainted Rock Wall",
   "block.malum.darkened_zoom_rock": "Darkened Zoom Rock",
+  "block.malum.lavender": "Lavender",
   "block.malum.mossy_darkened_tainted_rock_bricks": "Mossy Darkened Tainted Rock Bricks",
   "block.malum.mossy_darkened_tainted_rock_bricks_slab": "Mossy Darkened Tainted Rock Brick Slab",
   "block.malum.mossy_darkened_tainted_rock_bricks_stairs": "Mossy Darkened Tainted Rock Brick Stairs",
@@ -52,6 +54,7 @@
   "block.malum.sun_kissed_arcane_crafting_table": "Sun Kissed Arcane Crafting Table",
   "block.malum.sun_kissed_door": "Sun Kissed Door",
   "block.malum.sun_kissed_grass": "Sun Kissed Grass",
+  "block.malum.sun_kissed_grass_block": "Sun Kissed Grass Block",
   "block.malum.sun_kissed_leaves": "Sun Kissed Leaves",
   "block.malum.sun_kissed_log": "Sun Kissed Log",
   "block.malum.sun_kissed_planks": "Sun Kissed Planks",
@@ -91,7 +94,13 @@
   "block.malum.tall_sun_kissed_grass": "Tall Sun Kissed Grass",
   "block.malum.tall_tainted_grass": "Tall Tainted Grass",
   "block.malum.zoom_rock": "Zoom Rock",
+  "item.malum.creative_scythe": "Creative Scythe",
   "item.malum.dark_flares": "Dark Flares",
   "item.malum.illustrious_fabric": "Illustrious Fabric",
-  "itemGroup.malum": "Malum"
+  "itemGroup.malum": "Malum",
+  "malum.tooltip.contains": "Contains: ",
+  "malum.tooltip.distillate": "Spirit Distillate",
+  "malum.tooltip.essence": "Spirit Essence",
+  "malum.tooltip.hold": "Hold: ",
+  "malum.tooltip.sneak": "Sneak"
 }

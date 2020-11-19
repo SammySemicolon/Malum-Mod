@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "malum:block/cornflower_top"
+    },
+    "half=lower": {
+      "model": "malum:block/cornflower_bottom"
+    }
+  }
+}

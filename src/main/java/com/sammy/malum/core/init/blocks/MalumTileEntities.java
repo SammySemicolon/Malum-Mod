@@ -1,24 +1,17 @@
-package com.sammy.malum.core.init;
+package com.sammy.malum.core.init.blocks;
 
-import com.google.common.collect.ImmutableSet;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableTileEntity;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceTileEntity;
 import com.sammy.malum.core.systems.multiblock.BoundingBlockTileEntity;
-import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.sammy.malum.MalumMod.MODID;
-import static com.sammy.malum.core.init.MalumBlocks.BLOCKS;
 
 public class MalumTileEntities
 {

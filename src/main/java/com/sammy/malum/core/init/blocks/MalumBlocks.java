@@ -1,4 +1,4 @@
-package com.sammy.malum.core.init;
+package com.sammy.malum.core.init.blocks;
 
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
@@ -6,6 +6,7 @@ import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlo
 import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceBlock;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
+import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -146,12 +147,16 @@ public class MalumBlocks
     //region sun kissed biome blocks
     public static AbstractBlock.Properties SUN_KISSED_PLANTS_PROPERTIES = AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).zeroHardnessAndResistance();
     public static AbstractBlock.Properties SUN_KISSED_LEAVES_PROPERTIES = AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.YELLOW).notSolid().sound(SoundType.PLANT).hardnessAndResistance(0.15f);
-
+    
+    public static final RegistryObject<Block> SUN_KISSED_GRASS_BLOCK = BLOCKS.register("sun_kissed_grass_block", () -> new GrassBlock(SUN_KISSED_LEAVES_PROPERTIES));
     public static final RegistryObject<Block> SHORT_SUN_KISSED_GRASS = BLOCKS.register("short_sun_kissed_grass", () -> new TallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES));
     public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new TallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES));
     public static final RegistryObject<Block> TALL_SUN_KISSED_GRASS = BLOCKS.register("tall_sun_kissed_grass", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES));
     public static final RegistryObject<Block> SUN_KISSED_SAPLING = BLOCKS.register("sun_kissed_sapling", () -> new SaplingBlock(new SunKissedTree(), SUN_KISSED_PLANTS_PROPERTIES));
-    public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(SUN_KISSED_LEAVES_PROPERTIES, new Color(0,0,0), new Color(255,255,255)));
+    public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(SUN_KISSED_LEAVES_PROPERTIES, new Color(234, 129, 56), new Color(255, 230, 93)));
+    
+    public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES));
+    public static final RegistryObject<Block> CORNFLOWER = BLOCKS.register("cornflower", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES));
     
     //endregion
     

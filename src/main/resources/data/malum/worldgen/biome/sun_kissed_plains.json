@@ -1,5 +1,5 @@
 {
-  "scale": 0.05,
+  "scale": 0.02,
   "effects": {
     "mood_sound": {
       "sound": "minecraft:ambient.cave",
@@ -42,28 +42,29 @@
       "minecraft:ore_iron",
       "minecraft:ore_gold",
       "minecraft:ore_redstone",
+      "minecraft:ore_emerald",
       "minecraft:ore_diamond",
       "minecraft:ore_lapis",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel"
     ],
-    [],
     [
-      "minecraft:patch_tall_grass_2",
-      "malum:rare_sun_kissed_tree",
-      "minecraft:patch_sunflower",
-      "minecraft:plain_vegetation",
-      "minecraft:flower_plain_decorated",
-      "minecraft:patch_grass_plain",
       "minecraft:patch_sugar_cane",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
       "minecraft:patch_pumpkin",
       "minecraft:spring_water",
-      "minecraft:spring_lava"
+      "minecraft:spring_lava",
     ],
     [
+      "malum:grouped_sun_kissed_tree"
+    ],
+    [
+      "malum:random_sun_kissed_grass",
+      "malum:short_sun_kissed_grass",
+      "malum:tall_sun_kissed_grass",
+      "malum:lavender",
+      "malum:cornflower",
+      "malum:rare_sun_kissed_tree",
       "minecraft:freeze_top_layer"
     ]
   ],

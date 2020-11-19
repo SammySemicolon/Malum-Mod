@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.function.Function;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.core.init.MalumBlocks.*;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.*;
 import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
 
@@ -48,8 +48,9 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock || b.get() instanceof ZoomRockBlock);
-        
-        
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock);
+    
+    
         MalumHelper.takeAll(blocks, b -> b.get() instanceof StairsBlock).forEach(this::stairsBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof WallBlock).forEach(this::wallBlock);
@@ -204,5 +205,4 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     {
         logBlock((RotatedPillarBlock) blockRegistryObject.get());
     }
-    
 }

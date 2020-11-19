@@ -28,9 +28,9 @@ public class ArcaneCraftingRecipeCategory implements IRecipeCategory<ArcaneCraft
     
     public ArcaneCraftingRecipeCategory(IGuiHelper guiHelper)
     {
-        background = guiHelper.createBlankDrawable(135, 80);
+        background = guiHelper.createBlankDrawable(189, 80);
         localizedName = I18n.format("malum.jei.arcane_crafting");
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/arcane_crafting_overlay.png"), 0, 0, 132, 77);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/arcane_crafting_overlay.png"), 0, 0, 186, 77);
         icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.TAINTED_ARCANE_CRAFTING_TABLE.get()));
     }
     
@@ -96,59 +96,61 @@ public class ArcaneCraftingRecipeCategory implements IRecipeCategory<ArcaneCraft
             {
                 case 0:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 41, 11);
+                    iRecipeLayout.getItemStacks().init(i, true, 37, 11);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 1:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 62, 11);
+                    iRecipeLayout.getItemStacks().init(i, true, 58, 11);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 2:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 83, 11);
+                    iRecipeLayout.getItemStacks().init(i, true, 79, 11);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 3:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 83, 32);
+                    iRecipeLayout.getItemStacks().init(i, true, 37, 32);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 4:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 62, 32);
+                    iRecipeLayout.getItemStacks().init(i, true, 58, 32);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 5:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 41, 32);
+                    iRecipeLayout.getItemStacks().init(i, true, 79, 32);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 6:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 41, 51);
+                    iRecipeLayout.getItemStacks().init(i, true, 37, 53);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 7:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 62, 51);
+                    iRecipeLayout.getItemStacks().init(i, true, 58, 53);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
                 case 8:
                 {
-                    iRecipeLayout.getItemStacks().init(i, true, 83, 51);
+                    iRecipeLayout.getItemStacks().init(i, true, 79, 53);
                     iRecipeLayout.getItemStacks().set(i, arcaneCraftingRecipe.itemStacks.get(i));
                     break;
                 }
             }
         }
+        iRecipeLayout.getItemStacks().init(9, true, 147, 32);
+        iRecipeLayout.getItemStacks().set(9, new ItemStack(arcaneCraftingRecipe.outputItem, arcaneCraftingRecipe.outputItemCount));
     }
 }

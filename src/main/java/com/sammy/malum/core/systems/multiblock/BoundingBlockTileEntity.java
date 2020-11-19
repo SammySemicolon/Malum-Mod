@@ -1,9 +1,8 @@
 package com.sammy.malum.core.systems.multiblock;
 
-import com.sammy.malum.core.init.MalumTileEntities;
+import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 
 public class BoundingBlockTileEntity extends SimpleTileEntity

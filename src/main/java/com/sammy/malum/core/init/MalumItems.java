@@ -1,6 +1,8 @@
 package com.sammy.malum.core.init;
 
+import com.sammy.malum.common.items.CreativeHarvestingTool;
 import com.sammy.malum.core.MalumCreativeTab;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import net.minecraft.item.BlockItem;
@@ -147,7 +149,11 @@ public class MalumItems
     public static final RegistryObject<Item> TAINTED_GRASS = ITEMS.register("tainted_grass", () -> new BlockItem(MalumBlocks.TAINTED_GRASS.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> TALL_TAINTED_GRASS = ITEMS.register("tall_tainted_grass", () -> new BlockItem(MalumBlocks.TALL_TAINTED_GRASS.get(), DEFAULT_PROPERTIES));
     //endregion
+    //region biome blocks
+    public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(MalumBlocks.LAVENDER.get(), DEFAULT_PROPERTIES));
+    public static final RegistryObject<Item> CORNFLOWER = ITEMS.register("cornflower", () -> new BlockItem(MalumBlocks.CORNFLOWER.get(), DEFAULT_PROPERTIES));
     
+    //endregion
     //region crafting blocks
     public static final RegistryObject<Item> TAINTED_ARCANE_CRAFTING_TABLE = ITEMS.register("sun_kissed_arcane_crafting_table", () -> new BlockItem(MalumBlocks.TAINTED_ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES));
     public static final RegistryObject<Item> SUN_KISSED_ARCANE_CRAFTING_TABLE = ITEMS.register("tainted_arcane_crafting_table", () -> new BlockItem(MalumBlocks.SUN_KISSED_ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES));
@@ -160,5 +166,10 @@ public class MalumItems
     public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES));
     
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES));
+    //endregion
+    
+    //region creative items
+    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new CreativeHarvestingTool(DEFAULT_PROPERTIES));
+    
     //endregion
 }
