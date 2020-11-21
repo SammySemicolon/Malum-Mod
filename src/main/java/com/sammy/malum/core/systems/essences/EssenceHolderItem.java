@@ -1,9 +1,7 @@
-package com.sammy.malum.common.items;
+package com.sammy.malum.core.systems.essences;
 
 import com.sammy.malum.client.ClientHelper;
-import com.sammy.malum.core.systems.essences.EssenceHelper;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -11,20 +9,28 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class CreativeHarvestingTool extends Item
+public class EssenceHolderItem extends Item implements IEssenceHolder
 {
-    public CreativeHarvestingTool(Properties properties)
+    public int essenceSlots;
+    public int maxEssence;
+    public EssenceHolderItem(Properties properties, int essenceSlots, int maxEssence)
     {
         super(properties);
+        this.essenceSlots = essenceSlots;
+        this.maxEssence = maxEssence;
     }
     
     @Override
-    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
+    public int getEssenceSlots()
     {
-        EssenceHelper.giveItemEssences(target, stack);
-        return super.hitEntity(stack, target, attacker);
+        return essenceSlots;
     }
     
+    @Override
+    public int getMaxEssence()
+    {
+        return maxEssence;
+    }
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {

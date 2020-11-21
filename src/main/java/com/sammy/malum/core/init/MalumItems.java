@@ -1,10 +1,11 @@
 package com.sammy.malum.core.init;
 
-import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
-import com.sammy.malum.common.items.CreativeHarvestingTool;
+import com.sammy.malum.common.items.tools.scythes.CreativeScythe;
 import com.sammy.malum.common.items.equipment.armor.RunicGoldArmor;
+import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.systems.essences.EssenceHolderItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -26,6 +27,10 @@ public class MalumItems
     public static Item.Properties GEAR_PROPERTIES()
     {
         return new Item.Properties().group(MalumCreativeTab.INSTANCE).maxStackSize(1);
+    }
+    public static Item.Properties CREATIVE_PROPERTIES()
+    {
+        return new Item.Properties().maxStackSize(1);
     }
     
     public static final RegistryObject<Item> SOLAR_ORE = ITEMS.register("solar_ore", () -> new BlockItem(MalumBlocks.SOLAR_ORE.get(), DEFAULT_PROPERTIES()));
@@ -227,8 +232,17 @@ public class MalumItems
     
     //endregion
     
-    //region creative items
-    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new CreativeHarvestingTool(DEFAULT_PROPERTIES()));
+    //region essence items
+    public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 1, 100));
+    public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 4, 25));
+    //endregion
+    public static final RegistryObject<Item> SCYTHE_OF_SOL = ITEMS.register("scythe_of_sol", () -> new ScytheItem(ItemTier.STONE, 1,0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCYTHE_OF_LUNA = ITEMS.register("scythe_of_luna", () -> new ScytheItem(ItemTier.STONE, 1,0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RUNIC_GOLD_SCYTHE = ITEMS.register("runic_gold_scythe", () -> new ScytheItem(ItemTier.STONE, 4,-0.2f, GEAR_PROPERTIES()));
     
+    //region hidden items
+    public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new EssenceHolderItem(CREATIVE_PROPERTIES(), 100, 9999));
+    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
+    public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", ()-> new Item(CREATIVE_PROPERTIES()));
     //endregion
 }

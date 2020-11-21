@@ -3,10 +3,7 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumMod;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ToolItem;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -42,6 +39,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof LanternBlock).forEach(this::generatedItem);
         takeAll(items, i -> i.get() instanceof BlockItem).forEach(this::blockItem);
         takeAll(items, i -> i.get() instanceof ToolItem).forEach(this::handheldItem);
+        takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof BowItem).forEach(this::handheldItem);
         items.forEach(this::generatedItem);
     }

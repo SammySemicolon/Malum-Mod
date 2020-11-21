@@ -1,0 +1,158 @@
+package com.sammy.malum.common.entities;
+
+import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.systems.essences.EssenceHelper;
+import com.sammy.malum.core.systems.essences.SimpleEssenceType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntitySize;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.Pose;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.NetworkHooks;
+
+import java.util.HashMap;
+import java.util.UUID;
+
+public class SpiritEssenceEntity extends ProjectileItemEntity
+{
+    public HashMap<SimpleEssenceType, Integer> essencesToGive;
+    public UUID ownerUUID;
+    public PlayerEntity owner;
+    public float multiplier;
+    public float velocity;
+    
+    public SpiritEssenceEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
+    {
+        super(type, worldIn);
+        noClip = true;
+        essencesToGive = new HashMap<>();
+    }
+    
+    @Override
+    public float getCollisionBorderSize()
+    {
+        return 4f;
+    }
+    
+    @Override
+    protected void onEntityHit(EntityRayTraceResult p_213868_1_)
+    {
+        if(isAlive())
+        {
+            Entity entity = p_213868_1_.getEntity();
+            if (entity.equals(owner()))
+            {
+                EssenceHelper.harvestEssence(essencesToGive, owner());
+                remove();
+            }
+        }
+        super.onEntityHit(p_213868_1_);
+    }
+    public PlayerEntity owner()
+    {
+        if (!world.isRemote())
+        {
+            if (owner == null)
+            {
+                if (world instanceof ServerWorld)
+                {
+                    owner = (PlayerEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
+                }
+            }
+        }
+        return owner;
+    }
+    
+    @Override
+    public void tick()
+    {
+        super.tick();
+        if (world instanceof ServerWorld)
+        {
+            velocity+= 0.002f;
+            Vector3d ownerPos = owner().getPositionVec().add(0, owner.getHeight() / 2, 0);
+            Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(),  ownerPos.z - getPosZ()).normalize().mul(velocity,velocity,velocity);
+            setMotion(desiredMotion);
+        }
+    }
+    
+    @Override
+    protected Item getDefaultItem()
+    {
+        return MalumItems.SPIRIT_ESSENCE_ITEM.get();
+    }
+    
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        if (multiplier != 0f)
+        {
+            compound.putFloat("multiplier", multiplier);
+        }
+        if (velocity != 0f)
+        {
+            compound.putFloat("velocity", velocity);
+        }
+        if (ownerUUID != null)
+        {
+            compound.putUniqueId("ownerUUID", ownerUUID);
+        }
+        if (essencesToGive != null && !essencesToGive.isEmpty())
+        {
+            compound.putInt("essences", essencesToGive.size());
+            for (int i = 0; i < essencesToGive.size(); i++)
+            {
+                SimpleEssenceType essenceType = (SimpleEssenceType) essencesToGive.keySet().toArray()[i];
+                int count = essencesToGive.get(essenceType);
+                compound.putString("essenceType" + i, essenceType.identifier);
+                compound.putInt("essenceCount" + i, count);
+            }
+        }
+    }
+    
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        if (compound.contains("multiplier"))
+        {
+            multiplier = compound.getFloat("multiplier");
+        }
+        if (compound.contains("velocity"))
+        {
+            velocity = compound.getFloat("velocity");
+        }
+        if (compound.contains("ownerUUID"))
+        {
+            ownerUUID = compound.getUniqueId("ownerUUID");
+        }
+        if (compound.contains("essences"))
+        {
+            for (int i = 0; i < compound.getInt("essences"); i++)
+            {
+                SimpleEssenceType essenceType = EssenceHelper.figureOutEssence(compound.getString("essenceType" + i));
+                int essenceCount = compound.getInt("essenceCount" + i);
+                essencesToGive.put(essenceType, essenceCount);
+            }
+        }
+    }
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+    
+    @Override
+    public boolean hasNoGravity()
+    {
+        return true;
+    }
+}

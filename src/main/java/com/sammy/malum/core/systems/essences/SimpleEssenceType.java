@@ -1,7 +1,9 @@
 package com.sammy.malum.core.systems.essences;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 
+import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class SimpleEssenceType
@@ -27,7 +29,7 @@ public class SimpleEssenceType
         return entityPredicate.test(entity);
     }
     
-    public int howMuchEssenceDoesAnEntityHave(LivingEntity entity)
+    public int howMuchEssenceDoesAnEntityHave(@Nullable PlayerEntity player, LivingEntity entity)
     {
         int amount = 0;
         int treshhold = 2;

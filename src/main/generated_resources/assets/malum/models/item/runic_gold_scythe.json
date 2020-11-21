@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "malum:item/creative_scythe"
+    "layer0": "malum:item/runic_gold_scythe"
   }
 }

@@ -35,49 +35,6 @@ import static com.sammy.malum.core.init.MalumItems.ITEMS;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class StartupEvents
 {
-    @SubscribeEvent
-    public static void setBlockColors(ColorHandlerEvent.Block event)
-    {
-        BlockColors blockColors = event.getBlockColors();
-        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        MalumHelper.takeAll(blocks, block -> block.get() instanceof MalumLeavesBlock).forEach(block -> blockColors.register((state, reader, pos, color) -> {
-            float i = state.get(MalumLeavesBlock.COLOR);
-            MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) block.get();
-            int r = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
-            int g = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
-            int b = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
-            return r << 16 | g << 8 | b;
-        }, block.get()));
-    
-    }
-    @SubscribeEvent
-    public static void setItemColors(ColorHandlerEvent.Item event)
-    {
-        ItemColors blockColors = event.getItemColors();
-        Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
-        MalumHelper.takeAll(items, item -> item.get() instanceof BlockItem && ((BlockItem) item.get()).getBlock() instanceof MalumLeavesBlock).forEach(item -> {
-            MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-            int r = malumLeavesBlock.minColor.getRed();
-            int g = malumLeavesBlock.minColor.getGreen();
-            int b = malumLeavesBlock.minColor.getBlue();
-            blockColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
-        });
-    }
-    @SubscribeEvent
-    public static void setRenderLayers(FMLClientSetupEvent event)
-    {
-        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof ZoomRockBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(StartupEvents::setCutout);
-    }
     public static void setCutout(RegistryObject<Block> b)
     {
         RenderTypeLookup.setRenderLayer(b.get(), RenderType.getCutout());
@@ -92,9 +49,5 @@ public class StartupEvents
     {
         event.enqueueWork(MalumFeatures::new);
     }
-    @SubscribeEvent
-    public static void bindTERs(FMLClientSetupEvent event)
-    {
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), ArcaneCraftingTableRenderer::new);
-    }
+
 }
