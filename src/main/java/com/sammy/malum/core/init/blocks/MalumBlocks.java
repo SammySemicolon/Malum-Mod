@@ -6,6 +6,7 @@ import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBloc
 import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlock;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceBlock;
 import com.sammy.malum.common.blocks.essencejar.EssenceJarBlock;
+import com.sammy.malum.common.blocks.essencepipe.EssencePipeBlock;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
 import com.sammy.malum.core.init.MalumSounds;
@@ -27,13 +28,71 @@ import static net.minecraft.block.PressurePlateBlock.Sensitivity.MOBS;
 public class MalumBlocks
 {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
     
-    //region tainted rock
+    //region properties
+    
     public static AbstractBlock.Properties TAINTED_ROCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).sound(MalumSounds.TAINTED_ROCK).setRequiresTool().hardnessAndResistance(1.25F, 9.0F);
     }
+    
+    public static AbstractBlock.Properties DARKENED_TAINTED_ROCK_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.TAINTED_ROCK).hardnessAndResistance(2.25F, 3600.0F);
+    }
+    
+    public static AbstractBlock.Properties CRIMSON_ROCK_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.CRIMSON_ROCK).hardnessAndResistance(1.25F, 9.0F);
+    }
+    
+    public static AbstractBlock.Properties SUN_KISSED_WOOD_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.YELLOW).sound(SoundType.WOOD).hardnessAndResistance(1.75F, 4.0F);
+    }
+    
+    public static AbstractBlock.Properties TAINTED_WOOD_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.WOOD, MaterialColor.PURPLE).sound(SoundType.WOOD).hardnessAndResistance(2F, 4.0F);
+    }
+    
+    public static AbstractBlock.Properties SUN_KISSED_PLANTS_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).zeroHardnessAndResistance();
+    }
+    
+    public static AbstractBlock.Properties SUN_KISSED_LEAVES_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.YELLOW).notSolid().sound(SoundType.PLANT).hardnessAndResistance(0.15f);
+    }
+    
+    public static AbstractBlock.Properties TAINTED_PLANTS_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.PURPLE).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).zeroHardnessAndResistance();
+    }
+    
+    public static AbstractBlock.Properties TAINTED_LEAVES_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.PURPLE).notSolid().sound(SoundType.PLANT).hardnessAndResistance(0.15f);
+    }
+    
+    public static AbstractBlock.Properties ABSTRUSE_BLOCK_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).zeroHardnessAndResistance().noDrops().notSolid();
+    }
+    
+    public static AbstractBlock.Properties TRANSMISSIVE_BLOCK_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.IRON, MaterialColor.YELLOW).sound(MalumSounds.TRANSMISSIVE_ALLOY).notSolid().hardnessAndResistance(2F, 16.0F);
+    }
+    
+    public static AbstractBlock.Properties ESSENCE_JAR_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.GLASS).noDrops().notSolid();
+    }
+    
+    //endregion
+    //region tainted rock
     public static final RegistryObject<Block> TAINTED_ROCK = BLOCKS.register("tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_SLAB = BLOCKS.register("tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_STAIRS = BLOCKS.register("tainted_rock_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
@@ -70,10 +129,6 @@ public class MalumBlocks
     //endregion
     
     //region darkened rock
-    public static AbstractBlock.Properties DARKENED_TAINTED_ROCK_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.TAINTED_ROCK).hardnessAndResistance(2.25F, 3600.0F);
-    }
     public static final RegistryObject<Block> DARKENED_TAINTED_ROCK = BLOCKS.register("darkened_tainted_rock", () -> new Block(DARKENED_TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_SLAB = BLOCKS.register("darkened_tainted_rock_slab", () -> new SlabBlock(DARKENED_TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_STAIRS = BLOCKS.register("darkened_tainted_rock_stairs", () -> new StairsBlock(DARKENED_TAINTED_ROCK.get().getDefaultState(), DARKENED_TAINTED_ROCK_PROPERTIES()));
@@ -110,10 +165,6 @@ public class MalumBlocks
     //endregion
     
     //region crimson rock
-    public static AbstractBlock.Properties CRIMSON_ROCK_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.CRIMSON_ROCK).hardnessAndResistance(1.25F, 9.0F);
-    }
     public static final RegistryObject<Block> CRIMSON_ROCK = BLOCKS.register("crimson_rock", () -> new Block(CRIMSON_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRIMSON_ROCK_SLAB = BLOCKS.register("crimson_rock_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRIMSON_ROCK_STAIRS = BLOCKS.register("crimson_rock_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES()));
@@ -150,10 +201,6 @@ public class MalumBlocks
     //endregion
     
     //region sun kissed wood
-    public static AbstractBlock.Properties SUN_KISSED_WOOD_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.YELLOW).sound(SoundType.WOOD).hardnessAndResistance(1.75F, 4.0F);
-    }
     public static final RegistryObject<Block> SUN_KISSED_LOG = BLOCKS.register("sun_kissed_log", () -> new RotatedPillarBlock(SUN_KISSED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> STRIPPED_SUN_KISSED_LOG = BLOCKS.register("stripped_sun_kissed_log", () -> new RotatedPillarBlock(SUN_KISSED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> SUN_KISSED_WOOD = BLOCKS.register("sun_kissed_wood", () -> new Block(SUN_KISSED_WOOD_PROPERTIES()));
@@ -175,10 +222,6 @@ public class MalumBlocks
     //endregion
     
     //region tainted wood
-    public static AbstractBlock.Properties TAINTED_WOOD_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.WOOD, MaterialColor.PURPLE).sound(SoundType.WOOD).hardnessAndResistance(2F, 4.0F);
-    }
     public static final RegistryObject<Block> TAINTED_LOG = BLOCKS.register("tainted_log", () -> new RotatedPillarBlock(TAINTED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> STRIPPED_TAINTED_LOG = BLOCKS.register("stripped_tainted_log", () -> new RotatedPillarBlock(TAINTED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_WOOD = BLOCKS.register("tainted_wood", () -> new Block(TAINTED_WOOD_PROPERTIES()));
@@ -199,14 +242,6 @@ public class MalumBlocks
     //endregion
     
     //region sun kissed biome blocks
-    public static AbstractBlock.Properties SUN_KISSED_PLANTS_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).zeroHardnessAndResistance();
-    }
-    public static AbstractBlock.Properties SUN_KISSED_LEAVES_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.YELLOW).notSolid().sound(SoundType.PLANT).hardnessAndResistance(0.15f);
-    }
     public static final RegistryObject<Block> SUN_KISSED_GRASS_BLOCK = BLOCKS.register("sun_kissed_grass_block", () -> new GrassBlock(SUN_KISSED_LEAVES_PROPERTIES()));
     public static final RegistryObject<Block> SHORT_SUN_KISSED_GRASS = BLOCKS.register("short_sun_kissed_grass", () -> new TallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new TallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES()));
@@ -220,28 +255,18 @@ public class MalumBlocks
     //endregion
     
     //region tainted biome blocks
-    public static AbstractBlock.Properties TAINTED_PLANTS_PROPERTIES()
-    {
-       return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.PURPLE).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).zeroHardnessAndResistance();
-    }
-    public static AbstractBlock.Properties TAINTED_LEAVES_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.LEAVES, MaterialColor.PURPLE).notSolid().sound(SoundType.PLANT).hardnessAndResistance(0.15f);
-    }
     public static final RegistryObject<Block> SHORT_TAINTED_GRASS = BLOCKS.register("short_tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_GRASS = BLOCKS.register("tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TALL_TAINTED_GRASS = BLOCKS.register("tall_tainted_grass", () -> new DoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new SaplingBlock(new OakTree(), TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new MalumLeavesBlock(TAINTED_LEAVES_PROPERTIES(), new Color(0,0,0), new Color(255,255,255)));
+    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new MalumLeavesBlock(TAINTED_LEAVES_PROPERTIES(), new Color(0, 0, 0), new Color(255, 255, 255)));
     
     //endregion
     
     //region contents
-    public static AbstractBlock.Properties ABSTRUSE_BLOCK_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).zeroHardnessAndResistance().noDrops().notSolid();
-    }
+    public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> TRANSMISSIVE_ALLOY_BLOCK = BLOCKS.register("transmissive_alloy_block", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
     //endregion
     
     //region crafting blocks
@@ -250,11 +275,10 @@ public class MalumBlocks
     
     public static final RegistryObject<Block> BLIGHTING_FURNACE = BLOCKS.register("blighting_furnace", () -> new BlightingFurnaceBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> BLIGHTING_FURNACE_TOP = BLOCKS.register("blighting_furnace_top", () -> new BlightedFurnaceBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    //endregion
     
-    public static AbstractBlock.Properties ESSENCE_JAR_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.GLASS).noDrops().notSolid();
-    }
+    //region essence handling
     public static final RegistryObject<Block> ESSENCE_JAR = BLOCKS.register("essence_jar", () -> new EssenceJarBlock(ESSENCE_JAR_PROPERTIES()));
+    public static final RegistryObject<Block> ESSENCE_PIPE = BLOCKS.register("essence_pipe", () -> new EssencePipeBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
     //endregion
 }

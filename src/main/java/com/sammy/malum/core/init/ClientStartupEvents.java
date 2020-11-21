@@ -102,6 +102,7 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ZoomRockBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(ClientStartupEvents::setCutout);
         setCutout(MalumBlocks.ESSENCE_JAR);
+        setCutout(MalumBlocks.ESSENCE_PIPE);
     }
     public static void setCutout(RegistryObject<Block> b)
     {

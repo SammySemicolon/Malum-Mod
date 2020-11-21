@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.essencejar;
 
+import com.sammy.malum.core.systems.essences.IEssenceRequest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
@@ -15,7 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.stream.Stream;
 
-public class EssenceJarBlock extends Block
+public class EssenceJarBlock extends Block implements IEssenceRequest
 {
     public static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 1);
     

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "malum:block/transmissive_alloy_block"
+    }
+  }
+}

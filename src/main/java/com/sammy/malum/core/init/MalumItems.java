@@ -216,10 +216,12 @@ public class MalumItems
     public static final RegistryObject<Item> BLIGHTING_FURNACE = ITEMS.register("blighting_furnace", () -> new MultiblockItem(MalumBlocks.BLIGHTING_FURNACE.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.BLIGHTING_FURNACE_TOP.get())));
     
     //endregion
-    
+    //region simple components
+    public static final RegistryObject<Item> TRANSMISSIVE_ALLOY = ITEMS.register("transmissive_alloy", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TRANSMISSIVE_ALLOY_BLOCK = ITEMS.register("transmissive_alloy_block", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_ALLOY_BLOCK.get(),DEFAULT_PROPERTIES()));
+    //endregion
     //region combined components
     public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES()));
-    
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES()));
     //endregion
     
@@ -237,6 +239,7 @@ public class MalumItems
     public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 1, 100));
     public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 4, 25));
     public static final RegistryObject<Item> ESSENCE_JAR = ITEMS.register("essence_jar", () -> new EssenceHolderBlockitem(MalumBlocks.ESSENCE_JAR.get(),GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> ESSENCE_PIPE = ITEMS.register("essence_pipe", () -> new BlockItem(MalumBlocks.ESSENCE_PIPE.get(),DEFAULT_PROPERTIES()));
     //endregion
     public static final RegistryObject<Item> SCYTHE_OF_SOL = ITEMS.register("scythe_of_sol", () -> new ScytheItem(ItemTier.STONE, 1,0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SCYTHE_OF_LUNA = ITEMS.register("scythe_of_luna", () -> new ScytheItem(ItemTier.STONE, 1,0, GEAR_PROPERTIES()));

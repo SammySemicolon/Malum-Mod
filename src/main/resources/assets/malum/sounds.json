@@ -11,6 +11,11 @@
   "solar_ore_hit": { "sounds":["malum:solar_ore/hit1","malum:solar_ore/hit2","malum:solar_ore/hit3","malum:solar_ore/hit4"], "subtitle": "malum.subtitle.solar_ore_hit" },
   "solar_ore_place": { "sounds":["malum:solar_ore/break1","malum:solar_ore/break2","malum:solar_ore/break3","malum:solar_ore/break4"], "subtitle": "malum.subtitle.solar_ore_place" },
 
+  "transmissive_alloy_break": { "sounds":["malum:transmissive_alloy/break1","malum:transmissive_alloy/break2","malum:transmissive_alloy/break3","malum:transmissive_alloy/break4"], "subtitle": "malum.subtitle.transmissive_alloy_break" },
+  "transmissive_alloy_step": { "sounds":["malum:transmissive_alloy/hit1","malum:transmissive_alloy/hit2","malum:transmissive_alloy/hit3","malum:transmissive_alloy/hit4", "malum:transmissive_alloy/hit5", "malum:transmissive_alloy/hit6"], "subtitle": "malum.subtitle.transmissive_alloy_step" },
+  "transmissive_alloy_place": { "sounds":["malum:transmissive_alloy/break1","malum:transmissive_alloy/break2","malum:transmissive_alloy/break3","malum:transmissive_alloy/break4"], "subtitle": "malum.subtitle.transmissive_alloy_place" },
+  "transmissive_alloy_hit": { "sounds":["malum:transmissive_alloy/hit1","malum:transmissive_alloy/hit2","malum:transmissive_alloy/hit3","malum:transmissive_alloy/hit4", "malum:transmissive_alloy/hit5", "malum:transmissive_alloy/hit6"], "subtitle": "malum.subtitle.transmissive_alloy_hit" },
+
   "zoom_rock_step": { "sounds":["malum:zoom_rock/step1","malum:zoom_rock/step2","malum:zoom_rock/step3","malum:zoom_rock/step4","malum:zoom_rock/step5","block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.zoom_rock_step" },
   "arcane_craft": { "sounds":["malum:arcane_craft/craft1","malum:arcane_craft/craft2"], "subtitle": "malum.subtitle.arcane_craft" },
   "abstruse_block_return": { "sounds":["malum:abstruse_block/return1","malum:abstruse_block/return2"], "subtitle": "malum.subtitle.abstruse_block_returns" }

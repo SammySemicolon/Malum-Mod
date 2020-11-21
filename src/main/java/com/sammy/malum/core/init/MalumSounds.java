@@ -26,6 +26,11 @@ public class MalumSounds
     public static final SoundEvent SOLAR_ORE_HIT = new SoundEvent(MalumHelper.prefix("solar_ore_hit"));
     public static final SoundEvent SOLAR_ORE_PLACE = new SoundEvent(MalumHelper.prefix("solar_ore_place"));
     
+    public static final SoundEvent TRANSMISSIVE_ALLOY_BREAK = new SoundEvent(MalumHelper.prefix("transmissive_alloy_break"));
+    public static final SoundEvent TRANSMISSIVE_ALLOY_HIT = new SoundEvent(MalumHelper.prefix("transmissive_alloy_hit"));
+    public static final SoundEvent TRANSMISSIVE_ALLOY_PLACE = new SoundEvent(MalumHelper.prefix("transmissive_alloy_place"));
+    public static final SoundEvent TRANSMISSIVE_ALLOY_STEP = new SoundEvent(MalumHelper.prefix("transmissive_alloy_step"));
+    
     public static final SoundEvent ZOOM_BLOCK_STEP = new SoundEvent(MalumHelper.prefix("zoom_rock_step"));
     
     public static final SoundEvent ARCANE_CRAFT = new SoundEvent(MalumHelper.prefix("arcane_craft"));
@@ -36,6 +41,7 @@ public class MalumSounds
     public static final SoundType CRIMSON_ROCK = new SoundType(1.0F, 1.0F, CRIMSON_ROCK_BREAK, CRIMSON_ROCK_STEP, CRIMSON_ROCK_PLACE, SoundEvents.BLOCK_NETHER_BRICKS_HIT, SoundEvents.BLOCK_NETHER_BRICKS_FALL);
     public static final SoundType SOLAR_ORE = new SoundType(1.0F, 1.25F, SOLAR_ORE_BREAK, SoundEvents.BLOCK_STONE_STEP, SOLAR_ORE_PLACE, SOLAR_ORE_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType ZOOM_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, ZOOM_BLOCK_STEP, TAINTED_ROCK_PLACE, SoundEvents.BLOCK_NETHER_BRICKS_HIT, SoundEvents.BLOCK_NETHER_BRICKS_FALL);
+    public static final SoundType TRANSMISSIVE_ALLOY = new SoundType(1.0F, 1.0F, TRANSMISSIVE_ALLOY_BREAK, TRANSMISSIVE_ALLOY_STEP, TRANSMISSIVE_ALLOY_PLACE, TRANSMISSIVE_ALLOY_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType CRIMSON_ZOOM_ROCK = new SoundType(1.0F, 1.0F, CRIMSON_ROCK_BREAK, CRIMSON_ROCK_STEP, CRIMSON_ROCK_PLACE, SoundEvents.BLOCK_BASALT_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static void init()
     {
@@ -50,6 +56,11 @@ public class MalumSounds
         SOUNDS.register("solar_ore_break", ()-> SOLAR_ORE_BREAK);
         SOUNDS.register("solar_ore_place", ()-> SOLAR_ORE_PLACE);
         SOUNDS.register("solar_ore_hit", ()-> SOLAR_ORE_HIT);
+    
+        SOUNDS.register("transmissive_alloy_break", ()-> TRANSMISSIVE_ALLOY_BREAK);
+        SOUNDS.register("transmissive_alloy_hit", ()-> TRANSMISSIVE_ALLOY_HIT);
+        SOUNDS.register("transmissive_alloy_place", ()-> TRANSMISSIVE_ALLOY_PLACE);
+        SOUNDS.register("transmissive_alloy_step", ()-> TRANSMISSIVE_ALLOY_STEP);
         
         SOUNDS.register("zoom_rock_step", ()-> ZOOM_BLOCK_STEP);
         SOUNDS.register("arcane_craft", ()-> ARCANE_CRAFT);
