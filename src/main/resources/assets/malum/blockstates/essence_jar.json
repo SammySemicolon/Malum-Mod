@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "type=0": {"model": "malum:block/essence_jar"},
+    "type=1": {"model": "malum:block/essence_jar_connected"}
+  }
+}

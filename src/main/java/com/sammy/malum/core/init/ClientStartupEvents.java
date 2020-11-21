@@ -7,11 +7,14 @@ import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableRenderer;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.common.entities.SpiritEssenceEntity;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -88,15 +91,20 @@ public class ClientStartupEvents
     public static void setRenderLayers(FMLClientSetupEvent event)
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof ZoomRockBlock).forEach(StartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(StartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof ZoomRockBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(ClientStartupEvents::setCutout);
+        setCutout(MalumBlocks.ESSENCE_JAR);
+    }
+    public static void setCutout(RegistryObject<Block> b)
+    {
+        RenderTypeLookup.setRenderLayer(b.get(), RenderType.getCutout());
     }
 }

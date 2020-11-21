@@ -5,6 +5,7 @@ import com.sammy.malum.common.items.equipment.armor.RunicGoldArmor;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.systems.essences.EssenceHolderBlockitem;
 import com.sammy.malum.core.systems.essences.EssenceHolderItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
@@ -235,6 +236,7 @@ public class MalumItems
     //region essence items
     public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 1, 100));
     public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 4, 25));
+    public static final RegistryObject<Item> ESSENCE_JAR = ITEMS.register("essence_jar", () -> new EssenceHolderBlockitem(MalumBlocks.ESSENCE_JAR.get(),GEAR_PROPERTIES()));
     //endregion
     public static final RegistryObject<Item> SCYTHE_OF_SOL = ITEMS.register("scythe_of_sol", () -> new ScytheItem(ItemTier.STONE, 1,0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SCYTHE_OF_LUNA = ITEMS.register("scythe_of_luna", () -> new ScytheItem(ItemTier.STONE, 1,0, GEAR_PROPERTIES()));

@@ -10,7 +10,7 @@ public class SimpleEssenceType
 {
     public enum essenceTypeEnum
     {
-        essence, distillate
+       spirit, essence, distillate
     }
     
     public final String identifier;
