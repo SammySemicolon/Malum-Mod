@@ -4,35 +4,9 @@
 	"textures": {
 		"1": "malum:block/essence_jar_connected",
 		"3": "malum:block/chiseled_darkened_tainted_rock_bricks",
-		"4": "malum:block/essence_jar",
 		"particle": "malum:block/essence_jar_connected"
 	},
 	"elements": [
-		{
-			"from": [4, 0, 4],
-			"to": [12, 12, 12],
-			"faces": {
-				"north": {"uv": [0, 0, 8, 12], "texture": "#4"},
-				"east": {"uv": [0, 0, 8, 12], "texture": "#4"},
-				"south": {"uv": [0, 0, 8, 12], "texture": "#4"},
-				"west": {"uv": [0, 0, 8, 12], "texture": "#4"},
-				"up": {"uv": [8, 0, 16, 8], "texture": "#4"},
-				"down": {"uv": [8, 8, 16, 16], "texture": "#4"}
-			}
-		},
-		{
-			"from": [5.5, 12, 5.5],
-			"to": [10.5, 14, 10.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 20, 6.5]},
-			"faces": {
-				"north": {"uv": [3, 14, 8, 16], "texture": "#4"},
-				"east": {"uv": [3, 14, 8, 16], "texture": "#4"},
-				"south": {"uv": [3, 14, 8, 16], "texture": "#4"},
-				"west": {"uv": [3, 14, 8, 16], "texture": "#4"},
-				"up": {"uv": [0, 12, 4, 16], "texture": "#4"},
-				"down": {"uv": [0, 12, 4, 16], "texture": "#4"}
-			}
-		},
 		{
 			"from": [0, 14, 0],
 			"to": [16, 16, 16],

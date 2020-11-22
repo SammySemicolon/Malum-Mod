@@ -18,25 +18,6 @@
         },
         {   "when": { "down_extension": "true" },
             "apply": { "model": "malum:block/essence_pipe_extension", "x": 90 }
-        },
-
-        {   "when": { "north_connection": "true" },
-            "apply": { "model": "malum:block/essence_pipe_connection" }
-        },
-        {   "when": { "east_connection": "true" },
-            "apply": { "model": "malum:block/essence_pipe_connection", "y": 90 }
-        },
-        {   "when": { "south_connection": "true" },
-            "apply": { "model": "malum:block/essence_pipe_connection", "y": 180 }
-        },
-        {   "when": { "west_connection": "true" },
-            "apply": { "model": "malum:block/essence_pipe_connection", "y": 270 }
-        },
-        {   "when": { "up_connection": "true" },
-            "apply": { "model": "malum:block/essence_pipe_connection", "x": 270 }	
-        },
-        {   "when": { "down_connection": "true" },
-            "apply": { "model": "malum:block/essence_pipe_connection", "x": 90 }
         }
     ]
 }

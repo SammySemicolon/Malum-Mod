@@ -26,11 +26,19 @@ public class SimpleEssenceType
     }
     public boolean doesEntityHaveEssence(LivingEntity entity)
     {
+        if (type.equals(essenceTypeEnum.spirit))
+        {
+            return true;
+        }
         return entityPredicate.test(entity);
     }
     
     public int howMuchEssenceDoesAnEntityHave(@Nullable PlayerEntity player, LivingEntity entity)
     {
+        if (type.equals(essenceTypeEnum.spirit))
+        {
+            return 1;
+        }
         int amount = 0;
         int treshhold = 2;
         while (treshhold < entity.getMaxHealth())
