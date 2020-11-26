@@ -1,12 +1,16 @@
 package com.sammy.malum.core.systems.essences;
 
+import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.client.ClientHelper;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EssenceHolderItem extends Item implements IEssenceHolder
@@ -34,7 +38,9 @@ public class EssenceHolderItem extends Item implements IEssenceHolder
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        ClientHelper.makeTooltip(stack, worldIn, tooltip, flagIn,ClientHelper.itemEssences(stack));
+        ArrayList<Pair<String, Integer>> itemSpirits = EssenceHelper.itemSpirits(stack, true);
+        ClientHelper.makeTooltip(stack, worldIn, tooltip, flagIn,ClientHelper.stackSpiritsTooltip(stack, itemSpirits));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
+    
 }

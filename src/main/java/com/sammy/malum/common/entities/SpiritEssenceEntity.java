@@ -1,17 +1,13 @@
 package com.sammy.malum.common.entities;
 
+import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.essences.EssenceHelper;
-import com.sammy.malum.core.systems.essences.SimpleEssenceType;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Pose;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -20,12 +16,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class SpiritEssenceEntity extends ProjectileItemEntity
 {
-    public HashMap<SimpleEssenceType, Integer> essencesToGive;
+    public ArrayList<Pair<String, Integer>> spirits;
     public UUID ownerUUID;
     public PlayerEntity owner;
     public float multiplier;
@@ -35,7 +32,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
     {
         super(type, worldIn);
         noClip = true;
-        essencesToGive = new HashMap<>();
+        spirits = new ArrayList<>();
     }
     
     @Override
@@ -52,7 +49,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
             Entity entity = p_213868_1_.getEntity();
             if (entity.equals(owner()))
             {
-                EssenceHelper.harvestEssence(essencesToGive, owner());
+                EssenceHelper.harvestSpirit(spirits, owner);
                 remove();
             }
         }
@@ -60,14 +57,11 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
     }
     public PlayerEntity owner()
     {
-        if (!world.isRemote())
+        if (owner == null)
         {
-            if (owner == null)
+            if (world instanceof ServerWorld)
             {
-                if (world instanceof ServerWorld)
-                {
-                    owner = (PlayerEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
-                }
+                owner = (PlayerEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
             }
         }
         return owner;
@@ -107,14 +101,14 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
         {
             compound.putUniqueId("ownerUUID", ownerUUID);
         }
-        if (essencesToGive != null && !essencesToGive.isEmpty())
+        if (spirits != null && !spirits.isEmpty())
         {
-            compound.putInt("essences", essencesToGive.size());
-            for (int i = 0; i < essencesToGive.size(); i++)
+            compound.putInt("essences", spirits.size());
+            for (int i = 0; i < spirits.size(); i++)
             {
-                SimpleEssenceType essenceType = (SimpleEssenceType) essencesToGive.keySet().toArray()[i];
-                int count = essencesToGive.get(essenceType);
-                compound.putString("essenceType" + i, essenceType.identifier);
+                String identifier = spirits.get(i).getFirst();
+                int count = spirits.get(i).getSecond();
+                compound.putString("essenceIdentifier" + i, identifier);
                 compound.putInt("essenceCount" + i, count);
             }
         }
@@ -134,14 +128,15 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
         if (compound.contains("ownerUUID"))
         {
             ownerUUID = compound.getUniqueId("ownerUUID");
+            owner = owner();
         }
         if (compound.contains("essences"))
         {
             for (int i = 0; i < compound.getInt("essences"); i++)
             {
-                SimpleEssenceType essenceType = EssenceHelper.figureOutEssence(compound.getString("essenceType" + i));
+                String identifier = compound.getString("essenceIdentifier" + i);
                 int essenceCount = compound.getInt("essenceCount" + i);
-                essencesToGive.put(essenceType, essenceCount);
+                spirits.add(Pair.of(identifier, essenceCount));
             }
         }
     }

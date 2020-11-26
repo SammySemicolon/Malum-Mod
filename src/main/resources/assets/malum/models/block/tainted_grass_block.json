@@ -1,10 +1,10 @@
 {   "parent": "block/block",
     "textures": {
-        "particle": "malum:block/zoom_rock_top",
-        "bottom": "malum:block/smooth_tainted_rock",
-        "top": "malum:block/zoom_rock_top",
-        "side": "malum:block/smooth_tainted_rock",
-        "overlay": "malum:block/zoom_rock_side"
+        "particle": "malum:block/tainted_grass_block_top",
+        "bottom": "minecraft:block/dirt",
+        "top": "malum:block/tainted_grass_block_top",
+        "side": "malum:block/tainted_grass_block_side",
+        "overlay": "malum:block/tainted_grass_block_side"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],
@@ -16,15 +16,6 @@
                 "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "south" },
                 "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "west" },
                 "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side",   "cullface": "east" }
-            }
-        },
-        {   "from": [ 0, 0, 0 ],
-            "to": [ 16, 16, 16 ],
-            "faces": {
-                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#overlay", "cullface": "north" },
-                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#overlay", "cullface": "south" },
-                "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#overlay", "cullface": "west" },
-                "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#overlay", "cullface": "east" }
             }
         }
     ]

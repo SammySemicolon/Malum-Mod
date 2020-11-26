@@ -1,30 +1,24 @@
 package com.sammy.malum.core.init.essences;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.systems.essences.SimpleEssenceType;
-import net.minecraft.entity.*;
+import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.FlyingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.merchant.villager.WanderingTraderEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
 import net.minecraft.entity.passive.*;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import java.util.ArrayList;
-import java.util.function.Predicate;
-
-import static com.sammy.malum.core.systems.essences.SimpleEssenceType.essenceTypeEnum.essence;
-import static com.sammy.malum.core.systems.essences.SimpleEssenceType.essenceTypeEnum.spirit;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MalumEssenceTypes
 {
+    
+    /*public static ArrayList<SimpleEssenceType> ALL = new ArrayList<>();
     public static ArrayList<SimpleEssenceType> SPIRITS = new ArrayList<>();
     public static ArrayList<SimpleEssenceType> ESSENCES = new ArrayList<>();
+    public static ArrayList<SimpleEssenceType> DISTILLATES = new ArrayList<>();
     public static final SimpleEssenceType WILD_ESSENCE = create("wild", "", e -> e instanceof AnimalEntity);
     public static final SimpleEssenceType UNDEAD_ESSENCE = create("undead", "", LivingEntity::isEntityUndead);
     public static final SimpleEssenceType NIMBLE_ESSENCE = create("nimble", "", MalumEssenceTypes::isNimble);
@@ -37,6 +31,7 @@ public class MalumEssenceTypes
     public static final SimpleEssenceType REMEDIAL_ESSENCE = create("remedial", "", MalumEssenceTypes::isRemedial);
     public static final SimpleEssenceType TERMINUS_ESSENCE = create("terminus", "", MalumEssenceTypes::isTerminus);
     public static final SimpleEssenceType ELDRITCH_ESSENCE = create("eldritch", "", MalumEssenceTypes::isEldritch);
+    
     @SubscribeEvent
     public static void spirits(FMLCommonSetupEvent event)
     {
@@ -52,18 +47,22 @@ public class MalumEssenceTypes
             MalumMod.LOGGER.info(spirit.identifier);
         }
     }
+    
     public static SimpleEssenceType create(String identifier, String description, Predicate<LivingEntity> predicate)
     {
-        SimpleEssenceType essenceType = new SimpleEssenceType(MalumMod.MODID + ":" + identifier + "_essence", description, predicate, essence);
+        SimpleEssenceType essenceType = new SimpleEssenceType(identifier, description, predicate, essence);
         ESSENCES.add(essenceType);
+        ALL.add(essenceType);
         return essenceType;
     }
+    
     public static SimpleEssenceType create(String identifier)
     {
-        SimpleEssenceType essenceType = new SimpleEssenceType(MalumMod.MODID + ":" + identifier + "_spirit", null, null, spirit);
-        ESSENCES.add(essenceType);
+        SpiritType essenceType = new SpiritType(identifier);
+        SPIRITS.add(essenceType);
+        ALL.add(essenceType);
         return essenceType;
-    }
+    }*/
     
     public static boolean isNimble(LivingEntity entity) //capable of flying or fast
     {

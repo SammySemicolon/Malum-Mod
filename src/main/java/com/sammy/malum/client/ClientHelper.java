@@ -1,17 +1,16 @@
 package com.sammy.malum.client;
 
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.essences.MalumEssenceTypes;
-import com.sammy.malum.core.systems.essences.SimpleEssenceType;
+import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.core.systems.essences.EssenceHelper;
+import com.sammy.malum.core.systems.essences.IEssenceHolder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ClientHelper
@@ -24,26 +23,23 @@ public class ClientHelper
             tooltip.addAll(components);
         }
     }
-    public static ArrayList<ITextComponent> itemEssences(ItemStack stack)
+    public static ArrayList<ITextComponent> stackSpiritsTooltip(ItemStack stack, ArrayList<Pair<String, Integer>> spirits)
     {
-        ArrayList<ITextComponent> components = new ArrayList<>();
-        CompoundNBT compoundNBT = stack.getOrCreateTag();
-        for(SimpleEssenceType essenceType : MalumEssenceTypes.ESSENCES)
+        ArrayList<ITextComponent> tooltip = new ArrayList<>();
+        if (EssenceHelper.validate(stack))
         {
-            if (compoundNBT.contains(essenceType.identifier))
+            IEssenceHolder essenceHolder = (IEssenceHolder) stack.getItem();
+            for (int i = 0; i < spirits.size(); i++)
             {
-                int count = compoundNBT.getInt(essenceType.identifier);
-                components.add(
-                        combinedComponent(
-                                simpleTranslatableComponent("malum.tooltip.contains"),
-                                importantComponent("" + count, true),
-                                importantComponent(MalumHelper.toTitleCase(essenceType.identifier.replace(MalumMod.MODID + ":", ""), "_"), true)
-                        )
-                );
+                String spirit = spirits.get(i).getFirst();
+                int count = spirits.get(i).getSecond();
+                boolean lit = !spirit.equals("empty");
+                tooltip.add(combinedComponent(simpleTranslatableComponent("malun.tooltip.slot"), simpleComponent("" + i + " "), simpleTranslatableComponent("malum.tooltip.spirit"), importantComponent(count + "/" + essenceHolder.getMaxEssence(), lit), importantComponent(spirit, lit)));
             }
         }
-        return components;
+        return tooltip;
     }
+    
     public static IFormattableTextComponent simpleComponent(String message)
     {
         return new StringTextComponent(message).mergeStyle(TextFormatting.WHITE);

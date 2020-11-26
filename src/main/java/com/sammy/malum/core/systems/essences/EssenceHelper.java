@@ -1,14 +1,12 @@
 package com.sammy.malum.core.systems.essences;
 
-import com.sammy.malum.core.init.essences.MalumEssenceTypes;
-import com.sammy.malum.core.systems.essences.SimpleEssenceType;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,69 +17,99 @@ public class EssenceHelper
     {
         return stack.getItem() instanceof IEssenceHolder;
     }
-    
-    public static SimpleEssenceType figureOutEssence(String identifier)
+    public static String identifier(LivingEntity entity)
     {
-        for (SimpleEssenceType essenceType : MalumEssenceTypes.ESSENCES)
+        return entity.getType().getRegistryName().getPath();
+    }
+    public static ArrayList<Pair<String, Integer>> itemSpirits(ItemStack stack, boolean includeEmpty)
+    {
+        ArrayList<Pair<String, Integer>> map = new ArrayList<>();
+        if (validate(stack))
         {
-            if (essenceType.identifier.equals(identifier))
+            CompoundNBT tag = stack.getOrCreateTag();
+            IEssenceHolder holder = (IEssenceHolder) stack.getItem();
+            for (int i = 0; i < holder.getEssenceSlots(); i++)
             {
-                return essenceType;
+                if (tag.contains("essenceIdentifier" + i))
+                {
+                    if (tag.getInt("essenceCount" + i) > 0)
+                    {
+                        map.add(Pair.of(tag.getString("essenceIdentifier" + i), tag.getInt("essenceCount" + i)));
+                    }
+                    else
+                    {
+                        if (includeEmpty)
+                        {
+                            map.add(Pair.of("empty", 0));
+                        }
+                        tag.remove("essenceIdentifier" + i);
+                        tag.remove("essenceCount" + i);
+                    }
+                }
+                else if (includeEmpty)
+                {
+                    map.add(Pair.of("empty", 0));
+                }
             }
         }
-        return null;
+        return map;
     }
-    
-    public static int essenceCount(ItemStack stack)
+    public static ArrayList<Pair<String, Integer>> itemSpirit(ItemStack stack, int slot)
     {
-        int i = 0;
-        CompoundNBT compoundNBT = stack.getOrCreateTag();
-        for (SimpleEssenceType essenceType : MalumEssenceTypes.ESSENCES)
+        ArrayList<Pair<String, Integer>> map = new ArrayList<>();
+        if (validate(stack))
         {
-            if (compoundNBT.contains(essenceType.identifier))
+            CompoundNBT tag = stack.getOrCreateTag();
+            if (tag.contains("essenceIdentifier" + slot))
             {
-                i++;
+                if (tag.getInt("essenceCount" + slot) > 0)
+                {
+                    map.add(Pair.of(tag.getString("essenceIdentifier" + slot), tag.getInt("essenceCount" + slot)));
+                }
+                else
+                {
+                    tag.remove("essenceIdentifier" + slot);
+                    tag.remove("essenceCount" + slot);
+                }
             }
         }
-        return i;
+        return map;
     }
-    
-    public static int giveItemEssence(ItemStack stack, SimpleEssenceType type, int amount)
+    public static void addSpirit(ItemStack stack, String identifier, int count, int slot)
+    {
+        CompoundNBT tag = stack.getOrCreateTag();
+        tag.putString("essenceIdentifier" + slot, identifier);
+        tag.putInt("essenceCount" + slot, count);
+    }
+    public static int giveStackSpirit(ItemStack stack, String identifier, int count)
     {
         int extra = 0;
         if (validate(stack))
         {
             IEssenceHolder holder = (IEssenceHolder) stack.getItem();
-            CompoundNBT compoundNBT = stack.getOrCreateTag();
-            int simulatedResult = compoundNBT.getInt(type.identifier) + amount;
-            if (simulatedResult > holder.getMaxEssence())
+            CompoundNBT tag = stack.getOrCreateTag();
+            for (int i = 0; i < holder.getEssenceSlots(); i++)
             {
-                extra = simulatedResult - holder.getMaxEssence();
-                simulatedResult = holder.getMaxEssence();
+                int simulatedResult = tag.getInt("essenceCount" + i) + count;
+                if (simulatedResult > holder.getMaxEssence())
+                {
+                    extra = simulatedResult - holder.getMaxEssence();
+                    simulatedResult = holder.getMaxEssence();
+                }
+                if (!tag.getString("essenceIdentifier" + i).equals("") && !tag.getString("essenceIdentifier" + i).equals(identifier))
+                {
+                    continue;
+                }
+                addSpirit(stack, identifier, simulatedResult, i);
+                if (extra == 0)
+                {
+                    break;
+                }
             }
-            compoundNBT.putInt(type.identifier, simulatedResult);
         }
         return extra;
     }
-    
-    public static HashMap<SimpleEssenceType, Integer> essencesToGive(LivingEntity target, PlayerEntity player, float multiplier)
-    {
-        HashMap<SimpleEssenceType, Integer> essencesToGive = new HashMap<>();
-        for (SimpleEssenceType essenceType : MalumEssenceTypes.ESSENCES)
-        {
-            if (essenceType.doesEntityHaveEssence(target))
-            {
-                essencesToGive.put(essenceType, (int) (essenceType.howMuchEssenceDoesAnEntityHave(player, target) * multiplier));
-            }
-        }
-        return essencesToGive;
-    }
-    
-    public static void harvestEssence(LivingEntity target, PlayerEntity player, float multiplier)
-    {
-        harvestEssence(essencesToGive(target, player, multiplier), player);
-    }
-    public static void harvestEssence(HashMap<SimpleEssenceType, Integer> essencesToGive, PlayerEntity player)
+    public static void harvestSpirit(ArrayList<Pair<String, Integer>> spirits, PlayerEntity player)
     {
         List<ItemStack> items = new ArrayList<>();
         if (validate(player.getHeldItemOffhand()))
@@ -96,20 +124,22 @@ public class EssenceHelper
         }
         for (ItemStack stack : items)
         {
-            for (int i = 0; i < essencesToGive.size(); i++)
+            for (int i = 0; i < spirits.size(); i++)
             {
-                SimpleEssenceType essenceType = (SimpleEssenceType) essencesToGive.keySet().toArray()[i];
-                if (essencesToGive.get(essenceType) == 0)
+                String spirit = spirits.get(i).getFirst();
+                int count = spirits.get(i).getSecond();
+                if (count == 0)
                 {
                     continue;
                 }
                 IEssenceHolder holder = (IEssenceHolder) stack.getItem();
-                if (essenceCount(stack) >= holder.getEssenceSlots() && !stack.getTag().contains(essenceType.identifier))
+                ArrayList<Pair<String, Integer>> itemSpirits = itemSpirits(stack, false);
+                if (itemSpirits.size() >= holder.getEssenceSlots() && itemSpirits.stream().noneMatch(p -> p.getFirst().equals(spirit)))
                 {
                     continue;
                 }
-                int extra = giveItemEssence(stack, essenceType, essencesToGive.get(essenceType));
-                essencesToGive.replace(essenceType, extra);
+                int extra = giveStackSpirit(stack, spirit, count);
+                spirits.set(i, Pair.of(spirit, extra));
             }
         }
     }

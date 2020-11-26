@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init;
 
+import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
 import com.sammy.malum.common.items.tools.scythes.CreativeScythe;
 import com.sammy.malum.common.items.equipment.armor.RunicGoldArmor;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
@@ -166,6 +167,7 @@ public class MalumItems
     
     public static final RegistryObject<Item> SUN_KISSED_LEAVES = ITEMS.register("sun_kissed_leaves", () -> new BlockItem(MalumBlocks.SUN_KISSED_LEAVES.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SUN_KISSED_SAPLING = ITEMS.register("sun_kissed_sapling", () -> new BlockItem(MalumBlocks.SUN_KISSED_SAPLING.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SUN_KISSED_GRASS_BLOCK = ITEMS.register("sun_kissed_grass_block", () -> new BlockItem(MalumBlocks.SUN_KISSED_GRASS_BLOCK.get(), DEFAULT_PROPERTIES()));
     //endregion
     
     //region tainted wood
@@ -189,6 +191,8 @@ public class MalumItems
     
     public static final RegistryObject<Item> TAINTED_LEAVES = ITEMS.register("tainted_leaves", () -> new BlockItem(MalumBlocks.TAINTED_LEAVES.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_SAPLING = ITEMS.register("tainted_sapling", () -> new BlockItem(MalumBlocks.TAINTED_SAPLING.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TAINTED_GRASS_BLOCK = ITEMS.register("tainted_grass_block", () -> new BlockItem(MalumBlocks.TAINTED_GRASS_BLOCK.get(), DEFAULT_PROPERTIES()));
+    
     //endregion
     
     //region sun kissed biome plants
@@ -206,7 +210,6 @@ public class MalumItems
     //region biome blocks
     public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(MalumBlocks.LAVENDER.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CORNFLOWER = ITEMS.register("cornflower", () -> new BlockItem(MalumBlocks.CORNFLOWER.get(), DEFAULT_PROPERTIES()));
-    
     //endregion
     
     //region crafting blocks
@@ -249,5 +252,7 @@ public class MalumItems
     public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new EssenceHolderItem(CREATIVE_PROPERTIES(), 100, 9999));
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
     public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", ()-> new Item(CREATIVE_PROPERTIES()));
+    
+    public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));
     //endregion
 }

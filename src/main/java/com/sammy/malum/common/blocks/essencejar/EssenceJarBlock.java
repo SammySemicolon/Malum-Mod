@@ -2,6 +2,7 @@ package com.sammy.malum.common.blocks.essencejar;
 
 import com.google.common.collect.Maps;
 import com.sammy.malum.common.blocks.essencepipe.EssencePipeBlock;
+import com.sammy.malum.core.systems.essences.EssenceHolderBlock;
 import com.sammy.malum.core.systems.essences.IEssenceRequest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,6 +10,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +24,7 @@ import net.minecraft.world.World;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class EssenceJarBlock extends Block implements IEssenceRequest
+public class EssenceJarBlock extends EssenceHolderBlock implements IEssenceRequest
 {
     //region properties
     public static final IntegerProperty UP = IntegerProperty.create("up", 0, 2);
@@ -45,6 +47,18 @@ public class EssenceJarBlock extends Block implements IEssenceRequest
     {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(UP, 0).with(NORTH_CONNECTION, false).with(SOUTH_CONNECTION, false).with(WEST_CONNECTION, false).with(EAST_CONNECTION, false));
+    }
+    
+    @Override
+    public boolean hasTileEntity(BlockState state)
+    {
+        return true;
+    }
+    
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    {
+        return new EssenceJarTileEntity();
     }
     
     @Override
