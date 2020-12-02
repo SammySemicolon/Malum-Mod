@@ -12,7 +12,7 @@
     "water_color": 4159204,
     "water_fog_color": 329011
   },
-  "surface_builder": "minecraft:grass",
+  "surface_builder": "malum:sun_kissed",
   "carvers": {
     "air": [
       "minecraft:cave",
@@ -23,8 +23,7 @@
     [
     ],
     [
-      "minecraft:lake_water",
-      "minecraft:lake_lava"
+      "minecraft:lake_water"
     ],
     [],
     [
@@ -59,11 +58,13 @@
       "malum:grouped_sun_kissed_tree"
     ],
     [
-      "malum:random_sun_kissed_grass",
-      "malum:short_sun_kissed_grass",
+      "malum:common_sun_kissed_grass",
+      "malum:grouped_sun_kissed_grass",
       "malum:tall_sun_kissed_grass",
-      "malum:lavender",
-      "malum:cornflower",
+      "malum:grouped_lavender",
+      "malum:grouped_cornflower",
+      "malum:common_lavender",
+      "malum:common_cornflower",
       "malum:rare_sun_kissed_tree",
       "minecraft:freeze_top_layer"
     ]

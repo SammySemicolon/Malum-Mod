@@ -6,6 +6,7 @@ import com.sammy.malum.core.data.ItemModelProvider;
 import com.sammy.malum.core.data.LangProvider;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.core.init.worldgen.MalumSurfaceBuilders;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -21,6 +22,7 @@ import static com.sammy.malum.core.init.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.blocks.MalumTileEntities.TILE_ENTITIES;
 import static com.sammy.malum.core.init.worldgen.MalumBiomes.BIOMES;
 import static com.sammy.malum.core.init.worldgen.MalumFoliagePlacerTypes.FOLIAGE;
+import static com.sammy.malum.core.init.worldgen.MalumSurfaceBuilders.BUILDERS;
 
 @SuppressWarnings("unused")
 @Mod("malum")
@@ -40,6 +42,7 @@ public class MalumMod
         BIOMES.register(modBus);
         ENTITY_TYPES.register(modBus);
         FOLIAGE.register(modBus);
+        BUILDERS.register(modBus);
         MalumSounds.init();
         
         modBus.addListener(this::gatherData);

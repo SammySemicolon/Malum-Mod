@@ -1,6 +1,7 @@
 package com.sammy.malum.core.init.blocks;
 
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.WitherSandBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlock;
@@ -9,6 +10,7 @@ import com.sammy.malum.common.blocks.essencejar.EssenceJarBlock;
 import com.sammy.malum.common.blocks.essencepipe.EssencePipeBlock;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
+import com.sammy.malum.common.world.features.tree.TaintedTree;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -267,15 +269,17 @@ public class MalumBlocks
     public static final RegistryObject<Block> SHORT_TAINTED_GRASS = BLOCKS.register("short_tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_GRASS = BLOCKS.register("tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TALL_TAINTED_GRASS = BLOCKS.register("tall_tainted_grass", () -> new DoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new SaplingBlock(new OakTree(), TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new MalumLeavesBlock(TAINTED_LEAVES_PROPERTIES(), new Color(0, 0, 0), new Color(255, 255, 255)));
-    
+    public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new SaplingBlock(new TaintedTree(), TAINTED_PLANTS_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new MalumLeavesBlock(TAINTED_LEAVES_PROPERTIES(), new Color(255, 26, 26), new Color(255, 123, 205)));
     //endregion
     
     //region contents
     public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TRANSMISSIVE_ALLOY_BLOCK = BLOCKS.register("transmissive_alloy_block", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("transmissive_metal_block", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> SCORCHED_ALLOY_BLOCK = BLOCKS.register("scorched_alloy_block", () -> new Block(CRIMSON_ROCK_PROPERTIES().hardnessAndResistance(5f,3600f)));
+    public static final RegistryObject<Block> WITHER_SAND = BLOCKS.register("wither_sand", () -> new WitherSandBlock(AbstractBlock.Properties.from(Blocks.SOUL_SAND)));
+    
     //endregion
     
     //region crafting blocks

@@ -14,6 +14,6 @@ public class MalumEntities
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MalumMod.MODID);
     
     public static final RegistryObject<EntityType<SpiritEssenceEntity>> SPIRIT_ESSENCE = ENTITY_TYPES.register("spirit_essence",
-            () -> EntityType.Builder.create(SpiritEssenceEntity::new, EntityClassification.MISC).size(0.25F, 0.25F)
+            () -> EntityType.Builder.create(SpiritEssenceEntity::new, EntityClassification.MISC).size(0.5F, 0.75F)
                     .trackingRange(9).build(new ResourceLocation(MalumMod.MODID, "spirit_essence").toString()));
 }

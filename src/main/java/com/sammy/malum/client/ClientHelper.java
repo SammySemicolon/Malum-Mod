@@ -23,6 +23,7 @@ public class ClientHelper
             tooltip.addAll(components);
         }
     }
+    
     public static ArrayList<ITextComponent> stackSpiritsTooltip(ItemStack stack, ArrayList<Pair<String, Integer>> spirits)
     {
         ArrayList<ITextComponent> tooltip = new ArrayList<>();
@@ -34,7 +35,7 @@ public class ClientHelper
                 String spirit = spirits.get(i).getFirst();
                 int count = spirits.get(i).getSecond();
                 boolean lit = !spirit.equals("empty");
-                tooltip.add(combinedComponent(simpleTranslatableComponent("malun.tooltip.slot"), simpleComponent("" + i + " "), simpleTranslatableComponent("malum.tooltip.spirit"), importantComponent(count + "/" + essenceHolder.getMaxEssence(), lit), importantComponent(spirit, lit)));
+                tooltip.add(combinedComponent(simpleTranslatableComponent("malum.tooltip.slot"), simpleComponent(" " + (i+1)  + ": "),importantComponent(count + "/" + essenceHolder.getMaxEssence(), lit), importantComponent(spirit, lit)));
             }
         }
         return tooltip;
@@ -44,10 +45,12 @@ public class ClientHelper
     {
         return new StringTextComponent(message).mergeStyle(TextFormatting.WHITE);
     }
+    
     public static IFormattableTextComponent simpleTranslatableComponent(String message)
     {
         return new TranslationTextComponent(message).mergeStyle(TextFormatting.WHITE);
     }
+    
     public static IFormattableTextComponent importantComponent(String message, boolean litUp)
     {
         TextFormatting textFormatting = litUp ? TextFormatting.LIGHT_PURPLE : TextFormatting.DARK_PURPLE;
@@ -55,6 +58,7 @@ public class ClientHelper
                     new StringTextComponent(message).mergeStyle(textFormatting),
                     new StringTextComponent("] ").mergeStyle(TextFormatting.WHITE)).mergeStyle(TextFormatting.BOLD);
     }
+    
     public static IFormattableTextComponent importantTranslatableComponent(String message, boolean litUp)
     {
         TextFormatting textFormatting = litUp ? TextFormatting.LIGHT_PURPLE : TextFormatting.DARK_PURPLE;
@@ -62,6 +66,7 @@ public class ClientHelper
                 new TranslationTextComponent(message).mergeStyle(textFormatting),
                 new StringTextComponent("] ").mergeStyle(TextFormatting.WHITE)).mergeStyle(TextFormatting.BOLD);
     }
+    
     public static IFormattableTextComponent combinedComponent(IFormattableTextComponent... components)
     {
         IFormattableTextComponent finalComponent = components[0];
@@ -74,4 +79,5 @@ public class ClientHelper
         }
         return finalComponent;
     }
+    
 }

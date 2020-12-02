@@ -44,6 +44,8 @@ public class LangProvider extends LanguageProvider
         addTooltip("contains", "Contains: ");
         addTooltip("sneak", "Sneak");
         addTooltip("hold", "Hold: ");
+        addTooltip("slot", "Slot");
+        addTooltip("spirit", "Spirit");
         addTooltip("essence", "Spirit Essence");
         addTooltip("distillate", "Spirit Distillate");
         add("itemGroup.malum", "Malum");

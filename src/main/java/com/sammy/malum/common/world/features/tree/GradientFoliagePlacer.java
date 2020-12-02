@@ -4,26 +4,24 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.core.init.worldgen.MalumFoliagePlacerTypes;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraft.world.gen.feature.TreeFeature;
-import net.minecraft.world.gen.foliageplacer.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
 import net.minecraft.world.gen.foliageplacer.SpruceFoliagePlacer;
 
 import java.util.Random;
 import java.util.Set;
 
-public class SunKissedFoliagePlacer extends SpruceFoliagePlacer
+public class GradientFoliagePlacer extends SpruceFoliagePlacer
 {
-    public static final Codec<SunKissedFoliagePlacer> type = RecordCodecBuilder.create((p_242836_0_) -> func_242830_b(p_242836_0_).and(FeatureSpread.func_242254_a(0, 16, 8).fieldOf("trunk_height").forGetter((p_242835_0_) -> p_242835_0_.someImportantSpread)).apply(p_242836_0_, SunKissedFoliagePlacer::new));
+    public static final Codec<GradientFoliagePlacer> type = RecordCodecBuilder.create((p_242836_0_) -> func_242830_b(p_242836_0_).and(FeatureSpread.func_242254_a(0, 16, 8).fieldOf("trunk_height").forGetter((p_242835_0_) -> p_242835_0_.someImportantSpread)).apply(p_242836_0_, GradientFoliagePlacer::new));
     
     FeatureSpread someImportantSpread;
-    public SunKissedFoliagePlacer(FeatureSpread p_i242003_1_, FeatureSpread p_i242003_2_, FeatureSpread someImportantSpread)
+    public GradientFoliagePlacer(FeatureSpread p_i242003_1_, FeatureSpread p_i242003_2_, FeatureSpread someImportantSpread)
     {
         super(p_i242003_1_, p_i242003_2_, someImportantSpread);
         this.someImportantSpread = someImportantSpread;

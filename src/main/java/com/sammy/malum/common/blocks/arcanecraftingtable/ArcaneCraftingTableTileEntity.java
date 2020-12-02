@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.arcanecraftingtable;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.recipes.ArcaneCraftingRecipe;
@@ -29,20 +30,7 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
             }
         };
     }
-    
     public int progress = 0;
-    
-    @Override
-    public CompoundNBT writeData(CompoundNBT compound)
-    {
-        return super.writeData(compound);
-    }
-    
-    @Override
-    public void readData(CompoundNBT compound)
-    {
-        super.readData(compound);
-    }
     
     @Override
     public void tick()
@@ -55,7 +43,7 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
         ArcaneCraftingRecipe recipe = ArcaneCraftingRecipe.getRecipe(inventory.stacks());
         if (recipe != null)
         {
-            if (progress == 20)
+            if (progress == 28)
             {
                 ItemStack stack = new ItemStack(recipe.outputItem, recipe.outputItemCount);
                 world.addEntity(new ItemEntity(world, pos.getX() + 0.5f, pos.getY() + 1.25f, pos.getZ() + 0.5f, stack));
@@ -65,16 +53,22 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
                     ItemStack shrinkStack = inventory.stacks().stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get();
                     shrinkStack.shrink(recipe.itemStacks.stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get().getCount());
                 }
-                progress = 0;
+                world.playSound(null, pos, MalumSounds.ARCANE_CRAFT_FINISH, SoundCategory.BLOCKS, 1, 1+ MalumMod.RANDOM.nextFloat() * 0.2f);
+    
+                progress = 20;
             }
             else
             {
                 if (progress == 0)
                 {
-                    world.playSound(null, pos, MalumSounds.ARCANE_CRAFT, SoundCategory.BLOCKS, 1, 1);
+                    world.playSound(null, pos, MalumSounds.ARCANE_CRAFT_START, SoundCategory.BLOCKS, 1, 1);
                 }
                 progress++;
             }
+        }
+        else if (progress > 0)
+        {
+            progress--;
         }
     }
 }

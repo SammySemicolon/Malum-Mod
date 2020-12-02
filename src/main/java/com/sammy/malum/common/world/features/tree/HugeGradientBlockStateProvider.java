@@ -7,9 +7,9 @@ import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 
 import java.util.Random;
 
-public class HugeSunKissedBlockStateProvider extends SimpleBlockStateProvider
+public class HugeGradientBlockStateProvider extends SimpleBlockStateProvider
 {
-    public HugeSunKissedBlockStateProvider(BlockState state)
+    public HugeGradientBlockStateProvider(BlockState state)
     {
         super(state);
     }

@@ -1,8 +1,9 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
+import com.sammy.malum.common.items.tools.*;
 import com.sammy.malum.common.items.tools.scythes.CreativeScythe;
-import com.sammy.malum.common.items.equipment.armor.RunicGoldArmor;
+import com.sammy.malum.common.items.equipment.armor.ScorchedArmor;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
@@ -220,8 +221,13 @@ public class MalumItems
     
     //endregion
     //region simple components
-    public static final RegistryObject<Item> TRANSMISSIVE_ALLOY = ITEMS.register("transmissive_alloy", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_ALLOY_BLOCK = ITEMS.register("transmissive_alloy_block", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_ALLOY_BLOCK.get(),DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TRANSMISSIVE_METAL_INGOT  = ITEMS.register("transmissive_metal_ingot", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TRANSMISSIVE_METAL_NUGGET  = ITEMS.register("transmissive_metal_nugget", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK = ITEMS.register("transmissive_metal_block", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK.get(),DEFAULT_PROPERTIES()));
+    
+    public static final RegistryObject<Item> SCORCHED_ALLOY_INGOT = ITEMS.register("scorched_alloy_ingot", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_ALLOY_NUGGET = ITEMS.register("scorched_alloy_nugget", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_ALLOY_BLOCK = ITEMS.register("scorched_alloy_block", () -> new BlockItem(MalumBlocks.SCORCHED_ALLOY_BLOCK.get(), DEFAULT_PROPERTIES()));
     //endregion
     //region combined components
     public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES()));
@@ -229,12 +235,19 @@ public class MalumItems
     //endregion
     
     //region contents
-    public static final RegistryObject<Item> RUNIC_GOLD_HELMET = ITEMS.register("runic_gold_helmet", () -> new RunicGoldArmor(ArmorMaterial.GOLD, EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RUNIC_GOLD_CHESTPLATE = ITEMS.register("runic_gold_chestplate", () -> new RunicGoldArmor(ArmorMaterial.GOLD, EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RUNIC_GOLD_LEGGINGS = ITEMS.register("runic_gold_leggings", () -> new RunicGoldArmor(ArmorMaterial.GOLD, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RUNIC_GOLD_BOOTS = ITEMS.register("runic_gold_boots", () -> new RunicGoldArmor(ArmorMaterial.GOLD, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_SWORD = ITEMS.register("scorched_sword", () -> new ModSwordItem(ItemTier.DIAMOND, 1,-0.2f,GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_PICKAXE = ITEMS.register("scorched_pickaxe", () -> new ModPickaxeItem(ItemTier.DIAMOND, 0,0,GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_AXE = ITEMS.register("scorched_axe", () -> new ModAxeItem(ItemTier.DIAMOND, 0,0,GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_SHOVEL = ITEMS.register("scorched_shovel", () -> new ModShovelItem(ItemTier.DIAMOND, 0,0,GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_HOE = ITEMS.register("scorched_hoe", () -> new ModHoeItem(ItemTier.DIAMOND, 0,0,GEAR_PROPERTIES()));
+    
+    public static final RegistryObject<Item> SCORCHED_HELMET = ITEMS.register("scorched_helmet", () -> new ScorchedArmor(ArmorMaterial.DIAMOND, EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_CHESTPLATE = ITEMS.register("scorched_chestplate", () -> new ScorchedArmor(ArmorMaterial.DIAMOND, EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_LEGGINGS = ITEMS.register("scorched_leggings", () -> new ScorchedArmor(ArmorMaterial.DIAMOND, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCORCHED_BOOTS = ITEMS.register("scorched_boots", () -> new ScorchedArmor(ArmorMaterial.DIAMOND, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));
     
     //endregion
     
@@ -249,7 +262,7 @@ public class MalumItems
     public static final RegistryObject<Item> RUNIC_GOLD_SCYTHE = ITEMS.register("runic_gold_scythe", () -> new ScytheItem(ItemTier.STONE, 4,-0.2f, GEAR_PROPERTIES()));
     
     //region hidden items
-    public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new EssenceHolderItem(CREATIVE_PROPERTIES(), 100, 9999));
+    public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new EssenceHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
     public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", ()-> new Item(CREATIVE_PROPERTIES()));
     

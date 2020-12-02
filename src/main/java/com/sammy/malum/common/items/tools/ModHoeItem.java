@@ -5,9 +5,9 @@ import net.minecraft.item.IItemTier;
 
 public class ModHoeItem extends HoeItem
 {
-    public ModHoeItem(IItemTier material, float speed, Properties properties)
+    public ModHoeItem(IItemTier material, int damage, float speed, Properties properties)
     {
-        super(material, 0, speed - 3, properties.maxDamage(material.getMaxUses()));
+        super(material, damage, speed - 3, properties.maxDamage(material.getMaxUses()));
     }
     
 }

@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -12,6 +13,7 @@ import java.util.function.Predicate;
 import static com.sammy.malum.MalumHelper.takeAll;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
+import static net.minecraftforge.common.Tags.Blocks.DIRT;
 
 public class BlockTagProvider extends BlockTagsProvider
 {
@@ -33,8 +35,8 @@ public class BlockTagProvider extends BlockTagsProvider
         getOrCreateBuilder(BUTTONS).add(getModBlocks(b -> b instanceof AbstractButtonBlock));
         getOrCreateBuilder(WOODEN_BUTTONS).add(getModBlocks(b -> b instanceof WoodButtonBlock));
         getOrCreateBuilder(PRESSURE_PLATES).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
-        getOrCreateBuilder(LOGS).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
-        
+        getOrCreateBuilder(LOGS).add(getModBlocks(b -> b instanceof RotatedPillarBlock));
+        getOrCreateBuilder(DIRT).add(getModBlocks(b -> b instanceof GrassBlock));
         super.registerTags();
     }
     

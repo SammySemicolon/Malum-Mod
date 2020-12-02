@@ -33,7 +33,8 @@ public class MalumSounds
     
     public static final SoundEvent ZOOM_BLOCK_STEP = new SoundEvent(MalumHelper.prefix("zoom_rock_step"));
     
-    public static final SoundEvent ARCANE_CRAFT = new SoundEvent(MalumHelper.prefix("arcane_craft"));
+    public static final SoundEvent ARCANE_CRAFT_START = new SoundEvent(MalumHelper.prefix("arcane_craft_start"));
+    public static final SoundEvent ARCANE_CRAFT_FINISH = new SoundEvent(MalumHelper.prefix("arcane_craft_finish"));
     
     public static final SoundEvent ABSTRUSE_BLOCK_RETURN = new SoundEvent(MalumHelper.prefix("abstruse_block_return"));
     
@@ -63,7 +64,8 @@ public class MalumSounds
         SOUNDS.register("transmissive_alloy_step", ()-> TRANSMISSIVE_ALLOY_STEP);
         
         SOUNDS.register("zoom_rock_step", ()-> ZOOM_BLOCK_STEP);
-        SOUNDS.register("arcane_craft", ()-> ARCANE_CRAFT);
+        SOUNDS.register("arcane_craft_start", ()-> ARCANE_CRAFT_START);
+        SOUNDS.register("arcane_craft_finish", ()-> ARCANE_CRAFT_FINISH);
         
         SOUNDS.register("abstruse_block_return", ()-> ABSTRUSE_BLOCK_RETURN);
     }

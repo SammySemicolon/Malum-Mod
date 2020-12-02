@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/runic_gold_leggings"
+    "layer0": "malum:item/transmissive_metal_nugget"
   }
 }

@@ -15,10 +15,10 @@ import net.minecraftforge.fml.DistExecutor;
 
 import javax.annotation.Nullable;
 
-public class RunicGoldArmor extends ArmorItem
+public class ScorchedArmor extends ArmorItem
 {
     private final LazyValue<BipedModel<?>> model;
-    public RunicGoldArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
+    public ScorchedArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
     
@@ -38,6 +38,6 @@ public class RunicGoldArmor extends ArmorItem
     @Nullable
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
     {
-        return "malum:textures/armor/runic_gold_armor.png";
+        return "malum:textures/armor/scorched_armor.png";
     }
 }

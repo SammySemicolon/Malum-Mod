@@ -37,7 +37,7 @@ public class ArcaneCraftingTableRenderer extends TileEntityRenderer<ArcaneCrafti
                 matrixStack.push();
                 if (itemCount != 1)
                 {
-                    float distanceMultiplier = (20 - blockEntity.progress) / 20f;
+                    float distanceMultiplier = (30 - Math.min(blockEntity.progress, 20)) / 20f;
                     Vector2f pos = itemCoords(blockEntity.getWorld(), partialTicks, (itemCount / 12f) * distanceMultiplier, i, itemCount);
                     matrixStack.translate(pos.x, 0, pos.y);
                 }

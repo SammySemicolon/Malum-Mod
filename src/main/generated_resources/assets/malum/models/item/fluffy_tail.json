@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/transmissive_alloy"
+    "layer0": "malum:item/fluffy_tail"
   }
 }
