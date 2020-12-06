@@ -53,9 +53,9 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
                     ItemStack shrinkStack = inventory.stacks().stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get();
                     shrinkStack.shrink(recipe.itemStacks.stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get().getCount());
                 }
-                world.playSound(null, pos, MalumSounds.ARCANE_CRAFT_FINISH, SoundCategory.BLOCKS, 1, 1+ MalumMod.RANDOM.nextFloat() * 0.2f);
+                world.playSound(null, pos, MalumSounds.ARCANE_CRAFT_FINISH, SoundCategory.BLOCKS, 1, 1.5f+ MalumMod.RANDOM.nextFloat() * 0.2f);
     
-                progress = 20;
+                progress = 8;
             }
             else
             {
