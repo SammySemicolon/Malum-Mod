@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/scorched_chestplate"
+    "layer0": "malum:item/ruin_helmet"
   }
 }

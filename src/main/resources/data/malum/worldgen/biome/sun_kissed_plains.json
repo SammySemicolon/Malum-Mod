@@ -1,5 +1,6 @@
 {
-  "scale": 0.02,
+  "scale": 0.1,
+  "delta": 200,
   "effects": {
     "mood_sound": {
       "sound": "minecraft:ambient.cave",
@@ -7,6 +8,13 @@
       "block_search_extent": 8,
       "offset": 2.0
     },
+    "particle": {
+      "options": {
+        "type": "minecraft:white_ash"
+      },
+      "probability": 0.118093334
+    },
+    "grass_color": 15381831,
     "sky_color": 7907327,
     "fog_color": 12638463,
     "water_color": 4159204,

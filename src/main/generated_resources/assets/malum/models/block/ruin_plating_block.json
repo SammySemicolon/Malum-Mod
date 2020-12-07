@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "malum:block/scorched_alloy_block"
+    "all": "malum:block/ruin_plating_block"
   }
 }

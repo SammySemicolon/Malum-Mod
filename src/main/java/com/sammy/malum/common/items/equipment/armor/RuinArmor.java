@@ -15,10 +15,10 @@ import net.minecraftforge.fml.DistExecutor;
 
 import javax.annotation.Nullable;
 
-public class ScorchedArmor extends ArmorItem
+public class RuinArmor extends ArmorItem
 {
     private final LazyValue<BipedModel<?>> model;
-    public ScorchedArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
+    public RuinArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
     
@@ -38,6 +38,6 @@ public class ScorchedArmor extends ArmorItem
     @Nullable
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
     {
-        return "malum:textures/armor/scorched_armor.png";
+        return "malum:textures/armor/ruin_armor.png";
     }
 }

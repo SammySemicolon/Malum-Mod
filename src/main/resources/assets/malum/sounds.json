@@ -19,5 +19,6 @@
   "zoom_rock_step": { "sounds":["malum:zoom_rock/step1","malum:zoom_rock/step2","malum:zoom_rock/step3","malum:zoom_rock/step4","malum:zoom_rock/step5","block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.zoom_rock_step" },
   "arcane_craft_start": { "sounds":["malum:arcane_craft/start"], "subtitle": "malum.subtitle.arcane_craft_start" },
   "arcane_craft_finish": { "sounds":["malum:arcane_craft/finish"], "subtitle": "malum.subtitle.arcane_craft_finish" },
-  "abstruse_block_return": { "sounds":["malum:abstruse_block/return1","malum:abstruse_block/return2"], "subtitle": "malum.subtitle.abstruse_block_returns" }
+  "abstruse_block_return": { "sounds":["malum:abstruse_block/return1","malum:abstruse_block/return2"], "subtitle": "malum.subtitle.abstruse_block_returns" },
+  "ruin_armor_equip": { "sounds":["malum:ruin_armor_equip/equip1","malum:ruin_armor_equip/equip2", "malum:ruin_armor_equip/equip3", "malum:ruin_armor_equip/equip4"], "subtitle": "malum.subtitle.ruin_armor_equip" }
 }

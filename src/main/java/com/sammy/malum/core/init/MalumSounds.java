@@ -37,6 +37,7 @@ public class MalumSounds
     public static final SoundEvent ARCANE_CRAFT_FINISH = new SoundEvent(MalumHelper.prefix("arcane_craft_finish"));
     
     public static final SoundEvent ABSTRUSE_BLOCK_RETURN = new SoundEvent(MalumHelper.prefix("abstruse_block_return"));
+    public static final SoundEvent RUIN_ARMOR_EQUIP = new SoundEvent(MalumHelper.prefix("ruin_armor_equip"));
     
     public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, SoundEvents.BLOCK_BASALT_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType CRIMSON_ROCK = new SoundType(1.0F, 1.0F, CRIMSON_ROCK_BREAK, CRIMSON_ROCK_STEP, CRIMSON_ROCK_PLACE, SoundEvents.BLOCK_NETHER_BRICKS_HIT, SoundEvents.BLOCK_NETHER_BRICKS_FALL);
@@ -68,5 +69,6 @@ public class MalumSounds
         SOUNDS.register("arcane_craft_finish", ()-> ARCANE_CRAFT_FINISH);
         
         SOUNDS.register("abstruse_block_return", ()-> ABSTRUSE_BLOCK_RETURN);
+        SOUNDS.register("ruin_armor_equip", ()-> RUIN_ARMOR_EQUIP);
     }
 }

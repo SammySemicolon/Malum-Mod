@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "malum:item/scorched_sword"
+    "layer0": "malum:item/ruin_shovel"
   }
 }
