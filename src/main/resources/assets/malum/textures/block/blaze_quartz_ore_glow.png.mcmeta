@@ -1,0 +1,12 @@
+{
+    "ctm":{
+        "ctm_version": 1,
+        "layer":"CUTOUT",
+        "extra": {
+            "light": {
+                "block": 8,
+                "sky": 15
+            }
+        }
+    }
+}

@@ -36,8 +36,7 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
-        registry.addRecipeCatalyst(new ItemStack(MalumBlocks.SUN_KISSED_ARCANE_CRAFTING_TABLE.get()), ArcaneCraftingRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(MalumBlocks.TAINTED_ARCANE_CRAFTING_TABLE.get()), ArcaneCraftingRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(MalumBlocks.ARCANE_CRAFTING_TABLE.get()), ArcaneCraftingRecipeCategory.UID);
     }
 
     @Nonnull

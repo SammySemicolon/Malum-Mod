@@ -1,7 +1,0 @@
-{
-  "parent": "malum:block/arcane_crafting_table",
-  "textures": {
-    "texture": "malum:block/tainted_arcane_crafting_table",
-    "particle": "malum:block/tainted_planks"
-  }
-}

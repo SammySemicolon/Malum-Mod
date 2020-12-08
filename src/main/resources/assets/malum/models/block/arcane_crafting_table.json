@@ -2,6 +2,10 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"texture_size": [32, 32],
+    	"textures": {
+     	   "particle": "malum:block/tainted_planks",
+     	   "texture": "malum:block/arcane_crafting_table"
+   	},
 	"elements": [
 		{
 			"from": [0, 0, 0],

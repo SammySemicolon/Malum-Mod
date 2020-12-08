@@ -8,6 +8,7 @@ import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBloc
 import com.sammy.malum.common.blocks.essencejar.EssenceJarBlock;
 import com.sammy.malum.common.blocks.essencepipe.EssencePipeBlock;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
@@ -49,6 +50,8 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     protected void registerStatesAndModels()
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        blocks.remove(BLAZE_QUARTZ_ORE);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCraftingTableBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock || b.get() instanceof ZoomRockBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof EssencePipeBlock);
@@ -75,14 +78,6 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     
     public void basicBlock(RegistryObject<Block> blockRegistryObject)
     {
-        if (blockRegistryObject.get() instanceof ArcaneCraftingTableBlock)
-        {
-            String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-            String baseName = name.substring(0, name.length() - 21) + "planks";
-            ModelFile arcaneCraftingTable = models().withExistingParent(name,prefix("block/arcane_crafting_table")).texture("texture", prefix("block/" + name)).texture("particle", prefix("block/" + baseName));
-            simpleBlock(blockRegistryObject.get(), arcaneCraftingTable);
-            return;
-        }
         if (blockRegistryObject.get() instanceof MalumLeavesBlock)
         {
             String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();

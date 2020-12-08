@@ -103,6 +103,7 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(ClientStartupEvents::setCutout);
         setCutout(MalumBlocks.ESSENCE_JAR);
         setCutout(MalumBlocks.ESSENCE_PIPE);
+        setCutout(MalumBlocks.BLAZE_QUARTZ_ORE);
     }
     public static void setCutout(RegistryObject<Block> b)
     {

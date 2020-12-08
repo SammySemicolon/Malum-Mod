@@ -105,6 +105,7 @@ public class MalumBlocks
     }
     
     //endregion
+    
     //region tainted rock
     public static final RegistryObject<Block> TAINTED_ROCK = BLOCKS.register("tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_SLAB = BLOCKS.register("tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
@@ -137,7 +138,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> TAINTED_ROCK_WALL = BLOCKS.register("tainted_rock_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_LANTERN = BLOCKS.register("tainted_lantern", () -> new LanternBlock(AbstractBlock.Properties.from(Blocks.LANTERN)));
+    public static final RegistryObject<Block> TAINTED_LANTERN = BLOCKS.register("tainted_lantern", () -> new LanternBlock(TAINTED_ROCK_PROPERTIES().setLightLevel(MalumBlocks::lanternLight)));
     public static final RegistryObject<Block> ZOOM_ROCK = BLOCKS.register("zoom_rock", () -> new ZoomRockBlock(TAINTED_ROCK_PROPERTIES().sound(MalumSounds.ZOOM_ROCK)));
     //endregion
     
@@ -173,7 +174,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_WALL = BLOCKS.register("darkened_tainted_rock_wall", () -> new WallBlock(DARKENED_TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> DARKENED_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("darkened_tainted_rock_bricks_wall", () -> new WallBlock(DARKENED_TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> MOSSY_DARKENED_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_darkened_tainted_rock_bricks_wall", () -> new WallBlock(DARKENED_TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> DARKENED_TAINTED_LANTERN = BLOCKS.register("darkened_tainted_lantern", () -> new LanternBlock(AbstractBlock.Properties.from(Blocks.LANTERN)));
+    public static final RegistryObject<Block> DARKENED_TAINTED_LANTERN = BLOCKS.register("darkened_tainted_lantern", () -> new LanternBlock(DARKENED_TAINTED_ROCK_PROPERTIES().setLightLevel(MalumBlocks::lanternLight)));
     public static final RegistryObject<Block> DARKENED_ZOOM_ROCK = BLOCKS.register("darkened_zoom_rock", () -> new ZoomRockBlock(DARKENED_TAINTED_ROCK_PROPERTIES().sound(MalumSounds.ZOOM_ROCK)));
     //endregion
     
@@ -209,7 +210,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> CRIMSON_ROCK_WALL = BLOCKS.register("crimson_rock_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS_WALL = BLOCKS.register("crimson_rock_bricks_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> MOSSY_CRIMSON_ROCK_BRICKS_WALL = BLOCKS.register("mossy_crimson_rock_bricks_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRIMSON_LANTERN = BLOCKS.register("crimson_lantern", () -> new LanternBlock(AbstractBlock.Properties.from(Blocks.LANTERN)));
+    public static final RegistryObject<Block> CRIMSON_LANTERN = BLOCKS.register("crimson_lantern", () -> new LanternBlock(CRIMSON_ROCK_PROPERTIES().setLightLevel(MalumBlocks::lanternLight)));
     public static final RegistryObject<Block> CRIMSON_ZOOM_ROCK = BLOCKS.register("crimson_zoom_rock", () -> new ZoomRockBlock(CRIMSON_ROCK_PROPERTIES().sound(MalumSounds.CRIMSON_ZOOM_ROCK)));
     //endregion
     
@@ -278,6 +279,7 @@ public class MalumBlocks
     //endregion
     
     //region contents
+    public static final RegistryObject<Block> BLAZE_QUARTZ_ORE = BLOCKS.register("blaze_quartz_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_QUARTZ_ORE)));
     public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("transmissive_metal_block", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
@@ -291,8 +293,7 @@ public class MalumBlocks
     //endregion
     
     //region crafting blocks
-    public static final RegistryObject<Block> SUN_KISSED_ARCANE_CRAFTING_TABLE = BLOCKS.register("sun_kissed_arcane_crafting_table", () -> new ArcaneCraftingTableBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> TAINTED_ARCANE_CRAFTING_TABLE = BLOCKS.register("tainted_arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
     
     public static final RegistryObject<Block> BLIGHTING_FURNACE = BLOCKS.register("blighting_furnace", () -> new BlightingFurnaceBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> BLIGHTING_FURNACE_TOP = BLOCKS.register("blighting_furnace_top", () -> new BlightedFurnaceBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
@@ -302,4 +303,14 @@ public class MalumBlocks
     public static final RegistryObject<Block> ESSENCE_JAR = BLOCKS.register("essence_jar", () -> new EssenceJarBlock(ESSENCE_JAR_PROPERTIES()));
     public static final RegistryObject<Block> ESSENCE_PIPE = BLOCKS.register("essence_pipe", () -> new EssencePipeBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
     //endregion
+    
+    public static int lanternLight(BlockState state)
+    {
+//        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+//            if (state.getValue(POWERED)) {
+//                return 14;
+//            }
+//        }
+        return 12;
+    }
 }

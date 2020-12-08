@@ -1,6 +1,7 @@
 package com.sammy.malum.core.systems.recipes;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
@@ -42,6 +43,6 @@ public class TaintConversion
     public static void spread(World worldIn, BlockPos pos, TaintConversion conversion)
     {
         MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, conversion.outputBlock.getDefaultState());
-        worldIn.getPendingBlockTicks().scheduleTick(pos, worldIn.getBlockState(pos).getBlock(), 20);
+        worldIn.getPendingBlockTicks().scheduleTick(pos, worldIn.getBlockState(pos).getBlock(), 10 + MalumMod.RANDOM.nextInt(20));
     }
 }

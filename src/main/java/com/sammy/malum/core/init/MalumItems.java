@@ -12,8 +12,6 @@ import com.sammy.malum.core.systems.essences.EssenceHolderBlockitem;
 import com.sammy.malum.core.systems.essences.EssenceHolderItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
-import com.sammy.malum.core.systems.tiers.MalumArmorTiers;
-import com.sammy.malum.core.systems.tiers.MalumItemTiers;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -28,20 +26,21 @@ import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.RUI
 public class MalumItems
 {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    
     public static Item.Properties DEFAULT_PROPERTIES()
     {
         return new Item.Properties().group(MalumCreativeTab.INSTANCE);
     }
+    
     public static Item.Properties GEAR_PROPERTIES()
     {
         return new Item.Properties().group(MalumCreativeTab.INSTANCE).maxStackSize(1);
     }
+    
     public static Item.Properties CREATIVE_PROPERTIES()
     {
         return new Item.Properties().maxStackSize(1);
     }
-    
-    public static final RegistryObject<Item> SOLAR_ORE = ITEMS.register("solar_ore", () -> new BlockItem(MalumBlocks.SOLAR_ORE.get(), DEFAULT_PROPERTIES()));
     
     //region tainted rock
     public static final RegistryObject<Item> TAINTED_ROCK = ITEMS.register("tainted_rock", () -> new BlockItem(MalumBlocks.TAINTED_ROCK.get(), DEFAULT_PROPERTIES()));
@@ -218,17 +217,21 @@ public class MalumItems
     public static final RegistryObject<Item> CORNFLOWER = ITEMS.register("cornflower", () -> new BlockItem(MalumBlocks.CORNFLOWER.get(), DEFAULT_PROPERTIES()));
     //endregion
     
-    //region crafting blocks
-    public static final RegistryObject<Item> TAINTED_ARCANE_CRAFTING_TABLE = ITEMS.register("sun_kissed_arcane_crafting_table", () -> new BlockItem(MalumBlocks.TAINTED_ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_ARCANE_CRAFTING_TABLE = ITEMS.register("tainted_arcane_crafting_table", () -> new BlockItem(MalumBlocks.SUN_KISSED_ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
+    //region ore
     
-    public static final RegistryObject<Item> BLIGHTING_FURNACE = ITEMS.register("blighting_furnace", () -> new MultiblockItem(MalumBlocks.BLIGHTING_FURNACE.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.BLIGHTING_FURNACE_TOP.get())));
-    
+    public static final RegistryObject<Item> BLAZE_QUARTZ_ORE = ITEMS.register("blaze_quartz_ore", () -> new BlockItem(MalumBlocks.BLAZE_QUARTZ_ORE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLAZE_QUARTZ = ITEMS.register("blaze_quartz", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOLAR_ORE = ITEMS.register("solar_ore", () -> new BlockItem(MalumBlocks.SOLAR_ORE.get(), DEFAULT_PROPERTIES()));
     //endregion
+    //region crafting blocks
+    public static final RegistryObject<Item> ARCANE_CRAFTING_TABLE = ITEMS.register("arcane_crafting_table", () -> new BlockItem(MalumBlocks.ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLIGHTING_FURNACE = ITEMS.register("blighting_furnace", () -> new MultiblockItem(MalumBlocks.BLIGHTING_FURNACE.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.BLIGHTING_FURNACE_TOP.get())));
+    //endregion
+    
     //region simple components
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_INGOT  = ITEMS.register("transmissive_metal_ingot", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_NUGGET  = ITEMS.register("transmissive_metal_nugget", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK = ITEMS.register("transmissive_metal_block", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK.get(),DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TRANSMISSIVE_METAL_INGOT = ITEMS.register("transmissive_metal_ingot", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TRANSMISSIVE_METAL_NUGGET = ITEMS.register("transmissive_metal_nugget", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK = ITEMS.register("transmissive_metal_block", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> RUIN_PLATING = ITEMS.register("ruin_plating", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PLATING_BLOCK = ITEMS.register("ruin_plating_block", () -> new BlockItem(MalumBlocks.RUIN_PLATING_BLOCK.get(), DEFAULT_PROPERTIES()));
@@ -243,11 +246,11 @@ public class MalumItems
     //region contents
     public static final RegistryObject<Item> SEED_OF_CORRUPTION = ITEMS.register("seed_of_corruption", () -> new SeedOfCorruption(DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> RUIN_SWORD = ITEMS.register("ruin_sword", () -> new ModSwordItem(RUIN_ITEM, 0,0,GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RUIN_PICKAXE = ITEMS.register("ruin_pickaxe", () -> new ModPickaxeItem(RUIN_ITEM, 0,0,GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RUIN_AXE = ITEMS.register("ruin_axe", () -> new ModAxeItem(RUIN_ITEM, 2,0,GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RUIN_SHOVEL = ITEMS.register("ruin_shovel", () -> new ModShovelItem(RUIN_ITEM, 0,0,GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RUIN_HOE = ITEMS.register("ruin_hoe", () -> new ModHoeItem(RUIN_ITEM, 0,0,GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RUIN_SWORD = ITEMS.register("ruin_sword", () -> new ModSwordItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RUIN_PICKAXE = ITEMS.register("ruin_pickaxe", () -> new ModPickaxeItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RUIN_AXE = ITEMS.register("ruin_axe", () -> new ModAxeItem(RUIN_ITEM, 2, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RUIN_SHOVEL = ITEMS.register("ruin_shovel", () -> new ModShovelItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RUIN_HOE = ITEMS.register("ruin_hoe", () -> new ModHoeItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> RUIN_HELMET = ITEMS.register("ruin_helmet", () -> new RuinArmor(RUIN_ARMOR, EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_CHESTPLATE = ITEMS.register("ruin_chestplate", () -> new RuinArmor(RUIN_ARMOR, EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
@@ -262,17 +265,17 @@ public class MalumItems
     //region essence items
     public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 1, 100));
     public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 4, 20));
-    public static final RegistryObject<Item> ESSENCE_JAR = ITEMS.register("essence_jar", () -> new EssenceHolderBlockitem(MalumBlocks.ESSENCE_JAR.get(),GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> ESSENCE_PIPE = ITEMS.register("essence_pipe", () -> new BlockItem(MalumBlocks.ESSENCE_PIPE.get(),DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ESSENCE_JAR = ITEMS.register("essence_jar", () -> new EssenceHolderBlockitem(MalumBlocks.ESSENCE_JAR.get(), GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> ESSENCE_PIPE = ITEMS.register("essence_pipe", () -> new BlockItem(MalumBlocks.ESSENCE_PIPE.get(), DEFAULT_PROPERTIES()));
     //endregion
-    public static final RegistryObject<Item> SCYTHE_OF_SOL = ITEMS.register("scythe_of_sol", () -> new ScytheItem(ItemTier.STONE, 1,0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SCYTHE_OF_LUNA = ITEMS.register("scythe_of_luna", () -> new ScytheItem(ItemTier.STONE, 1,0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RUNIC_GOLD_SCYTHE = ITEMS.register("runic_gold_scythe", () -> new ScytheItem(ItemTier.STONE, 4,-0.2f, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCYTHE_OF_SOL = ITEMS.register("scythe_of_sol", () -> new ScytheItem(ItemTier.STONE, 1, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SCYTHE_OF_LUNA = ITEMS.register("scythe_of_luna", () -> new ScytheItem(ItemTier.STONE, 1, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RUNIC_GOLD_SCYTHE = ITEMS.register("runic_gold_scythe", () -> new ScytheItem(ItemTier.STONE, 4, -0.2f, GEAR_PROPERTIES()));
     
     //region hidden items
     public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new EssenceHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
-    public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", ()-> new Item(CREATIVE_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", () -> new Item(CREATIVE_PROPERTIES()));
     
     public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));
     //endregion

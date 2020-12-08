@@ -63,7 +63,6 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         String name = Registry.ITEM.getKey(i.get()).getPath();
         withExistingParent(name, GENERATED).texture("layer0", prefix("block/" + name));
     }
-    
     private void blockItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();

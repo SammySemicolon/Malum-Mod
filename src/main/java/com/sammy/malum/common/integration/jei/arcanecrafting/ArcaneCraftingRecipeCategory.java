@@ -32,7 +32,7 @@ public class ArcaneCraftingRecipeCategory implements IRecipeCategory<ArcaneCraft
         background = guiHelper.createBlankDrawable(189, 80);
         localizedName = I18n.format("malum.jei.arcane_crafting");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/arcane_crafting_overlay.png"), 0, 0, 186, 77);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.TAINTED_ARCANE_CRAFTING_TABLE.get()));
+        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.ARCANE_CRAFTING_TABLE.get()));
     }
     
     @Override
