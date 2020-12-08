@@ -231,6 +231,8 @@ public class MalumItems
     
     public static final RegistryObject<Item> RUIN_PLATING = ITEMS.register("ruin_plating", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PLATING_BLOCK = ITEMS.register("ruin_plating_block", () -> new BlockItem(MalumBlocks.RUIN_PLATING_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> RUIN_PLATING_TILES = ITEMS.register("ruin_plating_tiles", () -> new BlockItem(MalumBlocks.RUIN_PLATING_TILES.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> STACKED_RUIN_PLATING = ITEMS.register("stacked_ruin_plating", () -> new BlockItem(MalumBlocks.STACKED_RUIN_PLATING.get(), DEFAULT_PROPERTIES()));
     //endregion
     //region combined components
     public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES()));

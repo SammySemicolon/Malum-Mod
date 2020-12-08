@@ -277,7 +277,11 @@ public class MalumBlocks
     public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("transmissive_metal_block", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> RUIN_PLATING_BLOCK = BLOCKS.register("ruin_plating_block", () -> new Block(CRIMSON_ROCK_PROPERTIES().hardnessAndResistance(5f,3600f)));
+    
+    public static final RegistryObject<Block> RUIN_PLATING_BLOCK = BLOCKS.register("ruin_plating_block", () -> new Block(TAINTED_ROCK_PROPERTIES().hardnessAndResistance(5f,3600f)));
+    public static final RegistryObject<Block> RUIN_PLATING_TILES = BLOCKS.register("ruin_plating_tiles", () -> new Block(TAINTED_ROCK_PROPERTIES().hardnessAndResistance(5f,3600f)));
+    public static final RegistryObject<Block> STACKED_RUIN_PLATING = BLOCKS.register("stacked_ruin_plating", () -> new Block(TAINTED_ROCK_PROPERTIES().hardnessAndResistance(5f,3600f)));
+    
     public static final RegistryObject<Block> WITHER_SAND = BLOCKS.register("wither_sand", () -> new WitherSandBlock(AbstractBlock.Properties.from(Blocks.SOUL_SAND)));
     
     //endregion

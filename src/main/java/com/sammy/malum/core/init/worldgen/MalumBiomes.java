@@ -26,7 +26,7 @@ public class MalumBiomes
     }
     
     public static RegistryObject<Biome> createBiome(String name, Supplier<Biome> biome) {
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(MalumMod.MODID, "sun_kissed_plains")), 4000));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(MalumMod.MODID, "sun_kissed_plains")), 200));
         return BIOMES.register(name, biome);
     }
 }
