@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init;
 
+import com.sammy.malum.common.items.SeedOfCorruption;
 import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
 import com.sammy.malum.common.items.tools.*;
 import com.sammy.malum.common.items.tools.scythes.CreativeScythe;
@@ -240,6 +241,8 @@ public class MalumItems
     //endregion
     
     //region contents
+    public static final RegistryObject<Item> SEED_OF_CORRUPTION = ITEMS.register("seed_of_corruption", () -> new SeedOfCorruption(DEFAULT_PROPERTIES()));
+    
     public static final RegistryObject<Item> RUIN_SWORD = ITEMS.register("ruin_sword", () -> new ModSwordItem(RUIN_ITEM, 0,0,GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PICKAXE = ITEMS.register("ruin_pickaxe", () -> new ModPickaxeItem(RUIN_ITEM, 0,0,GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_AXE = ITEMS.register("ruin_axe", () -> new ModAxeItem(RUIN_ITEM, 2,0,GEAR_PROPERTIES()));

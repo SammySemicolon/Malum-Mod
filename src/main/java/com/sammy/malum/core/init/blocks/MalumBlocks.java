@@ -8,6 +8,10 @@ import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlo
 import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceBlock;
 import com.sammy.malum.common.blocks.essencejar.EssenceJarBlock;
 import com.sammy.malum.common.blocks.essencepipe.EssencePipeBlock;
+import com.sammy.malum.common.blocks.taint.TaintedBlock;
+import com.sammy.malum.common.blocks.taint.TaintedGrassBlock;
+import com.sammy.malum.common.blocks.taint.TaintedLeavesBlock;
+import com.sammy.malum.common.blocks.taint.TaintedLogBlock;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
 import com.sammy.malum.common.world.features.tree.TaintedTree;
@@ -231,12 +235,12 @@ public class MalumBlocks
     //endregion
     
     //region tainted wood
-    public static final RegistryObject<Block> TAINTED_LOG = BLOCKS.register("tainted_log", () -> new RotatedPillarBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> STRIPPED_TAINTED_LOG = BLOCKS.register("stripped_tainted_log", () -> new RotatedPillarBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_WOOD = BLOCKS.register("tainted_wood", () -> new Block(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> STRIPPED_TAINTED_WOOD = BLOCKS.register("stripped_tainted_wood", () -> new Block(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_LOG = BLOCKS.register("tainted_log", () -> new TaintedLogBlock(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> STRIPPED_TAINTED_LOG = BLOCKS.register("stripped_tainted_log", () -> new TaintedLogBlock(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_WOOD = BLOCKS.register("tainted_wood", () -> new TaintedBlock(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> STRIPPED_TAINTED_WOOD = BLOCKS.register("stripped_tainted_wood", () -> new TaintedBlock(TAINTED_WOOD_PROPERTIES()));
     
-    public static final RegistryObject<Block> TAINTED_PLANKS = BLOCKS.register("tainted_planks", () -> new Block(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_PLANKS = BLOCKS.register("tainted_planks", () -> new TaintedBlock(TAINTED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_PLANKS_SLAB = BLOCKS.register("tainted_planks_slab", () -> new SlabBlock(TAINTED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_PLANKS_STAIRS = BLOCKS.register("tainted_planks_stairs", () -> new StairsBlock(TAINTED_PLANKS.get().getDefaultState(), TAINTED_WOOD_PROPERTIES()));
     
@@ -264,13 +268,13 @@ public class MalumBlocks
     //endregion
     
     //region tainted biome blocks
-    public static final RegistryObject<Block> TAINTED_GRASS_BLOCK = BLOCKS.register("tainted_grass_block", () -> new GrassBlock(TAINTED_GRASS_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_GRASS_BLOCK = BLOCKS.register("tainted_grass_block", () -> new TaintedGrassBlock(TAINTED_GRASS_BLOCK_PROPERTIES()));
     
     public static final RegistryObject<Block> SHORT_TAINTED_GRASS = BLOCKS.register("short_tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_GRASS = BLOCKS.register("tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TALL_TAINTED_GRASS = BLOCKS.register("tall_tainted_grass", () -> new DoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new SaplingBlock(new TaintedTree(), TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new MalumLeavesBlock(TAINTED_LEAVES_PROPERTIES(), new Color(255, 26, 26), new Color(255, 123, 205)));
+    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new TaintedLeavesBlock(TAINTED_LEAVES_PROPERTIES(), new Color(147, 4, 62), new Color(255, 123, 205)));
     //endregion
     
     //region contents

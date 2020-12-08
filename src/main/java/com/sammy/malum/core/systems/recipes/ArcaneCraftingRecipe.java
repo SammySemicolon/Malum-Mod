@@ -30,7 +30,7 @@ public class ArcaneCraftingRecipe
         this.outputItem = outputItem;
         this.outputItemCount = outputItemCount;
     }
-    public static void initRecipes()
+    public static void init()
     {
         recipes.add(new ArcaneCraftingRecipe(
                 MalumHelper.toArrayList(ILLUSTRIOUS_FABRIC.get(), SMOOTH_TAINTED_ROCK.get()),

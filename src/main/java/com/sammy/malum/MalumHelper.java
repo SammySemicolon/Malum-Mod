@@ -1,7 +1,11 @@
 package com.sammy.malum;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.Property;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -88,5 +92,25 @@ public class MalumHelper
             return Collections.emptyList();
         }
         return ret;
+    }
+    public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)
+    {
+        BlockState oldState = world.getBlockState(pos);
+        
+        BlockState finalState = newState;
+        for (Property<?> property : oldState.getProperties())
+        {
+            if (newState.hasProperty(property))
+            {
+                finalState = newStateWithOldProperty(oldState, finalState, property);
+            }
+        }
+        
+        world.notifyBlockUpdate(pos, oldState, finalState, 3);
+        world.setBlockState(pos, finalState);
+    }
+    public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, Property<T> property)
+    {
+        return newState.with(property, oldState.get(property));
     }
 }
