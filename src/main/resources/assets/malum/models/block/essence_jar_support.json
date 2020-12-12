@@ -3,8 +3,8 @@
 	"ambientocclusion": false,
 	"textures": {
 		"1": "malum:block/essence_jar_connected",
-		"3": "malum:block/chiseled_darkened_tainted_rock_bricks",
-		"particle": "malum:block/essence_jar_connected"
+		"3": "malum:block/chiseled_darkened_rock_bricks",
+		"particle": "malum:block/chiseled_darkened_rock"
 	},
 	"elements": [
 		{

@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "malum:block/essence_pipe",
-		"particle": "malum:block/transmissive_alloy_block"
+		"particle": "malum:block/transmissive_metal_block"
 	},
 	"elements": [
 		{

@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.essencepipe;
 
 import com.google.common.collect.Maps;
+import com.sammy.malum.core.systems.essences.IEssencePipe;
 import com.sammy.malum.core.systems.essences.IEssenceRequest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -21,7 +22,7 @@ import net.minecraft.world.World;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class EssencePipeBlock extends Block
+public class EssencePipeBlock extends Block implements IEssencePipe
 {
     //region properties
     public static final BooleanProperty NORTH_EXTENSION = BooleanProperty.create("north_extension");
@@ -125,10 +126,7 @@ public class EssencePipeBlock extends Block
     
     public BlockState figureOutState(World world, BlockPos pos)
     {
-        return figureOutState(world, pos, b -> b instanceof IEssenceRequest || b instanceof EssencePipeBlock);
-    }
-    public BlockState figureOutState(World world, BlockPos pos, Predicate<Block> statePredicate)
-    {
+        Predicate<Block> statePredicate = b -> b instanceof IEssenceRequest || b instanceof IEssencePipe;
         BlockState finalState = getDefaultState();
         Block north = world.getBlockState(pos.north()).getBlock();
         Block south = world.getBlockState(pos.south()).getBlock();

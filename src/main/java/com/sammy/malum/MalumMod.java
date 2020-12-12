@@ -1,9 +1,6 @@
 package com.sammy.malum;
 
-import com.sammy.malum.core.data.BlockStateProvider;
-import com.sammy.malum.core.data.BlockTagProvider;
-import com.sammy.malum.core.data.ItemModelProvider;
-import com.sammy.malum.core.data.LangProvider;
+import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -46,9 +43,10 @@ public class MalumMod
     
     public void gatherData(GatherDataEvent evt)
     {
-        evt.getGenerator().addProvider(new BlockStateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-        evt.getGenerator().addProvider(new ItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-        evt.getGenerator().addProvider(new LangProvider(evt.getGenerator()));
-        evt.getGenerator().addProvider(new BlockTagProvider(evt.getGenerator()));
+        evt.getGenerator().addProvider(new MalumBlockStateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+        evt.getGenerator().addProvider(new MalumItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+        evt.getGenerator().addProvider(new MalumLangProvider(evt.getGenerator()));
+        evt.getGenerator().addProvider(new MalumBlockTagProvider(evt.getGenerator()));
+        evt.getGenerator().addProvider(new MalumLootTableProvider(evt.getGenerator()));
     }
 }

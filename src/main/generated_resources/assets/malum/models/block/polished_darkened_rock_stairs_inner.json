@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "side": "malum:block/polished_darkened_rock",
+    "bottom": "malum:block/polished_darkened_rock",
+    "top": "malum:block/polished_darkened_rock"
+  }
+}

@@ -2,10 +2,12 @@
   "tainted_rock_break": { "sounds":["malum:tainted_rock/break1","malum:tainted_rock/break2","malum:tainted_rock/break3","malum:tainted_rock/break4","malum:tainted_rock/break5"], "subtitle": "malum.subtitle.tainted_rock_break" },
   "tainted_rock_step": { "sounds":["malum:tainted_rock/step1","malum:tainted_rock/step2","malum:tainted_rock/step3","malum:tainted_rock/step4","malum:tainted_rock/step5","malum:tainted_rock/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.tainted_rock_step" },
   "tainted_rock_place": { "sounds":["malum:tainted_rock/break1","malum:tainted_rock/break2","malum:tainted_rock/break3","malum:tainted_rock/break4","malum:tainted_rock/break5"], "subtitle": "malum.subtitle.tainted_rock_place" },
-
+  "tainted_rock_hit": { "sounds":["malum:tainted_rock/step1","malum:tainted_rock/step2","malum:tainted_rock/step3","malum:tainted_rock/step4","malum:tainted_rock/step5","malum:tainted_rock/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.tainted_rock_hit" },
+  
   "crimson_rock_break": { "sounds":["malum:crimson_rock/break1","malum:crimson_rock/break2","malum:crimson_rock/break3","malum:crimson_rock/break4","malum:crimson_rock/break5"], "subtitle": "malum.subtitle.crimson_rock_break" },
   "crimson_rock_step": { "sounds":["malum:crimson_rock/step1","malum:crimson_rock/step2","malum:crimson_rock/step3","malum:crimson_rock/step4","malum:crimson_rock/step5","malum:crimson_rock/step6", "block/nether_bricks/step1","block/nether_bricks/step2","block/nether_bricks/step3","block/nether_bricks/step4","block/nether_bricks/step5","block/nether_bricks/step6"], "subtitle": "malum.subtitle.crimson_rock_step" },
   "crimson_rock_place": { "sounds":["malum:crimson_rock/break1","malum:crimson_rock/break2","malum:crimson_rock/break3","malum:crimson_rock/break4","malum:crimson_rock/break5"], "subtitle": "malum.subtitle.crimson_rock_place" },
+  "crimson_rock_hit": { "sounds":["malum:crimson_rock/step1","malum:crimson_rock/step2","malum:crimson_rock/step3","malum:crimson_rock/step4","malum:crimson_rock/step5","malum:crimson_rock/step6", "block/nether_bricks/step1","block/nether_bricks/step2","block/nether_bricks/step3","block/nether_bricks/step4","block/nether_bricks/step5","block/nether_bricks/step6"], "subtitle": "malum.subtitle.crimson_rock_hit" },
 
   "solar_ore_break": { "sounds":["malum:solar_ore/break1","malum:solar_ore/break2","malum:solar_ore/break3","malum:solar_ore/break4"], "subtitle": "malum.subtitle.solar_ore_break" },
   "solar_ore_hit": { "sounds":["malum:solar_ore/hit1","malum:solar_ore/hit2","malum:solar_ore/hit3","malum:solar_ore/hit4"], "subtitle": "malum.subtitle.solar_ore_hit" },
@@ -16,9 +18,14 @@
   "transmissive_alloy_place": { "sounds":["malum:transmissive_alloy/break1","malum:transmissive_alloy/break2","malum:transmissive_alloy/break3","malum:transmissive_alloy/break4"], "subtitle": "malum.subtitle.transmissive_alloy_place" },
   "transmissive_alloy_hit": { "sounds":["malum:transmissive_alloy/hit1","malum:transmissive_alloy/hit2","malum:transmissive_alloy/hit3","malum:transmissive_alloy/hit4", "malum:transmissive_alloy/hit5", "malum:transmissive_alloy/hit6"], "subtitle": "malum.subtitle.transmissive_alloy_hit" },
 
-  "zoom_rock_step": { "sounds":["malum:zoom_rock/step1","malum:zoom_rock/step2","malum:zoom_rock/step3","malum:zoom_rock/step4","malum:zoom_rock/step5","block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.zoom_rock_step" },
+  "ruin_plating_break": { "sounds":["malum:ruin_plating/break1","malum:ruin_plating/break2","malum:ruin_plating/break3","malum:ruin_plating/break4"], "subtitle": "malum.subtitle.ruin_plating_break" },
+  "ruin_plating_step": { "sounds":["malum:ruin_plating/hit1","malum:ruin_plating/hit2","malum:ruin_plating/hit3","malum:ruin_plating/hit4"], "subtitle": "malum.subtitle.ruin_plating_step" },
+  "ruin_plating_place": { "sounds":["malum:ruin_plating/break1","malum:ruin_plating/break2","malum:ruin_plating/break3","malum:ruin_plating/break4"], "subtitle": "malum.subtitle.ruin_plating_place" },
+  "ruin_plating_hit": { "sounds":["malum:ruin_plating/hit1","malum:ruin_plating/hit2","malum:ruin_plating/hit3","malum:ruin_plating/hit4"], "subtitle": "malum.subtitle.ruin_plating_hit" },
+
   "arcane_craft_start": { "sounds":["malum:arcane_craft/start"], "subtitle": "malum.subtitle.arcane_craft_start" },
   "arcane_craft_finish": { "sounds":["malum:arcane_craft/finish"], "subtitle": "malum.subtitle.arcane_craft_finish" },
   "abstruse_block_return": { "sounds":["malum:abstruse_block/return1","malum:abstruse_block/return2"], "subtitle": "malum.subtitle.abstruse_block_returns" },
-  "ruin_armor_equip": { "sounds":["malum:ruin_armor_equip/equip1","malum:ruin_armor_equip/equip2", "malum:ruin_armor_equip/equip3", "malum:ruin_armor_equip/equip4"], "subtitle": "malum.subtitle.ruin_armor_equip" }
+  "ruin_armor_equip": { "sounds":["malum:ruin_armor_equip/equip1","malum:ruin_armor_equip/equip2", "malum:ruin_armor_equip/equip3", "malum:ruin_armor_equip/equip4"], "subtitle": "malum.subtitle.ruin_armor_equip" },
+  "taint_spread": { "sounds":["malum:taint/spread1","malum:taint/spread2","malum:taint/spread3","malum:taint/spread4"], "subtitle": "malum.subtitle.taint_spread" }
 }

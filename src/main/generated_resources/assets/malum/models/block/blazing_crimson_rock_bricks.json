@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "malum:block/blazing_crimson_rock_bricks"
+  }
+}

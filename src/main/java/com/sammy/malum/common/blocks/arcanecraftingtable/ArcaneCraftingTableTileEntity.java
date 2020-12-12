@@ -3,13 +3,12 @@ package com.sammy.malum.common.blocks.arcanecraftingtable;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
-import com.sammy.malum.core.systems.recipes.ArcaneCraftingRecipe;
+import com.sammy.malum.core.recipes.ArcaneCraftingRecipe;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "malum:block/archaic_rock_pressure_plate_up"
+    },
+    "powered=true": {
+      "model": "malum:block/archaic_rock_pressure_plate_down"
+    }
+  }
+}

@@ -19,13 +19,15 @@ public class ScytheItem extends ModSwordItem implements EventSubscriberItem
     }
     
     @Override
-    public boolean onEntityKill(ItemStack stack, PlayerEntity player, LivingEntity entity, boolean run)
+    public boolean hasEntityKill()
     {
-        if (run)
-        {
-            harvest(entity, player, stack);
-        }
         return true;
+    }
+    
+    @Override
+    public void onEntityKill(ItemStack stack, PlayerEntity player, LivingEntity entity)
+    {
+        harvest(entity, player, stack);
     }
     
     public void harvest(LivingEntity target, PlayerEntity attacker, ItemStack stack)

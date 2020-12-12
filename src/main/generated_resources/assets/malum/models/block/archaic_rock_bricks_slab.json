@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "malum:block/archaic_rock_bricks",
+    "bottom": "malum:block/archaic_rock_bricks",
+    "top": "malum:block/archaic_rock_bricks"
+  }
+}

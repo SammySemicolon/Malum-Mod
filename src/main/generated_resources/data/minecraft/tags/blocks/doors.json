@@ -2,8 +2,6 @@
   "replace": false,
   "values": [
     "malum:sun_kissed_door",
-    "malum:tainted_door",
-    "#minecraft:wooden_doors",
-    "minecraft:iron_door"
+    "malum:tainted_door"
   ]
 }

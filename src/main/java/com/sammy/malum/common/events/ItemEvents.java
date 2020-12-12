@@ -22,9 +22,9 @@ public class ItemEvents
         {
             BlockState state = event.getWorld().getBlockState(event.getPos());
             EventSubscriberItem eventSubscriberItem = ((EventSubscriberItem) item);
-            if (eventSubscriberItem.onBlockRightClick(event.getItemStack(), event.getPlayer(), state, event.getPos(), false))
+            if (eventSubscriberItem.hasBlockRightClick())
             {
-                eventSubscriberItem.onBlockRightClick(event.getItemStack(), event.getPlayer(), state, event.getPos(), true);
+                eventSubscriberItem.onBlockRightClick(event.getItemStack(), event.getPlayer(), state, event.getHand(), event.getPos());
             }
         }
     }
@@ -47,9 +47,9 @@ public class ItemEvents
             if (item instanceof EventSubscriberItem)
             {
                 EventSubscriberItem eventSubscriberItem = ((EventSubscriberItem) item);
-                if (eventSubscriberItem.onEntityKill(stack,attacker,event.getEntityLiving(),false))
+                if (eventSubscriberItem.hasEntityKill())
                 {
-                    eventSubscriberItem.onEntityKill(stack,attacker,event.getEntityLiving(), true);
+                    eventSubscriberItem.onEntityKill(stack,attacker,event.getEntityLiving());
                 }
             }
         }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "malum:block/stacked_transmissive_metal_slab_top"
+    },
+    "type=bottom": {
+      "model": "malum:block/stacked_transmissive_metal_slab"
+    },
+    "type=double": {
+      "model": "malum:block/stacked_transmissive_metal"
+    }
+  }
+}

@@ -6,18 +6,40 @@
       "r": 255,
       "g": 210,
       "b": 243,
-      "radius": 2,
+      "radius": 12,
       "state": {
         "property": "",
         "value": ""
       }
     },
     {
-      "name": "malum:darkened_tainted_lantern",
+      "name": "malum:darkened_lantern",
       "r": 255,
       "g": 210,
       "b": 243,
-      "radius": 2,
+      "radius": 12,
+      "state": {
+        "property": "",
+        "value": ""
+      }
+    },
+    {
+      "name": "malum:crimson_lantern",
+      "r": 255,
+      "g": 226,
+      "b": 107,
+      "radius": 12,
+      "state": {
+        "property": "",
+        "value": ""
+      }
+    },
+    {
+      "name": "malum:archaic_lantern",
+      "r": 255,
+      "g": 226,
+      "b": 107,
+      "radius": 12,
       "state": {
         "property": "",
         "value": ""

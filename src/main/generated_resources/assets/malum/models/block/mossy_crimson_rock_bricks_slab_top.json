@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "side": "malum:block/mossy_crimson_rock_bricks",
-    "bottom": "malum:block/mossy_crimson_rock_bricks",
-    "top": "malum:block/mossy_crimson_rock_bricks"
-  }
-}

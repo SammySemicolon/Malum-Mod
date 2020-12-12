@@ -4,8 +4,6 @@
     "malum:sun_kissed_trapdoor",
     "malum:solid_sun_kissed_trapdoor",
     "malum:tainted_trapdoor",
-    "malum:solid_tainted_trapdoor",
-    "#minecraft:wooden_trapdoors",
-    "minecraft:iron_trapdoor"
+    "malum:solid_tainted_trapdoor"
   ]
 }

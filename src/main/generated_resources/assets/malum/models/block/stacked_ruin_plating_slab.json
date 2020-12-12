@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "malum:block/stacked_ruin_plating",
+    "bottom": "malum:block/stacked_ruin_plating",
+    "top": "malum:block/stacked_ruin_plating"
+  }
+}

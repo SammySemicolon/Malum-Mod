@@ -4,7 +4,7 @@
 	"textures": {
 		"1": "malum:block/essence_jar_pipe_connections",
 		"4": "malum:block/essence_jar",
-		"particle": "malum:block/essence_jar_pipe_connections"
+		"particle": "malum:block/transmissive_metal_block"
 	},
 	"elements": [
 		{

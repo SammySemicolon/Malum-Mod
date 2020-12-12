@@ -93,7 +93,7 @@ public class MalumHelper
         }
         return ret;
     }
-    public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState)
+    public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState, int flags)
     {
         BlockState oldState = world.getBlockState(pos);
         
@@ -106,7 +106,7 @@ public class MalumHelper
             }
         }
         
-        world.notifyBlockUpdate(pos, oldState, finalState, 3);
+        world.notifyBlockUpdate(pos, oldState, finalState, flags);
         world.setBlockState(pos, finalState);
     }
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, Property<T> property)

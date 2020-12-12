@@ -1,6 +1,0 @@
-{   "parent": "malum:block/zoom_rock",
-    "textures": {
-        "bottom": "malum:block/smooth_crimson_rock",
-        "side": "malum:block/smooth_crimson_rock"
-    }
-}

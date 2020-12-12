@@ -3,6 +3,7 @@ package com.sammy.malum.common.blocks.essencejar;
 import com.google.common.collect.Maps;
 import com.sammy.malum.common.blocks.essencepipe.EssencePipeBlock;
 import com.sammy.malum.core.systems.essences.EssenceHolderBlock;
+import com.sammy.malum.core.systems.essences.IEssencePipe;
 import com.sammy.malum.core.systems.essences.IEssenceRequest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -114,23 +115,23 @@ public class EssenceJarBlock extends EssenceHolderBlock implements IEssenceReque
         Block west = world.getBlockState(pos.west()).getBlock();
         Block east = world.getBlockState(pos.east()).getBlock();
         Block up = world.getBlockState(pos.up()).getBlock();
-        if (north instanceof EssencePipeBlock)
+        if (north instanceof IEssencePipe)
         {
             finalState = finalState.with(NORTH_CONNECTION, true);
         }
-        if (south instanceof EssencePipeBlock)
+        if (south instanceof IEssencePipe)
         {
             finalState = finalState.with(SOUTH_CONNECTION, true);
         }
-        if (west instanceof EssencePipeBlock)
+        if (west instanceof IEssencePipe)
         {
             finalState = finalState.with(WEST_CONNECTION, true);
         }
-        if (east instanceof EssencePipeBlock)
+        if (east instanceof IEssencePipe)
         {
             finalState = finalState.with(EAST_CONNECTION, true);
         }
-        if (up instanceof EssencePipeBlock)
+        if (up instanceof IEssencePipe)
         {
             finalState = finalState.with(UP, 2);
         }
