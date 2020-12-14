@@ -6,6 +6,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "malum:tainted_door",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
           "name": "malum:tainted_door"
         }
       ],

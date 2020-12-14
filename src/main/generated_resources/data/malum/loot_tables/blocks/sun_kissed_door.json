@@ -6,6 +6,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "malum:sun_kissed_door",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
           "name": "malum:sun_kissed_door"
         }
       ],

@@ -2,7 +2,7 @@ package com.sammy.malum.common.entities;
 
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.systems.essences.EssenceHelper;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +17,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class SpiritEssenceEntity extends ProjectileItemEntity
@@ -49,7 +48,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
             Entity entity = p_213868_1_.getEntity();
             if (entity.equals(owner()))
             {
-                EssenceHelper.harvestSpirit(spirits, owner);
+                SpiritHelper.harvestSpirit(spirits, owner);
                 remove();
             }
         }

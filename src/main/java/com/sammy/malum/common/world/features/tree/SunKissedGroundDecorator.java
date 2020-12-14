@@ -3,7 +3,6 @@ package com.sammy.malum.common.world.features.tree;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -76,7 +75,7 @@ public class SunKissedGroundDecorator extends AlterGroundTreeDecorator
                 reader.setBlockState(blockpos, stateProvider.getBlockState(random, pos), 19);
                 createFlower(reader, random, blockpos.up(), new Block[]{MalumBlocks.SHORT_SUN_KISSED_GRASS.get(), MalumBlocks.SUN_KISSED_GRASS.get(), MalumBlocks.TALL_SUN_KISSED_GRASS.get()}, 0.5f);
     
-                createFlower(reader, random, blockpos.up(), new Block[]{MalumBlocks.LAVENDER.get(), MalumBlocks.CORNFLOWER.get()}, 0.1f);
+                createFlower(reader, random, blockpos.up(), new Block[]{MalumBlocks.LAVENDER.get(), MalumBlocks.MARIGOLD.get()}, 0.1f);
                 break;
             }
             if (!Feature.isAirAt(reader, blockpos) && i < 0)

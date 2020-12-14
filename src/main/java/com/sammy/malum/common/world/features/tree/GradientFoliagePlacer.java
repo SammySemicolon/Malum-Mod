@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.core.init.worldgen.MalumFoliagePlacerTypes;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.gen.IWorldGenerationReader;
@@ -50,7 +51,7 @@ public class GradientFoliagePlacer extends SpruceFoliagePlacer
                     if (TreeFeature.isReplaceableAt(worldGenerationReader, blockpos$mutable))
                     {
                         int color = Math.max(Math.min(Math.abs(yPos),9),0);
-                        worldGenerationReader.setBlockState(blockpos$mutable, baseTreeFeatureConfig.leavesProvider.getBlockState(random, blockpos$mutable).with(MalumLeavesBlock.COLOR, color), 19);
+                        worldGenerationReader.setBlockState(blockpos$mutable, baseTreeFeatureConfig.leavesProvider.getBlockState(random, blockpos$mutable).with(MalumLeavesBlock.COLOR, color).with(LeavesBlock.PERSISTENT, false), 19);
                         boundingBox.expandTo(new MutableBoundingBox(blockpos$mutable, blockpos$mutable));
                         posSet.add(blockpos$mutable.toImmutable());
                     }

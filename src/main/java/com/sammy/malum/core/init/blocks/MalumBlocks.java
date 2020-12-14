@@ -1,18 +1,16 @@
 package com.sammy.malum.core.init.blocks;
 
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.MalumTallGrassBlock;
 import com.sammy.malum.common.blocks.WitherSandBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlock;
 import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceBlock;
-import com.sammy.malum.common.blocks.essencejar.EssenceJarBlock;
-import com.sammy.malum.common.blocks.essencepipe.EssencePipeBlock;
+import com.sammy.malum.common.blocks.essencejar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.essencepipe.OpenTransmissiveMetalBlock;
-import com.sammy.malum.common.blocks.taint.TaintedBlock;
-import com.sammy.malum.common.blocks.taint.TaintedGrassBlock;
-import com.sammy.malum.common.blocks.taint.TaintedLeavesBlock;
-import com.sammy.malum.common.blocks.taint.TaintedLogBlock;
+import com.sammy.malum.common.blocks.essencepipe.SpiritPipeBlock;
+import com.sammy.malum.common.blocks.taint.*;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
 import com.sammy.malum.common.world.features.tree.TaintedTree;
 import com.sammy.malum.core.init.MalumSounds;
@@ -280,39 +278,41 @@ public class MalumBlocks
     public static final RegistryObject<Block> STRIPPED_TAINTED_WOOD = BLOCKS.register("stripped_tainted_wood", () -> new TaintedBlock(TAINTED_WOOD_PROPERTIES()));
     
     public static final RegistryObject<Block> TAINTED_PLANKS = BLOCKS.register("tainted_planks", () -> new TaintedBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_PLANKS_SLAB = BLOCKS.register("tainted_planks_slab", () -> new SlabBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_PLANKS_STAIRS = BLOCKS.register("tainted_planks_stairs", () -> new StairsBlock(TAINTED_PLANKS.get().getDefaultState(), TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_PLANKS_SLAB = BLOCKS.register("tainted_planks_slab", () -> new TaintedSlabBlock(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_PLANKS_STAIRS = BLOCKS.register("tainted_planks_stairs", () -> new TaintedStairsBlock(TAINTED_PLANKS.get().getDefaultState(), TAINTED_WOOD_PROPERTIES()));
     
-    public static final RegistryObject<Block> TAINTED_DOOR = BLOCKS.register("tainted_door", () -> new DoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> TAINTED_TRAPDOOR = BLOCKS.register("tainted_trapdoor", () -> new TrapDoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> SOLID_TAINTED_TRAPDOOR = BLOCKS.register("solid_tainted_trapdoor", () -> new TrapDoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> TAINTED_DOOR = BLOCKS.register("tainted_door", () -> new TaintedDoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> TAINTED_TRAPDOOR = BLOCKS.register("tainted_trapdoor", () -> new TaintedTrapdoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> SOLID_TAINTED_TRAPDOOR = BLOCKS.register("solid_tainted_trapdoor", () -> new TaintedTrapdoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
     
-    public static final RegistryObject<Block> TAINTED_PLANKS_BUTTON = BLOCKS.register("tainted_planks_button", () -> new WoodButtonBlock(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_PLANKS_BUTTON = BLOCKS.register("tainted_planks_button", () -> new TaintedButtonBlock(TAINTED_WOOD_PROPERTIES()));
     
-    public static final RegistryObject<Block> TAINTED_PLANKS_FENCE = BLOCKS.register("tainted_planks_fence", () -> new FenceBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_PLANKS_FENCE_GATE = BLOCKS.register("tainted_planks_fence_gate", () -> new FenceGateBlock(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_PLANKS_FENCE = BLOCKS.register("tainted_planks_fence", () -> new TaintedFenceBlock(TAINTED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_PLANKS_FENCE_GATE = BLOCKS.register("tainted_planks_fence_gate", () -> new TaintedFenceGateBlock(TAINTED_WOOD_PROPERTIES()));
     //endregion
+    public static final RegistryObject<Block> MARIGOLD = BLOCKS.register("marigold", () -> new BushBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     
     //region sun kissed biome blocks
     public static final RegistryObject<Block> SUN_KISSED_GRASS_BLOCK = BLOCKS.register("sun_kissed_grass_block", () -> new GrassBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> SHORT_SUN_KISSED_GRASS = BLOCKS.register("short_sun_kissed_grass", () -> new TallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new TallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> TALL_SUN_KISSED_GRASS = BLOCKS.register("tall_sun_kissed_grass", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
+    public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
+    public static final RegistryObject<Block> SHORT_SUN_KISSED_GRASS = BLOCKS.register("short_sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
     public static final RegistryObject<Block> SUN_KISSED_SAPLING = BLOCKS.register("sun_kissed_sapling", () -> new SaplingBlock(new SunKissedTree(), SUN_KISSED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(234, 129, 56), new Color(255, 230, 93)));
     
     public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> CORNFLOWER = BLOCKS.register("cornflower", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     //endregion
     
     //region tainted biome blocks
     public static final RegistryObject<Block> TAINTED_GRASS_BLOCK = BLOCKS.register("tainted_grass_block", () -> new TaintedGrassBlock(TAINTED_GRASS_BLOCK_PROPERTIES()));
     
-    public static final RegistryObject<Block> SHORT_TAINTED_GRASS = BLOCKS.register("short_tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_GRASS = BLOCKS.register("tainted_grass", () -> new TallGrassBlock(TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TALL_TAINTED_GRASS = BLOCKS.register("tall_tainted_grass", () -> new DoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new SaplingBlock(new TaintedTree(), TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new TaintedLeavesBlock(LEAVES_PROPERTIES(), new Color(147, 4, 62), new Color(255, 123, 205)));
+    public static final RegistryObject<Block> TALL_TAINTED_GRASS = BLOCKS.register("tall_tainted_grass", () -> new TaintedDoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_GRASS = BLOCKS.register("tainted_grass", () -> new TaintedTallGrassBlock(TAINTED_PLANTS_PROPERTIES(), TALL_TAINTED_GRASS));
+    public static final RegistryObject<Block> SHORT_TAINTED_GRASS = BLOCKS.register("short_tainted_grass", () -> new TaintedTallGrassBlock(TAINTED_PLANTS_PROPERTIES(), TALL_TAINTED_GRASS));
+    public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new TaintedSaplingBlock(new TaintedTree(), TAINTED_PLANTS_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new TaintedLeavesBlock(LEAVES_PROPERTIES(), new Color(182, 11, 79), new Color(250, 84, 188)));
+    //endregion
+    public static final RegistryObject<Block> TAINTED_LAVENDER = BLOCKS.register("tainted_lavender", () -> new TaintedDoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
     //endregion
     
     //region contents
@@ -350,8 +350,8 @@ public class MalumBlocks
     //endregion
     
     //region essence handling
-    public static final RegistryObject<Block> ESSENCE_JAR = BLOCKS.register("essence_jar", () -> new EssenceJarBlock(ESSENCE_JAR_PROPERTIES()));
-    public static final RegistryObject<Block> ESSENCE_PIPE = BLOCKS.register("essence_pipe", () -> new EssencePipeBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> ESSENCE_JAR = BLOCKS.register("essence_jar", () -> new SpiritJarBlock(ESSENCE_JAR_PROPERTIES()));
+    public static final RegistryObject<Block> ESSENCE_PIPE = BLOCKS.register("essence_pipe", () -> new SpiritPipeBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> OPEN_TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("open_transmissive_metal_block", () -> new OpenTransmissiveMetalBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
     //endregion
     

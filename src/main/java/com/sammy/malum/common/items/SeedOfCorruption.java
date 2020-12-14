@@ -1,16 +1,14 @@
 package com.sammy.malum.common.items;
 
-import com.sammy.malum.core.systems.events.EventSubscriberItem;
 import com.sammy.malum.core.recipes.TaintConversion;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.world.server.ServerWorld;
 
-public class SeedOfCorruption extends Item implements EventSubscriberItem
+public class SeedOfCorruption extends Item
 {
     public SeedOfCorruption(Properties properties)
     {
@@ -18,22 +16,22 @@ public class SeedOfCorruption extends Item implements EventSubscriberItem
     }
     
     @Override
-    public boolean hasBlockRightClick()
+    public ActionResultType onItemUse(ItemUseContext context)
     {
-        return true;
-    }
-    
-    public void onBlockRightClick(ItemStack stack, PlayerEntity player, BlockState state, Hand hand, BlockPos pos)
-    {
-        if (player.world instanceof ServerWorld)
+        BlockState state = context.getWorld().getBlockState(context.getPos());
+        PlayerEntity player = context.getPlayer();
+        TaintConversion conversion = TaintConversion.getConversion(state.getBlock());
+        if (conversion != null)
         {
-            TaintConversion conversion = TaintConversion.getConversion(state.getBlock());
-            if (conversion != null)
+            player.swingArm(context.getHand());
+            if (player.world instanceof ServerWorld)
             {
-                stack.shrink(1);
-                player.swingArm(hand);
-                TaintConversion.spread(player.world, pos, conversion);
+                player.getHeldItem(context.getHand()).shrink(1);
+                TaintConversion.spread(player.world, context.getPos(), conversion);
+                player.swingArm(context.getHand());
+                return ActionResultType.SUCCESS;
             }
         }
+        return super.onItemUse(context);
     }
 }

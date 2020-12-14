@@ -28,7 +28,7 @@ public abstract class SimpleInventoryBlock extends Block
         {
             if (worldIn.getTileEntity(pos) instanceof SimpleInventoryTileEntity)
             {
-                ((SimpleInventoryTileEntity) worldIn.getTileEntity(pos)).inventory.handleItem(state, worldIn, pos, player, handIn, hit);
+                ((SimpleInventoryTileEntity) worldIn.getTileEntity(pos)).inventory.handleItem(state, worldIn, pos, player, handIn);
                 return ActionResultType.SUCCESS;
             }
         }

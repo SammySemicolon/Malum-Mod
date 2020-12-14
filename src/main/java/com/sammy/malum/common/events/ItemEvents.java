@@ -1,6 +1,7 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.core.systems.events.EventSubscriberItem;
+import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -17,15 +19,12 @@ public class ItemEvents
     @SubscribeEvent
     public static void onBlockRightClick(PlayerInteractEvent.RightClickBlock event)
     {
-        Item item = event.getItemStack().getItem();
-        if (item instanceof EventSubscriberItem)
+        BlockState state = event.getWorld().getBlockState(event.getPos());
+        if (state.getBlock() instanceof SimpleInventoryBlock)
         {
-            BlockState state = event.getWorld().getBlockState(event.getPos());
-            EventSubscriberItem eventSubscriberItem = ((EventSubscriberItem) item);
-            if (eventSubscriberItem.hasBlockRightClick())
-            {
-                eventSubscriberItem.onBlockRightClick(event.getItemStack(), event.getPlayer(), state, event.getHand(), event.getPos());
-            }
+            state.getBlock().onBlockActivated(state, event.getWorld(), event.getPos(), event.getPlayer(), event.getHand(), null);
+            event.setUseBlock(Event.Result.DENY);
+            event.setUseItem(Event.Result.DENY);
         }
     }
     @SubscribeEvent

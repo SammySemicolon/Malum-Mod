@@ -5,10 +5,9 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
-import com.sammy.malum.common.blocks.essencejar.EssenceJarBlock;
-import com.sammy.malum.common.blocks.essencepipe.EssencePipeBlock;
+import com.sammy.malum.common.blocks.essencejar.SpiritJarBlock;
+import com.sammy.malum.common.blocks.essencepipe.AbstractSpiritPipeBlock;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
@@ -54,8 +53,8 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCraftingTableBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock || b.get() instanceof ZoomRockBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EssencePipeBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EssenceJarBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractSpiritPipeBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock);
     
         MalumHelper.takeAll(blocks, b -> b.get() instanceof StairsBlock).forEach(this::stairsBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);

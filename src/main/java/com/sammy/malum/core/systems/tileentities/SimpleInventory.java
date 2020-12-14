@@ -10,6 +10,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -66,6 +67,13 @@ public class SimpleInventory extends ItemStackHandler
         }
         return itemCount;
     }
+    public void clearItems()
+    {
+        for (int i = 0; i < slotCount; i++)
+        {
+            setStackInSlot(i, ItemStack.EMPTY);
+        }
+    }
     public ArrayList<ItemStack> stacks()
     {
         ArrayList<ItemStack> stacks = new ArrayList<>();
@@ -114,16 +122,29 @@ public class SimpleInventory extends ItemStackHandler
         }
         return super.extractItem(slot, amount, simulate);
     }
-    public void handleItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    
+    public void handleItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
     {
-        if (player.getHeldItem(handIn).isEmpty() || player.isSneaking())
+        if (player.isSneaking() || player.getHeldItem(handIn).isEmpty())
+        {
+            playerOutputItem(state, worldIn, pos, player, handIn);
+        }
+        else
+        {
+            playerInputItem(state, worldIn, pos, player, handIn);
+        }
+        player.swingArm(handIn);
+    }
+    public void playerOutputItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
+    {
+        if (worldIn instanceof ServerWorld)
         {
             List<ItemStack> nonEmptyStacks = stacks.stream().filter(i -> !i.isEmpty()).collect(Collectors.toList());
             if (nonEmptyStacks.isEmpty())
             {
                 return;
             }
-            ItemStack takeOutStack = nonEmptyStacks.get(nonEmptyStacks.size()-1);
+            ItemStack takeOutStack = nonEmptyStacks.get(nonEmptyStacks.size() - 1);
             int slot = stacks.indexOf(takeOutStack);
             if (extractItem(slot, takeOutStack.getCount(), true).equals(ItemStack.EMPTY))
             {
@@ -131,15 +152,24 @@ public class SimpleInventory extends ItemStackHandler
             }
             outputItem(player, takeOutStack, stacks.indexOf(takeOutStack));
             updateState(state, worldIn, pos);
-            return;
         }
-        if (!player.getHeldItem(handIn).isEmpty())
+    }
+    public void playerInputItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
+    {
+        if (worldIn instanceof ServerWorld)
         {
-            ItemStack desiredStack = player.getHeldItem(handIn);
-            ItemStack simulate = ItemHandlerHelper.insertItem(this, desiredStack, true);
-            int count = desiredStack.getCount() - simulate.getCount();
-            ItemHandlerHelper.insertItem(this, desiredStack.split(count), false);
-            updateState(state, worldIn, pos);
+            if (!player.getHeldItem(handIn).isEmpty())
+            {
+                ItemStack desiredStack = player.getHeldItem(handIn);
+                ItemStack simulate = ItemHandlerHelper.insertItem(this, desiredStack, true);
+                int count = desiredStack.getCount() - simulate.getCount();
+                if (count > slotSize)
+                {
+                    count = slotSize;
+                }
+                ItemHandlerHelper.insertItem(this, desiredStack.split(count), false);
+                updateState(state, worldIn, pos);
+            }
         }
     }
     public void updateState(BlockState state, World worldIn, BlockPos pos)

@@ -9,8 +9,8 @@ import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.MalumBuildingTab;
 import com.sammy.malum.core.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
-import com.sammy.malum.core.systems.essences.EssenceHolderBlockitem;
-import com.sammy.malum.core.systems.essences.EssenceHolderItem;
+import com.sammy.malum.core.systems.spirits.item.EssenceHolderBlockitem;
+import com.sammy.malum.core.systems.spirits.item.EssenceHolderItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -188,7 +188,14 @@ public class MalumItems
     public static final RegistryObject<Item> ARCHAIC_LANTERN = ITEMS.register("archaic_lantern", () -> new BlockItem(MalumBlocks.ARCHAIC_LANTERN.get(), BUILDING_PROPERTIES()));
     //endregion
     
-    //region sun kissed wood
+    public static final RegistryObject<Item> MARIGOLD = ITEMS.register("marigold", () -> new BlockItem(MalumBlocks.MARIGOLD.get(), BUILDING_PROPERTIES()));
+    
+    //region sun kissed stuff
+    public static final RegistryObject<Item> SHORT_SUN_KISSED_GRASS = ITEMS.register("short_sun_kissed_grass", () -> new BlockItem(MalumBlocks.SHORT_SUN_KISSED_GRASS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> SUN_KISSED_GRASS = ITEMS.register("sun_kissed_grass", () -> new BlockItem(MalumBlocks.SUN_KISSED_GRASS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> TALL_SUN_KISSED_GRASS = ITEMS.register("tall_sun_kissed_grass", () -> new BlockItem(MalumBlocks.TALL_SUN_KISSED_GRASS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(MalumBlocks.LAVENDER.get(), BUILDING_PROPERTIES()));
+    
     public static final RegistryObject<Item> SUN_KISSED_LOG = ITEMS.register("sun_kissed_log", () -> new BlockItem(MalumBlocks.SUN_KISSED_LOG.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> STRIPPED_SUN_KISSED_LOG = ITEMS.register("stripped_sun_kissed_log", () -> new BlockItem(MalumBlocks.STRIPPED_SUN_KISSED_LOG.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> SUN_KISSED_WOOD = ITEMS.register("sun_kissed_wood", () -> new BlockItem(MalumBlocks.SUN_KISSED_WOOD.get(), BUILDING_PROPERTIES()));
@@ -212,7 +219,12 @@ public class MalumItems
     public static final RegistryObject<Item> SUN_KISSED_GRASS_BLOCK = ITEMS.register("sun_kissed_grass_block", () -> new BlockItem(MalumBlocks.SUN_KISSED_GRASS_BLOCK.get(), BUILDING_PROPERTIES()));
     //endregion
     
-    //region tainted wood
+    //region tainted stuff
+    public static final RegistryObject<Item> SHORT_TAINTED_GRASS = ITEMS.register("short_tainted_grass", () -> new BlockItem(MalumBlocks.SHORT_TAINTED_GRASS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> TAINTED_GRASS = ITEMS.register("tainted_grass", () -> new BlockItem(MalumBlocks.TAINTED_GRASS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> TALL_TAINTED_GRASS = ITEMS.register("tall_tainted_grass", () -> new BlockItem(MalumBlocks.TALL_TAINTED_GRASS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> TAINTED_LAVENDER = ITEMS.register("tainted_lavender", () -> new BlockItem(MalumBlocks.TAINTED_LAVENDER.get(), BUILDING_PROPERTIES()));
+    
     public static final RegistryObject<Item> TAINTED_LOG = ITEMS.register("tainted_log", () -> new BlockItem(MalumBlocks.TAINTED_LOG.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> STRIPPED_TAINTED_LOG = ITEMS.register("stripped_tainted_log", () -> new BlockItem(MalumBlocks.STRIPPED_TAINTED_LOG.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_WOOD = ITEMS.register("tainted_wood", () -> new BlockItem(MalumBlocks.TAINTED_WOOD.get(), BUILDING_PROPERTIES()));
@@ -234,24 +246,6 @@ public class MalumItems
     public static final RegistryObject<Item> TAINTED_LEAVES = ITEMS.register("tainted_leaves", () -> new BlockItem(MalumBlocks.TAINTED_LEAVES.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_SAPLING = ITEMS.register("tainted_sapling", () -> new BlockItem(MalumBlocks.TAINTED_SAPLING.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_GRASS_BLOCK = ITEMS.register("tainted_grass_block", () -> new BlockItem(MalumBlocks.TAINTED_GRASS_BLOCK.get(), BUILDING_PROPERTIES()));
-    
-    //endregion
-    
-    //region sun kissed biome plants
-    public static final RegistryObject<Item> SHORT_SUN_KISSED_GRASS = ITEMS.register("short_sun_kissed_grass", () -> new BlockItem(MalumBlocks.SHORT_SUN_KISSED_GRASS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_GRASS = ITEMS.register("sun_kissed_grass", () -> new BlockItem(MalumBlocks.SUN_KISSED_GRASS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TALL_SUN_KISSED_GRASS = ITEMS.register("tall_sun_kissed_grass", () -> new BlockItem(MalumBlocks.TALL_SUN_KISSED_GRASS.get(), BUILDING_PROPERTIES()));
-    //endregion
-    
-    //region tainted biome plants
-    public static final RegistryObject<Item> SHORT_TAINTED_GRASS = ITEMS.register("short_tainted_grass", () -> new BlockItem(MalumBlocks.SHORT_TAINTED_GRASS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TAINTED_GRASS = ITEMS.register("tainted_grass", () -> new BlockItem(MalumBlocks.TAINTED_GRASS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TALL_TAINTED_GRASS = ITEMS.register("tall_tainted_grass", () -> new BlockItem(MalumBlocks.TALL_TAINTED_GRASS.get(), BUILDING_PROPERTIES()));
-    //endregion
-    
-    //region flowers
-    public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(MalumBlocks.LAVENDER.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CORNFLOWER = ITEMS.register("cornflower", () -> new BlockItem(MalumBlocks.CORNFLOWER.get(), BUILDING_PROPERTIES()));
     //endregion
     
     //region ingot blocks
@@ -302,6 +296,8 @@ public class MalumItems
     
     //region combined components
     public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> VOID_LENS = ITEMS.register("void_lens", () -> new Item(DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES()));
     //endregion
@@ -309,6 +305,9 @@ public class MalumItems
     //region contents
     public static final RegistryObject<Item> SEED_OF_CORRUPTION = ITEMS.register("seed_of_corruption", () -> new SeedOfCorruption(DEFAULT_PROPERTIES()));
     
+    public static final RegistryObject<Item> TAINTED_SCYTHE = ITEMS.register("tainted_scythe", () -> new ScytheItem(ItemTier.STONE, 2, 0, GEAR_PROPERTIES()));
+    
+    public static final RegistryObject<Item> RUIN_SCYTHE = ITEMS.register("ruin_scythe", () -> new ScytheItem(RUIN_ITEM, 2, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_SWORD = ITEMS.register("ruin_sword", () -> new ModSwordItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PICKAXE = ITEMS.register("ruin_pickaxe", () -> new ModPickaxeItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_AXE = ITEMS.register("ruin_axe", () -> new ModAxeItem(RUIN_ITEM, 2, 0, GEAR_PROPERTIES()));
@@ -331,7 +330,6 @@ public class MalumItems
     public static final RegistryObject<Item> ESSENCE_PIPE = ITEMS.register("essence_pipe", () -> new BlockItem(MalumBlocks.ESSENCE_PIPE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> OPEN_TRANSMISSIVE_METAL_BLOCK = ITEMS.register("open_transmissive_metal_block", () -> new BlockItem(MalumBlocks.OPEN_TRANSMISSIVE_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> SCYTHE = ITEMS.register("scythe", () -> new ScytheItem(ItemTier.STONE, 2, -0.4f, GEAR_PROPERTIES()));
     //endregion
     
     //region hidden items

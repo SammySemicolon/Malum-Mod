@@ -51,6 +51,7 @@ public class MalumLootTableProvider extends LootTableProvider
     private static final ILootCondition.IBuilder SHEARS = MatchTool.builder(ItemPredicate.Builder.create().item(Items.SHEARS));
     private static final ILootCondition.IBuilder SILK_TOUCH_OR_SHEARS = SHEARS.alternative(SILK_TOUCH);
     private static final ILootCondition.IBuilder NOT_SILK_TOUCH_OR_SHEARS = SILK_TOUCH_OR_SHEARS.inverted();
+    private static final float[] RARE_SAPLING_DROP_RATES = new float[]{0.025F, 0.027777778F, 0.03125F, 0.041666668F, 0.1F};
     
     public MalumLootTableProvider(DataGenerator dataGeneratorIn)
     {
@@ -80,11 +81,12 @@ public class MalumLootTableProvider extends LootTableProvider
     
         takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(b -> registerLootTable(b.get(),droppingWithSilkTouch(b.get(), Items.DIRT)));
         takeAll(blocks, b -> b.get() instanceof SlabBlock).forEach(b -> registerLootTable(b.get(),droppingSlab(b.get())));
-        
+        takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(b -> registerLootTable(b.get(),droppingDoor(b.get())));
+    
         takeAll(blocks, b -> true).forEach(b -> registerLootTable(b.get(), dropping(b.get().asItem())));
     
-        registerLootTable(MalumBlocks.SUN_KISSED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.SUN_KISSED_LEAVES.get(), MalumBlocks.SUN_KISSED_SAPLING.get()));
-        registerLootTable(MalumBlocks.TAINTED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.TAINTED_LEAVES.get(), MalumBlocks.TAINTED_SAPLING.get()));
+        registerLootTable(MalumBlocks.SUN_KISSED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.SUN_KISSED_LEAVES.get(), MalumBlocks.SUN_KISSED_SAPLING.get(), RARE_SAPLING_DROP_RATES));
+        registerLootTable(MalumBlocks.TAINTED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.TAINTED_LEAVES.get(), MalumBlocks.TAINTED_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         return tables;
     }
     

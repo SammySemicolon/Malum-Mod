@@ -17,11 +17,4 @@ public interface EventSubscriberItem
     default void onEntityKill(ItemStack stack, PlayerEntity player, LivingEntity entity)
     {
     }
-    default boolean hasBlockRightClick()
-    {
-        return false;
-    }
-    default void onBlockRightClick(ItemStack stack, PlayerEntity player, BlockState state, Hand hand, BlockPos pos)
-    {
-    }
 }

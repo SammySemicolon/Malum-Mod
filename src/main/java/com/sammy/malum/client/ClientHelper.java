@@ -1,8 +1,8 @@
 package com.sammy.malum.client;
 
 import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.core.systems.essences.EssenceHelper;
-import com.sammy.malum.core.systems.essences.IEssenceHolder;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
+import com.sammy.malum.core.systems.spirits.item.IEssenceHolder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
@@ -10,7 +10,6 @@ import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ClientHelper
@@ -27,7 +26,7 @@ public class ClientHelper
     public static ArrayList<ITextComponent> stackSpiritsTooltip(ItemStack stack, ArrayList<Pair<String, Integer>> spirits)
     {
         ArrayList<ITextComponent> tooltip = new ArrayList<>();
-        if (EssenceHelper.validate(stack))
+        if (SpiritHelper.validate(stack))
         {
             IEssenceHolder essenceHolder = (IEssenceHolder) stack.getItem();
             for (int i = 0; i < spirits.size(); i++)

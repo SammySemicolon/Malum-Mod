@@ -1,31 +1,30 @@
 package com.sammy.malum.common.blocks.arcanecraftingtable;
 
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.recipes.ArcaneCraftingRecipe;
+import com.sammy.malum.core.systems.spirits.block.SimpleInventorySpiritRequestTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
-import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 
-public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity implements ITickableTileEntity
+import java.util.ArrayList;
+
+public class ArcaneCraftingTableTileEntity extends SimpleInventorySpiritRequestTileEntity implements ITickableTileEntity
 {
     public ArcaneCraftingTableTileEntity()
     {
         super(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get());
-        inventory = new SimpleInventory(9, 64)
+        inventory = new SimpleInventory(9, 1)
         {
             @Override
             protected void onContentsChanged(int slot)
             {
                 ArcaneCraftingTableTileEntity.this.markDirty();
                 updateContainingBlockInfo();
-                BlockState state = world.getBlockState(pos);
-                updateState(state, world, pos);
+                updateState(world.getBlockState(pos), world, pos);
             }
         };
     }
@@ -38,36 +37,20 @@ public class ArcaneCraftingTableTileEntity extends SimpleInventoryTileEntity imp
         {
             return;
         }
-        
         ArcaneCraftingRecipe recipe = ArcaneCraftingRecipe.getRecipe(inventory.stacks());
         if (recipe != null)
         {
-            if (progress == 28)
+            inventory.clearItems();
+            output(recipe.outputItem, recipe.outputItemCount);
+            if (recipe.hasSecondOutput)
             {
-                ItemStack stack = new ItemStack(recipe.outputItem, recipe.outputItemCount);
-                world.addEntity(new ItemEntity(world, pos.getX() + 0.5f, pos.getY() + 1.25f, pos.getZ() + 0.5f, stack));
-                for (int i = 0; i < recipe.itemStacks.size(); i++)
-                {
-                    int finalI = i;
-                    ItemStack shrinkStack = inventory.stacks().stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get();
-                    shrinkStack.shrink(recipe.itemStacks.stream().filter(s -> s.getItem().equals(recipe.itemStacks.get(finalI).getItem())).findFirst().get().getCount());
-                }
-                world.playSound(null, pos, MalumSounds.ARCANE_CRAFT_FINISH, SoundCategory.BLOCKS, 1, 1.5f+ MalumMod.RANDOM.nextFloat() * 0.2f);
-    
-                progress = 8;
-            }
-            else
-            {
-                if (progress == 0)
-                {
-                    world.playSound(null, pos, MalumSounds.ARCANE_CRAFT_START, SoundCategory.BLOCKS, 1, 1);
-                }
-                progress++;
+                output(recipe.secondOutputItem, recipe.secondOutputItemCount);
             }
         }
-        else if (progress > 0)
-        {
-            progress--;
-        }
+    }
+    public void output(Item item, int count)
+    {
+        ItemEntity entity = new ItemEntity(world,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f, new ItemStack(item, count));
+        world.addEntity(entity);
     }
 }

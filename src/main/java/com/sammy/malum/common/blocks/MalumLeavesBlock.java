@@ -28,12 +28,11 @@ public class MalumLeavesBlock extends LeavesBlock
         super(properties);
         this.maxColor = maxColor;
         this.minColor = minColor;
-        this.setDefaultState(this.stateContainer.getBaseState().with(COLOR, 0));
+        setDefaultState(getDefaultState().with(COLOR, 0));
     
     }
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
-        builder.add(COLOR);
+        builder.add(DISTANCE, PERSISTENT,COLOR);
     }
     
     public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -43,14 +42,9 @@ public class MalumLeavesBlock extends LeavesBlock
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (player.getHeldItem(handIn).getItem().equals(Items.COAL))
+        if (player.getHeldItem(handIn).getItem().equals(Items.COAL) || player.getHeldItem(handIn).getItem().equals(Items.GLOWSTONE_DUST))
         {
             worldIn.setBlockState(pos,state.with(COLOR, (state.get(COLOR) + 1) % 9));
-            doAction(player,handIn);
-        }
-        if (player.getHeldItem(handIn).getItem().equals(Items.GLOWSTONE_DUST))
-        {
-            worldIn.setBlockState(pos,state.with(COLOR, (state.get(COLOR) + 3) % 9));
             doAction(player,handIn);
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

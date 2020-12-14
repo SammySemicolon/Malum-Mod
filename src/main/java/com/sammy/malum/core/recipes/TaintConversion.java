@@ -3,10 +3,7 @@ package com.sammy.malum.core.recipes;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DoublePlantBlock;
-import net.minecraft.block.TallFlowerBlock;
+import net.minecraft.block.*;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,9 +23,16 @@ public class TaintConversion
         this.outputBlock = outputBlock.get();
         conversions.add(this);
     }
+    public TaintConversion(Block inputBlock, Block outputBlock)
+    {
+        this.inputBlock = inputBlock;
+        this.outputBlock = outputBlock;
+        conversions.add(this);
+    }
     
     public static void init()
     {
+        new TaintConversion(Blocks.STONE, MalumBlocks.TAINTED_ROCK.get());
         new TaintConversion(MalumBlocks.SUN_KISSED_GRASS_BLOCK, MalumBlocks.TAINTED_GRASS_BLOCK);
         new TaintConversion(MalumBlocks.SUN_KISSED_LEAVES, MalumBlocks.TAINTED_LEAVES);
         new TaintConversion(MalumBlocks.SUN_KISSED_LOG, MalumBlocks.TAINTED_LOG);
@@ -47,6 +51,7 @@ public class TaintConversion
         new TaintConversion(MalumBlocks.SHORT_SUN_KISSED_GRASS, MalumBlocks.SHORT_TAINTED_GRASS);
         new TaintConversion(MalumBlocks.SUN_KISSED_GRASS, MalumBlocks.TAINTED_GRASS);
         new TaintConversion(MalumBlocks.TALL_SUN_KISSED_GRASS, MalumBlocks.TALL_TAINTED_GRASS);
+        new TaintConversion(MalumBlocks.LAVENDER, MalumBlocks.TAINTED_LAVENDER);
         new TaintConversion(MalumBlocks.SUN_KISSED_SAPLING, MalumBlocks.TAINTED_SAPLING);
     }
     
@@ -70,13 +75,24 @@ public class TaintConversion
             DoublePlantBlock plantBlock = (DoublePlantBlock) conversion.outputBlock;
             BlockPos bottomPos = state.get(DoublePlantBlock.HALF).equals(DoubleBlockHalf.LOWER) ? pos : pos.down();
             plantBlock.placeAt(worldIn, bottomPos, 16);
+            worldIn.notifyBlockUpdate(bottomPos, worldIn.getBlockState(bottomPos) , worldIn.getBlockState(bottomPos), 3);
+            worldIn.notifyBlockUpdate(bottomPos.up(), worldIn.getBlockState(bottomPos.up()), worldIn.getBlockState(bottomPos.up()), 3);
+            issueSpread(worldIn, pos);
+            issueSpread(worldIn, pos.up());
+            return;
+        }
+        if (conversion.outputBlock instanceof DoorBlock)
+        {
+            BlockPos bottomPos = state.get(DoorBlock.HALF).equals(DoubleBlockHalf.LOWER) ? pos : pos.down();
+            MalumHelper.setBlockStateWithExistingProperties(worldIn, bottomPos, conversion.outputBlock.getDefaultState(), 16,false);
+            MalumHelper.setBlockStateWithExistingProperties(worldIn, bottomPos.up(), conversion.outputBlock.getDefaultState(), 16,false);
             worldIn.notifyBlockUpdate(bottomPos, worldIn.getBlockState(bottomPos), worldIn.getBlockState(bottomPos), 3);
             worldIn.notifyBlockUpdate(bottomPos.up(), worldIn.getBlockState(bottomPos.up()), worldIn.getBlockState(bottomPos.up()), 3);
+            issueSpread(worldIn, pos);
+            issueSpread(worldIn, pos.up());
+            return;
         }
-        else
-        {
-            MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, conversion.outputBlock.getDefaultState(), 3);
-        }
+        MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, conversion.outputBlock.getDefaultState(), 3, true);
         issueSpread(worldIn, pos);
     }
     

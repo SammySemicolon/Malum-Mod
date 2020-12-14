@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class AbstruseBlock extends Block
 {
@@ -48,7 +49,7 @@ public class AbstruseBlock extends Block
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
     {
-        if (!worldIn.isRemote())
+        if (worldIn instanceof ServerWorld)
         {
             if (placer instanceof PlayerEntity)
             {
