@@ -24,7 +24,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
     public ArrayList<Pair<String, Integer>> spirits;
     public UUID ownerUUID;
     public PlayerEntity owner;
-    public float multiplier;
+    public int multiplier;
     public float velocity;
     
     public SpiritEssenceEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
@@ -90,7 +90,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
         super.writeAdditional(compound);
         if (multiplier != 0f)
         {
-            compound.putFloat("multiplier", multiplier);
+            compound.putInt("multiplier", multiplier);
         }
         if (velocity != 0f)
         {
@@ -118,7 +118,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
         super.readAdditional(compound);
         if (compound.contains("multiplier"))
         {
-            multiplier = compound.getFloat("multiplier");
+            multiplier = compound.getInt("multiplier");
         }
         if (compound.contains("velocity"))
         {

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:stripped_tainted_log"
+    }
+  },
+  "result": {
+    "item": "malum:stripped_tainted_wood",
+    "count": 3
+  }
+}

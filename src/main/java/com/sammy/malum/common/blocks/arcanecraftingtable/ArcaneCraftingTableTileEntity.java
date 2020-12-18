@@ -8,9 +8,6 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.math.BlockPos;
-
-import java.util.ArrayList;
 
 public class ArcaneCraftingTableTileEntity extends SimpleInventorySpiritRequestTileEntity implements ITickableTileEntity
 {

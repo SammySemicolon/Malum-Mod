@@ -7,6 +7,6 @@ public class CreativeScythe extends ScytheItem
 {
     public CreativeScythe()
     {
-        super(ItemTier.WOOD, 9996, 999.2f, new Item.Properties().defaultMaxDamage(-1).isImmuneToFire());
+        super(ItemTier.WOOD, 9996, 999.2f, 1000, new Item.Properties().defaultMaxDamage(-1).isImmuneToFire());
     }
 }

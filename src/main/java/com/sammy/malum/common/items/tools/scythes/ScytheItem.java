@@ -14,9 +14,11 @@ import static com.sammy.malum.core.systems.spirits.SpiritHelper.*;
 
 public class ScytheItem extends ModSwordItem implements EventSubscriberItem
 {
-    public ScytheItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn)
+    public final int harvestMultiplier;
+    public ScytheItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, int harvestMultiplier, Properties builderIn)
     {
         super(tier, attackDamageIn, attackSpeedIn - 0.8f, builderIn);
+        this.harvestMultiplier = harvestMultiplier;
     }
     
     @Override
@@ -34,7 +36,7 @@ public class ScytheItem extends ModSwordItem implements EventSubscriberItem
     public void harvest(LivingEntity target, PlayerEntity attacker, ItemStack stack)
     {
         SpiritEssenceEntity essenceEntity = new SpiritEssenceEntity(MalumEntities.SPIRIT_ESSENCE.get(), attacker.world);
-        essenceEntity.multiplier = 0.5f;
+        essenceEntity.multiplier = harvestMultiplier;
         essenceEntity.spirits.addAll(entitySpirits(target));
         essenceEntity.ownerUUID = attacker.getUniqueID();
         essenceEntity.setPosition(target.getPositionVec().x, target.getPositionVec().y + target.getHeight() / 2f, target.getPositionVec().z);

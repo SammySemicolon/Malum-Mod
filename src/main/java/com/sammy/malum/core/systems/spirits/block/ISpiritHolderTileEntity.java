@@ -2,9 +2,9 @@ package com.sammy.malum.core.systems.spirits.block;
 
 public interface ISpiritHolderTileEntity
 {
-    int getMaxEssence();
-    String getEssenceType();
-    int getEssenceCount();
-    void setType(String type);
-    void setCount(int count);
+    int maxSpirits();
+    String getSpiritType();
+    int currentSpirits();
+    void setSpiritType(String spiritType);
+    void setSpirits(int count);
 }

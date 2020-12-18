@@ -5,8 +5,8 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
-import com.sammy.malum.common.blocks.essencejar.SpiritJarBlock;
-import com.sammy.malum.common.blocks.essencepipe.AbstractSpiritPipeBlock;
+import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
+import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -52,10 +52,13 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         blocks.remove(BLAZE_QUARTZ_ORE);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCraftingTableBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock || b.get() instanceof ZoomRockBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractSpiritPipeBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock);
-    
+        
+        MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("horizontal_flared_")).forEach(this::horizontalFlaredBlock);
+        MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
+        MalumHelper.takeAll(blocks, b -> b.get().getTranslationKey().endsWith("_cap")).forEach(this::pillarCapBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof StairsBlock).forEach(this::stairsBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof WallBlock).forEach(this::wallBlock);
@@ -68,6 +71,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(this::tallPlantBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
         
         Collection<RegistryObject<Block>> slabs = MalumHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
         blocks.forEach(this::basicBlock);
@@ -77,49 +81,75 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     
     public void basicBlock(RegistryObject<Block> blockRegistryObject)
     {
-        if (blockRegistryObject.get() instanceof MalumLeavesBlock)
-        {
-            String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-            ModelFile leaves = models().withExistingParent(name,new ResourceLocation("block/leaves")).texture("all", prefix("block/" + name));
-            simpleBlock(blockRegistryObject.get(), leaves);
-            return;
-        }
-        if (blockRegistryObject.get().getTranslationKey().endsWith("_wood"))
-        {
-            String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-            String baseName = name.substring(0, name.length() - 4) + "log";
-            simpleBlock(blockRegistryObject.get(), models().cubeAll(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/"+ baseName)));
-            return;
-        }
         simpleBlock(blockRegistryObject.get());
     }
+    
+    public void cutBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String baseName = "smooth_" + name.substring(4);
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + baseName), prefix("block/" + baseName)));
+    }
+    public void horizontalFlaredBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String baseName = "smooth_" + name.substring(18);
+        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/" + name), prefix("block/" + baseName));
+    }
+    
+    public void grassBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name + "_side"), new ResourceLocation("block/dirt"), prefix("block/" + name + "_top")));
+    }
+    
+    public void malumLeavesBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile leaves = models().withExistingParent(name, new ResourceLocation("block/leaves")).texture("all", prefix("block/" + name));
+        simpleBlock(blockRegistryObject.get(), leaves);
+    }
+    
+    public void pillarCapBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String baseName = name.substring(0, name.length() - 11);
+        String pillarName = name.substring(0, name.length() - 4) + "_top";
+        directionalBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/smooth_" + baseName), prefix("block/" + pillarName)));
+    }
+    
     public void trapdoorBlock(RegistryObject<Block> blockRegistryObject)
     {
-        trapdoorBlock((TrapDoorBlock)blockRegistryObject.get(), blockTexture(blockRegistryObject.get()), true);
+        trapdoorBlock((TrapDoorBlock) blockRegistryObject.get(), blockTexture(blockRegistryObject.get()), true);
     }
+    
     public void doorBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        doorBlock((DoorBlock) blockRegistryObject.get(),prefix("block/"+ name + "_bottom"),prefix("block/"+ name + "_top"));
+        doorBlock((DoorBlock) blockRegistryObject.get(), prefix("block/" + name + "_bottom"), prefix("block/" + name + "_top"));
     }
+    
     public void fenceGateBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 11);
-        fenceGateBlock((FenceGateBlock) blockRegistryObject.get(), prefix("block/"+ baseName));
+        fenceGateBlock((FenceGateBlock) blockRegistryObject.get(), prefix("block/" + baseName));
     }
+    
     public void fenceBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 6);
-        fenceBlock((FenceBlock) blockRegistryObject.get(), prefix("block/"+ baseName));
+        fenceBlock((FenceBlock) blockRegistryObject.get(), prefix("block/" + baseName));
     }
+    
     public void wallBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 5);
-        wallBlock((WallBlock) blockRegistryObject.get(), prefix("block/"+ baseName));
+        wallBlock((WallBlock) blockRegistryObject.get(), prefix("block/" + baseName));
     }
+    
     public void stairsBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
@@ -131,66 +161,51 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 15);
-        ModelFile pressurePlateDown = models().withExistingParent(name+"_down",new ResourceLocation("block/pressure_plate_down")).texture("texture", prefix("block/" + baseName));
-        ModelFile pressurePlateUp = models().withExistingParent(name+"_up",new ResourceLocation("block/pressure_plate_up")).texture("texture", prefix("block/" + baseName));
+        ModelFile pressurePlateDown = models().withExistingParent(name + "_down", new ResourceLocation("block/pressure_plate_down")).texture("texture", prefix("block/" + baseName));
+        ModelFile pressurePlateUp = models().withExistingParent(name + "_up", new ResourceLocation("block/pressure_plate_up")).texture("texture", prefix("block/" + baseName));
     
-        getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(PressurePlateBlock.POWERED, true)
-                .modelForState().modelFile(pressurePlateDown).addModel()
-                .partialState().with(PressurePlateBlock.POWERED, false)
-                .modelForState().modelFile(pressurePlateUp).addModel();
+        getVariantBuilder(blockRegistryObject.get()).partialState().with(PressurePlateBlock.POWERED, true).modelForState().modelFile(pressurePlateDown).addModel().partialState().with(PressurePlateBlock.POWERED, false).modelForState().modelFile(pressurePlateUp).addModel();
     }
     
     public void lanternBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile lantern = models().withExistingParent(name,new ResourceLocation("block/template_lantern")).texture("lantern", prefix("block/" + name));
-        ModelFile hangingLantern = models().withExistingParent(name+"_hanging",new ResourceLocation("block/template_hanging_lantern")).texture("lantern", prefix("block/" + name));
+        ModelFile lantern = models().withExistingParent(name, new ResourceLocation("block/template_lantern")).texture("lantern", prefix("block/" + name));
+        ModelFile hangingLantern = models().withExistingParent(name + "_hanging", new ResourceLocation("block/template_hanging_lantern")).texture("lantern", prefix("block/" + name));
         
-        getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(LanternBlock.HANGING, true)
-                .modelForState().modelFile(hangingLantern).addModel()
-                .partialState().with(LanternBlock.HANGING, false)
-                .modelForState().modelFile(lantern).addModel();
+        getVariantBuilder(blockRegistryObject.get()).partialState().with(LanternBlock.HANGING, true).modelForState().modelFile(hangingLantern).addModel().partialState().with(LanternBlock.HANGING, false).modelForState().modelFile(lantern).addModel();
     }
     
     public void buttonBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 7);
-        ModelFile buttom = models().withExistingParent(name,new ResourceLocation("block/button")).texture("texture", prefix("block/" + baseName));
-        ModelFile buttonPressed = models().withExistingParent(name+"_pressed",new ResourceLocation("block/button_pressed")).texture("texture", prefix("block/" + baseName));
+        ModelFile buttom = models().withExistingParent(name, new ResourceLocation("block/button")).texture("texture", prefix("block/" + baseName));
+        ModelFile buttonPressed = models().withExistingParent(name + "_pressed", new ResourceLocation("block/button_pressed")).texture("texture", prefix("block/" + baseName));
         Function<BlockState, ModelFile> modelFunc = $ -> buttom;
         Function<BlockState, ModelFile> pressedModelFunc = $ -> buttonPressed;
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder()
-                .modelFile(s.get(BlockStateProperties.POWERED) ? pressedModelFunc.apply(s) : modelFunc.apply(s))
-                .uvLock(s.get(BlockStateProperties.FACE).equals(AttachFace.WALL))
-                .rotationX(s.get(BlockStateProperties.FACE).ordinal() * 90)
-                .rotationY((((int) s.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalAngle() + 180) + (s.get(BlockStateProperties.FACE) == AttachFace.CEILING ? 180 : 0)) % 360)
-                .build());
-        models().withExistingParent(name+"_inventory",new ResourceLocation("block/button_inventory")).texture("texture", prefix("block/" + baseName));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.get(BlockStateProperties.POWERED) ? pressedModelFunc.apply(s) : modelFunc.apply(s)).uvLock(s.get(BlockStateProperties.FACE).equals(AttachFace.WALL)).rotationX(s.get(BlockStateProperties.FACE).ordinal() * 90).rotationY((((int) s.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalAngle() + 180) + (s.get(BlockStateProperties.FACE) == AttachFace.CEILING ? 180 : 0)) % 360).build());
+        models().withExistingParent(name + "_inventory", new ResourceLocation("block/button_inventory")).texture("texture", prefix("block/" + baseName));
     
     }
     
     public void tallPlantBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile bottom = models().withExistingParent(name+"_bottom",new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_bottom"));
-        ModelFile top = models().withExistingParent(name+"_top",new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_top"));
+        ModelFile bottom = models().withExistingParent(name + "_bottom", new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_bottom"));
+        ModelFile top = models().withExistingParent(name + "_top", new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_top"));
         
-        getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(DoublePlantBlock.HALF, LOWER)
-                .modelForState().modelFile(bottom).addModel()
-                .partialState().with(DoublePlantBlock.HALF, UPPER)
-                .modelForState().modelFile(top).addModel();
+        getVariantBuilder(blockRegistryObject.get()).partialState().with(DoublePlantBlock.HALF, LOWER).modelForState().modelFile(bottom).addModel().partialState().with(DoublePlantBlock.HALF, UPPER).modelForState().modelFile(top).addModel();
     }
+    
     public void plantBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile cross = models().withExistingParent(name,new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name));
+        ModelFile cross = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name));
         
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(cross).build());
     }
+    
     public void slabBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
@@ -200,6 +215,18 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     
     public void logBlock(RegistryObject<Block> blockRegistryObject)
     {
+        if (blockRegistryObject.get().getTranslationKey().endsWith("_wood"))
+        {
+            woodBlock(blockRegistryObject);
+            return;
+        }
         logBlock((RotatedPillarBlock) blockRegistryObject.get());
+    }
+    
+    public void woodBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String baseName = name.substring(0, name.length() - 4) + "log";
+        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/" + baseName), prefix("block/" + baseName));
     }
 }

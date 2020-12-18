@@ -1,6 +1,7 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.core.systems.events.EventSubscriberItem;
+import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,7 +21,7 @@ public class ItemEvents
     public static void onBlockRightClick(PlayerInteractEvent.RightClickBlock event)
     {
         BlockState state = event.getWorld().getBlockState(event.getPos());
-        if (state.getBlock() instanceof SimpleInventoryBlock)
+        if (state.getBlock() instanceof IAlwaysActivatedBlock)
         {
             state.getBlock().onBlockActivated(state, event.getWorld(), event.getPos(), event.getPlayer(), event.getHand(), null);
             event.setUseBlock(Event.Result.DENY);

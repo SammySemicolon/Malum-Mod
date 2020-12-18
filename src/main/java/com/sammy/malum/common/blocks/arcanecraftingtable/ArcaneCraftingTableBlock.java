@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class ArcaneCraftingTableBlock extends SimpleInventoryBlock
 {
@@ -22,13 +23,19 @@ public class ArcaneCraftingTableBlock extends SimpleInventoryBlock
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (worldIn.getTileEntity(pos) instanceof ArcaneCraftingTableTileEntity)
+        if (handIn.equals(Hand.MAIN_HAND))
         {
-            ArcaneCraftingTableTileEntity tileEntity = (ArcaneCraftingTableTileEntity) worldIn.getTileEntity(pos);
-            tileEntity.issueRequest(worldIn,pos);
-            for (BlockPos cachedPos : tileEntity.getCachedHolders())
+            if (worldIn instanceof ServerWorld)
             {
-                MalumMod.LOGGER.info(cachedPos);
+                if (worldIn.getTileEntity(pos) instanceof ArcaneCraftingTableTileEntity)
+                {
+                    ArcaneCraftingTableTileEntity tileEntity = (ArcaneCraftingTableTileEntity) worldIn.getTileEntity(pos);
+                    tileEntity.issueRequest(worldIn, pos);
+                    for (BlockPos cachedPos : tileEntity.getCachedHolders())
+                    {
+                        MalumMod.LOGGER.info(cachedPos);
+                    }
+                }
             }
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

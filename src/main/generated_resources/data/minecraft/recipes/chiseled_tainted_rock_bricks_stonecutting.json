@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:tainted_rock"
+  },
+  "result": "malum:chiseled_tainted_rock",
+  "count": 1
+}

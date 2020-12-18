@@ -11,6 +11,7 @@ public class MalumItemTiers
 {
     public enum ItemTierEnum implements IItemTier
     {
+        TAINTED_ITEM(200, 5f, 0.5f, 2, 11, MalumItems.TAINTED_PLANKS),
         RUIN_ITEM(800, 7f, 2.5f, 3, 16, MalumItems.RUIN_PLATING);
         
         private final int maxUses;

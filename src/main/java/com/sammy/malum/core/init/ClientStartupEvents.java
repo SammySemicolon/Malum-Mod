@@ -4,13 +4,15 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
-import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableRenderer;
 import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.common.entities.SpiritEssenceEntity;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
+import com.sammy.malum.core.systems.spirits.block.SpiritHolderRendererModule;
+import com.sammy.malum.core.systems.tileentityrendering.AdjustableTileEntityRenderer;
+import com.sammy.malum.core.systems.tileentityrendering.modules.ItemModule;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -40,6 +42,13 @@ import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class ClientStartupEvents
 {
+    
+    @SubscribeEvent
+    public static void bindTERs(FMLClientSetupEvent event)
+    {
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
+    }
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
@@ -82,12 +91,6 @@ public class ClientStartupEvents
     }
     
     @SubscribeEvent
-    public static void bindTERs(FMLClientSetupEvent event)
-    {
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), ArcaneCraftingTableRenderer::new);
-    }
-    
-    @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
@@ -101,8 +104,8 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ZoomRockBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(ClientStartupEvents::setCutout);
-        setCutout(MalumBlocks.ESSENCE_JAR);
-        setCutout(MalumBlocks.ESSENCE_PIPE);
+        setCutout(MalumBlocks.SPIRIT_JAR);
+        setCutout(MalumBlocks.SPIRIT_PIPE);
         setCutout(MalumBlocks.BLAZE_QUARTZ_ORE);
     }
     public static void setCutout(RegistryObject<Block> b)

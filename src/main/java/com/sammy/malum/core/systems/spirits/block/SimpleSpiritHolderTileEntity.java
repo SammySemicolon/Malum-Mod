@@ -6,8 +6,9 @@ import net.minecraft.tileentity.TileEntityType;
 
 public class SimpleSpiritHolderTileEntity extends SimpleTileEntity implements ISpiritHolderTileEntity
 {
-    protected String type;
+    protected String spiritType;
     protected int count;
+    
     public SimpleSpiritHolderTileEntity(TileEntityType<?> tileEntityTypeIn)
     {
         super(tileEntityTypeIn);
@@ -17,14 +18,15 @@ public class SimpleSpiritHolderTileEntity extends SimpleTileEntity implements IS
     public CompoundNBT writeData(CompoundNBT compound)
     {
         super.writeData(compound);
-        if (type != null)
+        if (spiritType != null)
         {
-            compound.putString("type", type);
+            compound.putString("type", spiritType);
         }
-        if (count != 0)
+        else
         {
-            compound.putInt("count", count);
+            compound.putByte("typeIsNull", (byte) 0);
         }
+        compound.putInt("count", count);
         return compound;
     }
     
@@ -32,42 +34,46 @@ public class SimpleSpiritHolderTileEntity extends SimpleTileEntity implements IS
     public void readData(CompoundNBT compound)
     {
         super.readData(compound);
+        if (compound.contains("typeIsNull"))
+        {
+            spiritType = null;
+            count = 0;
+            return;
+        }
         if (compound.contains("type"))
         {
-            type = compound.getString("type");
+            spiritType = compound.getString("type");
         }
-        if (compound.contains("count"))
-        {
-            count = compound.getInt("count");
-        }
+        count = compound.getInt("count");
+        
     }
     
     @Override
-    public int getMaxEssence()
+    public int maxSpirits()
     {
         return 0;
     }
     
     @Override
-    public String getEssenceType()
+    public String getSpiritType()
     {
-        return type;
+        return spiritType;
     }
     
     @Override
-    public int getEssenceCount()
+    public int currentSpirits()
     {
         return count;
     }
     
     @Override
-    public void setType(String type)
+    public void setSpiritType(String spiritType)
     {
-        this.type = type;
+        this.spiritType = spiritType;
     }
     
     @Override
-    public void setCount(int count)
+    public void setSpirits(int count)
     {
         this.count = count;
     }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:chiseled_tainted_rock_bricks_stonecutting_alt"
+    ]
+  },
+  "criteria": {
+    "has_tainted_rock_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:tainted_rock_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:chiseled_tainted_rock_bricks_stonecutting_alt"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tainted_rock_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blocks.essencepipe.AbstractSpiritPipeBlock;
+import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;
@@ -67,7 +67,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     }
     private void essencePipeItem(RegistryObject<Item> i)
     {
-        getBuilder("essence_pipe").parent(new ModelFile.UncheckedModelFile(prefix("block/" + "essence_pipe_core")));
+        getBuilder("spirit_pipe").parent(new ModelFile.UncheckedModelFile(prefix("block/" + "spirit_pipe_core")));
     }
     private void blockItem(RegistryObject<Item> i)
     {

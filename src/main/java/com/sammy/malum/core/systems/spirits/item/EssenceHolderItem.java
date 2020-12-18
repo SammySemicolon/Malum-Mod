@@ -12,27 +12,27 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EssenceHolderItem extends Item implements IEssenceHolder
+public class EssenceHolderItem extends Item implements ISpiritHolderBlockItem
 {
-    public int essenceSlots;
-    public int maxEssence;
-    public EssenceHolderItem(Properties properties, int essenceSlots, int maxEssence)
+    private final int spiritSlots;
+    private final int maxSpirits;
+    public EssenceHolderItem(Properties properties, int spiritSlots, int maxSpirits)
     {
         super(properties);
-        this.essenceSlots = essenceSlots;
-        this.maxEssence = maxEssence;
+        this.spiritSlots = spiritSlots;
+        this.maxSpirits = maxSpirits;
     }
     
     @Override
-    public int getEssenceSlots()
+    public int getSpiritSlots()
     {
-        return essenceSlots;
+        return spiritSlots;
     }
     
     @Override
-    public int getMaxEssence()
+    public int getMaxSpirits()
     {
-        return maxEssence;
+        return maxSpirits;
     }
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)

@@ -11,22 +11,30 @@ public interface ISpiritRequestTileEntity
     void addCachedHolder(BlockPos pos);
     void resetCachedHolders();
     ArrayList<BlockPos> getCachedHolders();
-    default boolean getNeedsUpdate()
+    default boolean needsUpdate()
     {
         return getCachedHolders().isEmpty();
     }
     default ArrayList<BlockPos> issueRequest(World world, BlockPos requestPos)
     {
-        for (Direction direction : Direction.values())
+        if (needsUpdate())
         {
-            BlockPos pos = requestPos.add(direction.getDirectionVec());
-            if (world.getTileEntity(pos) instanceof ISpiritTransferTileEntity)
+            for (Direction direction : Direction.values())
             {
-                ISpiritTransferTileEntity pipe = (ISpiritTransferTileEntity) world.getTileEntity(pos);
-                if (pipe.getNeedsUpdate())
+                BlockPos pos = requestPos.add(direction.getDirectionVec());
+    
+                if (world.getTileEntity(pos) instanceof ISpiritHolderTileEntity)
                 {
-                    pipe.setNeedsUpdate(false);
-                    pipe.updateNetwork(world,requestPos, pos);
+                    addCachedHolder(pos);
+                }
+                if (world.getTileEntity(pos) instanceof ISpiritTransferTileEntity)
+                {
+                    ISpiritTransferTileEntity pipe = (ISpiritTransferTileEntity) world.getTileEntity(pos);
+                    if (pipe.getNeedsUpdate())
+                    {
+                        pipe.setNeedsUpdate(false);
+                        pipe.updateNetwork(world, requestPos, pos);
+                    }
                 }
             }
         }

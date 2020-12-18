@@ -2,7 +2,7 @@ package com.sammy.malum.client;
 
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.core.systems.spirits.item.IEssenceHolder;
+import com.sammy.malum.core.systems.spirits.item.ISpiritHolderBlockItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
@@ -28,13 +28,13 @@ public class ClientHelper
         ArrayList<ITextComponent> tooltip = new ArrayList<>();
         if (SpiritHelper.validate(stack))
         {
-            IEssenceHolder essenceHolder = (IEssenceHolder) stack.getItem();
+            ISpiritHolderBlockItem essenceHolder = (ISpiritHolderBlockItem) stack.getItem();
             for (int i = 0; i < spirits.size(); i++)
             {
                 String spirit = spirits.get(i).getFirst();
                 int count = spirits.get(i).getSecond();
                 boolean lit = !spirit.equals("empty");
-                tooltip.add(combinedComponent(simpleTranslatableComponent("malum.tooltip.slot"), simpleComponent(" " + (i+1)  + ": "),importantComponent(count + "/" + essenceHolder.getMaxEssence(), lit), importantComponent(spirit, lit)));
+                tooltip.add(combinedComponent(simpleTranslatableComponent("malum.tooltip.slot"), simpleComponent(" " + (i+1)  + ": "),importantComponent(count + "/" + essenceHolder.getMaxSpirits(), lit), importantComponent(spirit, lit)));
             }
         }
         return tooltip;

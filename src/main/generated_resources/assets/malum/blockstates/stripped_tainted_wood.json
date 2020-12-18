@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "malum:block/stripped_tainted_wood_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
       "model": "malum:block/stripped_tainted_wood"
+    },
+    "axis=z": {
+      "model": "malum:block/stripped_tainted_wood_horizontal",
+      "x": 90
     }
   }
 }

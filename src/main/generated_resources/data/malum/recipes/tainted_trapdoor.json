@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_trapdoor",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:tainted_planks"
+    }
+  },
+  "result": {
+    "item": "malum:tainted_trapdoor",
+    "count": 2
+  }
+}

@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "malum:block/tainted_log"
+    "side": "malum:block/tainted_log",
+    "end": "malum:block/tainted_log"
   }
 }

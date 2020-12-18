@@ -5,7 +5,7 @@ import com.sammy.malum.core.init.essences.MalumSpiritTypes;
 import com.sammy.malum.core.systems.spirits.block.ISpiritHolderTileEntity;
 import com.sammy.malum.core.systems.spirits.block.ISpiritRequestTileEntity;
 import com.sammy.malum.core.systems.spirits.block.ISpiritTransferTileEntity;
-import com.sammy.malum.core.systems.spirits.item.IEssenceHolder;
+import com.sammy.malum.core.systems.spirits.item.ISpiritHolderBlockItem;
 import com.sammy.malum.core.systems.spirits.types.MalumSpiritType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +21,7 @@ public class SpiritHelper
 {
     public static boolean validate(ItemStack stack)
     {
-        return stack.getItem() instanceof IEssenceHolder;
+        return stack.getItem() instanceof ISpiritHolderBlockItem;
     }
     public static ArrayList<Pair<String, Integer>> itemSpirits(ItemStack stack, boolean includeEmpty)
     {
@@ -29,8 +29,8 @@ public class SpiritHelper
         if (validate(stack))
         {
             CompoundNBT tag = stack.getOrCreateTag();
-            IEssenceHolder holder = (IEssenceHolder) stack.getItem();
-            for (int i = 0; i < holder.getEssenceSlots(); i++)
+            ISpiritHolderBlockItem holder = (ISpiritHolderBlockItem) stack.getItem();
+            for (int i = 0; i < holder.getSpiritSlots(); i++)
             {
                 if (tag.contains("essenceIdentifier" + i))
                 {
@@ -77,39 +77,115 @@ public class SpiritHelper
         }
         return pair;
     }
-    public static void addSpirit(ItemStack stack, String identifier, int count, int slot)
+    public static void putSpirit(ISpiritHolderTileEntity tileEntity, String identifier, int count)
+    {
+        if (count == 0)
+        {
+            tileEntity.setSpirits(0);
+            tileEntity.setSpiritType(null);
+            return;
+        }
+        tileEntity.setSpirits(count);
+        tileEntity.setSpiritType(identifier);
+    }
+    public static void putSpirit(ItemStack stack, String identifier, int count, int slot)
     {
         CompoundNBT tag = stack.getOrCreateTag();
+        if (count == 0)
+        {
+            tag.remove("essenceIdentifier" + slot);
+            tag.remove("essenceCount" + slot);
+            return;
+        }
         tag.putString("essenceIdentifier" + slot, identifier);
         tag.putInt("essenceCount" + slot, count);
+    }
+    public static int takeSpiritFromStack(ItemStack stack, String identifier, int count, int slot)
+    {
+        int transferred = 0;
+        if (validate(stack))
+        {
+            CompoundNBT tag = stack.getOrCreateTag();
+            if (tag.getString("essenceIdentifier" + slot).equals(identifier))
+            {
+                int simulatedResult = tag.getInt("essenceCount" + slot) - count;
+                if (simulatedResult < 0)
+                {
+                    simulatedResult = 0;
+                }
+                transferred += simulatedResult;
+                putSpirit(stack, identifier, simulatedResult, slot);
+            }
+        }
+        return transferred;
     }
     public static int giveStackSpirit(ItemStack stack, String identifier, int count)
     {
         int extra = 0;
         if (validate(stack))
         {
-            IEssenceHolder holder = (IEssenceHolder) stack.getItem();
+            ISpiritHolderBlockItem holder = (ISpiritHolderBlockItem) stack.getItem();
             CompoundNBT tag = stack.getOrCreateTag();
-            for (int i = 0; i < holder.getEssenceSlots(); i++)
+            for (int i = 0; i < holder.getSpiritSlots(); i++)
             {
                 int simulatedResult = tag.getInt("essenceCount" + i) + count;
-                if (simulatedResult > holder.getMaxEssence())
+                if (simulatedResult > holder.getMaxSpirits())
                 {
-                    extra = simulatedResult - holder.getMaxEssence();
-                    simulatedResult = holder.getMaxEssence();
+                    extra = simulatedResult - holder.getMaxSpirits();
+                    simulatedResult = holder.getMaxSpirits();
                 }
                 if (!tag.getString("essenceIdentifier" + i).equals("") && !tag.getString("essenceIdentifier" + i).equals(identifier))
                 {
                     continue;
                 }
-                addSpirit(stack, identifier, simulatedResult, i);
-                if (extra == 0)
+                putSpirit(stack, identifier, simulatedResult, i);
+                count = extra;
+                if (count == 0)
                 {
                     break;
                 }
             }
         }
         return extra;
+    }
+    public static void transferSpirit(PlayerEntity player, ItemStack stack, ISpiritHolderTileEntity tileEntity)
+    {
+        if (validate(stack))
+        {
+            ISpiritHolderBlockItem holder = (ISpiritHolderBlockItem) stack.getItem();
+            for (int i = 0; i < holder.getSpiritSlots(); i++)
+            {
+                Pair<String, Integer> itemSpirit = itemSpirit(stack,i);
+                if (player.isSneaking() || itemSpirit == null)
+                {
+                    if (tileEntity.currentSpirits() > 0)
+                    {
+                        if (itemSpirit != null && !tileEntity.getSpiritType().equals(itemSpirit.getFirst()))
+                        {
+                            continue;
+                        }
+                        int taken = giveStackSpirit(stack, tileEntity.getSpiritType(), tileEntity.currentSpirits());
+                        putSpirit(tileEntity, tileEntity.getSpiritType(), taken);
+                        break;
+                    }
+                }
+                else
+                {
+                    if (tileEntity.getSpiritType() != null && !tileEntity.getSpiritType().equals(itemSpirit.getFirst()))
+                    {
+                        continue;
+                    }
+                    int amountToGive = tileEntity.maxSpirits() - tileEntity.currentSpirits();
+                    if (amountToGive > itemSpirit.getSecond())
+                    {
+                        amountToGive = itemSpirit.getSecond();
+                    }
+                    putSpirit(tileEntity, itemSpirit.getFirst(), tileEntity.currentSpirits()+ amountToGive);
+                    takeSpiritFromStack(stack, itemSpirit.getFirst(),amountToGive, i);
+                    break;
+                }
+            }
+        }
     }
     public static void harvestSpirit(ArrayList<Pair<String, Integer>> spirits, PlayerEntity player)
     {
@@ -134,9 +210,9 @@ public class SpiritHelper
                 {
                     continue;
                 }
-                IEssenceHolder holder = (IEssenceHolder) stack.getItem();
+                ISpiritHolderBlockItem holder = (ISpiritHolderBlockItem) stack.getItem();
                 ArrayList<Pair<String, Integer>> itemSpirits = itemSpirits(stack, false);
-                if (itemSpirits.size() >= holder.getEssenceSlots() && itemSpirits.stream().noneMatch(p -> p.getFirst().equals(spirit)))
+                if (itemSpirits.size() >= holder.getSpiritSlots() && itemSpirits.stream().noneMatch(p -> p.getFirst().equals(spirit)))
                 {
                     continue;
                 }
@@ -156,6 +232,10 @@ public class SpiritHelper
             }
         }
         return spirits;
+    }
+    public static boolean connectsToHolders(TileEntity entity)
+    {
+        return entity instanceof ISpiritTransferTileEntity || entity instanceof ISpiritRequestTileEntity;
     }
     public static boolean isSpiritRelated(TileEntity entity)
     {

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "malum:sun_kissed_planks"
+    }
+  ],
+  "result": {
+    "item": "malum:sun_kissed_planks_button"
+  }
+}

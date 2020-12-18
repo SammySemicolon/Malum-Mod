@@ -1,0 +1,36 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"1": "malum:block/spirit_jar_pipe_connections",
+		"4": "malum:block/spirit_jar",
+		"particle": "malum:block/transmissive_metal_block"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 12, 12],
+			"faces": {
+				"north": {"uv": [0, 0, 8, 12], "texture": "#4"},
+				"east": {"uv": [0, 0, 8, 12], "texture": "#4"},
+				"south": {"uv": [0, 0, 8, 12], "texture": "#4"},
+				"west": {"uv": [0, 0, 8, 12], "texture": "#4"},
+				"up": {"uv": [8, 0, 16, 8], "texture": "#4"},
+				"down": {"uv": [8, 8, 16, 16], "texture": "#4"}
+			}
+		},
+		{
+			"from": [4, 12.025, 4],
+			"to": [12, 16.025, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 20, 12]},
+			"faces": {
+				"north": {"uv": [6, 4, 14, 8], "texture": "#1"},
+				"east": {"uv": [6, 4, 14, 8], "texture": "#1"},
+				"south": {"uv": [6, 4, 14, 8], "texture": "#1"},
+				"west": {"uv": [6, 4, 14, 8], "texture": "#1"},
+				"up": {"uv": [6, 8, 14, 16], "texture": "#1"},
+				"down": {"uv": [6, 8, 14, 16], "texture": "#1"}
+			}
+		}
+	]
+}

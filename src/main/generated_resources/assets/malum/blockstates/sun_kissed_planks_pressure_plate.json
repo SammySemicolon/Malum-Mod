@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "malum:block/sun_kissed_planks_pressure_plate_up"
+    },
+    "powered=true": {
+      "model": "malum:block/sun_kissed_planks_pressure_plate_down"
+    }
+  }
+}

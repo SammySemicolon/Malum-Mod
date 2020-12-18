@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:mossy_tainted_rock_bricks"
+  },
+  "result": "malum:mossy_tainted_rock_bricks_slab",
+  "count": 2
+}

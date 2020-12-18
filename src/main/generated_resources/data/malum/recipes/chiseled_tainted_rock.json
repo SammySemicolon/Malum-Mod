@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:tainted_rock_slab"
+    }
+  },
+  "result": {
+    "item": "malum:chiseled_tainted_rock"
+  }
+}
