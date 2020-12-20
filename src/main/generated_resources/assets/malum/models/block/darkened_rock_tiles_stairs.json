@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "malum:block/darkened_rock_tiles",
+    "bottom": "malum:block/darkened_rock_tiles",
+    "top": "malum:block/darkened_rock_tiles"
+  }
+}

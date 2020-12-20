@@ -1,9 +1,0 @@
-{
-    "ctm":{
-        "ctm_version": 1,
-        "type":"CTM",
-        "textures":[
-            "malum:block/smooth_darkened_rock_ctm"
-        ]
-    }
-}

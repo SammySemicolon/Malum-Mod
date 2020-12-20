@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:darkened_rock"
+  },
+  "result": "malum:chiseled_darkened_rock",
+  "count": 1
+}

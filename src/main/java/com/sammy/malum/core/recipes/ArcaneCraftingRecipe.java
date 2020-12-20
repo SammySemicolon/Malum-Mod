@@ -78,11 +78,7 @@ public class ArcaneCraftingRecipe
         new ArcaneCraftingRecipe(toArrayList(Items.IRON_INGOT, Items.IRON_INGOT, DARK_FLARES.get()), toArrayList(MalumSpiritTypes.SINISTER_ESSENCE.identifier),RUIN_PLATING.get(), 1);
         new ArcaneCraftingRecipe(toArrayList(Items.GUNPOWDER, Items.GUNPOWDER, Items.GLOWSTONE_DUST, Items.GLOWSTONE_DUST), toArrayList(MalumSpiritTypes.ARCANE_ESSENCE.identifier),ECTOPLASM.get(), 4);
         new ArcaneCraftingRecipe(toArrayList(Items.GLASS_PANE, Items.GLASS_PANE, Items.GLASS_PANE, Items.GLASS_PANE, SEED_OF_CORRUPTION.get()),VOID_LENS.get(), 1);
-        new ArcaneCraftingRecipe(toArrayList(TAINTED_ROCK.get(), Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK),CRIMSON_ROCK.get(), 9);
-        new ArcaneCraftingRecipe(toArrayList(DARKENED_ROCK.get(), Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK),ARCHAIC_ROCK.get(), 9);
-        
         new ArcaneCraftingRecipe(toArrayList(Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK, Items.NETHERRACK),SEED_OF_CORRUPTION.get(), 9, Items.DIAMOND_SWORD, 2);
-        
         new ArcaneCraftingRecipe(toArrayList(Items.BLAZE_ROD), toArrayList(MalumSpiritTypes.NETHERBORNE_ESSENCE.identifier),Items.BLAZE_POWDER, 3);
 
     }

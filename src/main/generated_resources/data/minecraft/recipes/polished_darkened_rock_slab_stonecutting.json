@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:polished_darkened_rock"
+  },
+  "result": "malum:polished_darkened_rock_slab",
+  "count": 2
+}

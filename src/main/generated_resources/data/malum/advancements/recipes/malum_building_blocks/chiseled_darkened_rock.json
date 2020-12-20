@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:chiseled_darkened_rock"
+    ]
+  },
+  "criteria": {
+    "has_darkened_rock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:darkened_rock"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:chiseled_darkened_rock"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_darkened_rock",
+      "has_the_recipe"
+    ]
+  ]
+}

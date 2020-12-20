@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "malum:block/blazing_archaic_rock_bricks",
-    "bottom": "malum:block/blazing_archaic_rock_bricks",
-    "top": "malum:block/blazing_archaic_rock_bricks"
-  }
-}

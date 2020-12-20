@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "malum:block/darkened_rock_tiles_slab_top"
+    },
+    "type=bottom": {
+      "model": "malum:block/darkened_rock_tiles_slab"
+    },
+    "type=double": {
+      "model": "malum:block/darkened_rock_tiles"
+    }
+  }
+}

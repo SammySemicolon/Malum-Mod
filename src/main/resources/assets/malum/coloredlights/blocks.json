@@ -2,7 +2,7 @@
   "enabled": true,
   "lights": [
     {
-      "name": "malum:tainted_lantern",
+      "name": "malum:tainted_flared_lantern",
       "r": 247,
       "g": 86,
       "b": 205,
@@ -13,7 +13,7 @@
       }
     },
     {
-      "name": "malum:darkened_lantern",
+      "name": "malum:darkened_flared_lantern",
       "r": 247,
       "g": 86,
       "b": 205,
@@ -46,22 +46,22 @@
       }
     },
     {
-      "name": "malum:crimson_lantern",
-      "r": 242,
-      "g": 52,
-      "b": 52,
-      "radius": 3,
+      "name": "malum:flared_darkened_rock",
+      "r": 247,
+      "g": 86,
+      "b": 205,
+      "radius": 2,
       "state": {
         "property": "",
         "value": ""
       }
     },
     {
-      "name": "malum:archaic_lantern",
-      "r": 242,
-      "g": 52,
-      "b": 52,
-      "radius": 3,
+      "name": "malum:horizontal_flared_darkened_rock",
+      "r": 247,
+      "g": 86,
+      "b": 205,
+      "radius": 2,
       "state": {
         "property": "",
         "value": ""

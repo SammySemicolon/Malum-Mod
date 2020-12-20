@@ -49,16 +49,6 @@ public class MalumBlocks
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.DARKENED_ROCK).hardnessAndResistance(2.25F, 3600.0F);
     }
     
-    public static AbstractBlock.Properties CRIMSON_ROCK_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.CRIMSON_ROCK).hardnessAndResistance(1.25F, 9.0F);
-    }
-    
-    public static AbstractBlock.Properties ARCHAIC_ROCK_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.ARCHAIC_ROCK).hardnessAndResistance(2.25F, 3600.0F);
-    }
-    
     public static AbstractBlock.Properties SUN_KISSED_WOOD_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.YELLOW).sound(SoundType.WOOD).hardnessAndResistance(1.75F, 4.0F);
@@ -134,9 +124,9 @@ public class MalumBlocks
     public static final RegistryObject<Block> CUT_TAINTED_ROCK = BLOCKS.register("cut_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CHISELED_TAINTED_ROCK = BLOCKS.register("chiseled_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
    
-    public static final RegistryObject<Block> FLARED_TAINTED_ROCK = BLOCKS.register("flared_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> 15)));
-    public static final RegistryObject<Block> HORIZONTAL_FLARED_TAINTED_ROCK = BLOCKS.register("horizontal_flared_tainted_rock", () -> new RotatedPillarBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> 15)));
-    public static final RegistryObject<Block> TAINTED_LANTERN = BLOCKS.register("tainted_lantern", () -> new LanternBlock(TAINTED_ROCK_PROPERTIES().setLightLevel(MalumBlocks::lanternLight)));
+    public static final RegistryObject<Block> FLARED_TAINTED_ROCK = BLOCKS.register("flared_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 15))));
+    public static final RegistryObject<Block> HORIZONTAL_FLARED_TAINTED_ROCK = BLOCKS.register("horizontal_flared_tainted_rock", () -> new RotatedPillarBlock(TAINTED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 15))));
+    public static final RegistryObject<Block> TAINTED_FLARED_LANTERN = BLOCKS.register("tainted_flared_lantern", () -> new LanternBlock(TAINTED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 12))));
     
     public static final RegistryObject<Block> TAINTED_ROCK_SLAB = BLOCKS.register("tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_TAINTED_ROCK_SLAB = BLOCKS.register("smooth_tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
@@ -168,107 +158,55 @@ public class MalumBlocks
     
     //region darkened rock
     public static final RegistryObject<Block> DARKENED_ROCK = BLOCKS.register("darkened_rock", () -> new Block(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> DARKENED_ROCK_SLAB = BLOCKS.register("darkened_rock_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> DARKENED_ROCK_STAIRS = BLOCKS.register("darkened_rock_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> POLISHED_DARKENED_ROCK = BLOCKS.register("polished_darkened_rock", () -> new Block(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> POLISHED_DARKENED_ROCK_SLAB = BLOCKS.register("polished_darkened_rock_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> POLISHED_DARKENED_ROCK_STAIRS = BLOCKS.register("polished_darkened_rock_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
-    
     public static final RegistryObject<Block> SMOOTH_DARKENED_ROCK = BLOCKS.register("smooth_darkened_rock", () -> new Block(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> SMOOTH_DARKENED_ROCK_SLAB = BLOCKS.register("smooth_darkened_rock_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> SMOOTH_DARKENED_ROCK_STAIRS = BLOCKS.register("smooth_darkened_rock_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> POLISHED_DARKENED_ROCK = BLOCKS.register("polished_darkened_rock", () -> new Block(DARKENED_ROCK_PROPERTIES()));
     
     public static final RegistryObject<Block> DARKENED_ROCK_BRICKS = BLOCKS.register("darkened_rock_bricks", () -> new Block(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> DARKENED_ROCK_BRICKS_SLAB = BLOCKS.register("darkened_rock_bricks_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> DARKENED_ROCK_BRICKS_STAIRS = BLOCKS.register("darkened_rock_bricks_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
-    
     public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_BRICKS = BLOCKS.register("cracked_darkened_rock_bricks", () -> new Block(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_darkened_rock_bricks_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_darkened_rock_bricks_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
-    
     public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_BRICKS = BLOCKS.register("mossy_darkened_rock_bricks", () -> new Block(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_BRICKS_SLAB = BLOCKS.register("mossy_darkened_rock_bricks_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_BRICKS_STAIRS = BLOCKS.register("mossy_darkened_rock_bricks_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    
+    public static final RegistryObject<Block> DARKENED_ROCK_TILES = BLOCKS.register("darkened_rock_tiles", () -> new Block(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_TILES = BLOCKS.register("cracked_darkened_rock_tiles", () -> new Block(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_TILES = BLOCKS.register("mossy_darkened_rock_tiles", () -> new Block(DARKENED_ROCK_PROPERTIES()));
     
     public static final RegistryObject<Block> DARKENED_ROCK_PILLAR = BLOCKS.register("darkened_rock_pillar", () -> new RotatedPillarBlock(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CHISELED_DARKENED_ROCK_BRICKS = BLOCKS.register("chiseled_darkened_rock_bricks", () -> new Block(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> DARKENED_ROCK_PILLAR_CAP = BLOCKS.register("darkened_rock_pillar_cap", () -> new MalumDirectionalBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> DARKENED_ROCK_COLUMN = BLOCKS.register("darkened_rock_column", () -> new RotatedPillarBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> DARKENED_ROCK_COLUMN_CAP = BLOCKS.register("darkened_rock_column_cap", () -> new MalumDirectionalBlock(DARKENED_ROCK_PROPERTIES()));
+    
+    public static final RegistryObject<Block> CUT_DARKENED_ROCK = BLOCKS.register("cut_darkened_rock", () -> new Block(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CHISELED_DARKENED_ROCK = BLOCKS.register("chiseled_darkened_rock", () -> new Block(DARKENED_ROCK_PROPERTIES()));
+    
+    public static final RegistryObject<Block> FLARED_DARKENED_ROCK = BLOCKS.register("flared_darkened_rock", () -> new Block(DARKENED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 15))));
+    public static final RegistryObject<Block> HORIZONTAL_FLARED_DARKENED_ROCK = BLOCKS.register("horizontal_flared_darkened_rock", () -> new RotatedPillarBlock(DARKENED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 15))));
+    public static final RegistryObject<Block> DARKENED_FLARED_LANTERN = BLOCKS.register("darkened_flared_lantern", () -> new LanternBlock(DARKENED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 12))));
+    
+    public static final RegistryObject<Block> DARKENED_ROCK_SLAB = BLOCKS.register("darkened_rock_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMOOTH_DARKENED_ROCK_SLAB = BLOCKS.register("smooth_darkened_rock_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> POLISHED_DARKENED_ROCK_SLAB = BLOCKS.register("polished_darkened_rock_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> DARKENED_ROCK_BRICKS_SLAB = BLOCKS.register("darkened_rock_bricks_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_darkened_rock_bricks_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_BRICKS_SLAB = BLOCKS.register("mossy_darkened_rock_bricks_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> DARKENED_ROCK_TILES_SLAB = BLOCKS.register("darkened_rock_tiles_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_TILES_SLAB = BLOCKS.register("cracked_darkened_rock_tiles_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_TILES_SLAB = BLOCKS.register("mossy_darkened_rock_tiles_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
+    
+    public static final RegistryObject<Block> DARKENED_ROCK_STAIRS = BLOCKS.register("darkened_rock_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMOOTH_DARKENED_ROCK_STAIRS = BLOCKS.register("smooth_darkened_rock_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> POLISHED_DARKENED_ROCK_STAIRS = BLOCKS.register("polished_darkened_rock_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> DARKENED_ROCK_BRICKS_STAIRS = BLOCKS.register("darkened_rock_bricks_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_darkened_rock_bricks_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_BRICKS_STAIRS = BLOCKS.register("mossy_darkened_rock_bricks_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> DARKENED_ROCK_TILES_STAIRS = BLOCKS.register("darkened_rock_tiles_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_TILES_STAIRS = BLOCKS.register("cracked_darkened_rock_tiles_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_TILES_STAIRS = BLOCKS.register("mossy_darkened_rock_tiles_stairs", () -> new StairsBlock(DARKENED_ROCK.get().getDefaultState(), DARKENED_ROCK_PROPERTIES()));
     
     public static final RegistryObject<Block> DARKENED_ROCK_PRESSURE_PLATE = BLOCKS.register("darkened_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, DARKENED_ROCK_PROPERTIES()));
+    
     public static final RegistryObject<Block> DARKENED_ROCK_WALL = BLOCKS.register("darkened_rock_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> DARKENED_ROCK_BRICKS_WALL = BLOCKS.register("darkened_rock_bricks_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_darkened_rock_bricks_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> DARKENED_LANTERN = BLOCKS.register("darkened_lantern", () -> new LanternBlock(DARKENED_ROCK_PROPERTIES().setLightLevel(MalumBlocks::lanternLight)));
-    //endregion
-    
-    //region crimson rock
-    public static final RegistryObject<Block> CRIMSON_ROCK = BLOCKS.register("crimson_rock", () -> new Block(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRIMSON_ROCK_SLAB = BLOCKS.register("crimson_rock_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRIMSON_ROCK_STAIRS = BLOCKS.register("crimson_rock_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> POLISHED_CRIMSON_ROCK = BLOCKS.register("polished_crimson_rock", () -> new Block(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> POLISHED_CRIMSON_ROCK_SLAB = BLOCKS.register("polished_crimson_rock_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> POLISHED_CRIMSON_ROCK_STAIRS = BLOCKS.register("polished_crimson_rock_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> SMOOTH_CRIMSON_ROCK = BLOCKS.register("smooth_crimson_rock", () -> new Block(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> SMOOTH_CRIMSON_ROCK_SLAB = BLOCKS.register("smooth_crimson_rock_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> SMOOTH_CRIMSON_ROCK_STAIRS = BLOCKS.register("smooth_crimson_rock_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS = BLOCKS.register("crimson_rock_bricks", () -> new Block(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS_SLAB = BLOCKS.register("crimson_rock_bricks_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS_STAIRS = BLOCKS.register("crimson_rock_bricks_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> CRACKED_CRIMSON_ROCK_BRICKS = BLOCKS.register("cracked_crimson_rock_bricks", () -> new Block(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRACKED_CRIMSON_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_crimson_rock_bricks_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRACKED_CRIMSON_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_crimson_rock_bricks_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> BLAZING_CRIMSON_ROCK_BRICKS = BLOCKS.register("blazing_crimson_rock_bricks", () -> new Block(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> BLAZING_CRIMSON_ROCK_BRICKS_SLAB = BLOCKS.register("blazing_crimson_rock_bricks_slab", () -> new SlabBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> BLAZING_CRIMSON_ROCK_BRICKS_STAIRS = BLOCKS.register("blazing_crimson_rock_bricks_stairs", () -> new StairsBlock(CRIMSON_ROCK.get().getDefaultState(), CRIMSON_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> CRIMSON_ROCK_PILLAR = BLOCKS.register("crimson_rock_pillar", () -> new RotatedPillarBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CHISELED_CRIMSON_ROCK_BRICKS = BLOCKS.register("chiseled_crimson_rock_bricks", () -> new Block(CRIMSON_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> CRIMSON_ROCK_PRESSURE_PLATE = BLOCKS.register("crimson_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRIMSON_ROCK_WALL = BLOCKS.register("crimson_rock_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRIMSON_ROCK_BRICKS_WALL = BLOCKS.register("crimson_rock_bricks_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> BLAZING_CRIMSON_ROCK_BRICKS_WALL = BLOCKS.register("blazing_crimson_rock_bricks_wall", () -> new WallBlock(CRIMSON_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRIMSON_LANTERN = BLOCKS.register("crimson_lantern", () -> new LanternBlock(CRIMSON_ROCK_PROPERTIES().setLightLevel(MalumBlocks::lanternLight)));
-    //endregion
-    
-    //region archaic blocks
-    public static final RegistryObject<Block> ARCHAIC_ROCK = BLOCKS.register("archaic_rock", () -> new Block(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> ARCHAIC_ROCK_SLAB = BLOCKS.register("archaic_rock_slab", () -> new SlabBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> ARCHAIC_ROCK_STAIRS = BLOCKS.register("archaic_rock_stairs", () -> new StairsBlock(ARCHAIC_ROCK.get().getDefaultState(), ARCHAIC_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> POLISHED_ARCHAIC_ROCK = BLOCKS.register("polished_archaic_rock", () -> new Block(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> POLISHED_ARCHAIC_ROCK_SLAB = BLOCKS.register("polished_archaic_rock_slab", () -> new SlabBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> POLISHED_ARCHAIC_ROCK_STAIRS = BLOCKS.register("polished_archaic_rock_stairs", () -> new StairsBlock(ARCHAIC_ROCK.get().getDefaultState(), ARCHAIC_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> SMOOTH_ARCHAIC_ROCK = BLOCKS.register("smooth_archaic_rock", () -> new Block(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> SMOOTH_ARCHAIC_ROCK_SLAB = BLOCKS.register("smooth_archaic_rock_slab", () -> new SlabBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> SMOOTH_ARCHAIC_ROCK_STAIRS = BLOCKS.register("smooth_archaic_rock_stairs", () -> new StairsBlock(ARCHAIC_ROCK.get().getDefaultState(), ARCHAIC_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> ARCHAIC_ROCK_BRICKS = BLOCKS.register("archaic_rock_bricks", () -> new Block(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> ARCHAIC_ROCK_BRICKS_SLAB = BLOCKS.register("archaic_rock_bricks_slab", () -> new SlabBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> ARCHAIC_ROCK_BRICKS_STAIRS = BLOCKS.register("archaic_rock_bricks_stairs", () -> new StairsBlock(ARCHAIC_ROCK.get().getDefaultState(), ARCHAIC_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> CRACKED_ARCHAIC_ROCK_BRICKS = BLOCKS.register("cracked_archaic_rock_bricks", () -> new Block(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRACKED_ARCHAIC_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_archaic_rock_bricks_slab", () -> new SlabBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CRACKED_ARCHAIC_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_archaic_rock_bricks_stairs", () -> new StairsBlock(ARCHAIC_ROCK.get().getDefaultState(), ARCHAIC_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> BLAZING_ARCHAIC_ROCK_BRICKS = BLOCKS.register("blazing_archaic_rock_bricks", () -> new Block(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> BLAZING_ARCHAIC_ROCK_BRICKS_SLAB = BLOCKS.register("blazing_archaic_rock_bricks_slab", () -> new SlabBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> BLAZING_ARCHAIC_ROCK_BRICKS_STAIRS = BLOCKS.register("blazing_archaic_rock_bricks_stairs", () -> new StairsBlock(ARCHAIC_ROCK.get().getDefaultState(), ARCHAIC_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> ARCHAIC_ROCK_PILLAR = BLOCKS.register("archaic_rock_pillar", () -> new RotatedPillarBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> CHISELED_ARCHAIC_ROCK_BRICKS = BLOCKS.register("chiseled_archaic_rock_bricks", () -> new Block(ARCHAIC_ROCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> ARCHAIC_ROCK_PRESSURE_PLATE = BLOCKS.register("archaic_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> ARCHAIC_ROCK_WALL = BLOCKS.register("archaic_rock_wall", () -> new WallBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> ARCHAIC_ROCK_BRICKS_WALL = BLOCKS.register("archaic_rock_bricks_wall", () -> new WallBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> BLAZING_ARCHAIC_ROCK_BRICKS_WALL = BLOCKS.register("blazing_archaic_rock_bricks_wall", () -> new WallBlock(ARCHAIC_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> ARCHAIC_LANTERN = BLOCKS.register("archaic_lantern", () -> new LanternBlock(ARCHAIC_ROCK_PROPERTIES().setLightLevel(MalumBlocks::lanternLight)));
+    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_darkened_rock_bricks_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
     //endregion
     
     //region sun kissed wood
@@ -377,7 +315,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> OPEN_TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("open_transmissive_metal_block", () -> new OpenTransmissiveMetalBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
     //endregion
     
-    public static int lanternLight(BlockState state)
+    public static int light(BlockState state, int strength)
     {
         if (ModList.get().isLoaded("hypcore"))
         {
@@ -386,6 +324,6 @@ public class MalumBlocks
                 return 0;
             }
         }
-        return 12;
+        return strength;
     }
 }

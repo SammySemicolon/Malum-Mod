@@ -19,11 +19,6 @@ public class MalumSounds
     public static final SoundEvent TAINTED_ROCK_STEP = new SoundEvent(MalumHelper.prefix("tainted_rock_step"));
     public static final SoundEvent TAINTED_ROCK_HIT = new SoundEvent(MalumHelper.prefix("tainted_rock_hit"));
     
-    public static final SoundEvent CRIMSON_ROCK_BREAK = new SoundEvent(MalumHelper.prefix("crimson_rock_break"));
-    public static final SoundEvent CRIMSON_ROCK_PLACE = new SoundEvent(MalumHelper.prefix("crimson_rock_break"));
-    public static final SoundEvent CRIMSON_ROCK_STEP = new SoundEvent(MalumHelper.prefix("crimson_rock_step"));
-    public static final SoundEvent CRIMSON_ROCK_HIT = new SoundEvent(MalumHelper.prefix("crimson_rock_hit"));
-    
     public static final SoundEvent SOLAR_ORE_BREAK = new SoundEvent(MalumHelper.prefix("solar_ore_break"));
     public static final SoundEvent SOLAR_ORE_HIT = new SoundEvent(MalumHelper.prefix("solar_ore_hit"));
     public static final SoundEvent SOLAR_ORE_PLACE = new SoundEvent(MalumHelper.prefix("solar_ore_place"));
@@ -47,13 +42,10 @@ public class MalumSounds
     
     public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType DARKENED_ROCK = new SoundType(1.0F, 0.75F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
-    public static final SoundType CRIMSON_ROCK = new SoundType(1.0F, 1.0F, CRIMSON_ROCK_BREAK, CRIMSON_ROCK_STEP, CRIMSON_ROCK_PLACE, CRIMSON_ROCK_HIT, SoundEvents.BLOCK_NETHER_BRICKS_FALL);
-    public static final SoundType ARCHAIC_ROCK = new SoundType(1.0F, 0.75F, CRIMSON_ROCK_BREAK, CRIMSON_ROCK_STEP, CRIMSON_ROCK_PLACE, CRIMSON_ROCK_HIT, SoundEvents.BLOCK_NETHER_BRICKS_FALL);
     public static final SoundType SOLAR_ORE = new SoundType(1.0F, 1.25F, SOLAR_ORE_BREAK, SoundEvents.BLOCK_STONE_STEP, SOLAR_ORE_PLACE, SOLAR_ORE_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType TRANSMISSIVE_ALLOY = new SoundType(1.0F, 1.0F, TRANSMISSIVE_ALLOY_BREAK, TRANSMISSIVE_ALLOY_STEP, TRANSMISSIVE_ALLOY_PLACE, TRANSMISSIVE_ALLOY_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType RUIN_PLATING = new SoundType(1.0F, 1.0F, RUIN_PLATING_BREAK, RUIN_PLATING_STEP, RUIN_PLATING_PLACE, RUIN_PLATING_HIT, SoundEvents.BLOCK_STONE_FALL);
 
-    public static final SoundType CRIMSON_ZOOM_ROCK = new SoundType(1.0F, 1.0F, CRIMSON_ROCK_BREAK, CRIMSON_ROCK_STEP, CRIMSON_ROCK_PLACE, SoundEvents.BLOCK_BASALT_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static void init()
     {
         SOUNDS.register("tainted_rock_break", ()-> TAINTED_ROCK_BREAK);
@@ -61,11 +53,6 @@ public class MalumSounds
         SOUNDS.register("tainted_rock_step", ()-> TAINTED_ROCK_STEP);
         SOUNDS.register("tainted_rock_hit", ()-> TAINTED_ROCK_HIT);
         
-        SOUNDS.register("crimson_rock_break", ()-> CRIMSON_ROCK_BREAK);
-        SOUNDS.register("crimson_rock_place", ()-> CRIMSON_ROCK_PLACE);
-        SOUNDS.register("crimson_rock_step", ()-> CRIMSON_ROCK_STEP);
-        SOUNDS.register("crimson_rock_hit", ()-> CRIMSON_ROCK_HIT);
-    
         SOUNDS.register("solar_ore_break", ()-> SOLAR_ORE_BREAK);
         SOUNDS.register("solar_ore_place", ()-> SOLAR_ORE_PLACE);
         SOUNDS.register("solar_ore_hit", ()-> SOLAR_ORE_HIT);

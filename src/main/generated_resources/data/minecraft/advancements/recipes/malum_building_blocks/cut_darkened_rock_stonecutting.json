@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:cut_darkened_rock_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_darkened_rock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:darkened_rock"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:cut_darkened_rock_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_darkened_rock",
+      "has_the_recipe"
+    ]
+  ]
+}

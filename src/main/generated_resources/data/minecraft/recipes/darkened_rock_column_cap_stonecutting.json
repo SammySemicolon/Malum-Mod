@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:darkened_rock"
+  },
+  "result": "malum:darkened_rock_column_cap",
+  "count": 1
+}
