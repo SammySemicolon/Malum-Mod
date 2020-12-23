@@ -19,20 +19,20 @@ import javax.annotation.Nonnull;
 
 import static com.sammy.malum.MalumHelper.prefix;
 
-public class TaintTransfusionRecipeCategory implements IRecipeCategory<TaintTransfusion>
+public class FurnaceTaintTransfusionRecipeCategory implements IRecipeCategory<TaintTransfusion>
 {
-    public static final ResourceLocation UID = prefix("furnace_taint_transfusion");
+    public static final ResourceLocation UID = prefix("taint_transfusion");
     private final IDrawable background;
     private final String localizedName;
     private final IDrawable overlay;
     private final IDrawable icon;
     
-    public TaintTransfusionRecipeCategory(IGuiHelper guiHelper)
+    public FurnaceTaintTransfusionRecipeCategory(IGuiHelper guiHelper)
     {
         background = guiHelper.createBlankDrawable(61, 53);
-        localizedName = I18n.format("malum.jei.taint_transfusion");
+        localizedName = I18n.format("malum.jei.furnace_taint_transfusion");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/taint_transfusion_overlay.png"), 0, 0, 59, 51);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.SEED_OF_CORRUPTION.get()));
+        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.TAINTED_FURNACE.get()));
     }
     
     @Override

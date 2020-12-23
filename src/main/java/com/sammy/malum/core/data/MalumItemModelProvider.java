@@ -2,6 +2,7 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
+import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;
@@ -29,6 +30,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     protected void registerModels()
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);

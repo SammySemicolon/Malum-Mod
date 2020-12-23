@@ -27,10 +27,6 @@ public class SpiritHolderRendererModule extends TextModule
             {
                 components.add(ClientHelper.combinedComponent(ClientHelper.importantComponent(tileEntity.currentSpirits() + "/" + tileEntity.maxSpirits(), true), ClientHelper.importantComponent(tileEntity.getSpiritType(), true)));
             }
-            else
-            {
-            
-            }
         }
         return components;
     }

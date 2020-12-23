@@ -7,6 +7,8 @@ import com.sammy.malum.common.items.tools.*;
 import com.sammy.malum.core.MalumBuildingTab;
 import com.sammy.malum.core.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.systems.multiblock.MultiblockItem;
+import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -245,7 +247,7 @@ public class MalumItems
     
     //region crafting blocks
 //    public static final RegistryObject<Item> ARCANE_CRAFTING_TABLE = ITEMS.register("arcane_crafting_table", () -> new BlockItem(MalumBlocks.ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
-//    public static final RegistryObject<Item> BLIGHTING_FURNACE = ITEMS.register("blighting_furnace", () -> new MultiblockItem(MalumBlocks.BLIGHTING_FURNACE.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.BLIGHTING_FURNACE_TOP.get())));
+    public static final RegistryObject<Item> TAINTED_FURNACE = ITEMS.register("tainted_furnace", () -> new MultiblockItem(MalumBlocks.TAINTED_FURNACE.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.TAINTED_FURNACE_TOP.get())));
     //endregion
     
     //region simple components
@@ -261,6 +263,7 @@ public class MalumItems
 //    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
 //    public static final RegistryObject<Item> VOID_LENS = ITEMS.register("void_lens", () -> new Item(DEFAULT_PROPERTIES()));
 //
+    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES()));
     //endregion
     

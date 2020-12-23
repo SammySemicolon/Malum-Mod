@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XYX",
+    "#Z#",
+    "XYX"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:dark_flares"
+    },
+    "X": {
+      "item": "malum:tainted_rock"
+    },
+    "Y": {
+      "item": "malum:darkened_rock"
+    },
+    "Z": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "item": "malum:tainted_furnace"
+  }
+}

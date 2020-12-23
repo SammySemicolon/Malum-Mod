@@ -2,8 +2,11 @@ package com.sammy.malum.core.recipes;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import net.minecraft.block.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -14,29 +17,57 @@ import java.util.ArrayList;
 public class TaintTransfusion
 {
     public static final ArrayList<TaintTransfusion> conversions = new ArrayList<>();
-    public final Block inputBlock;
-    public final Block outputBlock;
+    public static final ArrayList<TaintTransfusion> advancedConversions = new ArrayList<>();
+    public final Block input;
+    public final Block output;
+    public final Item inputItem;
+    public final Item outputItem;
+    public final boolean isBlocky;
     
     public TaintTransfusion(RegistryObject<Block> inputBlock, RegistryObject<Block> outputBlock)
     {
-        this.inputBlock = inputBlock.get();
-        this.outputBlock = outputBlock.get();
-        conversions.add(this);
+        this(inputBlock.get(), outputBlock.get());
     }
     public TaintTransfusion(Block inputBlock, Block outputBlock)
     {
-        this.inputBlock = inputBlock;
-        this.outputBlock = outputBlock;
+        this.input = inputBlock;
+        this.output = outputBlock;
+        this.inputItem = inputBlock.asItem();
+        this.outputItem = outputBlock.asItem();
+        isBlocky = true;
         conversions.add(this);
     }
-    
+    public TaintTransfusion(Item inputItem, Item outputItem)
+    {
+        this.input = null;
+        this.output = null;
+        this.inputItem = inputItem;
+        this.outputItem = outputItem;
+        isBlocky = false;
+        advancedConversions.add(this);
+    }
     public static void init()
     {
         new TaintTransfusion(Blocks.STONE, MalumBlocks.TAINTED_ROCK.get());
-        new TaintTransfusion(Blocks.IRON_BLOCK, MalumBlocks.RUIN_PLATING_BLOCK.get());
-        new TaintTransfusion(Blocks.GLOWSTONE, MalumBlocks.FLARED_GLOWSTONE_BlOCK.get());
-        new TaintTransfusion(Blocks.DANDELION, MalumBlocks.MARIGOLD.get());
+        new TaintTransfusion(Blocks.STONE_SLAB, MalumBlocks.TAINTED_ROCK_SLAB.get());
+        new TaintTransfusion(Blocks.STONE_STAIRS, MalumBlocks.TAINTED_ROCK_STAIRS.get());
+        new TaintTransfusion(Blocks.SMOOTH_STONE, MalumBlocks.SMOOTH_TAINTED_ROCK.get());
+        new TaintTransfusion(Blocks.SMOOTH_STONE_SLAB, MalumBlocks.SMOOTH_TAINTED_ROCK_SLAB.get());
         
+        new TaintTransfusion(Blocks.IRON_BLOCK, MalumBlocks.RUIN_PLATING_BLOCK.get());
+        new TaintTransfusion(Items.IRON_INGOT, MalumItems.RUIN_PLATING.get());
+        new TaintTransfusion(Items.IRON_NUGGET, MalumItems.RUIN_SCRAPS.get());
+    
+        new TaintTransfusion(Blocks.GLOWSTONE, MalumBlocks.FLARED_GLOWSTONE_BlOCK.get());
+        new TaintTransfusion(Items.GLOWSTONE_DUST, MalumItems.DARK_FLARES.get());
+    
+        new TaintTransfusion(Items.FLINT, Items.GUNPOWDER);
+        new TaintTransfusion(Items.CLAY_BALL, Items.COAL);
+        new TaintTransfusion(Items.WHEAT, Items.NETHER_WART);
+        new TaintTransfusion(Items.HAY_BLOCK, Items.NETHER_WART_BLOCK);
+        
+        
+        new TaintTransfusion(Blocks.DANDELION, MalumBlocks.MARIGOLD.get());
         new TaintTransfusion(MalumBlocks.SUN_KISSED_GRASS_BLOCK, MalumBlocks.TAINTED_GRASS_BLOCK);
         new TaintTransfusion(MalumBlocks.SUN_KISSED_LEAVES, MalumBlocks.TAINTED_LEAVES);
         new TaintTransfusion(MalumBlocks.SUN_KISSED_LOG, MalumBlocks.TAINTED_LOG);
@@ -65,17 +96,37 @@ public class TaintTransfusion
         new TaintTransfusion(Blocks.MAGMA_BLOCK, Blocks.OBSIDIAN);
         new TaintTransfusion(Blocks.COAL_BLOCK, Blocks.LAPIS_BLOCK);
         new TaintTransfusion(Blocks.NETHER_BRICKS, Blocks.PRISMARINE);
-        new TaintTransfusion(Blocks.HAY_BLOCK, Blocks.NETHER_WART_BLOCK);
         new TaintTransfusion(Blocks.GRAVEL, Blocks.SPONGE);
         new TaintTransfusion(Blocks.BASALT, Blocks.BONE_BLOCK);
         new TaintTransfusion(Blocks.HONEY_BLOCK, Blocks.SLIME_BLOCK);
     }
     
-    public static TaintTransfusion getConversion(Block block)
+    public static TaintTransfusion getTransfusion(Block block)
     {
         for (TaintTransfusion conversion : conversions)
         {
-            if (conversion.inputBlock.equals(block))
+            if (conversion.isBlocky)
+            {
+                if (conversion.input.equals(block))
+                {
+                    return conversion;
+                }
+            }
+        }
+        return null;
+    }
+    public static TaintTransfusion getTransfusion(Item item)
+    {
+        for (TaintTransfusion conversion : conversions)
+        {
+            if (conversion.inputItem.equals(item))
+            {
+                return conversion;
+            }
+        }
+        for (TaintTransfusion conversion : advancedConversions)
+        {
+            if (conversion.inputItem.equals(item))
             {
                 return conversion;
             }
@@ -86,9 +137,10 @@ public class TaintTransfusion
     public static void spread(World worldIn, BlockPos pos, TaintTransfusion conversion)
     {
         BlockState state = worldIn.getBlockState(pos);
-        if (conversion.outputBlock instanceof DoublePlantBlock)
+        Block block = conversion.output;
+        if (conversion.output instanceof DoublePlantBlock)
         {
-            DoublePlantBlock plantBlock = (DoublePlantBlock) conversion.outputBlock;
+            DoublePlantBlock plantBlock = (DoublePlantBlock) conversion.output;
             BlockPos bottomPos = state.get(DoublePlantBlock.HALF).equals(DoubleBlockHalf.LOWER) ? pos : pos.down();
             plantBlock.placeAt(worldIn, bottomPos, 16);
             worldIn.notifyBlockUpdate(bottomPos, worldIn.getBlockState(bottomPos) , worldIn.getBlockState(bottomPos), 3);
@@ -97,18 +149,18 @@ public class TaintTransfusion
             issueSpread(worldIn, pos.up());
             return;
         }
-        if (conversion.outputBlock instanceof DoorBlock)
+        if (conversion.output instanceof DoorBlock)
         {
             BlockPos bottomPos = state.get(DoorBlock.HALF).equals(DoubleBlockHalf.LOWER) ? pos : pos.down();
-            MalumHelper.setBlockStateWithExistingProperties(worldIn, bottomPos, conversion.outputBlock.getDefaultState(), 16,false);
-            MalumHelper.setBlockStateWithExistingProperties(worldIn, bottomPos.up(), conversion.outputBlock.getDefaultState(), 16,false);
+            MalumHelper.setBlockStateWithExistingProperties(worldIn, bottomPos, block.getDefaultState(), 16,false);
+            MalumHelper.setBlockStateWithExistingProperties(worldIn, bottomPos.up(), block.getDefaultState(), 16,false);
             worldIn.notifyBlockUpdate(bottomPos, worldIn.getBlockState(bottomPos), worldIn.getBlockState(bottomPos), 3);
             worldIn.notifyBlockUpdate(bottomPos.up(), worldIn.getBlockState(bottomPos.up()), worldIn.getBlockState(bottomPos.up()), 3);
             issueSpread(worldIn, pos);
             issueSpread(worldIn, pos.up());
             return;
         }
-        MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, conversion.outputBlock.getDefaultState(), 3, true);
+        MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, block.getDefaultState(), 3, true);
         issueSpread(worldIn, pos);
     }
     

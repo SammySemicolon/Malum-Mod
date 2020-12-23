@@ -1,17 +1,23 @@
 package com.sammy.malum.core.systems.multiblock;
 
+import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 
-public abstract class BoundingBlockTileEntity extends SimpleTileEntity
+import javax.annotation.Nonnull;
+
+public class BoundingBlockTileEntity extends SimpleTileEntity
 {
     public BlockPos ownerPos;
     
     public BoundingBlockTileEntity()
     {
-        super(null);
-//        super(MalumTileEntities.BOUNDING_BLOCK_TILE_ENTITY.get());
+        super(MalumTileEntities.BOUNDING_BLOCK_TILE_ENTITY.get());
         ownerPos = new BlockPos.Mutable();
     }
     
@@ -37,5 +43,26 @@ public abstract class BoundingBlockTileEntity extends SimpleTileEntity
         {
             world.removeBlock(ownerPos, true);
         }
+    }
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap)
+    {
+        if (world.getTileEntity(ownerPos) instanceof MultiblockTileEntity)
+        {
+            return world.getTileEntity(ownerPos).getCapability(cap);
+        }
+        return super.getCapability(cap);
+    }
+    
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side)
+    {
+        if (world.getTileEntity(ownerPos) instanceof MultiblockTileEntity)
+        {
+            return world.getTileEntity(ownerPos).getCapability(cap, side);
+        }
+        return super.getCapability(cap,side);
     }
 }

@@ -5,6 +5,8 @@ import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.MalumTallGrassBlock;
 import com.sammy.malum.common.blocks.WitherSandBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
+import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceBoundingBlock;
+import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceCoreBlock;
 import com.sammy.malum.common.blocks.taint.*;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
 import com.sammy.malum.common.world.features.tree.TaintedTree;
@@ -302,8 +304,8 @@ public class MalumBlocks
     //region crafting blocks
 //    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
 //
-//    public static final RegistryObject<Block> BLIGHTING_FURNACE = BLOCKS.register("blighting_furnace", () -> new BlightingFurnaceBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-//    public static final RegistryObject<Block> BLIGHTING_FURNACE_TOP = BLOCKS.register("blighting_furnace_top", () -> new BlightedFurnaceBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> TAINTED_FURNACE = BLOCKS.register("tainted_furnace", () -> new TaintedFurnaceCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> TAINTED_FURNACE_TOP = BLOCKS.register("tainted_furnace_top", () -> new TaintedFurnaceBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     //endregion
     
     //region essence handling

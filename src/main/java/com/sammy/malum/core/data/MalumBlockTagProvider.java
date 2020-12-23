@@ -40,7 +40,7 @@ public class MalumBlockTagProvider extends BlockTagsProvider
         getOrCreateBuilder(BUTTONS).add(getModBlocks(b -> b instanceof AbstractButtonBlock));
         getOrCreateBuilder(WOODEN_BUTTONS).add(getModBlocks(b -> b instanceof WoodButtonBlock));
         getOrCreateBuilder(PRESSURE_PLATES).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
-        getOrCreateBuilder(LOGS).add(getModBlocks(b -> b instanceof RotatedPillarBlock));
+        getOrCreateBuilder(LOGS).add(MalumBlocks.SUN_KISSED_LOG.get(), MalumBlocks.TAINTED_LOG.get(), MalumBlocks.SUN_KISSED_WOOD.get(), MalumBlocks.TAINTED_WOOD.get());
         getOrCreateBuilder(DIRT).add(getModBlocks(b -> b instanceof GrassBlock));
         getOrCreateBuilder(SAPLINGS).add(getModBlocks(b -> b instanceof SaplingBlock));
         getOrCreateBuilder(PLANKS).add(MalumBlocks.SUN_KISSED_PLANKS.get(), MalumBlocks.TAINTED_PLANKS.get());

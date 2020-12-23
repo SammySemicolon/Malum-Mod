@@ -4,8 +4,8 @@
 	"ambientocclusion": false,
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "malum:block/blighting_furnace",
-		"particle": "malum:block/blighting_furnace_top"
+		"1": "malum:block/tainted_furnace",
+		"particle": "malum:block/tainted_rock"
 	},
 	"elements": [
 		{

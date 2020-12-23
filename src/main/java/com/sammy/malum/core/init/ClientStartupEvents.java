@@ -4,9 +4,14 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
+import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceItemRendererModule;
+import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceRendererModule;
 import com.sammy.malum.common.entities.SpiritEssenceEntity;
+import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
+import com.sammy.malum.core.systems.tileentityrendering.AdjustableTileEntityRenderer;
+import com.sammy.malum.core.systems.tileentityrendering.modules.ItemModule;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -22,6 +27,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -39,8 +45,9 @@ public class ClientStartupEvents
     @SubscribeEvent
     public static void bindTERs(FMLClientSetupEvent event)
     {
-//        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
-//        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
+        //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
+        //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TAINTED_FURNACE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new TaintedFurnaceItemRendererModule(), new TaintedFurnaceRendererModule())));
     }
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)

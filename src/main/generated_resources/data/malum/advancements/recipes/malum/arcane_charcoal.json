@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:arcane_charcoal"
+    ]
+  },
+  "criteria": {
+    "has_seed_of_corruption": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:seed_of_corruption"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:arcane_charcoal"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_seed_of_corruption",
+      "has_the_recipe"
+    ]
+  ]
+}

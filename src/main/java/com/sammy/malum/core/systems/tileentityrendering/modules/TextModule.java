@@ -1,11 +1,14 @@
 package com.sammy.malum.core.systems.tileentityrendering.modules;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.sammy.malum.core.systems.multiblock.BoundingBlockTileEntity;
+import com.sammy.malum.core.systems.multiblock.MultiblockTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -39,16 +42,21 @@ public class TextModule extends RendererModule
             World world = minecraft.world;
             if (minecraft.objectMouseOver == null || world == null)
             {
-                renderTime = 0;
-                direction = null;
-                pos = null;
+                nullify();
                 return;
             }
             if (minecraft.objectMouseOver.getType().equals(BLOCK))
             {
                 BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
                 BlockPos pos = mouseOver.getPos();
-                if (pos.equals(tileEntityIn.getPos()))
+                TileEntity tileEntity = world.getTileEntity(pos);
+                if (tileEntity instanceof BoundingBlockTileEntity)
+                {
+                    BoundingBlockTileEntity boundingBlockTileEntity = (BoundingBlockTileEntity) tileEntity;
+                    pos = boundingBlockTileEntity.ownerPos;
+                }
+                boolean isMatchingPos = pos.equals(tileEntityIn.getPos());
+                if (isMatchingPos)
                 {
                     ArrayList<ITextComponent> components = this.components(tileEntityIn);
                     if (!components.isEmpty())
@@ -99,8 +107,18 @@ public class TextModule extends RendererModule
                     }
                 }
             }
+            else
+            {
+                nullify();
+            }
         }
         super.render(tileEntityIn, partialTicks, matrixStackIn, bufferIn, renderDispatcher, combinedLightIn, combinedOverlayIn);
+    }
+    public void nullify()
+    {
+        renderTime = 0;
+        direction = null;
+        pos = null;
     }
     public ArrayList<ITextComponent> components(SimpleTileEntity tileEntityIn)
     {

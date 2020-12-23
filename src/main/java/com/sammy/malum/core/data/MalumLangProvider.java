@@ -46,6 +46,10 @@ public class MalumLangProvider extends LanguageProvider
         addTooltip("hold", "Hold: ");
         addTooltip("slot", "Slot");
         addTooltip("spirit", "Spirit");
+        addTooltip("fuel", "Fuel: ");
+        addTooltip("progress", "Progress: ");
+        add("malum.jei.furnace_taint_transfusion", "Advanced Taint Transfusion");
+        add("malum.jei.taint_transfusion", "Taint Transfusion");
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_building_blocks", "Malum Building Blocks");
     }

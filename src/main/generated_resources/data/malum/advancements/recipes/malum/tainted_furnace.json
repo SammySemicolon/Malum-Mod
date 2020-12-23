@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:tainted_furnace"
+    ]
+  },
+  "criteria": {
+    "has_flared_glowstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:flared_glowstone_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:tainted_furnace"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_flared_glowstone",
+      "has_the_recipe"
+    ]
+  ]
+}

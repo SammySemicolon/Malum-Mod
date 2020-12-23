@@ -23,7 +23,7 @@ public class SeedOfCorruption extends Item
     {
         BlockState state = context.getWorld().getBlockState(context.getPos());
         PlayerEntity player = context.getPlayer();
-        TaintTransfusion conversion = TaintTransfusion.getConversion(state.getBlock());
+        TaintTransfusion conversion = TaintTransfusion.getTransfusion(state.getBlock());
         if (conversion != null)
         {
             player.swingArm(context.getHand());

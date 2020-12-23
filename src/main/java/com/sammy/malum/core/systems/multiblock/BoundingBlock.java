@@ -16,17 +16,17 @@ public class BoundingBlock extends Block
         super(properties);
     }
     
-//    @Override
-//    public boolean hasTileEntity(final BlockState state)
-//    {
-//        return true;
-//    }
-//
-//    @Override
-//    public TileEntity createTileEntity(BlockState state, IBlockReader world)
-//    {
-//        return new BoundingBlockTileEntity();
-//    }
+    @Override
+    public boolean hasTileEntity(final BlockState state)
+    {
+        return true;
+    }
+
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    {
+        return new BoundingBlockTileEntity();
+    }
     
     public BlockState stateForPlacement(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)
     {

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:yellow_dye"
+    ]
+  },
+  "criteria": {
+    "has_marigold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:marigold"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:yellow_dye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_marigold",
+      "has_the_recipe"
+    ]
+  ]
+}
