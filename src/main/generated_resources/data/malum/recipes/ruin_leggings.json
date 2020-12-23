@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "X X",
+    "X X"
+  ],
+  "key": {
+    "X": {
+      "item": "malum:ruin_plating"
+    }
+  },
+  "result": {
+    "item": "malum:ruin_leggings"
+  }
+}

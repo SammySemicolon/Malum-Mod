@@ -66,6 +66,17 @@
         "property": "",
         "value": ""
       }
-    }
+    },
+    {
+      "name": "malum:flared_glowstone_block",
+      "r": 247,
+      "g": 86,
+      "b": 205,
+      "radius": 8,
+      "state": {
+        "property": "",
+        "value": ""
+      }
+    },
   ]
 }

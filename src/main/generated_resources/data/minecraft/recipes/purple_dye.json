@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "malum:lavender"
+    }
+  ],
+  "result": {
+    "item": "minecraft:purple_dye",
+    "count": 2
+  }
+}

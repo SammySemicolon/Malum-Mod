@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blocks.taint;
 
-import com.sammy.malum.core.recipes.TaintConversion;
+import com.sammy.malum.core.recipes.TaintTransfusion;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.LivingEntity;
@@ -29,14 +29,14 @@ public class TaintedSlabBlock extends SlabBlock implements ITaintSpreader
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
     {
-        TaintConversion.issueSpread(worldIn, pos);
+        TaintTransfusion.issueSpread(worldIn, pos);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
     
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
     {
-        TaintConversion.issueSpread((World) worldIn, currentPos);
+        TaintTransfusion.issueSpread((World) worldIn, currentPos);
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 }

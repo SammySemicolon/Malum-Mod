@@ -1,22 +1,15 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.items.SeedOfCorruption;
-import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
-import com.sammy.malum.common.items.food.LunarSyrupBottleItem;
-import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
-import com.sammy.malum.common.items.tools.*;
-import com.sammy.malum.common.items.tools.scythes.CreativeScythe;
 import com.sammy.malum.common.items.equipment.armor.RuinArmor;
-import com.sammy.malum.common.items.tools.scythes.ScytheItem;
+import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
+import com.sammy.malum.common.items.tools.*;
 import com.sammy.malum.core.MalumBuildingTab;
 import com.sammy.malum.core.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
-import com.sammy.malum.core.systems.spirits.item.EssenceHolderBlockItem;
-import com.sammy.malum.core.systems.spirits.item.EssenceHolderItem;
-import com.sammy.malum.core.systems.multiblock.MultiblockItem;
-import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,8 +17,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import static com.sammy.malum.MalumMod.MODID;
 import static com.sammy.malum.core.systems.tiers.MalumArmorTiers.ArmorTierEnum.RUIN_ARMOR;
 import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.RUIN_ITEM;
-import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.TAINTED_ITEM;
-import static net.minecraft.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
 public class MalumItems
@@ -217,7 +208,7 @@ public class MalumItems
     public static final RegistryObject<Item> TAINTED_GRASS_BLOCK = ITEMS.register("tainted_grass_block", () -> new BlockItem(MalumBlocks.TAINTED_GRASS_BLOCK.get(), BUILDING_PROPERTIES()));
     //endregion
     
-    //region ingot blocks
+    //region material blocks
     public static final RegistryObject<Item> RUIN_PLATING_BLOCK = ITEMS.register("ruin_plating_block", () -> new BlockItem(MalumBlocks.RUIN_PLATING_BLOCK.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PLATING_BLOCK_SLAB = ITEMS.register("ruin_plating_block_slab", () -> new BlockItem(MalumBlocks.RUIN_PLATING_BLOCK_SLAB.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PLATING_BLOCK_STAIRS = ITEMS.register("ruin_plating_block_stairs", () -> new BlockItem(MalumBlocks.RUIN_PLATING_BLOCK_STAIRS.get(), BUILDING_PROPERTIES()));
@@ -228,15 +219,17 @@ public class MalumItems
     public static final RegistryObject<Item> STACKED_RUIN_PLATING_SLAB = ITEMS.register("stacked_ruin_plating_slab", () -> new BlockItem(MalumBlocks.STACKED_RUIN_PLATING_SLAB.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> STACKED_RUIN_PLATING_STAIRS = ITEMS.register("stacked_ruin_plating_stairs", () -> new BlockItem(MalumBlocks.STACKED_RUIN_PLATING_STAIRS.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK = ITEMS.register("transmissive_metal_block", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK_SLAB = ITEMS.register("transmissive_metal_block_slab", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK_STAIRS = ITEMS.register("transmissive_metal_block_stairs", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES = ITEMS.register("transmissive_metal_tiles", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES_SLAB = ITEMS.register("transmissive_metal_tiles_slab", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES_STAIRS = ITEMS.register("transmissive_metal_tiles_stairs", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL = ITEMS.register("stacked_transmissive_metal", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL_SLAB = ITEMS.register("stacked_transmissive_metal_slab", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL_STAIRS = ITEMS.register("stacked_transmissive_metal_stairs", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL_STAIRS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> FLARED_GLOWSTONE_BLOCK = ITEMS.register("flared_glowstone_block", () -> new BlockItem(MalumBlocks.FLARED_GLOWSTONE_BlOCK.get(), BUILDING_PROPERTIES()));
+    
+    //    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK = ITEMS.register("transmissive_metal_block", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK.get(), BUILDING_PROPERTIES()));
+//    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK_SLAB = ITEMS.register("transmissive_metal_block_slab", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK_SLAB.get(), BUILDING_PROPERTIES()));
+//    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK_STAIRS = ITEMS.register("transmissive_metal_block_stairs", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK_STAIRS.get(), BUILDING_PROPERTIES()));
+//    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES = ITEMS.register("transmissive_metal_tiles", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES.get(), BUILDING_PROPERTIES()));
+//    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES_SLAB = ITEMS.register("transmissive_metal_tiles_slab", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES_SLAB.get(), BUILDING_PROPERTIES()));
+//    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES_STAIRS = ITEMS.register("transmissive_metal_tiles_stairs", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES_STAIRS.get(), BUILDING_PROPERTIES()));
+//    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL = ITEMS.register("stacked_transmissive_metal", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL.get(), BUILDING_PROPERTIES()));
+//    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL_SLAB = ITEMS.register("stacked_transmissive_metal_slab", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL_SLAB.get(), BUILDING_PROPERTIES()));
+//    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL_STAIRS = ITEMS.register("stacked_transmissive_metal_stairs", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL_STAIRS.get(), BUILDING_PROPERTIES()));
     
     //endregion
     
@@ -245,46 +238,46 @@ public class MalumItems
     //region mod content
     
     //region ore
-    public static final RegistryObject<Item> BLAZE_QUARTZ_ORE = ITEMS.register("blaze_quartz_ore", () -> new BlockItem(MalumBlocks.BLAZE_QUARTZ_ORE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> BLAZE_QUARTZ = ITEMS.register("blaze_quartz", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOLAR_ORE = ITEMS.register("solar_ore", () -> new BlockItem(MalumBlocks.SOLAR_ORE.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> BLAZE_QUARTZ_ORE = ITEMS.register("blaze_quartz_ore", () -> new BlockItem(MalumBlocks.BLAZE_QUARTZ_ORE.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> BLAZE_QUARTZ = ITEMS.register("blaze_quartz", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> SOLAR_ORE = ITEMS.register("solar_ore", () -> new BlockItem(MalumBlocks.SOLAR_ORE.get(), DEFAULT_PROPERTIES()));
     //endregion
     
     //region crafting blocks
-    public static final RegistryObject<Item> ARCANE_CRAFTING_TABLE = ITEMS.register("arcane_crafting_table", () -> new BlockItem(MalumBlocks.ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> BLIGHTING_FURNACE = ITEMS.register("blighting_furnace", () -> new MultiblockItem(MalumBlocks.BLIGHTING_FURNACE.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.BLIGHTING_FURNACE_TOP.get())));
+//    public static final RegistryObject<Item> ARCANE_CRAFTING_TABLE = ITEMS.register("arcane_crafting_table", () -> new BlockItem(MalumBlocks.ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> BLIGHTING_FURNACE = ITEMS.register("blighting_furnace", () -> new MultiblockItem(MalumBlocks.BLIGHTING_FURNACE.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.BLIGHTING_FURNACE_TOP.get())));
     //endregion
     
     //region simple components
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_INGOT = ITEMS.register("transmissive_metal_ingot", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_NUGGET = ITEMS.register("transmissive_metal_nugget", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> TRANSMISSIVE_METAL_INGOT = ITEMS.register("transmissive_metal_ingot", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> TRANSMISSIVE_METAL_NUGGET = ITEMS.register("transmissive_metal_nugget", () -> new Item(DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> RUIN_PLATING = ITEMS.register("ruin_plating", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_SCRAPS = ITEMS.register("ruin_scraps", () -> new Item(DEFAULT_PROPERTIES()));
     //endregion
     
     //region combined components
-    public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> VOID_LENS = ITEMS.register("void_lens", () -> new Item(DEFAULT_PROPERTIES()));
-    
+//    public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> VOID_LENS = ITEMS.register("void_lens", () -> new Item(DEFAULT_PROPERTIES()));
+//
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES()));
     //endregion
     
     //region contents
     public static final RegistryObject<Item> SEED_OF_CORRUPTION = ITEMS.register("seed_of_corruption", () -> new SeedOfCorruption(DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> TAINTED_SCYTHE = ITEMS.register("tainted_scythe", () -> new ScytheItem(TAINTED_ITEM, 2, 0,1, GEAR_PROPERTIES()));
-    
-    public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
-    
-    public static final RegistryObject<Item> LUNAR_SAP_BOTTLE = ITEMS.register("lunar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> LUNAR_SAPBALL = ITEMS.register("lunar_sapball", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> LUNAR_SYRUP_BOTTLE = ITEMS.register("lunar_syrup_bottle", () -> new LunarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
-    
-    public static final RegistryObject<Item> RUIN_SCYTHE = ITEMS.register("ruin_scythe", () -> new ScytheItem(RUIN_ITEM, 2, 0,1, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> TAINTED_SCYTHE = ITEMS.register("tainted_scythe", () -> new ScytheItem(TAINTED_ITEM, 2, 0,1, GEAR_PROPERTIES()));
+//
+//    public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+//
+//    public static final RegistryObject<Item> LUNAR_SAP_BOTTLE = ITEMS.register("lunar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> LUNAR_SAPBALL = ITEMS.register("lunar_sapball", () -> new Item(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> LUNAR_SYRUP_BOTTLE = ITEMS.register("lunar_syrup_bottle", () -> new LunarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+//
+//    public static final RegistryObject<Item> RUIN_SCYTHE = ITEMS.register("ruin_scythe", () -> new ScytheItem(RUIN_ITEM, 2, 0,1, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_SWORD = ITEMS.register("ruin_sword", () -> new ModSwordItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PICKAXE = ITEMS.register("ruin_pickaxe", () -> new ModPickaxeItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_AXE = ITEMS.register("ruin_axe", () -> new ModAxeItem(RUIN_ITEM, 2, 0, GEAR_PROPERTIES()));
@@ -301,18 +294,18 @@ public class MalumItems
     //endregion
     
     //region essence items
-    public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 1, 64));
-    public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 4, 8));
-    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new EssenceHolderBlockItem(MalumBlocks.SPIRIT_JAR.get(), GEAR_PROPERTIES(),32));
-    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> OPEN_TRANSMISSIVE_METAL_BLOCK = ITEMS.register("open_transmissive_metal_block", () -> new BlockItem(MalumBlocks.OPEN_TRANSMISSIVE_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 1, 64));
+//    public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 4, 8));
+//    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new EssenceHolderBlockItem(MalumBlocks.SPIRIT_JAR.get(), GEAR_PROPERTIES(),32));
+//    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> OPEN_TRANSMISSIVE_METAL_BLOCK = ITEMS.register("open_transmissive_metal_block", () -> new BlockItem(MalumBlocks.OPEN_TRANSMISSIVE_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
     
     //endregion
     
     //region hidden items
-    public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new EssenceHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
-    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
-    public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", () -> new Item(CREATIVE_PROPERTIES()));
+//    public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new EssenceHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
+//    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
+//    public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", () -> new Item(CREATIVE_PROPERTIES()));
     
     public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));
     //endregion

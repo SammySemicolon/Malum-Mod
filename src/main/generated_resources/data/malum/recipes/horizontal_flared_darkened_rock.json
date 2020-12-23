@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:smooth_darkened_rock"
+    },
+    "X": {
+      "item": "malum:dark_flares"
+    }
+  },
+  "result": {
+    "item": "malum:horizontal_flared_darkened_rock",
+    "count": 2
+  }
+}

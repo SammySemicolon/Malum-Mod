@@ -35,7 +35,7 @@ import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 public class MalumLootTableProvider extends LootTableProvider
 {
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> tables = new ArrayList<>();
-    private static final Set<Item> IMMUNE_TO_EXPLOSIONS = Stream.of(MalumBlocks.ARCANE_CRAFTING_TABLE, MalumBlocks.BLIGHTING_FURNACE, MalumBlocks.BLIGHTING_FURNACE_TOP).map(c -> c.get().asItem()).collect(ImmutableSet.toImmutableSet());
+    private static final Set<Item> IMMUNE_TO_EXPLOSIONS = Stream.of(MalumBlocks.WITHER_SAND, MalumBlocks.ABSTRUSE_BLOCK).map(c -> c.get().asItem()).collect(ImmutableSet.toImmutableSet());
     
     private static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
     private static final ILootCondition.IBuilder SHEARS = MatchTool.builder(ItemPredicate.Builder.create().item(Items.SHEARS));

@@ -5,12 +5,6 @@ import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.MalumTallGrassBlock;
 import com.sammy.malum.common.blocks.WitherSandBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
-import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
-import com.sammy.malum.common.blocks.blightingfurnace.BlightedFurnaceBoundingBlock;
-import com.sammy.malum.common.blocks.blightingfurnace.BlightingFurnaceBlock;
-import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
-import com.sammy.malum.common.blocks.spiritpipe.OpenTransmissiveMetalBlock;
-import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeBlock;
 import com.sammy.malum.common.blocks.taint.*;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
 import com.sammy.malum.common.world.features.tree.TaintedTree;
@@ -19,6 +13,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -51,30 +46,30 @@ public class MalumBlocks
     
     public static AbstractBlock.Properties SUN_KISSED_WOOD_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.YELLOW).sound(SoundType.WOOD).hardnessAndResistance(1.75F, 4.0F);
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.YELLOW).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(1.75F, 4.0F);
     }
     
     public static AbstractBlock.Properties TAINTED_WOOD_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.WOOD, MaterialColor.PURPLE).sound(SoundType.WOOD).hardnessAndResistance(2F, 4.0F);
+        return AbstractBlock.Properties.create(Material.WOOD, MaterialColor.PURPLE).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(2F, 4.0F);
     }
     public static AbstractBlock.Properties SUN_KISSED_GRASS_BLOCK_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).sound(SoundType.GROUND).hardnessAndResistance(0.45f);
+        return AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.45f);
     }
     public static AbstractBlock.Properties SUN_KISSED_PLANTS_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).zeroHardnessAndResistance();
+        return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).harvestTool(ToolType.HOE).zeroHardnessAndResistance();
     }
     
     
     public static AbstractBlock.Properties TAINTED_GRASS_BLOCK_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.PURPLE).sound(SoundType.GROUND).hardnessAndResistance(0.45f).tickRandomly();
+        return AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.PURPLE).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.45f).tickRandomly();
     }
     public static AbstractBlock.Properties TAINTED_PLANTS_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.PURPLE).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).zeroHardnessAndResistance();
+        return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.PURPLE).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).harvestTool(ToolType.HOE).zeroHardnessAndResistance();
     }
     
     public static AbstractBlock.Properties LEAVES_PROPERTIES()
@@ -276,18 +271,18 @@ public class MalumBlocks
     //endregion
     
     //region contents
-    public static final RegistryObject<Block> BLAZE_QUARTZ_ORE = BLOCKS.register("blaze_quartz_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_QUARTZ_ORE)));
-    public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
+//    public static final RegistryObject<Block> BLAZE_QUARTZ_ORE = BLOCKS.register("blaze_quartz_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_QUARTZ_ORE)));
+//    public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("transmissive_metal_block", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK_SLAB = BLOCKS.register("transmissive_metal_block_slab", () -> new SlabBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK_STAIRS = BLOCKS.register("transmissive_metal_block_stairs", () -> new StairsBlock(TRANSMISSIVE_METAL_BLOCK.get().getDefaultState(), TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TRANSMISSIVE_METAL_TILES = BLOCKS.register("transmissive_metal_tiles", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TRANSMISSIVE_METAL_TILES_SLAB = BLOCKS.register("transmissive_metal_tiles_slab", () -> new SlabBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TRANSMISSIVE_METAL_TILES_STAIRS = BLOCKS.register("transmissive_metal_tiles_stairs", () -> new StairsBlock(TRANSMISSIVE_METAL_TILES.get().getDefaultState(), TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> STACKED_TRANSMISSIVE_METAL = BLOCKS.register("stacked_transmissive_metal", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> STACKED_TRANSMISSIVE_METAL_SLAB = BLOCKS.register("stacked_transmissive_metal_slab", () -> new SlabBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> STACKED_TRANSMISSIVE_METAL_STAIRS = BLOCKS.register("stacked_transmissive_metal_stairs", () -> new StairsBlock(STACKED_TRANSMISSIVE_METAL.get().getDefaultState(), TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("transmissive_metal_block", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK_SLAB = BLOCKS.register("transmissive_metal_block_slab", () -> new SlabBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK_STAIRS = BLOCKS.register("transmissive_metal_block_stairs", () -> new StairsBlock(TRANSMISSIVE_METAL_BLOCK.get().getDefaultState(), TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> TRANSMISSIVE_METAL_TILES = BLOCKS.register("transmissive_metal_tiles", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> TRANSMISSIVE_METAL_TILES_SLAB = BLOCKS.register("transmissive_metal_tiles_slab", () -> new SlabBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> TRANSMISSIVE_METAL_TILES_STAIRS = BLOCKS.register("transmissive_metal_tiles_stairs", () -> new StairsBlock(TRANSMISSIVE_METAL_TILES.get().getDefaultState(), TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> STACKED_TRANSMISSIVE_METAL = BLOCKS.register("stacked_transmissive_metal", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> STACKED_TRANSMISSIVE_METAL_SLAB = BLOCKS.register("stacked_transmissive_metal_slab", () -> new SlabBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> STACKED_TRANSMISSIVE_METAL_STAIRS = BLOCKS.register("stacked_transmissive_metal_stairs", () -> new StairsBlock(STACKED_TRANSMISSIVE_METAL.get().getDefaultState(), TRANSMISSIVE_BLOCK_PROPERTIES()));
     
     public static final RegistryObject<Block> RUIN_PLATING_BLOCK = BLOCKS.register("ruin_plating_block", () -> new Block(RUIN_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> RUIN_PLATING_BLOCK_SLAB = BLOCKS.register("ruin_plating_block_slab", () -> new SlabBlock(RUIN_BLOCK_PROPERTIES()));
@@ -299,20 +294,22 @@ public class MalumBlocks
     public static final RegistryObject<Block> STACKED_RUIN_PLATING_SLAB = BLOCKS.register("stacked_ruin_plating_slab", () -> new SlabBlock(RUIN_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> STACKED_RUIN_PLATING_STAIRS = BLOCKS.register("stacked_ruin_plating_stairs", () -> new StairsBlock(STACKED_RUIN_PLATING.get().getDefaultState(), RUIN_BLOCK_PROPERTIES()));
     
+    public static final RegistryObject<Block> FLARED_GLOWSTONE_BlOCK = BLOCKS.register("flared_glowstone_block", () -> new Block(AbstractBlock.Properties.from(Blocks.GLOWSTONE).setLightLevel(b -> light(b, 15))));
+    
     public static final RegistryObject<Block> WITHER_SAND = BLOCKS.register("wither_sand", () -> new WitherSandBlock(AbstractBlock.Properties.from(Blocks.SOUL_SAND)));
     //endregion
     
     //region crafting blocks
-    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
-    
-    public static final RegistryObject<Block> BLIGHTING_FURNACE = BLOCKS.register("blighting_furnace", () -> new BlightingFurnaceBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> BLIGHTING_FURNACE_TOP = BLOCKS.register("blighting_furnace_top", () -> new BlightedFurnaceBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+//    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
+//
+//    public static final RegistryObject<Block> BLIGHTING_FURNACE = BLOCKS.register("blighting_furnace", () -> new BlightingFurnaceBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+//    public static final RegistryObject<Block> BLIGHTING_FURNACE_TOP = BLOCKS.register("blighting_furnace_top", () -> new BlightedFurnaceBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     //endregion
     
     //region essence handling
-    public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES()));
-    public static final RegistryObject<Block> SPIRIT_PIPE = BLOCKS.register("spirit_pipe", () -> new SpiritPipeBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> OPEN_TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("open_transmissive_metal_block", () -> new OpenTransmissiveMetalBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES()));
+//    public static final RegistryObject<Block> SPIRIT_PIPE = BLOCKS.register("spirit_pipe", () -> new SpiritPipeBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
+//    public static final RegistryObject<Block> OPEN_TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("open_transmissive_metal_block", () -> new OpenTransmissiveMetalBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
     //endregion
     
     public static int light(BlockState state, int strength)

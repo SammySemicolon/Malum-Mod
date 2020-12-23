@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "malum:tainted_rock_pillar",
+    "malum:tainted_rock_column",
+    "malum:horizontal_flared_tainted_rock",
+    "malum:darkened_rock_pillar",
+    "malum:darkened_rock_column",
+    "malum:horizontal_flared_darkened_rock",
+    "malum:sun_kissed_log",
+    "malum:stripped_sun_kissed_log",
+    "malum:sun_kissed_wood",
+    "malum:stripped_sun_kissed_wood",
+    "malum:tainted_log",
+    "malum:stripped_tainted_log",
+    "malum:tainted_wood",
+    "malum:stripped_tainted_wood"
+  ]
+}

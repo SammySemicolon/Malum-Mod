@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "malum:sun_kissed_planks_fence",
+    "malum:tainted_planks_fence",
+    "malum:sun_kissed_planks_fence_gate",
+    "malum:tainted_planks_fence_gate"
+  ]
+}

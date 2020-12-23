@@ -12,17 +12,21 @@ import net.minecraft.util.LazyValue;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import javax.annotation.Nullable;
 
 public class RuinArmor extends ArmorItem
 {
-    private final LazyValue<BipedModel<?>> model;
+    private LazyValue<Object> model;
     public RuinArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
     
-        this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelRunicGoldArmor(slot)), () -> () -> null);
+        if (FMLEnvironment.dist == Dist.CLIENT)
+        {
+            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelRunicGoldArmor(slot)), () -> () -> null);
+        }
     }
     
     @Override

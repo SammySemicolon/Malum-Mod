@@ -7,7 +7,6 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;

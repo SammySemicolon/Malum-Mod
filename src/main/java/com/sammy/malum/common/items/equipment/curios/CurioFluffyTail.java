@@ -21,8 +21,6 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import java.util.UUID;
-
 public class CurioFluffyTail extends Item implements ICurio
 {
     public CurioFluffyTail(Properties builder)

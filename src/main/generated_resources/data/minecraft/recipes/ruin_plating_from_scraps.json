@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "iron_ingot",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:ruin_scraps"
+    }
+  },
+  "result": {
+    "item": "malum:ruin_plating"
+  }
+}

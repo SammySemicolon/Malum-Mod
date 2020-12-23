@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:flared_tainted_rock"
+    ]
+  },
+  "criteria": {
+    "has_flared_glowstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:flared_glowstone_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:flared_tainted_rock"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_flared_glowstone",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:flared_glowstone_block"
+    }
+  ],
+  "result": {
+    "item": "malum:dark_flares",
+    "count": 4
+  }
+}

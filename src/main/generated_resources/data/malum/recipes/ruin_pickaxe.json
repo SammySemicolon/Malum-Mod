@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    " # ",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "malum:ruin_plating"
+    }
+  },
+  "result": {
+    "item": "malum:ruin_pickaxe"
+  }
+}

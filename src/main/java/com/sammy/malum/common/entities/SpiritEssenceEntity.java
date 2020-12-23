@@ -82,7 +82,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
     @Override
     protected Item getDefaultItem()
     {
-        return MalumItems.SPIRIT_ESSENCE_ITEM.get();
+        return MalumItems.RUIN_PLATING.get();
     }
     
     @Override

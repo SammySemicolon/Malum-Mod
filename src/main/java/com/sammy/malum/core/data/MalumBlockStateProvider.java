@@ -7,7 +7,6 @@ import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
-import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
@@ -22,12 +21,13 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nonnull;
-
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Function;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.core.init.blocks.MalumBlocks.*;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
 
@@ -49,9 +49,9 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     protected void registerStatesAndModels()
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        blocks.remove(BLAZE_QUARTZ_ORE);
+//        blocks.remove(BLAZE_QUARTZ_ORE);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCraftingTableBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock || b.get() instanceof ZoomRockBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractSpiritPipeBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock);
         

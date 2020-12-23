@@ -1,14 +1,11 @@
 package com.sammy.malum.common.blocks.blightingfurnace;
 
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
-import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
@@ -37,9 +34,9 @@ public class BlightingFurnaceBlock extends Block implements IMultiblock
         return true;
     }
     
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
-    {
-        return new BlightingFurnaceTileEntity();
-    }
+//    @Override
+//    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+//    {
+//        return new BlightingFurnaceTileEntity();
+//    }
 }

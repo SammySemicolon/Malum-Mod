@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:ruin_plating_block"
+    }
+  },
+  "result": {
+    "item": "malum:ruin_plating_tiles",
+    "count": 9
+  }
+}

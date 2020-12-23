@@ -2,6 +2,7 @@ package com.sammy.malum.core.systems.tileentityrendering.modules;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -31,6 +32,8 @@ public class ItemModule extends RendererModule
                 {
                     matrixStackIn.push();
                     matrixStackIn.translate(0.5f, 1.25f, 0.5f);
+                    Vector2f offset = itemOffset(tileEntityIn.getWorld(), partialTicks, 0.2f, i,inventory.nonEmptyItems());
+                    matrixStackIn.translate(offset.x, 0, offset.y);
                     matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
                     matrixStackIn.scale(0.5f, 0.5f, 0.5f);
                     itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
@@ -42,6 +45,10 @@ public class ItemModule extends RendererModule
     }
     public SimpleInventory simpleInventory(SimpleTileEntity tileEntity)
     {
+        if (tileEntity instanceof SimpleInventoryTileEntity)
+        {
+            return ((SimpleInventoryTileEntity) tileEntity).inventory;
+        }
         return null;
     }
     public Vector2f itemOffset(World world, float partialTicks, float distance, int currentPoint, int totalPoints)

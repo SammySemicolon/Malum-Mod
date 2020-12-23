@@ -9,6 +9,7 @@ public class MalumItemTags
 {
     public static ITag.INamedTag<Item> SUN_KISSED_LOGS;
     public static ITag.INamedTag<Item> TAINTED_LOGS;
+    public static ITag.INamedTag<Item> LAVENDER;
     
     public static ITag.INamedTag<Item> makeWrapperTag(String id)
     {
@@ -18,5 +19,6 @@ public class MalumItemTags
     {
         SUN_KISSED_LOGS = makeWrapperTag("sun_logs");
         TAINTED_LOGS = makeWrapperTag("tainted_logs");
+        LAVENDER = makeWrapperTag("lavender");
     }
 }

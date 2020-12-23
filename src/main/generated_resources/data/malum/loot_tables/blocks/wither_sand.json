@@ -8,11 +8,6 @@
           "type": "minecraft:item",
           "name": "malum:wither_sand"
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
       ]
     }
   ]

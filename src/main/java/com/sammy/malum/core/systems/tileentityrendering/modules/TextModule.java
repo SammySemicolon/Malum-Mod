@@ -14,9 +14,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static net.minecraft.util.math.RayTraceResult.Type.BLOCK;
 

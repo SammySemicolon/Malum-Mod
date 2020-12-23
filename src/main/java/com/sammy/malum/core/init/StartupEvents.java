@@ -2,7 +2,7 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.recipes.ArcaneCraftingRecipe;
-import com.sammy.malum.core.recipes.TaintConversion;
+import com.sammy.malum.core.recipes.TaintTransfusion;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -17,7 +17,7 @@ public class StartupEvents
     public static void registerRecipes(FMLCommonSetupEvent event)
     {
         ArcaneCraftingRecipe.init();
-        TaintConversion.init();
+        TaintTransfusion.init();
     }
     
     @SubscribeEvent

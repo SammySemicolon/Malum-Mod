@@ -12,8 +12,8 @@ import net.minecraftforge.fml.RegistryObject;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.init.blocks.MalumBlocks.*;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 
 public class MalumLangProvider extends LanguageProvider
 {

@@ -2,8 +2,6 @@ package com.sammy.malum.common.events;
 
 import com.sammy.malum.core.systems.events.EventSubscriberItem;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
-import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

@@ -1,6 +1,5 @@
 package com.sammy.malum.common.blocks.abstruceblock;
 
-import com.sammy.malum.MalumMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -49,14 +48,11 @@ public class AbstruseBlock extends Block
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
     {
-        if (worldIn instanceof ServerWorld)
+        if (placer instanceof PlayerEntity)
         {
-            if (placer instanceof PlayerEntity)
+            if (worldIn.getTileEntity(pos) instanceof AbstruseBlockTileEntity)
             {
-                if (worldIn.getTileEntity(pos) instanceof AbstruseBlockTileEntity)
-                {
-                    ((AbstruseBlockTileEntity) worldIn.getTileEntity(pos)).owner = (PlayerEntity) placer;
-                }
+                ((AbstruseBlockTileEntity) worldIn.getTileEntity(pos)).owner = (PlayerEntity) placer;
             }
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);

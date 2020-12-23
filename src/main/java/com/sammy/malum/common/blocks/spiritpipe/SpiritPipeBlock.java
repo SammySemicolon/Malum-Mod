@@ -7,12 +7,10 @@ import com.sammy.malum.core.systems.spirits.block.ISpiritTransferTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -23,17 +21,17 @@ public class SpiritPipeBlock extends AbstractSpiritPipeBlock
         super(properties);
     }
     
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
-    {
-        return new SpiritPipeTileEntity();
-    }
-    
-    @Override
-    public boolean hasTileEntity(BlockState state)
-    {
-        return true;
-    }
+//    @Override
+//    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+//    {
+//        return new SpiritPipeTileEntity();
+//    }
+//
+//    @Override
+//    public boolean hasTileEntity(BlockState state)
+//    {
+//        return true;
+//    }
     
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)

@@ -17,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-
 import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
@@ -35,7 +34,7 @@ public class ArcaneCraftingRecipeCategory implements IRecipeCategory<ArcaneCraft
         background = guiHelper.createBlankDrawable(187, 99);
         localizedName = I18n.format("malum.jei.arcane_crafting");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/arcane_crafting_overlay.png"), 0, 0, 185, 97);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.ARCANE_CRAFTING_TABLE.get()));
+        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.RUIN_PLATING.get()));
     }
     
     @Override
@@ -93,10 +92,6 @@ public class ArcaneCraftingRecipeCategory implements IRecipeCategory<ArcaneCraft
         iIngredients.setInputs(VanillaTypes.ITEM,inputStacks);
         ArrayList<ItemStack> outputStacks = new ArrayList<>();
         outputStacks.add(new ItemStack(arcaneCraftingRecipe.outputItem, arcaneCraftingRecipe.outputItemCount));
-        if (arcaneCraftingRecipe.hasSecondOutput)
-        {
-            outputStacks.add(new ItemStack(arcaneCraftingRecipe.secondOutputItem, arcaneCraftingRecipe.secondOutputItemCount));
-        }
         iIngredients.setOutputs(VanillaTypes.ITEM, outputStacks);
     }
     
@@ -165,11 +160,6 @@ public class ArcaneCraftingRecipeCategory implements IRecipeCategory<ArcaneCraft
         }
         iRecipeLayout.getItemStacks().init(9, true, 147, 28);
         iRecipeLayout.getItemStacks().set(9, new ItemStack(arcaneCraftingRecipe.outputItem, arcaneCraftingRecipe.outputItemCount));
-        if (arcaneCraftingRecipe.hasSecondOutput)
-        {
-            iRecipeLayout.getItemStacks().init(10, true, 147, 51);
-            iRecipeLayout.getItemStacks().set(10, new ItemStack(arcaneCraftingRecipe.secondOutputItem, arcaneCraftingRecipe.secondOutputItemCount));
-        }
     }
     public static void set(IRecipeLayout layout, int slot, Item item)
     {

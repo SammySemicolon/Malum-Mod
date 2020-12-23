@@ -75,7 +75,7 @@ public class SunKissedGroundDecorator extends AlterGroundTreeDecorator
                 reader.setBlockState(blockpos, stateProvider.getBlockState(random, pos), 19);
                 createFlower(reader, random, blockpos.up(), new Block[]{MalumBlocks.SHORT_SUN_KISSED_GRASS.get(), MalumBlocks.SUN_KISSED_GRASS.get(), MalumBlocks.TALL_SUN_KISSED_GRASS.get()}, 0.5f);
     
-                createFlower(reader, random, blockpos.up(), new Block[]{MalumBlocks.LAVENDER.get(), MalumBlocks.MARIGOLD.get()}, 0.1f);
+                createFlower(reader, random, blockpos.up(), new Block[]{MalumBlocks.LAVENDER.get()}, 0.1f);
                 break;
             }
             if (!Feature.isAirAt(reader, blockpos) && i < 0)
@@ -92,7 +92,7 @@ public class SunKissedGroundDecorator extends AlterGroundTreeDecorator
         }
         if (random.nextFloat() <= chance)
         {
-            Block block = blocks[random.nextInt(blocks.length)];
+            Block block = blocks.length == 1 ? blocks[0] : blocks[random.nextInt(blocks.length)];
             BlockState state = block.getDefaultState();
             if (state.isValidPosition((IWorldReader) reader, pos))
             {

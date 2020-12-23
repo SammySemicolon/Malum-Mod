@@ -2,12 +2,13 @@ package com.sammy.malum.common.blocks.taint;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.recipes.TaintConversion;
+import com.sammy.malum.core.recipes.TaintTransfusion;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.server.ServerWorld;
 
+import static net.minecraft.util.SoundCategory.AMBIENT;
 import static net.minecraft.util.SoundCategory.BLOCKS;
 
 public interface ITaintSpreader
@@ -49,11 +50,11 @@ public interface ITaintSpreader
         {
             BlockPos targetPos = pos.add(offset);
             Block targetBlock = worldIn.getBlockState(targetPos).getBlock();
-            TaintConversion conversion = TaintConversion.getConversion(targetBlock);
+            TaintTransfusion conversion = TaintTransfusion.getConversion(targetBlock);
             if (conversion != null)
             {
                 playSound = true;
-                TaintConversion.spread(worldIn,targetPos,conversion);
+                TaintTransfusion.spread(worldIn,targetPos,conversion);
                 if (MalumMod.RANDOM.nextFloat() <= 0.5f)
                 {
                     break;
@@ -62,7 +63,7 @@ public interface ITaintSpreader
         }
         if (playSound)
         {
-            worldIn.playSound(null, pos, MalumSounds.TAINT_SPREAD,BLOCKS,0.5f,1f + MalumMod.RANDOM.nextFloat() * 0.5f);
+            worldIn.playSound(pos.getX(),pos.getY(),pos.getZ(),MalumSounds.TAINT_SPREAD,AMBIENT,0.5f,1f + worldIn.rand.nextFloat() * 0.5f, true);
         }
     }
 }

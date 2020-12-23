@@ -1,17 +1,17 @@
 package com.sammy.malum.core.systems.multiblock;
 
-import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 
-public class BoundingBlockTileEntity extends SimpleTileEntity
+public abstract class BoundingBlockTileEntity extends SimpleTileEntity
 {
     public BlockPos ownerPos;
     
     public BoundingBlockTileEntity()
     {
-        super(MalumTileEntities.BOUNDING_BLOCK_TILE_ENTITY.get());
+        super(null);
+//        super(MalumTileEntities.BOUNDING_BLOCK_TILE_ENTITY.get());
         ownerPos = new BlockPos.Mutable();
     }
     

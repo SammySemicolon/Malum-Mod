@@ -1,6 +1,5 @@
 package com.sammy.malum.common.blocks.abstruceblock;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
@@ -10,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.SoundCategory;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickableTileEntity
@@ -48,7 +46,7 @@ public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickab
     {
         if (owner != null)
         {
-            world.playSound(null, pos, MalumSounds.ABSTRUSE_BLOCK_RETURN, SoundCategory.BLOCKS, 1, MalumMod.RANDOM.nextFloat() * 1.5f);
+            owner.playSound(MalumSounds.ABSTRUSE_BLOCK_RETURN, 1, world.rand.nextFloat() * 1.5f);
             ItemHandlerHelper.giveItemToPlayer(owner, new ItemStack(MalumItems.ABSTRUSE_BLOCK.get()));
         }
         else

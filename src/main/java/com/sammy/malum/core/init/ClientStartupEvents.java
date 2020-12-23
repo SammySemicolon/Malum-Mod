@@ -4,15 +4,9 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
-import com.sammy.malum.common.blocks.zoomrock.ZoomRockBlock;
 import com.sammy.malum.common.entities.SpiritEssenceEntity;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
-import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
-import com.sammy.malum.core.systems.spirits.block.SpiritHolderRendererModule;
-import com.sammy.malum.core.systems.tileentityrendering.AdjustableTileEntityRenderer;
-import com.sammy.malum.core.systems.tileentityrendering.modules.ItemModule;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -28,7 +22,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -46,8 +39,8 @@ public class ClientStartupEvents
     @SubscribeEvent
     public static void bindTERs(FMLClientSetupEvent event)
     {
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
+//        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
+//        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
     }
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
@@ -102,11 +95,10 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(ClientStartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof ZoomRockBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(ClientStartupEvents::setCutout);
-        setCutout(MalumBlocks.SPIRIT_JAR);
-        setCutout(MalumBlocks.SPIRIT_PIPE);
-        setCutout(MalumBlocks.BLAZE_QUARTZ_ORE);
+//        setCutout(MalumBlocks.SPIRIT_JAR);
+//        setCutout(MalumBlocks.SPIRIT_PIPE);
+//        setCutout(MalumBlocks.BLAZE_QUARTZ_ORE);
     }
     public static void setCutout(RegistryObject<Block> b)
     {

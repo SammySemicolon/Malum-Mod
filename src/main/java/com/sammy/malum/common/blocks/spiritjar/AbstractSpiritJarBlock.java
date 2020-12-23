@@ -1,8 +1,8 @@
 package com.sammy.malum.common.blocks.spiritjar;
 
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.core.systems.spirits.block.SpiritHolderBlock;
 import com.sammy.malum.core.systems.spirits.block.ISpiritTransferTileEntity;
+import com.sammy.malum.core.systems.spirits.block.SpiritHolderBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
@@ -89,17 +89,17 @@ public abstract class AbstractSpiritJarBlock extends SpiritHolderBlock
         this.setDefaultState(this.stateContainer.getBaseState().with(UP, 0).with(NORTH_CONNECTION, false).with(SOUTH_CONNECTION, false).with(WEST_CONNECTION, false).with(EAST_CONNECTION, false));
     }
     
-    @Override
-    public boolean hasTileEntity(BlockState state)
-    {
-        return true;
-    }
-    
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
-    {
-        return new SpiritJarTileEntity();
-    }
+//    @Override
+//    public boolean hasTileEntity(BlockState state)
+//    {
+//        return true;
+//    }
+//
+//    @Override
+//    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+//    {
+//        return new SpiritJarTileEntity();
+//    }
     
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context)

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "side": "malum:block/stacked_transmissive_metal",
-    "bottom": "malum:block/stacked_transmissive_metal",
-    "top": "malum:block/stacked_transmissive_metal"
-  }
-}
