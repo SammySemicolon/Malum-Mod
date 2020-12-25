@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.taintedfurnace;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
@@ -14,6 +15,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector3i;
@@ -59,7 +62,7 @@ public class TaintedFurnaceCoreTileEntity extends MultiblockTileEntity implement
     public int fuel;
     public int progress;
     public int advancedProgress;
-    public int ohNo;
+    public ArrayList<BlockPos> blacklistedStands = new ArrayList<>();
     @Override
     public void readData(CompoundNBT compound)
     {
@@ -68,7 +71,6 @@ public class TaintedFurnaceCoreTileEntity extends MultiblockTileEntity implement
         fuel = compound.getInt("fuel");
         progress = compound.getInt("progress");
         advancedProgress = compound.getInt("advancedProgress");
-        ohNo = compound.getInt("ohNo");
         super.readData(compound);
     }
     
@@ -80,7 +82,6 @@ public class TaintedFurnaceCoreTileEntity extends MultiblockTileEntity implement
         compound.putInt("fuel", fuel);
         compound.putInt("progress", progress);
         compound.putInt("advancedProgress", advancedProgress);
-        compound.putInt("ohNo",ohNo);
         return super.writeData(compound);
     }
     
@@ -102,13 +103,20 @@ public class TaintedFurnaceCoreTileEntity extends MultiblockTileEntity implement
                         advancedProgress++;
                         if (advancedProgress >= recipe.recipeTime / 4)
                         {
-                            if (advancedInventory.items().containsAll(recipe.extraItems))
+                            ArrayList<BlockPos> stands = MalumHelper.itemStands(world, pos, Direction.UP, Direction.DOWN);
+                            if (stands.size() == blacklistedStands.size())
                             {
-                                output(recipe);
-                                advancedInventory.clearItems();
+                                if (advancedInventory.items().containsAll(recipe.extraItems))
+                                {
+                                    output(recipe);
+                                }
+                                else
+                                {
+                                    dump();
+                                }
                                 return;
                             }
-                            ArrayList<BlockPos> stands = MalumHelper.itemStands(world, pos, Direction.UP, Direction.DOWN);
+                            stands.removeAll(blacklistedStands);
                             for (BlockPos pos : stands)
                             {
                                 if (world.getTileEntity(pos) instanceof ItemStandTileEntity)
@@ -119,30 +127,26 @@ public class TaintedFurnaceCoreTileEntity extends MultiblockTileEntity implement
                                     {
                                         if (!advancedInventory.items().contains(standStack.getItem()))
                                         {
-                                            if (recipe.extraItems.contains(standStack.getItem()))
+                                            int firstEmpty = advancedInventory.firstEmptyItem();
+                                            if (firstEmpty != -1)
                                             {
-                                                int firstEmpty = advancedInventory.firstEmptyItem();
-                                                if (firstEmpty != -1)
+                                                if (MalumHelper.areWeOnServer(world))
                                                 {
-                                                    if (MalumHelper.areWeOnServer(world))
-                                                    {
-                                                        world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_CONSUME, SoundCategory.BLOCKS,0.4f,1);
-                                                    }
-                                                    advancedInventory.setStackInSlot(firstEmpty, standStack.split(1));
-                                                    advancedProgress = 0;
-                                                    fuel--;
-                                                    break;
+                                                    world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_CONSUME, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
+                                                    world.playSound(null, this.pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.2f, 1f);
                                                 }
-                                            }
-                                            else
-                                            {
-                                                dump();
+                                                advancedInventory.setStackInSlot(firstEmpty, standStack.split(1));
+                                                advancedProgress = 0;
+                                                fuel--;
+                                                blacklistedStands.add(pos);
+                                                break;
                                             }
                                         }
-                                        else
-                                        {
-                                            dump();
-                                        }
+                                    }
+                                    else
+                                    {
+                                        blacklistedStands.add(pos);
+                                        break;
                                     }
                                 }
                             }
@@ -156,6 +160,8 @@ public class TaintedFurnaceCoreTileEntity extends MultiblockTileEntity implement
         else
         {
             progress = 0;
+            advancedProgress = 0;
+            blacklistedStands.clear();
         }
     }
     public Vector3f behindFurnace()
@@ -166,10 +172,24 @@ public class TaintedFurnaceCoreTileEntity extends MultiblockTileEntity implement
     }
     public void dump()
     {
+        ArrayList<BlockPos> stands = MalumHelper.itemStands(world, pos, Direction.UP, Direction.DOWN);
+        for (BlockPos pos : stands)
+        {
+            if (world.getTileEntity(pos) instanceof ItemStandTileEntity)
+            {
+                ItemStandTileEntity standTileEntity = (ItemStandTileEntity) world.getTileEntity(pos);
+                standTileEntity.inventory.dumpItems(world, new Vector3f(standTileEntity.getPos().getX() + 0.5f,standTileEntity.getPos().getY() + 0.5f,standTileEntity.getPos().getZ() + 0.5f));
+            }
+        }
+        fuel -= MalumMod.globalCharcoalToFuelRatio;
+        inventory.dumpItems(world, behindFurnace());
         advancedInventory.dumpItems(world, behindFurnace());
+        blacklistedStands.clear();
         if (MalumHelper.areWeOnServer(world))
         {
-            world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FAIL, SoundCategory.BLOCKS,0.4f,1);
+            world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FAIL, SoundCategory.BLOCKS, 0.4f, 1.5f - world.rand.nextFloat());
+            world.playSound(null, this.pos, MalumSounds.TAINTED_ROCK_BREAK, SoundCategory.BLOCKS, 0.4f, 0.5f);
+            world.playSound(null, this.pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.2f, 1f);
         }
     }
     public void output(TaintedFurnaceRecipe recipe)
@@ -178,11 +198,15 @@ public class TaintedFurnaceCoreTileEntity extends MultiblockTileEntity implement
         ItemEntity entity = new ItemEntity(world, pos.getX(),pos.getY(),pos.getZ(),new ItemStack(recipe.outputItem, recipe.outputItemCount));
         world.addEntity(entity);
         progress = 0;
+        advancedProgress = 0;
         fuel -= Math.max(recipe.recipeTime / TaintedFurnaceRecipe.globalSpeedMultiplier,1);
         inventory.getStackInSlot(0).shrink(recipe.inputItemCount);
+        advancedInventory.clearItems();
+        blacklistedStands.clear();
         if (MalumHelper.areWeOnServer(world))
         {
-            world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FINISH, SoundCategory.BLOCKS,0.4f,1);
+            world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FINISH, SoundCategory.BLOCKS,0.4f,0.9f + world.rand.nextFloat() * 0.2f);
+            world.playSound(null, this.pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.2f, 1.5f);
         }
     }
     @Nonnull

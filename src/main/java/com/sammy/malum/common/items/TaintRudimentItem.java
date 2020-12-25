@@ -12,9 +12,9 @@ import net.minecraft.world.server.ServerWorld;
 
 import static net.minecraft.util.SoundCategory.BLOCKS;
 
-public class SeedOfCorruption extends Item
+public class TaintRudimentItem extends Item
 {
-    public SeedOfCorruption(Properties properties)
+    public TaintRudimentItem(Properties properties)
     {
         super(properties);
     }

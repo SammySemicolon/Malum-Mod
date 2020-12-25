@@ -30,6 +30,6 @@
   "taint_spread": { "sounds":["malum:taint/spread1","malum:taint/spread2","malum:taint/spread3","malum:taint/spread4"], "subtitle": "malum.subtitle.taint_spread" },
 
   "tainted_furnace_consume": { "sounds":["malum:tainted_furnace/consume1","malum:tainted_furnace/consume2","malum:tainted_furnace/consume3"], "subtitle": "malum.subtitle.tainted_furnace_consume" },
-  "tainted_furnace_fail": { "sounds":["malum:tainted_furnace/fail1","malum:tainted_furnace/fail2","malum:tainted_furnace/fail3"], "subtitle": "malum.subtitle.tainted_furnace_fail" },
+  "tainted_furnace_fail": { "sounds":["malum:tainted_furnace/fail1"], "subtitle": "malum.subtitle.tainted_furnace_fail" },
   "tainted_furnace_finish": { "sounds":["malum:tainted_furnace/finish1","malum:tainted_furnace/finish2","malum:tainted_furnace/finish3"], "subtitle": "malum.subtitle.tainted_furnace_finish" }
 }

@@ -1,6 +1,6 @@
 package com.sammy.malum.core.init;
 
-import com.sammy.malum.common.items.SeedOfCorruption;
+import com.sammy.malum.common.items.TaintRudimentItem;
 import com.sammy.malum.common.items.equipment.armor.RuinArmor;
 import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
 import com.sammy.malum.common.items.food.LunarSyrupBottleItem;
@@ -15,7 +15,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -277,7 +276,7 @@ public class MalumItems
     //endregion
     
     //region contents
-    public static final RegistryObject<Item> SEED_OF_CORRUPTION = ITEMS.register("seed_of_corruption", () -> new SeedOfCorruption(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TAINT_RUDIMENT = ITEMS.register("taint_rudiment", () -> new TaintRudimentItem(DEFAULT_PROPERTIES()));
     
 //    public static final RegistryObject<Item> TAINTED_SCYTHE = ITEMS.register("tainted_scythe", () -> new ScytheItem(TAINTED_ITEM, 2, 0,1, GEAR_PROPERTIES()));
 

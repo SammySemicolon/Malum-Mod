@@ -43,7 +43,7 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.SEED_OF_CORRUPTION.get()), TaintTransfusionRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(MalumItems.TAINT_RUDIMENT.get()), TaintTransfusionRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(MalumItems.TAINTED_FURNACE.get()), TaintTransfusionRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(MalumItems.TAINTED_FURNACE.get()), FurnaceTaintTransfusionRecipeCategory.UID);
     }
