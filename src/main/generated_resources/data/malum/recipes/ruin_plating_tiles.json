@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "##",
+    "##"
   ],
   "key": {
     "#": {
@@ -12,6 +11,6 @@
   },
   "result": {
     "item": "malum:ruin_plating_tiles",
-    "count": 9
+    "count": 4
   }
 }

@@ -21,7 +21,7 @@ import static com.sammy.malum.MalumHelper.prefix;
 
 public class TaintTransfusionRecipeCategory implements IRecipeCategory<TaintTransfusion>
 {
-    public static final ResourceLocation UID = prefix("furnace_taint_transfusion");
+    public static final ResourceLocation UID = prefix("taint_transfusion");
     private final IDrawable background;
     private final String localizedName;
     private final IDrawable overlay;
@@ -29,9 +29,9 @@ public class TaintTransfusionRecipeCategory implements IRecipeCategory<TaintTran
     
     public TaintTransfusionRecipeCategory(IGuiHelper guiHelper)
     {
-        background = guiHelper.createBlankDrawable(61, 53);
+        background = guiHelper.createBlankDrawable(121, 32);
         localizedName = I18n.format("malum.jei.taint_transfusion");
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/taint_transfusion_overlay.png"), 0, 0, 59, 51);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/taint_transfusion_overlay.png"), 0, 0, 119, 30);
         icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.SEED_OF_CORRUPTION.get()));
     }
     
@@ -85,16 +85,16 @@ public class TaintTransfusionRecipeCategory implements IRecipeCategory<TaintTran
     @Override
     public void setIngredients(TaintTransfusion taintTransfusion, IIngredients iIngredients)
     {
-        iIngredients.setInput(VanillaTypes.ITEM, taintTransfusion.inputItem.getDefaultInstance());
-        iIngredients.setOutput(VanillaTypes.ITEM, taintTransfusion.outputItem.getDefaultInstance());
+        iIngredients.setInput(VanillaTypes.ITEM, taintTransfusion.inputBlock.asItem().getDefaultInstance());
+        iIngredients.setOutput(VanillaTypes.ITEM, taintTransfusion.outputBlock.asItem().getDefaultInstance());
     }
     
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, TaintTransfusion taintTransfusion, IIngredients iIngredients)
     {
         iRecipeLayout.getItemStacks().init(0, true, 21, 6);
-        iRecipeLayout.getItemStacks().set(0, taintTransfusion.outputItem.getDefaultInstance());
-        iRecipeLayout.getItemStacks().init(1, true, 21, 29);
-        iRecipeLayout.getItemStacks().set(1, taintTransfusion.inputItem.getDefaultInstance());
+        iRecipeLayout.getItemStacks().set(0, taintTransfusion.inputBlock.asItem().getDefaultInstance());
+        iRecipeLayout.getItemStacks().init(1, true, 81, 6);
+        iRecipeLayout.getItemStacks().set(1, taintTransfusion.outputBlock.asItem().getDefaultInstance());
     }
 }

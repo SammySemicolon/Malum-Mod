@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:transmissive_metal_tiles"
+    ]
+  },
+  "criteria": {
+    "has_transmissive_metal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:transmissive_metal_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:transmissive_metal_tiles"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_transmissive_metal",
+      "has_the_recipe"
+    ]
+  ]
+}

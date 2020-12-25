@@ -29,7 +29,7 @@ public abstract class SimpleInventoryBlock extends Block implements IAlwaysActiv
         {
             if (worldIn.getTileEntity(pos) instanceof SimpleInventoryTileEntity)
             {
-                ((SimpleInventoryTileEntity) worldIn.getTileEntity(pos)).inventory.handleItem(state, worldIn, pos, player, handIn);
+                ((SimpleInventoryTileEntity) worldIn.getTileEntity(pos)).inventory.playerHandleItem(state, worldIn, pos, player, handIn);
                 return ActionResultType.SUCCESS;
             }
         }

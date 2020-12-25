@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "tag": "malum:sapballs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:magma_cream"
+  }
+}

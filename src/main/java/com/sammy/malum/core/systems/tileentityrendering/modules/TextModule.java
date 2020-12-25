@@ -48,14 +48,16 @@ public class TextModule extends RendererModule
             if (minecraft.objectMouseOver.getType().equals(BLOCK))
             {
                 BlockRayTraceResult mouseOver = (BlockRayTraceResult) minecraft.objectMouseOver;
-                BlockPos pos = mouseOver.getPos();
-                TileEntity tileEntity = world.getTileEntity(pos);
+                BlockPos mouseOverPos = mouseOver.getPos();
+                TileEntity tileEntity = world.getTileEntity(mouseOverPos);
+                BlockPos renderOffset = BlockPos.ZERO;
                 if (tileEntity instanceof BoundingBlockTileEntity)
                 {
                     BoundingBlockTileEntity boundingBlockTileEntity = (BoundingBlockTileEntity) tileEntity;
-                    pos = boundingBlockTileEntity.ownerPos;
+                    renderOffset = mouseOverPos.subtract(boundingBlockTileEntity.ownerPos);
+                    mouseOverPos = boundingBlockTileEntity.ownerPos;
                 }
-                boolean isMatchingPos = pos.equals(tileEntityIn.getPos());
+                boolean isMatchingPos = mouseOverPos.equals(tileEntityIn.getPos());
                 if (isMatchingPos)
                 {
                     ArrayList<ITextComponent> components = this.components(tileEntityIn);
@@ -70,10 +72,10 @@ public class TextModule extends RendererModule
                                 this.direction = direction;
                             }
                         }
-                        if (this.pos == null || !this.pos.equals(pos))
+                        if (this.pos == null || !this.pos.equals(mouseOver.getPos()))
                         {
                             renderTime = 0;
-                            this.pos = pos;
+                            this.pos = mouseOver.getPos();
                         }
                         if (renderTime < maxRenderTime)
                         {
@@ -91,6 +93,7 @@ public class TextModule extends RendererModule
                             Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
         
                             matrixStackIn.translate(0.5, 0.5, 0.5);
+                            matrixStackIn.translate(renderOffset.getX(),renderOffset.getY(),renderOffset.getZ());
                             Vector3f offset = offset(direction);
                             matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
         

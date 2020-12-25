@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:solar_sapball"
+    ]
+  },
+  "criteria": {
+    "has_solar_sap": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:solar_sap_bottle"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:solar_sapball"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_solar_sap",
+      "has_the_recipe"
+    ]
+  ]
+}

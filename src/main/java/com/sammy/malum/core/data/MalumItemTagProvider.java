@@ -1,6 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.init.MalumItemTags;
 import com.sammy.malum.core.init.MalumItems;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -9,6 +10,9 @@ import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
+import net.minecraftforge.common.Tags;
+
+import static com.sammy.malum.core.init.MalumItemTags.*;
 
 public class MalumItemTagProvider extends ItemTagsProvider
 {
@@ -73,8 +77,13 @@ public class MalumItemTagProvider extends ItemTagsProvider
         this.copy(BlockTags.FLOWERS, ItemTags.FLOWERS);
         this.copy(BlockTags.GOLD_ORES, ItemTags.GOLD_ORES);
         this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
+        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.SOLAR_SAPBALL.get(), MalumItems.LUNAR_SAPBALL.get());
+        getOrCreateBuilder(SAPBALLS).add(MalumItems.SOLAR_SAPBALL.get(), MalumItems.LUNAR_SAPBALL.get());
+    
         getOrCreateBuilder(SUN_KISSED_LOGS).add(MalumItems.SUN_KISSED_LOG.get(), MalumItems.STRIPPED_SUN_KISSED_LOG.get(), MalumItems.SUN_KISSED_WOOD.get(), MalumItems.STRIPPED_SUN_KISSED_WOOD.get());
         getOrCreateBuilder(TAINTED_LOGS).add(MalumItems.TAINTED_LOG.get(), MalumItems.STRIPPED_TAINTED_LOG.get(), MalumItems.TAINTED_WOOD.get(), MalumItems.STRIPPED_TAINTED_WOOD.get());
         getOrCreateBuilder(LAVENDER).add(MalumItems.LAVENDER.get(), MalumItems.TAINTED_LAVENDER.get());
+        getOrCreateBuilder(RUIN_PLATING_BLOCKS).add(MalumItems.RUIN_PLATING_BLOCK.get(), MalumItems.RUIN_PLATING_TILES.get(), MalumItems.STACKED_RUIN_PLATING.get());
+        getOrCreateBuilder(TRANSMISSIVE_METAL_BLOCKS).add(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
     }
 }

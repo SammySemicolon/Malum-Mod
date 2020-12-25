@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.spiritpipe;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.spirits.block.ISpiritTransferTileEntity;
@@ -48,7 +49,7 @@ public class OpenTransmissiveMetalBlock extends Block
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving)
     {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
-        if (worldIn instanceof ServerWorld)
+        if (MalumHelper.areWeOnServer(worldIn))
         {
             if (SpiritHelper.isSpiritRelated(worldIn.getTileEntity(fromPos)))
             {

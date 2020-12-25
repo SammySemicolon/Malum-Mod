@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:ruin_plating_block"
+      "tag": "malum:ruin_plating_blocks"
     }
   ],
   "result": {
     "item": "malum:ruin_plating",
-    "count": 9
+    "count": 4
   }
 }

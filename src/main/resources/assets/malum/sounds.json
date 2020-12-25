@@ -27,5 +27,9 @@
   "arcane_craft_finish": { "sounds":["malum:arcane_craft/finish"], "subtitle": "malum.subtitle.arcane_craft_finish" },
   "abstruse_block_return": { "sounds":["malum:abstruse_block/return1","malum:abstruse_block/return2"], "subtitle": "malum.subtitle.abstruse_block_returns" },
   "ruin_armor_equip": { "sounds":["malum:ruin_armor_equip/equip1","malum:ruin_armor_equip/equip2", "malum:ruin_armor_equip/equip3", "malum:ruin_armor_equip/equip4"], "subtitle": "malum.subtitle.ruin_armor_equip" },
-  "taint_spread": { "sounds":["malum:taint/spread1","malum:taint/spread2","malum:taint/spread3","malum:taint/spread4"], "subtitle": "malum.subtitle.taint_spread" }
+  "taint_spread": { "sounds":["malum:taint/spread1","malum:taint/spread2","malum:taint/spread3","malum:taint/spread4"], "subtitle": "malum.subtitle.taint_spread" },
+
+  "tainted_furnace_consume": { "sounds":["malum:tainted_furnace/consume1","malum:tainted_furnace/consume2","malum:tainted_furnace/consume3"], "subtitle": "malum.subtitle.tainted_furnace_consume" },
+  "tainted_furnace_fail": { "sounds":["malum:tainted_furnace/fail1","malum:tainted_furnace/fail2","malum:tainted_furnace/fail3"], "subtitle": "malum.subtitle.tainted_furnace_fail" },
+  "tainted_furnace_finish": { "sounds":["malum:tainted_furnace/finish1","malum:tainted_furnace/finish2","malum:tainted_furnace/finish3"], "subtitle": "malum.subtitle.tainted_furnace_finish" }
 }

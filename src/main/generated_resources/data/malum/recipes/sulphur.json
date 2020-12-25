@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "minecraft:blaze_powder"
+  },
+  "result": "malum:sulphur",
+  "experience": 0.25,
+  "cookingtime": 200
+}

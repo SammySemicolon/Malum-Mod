@@ -5,6 +5,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "malum:block/tainted_furnace_top",
+		"2": "malum:block/darkened_rock",
 		"particle": "malum:block/tainted_rock"
 	},
 	"elements": [
@@ -52,8 +53,10 @@
 			"faces": {
 				"north": {"uv": [1, 0, 0, 1], "texture": "#0"},
 				"east": {"uv": [2.5, 1, 0, 2], "texture": "#0"},
+				"south": {"uv": [0, 0, 0, 0], "texture": "#0"},
 				"west": {"uv": [2.5, 1, 5, 2], "texture": "#0"},
-				"up": {"uv": [0, 2, 1, 4.5], "texture": "#0"}
+				"up": {"uv": [0, 2, 1, 4.5], "texture": "#0"},
+				"down": {"uv": [0, 6, 4, 16], "texture": "#particle"}
 			}
 		},
 		{
@@ -62,8 +65,10 @@
 			"faces": {
 				"north": {"uv": [0, 0, 1, 1], "texture": "#0"},
 				"east": {"uv": [5, 1, 2.5, 2], "texture": "#0"},
+				"south": {"uv": [0, 0, 0, 0], "texture": "#0"},
 				"west": {"uv": [0, 1, 2.5, 2], "texture": "#0"},
-				"up": {"uv": [0, 2, 1, 4.5], "texture": "#0"}
+				"up": {"uv": [1, 2, 0, 4.5], "texture": "#0"},
+				"down": {"uv": [12, 6, 16, 16], "texture": "#particle"}
 			}
 		},
 		{
@@ -115,7 +120,8 @@
 				"east": {"uv": [7, 2, 8.5, 4.5], "texture": "#0"},
 				"south": {"uv": [8.5, 2, 12.5, 4.5], "texture": "#0"},
 				"west": {"uv": [7, 2, 8.5, 4.5], "texture": "#0"},
-				"up": {"uv": [0, 5.75, 4, 7.25], "texture": "#0"}
+				"up": {"uv": [0, 5.75, 4, 7.25], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 6], "texture": "#2"}
 			}
 		},
 		{

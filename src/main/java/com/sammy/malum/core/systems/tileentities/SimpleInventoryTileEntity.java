@@ -16,7 +16,6 @@ public abstract class SimpleInventoryTileEntity extends SimpleTileEntity
         super(type);
     }
     public SimpleInventory inventory;
-    
     @Override
     public void readData(CompoundNBT compound)
     {

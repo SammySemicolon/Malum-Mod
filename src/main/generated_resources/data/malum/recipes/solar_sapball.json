@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:adhesive"
+    },
+    {
+      "item": "malum:solar_sap_bottle"
+    }
+  ],
+  "result": {
+    "item": "malum:solar_sapball"
+  }
+}

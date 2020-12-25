@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:ruin_plating_from_stacked_ruin_plating"
+      "malum:transmissive_metal_block"
     ]
   },
   "criteria": {
-    "has_ruin_plating": {
+    "has_transmissive_metal": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:ruin_plating"
+            "item": "malum:transmissive_metal_ingot"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:ruin_plating_from_stacked_ruin_plating"
+        "recipe": "malum:transmissive_metal_block"
       }
     }
   },
   "requirements": [
     [
-      "has_ruin_plating",
+      "has_transmissive_metal",
       "has_the_recipe"
     ]
   ]

@@ -1,11 +1,11 @@
 package com.sammy.malum.common.integration.jei;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.integration.jei.tainttransfusion.FurnaceTaintTransfusionRecipeCategory;
 import com.sammy.malum.common.integration.jei.tainttransfusion.TaintTransfusionRecipeCategory;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.recipes.TaintTransfusion;
+import com.sammy.malum.core.recipes.TaintedFurnaceRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -15,8 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-import java.util.HashSet;
-import java.util.stream.Collectors;
 
 @JeiPlugin
 public class JEIHandler implements IModPlugin
@@ -37,8 +35,8 @@ public class JEIHandler implements IModPlugin
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
         //registry.addRecipes(ArcaneCraftingRecipe.recipes, ArcaneCraftingRecipeCategory.UID);
-        registry.addRecipes(TaintTransfusion.conversions, TaintTransfusionRecipeCategory.UID);
-        registry.addRecipes(TaintTransfusion.advancedConversions, FurnaceTaintTransfusionRecipeCategory.UID);
+        registry.addRecipes(TaintTransfusion.transfusions, TaintTransfusionRecipeCategory.UID);
+        registry.addRecipes(TaintedFurnaceRecipe.recipes, FurnaceTaintTransfusionRecipeCategory.UID);
     
     }
 

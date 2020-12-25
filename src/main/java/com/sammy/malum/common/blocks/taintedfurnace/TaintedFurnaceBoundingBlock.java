@@ -47,7 +47,7 @@ public class TaintedFurnaceBoundingBlock extends BoundingBlock
         {
             if (worldIn.getTileEntity(pos.down()) instanceof TaintedFurnaceCoreTileEntity)
             {
-                ((TaintedFurnaceCoreTileEntity) worldIn.getTileEntity(pos.down())).inventory.handleItem(state, worldIn, pos.down(), player, handIn);
+                ((TaintedFurnaceCoreTileEntity) worldIn.getTileEntity(pos.down())).inventory.playerHandleItem(state, worldIn, pos.down(), player, handIn);
                 return ActionResultType.SUCCESS;
             }
         }

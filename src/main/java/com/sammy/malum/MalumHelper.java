@@ -1,9 +1,11 @@
 package com.sammy.malum;
 
+import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.Property;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,6 +19,14 @@ import static com.sammy.malum.MalumMod.MODID;
 
 public class MalumHelper
 {
+    public static boolean areWeOnClient(World world)
+    {
+        return world.isRemote;
+    }
+    public static boolean areWeOnServer(World world)
+    {
+        return !areWeOnClient(world);
+    }
     public static ResourceLocation prefix(String path)
     {
         return new ResourceLocation(MODID, path);
@@ -30,6 +40,21 @@ public class MalumHelper
     public static <T> ArrayList<T> toArrayList(Stream<T> items)
     {
         return items.collect(Collectors.toCollection(ArrayList::new));
+    }
+    public static ArrayList<BlockPos> itemStands(World world, BlockPos pos, Direction... excludedDirections)
+    {
+        ArrayList<BlockPos> positions = new ArrayList<>();
+        ArrayList<Direction> excludedDirectionsArray = MalumHelper.toArrayList(excludedDirections);
+        ArrayList<Direction> directions = MalumHelper.toArrayList(Arrays.stream(Direction.values()).filter(b -> !excludedDirectionsArray.contains(b)));
+        for (Direction direction : directions)
+        {
+            BlockPos offsetPosition = pos.add(direction.getDirectionVec());
+            if (world.getTileEntity(offsetPosition) instanceof ItemStandTileEntity)
+            {
+                positions.add(offsetPosition);
+            }
+        }
+        return positions;
     }
     
     public static ArrayList<ItemStack> nonEmptyStackList(ArrayList<ItemStack> stacks)
@@ -136,7 +161,7 @@ public class MalumHelper
         compoundNBT.putInt(extra +"Z", pos.getZ());
         return compoundNBT;
     }
-    public static BlockPos readBlockPosExtra(CompoundNBT tag)
+    public static BlockPos readBlockPos(CompoundNBT tag)
     {
         return new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
     }

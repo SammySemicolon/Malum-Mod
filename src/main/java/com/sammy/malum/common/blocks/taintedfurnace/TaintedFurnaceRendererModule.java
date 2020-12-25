@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.taintedfurnace;
 
 import com.sammy.malum.client.ClientHelper;
+import com.sammy.malum.core.recipes.TaintedFurnaceRecipe;
 import com.sammy.malum.core.systems.spirits.block.ISpiritHolderTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.core.systems.tileentityrendering.modules.TextModule;
@@ -24,8 +25,12 @@ public class TaintedFurnaceRendererModule extends TextModule
         if (tileEntityIn instanceof TaintedFurnaceCoreTileEntity)
         {
             TaintedFurnaceCoreTileEntity tileEntity = (TaintedFurnaceCoreTileEntity) tileEntityIn;
+            TaintedFurnaceRecipe recipe = TaintedFurnaceRecipe.getRecipe(tileEntity.inventory.getStackInSlot(0));
+            if (recipe != null)
+            {
+                components.add(ClientHelper.combinedComponent(ClientHelper.simpleTranslatableComponent("malum.tooltip.progress"), ClientHelper.importantComponent(tileEntity.progress + "/" + recipe.recipeTime, true)));
+            }
             components.add(ClientHelper.combinedComponent(ClientHelper.simpleTranslatableComponent("malum.tooltip.fuel"), ClientHelper.importantComponent("" + tileEntity.fuel, true)));
-            components.add(ClientHelper.combinedComponent(ClientHelper.simpleTranslatableComponent("malum.tooltip.progress"), ClientHelper.importantComponent(tileEntity.progress + "/200", true)));
         }
         return components;
     }

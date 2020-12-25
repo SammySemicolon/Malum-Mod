@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:ruin_plating_tiles"
+    }
+  },
+  "result": {
+    "item": "malum:ruin_plating_tiles_slab",
+    "count": 6
+  }
+}

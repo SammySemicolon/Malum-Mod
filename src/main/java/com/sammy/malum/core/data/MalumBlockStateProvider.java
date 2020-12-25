@@ -7,6 +7,7 @@ import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
@@ -50,6 +51,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 //        blocks.remove(BLAZE_QUARTZ_ORE);
+        blocks.remove(MalumBlocks.ITEM_STAND);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCraftingTableBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractSpiritPipeBlock);

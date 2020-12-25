@@ -62,7 +62,7 @@ public interface ITaintSpreader
         }
         if (playSound)
         {
-            worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), MalumSounds.TAINT_SPREAD,AMBIENT, 0.5f,1f + worldIn.rand.nextFloat() * 0.5f);
+            worldIn.playSound(null, pos, MalumSounds.TAINT_SPREAD,AMBIENT, 0.5f,1f + worldIn.rand.nextFloat() * 0.5f);
         }
     }
 }

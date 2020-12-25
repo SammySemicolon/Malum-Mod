@@ -1,5 +1,6 @@
 package com.sammy.malum.core.systems.spirits.block;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.block.Block;
@@ -22,7 +23,7 @@ public class SpiritHolderBlock extends Block implements IAlwaysActivatedBlock
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (worldIn instanceof ServerWorld)
+        if (MalumHelper.areWeOnServer(worldIn))
         {
             if (handIn.equals(Hand.MAIN_HAND))
             {

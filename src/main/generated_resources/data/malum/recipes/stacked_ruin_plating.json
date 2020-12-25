@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "##",
+    "##"
   ],
   "key": {
     "#": {
@@ -12,6 +11,6 @@
   },
   "result": {
     "item": "malum:stacked_ruin_plating",
-    "count": 9
+    "count": 4
   }
 }

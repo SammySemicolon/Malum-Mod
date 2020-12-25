@@ -38,9 +38,12 @@ public class MalumSounds
     public static final SoundEvent RUIN_ARMOR_EQUIP = new SoundEvent(MalumHelper.prefix("ruin_armor_equip"));
     public static final SoundEvent TAINT_SPREAD = new SoundEvent(MalumHelper.prefix("taint_spread"));
     
+    public static final SoundEvent TAINTED_FURNACE_CONSUME = new SoundEvent(MalumHelper.prefix("tainted_furnace_consume"));
+    public static final SoundEvent TAINTED_FURNACE_FAIL = new SoundEvent(MalumHelper.prefix("tainted_furnace_fail"));
+    public static final SoundEvent TAINTED_FURNACE_FINISH = new SoundEvent(MalumHelper.prefix("tainted_furnace_finish"));
+    
     public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType DARKENED_ROCK = new SoundType(1.0F, 0.75F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
-    public static final SoundType SOLAR_ORE = new SoundType(1.0F, 1.25F, SOLAR_ORE_BREAK, SoundEvents.BLOCK_STONE_STEP, SOLAR_ORE_PLACE, SOLAR_ORE_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType TRANSMISSIVE_ALLOY = new SoundType(1.0F, 1.0F, TRANSMISSIVE_ALLOY_BREAK, TRANSMISSIVE_ALLOY_STEP, TRANSMISSIVE_ALLOY_PLACE, TRANSMISSIVE_ALLOY_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType RUIN_PLATING = new SoundType(1.0F, 1.0F, RUIN_PLATING_BREAK, RUIN_PLATING_STEP, RUIN_PLATING_PLACE, RUIN_PLATING_HIT, SoundEvents.BLOCK_STONE_FALL);
 
@@ -71,5 +74,9 @@ public class MalumSounds
         SOUNDS.register("abstruse_block_return", ()-> ABSTRUSE_BLOCK_RETURN);
         SOUNDS.register("ruin_armor_equip", ()-> RUIN_ARMOR_EQUIP);
         SOUNDS.register("taint_spread", ()-> TAINT_SPREAD);
+    
+        SOUNDS.register("tainted_furnace_consume", ()-> TAINTED_FURNACE_CONSUME);
+        SOUNDS.register("tainted_furnace_fail", ()-> TAINTED_FURNACE_FAIL);
+        SOUNDS.register("tainted_furnace_finish", ()-> TAINTED_FURNACE_FINISH);
     }
 }

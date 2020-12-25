@@ -1,7 +1,9 @@
 package com.sammy.malum.core.systems.multiblock;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 
@@ -21,17 +23,11 @@ public abstract class MultiblockTileEntity extends SimpleTileEntity
     {
         if (!parts.isEmpty())
         {
-            List<Integer> x = new ArrayList<>();
-            List<Integer> y = new ArrayList<>();
-            List<Integer> z = new ArrayList<>();
-            parts.forEach(b -> {
-                x.add(b.getX());
-                y.add(b.getY());
-                z.add(b.getZ());
-            });
-            compound.putIntArray("x", x);
-            compound.putIntArray("y", y);
-            compound.putIntArray("z", z);
+            compound.putInt("partsSize", parts.size());
+            for (int i = 0; i < parts.size(); i++)
+            {
+                MalumHelper.writeBlockPosExtra(compound,parts.get(i), "part" + i);
+            }
         }
         return super.writeData(compound);
     }
@@ -39,12 +35,12 @@ public abstract class MultiblockTileEntity extends SimpleTileEntity
     @Override
     public void readData(CompoundNBT compound)
     {
-        int[] x = compound.getIntArray("x");
-        int[] y = compound.getIntArray("y");
-        int[] z = compound.getIntArray("z");
-        for (int i = 0; i < x.length; i++)
+        if (compound.contains("partsSize"))
         {
-            parts.add(new BlockPos(x[i],y[i],z[i]));
+            for (int i = 0; i < compound.getInt("partsSize"); i++)
+            {
+                parts.add(MalumHelper.readBlockPosExtra(compound, "part" + i));
+            }
         }
         super.readData(compound);
     }

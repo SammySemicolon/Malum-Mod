@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:glass_panes"
+    },
+    "X": {
+      "item": "malum:seed_of_corruption"
+    }
+  },
+  "result": {
+    "item": "malum:contained_taint"
+  }
+}

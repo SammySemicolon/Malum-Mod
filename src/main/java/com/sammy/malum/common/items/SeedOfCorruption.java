@@ -1,5 +1,6 @@
 package com.sammy.malum.common.items;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.recipes.TaintTransfusion;
 import net.minecraft.block.BlockState;
@@ -27,7 +28,7 @@ public class SeedOfCorruption extends Item
         if (conversion != null)
         {
             player.swingArm(context.getHand());
-            if (player.world instanceof ServerWorld)
+            if (MalumHelper.areWeOnServer(player.world))
             {
                 player.getHeldItem(context.getHand()).shrink(1);
                 TaintTransfusion.spread(player.world, context.getPos(), conversion);

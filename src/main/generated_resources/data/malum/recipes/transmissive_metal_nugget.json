@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:stacked_ruin_plating"
+      "item": "malum:transmissive_metal_ingot"
     }
   ],
   "result": {
-    "item": "malum:ruin_plating",
+    "item": "malum:transmissive_metal_nugget",
     "count": 9
   }
 }

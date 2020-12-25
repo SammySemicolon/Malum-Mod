@@ -31,9 +31,8 @@ public class ItemModule extends RendererModule
                 if (!item.isEmpty())
                 {
                     matrixStackIn.push();
-                    matrixStackIn.translate(0.5f, 1.25f, 0.5f);
-                    Vector2f offset = itemOffset(tileEntityIn.getWorld(), partialTicks, 0.2f, i,inventory.nonEmptyItems());
-                    matrixStackIn.translate(offset.x, 0, offset.y);
+                    Vector3f offset = itemOffset(tileEntityIn, partialTicks, 0.2f, i,inventory.nonEmptyItems());
+                    matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
                     matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
                     matrixStackIn.scale(0.5f, 0.5f, 0.5f);
                     itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
@@ -51,13 +50,14 @@ public class ItemModule extends RendererModule
         }
         return null;
     }
-    public Vector2f itemOffset(World world, float partialTicks, float distance, int currentPoint, int totalPoints)
+    public Vector3f itemOffset(SimpleTileEntity tileEntity, float partialTicks, float distance, int currentPoint, int totalPoints)
     {
-        double theta = ((Math.PI * 2) / totalPoints);
-        double finalAngle = (world.getGameTime() + partialTicks) / 160 + (theta * currentPoint);
-        
-        double x = (distance * Math.cos(finalAngle));
-        double y = (distance * Math.sin(finalAngle));
-        return new Vector2f((float)x,(float)y);
+//        double theta = ((Math.PI * 2) / totalPoints);
+//        double finalAngle = (world.getGameTime() + partialTicks) / 160 + (theta * currentPoint);
+//
+//        double x = (distance * Math.cos(finalAngle));
+//        double y = (distance * Math.sin(finalAngle));
+//        return new Vector2f((float)x,(float)y);
+        return new Vector3f(0,0,0);
     }
 }

@@ -8,7 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelRunicGoldArmor extends ModelArmor
+public class ModelRuinArmor extends ModelArmor
 {
 	private final ModelRenderer torso;
 	private final ModelRenderer chestplate_slope;
@@ -24,7 +24,7 @@ public class ModelRunicGoldArmor extends ModelArmor
 	private final ModelRenderer boot_l;
 	private final ModelRenderer boot_wing_l;
 
-	public ModelRunicGoldArmor(EquipmentSlotType slot) {
+	public ModelRuinArmor(EquipmentSlotType slot) {
 		super(slot, 64, 64);
 		textureWidth = 64;
 		textureHeight = 64;

@@ -4,9 +4,11 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
+import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
 import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceItemRendererModule;
 import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceRendererModule;
 import com.sammy.malum.common.entities.SpiritEssenceEntity;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -48,6 +50,7 @@ public class ClientStartupEvents
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TAINTED_FURNACE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new TaintedFurnaceItemRendererModule(), new TaintedFurnaceRendererModule())));
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new ItemStandItemRendererModule())));
     }
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
@@ -103,6 +106,7 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(ClientStartupEvents::setCutout);
+        setCutout(MalumBlocks.ITEM_STAND);
 //        setCutout(MalumBlocks.SPIRIT_JAR);
 //        setCutout(MalumBlocks.SPIRIT_PIPE);
 //        setCutout(MalumBlocks.BLAZE_QUARTZ_ORE);

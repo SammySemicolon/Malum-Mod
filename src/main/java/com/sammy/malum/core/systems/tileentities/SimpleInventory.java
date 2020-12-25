@@ -1,11 +1,15 @@
 package com.sammy.malum.core.systems.tileentities;
 
+import com.sammy.malum.MalumHelper;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -45,6 +49,17 @@ public class SimpleInventory extends ItemStackHandler
         this.slotCount = slotCount;
         this.slotSize = slotSize;
     }
+    public int firstEmptyItem()
+    {
+        for (int i = 0; i < slotCount; i++)
+        {
+            if (getStackInSlot(i).isEmpty())
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     public int nonEmptyItems()
     {
         int itemCount = 0;
@@ -69,6 +84,15 @@ public class SimpleInventory extends ItemStackHandler
             setStackInSlot(i, ItemStack.EMPTY);
         }
     }
+    public ArrayList<Item> items()
+    {
+        ArrayList<Item> items = new ArrayList<>();
+        for (int i = 0; i < slotCount; i++)
+        {
+            items.add(getStackInSlot(i).getItem());
+        }
+        return items;
+    }
     public ArrayList<ItemStack> stacks()
     {
         ArrayList<ItemStack> stacks = new ArrayList<>();
@@ -77,6 +101,17 @@ public class SimpleInventory extends ItemStackHandler
             stacks.add(getStackInSlot(i));
         }
         return stacks;
+    }
+    public void dumpItems(World world, Vector3f pos)
+    {
+        for (int i = 0; i < slotCount; i++)
+        {
+            if (!getStackInSlot(i).isEmpty())
+            {
+                world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), getStackInSlot(i)));
+            }
+            setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
     public final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this);
     @Override
@@ -118,21 +153,21 @@ public class SimpleInventory extends ItemStackHandler
         return super.extractItem(slot, amount, simulate);
     }
     
-    public void handleItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
+    public void playerHandleItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
     {
         if (player.isSneaking() || player.getHeldItem(handIn).isEmpty())
         {
-            playerOutputItem(state, worldIn, pos, player, handIn);
+            playerExtractItem(state, worldIn, pos, player, handIn);
         }
         else
         {
-            playerInputItem(state, worldIn, pos, player, handIn);
+            playerInsertItem(state, worldIn, pos, player, handIn);
         }
         player.swingArm(handIn);
     }
-    public void playerOutputItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
+    public void playerExtractItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
     {
-        if (worldIn instanceof ServerWorld)
+        if (MalumHelper.areWeOnServer(worldIn))
         {
             List<ItemStack> nonEmptyStacks = stacks.stream().filter(i -> !i.isEmpty()).collect(Collectors.toList());
             if (nonEmptyStacks.isEmpty())
@@ -145,13 +180,13 @@ public class SimpleInventory extends ItemStackHandler
             {
                 return;
             }
-            outputItem(player, takeOutStack, stacks.indexOf(takeOutStack));
+            extractItem(player, takeOutStack, stacks.indexOf(takeOutStack));
             updateState(state, worldIn, pos);
         }
     }
-    public void playerInputItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
+    public void playerInsertItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
     {
-        if (worldIn instanceof ServerWorld)
+        if (MalumHelper.areWeOnServer(worldIn))
         {
             if (!player.getHeldItem(handIn).isEmpty())
             {
@@ -171,19 +206,29 @@ public class SimpleInventory extends ItemStackHandler
     {
         worldIn.notifyBlockUpdate(pos, state,state, 3);
     }
-    public void outputItem(PlayerEntity playerEntity, ItemStack stack, int slot)
+    public void extractItem(PlayerEntity playerEntity, ItemStack stack, int slot)
     {
         ItemHandlerHelper.giveItemToPlayer(playerEntity, stack, playerEntity.inventory.currentItem);
         setStackInSlot(slot, ItemStack.EMPTY);
     }
     public void readData(CompoundNBT compound)
     {
-        deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get("inventory")));
+        readData(compound,"inventory");
     }
     
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        compound.put("inventory", serializeNBT());
+        writeData(compound, "inventory");
+        return compound;
+    }
+    public void readData(CompoundNBT compound, String name)
+    {
+        deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get(name)));
+    }
+    
+    public CompoundNBT writeData(CompoundNBT compound, String name)
+    {
+        compound.put(name, serializeNBT());
         return compound;
     }
 }

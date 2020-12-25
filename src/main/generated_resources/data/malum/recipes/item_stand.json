@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Y ",
+    "#X#"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:tainted_rock"
+    },
+    "X": {
+      "item": "malum:darkened_rock"
+    },
+    "Y": {
+      "item": "malum:tainted_rock_slab"
+    }
+  },
+  "result": {
+    "item": "malum:item_stand"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "malum:transmissive_metal_block",
+    "malum:transmissive_metal_tiles",
+    "malum:stacked_transmissive_metal"
+  ]
+}

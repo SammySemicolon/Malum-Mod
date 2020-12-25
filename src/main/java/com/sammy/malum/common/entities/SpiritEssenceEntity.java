@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entities;
 
 import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.Entity;
@@ -58,7 +59,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
     {
         if (owner == null)
         {
-            if (world instanceof ServerWorld)
+            if (MalumHelper.areWeOnServer(world))
             {
                 owner = (PlayerEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
             }
@@ -70,7 +71,7 @@ public class SpiritEssenceEntity extends ProjectileItemEntity
     public void tick()
     {
         super.tick();
-        if (world instanceof ServerWorld)
+        if (MalumHelper.areWeOnServer(world))
         {
             velocity+= 0.002f;
             Vector3d ownerPos = owner().getPositionVec().add(0, owner.getHeight() / 2, 0);
