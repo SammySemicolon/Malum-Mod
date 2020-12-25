@@ -29,6 +29,7 @@ public class ItemEvents
     @SubscribeEvent
     public static void onEntityKill(LivingDeathEvent event)
     {
+        
         if (event.getSource().getTrueSource() instanceof PlayerEntity)
         {
             PlayerEntity attacker = (PlayerEntity) event.getSource().getTrueSource();
