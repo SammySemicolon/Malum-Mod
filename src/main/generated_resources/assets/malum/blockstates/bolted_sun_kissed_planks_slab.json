@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "malum:block/bolted_sun_kissed_planks_slab_top"
+    },
+    "type=bottom": {
+      "model": "malum:block/bolted_sun_kissed_planks_slab"
+    },
+    "type=double": {
+      "model": "malum:block/bolted_sun_kissed_planks"
+    }
+  }
+}

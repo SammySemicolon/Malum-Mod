@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "side": "malum:block/sun_kissed_panel",
+    "bottom": "malum:block/sun_kissed_panel",
+    "top": "malum:block/sun_kissed_panel"
+  }
+}

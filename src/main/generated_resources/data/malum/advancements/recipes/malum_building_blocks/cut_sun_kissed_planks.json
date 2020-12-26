@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:cut_sun_kissed_planks"
+    ]
+  },
+  "criteria": {
+    "has_sun_kissed_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:sun_kissed_planks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:cut_sun_kissed_planks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sun_kissed_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

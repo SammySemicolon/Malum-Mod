@@ -14,6 +14,7 @@ import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -28,6 +29,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static com.sammy.malum.MalumHelper.prefix;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.BLAZE_QUARTZ_ORE;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
@@ -50,13 +52,15 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     protected void registerStatesAndModels()
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-//        blocks.remove(BLAZE_QUARTZ_ORE);
+        blocks.remove(BLAZE_QUARTZ_ORE);
         blocks.remove(MalumBlocks.ITEM_STAND);
+        
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCraftingTableBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractSpiritPipeBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock);
-        
+    
+        MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("horizontal_flared_")).forEach(this::horizontalFlaredBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getTranslationKey().endsWith("_cap")).forEach(this::pillarCapBlock);
@@ -99,10 +103,23 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/" + name), prefix("block/" + baseName));
     }
     
+    public void cutPlanksBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String baseName = name.substring(0,name.length() - "_planks".length()).substring(4) + "_panel";
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + name), prefix("block/" + baseName)));
+    }
     public void grassBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name + "_side"), new ResourceLocation("block/dirt"), prefix("block/" + name + "_top")));
+        ModelFile file = models().cubeBottomTop(name, prefix("block/" + name + "_side"), new ResourceLocation("block/dirt"), prefix("block/" + name + "_top"));
+    
+        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
+                .modelFile(file)
+                .nextModel().modelFile(file).rotationY(90)
+                .nextModel().modelFile(file).rotationY(180)
+                .nextModel().modelFile(file).rotationY(270)
+                .addModel();
     }
     
     public void malumLeavesBlock(RegistryObject<Block> blockRegistryObject)

@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.taintedfurnace;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
@@ -68,12 +69,12 @@ public class TaintedFurnaceCoreBlock extends Block implements IMultiblock, IAlwa
                     if (player.isSneaking())
                     {
                         int count = stack.getCount();
-                        tileEntity.fuel += count *16;
+                        tileEntity.fuel += count * MalumMod.globalCharcoalToFuelRatio;
                         stack.shrink(count);
                     }
                     else
                     {
-                        tileEntity.fuel += 16;
+                        tileEntity.fuel += MalumMod.globalCharcoalToFuelRatio;
                         stack.shrink(1);
                     }
                     player.swingArm(handIn);
