@@ -31,5 +31,7 @@
 
   "tainted_furnace_consume": { "sounds":["malum:tainted_furnace/consume1","malum:tainted_furnace/consume2","malum:tainted_furnace/consume3"], "subtitle": "malum.subtitle.tainted_furnace_consume" },
   "tainted_furnace_fail": { "sounds":["malum:tainted_furnace/fail1"], "subtitle": "malum.subtitle.tainted_furnace_fail" },
-  "tainted_furnace_finish": { "sounds":["malum:tainted_furnace/finish1","malum:tainted_furnace/finish2","malum:tainted_furnace/finish3"], "subtitle": "malum.subtitle.tainted_furnace_finish" }
+  "tainted_furnace_finish": { "sounds":["malum:tainted_furnace/finish1","malum:tainted_furnace/finish2","malum:tainted_furnace/finish3"], "subtitle": "malum.subtitle.tainted_furnace_finish" },
+
+  "karmic_holder_activate": { "sounds":["malum:karmic_holder/activate0","malum:karmic_holder/activate1"], "subtitle": "malum.subtitle.karmic_holder_activate" }
 }

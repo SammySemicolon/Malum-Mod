@@ -31,11 +31,12 @@ public class ParticlePhase
         if (currentFrame++ == loopEnd)
         {
             currentLoop++;
-            currentFrame = loopStart;
             if (currentLoop == totalLoops)
             {
                 isComplete = true;
+                return;
             }
+            currentFrame = loopStart;
         }
     }
 }

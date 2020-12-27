@@ -6,6 +6,9 @@ import com.sammy.malum.common.blocks.MalumTallGrassBlock;
 import com.sammy.malum.common.blocks.WitherSandBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
+import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
+import com.sammy.malum.common.blocks.spiritpipe.OpenTransmissiveMetalBlock;
+import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeBlock;
 import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceBoundingBlock;
 import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceCoreBlock;
 import com.sammy.malum.common.blocks.taint.*;
@@ -324,10 +327,10 @@ public class MalumBlocks
     public static final RegistryObject<Block> ITEM_STAND = BLOCKS.register("item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     //endregion
     
-    //region essence handling
-//    public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES()));
-//    public static final RegistryObject<Block> SPIRIT_PIPE = BLOCKS.register("spirit_pipe", () -> new SpiritPipeBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
-//    public static final RegistryObject<Block> OPEN_TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("open_transmissive_metal_block", () -> new OpenTransmissiveMetalBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
+    //region spirit handling
+    public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES()));
+    public static final RegistryObject<Block> SPIRIT_PIPE = BLOCKS.register("spirit_pipe", () -> new SpiritPipeBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> OPEN_TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("open_transmissive_metal_block", () -> new OpenTransmissiveMetalBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
     //endregion
     
     public static int light(BlockState state, int strength)

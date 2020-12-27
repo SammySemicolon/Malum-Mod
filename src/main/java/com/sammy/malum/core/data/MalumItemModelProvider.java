@@ -2,7 +2,9 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
+import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
+import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;
@@ -30,6 +32,9 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     protected void registerModels()
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+        items.remove(MalumItems.FOOLS_BLESSING);
+        
+        takeAll(items, i -> i.get() instanceof SpiritSplinterItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
@@ -57,6 +62,13 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         withExistingParent(name, HANDHELD).texture("layer0", prefix("item/" + name));
     }
     
+    private void spiritSplinterItem(RegistryObject<Item> i)
+    {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+//        SpiritSplinterItem spiritSplinterItem = (SpiritSplinterItem) i.get();
+//        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/" + name + spiritSplinterItem.type.identifier));
+        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));
+    }
     private void generatedItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();

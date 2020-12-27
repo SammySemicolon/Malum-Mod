@@ -3,14 +3,22 @@ package com.sammy.malum.core.init;
 import com.sammy.malum.common.items.TaintRudimentItem;
 import com.sammy.malum.common.items.equipment.armor.RuinArmor;
 import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
+import com.sammy.malum.common.items.equipment.curios.CurioKarmicHolder;
 import com.sammy.malum.common.items.food.LunarSyrupBottleItem;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
+import com.sammy.malum.common.items.tools.scythes.CreativeScythe;
+import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.MalumBuildingTab;
 import com.sammy.malum.core.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
+import com.sammy.malum.core.systems.MalumSpiritSplinters;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
+import com.sammy.malum.core.systems.spirits.item.SpiritHolderBlockItem;
+import com.sammy.malum.core.systems.spirits.item.SpiritHolderItem;
+import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Food;
@@ -20,8 +28,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static com.sammy.malum.MalumMod.MODID;
+import static com.sammy.malum.core.init.spirits.MalumSpiritTypes.*;
 import static com.sammy.malum.core.systems.tiers.MalumArmorTiers.ArmorTierEnum.RUIN_ARMOR;
 import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.RUIN_ITEM;
+import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.TAINTED_ITEM;
 import static net.minecraft.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -37,6 +47,10 @@ public class MalumItems
     {
         return new Item.Properties().group(MalumBuildingTab.INSTANCE);
     }
+    public static Item.Properties SPIRIT_SPLINTER_PROPERTIES()
+    {
+        return new Item.Properties().group(MalumSpiritSplinters.INSTANCE);
+    }
     public static Item.Properties GEAR_PROPERTIES()
     {
         return new Item.Properties().group(MalumCreativeTab.INSTANCE).maxStackSize(1);
@@ -47,6 +61,28 @@ public class MalumItems
         return new Item.Properties().maxStackSize(1);
     }
     
+    //region spirits
+    
+    //region splinters
+    public static final RegistryObject<Item> EMPTY_SPLINTER = ITEMS.register("empty_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    
+    public static final RegistryObject<Item> FLARED_DISTILLATE_SPLINTER = ITEMS.register("flared_distillate_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    
+    public static final RegistryObject<Item> WILD_SPIRIT_SPLINTER = ITEMS.register("wild_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> UNDEAD_SPIRIT_SPLINTER = ITEMS.register("undead_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> NIMBLE_SPIRIT_SPLINTER = ITEMS.register("nimble_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> AQUATIC_SPIRIT_SPLINTER = ITEMS.register("aquatic_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> SINISTER_SPIRIT_SPLINTER = ITEMS.register("sinister_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> ARCANE_SPIRIT_SPLINTER = ITEMS.register("arcane_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> SULPHURIC_SPIRIT_SPLINTER = ITEMS.register("sulphuric_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> NETHERBORNE_SPIRIT_SPLINTER = ITEMS.register("netherborne_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> REMEDIAL_SPIRIT_SPLINTER = ITEMS.register("remedial_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> TERMINUS_SPIRIT_SPLINTER = ITEMS.register("terminus_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> ELDRITCH_SPIRIT_SPLINTER = ITEMS.register("eldritch_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    
+    //endregion
+    
+    //endregion
     //region building
     
     //region tainted rock
@@ -292,7 +328,7 @@ public class MalumItems
     //region contents
     public static final RegistryObject<Item> TAINT_RUDIMENT = ITEMS.register("taint_rudiment", () -> new TaintRudimentItem(DEFAULT_PROPERTIES()));
     
-//    public static final RegistryObject<Item> TAINTED_SCYTHE = ITEMS.register("tainted_scythe", () -> new ScytheItem(TAINTED_ITEM, 2, 0,1, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> TAINTED_SCYTHE = ITEMS.register("tainted_scythe", () -> new ScytheItem(TAINTED_ITEM, 2, 0,1, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
@@ -314,23 +350,30 @@ public class MalumItems
     public static final RegistryObject<Item> RUIN_LEGGINGS = ITEMS.register("ruin_leggings", () -> new RuinArmor(RUIN_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_BOOTS = ITEMS.register("ruin_boots", () -> new RuinArmor(RUIN_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
+    public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
+    
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));
     //endregion
     
+    //region curios
+    public static final RegistryObject<Item> KARMIC_HOLDER = ITEMS.register("karmic_holder", () -> new CurioKarmicHolder(GEAR_PROPERTIES()));
+    
+    //end region
+    
     //region essence items
-//    public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 1, 640));
-//    public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new EssenceHolderItem(GEAR_PROPERTIES(), 4, 64));
-//    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new EssenceHolderBlockItem(MalumBlocks.SPIRIT_JAR.get(), GEAR_PROPERTIES(),64));
-//    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
-//    public static final RegistryObject<Item> OPEN_TRANSMISSIVE_METAL_BLOCK = ITEMS.register("open_transmissive_metal_block", () -> new BlockItem(MalumBlocks.OPEN_TRANSMISSIVE_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new SpiritHolderItem(GEAR_PROPERTIES(), 1, 640));
+    public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new SpiritHolderItem(GEAR_PROPERTIES(), 4, 64));
+    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new SpiritHolderBlockItem(MalumBlocks.SPIRIT_JAR.get(), GEAR_PROPERTIES(),64));
+    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> OPEN_TRANSMISSIVE_METAL_BLOCK = ITEMS.register("open_transmissive_metal_block", () -> new BlockItem(MalumBlocks.OPEN_TRANSMISSIVE_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
     
     //endregion
     
     //region hidden items
-//    public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new EssenceHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
-//    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
-//    public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", () -> new Item(CREATIVE_PROPERTIES()));
+    public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new SpiritHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
+    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
+    public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", () -> new Item(CREATIVE_PROPERTIES()));
     
     public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));
     //endregion

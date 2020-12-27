@@ -3,6 +3,7 @@ package com.sammy.malum;
 import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.MalumItemTags;
 import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+import static com.sammy.malum.core.init.MalumEffects.EFFECTS;
 import static com.sammy.malum.core.init.MalumEntities.ENTITY_TYPES;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
@@ -39,8 +41,10 @@ public class MalumMod
         ENTITY_TYPES.register(modBus);
         FOLIAGE.register(modBus);
         BUILDERS.register(modBus);
+        EFFECTS.register(modBus);
         MalumSounds.init();
         MalumItemTags.init();
+        MalumSpiritTypes.init();
         modBus.addListener(this::gatherData);
     }
     

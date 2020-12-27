@@ -2,6 +2,7 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
@@ -12,6 +13,7 @@ import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
+import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import com.sammy.malum.core.systems.tileentityrendering.AdjustableTileEntityRenderer;
 import com.sammy.malum.core.systems.tileentityrendering.modules.ItemModule;
 import net.minecraft.block.*;
@@ -34,6 +36,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -82,15 +85,27 @@ public class ClientStartupEvents
     @SubscribeEvent
     public static void setItemColors(ColorHandlerEvent.Item event)
     {
-        ItemColors blockColors = event.getItemColors();
+        ItemColors itemColors = event.getItemColors();
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         MalumHelper.takeAll(items, item -> item.get() instanceof BlockItem && ((BlockItem) item.get()).getBlock() instanceof MalumLeavesBlock).forEach(item -> {
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-            int r = malumLeavesBlock.minColor.getRed();
-            int g = malumLeavesBlock.minColor.getGreen();
-            int b = malumLeavesBlock.minColor.getBlue();
-            blockColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
+            ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
+        ClientHelper.registerItemColor(itemColors, MalumItems.EMPTY_SPLINTER, new Color(86, 86, 86));
+    
+        ClientHelper.registerItemColor(itemColors, MalumItems.FLARED_DISTILLATE_SPLINTER, new Color(255, 183, 236));
+    
+        ClientHelper.registerItemColor(itemColors, MalumItems.WILD_SPIRIT_SPLINTER, new Color(165, 255, 40));
+        ClientHelper.registerItemColor(itemColors, MalumItems.UNDEAD_SPIRIT_SPLINTER, new Color(101, 9, 18));
+        ClientHelper.registerItemColor(itemColors, MalumItems.NIMBLE_SPIRIT_SPLINTER, new Color(195, 213, 213));
+        ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT_SPLINTER, new Color(85, 240, 255));
+        ClientHelper.registerItemColor(itemColors, MalumItems.SINISTER_SPIRIT_SPLINTER, new Color(133, 16, 161));
+        ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT_SPLINTER, new Color(255, 44, 176));
+        ClientHelper.registerItemColor(itemColors, MalumItems.SULPHURIC_SPIRIT_SPLINTER, new Color(255, 176, 44));
+        ClientHelper.registerItemColor(itemColors, MalumItems.NETHERBORNE_SPIRIT_SPLINTER, new Color(187, 51, 50));
+        ClientHelper.registerItemColor(itemColors, MalumItems.REMEDIAL_SPIRIT_SPLINTER, new Color(220, 251, 237));
+        ClientHelper.registerItemColor(itemColors, MalumItems.TERMINUS_SPIRIT_SPLINTER, new Color(50, 17, 84));
+        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, new Color(35, 24, 47));
     }
     
     @SubscribeEvent
