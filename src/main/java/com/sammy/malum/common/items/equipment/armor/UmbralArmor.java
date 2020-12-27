@@ -1,6 +1,7 @@
 package com.sammy.malum.common.items.equipment.armor;
 
 import com.sammy.malum.client.models.ModelRuinArmor;
+import com.sammy.malum.client.models.ModelUmbralArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -25,7 +26,7 @@ public class UmbralArmor extends ArmorItem
     
         if (FMLEnvironment.dist == Dist.CLIENT)
         {
-            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelRuinArmor(slot)), () -> () -> null);
+            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelUmbralArmor(slot)), () -> () -> null);
         }
     }
     
