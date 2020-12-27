@@ -73,7 +73,6 @@ public class TaintTransfusion
         new TaintTransfusion(Blocks.COBBLESTONE, Blocks.NETHERRACK);
         new TaintTransfusion(Blocks.MAGMA_BLOCK, Blocks.OBSIDIAN);
         new TaintTransfusion(Blocks.COAL_BLOCK, Blocks.LAPIS_BLOCK);
-        new TaintTransfusion(Blocks.POLISHED_BASALT, Blocks.PRISMARINE);
     }
     
     public static TaintTransfusion getTransfusion(Block block)

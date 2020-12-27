@@ -4,8 +4,8 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.recipes.ArcaneCraftingRecipe;
+import com.sammy.malum.core.recipes.SpiritKilnRecipe;
 import com.sammy.malum.core.recipes.TaintTransfusion;
-import com.sammy.malum.core.recipes.TaintedFurnaceRecipe;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import com.sammy.malum.core.systems.spirits.types.MalumSpiritType;
 import net.minecraft.item.Item;
@@ -32,7 +32,7 @@ public class StartupEvents
     {
         ArcaneCraftingRecipe.init();
         TaintTransfusion.init();
-        TaintedFurnaceRecipe.init();
+        SpiritKilnRecipe.init();
     }
     
     @SubscribeEvent

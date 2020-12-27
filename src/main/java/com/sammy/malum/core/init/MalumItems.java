@@ -2,6 +2,7 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.items.TaintRudimentItem;
 import com.sammy.malum.common.items.equipment.armor.RuinArmor;
+import com.sammy.malum.common.items.equipment.armor.UmbralArmor;
 import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
 import com.sammy.malum.common.items.equipment.curios.CurioKarmicHolder;
 import com.sammy.malum.common.items.food.LunarSyrupBottleItem;
@@ -12,7 +13,6 @@ import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.MalumBuildingTab;
 import com.sammy.malum.core.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
-import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
 import com.sammy.malum.core.systems.MalumSpiritSplinters;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
@@ -20,18 +20,17 @@ import com.sammy.malum.core.systems.spirits.item.SpiritHolderBlockItem;
 import com.sammy.malum.core.systems.spirits.item.SpiritHolderItem;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static com.sammy.malum.MalumMod.MODID;
-import static com.sammy.malum.core.init.spirits.MalumSpiritTypes.*;
 import static com.sammy.malum.core.systems.tiers.MalumArmorTiers.ArmorTierEnum.RUIN_ARMOR;
-import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.RUIN_ITEM;
-import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.TAINTED_ITEM;
+import static com.sammy.malum.core.systems.tiers.MalumArmorTiers.ArmorTierEnum.UMBRAL_ARMOR;
+import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.*;
 import static net.minecraft.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -65,8 +64,6 @@ public class MalumItems
     
     //region splinters
     public static final RegistryObject<Item> EMPTY_SPLINTER = ITEMS.register("empty_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
-    
-    public static final RegistryObject<Item> FLARED_DISTILLATE_SPLINTER = ITEMS.register("flared_distillate_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     
     public static final RegistryObject<Item> WILD_SPIRIT_SPLINTER = ITEMS.register("wild_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> UNDEAD_SPIRIT_SPLINTER = ITEMS.register("undead_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
@@ -301,7 +298,7 @@ public class MalumItems
     
     //region crafting blocks
 //    public static final RegistryObject<Item> ARCANE_CRAFTING_TABLE = ITEMS.register("arcane_crafting_table", () -> new BlockItem(MalumBlocks.ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TAINTED_FURNACE = ITEMS.register("tainted_furnace", () -> new MultiblockItem(MalumBlocks.TAINTED_FURNACE.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.TAINTED_FURNACE_TOP.get())));
+    public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));
     public static final RegistryObject<Item> ITEM_STAND = ITEMS.register("item_stand", () -> new BlockItem(MalumBlocks.ITEM_STAND.get(), DEFAULT_PROPERTIES()));
     //endregion
     
@@ -312,24 +309,24 @@ public class MalumItems
     
     public static final RegistryObject<Item> RUIN_PLATING = ITEMS.register("ruin_plating", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_SCRAPS = ITEMS.register("ruin_scraps", () -> new Item(DEFAULT_PROPERTIES()));
+    
+    public static final RegistryObject<Item> UMBRAL_METAL_INGOT = ITEMS.register("umbral_metal_ingot", () -> new Item(DEFAULT_PROPERTIES().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> UMBRAL_METAL_SHARDS = ITEMS.register("umbral_metal_shards", () -> new Item(DEFAULT_PROPERTIES().rarity(Rarity.RARE)));
     //endregion
     
     //region combined components
-//    public static final RegistryObject<Item> ILLUSTRIOUS_FABRIC = ITEMS.register("illustrious_fabric", () -> new Item(DEFAULT_PROPERTIES()));
-//    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
-//    public static final RegistryObject<Item> VOID_LENS = ITEMS.register("void_lens", () -> new Item(DEFAULT_PROPERTIES()));
-//
-    public static final RegistryObject<Item> CONTAINED_TAINT = ITEMS.register("contained_taint", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SULPHUR = ITEMS.register("sulphur", () -> new Item(DEFAULT_PROPERTIES()));
+    
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> REANIMATED_MATTER = ITEMS.register("reanimated_matter", () -> new Item(DEFAULT_PROPERTIES().food((new Food.Builder()).effect(new EffectInstance(Effects.HUNGER, 300, 1), 0.2F).meat().hunger(10).saturation(2F).build())));
+    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SHARD_OF_WISDOM = ITEMS.register("shard_of_wisdom", () -> new SimpleFoiledItem(DEFAULT_PROPERTIES().rarity(Rarity.UNCOMMON)));
+    
     //endregion
     
     //region contents
     public static final RegistryObject<Item> TAINT_RUDIMENT = ITEMS.register("taint_rudiment", () -> new TaintRudimentItem(DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> TAINTED_SCYTHE = ITEMS.register("tainted_scythe", () -> new ScytheItem(TAINTED_ITEM, 2, 0,1, GEAR_PROPERTIES()));
-
     public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
@@ -338,7 +335,6 @@ public class MalumItems
     public static final RegistryObject<Item> LUNAR_SAPBALL = ITEMS.register("lunar_sapball", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> LUNAR_SYRUP_BOTTLE = ITEMS.register("lunar_syrup_bottle", () -> new LunarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
 
-//    public static final RegistryObject<Item> RUIN_SCYTHE = ITEMS.register("ruin_scythe", () -> new ScytheItem(RUIN_ITEM, 2, 0,1, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_SWORD = ITEMS.register("ruin_sword", () -> new ModSwordItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PICKAXE = ITEMS.register("ruin_pickaxe", () -> new ModPickaxeItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_AXE = ITEMS.register("ruin_axe", () -> new ModAxeItem(RUIN_ITEM, 2, 0, GEAR_PROPERTIES()));
@@ -349,6 +345,17 @@ public class MalumItems
     public static final RegistryObject<Item> RUIN_CHESTPLATE = ITEMS.register("ruin_chestplate", () -> new RuinArmor(RUIN_ARMOR, EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_LEGGINGS = ITEMS.register("ruin_leggings", () -> new RuinArmor(RUIN_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_BOOTS = ITEMS.register("ruin_boots", () -> new RuinArmor(RUIN_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
+    
+//    public static final RegistryObject<Item> UMBRAL_SWORD = ITEMS.register("umbral_sword", () -> new ModSwordItem(UMBRAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> UMBRAL_PICKAXE = ITEMS.register("umbral_pickaxe", () -> new ModPickaxeItem(UMBRAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> UMBRAL_AXE = ITEMS.register("umbral_axe", () -> new ModAxeItem(UMBRAL_ITEM, 3, 0, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> UMBRAL_SHOVEL = ITEMS.register("umbral_shovel", () -> new ModShovelItem(UMBRAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> UMBRAL_HOE = ITEMS.register("umbral_hoe", () -> new ModHoeItem(UMBRAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+//
+//    public static final RegistryObject<Item> UMBRAL_HELMET = ITEMS.register("umbral_helmet", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> UMBRAL_CHESTPLATE = ITEMS.register("umbral_chestplate", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> UMBRAL_LEGGINGS = ITEMS.register("umbral_leggings", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> UMBRAL_BOOTS = ITEMS.register("umbral_boots", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     

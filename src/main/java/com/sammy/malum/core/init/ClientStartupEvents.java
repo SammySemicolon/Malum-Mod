@@ -6,16 +6,14 @@ import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
-import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceItemRendererModule;
-import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceRendererModule;
+import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnItemRendererModule;
+import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnDebugTextRendererModule;
 import com.sammy.malum.common.entities.SpiritEssenceEntity;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
-import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import com.sammy.malum.core.systems.tileentityrendering.AdjustableTileEntityRenderer;
-import com.sammy.malum.core.systems.tileentityrendering.modules.ItemModule;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -52,7 +50,7 @@ public class ClientStartupEvents
     {
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TAINTED_FURNACE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new TaintedFurnaceItemRendererModule(), new TaintedFurnaceRendererModule())));
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_KILN_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new SpiritKilnItemRendererModule(), new SpiritKilnDebugTextRendererModule())));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new ItemStandItemRendererModule())));
     }
     @SubscribeEvent
@@ -92,9 +90,7 @@ public class ClientStartupEvents
             ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
         ClientHelper.registerItemColor(itemColors, MalumItems.EMPTY_SPLINTER, new Color(86, 86, 86));
-    
-        ClientHelper.registerItemColor(itemColors, MalumItems.FLARED_DISTILLATE_SPLINTER, new Color(255, 183, 236));
-    
+        
         ClientHelper.registerItemColor(itemColors, MalumItems.WILD_SPIRIT_SPLINTER, new Color(165, 255, 40));
         ClientHelper.registerItemColor(itemColors, MalumItems.UNDEAD_SPIRIT_SPLINTER, new Color(101, 9, 18));
         ClientHelper.registerItemColor(itemColors, MalumItems.NIMBLE_SPIRIT_SPLINTER, new Color(195, 213, 213));

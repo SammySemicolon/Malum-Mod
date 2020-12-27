@@ -36,7 +36,7 @@ public class CurioEvents
             }
             if (playerEntity.getActivePotionEffect(MalumEffects.FOOLS_LUCK.get()) != null)
             {
-                event.setAmount(event.getAmount() * 0.1f);
+                event.setAmount(event.getAmount() * 0.25f);
             }
         }
     }

@@ -3,6 +3,7 @@ package com.sammy.malum.core.systems.tiers;
 import com.sammy.malum.core.init.MalumItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
@@ -12,8 +13,8 @@ public class MalumItemTiers
     public enum ItemTierEnum implements IItemTier
     {
         TAINTED_ITEM(200, 5f, 0.5f, 2, 11, MalumItems.TAINTED_PLANKS),
-        RUIN_ITEM(900, 7.5f, 3f, 3, 16, MalumItems.RUIN_PLATING);
-        
+        RUIN_ITEM(900, 7f, 3f, 3, 16, MalumItems.RUIN_PLATING),
+        UMBRAL_ITEM(2450, 11f, 5f, 4, 18, MalumItems.UMBRAL_METAL_INGOT);
         private final int maxUses;
         private final float efficiency;
         private final float attackDamage;

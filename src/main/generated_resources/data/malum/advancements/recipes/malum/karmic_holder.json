@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:karmic_holder"
+    ]
+  },
+  "criteria": {
+    "has_shard_of_wisdom": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:shard_of_wisdom"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:karmic_holder"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_shard_of_wisdom",
+      "has_the_recipe"
+    ]
+  ]
+}

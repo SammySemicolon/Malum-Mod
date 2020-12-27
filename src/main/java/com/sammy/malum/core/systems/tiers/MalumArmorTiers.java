@@ -15,7 +15,8 @@ public class MalumArmorTiers
 {
     public enum ArmorTierEnum implements IArmorMaterial
     {
-        RUIN_ARMOR("ruin_armor", 17, new int[]{2, 6, 7, 3}, 24, () -> MalumSounds.RUIN_ARMOR_EQUIP, MalumItems.RUIN_PLATING, 1);
+        RUIN_ARMOR("ruin_armor", 17, new int[]{2, 6, 7, 3}, 16, () -> MalumSounds.RUIN_ARMOR_EQUIP, MalumItems.RUIN_PLATING, 1),
+        UMBRAL_ARMOR("umbral_armor", 45, new int[]{4, 7, 10, 4}, 18, () -> MalumSounds.RUIN_ARMOR_EQUIP, MalumItems.UMBRAL_METAL_INGOT, 5);
         
         private final String name;
         private final int durabilityMultiplier;
@@ -85,6 +86,10 @@ public class MalumArmorTiers
         @Override
         public float getKnockbackResistance()
         {
+            if (this.equals(UMBRAL_ARMOR))
+            {
+                return 0.25f;
+            }
             return 0;
         }
     }

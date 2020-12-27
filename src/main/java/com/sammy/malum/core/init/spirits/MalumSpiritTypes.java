@@ -18,8 +18,6 @@ public class MalumSpiritTypes
 {
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
     
-    public static final MalumSpiritType FLARED_DISTILLATE = create("wild",  e -> false,255, 183, 236);
-    
     public static final MalumSpiritType WILD_SPIRIT = create("wild",  e -> e instanceof AnimalEntity,165, 255, 40);
     public static final MalumSpiritType UNDEAD_SPIRIT = create("undead", LivingEntity::isEntityUndead, 101, 9, 18);
     public static final MalumSpiritType NIMBLE_SPIRIT = create("nimble",  MalumSpiritTypes::isNimble, 195, 213, 213);

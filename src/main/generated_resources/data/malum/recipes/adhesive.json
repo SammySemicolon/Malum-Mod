@@ -1,9 +1,9 @@
 {
-  "type": "minecraft:smelting",
+  "type": "minecraft:blasting",
   "ingredient": {
     "item": "minecraft:leather"
   },
   "result": "malum:adhesive",
   "experience": 0.25,
-  "cookingtime": 200
+  "cookingtime": 100
 }

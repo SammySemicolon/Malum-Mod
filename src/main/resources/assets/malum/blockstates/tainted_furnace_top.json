@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "malum:block/tainted_furnace_top" },
-    "facing=south": { "model": "malum:block/tainted_furnace_top", "y": 180 },
-    "facing=west":  { "model": "malum:block/tainted_furnace_top", "y": 270 },
-    "facing=east":  { "model": "malum:block/tainted_furnace_top", "y": 90 }
-  }
-}

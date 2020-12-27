@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.recipes.TaintedFurnaceRecipe;
+import com.sammy.malum.core.recipes.SpiritKilnRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
 
-public class FurnaceTaintTransfusionRecipeCategory implements IRecipeCategory<TaintedFurnaceRecipe>
+public class FurnaceTaintTransfusionRecipeCategory implements IRecipeCategory<SpiritKilnRecipe>
 {
     public static final ResourceLocation UID = prefix("furnace_taint_transfusion");
     private final IDrawable background;
@@ -35,11 +35,11 @@ public class FurnaceTaintTransfusionRecipeCategory implements IRecipeCategory<Ta
         background = guiHelper.createBlankDrawable(121, 86);
         localizedName = I18n.format("malum.jei.furnace_taint_transfusion");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/tainted_furnace_recipe_overlay.png"), 0, 0, 119, 84);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.TAINTED_FURNACE.get()));
+        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.SPIRIT_KILN.get()));
     }
     
     @Override
-    public void draw(TaintedFurnaceRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY)
+    public void draw(SpiritKilnRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY)
     {
         GlStateManager.enableAlphaTest();
         GlStateManager.enableBlend();
@@ -59,9 +59,9 @@ public class FurnaceTaintTransfusionRecipeCategory implements IRecipeCategory<Ta
     
     @Nonnull
     @Override
-    public Class<? extends TaintedFurnaceRecipe> getRecipeClass()
+    public Class<? extends SpiritKilnRecipe> getRecipeClass()
     {
-        return TaintedFurnaceRecipe.class;
+        return SpiritKilnRecipe.class;
     }
     
     @Nonnull
@@ -86,7 +86,7 @@ public class FurnaceTaintTransfusionRecipeCategory implements IRecipeCategory<Ta
     }
     
     @Override
-    public void setIngredients(TaintedFurnaceRecipe recipe, IIngredients iIngredients)
+    public void setIngredients(SpiritKilnRecipe recipe, IIngredients iIngredients)
     {
         iIngredients.setOutput(VanillaTypes.ITEM, recipe.outputItem.getDefaultInstance());
         ArrayList<ItemStack> stacks = new ArrayList<>();
@@ -102,7 +102,7 @@ public class FurnaceTaintTransfusionRecipeCategory implements IRecipeCategory<Ta
     }
     
     @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, TaintedFurnaceRecipe recipe, IIngredients iIngredients)
+    public void setRecipe(IRecipeLayout iRecipeLayout, SpiritKilnRecipe recipe, IIngredients iIngredients)
     {
         iRecipeLayout.getItemStacks().init(0, true, 21, 6);
         iRecipeLayout.getItemStacks().set(0, new ItemStack(recipe.inputItem, recipe.inputItemCount));

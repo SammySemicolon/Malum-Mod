@@ -5,7 +5,7 @@ import com.sammy.malum.common.integration.jei.tainttransfusion.FurnaceTaintTrans
 import com.sammy.malum.common.integration.jei.tainttransfusion.TaintTransfusionRecipeCategory;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.recipes.TaintTransfusion;
-import com.sammy.malum.core.recipes.TaintedFurnaceRecipe;
+import com.sammy.malum.core.recipes.SpiritKilnRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -36,7 +36,7 @@ public class JEIHandler implements IModPlugin
     {
         //registry.addRecipes(ArcaneCraftingRecipe.recipes, ArcaneCraftingRecipeCategory.UID);
         registry.addRecipes(TaintTransfusion.transfusions, TaintTransfusionRecipeCategory.UID);
-        registry.addRecipes(TaintedFurnaceRecipe.recipes, FurnaceTaintTransfusionRecipeCategory.UID);
+        registry.addRecipes(SpiritKilnRecipe.recipes, FurnaceTaintTransfusionRecipeCategory.UID);
     
     }
 
@@ -44,8 +44,8 @@ public class JEIHandler implements IModPlugin
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
         registry.addRecipeCatalyst(new ItemStack(MalumItems.TAINT_RUDIMENT.get()), TaintTransfusionRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.TAINTED_FURNACE.get()), TaintTransfusionRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.TAINTED_FURNACE.get()), FurnaceTaintTransfusionRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_KILN.get()), TaintTransfusionRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_KILN.get()), FurnaceTaintTransfusionRecipeCategory.UID);
     }
 
     @Nonnull

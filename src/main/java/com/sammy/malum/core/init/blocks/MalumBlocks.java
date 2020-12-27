@@ -9,8 +9,8 @@ import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.spiritpipe.OpenTransmissiveMetalBlock;
 import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeBlock;
-import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceBoundingBlock;
-import com.sammy.malum.common.blocks.taintedfurnace.TaintedFurnaceCoreBlock;
+import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnBoundingBlock;
+import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock;
 import com.sammy.malum.common.blocks.taint.*;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
 import com.sammy.malum.common.world.features.tree.TaintedTree;
@@ -322,8 +322,8 @@ public class MalumBlocks
     //region crafting blocks
 //    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
 //
-    public static final RegistryObject<Block> TAINTED_FURNACE = BLOCKS.register("tainted_furnace", () -> new TaintedFurnaceCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> TAINTED_FURNACE_TOP = BLOCKS.register("tainted_furnace_top", () -> new TaintedFurnaceBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> SPIRIT_KILN = BLOCKS.register("spirit_kiln", () -> new SpiritKilnCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> SPIRIT_KILN_TOP = BLOCKS.register("spirit_kiln_top", () -> new SpiritKilnBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> ITEM_STAND = BLOCKS.register("item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     //endregion
     

@@ -5,10 +5,13 @@
       "item": "minecraft:wheat_seeds"
     },
     {
-      "item": "minecraft:crimson_fungus"
+      "tag": "minecraft:crimson_stems"
     },
     {
-      "item": "minecraft:warped_fungus"
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "tag": "minecraft:warped_stems"
     }
   ],
   "result": {
