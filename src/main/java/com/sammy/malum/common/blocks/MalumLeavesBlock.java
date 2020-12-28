@@ -29,8 +29,8 @@ public class MalumLeavesBlock extends LeavesBlock
         this.maxColor = maxColor;
         this.minColor = minColor;
         setDefaultState(getDefaultState().with(COLOR, 0));
-    
     }
+    
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(DISTANCE, PERSISTENT,COLOR);
     }

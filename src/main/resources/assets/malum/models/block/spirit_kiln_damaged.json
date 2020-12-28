@@ -1,0 +1,61 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "malum:block/spirit_kiln_damaged",
+		"particle": "malum:block/tainted_rock"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 10],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 23]},
+			"faces": {
+				"north": {"uv": [0, 2, 4, 6], "texture": "#0"},
+				"east": {"uv": [8, 0, 6.5, 4], "texture": "#0"},
+				"south": {"uv": [0, 2, 4, 6], "texture": "#0"},
+				"west": {"uv": [6.5, 0, 8, 4], "texture": "#0"},
+				"down": {"uv": [0, 2, 4, 3.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 0, 0],
+			"to": [16, 4, 10],
+			"faces": {
+				"north": {"uv": [4, 4, 8, 5], "texture": "#0"},
+				"east": {"uv": [4, 2, 6.5, 3], "texture": "#0"},
+				"south": {"uv": [0, 0, 4, 1], "texture": "#0"},
+				"west": {"uv": [4, 2, 6.5, 3], "texture": "#0"},
+				"up": {"uv": [4, 5, 8, 7.5], "texture": "#0"},
+				"down": {"uv": [4, 5, 8, 7.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 8, 0],
+			"to": [16, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 16, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 2], "texture": "#0"},
+				"east": {"uv": [4, 0, 6.5, 2], "texture": "#0"},
+				"south": {"uv": [0, 0, 4, 2], "texture": "#0"},
+				"west": {"uv": [4, 0, 6.5, 2], "texture": "#0"},
+				"up": {"uv": [0, 6, 4, 8.5], "texture": "#0"},
+				"down": {"uv": [4, 5, 8, 7.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 4, 2],
+			"to": [14, 8, 10],
+			"faces": {
+				"north": {"uv": [8, 0, 11, 1], "texture": "#0"},
+				"east": {"uv": [8, 1, 10, 2], "texture": "#0"},
+				"south": {"uv": [0, 0, 3, 1], "texture": "#0"},
+				"west": {"uv": [8, 1, 10, 2], "texture": "#0"},
+				"up": {"uv": [0, 0, 3, 2], "texture": "#0"},
+				"down": {"uv": [0, 0, 3, 2], "texture": "#0"}
+			}
+		}
+	]
+}

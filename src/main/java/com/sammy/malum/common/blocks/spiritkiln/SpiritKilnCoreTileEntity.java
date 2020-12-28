@@ -88,10 +88,9 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     @Override
     public void tick()
     {
-        
         ItemStack stack = inventory.getStackInSlot(0);
         SpiritKilnRecipe recipe = SpiritKilnRecipe.getRecipe(stack);
-        if (recipe != null)
+        if (!getBlockState().get(SpiritKilnCoreBlock.DAMAGED) && recipe != null)
         {
             if (fuel > 0)
             {
@@ -106,7 +105,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
                     {
                         progress = recipe.recipeTime;
                         advancedProgress++;
-                        if (advancedProgress >= recipe.recipeTime / 4)
+                        if (advancedProgress >= SpiritKilnRecipe.globalSpeedMultiplier / 4)
                         {
                             ArrayList<BlockPos> stands = MalumHelper.itemStands(world, pos, Direction.UP, Direction.DOWN);
                             if (stands.size() == blacklistedStands.size())
@@ -175,10 +174,23 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         Vector3i directionVector = new Vector3i(direction.getXOffset(), 0, direction.getZOffset());
         return new Vector3f(this.pos.getX() + 0.5f - directionVector.getX(), this.pos.getY() + 1, this.pos.getZ() + 0.5f - directionVector.getZ());
     }
+    public void repair()
+    {
+        world.playSound(null, this.pos, SoundEvents.ENTITY_IRON_GOLEM_REPAIR, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
     
+        world.setBlockState(pos, world.getBlockState(pos).with(SpiritKilnCoreBlock.DAMAGED, false));
+        world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(SpiritKilnCoreBlock.DAMAGED, false));
+    }
     public void dump()
     {
         ArrayList<BlockPos> stands = MalumHelper.itemStands(world, pos, Direction.UP, Direction.DOWN);
+    
+        world.playSound(null, this.pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
+        world.setBlockState(pos, world.getBlockState(pos).with(SpiritKilnCoreBlock.DAMAGED, true));
+        world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(SpiritKilnCoreBlock.DAMAGED, true));
+        world.notifyBlockUpdate(pos.up(), world.getBlockState(pos.up()), world.getBlockState(pos.up()), 3);
+        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+        
         for (BlockPos pos : stands)
         {
             if (world.getTileEntity(pos) instanceof ItemStandTileEntity)
@@ -193,9 +205,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         blacklistedStands.clear();
         if (MalumHelper.areWeOnServer(world))
         {
-            world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FAIL, SoundCategory.BLOCKS, 0.4f, 1.5f - world.rand.nextFloat());
-            world.playSound(null, this.pos, MalumSounds.TAINTED_ROCK_BREAK, SoundCategory.BLOCKS, 0.4f, 0.5f);
-            world.playSound(null, this.pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.2f, 1f);
+            world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FAIL, SoundCategory.BLOCKS, 0.4f, 1f);
         }
     }
     
@@ -213,7 +223,6 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         if (MalumHelper.areWeOnServer(world))
         {
             world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FINISH, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
-            world.playSound(null, this.pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.2f, 1.5f);
         }
     }
     

@@ -9,11 +9,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -25,21 +24,23 @@ import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FAC
 
 public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysActivatedBlock
 {
+    public static final BooleanProperty DAMAGED = BooleanProperty.create("damaged");
     public SpiritKilnCoreBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(DAMAGED, false));
     }
     
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
+        blockStateBuilder.add(DAMAGED);
         blockStateBuilder.add(HORIZONTAL_FACING);
     }
     
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+        return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(DAMAGED, false);
     }
     
     @Override
@@ -63,6 +64,18 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
             {
                 SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos);
                 ItemStack stack = player.getHeldItemMainhand();
+                if (state.get(DAMAGED))
+                {
+                    if (stack.getItem().equals(MalumItems.TAINTED_ROCK.get()))
+                    {
+                        if (stack.getCount() >= 4)
+                        {
+                            stack.shrink(4);
+                            tileEntity.repair();
+                            return ActionResultType.SUCCESS;
+                        }
+                    }
+                }
                 if (stack.getItem().equals(MalumItems.ARCANE_CHARCOAL.get()))
                 {
                     if (player.isSneaking())

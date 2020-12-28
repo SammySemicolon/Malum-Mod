@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
+import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -7,15 +8,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+import static com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock.DAMAGED;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritKilnBoundingBlock extends BoundingBlock
@@ -23,18 +23,13 @@ public class SpiritKilnBoundingBlock extends BoundingBlock
     public SpiritKilnBoundingBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(DAMAGED, false));
     }
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
+        blockStateBuilder.add(DAMAGED);
         blockStateBuilder.add(HORIZONTAL_FACING);
     }
-    @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
-    }
-    
     @Override
     public BlockState stateForPlacement(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)
     {
@@ -47,7 +42,21 @@ public class SpiritKilnBoundingBlock extends BoundingBlock
         {
             if (worldIn.getTileEntity(pos.down()) instanceof SpiritKilnCoreTileEntity)
             {
-                ((SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos.down())).inventory.playerHandleItem(state, worldIn, pos.down(), player, handIn);
+                SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos.down());
+                if (state.get(DAMAGED))
+                {
+                    ItemStack stack = player.getHeldItemMainhand();
+                    if (stack.getItem().equals(MalumItems.TAINTED_ROCK.get()))
+                    {
+                        if (stack.getCount() >= 4)
+                        {
+                            stack.shrink(4);
+                            tileEntity.repair();
+                            return ActionResultType.SUCCESS;
+                        }
+                    }
+                }
+                tileEntity.inventory.playerHandleItem(state, worldIn, pos.down(), player, handIn);
                 return ActionResultType.SUCCESS;
             }
         }

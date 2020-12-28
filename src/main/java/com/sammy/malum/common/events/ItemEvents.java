@@ -4,6 +4,7 @@ import com.sammy.malum.core.systems.events.EventSubscriberItem;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -21,6 +22,13 @@ public class ItemEvents
         BlockState state = event.getWorld().getBlockState(event.getPos());
         if (state.getBlock() instanceof IAlwaysActivatedBlock)
         {
+            if (event.getItemStack().getItem() instanceof BlockItem)
+            {
+                if (event.getPlayer().isSneaking())
+                {
+                    return;
+                }
+            }
             state.getBlock().onBlockActivated(state, event.getWorld(), event.getPos(), event.getPlayer(), event.getHand(), null);
             event.setUseBlock(Event.Result.DENY);
             event.setUseItem(Event.Result.DENY);
