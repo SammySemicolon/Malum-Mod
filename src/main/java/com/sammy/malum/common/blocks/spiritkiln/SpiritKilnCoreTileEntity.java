@@ -1,12 +1,13 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.recipes.SpiritKilnRecipe;
 import com.sammy.malum.core.systems.multiblock.MultiblockTileEntity;
+import com.sammy.malum.core.systems.heat.IHeatTileEntity;
+import com.sammy.malum.core.systems.heat.SimpleHeatSystem;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements ITickableTileEntity
+public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements ITickableTileEntity, IHeatTileEntity
 {
     public SpiritKilnCoreTileEntity()
     {
@@ -53,14 +54,20 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
                 updateState(world.getBlockState(pos), world, pos);
             }
         };
+        powerStorage = new SimpleHeatSystem(this);
+    }
+    @Override
+    public SimpleHeatSystem getSystem()
+    {
+        return powerStorage;
     }
     
-    //persistent data
     public SimpleInventory inventory;
     public SimpleInventory advancedInventory;
-    public int fuel;
-    public int progress;
-    public int advancedProgress;
+    public SimpleHeatSystem powerStorage;
+    
+    public float progress;
+    public float advancedProgress;
     public ArrayList<BlockPos> blacklistedStands = new ArrayList<>();
     
     @Override
@@ -68,9 +75,11 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     {
         inventory.readData(compound);
         advancedInventory.readData(compound, "advancedInventory");
-        fuel = compound.getInt("fuel");
-        progress = compound.getInt("progress");
-        advancedProgress = compound.getInt("advancedProgress");
+        powerStorage.readData(compound);
+        
+        progress = compound.getFloat("progress");
+        advancedProgress = compound.getFloat("advancedProgress");
+        
         super.readData(compound);
     }
     
@@ -79,9 +88,9 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     {
         inventory.writeData(compound);
         advancedInventory.writeData(compound, "advancedInventory");
-        compound.putInt("fuel", fuel);
-        compound.putInt("progress", progress);
-        compound.putInt("advancedProgress", advancedProgress);
+        powerStorage.writeData(compound);
+        compound.putFloat("progress", progress);
+        compound.putFloat("advancedProgress", advancedProgress);
         return super.writeData(compound);
     }
     
@@ -92,24 +101,30 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         SpiritKilnRecipe recipe = SpiritKilnRecipe.getRecipe(stack);
         if (!getBlockState().get(SpiritKilnCoreBlock.DAMAGED) && recipe != null)
         {
-            if (fuel > 0)
+            powerStorage.updateHeat();
+            if (powerStorage.heat > 0)
             {
+                progress += powerStorage.heat;
                 if (world.rand.nextDouble() < 0.05D)
                 {
                     world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_BLASTFURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
                 }
-                progress++;
                 if (progress >= recipe.recipeTime)
                 {
                     if (recipe.isAdvanced())
                     {
                         progress = recipe.recipeTime;
-                        advancedProgress++;
-                        if (advancedProgress >= SpiritKilnRecipe.globalSpeedMultiplier / 4)
+                        advancedProgress += powerStorage.heat;
+                        if (advancedProgress >= SpiritKilnRecipe.globalSpeedMultiplier / 4f)
                         {
                             ArrayList<BlockPos> stands = MalumHelper.itemStands(world, pos, Direction.UP, Direction.DOWN);
                             if (stands.size() == blacklistedStands.size())
                             {
+                                if (advancedInventory.items().stream().filter(i -> !i.getDefaultInstance().isEmpty()).anyMatch(i -> !recipe.extraItems.contains(i)))
+                                {
+                                    dump();
+                                    return;
+                                }
                                 if (advancedInventory.items().containsAll(recipe.extraItems))
                                 {
                                     output(recipe);
@@ -140,7 +155,6 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
                                                 }
                                                 advancedInventory.setStackInSlot(firstEmpty, standStack.split(1));
                                                 advancedProgress = 0;
-                                                fuel--;
                                                 blacklistedStands.add(pos);
                                                 break;
                                             }
@@ -199,7 +213,8 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
                 standTileEntity.inventory.dumpItems(world, new Vector3f(standTileEntity.getPos().getX() + 0.5f, standTileEntity.getPos().getY() + 0.5f, standTileEntity.getPos().getZ() + 0.5f));
             }
         }
-        fuel -= MalumMod.globalCharcoalToFuelRatio;
+        advancedProgress = 0;
+        progress = 0;
         inventory.dumpItems(world, behindFurnace());
         advancedInventory.dumpItems(world, behindFurnace());
         blacklistedStands.clear();
@@ -214,9 +229,8 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         Vector3f pos = behindFurnace();
         ItemEntity entity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(recipe.outputItem, recipe.outputItemCount));
         world.addEntity(entity);
-        progress = 0;
         advancedProgress = 0;
-        fuel -= Math.max(recipe.recipeTime / SpiritKilnRecipe.globalSpeedMultiplier, 1);
+        progress = 0;
         inventory.getStackInSlot(0).shrink(recipe.inputItemCount);
         advancedInventory.clearItems();
         blacklistedStands.clear();

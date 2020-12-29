@@ -2,6 +2,7 @@ package com.sammy.malum.common.blocks.spiritkiln;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.systems.heat.IHeatBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
@@ -22,7 +23,7 @@ import javax.annotation.Nullable;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysActivatedBlock
+public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysActivatedBlock, IHeatBlock
 {
     public static final BooleanProperty DAMAGED = BooleanProperty.create("damaged");
     public SpiritKilnCoreBlock(Properties properties)
@@ -56,6 +57,13 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
     }
     
     @Override
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving)
+    {
+        updateHeat(worldIn,pos);
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
+    }
+    
+    @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (handIn.equals(Hand.MAIN_HAND))
@@ -72,25 +80,10 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
                         {
                             stack.shrink(4);
                             tileEntity.repair();
+                            player.swingArm(handIn);
                             return ActionResultType.SUCCESS;
                         }
                     }
-                }
-                if (stack.getItem().equals(MalumItems.ARCANE_CHARCOAL.get()))
-                {
-                    if (player.isSneaking())
-                    {
-                        int count = stack.getCount();
-                        tileEntity.fuel += count * MalumMod.globalCharcoalToFuelRatio;
-                        stack.shrink(count);
-                    }
-                    else
-                    {
-                        tileEntity.fuel += MalumMod.globalCharcoalToFuelRatio;
-                        stack.shrink(1);
-                    }
-                    player.swingArm(handIn);
-                    return ActionResultType.SUCCESS;
                 }
             }
         }

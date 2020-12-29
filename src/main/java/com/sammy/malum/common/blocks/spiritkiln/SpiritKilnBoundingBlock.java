@@ -2,6 +2,7 @@ package com.sammy.malum.common.blocks.spiritkiln;
 
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
+import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,7 +19,7 @@ import javax.annotation.Nullable;
 import static com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock.DAMAGED;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritKilnBoundingBlock extends BoundingBlock
+public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysActivatedBlock
 {
     public SpiritKilnBoundingBlock(Properties properties)
     {
@@ -52,6 +53,7 @@ public class SpiritKilnBoundingBlock extends BoundingBlock
                         {
                             stack.shrink(4);
                             tileEntity.repair();
+                            player.swingArm(handIn);
                             return ActionResultType.SUCCESS;
                         }
                     }
