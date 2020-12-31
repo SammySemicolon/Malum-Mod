@@ -13,7 +13,6 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
@@ -76,67 +75,72 @@ public class MalumRecipeProvider extends RecipeProvider
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.RUIN_SCRAPS.get(), 9).addIngredient(MalumItems.RUIN_PLATING.get()).addCriterion("has_ruin_plating", hasItem(MalumItems.RUIN_PLATING.get())).build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.RUIN_PLATING.get(), 4).addIngredient(MalumItemTags.RUIN_PLATING_BLOCKS).addCriterion("has_ruin_plating", hasItem(MalumItems.RUIN_PLATING.get())).build(consumer, "ruin_plating_from_ruin_plating_block");
         shapedRecipe(MalumItems.RUIN_PLATING_TILES.get(),4).key('#', MalumItems.RUIN_PLATING_BLOCK.get()).patternLine("##").patternLine("##").addCriterion("has_ruin_plating", hasItem(MalumItems.RUIN_PLATING.get())).build(consumer);
-        shapedWoodenSlab(consumer, MalumItems.RUIN_PLATING_TILES_SLAB.get(), MalumItems.RUIN_PLATING_TILES.get());
-        shapedWoodenStairs(consumer, MalumItems.RUIN_PLATING_TILES_STAIRS.get(), MalumItems.RUIN_PLATING_TILES.get());
+        shapedSlab(consumer, MalumItems.RUIN_PLATING_TILES_SLAB.get(), MalumItems.RUIN_PLATING_TILES.get());
+        shapedStairs(consumer, MalumItems.RUIN_PLATING_TILES_STAIRS.get(), MalumItems.RUIN_PLATING_TILES.get());
         shapedRecipe(MalumItems.STACKED_RUIN_PLATING.get(),4).key('#', MalumItems.RUIN_PLATING_TILES.get()).patternLine("##").patternLine("##").addCriterion("has_ruin_plating", hasItem(MalumItems.RUIN_PLATING.get())).build(consumer);
-        shapedWoodenSlab(consumer, MalumItems.STACKED_RUIN_PLATING_SLAB.get(), MalumItems.STACKED_RUIN_PLATING.get());
-        shapedWoodenStairs(consumer, MalumItems.STACKED_RUIN_PLATING_STAIRS.get(), MalumItems.STACKED_RUIN_PLATING.get());
+        shapedSlab(consumer, MalumItems.STACKED_RUIN_PLATING_SLAB.get(), MalumItems.STACKED_RUIN_PLATING.get());
+        shapedStairs(consumer, MalumItems.STACKED_RUIN_PLATING_STAIRS.get(), MalumItems.STACKED_RUIN_PLATING.get());
         shapedRecipe(MalumItems.RUIN_PLATING_BLOCK.get(),4).key('#', MalumItems.STACKED_RUIN_PLATING.get()).patternLine("##").patternLine("##").addCriterion("has_ruin_plating", hasItem(MalumItems.RUIN_PLATING.get())).build(consumer, "ruin_plating_block_from_stacked_ruin_plating");
-        shapedWoodenSlab(consumer, MalumItems.RUIN_PLATING_BLOCK_SLAB.get(), MalumItems.RUIN_PLATING_BLOCK.get());
-        shapedWoodenStairs(consumer, MalumItems.RUIN_PLATING_BLOCK_STAIRS.get(), MalumItems.RUIN_PLATING_BLOCK.get());
+        shapedSlab(consumer, MalumItems.RUIN_PLATING_BLOCK_SLAB.get(), MalumItems.RUIN_PLATING_BLOCK.get());
+        shapedStairs(consumer, MalumItems.RUIN_PLATING_BLOCK_STAIRS.get(), MalumItems.RUIN_PLATING_BLOCK.get());
         ShapedRecipeBuilder.shapedRecipe(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(), 4).key('#', MalumItems.TRANSMISSIVE_METAL_INGOT.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.TRANSMISSIVE_METAL_INGOT.get()).key('#', MalumItems.TRANSMISSIVE_METAL_NUGGET.get()).patternLine("###").patternLine("###").patternLine("###").setGroup("iron_ingot").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer, "transmissive_metal_from_nuggets");
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.TRANSMISSIVE_METAL_NUGGET.get(), 9).addIngredient(MalumItems.TRANSMISSIVE_METAL_INGOT.get()).addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.TRANSMISSIVE_METAL_INGOT.get()).addIngredient(MalumItemTags.TRANSMISSIVE_METAL_BLOCKS).addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer, "transmissive_metal_ingot_from_transmissive_metal_block");
         shapedRecipe(MalumItems.TRANSMISSIVE_METAL_TILES.get(),4).key('#', MalumItems.TRANSMISSIVE_METAL_BLOCK.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer);
-        shapedWoodenSlab(consumer, MalumItems.TRANSMISSIVE_METAL_TILES_SLAB.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get());
-        shapedWoodenStairs(consumer, MalumItems.TRANSMISSIVE_METAL_TILES_STAIRS.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get());
+        shapedSlab(consumer, MalumItems.TRANSMISSIVE_METAL_TILES_SLAB.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get());
+        shapedStairs(consumer, MalumItems.TRANSMISSIVE_METAL_TILES_STAIRS.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get());
         shapedRecipe(MalumItems.STACKED_TRANSMISSIVE_METAL.get(),4).key('#', MalumItems.TRANSMISSIVE_METAL_TILES.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer);
-        shapedWoodenSlab(consumer, MalumItems.STACKED_TRANSMISSIVE_METAL_SLAB.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
-        shapedWoodenStairs(consumer, MalumItems.STACKED_TRANSMISSIVE_METAL_STAIRS.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
+        shapedSlab(consumer, MalumItems.STACKED_TRANSMISSIVE_METAL_SLAB.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
+        shapedStairs(consumer, MalumItems.STACKED_TRANSMISSIVE_METAL_STAIRS.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
         shapedRecipe(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(),4).key('#', MalumItems.STACKED_TRANSMISSIVE_METAL.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer, "transmissive_metal_block_from_stacked_transmissive_metal");
-        shapedWoodenSlab(consumer, MalumItems.TRANSMISSIVE_METAL_BLOCK_SLAB.get(), MalumItems.TRANSMISSIVE_METAL_BLOCK.get());
-        shapedWoodenStairs(consumer, MalumItems.TRANSMISSIVE_METAL_BLOCK_STAIRS.get(), MalumItems.TRANSMISSIVE_METAL_BLOCK.get());
+        shapedSlab(consumer, MalumItems.TRANSMISSIVE_METAL_BLOCK_SLAB.get(), MalumItems.TRANSMISSIVE_METAL_BLOCK.get());
+        shapedStairs(consumer, MalumItems.TRANSMISSIVE_METAL_BLOCK_STAIRS.get(), MalumItems.TRANSMISSIVE_METAL_BLOCK.get());
         
         shapelessPlanks(consumer, MalumItems.TAINTED_PLANKS.get(), MalumItemTags.TAINTED_LOGS);
         shapelessWood(consumer, MalumItems.TAINTED_WOOD.get(), MalumItems.TAINTED_LOG.get());
         shapelessWood(consumer, MalumItems.STRIPPED_TAINTED_WOOD.get(), MalumItems.STRIPPED_TAINTED_LOG.get());
-        shapelessWoodenButton(consumer, MalumItems.TAINTED_PLANKS_BUTTON.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedWoodenDoor(consumer, MalumItems.TAINTED_DOOR.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedWoodenFence(consumer, MalumItems.TAINTED_PLANKS_FENCE.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedWoodenFenceGate(consumer, MalumItems.TAINTED_PLANKS_FENCE_GATE.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedWoodenPressurePlate(consumer, MalumItems.TAINTED_PLANKS_PRESSURE_PLATE.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedWoodenSlab(consumer, MalumItems.TAINTED_PLANKS_SLAB.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedWoodenStairs(consumer, MalumItems.TAINTED_PLANKS_STAIRS.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedWoodenTrapdoor(consumer, MalumItems.TAINTED_TRAPDOOR.get(), MalumItems.TAINTED_PLANKS.get());
-        shapelessSolidWoodenTrapDoor(consumer, MalumItems.SOLID_TAINTED_TRAPDOOR.get(), MalumItems.TAINTED_TRAPDOOR.get());
+        shapelessButton(consumer, MalumItems.TAINTED_PLANKS_BUTTON.get(), MalumItems.TAINTED_PLANKS.get());
+        shapedDoor(consumer, MalumItems.TAINTED_DOOR.get(), MalumItems.TAINTED_PLANKS.get());
+        shapedFence(consumer, MalumItems.TAINTED_PLANKS_FENCE.get(), MalumItems.TAINTED_PLANKS.get());
+        shapedFenceGate(consumer, MalumItems.TAINTED_PLANKS_FENCE_GATE.get(), MalumItems.TAINTED_PLANKS.get());
+        shapedPressurePlate(consumer, MalumItems.TAINTED_PLANKS_PRESSURE_PLATE.get(), MalumItems.TAINTED_PLANKS.get());
+        shapedSlab(consumer, MalumItems.TAINTED_PLANKS_SLAB.get(), MalumItems.TAINTED_PLANKS.get());
+        shapedStairs(consumer, MalumItems.TAINTED_PLANKS_STAIRS.get(), MalumItems.TAINTED_PLANKS.get());
+        shapedTrapdoor(consumer, MalumItems.TAINTED_TRAPDOOR.get(), MalumItems.TAINTED_PLANKS.get());
+        shapelessSolidTrapdoor(consumer, MalumItems.SOLID_TAINTED_TRAPDOOR.get(), MalumItems.TAINTED_TRAPDOOR.get());
     
         shapelessPlanks(consumer, MalumItems.SUN_KISSED_PLANKS.get(), MalumItemTags.SUN_KISSED_LOGS);
         shapelessWood(consumer, MalumItems.SUN_KISSED_WOOD.get(), MalumItems.SUN_KISSED_LOG.get());
         shapelessWood(consumer, MalumItems.STRIPPED_SUN_KISSED_WOOD.get(), MalumItems.STRIPPED_SUN_KISSED_LOG.get());
-        shapelessWoodenButton(consumer, MalumItems.SUN_KISSED_PLANKS_BUTTON.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenDoor(consumer, MalumItems.SUN_KISSED_DOOR.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenFence(consumer, MalumItems.SUN_KISSED_PLANKS_FENCE.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenFenceGate(consumer, MalumItems.SUN_KISSED_PLANKS_FENCE_GATE.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenPressurePlate(consumer, MalumItems.SUN_KISSED_PLANKS_PRESSURE_PLATE.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenSlab(consumer, MalumItems.SUN_KISSED_PLANKS_SLAB.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenStairs(consumer, MalumItems.SUN_KISSED_PLANKS_STAIRS.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenTrapdoor(consumer, MalumItems.SUN_KISSED_TRAPDOOR.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapelessSolidWoodenTrapDoor(consumer, MalumItems.SOLID_SUN_KISSED_TRAPDOOR.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapelessButton(consumer, MalumItems.SUN_KISSED_PLANKS_BUTTON.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedDoor(consumer, MalumItems.SUN_KISSED_DOOR.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedFence(consumer, MalumItems.SUN_KISSED_PLANKS_FENCE.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedFenceGate(consumer, MalumItems.SUN_KISSED_PLANKS_FENCE_GATE.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedPressurePlate(consumer, MalumItems.SUN_KISSED_PLANKS_PRESSURE_PLATE.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedSlab(consumer, MalumItems.SUN_KISSED_PLANKS_SLAB.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedStairs(consumer, MalumItems.SUN_KISSED_PLANKS_STAIRS.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedTrapdoor(consumer, MalumItems.SUN_KISSED_TRAPDOOR.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapelessSolidTrapdoor(consumer, MalumItems.SOLID_SUN_KISSED_TRAPDOOR.get(), MalumItems.SUN_KISSED_PLANKS.get());
     
         shapedRecipe(MalumItems.BOLTED_SUN_KISSED_PLANKS.get(),8).key('#', MalumItems.SUN_KISSED_PLANKS.get()).key('X', Items.IRON_NUGGET).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
-        shapedWoodenSlab(consumer, MalumItems.BOLTED_SUN_KISSED_PLANKS_SLAB.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenStairs(consumer, MalumItems.BOLTED_SUN_KISSED_PLANKS_STAIRS.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedSlab(consumer, MalumItems.BOLTED_SUN_KISSED_PLANKS_SLAB.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedStairs(consumer, MalumItems.BOLTED_SUN_KISSED_PLANKS_STAIRS.get(), MalumItems.SUN_KISSED_PLANKS.get());
         
         shapedRecipe(MalumItems.VERTICAL_SUN_KISSED_PLANKS.get(),3).key('#', MalumItems.SUN_KISSED_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
-        shapedWoodenSlab(consumer, MalumItems.VERTICAL_SUN_KISSED_PLANKS_SLAB.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenStairs(consumer, MalumItems.VERTICAL_SUN_KISSED_PLANKS_STAIRS.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        
+        shapedSlab(consumer, MalumItems.VERTICAL_SUN_KISSED_PLANKS_SLAB.get(), MalumItems.SUN_KISSED_PLANKS.get());
+        shapedStairs(consumer, MalumItems.VERTICAL_SUN_KISSED_PLANKS_STAIRS.get(), MalumItems.SUN_KISSED_PLANKS.get());
+    
         shapedRecipe(MalumItems.SUN_KISSED_PANEL.get(),9).key('#', MalumItems.SUN_KISSED_PLANKS.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
-        shapedWoodenSlab(consumer, MalumItems.SUN_KISSED_PANEL_SLAB.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        shapedWoodenStairs(consumer, MalumItems.SUN_KISSED_PANEL_STAIRS.get(), MalumItems.SUN_KISSED_PLANKS.get());
-        
+        shapedSlab(consumer, MalumItems.SUN_KISSED_PANEL_SLAB.get(), MalumItems.SUN_KISSED_PANEL.get());
+        shapedStairs(consumer, MalumItems.SUN_KISSED_PANEL_STAIRS.get(), MalumItems.SUN_KISSED_PANEL.get());
+    
+        shapedRecipe(MalumItems.SUN_KISSED_TILES.get(),4).key('#', MalumItems.SUN_KISSED_PANEL.get()).patternLine("##").patternLine("##").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
+        shapedSlab(consumer, MalumItems.SUN_KISSED_TILES_SLAB.get(), MalumItems.SUN_KISSED_TILES.get());
+        shapedStairs(consumer, MalumItems.SUN_KISSED_TILES_STAIRS.get(), MalumItems.SUN_KISSED_TILES.get());
+    
         shapedRecipe(MalumItems.CUT_SUN_KISSED_PLANKS.get(),4).key('#', MalumItems.SUN_KISSED_PANEL.get()).key('X', MalumItems.SUN_KISSED_PLANKS.get()).patternLine("##").patternLine("XX").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.SUN_KISSED_BEAM.get(),3).key('#', MalumItems.VERTICAL_SUN_KISSED_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
     
         ShapedRecipeBuilder.shapedRecipe(MalumItems.TAINTED_ROCK_WALL.get(), 6).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("###").patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.TAINTED_ROCK_SLAB.get(), 6).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
@@ -223,7 +227,7 @@ public class MalumRecipeProvider extends RecipeProvider
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.TAINTED_ROCK.get()), MalumItems.CHISELED_TAINTED_ROCK.get()).addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer, "chiseled_tainted_rock_bricks_stonecutting");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.TAINTED_ROCK_BRICKS.get()), MalumItems.CHISELED_TAINTED_ROCK.get()).addCriterion("has_tainted_rock_bricks", hasItem(MalumItems.TAINTED_ROCK_BRICKS.get())).build(consumer, "chiseled_tainted_rock_bricks_stonecutting_alt");
     
-        shapedRecipe(MalumItems.DARKENED_ROCK.get(), 9).key('#', MalumItems.TAINTED_ROCK.get()).key('X', Items.COAL).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
+        shapedRecipe(MalumItems.DARKENED_ROCK.get(), 9).key('#', MalumItems.TAINTED_ROCK.get()).key('X', Items.BLACKSTONE).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
     
         ShapedRecipeBuilder.shapedRecipe(MalumItems.DARKENED_ROCK_WALL.get(), 6).key('#', MalumItems.DARKENED_ROCK.get()).patternLine("###").patternLine("###").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.DARKENED_ROCK_SLAB.get(), 6).key('#', MalumItems.DARKENED_ROCK.get()).patternLine("###").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
@@ -323,45 +327,41 @@ public class MalumRecipeProvider extends RecipeProvider
     {
         shapedRecipe(stripped, 3).key('#', input).patternLine("##").patternLine("##").setGroup("bark").addCriterion("has_log", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapedBoat(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider boat, IItemProvider input)
+    private static void shapelessButton(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider button, IItemProvider input)
     {
-        shapedRecipe(boat).key('#', input).patternLine("# #").patternLine("###").setGroup("boat").addCriterion("in_water", enteredBlock(Blocks.WATER)).build(recipeConsumer);
+        shapelessRecipe(button).addIngredient(input).addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapelessWoodenButton(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider button, IItemProvider input)
+    private static void shapedDoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider door, IItemProvider input)
     {
-        shapelessRecipe(button).addIngredient(input).setGroup("wooden_button").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
+        shapedRecipe(door, 3).key('#', input).patternLine("##").patternLine("##").patternLine("##").addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapedWoodenDoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider door, IItemProvider input)
+    private static void shapedFence(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider fence, IItemProvider input)
     {
-        shapedRecipe(door, 3).key('#', input).patternLine("##").patternLine("##").patternLine("##").setGroup("wooden_door").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
+        shapedRecipe(fence, 3).key('#', Items.STICK).key('W', input).patternLine("W#W").patternLine("W#W").addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapedWoodenFence(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider fence, IItemProvider input)
+    private static void shapedFenceGate(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider fenceGate, IItemProvider input)
     {
-        shapedRecipe(fence, 3).key('#', Items.STICK).key('W', input).patternLine("W#W").patternLine("W#W").setGroup("wooden_fence").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
+        shapedRecipe(fenceGate).key('#', Items.STICK).key('W', input).patternLine("#W#").patternLine("#W#").addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapedWoodenFenceGate(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider fenceGate, IItemProvider input)
+    private static void shapedPressurePlate(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider pressurePlate, IItemProvider input)
     {
-        shapedRecipe(fenceGate).key('#', Items.STICK).key('W', input).patternLine("#W#").patternLine("#W#").setGroup("wooden_fence_gate").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
+        shapedRecipe(pressurePlate).key('#', input).patternLine("##").addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapedWoodenPressurePlate(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider pressurePlate, IItemProvider input)
+    private static void shapedSlab(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider slab, IItemProvider input)
     {
-        shapedRecipe(pressurePlate).key('#', input).patternLine("##").setGroup("wooden_pressure_plate").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
+        shapedRecipe(slab, 6).key('#', input).patternLine("###").addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapedWoodenSlab(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider slab, IItemProvider input)
+    private static void shapedStairs(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider stairs, IItemProvider input)
     {
-        shapedRecipe(slab, 6).key('#', input).patternLine("###").setGroup("wooden_slab").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
+        shapedRecipe(stairs, 4).key('#', input).patternLine("#  ").patternLine("## ").patternLine("###").addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapedWoodenStairs(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider stairs, IItemProvider input)
+    private static void shapelessSolidTrapdoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider button, IItemProvider input)
     {
-        shapedRecipe(stairs, 4).key('#', input).patternLine("#  ").patternLine("## ").patternLine("###").setGroup("wooden_stairs").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
+        shapelessRecipe(button).addIngredient(input).addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapelessSolidWoodenTrapDoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider button, IItemProvider input)
+    private static void shapedTrapdoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider trapdoor, IItemProvider input)
     {
-        shapelessRecipe(button).addIngredient(input).setGroup("wooden_trapdoor").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
-    }
-    private static void shapedWoodenTrapdoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider trapdoor, IItemProvider input)
-    {
-        shapedRecipe(trapdoor, 2).key('#', input).patternLine("###").patternLine("###").setGroup("wooden_trapdoor").addCriterion("has_planks", hasItem(input)).build(recipeConsumer);
+        shapedRecipe(trapdoor, 2).key('#', input).patternLine("###").patternLine("###").addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
     private static void shapedSign(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider sign, IItemProvider input)
     {

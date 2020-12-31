@@ -25,8 +25,6 @@ public class ItemStandItemRendererModule extends ItemModule
     @Override
     public Vector3f itemOffset(SimpleTileEntity tileEntity, float partialTicks, float distance, int currentPoint, int totalPoints)
     {
-        Direction direction = tileEntity.getBlockState().get(FACING);
-        Vector3f directionVector = new Vector3f(direction.getXOffset(), 0.5f, direction.getZOffset());
-        return new Vector3f(0.5f - directionVector.getX() * 0.25f, directionVector.getY(), 0.5f - directionVector.getZ() * 0.25f);
+        return ItemStandTileEntity.itemOffset(tileEntity);
     }
 }

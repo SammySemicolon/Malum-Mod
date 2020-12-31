@@ -1,11 +1,10 @@
 package com.sammy.malum.client.particles.skull;
 
-import com.mojang.serialization.Codec;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.systems.particles.data.EidolonParticleData;
+import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import net.minecraft.particles.ParticleType;
 
-public class SkullParticleData extends EidolonParticleData
+public class SkullParticleData extends MalumParticleData
 {
     public SkullParticleData(float scale, boolean gravity)
     {

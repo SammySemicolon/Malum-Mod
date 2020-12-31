@@ -1,0 +1,11 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"texture_size": [64, 64],
+	"parent": "malum:block/spirit_kiln_top",
+	"textures": {
+		"0": "malum:block/spirit_kiln_top_powered",
+		"2": "malum:block/darkened_rock",
+		"particle": "malum:block/tainted_rock"
+	}
+}

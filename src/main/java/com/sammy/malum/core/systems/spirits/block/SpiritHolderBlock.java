@@ -32,7 +32,7 @@ public class SpiritHolderBlock extends Block implements IAlwaysActivatedBlock
                     ISpiritHolderTileEntity holderTileEntity = (ISpiritHolderTileEntity) worldIn.getTileEntity(pos);
                     SpiritHelper.transferSpirit(player, player.getHeldItemMainhand(),holderTileEntity);
                     worldIn.getTileEntity(pos).markDirty();
-                    worldIn.notifyBlockUpdate(pos,state,state,3);
+                    MalumHelper.updateState(state,worldIn,pos);
                 }
             }
         }

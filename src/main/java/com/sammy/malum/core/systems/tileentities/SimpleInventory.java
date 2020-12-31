@@ -11,7 +11,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -181,7 +180,7 @@ public class SimpleInventory extends ItemStackHandler
                 return;
             }
             extractItem(player, takeOutStack, stacks.indexOf(takeOutStack));
-            updateState(state, worldIn, pos);
+            MalumHelper.updateState(state, worldIn, pos);
         }
     }
     public void playerInsertItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
@@ -198,14 +197,11 @@ public class SimpleInventory extends ItemStackHandler
                     count = slotSize;
                 }
                 ItemHandlerHelper.insertItem(this, desiredStack.split(count), false);
-                updateState(state, worldIn, pos);
+                MalumHelper.updateState(state, worldIn, pos);
             }
         }
     }
-    public void updateState(BlockState state, World worldIn, BlockPos pos)
-    {
-        worldIn.notifyBlockUpdate(pos, state,state, 3);
-    }
+    
     public void extractItem(PlayerEntity playerEntity, ItemStack stack, int slot)
     {
         ItemHandlerHelper.giveItemToPlayer(playerEntity, stack, playerEntity.inventory.currentItem);

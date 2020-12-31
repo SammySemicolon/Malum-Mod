@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:damaged_spirit_kiln"
+          "name": "malum:spirit_kiln"
         }
       ],
       "conditions": [

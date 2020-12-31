@@ -29,7 +29,7 @@ public class SpiritKilnDebugTextRendererModule extends TextModule
             {
                 components.add(ClientHelper.combinedComponent(ClientHelper.simpleTranslatableComponent("malum.tooltip.progress"), ClientHelper.importantComponent(tileEntity.progress + "/" + recipe.recipeTime, true)));
             }
-            components.add(ClientHelper.combinedComponent(ClientHelper.simpleTranslatableComponent("malum.tooltip.fuel"), ClientHelper.importantComponent("" + tileEntity.powerStorage.heat, true)));
+            components.add(ClientHelper.combinedComponent(ClientHelper.simpleTranslatableComponent("malum.tooltip.fuel"), ClientHelper.importantComponent("" + tileEntity.powerStorage.fuel + "/" + tileEntity.powerStorage.maxFuel, true)));
         }
         return components;
     }

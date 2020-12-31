@@ -31,6 +31,8 @@ public class MalumMod
     public static final Random RANDOM = new Random();
     
     public static int globalCharcoalToFuelRatio = 20;
+    public static int globalSpeedMultiplier = 40;
+    
     public MalumMod()
     {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();

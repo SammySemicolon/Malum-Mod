@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "wooden_trapdoor",
   "ingredients": [
     {
       "item": "malum:sun_kissed_planks"

@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.arcanecraftingtable;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.recipes.ArcaneCraftingRecipe;
 import com.sammy.malum.core.systems.spirits.block.SimpleInventorySpiritRequestTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
@@ -21,7 +22,7 @@ public abstract class ArcaneCraftingTableTileEntity extends SimpleInventorySpiri
             {
                 ArcaneCraftingTableTileEntity.this.markDirty();
                 updateContainingBlockInfo();
-                updateState(world.getBlockState(pos), world, pos);
+                MalumHelper.updateState(world.getBlockState(pos), world, pos);
             }
         };
     }

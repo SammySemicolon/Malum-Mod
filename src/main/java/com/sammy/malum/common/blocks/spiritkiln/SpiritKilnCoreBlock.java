@@ -1,8 +1,7 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.systems.heat.IHeatBlock;
+import com.sammy.malum.core.recipes.SpiritKilnFuelData;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
@@ -10,7 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -23,25 +22,26 @@ import javax.annotation.Nullable;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysActivatedBlock, IHeatBlock
+public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysActivatedBlock
 {
-    public static final BooleanProperty DAMAGED = BooleanProperty.create("damaged");
+    public static final IntegerProperty STATE = IntegerProperty.create("state", 0, 2);
+    
     public SpiritKilnCoreBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(DAMAGED, false));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(STATE, 0));
     }
     
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
-        blockStateBuilder.add(DAMAGED);
+        blockStateBuilder.add(STATE);
         blockStateBuilder.add(HORIZONTAL_FACING);
     }
     
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(DAMAGED, false);
+        return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(STATE, 0);
     }
     
     @Override
@@ -57,13 +57,6 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
     }
     
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving)
-    {
-        updateHeat(worldIn,pos);
-        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
-    }
-    
-    @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (handIn.equals(Hand.MAIN_HAND))
@@ -72,19 +65,31 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
             {
                 SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos);
                 ItemStack stack = player.getHeldItemMainhand();
-                if (state.get(DAMAGED))
+                if (state.get(STATE) == 1)
                 {
                     if (stack.getItem().equals(MalumItems.TAINTED_ROCK.get()))
                     {
                         if (stack.getCount() >= 4)
                         {
                             stack.shrink(4);
-                            tileEntity.repair();
+                            tileEntity.repairKiln();
                             player.swingArm(handIn);
                             return ActionResultType.SUCCESS;
                         }
                     }
                 }
+                if (SpiritKilnFuelData.getData(stack) != null)
+                {
+                    SpiritKilnFuelData data = SpiritKilnFuelData.getData(stack);
+                    boolean success = tileEntity.powerStorage.increase(data);
+                    if (success)
+                    {
+                        stack.shrink(1);
+                        player.swingArm(handIn);
+                        return ActionResultType.SUCCESS;
+                    }
+                }
+            
             }
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

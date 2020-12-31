@@ -1,0 +1,20 @@
+{
+  "textures": [
+    "malum:item_circle/entrance/item_circle_entrance_00",
+    "malum:item_circle/entrance/item_circle_entrance_01",
+    "malum:item_circle/entrance/item_circle_entrance_02",
+    "malum:item_circle/entrance/item_circle_entrance_03",
+    "malum:item_circle/entrance/item_circle_entrance_04",
+    "malum:item_circle/entrance/item_circle_entrance_05",
+    "malum:item_circle/entrance/item_circle_entrance_06",
+    "malum:item_circle/entrance/item_circle_entrance_07",
+    "malum:item_circle/entrance/item_circle_entrance_08",
+    "malum:item_circle/entrance/item_circle_entrance_09",
+    "malum:item_circle/entrance/item_circle_entrance_10",
+    "malum:item_circle/entrance/item_circle_entrance_11",
+    "malum:item_circle/entrance/item_circle_entrance_12",
+    "malum:item_circle/entrance/item_circle_entrance_13",
+    "malum:item_circle/entrance/item_circle_entrance_14",
+    "malum:item_circle/entrance/item_circle_entrance_15"
+  ]
+}

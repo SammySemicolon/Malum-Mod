@@ -95,8 +95,8 @@ public class TaintTransfusion
             DoublePlantBlock plantBlock = (DoublePlantBlock) conversion.outputBlock;
             BlockPos bottomPos = state.get(DoublePlantBlock.HALF).equals(DoubleBlockHalf.LOWER) ? pos : pos.down();
             plantBlock.placeAt(worldIn, bottomPos, 16);
-            worldIn.notifyBlockUpdate(bottomPos, worldIn.getBlockState(bottomPos) , worldIn.getBlockState(bottomPos), 3);
-            worldIn.notifyBlockUpdate(bottomPos.up(), worldIn.getBlockState(bottomPos.up()), worldIn.getBlockState(bottomPos.up()), 3);
+            MalumHelper.updateState(worldIn.getBlockState(pos.up()), worldIn, pos.up());
+            MalumHelper.updateState(worldIn.getBlockState(pos), worldIn, pos);
             issueSpread(worldIn, pos);
             issueSpread(worldIn, pos.up());
             return;
@@ -106,8 +106,8 @@ public class TaintTransfusion
             BlockPos bottomPos = state.get(DoorBlock.HALF).equals(DoubleBlockHalf.LOWER) ? pos : pos.down();
             MalumHelper.setBlockStateWithExistingProperties(worldIn, bottomPos, block.getDefaultState(), 16,false);
             MalumHelper.setBlockStateWithExistingProperties(worldIn, bottomPos.up(), block.getDefaultState(), 16,false);
-            worldIn.notifyBlockUpdate(bottomPos, worldIn.getBlockState(bottomPos), worldIn.getBlockState(bottomPos), 3);
-            worldIn.notifyBlockUpdate(bottomPos.up(), worldIn.getBlockState(bottomPos.up()), worldIn.getBlockState(bottomPos.up()), 3);
+            MalumHelper.updateState(worldIn.getBlockState(pos.up()), worldIn, pos.up());
+            MalumHelper.updateState(worldIn.getBlockState(pos), worldIn, pos);
             issueSpread(worldIn, pos);
             issueSpread(worldIn, pos.up());
             return;

@@ -232,7 +232,12 @@ public class MalumBlocks
     public static final RegistryObject<Block> SUN_KISSED_PANEL_SLAB = BLOCKS.register("sun_kissed_panel_slab", () -> new SlabBlock(SUN_KISSED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> SUN_KISSED_PANEL_STAIRS = BLOCKS.register("sun_kissed_panel_stairs", () -> new StairsBlock(SUN_KISSED_PANEL.get().getDefaultState(), SUN_KISSED_WOOD_PROPERTIES()));
     
+    public static final RegistryObject<Block> SUN_KISSED_TILES = BLOCKS.register("sun_kissed_tiles", () -> new Block(SUN_KISSED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> SUN_KISSED_TILES_SLAB = BLOCKS.register("sun_kissed_tiles_slab", () -> new SlabBlock(SUN_KISSED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> SUN_KISSED_TILES_STAIRS = BLOCKS.register("sun_kissed_tiles_stairs", () -> new StairsBlock(SUN_KISSED_TILES.get().getDefaultState(), SUN_KISSED_WOOD_PROPERTIES()));
+    
     public static final RegistryObject<Block> CUT_SUN_KISSED_PLANKS = BLOCKS.register("cut_sun_kissed_planks", () -> new Block(SUN_KISSED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> SUN_KISSED_BEAM = BLOCKS.register("sun_kissed_beam", () -> new RotatedPillarBlock(SUN_KISSED_WOOD_PROPERTIES()));
     
     public static final RegistryObject<Block> SUN_KISSED_DOOR = BLOCKS.register("sun_kissed_door", () -> new DoorBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SUN_KISSED_TRAPDOOR = BLOCKS.register("sun_kissed_trapdoor", () -> new TrapDoorBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid()));
@@ -273,7 +278,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
     public static final RegistryObject<Block> SHORT_SUN_KISSED_GRASS = BLOCKS.register("short_sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
     public static final RegistryObject<Block> SUN_KISSED_SAPLING = BLOCKS.register("sun_kissed_sapling", () -> new SaplingBlock(new SunKissedTree(), SUN_KISSED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(205, 124, 8), new Color(255, 222, 38)));
+    public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(180, 85, 13), new Color(255, 213, 78)));
     
     public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     //endregion
@@ -285,7 +290,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> TAINTED_GRASS = BLOCKS.register("tainted_grass", () -> new TaintedTallGrassBlock(TAINTED_PLANTS_PROPERTIES(), TALL_TAINTED_GRASS));
     public static final RegistryObject<Block> SHORT_TAINTED_GRASS = BLOCKS.register("short_tainted_grass", () -> new TaintedTallGrassBlock(TAINTED_PLANTS_PROPERTIES(), TALL_TAINTED_GRASS));
     public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new TaintedSaplingBlock(new TaintedTree(), TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new TaintedLeavesBlock(LEAVES_PROPERTIES(), new Color(255, 111, 165), new Color(251, 158, 196)));
+    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new TaintedLeavesBlock(LEAVES_PROPERTIES(), new Color(153, 9, 132), new Color(242, 127, 255)));
     //endregion
     public static final RegistryObject<Block> TAINTED_LAVENDER = BLOCKS.register("tainted_lavender", () -> new TaintedDoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
     //endregion

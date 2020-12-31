@@ -38,7 +38,7 @@ public abstract class SimpleTileEntity extends TileEntity
     public SUpdateTileEntityPacket getUpdatePacket()
     {
         CompoundNBT nbt = new CompoundNBT();
-        this.write(nbt);
+        writeData(nbt);
         return new SUpdateTileEntityPacket(pos, 0, nbt);
     }
     

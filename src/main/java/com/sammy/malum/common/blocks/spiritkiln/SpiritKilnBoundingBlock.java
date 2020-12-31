@@ -6,7 +6,6 @@ import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.*;
@@ -14,9 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-import static com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock.DAMAGED;
+import static com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock.STATE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysActivatedBlock
@@ -24,11 +21,11 @@ public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysAct
     public SpiritKilnBoundingBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(DAMAGED, false));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(STATE, 0));
     }
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
-        blockStateBuilder.add(DAMAGED);
+        blockStateBuilder.add(STATE);
         blockStateBuilder.add(HORIZONTAL_FACING);
     }
     @Override
@@ -44,7 +41,7 @@ public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysAct
             if (worldIn.getTileEntity(pos.down()) instanceof SpiritKilnCoreTileEntity)
             {
                 SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos.down());
-                if (state.get(DAMAGED))
+                if (state.get(STATE) == 1)
                 {
                     ItemStack stack = player.getHeldItemMainhand();
                     if (stack.getItem().equals(MalumItems.TAINTED_ROCK.get()))
@@ -52,7 +49,7 @@ public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysAct
                         if (stack.getCount() >= 4)
                         {
                             stack.shrink(4);
-                            tileEntity.repair();
+                            tileEntity.repairKiln();
                             player.swingArm(handIn);
                             return ActionResultType.SUCCESS;
                         }

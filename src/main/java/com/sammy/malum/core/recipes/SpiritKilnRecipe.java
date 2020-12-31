@@ -1,5 +1,6 @@
 package com.sammy.malum.core.recipes;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,7 +14,6 @@ public class SpiritKilnRecipe
 {
     public static final ArrayList<SpiritKilnRecipe> recipes = new ArrayList<>();
     public static int advancedRecipeCount;
-    public static int globalSpeedMultiplier = 40;
     public final Item inputItem;
     public final int inputItemCount;
     public final Item outputItem;
@@ -25,7 +25,7 @@ public class SpiritKilnRecipe
         this.inputItemCount = inputItemCount;
         this.outputItem = outputItem;
         this.outputItemCount = outputItemCount;
-        this.recipeTime = recipeTime * globalSpeedMultiplier;
+        this.recipeTime = recipeTime * MalumMod.globalSpeedMultiplier;
         recipes.add(this);
     }
     public SpiritKilnRecipe(Item inputItem, int inputItemCount, Item outputItem, int outputItemCount, int recipeTime, Item... items) {
@@ -33,7 +33,7 @@ public class SpiritKilnRecipe
         this.inputItemCount = inputItemCount;
         this.outputItem = outputItem;
         this.outputItemCount = outputItemCount;
-        this.recipeTime = recipeTime * globalSpeedMultiplier;
+        this.recipeTime = recipeTime * MalumMod.globalSpeedMultiplier;
         this.extraItems = new ArrayList<>();
         for (Item item : items)
         {
