@@ -173,7 +173,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     
     public void dumpEffects()
     {
-        ((ServerWorld) world).spawnParticle(ParticleTypes.EXPLOSION, pos.getX(), pos.getY(), pos.getZ(), 3, 1, 1, 1, 0);
+        ((ServerWorld) world).spawnParticle(ParticleTypes.EXPLOSION, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, 3, 0.5f, 0.5f, 0.5f, 0);
         ((ServerWorld) world).spawnParticle(new SpiritFlameParticleData(0.75f + world.rand.nextFloat() * 0.75f, true), pos.getX(), pos.getY(), pos.getZ(), 12 + world.rand.nextInt(12), 0.1f, 0.1f, 0.1f, 0.2f);
         ((ServerWorld) world).spawnParticle(ParticleTypes.SMOKE, pos.getX(), pos.getY(), pos.getZ(), 12 + world.rand.nextInt(12), 0.1f, 0.1f, 0.1f, 0.2f);
         
@@ -314,6 +314,10 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
             return;
         }
         stands.removeAll(blacklistedStands);
+        if (stands.isEmpty())
+        {
+            return;
+        }
         for (BlockPos pos : stands)
         {
             if (world.getTileEntity(pos) instanceof ItemStandTileEntity)
@@ -373,7 +377,6 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     {
         setAndUpdateState(1);
         powerStorage.wipe();
-        resetCachedValues();
         Vector3f outputPos = itemOutputPos();
         inventory.dumpItems(world, outputPos);
         advancedInventory.dumpItems(world, outputPos);
