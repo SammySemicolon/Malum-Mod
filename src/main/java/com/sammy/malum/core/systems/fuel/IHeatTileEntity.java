@@ -1,4 +1,4 @@
-package com.sammy.malum.core.systems.heat;
+package com.sammy.malum.core.systems.fuel;
 
 public interface IHeatTileEntity
 {

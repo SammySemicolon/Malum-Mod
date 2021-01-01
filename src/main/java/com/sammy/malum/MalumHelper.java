@@ -43,16 +43,16 @@ public class MalumHelper
         }
         return resultEntity;
     }
-    public static Vector3f pos(BlockPos pos)
+    public static Vector3d pos(BlockPos pos)
     {
-        return new Vector3f(pos.getX(),pos.getY(),pos.getZ());
+        return new Vector3d(pos.getX(),pos.getY(),pos.getZ());
     }
-    public static Vector3f randPos(BlockPos pos, Random rand, float min, float max)
+    public static Vector3d randPos(BlockPos pos, Random rand, double min, double max)
     {
-        float x = MathHelper.nextFloat(rand, min, max) + pos.getX();
-        float y = MathHelper.nextFloat(rand, min, max) + pos.getY();
-        float z = MathHelper.nextFloat(rand, min, max) + pos.getZ();
-        return new Vector3f(x, y, z);
+        double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
+        double y = MathHelper.nextDouble(rand, min, max) + pos.getY();
+        double z = MathHelper.nextDouble(rand, min, max) + pos.getZ();
+        return new Vector3d(x, y, z);
     }
     
     public static boolean areWeOnClient(World world)
@@ -219,15 +219,15 @@ public class MalumHelper
     {
         worldIn.notifyBlockUpdate(pos, state, state, 3);
     }
-    public static void makeCircle(ServerWorld world, Vector3f pos)
+    public static void makeCircle(ServerWorld world, Vector3d pos)
     {
         makeCircle(world, pos, new ItemCircleParticleData(0.75f+ world.rand.nextFloat() * 0.5f, false));
     }
-    public static void makeCircle(ServerWorld world, Vector3f pos, ItemCircleParticleData data)
+    public static void makeCircle(ServerWorld world, Vector3d pos, ItemCircleParticleData data)
     {
         world.spawnParticle(data,pos.getX(),pos.getY(),pos.getZ(),1,0,0,0,0);
     }
-    public static void makeFancyCircle(ServerWorld world, Vector3f pos)
+    public static void makeFancyCircle(ServerWorld world, Vector3d pos)
     {
         MalumHelper.makeCircle(world, pos);
         world.spawnParticle(new SpiritFlameParticleData(0.25f + world.rand.nextFloat() * 0.25f, true),pos.getX(),pos.getY(),pos.getZ(),1+world.rand.nextInt(3),0.1f,0.1f,0.1f,0.05f);

@@ -66,10 +66,9 @@ public class SpiritSplinterItemRenderer extends EntityRenderer<SpiritSplinterIte
         IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, (LivingEntity) null);
         boolean flag = ibakedmodel.isGui3d();
         int j = this.getModelCount(itemstack);
-        float f = 0.25F;
         float f1 = MathHelper.sin(((float) entityIn.age + partialTicks) / 10.0F + entityIn.hoverStart) * 0.1F + 0.1F;
         float f2 = ibakedmodel.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.getY();
-        matrixStackIn.translate(0.0D, (double) (f1 + 0.25F * f2), 0.0D);
+        matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
         float f3 = entityIn.getItemHover(partialTicks);
         matrixStackIn.rotate(Vector3f.YP.rotation(f3));
         if (!flag)

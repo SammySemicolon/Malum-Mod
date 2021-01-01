@@ -41,18 +41,17 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessRecipe(Items.PURPLE_DYE,2).addIngredient(MalumItemTags.LAVENDER).addCriterion("has_lavender", hasItem(MalumItemTags.LAVENDER)).build(consumer);
         shapelessRecipe(Items.YELLOW_DYE,2).addIngredient(MalumItems.MARIGOLD.get()).addCriterion("has_marigold", hasItem(MalumItems.MARIGOLD.get())).build(consumer);
     
-        shapelessRecipe(MalumItems.TAINT_RUDIMENT.get()).addIngredient(Items.WHEAT_SEEDS).addIngredient(ItemTags.CRIMSON_STEMS).addIngredient(Items.ROTTEN_FLESH).addIngredient(ItemTags.WARPED_STEMS).addCriterion("has_wheat_seeds", hasItem(Items.WHEAT_SEEDS)).build(consumer);
+        shapelessRecipe(MalumItems.TAINT_RUDIMENT.get()).addIngredient(Items.WHEAT_SEEDS).addIngredient(Items.CRIMSON_FUNGUS).addIngredient(Items.WARPED_FUNGUS).addIngredient(ItemTags.WARPED_STEMS).addCriterion("has_wheat_seeds", hasItem(Items.WHEAT_SEEDS)).build(consumer);
         shapelessRecipe(MalumItems.DARK_FLARES.get(),4).addIngredient(MalumItems.FLARED_GLOWSTONE_BLOCK.get()).addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
         shapedRecipe(MalumItems.FLARED_GLOWSTONE_BLOCK.get()).key('#', MalumItems.DARK_FLARES.get()).patternLine("##").patternLine("##").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
-        blastingRecipe(Ingredient.fromItems(Items.LEATHER), MalumItems.ADHESIVE.get(),0.25f,100).addCriterion("has_leather", hasItem(Items.LEATHER)).build(consumer);
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.SUN_KISSED_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_seed_of_corruption", hasItem(MalumItems.TAINT_RUDIMENT.get())).build(consumer);
         shapedRecipe(MalumItems.SPIRIT_KILN.get()).key('#', MalumItems.TAINT_RUDIMENT.get()).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.DARKENED_ROCK.get()).key('Z', Items.FURNACE).key('C', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("C#C").patternLine("YZY").patternLine("XYX").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
         shapedRecipe(MalumItems.ITEM_STAND.get()).key('#', MalumItems.TAINTED_ROCK.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine(" Y ").patternLine("#X#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
     
 //        shapedRecipe(MalumItems.KARMIC_HOLDER.get()).key('#', MalumItems.SHARD_OF_WISDOM.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', Items.STRING).patternLine(" Y ").patternLine("YXY").patternLine(" # ").addCriterion("has_shard_of_wisdom", hasItem(MalumItems.SHARD_OF_WISDOM.get())).build(consumer);
     
-        shapelessRecipe(MalumItems.SOLAR_SAPBALL.get()).addIngredient(MalumItems.ADHESIVE.get()).addIngredient(MalumItems.SOLAR_SAP_BOTTLE.get()).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
-        shapelessRecipe(MalumItems.LUNAR_SAPBALL.get()).addIngredient(MalumItems.ADHESIVE.get()).addIngredient(MalumItems.LUNAR_SAP_BOTTLE.get()).addCriterion("has_lunar_sap", hasItem(MalumItems.LUNAR_SAP_BOTTLE.get())).build(consumer);
+        shapelessRecipe(MalumItems.SOLAR_SAPBALL.get()).addIngredient(MalumItems.PENUMBRAL_MOLD.get()).addIngredient(MalumItems.SOLAR_SAP_BOTTLE.get()).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
+        shapelessRecipe(MalumItems.LUNAR_SAPBALL.get()).addIngredient(MalumItems.PENUMBRAL_MOLD.get()).addIngredient(MalumItems.LUNAR_SAP_BOTTLE.get()).addCriterion("has_lunar_sap", hasItem(MalumItems.LUNAR_SAP_BOTTLE.get())).build(consumer);
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOLAR_SAP_BOTTLE.get()), MalumItems.SOLAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
         smeltingRecipe(Ingredient.fromItems(MalumItems.LUNAR_SAP_BOTTLE.get()), MalumItems.LUNAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_lunar_sap", hasItem(MalumItems.LUNAR_SAP_BOTTLE.get())).build(consumer);
         

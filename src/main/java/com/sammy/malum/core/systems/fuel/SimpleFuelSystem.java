@@ -1,8 +1,7 @@
-package com.sammy.malum.core.systems.heat;
+package com.sammy.malum.core.systems.fuel;
 
 import com.sammy.malum.core.recipes.SpiritKilnFuelData;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 
 public class SimpleFuelSystem

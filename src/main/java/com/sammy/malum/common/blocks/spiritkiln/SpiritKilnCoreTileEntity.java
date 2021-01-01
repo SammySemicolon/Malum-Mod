@@ -8,8 +8,8 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.recipes.SpiritKilnRecipe;
-import com.sammy.malum.core.systems.heat.IHeatTileEntity;
-import com.sammy.malum.core.systems.heat.SimpleFuelSystem;
+import com.sammy.malum.core.systems.fuel.IHeatTileEntity;
+import com.sammy.malum.core.systems.fuel.SimpleFuelSystem;
 import com.sammy.malum.core.systems.multiblock.MultiblockTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
@@ -24,7 +24,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.server.ServerWorld;
 
@@ -154,18 +154,19 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         {
             MalumHelper.spawnParticles(world, pos, new SpiritFlameParticleData(0.5f + world.rand.nextFloat() * 0.5f, false), 0.5f);
         }
-        Vector3f exhaustPos = smokeParticleOutputPos();
+        Vector3d exhaustPos = smokeParticleOutputPos();
         if (world.rand.nextFloat() < 0.25f) //smoke out of exhaust tubes
         {
             world.addParticle(ParticleTypes.SMOKE, exhaustPos.getX(), exhaustPos.getY(), exhaustPos.getZ(), 0, 0.04f, 0);
         }
     }
     
-    public void finishEffects(Vector3f outputPos)
+    public void finishEffects(Vector3d outputPos)
     {
         MalumHelper.makeFancyCircle((ServerWorld) world, outputPos);
-        Vector3f furnaceItemPos = new Vector3f(pos.getX(), pos.getY(), pos.getZ());
+        Vector3d furnaceItemPos = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
         furnaceItemPos.add(itemOffset(this));
+        
         MalumHelper.makeFancyCircle((ServerWorld) world, furnaceItemPos);
         
         world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FINISH, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
@@ -184,7 +185,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public void itemConsumeEffects(ItemStandTileEntity standTileEntity)
     {
         BlockPos standPos = standTileEntity.getPos();
-        Vector3f standItemPos = new Vector3f(standPos.getX(), standPos.getY(), standPos.getZ());
+        Vector3d standItemPos = new Vector3d(standPos.getX(), standPos.getY(), standPos.getZ());
         standItemPos.add(ItemStandTileEntity.itemOffset(standTileEntity));
         MalumHelper.makeFancyCircle((ServerWorld) world, standItemPos);
         world.playSound(null, standPos, MalumSounds.TAINTED_FURNACE_CONSUME, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
@@ -229,28 +230,28 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     //endregion
     
     //region vector helpers
-    public Vector3f smokeParticleOutputPos()
+    public Vector3d smokeParticleOutputPos()
     {
         Direction direction = getBlockState().get(HORIZONTAL_FACING);
-        Vector3f directionVector = new Vector3f(direction.getXOffset() * 0.4f, 0, direction.getZOffset() * 0.4f);
-        Vector3f particlePos = MalumHelper.randPos(pos, world.rand, -0.3f, 0.3f);
-        Vector3f finalPos = new Vector3f(0, 0, 0);
+        Vector3d directionVector = new Vector3d(direction.getXOffset() * 0.4f, 0, direction.getZOffset() * 0.4f);
+        Vector3d particlePos = MalumHelper.randPos(pos, world.rand, -0.3f, 0.3f);
+        Vector3d finalPos = new Vector3d(0, 0, 0);
         if (directionVector.getZ() != 0)
         {
-            finalPos = new Vector3f(particlePos.getX() + 0.5f, particlePos.getY() + 2, particlePos.getZ() + 0.5f - directionVector.getZ());
+            finalPos = new Vector3d(particlePos.getX() + 0.5f, particlePos.getY() + 2, particlePos.getZ() + 0.5f - directionVector.getZ());
         }
         if (directionVector.getX() != 0)
         {
-            finalPos = new Vector3f(particlePos.getX() + 0.5f - directionVector.getX(), particlePos.getY() + 2, particlePos.getZ() + 0.5f);
+            finalPos = new Vector3d(particlePos.getX() + 0.5f - directionVector.getX(), particlePos.getY() + 2, particlePos.getZ() + 0.5f);
         }
         return finalPos;
     }
     
-    public Vector3f itemOutputPos()
+    public Vector3d itemOutputPos()
     {
         Direction direction = getBlockState().get(HORIZONTAL_FACING);
         Vector3i directionVector = new Vector3i(direction.getXOffset(), 0, direction.getZOffset());
-        return new Vector3f(this.pos.getX() + 0.5f - directionVector.getX(), this.pos.getY() + 1, this.pos.getZ() + 0.5f - directionVector.getZ());
+        return new Vector3d(this.pos.getX() + 0.5f - directionVector.getX(), this.pos.getY() + 1, this.pos.getZ() + 0.5f - directionVector.getZ());
     }
     //endregion
     
@@ -350,6 +351,15 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         if (stands.size() == blacklistedStands.size())
         {
             ArrayList<Item> advancedItems = advancedInventory.items();
+            
+            if (currentRecipe.hasAlternatives)
+            {
+                SpiritKilnRecipe maybeRightRecipe = SpiritKilnRecipe.getPreciseRecipe(inventory.getStackInSlot(0), MalumHelper.toArrayList(advancedItems.stream().filter(i -> !i.getDefaultInstance().isEmpty())));
+                if (maybeRightRecipe != null)
+                {
+                    currentRecipe = maybeRightRecipe;
+                }
+            }
             if (advancedItems.stream().filter(i -> !i.getDefaultInstance().isEmpty()).anyMatch(i -> !currentRecipe.extraItems.contains(i))) //any item in the inventory, ISN'T present in the recipe.
             {
                 dumpAllItems();
@@ -377,7 +387,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     {
         setAndUpdateState(1);
         powerStorage.wipe();
-        Vector3f outputPos = itemOutputPos();
+        Vector3d outputPos = itemOutputPos();
         inventory.dumpItems(world, outputPos);
         advancedInventory.dumpItems(world, outputPos);
         dumpEffects();
@@ -385,7 +395,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     
     public void finishProcessing(SpiritKilnRecipe recipe)
     {
-        Vector3f outputPos = itemOutputPos();
+        Vector3d outputPos = itemOutputPos();
         ItemEntity entity = new ItemEntity(world, outputPos.getX(), outputPos.getY(), outputPos.getZ(), new ItemStack(recipe.outputItem, recipe.outputItemCount));
         world.addEntity(entity);
         resetCachedValues();
@@ -396,10 +406,10 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     }
     //endregion
     
-    public static Vector3f itemOffset(SimpleTileEntity tileEntity)
+    public static Vector3d itemOffset(SimpleTileEntity tileEntity)
     {
         Direction direction = tileEntity.getBlockState().get(HORIZONTAL_FACING);
-        Vector3f directionVector = new Vector3f(direction.getXOffset(), 1.25f, direction.getZOffset());
-        return new Vector3f(0.5f + directionVector.getX() * 0.25f, directionVector.getY(), 0.5f + directionVector.getZ() * 0.25f);
+        Vector3d directionVector = new Vector3d(direction.getXOffset(), 1.25, direction.getZOffset());
+        return new Vector3d(0.5 + directionVector.getX() * 0.25, directionVector.getY(), 0.5 + directionVector.getZ() * 0.25);
     }
 }

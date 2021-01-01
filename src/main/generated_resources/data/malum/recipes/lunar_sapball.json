@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:adhesive"
+      "item": "malum:penumbral_mold"
     },
     {
       "item": "malum:lunar_sap_bottle"

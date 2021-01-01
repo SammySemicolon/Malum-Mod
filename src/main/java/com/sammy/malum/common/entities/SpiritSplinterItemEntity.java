@@ -12,11 +12,13 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import java.awt.*;
 import java.util.UUID;
 
 public class SpiritSplinterItemEntity extends ProjectileItemEntity
@@ -26,19 +28,23 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     public PlayerEntity owner;
     
     public int age;
+    public float rotation;
     public final float hoverStart;
+    
     public SpiritSplinterItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
     {
         super(type, worldIn);
         noClip = true;
-        this.hoverStart = (float)(Math.random() * Math.PI * 2.0D);
+        this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
     
     public static final DataParameter<String> SPLINTER_NAME = EntityDataManager.createKey(SpiritSplinterItemEntity.class, DataSerializers.STRING);
     
-    public float getItemHover(float partialTicks) {
-        return ((float)age + partialTicks) / 20.0F + hoverStart;
+    public float getItemHover(float partialTicks)
+    {
+        return (rotation + partialTicks) / 20.0F + hoverStart;
     }
+    
     @Override
     public float getCollisionBorderSize()
     {
@@ -69,16 +75,25 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     {
         super.tick();
         age++;
+        float rotationSpeed = 1.75f;
+        float extraSpeed = 5.25f;
+        float rotationTime = 160;
+        rotation += age > rotationTime ? rotationSpeed : rotationSpeed + ((rotationTime - age) / rotationTime) * extraSpeed;
         if (MalumHelper.areWeOnServer(world))
         {
             setMotion(getMotion().mul(0.9f, 0.8f, 0.9f));
-            float distance = getDistance(owner());
+            PlayerEntity playerEntity = owner();
+            if (playerEntity == null)
+            {
+                return;
+            }
+            float distance = getDistance(playerEntity);
             if (age > 10)
             {
                 if (distance < 2f)
                 {
                     float velocity = 0.25f;
-                    Vector3d ownerPos = owner().getPositionVec().add(0, 0, 0);
+                    Vector3d ownerPos = owner.getPositionVec().add(0, 0, 0);
                     Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(), ownerPos.z - getPosZ()).normalize().mul(velocity, velocity, velocity);
                     setMotion(desiredMotion);
                 }

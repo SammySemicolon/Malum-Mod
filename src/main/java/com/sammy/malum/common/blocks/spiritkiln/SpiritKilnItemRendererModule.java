@@ -23,6 +23,6 @@ public class SpiritKilnItemRendererModule extends ItemModule
     @Override
     public Vector3f itemOffset(SimpleTileEntity tileEntity, float partialTicks, float distance, int currentPoint, int totalPoints)
     {
-        return SpiritKilnCoreTileEntity.itemOffset(tileEntity);
+        return new Vector3f(SpiritKilnCoreTileEntity.itemOffset(tileEntity));
     }
 }

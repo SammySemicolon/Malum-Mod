@@ -65,6 +65,11 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     private void spiritSplinterItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
+        if (i.equals(MalumItems.ELDRITCH_SPIRIT_SPLINTER) || i .equals(MalumItems.TERMINUS_SPIRIT_SPLINTER))
+        {
+            withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_large"));
+            return;
+        }
 //        SpiritSplinterItem spiritSplinterItem = (SpiritSplinterItem) i.get();
 //        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/" + name + spiritSplinterItem.type.identifier));
         withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));

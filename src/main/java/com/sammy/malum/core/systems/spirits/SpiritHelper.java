@@ -213,7 +213,7 @@ public class SpiritHelper
             }
             SpiritSplinterItemEntity essenceEntity = new SpiritSplinterItemEntity(MalumEntities.SPIRIT_ESSENCE.get(), player.world);
             essenceEntity.ownerUUID = player.getUniqueID();
-            essenceEntity.setMotion(MathHelper.nextFloat(MalumMod.RANDOM, -0.1f, 0.1f),MathHelper.nextFloat(MalumMod.RANDOM, 0.05f, 0.05f),MathHelper.nextFloat(MalumMod.RANDOM, -0.1f, 0.1f));
+            essenceEntity.setMotion(MathHelper.nextFloat(MalumMod.RANDOM, -0.2f, 0.2f),MathHelper.nextFloat(MalumMod.RANDOM, 0.05f, 0.05f),MathHelper.nextFloat(MalumMod.RANDOM, -0.2f, 0.2f));
             essenceEntity.setPosition(target.getPositionVec().x, target.getPositionVec().y + target.getHeight() / 2f, target.getPositionVec().z);
             essenceEntity.splinter = figureOutType(spirit).splinterItem;
             essenceEntity.getDataManager().set(SpiritSplinterItemEntity.SPLINTER_NAME,spirit);

@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
@@ -101,7 +101,7 @@ public class SimpleInventory extends ItemStackHandler
         }
         return stacks;
     }
-    public void dumpItems(World world, Vector3f pos)
+    public void dumpItems(World world, Vector3d pos)
     {
         for (int i = 0; i < slotCount; i++)
         {

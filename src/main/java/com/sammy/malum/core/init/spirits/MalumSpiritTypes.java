@@ -8,7 +8,9 @@ import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.merchant.villager.WanderingTraderEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
+import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.horse.ZombieHorseEntity;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,23 +20,42 @@ public class MalumSpiritTypes
 {
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
     
-    public static final MalumSpiritType WILD_SPIRIT = create("wild",  e -> e instanceof AnimalEntity,165, 255, 40);
-    public static final MalumSpiritType UNDEAD_SPIRIT = create("undead", LivingEntity::isEntityUndead, 101, 9, 18);
-    public static final MalumSpiritType NIMBLE_SPIRIT = create("nimble",  MalumSpiritTypes::isNimble, 195, 213, 213);
-    public static final MalumSpiritType AQUATIC_SPIRIT = create("aquatic",  e -> e.getCreatureAttribute().equals(CreatureAttribute.WATER), 85, 240, 255);
-    public static final MalumSpiritType SINISTER_SPIRIT = create("sinister",  MalumSpiritTypes::isSinister, 133, 16, 161);
-    public static final MalumSpiritType ARCANE_SPIRIT = create("arcane",  MalumSpiritTypes::isArcane, 255, 44, 176);
-    public static final MalumSpiritType SULPHURIC_SPIRIT = create("sulphuric", MalumSpiritTypes::isSulphuric,255, 176, 44);
-    public static final MalumSpiritType NETHERBORNE_SPIRIT = create("netherborne",  MalumSpiritTypes::isNetherborne,187, 51, 50);
-    public static final MalumSpiritType REMEDIAL_SPIRIT = create("remedial",  MalumSpiritTypes::isRemedial, 220, 251, 237);
-    public static final MalumSpiritType TERMINUS_SPIRIT = create("terminus", MalumSpiritTypes::isTerminus, 50, 17, 84);
-    public static final MalumSpiritType ELDRITCH_SPIRIT = create("eldritch", MalumSpiritTypes::isEldritch, 35, 24, 47);
+    public static final Color WILD_SPIRIT_COLOR = new Color(118, 255, 21);
+    public static final MalumSpiritType WILD_SPIRIT = create("wild",  MalumSpiritTypes::isWild,WILD_SPIRIT_COLOR);
+    public static final Color UNDEAD_SPIRIT_COLOR = new Color(109, 23, 18);
+    public static final MalumSpiritType UNDEAD_SPIRIT = create("undead", LivingEntity::isEntityUndead, UNDEAD_SPIRIT_COLOR);
+    public static final Color NIMBLE_SPIRIT_COLOR = new Color(173, 255, 243);
+    public static final MalumSpiritType NIMBLE_SPIRIT = create("nimble",  MalumSpiritTypes::isNimble, NIMBLE_SPIRIT_COLOR);
+    public static final Color AQUATIC_SPIRIT_COLOR = new Color(27, 163, 255);
+    public static final MalumSpiritType AQUATIC_SPIRIT = create("aquatic",  e -> e.getCreatureAttribute().equals(CreatureAttribute.WATER), AQUATIC_SPIRIT_COLOR);
+    public static final Color SINISTER_SPIRIT_COLOR = new Color(142, 0, 135);
+    public static final MalumSpiritType SINISTER_SPIRIT = create("sinister",  MalumSpiritTypes::isSinister, SINISTER_SPIRIT_COLOR);
+    public static final Color ARCANE_SPIRIT_COLOR = new Color(224, 88, 205);
+    public static final MalumSpiritType ARCANE_SPIRIT = create("arcane",  MalumSpiritTypes::isArcane, ARCANE_SPIRIT_COLOR);
+    public static final Color SULPHURIC_SPIRIT_COLOR = new Color(213, 196, 79);
+    public static final MalumSpiritType SULPHURIC_SPIRIT = create("sulphuric", MalumSpiritTypes::isSulphuric,SULPHURIC_SPIRIT_COLOR);
+    public static final Color NETHERBORNE_SPIRIT_COLOR = new Color(163, 13, 10);
+    public static final MalumSpiritType NETHERBORNE_SPIRIT = create("netherborne",  MalumSpiritTypes::isNetherborne,NETHERBORNE_SPIRIT_COLOR);
+    public static final Color REMEDIAL_SPIRIT_COLOR = new Color(245, 255, 110);
+    public static final MalumSpiritType REMEDIAL_SPIRIT = create("remedial",  MalumSpiritTypes::isRemedial, REMEDIAL_SPIRIT_COLOR);
+    public static final Color FUSIBLE_SPIRIT_COLOR = new Color(147, 144, 141);
+    public static final MalumSpiritType FUSIBLE_SPIRIT = create("fusible",  MalumSpiritTypes::isFusible, FUSIBLE_SPIRIT_COLOR);
     
-    public static MalumSpiritType create(String identifier, Predicate<LivingEntity> predicate, int r, int g, int b)
+    public static final Color TERMINUS_SPIRIT_COLOR = new Color(69, 5, 116);
+    public static final MalumSpiritType TERMINUS_SPIRIT = create("terminus", MalumSpiritTypes::isTerminus, TERMINUS_SPIRIT_COLOR);
+    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(30, 16, 38);
+    public static final MalumSpiritType ELDRITCH_SPIRIT = create("eldritch", MalumSpiritTypes::isEldritch, ELDRITCH_SPIRIT_COLOR);
+    
+    public static MalumSpiritType create(String identifier, Predicate<LivingEntity> predicate, Color color)
     {
-        MalumSpiritType spiritType = new MalumSpiritType(identifier, predicate, new Color(r,g,b), identifier + "_spirit_splinter");
+        MalumSpiritType spiritType = new MalumSpiritType(identifier, predicate, color, identifier + "_spirit_splinter");
         SPIRITS.add(spiritType);
         return spiritType;
+    }
+    
+    public static boolean isWild(LivingEntity entity) //animal.
+    {
+        return entity instanceof AnimalEntity || entity instanceof SquidEntity;
     }
     
     public static boolean isNimble(LivingEntity entity) //capable of flying or fast
@@ -53,7 +74,7 @@ public class MalumSpiritTypes
     
     public static boolean isArcane(LivingEntity entity) //made or capable of using magic, or a phenomenon
     {
-        return entity instanceof VexEntity || entity instanceof WanderingTraderEntity || entity instanceof WitchEntity || entity instanceof PhantomEntity || entity instanceof GhastEntity || entity instanceof MooshroomEntity;
+        return entity instanceof SpellcastingIllagerEntity || entity instanceof VexEntity || entity instanceof WanderingTraderEntity || entity instanceof WitchEntity || entity instanceof PhantomEntity || entity instanceof GhastEntity || entity instanceof MooshroomEntity;
     }
     
     public static boolean isSulphuric(LivingEntity entity) //immune to explosions, filled with sulphur or explosive
@@ -80,7 +101,12 @@ public class MalumSpiritTypes
         {
             return true;
         }
-        return entity instanceof AbstractVillagerEntity || entity instanceof GhastEntity || entity instanceof SheepEntity || entity instanceof BeeEntity || entity instanceof SlimeEntity || entity instanceof GolemEntity;
+        return entity instanceof AbstractVillagerEntity || entity instanceof GhastEntity || entity instanceof SheepEntity || entity instanceof AbstractPiglinEntity || entity instanceof ChickenEntity || entity instanceof CowEntity || entity instanceof BeeEntity || entity instanceof SlimeEntity || entity instanceof GolemEntity;
+    }
+    
+    public static boolean isFusible(LivingEntity entity) //metal, iron stuff
+    {
+        return entity instanceof IronGolemEntity || entity instanceof ZombieEntity || entity instanceof ZombieHorseEntity || entity instanceof AbstractPiglinEntity;
     }
     
     public static boolean isTerminus(LivingEntity entity) //end

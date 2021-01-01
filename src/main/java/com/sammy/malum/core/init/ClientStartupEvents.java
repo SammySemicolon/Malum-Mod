@@ -12,6 +12,7 @@ import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
 import com.sammy.malum.common.entities.SpiritSplinterItemRenderer;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
+import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.tileentityrendering.AdjustableTileEntityRenderer;
@@ -90,17 +91,18 @@ public class ClientStartupEvents
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
             ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
-        ClientHelper.registerItemColor(itemColors, MalumItems.WILD_SPIRIT_SPLINTER, new Color(165, 255, 40));
-        ClientHelper.registerItemColor(itemColors, MalumItems.UNDEAD_SPIRIT_SPLINTER, new Color(101, 9, 18));
-        ClientHelper.registerItemColor(itemColors, MalumItems.NIMBLE_SPIRIT_SPLINTER, new Color(195, 213, 213));
-        ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT_SPLINTER, new Color(85, 240, 255));
-        ClientHelper.registerItemColor(itemColors, MalumItems.SINISTER_SPIRIT_SPLINTER, new Color(133, 16, 161));
-        ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT_SPLINTER, new Color(255, 44, 176));
-        ClientHelper.registerItemColor(itemColors, MalumItems.SULPHURIC_SPIRIT_SPLINTER, new Color(255, 176, 44));
-        ClientHelper.registerItemColor(itemColors, MalumItems.NETHERBORNE_SPIRIT_SPLINTER, new Color(187, 51, 50));
-        ClientHelper.registerItemColor(itemColors, MalumItems.REMEDIAL_SPIRIT_SPLINTER, new Color(220, 251, 237));
-        ClientHelper.registerItemColor(itemColors, MalumItems.TERMINUS_SPIRIT_SPLINTER, new Color(50, 17, 84));
-        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, new Color(35, 24, 47));
+        ClientHelper.registerItemColor(itemColors, MalumItems.WILD_SPIRIT_SPLINTER, MalumSpiritTypes.WILD_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.UNDEAD_SPIRIT_SPLINTER, MalumSpiritTypes.UNDEAD_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.NIMBLE_SPIRIT_SPLINTER, MalumSpiritTypes.NIMBLE_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT_SPLINTER, MalumSpiritTypes.AQUATIC_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.SINISTER_SPIRIT_SPLINTER, MalumSpiritTypes.SINISTER_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT_SPLINTER, MalumSpiritTypes.ARCANE_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.SULPHURIC_SPIRIT_SPLINTER, MalumSpiritTypes.SULPHURIC_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.NETHERBORNE_SPIRIT_SPLINTER, MalumSpiritTypes.NETHERBORNE_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.REMEDIAL_SPIRIT_SPLINTER, MalumSpiritTypes.REMEDIAL_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.FUSIBLE_SPIRIT_SPLINTER, MalumSpiritTypes.FUSIBLE_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.TERMINUS_SPIRIT_SPLINTER, MalumSpiritTypes.TERMINUS_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, MalumSpiritTypes.ELDRITCH_SPIRIT_COLOR);
     }
     
     @SubscribeEvent
