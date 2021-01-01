@@ -9,6 +9,5 @@ public class ModHoeItem extends HoeItem
     {
         super(material, damage, speed - 3, properties.maxDamage(material.getMaxUses()));
     }
-    
 }
 

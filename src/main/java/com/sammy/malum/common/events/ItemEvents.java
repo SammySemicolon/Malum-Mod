@@ -1,17 +1,25 @@
 package com.sammy.malum.common.events;
 
-import com.sammy.malum.core.systems.events.EventSubscriberItem;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
+import com.sammy.malum.common.items.tools.scythes.ScytheItem;
+import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import static com.sammy.malum.core.systems.spirits.SpiritHelper.entitySpirits;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ItemEvents
@@ -50,13 +58,9 @@ public class ItemEvents
                 stack = attacker.getActiveItemStack();
             }
             Item item = stack.getItem();
-            if (item instanceof EventSubscriberItem)
+            if (item instanceof ScytheItem)
             {
-                EventSubscriberItem eventSubscriberItem = ((EventSubscriberItem) item);
-                if (eventSubscriberItem.hasEntityKill())
-                {
-                    eventSubscriberItem.onEntityKill(stack,attacker,event.getEntityLiving());
-                }
+                SpiritHelper.summonSpirits(event.getEntityLiving(), attacker);
             }
         }
     }

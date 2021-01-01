@@ -2,8 +2,7 @@ package com.sammy.malum.client;
 
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.core.systems.spirits.item.ISpiritHolderBlockItem;
-import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
+import com.sammy.malum.core.systems.spirits.item.ISpiritHolderItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.util.ITooltipFlag;
@@ -43,7 +42,7 @@ public class ClientHelper
         ArrayList<ITextComponent> tooltip = new ArrayList<>();
         if (SpiritHelper.validate(stack))
         {
-            ISpiritHolderBlockItem essenceHolder = (ISpiritHolderBlockItem) stack.getItem();
+            ISpiritHolderItem essenceHolder = (ISpiritHolderItem) stack.getItem();
             for (int i = 0; i < spirits.size(); i++)
             {
                 String spirit = spirits.get(i).getFirst();

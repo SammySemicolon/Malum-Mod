@@ -1,31 +1,33 @@
 package com.sammy.malum.core.systems.spirits;
 
 import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
+import com.sammy.malum.common.items.tools.scythes.ScytheItem;
+import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
 import com.sammy.malum.core.systems.spirits.block.ISpiritHolderTileEntity;
 import com.sammy.malum.core.systems.spirits.block.ISpiritRequestTileEntity;
 import com.sammy.malum.core.systems.spirits.block.ISpiritTransferTileEntity;
-import com.sammy.malum.core.systems.spirits.item.ISpiritHolderBlockItem;
+import com.sammy.malum.core.systems.spirits.item.ISpiritHolderItem;
 import com.sammy.malum.core.systems.spirits.types.MalumSpiritType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SpiritHelper
 {
     public static boolean validate(ItemStack stack)
     {
-        return stack.getItem() instanceof ISpiritHolderBlockItem;
+        return stack.getItem() instanceof ISpiritHolderItem;
     }
     public static ArrayList<Pair<String, Integer>> itemSpirits(ItemStack stack, boolean includeEmpty)
     {
@@ -33,7 +35,7 @@ public class SpiritHelper
         if (validate(stack))
         {
             CompoundNBT tag = stack.getOrCreateTag();
-            ISpiritHolderBlockItem holder = (ISpiritHolderBlockItem) stack.getItem();
+            ISpiritHolderItem holder = (ISpiritHolderItem) stack.getItem();
             for (int i = 0; i < holder.getSpiritSlots(); i++)
             {
                 if (tag.contains("essenceIdentifier" + i))
@@ -128,7 +130,7 @@ public class SpiritHelper
         int extra = 0;
         if (validate(stack))
         {
-            ISpiritHolderBlockItem holder = (ISpiritHolderBlockItem) stack.getItem();
+            ISpiritHolderItem holder = (ISpiritHolderItem) stack.getItem();
             CompoundNBT tag = stack.getOrCreateTag();
             for (int i = 0; i < holder.getSpiritSlots(); i++)
             {
@@ -156,7 +158,7 @@ public class SpiritHelper
     {
         if (validate(stack))
         {
-            ISpiritHolderBlockItem holder = (ISpiritHolderBlockItem) stack.getItem();
+            ISpiritHolderItem holder = (ISpiritHolderItem) stack.getItem();
             for (int i = 0; i < holder.getSpiritSlots(); i++)
             {
                 Pair<String, Integer> itemSpirit = itemSpirit(stack,i);
@@ -191,67 +193,87 @@ public class SpiritHelper
             }
         }
     }
+    public static void harvestSpirit(String spirit, PlayerEntity player)
+    {
+        ArrayList<Pair<String, Integer>> spirits = new ArrayList<>();
+        spirits.add(new Pair<>(spirit, 1));
+        harvestSpirit(spirits, player);
+    }
+    public static void summonSpirits(LivingEntity target, PlayerEntity player)
+    {
+        ArrayList<Pair<String, Integer>> spirits = entitySpirits(target);
+    
+        for (int i = 0; i < spirits.size(); i++)
+        {
+            String spirit = spirits.get(i).getFirst();
+            int count = spirits.get(i).getSecond();
+            if (count == 0)
+            {
+                continue;
+            }
+            SpiritSplinterItemEntity essenceEntity = new SpiritSplinterItemEntity(MalumEntities.SPIRIT_ESSENCE.get(), player.world);
+            essenceEntity.ownerUUID = player.getUniqueID();
+            essenceEntity.setMotion(MathHelper.nextFloat(MalumMod.RANDOM, -0.1f, 0.1f),MathHelper.nextFloat(MalumMod.RANDOM, 0.05f, 0.05f),MathHelper.nextFloat(MalumMod.RANDOM, -0.1f, 0.1f));
+            essenceEntity.setPosition(target.getPositionVec().x, target.getPositionVec().y + target.getHeight() / 2f, target.getPositionVec().z);
+            essenceEntity.splinter = figureOutType(spirit).splinterItem;
+            essenceEntity.getDataManager().set(SpiritSplinterItemEntity.SPLINTER_NAME,spirit);
+            player.world.addEntity(essenceEntity);
+            spirits.set(i, Pair.of(spirit, count - 1));
+        }
+    }
     public static void harvestSpirit(ArrayList<Pair<String, Integer>> spirits, PlayerEntity player)
     {
-        List<ItemStack> items = new ArrayList<>(player.inventory.mainInventory.stream().filter(i -> i.getItem().equals(MalumItems.EMPTY_SPLINTER.get())).collect(Collectors.toSet()));
-        
-        for (ItemStack stack : items)
-        {
-            for (int i = 0; i < spirits.size(); i++)
-            {
-                String spirit = spirits.get(i).getFirst();
-                int count = spirits.get(i).getSecond();
-                if (count == 0)
-                {
-                    continue;
-                }
-                if (count > stack.getCount())
-                {
-                    count = stack.getCount();
-                }
-                ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) MalumSpiritTypes.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
-                if (type.isEmpty())
-                {
-                    throw new RuntimeException("Somehow, an invalid spirit identifier was harvested. 'Why?' is a good question my friend. Incorrect identifier: " + spirit);
-                }
-                MalumSpiritType spiritType = type.get(0);
-                ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(spiritType.splinterItem, count));
-                stack.shrink(count);
-                int extra = count - stack.getCount();
-                spirits.set(i, Pair.of(spirit, extra));
-            }
-        }
-        items = new ArrayList<>();
+        List<ItemStack> items = new ArrayList<>();
         if (validate(player.getHeldItemOffhand()))
         {
             items.add(player.getHeldItemOffhand());
         }
-        
+    
         items.addAll(player.inventory.mainInventory.stream().filter(SpiritHelper::validate).collect(Collectors.toList()));
-        if (items.isEmpty())
+        if (!items.isEmpty())
         {
-            return;
-        }
-        for (ItemStack stack : items)
-        {
-            for (int i = 0; i < spirits.size(); i++)
+            for (ItemStack stack : items)
             {
-                String spirit = spirits.get(i).getFirst();
-                int count = spirits.get(i).getSecond();
-                if (count == 0)
+                for (int i = 0; i < spirits.size(); i++)
                 {
-                    continue;
+                    String spirit = spirits.get(i).getFirst();
+                    int count = spirits.get(i).getSecond();
+                    if (count == 0)
+                    {
+                        continue;
+                    }
+                    ISpiritHolderItem holder = (ISpiritHolderItem) stack.getItem();
+                    ArrayList<Pair<String, Integer>> itemSpirits = itemSpirits(stack, false);
+                    if (itemSpirits.size() >= holder.getSpiritSlots() && itemSpirits.stream().noneMatch(p -> p.getFirst().equals(spirit)))
+                    {
+                        continue;
+                    }
+                    int extra = giveStackSpirit(stack, spirit, count);
+                    spirits.set(i, Pair.of(spirit, extra));
                 }
-                ISpiritHolderBlockItem holder = (ISpiritHolderBlockItem) stack.getItem();
-                ArrayList<Pair<String, Integer>> itemSpirits = itemSpirits(stack, false);
-                if (itemSpirits.size() >= holder.getSpiritSlots() && itemSpirits.stream().noneMatch(p -> p.getFirst().equals(spirit)))
-                {
-                    continue;
-                }
-                int extra = giveStackSpirit(stack, spirit, count);
-                spirits.set(i, Pair.of(spirit, extra));
             }
         }
+        for (int i = 0; i < spirits.size(); i++)
+        {
+            String spirit = spirits.get(i).getFirst();
+            int count = spirits.get(i).getSecond();
+            if (count == 0)
+            {
+                continue;
+            }
+            MalumSpiritType spiritType = figureOutType(spirit);
+            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(spiritType.splinterItem, count));
+            spirits.set(i, Pair.of(spirit, 0));
+        }
+    }
+    public static MalumSpiritType figureOutType(String spirit)
+    {
+        ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) MalumSpiritTypes.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
+        if (type.isEmpty())
+        {
+            throw new RuntimeException("Somehow, an invalid spirit identifier was harvested. 'Why?' is a good question my friend. Incorrect identifier: " + spirit);
+        }
+        return type.get(0);
     }
     public static ArrayList<Pair<String, Integer>> entitySpirits(LivingEntity entity)
     {

@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpiritHolderItem extends Item implements ISpiritHolderBlockItem
+public class SpiritHolderItem extends Item implements ISpiritHolderItem
 {
     private final int spiritSlots;
     private final int maxSpirits;

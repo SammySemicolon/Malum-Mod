@@ -1,7 +1,7 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entities.SpiritEssenceEntity;
+import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -13,7 +13,7 @@ public class MalumEntities
 {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MalumMod.MODID);
     
-    public static final RegistryObject<EntityType<SpiritEssenceEntity>> SPIRIT_ESSENCE = ENTITY_TYPES.register("spirit_essence",
-            () -> EntityType.Builder.create(SpiritEssenceEntity::new, EntityClassification.MISC).size(0.5F, 0.75F)
+    public static final RegistryObject<EntityType<SpiritSplinterItemEntity>> SPIRIT_ESSENCE = ENTITY_TYPES.register("spirit_essence",
+            () -> EntityType.Builder.create(SpiritSplinterItemEntity::new, EntityClassification.MISC).size(0.5F, 0.75F)
                     .trackingRange(9).build(new ResourceLocation(MalumMod.MODID, "spirit_essence").toString()));
 }

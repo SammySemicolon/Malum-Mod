@@ -4,6 +4,7 @@ import com.sammy.malum.client.particles.itemcircle.ItemCircleParticleData;
 import com.sammy.malum.client.particles.spiritflame.SpiritFlameParticleData;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.IParticleData;
@@ -12,6 +13,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -25,6 +27,22 @@ import static com.sammy.malum.MalumMod.MODID;
 
 public class MalumHelper
 {
+    public static Entity getClosestEntity(List<Entity> entities, Vector3d pos)
+    {
+        double cachedDistance = -1.0D;
+        Entity resultEntity = null;
+        
+        for (Entity entity : entities)
+        {
+            double newDistance = entity.getDistanceSq(pos.x, pos.y, pos.z);
+            if (cachedDistance == -1.0D || newDistance < cachedDistance)
+            {
+                cachedDistance = newDistance;
+                resultEntity = entity;
+            }
+        }
+        return resultEntity;
+    }
     public static Vector3f pos(BlockPos pos)
     {
         return new Vector3f(pos.getX(),pos.getY(),pos.getZ());

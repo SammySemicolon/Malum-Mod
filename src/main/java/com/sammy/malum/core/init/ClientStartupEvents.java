@@ -8,7 +8,8 @@ import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnDebugTextRendererModule;
-import com.sammy.malum.common.entities.SpiritEssenceEntity;
+import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
+import com.sammy.malum.common.entities.SpiritSplinterItemRenderer;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
@@ -59,9 +60,9 @@ public class ClientStartupEvents
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SPIRIT_ESSENCE.get(), ClientStartupEvents::essenceRenderer);
     }
     
-    public static SpriteRenderer<SpiritEssenceEntity> essenceRenderer(EntityRendererManager manager)
+    public static SpiritSplinterItemRenderer essenceRenderer(EntityRendererManager manager)
     {
-        return new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer());
+        return new SpiritSplinterItemRenderer(manager, Minecraft.getInstance().getItemRenderer());
     }
     
     @SubscribeEvent
@@ -89,8 +90,6 @@ public class ClientStartupEvents
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
             ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
-        ClientHelper.registerItemColor(itemColors, MalumItems.EMPTY_SPLINTER, new Color(86, 86, 86));
-        
         ClientHelper.registerItemColor(itemColors, MalumItems.WILD_SPIRIT_SPLINTER, new Color(165, 255, 40));
         ClientHelper.registerItemColor(itemColors, MalumItems.UNDEAD_SPIRIT_SPLINTER, new Color(101, 9, 18));
         ClientHelper.registerItemColor(itemColors, MalumItems.NIMBLE_SPIRIT_SPLINTER, new Color(195, 213, 213));

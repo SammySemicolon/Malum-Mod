@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.init.MalumItems.EMPTY_SPLINTER;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -41,7 +40,7 @@ public class StartupEvents
     public static void bindSpiritsToSplinters(FMLCommonSetupEvent event)
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
-        ArrayList<RegistryObject<Item>> registryObjects = (ArrayList<RegistryObject<Item>>) MalumHelper.takeAll(items, t -> t.get() instanceof SpiritSplinterItem && !t.equals(EMPTY_SPLINTER));
+        ArrayList<RegistryObject<Item>> registryObjects = (ArrayList<RegistryObject<Item>>) MalumHelper.takeAll(items, t -> t.get() instanceof SpiritSplinterItem);
         ArrayList<SpiritSplinterItem> splinters = new ArrayList<>();
         registryObjects.forEach(t -> splinters.add((SpiritSplinterItem) t.get()));
         for (MalumSpiritType spiritType : MalumSpiritTypes.SPIRITS)

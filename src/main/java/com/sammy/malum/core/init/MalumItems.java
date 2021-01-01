@@ -2,13 +2,12 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.items.TaintRudimentItem;
 import com.sammy.malum.common.items.equipment.armor.RuinArmor;
-import com.sammy.malum.common.items.equipment.armor.UmbralArmor;
 import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
 import com.sammy.malum.common.items.equipment.curios.CurioKarmicHolder;
 import com.sammy.malum.common.items.food.LunarSyrupBottleItem;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
-import com.sammy.malum.common.items.tools.scythes.CreativeScythe;
+
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.MalumBuildingTab;
 import com.sammy.malum.core.MalumCreativeTab;
@@ -63,8 +62,6 @@ public class MalumItems
     //region spirits
     
     //region splinters
-    public static final RegistryObject<Item> EMPTY_SPLINTER = ITEMS.register("empty_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
-    
     public static final RegistryObject<Item> WILD_SPIRIT_SPLINTER = ITEMS.register("wild_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> UNDEAD_SPIRIT_SPLINTER = ITEMS.register("undead_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> NIMBLE_SPIRIT_SPLINTER = ITEMS.register("nimble_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
@@ -322,15 +319,18 @@ public class MalumItems
     //region combined components
     
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRIT_SHARD = ITEMS.register("spirit_shard", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> REANIMATED_MATTER = ITEMS.register("reanimated_matter", () -> new Item(DEFAULT_PROPERTIES().food((new Food.Builder()).effect(new EffectInstance(Effects.HUNGER, 300, 1), 0.2F).meat().hunger(10).saturation(2F).build())));
 //    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> GREATER_SPIRIT_SHARD = ITEMS.register("greater_spirit_shard", () -> new Item(DEFAULT_PROPERTIES()));
 //    public static final RegistryObject<Item> SHARD_OF_WISDOM = ITEMS.register("shard_of_wisdom", () -> new SimpleFoiledItem(DEFAULT_PROPERTIES().rarity(Rarity.UNCOMMON)));
     
     //endregion
     
     //region contents
     public static final RegistryObject<Item> TAINT_RUDIMENT = ITEMS.register("taint_rudiment", () -> new TaintRudimentItem(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TAINTED_SCYTHE = ITEMS.register("tainted_scythe", () -> new ScytheItem(TAINTED_ITEM, 0, 0,GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
@@ -339,7 +339,8 @@ public class MalumItems
     public static final RegistryObject<Item> LUNAR_SAP_BOTTLE = ITEMS.register("lunar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> LUNAR_SAPBALL = ITEMS.register("lunar_sapball", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> LUNAR_SYRUP_BOTTLE = ITEMS.register("lunar_syrup_bottle", () -> new LunarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
-
+    
+    public static final RegistryObject<Item> RUIN_SCYTHE = ITEMS.register("ruin_scythe", () -> new ScytheItem(RUIN_ITEM, 0, 0,GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_SWORD = ITEMS.register("ruin_sword", () -> new ModSwordItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_PICKAXE = ITEMS.register("ruin_pickaxe", () -> new ModPickaxeItem(RUIN_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RUIN_AXE = ITEMS.register("ruin_axe", () -> new ModAxeItem(RUIN_ITEM, 2, 0, GEAR_PROPERTIES()));
@@ -384,7 +385,6 @@ public class MalumItems
     
     //region hidden items
     public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new SpiritHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
-    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", CreativeScythe::new);
     public static final RegistryObject<Item> SPIRIT_ESSENCE_ITEM = ITEMS.register("spirit_essence_item", () -> new Item(CREATIVE_PROPERTIES()));
     
     public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));

@@ -10,5 +10,4 @@ public class ModShovelItem extends ShovelItem
     {
         super(material, damage + 1.5f, speed - 3f, properties.maxDamage(material.getMaxUses()).addToolType(ToolType.SHOVEL, material.getHarvestLevel()));
     }
-    
 }
