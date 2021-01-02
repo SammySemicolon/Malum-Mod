@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "X X"
+  ],
+  "key": {
+    "X": {
+      "item": "malum:spirited_steel_ingot"
+    }
+  },
+  "result": {
+    "item": "malum:spirited_steel_helmet"
+  }
+}

@@ -28,8 +28,8 @@
     "malum:transmissive_metal_block_stairs",
     "malum:transmissive_metal_tiles_stairs",
     "malum:stacked_transmissive_metal_stairs",
-    "malum:ruin_plating_block_stairs",
-    "malum:ruin_plating_tiles_stairs",
-    "malum:stacked_ruin_plating_stairs"
+    "malum:spirited_steel_block_stairs",
+    "malum:spirited_steel_tiles_stairs",
+    "malum:stacked_spirited_steel_stairs"
   ]
 }

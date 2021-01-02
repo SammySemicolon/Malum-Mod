@@ -1,12 +1,12 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumItemTags;
 import com.sammy.malum.core.init.MalumItems;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
@@ -26,10 +26,6 @@ public class MalumItemTagProvider extends ItemTagsProvider
     {
         return "Malum Item Tags";
     }
-    
-    public static final ITag.INamedTag<Item> SUN_KISSED_LOGS = makeWrapperTag("sun_logs");
-    public static final ITag.INamedTag<Item> TAINTED_LOGS = makeWrapperTag("tainted_logs");
-    public static final ITag.INamedTag<Item> LAVENDER = makeWrapperTag("lavender");
     
     public static ITag.INamedTag<Item> makeWrapperTag(String id)
     {
@@ -77,13 +73,14 @@ public class MalumItemTagProvider extends ItemTagsProvider
         this.copy(BlockTags.FLOWERS, ItemTags.FLOWERS);
         this.copy(BlockTags.GOLD_ORES, ItemTags.GOLD_ORES);
         this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
-        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.SOLAR_SAPBALL.get(), MalumItems.LUNAR_SAPBALL.get());
-        getOrCreateBuilder(SAPBALLS).add(MalumItems.SOLAR_SAPBALL.get(), MalumItems.LUNAR_SAPBALL.get());
     
+        getOrCreateBuilder(UNHOLY_TRINKET).add(Items.SPIDER_EYE,Items.ROTTEN_FLESH);
         getOrCreateBuilder(SUN_KISSED_LOGS).add(MalumItems.SUN_KISSED_LOG.get(), MalumItems.STRIPPED_SUN_KISSED_LOG.get(), MalumItems.SUN_KISSED_WOOD.get(), MalumItems.STRIPPED_SUN_KISSED_WOOD.get());
         getOrCreateBuilder(TAINTED_LOGS).add(MalumItems.TAINTED_LOG.get(), MalumItems.STRIPPED_TAINTED_LOG.get(), MalumItems.TAINTED_WOOD.get(), MalumItems.STRIPPED_TAINTED_WOOD.get());
         getOrCreateBuilder(LAVENDER).add(MalumItems.LAVENDER.get(), MalumItems.TAINTED_LAVENDER.get());
-        getOrCreateBuilder(RUIN_PLATING_BLOCKS).add(MalumItems.RUIN_PLATING_BLOCK.get(), MalumItems.RUIN_PLATING_TILES.get(), MalumItems.STACKED_RUIN_PLATING.get());
+        getOrCreateBuilder(SPIRITED_STEEL_BLOCKS).add(MalumItems.SPIRITED_STEEL_BLOCK.get(), MalumItems.SPIRITED_STEEL_TILES.get(), MalumItems.STACKED_SPIRITED_STEEL.get());
         getOrCreateBuilder(TRANSMISSIVE_METAL_BLOCKS).add(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
+        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.SOLAR_SAPBALL.get(), MalumItems.LUNAR_SAPBALL.get());
+        getOrCreateBuilder(SAPBALLS).add(MalumItems.SOLAR_SAPBALL.get(), MalumItems.LUNAR_SAPBALL.get());
     }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/farmland",
+  "textures": {
+    "top": "malum:block/wild_farmland"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:spirited_steel_plating_block_from_stacked_spirited_steel_plating"
+    ]
+  },
+  "criteria": {
+    "has_spirited_steel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:spirited_steel_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:spirited_steel_plating_block_from_stacked_spirited_steel_plating"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spirited_steel",
+      "has_the_recipe"
+    ]
+  ]
+}

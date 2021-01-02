@@ -10,6 +10,7 @@ import net.minecraft.advancements.criterion.*;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
+import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -65,8 +66,10 @@ public class MalumLootTableProvider extends LootTableProvider
     @Override
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables()
     {
+        
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
+        blocks.remove(MalumBlocks.BLAZE_QUARTZ_ORE);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);
         takeAll(blocks, b -> b.get() instanceof LeavesBlock);
         takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> registerLootTable(b.get(),onlyWithShears(b.get().asItem())));
@@ -77,6 +80,7 @@ public class MalumLootTableProvider extends LootTableProvider
     
         takeAll(blocks, b -> true).forEach(b -> registerLootTable(b.get(), dropping(b.get().asItem())));
     
+        registerLootTable(MalumBlocks.BLAZE_QUARTZ_ORE.get(),droppingItemWithFortune(MalumBlocks.BLAZE_QUARTZ_ORE.get(), MalumItems.BLAZE_QUARTZ.get()));
         registerLootTable(MalumBlocks.SUN_KISSED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.SUN_KISSED_LEAVES.get(), MalumBlocks.SUN_KISSED_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         registerLootTable(MalumBlocks.TAINTED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.TAINTED_LEAVES.get(), MalumBlocks.TAINTED_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         return tables;

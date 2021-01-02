@@ -25,6 +25,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.server.ServerWorld;
 
@@ -164,9 +165,8 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public void finishEffects(Vector3d outputPos)
     {
         MalumHelper.makeFancyCircle((ServerWorld) world, outputPos);
-        Vector3d furnaceItemPos = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
-        furnaceItemPos.add(itemOffset(this));
-        
+        Vector3d itemOffset = itemOffset(this);
+        Vector3d furnaceItemPos = new Vector3d(pos.getX() + itemOffset.x,pos.getY() + itemOffset.y,pos.getZ() + itemOffset.z);
         MalumHelper.makeFancyCircle((ServerWorld) world, furnaceItemPos);
         
         world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FINISH, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
@@ -185,8 +185,8 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public void itemConsumeEffects(ItemStandTileEntity standTileEntity)
     {
         BlockPos standPos = standTileEntity.getPos();
-        Vector3d standItemPos = new Vector3d(standPos.getX(), standPos.getY(), standPos.getZ());
-        standItemPos.add(ItemStandTileEntity.itemOffset(standTileEntity));
+        Vector3d itemOffset = ItemStandTileEntity.itemOffset(standTileEntity);
+        Vector3d standItemPos = new Vector3d(standPos.getX() + itemOffset.x, standPos.getY() + itemOffset.y, standPos.getZ() + itemOffset.z);
         MalumHelper.makeFancyCircle((ServerWorld) world, standItemPos);
         world.playSound(null, standPos, MalumSounds.TAINTED_FURNACE_CONSUME, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
     }

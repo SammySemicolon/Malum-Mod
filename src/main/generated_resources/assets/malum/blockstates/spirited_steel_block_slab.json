@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "malum:block/spirited_steel_block_slab_top"
+    },
+    "type=bottom": {
+      "model": "malum:block/spirited_steel_block_slab"
+    },
+    "type=double": {
+      "model": "malum:block/spirited_steel_block"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "side": "malum:block/spirited_steel_block",
+    "bottom": "malum:block/spirited_steel_block",
+    "top": "malum:block/spirited_steel_block"
+  }
+}

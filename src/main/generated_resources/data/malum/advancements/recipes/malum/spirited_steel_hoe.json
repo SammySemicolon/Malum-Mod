@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:spirited_steel_hoe"
+    ]
+  },
+  "criteria": {
+    "has_spirited_steel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:spirited_steel_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:spirited_steel_hoe"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spirited_steel",
+      "has_the_recipe"
+    ]
+  ]
+}

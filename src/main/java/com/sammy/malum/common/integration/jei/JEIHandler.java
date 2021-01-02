@@ -1,7 +1,7 @@
 package com.sammy.malum.common.integration.jei;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.integration.jei.tainttransfusion.SpiritKilnRecipeCategory;
+import com.sammy.malum.common.integration.jei.spiritkiln.SpiritKilnRecipeCategory;
 import com.sammy.malum.common.integration.jei.tainttransfusion.TaintTransfusionRecipeCategory;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.recipes.TaintTransfusion;
@@ -25,7 +25,6 @@ public class JEIHandler implements IModPlugin
     public void registerCategories(IRecipeCategoryRegistration registry)
     {
         registry.addRecipeCategories(
-                //new ArcaneCraftingRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
                 new TaintTransfusionRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
                 new SpiritKilnRecipeCategory(registry.getJeiHelpers().getGuiHelper())
         );
@@ -34,7 +33,6 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
-        //registry.addRecipes(ArcaneCraftingRecipe.recipes, ArcaneCraftingRecipeCategory.UID);
         registry.addRecipes(TaintTransfusion.transfusions, TaintTransfusionRecipeCategory.UID);
         registry.addRecipes(SpiritKilnRecipe.recipes.subList(0, SpiritKilnRecipe.advancedRecipeCount), SpiritKilnRecipeCategory.UID);
     

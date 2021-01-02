@@ -65,6 +65,10 @@ public class MalumSpiritTypes
     
     public static boolean isSinister(LivingEntity entity) //illagers
     {
+        if (entity.getType().getRegistryName().getPath().equals("necromancer"))
+        {
+            return true;
+        }
         if (entity.getCreatureAttribute().equals(CreatureAttribute.ILLAGER))
         {
             return true;
@@ -74,6 +78,10 @@ public class MalumSpiritTypes
     
     public static boolean isArcane(LivingEntity entity) //made or capable of using magic, or a phenomenon
     {
+        if (entity.getType().getRegistryName().getPath().equals("wraith"))
+        {
+            return true;
+        }
         return entity instanceof SpellcastingIllagerEntity || entity instanceof VexEntity || entity instanceof WanderingTraderEntity || entity instanceof WitchEntity || entity instanceof PhantomEntity || entity instanceof GhastEntity || entity instanceof MooshroomEntity;
     }
     
@@ -88,10 +96,6 @@ public class MalumSpiritTypes
     
     public static boolean isNetherborne(LivingEntity entity) //immune to fire, or born in the nether
     {
-        if (entity.isImmuneToFire())
-        {
-            return true;
-        }
         return entity instanceof ZoglinEntity || entity instanceof GhastEntity || entity instanceof HoglinEntity || entity instanceof AbstractPiglinEntity || entity instanceof MagmaCubeEntity || entity instanceof StriderEntity;
     }
     
@@ -106,6 +110,10 @@ public class MalumSpiritTypes
     
     public static boolean isFusible(LivingEntity entity) //metal, iron stuff
     {
+        if (entity.getType().getRegistryName().getPath().equals("zombie_brute"))
+        {
+            return true;
+        }
         return entity instanceof IronGolemEntity || entity instanceof ZombieEntity || entity instanceof ZombieHorseEntity || entity instanceof AbstractPiglinEntity;
     }
     

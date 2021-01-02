@@ -54,6 +54,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(BLAZE_QUARTZ_ORE);
         blocks.remove(MalumBlocks.ITEM_STAND);
+        blocks.remove(MalumBlocks.PLANTER_BOX);
         
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCraftingTableBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
@@ -64,6 +65,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("horizontal_flared_")).forEach(this::horizontalFlaredBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getTranslationKey().endsWith("_cap")).forEach(this::pillarCapBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof FarmlandBlock).forEach(this::farmlandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof StairsBlock).forEach(this::stairsBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
@@ -90,6 +92,13 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         simpleBlock(blockRegistryObject.get());
     }
     
+    public void farmlandBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile cross = models().withExistingParent(name, new ResourceLocation("block/farmland")).texture("top", prefix("block/" + name));
+        
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(cross).build());
+    }
     public void cutBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
