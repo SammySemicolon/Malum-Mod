@@ -37,6 +37,8 @@ public class MalumSounds
     public static final SoundEvent ABSTRUSE_BLOCK_RETURN = new SoundEvent(MalumHelper.prefix("abstruse_block_return"));
     public static final SoundEvent RUIN_ARMOR_EQUIP = new SoundEvent(MalumHelper.prefix("ruin_armor_equip"));
     public static final SoundEvent TAINT_SPREAD = new SoundEvent(MalumHelper.prefix("taint_spread"));
+    public static final SoundEvent SCYTHE_STRIKE = new SoundEvent(MalumHelper.prefix("scythe_strike"));
+    public static final SoundEvent SPIRIT_HARVEST = new SoundEvent(MalumHelper.prefix("spirit_harvest"));
     
     public static final SoundEvent TAINTED_FURNACE_CONSUME = new SoundEvent(MalumHelper.prefix("tainted_furnace_consume"));
     public static final SoundEvent TAINTED_FURNACE_FAIL = new SoundEvent(MalumHelper.prefix("tainted_furnace_fail"));
@@ -76,6 +78,8 @@ public class MalumSounds
         SOUNDS.register("abstruse_block_return", ()-> ABSTRUSE_BLOCK_RETURN);
         SOUNDS.register("ruin_armor_equip", ()-> RUIN_ARMOR_EQUIP);
         SOUNDS.register("taint_spread", ()-> TAINT_SPREAD);
+        SOUNDS.register("scythe_strike", ()-> SCYTHE_STRIKE);
+        SOUNDS.register("spirit_harvest", ()-> SPIRIT_HARVEST);
     
         SOUNDS.register("tainted_furnace_consume", ()-> TAINTED_FURNACE_CONSUME);
         SOUNDS.register("tainted_furnace_fail", ()-> TAINTED_FURNACE_FAIL);

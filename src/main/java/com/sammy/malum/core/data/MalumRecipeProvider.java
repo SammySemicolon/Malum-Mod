@@ -48,12 +48,14 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.ITEM_STAND.get()).key('#', MalumItems.TAINTED_ROCK.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine(" Y ").patternLine("#X#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         
         //        shapedRecipe(MalumItems.KARMIC_HOLDER.get()).key('#', MalumItems.SHARD_OF_WISDOM.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', Items.STRING).patternLine(" Y ").patternLine("YXY").patternLine(" # ").addCriterion("has_shard_of_wisdom", hasItem(MalumItems.SHARD_OF_WISDOM.get())).build(consumer);
-        
+    
+        ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
+    
         shapelessRecipe(MalumItems.SOLAR_SAPBALL.get()).addIngredient(MalumItems.PENUMBRAL_MOLD.get()).addIngredient(MalumItems.SOLAR_SAP_BOTTLE.get()).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
         shapelessRecipe(MalumItems.LUNAR_SAPBALL.get()).addIngredient(MalumItems.PENUMBRAL_MOLD.get()).addIngredient(MalumItems.LUNAR_SAP_BOTTLE.get()).addCriterion("has_lunar_sap", hasItem(MalumItems.LUNAR_SAP_BOTTLE.get())).build(consumer);
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOLAR_SAP_BOTTLE.get()), MalumItems.SOLAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
         smeltingRecipe(Ingredient.fromItems(MalumItems.LUNAR_SAP_BOTTLE.get()), MalumItems.LUNAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_lunar_sap", hasItem(MalumItems.LUNAR_SAP_BOTTLE.get())).build(consumer);
-        
+    
         ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(SAPBALLS).addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER)).build(consumer, "magma_cream_from_sapballs");
         ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON).key('P', Blocks.PISTON).key('S', SAPBALLS).patternLine("S").patternLine("P").addCriterion("has_sapballs", hasItem(SAPBALLS)).build(consumer, "sticky_piston_from_sapballs");
         ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2).key('~', Items.STRING).key('O', SAPBALLS).patternLine("~~ ").patternLine("~O ").patternLine("  ~").addCriterion("has_sapballs", hasItem(SAPBALLS)).build(consumer);

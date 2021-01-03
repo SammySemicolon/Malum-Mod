@@ -8,7 +8,6 @@ import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnDebugTextRendererModule;
-import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
 import com.sammy.malum.common.entities.SpiritSplinterItemRenderer;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
@@ -23,7 +22,6 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
@@ -36,7 +34,6 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -99,7 +96,7 @@ public class ClientStartupEvents
         ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT_SPLINTER, MalumSpiritTypes.ARCANE_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.SULPHURIC_SPIRIT_SPLINTER, MalumSpiritTypes.SULPHURIC_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.NETHERBORNE_SPIRIT_SPLINTER, MalumSpiritTypes.NETHERBORNE_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.REMEDIAL_SPIRIT_SPLINTER, MalumSpiritTypes.REMEDIAL_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.REMEDIAL_SPIRIT_SPLINTER, MalumSpiritTypes.AVARICIOUS_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.FUSIBLE_SPIRIT_SPLINTER, MalumSpiritTypes.FUSIBLE_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.TERMINUS_SPIRIT_SPLINTER, MalumSpiritTypes.TERMINUS_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, MalumSpiritTypes.ELDRITCH_SPIRIT_COLOR);

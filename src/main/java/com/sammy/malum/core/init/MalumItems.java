@@ -302,8 +302,6 @@ public class MalumItems
     //    public static final RegistryObject<Item> ARCANE_CRAFTING_TABLE = ITEMS.register("arcane_crafting_table", () -> new BlockItem(MalumBlocks.ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));
     public static final RegistryObject<Item> ITEM_STAND = ITEMS.register("item_stand", () -> new BlockItem(MalumBlocks.ITEM_STAND.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> PLANTER_BOX = ITEMS.register("planter_box", () -> new BlockItem(MalumBlocks.PLANTER_BOX.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> WILD_FARMLAND = ITEMS.register("wild_farmland", () -> new BlockItem(MalumBlocks.WILD_FARMLAND.get(), DEFAULT_PROPERTIES()));
     //endregion
     
     //region simple components
@@ -332,7 +330,8 @@ public class MalumItems
     
     //region contents
     public static final RegistryObject<Item> TAINT_RUDIMENT = ITEMS.register("taint_rudiment", () -> new TaintRudimentItem(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(ItemTier.IRON, 1, 0f,GEAR_PROPERTIES()));
+    
+    public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(ItemTier.IRON, 0, 0.1f,GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
@@ -342,7 +341,7 @@ public class MalumItems
     public static final RegistryObject<Item> LUNAR_SAPBALL = ITEMS.register("lunar_sapball", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> LUNAR_SYRUP_BOTTLE = ITEMS.register("lunar_syrup_bottle", () -> new LunarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
     
-    public static final RegistryObject<Item> SPIRITED_STEEL_SCYTHE = ITEMS.register("spirited_steel_scythe", () -> new ScytheItem(SPIRITED_STEEL_ITEM, 1, 0.4f,GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_STEEL_SCYTHE = ITEMS.register("spirited_steel_scythe", () -> new ScytheItem(SPIRITED_STEEL_ITEM, 0, 0.2f,GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SPIRITED_STEEL_SWORD = ITEMS.register("spirited_steel_sword", () -> new ModSwordItem(SPIRITED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SPIRITED_STEEL_PICKAXE = ITEMS.register("spirited_steel_pickaxe", () -> new ModPickaxeItem(SPIRITED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SPIRITED_STEEL_AXE = ITEMS.register("spirited_steel_axe", () -> new ModAxeItem(SPIRITED_STEEL_ITEM, 2, 0, GEAR_PROPERTIES()));
@@ -369,6 +368,8 @@ public class MalumItems
     
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> WILD_FARMLAND = ITEMS.register("wild_farmland", () -> new BlockItem(MalumBlocks.WILD_FARMLAND.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> PLANTER_BOX = ITEMS.register("planter_box", () -> new BlockItem(MalumBlocks.PLANTER_BOX.get(), DEFAULT_PROPERTIES()));
     //endregion
     
     //region curios
@@ -386,6 +387,7 @@ public class MalumItems
     //endregion
     //region hidden items
     public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new SpiritHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
+    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(ItemTier.IRON, 9993, 9.19f,GEAR_PROPERTIES().defaultMaxDamage(0)));
     
     public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));
     //endregion

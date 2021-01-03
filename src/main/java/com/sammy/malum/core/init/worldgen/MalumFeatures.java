@@ -6,6 +6,7 @@ import com.sammy.malum.common.world.features.tree.GradientFoliagePlacer;
 import com.sammy.malum.common.world.features.tree.HugeGradientBlockStateProvider;
 import com.sammy.malum.common.world.features.tree.SunKissedGroundDecorator;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
@@ -24,4 +25,7 @@ public class MalumFeatures
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> HUGE_TAINTED_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "huge_tainted_tree", Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(MalumBlocks.TAINTED_LOG.get().getDefaultState()), new HugeGradientBlockStateProvider(MalumBlocks.TAINTED_LEAVES.get().getDefaultState()), new MegaPineFoliagePlacer(FeatureSpread.func_242252_a(0), FeatureSpread.func_242252_a(0), FeatureSpread.func_242253_a(13, 4)), new GiantTrunkPlacer(13, 2, 14), new TwoLayerFeature(1, 1, 2))).setDecorators(ImmutableList.of(new SunKissedGroundDecorator(new SimpleBlockStateProvider(MalumBlocks.TAINTED_GRASS_BLOCK.get().getDefaultState())))).build()));
     
     public static final ConfiguredFeature<?, ?> SUN_SPOT = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "sun_spot", SUN_KISSED_TREE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.025F, 5))));
+    
+    public static final ConfiguredFeature<?,?> BLAZE_QUARTZ_ORE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "blaze_quartz_ore", Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, MalumBlocks.BLAZE_QUARTZ_ORE.get().getDefaultState(), 6)).range(128).square().func_242731_b(20));
+    
 }

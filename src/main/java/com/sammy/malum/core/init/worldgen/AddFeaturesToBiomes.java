@@ -16,5 +16,10 @@ public class AddFeaturesToBiomes
         {
             event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.SUN_SPOT);
         }
+        if (event.getCategory().equals(Biome.Category.NETHER))
+        {
+            event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.BLAZE_QUARTZ_ORE);
+    
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
+import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
@@ -33,9 +34,9 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         items.remove(MalumItems.FOOLS_BLESSING);
-        
-        takeAll(items, i -> i.get() instanceof SpiritSplinterItem).forEach(this::spiritSplinterItem);
+        takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
+        takeAll(items, i -> i.get() instanceof SpiritSplinterItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);

@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "item/handheld",
   "textures": {
     "layer0": "malum:item/crude_scythe"
   }

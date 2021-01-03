@@ -67,11 +67,13 @@ public class SpiritKilnRecipe
     
     public static void init()
     {
-        new SpiritKilnRecipe(Items.DIAMOND, 1, MalumItems.SOUL_SHARD.get(), 1, 2, Items.SOUL_SAND);
+        new SpiritKilnRecipe(Items.SOUL_SAND, 1, MalumItems.SOUL_SHARD.get(), 1, 2, MalumItems.BLAZE_QUARTZ.get(), Items.QUARTZ);
         new SpiritKilnRecipe(Items.GOLD_INGOT, 2, MalumItems.TRANSMISSIVE_METAL_INGOT.get(), 1, 4, MalumItems.REMEDIAL_SPIRIT_SPLINTER.get());
         new SpiritKilnRecipe(Items.GLOWSTONE_DUST, 4, MalumItems.DARK_FLARES.get(), 2, 4, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), Items.COAL, Items.GUNPOWDER);
         new SpiritKilnRecipe(Items.IRON_INGOT, 8, MalumItems.SPIRITED_STEEL_INGOT.get(), 8, 4, MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(MalumItems.RUIN_PLATING.get(), 2, MalumItems.UMBRAL_METAL_INGOT.get(), 1,8, MalumItems.ECTOPLASM.get(), MalumItems.REMEDIAL_SPIRIT_SPLINTER.get(), MalumItems.SINISTER_SPIRIT_SPLINTER.get());
+    
+        new SpiritKilnRecipe(MalumItems.CRUDE_SCYTHE.get(), 1, MalumItems.SPIRITED_STEEL_SCYTHE.get(), 1, 8, MalumItems.SOUL_SHARD.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get(), MalumItems.SPIRITED_STEEL_INGOT.get());
     
         new SpiritKilnRecipe(Items.COAL, 1, MalumItems.ARCANE_CHARCOAL.get(), 2, 1, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.ARCANE_SPIRIT_SPLINTER.get());
         new SpiritKilnRecipe(Items.ROTTEN_FLESH, 4, MalumItems.REANIMATED_MATTER.get(), 4, 2, MalumItems.UNDEAD_SPIRIT_SPLINTER.get(), MalumItems.WILD_SPIRIT_SPLINTER.get());
