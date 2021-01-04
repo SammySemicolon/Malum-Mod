@@ -12,17 +12,18 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import java.awt.*;
 import java.util.UUID;
 
 public class SpiritSplinterItemEntity extends ProjectileItemEntity
 {
+    public static final DataParameter<String> SPLINTER_NAME = EntityDataManager.createKey(SpiritSplinterItemEntity.class, DataSerializers.STRING);
+    
     public SpiritSplinterItem splinter;
     public UUID ownerUUID;
     public PlayerEntity owner;
@@ -34,24 +35,11 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     public SpiritSplinterItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
     {
         super(type, worldIn);
-        noClip = true;
+        noClip = false;
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
     
-    public static final DataParameter<String> SPLINTER_NAME = EntityDataManager.createKey(SpiritSplinterItemEntity.class, DataSerializers.STRING);
-    
-    public float getItemHover(float partialTicks)
-    {
-        return (rotation + partialTicks) / 20.0F + hoverStart;
-    }
-    
-    @Override
-    public float getCollisionBorderSize()
-    {
-        return 4f;
-    }
-    
-    public PlayerEntity owner()
+    public PlayerEntity updateOwner()
     {
         if (owner == null)
         {
@@ -82,41 +70,29 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
         if (MalumHelper.areWeOnServer(world))
         {
             setMotion(getMotion().mul(0.9f, 0.8f, 0.9f));
-            PlayerEntity playerEntity = owner();
-            if (playerEntity == null)
+            if (updateOwner() != null)
             {
-                return;
-            }
-            float distance = getDistance(playerEntity);
-            if (age > 10)
-            {
-                if (distance < 2f)
+                float distance = getDistance(owner);
+                if (age > 10)
                 {
-                    float velocity = 0.25f;
-                    Vector3d ownerPos = owner.getPositionVec().add(0, 0, 0);
-                    Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(), ownerPos.z - getPosZ()).normalize().mul(velocity, velocity, velocity);
-                    setMotion(desiredMotion);
-                }
-                if (distance < 0.5f)
-                {
-                    if (isAlive())
+                    if (distance < 2f)
                     {
-                        SpiritHelper.harvestSpirit(splinter.type.identifier, owner);
-                        remove();
+                        float velocity = 0.25f;
+                        Vector3d ownerPos = owner.getPositionVec().add(0, 0, 0);
+                        Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(), ownerPos.z - getPosZ()).normalize().mul(velocity, velocity, velocity);
+                        setMotion(desiredMotion);
+                    }
+                    if (distance < 0.5f)
+                    {
+                        if (isAlive())
+                        {
+                            SpiritHelper.harvestSpirit(splinter.type.identifier, owner);
+                            remove();
+                        }
                     }
                 }
             }
         }
-    }
-    
-    @Override
-    protected Item getDefaultItem()
-    {
-        if (splinter == null)
-        {
-            splinter = SpiritHelper.figureOutType(dataManager.get(SPLINTER_NAME)).splinterItem;
-        }
-        return splinter;
     }
     
     @Override
@@ -128,6 +104,8 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
             compound.putUniqueId("ownerUUID", ownerUUID);
         }
         compound.putString("splinterType", splinter.type.identifier);
+        compound.putInt("age",age);
+        compound.putFloat("rotation",rotation);
     }
     
     @Override
@@ -137,10 +115,12 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
         if (compound.contains("ownerUUID"))
         {
             ownerUUID = compound.getUniqueId("ownerUUID");
-            owner = owner();
+            updateOwner();
         }
         splinter = SpiritHelper.figureOutType(compound.getString("splinterType")).splinterItem;
         dataManager.set(SPLINTER_NAME, splinter.type.identifier);
+        age = compound.getInt("age");
+        rotation = compound.getFloat("rotation");
     }
     
     @Override
@@ -153,5 +133,21 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     public boolean hasNoGravity()
     {
         return true;
+    }
+    
+    @Override
+    public float getCollisionBorderSize()
+    {
+        return 4f;
+    }
+    
+    @Override
+    protected Item getDefaultItem()
+    {
+        if (splinter == null)
+        {
+            splinter = SpiritHelper.figureOutType(dataManager.get(SPLINTER_NAME)).splinterItem;
+        }
+        return splinter;
     }
 }

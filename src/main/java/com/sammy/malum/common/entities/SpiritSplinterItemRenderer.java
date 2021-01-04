@@ -63,13 +63,13 @@ public class SpiritSplinterItemRenderer extends EntityRenderer<SpiritSplinterIte
         ItemStack itemstack = entityIn.getItem();
         int i = itemstack.isEmpty() ? 187 : Item.getIdFromItem(itemstack.getItem()) + itemstack.getDamage();
         this.random.setSeed(i);
-        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, (LivingEntity) null);
+        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, null);
         boolean flag = ibakedmodel.isGui3d();
         int j = this.getModelCount(itemstack);
         float f1 = MathHelper.sin(((float) entityIn.age + partialTicks) / 10.0F + entityIn.hoverStart) * 0.1F + 0.1F;
         float f2 = ibakedmodel.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.getY();
         matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
-        float f3 = entityIn.getItemHover(partialTicks);
+        float f3 =(entityIn.rotation + partialTicks) / 20.0F + entityIn.hoverStart;
         matrixStackIn.rotate(Vector3f.YP.rotation(f3));
         if (!flag)
         {

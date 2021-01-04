@@ -4,9 +4,6 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
-import com.sammy.malum.common.blocks.arcanecraftingtable.ArcaneCraftingTableBlock;
-import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
-import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -56,10 +53,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         blocks.remove(MalumBlocks.ITEM_STAND);
         blocks.remove(MalumBlocks.PLANTER_BOX);
         
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCraftingTableBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractSpiritPipeBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock);
     
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("horizontal_flared_")).forEach(this::horizontalFlaredBlock);

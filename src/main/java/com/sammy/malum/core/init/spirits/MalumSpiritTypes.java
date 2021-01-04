@@ -205,6 +205,10 @@ public class MalumSpiritTypes
     
     public static boolean isNetherborne(LivingEntity entity) //born in the netha
     {
+        if (entity.isImmuneToFire())
+        {
+            return true;
+        }
         return entity instanceof ZoglinEntity || entity instanceof GhastEntity || entity instanceof HoglinEntity || entity instanceof AbstractPiglinEntity || entity instanceof MagmaCubeEntity || entity instanceof StriderEntity || entity instanceof WitherEntity || entity instanceof WitherSkeletonEntity;
     }
     public static int howNetherborne(LivingEntity entity) //how annoying are they to kill.

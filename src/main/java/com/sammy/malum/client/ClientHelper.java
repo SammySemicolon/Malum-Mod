@@ -2,7 +2,6 @@ package com.sammy.malum.client;
 
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.core.systems.spirits.item.ISpiritHolderItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.util.ITooltipFlag;
@@ -35,23 +34,6 @@ public class ClientHelper
         {
             tooltip.addAll(components);
         }
-    }
-    
-    public static ArrayList<ITextComponent> stackSpiritsTooltip(ItemStack stack, ArrayList<Pair<String, Integer>> spirits)
-    {
-        ArrayList<ITextComponent> tooltip = new ArrayList<>();
-        if (SpiritHelper.validate(stack))
-        {
-            ISpiritHolderItem essenceHolder = (ISpiritHolderItem) stack.getItem();
-            for (int i = 0; i < spirits.size(); i++)
-            {
-                String spirit = spirits.get(i).getFirst();
-                int count = spirits.get(i).getSecond();
-                boolean lit = !spirit.equals("empty");
-                tooltip.add(combinedComponent(simpleTranslatableComponent("malum.tooltip.slot"), simpleComponent(" " + (i + 1) + ": "), importantComponent(count + "/" + essenceHolder.getMaxSpirits(), lit), importantComponent(spirit, lit)));
-            }
-        }
-        return tooltip;
     }
     
     public static IFormattableTextComponent simpleComponent(String message)

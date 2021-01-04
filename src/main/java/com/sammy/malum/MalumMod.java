@@ -3,6 +3,7 @@ package com.sammy.malum;
 import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.MalumItemTags;
 import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,6 +20,7 @@ import static com.sammy.malum.core.init.MalumEntities.ENTITY_TYPES;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.blocks.MalumTileEntities.TILE_ENTITIES;
+import static com.sammy.malum.core.init.enchantments.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.init.worldgen.MalumFoliagePlacerTypes.FOLIAGE;
 import static com.sammy.malum.core.init.worldgen.MalumSurfaceBuilders.BUILDERS;
 
@@ -36,7 +38,7 @@ public class MalumMod
     public MalumMod()
     {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-    
+        ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
         ITEMS.register(modBus);
         TILE_ENTITIES.register(modBus);

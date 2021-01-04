@@ -15,8 +15,6 @@ import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.MalumSplinterTab;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
-import com.sammy.malum.core.systems.spirits.item.SpiritHolderBlockItem;
-import com.sammy.malum.core.systems.spirits.item.SpiritHolderItem;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -377,16 +375,7 @@ public class MalumItems
     
     //end region
     
-    //region essence items
-    public static final RegistryObject<Item> ESSENCE_CAPACITOR = ITEMS.register("essence_capacitor", () -> new SpiritHolderItem(GEAR_PROPERTIES(), 1, 640));
-    public static final RegistryObject<Item> ESSENCE_VAULT = ITEMS.register("essence_vault", () -> new SpiritHolderItem(GEAR_PROPERTIES(), 4, 64));
-    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new SpiritHolderBlockItem(MalumBlocks.SPIRIT_JAR.get(), GEAR_PROPERTIES(),64));
-    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> OPEN_TRANSMISSIVE_METAL_BLOCK = ITEMS.register("open_transmissive_metal_block", () -> new BlockItem(MalumBlocks.OPEN_TRANSMISSIVE_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
-    
-    //endregion
     //region hidden items
-    public static final RegistryObject<Item> CREATIVE_ESSENCE_VAULT = ITEMS.register("creative_essence_vault", () -> new SpiritHolderItem(CREATIVE_PROPERTIES(), 10, 9999));
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(ItemTier.IRON, 9993, 9.19f,GEAR_PROPERTIES().defaultMaxDamage(0)));
     
     public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));

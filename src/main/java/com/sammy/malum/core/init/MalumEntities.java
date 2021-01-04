@@ -1,6 +1,8 @@
 package com.sammy.malum.core.init;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.entities.ScytheBoomerangEntity;
 import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -15,5 +17,9 @@ public class MalumEntities
     
     public static final RegistryObject<EntityType<SpiritSplinterItemEntity>> SPIRIT_ESSENCE = ENTITY_TYPES.register("spirit_essence",
             () -> EntityType.Builder.create(SpiritSplinterItemEntity::new, EntityClassification.MISC).size(0.5F, 0.75F)
-                    .trackingRange(9).build(new ResourceLocation(MalumMod.MODID, "spirit_essence").toString()));
+                    .trackingRange(9).build(MalumHelper.prefix("spirit_essence").toString()));
+    
+    public static final RegistryObject<EntityType<ScytheBoomerangEntity>> SCYTHE_BOOMERANG = ENTITY_TYPES.register("scythe_boomerang",
+            () -> EntityType.Builder.create(ScytheBoomerangEntity::new, EntityClassification.MISC).size(2.5F, 0.75F)
+                    .trackingRange(9).build(MalumHelper.prefix("scythe_boomerang").toString()));
 }

@@ -1,7 +1,6 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blocks.spiritpipe.AbstractSpiritPipeBlock;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -46,7 +45,6 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof BushBlock && !(((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock)).forEach(this::blockGeneratedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock).forEach(this::generatedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof LanternBlock).forEach(this::generatedItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof AbstractSpiritPipeBlock).forEach(this::essencePipeItem);
         takeAll(items, i -> i.get() instanceof BlockItem).forEach(this::blockItem);
         takeAll(items, i -> i.get() instanceof ToolItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);

@@ -8,6 +8,7 @@ import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnDebugTextRendererModule;
+import com.sammy.malum.common.entities.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.common.entities.SpiritSplinterItemRenderer;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
@@ -56,11 +57,16 @@ public class ClientStartupEvents
     public static void onClientSetup(FMLClientSetupEvent event)
     {
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SPIRIT_ESSENCE.get(), ClientStartupEvents::essenceRenderer);
+        RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SCYTHE_BOOMERANG.get(), ClientStartupEvents::scytheRenderer);
     }
     
     public static SpiritSplinterItemRenderer essenceRenderer(EntityRendererManager manager)
     {
         return new SpiritSplinterItemRenderer(manager, Minecraft.getInstance().getItemRenderer());
+    }
+    public static ScytheBoomerangEntityRenderer scytheRenderer(EntityRendererManager manager)
+    {
+        return new ScytheBoomerangEntityRenderer(manager, Minecraft.getInstance().getItemRenderer());
     }
     
     @SubscribeEvent
