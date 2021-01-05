@@ -11,6 +11,17 @@ import net.minecraft.world.World;
 
 public class BoundingBlock extends Block
 {
+    @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+    {
+        BlockPos pos1 = pos.down();
+        BlockState state1 = worldIn.getBlockState(pos1);
+        TileEntity entity = worldIn.getTileEntity(pos1);
+        spawnDrops(state1, worldIn, pos1, entity, player, player.getHeldItemMainhand());
+    
+        super.onBlockHarvested(worldIn, pos, state, player);
+    }
+    
     public BoundingBlock(Properties properties)
     {
         super(properties);

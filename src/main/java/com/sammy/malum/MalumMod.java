@@ -1,6 +1,7 @@
 package com.sammy.malum;
 
 import com.sammy.malum.core.data.*;
+import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumItemTags;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
@@ -18,6 +19,7 @@ import java.util.Random;
 import static com.sammy.malum.core.init.MalumEffects.EFFECTS;
 import static com.sammy.malum.core.init.MalumEntities.ENTITY_TYPES;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
+import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.blocks.MalumTileEntities.TILE_ENTITIES;
 import static com.sammy.malum.core.init.enchantments.MalumEnchantments.ENCHANTMENTS;
@@ -46,6 +48,8 @@ public class MalumMod
         FOLIAGE.register(modBus);
         BUILDERS.register(modBus);
         EFFECTS.register(modBus);
+        SOUNDS.register(modBus);
+        MalumDamageSources.init();
         MalumSounds.init();
         MalumItemTags.init();
         MalumSpiritTypes.init();

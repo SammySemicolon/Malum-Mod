@@ -68,32 +68,32 @@ public class SpiritKilnRecipe
     public static void init()
     {
         new SpiritKilnRecipe(Items.SOUL_SAND, 1, MalumItems.SOUL_SHARD.get(), 1, 2, MalumItems.BLAZE_QUARTZ.get(), Items.QUARTZ);
-        new SpiritKilnRecipe(Items.GOLD_INGOT, 2, MalumItems.TRANSMISSIVE_METAL_INGOT.get(), 1, 4, MalumItems.REMEDIAL_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(Items.GLOWSTONE_DUST, 4, MalumItems.DARK_FLARES.get(), 2, 4, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), Items.COAL, Items.GUNPOWDER);
-        new SpiritKilnRecipe(Items.IRON_INGOT, 8, MalumItems.SPIRITED_STEEL_INGOT.get(), 8, 4, MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(Items.GOLD_INGOT, 1, MalumItems.TRANSMISSIVE_METAL_INGOT.get(), 1, 4, MalumItems.AVARICIOUS_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(Items.GLOWSTONE_DUST, 4, MalumItems.DARK_FLARES.get(), 1, 4, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(Items.IRON_INGOT, 1, MalumItems.SPIRITED_STEEL_INGOT.get(), 1, 4, MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(MalumItems.RUIN_PLATING.get(), 2, MalumItems.UMBRAL_METAL_INGOT.get(), 1,8, MalumItems.ECTOPLASM.get(), MalumItems.REMEDIAL_SPIRIT_SPLINTER.get(), MalumItems.SINISTER_SPIRIT_SPLINTER.get());
     
         new SpiritKilnRecipe(MalumItems.CRUDE_SCYTHE.get(), 1, MalumItems.SPIRITED_STEEL_SCYTHE.get(), 1, 8, MalumItems.SOUL_SHARD.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get(), MalumItems.SPIRITED_STEEL_INGOT.get());
     
-        new SpiritKilnRecipe(Items.COAL, 1, MalumItems.ARCANE_CHARCOAL.get(), 2, 1, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.ARCANE_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(Items.ROTTEN_FLESH, 4, MalumItems.REANIMATED_MATTER.get(), 4, 2, MalumItems.UNDEAD_SPIRIT_SPLINTER.get(), MalumItems.WILD_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(Items.COAL, 4, MalumItems.ARCANE_DISTILLATE.get(), 2, 1, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(Items.ROTTEN_FLESH, 1, MalumItems.REANIMATED_MATTER.get(), 1, 2, MalumItems.UNDEAD_SPIRIT_SPLINTER.get(), MalumItems.WILD_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(MalumItems.REANIMATED_MATTER.get(), 1, MalumItems.ECTOPLASM.get(), 2 ,4, MalumItems.LUNAR_SAPBALL.get(), MalumItems.SOLAR_SAPBALL.get(), MalumItems.ARCANE_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(Items.NETHER_STAR, 1, MalumItems.SHARD_OF_WISDOM.get(), 2,8, MalumItems.TERMINUS_SPIRIT_SPLINTER.get(), MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.ELDRITCH_SPIRIT_SPLINTER.get());
     
-        new SpiritKilnRecipe(Items.PRISMARINE, 2, MalumItems.ABSTRUSE_BLOCK.get(), 1, 2, MalumItems.AQUATIC_SPIRIT_SPLINTER.get(), MalumItems.NIMBLE_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(Items.SOUL_SAND, 2, MalumItems.WITHER_SAND.get(), 1, 2, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.REMEDIAL_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(Items.CLAY_BALL, 1, MalumItems.PENUMBRAL_MOLD.get(), 1, 1, MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
     
         new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.ENDER_PEARL, 1, 2, MalumItems.TERMINUS_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.MAGMA_CREAM, 4, 2, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.NETHER_WART, 16, 2, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(),Items.WHEAT_SEEDS);
-        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.NETHERITE_SCRAP, 2, 16, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(),MalumItems.ELDRITCH_SPIRIT_SPLINTER.get(), Items.NETHERRACK);
-        
-        new SpiritKilnRecipe(Items.GUNPOWDER, 2, Items.BLAZE_POWDER, 6, 2, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(Items.PRISMARINE_CRYSTALS, 4, Items.GHAST_TEAR, 1, 4, MalumItems.REMEDIAL_SPIRIT_SPLINTER.get(), MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.ARCANE_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(Items.WHEAT_SEEDS, 2, Items.VINE, 8, 3, MalumItems.WILD_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(Items.QUARTZ, 1, Items.PRISMARINE_SHARD, 1, 2, MalumItems.AQUATIC_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(Items.CLAY_BALL, 2, MalumItems.PENUMBRAL_MOLD.get(), 4, 1, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.DARK_FLARES.get());
+        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.MAGMA_CREAM, 1, 2, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.NETHER_WART, 4, 2, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(),Items.WHEAT_SEEDS);
+        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.BLAZE_POWDER, 1, 2, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(),MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.GHAST_TEAR, 1, 8, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(),MalumItems.AQUATIC_SPIRIT_SPLINTER.get(), MalumItems.AVARICIOUS_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.NETHERITE_SCRAP, 1, 16, MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(),MalumItems.ELDRITCH_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
     
+        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.PRISMARINE_SHARD, 1, 2, MalumItems.AQUATIC_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.PRISMARINE_CRYSTALS, 2, 2, MalumItems.AQUATIC_SPIRIT_SPLINTER.get(),MalumItems.ARCANE_SPIRIT_SPLINTER.get());
+        
+        new SpiritKilnRecipe(MalumItems.PENUMBRAL_MOLD.get(), 1, Items.VINE, 1, 1, MalumItems.WILD_SPIRIT_SPLINTER.get());
+        
         new SpiritKilnRecipe(Items.ORANGE_TULIP, 1, Items.ORANGE_DYE, 16, 1, MalumItems.WILD_SPIRIT_SPLINTER.get());
         
         new SpiritKilnRecipe(Items.ALLIUM, 1, Items.MAGENTA_DYE, 16, 1, MalumItems.WILD_SPIRIT_SPLINTER.get());

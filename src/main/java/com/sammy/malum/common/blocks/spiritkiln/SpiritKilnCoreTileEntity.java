@@ -169,7 +169,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         Vector3d furnaceItemPos = new Vector3d(pos.getX() + itemOffset.x,pos.getY() + itemOffset.y,pos.getZ() + itemOffset.z);
         MalumHelper.makeFancyCircle((ServerWorld) world, furnaceItemPos);
         
-        world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FINISH, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
+        world.playSound(null, this.pos, MalumSounds.SPIRIT_KILN_FINISH, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
     }
     
     public void dumpEffects()
@@ -178,7 +178,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         ((ServerWorld) world).spawnParticle(new SpiritFlameParticleData(0.75f + world.rand.nextFloat() * 0.75f, true), pos.getX(), pos.getY(), pos.getZ(), 12 + world.rand.nextInt(12), 0.1f, 0.1f, 0.1f, 0.2f);
         ((ServerWorld) world).spawnParticle(ParticleTypes.SMOKE, pos.getX(), pos.getY(), pos.getZ(), 12 + world.rand.nextInt(12), 0.1f, 0.1f, 0.1f, 0.2f);
         
-        world.playSound(null, this.pos, MalumSounds.TAINTED_FURNACE_FAIL, SoundCategory.BLOCKS, 0.4f, 1f);
+        world.playSound(null, this.pos, MalumSounds.SPIRIT_KILN_FAIL, SoundCategory.BLOCKS, 0.4f, 1f);
         world.playSound(null, this.pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
     }
     
@@ -188,14 +188,14 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         Vector3d itemOffset = ItemStandTileEntity.itemOffset(standTileEntity);
         Vector3d standItemPos = new Vector3d(standPos.getX() + itemOffset.x, standPos.getY() + itemOffset.y, standPos.getZ() + itemOffset.z);
         MalumHelper.makeFancyCircle((ServerWorld) world, standItemPos);
-        world.playSound(null, standPos, MalumSounds.TAINTED_FURNACE_CONSUME, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
+        world.playSound(null, standPos, MalumSounds.SPIRIT_KILN_CONSUME, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
     }
     
     public void passiveSound()
     {
         if (world.rand.nextFloat() < 0.05f)
         {
-            world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_BLASTFURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+            world.playSound(null,pos, SoundEvents.BLOCK_BLASTFURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
     }
     //endregion
@@ -271,7 +271,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     {
         if (MalumHelper.areWeOnServer(world))
         {
-            world.playSound(null, this.pos, SoundEvents.ENTITY_IRON_GOLEM_REPAIR, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
+            world.playSound(null, this.pos, MalumSounds.SPIRIT_KILN_REPAIR, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
             setAndUpdateState(0);
         }
         else

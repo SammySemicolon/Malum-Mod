@@ -21,7 +21,7 @@ public class ClientEvents
         LivingEntity entity = event.getEntityLiving();
         if (entity.getActivePotionEffect(MalumEffects.BLEEDING.get()) != null)
         {
-            entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK,Blocks.REDSTONE_BLOCK.getDefaultState()),entity.getPosXRandom(entity.getWidth()),entity.getPosYRandom(),entity.getPosZRandom(entity.getWidth()),0,0,0);
+            entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK,Blocks.REDSTONE_BLOCK.getDefaultState()),entity.getPosXRandom(1),entity.getPosYRandom(),entity.getPosZRandom(1),0,0,0);
         }
     }
 }

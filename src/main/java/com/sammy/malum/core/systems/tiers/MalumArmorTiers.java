@@ -7,6 +7,7 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
@@ -15,8 +16,8 @@ public class MalumArmorTiers
 {
     public enum ArmorTierEnum implements IArmorMaterial
     {
-        SPIRITED_STEEL_ARMOR("ruin_armor", 36, new int[]{2, 7, 8, 3}, 16, () -> MalumSounds.RUIN_ARMOR_EQUIP, MalumItems.SPIRITED_STEEL_INGOT, 1),
-        UMBRAL_ARMOR("umbral_armor", 45, new int[]{4, 7, 10, 4}, 18, () -> MalumSounds.RUIN_ARMOR_EQUIP, MalumItems.UMBRAL_METAL_INGOT, 5);
+        SPIRITED_STEEL_ARMOR("ruin_armor", 36, new int[]{2, 7, 8, 3}, 16, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.SPIRITED_STEEL_INGOT, 1),
+        UMBRAL_ARMOR("umbral_armor", 45, new int[]{4, 7, 10, 4}, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.UMBRAL_METAL_INGOT, 5);
         
         private final String name;
         private final int durabilityMultiplier;

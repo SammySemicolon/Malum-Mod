@@ -46,7 +46,7 @@ public class MalumRecipeProvider extends RecipeProvider
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.SUN_KISSED_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_seed_of_corruption", hasItem(MalumItems.TAINT_RUDIMENT.get())).build(consumer);
         shapedRecipe(MalumItems.SPIRIT_KILN.get()).key('#', MalumItems.TAINT_RUDIMENT.get()).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.DARKENED_ROCK.get()).key('Z', Items.FURNACE).key('C', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("C#C").patternLine("YZY").patternLine("XYX").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
         shapedRecipe(MalumItems.ITEM_STAND.get()).key('#', MalumItems.TAINTED_ROCK.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine(" Y ").patternLine("#X#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
-        
+    
         //        shapedRecipe(MalumItems.KARMIC_HOLDER.get()).key('#', MalumItems.SHARD_OF_WISDOM.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', Items.STRING).patternLine(" Y ").patternLine("YXY").patternLine(" # ").addCriterion("has_shard_of_wisdom", hasItem(MalumItems.SHARD_OF_WISDOM.get())).build(consumer);
     
         ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");

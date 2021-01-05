@@ -8,8 +8,10 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,6 +19,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -42,7 +45,8 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     public int slot;
     public float damage;
     public int age;
-    public boolean comingBack;
+    public int returnAge=8;
+    public boolean returning;
     
     public ScytheBoomerangEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
     {
@@ -94,30 +98,39 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     protected void func_230299_a_(BlockRayTraceResult result)
     {
         super.func_230299_a_(result);
-        comingBack = true;
+        returning = true;
     }
     
     @Override
     protected void onEntityHit(EntityRayTraceResult p_213868_1_)
     {
-        DamageSource source = DamageSource.causeIndirectDamage(this, owner);
+        DamageSource source = DamageSource.causeIndirectDamage(this, owner());
         Entity entity = p_213868_1_.getEntity();
         
-        if (MalumHelper.areWeOnServer(world))
+        if (entity.equals(owner))
         {
-            if (entity instanceof LivingEntity)
+            super.onEntityHit(p_213868_1_);
+            return;
+        }
+        boolean success = entity.attackEntityFrom(source, damage);
+        if (success)
+        {
+            if (MalumHelper.areWeOnServer(world))
             {
-                LivingEntity livingentity = (LivingEntity) entity;
-                EnchantmentHelper.applyThornEnchantments(livingentity, owner());
-                EnchantmentHelper.applyArthropodEnchantments(owner, livingentity);
-                if (EnchantmentHelper.getFireAspectModifier(owner) > 0)
+                if (entity instanceof LivingEntity)
                 {
-                    entity.setFire(EnchantmentHelper.getFireAspectModifier(owner));
+                    LivingEntity livingentity = (LivingEntity) entity;
+                    EnchantmentHelper.applyThornEnchantments(livingentity, owner());
+                    EnchantmentHelper.applyArthropodEnchantments(owner, livingentity);
+                    if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT,scythe) > 0)
+                    {
+                        entity.setFire(EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT,scythe)*4);
+                    }
                 }
             }
+            returnAge+=4;
+            entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), MalumSounds.SCYTHE_STRIKE, entity.getSoundCategory(), 1.0F, 0.9f + entity.world.rand.nextFloat() * 0.2f);
         }
-        entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), MalumSounds.SCYTHE_STRIKE, entity.getSoundCategory(), 1.0F, 0.9f + entity.world.rand.nextFloat() * 0.2f);
-        entity.attackEntityFrom(source, damage);
         super.onEntityHit(p_213868_1_);
     }
     @Override
@@ -125,8 +138,23 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     {
         super.tick();
         age++;
+        if (MalumHelper.areWeOnClient(world))
+        {
+            if (!isInWater())
+            {
+                if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0)
+                {
+                    world.addParticle(ParticleTypes.FLAME, getPosXRandom(1), getPosYRandom(), getPosZRandom(1), 0, 0, 0);
+                }
+            }
+        }
         if (MalumHelper.areWeOnServer(world))
         {
+            PlayerEntity playerEntity = owner();
+            if (playerEntity == null)
+            {
+                return;
+            }
             if (age % 3 == 0)
             {
                 world.playSound(null, getPosition(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1, 1.25f);
@@ -140,16 +168,11 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                 prevRotationYaw = rotationYaw;
                 prevRotationPitch = rotationPitch;
             }
-            PlayerEntity playerEntity = owner();
-            if (playerEntity == null)
+            if (age > returnAge)
             {
-                return;
+                returning = true;
             }
-            if (age > 8)
-            {
-                comingBack = true;
-            }
-            if (comingBack)
+            if (returning)
             {
                 noClip = true;
                 Vector3d ownerPos = playerEntity.getPositionVec().add(0, 1, 0);
@@ -157,16 +180,17 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                 setMotion(motion.normalize().scale(0.75f));
             }
             float distance = getDistance(playerEntity);
-            if (age > 10)
+            if (age > 8)
             {
                 if (distance < 3f)
                 {
                     if (isAlive())
                     {
+                        scythe.damageItem(1, playerEntity, (entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
                         if (!playerEntity.abilities.isCreativeMode)
                         {
-                            int cooldown = 200 - 75 * (EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
+                            int cooldown = 100 - 80 * (EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
                             playerEntity.getCooldownTracker().setCooldown(scythe.getItem(), cooldown);
                         }
                         remove();
@@ -180,32 +204,39 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     public void writeAdditional(CompoundNBT compound)
     {
         super.writeAdditional(compound);
+        compound.put("scythe", scythe.serializeNBT());
         if (ownerUUID != null)
         {
             compound.putUniqueId("ownerUUID", ownerUUID);
         }
-        compound.putInt("age", age);
         compound.putInt("slot", slot);
-        scythe.write(compound);
-        compound.putBoolean("comingBack", comingBack);
         compound.putFloat("damage", damage);
+        compound.putInt("age", age);
+        compound.putBoolean("returning", returning);
+        compound.putInt("returnAge", returnAge);
     }
     
     @Override
     public void readAdditional(CompoundNBT compound)
     {
         super.readAdditional(compound);
+    
+        if (compound.contains("scythe"))
+        {
+            scythe = ItemStack.read(compound.getCompound("scythe"));
+        }
+        dataManager.set(SCYTHE, scythe);
+        
         if (compound.contains("ownerUUID"))
         {
             ownerUUID = compound.getUniqueId("ownerUUID");
             owner = owner();
         }
-        scythe = ItemStack.read(compound);
-        dataManager.set(SCYTHE, scythe);
-        age = compound.getInt("age");
         slot = compound.getInt("slot");
-        comingBack = compound.getBoolean("comingBack");
         damage = compound.getFloat("damage");
+        age = compound.getInt("age");
+        returning = compound.getBoolean("returning");
+        returnAge = compound.getInt("returnAge");
     }
     
     @Override

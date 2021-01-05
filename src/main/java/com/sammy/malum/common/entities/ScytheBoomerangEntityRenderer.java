@@ -31,13 +31,14 @@ public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomeran
         matrixStackIn.push();
         ItemStack itemstack = entityIn.getItem();
         IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, null);
-        
+    
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90F));
-        matrixStackIn.scale(2f,2f,2f);
+        matrixStackIn.scale(2f, 2f, 2f);
         matrixStackIn.rotate(Vector3f.ZP.rotation((entityIn.age + partialTicks) * 0.8f));
         itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
-        
+    
         matrixStackIn.pop();
+    
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
     

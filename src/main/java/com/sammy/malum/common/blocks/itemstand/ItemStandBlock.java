@@ -3,7 +3,10 @@ package com.sammy.malum.common.blocks.itemstand;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -12,6 +15,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 
@@ -23,6 +28,26 @@ public class ItemStandBlock extends SimpleInventoryBlock
     {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    }
+    
+    @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+    {
+        if (worldIn instanceof ServerWorld)
+        {
+            spawnAdditionalDrops(state, (ServerWorld) worldIn, pos, player.getActiveItemStack());
+        }
+        super.onBlockHarvested(worldIn, pos, state, player);
+    }
+    @Override
+    public void spawnAdditionalDrops(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack)
+    {
+        if (worldIn.getTileEntity(pos) instanceof ItemStandTileEntity)
+        {
+            ItemStandTileEntity tileEntity = (ItemStandTileEntity) worldIn.getTileEntity(pos);
+            worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,tileEntity.inventory.getStackInSlot(0)));
+        }
+        super.spawnAdditionalDrops(state, worldIn, pos, stack);
     }
     
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)

@@ -67,11 +67,11 @@ public class MalumItems
     public static final RegistryObject<Item> ARCANE_SPIRIT_SPLINTER = ITEMS.register("arcane_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> SULPHURIC_SPIRIT_SPLINTER = ITEMS.register("sulphuric_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> NETHERBORNE_SPIRIT_SPLINTER = ITEMS.register("netherborne_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
-    public static final RegistryObject<Item> REMEDIAL_SPIRIT_SPLINTER = ITEMS.register("remedial_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> AVARICIOUS_SPIRIT_SPLINTER = ITEMS.register("avaricious_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> FUSIBLE_SPIRIT_SPLINTER = ITEMS.register("fusible_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> CHARRED_SPIRIT_SPLINTER = ITEMS.register("charred_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> TERMINUS_SPIRIT_SPLINTER = ITEMS.register("terminus_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> ELDRITCH_SPIRIT_SPLINTER = ITEMS.register("eldritch_spirit_splinter", () -> new SpiritSplinterItem(SPIRIT_SPLINTER_PROPERTIES()));
-    
     //endregion
     
     //endregion
@@ -318,6 +318,7 @@ public class MalumItems
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_SHARD = ITEMS.register("soul_shard", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DARK_FLARES = ITEMS.register("dark_flares", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ARCANE_DISTILLATE = ITEMS.register("arcane_distillate", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> PENUMBRAL_MOLD = ITEMS.register("penumbral_mold", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> REANIMATED_MATTER = ITEMS.register("reanimated_matter", () -> new Item(DEFAULT_PROPERTIES().food((new Food.Builder()).effect(new EffectInstance(Effects.HUNGER, 300, 1), 0.2F).meat().hunger(10).saturation(2F).build())));
     //    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));

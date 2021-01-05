@@ -17,40 +17,34 @@ public class MalumSounds
     public static final SoundEvent TAINTED_ROCK_STEP = new SoundEvent(MalumHelper.prefix("tainted_rock_step"));
     public static final SoundEvent TAINTED_ROCK_HIT = new SoundEvent(MalumHelper.prefix("tainted_rock_hit"));
     
-    public static final SoundEvent SOLAR_ORE_BREAK = new SoundEvent(MalumHelper.prefix("solar_ore_break"));
-    public static final SoundEvent SOLAR_ORE_HIT = new SoundEvent(MalumHelper.prefix("solar_ore_hit"));
-    public static final SoundEvent SOLAR_ORE_PLACE = new SoundEvent(MalumHelper.prefix("solar_ore_place"));
-    
     public static final SoundEvent TRANSMISSIVE_ALLOY_BREAK = new SoundEvent(MalumHelper.prefix("transmissive_alloy_break"));
     public static final SoundEvent TRANSMISSIVE_ALLOY_HIT = new SoundEvent(MalumHelper.prefix("transmissive_alloy_hit"));
     public static final SoundEvent TRANSMISSIVE_ALLOY_PLACE = new SoundEvent(MalumHelper.prefix("transmissive_alloy_place"));
     public static final SoundEvent TRANSMISSIVE_ALLOY_STEP = new SoundEvent(MalumHelper.prefix("transmissive_alloy_step"));
     
-    public static final SoundEvent RUIN_PLATING_BREAK = new SoundEvent(MalumHelper.prefix("ruin_plating_break"));
-    public static final SoundEvent RUIN_PLATING_HIT = new SoundEvent(MalumHelper.prefix("ruin_plating_hit"));
-    public static final SoundEvent RUIN_PLATING_PLACE = new SoundEvent(MalumHelper.prefix("ruin_plating_place"));
-    public static final SoundEvent RUIN_PLATING_STEP = new SoundEvent(MalumHelper.prefix("ruin_plating_step"));
-    
-    public static final SoundEvent ARCANE_CRAFT_START = new SoundEvent(MalumHelper.prefix("arcane_craft_start"));
-    public static final SoundEvent ARCANE_CRAFT_FINISH = new SoundEvent(MalumHelper.prefix("arcane_craft_finish"));
+    public static final SoundEvent SPIRITED_STEEL_BREAK = new SoundEvent(MalumHelper.prefix("spirited_steel_break"));
+    public static final SoundEvent SPIRITED_STEEL_HIT = new SoundEvent(MalumHelper.prefix("spirited_steel_hit"));
+    public static final SoundEvent SPIRITED_STEEL_PLACE = new SoundEvent(MalumHelper.prefix("spirited_steel_place"));
+    public static final SoundEvent SPIRITED_STEEL_STEP = new SoundEvent(MalumHelper.prefix("spirited_steel_step"));
     
     public static final SoundEvent ABSTRUSE_BLOCK_RETURN = new SoundEvent(MalumHelper.prefix("abstruse_block_return"));
-    public static final SoundEvent RUIN_ARMOR_EQUIP = new SoundEvent(MalumHelper.prefix("ruin_armor_equip"));
     public static final SoundEvent TAINT_SPREAD = new SoundEvent(MalumHelper.prefix("taint_spread"));
     public static final SoundEvent SCYTHE_STRIKE = new SoundEvent(MalumHelper.prefix("scythe_strike"));
     public static final SoundEvent SPIRIT_HARVEST = new SoundEvent(MalumHelper.prefix("spirit_harvest"));
     
-    public static final SoundEvent TAINTED_FURNACE_CONSUME = new SoundEvent(MalumHelper.prefix("tainted_furnace_consume"));
-    public static final SoundEvent TAINTED_FURNACE_FAIL = new SoundEvent(MalumHelper.prefix("tainted_furnace_fail"));
-    public static final SoundEvent TAINTED_FURNACE_FINISH = new SoundEvent(MalumHelper.prefix("tainted_furnace_finish"));
+    public static final SoundEvent SPIRIT_KILN_CONSUME = new SoundEvent(MalumHelper.prefix("spirit_kiln_consume"));
+    public static final SoundEvent SPIRIT_KILN_FAIL = new SoundEvent(MalumHelper.prefix("spirit_kiln_fail"));
+    public static final SoundEvent SPIRIT_KILN_FINISH = new SoundEvent(MalumHelper.prefix("spirit_kiln_finish"));
+    public static final SoundEvent SPIRIT_KILN_REPAIR = new SoundEvent(MalumHelper.prefix("spirit_kiln_repair"));
+    public static final SoundEvent SPIRIT_KILN_FUEL = new SoundEvent(MalumHelper.prefix("spirit_kiln_fuel"));
     
     public static final SoundEvent KARMIC_HOLDER_ACTIVATE = new SoundEvent(MalumHelper.prefix("karmic_holder_activate"));
     
     public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType DARKENED_ROCK = new SoundType(1.0F, 0.75F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType TRANSMISSIVE_ALLOY = new SoundType(1.0F, 1.0F, TRANSMISSIVE_ALLOY_BREAK, TRANSMISSIVE_ALLOY_STEP, TRANSMISSIVE_ALLOY_PLACE, TRANSMISSIVE_ALLOY_HIT, SoundEvents.BLOCK_STONE_FALL);
-    public static final SoundType SPIRITED_STEEL_BLOCK = new SoundType(1.0F, 1.0F, RUIN_PLATING_BREAK, RUIN_PLATING_STEP, RUIN_PLATING_PLACE, RUIN_PLATING_HIT, SoundEvents.BLOCK_STONE_FALL);
-
+    public static final SoundType SPIRITED_STEEL_BLOCK = new SoundType(1.0F, 1.0F, SPIRITED_STEEL_BREAK, SPIRITED_STEEL_STEP, SPIRITED_STEEL_PLACE, SPIRITED_STEEL_HIT, SoundEvents.BLOCK_STONE_FALL);
+    
     public static void init()
     {
         SOUNDS.register("tainted_rock_break", ()-> TAINTED_ROCK_BREAK);
@@ -58,33 +52,27 @@ public class MalumSounds
         SOUNDS.register("tainted_rock_step", ()-> TAINTED_ROCK_STEP);
         SOUNDS.register("tainted_rock_hit", ()-> TAINTED_ROCK_HIT);
         
-        SOUNDS.register("solar_ore_break", ()-> SOLAR_ORE_BREAK);
-        SOUNDS.register("solar_ore_place", ()-> SOLAR_ORE_PLACE);
-        SOUNDS.register("solar_ore_hit", ()-> SOLAR_ORE_HIT);
-    
         SOUNDS.register("transmissive_alloy_break", ()-> TRANSMISSIVE_ALLOY_BREAK);
         SOUNDS.register("transmissive_alloy_hit", ()-> TRANSMISSIVE_ALLOY_HIT);
         SOUNDS.register("transmissive_alloy_place", ()-> TRANSMISSIVE_ALLOY_PLACE);
         SOUNDS.register("transmissive_alloy_step", ()-> TRANSMISSIVE_ALLOY_STEP);
-    
-        SOUNDS.register("ruin_plating_break", ()-> RUIN_PLATING_BREAK);
-        SOUNDS.register("ruin_plating_hit", ()-> RUIN_PLATING_HIT);
-        SOUNDS.register("ruin_plating_place", ()-> RUIN_PLATING_PLACE);
-        SOUNDS.register("ruin_plating_step", ()-> RUIN_PLATING_STEP);
         
-        SOUNDS.register("arcane_craft_start", ()-> ARCANE_CRAFT_START);
-        SOUNDS.register("arcane_craft_finish", ()-> ARCANE_CRAFT_FINISH);
+        SOUNDS.register("spirited_steel_break", ()-> SPIRITED_STEEL_BREAK);
+        SOUNDS.register("spirited_steel_hit", ()-> SPIRITED_STEEL_HIT);
+        SOUNDS.register("spirited_steel_place", ()-> SPIRITED_STEEL_PLACE);
+        SOUNDS.register("spirited_steel_step", ()-> SPIRITED_STEEL_STEP);
         
         SOUNDS.register("abstruse_block_return", ()-> ABSTRUSE_BLOCK_RETURN);
-        SOUNDS.register("ruin_armor_equip", ()-> RUIN_ARMOR_EQUIP);
         SOUNDS.register("taint_spread", ()-> TAINT_SPREAD);
         SOUNDS.register("scythe_strike", ()-> SCYTHE_STRIKE);
         SOUNDS.register("spirit_harvest", ()-> SPIRIT_HARVEST);
-    
-        SOUNDS.register("tainted_furnace_consume", ()-> TAINTED_FURNACE_CONSUME);
-        SOUNDS.register("tainted_furnace_fail", ()-> TAINTED_FURNACE_FAIL);
-        SOUNDS.register("tainted_furnace_finish", ()-> TAINTED_FURNACE_FINISH);
-    
+        
+        SOUNDS.register("spirit_kiln_consume", ()-> SPIRIT_KILN_CONSUME);
+        SOUNDS.register("spirit_kiln_fail", ()-> SPIRIT_KILN_FAIL);
+        SOUNDS.register("spirit_kiln_finish", ()-> SPIRIT_KILN_FINISH);
+        SOUNDS.register("spirit_kiln_repair", ()-> SPIRIT_KILN_REPAIR);
+        SOUNDS.register("spirit_kiln_fuel", ()-> SPIRIT_KILN_FUEL);
+        
         SOUNDS.register("karmic_holder_activate", ()-> KARMIC_HOLDER_ACTIVATE);
     }
 }

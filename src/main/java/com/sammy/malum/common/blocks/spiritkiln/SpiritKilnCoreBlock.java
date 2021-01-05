@@ -1,11 +1,14 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
+import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.recipes.SpiritKilnFuelData;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -17,8 +20,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
+
+import java.util.ArrayList;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
@@ -57,6 +63,32 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
     }
     
     @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+    {
+        if (worldIn instanceof ServerWorld)
+        {
+            spawnAdditionalDrops(state, (ServerWorld) worldIn, pos, player.getActiveItemStack());
+        }
+        super.onBlockHarvested(worldIn, pos, state, player);
+    }
+    @Override
+    public void spawnAdditionalDrops(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack)
+    {
+        if (worldIn.getTileEntity(pos) instanceof SpiritKilnCoreTileEntity)
+        {
+            SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos);
+            ArrayList<ItemStack> stacks = tileEntity.inventory.stacks();
+            stacks.addAll(tileEntity.advancedInventory.stacks());
+            for (ItemStack itemStack : stacks)
+            {
+                worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,itemStack));
+            }
+        }
+        super.spawnAdditionalDrops(state, worldIn, pos, stack);
+    }
+    
+    
+    @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         if (handIn.equals(Hand.MAIN_HAND))
@@ -73,7 +105,7 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
                         {
                             stack.shrink(4);
                             tileEntity.repairKiln();
-                            player.swingArm(handIn);
+                            player.swing(handIn, true);
                             return ActionResultType.SUCCESS;
                         }
                     }
@@ -85,7 +117,8 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
                     if (success)
                     {
                         stack.shrink(1);
-                        player.swingArm(handIn);
+                        worldIn.playSound(null, pos, MalumSounds.SPIRIT_KILN_FUEL, SoundCategory.BLOCKS, 0.4f, 0.9f + worldIn.rand.nextFloat() * 0.2f);
+                        player.swing(handIn, true);
                         return ActionResultType.SUCCESS;
                     }
                 }

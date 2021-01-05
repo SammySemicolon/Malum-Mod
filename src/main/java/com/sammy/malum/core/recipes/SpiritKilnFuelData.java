@@ -27,6 +27,7 @@ public class SpiritKilnFuelData
     public static void init()
     {
         new SpiritKilnFuelData(MalumItems.ARCANE_CHARCOAL, 32, 1);
+        new SpiritKilnFuelData(MalumItems.ARCANE_DISTILLATE, 64, 1);
     }
     public static SpiritKilnFuelData getData(ItemStack stack)
     {

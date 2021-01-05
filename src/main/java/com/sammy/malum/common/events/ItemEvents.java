@@ -28,47 +28,6 @@ import net.minecraftforge.fml.common.Mod;
 public class ItemEvents
 {
     @SubscribeEvent
-    public static void onEntityHit(LivingHurtEvent event)
-    {
-        
-        ItemStack stack = ItemStack.EMPTY;
-        if (event.getSource().getTrueSource() instanceof PlayerEntity)
-        {
-            PlayerEntity attacker = (PlayerEntity) event.getSource().getTrueSource();
-            if (attacker.swingingHand != null)
-            {
-                stack = attacker.getHeldItem(attacker.swingingHand);
-            }
-            if (attacker.isHandActive() && stack.isEmpty())
-            {
-                stack = attacker.getActiveItemStack();
-            }
-            if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity)
-            {
-                ScytheBoomerangEntity entity = (ScytheBoomerangEntity) event.getSource().getImmediateSource();
-                stack = entity.scythe;
-            }
-        }
-        EffectInstance existingBleeding = event.getEntityLiving().getActivePotionEffect(MalumEffects.BLEEDING.get());
-        if (existingBleeding != null)
-        {
-            event.setAmount(event.getAmount() * 1 + (existingBleeding.getAmplifier() + 1) / 4f);
-        }
-        if (stack.getItem() instanceof ScytheItem)
-        {
-            int outflow = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.OUTFLOW.get(), stack);
-            if (outflow > 0)
-            {
-                int amount = 20;
-                if (existingBleeding != null)
-                {
-                    amount += existingBleeding.getDuration();
-                }
-                event.getEntityLiving().addPotionEffect(new EffectInstance(MalumEffects.BLEEDING.get(),amount,outflow-1));
-            }
-        }
-    }
-    @SubscribeEvent
     public static void scytheSweep(LivingHurtEvent event)
     {
         if (event.getSource().getTrueSource() instanceof PlayerEntity)

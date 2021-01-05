@@ -102,8 +102,9 @@ public class ClientStartupEvents
         ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT_SPLINTER, MalumSpiritTypes.ARCANE_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.SULPHURIC_SPIRIT_SPLINTER, MalumSpiritTypes.SULPHURIC_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.NETHERBORNE_SPIRIT_SPLINTER, MalumSpiritTypes.NETHERBORNE_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.REMEDIAL_SPIRIT_SPLINTER, MalumSpiritTypes.AVARICIOUS_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.AVARICIOUS_SPIRIT_SPLINTER, MalumSpiritTypes.AVARICIOUS_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.FUSIBLE_SPIRIT_SPLINTER, MalumSpiritTypes.FUSIBLE_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.CHARRED_SPIRIT_SPLINTER, MalumSpiritTypes.CHARRED_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.TERMINUS_SPIRIT_SPLINTER, MalumSpiritTypes.TERMINUS_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, MalumSpiritTypes.ELDRITCH_SPIRIT_COLOR);
     }

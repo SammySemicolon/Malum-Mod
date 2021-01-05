@@ -42,9 +42,11 @@ public class MalumSpiritTypes
     public static final Color NETHERBORNE_SPIRIT_COLOR = new Color(163, 13, 10);
     public static final MalumSpiritType NETHERBORNE_SPIRIT = create("netherborne",  MalumSpiritTypes::isNetherborne, MalumSpiritTypes::howNetherborne,NETHERBORNE_SPIRIT_COLOR);
     public static final Color AVARICIOUS_SPIRIT_COLOR = new Color(253, 245, 95);
-    public static final MalumSpiritType AVARICIOUS_SPIRIT = create("remedial",  MalumSpiritTypes::isAvaricious, MalumSpiritTypes::howAvaricious, AVARICIOUS_SPIRIT_COLOR);
+    public static final MalumSpiritType AVARICIOUS_SPIRIT = create("avaricious",  MalumSpiritTypes::isAvaricious, MalumSpiritTypes::howAvaricious, AVARICIOUS_SPIRIT_COLOR);
     public static final Color FUSIBLE_SPIRIT_COLOR = new Color(147, 144, 141);
     public static final MalumSpiritType FUSIBLE_SPIRIT = create("fusible",  MalumSpiritTypes::isFusible, MalumSpiritTypes::howFusible, FUSIBLE_SPIRIT_COLOR);
+    public static final Color CHARRED_SPIRIT_COLOR = new Color(66, 47, 47);
+    public static final MalumSpiritType CHARRED_SPIRIT = create("charred",  MalumSpiritTypes::isCharred, MalumSpiritTypes::howCharred, CHARRED_SPIRIT_COLOR);
     
     public static final Color TERMINUS_SPIRIT_COLOR = new Color(6, 57, 49);
     public static final MalumSpiritType TERMINUS_SPIRIT = create("terminus", MalumSpiritTypes::isTerminus, MalumSpiritTypes::howTerminus, TERMINUS_SPIRIT_COLOR);
@@ -81,6 +83,10 @@ public class MalumSpiritTypes
     
     public static int howUndead(LivingEntity entity) //how menacing.
     {
+        if (entity instanceof WitherEntity)
+        {
+            return 20;
+        }
         if (entity instanceof ZombieHorseEntity || entity instanceof SkeletonHorseEntity)
         {
             return 3;
@@ -93,12 +99,12 @@ public class MalumSpiritTypes
     }
     public static boolean isNimble(LivingEntity entity) //capable of flying or fast
     {
-        return entity instanceof FlyingEntity || entity instanceof VexEntity || entity instanceof ParrotEntity || entity instanceof BatEntity || entity instanceof CatEntity || entity instanceof FoxEntity || entity instanceof OcelotEntity || entity instanceof RabbitEntity || entity instanceof StriderEntity || entity instanceof EndermanEntity || entity instanceof SilverfishEntity;
+        return entity instanceof AbstractHorseEntity || entity instanceof SpiderEntity || entity instanceof FlyingEntity || entity instanceof VexEntity || entity instanceof ParrotEntity || entity instanceof BatEntity || entity instanceof CatEntity || entity instanceof FoxEntity || entity instanceof OcelotEntity || entity instanceof RabbitEntity || entity instanceof StriderEntity || entity instanceof EndermanEntity || entity instanceof SilverfishEntity;
     }
     
     public static int howNimble(LivingEntity entity) //zoom potential.
     {
-        if (entity instanceof StriderEntity || entity instanceof SilverfishEntity)
+        if (entity instanceof StriderEntity || entity instanceof SilverfishEntity || entity instanceof AbstractHorseEntity)
         {
             return 5;
         }
@@ -106,7 +112,7 @@ public class MalumSpiritTypes
         {
             return 3;
         }
-        if (entity instanceof RabbitEntity || entity instanceof FoxEntity)
+        if (entity instanceof RabbitEntity || entity instanceof FoxEntity || entity instanceof SpiderEntity)
         {
             return 2;
         }
@@ -163,15 +169,11 @@ public class MalumSpiritTypes
     
     public static boolean isArcane(LivingEntity entity) //made or capable of using magic, or a phenomenon
     {
-        if (entity instanceof AbstractSkeletonEntity)
-        {
-            return true;
-        }
         if (entity.getType().getRegistryName().getPath().equals("wraith"))
         {
             return true;
         }
-        return entity instanceof SpellcastingIllagerEntity || entity instanceof VexEntity || entity instanceof WanderingTraderEntity || entity instanceof WitchEntity || entity instanceof PhantomEntity || entity instanceof GhastEntity || entity instanceof MooshroomEntity;
+        return entity instanceof SpellcastingIllagerEntity || entity instanceof SlimeEntity || entity instanceof AbstractSkeletonEntity || entity instanceof VexEntity || entity instanceof WanderingTraderEntity || entity instanceof WitchEntity || entity instanceof PhantomEntity || entity instanceof GhastEntity || entity instanceof MooshroomEntity;
     }
     public static int howArcane(LivingEntity entity) //wooooo magic yeahhh.
     {
@@ -183,7 +185,7 @@ public class MalumSpiritTypes
         {
             return 5;
         }
-        if (entity instanceof VexEntity || entity instanceof PhantomEntity || entity instanceof GhastEntity || entity instanceof MooshroomEntity)
+        if (entity instanceof SlimeEntity || entity instanceof VexEntity || entity instanceof PhantomEntity || entity instanceof GhastEntity || entity instanceof MooshroomEntity)
         {
             return 3;
         }
@@ -261,6 +263,23 @@ public class MalumSpiritTypes
         if (entity.getType().getRegistryName().getPath().equals("zombie_brute"))
         {
             return 5;
+        }
+        return 1;
+    }
+    
+    public static boolean isCharred(LivingEntity entity) //wither skeletons
+    {
+        return entity instanceof WitherSkeletonEntity || entity instanceof WitherEntity;
+    }
+    public static int howCharred(LivingEntity entity) //oven.
+    {
+        if (entity instanceof WitherEntity)
+        {
+            return 10;
+        }
+        if (entity instanceof WitherSkeletonEntity)
+        {
+            return 2;
         }
         return 1;
     }
