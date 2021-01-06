@@ -1,13 +1,17 @@
 package com.sammy.malum;
 
+import com.sammy.malum.core.systems.particles.ParticleRendering;
 import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumItemTags;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.enchantments.MalumEnchantments;
+import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
 import net.minecraft.data.BlockTagsProvider;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -48,12 +52,17 @@ public class MalumMod
         FOLIAGE.register(modBus);
         BUILDERS.register(modBus);
         EFFECTS.register(modBus);
+        MalumParticles.PARTICLES.register(modBus);
         SOUNDS.register(modBus);
         MalumDamageSources.init();
         MalumSounds.init();
         MalumItemTags.init();
         MalumSpiritTypes.init();
         modBus.addListener(this::gatherData);
+        DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
+            MinecraftForge.EVENT_BUS.register(new ParticleRendering());
+            return new Object();
+        });
     }
     
     public void gatherData(GatherDataEvent evt)

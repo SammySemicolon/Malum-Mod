@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
-import com.sammy.malum.client.ClientHelper;
+import com.sammy.malum.ClientHelper;
 import com.sammy.malum.core.recipes.SpiritKilnRecipe;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.core.systems.tileentityrendering.modules.TextModule;

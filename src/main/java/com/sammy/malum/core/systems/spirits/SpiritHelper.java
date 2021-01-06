@@ -7,11 +7,14 @@ import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
+import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import com.sammy.malum.core.systems.spirits.types.MalumSpiritType;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -67,7 +70,38 @@ public class SpiritHelper
             }
         }
     }
+    public static boolean consumeSpirit(String identifier, int count, int integrity, PlayerEntity playerEntity, ItemStack stack)
+    {
+        ArrayList<ItemStack> stacks = (ArrayList<ItemStack>) playerEntity.inventory.mainInventory.stream().filter(i -> i.getItem() instanceof SpiritSplinterItem).collect(Collectors.toList());
+        CompoundNBT tag = stack.getOrCreateTag();
     
+        if (integrity != 0)
+        {
+    
+            if (tag.getInt("spiritIntegrity") > 0)
+            {
+                tag.putInt("spiritIntegrity", tag.getInt("spiritIntegrity") - 1);
+                return true;
+            }
+        }
+        for (ItemStack splinter : stacks)
+        {
+            SpiritSplinterItem item = (SpiritSplinterItem) splinter.getItem();
+            if (item.type.identifier.equals(identifier))
+            {
+                if (splinter.getCount() >= count)
+                {
+                    if (integrity != 0)
+                    {
+                        tag.putInt("spiritIntegrity", integrity);
+                    }
+                    splinter.shrink(count);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public static void harvestSpirit(ArrayList<Pair<String, Integer>> spirits, PlayerEntity player)
     {
         for (int i = 0; i < spirits.size(); i++)

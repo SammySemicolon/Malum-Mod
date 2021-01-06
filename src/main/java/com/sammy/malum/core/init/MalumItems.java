@@ -2,17 +2,16 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.items.TaintRudimentItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
-import com.sammy.malum.common.items.equipment.curios.CurioFluffyTail;
-import com.sammy.malum.common.items.equipment.curios.CurioKarmicHolder;
+import com.sammy.malum.common.items.equipment.curios.*;
 import com.sammy.malum.common.items.food.LunarSyrupBottleItem;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
 
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
-import com.sammy.malum.core.MalumBuildingTab;
-import com.sammy.malum.core.MalumCreativeTab;
+import com.sammy.malum.core.init.tabs.MalumBuildingTab;
+import com.sammy.malum.core.init.tabs.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
-import com.sammy.malum.core.systems.MalumSplinterTab;
+import com.sammy.malum.core.init.tabs.MalumSplinterTab;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
@@ -215,6 +214,7 @@ public class MalumItems
     
     public static final RegistryObject<Item> CUT_SUN_KISSED_PLANKS = ITEMS.register("cut_sun_kissed_planks", () -> new BlockItem(MalumBlocks.CUT_SUN_KISSED_PLANKS.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> SUN_KISSED_BEAM = ITEMS.register("sun_kissed_beam", () -> new BlockItem(MalumBlocks.SUN_KISSED_BEAM.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> BOLTED_SUN_KISSED_BEAM = ITEMS.register("bolted_sun_kissed_beam", () -> new BlockItem(MalumBlocks.BOLTED_SUN_KISSED_BEAM.get(), BUILDING_PROPERTIES()));
     
     public static final RegistryObject<Item> SUN_KISSED_DOOR = ITEMS.register("sun_kissed_door", () -> new BlockItem(MalumBlocks.SUN_KISSED_DOOR.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> SUN_KISSED_TRAPDOOR = ITEMS.register("sun_kissed_trapdoor", () -> new BlockItem(MalumBlocks.SUN_KISSED_TRAPDOOR.get(), BUILDING_PROPERTIES()));
@@ -300,6 +300,7 @@ public class MalumItems
     //    public static final RegistryObject<Item> ARCANE_CRAFTING_TABLE = ITEMS.register("arcane_crafting_table", () -> new BlockItem(MalumBlocks.ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));
     public static final RegistryObject<Item> ITEM_STAND = ITEMS.register("item_stand", () -> new BlockItem(MalumBlocks.ITEM_STAND.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ARCANE_WORKBENCH = ITEMS.register("arcane_workbench", () -> new BlockItem(MalumBlocks.ARCANE_WORKBENCH.get(), DEFAULT_PROPERTIES()));
     //endregion
     
     //region simple components
@@ -365,10 +366,13 @@ public class MalumItems
     
     public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SPIRITED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
     
+    public static final RegistryObject<Item> DRIFT_BOOTS = ITEMS.register("drift_boots", () -> new CurioDriftBoots(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> FLASK_OF_GREED = ITEMS.register("flask_of_greed", () -> new CurioFlaskOfGreed(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> ANCESTRAL_VEIL = ITEMS.register("ancestral_veil", () -> new CurioAncestralVeil(GEAR_PROPERTIES()));
+    
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WILD_FARMLAND = ITEMS.register("wild_farmland", () -> new BlockItem(MalumBlocks.WILD_FARMLAND.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> PLANTER_BOX = ITEMS.register("planter_box", () -> new BlockItem(MalumBlocks.PLANTER_BOX.get(), DEFAULT_PROPERTIES()));
     //endregion
     
     //region curios

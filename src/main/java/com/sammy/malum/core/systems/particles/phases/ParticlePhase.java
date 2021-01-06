@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.particles.phases;
 
-import com.sammy.malum.core.systems.particles.MalumParticle;
+import com.sammy.malum.core.systems.particles.ParticlePhaseMalumParticle;
 
 public class ParticlePhase
 {
@@ -20,7 +20,7 @@ public class ParticlePhase
         this.currentFrame = firstOffset;
     }
     
-    public void tick(MalumParticle particle)
+    public void tick(ParticlePhaseMalumParticle particle)
     {
         if (isComplete)
         {

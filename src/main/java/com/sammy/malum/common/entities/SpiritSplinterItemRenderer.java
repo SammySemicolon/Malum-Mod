@@ -28,31 +28,8 @@ public class SpiritSplinterItemRenderer extends EntityRenderer<SpiritSplinterIte
     {
         super(renderManager);
         this.itemRenderer = itemRendererIn;
-        this.shadowSize = 0.15F;
-        this.shadowOpaque = 0.75F;
-    }
-    
-    protected int getModelCount(ItemStack stack)
-    {
-        int i = 1;
-        if (stack.getCount() > 48)
-        {
-            i = 5;
-        }
-        else if (stack.getCount() > 32)
-        {
-            i = 4;
-        }
-        else if (stack.getCount() > 16)
-        {
-            i = 3;
-        }
-        else if (stack.getCount() > 1)
-        {
-            i = 2;
-        }
-        
-        return i;
+        this.shadowSize = 0;
+        this.shadowOpaque = 0;
     }
     
     
@@ -61,56 +38,21 @@ public class SpiritSplinterItemRenderer extends EntityRenderer<SpiritSplinterIte
     {
         matrixStackIn.push();
         ItemStack itemstack = entityIn.getItem();
-        int i = itemstack.isEmpty() ? 187 : Item.getIdFromItem(itemstack.getItem()) + itemstack.getDamage();
-        this.random.setSeed(i);
         IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, null);
-        boolean flag = ibakedmodel.isGui3d();
-        int j = this.getModelCount(itemstack);
-        float f1 = MathHelper.sin(((float) entityIn.age + partialTicks) / 10.0F + entityIn.hoverStart) * 0.1F + 0.1F;
+        float f1 = entityIn.yOffset(partialTicks);
         float f2 = ibakedmodel.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.getY();
         matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
-        float f3 =(entityIn.rotation + partialTicks) / 20.0F + entityIn.hoverStart;
+        float f3 = (entityIn.rotation + partialTicks) / 20.0F + entityIn.hoverStart;
         matrixStackIn.rotate(Vector3f.YP.rotation(f3));
-        if (!flag)
-        {
-            float f7 = -0.0F * (float) (j - 1) * 0.5F;
-            float f8 = -0.0F * (float) (j - 1) * 0.5F;
-            float f9 = -0.09375F * (float) (j - 1) * 0.5F;
-            matrixStackIn.translate(f7, f8, f9);
-        }
-        
-        for (int k = 0; k < j; ++k)
-        {
-            matrixStackIn.push();
-            if (k > 0)
-            {
-                if (flag)
-                {
-                    float f11 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-                    float f13 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-                    float f10 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F;
-                    matrixStackIn.translate(f11, f13, f10);
-                }
-                else
-                {
-                    float f12 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
-                    float f14 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.15F * 0.5F;
-                    matrixStackIn.translate(f12, f14, 0.0D);
-                }
-            }
-            
-            this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
-            matrixStackIn.pop();
-            if (!flag)
-            {
-                matrixStackIn.translate(0.0, 0.0, 0.09375F);
-            }
-        }
-        
+    
+        matrixStackIn.push();
+    
+    
+        this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
+        matrixStackIn.pop();
         matrixStackIn.pop();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
-    
     @Override
     public ResourceLocation getEntityTexture(SpiritSplinterItemEntity entity)
     {

@@ -38,17 +38,6 @@ public class ItemEvents
             {
                 ScytheBoomerangEntity entity = (ScytheBoomerangEntity) event.getSource().getImmediateSource();
                 playerEntity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), MalumSounds.SCYTHE_STRIKE, entity.getSoundCategory(), 1.0F, 0.9f + playerEntity.world.rand.nextFloat() * 0.2f);
-    
-            }
-            else if (playerEntity.swingingHand != null)
-            {
-                ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
-                if (stack.getItem() instanceof ScytheItem)
-                {
-                    ScytheItem item = (ScytheItem) stack.getItem();
-                    item.sweepingEdgeTypeBeat(playerEntity, event.getEntityLiving(), (float) playerEntity.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    playerEntity.spawnSweepParticles();
-                }
             }
         }
     }

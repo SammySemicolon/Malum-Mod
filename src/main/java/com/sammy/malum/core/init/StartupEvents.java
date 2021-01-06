@@ -3,7 +3,6 @@ package com.sammy.malum.core.init;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
-import com.sammy.malum.core.recipes.ArcaneCraftingRecipe;
 import com.sammy.malum.core.recipes.SpiritKilnFuelData;
 import com.sammy.malum.core.recipes.SpiritKilnRecipe;
 import com.sammy.malum.core.recipes.TaintTransfusion;
@@ -30,7 +29,6 @@ public class StartupEvents
     @SubscribeEvent
     public static void registerRecipes(FMLCommonSetupEvent event)
     {
-        ArcaneCraftingRecipe.init();
         TaintTransfusion.init();
         SpiritKilnRecipe.init();
         SpiritKilnFuelData.init();

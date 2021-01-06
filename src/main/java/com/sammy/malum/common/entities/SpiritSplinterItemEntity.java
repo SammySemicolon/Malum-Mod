@@ -1,6 +1,8 @@
 package com.sammy.malum.common.entities;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import net.minecraft.entity.EntityType;
@@ -12,13 +14,12 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.Effects;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import java.awt.*;
 import java.util.UUID;
 
 public class SpiritSplinterItemEntity extends ProjectileItemEntity
@@ -94,8 +95,24 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
                 }
             }
         }
+        else
+        {
+            updateSplinter();
+            double x = getPosX(), y = getPosY() + yOffset(0)+0.25f, z = getPosZ();
+            float r = splinter.type.color.getRed() / 255.0f, g = splinter.type.color.getGreen() / 255.0f, b = splinter.type.color.getBlue() / 255.0f;
+            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                    .setAlpha(1.0f, 0).setScale(0.05f, 0).setLifetime(20)
+                    .randomOffset(0.2, 0.1).randomVelocity(0.02f, 0.06f)
+                    .addVelocity(0, 0.01f, 0)
+                    .setColor(r, g, b, r, g * 1.5f, b * 1.5f)
+                    .setSpin(0.4f)
+                    .repeat(world, x, y, z, 2);
+        }
     }
-    
+    public float yOffset(float partialTicks)
+    {
+        return MathHelper.sin(((float) age + partialTicks) / 10.0F + hoverStart) * 0.1F + 0.1F;
+    }
     @Override
     public void writeAdditional(CompoundNBT compound)
     {
@@ -145,10 +162,14 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     @Override
     protected Item getDefaultItem()
     {
+        updateSplinter();
+        return splinter;
+    }
+    public void updateSplinter()
+    {
         if (splinter == null)
         {
             splinter = SpiritHelper.figureOutType(dataManager.get(SPLINTER_NAME)).splinterItem;
         }
-        return splinter;
     }
 }

@@ -1,8 +1,8 @@
 package com.sammy.malum;
 
-import com.sammy.malum.client.particles.itemcircle.ItemCircleParticleData;
-import com.sammy.malum.client.particles.spiritflame.SpiritFlameParticleData;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
+import com.sammy.malum.core.init.particles.MalumParticles;
+import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -219,18 +218,30 @@ public class MalumHelper
     {
         worldIn.notifyBlockUpdate(pos, state, state, 3);
     }
+    public static void updateState(World worldIn, BlockPos pos)
+    {
+        updateState(worldIn.getBlockState(pos),worldIn,pos);
+    }
     public static void makeCircle(ServerWorld world, Vector3d pos)
     {
-        makeCircle(world, pos, new ItemCircleParticleData(0.75f+ world.rand.nextFloat() * 0.5f, false));
+        MalumParticleData data = new MalumParticleData(MalumParticles.ITEM_CIRCLE.get());
+        data.scale1 = 0.75f + world.rand.nextFloat() * 0.5f;
+        data.scale2 = data.scale1;
+        data.a2 = 0.75f;
+        makeCircle(world, pos, data);
     }
-    public static void makeCircle(ServerWorld world, Vector3d pos, ItemCircleParticleData data)
+    public static void makeCircle(ServerWorld world, Vector3d pos, MalumParticleData data)
     {
         world.spawnParticle(data,pos.getX(),pos.getY(),pos.getZ(),1,0,0,0,0);
     }
     public static void makeFancyCircle(ServerWorld world, Vector3d pos)
     {
         MalumHelper.makeCircle(world, pos);
-        world.spawnParticle(new SpiritFlameParticleData(0.25f + world.rand.nextFloat() * 0.25f, true),pos.getX(),pos.getY(),pos.getZ(),1+world.rand.nextInt(3),0.1f,0.1f,0.1f,0.05f);
+        MalumParticleData data = new MalumParticleData(MalumParticles.SPIRIT_FLAME.get());
+        data.scale1 = 0.6f + world.rand.nextFloat() * 0.6f;
+        data.scale2 = 0;
+        data.a2 = 0.75f;
+        world.spawnParticle(data,pos.getX(),pos.getY(),pos.getZ(),1+world.rand.nextInt(3),0.1f,0.1f,0.1f,0.005f);
     }
     public static void spawnParticles(World world, BlockPos pos, IParticleData data, float chance)
     {

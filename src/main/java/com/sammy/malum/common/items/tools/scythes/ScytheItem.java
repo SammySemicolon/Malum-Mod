@@ -35,7 +35,7 @@ public class ScytheItem extends ModSwordItem
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         
-        if (EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.REBOUND.get(),itemstack) > 0)
+        if (EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.REBOUND.get(), itemstack) > 0)
         {
             if (MalumHelper.areWeOnServer(worldIn))
             {
@@ -43,14 +43,14 @@ public class ScytheItem extends ModSwordItem
                 double baseDamage = playerIn.getAttributeValue(Attributes.ATTACK_DAMAGE);
                 float multiplier = 1.2f;
                 double damage = 1.0F + baseDamage * multiplier;
-        
+    
                 int slot = handIn == Hand.OFF_HAND ? playerIn.inventory.getSizeInventory() - 1 : playerIn.inventory.currentItem;
                 ScytheBoomerangEntity entity = new ScytheBoomerangEntity(MalumEntities.SCYTHE_BOOMERANG.get(), worldIn);
                 entity.setPosition(playerIn.getPositionVec().x, playerIn.getPositionVec().y + playerIn.getHeight() / 2f, playerIn.getPositionVec().z);
-        
+    
                 entity.setData((float) damage, playerIn.getUniqueID(), slot, itemstack);
                 entity.getDataManager().set(ScytheBoomerangEntity.SCYTHE, itemstack);
-        
+    
                 entity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 0F);
                 worldIn.addEntity(entity);
             }
@@ -61,16 +61,31 @@ public class ScytheItem extends ModSwordItem
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
     
+    @Override
+    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
+    {
+        if (attacker instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) attacker;
+            sweepingEdgeTypeBeat(playerEntity, target, (float) playerEntity.getAttributeValue(Attributes.ATTACK_DAMAGE));
+            playerEntity.spawnSweepParticles();
+        }
+        return super.hitEntity(stack, target, attacker);
+    }
+    
     public void sweepingEdgeTypeBeat(PlayerEntity playerEntity, LivingEntity target, float amount)
     {
         float multiplier = 0.4f;
         float damage = 1.0F + (amount * multiplier) + (amount * EnchantmentHelper.getSweepingDamageRatio(playerEntity));
         for (LivingEntity livingentity : playerEntity.world.getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(2.0D, 0.25D, 2.0D)))
         {
-            if (livingentity != playerEntity && livingentity != target && !playerEntity.isOnSameTeam(livingentity) && (!(livingentity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingentity).hasMarker()) && playerEntity.getDistanceSq(livingentity) < 9.0D)
+            if (livingentity.isAlive())
             {
-                livingentity.applyKnockback(0.4F, MathHelper.sin(playerEntity.rotationYaw * ((float) Math.PI / 180F)), (-MathHelper.cos(playerEntity.rotationYaw * ((float) Math.PI / 180F))));
-                livingentity.attackEntityFrom(DamageSource.causePlayerDamage(playerEntity), damage);
+                if (livingentity != playerEntity && livingentity != target && !playerEntity.isOnSameTeam(livingentity) && (!(livingentity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingentity).hasMarker()) && playerEntity.getDistanceSq(livingentity) < 9.0D)
+                {
+                    livingentity.applyKnockback(0.4F, MathHelper.sin(playerEntity.rotationYaw * ((float) Math.PI / 180F)), (-MathHelper.cos(playerEntity.rotationYaw * ((float) Math.PI / 180F))));
+                    livingentity.attackEntityFrom(DamageSource.causePlayerDamage(playerEntity), damage);
+                }
             }
         }
     

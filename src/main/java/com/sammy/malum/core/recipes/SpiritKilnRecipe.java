@@ -75,7 +75,7 @@ public class SpiritKilnRecipe
     
         new SpiritKilnRecipe(MalumItems.CRUDE_SCYTHE.get(), 1, MalumItems.SPIRITED_STEEL_SCYTHE.get(), 1, 8, MalumItems.SOUL_SHARD.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get(), MalumItems.SPIRITED_STEEL_INGOT.get());
     
-        new SpiritKilnRecipe(Items.COAL, 4, MalumItems.ARCANE_DISTILLATE.get(), 2, 1, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(Items.COAL, 1, MalumItems.ARCANE_DISTILLATE.get(), 1, 1, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
         new SpiritKilnRecipe(Items.ROTTEN_FLESH, 1, MalumItems.REANIMATED_MATTER.get(), 1, 2, MalumItems.UNDEAD_SPIRIT_SPLINTER.get(), MalumItems.WILD_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(MalumItems.REANIMATED_MATTER.get(), 1, MalumItems.ECTOPLASM.get(), 2 ,4, MalumItems.LUNAR_SAPBALL.get(), MalumItems.SOLAR_SAPBALL.get(), MalumItems.ARCANE_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(Items.NETHER_STAR, 1, MalumItems.SHARD_OF_WISDOM.get(), 2,8, MalumItems.TERMINUS_SPIRIT_SPLINTER.get(), MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.ELDRITCH_SPIRIT_SPLINTER.get());

@@ -39,6 +39,7 @@ public class MalumSounds
     public static final SoundEvent SPIRIT_KILN_FUEL = new SoundEvent(MalumHelper.prefix("spirit_kiln_fuel"));
     
     public static final SoundEvent KARMIC_HOLDER_ACTIVATE = new SoundEvent(MalumHelper.prefix("karmic_holder_activate"));
+    public static final SoundEvent DRIFT_BOOTS_JUMP = new SoundEvent(MalumHelper.prefix("drift_boots_jump"));
     
     public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType DARKENED_ROCK = new SoundType(1.0F, 0.75F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
@@ -72,7 +73,8 @@ public class MalumSounds
         SOUNDS.register("spirit_kiln_finish", ()-> SPIRIT_KILN_FINISH);
         SOUNDS.register("spirit_kiln_repair", ()-> SPIRIT_KILN_REPAIR);
         SOUNDS.register("spirit_kiln_fuel", ()-> SPIRIT_KILN_FUEL);
-        
+    
         SOUNDS.register("karmic_holder_activate", ()-> KARMIC_HOLDER_ACTIVATE);
+        SOUNDS.register("drift_boots_jump", ()-> DRIFT_BOOTS_JUMP);
     }
 }
