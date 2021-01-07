@@ -2,6 +2,7 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
+import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.init.MalumItems;
@@ -46,6 +47,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof AbstractButtonBlock).forEach(this::buttonBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof BushBlock && !(((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock)).forEach(this::blockGeneratedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock).forEach(this::generatedItem);
+        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherBrazierBlock).forEach(this::etherBrazierItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof LanternBlock).forEach(this::generatedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherTorchBlock).forEach(this::etherTorchItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof TorchBlock).forEach(this::generatedItem);
@@ -79,6 +81,16 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
 //        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/" + name + spiritSplinterItem.type.identifier));
         withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));
     }
+    private void etherBrazierItem(RegistryObject<Item> i)
+    {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        if (i.equals(MalumItems.ETHER_BRAZIER))
+        {
+            generatedItem(i);
+            return;
+        }
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/colored_ether_brazier_overlay")).texture("layer1", prefix("item/colored_ether_brazier"));
+    }
     private void etherTorchItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
@@ -87,7 +99,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
             generatedItem(i);
             return;
         }
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/colored_ether_torch_overlay")).texture("whatever", prefix("item/colored_ether_torch"));
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/colored_ether_torch_overlay")).texture("layer1", prefix("item/colored_ether_torch"));
     }
     private void etherItem(RegistryObject<Item> i)
     {

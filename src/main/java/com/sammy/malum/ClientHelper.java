@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,7 +26,16 @@ public class ClientHelper
         int r = color.getRed();
         int g = color.getGreen();
         int b = color.getBlue();
-        itemColors.register((stack, i) -> {return r << 16 | g << 8 | b;
+    
+        itemColors.register((stack, c) -> {
+            if (c == 0)
+            {
+                return r << 16 | g << 8 | b;
+            }
+            else
+            {
+                return 0xFFFFFF;
+            }
         }, item.get());
     }
     public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color)

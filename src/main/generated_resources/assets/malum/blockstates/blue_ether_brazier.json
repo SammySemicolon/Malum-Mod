@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "malum:block/blue_ether_brazier_hanging"
+    },
+    "hanging=true": {
+      "model": "malum:block/blue_ether_brazier"
+    }
+  }
+}

@@ -2,6 +2,7 @@ package com.sammy.malum.core.data;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
@@ -279,10 +280,19 @@ public class MalumLootTableProvider extends LootTableProvider
     
     protected void registerLootTable(Block blockIn, LootTable.Builder table)
     {
+        MalumMod.LOGGER.info(blockIn);
         addTable(blockIn.getLootTable(), table);
     }
     void addTable(ResourceLocation path, LootTable.Builder lootTable)
     {
-        tables.add(Pair.of(() -> (lootBuilder) -> lootBuilder.accept(path, lootTable), LootParameterSets.BLOCK));
+        try
+        {
+            MalumMod.LOGGER.info(path);
+            tables.add(Pair.of(() -> (lootBuilder) -> lootBuilder.accept(path, lootTable), LootParameterSets.BLOCK));
+        }
+        catch (RuntimeException runtimeException)
+        {
+            MalumMod.LOGGER.info(path);
+        }
     }
 }

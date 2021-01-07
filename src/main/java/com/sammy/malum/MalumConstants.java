@@ -51,7 +51,7 @@ public class MalumConstants
     public static final Color LIGHT_BLUE = new Color(101, 219, 219);
     public static final Color YELLOW = new Color(236, 167, 49);
     public static final Color LIME = new Color(155, 187, 41);
-    public static final Color PINK = new Color(236, 109, 229);
+    public static final Color PINK = SPIRIT_COLORS[4];
     public static final Color CYAN = new Color(38, 194, 194);
     public static final Color PURPLE = new Color(76, 18, 160);
     public static final Color BLUE = new Color(13, 54, 205);

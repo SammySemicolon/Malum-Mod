@@ -83,10 +83,6 @@ public class MalumItems
     public static final RegistryObject<Item> CUT_TAINTED_ROCK = ITEMS.register("cut_tainted_rock", () -> new BlockItem(MalumBlocks.CUT_TAINTED_ROCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CHISELED_TAINTED_ROCK = ITEMS.register("chiseled_tainted_rock", () -> new BlockItem(MalumBlocks.CHISELED_TAINTED_ROCK.get(), DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> FLARED_TAINTED_ROCK = ITEMS.register("flared_tainted_rock", () -> new BlockItem(MalumBlocks.FLARED_TAINTED_ROCK.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> HORIZONTAL_FLARED_TAINTED_ROCK = ITEMS.register("horizontal_flared_tainted_rock", () -> new BlockItem(MalumBlocks.HORIZONTAL_FLARED_TAINTED_ROCK.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TAINTED_ETHER_LANTERN = ITEMS.register("tainted_ether_lantern", () -> new BlockItem(MalumBlocks.TAINTED_ETHER_LANTERN.get(), DEFAULT_PROPERTIES()));
-    
     public static final RegistryObject<Item> TAINTED_ROCK_PRESSURE_PLATE = ITEMS.register("tainted_rock_pressure_plate", () -> new BlockItem(MalumBlocks.TAINTED_ROCK_PRESSURE_PLATE.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> TAINTED_ROCK_WALL = ITEMS.register("tainted_rock_wall", () -> new BlockItem(MalumBlocks.TAINTED_ROCK_WALL.get(), DEFAULT_PROPERTIES()));
@@ -134,10 +130,6 @@ public class MalumItems
     
     public static final RegistryObject<Item> CUT_DARKENED_ROCK = ITEMS.register("cut_darkened_rock", () -> new BlockItem(MalumBlocks.CUT_DARKENED_ROCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CHISELED_DARKENED_ROCK = ITEMS.register("chiseled_darkened_rock", () -> new BlockItem(MalumBlocks.CHISELED_DARKENED_ROCK.get(), DEFAULT_PROPERTIES()));
-    
-    public static final RegistryObject<Item> FLARED_DARKENED_ROCK = ITEMS.register("flared_darkened_rock", () -> new BlockItem(MalumBlocks.FLARED_DARKENED_ROCK.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> HORIZONTAL_FLARED_DARKENED_ROCK = ITEMS.register("horizontal_flared_darkened_rock", () -> new BlockItem(MalumBlocks.HORIZONTAL_FLARED_DARKENED_ROCK.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> DARKENED_ETHER_LANTERN = ITEMS.register("darkened_ether_lantern", () -> new BlockItem(MalumBlocks.DARKENED_ETHER_LANTERN.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> DARKENED_ROCK_PRESSURE_PLATE = ITEMS.register("darkened_rock_pressure_plate", () -> new BlockItem(MalumBlocks.DARKENED_ROCK_PRESSURE_PLATE.get(), DEFAULT_PROPERTIES()));
     
@@ -220,7 +212,7 @@ public class MalumItems
     public static final RegistryObject<Item> YELLOW_ETHER = ITEMS.register("yellow_ether", () -> new BlockItem(MalumBlocks.YELLOW_ETHER.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> LIME_ETHER = ITEMS.register("lime_ether", () -> new BlockItem(MalumBlocks.LIME_ETHER.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new BlockItem(MalumBlocks.ETHER.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CYAN_ETHER = ITEMS.register("cyan_ether_ether", () -> new BlockItem(MalumBlocks.CYAN_ETHER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CYAN_ETHER = ITEMS.register("cyan_ether", () -> new BlockItem(MalumBlocks.CYAN_ETHER.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> PURPLE_ETHER = ITEMS.register("purple_ether", () -> new BlockItem(MalumBlocks.PURPLE_ETHER.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLUE_ETHER = ITEMS.register("blue_ether", () -> new BlockItem(MalumBlocks.BLUE_ETHER.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BROWN_ETHER = ITEMS.register("brown_ether", () -> new BlockItem(MalumBlocks.BROWN_ETHER.get(), DEFAULT_PROPERTIES()));
@@ -233,12 +225,25 @@ public class MalumItems
     public static final RegistryObject<Item> YELLOW_ETHER_TORCH = ITEMS.register("yellow_ether_torch", () -> new WallOrFloorItem(MalumBlocks.YELLOW_ETHER_TORCH.get(), MalumBlocks.YELLOW_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> LIME_ETHER_TORCH = ITEMS.register("lime_ether_torch", () -> new WallOrFloorItem(MalumBlocks.LIME_ETHER_TORCH.get(), MalumBlocks.LIME_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ETHER_TORCH = ITEMS.register("ether_torch", () -> new WallOrFloorItem(MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CYAN_ETHER_TORCH = ITEMS.register("cyan_ether_torch_ether_torch", () -> new WallOrFloorItem(MalumBlocks.CYAN_ETHER_TORCH.get(), MalumBlocks.CYAN_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CYAN_ETHER_TORCH = ITEMS.register("cyan_ether_torch", () -> new WallOrFloorItem(MalumBlocks.CYAN_ETHER_TORCH.get(), MalumBlocks.CYAN_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> PURPLE_ETHER_TORCH = ITEMS.register("purple_ether_torch", () -> new WallOrFloorItem(MalumBlocks.PURPLE_ETHER_TORCH.get(), MalumBlocks.PURPLE_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLUE_ETHER_TORCH = ITEMS.register("blue_ether_torch", () -> new WallOrFloorItem(MalumBlocks.BLUE_ETHER_TORCH.get(), MalumBlocks.BLUE_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BROWN_ETHER_TORCH = ITEMS.register("brown_ether_torch", () -> new WallOrFloorItem(MalumBlocks.BROWN_ETHER_TORCH.get(), MalumBlocks.BROWN_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> GREEN_ETHER_TORCH = ITEMS.register("green_ether_torch", () -> new WallOrFloorItem(MalumBlocks.GREEN_ETHER_TORCH.get(), MalumBlocks.GREEN_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RED_ETHER_TORCH = ITEMS.register("red_ether_torch", () -> new WallOrFloorItem(MalumBlocks.RED_ETHER_TORCH.get(), MalumBlocks.RED_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
+    
+    public static final RegistryObject<Item> ORANGE_ETHER_BRAZIER = ITEMS.register("orange_ether_brazier", () -> new BlockItem(MalumBlocks.ORANGE_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> MAGENTA_ETHER_BRAZIER = ITEMS.register("magenta_ether_brazier", () -> new BlockItem(MalumBlocks.MAGENTA_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> LIGHT_BLUE_ETHER_BRAZIER = ITEMS.register("light_blue_ether_brazier", () -> new BlockItem(MalumBlocks.LIGHT_BLUE_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> YELLOW_ETHER_BRAZIER = ITEMS.register("yellow_ether_brazier", () -> new BlockItem(MalumBlocks.YELLOW_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> LIME_ETHER_BRAZIER = ITEMS.register("lime_ether_brazier", () -> new BlockItem(MalumBlocks.LIME_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ETHER_BRAZIER = ITEMS.register("ether_brazier", () -> new BlockItem(MalumBlocks.ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CYAN_ETHER_BRAZIER = ITEMS.register("cyan_ether_brazier", () -> new BlockItem(MalumBlocks.CYAN_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> PURPLE_ETHER_BRAZIER = ITEMS.register("purple_ether_brazier", () -> new BlockItem(MalumBlocks.PURPLE_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLUE_ETHER_BRAZIER = ITEMS.register("blue_ether_brazier", () -> new BlockItem(MalumBlocks.BLUE_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BROWN_ETHER_BRAZIER = ITEMS.register("brown_ether_brazier", () -> new BlockItem(MalumBlocks.BROWN_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> GREEN_ETHER_BRAZIER = ITEMS.register("green_ether_brazier", () -> new BlockItem(MalumBlocks.GREEN_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> RED_ETHER_BRAZIER = ITEMS.register("red_ether_brazier", () -> new BlockItem(MalumBlocks.RED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> SUN_KISSED_LEAVES = ITEMS.register("sun_kissed_leaves", () -> new BlockItem(MalumBlocks.SUN_KISSED_LEAVES.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SUN_KISSED_SAPLING = ITEMS.register("sun_kissed_sapling", () -> new BlockItem(MalumBlocks.SUN_KISSED_SAPLING.get(), DEFAULT_PROPERTIES()));
@@ -282,6 +287,7 @@ public class MalumItems
     //    public static final RegistryObject<Item> ARCANE_CRAFTING_TABLE = ITEMS.register("arcane_crafting_table", () -> new BlockItem(MalumBlocks.ARCANE_CRAFTING_TABLE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));
     public static final RegistryObject<Item> ITEM_STAND = ITEMS.register("item_stand", () -> new BlockItem(MalumBlocks.ITEM_STAND.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> EXTRACTION_FOCUS = ITEMS.register("extraction_focus", () -> new BlockItem(MalumBlocks.EXTRACTION_FOCUS.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_WORKBENCH = ITEMS.register("arcane_workbench", () -> new BlockItem(MalumBlocks.ARCANE_WORKBENCH.get(), DEFAULT_PROPERTIES()));
     //endregion
     

@@ -5,6 +5,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
+import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -53,12 +54,12 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         blocks.remove(BLAZE_QUARTZ_ORE);
         blocks.remove(MalumBlocks.ITEM_STAND);
         blocks.remove(MalumBlocks.ARCANE_WORKBENCH);
+        blocks.remove(MalumBlocks.EXTRACTION_FOCUS);
         
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
     
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::emptyBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
-        MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("horizontal_flared_")).forEach(this::horizontalFlaredBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getTranslationKey().endsWith("_cap")).forEach(this::pillarCapBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof FarmlandBlock).forEach(this::farmlandBlock);
@@ -74,6 +75,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractButtonBlock).forEach(this::buttonBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(this::tallPlantBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof WallTorchBlock).forEach(this::wallEtherTorchBlock);
@@ -93,6 +95,12 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     public void emptyBlock(RegistryObject<Block> blockRegistryObject)
     {
         ModelFile empty = models().getExistingFile(new ResourceLocation("block/air"));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
+    }
+    public void etherBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile empty = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", prefix("item/colored_ether"));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
     }
     public void etherTorchBlock(RegistryObject<Block> blockRegistryObject)
@@ -149,12 +157,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = "smooth_" + name.substring(4);
         simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + baseName), prefix("block/" + baseName)));
-    }
-    public void horizontalFlaredBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String baseName = "smooth_" + name.substring(18);
-        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/" + name), prefix("block/" + baseName));
     }
     
     public void cutPlanksBlock(RegistryObject<Block> blockRegistryObject)
@@ -240,6 +242,13 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         getVariantBuilder(blockRegistryObject.get()).partialState().with(PressurePlateBlock.POWERED, true).modelForState().modelFile(pressurePlateDown).addModel().partialState().with(PressurePlateBlock.POWERED, false).modelForState().modelFile(pressurePlateUp).addModel();
     }
     
+    public void brazierBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        ModelFile brazier = models().getExistingFile(MalumHelper.prefix("block/template_ether_brazier"));
+        ModelFile brazier_hanging = models().getExistingFile(MalumHelper.prefix("block/template_ether_brazier_hanging"));
+        
+        getVariantBuilder(blockRegistryObject.get()).partialState().with(LanternBlock.HANGING, false).modelForState().modelFile(brazier).addModel().partialState().with(LanternBlock.HANGING, true).modelForState().modelFile(brazier_hanging).addModel();
+    }
     public void lanternBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();

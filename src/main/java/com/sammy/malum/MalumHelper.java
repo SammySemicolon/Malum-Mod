@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.sammy.malum.common.blocks.extractionfocus.ExtractionFocusBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.data.MalumParticleData;
@@ -79,6 +80,20 @@ public class MalumHelper
         return items.collect(Collectors.toCollection(ArrayList::new));
     }
     
+    public static BlockPos extractionFocus(World world, BlockPos pos, Direction... excludedDirections)
+    {
+        ArrayList<Direction> excludedDirectionsArray = MalumHelper.toArrayList(excludedDirections);
+        ArrayList<Direction> directions = MalumHelper.toArrayList(Arrays.stream(Direction.values()).filter(b -> !excludedDirectionsArray.contains(b)));
+        for (Direction direction : directions)
+        {
+            BlockPos offsetPosition = pos.add(direction.getDirectionVec());
+            if (world.getBlockState(offsetPosition).getBlock() instanceof ExtractionFocusBlock)
+            {
+                return offsetPosition;
+            }
+        }
+        return null;
+    }
     public static ArrayList<BlockPos> itemStands(World world, BlockPos pos, Direction... excludedDirections)
     {
         ArrayList<BlockPos> positions = new ArrayList<>();

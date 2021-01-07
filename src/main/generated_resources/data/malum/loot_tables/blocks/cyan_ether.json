@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:cyan_ether_ether"
+          "name": "malum:cyan_ether"
         }
       ],
       "conditions": [

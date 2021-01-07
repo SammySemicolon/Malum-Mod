@@ -3,6 +3,7 @@ package com.sammy.malum.common.blocks.spiritkiln;
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.blocks.extractionfocus.ExtractionFocusBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
@@ -20,6 +21,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -81,6 +83,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public SimpleInventory inventory;
     public SimpleInventory advancedInventory;
     public SimpleFuelSystem powerStorage;
+    public BlockPos extractionFocus;
     
     public int state;
     public SpiritKilnRecipe currentRecipe;
@@ -94,7 +97,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         inventory.readData(compound);
         advancedInventory.readData(compound, "advancedInventory");
         powerStorage.readData(compound);
-        
+        extractionFocus = NBTUtil.readBlockPos(compound);
         progress = compound.getFloat("progress");
         advancedProgress = compound.getFloat("advancedProgress");
         
@@ -107,6 +110,10 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         inventory.writeData(compound);
         advancedInventory.writeData(compound, "advancedInventory");
         powerStorage.writeData(compound);
+        if (extractionFocus != null)
+        {
+            NBTUtil.writeBlockPos(extractionFocus);
+        }
         compound.putFloat("progress", progress);
         compound.putFloat("advancedProgress", advancedProgress);
         return super.writeData(compound);
@@ -279,9 +286,17 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     
     public Vector3d itemOutputPos()
     {
+        extractionFocus = MalumHelper.extractionFocus(world,pos.up());
+        if (extractionFocus != null)
+        {
+            if (world.getBlockState(extractionFocus).getBlock() instanceof ExtractionFocusBlock)
+            {
+                return new Vector3d(extractionFocus.getX() + 0.5f, extractionFocus.getY() + 0.5f, extractionFocus.getZ() + 0.5f);
+            }
+        }
         Direction direction = getBlockState().get(HORIZONTAL_FACING);
         Vector3i directionVector = new Vector3i(direction.getXOffset(), 0, direction.getZOffset());
-        return new Vector3d(this.pos.getX() + 0.5f - directionVector.getX(), this.pos.getY() + 1, this.pos.getZ() + 0.5f - directionVector.getZ());
+        return new Vector3d(this.pos.getX() + 0.5f - directionVector.getX(), this.pos.getY() + 1.5f, this.pos.getZ() + 0.5f - directionVector.getZ());
     }
     //endregion
     

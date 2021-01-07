@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "malum:item/darkened_ether_lantern"
-  }
-}
