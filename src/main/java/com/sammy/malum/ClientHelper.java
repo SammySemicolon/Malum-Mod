@@ -20,6 +20,14 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class ClientHelper
 {
+    public static void registerItemColorTint(ItemColors itemColors, RegistryObject<Item> item, Color color)
+    {
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        itemColors.register((stack, i) -> {return r << 16 | g << 8 | b;
+        }, item.get());
+    }
     public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color)
     {
         int r = color.getRed();

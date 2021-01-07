@@ -1,9 +1,12 @@
 package com.sammy.malum.common.events;
 
+import com.sammy.malum.MalumConstants;
 import com.sammy.malum.common.entities.ScytheBoomerangEntity;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
+import com.sammy.malum.core.init.particles.MalumParticles;
+import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,6 +19,8 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.awt.*;
+
 @SuppressWarnings("all")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class SplinterHandlingEvents
@@ -23,9 +28,9 @@ public class SplinterHandlingEvents
     @SubscribeEvent
     public static void onEntityKill(LivingDeathEvent event)
     {
-        ItemStack stack = ItemStack.EMPTY;
         if (event.getSource().getTrueSource() instanceof PlayerEntity)
         {
+            ItemStack stack = ItemStack.EMPTY;
             PlayerEntity attacker = (PlayerEntity) event.getSource().getTrueSource();
             if (attacker.swingingHand != null)
             {

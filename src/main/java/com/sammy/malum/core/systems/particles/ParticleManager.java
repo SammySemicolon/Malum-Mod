@@ -207,7 +207,7 @@ public class ParticleManager
     
         public ParticleBuilder spawnAtEdges(World world, BlockPos pos)
         {
-            Direction direction = Direction.values()[world.rand.nextInt(Direction.values().length - 1)];
+            Direction direction = Direction.values()[world.rand.nextInt(Direction.values().length)];
             double yaw = random.nextFloat() * Math.PI * 2, pitch = random.nextFloat() * Math.PI - Math.PI / 2, xSpeed = random.nextFloat() * maxXSpeed, ySpeed = random.nextFloat() * maxYSpeed, zSpeed = random.nextFloat() * maxZSpeed;
             this.vx += Math.sin(yaw) * Math.cos(pitch) * xSpeed;
             this.vy += Math.sin(pitch) * ySpeed;

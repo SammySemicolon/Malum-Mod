@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init.blocks;
 
+import com.sammy.malum.MalumConstants;
 import com.sammy.malum.common.blocks.MalumDirectionalBlock;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.MalumTallGrassBlock;
@@ -7,13 +8,13 @@ import com.sammy.malum.common.blocks.WitherSandBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.arcaneworkbench.ArcaneWorkbenchBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
-import com.sammy.malum.common.blocks.wildfarmland.PlanterBoxBlock;
+import com.sammy.malum.common.blocks.lighting.EtherBlock;
+import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
+import com.sammy.malum.common.blocks.lighting.WallEtherTorchBlock;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnBoundingBlock;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock;
-import com.sammy.malum.common.blocks.taint.*;
 import com.sammy.malum.common.blocks.wildfarmland.WildFarmlandBlock;
 import com.sammy.malum.common.world.features.tree.SunKissedTree;
-import com.sammy.malum.common.world.features.tree.TaintedTree;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -127,7 +128,7 @@ public class MalumBlocks
     
     public static final RegistryObject<Block> FLARED_TAINTED_ROCK = BLOCKS.register("flared_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 15))));
     public static final RegistryObject<Block> HORIZONTAL_FLARED_TAINTED_ROCK = BLOCKS.register("horizontal_flared_tainted_rock", () -> new RotatedPillarBlock(TAINTED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 15))));
-    public static final RegistryObject<Block> TAINTED_FLARED_LANTERN = BLOCKS.register("tainted_flared_lantern", () -> new LanternBlock(TAINTED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 12))));
+    public static final RegistryObject<Block> TAINTED_ETHER_LANTERN = BLOCKS.register("tainted_ether_lantern", () -> new LanternBlock(TAINTED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 12))));
     
     public static final RegistryObject<Block> TAINTED_ROCK_SLAB = BLOCKS.register("tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_TAINTED_ROCK_SLAB = BLOCKS.register("smooth_tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
@@ -180,7 +181,7 @@ public class MalumBlocks
     
     public static final RegistryObject<Block> FLARED_DARKENED_ROCK = BLOCKS.register("flared_darkened_rock", () -> new Block(DARKENED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 15))));
     public static final RegistryObject<Block> HORIZONTAL_FLARED_DARKENED_ROCK = BLOCKS.register("horizontal_flared_darkened_rock", () -> new RotatedPillarBlock(DARKENED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 15))));
-    public static final RegistryObject<Block> DARKENED_FLARED_LANTERN = BLOCKS.register("darkened_flared_lantern", () -> new LanternBlock(DARKENED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 12))));
+    public static final RegistryObject<Block> DARKENED_ETHER_LANTERN = BLOCKS.register("darkened_ether_lantern", () -> new LanternBlock(DARKENED_ROCK_PROPERTIES().setLightLevel(b -> light(b, 12))));
     
     public static final RegistryObject<Block> DARKENED_ROCK_SLAB = BLOCKS.register("darkened_rock_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_DARKENED_ROCK_SLAB = BLOCKS.register("smooth_darkened_rock_slab", () -> new SlabBlock(DARKENED_ROCK_PROPERTIES()));
@@ -238,7 +239,7 @@ public class MalumBlocks
     
     public static final RegistryObject<Block> CUT_SUN_KISSED_PLANKS = BLOCKS.register("cut_sun_kissed_planks", () -> new Block(SUN_KISSED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> SUN_KISSED_BEAM = BLOCKS.register("sun_kissed_beam", () -> new RotatedPillarBlock(SUN_KISSED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> BOLTED_SUN_KISSED_BEAM = BLOCKS.register("bolted_sun_kissed_beam", () -> new Block(SUN_KISSED_WOOD_PROPERTIES()));
+    public static final RegistryObject<Block> BOLTED_SUN_KISSED_BEAM = BLOCKS.register("bolted_sun_kissed_beam", () -> new RotatedPillarBlock(SUN_KISSED_WOOD_PROPERTIES()));
     
     public static final RegistryObject<Block> SUN_KISSED_DOOR = BLOCKS.register("sun_kissed_door", () -> new DoorBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SUN_KISSED_TRAPDOOR = BLOCKS.register("sun_kissed_trapdoor", () -> new TrapDoorBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid()));
@@ -249,28 +250,48 @@ public class MalumBlocks
     
     public static final RegistryObject<Block> SUN_KISSED_PLANKS_FENCE = BLOCKS.register("sun_kissed_planks_fence", () -> new FenceBlock(SUN_KISSED_WOOD_PROPERTIES()));
     public static final RegistryObject<Block> SUN_KISSED_PLANKS_FENCE_GATE = BLOCKS.register("sun_kissed_planks_fence_gate", () -> new FenceGateBlock(SUN_KISSED_WOOD_PROPERTIES()));
+    
+    public static final RegistryObject<Block> ORANGE_ETHER_TORCH = BLOCKS.register("orange_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.ORANGE));
+    public static final RegistryObject<Block> MAGENTA_ETHER_TORCH = BLOCKS.register("magenta_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.MAGENTA));
+    public static final RegistryObject<Block> LIGHT_BLUE_ETHER_TORCH = BLOCKS.register("light_blue_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIGHT_BLUE));
+    public static final RegistryObject<Block> YELLOW_ETHER_TORCH = BLOCKS.register("yellow_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.YELLOW));
+    public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PINK));
+    public static final RegistryObject<Block> LIME_ETHER_TORCH = BLOCKS.register("lime_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIME));
+    public static final RegistryObject<Block> CYAN_ETHER_TORCH = BLOCKS.register("cyan_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.CYAN));
+    public static final RegistryObject<Block> PURPLE_ETHER_TORCH = BLOCKS.register("purple_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PURPLE));
+    public static final RegistryObject<Block> BLUE_ETHER_TORCH = BLOCKS.register("blue_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BLUE));
+    public static final RegistryObject<Block> BROWN_ETHER_TORCH = BLOCKS.register("brown_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BROWN));
+    public static final RegistryObject<Block> GREEN_ETHER_TORCH = BLOCKS.register("green_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.GREEN));
+    public static final RegistryObject<Block> RED_ETHER_TORCH = BLOCKS.register("red_ether_torch", () -> new EtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.RED));
+    
+    public static final RegistryObject<Block> ORANGE_WALL_ETHER_TORCH = BLOCKS.register("orange_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.ORANGE));
+    public static final RegistryObject<Block> MAGENTA_WALL_ETHER_TORCH = BLOCKS.register("magenta_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.MAGENTA));
+    public static final RegistryObject<Block> LIGHT_BLUE_WALL_ETHER_TORCH = BLOCKS.register("light_blue_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIGHT_BLUE));
+    public static final RegistryObject<Block> YELLOW_WALL_ETHER_TORCH = BLOCKS.register("yellow_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.YELLOW));
+    public static final RegistryObject<Block> WALL_ETHER_TORCH = BLOCKS.register("wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PINK));
+    public static final RegistryObject<Block> LIME_WALL_ETHER_TORCH = BLOCKS.register("lime_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIME));
+    public static final RegistryObject<Block> CYAN_WALL_ETHER_TORCH = BLOCKS.register("cyan_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.CYAN));
+    public static final RegistryObject<Block> PURPLE_WALL_ETHER_TORCH = BLOCKS.register("purple_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.darkest()));
+    public static final RegistryObject<Block> BLUE_WALL_ETHER_TORCH = BLOCKS.register("blue_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BLUE));
+    public static final RegistryObject<Block> BROWN_WALL_ETHER_TORCH = BLOCKS.register("brown_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BROWN));
+    public static final RegistryObject<Block> GREEN_WALL_ETHER_TORCH = BLOCKS.register("green_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.GREEN));
+    public static final RegistryObject<Block> RED_WALL_ETHER_TORCH = BLOCKS.register("red_wall_ether_torch", () -> new WallEtherTorchBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.RED));
+    
+    public static final RegistryObject<Block> ORANGE_ETHER = BLOCKS.register("orange_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.ORANGE));
+    public static final RegistryObject<Block> MAGENTA_ETHER = BLOCKS.register("magenta_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.MAGENTA));
+    public static final RegistryObject<Block> LIGHT_BLUE_ETHER = BLOCKS.register("light_blue_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIGHT_BLUE));
+    public static final RegistryObject<Block> YELLOW_ETHER = BLOCKS.register("yellow_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.YELLOW));
+    public static final RegistryObject<Block> ETHER = BLOCKS.register("ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PINK));
+    public static final RegistryObject<Block> LIME_ETHER = BLOCKS.register("lime_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIME));
+    public static final RegistryObject<Block> CYAN_ETHER = BLOCKS.register("cyan_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.CYAN));
+    public static final RegistryObject<Block> PURPLE_ETHER = BLOCKS.register("purple_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PURPLE));
+    public static final RegistryObject<Block> BLUE_ETHER = BLOCKS.register("blue_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BLUE));
+    public static final RegistryObject<Block> BROWN_ETHER = BLOCKS.register("brown_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BROWN));
+    public static final RegistryObject<Block> GREEN_ETHER = BLOCKS.register("green_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.GREEN));
+    public static final RegistryObject<Block> RED_ETHER = BLOCKS.register("red_ether", () -> new EtherBlock(SUN_KISSED_WOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.RED));
+    
     //endregion
     
-    //region tainted wood
-    public static final RegistryObject<Block> TAINTED_LOG = BLOCKS.register("tainted_log", () -> new TaintedLogBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> STRIPPED_TAINTED_LOG = BLOCKS.register("stripped_tainted_log", () -> new TaintedLogBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_WOOD = BLOCKS.register("tainted_wood", () -> new TaintedLogBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> STRIPPED_TAINTED_WOOD = BLOCKS.register("stripped_tainted_wood", () -> new TaintedLogBlock(TAINTED_WOOD_PROPERTIES()));
-    
-    public static final RegistryObject<Block> TAINTED_PLANKS = BLOCKS.register("tainted_planks", () -> new TaintedBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_PLANKS_SLAB = BLOCKS.register("tainted_planks_slab", () -> new TaintedSlabBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_PLANKS_STAIRS = BLOCKS.register("tainted_planks_stairs", () -> new TaintedStairsBlock(TAINTED_PLANKS.get().getDefaultState(), TAINTED_WOOD_PROPERTIES()));
-    
-    public static final RegistryObject<Block> TAINTED_DOOR = BLOCKS.register("tainted_door", () -> new TaintedDoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> TAINTED_TRAPDOOR = BLOCKS.register("tainted_trapdoor", () -> new TaintedTrapdoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> SOLID_TAINTED_TRAPDOOR = BLOCKS.register("solid_tainted_trapdoor", () -> new TaintedTrapdoorBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
-    
-    public static final RegistryObject<Block> TAINTED_PLANKS_BUTTON = BLOCKS.register("tainted_planks_button", () -> new TaintedButtonBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_PLANKS_PRESSURE_PLATE = BLOCKS.register("tainted_planks_pressure_plate", () -> new PressurePlateBlock(EVERYTHING, TAINTED_WOOD_PROPERTIES()));
-    
-    public static final RegistryObject<Block> TAINTED_PLANKS_FENCE = BLOCKS.register("tainted_planks_fence", () -> new TaintedFenceBlock(TAINTED_WOOD_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_PLANKS_FENCE_GATE = BLOCKS.register("tainted_planks_fence_gate", () -> new TaintedFenceGateBlock(TAINTED_WOOD_PROPERTIES()));
-    //endregion
     public static final RegistryObject<Block> MARIGOLD = BLOCKS.register("marigold", () -> new BushBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     
     //region sun kissed biome blocks
@@ -284,21 +305,9 @@ public class MalumBlocks
     public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     //endregion
     
-    //region tainted biome blocks
-    public static final RegistryObject<Block> TAINTED_GRASS_BLOCK = BLOCKS.register("tainted_grass_block", () -> new TaintedGrassBlock(TAINTED_GRASS_BLOCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> TALL_TAINTED_GRASS = BLOCKS.register("tall_tainted_grass", () -> new TaintedDoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_GRASS = BLOCKS.register("tainted_grass", () -> new TaintedTallGrassBlock(TAINTED_PLANTS_PROPERTIES(), TALL_TAINTED_GRASS));
-    public static final RegistryObject<Block> SHORT_TAINTED_GRASS = BLOCKS.register("short_tainted_grass", () -> new TaintedTallGrassBlock(TAINTED_PLANTS_PROPERTIES(), TALL_TAINTED_GRASS));
-    public static final RegistryObject<Block> TAINTED_SAPLING = BLOCKS.register("tainted_sapling", () -> new TaintedSaplingBlock(new TaintedTree(), TAINTED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_LEAVES = BLOCKS.register("tainted_leaves", () -> new TaintedLeavesBlock(LEAVES_PROPERTIES(), new Color(153, 9, 132), new Color(242, 127, 255)));
-    //endregion
-    public static final RegistryObject<Block> TAINTED_LAVENDER = BLOCKS.register("tainted_lavender", () -> new TaintedDoublePlantBlock(TAINTED_PLANTS_PROPERTIES()));
-    //endregion
     
     //region contents
     public static final RegistryObject<Block> BLAZE_QUARTZ_ORE = BLOCKS.register("blaze_quartz_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_QUARTZ_ORE)));
-    //    public static final RegistryObject<Block> SOLAR_ORE = BLOCKS.register("solar_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(MalumSounds.SOLAR_ORE).setRequiresTool().hardnessAndResistance(6.0F, 3600000.0F)));
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK = BLOCKS.register("transmissive_metal_block", () -> new Block(TRANSMISSIVE_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> TRANSMISSIVE_METAL_BLOCK_SLAB = BLOCKS.register("transmissive_metal_block_slab", () -> new SlabBlock(TRANSMISSIVE_BLOCK_PROPERTIES()));
@@ -319,8 +328,6 @@ public class MalumBlocks
     public static final RegistryObject<Block> STACKED_SPIRITED_STEEL = BLOCKS.register("stacked_spirited_steel", () -> new Block(SPIRITED_STEEL_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> STACKED_SPIRITED_STEEL_SLAB = BLOCKS.register("stacked_spirited_steel_slab", () -> new SlabBlock(SPIRITED_STEEL_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> STACKED_SPIRITED_STEEL_STAIRS = BLOCKS.register("stacked_spirited_steel_stairs", () -> new StairsBlock(STACKED_SPIRITED_STEEL.get().getDefaultState(), SPIRITED_STEEL_BLOCK_PROPERTIES()));
-    
-    public static final RegistryObject<Block> FLARED_GLOWSTONE_BlOCK = BLOCKS.register("flared_glowstone_block", () -> new Block(AbstractBlock.Properties.from(Blocks.GLOWSTONE).setLightLevel(b -> light(b, 15))));
     
     public static final RegistryObject<Block> WITHER_SAND = BLOCKS.register("wither_sand", () -> new WitherSandBlock(AbstractBlock.Properties.from(Blocks.SOUL_SAND).harvestTool(ToolType.SHOVEL)));
     //endregion

@@ -20,23 +20,21 @@ public class SpiritFlameParticle extends ParticlePhaseMalumParticle
     {
         super(world, data, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet, new ParticlePhase(0, 37, 1, 0), new ParticlePhase(38, 77, 2,38));
         setMaxAge(118);
+        canCollide = false;
     }
-    int goUpPlease = 20;
     @Override
     public void tick()
     {
         super.tick();
         motionX *= 0.9f;
-        if (goUpPlease > 0)
+        if (data.gravity && age < 5)
         {
             motionY += 0.005f;
-            goUpPlease--;
         }
         else
         {
             motionY *= 0.9f;
         }
-        motionY *= 0.9f;
         motionZ *= 0.9f;
     }
 }

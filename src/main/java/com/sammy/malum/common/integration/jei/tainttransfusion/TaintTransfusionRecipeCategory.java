@@ -32,7 +32,7 @@ public class TaintTransfusionRecipeCategory implements IRecipeCategory<TaintTran
         background = guiHelper.createBlankDrawable(121, 32);
         localizedName = I18n.format("malum.jei.taint_transfusion");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/taint_transfusion_overlay.png"), 0, 0, 119, 30);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.TAINT_RUDIMENT.get()));
+        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.ETHER.get()));
     }
     
     @Override

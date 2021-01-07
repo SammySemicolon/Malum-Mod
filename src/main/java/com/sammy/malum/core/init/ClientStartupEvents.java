@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init;
 
+import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.ClientHelper;
@@ -35,6 +36,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -94,6 +96,30 @@ public class ClientStartupEvents
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
             ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
+        ClientHelper.registerItemColor(itemColors, MalumItems.ORANGE_ETHER, MalumConstants.ORANGE);
+        ClientHelper.registerItemColor(itemColors, MalumItems.MAGENTA_ETHER, MalumConstants.MAGENTA);
+        ClientHelper.registerItemColor(itemColors, MalumItems.LIGHT_BLUE_ETHER, MalumConstants.LIGHT_BLUE);
+        ClientHelper.registerItemColor(itemColors, MalumItems.YELLOW_ETHER, MalumConstants.YELLOW);
+        ClientHelper.registerItemColor(itemColors, MalumItems.LIME_ETHER, MalumConstants.LIME);
+        ClientHelper.registerItemColor(itemColors, MalumItems.CYAN_ETHER, MalumConstants.CYAN);
+        ClientHelper.registerItemColor(itemColors, MalumItems.PURPLE_ETHER, MalumConstants.PURPLE);
+        ClientHelper.registerItemColor(itemColors, MalumItems.BLUE_ETHER, MalumConstants.BLUE);
+        ClientHelper.registerItemColor(itemColors, MalumItems.BROWN_ETHER, MalumConstants.BROWN);
+        ClientHelper.registerItemColor(itemColors, MalumItems.GREEN_ETHER, MalumConstants.GREEN);
+        ClientHelper.registerItemColor(itemColors, MalumItems.RED_ETHER, MalumConstants.RED);
+        
+        ClientHelper.registerItemColor(itemColors, MalumItems.ORANGE_ETHER_TORCH, MalumConstants.ORANGE);
+        ClientHelper.registerItemColor(itemColors, MalumItems.MAGENTA_ETHER_TORCH, MalumConstants.MAGENTA);
+        ClientHelper.registerItemColor(itemColors, MalumItems.LIGHT_BLUE_ETHER_TORCH, MalumConstants.LIGHT_BLUE);
+        ClientHelper.registerItemColor(itemColors, MalumItems.YELLOW_ETHER_TORCH, MalumConstants.YELLOW);
+        ClientHelper.registerItemColor(itemColors, MalumItems.LIME_ETHER_TORCH, MalumConstants.LIME);
+        ClientHelper.registerItemColor(itemColors, MalumItems.CYAN_ETHER_TORCH, MalumConstants.CYAN);
+        ClientHelper.registerItemColor(itemColors, MalumItems.PURPLE_ETHER_TORCH, MalumConstants.PURPLE);
+        ClientHelper.registerItemColor(itemColors, MalumItems.BLUE_ETHER_TORCH, MalumConstants.BLUE);
+        ClientHelper.registerItemColor(itemColors, MalumItems.BROWN_ETHER_TORCH, MalumConstants.BROWN);
+        ClientHelper.registerItemColor(itemColors, MalumItems.GREEN_ETHER_TORCH, MalumConstants.GREEN);
+        ClientHelper.registerItemColor(itemColors, MalumItems.RED_ETHER_TORCH, MalumConstants.RED);
+        
         ClientHelper.registerItemColor(itemColors, MalumItems.WILD_SPIRIT_SPLINTER, MalumSpiritTypes.WILD_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.UNDEAD_SPIRIT_SPLINTER, MalumSpiritTypes.UNDEAD_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.NIMBLE_SPIRIT_SPLINTER, MalumSpiritTypes.NIMBLE_SPIRIT_COLOR);
@@ -112,7 +138,9 @@ public class ClientStartupEvents
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)
     {
+        
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientStartupEvents::setCutout);

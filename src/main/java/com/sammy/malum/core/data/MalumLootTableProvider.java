@@ -82,7 +82,6 @@ public class MalumLootTableProvider extends LootTableProvider
     
         registerLootTable(MalumBlocks.BLAZE_QUARTZ_ORE.get(),droppingItemWithFortune(MalumBlocks.BLAZE_QUARTZ_ORE.get(), MalumItems.BLAZE_QUARTZ.get()));
         registerLootTable(MalumBlocks.SUN_KISSED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.SUN_KISSED_LEAVES.get(), MalumBlocks.SUN_KISSED_SAPLING.get(), RARE_SAPLING_DROP_RATES));
-        registerLootTable(MalumBlocks.TAINTED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.TAINTED_LEAVES.get(), MalumBlocks.TAINTED_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         return tables;
     }
     

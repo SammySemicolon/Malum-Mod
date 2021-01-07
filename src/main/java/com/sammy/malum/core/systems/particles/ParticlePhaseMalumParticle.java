@@ -20,7 +20,7 @@ public class ParticlePhaseMalumParticle extends SpriteTexturedParticle
 {
     public final IAnimatedSprite spriteSet;
     public ArrayList<ParticlePhase> phases;
-    MalumParticleData data;
+    public MalumParticleData data;
     float[] hsv1 = new float[3], hsv2 = new float[3];
     
     public ParticlePhaseMalumParticle(ClientWorld world, MalumParticleData data, double x, double y, double z, double vx, double vy, double vz,IAnimatedSprite spriteSet, ParticlePhase... phases)

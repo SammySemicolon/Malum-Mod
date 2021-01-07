@@ -6,7 +6,9 @@ import java.awt.*;
 
 public class MalumConstants
 {
-    public static Color[] spiritColors = new Color[]{
+    public static final String INTEGRITY_NBT = "spirit_integrity";
+    
+    public static final Color[] SPIRIT_COLORS = new Color[]{
             new Color(255, 210, 243),
             new Color(255, 183, 236),
             new Color(240, 131, 232),
@@ -20,26 +22,40 @@ public class MalumConstants
     };
     public static Color random()
     {
-        return spiritColors[MalumMod.RANDOM.nextInt(spiritColors.length-1)];
+        return SPIRIT_COLORS[MalumMod.RANDOM.nextInt(SPIRIT_COLORS.length-1)];
     }
     public static Color brightest()
     {
-        return spiritColors[0];
+        return SPIRIT_COLORS[0];
     }
     public static Color bright()
     {
-        return spiritColors[MathHelper.nextInt(MalumMod.RANDOM, 0,2)];
+        return SPIRIT_COLORS[MathHelper.nextInt(MalumMod.RANDOM, 0,2)];
     }
     public static Color faded()
     {
-        return spiritColors[MathHelper.nextInt(MalumMod.RANDOM, 3,6)];
+        return SPIRIT_COLORS[MathHelper.nextInt(MalumMod.RANDOM, 3,6)];
     }
     public static Color dark()
     {
-        return spiritColors[MathHelper.nextInt(MalumMod.RANDOM, 7,9)];
+        return SPIRIT_COLORS[MathHelper.nextInt(MalumMod.RANDOM, 7,9)];
     }
     public static Color darkest()
     {
-        return spiritColors[9];
+        return SPIRIT_COLORS[9];
     }
+    
+    
+    public static final Color ORANGE = new Color(170, 76, 16);
+    public static final Color MAGENTA = new Color(224, 51, 224);
+    public static final Color LIGHT_BLUE = new Color(101, 219, 219);
+    public static final Color YELLOW = new Color(236, 167, 49);
+    public static final Color LIME = new Color(155, 187, 41);
+    public static final Color PINK = new Color(236, 109, 229);
+    public static final Color CYAN = new Color(38, 194, 194);
+    public static final Color PURPLE = new Color(76, 18, 160);
+    public static final Color BLUE = new Color(13, 54, 205);
+    public static final Color BROWN = new Color(102, 31, 13);
+    public static final Color GREEN = new Color(23, 134, 13);
+    public static final Color RED = new Color(180, 49, 49);
 }

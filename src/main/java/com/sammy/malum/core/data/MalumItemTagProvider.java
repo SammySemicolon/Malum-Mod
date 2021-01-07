@@ -74,14 +74,12 @@ public class MalumItemTagProvider extends ItemTagsProvider
         this.copy(BlockTags.GOLD_ORES, ItemTags.GOLD_ORES);
         this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
     
-        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.SOLAR_SAPBALL.get(), MalumItems.LUNAR_SAPBALL.get());
+        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.SOLAR_SAPBALL.get());
     
         getOrCreateBuilder(UNHOLY_TRINKET).add(Items.SPIDER_EYE,Items.ROTTEN_FLESH);
         getOrCreateBuilder(SUN_KISSED_LOGS).add(MalumItems.SUN_KISSED_LOG.get(), MalumItems.STRIPPED_SUN_KISSED_LOG.get(), MalumItems.SUN_KISSED_WOOD.get(), MalumItems.STRIPPED_SUN_KISSED_WOOD.get());
-        getOrCreateBuilder(TAINTED_LOGS).add(MalumItems.TAINTED_LOG.get(), MalumItems.STRIPPED_TAINTED_LOG.get(), MalumItems.TAINTED_WOOD.get(), MalumItems.STRIPPED_TAINTED_WOOD.get());
-        getOrCreateBuilder(LAVENDER).add(MalumItems.LAVENDER.get(), MalumItems.TAINTED_LAVENDER.get());
         getOrCreateBuilder(SPIRITED_STEEL_BLOCKS).add(MalumItems.SPIRITED_STEEL_BLOCK.get(), MalumItems.SPIRITED_STEEL_TILES.get(), MalumItems.STACKED_SPIRITED_STEEL.get());
         getOrCreateBuilder(TRANSMISSIVE_METAL_BLOCKS).add(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
-        getOrCreateBuilder(SAPBALLS).add(MalumItems.SOLAR_SAPBALL.get(), MalumItems.LUNAR_SAPBALL.get());
+        getOrCreateBuilder(SAPBALLS).add(MalumItems.SOLAR_SAPBALL.get());
     }
 }

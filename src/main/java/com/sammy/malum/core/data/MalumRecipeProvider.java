@@ -40,11 +40,8 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessRecipe(Items.PURPLE_DYE,2).addIngredient(MalumItemTags.LAVENDER).addCriterion("has_lavender", hasItem(MalumItemTags.LAVENDER)).build(consumer);
         shapelessRecipe(Items.YELLOW_DYE,2).addIngredient(MalumItems.MARIGOLD.get()).addCriterion("has_marigold", hasItem(MalumItems.MARIGOLD.get())).build(consumer);
         
-        shapelessRecipe(MalumItems.TAINT_RUDIMENT.get()).addIngredient(Items.WHEAT_SEEDS).addIngredient(Items.CRIMSON_FUNGUS).addIngredient(Items.WARPED_FUNGUS).addIngredient(MalumItemTags.UNHOLY_TRINKET).addCriterion("has_wheat_seeds", hasItem(Items.WHEAT_SEEDS)).build(consumer);
-        shapelessRecipe(MalumItems.DARK_FLARES.get(),4).addIngredient(MalumItems.FLARED_GLOWSTONE_BLOCK.get()).addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
-        shapedRecipe(MalumItems.FLARED_GLOWSTONE_BLOCK.get()).key('#', MalumItems.DARK_FLARES.get()).patternLine("##").patternLine("##").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
-        smeltingRecipe(Ingredient.fromTag(MalumItemTags.SUN_KISSED_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_seed_of_corruption", hasItem(MalumItems.TAINT_RUDIMENT.get())).build(consumer);
-        shapedRecipe(MalumItems.SPIRIT_KILN.get()).key('#', MalumItems.TAINT_RUDIMENT.get()).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.DARKENED_ROCK.get()).key('Z', Items.FURNACE).key('C', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("C#C").patternLine("YZY").patternLine("XYX").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
+        smeltingRecipe(Ingredient.fromTag(MalumItemTags.SUN_KISSED_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.SUN_KISSED_LOGS)).build(consumer);
+        shapedRecipe(MalumItems.SPIRIT_KILN.get()).key('#', MalumItems.ETHER.get()).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.DARKENED_ROCK.get()).key('Z', Items.FURNACE).key('C', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("C#C").patternLine("YZY").patternLine("XYX").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
         shapedRecipe(MalumItems.ITEM_STAND.get()).key('#', MalumItems.TAINTED_ROCK.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine(" Y ").patternLine("#X#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
     
         //        shapedRecipe(MalumItems.KARMIC_HOLDER.get()).key('#', MalumItems.SHARD_OF_WISDOM.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', Items.STRING).patternLine(" Y ").patternLine("YXY").patternLine(" # ").addCriterion("has_shard_of_wisdom", hasItem(MalumItems.SHARD_OF_WISDOM.get())).build(consumer);
@@ -52,9 +49,7 @@ public class MalumRecipeProvider extends RecipeProvider
         ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
     
         shapelessRecipe(MalumItems.SOLAR_SAPBALL.get()).addIngredient(MalumItems.PENUMBRAL_MOLD.get()).addIngredient(MalumItems.SOLAR_SAP_BOTTLE.get()).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
-        shapelessRecipe(MalumItems.LUNAR_SAPBALL.get()).addIngredient(MalumItems.PENUMBRAL_MOLD.get()).addIngredient(MalumItems.LUNAR_SAP_BOTTLE.get()).addCriterion("has_lunar_sap", hasItem(MalumItems.LUNAR_SAP_BOTTLE.get())).build(consumer);
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOLAR_SAP_BOTTLE.get()), MalumItems.SOLAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
-        smeltingRecipe(Ingredient.fromItems(MalumItems.LUNAR_SAP_BOTTLE.get()), MalumItems.LUNAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_lunar_sap", hasItem(MalumItems.LUNAR_SAP_BOTTLE.get())).build(consumer);
     
         ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(SAPBALLS).addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER)).build(consumer, "magma_cream_from_sapballs");
         ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON).key('P', Blocks.PISTON).key('S', SAPBALLS).patternLine("S").patternLine("P").addCriterion("has_sapballs", hasItem(SAPBALLS)).build(consumer, "sticky_piston_from_sapballs");
@@ -98,19 +93,6 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(),4).key('#', MalumItems.STACKED_TRANSMISSIVE_METAL.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer, "transmissive_metal_block_from_stacked_transmissive_metal");
         shapedSlab(consumer, MalumItems.TRANSMISSIVE_METAL_BLOCK_SLAB.get(), MalumItems.TRANSMISSIVE_METAL_BLOCK.get());
         shapedStairs(consumer, MalumItems.TRANSMISSIVE_METAL_BLOCK_STAIRS.get(), MalumItems.TRANSMISSIVE_METAL_BLOCK.get());
-        
-        shapelessPlanks(consumer, MalumItems.TAINTED_PLANKS.get(), MalumItemTags.TAINTED_LOGS);
-        shapelessWood(consumer, MalumItems.TAINTED_WOOD.get(), MalumItems.TAINTED_LOG.get());
-        shapelessWood(consumer, MalumItems.STRIPPED_TAINTED_WOOD.get(), MalumItems.STRIPPED_TAINTED_LOG.get());
-        shapelessButton(consumer, MalumItems.TAINTED_PLANKS_BUTTON.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedDoor(consumer, MalumItems.TAINTED_DOOR.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedFence(consumer, MalumItems.TAINTED_PLANKS_FENCE.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedFenceGate(consumer, MalumItems.TAINTED_PLANKS_FENCE_GATE.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedPressurePlate(consumer, MalumItems.TAINTED_PLANKS_PRESSURE_PLATE.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedSlab(consumer, MalumItems.TAINTED_PLANKS_SLAB.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedStairs(consumer, MalumItems.TAINTED_PLANKS_STAIRS.get(), MalumItems.TAINTED_PLANKS.get());
-        shapedTrapdoor(consumer, MalumItems.TAINTED_TRAPDOOR.get(), MalumItems.TAINTED_PLANKS.get());
-        shapelessSolidTrapdoor(consumer, MalumItems.SOLID_TAINTED_TRAPDOOR.get(), MalumItems.TAINTED_TRAPDOOR.get());
         
         shapelessPlanks(consumer, MalumItems.SUN_KISSED_PLANKS.get(), MalumItemTags.SUN_KISSED_LOGS);
         shapelessWood(consumer, MalumItems.SUN_KISSED_WOOD.get(), MalumItems.SUN_KISSED_LOG.get());
@@ -215,9 +197,9 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.TAINTED_ROCK_PILLAR_CAP.get()).key('$', MalumItems.TAINTED_ROCK_PILLAR.get()).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("$").patternLine("#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.TAINTED_ROCK_COLUMN_CAP.get()).key('$', MalumItems.TAINTED_ROCK_COLUMN.get()).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("$").patternLine("#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         
-        shapedRecipe(MalumItems.TAINTED_FLARED_LANTERN.get(),8).key('#', MalumItems.SMOOTH_TAINTED_ROCK.get()).key('X', MalumItems.DARK_FLARES.get()).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
-        shapedRecipe(MalumItems.FLARED_TAINTED_ROCK.get(),4).key('#', MalumItems.SMOOTH_TAINTED_ROCK.get()).key('X', MalumItems.DARK_FLARES.get()).patternLine(" # ").patternLine("#X#").patternLine(" # ").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
-        shapedRecipe(MalumItems.HORIZONTAL_FLARED_TAINTED_ROCK.get(),2).key('#', MalumItems.SMOOTH_TAINTED_ROCK.get()).key('X', MalumItems.DARK_FLARES.get()).patternLine("#").patternLine("X").patternLine("#").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
+        shapedRecipe(MalumItems.TAINTED_ETHER_LANTERN.get(),8).key('#', MalumItems.SMOOTH_TAINTED_ROCK.get()).key('X', MalumItems.ETHER.get()).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
+        shapedRecipe(MalumItems.FLARED_TAINTED_ROCK.get(),4).key('#', MalumItems.SMOOTH_TAINTED_ROCK.get()).key('X', MalumItems.ETHER.get()).patternLine(" # ").patternLine("#X#").patternLine(" # ").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
+        shapedRecipe(MalumItems.HORIZONTAL_FLARED_TAINTED_ROCK.get(),2).key('#', MalumItems.SMOOTH_TAINTED_ROCK.get()).key('X', MalumItems.ETHER.get()).patternLine("#").patternLine("X").patternLine("#").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
         shapedRecipe(MalumItems.CUT_TAINTED_ROCK.get(),4).key('#', MalumItems.SMOOTH_TAINTED_ROCK.get()).patternLine("##").patternLine("##").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.TAINTED_ROCK.get()), MalumItems.CUT_TAINTED_ROCK.get()).addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer, "cut_tainted_rock_stonecutting");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.TAINTED_ROCK.get()), MalumItems.TAINTED_ROCK_PILLAR.get()).addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer, "tainted_rock_pillar_stonecutting");
@@ -302,9 +284,9 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.DARKENED_ROCK_PILLAR_CAP.get()).key('$', MalumItems.DARKENED_ROCK_PILLAR.get()).key('#', MalumItems.DARKENED_ROCK.get()).patternLine("$").patternLine("#").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.DARKENED_ROCK_COLUMN_CAP.get()).key('$', MalumItems.DARKENED_ROCK_COLUMN.get()).key('#', MalumItems.DARKENED_ROCK.get()).patternLine("$").patternLine("#").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
         
-        shapedRecipe(MalumItems.DARKENED_FLARED_LANTERN.get(),8).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).key('X', MalumItems.DARK_FLARES.get()).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
-        shapedRecipe(MalumItems.FLARED_DARKENED_ROCK.get(),4).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).key('X', MalumItems.DARK_FLARES.get()).patternLine(" # ").patternLine("#X#").patternLine(" # ").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
-        shapedRecipe(MalumItems.HORIZONTAL_FLARED_DARKENED_ROCK.get(),2).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).key('X', MalumItems.DARK_FLARES.get()).patternLine("#").patternLine("X").patternLine("#").addCriterion("has_flared_glowstone", hasItem(MalumItems.FLARED_GLOWSTONE_BLOCK.get())).build(consumer);
+        shapedRecipe(MalumItems.DARKENED_ETHER_LANTERN.get(),8).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).key('X', MalumItems.ETHER.get()).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
+        shapedRecipe(MalumItems.FLARED_DARKENED_ROCK.get(),4).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).key('X', MalumItems.ETHER.get()).patternLine(" # ").patternLine("#X#").patternLine(" # ").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
+        shapedRecipe(MalumItems.HORIZONTAL_FLARED_DARKENED_ROCK.get(),2).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).key('X', MalumItems.ETHER.get()).patternLine("#").patternLine("X").patternLine("#").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
         shapedRecipe(MalumItems.CUT_DARKENED_ROCK.get(),4).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).patternLine("##").patternLine("##").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.DARKENED_ROCK.get()), MalumItems.CUT_DARKENED_ROCK.get()).addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer, "cut_darkened_rock_stonecutting");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.DARKENED_ROCK.get()), MalumItems.DARKENED_ROCK_PILLAR.get()).addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer, "darkened_rock_pillar_stonecutting");

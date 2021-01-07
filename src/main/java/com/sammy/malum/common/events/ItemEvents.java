@@ -28,20 +28,6 @@ import net.minecraftforge.fml.common.Mod;
 public class ItemEvents
 {
     @SubscribeEvent
-    public static void scytheSweep(LivingHurtEvent event)
-    {
-        if (event.getSource().getTrueSource() instanceof PlayerEntity)
-        {
-            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
-    
-            if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity)
-            {
-                ScytheBoomerangEntity entity = (ScytheBoomerangEntity) event.getSource().getImmediateSource();
-                playerEntity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), MalumSounds.SCYTHE_STRIKE, entity.getSoundCategory(), 1.0F, 0.9f + playerEntity.world.rand.nextFloat() * 0.2f);
-            }
-        }
-    }
-    @SubscribeEvent
     public static void onBlockRightClick(PlayerInteractEvent.RightClickBlock event)
     {
         BlockState state = event.getWorld().getBlockState(event.getPos());

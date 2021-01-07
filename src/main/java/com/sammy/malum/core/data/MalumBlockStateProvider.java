@@ -4,6 +4,7 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -55,6 +56,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
     
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::emptyBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("horizontal_flared_")).forEach(this::horizontalFlaredBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
@@ -74,6 +76,8 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof WallTorchBlock).forEach(this::wallEtherTorchBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(this::etherTorchBlock);
         
         Collection<RegistryObject<Block>> slabs = MalumHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
         blocks.forEach(this::basicBlock);
@@ -86,12 +90,59 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         simpleBlock(blockRegistryObject.get());
     }
     
+    public void emptyBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        ModelFile empty = models().getExistingFile(new ResourceLocation("block/air"));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
+    }
+    public void etherTorchBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        ModelFile torch = models().torch(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/colored_ether_torch"));
+        
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
+    }
+    public void wallEtherTorchBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/colored_ether_torch"));
+        
+        getVariantBuilder(blockRegistryObject.get())
+                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .modelForState().modelFile(torch).rotationY(270).addModel()
+                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.WEST)
+                .modelForState().modelFile(torch).rotationY(180).addModel()
+                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .modelForState().modelFile(torch).rotationY(90).addModel()
+                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.EAST)
+                .modelForState().modelFile(torch).addModel();
+    }
+    public void torchBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/" + name));
+    
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
+    }
+    public void wallTorchBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/" + name.substring(5)));
+    
+        getVariantBuilder(blockRegistryObject.get())
+                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .modelForState().modelFile(torch).rotationY(270).addModel()
+                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.WEST)
+                .modelForState().modelFile(torch).rotationY(180).addModel()
+                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .modelForState().modelFile(torch).rotationY(90).addModel()
+                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.EAST)
+                .modelForState().modelFile(torch).addModel();
+    }
     public void farmlandBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile cross = models().withExistingParent(name, new ResourceLocation("block/farmland")).texture("top", prefix("block/" + name));
+        ModelFile farmland = models().withExistingParent(name, new ResourceLocation("block/farmland")).texture("top", prefix("block/" + name));
         
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(cross).build());
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(farmland).build());
     }
     public void cutBlock(RegistryObject<Block> blockRegistryObject)
     {

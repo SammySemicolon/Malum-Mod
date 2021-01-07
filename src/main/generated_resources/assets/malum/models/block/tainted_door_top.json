@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top",
-  "textures": {
-    "bottom": "malum:block/tainted_door_bottom",
-    "top": "malum:block/tainted_door_top"
-  }
-}

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "malum:sun_kissed_door",
-    "malum:tainted_door"
+    "malum:sun_kissed_door"
   ]
 }

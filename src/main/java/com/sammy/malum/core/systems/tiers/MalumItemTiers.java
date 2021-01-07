@@ -12,7 +12,6 @@ public class MalumItemTiers
 {
     public enum ItemTierEnum implements IItemTier
     {
-        TAINTED_ITEM(200, 5f, 0.5f, 2, 11, MalumItems.TAINTED_PLANKS),
         SPIRITED_STEEL_ITEM(1951, 8f, 3f, 3, 16, MalumItems.SPIRITED_STEEL_INGOT),
         UMBRAL_ITEM(2450, 11f, 5f, 4, 18, MalumItems.UMBRAL_METAL_INGOT);
         private final int maxUses;

@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "malum:tainted_log",
-    "malum:stripped_tainted_log",
-    "malum:tainted_wood",
-    "malum:stripped_tainted_wood"
-  ]
-}

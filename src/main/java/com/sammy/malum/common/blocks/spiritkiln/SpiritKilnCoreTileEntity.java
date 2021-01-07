@@ -155,12 +155,16 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     //region effect helpers
     public void passiveParticles()
     {
-        if (world.rand.nextFloat() < 0.1f) // flame around bottom block
+        Color color = MalumConstants.faded();
+        if (world.rand.nextFloat() < 0.2f) // flame around bottom block
         {
-            MalumParticleData data = new MalumParticleData(MalumParticles.SPIRIT_FLAME.get());
-            data.scale1 = 0.65f + world.rand.nextFloat() * 0.65f;
-            data.a2 = 0.75f;
-            MalumHelper.spawnParticles(world, pos, data, 0.5f);
+            ParticleManager.create(MalumParticles.SPIRIT_FLAME)
+                    .setAlpha(1.0f, 0f).setScale(0.65f, 0)
+                    .setColor(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getRed()/255f, (color.getGreen() * 0.5f)/255f, (color.getBlue() * 0.5f)/255f)
+                    .randomOffset(0.15, 0.025).randomVelocity(0f, 0.01f)
+                    .addVelocity(0, 0.02f, 0)
+                    .enableGravity()
+                    .repeatEdges(world, pos, 2);
         }
         Vector3d exhaustPos = smokeParticleOutputPos();
         if (world.rand.nextFloat() < 0.25f) //smoke out of exhaust tubes
@@ -169,22 +173,28 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         }
         Vector3d itemOffset = itemOffset(this);
         Vector3d furnaceItemPos = new Vector3d(pos.getX() + itemOffset.x,pos.getY() + itemOffset.y-0.15f,pos.getZ() + itemOffset.z);
-            Color color = MalumConstants.faded();
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(1.0f, 0).setScale(0.08f, 0).setLifetime(20)
+                    .setScale(0.08f, 0).setLifetime(20)
                     .randomOffset(0.15, 0.025).randomVelocity(0.025f, 0.01f)
                     .addVelocity(0, 0.02f, 0)
-                    .setColor(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getRed()/255f, (color.getGreen() * 0.5f)/255f, (color.getBlue() * 1.5f)/255f)
+                    .setColor(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getRed()/255f, (color.getGreen() * 0.5f)/255f, (color.getBlue() * 0.5f)/255f)
                     .setSpin(0.4f)
                     .repeat(world, furnaceItemPos.x,furnaceItemPos.y,furnaceItemPos.z, 5);
+    
+        ParticleManager.create(MalumParticles.SPIRIT_FLAME)
+                .setAlpha(1.0f, 0).setScale(0.3f, 0)
+                .randomOffset(0.25, 0.025).randomVelocity(0.01f, 0.01f)
+                .setColor(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getRed()/255f, (color.getGreen() * 0.5f)/255f, (color.getBlue() * 0.5f)/255f)
+                .addVelocity(0, 0.01f, 0)
+                .repeat(world, furnaceItemPos.x,furnaceItemPos.y,furnaceItemPos.z, 2);
     }
     
     public void finishEffects(Vector3d outputPos)
     {
-        MalumHelper.makeFancyCircle((ServerWorld) world, outputPos);
+        MalumHelper.makeCircle((ServerWorld) world, outputPos);
         Vector3d itemOffset = itemOffset(this);
         Vector3d furnaceItemPos = new Vector3d(pos.getX() + itemOffset.x,pos.getY() + itemOffset.y,pos.getZ() + itemOffset.z);
-        MalumHelper.makeFancyCircle((ServerWorld) world, furnaceItemPos);
+        MalumHelper.makeCircle((ServerWorld) world, furnaceItemPos);
         
         world.playSound(null, this.pos, MalumSounds.SPIRIT_KILN_FINISH, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
     }
@@ -194,6 +204,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         ((ServerWorld) world).spawnParticle(ParticleTypes.EXPLOSION, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, 3, 0.5f, 0.5f, 0.5f, 0);
         MalumParticleData data = new MalumParticleData(MalumParticles.SPIRIT_FLAME.get());
         data.scale1 = 0.75f + world.rand.nextFloat() * 0.75f;
+        data.setColor(MalumConstants.faded(), MalumConstants.darkest());
         
         ((ServerWorld) world).spawnParticle(data, pos.getX(), pos.getY(), pos.getZ(), 12 + world.rand.nextInt(12), 0.1f, 0.1f, 0.1f, 0.2f);
         ((ServerWorld) world).spawnParticle(ParticleTypes.SMOKE, pos.getX(), pos.getY(), pos.getZ(), 12 + world.rand.nextInt(12), 0.1f, 0.1f, 0.1f, 0.2f);
@@ -207,7 +218,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         BlockPos standPos = standTileEntity.getPos();
         Vector3d itemOffset = ItemStandTileEntity.itemOffset(standTileEntity);
         Vector3d standItemPos = new Vector3d(standPos.getX() + itemOffset.x, standPos.getY() + itemOffset.y, standPos.getZ() + itemOffset.z);
-        MalumHelper.makeFancyCircle((ServerWorld) world, standItemPos);
+        MalumHelper.makeCircle((ServerWorld) world, standItemPos);
         world.playSound(null, standPos, MalumSounds.SPIRIT_KILN_CONSUME, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);    }
     
     public void passiveSound()

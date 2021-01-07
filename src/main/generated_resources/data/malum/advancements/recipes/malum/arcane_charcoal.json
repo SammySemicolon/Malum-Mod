@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_seed_of_corruption": {
+    "has_sun_kissed_log": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:taint_rudiment"
+            "tag": "malum:sun_logs"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_seed_of_corruption",
+      "has_sun_kissed_log",
       "has_the_recipe"
     ]
   ]

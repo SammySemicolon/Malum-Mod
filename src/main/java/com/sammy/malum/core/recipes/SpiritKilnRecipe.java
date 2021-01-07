@@ -69,7 +69,7 @@ public class SpiritKilnRecipe
     {
         new SpiritKilnRecipe(Items.SOUL_SAND, 1, MalumItems.SOUL_SHARD.get(), 1, 2, MalumItems.BLAZE_QUARTZ.get(), Items.QUARTZ);
         new SpiritKilnRecipe(Items.GOLD_INGOT, 1, MalumItems.TRANSMISSIVE_METAL_INGOT.get(), 1, 4, MalumItems.AVARICIOUS_SPIRIT_SPLINTER.get());
-        new SpiritKilnRecipe(Items.GLOWSTONE_DUST, 4, MalumItems.DARK_FLARES.get(), 1, 4, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
+        new SpiritKilnRecipe(Items.GLOWSTONE_DUST, 4, MalumItems.ETHER.get(), 1, 4, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
         new SpiritKilnRecipe(Items.IRON_INGOT, 1, MalumItems.SPIRITED_STEEL_INGOT.get(), 1, 4, MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(MalumItems.RUIN_PLATING.get(), 2, MalumItems.UMBRAL_METAL_INGOT.get(), 1,8, MalumItems.ECTOPLASM.get(), MalumItems.REMEDIAL_SPIRIT_SPLINTER.get(), MalumItems.SINISTER_SPIRIT_SPLINTER.get());
     

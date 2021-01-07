@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "malum:block/bolted_sun_kissed_beam_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
       "model": "malum:block/bolted_sun_kissed_beam"
+    },
+    "axis=z": {
+      "model": "malum:block/bolted_sun_kissed_beam_horizontal",
+      "x": 90
     }
   }
 }

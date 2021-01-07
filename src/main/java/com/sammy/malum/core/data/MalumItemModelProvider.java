@@ -1,6 +1,8 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.blocks.lighting.EtherBlock;
+import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -45,6 +47,10 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof BushBlock && !(((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock)).forEach(this::blockGeneratedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoublePlantBlock).forEach(this::generatedItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof LanternBlock).forEach(this::generatedItem);
+        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherTorchBlock).forEach(this::etherTorchItem);
+        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof TorchBlock).forEach(this::generatedItem);
+        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof EtherBlock).forEach(this::etherItem);
+        
         takeAll(items, i -> i.get() instanceof BlockItem).forEach(this::blockItem);
         takeAll(items, i -> i.get() instanceof ToolItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);
@@ -72,6 +78,26 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
 //        SpiritSplinterItem spiritSplinterItem = (SpiritSplinterItem) i.get();
 //        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/" + name + spiritSplinterItem.type.identifier));
         withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));
+    }
+    private void etherTorchItem(RegistryObject<Item> i)
+    {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        if (i.equals(MalumItems.ETHER_TORCH))
+        {
+            generatedItem(i);
+            return;
+        }
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/colored_ether_torch_overlay")).texture("whatever", prefix("item/colored_ether_torch"));
+    }
+    private void etherItem(RegistryObject<Item> i)
+    {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        if (i.equals(MalumItems.ETHER))
+        {
+            generatedItem(i);
+            return;
+        }
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/colored_ether"));
     }
     private void generatedItem(RegistryObject<Item> i)
     {

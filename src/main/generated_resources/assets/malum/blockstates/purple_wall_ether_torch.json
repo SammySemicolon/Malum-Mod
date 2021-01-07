@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "malum:block/purple_wall_ether_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "malum:block/purple_wall_ether_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "malum:block/purple_wall_ether_torch",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "malum:block/purple_wall_ether_torch"
+    }
+  }
+}

@@ -228,20 +228,12 @@ public class MalumHelper
         data.scale1 = 0.75f + world.rand.nextFloat() * 0.5f;
         data.scale2 = data.scale1;
         data.a2 = 0.75f;
+        data.setColor(MalumConstants.bright(), MalumConstants.faded());
         makeCircle(world, pos, data);
     }
     public static void makeCircle(ServerWorld world, Vector3d pos, MalumParticleData data)
     {
         world.spawnParticle(data,pos.getX(),pos.getY(),pos.getZ(),1,0,0,0,0);
-    }
-    public static void makeFancyCircle(ServerWorld world, Vector3d pos)
-    {
-        MalumHelper.makeCircle(world, pos);
-        MalumParticleData data = new MalumParticleData(MalumParticles.SPIRIT_FLAME.get());
-        data.scale1 = 0.6f + world.rand.nextFloat() * 0.6f;
-        data.scale2 = 0;
-        data.a2 = 0.75f;
-        world.spawnParticle(data,pos.getX(),pos.getY(),pos.getZ(),1+world.rand.nextInt(3),0.1f,0.1f,0.1f,0.005f);
     }
     public static void spawnParticles(World world, BlockPos pos, IParticleData data, float chance)
     {

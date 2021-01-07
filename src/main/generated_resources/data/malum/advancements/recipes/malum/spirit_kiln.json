@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_flared_glowstone": {
+    "has_dark_ether": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:flared_glowstone_block"
+            "item": "malum:ether"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_flared_glowstone",
+      "has_dark_ether",
       "has_the_recipe"
     ]
   ]

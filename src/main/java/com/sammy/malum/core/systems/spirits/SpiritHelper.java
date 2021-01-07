@@ -1,12 +1,15 @@
 package com.sammy.malum.core.systems.spirits;
 
 import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
+import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
+import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
 import com.sammy.malum.core.systems.spirits.types.MalumSpiritType;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,6 +21,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -47,7 +51,7 @@ public class SpiritHelper
         float speed = 0.2f + 0.5f / (totalSpirits(target) + 1);
         if (!spirits.isEmpty())
         {
-            player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), MalumSounds.SPIRIT_HARVEST, player.getSoundCategory(), 1.0F, 0.9f + player.world.rand.nextFloat() * 0.2f);
+            player.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SPIRIT_HARVEST, player.getSoundCategory(), 1.0F, 0.9f + player.world.rand.nextFloat() * 0.2f);
         }
         for (int i = 0; i < spirits.size(); i++)
         {

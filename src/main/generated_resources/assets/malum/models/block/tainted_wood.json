@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "malum:block/tainted_log",
-    "end": "malum:block/tainted_log"
-  }
-}

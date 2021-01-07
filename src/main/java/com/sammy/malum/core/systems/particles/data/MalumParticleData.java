@@ -8,6 +8,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
 
+import java.awt.*;
+
 public class MalumParticleData implements IParticleData {
     public float r1 = 1, g1 = 1, b1 = 1, a1 = 1, r2 = 1, g2 = 1, b2 = 1, a2 = 0;
     public float scale1 = 1, scale2 = 0;
@@ -64,7 +66,18 @@ public class MalumParticleData implements IParticleData {
         buffer.writeFloat(spin);
         buffer.writeBoolean(gravity);
     }
-
+    public void setColor(float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2)
+    {
+        this.r1 = r1; this.g1 = g1; this.b1 = b1; this.a1 = a1; this.r2 = r2; this.g2 = g2; this.b2 = b2; this.a2 = a2;
+    }
+    public void setColor(float r1, float g1, float b1, float r2, float g2, float b2)
+    {
+        this.r1 = r1; this.g1 = g1; this.b1 = b1; this.r2 = r2; this.g2 = g2; this.b2 = b2;
+    }
+    public void setColor(Color color1, Color color2)
+    {
+        this.r1 = color1.getRed()/255f; this.g1 = color1.getBlue()/255f; this.b1 = color1.getBlue()/255f; this.r2 = color2.getRed()/255f; this.g2 = color2.getBlue()/255f; this.b2 = color2.getBlue()/255f;
+    }
     @Override
     public String getParameters() {
         return getClass().getSimpleName() + ":internal";

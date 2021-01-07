@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "malum:sun_kissed_planks_pressure_plate",
-    "malum:tainted_planks_pressure_plate"
+    "malum:sun_kissed_planks_pressure_plate"
   ]
 }

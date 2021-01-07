@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:smooth_tainted_rock"
+    },
+    "X": {
+      "item": "malum:ether"
+    }
+  },
+  "result": {
+    "item": "malum:tainted_ether_lantern",
+    "count": 8
+  }
+}

@@ -3,17 +3,14 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import net.minecraft.block.Block;
+import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -38,6 +35,7 @@ public class MalumLangProvider extends LanguageProvider
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
         Set<RegistryObject<Effect>> effects = new HashSet<>(MalumEffects.EFFECTS.getEntries());
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
+        MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         blocks.forEach(b -> {
             String name = b.get().getTranslationKey().replaceFirst("block.malum.", "");
             name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
