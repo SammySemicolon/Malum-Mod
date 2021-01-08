@@ -1,9 +1,9 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
-import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.recipes.SpiritKilnFuelData;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnFuels;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnFuels.MalumSpiritKilnFuel;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
@@ -110,9 +110,9 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
                         }
                     }
                 }
-                if (SpiritKilnFuelData.getData(stack) != null)
+                if (MalumSpiritKilnFuels.getData(stack) != null)
                 {
-                    SpiritKilnFuelData data = SpiritKilnFuelData.getData(stack);
+                    MalumSpiritKilnFuel data = MalumSpiritKilnFuels.getData(stack);
                     boolean success = tileEntity.powerStorage.increase(data);
                     if (success)
                     {

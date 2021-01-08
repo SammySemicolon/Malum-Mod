@@ -4,7 +4,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.recipes.SpiritKilnRecipe;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes.MalumSpiritKilnRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
 
-public class SpiritKilnRecipeCategory implements IRecipeCategory<SpiritKilnRecipe>
+public class SpiritKilnRecipeCategory implements IRecipeCategory<MalumSpiritKilnRecipe>
 {
     public static final ResourceLocation UID = prefix("spirit_infusion");
     private final IDrawable background;
@@ -39,7 +40,7 @@ public class SpiritKilnRecipeCategory implements IRecipeCategory<SpiritKilnRecip
     }
     
     @Override
-    public void draw(SpiritKilnRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY)
+    public void draw(MalumSpiritKilnRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY)
     {
         GlStateManager.enableAlphaTest();
         GlStateManager.enableBlend();
@@ -59,9 +60,9 @@ public class SpiritKilnRecipeCategory implements IRecipeCategory<SpiritKilnRecip
     
     @Nonnull
     @Override
-    public Class<? extends SpiritKilnRecipe> getRecipeClass()
+    public Class<? extends MalumSpiritKilnRecipe> getRecipeClass()
     {
-        return SpiritKilnRecipe.class;
+        return MalumSpiritKilnRecipe.class;
     }
     
     @Nonnull
@@ -86,7 +87,7 @@ public class SpiritKilnRecipeCategory implements IRecipeCategory<SpiritKilnRecip
     }
     
     @Override
-    public void setIngredients(SpiritKilnRecipe recipe, IIngredients iIngredients)
+    public void setIngredients(MalumSpiritKilnRecipe recipe, IIngredients iIngredients)
     {
         iIngredients.setOutput(VanillaTypes.ITEM, recipe.outputItem.getDefaultInstance());
         ArrayList<ItemStack> stacks = new ArrayList<>();
@@ -102,7 +103,7 @@ public class SpiritKilnRecipeCategory implements IRecipeCategory<SpiritKilnRecip
     }
     
     @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, SpiritKilnRecipe recipe, IIngredients iIngredients)
+    public void setRecipe(IRecipeLayout iRecipeLayout, MalumSpiritKilnRecipe recipe, IIngredients iIngredients)
     {
         iRecipeLayout.getItemStacks().init(0, true, 21, 6);
         iRecipeLayout.getItemStacks().set(0, new ItemStack(recipe.inputItem, recipe.inputItemCount));

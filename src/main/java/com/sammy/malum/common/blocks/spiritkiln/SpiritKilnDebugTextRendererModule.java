@@ -1,7 +1,8 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
 import com.sammy.malum.ClientHelper;
-import com.sammy.malum.core.recipes.SpiritKilnRecipe;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes.MalumSpiritKilnRecipe;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.core.systems.tileentityrendering.modules.TextModule;
 import net.minecraft.util.Direction;
@@ -24,7 +25,7 @@ public class SpiritKilnDebugTextRendererModule extends TextModule
         if (tileEntityIn instanceof SpiritKilnCoreTileEntity)
         {
             SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) tileEntityIn;
-            SpiritKilnRecipe recipe = SpiritKilnRecipe.getRecipe(tileEntity.inventory.getStackInSlot(0));
+            MalumSpiritKilnRecipe recipe = MalumSpiritKilnRecipes.getRecipe(tileEntity.inventory.getStackInSlot(0));
             if (recipe != null)
             {
                 components.add(ClientHelper.combinedComponent(ClientHelper.simpleTranslatableComponent("malum.tooltip.progress"), ClientHelper.importantComponent(tileEntity.progress + "/" + recipe.recipeTime, true)));

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+      "model": "malum:block/totem_core"
+      },
+      {
+      "model": "malum:block/totem_core",
+        "y": 90
+      },
+      {
+      "model": "malum:block/totem_core",
+        "y": 180
+      },
+      {
+      "model": "malum:block/totem_core",
+        "y": 270
+      }
+    ]
+  }
+}

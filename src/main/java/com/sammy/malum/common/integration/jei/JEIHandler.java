@@ -2,10 +2,8 @@ package com.sammy.malum.common.integration.jei;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.integration.jei.spiritkiln.SpiritKilnRecipeCategory;
-import com.sammy.malum.common.integration.jei.tainttransfusion.TaintTransfusionRecipeCategory;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.recipes.TaintTransfusion;
-import com.sammy.malum.core.recipes.SpiritKilnRecipe;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -20,30 +18,25 @@ import javax.annotation.Nonnull;
 public class JEIHandler implements IModPlugin
 {
     private static final ResourceLocation ID = new ResourceLocation(MalumMod.MODID, "main");
-
+    
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry)
     {
-        registry.addRecipeCategories(
-                new TaintTransfusionRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
-                new SpiritKilnRecipeCategory(registry.getJeiHelpers().getGuiHelper())
-        );
+        registry.addRecipeCategories(new SpiritKilnRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
-
+    
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
-        registry.addRecipes(TaintTransfusion.transfusions, TaintTransfusionRecipeCategory.UID);
-        registry.addRecipes(SpiritKilnRecipe.recipes.subList(0, SpiritKilnRecipe.advancedRecipeCount), SpiritKilnRecipeCategory.UID);
+        registry.addRecipes(MalumSpiritKilnRecipes.recipes, SpiritKilnRecipeCategory.UID);
     
     }
-
+    
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
         registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_KILN.get()), SpiritKilnRecipeCategory.UID);
     }
-
     @Nonnull
     @Override
     public ResourceLocation getPluginUid()

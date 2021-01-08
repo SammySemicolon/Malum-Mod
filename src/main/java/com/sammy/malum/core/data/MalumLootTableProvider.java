@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock;
+import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
@@ -71,6 +72,8 @@ public class MalumLootTableProvider extends LootTableProvider
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
         blocks.remove(MalumBlocks.BLAZE_QUARTZ_ORE);
+        takeAll(blocks, b -> b.get() instanceof TotemPoleBlock);
+        takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);
         takeAll(blocks, b -> b.get() instanceof LeavesBlock);
         takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> registerLootTable(b.get(),onlyWithShears(b.get().asItem())));

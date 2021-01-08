@@ -9,7 +9,8 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.recipes.SpiritKilnRecipe;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes.MalumSpiritKilnRecipe;
 import com.sammy.malum.core.systems.fuel.IHeatTileEntity;
 import com.sammy.malum.core.systems.fuel.SimpleFuelSystem;
 import com.sammy.malum.core.systems.multiblock.MultiblockTileEntity;
@@ -30,7 +31,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.server.ServerWorld;
 
@@ -86,7 +86,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public BlockPos extractionFocus;
     
     public int state;
-    public SpiritKilnRecipe currentRecipe;
+    public MalumSpiritKilnRecipe currentRecipe;
     public float progress;
     public float advancedProgress;
     public ArrayList<BlockPos> blacklistedStands = new ArrayList<>();
@@ -123,7 +123,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public void tick()
     {
         ItemStack stack = inventory.getStackInSlot(0);
-        currentRecipe = SpiritKilnRecipe.getRecipe(stack);
+        currentRecipe = MalumSpiritKilnRecipes.getRecipe(stack);
         state = getBlockState().get(STATE);
         if (MalumHelper.areWeOnClient(world))
         {
@@ -400,7 +400,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
             
             if (currentRecipe.hasAlternatives)
             {
-                SpiritKilnRecipe maybeRightRecipe = SpiritKilnRecipe.getPreciseRecipe(inventory.getStackInSlot(0), MalumHelper.toArrayList(advancedItems.stream().filter(i -> !i.getDefaultInstance().isEmpty())));
+                MalumSpiritKilnRecipe maybeRightRecipe = MalumSpiritKilnRecipes.getPreciseRecipe(inventory.getStackInSlot(0), MalumHelper.toArrayList(advancedItems.stream().filter(i -> !i.getDefaultInstance().isEmpty())));
                 if (maybeRightRecipe != null)
                 {
                     currentRecipe = maybeRightRecipe;
@@ -439,7 +439,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         dumpEffects();
     }
     
-    public void finishProcessing(SpiritKilnRecipe recipe)
+    public void finishProcessing(MalumSpiritKilnRecipe recipe)
     {
         Vector3d outputPos = itemOutputPos();
         ItemEntity entity = new ItemEntity(world, outputPos.getX(), outputPos.getY(), outputPos.getZ(), new ItemStack(recipe.outputItem, recipe.outputItemCount));

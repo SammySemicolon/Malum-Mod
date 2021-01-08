@@ -1,6 +1,7 @@
 package com.sammy.malum.core.systems.fuel;
 
-import com.sammy.malum.core.recipes.SpiritKilnFuelData;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnFuels;
+import com.sammy.malum.core.modcontent.MalumSpiritKilnFuels.MalumSpiritKilnFuel;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -28,7 +29,7 @@ public class SimpleFuelSystem
         compound.putFloat("speed", speed);
         return compound;
     }
-    public boolean increase(SpiritKilnFuelData data)
+    public boolean increase(MalumSpiritKilnFuel data)
     {
         if (fuel != maxFuel)
         {

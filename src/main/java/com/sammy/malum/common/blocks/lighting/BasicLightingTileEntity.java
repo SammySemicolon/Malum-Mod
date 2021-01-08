@@ -23,25 +23,39 @@ public class BasicLightingTileEntity extends SimpleTileEntity implements ITickab
     {
         if (MalumHelper.areWeOnClient(world))
         {
-            double x = pos.getX() + 0.5;
-            double y = pos.getY() + 0.6;
-            double z = pos.getZ() + 0.5;
             if (getBlockState().getBlock() instanceof IColor)
             {
                 IColor color = (IColor) getBlockState().getBlock();
                 Color finalColor = color.getColor();
-                
+    
+                double x = pos.getX() + 0.5;
+                double y = pos.getY() + 0.6;
+                double z = pos.getZ() + 0.5;
+                int lifeTime = 20 + world.rand.nextInt(3);
+                float scale = 0.15f + world.rand.nextFloat() * 0.05f;
                 if (getBlockState().getBlock() instanceof WallTorchBlock)
                 {
                     Direction direction = getBlockState().get(WallTorchBlock.HORIZONTAL_FACING);
                     x += direction.getDirectionVec().getX() * -0.28f;
                     y += 0.2f;
                     z += direction.getDirectionVec().getZ() * -0.28f;
+                    lifeTime = 8;
+                }
+    
+                if (getBlockState().getBlock() instanceof TorchBlock)
+                {
+                    lifeTime = 8;
+                }
+                if (getBlockState().getBlock() instanceof EtherBrazierBlock)
+                {
+                    y -= 0.2f;
+                    lifeTime = 12;
+                    scale *= 1.25f;
                 }
                 if (world.rand.nextFloat() < 0.9f)
                 {
                     ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                            .setScale(0.15f + world.rand.nextFloat() * 0.05f, 0).setLifetime(getBlockState().getBlock() instanceof TorchBlock ? 8 : 20 + world.rand.nextInt(2))
+                            .setScale(scale, 0).setLifetime(lifeTime)
                             .setColor(finalColor.getRed()/255f, finalColor.getGreen()/255f, finalColor.getBlue()/255f, (finalColor.getRed() * 0.5f)/255f,(finalColor.getGreen() * 0.5f)/255f,(finalColor.getBlue() * 0.5f)/255f)
                             .addVelocity(0,0.05f,0)
                             .setSpin(world.rand.nextFloat() * 0.5f)

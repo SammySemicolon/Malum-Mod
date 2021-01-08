@@ -6,7 +6,7 @@ import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumItemTags;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.init.spirits.MalumSpiritTypes;
+import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
