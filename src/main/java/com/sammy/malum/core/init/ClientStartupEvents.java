@@ -9,6 +9,7 @@ import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnDebugTextRendererModule;
+import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.common.entities.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.common.entities.SpiritSplinterItemRenderer;
@@ -154,6 +155,7 @@ public class ClientStartupEvents
         
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemCoreBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock).forEach(ClientStartupEvents::setCutout);

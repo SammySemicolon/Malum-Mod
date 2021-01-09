@@ -4,13 +4,13 @@
 	"textures": {
 		"0": "malum:block/sun_kissed_log",
 		"1": "malum:block/sun_kissed_log_top",
-		"2": "malum:runes/rune_of_evil",
+		"2": "malum:item/fluffy_tail",
 		"particle": "malum:block/sun_kissed_log"
 	},
 	"elements": [
 		{
-			"from": [0, 0, -0.1],
-			"to": [16, 16, -0.1],
+			"from": [0, 0, -0.01],
+			"to": [16, 16, -0.01],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 7.925]},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#2"},

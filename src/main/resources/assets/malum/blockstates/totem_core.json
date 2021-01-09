@@ -1,19 +1,36 @@
 {
   "variants": {
-    "": [
+    "powered=false": [
       {
-      "model": "malum:block/totem_core"
+        "model": "malum:block/totem_core"
       },
       {
-      "model": "malum:block/totem_core",
+        "model": "malum:block/totem_core",
         "y": 90
       },
       {
-      "model": "malum:block/totem_core",
+        "model": "malum:block/totem_core",
         "y": 180
       },
       {
-      "model": "malum:block/totem_core",
+        "model": "malum:block/totem_core",
+        "y": 270
+      }
+    ],
+    "powered=true": [
+      {
+        "model": "malum:block/totem_core_powered"
+      },
+      {
+        "model": "malum:block/totem_core_powered",
+        "y": 90
+      },
+      {
+        "model": "malum:block/totem_core_powered",
+        "y": 180
+      },
+      {
+        "model": "malum:block/totem_core_powered",
         "y": 270
       }
     ]

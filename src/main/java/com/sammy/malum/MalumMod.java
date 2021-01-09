@@ -57,7 +57,6 @@ public class MalumMod
         MalumDamageSources.init();
         MalumSounds.init();
         MalumItemTags.init();
-        MalumSpiritTypes.init();
         modBus.addListener(this::gatherData);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             MinecraftForge.EVENT_BUS.register(new ParticleRendering());

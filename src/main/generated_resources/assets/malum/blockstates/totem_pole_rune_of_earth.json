@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,powered=false": {
+      "model": "malum:block/totem_pole_rune_of_earth"
+    },
+    "facing=south,powered=false": {
+      "model": "malum:block/totem_pole_rune_of_earth",
+      "y": 180
+    },
+    "facing=west,powered=false": {
+      "model": "malum:block/totem_pole_rune_of_earth",
+      "y": 270
+    },
+    "facing=east,powered=false": {
+      "model": "malum:block/totem_pole_rune_of_earth",
+      "y": 90
+    },
+    "facing=north,powered=true": {
+      "model": "malum:block/totem_pole_rune_of_earth_powered"
+    },
+    "facing=south,powered=true": {
+      "model": "malum:block/totem_pole_rune_of_earth_powered",
+      "y": 180
+    },
+    "facing=west,powered=true": {
+      "model": "malum:block/totem_pole_rune_of_earth_powered",
+      "y": 270
+    },
+    "facing=east,powered=true": {
+      "model": "malum:block/totem_pole_rune_of_earth_powered",
+      "y": 90
+    }
+  }
+}

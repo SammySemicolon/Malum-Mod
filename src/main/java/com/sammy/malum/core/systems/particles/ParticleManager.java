@@ -23,7 +23,7 @@ public class ParticleManager
         double dx = 0, dy = 0, dz = 0;
         double maxXSpeed = 0, maxYSpeed = 0, maxZSpeed = 0;
         double maxXDist = 0, maxYDist = 0, maxZDist = 0;
-    
+        
         protected ParticleBuilder(ParticleType<?> type)
         {
             this.type = type;
@@ -119,6 +119,17 @@ public class ParticleManager
         public ParticleBuilder disableGravity()
         {
             data.gravity = false;
+            return this;
+        }
+        public ParticleBuilder enableNoClip()
+        {
+            data.noClip = true;
+            return this;
+        }
+    
+        public ParticleBuilder disableNoClip()
+        {
+            data.noClip = false;
             return this;
         }
     

@@ -35,29 +35,8 @@ public class StartupEvents
         MalumRunes.init();
         MalumChiseling.init();
         MalumRites.init();
-        
-        bindSpiritsToSplinters(event);
+        MalumSpiritTypes.init();
         bindRunesToPoles(event);
-    }
-    
-    public static void bindSpiritsToSplinters(FMLCommonSetupEvent event)
-    {
-        Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
-        ArrayList<RegistryObject<Item>> registryObjects = (ArrayList<RegistryObject<Item>>) MalumHelper.takeAll(items, t -> t.get() instanceof SpiritSplinterItem);
-        ArrayList<SpiritSplinterItem> splinters = new ArrayList<>();
-        registryObjects.forEach(t -> splinters.add((SpiritSplinterItem) t.get()));
-        for (MalumSpiritType spiritType : MalumSpiritTypes.SPIRITS)
-        {
-            for (SpiritSplinterItem item : splinters)
-            {
-                if (spiritType.splinter.equals(item.getRegistryName().getPath()))
-                {
-                    item.type = spiritType;
-                    spiritType.splinterItem = item;
-                    break;
-                }
-            }
-        }
     }
     public static void bindRunesToPoles(FMLCommonSetupEvent event)
     {

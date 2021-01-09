@@ -10,25 +10,24 @@ import java.util.function.Predicate;
 public class MalumSpiritType
 {
     public final Color color;
-    public final String splinter;
     public final String identifier;
     public final String translationKey;
     public final String description;
     public final Predicate<LivingEntity> predicate;
     public final CountPredicate countPredicate;
-    
-    
     public SpiritSplinterItem splinterItem;
-    public MalumSpiritType(String identifier, Predicate<LivingEntity> predicate, CountPredicate countPredicate, Color color, String splinter)
+    public MalumSpiritType(String identifier, Predicate<LivingEntity> predicate, CountPredicate countPredicate, Color color, SpiritSplinterItem splinterItem)
     {
         this.identifier = identifier;
         this.predicate = predicate;
         this.countPredicate = countPredicate;
         this.color = color;
-        this.splinter = splinter;
         
         this.translationKey = "malum.tooltip.spirit." + identifier;
         this.description = translationKey + "_description";
+        
+        this.splinterItem = splinterItem;
+        splinterItem.type = this;
     }
     public int spiritCount(LivingEntity entity)
     {

@@ -3,17 +3,22 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumEffects;
+import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
+import com.sammy.malum.core.modcontent.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallTorchBlock;
+import net.minecraft.client.gui.overlay.SubtitleOverlayGui;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fml.RegistryObject;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,10 +35,19 @@ public class MalumLangProvider extends LanguageProvider
     @Override
     protected void addTranslations()
     {
+        MalumSpiritKilnRecipes.init();
+        MalumSpiritKilnFuels.init();
+        MalumRunes.init();
+        MalumChiseling.init();
+        MalumRites.init();
+        MalumSpiritTypes.init();
+        
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
         Set<RegistryObject<Effect>> effects = new HashSet<>(MalumEffects.EFFECTS.getEntries());
+        Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(MalumSounds.SOUNDS.getEntries());
+        ArrayList<MalumRites.MalumRite> rites = MalumRites.RITES;
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         blocks.forEach(b -> {
@@ -41,6 +55,7 @@ public class MalumLangProvider extends LanguageProvider
             name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
             add(b.get().getTranslationKey(), name);
         });
+        
         items.forEach(i -> {
             if (!(i.get() instanceof BlockItem))
             {
@@ -49,14 +64,23 @@ public class MalumLangProvider extends LanguageProvider
                 add(i.get().getTranslationKey(), name);
             }
         });
+        
         enchantments.forEach(e -> {
-            String name = MalumHelper.toTitleCase(specialBlockNameChanges(e.getId().getPath()), "_");
+            String name = MalumHelper.toTitleCase(e.getId().getPath(), "_");
             add(e.get().getName(), name);
         });
+        
         effects.forEach(e -> {
-            String name = MalumHelper.toTitleCase(specialBlockNameChanges(e.getId().getPath()), "_");
+            String name = MalumHelper.toTitleCase(e.getId().getPath(), "_");
             add("effect.malum." + e.get().getRegistryName().getPath(), name);
         });
+        sounds.forEach(s -> {
+        
+        });
+        rites.forEach(
+                r -> add(r.translationKey, MalumHelper.toTitleCase(r.identifier, "_"))
+        );
+        
         add("malum.subtitle.tainted_rock_break" , "Tainted Rock Broken");
         add("malum.subtitle.tainted_rock_step" , "Tainted Rock Footsteps");
         add("malum.subtitle.tainted_rock_place" , "Tainted Rock Placed");
@@ -84,6 +108,9 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.subtitle.spirit_kiln_repair" , "Spirit Kiln Repaired");
         add("malum.subtitle.spirit_kiln_fuel" , "Spirit Kiln Fueled");
     
+        add("malum.subtitle.totem_charge" , "Totem Charges");
+        add("malum.subtitle.totem_complete" , "Totem Fully Charges");
+    
         add("malum.subtitle.karmic_holder_activate" , "Karmic Holder Activates");
         add("malum.subtitle.nexus_overload_jump" , "Nexus Drive Booster");
     
@@ -97,12 +124,10 @@ public class MalumLangProvider extends LanguageProvider
         addTooltip("spirit", "Spirit");
         addTooltip("fuel", "Fuel: ");
         addTooltip("progress", "Progress: ");
-        addTooltip("uses", "Uses ");
-        addTooltip("spirits", " Spirits ");
-        addTooltip("phantom_wings", "to grant you extraordinary movement capabilities");
-        addTooltip("ancestral_veil", "to do stuff I do not know");
+        
         add("malum.jei.spirit_infusion", "Spirit Infusion");
-        add("malum.jei.taint_transfusion", "Taint Transfusion");
+        add("malum.jei.runic_chiseling", "Runic Chiseling");
+        add("malum.jei.totem_rites", "Totem Rites");
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_building_blocks", "Malum Building Blocks");
     }

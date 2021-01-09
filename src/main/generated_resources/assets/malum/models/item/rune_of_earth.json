@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/arcane_distillate"
+    "layer0": "malum:runes/rune_of_earth_item"
   }
 }

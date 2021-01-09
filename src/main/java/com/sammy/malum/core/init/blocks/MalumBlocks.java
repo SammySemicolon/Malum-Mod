@@ -349,6 +349,9 @@ public class MalumBlocks
     public static final RegistryObject<Block> TOTEM_CORE = BLOCKS.register("totem_core", () -> new TotemCoreBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_DEATH = BLOCKS.register("totem_pole_rune_of_death", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
     public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_LIFE = BLOCKS.register("totem_pole_rune_of_life", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
+    public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_WATER = BLOCKS.register("totem_pole_rune_of_water", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
+    public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_EARTH = BLOCKS.register("totem_pole_rune_of_earth", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
+    public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_SOUL = BLOCKS.register("totem_pole_rune_of_soul", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
     
     public static final RegistryObject<Block> SPIRIT_KILN = BLOCKS.register("spirit_kiln", () -> new SpiritKilnCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SPIRIT_KILN_TOP = BLOCKS.register("spirit_kiln_top", () -> new SpiritKilnBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));

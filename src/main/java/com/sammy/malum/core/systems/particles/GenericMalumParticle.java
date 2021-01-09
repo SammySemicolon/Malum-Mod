@@ -22,6 +22,7 @@ public class GenericMalumParticle extends SpriteTexturedParticle {
         this.motionZ = vz;
         this.setMaxAge(data.lifetime);
         this.particleGravity = data.gravity ? 1 : 0;
+        this.canCollide = !data.noClip;
         Color.RGBtoHSB((int)(255 * Math.min(1.0f, data.r1)), (int)(255 * Math.min(1.0f, data.g1)), (int)(255 * Math.min(1.0f, data.b1)), hsv1);
         Color.RGBtoHSB((int)(255 * Math.min(1.0f, data.r2)), (int)(255 * Math.min(1.0f, data.g2)), (int)(255 * Math.min(1.0f, data.b2)), hsv2);
         updateTraits();

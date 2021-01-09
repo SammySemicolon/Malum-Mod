@@ -25,6 +25,9 @@
   "spirit_kiln_repair": { "sounds":["malum:spirit_kiln/repair1"], "subtitle": "malum.subtitle.spirit_kiln_repair" },
   "spirit_kiln_fuel": { "sounds":["malum:spirit_kiln/fuel1","malum:spirit_kiln/fuel2"], "subtitle": "malum.subtitle.spirit_kiln_fuel" },
 
+  "totem_charge": { "sounds":["malum:totems/charge0","malum:totems/charge1","malum:totems/charge2"], "subtitle": "malum.subtitle.totem_charge" },
+  "totem_complete": { "sounds":["malum:totems/complete0","malum:totems/complete1","malum:totems/complete2"], "subtitle": "malum.subtitle.totem_complete" },
+
   "karmic_holder_activate": { "sounds":["malum:karmic_holder/activate0","malum:karmic_holder/activate1"], "subtitle": "malum.subtitle.karmic_holder_activate" },
   "drift_boots_jump": { "sounds":["malum:drift_boots/jump0","malum:drift_boots/jump1","malum:drift_boots/jump2"], "subtitle": "malum.subtitle.drift_boots_jump" }
 }

@@ -35,11 +35,28 @@ public class TotemCoreBlock extends Block
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (worldIn.getTileEntity(pos) instanceof TotemCoreTileEntity)
+        if (handIn.equals(Hand.MAIN_HAND))
         {
-            TotemCoreTileEntity tileEntity = (TotemCoreTileEntity) worldIn.getTileEntity(pos);
-            tileEntity.active = true;
-            return ActionResultType.SUCCESS;
+            if (worldIn.getTileEntity(pos) instanceof TotemCoreTileEntity)
+            {
+                TotemCoreTileEntity tileEntity = (TotemCoreTileEntity) worldIn.getTileEntity(pos);
+                if (tileEntity.rite != null)
+                {
+                    if (player.isSneaking())
+                    {
+                        tileEntity.fail();
+                        return ActionResultType.SUCCESS;
+                    }
+                    return ActionResultType.FAIL;
+                }
+                else if (!tileEntity.active)
+                {
+                    tileEntity.addRuneEffects(pos);
+                    worldIn.setBlockState(pos, state.with(POWERED, true));
+                    tileEntity.active = true;
+                    return ActionResultType.SUCCESS;
+                }
+            }
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
