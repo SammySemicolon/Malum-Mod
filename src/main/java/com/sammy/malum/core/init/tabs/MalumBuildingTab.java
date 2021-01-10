@@ -18,6 +18,6 @@ public class MalumBuildingTab extends ItemGroup
     @Nonnull
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(MalumItems.TAINTED_ROCK.get());
+        return new ItemStack(MalumItems.SUN_KISSED_PLANKS.get());
     }
 }

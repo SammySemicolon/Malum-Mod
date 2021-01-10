@@ -5,11 +5,15 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.Vector;
 
 public class ParticleManager
 {
@@ -201,6 +205,25 @@ public class ParticleManager
             return this;
         }
     
+        public ParticleBuilder spawnCircle(World world, double x, double y, double z,double distance, double currentCount, double totalCount)
+        {
+            double xSpeed = random.nextFloat() * maxXSpeed, ySpeed = random.nextFloat() * maxYSpeed, zSpeed = random.nextFloat() * maxZSpeed;
+            double theta = (Math.PI * 2) / totalCount;
+            double finalAngle = (currentCount / totalCount) + (theta * currentCount);
+            double dx2 = (distance * Math.cos(finalAngle));
+            double dz2 = (distance * Math.sin(finalAngle));
+    
+            Vector3d vector2f = new Vector3d(dx2,0,dz2);
+            this.vx = vector2f.x * xSpeed;
+            this.vz = vector2f.z * zSpeed;
+            
+            double yaw2 = random.nextFloat() * Math.PI * 2, pitch2 = random.nextFloat() * Math.PI - Math.PI / 2, xDist = random.nextFloat() * maxXDist, yDist = random.nextFloat() * maxYDist, zDist = random.nextFloat() * maxZDist;
+            this.dx = Math.sin(yaw2) * Math.cos(pitch2) * xDist;
+            this.dy = Math.sin(pitch2) * yDist;
+            this.dz = Math.cos(yaw2) * Math.cos(pitch2) * zDist;
+            world.addParticle(data, x + dx + dx2, y + dy, z + dz + dz2, vx, ySpeed, vz);
+            return this;
+        }
         public ParticleBuilder spawn(World world, double x, double y, double z)
         {
             double yaw = random.nextFloat() * Math.PI * 2, pitch = random.nextFloat() * Math.PI - Math.PI / 2, xSpeed = random.nextFloat() * maxXSpeed, ySpeed = random.nextFloat() * maxYSpeed, zSpeed = random.nextFloat() * maxZSpeed;
@@ -243,6 +266,11 @@ public class ParticleManager
         {
             for (int i = 0; i < n; i++) spawnAtEdges(world, pos
             );
+            return this;
+        }
+        public ParticleBuilder repeatCircle(World world, double x, double y, double z, double distance, int n)
+        {
+            for (int i = 0; i < n; i++) spawnCircle(world, x, y, z, distance,i, n);
             return this;
         }
     }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "malum:block/bone_tile_slab_top"
+    },
+    "type=bottom": {
+      "model": "malum:block/bone_tile_slab"
+    },
+    "type=double": {
+      "model": "malum:block/bone_tile"
+    }
+  }
+}

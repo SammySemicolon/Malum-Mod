@@ -9,6 +9,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.PlantType;
 
 import java.util.Random;
 
@@ -19,22 +20,6 @@ public class WildFarmlandBlock extends FarmlandBlock
         super(properties);
     }
     
-    @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random)
-    {
-        BlockState blockState = worldIn.getBlockState(pos.up());
-        if (blockState.getBlock() instanceof IGrowable)
-        {
-            IGrowable block = (IGrowable) blockState.getBlock();
-            block.grow(worldIn, worldIn.rand, pos.up(),blockState);
-        }
-    }
-    
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
-    {
-        return true;
-    }
     
     @Override
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
@@ -57,6 +42,10 @@ public class WildFarmlandBlock extends FarmlandBlock
     @Override
     public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable)
     {
-        return true;
+        if (state.getBlock() instanceof CropsBlock)
+        {
+            return true;
+        }
+        return super.canSustainPlant(state, world, pos, facing, plantable);
     }
 }

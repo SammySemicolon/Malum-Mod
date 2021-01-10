@@ -43,7 +43,7 @@ public class RiteRecipeCategory implements IRecipeCategory<MalumRite>
         background = guiHelper.createBlankDrawable(111, 37);
         localizedName = I18n.format("malum.jei.totem_rites");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/totem_rites_recipe_overlay.png"), 0, 0, 109, 35);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.RUNIC_CHISEL.get()));
+        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.TOTEM_CORE.get()));
     }
     
     @Override

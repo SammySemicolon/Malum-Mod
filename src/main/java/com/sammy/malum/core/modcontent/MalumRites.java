@@ -2,7 +2,6 @@ package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.totems.rites.*;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -21,12 +20,18 @@ public class MalumRites
     //rune of soul allows for much stronger rites, it's a progression point
     public static void init()
     {
-        new RiteOfEther("rite_of_ether",true, RUNE_OF_EARTH, RUNE_OF_DEATH);
-        new RiteOfTransmutation("rite_of_transmutation",false, RUNE_OF_EARTH, RUNE_OF_SOUL);
-        new RiteOfLife("rite_of_life",false, RUNE_OF_LIFE, RUNE_OF_LIFE,RUNE_OF_LIFE);
-        new RiteOfDeath("rite_of_death",false, RUNE_OF_DEATH, RUNE_OF_DEATH,RUNE_OF_DEATH,RUNE_OF_DEATH, RUNE_OF_DEATH);
-        new RiteOfFortitude("rite_of_fortitude",false, RUNE_OF_EARTH, RUNE_OF_EARTH, RUNE_OF_EARTH);
+        new RiteOfSacrifice("rite_of_sacrifice",true, RUNE_OF_LIFE, RUNE_OF_DEATH);
+        new RiteOfImbuement("rite_of_imbuement",false, RUNE_OF_EARTH, RUNE_OF_SOUL);
+        new RiteOfLife("rite_of_life",false, RUNE_OF_LIFE, RUNE_OF_LIFE,RUNE_OF_LIFE,RUNE_OF_LIFE);
+        new RiteOfDeath("rite_of_death",false, RUNE_OF_DEATH, RUNE_OF_DEATH,RUNE_OF_DEATH,RUNE_OF_DEATH);
+        new RiteOfWater("rite_of_water",false, RUNE_OF_WATER, RUNE_OF_WATER,RUNE_OF_WATER,RUNE_OF_WATER);
+        new RiteOfFortitude("rite_of_fortitude",false, RUNE_OF_EARTH, RUNE_OF_EARTH, RUNE_OF_EARTH, RUNE_OF_EARTH);
+        new RiteOfAir("rite_of_air",true, RUNE_OF_AIR, RUNE_OF_AIR, RUNE_OF_AIR, RUNE_OF_AIR);
+        new RiteOfSpeed("rite_of_speed",false, RUNE_OF_AIR, RUNE_OF_LIFE,RUNE_OF_AIR,RUNE_OF_AIR,RUNE_OF_AIR);
+        new RiteOfLevitation("rite_of_levitation",false, RUNE_OF_AIR);
         new RiteOfGrowth("rite_of_growth",false, RUNE_OF_EARTH, RUNE_OF_LIFE,RUNE_OF_LIFE,RUNE_OF_LIFE);
+        new RiteOfProtection("rite_of_protection",false, RUNE_OF_WATER, RUNE_OF_EARTH,RUNE_OF_WATER,RUNE_OF_WATER,RUNE_OF_WATER);
+        new RiteOfDestruction("rite_of_destruction",false, RUNE_OF_DEATH, RUNE_OF_EARTH,RUNE_OF_EARTH,RUNE_OF_EARTH,RUNE_OF_DEATH);
         new RiteOFDrought("rite_of_drought",true, RUNE_OF_WATER, RUNE_OF_SOUL, RUNE_OF_DEATH);
         new RiteOfRain("rite_of_rain",true, RUNE_OF_WATER, RUNE_OF_SOUL, RUNE_OF_LIFE);
     }
@@ -60,6 +65,14 @@ public class MalumRites
         public void effect(BlockPos pos, World world)
         {
         
+        }
+        public int range()
+        {
+            return 1;
+        }
+        public int cooldown()
+        {
+            return 0;
         }
     }
 }

@@ -77,6 +77,7 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
                 float distance = getDistance(owner);
                 if (age > 10)
                 {
+                    
                     if (distance < 2f)
                     {
                         float velocity = 0.25f;

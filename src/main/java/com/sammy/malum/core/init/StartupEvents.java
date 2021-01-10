@@ -36,6 +36,7 @@ public class StartupEvents
         MalumChiseling.init();
         MalumRites.init();
         MalumSpiritTypes.init();
+        MalumTransfusions.init();
         bindRunesToPoles(event);
     }
     public static void bindRunesToPoles(FMLCommonSetupEvent event)

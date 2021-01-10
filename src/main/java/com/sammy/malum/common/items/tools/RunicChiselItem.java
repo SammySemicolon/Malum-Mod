@@ -69,6 +69,6 @@ public class RunicChiselItem extends Item
             }
             return ActionResultType.SUCCESS;
         }
-        return ActionResultType.FAIL;
+        return super.onItemUse(context);
     }
 }

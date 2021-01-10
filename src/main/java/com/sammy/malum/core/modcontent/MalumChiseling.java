@@ -8,6 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,14 @@ public class MalumChiseling
     
     public static void init()
     {
-        new MalumChiselRecipe(Items.BONE, MalumRunes.RUNE_OF_DEATH);
+        
+        new MalumChiselRecipe(Items.ROTTEN_FLESH, MalumRunes.RUNE_OF_DEATH);
         new MalumChiselRecipe(Items.WHEAT, MalumRunes.RUNE_OF_LIFE);
         new MalumChiselRecipe(Items.INK_SAC, MalumRunes.RUNE_OF_WATER);
         new MalumChiselRecipe(Items.IRON_INGOT, MalumRunes.RUNE_OF_EARTH);
+        new MalumChiselRecipe(Items.FEATHER, MalumRunes.RUNE_OF_AIR);
         new MalumChiselRecipe(MalumItems.ETHER.get(), MalumRunes.RUNE_OF_SOUL);
-        new MalumChiselRecipe(Blocks.BONE_BLOCK, Blocks.GRANITE);
+        new MalumChiselRecipe(Blocks.BONE_BLOCK, MalumBlocks.POLISHED_BONE_BLOCK.get());
     }
     public static Block getChiseledBlock(Block block, ItemStack stack)
     {

@@ -1,6 +1,7 @@
 package com.sammy.malum.core.systems.totems.rites;
 
 import com.sammy.malum.MalumConstants;
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.particles.MalumParticles;
@@ -15,14 +16,22 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 
 import java.awt.*;
 
-public class RiteOfEther extends AffectEntitiesRite
+public class RiteOfSacrifice extends AffectEntitiesRite
 {
-    public RiteOfEther(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
+    public RiteOfSacrifice(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
     {
         super(identifier, isInstant, runes);
+    }
+    
+    @Override
+    public int range()
+    {
+        return 8;
     }
     
     @Override
@@ -35,10 +44,14 @@ public class RiteOfEther extends AffectEntitiesRite
         int count = SpiritHelper.totalSpirits(entity);
         entity.world.addEntity(new ItemEntity(entity.world, entity.getPosXRandom(1),entity.getPosYRandom(), entity.getPosZRandom(1), new ItemStack(MalumItems.ETHER.get(), Math.min(count, 64))));
         entity.onKillCommand();
-        Color color = MalumConstants.bright();
+        Color color1 = MalumConstants.faded();
+        Color color2 = MalumConstants.darkest();
         entity.world.playSound(null, entity.getPosition(), MalumSounds.SPIRIT_HARVEST, SoundCategory.NEUTRAL,1,1.5f + entity.world.rand.nextFloat() * 0.5f);
-        ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(60).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomOffset(0.1f, entity.getHeight()).randomVelocity(0.01f, 0.025f).enableNoClip().repeat(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 40);
-    
+        if (MalumHelper.areWeOnClient(entity.world))
+        {
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(30).setScale(0.15f, 0).setColor(color1.getRed() / 255f, color1.getGreen() / 255f, color1.getBlue() / 255f, color2.getRed() / 255f, (color2.getGreen() * 0.5f) / 255f, (color2.getBlue() * 0.5f) / 255f).randomOffset(entity.getWidth() / 2, entity.getHeight() / 2).randomVelocity(0.01f, 0.01f).enableNoClip().repeat(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 80);
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(30).setScale(0.2f, 0).setColor(color2.getRed() / 255f, color2.getGreen() / 255f, color2.getBlue() / 255f, color2.getRed() / 255f, (color2.getGreen() * 0.5f) / 255f, (color2.getBlue() * 0.5f) / 255f).randomOffset(entity.getWidth() / 2, entity.getHeight() / 2).randomVelocity(0.01f, 0.01f).enableNoClip().repeat(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 80);
+        }
         super.effect(entity);
     }
 }

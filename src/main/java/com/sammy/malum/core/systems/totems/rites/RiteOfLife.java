@@ -13,12 +13,6 @@ public class RiteOfLife extends AffectEntitiesRite
     }
     
     @Override
-    public int range()
-    {
-        return 5;
-    }
-    
-    @Override
     public void effect(LivingEntity entity)
     {
         entity.addPotionEffect(new EffectInstance(Effects.REGENERATION,100,0));

@@ -16,6 +16,7 @@ public class MalumRunes
     public static MalumRune RUNE_OF_LIFE;
     public static MalumRune RUNE_OF_WATER;
     public static MalumRune RUNE_OF_EARTH;
+    public static MalumRune RUNE_OF_AIR;
     public static MalumRune RUNE_OF_SOUL;
     
     public static void init()
@@ -24,6 +25,7 @@ public class MalumRunes
         RUNE_OF_LIFE = new MalumRune("rune_of_life", MalumItems.RUNE_OF_LIFE.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_LIFE.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_LIFE.get());
         RUNE_OF_WATER = new MalumRune("rune_of_water", MalumItems.RUNE_OF_WATER.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_WATER.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_WATER.get());
         RUNE_OF_EARTH = new MalumRune("rune_of_earth", MalumItems.RUNE_OF_EARTH.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_EARTH.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_EARTH.get());
+        RUNE_OF_AIR = new MalumRune("rune_of_air", MalumItems.RUNE_OF_AIR.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_AIR.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_AIR.get());
         RUNE_OF_SOUL = new MalumRune("rune_of_soul", MalumItems.RUNE_OF_SOUL.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_SOUL.get(), MalumBlocks.TOTEM_POLE_RUNE_OF_SOUL.get());
     }
     

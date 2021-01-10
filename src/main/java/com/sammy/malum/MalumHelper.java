@@ -231,7 +231,7 @@ public class MalumHelper
     
     public static void updateState(BlockState state, World worldIn, BlockPos pos)
     {
-        worldIn.notifyBlockUpdate(pos, state, state, 3);
+        worldIn.notifyBlockUpdate(pos, state, state, 1);
     }
     public static void updateState(World worldIn, BlockPos pos)
     {

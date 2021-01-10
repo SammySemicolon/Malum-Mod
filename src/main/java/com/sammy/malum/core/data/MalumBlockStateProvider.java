@@ -101,6 +101,18 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         ModelFile empty = models().getExistingFile(new ResourceLocation("block/air"));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
     }
+    public void rotatedBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile file = models().cubeAll(name, prefix("block/" + name));
+        
+        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
+                .modelFile(file)
+                .nextModel().modelFile(file).rotationY(90)
+                .nextModel().modelFile(file).rotationY(180)
+                .nextModel().modelFile(file).rotationY(270)
+                .addModel();
+    }
     public void etherBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();

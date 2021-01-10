@@ -157,6 +157,9 @@ public class MalumBlocks
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> TAINTED_ROCK_TILES_WALL = BLOCKS.register("tainted_rock_tiles_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_TILES_WALL = BLOCKS.register("mossy_tainted_rock_tiles_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES_WALL = BLOCKS.register("cracked_tainted_rock_tiles_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     //endregion
     
     //region darkened rock
@@ -206,6 +209,9 @@ public class MalumBlocks
     public static final RegistryObject<Block> DARKENED_ROCK_BRICKS_WALL = BLOCKS.register("darkened_rock_bricks_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_darkened_rock_bricks_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_darkened_rock_bricks_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> DARKENED_ROCK_TILES_WALL = BLOCKS.register("darkened_rock_tiles_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> MOSSY_DARKENED_ROCK_TILES_WALL = BLOCKS.register("mossy_darkened_rock_tiles_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_DARKENED_ROCK_TILES_WALL = BLOCKS.register("cracked_darkened_rock_tiles_wall", () -> new WallBlock(DARKENED_ROCK_PROPERTIES()));
     //endregion
     
     //region sun kissed wood
@@ -315,6 +321,31 @@ public class MalumBlocks
     public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     //endregion
     
+    public static final RegistryObject<Block> POLISHED_BONE_BLOCK = BLOCKS.register("polished_bone_block", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_BEAM = BLOCKS.register("bone_beam", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_TILES = BLOCKS.register("bone_tiles", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CRACKED_BONE_TILES = BLOCKS.register("cracked_bone_tiles", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_BRICKS = BLOCKS.register("bone_bricks", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CRACKED_BONE_BRICKS = BLOCKS.register("cracked_bone_bricks", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_TILE = BLOCKS.register("bone_tile", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CARVED_BONE_TILE = BLOCKS.register("carved_bone_tile", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    
+    public static final RegistryObject<Block> BONE_TILES_SLAB = BLOCKS.register("bone_tiles_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_TILES_STAIRS = BLOCKS.register("bone_tiles_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CRACKED_BONE_TILES_SLAB = BLOCKS.register("cracked_bone_tiles_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CRACKED_BONE_TILES_STAIRS = BLOCKS.register("cracked_bone_tiles_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_BRICKS_SLAB = BLOCKS.register("bone_bricks_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_BRICKS_STAIRS = BLOCKS.register("bone_bricks_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CRACKED_BONE_BRICKS_SLAB = BLOCKS.register("cracked_bone_bricks_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CRACKED_BONE_BRICKS_STAIRS = BLOCKS.register("cracked_bone_bricks_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_TILE_SLAB = BLOCKS.register("bone_tile_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_TILE_STAIRS = BLOCKS.register("bone_tile_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    
+    public static final RegistryObject<Block> BONE_TILES_WALL = BLOCKS.register("bone_tiles_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CRACKED_BONE_TILES_WALL = BLOCKS.register("cracked_bone_tiles_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_BRICKS_WALL = BLOCKS.register("bone_bricks_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> CRACKED_BONE_BRICKS_WALL = BLOCKS.register("cracked_bone_bricks_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
+    public static final RegistryObject<Block> BONE_TILE_WALL = BLOCKS.register("bone_tile_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     
     //region contents
     public static final RegistryObject<Block> BLAZE_QUARTZ_ORE = BLOCKS.register("blaze_quartz_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_QUARTZ_ORE)));
@@ -351,6 +382,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_LIFE = BLOCKS.register("totem_pole_rune_of_life", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
     public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_WATER = BLOCKS.register("totem_pole_rune_of_water", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
     public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_EARTH = BLOCKS.register("totem_pole_rune_of_earth", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
+    public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_AIR = BLOCKS.register("totem_pole_rune_of_air", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
     public static final RegistryObject<Block> TOTEM_POLE_RUNE_OF_SOUL = BLOCKS.register("totem_pole_rune_of_soul", () -> new TotemPoleBlock(SUN_KISSED_WOOD_PROPERTIES().notSolid().lootFrom(SUN_KISSED_LOG.get())));
     
     public static final RegistryObject<Block> SPIRIT_KILN = BLOCKS.register("spirit_kiln", () -> new SpiritKilnCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
@@ -358,6 +390,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> ARCANE_WORKBENCH = BLOCKS.register("arcane_workbench", () -> new ArcaneWorkbenchBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> ITEM_STAND = BLOCKS.register("item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> EXTRACTION_FOCUS = BLOCKS.register("extraction_focus", () -> new ExtractionFocusBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> IMPERVIOUS_ROCK = BLOCKS.register("impervious_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> WILD_FARMLAND = BLOCKS.register("wild_farmland", () -> new WildFarmlandBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES().notSolid().tickRandomly()));
     //endregion
     

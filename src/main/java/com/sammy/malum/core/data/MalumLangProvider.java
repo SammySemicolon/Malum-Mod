@@ -8,7 +8,6 @@ import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.modcontent.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallTorchBlock;
-import net.minecraft.client.gui.overlay.SubtitleOverlayGui;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.BlockItem;
@@ -41,6 +40,7 @@ public class MalumLangProvider extends LanguageProvider
         MalumChiseling.init();
         MalumRites.init();
         MalumSpiritTypes.init();
+        MalumTransfusions.init();
         
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());

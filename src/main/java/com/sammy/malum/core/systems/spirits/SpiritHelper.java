@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
 import com.sammy.malum.core.init.MalumEntities;
+import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
@@ -16,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -32,7 +34,11 @@ public class SpiritHelper
     public static void summonSpirits(LivingEntity target, PlayerEntity player, ItemStack stack)
     {
         ArrayList<Pair<String, Integer>> spirits = entitySpirits(target);
-        
+    
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.RING_OF_SUPPRESSION.get(), player).isPresent())
+        {
+            return;
+        }
         int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), stack);
         if (plunder > 0)
         {

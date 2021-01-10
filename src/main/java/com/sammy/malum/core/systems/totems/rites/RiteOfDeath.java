@@ -18,7 +18,7 @@ public class RiteOfDeath extends AffectEntitiesRite
     }
     
     @Override
-    public long interval()
+    public int cooldown()
     {
         return 10;
     }

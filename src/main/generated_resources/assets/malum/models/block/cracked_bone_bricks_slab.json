@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "malum:block/cracked_bone_bricks",
+    "bottom": "malum:block/cracked_bone_bricks",
+    "top": "malum:block/cracked_bone_bricks"
+  }
+}

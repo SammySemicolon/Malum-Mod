@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/faint_ether"
+    "layer0": "malum:item/ring_of_suppression"
   }
 }

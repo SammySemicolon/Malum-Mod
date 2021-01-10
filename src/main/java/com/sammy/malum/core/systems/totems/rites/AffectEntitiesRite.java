@@ -1,5 +1,6 @@
 package com.sammy.malum.core.systems.totems.rites;
 
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.core.modcontent.MalumRites.MalumRite;
 import com.sammy.malum.core.modcontent.MalumRunes;
@@ -18,21 +19,24 @@ public class AffectEntitiesRite extends MalumRite
     {
     
     }
-    public long interval()
+    
+    @Override
+    public int cooldown()
     {
-        return 20L;
+        return 20;
     }
+    
+    @Override
     public int range()
     {
-        return 10;
+        return 5;
     }
+    
     @Override
     public void effect(BlockPos pos, World world)
     {
-        if (world.getGameTime() % interval() == 0 || isInstant)
-        {
-            world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(range())).forEach(this::effect);
-        }
+        world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(range())).forEach(e -> { if (!world.getBlockState(e.getPosition().down()).getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get())) effect(e); }
+        );
         super.effect(pos, world);
     }
 }

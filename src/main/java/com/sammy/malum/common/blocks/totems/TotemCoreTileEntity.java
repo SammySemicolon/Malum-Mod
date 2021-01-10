@@ -42,15 +42,25 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     public MalumRite rite;
     public ArrayList<MalumRune> runes = new ArrayList<>();
     
+    
     @Override
     public void tick()
     {
         if (rite != null)
         {
-            rite.effect(pos, world);
             if (MalumHelper.areWeOnClient(world))
             {
+                MalumHelper.updateState(world, pos);
                 prolongedRiteEffects();
+            }
+            if (rite.cooldown() != 0 && world.getGameTime() % rite.cooldown() == 0)
+            {
+                rite.effect(pos, world);
+                progress = rite.cooldown();
+            }
+            else
+            {
+                progress--;
             }
             for (int i =1; i < height; i++)
             {
@@ -104,12 +114,8 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
             for (int i = 0; i < height; i++)
             {
                 BlockPos currentPolePos = getPos().up(i);
-                if (world.getBlockState(currentPolePos).getBlock() instanceof TotemPoleBlock)
-                {
-                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, currentPolePos, 2);
-                }
+                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, currentPolePos, 2);
             }
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 2);
         }
     }
     public void riteEffects()
@@ -128,8 +134,9 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
             }
             ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 80);
         }
-        world.playSound(null, pos, MalumSounds.TOTEM_COMPLETE, SoundCategory.BLOCKS, 1, 1.75f + world.rand.nextFloat() * 0.25f);
+        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f + world.rand.nextFloat() * 0.25f);
     }
+    
     
     public void failureEffects(BlockPos pos)
     {
@@ -167,6 +174,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         MalumRite rite = MalumRites.getRite(runes);
         if (rite != null)
         {
+            progress = 0;
             riteEffects();
             if (rite.isInstant)
             {
