@@ -78,8 +78,5 @@ public class MalumItemTagProvider extends ItemTagsProvider
     
         getOrCreateBuilder(UNHOLY_TRINKET).add(Items.SPIDER_EYE,Items.ROTTEN_FLESH);
         getOrCreateBuilder(SUN_KISSED_LOGS).add(MalumItems.SUN_KISSED_LOG.get(), MalumItems.STRIPPED_SUN_KISSED_LOG.get(), MalumItems.SUN_KISSED_WOOD.get(), MalumItems.STRIPPED_SUN_KISSED_WOOD.get());
-        getOrCreateBuilder(SPIRITED_STEEL_BLOCKS).add(MalumItems.SPIRITED_STEEL_BLOCK.get(), MalumItems.SPIRITED_STEEL_TILES.get(), MalumItems.STACKED_SPIRITED_STEEL.get());
-        getOrCreateBuilder(TRANSMISSIVE_METAL_BLOCKS).add(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
-        getOrCreateBuilder(SAPBALLS).add(MalumItems.SOLAR_SAPBALL.get());
     }
 }

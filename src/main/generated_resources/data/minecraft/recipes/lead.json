@@ -10,7 +10,7 @@
       "item": "minecraft:string"
     },
     "O": {
-      "tag": "malum:sapballs"
+      "item": "malum:solar_sapball"
     }
   },
   "result": {

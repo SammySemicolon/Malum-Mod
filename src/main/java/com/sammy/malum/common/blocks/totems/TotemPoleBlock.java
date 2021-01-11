@@ -32,11 +32,11 @@ public class TotemPoleBlock extends Block
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return state(context);
+        return state(context.getNearestLookingDirection());
     }
-    public BlockState state(ItemUseContext context)
+    public BlockState state(Direction direction)
     {
-        return getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite()).with(POWERED, false);
+        return getDefaultState().with(HORIZONTAL_FACING, direction).with(POWERED, false);
     
     }
 }

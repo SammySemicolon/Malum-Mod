@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX",
+    "X#",
+    " #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "malum:spirited_metal_ingot"
+    }
+  },
+  "result": {
+    "item": "malum:spirited_metal_axe"
+  }
+}

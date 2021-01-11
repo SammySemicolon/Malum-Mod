@@ -15,13 +15,11 @@ public class MalumSpiritKilnRecipes
     public static void init()
     {
         new MalumSpiritKilnRecipe(Items.SOUL_SAND, 1, MalumItems.SOUL_SHARD.get(), 1, 2, MalumItems.BLAZE_QUARTZ.get(), Items.QUARTZ);
-        new MalumSpiritKilnRecipe(Items.GOLD_INGOT, 1, MalumItems.TRANSMISSIVE_METAL_INGOT.get(), 1, 4, MalumItems.AVARICIOUS_SPIRIT_SPLINTER.get());
+        new MalumSpiritKilnRecipe(Items.GOLD_INGOT, 1, MalumItems.HALLOWED_GOLD_INGOT.get(), 1, 4, MalumItems.AVARICIOUS_SPIRIT_SPLINTER.get());
         new MalumSpiritKilnRecipe(Items.GLOWSTONE_DUST, 4, MalumItems.ETHER.get(), 1, 4, MalumItems.ARCANE_SPIRIT_SPLINTER.get(), MalumItems.NETHERBORNE_SPIRIT_SPLINTER.get(), MalumItems.SULPHURIC_SPIRIT_SPLINTER.get());
-        new MalumSpiritKilnRecipe(Items.IRON_INGOT, 1, MalumItems.SPIRITED_STEEL_INGOT.get(), 1, 4, MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
+        new MalumSpiritKilnRecipe(Items.IRON_INGOT, 1, MalumItems.SPIRITED_METAL_INGOT.get(), 1, 4, MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(MalumItems.RUIN_PLATING.get(), 2, MalumItems.UMBRAL_METAL_INGOT.get(), 1,8, MalumItems.ECTOPLASM.get(), MalumItems.REMEDIAL_SPIRIT_SPLINTER.get(), MalumItems.SINISTER_SPIRIT_SPLINTER.get());
-    
-        new MalumSpiritKilnRecipe(MalumItems.CRUDE_SCYTHE.get(), 1, MalumItems.SPIRITED_STEEL_SCYTHE.get(), 1, 8, MalumItems.SOUL_SHARD.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get(), MalumItems.SPIRITED_STEEL_INGOT.get());
-    
+        
         new MalumSpiritKilnRecipe(Items.ROTTEN_FLESH, 1, MalumItems.REANIMATED_MATTER.get(), 1, 2, MalumItems.UNDEAD_SPIRIT_SPLINTER.get(), MalumItems.WILD_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(MalumItems.REANIMATED_MATTER.get(), 1, MalumItems.ECTOPLASM.get(), 2 ,4, MalumItems.LUNAR_SAPBALL.get(), MalumItems.SOLAR_SAPBALL.get(), MalumItems.ARCANE_SPIRIT_SPLINTER.get());
         //        new SpiritKilnRecipe(Items.NETHER_STAR, 1, MalumItems.SHARD_OF_WISDOM.get(), 2,8, MalumItems.TERMINUS_SPIRIT_SPLINTER.get(), MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.ELDRITCH_SPIRIT_SPLINTER.get());

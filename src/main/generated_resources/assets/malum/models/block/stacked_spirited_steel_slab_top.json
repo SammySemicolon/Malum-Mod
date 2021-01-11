@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "side": "malum:block/stacked_spirited_steel",
-    "bottom": "malum:block/stacked_spirited_steel",
-    "top": "malum:block/stacked_spirited_steel"
-  }
-}

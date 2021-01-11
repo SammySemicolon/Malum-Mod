@@ -52,7 +52,7 @@ public class MalumRuneItem extends Item
             if (outputBlock instanceof TotemPoleBlock)
             {
                 TotemPoleBlock totemPoleBlock = (TotemPoleBlock) outputBlock;
-                world.setBlockState(context.getPos(), totemPoleBlock.state(context));
+                world.setBlockState(context.getPos(), totemPoleBlock.state(context.getFace()));
                 MalumHelper.updateState(world, pos);
                 playerEntity.swingArm(Hand.MAIN_HAND);
                 world.playSound(null, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS,1,1.1f);

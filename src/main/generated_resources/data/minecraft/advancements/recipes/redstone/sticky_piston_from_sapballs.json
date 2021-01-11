@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_sapballs": {
+    "has_sapball": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "malum:sapballs"
+            "item": "malum:solar_sapball"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_sapballs",
+      "has_sapball",
       "has_the_recipe"
     ]
   ]

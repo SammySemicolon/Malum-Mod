@@ -28,12 +28,6 @@
     "malum:cracked_bone_tiles_slab",
     "malum:bone_bricks_slab",
     "malum:cracked_bone_bricks_slab",
-    "malum:bone_tile_slab",
-    "malum:transmissive_metal_block_slab",
-    "malum:transmissive_metal_tiles_slab",
-    "malum:stacked_transmissive_metal_slab",
-    "malum:spirited_steel_block_slab",
-    "malum:spirited_steel_tiles_slab",
-    "malum:stacked_spirited_steel_slab"
+    "malum:bone_tile_slab"
   ]
 }

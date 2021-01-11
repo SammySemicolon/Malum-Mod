@@ -4,6 +4,7 @@ import com.sammy.malum.common.items.MalumBookItem;
 import com.sammy.malum.common.items.MalumRuneItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
 import com.sammy.malum.common.items.equipment.curios.*;
+import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
 
@@ -24,8 +25,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static com.sammy.malum.MalumMod.MODID;
-import static com.sammy.malum.core.systems.tiers.MalumArmorTiers.ArmorTierEnum.SPIRITED_STEEL_ARMOR;
-import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.*;
+import static com.sammy.malum.core.systems.tiers.MalumArmorTiers.ArmorTierEnum.SPIRITED_METAL_ARMOR;
+import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.SPIRITED_METAL_ITEM;
 import static net.minecraft.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -170,9 +171,9 @@ public class MalumItems
     public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(MalumBlocks.LAVENDER.get(), BUILDING_PROPERTIES()));
     
     public static final RegistryObject<Item> SUN_KISSED_LOG = ITEMS.register("sun_kissed_log", () -> new BlockItem(MalumBlocks.SUN_KISSED_LOG.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_WOOD = ITEMS.register("sun_kissed_wood", () -> new BlockItem(MalumBlocks.SUN_KISSED_WOOD.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> STRIPPED_SUN_KISSED_LOG = ITEMS.register("stripped_sun_kissed_log", () -> new BlockItem(MalumBlocks.STRIPPED_SUN_KISSED_LOG.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> STRIPPED_SUN_KISSED_WOOD = ITEMS.register("stripped_sun_kissed_wood", () -> new BlockItem(MalumBlocks.STRIPPED_SUN_KISSED_WOOD.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SUN_KISSED_WOOD = ITEMS.register("sun_kissed_wood", () -> new BlockItem(MalumBlocks.SUN_KISSED_WOOD.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_SUN_KISSED_LOG = ITEMS.register("stripped_sun_kissed_log", () -> new BlockItem(MalumBlocks.STRIPPED_SUN_KISSED_LOG.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_SUN_KISSED_WOOD = ITEMS.register("stripped_sun_kissed_wood", () -> new BlockItem(MalumBlocks.STRIPPED_SUN_KISSED_WOOD.get(), BUILDING_PROPERTIES()));
     
     public static final RegistryObject<Item> SUN_KISSED_PLANKS = ITEMS.register("sun_kissed_planks", () -> new BlockItem(MalumBlocks.SUN_KISSED_PLANKS.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> VERTICAL_SUN_KISSED_PLANKS = ITEMS.register("vertical_sun_kissed_planks", () -> new BlockItem(MalumBlocks.VERTICAL_SUN_KISSED_PLANKS.get(), BUILDING_PROPERTIES()));
@@ -277,27 +278,6 @@ public class MalumItems
     public static final RegistryObject<Item> CRACKED_BONE_BRICKS_WALL = ITEMS.register("cracked_bone_bricks_wall", () -> new BlockItem(MalumBlocks.CRACKED_BONE_BRICKS_WALL.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> BONE_TILE_WALL = ITEMS.register("bone_tile_wall", () -> new BlockItem(MalumBlocks.BONE_TILE_WALL.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> SPIRITED_STEEL_BLOCK = ITEMS.register("spirited_steel_block", () -> new BlockItem(MalumBlocks.SPIRITED_STEEL_BLOCK.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_BLOCK_SLAB = ITEMS.register("spirited_steel_block_slab", () -> new BlockItem(MalumBlocks.SPIRITED_STEEL_BLOCK_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_BLOCK_STAIRS = ITEMS.register("spirited_steel_block_stairs", () -> new BlockItem(MalumBlocks.SPIRITED_STEEL_BLOCK_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_TILES = ITEMS.register("spirited_steel_tiles", () -> new BlockItem(MalumBlocks.SPIRITED_STEEL_TILES.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_TILES_SLAB = ITEMS.register("spirited_steel_tiles_slab", () -> new BlockItem(MalumBlocks.SPIRITED_STEEL_TILES_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_TILES_STAIRS = ITEMS.register("spirited_steel_tiles_stairs", () -> new BlockItem(MalumBlocks.SPIRITED_STEEL_TILES_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_SPIRITED_STEEL = ITEMS.register("stacked_spirited_steel", () -> new BlockItem(MalumBlocks.STACKED_SPIRITED_STEEL.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_SPIRITED_STEEL_SLAB = ITEMS.register("stacked_spirited_steel_slab", () -> new BlockItem(MalumBlocks.STACKED_SPIRITED_STEEL_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_SPIRITED_STEEL_STAIRS = ITEMS.register("stacked_spirited_steel_stairs", () -> new BlockItem(MalumBlocks.STACKED_SPIRITED_STEEL_STAIRS.get(), BUILDING_PROPERTIES()));
-    
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK = ITEMS.register("transmissive_metal_block", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK_SLAB = ITEMS.register("transmissive_metal_block_slab", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_BLOCK_STAIRS = ITEMS.register("transmissive_metal_block_stairs", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_BLOCK_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES = ITEMS.register("transmissive_metal_tiles", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES_SLAB = ITEMS.register("transmissive_metal_tiles_slab", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_TILES_STAIRS = ITEMS.register("transmissive_metal_tiles_stairs", () -> new BlockItem(MalumBlocks.TRANSMISSIVE_METAL_TILES_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL = ITEMS.register("stacked_transmissive_metal", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL_SLAB = ITEMS.register("stacked_transmissive_metal_slab", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STACKED_TRANSMISSIVE_METAL_STAIRS = ITEMS.register("stacked_transmissive_metal_stairs", () -> new BlockItem(MalumBlocks.STACKED_TRANSMISSIVE_METAL_STAIRS.get(), BUILDING_PROPERTIES()));
-    
-    
     public static final RegistryObject<Item> WILD_SPIRIT_SPLINTER = ITEMS.register("wild_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> UNDEAD_SPIRIT_SPLINTER = ITEMS.register("undead_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> NIMBLE_SPIRIT_SPLINTER = ITEMS.register("nimble_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
@@ -317,9 +297,14 @@ public class MalumItems
     //endregion
     
     //region crafting blocks
-    public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () -> new RunicChiselItem(GEAR_PROPERTIES().defaultMaxDamage(42)));
+    
+    public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
+    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
+    public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+    
+    public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(GEAR_PROPERTIES().defaultMaxDamage(42)));
     public static final RegistryObject<Item> TOTEM_CORE = ITEMS.register("totem_core", () -> new BlockItem(MalumBlocks.TOTEM_CORE.get(), DEFAULT_PROPERTIES()));
-
+    
     public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));
     public static final RegistryObject<Item> ITEM_STAND = ITEMS.register("item_stand", () -> new BlockItem(MalumBlocks.ITEM_STAND.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> EXTRACTION_FOCUS = ITEMS.register("extraction_focus", () -> new BlockItem(MalumBlocks.EXTRACTION_FOCUS.get(), DEFAULT_PROPERTIES()));
@@ -332,10 +317,13 @@ public class MalumItems
     public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new BlockItem(MalumBlocks.ETHER.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_SHARD = ITEMS.register("soul_shard", () -> new Item(DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_INGOT = ITEMS.register("transmissive_metal_ingot", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TRANSMISSIVE_METAL_NUGGET = ITEMS.register("transmissive_metal_nugget", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_INGOT = ITEMS.register("spirited_steel_ingot", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_SHARDS = ITEMS.register("spirited_steel_shards", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> HALLOWED_GOLD_BLOCK = ITEMS.register("hallowed_gold_block", () -> new BlockItem(MalumBlocks.HALLOWED_GOLD_BLOCK.get(), DEFAULT_PROPERTIES()));
+    
+    public static final RegistryObject<Item> SPIRITED_METAL_INGOT = ITEMS.register("spirited_metal_ingot", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_NUGGET = ITEMS.register("spirited_metal_nugget", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_BLOCK = ITEMS.register("spirited_metal_block", () -> new BlockItem(MalumBlocks.SPIRITED_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> PENUMBRAL_MOLD = ITEMS.register("penumbral_mold", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> REANIMATED_MATTER = ITEMS.register("reanimated_matter", () -> new Item(DEFAULT_PROPERTIES().food((new Food.Builder()).effect(new EffectInstance(Effects.HUNGER, 300, 1), 0.2F).meat().hunger(10).saturation(2F).build())));
@@ -355,21 +343,17 @@ public class MalumItems
     //region contents
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(ItemTier.IRON, 0, 0.1f,GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
-    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
-    public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+    public static final RegistryObject<Item> SPIRITED_METAL_SCYTHE = ITEMS.register("spirited_metal_scythe", () -> new ScytheItem(SPIRITED_METAL_ITEM, 0, 0.2f,GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_SWORD = ITEMS.register("spirited_metal_sword", () -> new ModSwordItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_PICKAXE = ITEMS.register("spirited_metal_pickaxe", () -> new ModPickaxeItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_AXE = ITEMS.register("spirited_metal_axe", () -> new ModAxeItem(SPIRITED_METAL_ITEM, 2, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_SHOVEL = ITEMS.register("spirited_metal_shovel", () -> new ModShovelItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_HOE = ITEMS.register("spirited_metal_hoe", () -> new ModHoeItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> SPIRITED_STEEL_SCYTHE = ITEMS.register("spirited_steel_scythe", () -> new ScytheItem(SPIRITED_STEEL_ITEM, 0, 0.2f,GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_SWORD = ITEMS.register("spirited_steel_sword", () -> new ModSwordItem(SPIRITED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_PICKAXE = ITEMS.register("spirited_steel_pickaxe", () -> new ModPickaxeItem(SPIRITED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_AXE = ITEMS.register("spirited_steel_axe", () -> new ModAxeItem(SPIRITED_STEEL_ITEM, 2, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_SHOVEL = ITEMS.register("spirited_steel_shovel", () -> new ModShovelItem(SPIRITED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_HOE = ITEMS.register("spirited_steel_hoe", () -> new ModHoeItem(SPIRITED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    
-    public static final RegistryObject<Item> SPIRITED_STEEL_HELMET = ITEMS.register("spirited_steel_helmet", () -> new SpiritedSteelArmorItem(SPIRITED_STEEL_ARMOR, EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_CHESTPLATE = ITEMS.register("spirited_steel_chestplate", () -> new SpiritedSteelArmorItem(SPIRITED_STEEL_ARMOR, EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_LEGGINGS = ITEMS.register("spirited_steel_leggings", () -> new SpiritedSteelArmorItem(SPIRITED_STEEL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRITED_STEEL_BOOTS = ITEMS.register("spirited_steel_boots", () -> new SpiritedSteelArmorItem(SPIRITED_STEEL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_HELMET = ITEMS.register("spirited_metal_helmet", () -> new SpiritedSteelArmorItem(SPIRITED_METAL_ARMOR, EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_CHESTPLATE = ITEMS.register("spirited_metal_chestplate", () -> new SpiritedSteelArmorItem(SPIRITED_METAL_ARMOR, EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_LEGGINGS = ITEMS.register("spirited_metal_leggings", () -> new SpiritedSteelArmorItem(SPIRITED_METAL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRITED_METAL_BOOTS = ITEMS.register("spirited_metal_boots", () -> new SpiritedSteelArmorItem(SPIRITED_METAL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
     //    public static final RegistryObject<Item> UMBRAL_SWORD = ITEMS.register("umbral_sword", () -> new ModSwordItem(UMBRAL_ITEM, 0, 0, GEAR_PROPERTIES()));
     //    public static final RegistryObject<Item> UMBRAL_PICKAXE = ITEMS.register("umbral_pickaxe", () -> new ModPickaxeItem(UMBRAL_ITEM, 0, 0, GEAR_PROPERTIES()));
@@ -382,25 +366,24 @@ public class MalumItems
     //    public static final RegistryObject<Item> UMBRAL_LEGGINGS = ITEMS.register("umbral_leggings", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     //    public static final RegistryObject<Item> UMBRAL_BOOTS = ITEMS.register("umbral_boots", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SPIRITED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> TEST_POPPET = ITEMS.register("test_poppet", () -> new PoppetItem(GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> RING_OF_SUPPRESSION = ITEMS.register("ring_of_suppression", () -> new Item(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    
+    public static final RegistryObject<Item> RING_OF_SUPPRESSION = ITEMS.register("ring_of_suppression", () -> new CurioRingOfSuppression(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> POPPET_BELT = ITEMS.register("poppet_belt", () -> new CurioPoppetBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> DRIFT_BOOTS = ITEMS.register("drift_boots", () -> new CurioDriftBoots(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> FLASK_OF_GREED = ITEMS.register("flask_of_greed", () -> new CurioFlaskOfGreed(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ANCESTRAL_VEIL = ITEMS.register("ancestral_veil", () -> new CurioAncestralVeil(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> KARMIC_HOLDER = ITEMS.register("karmic_holder", () -> new CurioKarmicHolder(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WILD_FARMLAND = ITEMS.register("wild_farmland", () -> new BlockItem(MalumBlocks.WILD_FARMLAND.get(), DEFAULT_PROPERTIES()));
     //endregion
     
-    //region curios
-    public static final RegistryObject<Item> KARMIC_HOLDER = ITEMS.register("karmic_holder", () -> new CurioKarmicHolder(GEAR_PROPERTIES()));
-    
-    //end region
-    
     //region hidden items
-    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(ItemTier.IRON, 9993, 9.19f,GEAR_PROPERTIES().defaultMaxDamage(0)));
+    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(ItemTier.IRON, 9993, 9.19f,CREATIVE_PROPERTIES().defaultMaxDamage(0)));
     
     public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));
     public static final RegistryObject<Item> RUNE_OF_DEATH = ITEMS.register("rune_of_death", () -> new MalumRuneItem(CREATIVE_PROPERTIES()));

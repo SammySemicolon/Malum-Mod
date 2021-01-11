@@ -16,7 +16,6 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.function.Consumer;
 
-import static com.sammy.malum.core.init.MalumItemTags.SAPBALLS;
 import static net.minecraft.data.CookingRecipeBuilder.smeltingRecipe;
 import static net.minecraft.data.ShapedRecipeBuilder.shapedRecipe;
 import static net.minecraft.data.ShapelessRecipeBuilder.shapelessRecipe;
@@ -43,56 +42,38 @@ public class MalumRecipeProvider extends RecipeProvider
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.SUN_KISSED_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.SUN_KISSED_LOGS)).build(consumer);
         shapedRecipe(MalumItems.SPIRIT_KILN.get()).key('#', MalumItems.ETHER.get()).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.DARKENED_ROCK.get()).key('Z', Items.FURNACE).key('C', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("C#C").patternLine("YZY").patternLine("XYX").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
         shapedRecipe(MalumItems.ITEM_STAND.get()).key('#', MalumItems.TAINTED_ROCK.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine(" Y ").patternLine("#X#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
-    
+        
         //        shapedRecipe(MalumItems.KARMIC_HOLDER.get()).key('#', MalumItems.SHARD_OF_WISDOM.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', Items.STRING).patternLine(" Y ").patternLine("YXY").patternLine(" # ").addCriterion("has_shard_of_wisdom", hasItem(MalumItems.SHARD_OF_WISDOM.get())).build(consumer);
-    
+        
         ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
-    
+        
         shapelessRecipe(MalumItems.SOLAR_SAPBALL.get()).addIngredient(MalumItems.PENUMBRAL_MOLD.get()).addIngredient(MalumItems.SOLAR_SAP_BOTTLE.get()).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOLAR_SAP_BOTTLE.get()), MalumItems.SOLAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
-    
-        ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(SAPBALLS).addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER)).build(consumer, "magma_cream_from_sapballs");
-        ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON).key('P', Blocks.PISTON).key('S', SAPBALLS).patternLine("S").patternLine("P").addCriterion("has_sapballs", hasItem(SAPBALLS)).build(consumer, "sticky_piston_from_sapballs");
-        ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2).key('~', Items.STRING).key('O', SAPBALLS).patternLine("~~ ").patternLine("~O ").patternLine("  ~").addCriterion("has_sapballs", hasItem(SAPBALLS)).build(consumer);
+        
+        ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(MalumItems.SOLAR_SAPBALL.get()).addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER)).build(consumer, "magma_cream_from_sapballs");
+        ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON).key('P', Blocks.PISTON).key('S', MalumItems.SOLAR_SAPBALL.get()).patternLine("S").patternLine("P").addCriterion("has_sapball", hasItem(MalumItems.SOLAR_SAPBALL.get())).build(consumer, "sticky_piston_from_sapballs");
+        ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2).key('~', Items.STRING).key('O', MalumItems.SOLAR_SAPBALL.get()).patternLine("~~ ").patternLine("~O ").patternLine("  ~").addCriterion("has_sapball", hasItem(MalumItems.SOLAR_SAPBALL.get())).build(consumer);
         
         ShapedRecipeBuilder.shapedRecipe(MalumItems.CRUDE_SCYTHE.get()).key('#', Items.STICK).key('Y', MalumItems.SOUL_SHARD.get()).key('X', Items.IRON_INGOT).patternLine("XXY").patternLine(" #X").patternLine("#  ").addCriterion("has_soul_shard", hasItem(MalumItems.SOUL_SHARD.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_AXE.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("XX").patternLine("X#").patternLine(" #").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_BOOTS.get()).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("X X").patternLine("X X").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_CHESTPLATE.get()).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("X X").patternLine("XXX").patternLine("XXX").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_HELMET.get()).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("XXX").patternLine("X X").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_HOE.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("XX").patternLine(" #").patternLine(" #").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_LEGGINGS.get()).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("XXX").patternLine("X X").patternLine("X X").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_PICKAXE.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("XXX").patternLine(" # ").patternLine(" # ").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_SHOVEL.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("X").patternLine("#").patternLine("#").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_SWORD.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("X").patternLine("X").patternLine("#").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_AXE.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("XX").patternLine("X#").patternLine(" #").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_BOOTS.get()).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("X X").patternLine("X X").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_CHESTPLATE.get()).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("X X").patternLine("XXX").patternLine("XXX").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_HELMET.get()).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("XXX").patternLine("X X").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_HOE.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("XX").patternLine(" #").patternLine(" #").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_LEGGINGS.get()).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("XXX").patternLine("X X").patternLine("X X").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_PICKAXE.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("XXX").patternLine(" # ").patternLine(" # ").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_SHOVEL.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("X").patternLine("#").patternLine("#").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_SWORD.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("X").patternLine("X").patternLine("#").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
         
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_BLOCK.get(), 4).key('#', MalumItems.SPIRITED_STEEL_INGOT.get()).patternLine("##").patternLine("##").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_STEEL_INGOT.get()).key('#', MalumItems.SPIRITED_STEEL_SHARDS.get()).patternLine("###").patternLine("###").patternLine("###").setGroup("iron_ingot").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer, "spirited_steel_plating_from_shards");
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SPIRITED_STEEL_SHARDS.get(), 9).addIngredient(MalumItems.SPIRITED_STEEL_INGOT.get()).addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SPIRITED_STEEL_INGOT.get(), 4).addIngredient(MalumItemTags.SPIRITED_STEEL_BLOCKS).addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer, "spirited_steel_plating_from_spirited_steel_plating_block");
-        shapedRecipe(MalumItems.SPIRITED_STEEL_TILES.get(),4).key('#', MalumItems.SPIRITED_STEEL_BLOCK.get()).patternLine("##").patternLine("##").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        shapedSlab(consumer, MalumItems.SPIRITED_STEEL_TILES_SLAB.get(), MalumItems.SPIRITED_STEEL_TILES.get());
-        shapedStairs(consumer, MalumItems.SPIRITED_STEEL_TILES_STAIRS.get(), MalumItems.SPIRITED_STEEL_TILES.get());
-        shapedRecipe(MalumItems.STACKED_SPIRITED_STEEL.get(),4).key('#', MalumItems.SPIRITED_STEEL_TILES.get()).patternLine("##").patternLine("##").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer);
-        shapedSlab(consumer, MalumItems.STACKED_SPIRITED_STEEL_SLAB.get(), MalumItems.STACKED_SPIRITED_STEEL.get());
-        shapedStairs(consumer, MalumItems.STACKED_SPIRITED_STEEL_STAIRS.get(), MalumItems.STACKED_SPIRITED_STEEL.get());
-        shapedRecipe(MalumItems.SPIRITED_STEEL_BLOCK.get(),4).key('#', MalumItems.STACKED_SPIRITED_STEEL.get()).patternLine("##").patternLine("##").addCriterion("has_spirited_steel", hasItem(MalumItems.SPIRITED_STEEL_INGOT.get())).build(consumer, "spirited_steel_plating_block_from_stacked_spirited_steel_plating");
-        shapedSlab(consumer, MalumItems.SPIRITED_STEEL_BLOCK_SLAB.get(), MalumItems.SPIRITED_STEEL_BLOCK.get());
-        shapedStairs(consumer, MalumItems.SPIRITED_STEEL_BLOCK_STAIRS.get(), MalumItems.SPIRITED_STEEL_BLOCK.get());
-        
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(), 4).key('#', MalumItems.TRANSMISSIVE_METAL_INGOT.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.TRANSMISSIVE_METAL_INGOT.get()).key('#', MalumItems.TRANSMISSIVE_METAL_NUGGET.get()).patternLine("###").patternLine("###").patternLine("###").setGroup("iron_ingot").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer, "transmissive_metal_from_nuggets");
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.TRANSMISSIVE_METAL_NUGGET.get(), 9).addIngredient(MalumItems.TRANSMISSIVE_METAL_INGOT.get()).addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.TRANSMISSIVE_METAL_INGOT.get()).addIngredient(MalumItemTags.TRANSMISSIVE_METAL_BLOCKS).addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer, "transmissive_metal_ingot_from_transmissive_metal_block");
-        shapedRecipe(MalumItems.TRANSMISSIVE_METAL_TILES.get(),4).key('#', MalumItems.TRANSMISSIVE_METAL_BLOCK.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer);
-        shapedSlab(consumer, MalumItems.TRANSMISSIVE_METAL_TILES_SLAB.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get());
-        shapedStairs(consumer, MalumItems.TRANSMISSIVE_METAL_TILES_STAIRS.get(), MalumItems.TRANSMISSIVE_METAL_TILES.get());
-        shapedRecipe(MalumItems.STACKED_TRANSMISSIVE_METAL.get(),4).key('#', MalumItems.TRANSMISSIVE_METAL_TILES.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer);
-        shapedSlab(consumer, MalumItems.STACKED_TRANSMISSIVE_METAL_SLAB.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
-        shapedStairs(consumer, MalumItems.STACKED_TRANSMISSIVE_METAL_STAIRS.get(), MalumItems.STACKED_TRANSMISSIVE_METAL.get());
-        shapedRecipe(MalumItems.TRANSMISSIVE_METAL_BLOCK.get(),4).key('#', MalumItems.STACKED_TRANSMISSIVE_METAL.get()).patternLine("##").patternLine("##").addCriterion("has_transmissive_metal", hasItem(MalumItems.TRANSMISSIVE_METAL_INGOT.get())).build(consumer, "transmissive_metal_block_from_stacked_transmissive_metal");
-        shapedSlab(consumer, MalumItems.TRANSMISSIVE_METAL_BLOCK_SLAB.get(), MalumItems.TRANSMISSIVE_METAL_BLOCK.get());
-        shapedStairs(consumer, MalumItems.TRANSMISSIVE_METAL_BLOCK_STAIRS.get(), MalumItems.TRANSMISSIVE_METAL_BLOCK.get());
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_BLOCK.get()).key('#', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_INGOT.get()).key('#', MalumItems.SPIRITED_METAL_NUGGET.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer, "spirited_metal_from_shards");
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SPIRITED_METAL_NUGGET.get(), 9).addIngredient(MalumItems.SPIRITED_METAL_INGOT.get()).addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SPIRITED_METAL_INGOT.get(), 9).addIngredient(MalumItems.SPIRITED_METAL_BLOCK.get()).addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer, "spirited_metal_from_spirited_metal_block");
+
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.HALLOWED_GOLD_BLOCK.get()).key('#', MalumItems.HALLOWED_GOLD_INGOT.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_transmissive_metal", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.HALLOWED_GOLD_INGOT.get()).key('#', MalumItems.HALLOWED_GOLD_NUGGET.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_transmissive_metal", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer, "transmissive_metal_from_nuggets");
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.HALLOWED_GOLD_NUGGET.get(), 9).addIngredient(MalumItems.HALLOWED_GOLD_INGOT.get()).addCriterion("has_transmissive_metal", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.HALLOWED_GOLD_INGOT.get(),9).addIngredient(MalumItems.HALLOWED_GOLD_BLOCK.get()).addCriterion("has_transmissive_metal", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer, "transmissive_metal_ingot_from_transmissive_metal_block");
         
         shapelessPlanks(consumer, MalumItems.SUN_KISSED_PLANKS.get(), MalumItemTags.SUN_KISSED_LOGS);
         shapelessWood(consumer, MalumItems.SUN_KISSED_WOOD.get(), MalumItems.SUN_KISSED_LOG.get());
@@ -126,7 +107,7 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.CUT_SUN_KISSED_PLANKS.get(),4).key('#', MalumItems.SUN_KISSED_PANEL.get()).key('X', MalumItems.SUN_KISSED_PLANKS.get()).patternLine("##").patternLine("XX").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
         shapedRecipe(MalumItems.SUN_KISSED_BEAM.get(),3).key('#', MalumItems.VERTICAL_SUN_KISSED_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
         shapedRecipe(MalumItems.BOLTED_SUN_KISSED_BEAM.get(),8).key('#', MalumItems.SUN_KISSED_BEAM.get()).key('X', Items.IRON_NUGGET).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.SUN_KISSED_PLANKS.get())).build(consumer);
-    
+        
         ShapedRecipeBuilder.shapedRecipe(MalumItems.TAINTED_ROCK_WALL.get(), 6).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("###").patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.TAINTED_ROCK_SLAB.get(), 6).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.TAINTED_ROCK_STAIRS.get(), 4).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("#  ").patternLine("## ").patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
@@ -196,7 +177,7 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.TAINTED_ROCK_COLUMN.get(),2).key('#', MalumItems.TAINTED_ROCK_BRICKS.get()).patternLine("#").patternLine("#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.TAINTED_ROCK_PILLAR_CAP.get()).key('$', MalumItems.TAINTED_ROCK_PILLAR.get()).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("$").patternLine("#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.TAINTED_ROCK_COLUMN_CAP.get()).key('$', MalumItems.TAINTED_ROCK_COLUMN.get()).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("$").patternLine("#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
-
+        
         shapedRecipe(MalumItems.CUT_TAINTED_ROCK.get(),4).key('#', MalumItems.SMOOTH_TAINTED_ROCK.get()).patternLine("##").patternLine("##").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.TAINTED_ROCK.get()), MalumItems.CUT_TAINTED_ROCK.get()).addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer, "cut_tainted_rock_stonecutting");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.TAINTED_ROCK.get()), MalumItems.TAINTED_ROCK_PILLAR.get()).addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer, "tainted_rock_pillar_stonecutting");
@@ -281,7 +262,7 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.DARKENED_ROCK_PILLAR_CAP.get()).key('$', MalumItems.DARKENED_ROCK_PILLAR.get()).key('#', MalumItems.DARKENED_ROCK.get()).patternLine("$").patternLine("#").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.DARKENED_ROCK_COLUMN_CAP.get()).key('$', MalumItems.DARKENED_ROCK_COLUMN.get()).key('#', MalumItems.DARKENED_ROCK.get()).patternLine("$").patternLine("#").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
         
-shapedRecipe(MalumItems.CUT_DARKENED_ROCK.get(),4).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).patternLine("##").patternLine("##").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
+        shapedRecipe(MalumItems.CUT_DARKENED_ROCK.get(),4).key('#', MalumItems.SMOOTH_DARKENED_ROCK.get()).patternLine("##").patternLine("##").addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer);
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.DARKENED_ROCK.get()), MalumItems.CUT_DARKENED_ROCK.get()).addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer, "cut_darkened_rock_stonecutting");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.DARKENED_ROCK.get()), MalumItems.DARKENED_ROCK_PILLAR.get()).addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer, "darkened_rock_pillar_stonecutting");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.DARKENED_ROCK.get()), MalumItems.DARKENED_ROCK_PILLAR_CAP.get()).addCriterion("has_darkened_rock", hasItem(MalumItems.DARKENED_ROCK.get())).build(consumer, "darkened_rock_pillar_cap_stonecutting");

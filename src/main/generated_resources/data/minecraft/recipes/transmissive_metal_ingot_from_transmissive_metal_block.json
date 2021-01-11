@@ -2,10 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "malum:transmissive_metal_blocks"
+      "item": "malum:hallowed_gold_block"
     }
   ],
   "result": {
-    "item": "malum:transmissive_metal_ingot"
+    "item": "malum:hallowed_gold_ingot",
+    "count": 9
   }
 }

@@ -16,7 +16,7 @@ public class MalumArmorTiers
 {
     public enum ArmorTierEnum implements IArmorMaterial
     {
-        SPIRITED_STEEL_ARMOR("ruin_armor", 36, new int[]{2, 7, 8, 3}, 16, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.SPIRITED_STEEL_INGOT, 1),
+        SPIRITED_METAL_ARMOR("ruin_armor", 36, new int[]{2, 7, 8, 3}, 16, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.SPIRITED_METAL_INGOT, 1),
         UMBRAL_ARMOR("umbral_armor", 45, new int[]{4, 7, 10, 4}, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.UMBRAL_METAL_INGOT, 5);
         
         private final String name;
