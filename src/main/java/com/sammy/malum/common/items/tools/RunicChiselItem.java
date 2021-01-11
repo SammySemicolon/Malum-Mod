@@ -59,7 +59,7 @@ public class RunicChiselItem extends Item
             }
             else
             {
-                MalumHelper.setBlockStateWithExistingProperties(world, pos,outputBlock.getDefaultState(),3,true);
+                MalumHelper.setBlockStateWithExistingProperties(world, pos,outputBlock.getDefaultState(),3);
                 world.playSound(null, pos, outputBlock.getDefaultState().getSoundType().getPlaceSound(), SoundCategory.BLOCKS,1,1.1f);
                 playerEntity.swingArm(Hand.MAIN_HAND);
             }

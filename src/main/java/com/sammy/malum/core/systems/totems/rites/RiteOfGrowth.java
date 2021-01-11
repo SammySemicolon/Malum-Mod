@@ -38,7 +38,7 @@ public class RiteOfGrowth extends AffectBlocksRite
     }
     
     @Override
-    public void effect(BlockPos pos, BlockState state, World world)
+    public boolean effect(BlockPos pos, BlockState state, World world)
     {
         if (MalumHelper.areWeOnServer(world))
         {
@@ -50,6 +50,6 @@ public class RiteOfGrowth extends AffectBlocksRite
                 }
             }
         }
-        super.effect(pos, state, world);
+        return false;
     }
 }

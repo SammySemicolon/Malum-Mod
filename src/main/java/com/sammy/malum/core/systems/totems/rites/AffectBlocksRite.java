@@ -21,9 +21,9 @@ public class AffectBlocksRite extends MalumRite
         super(identifier, isInstant, runes);
     }
     
-    public void effect(BlockPos pos, BlockState state, World world)
+    public boolean effect(BlockPos pos, BlockState state, World world)
     {
-    
+        return false;
     }
     
     @Override
@@ -31,22 +31,48 @@ public class AffectBlocksRite extends MalumRite
     {
         return 20;
     }
+    public int maxEffects()
+    {
+        return 0;
+    }
     public int yOffset()
     {
         return 0;
     }
+    public boolean doCheckpoints()
+    {
+        return false;
+    }
+    public int lastX = -range();
+    public int lastZ = -range();
     @Override
     public void effect(BlockPos pos, World world)
     {
-        for (int x = -range(); x <= range(); x++)
+        int startingX = -range();
+        if (doCheckpoints())
         {
-            for (int z = -range(); z <= range(); z++)
+            startingX = lastX;
+        }
+        int startingZ = -range();
+        if (doCheckpoints())
+        {
+            startingZ = lastZ;
+        }
+        for (int x = startingX; x <= range(); x++)
+        {
+            for (int z = startingZ; z <= range(); z++)
             {
                 BlockPos blockPos = pos.add(x, yOffset(), z);
                 BlockState state = world.getBlockState(blockPos);
                 if (!state.getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get()))
                 {
-                    effect(blockPos, state, world);
+                    boolean success = effect(blockPos, state, world);
+                    if (success)
+                    {
+                        lastX = x;
+                        lastZ = z;
+                        return;
+                    }
                 }
             }
         }

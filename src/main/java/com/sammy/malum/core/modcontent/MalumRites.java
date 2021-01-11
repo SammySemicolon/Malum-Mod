@@ -27,14 +27,16 @@ public class MalumRites
         new RiteOfWater("rite_of_water",false, RUNE_OF_WATER, RUNE_OF_WATER,RUNE_OF_WATER,RUNE_OF_WATER);
         new RiteOfFortitude("rite_of_fortitude",false, RUNE_OF_EARTH, RUNE_OF_EARTH, RUNE_OF_EARTH, RUNE_OF_EARTH);
         new RiteOfAir("rite_of_air",true, RUNE_OF_AIR, RUNE_OF_AIR, RUNE_OF_AIR, RUNE_OF_AIR);
-        new RiteOfSpeed("rite_of_speed",false, RUNE_OF_AIR, RUNE_OF_LIFE,RUNE_OF_AIR,RUNE_OF_AIR,RUNE_OF_AIR);
+        new RiteOfAgility("rite_of_agility",false, RUNE_OF_AIR, RUNE_OF_LIFE,RUNE_OF_AIR,RUNE_OF_AIR,RUNE_OF_AIR);
         new RiteOfLevitation("rite_of_levitation",false, RUNE_OF_AIR);
         new RiteOfGrowth("rite_of_growth",false, RUNE_OF_EARTH, RUNE_OF_LIFE,RUNE_OF_LIFE,RUNE_OF_LIFE);
-        new RiteOfProtection("rite_of_protection",false, RUNE_OF_WATER, RUNE_OF_EARTH,RUNE_OF_WATER,RUNE_OF_WATER,RUNE_OF_WATER);
-        new RiteOfDestruction("rite_of_destruction",false, RUNE_OF_DEATH, RUNE_OF_EARTH,RUNE_OF_EARTH,RUNE_OF_EARTH,RUNE_OF_DEATH);
+        new RiteOfWarding("rite_of_warding",false, RUNE_OF_WATER, RUNE_OF_EARTH,RUNE_OF_SOUL,RUNE_OF_WATER,RUNE_OF_WATER);
+        new RiteOfDestruction("rite_of_destruction",false, RUNE_OF_DEATH, RUNE_OF_EARTH,RUNE_OF_EARTH,RUNE_OF_SOUL,RUNE_OF_DEATH);
+        new RiteOfCollection("rite_of_collection",false, RUNE_OF_AIR, RUNE_OF_EARTH,RUNE_OF_SOUL,RUNE_OF_SOUL);
         new RiteOFDrought("rite_of_drought",true, RUNE_OF_WATER, RUNE_OF_SOUL, RUNE_OF_DEATH);
         new RiteOfRain("rite_of_rain",true, RUNE_OF_WATER, RUNE_OF_SOUL, RUNE_OF_LIFE);
     }
+    
     public static MalumRite getRite(ArrayList<MalumRunes.MalumRune> runes)
     {
         for (MalumRite recipe : RITES)

@@ -48,7 +48,7 @@ public class JEIHandler implements IModPlugin
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
         registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_KILN.get()), SpiritKilnRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.RUNIC_CHISEL.get()), ChiselingRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(MalumItems.CHISEL.get()), ChiselingRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), RiteRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), TransfusionRecipeCategory.UID);
     }

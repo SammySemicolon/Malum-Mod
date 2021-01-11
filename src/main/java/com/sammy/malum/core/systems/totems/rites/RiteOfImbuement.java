@@ -32,7 +32,7 @@ public class RiteOfImbuement extends AffectBlocksRite
     }
     
     @Override
-    public void effect(BlockPos pos, BlockState state, World world)
+    public boolean effect(BlockPos pos, BlockState state, World world)
     {
         pos = pos.down(1);
         state = world.getBlockState(pos);
@@ -81,5 +81,6 @@ public class RiteOfImbuement extends AffectBlocksRite
         {
             map.remove(pos);
         }
+        return false;
     }
 }

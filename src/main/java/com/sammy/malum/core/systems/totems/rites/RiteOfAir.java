@@ -15,7 +15,7 @@ public class RiteOfAir extends AffectEntitiesRite
     @Override
     public void effect(LivingEntity entity)
     {
-        entity.addVelocity(0,5f,0);
+        entity.addVelocity(0,20f,0);
         entity.addPotionEffect(new EffectInstance(Effects.LEVITATION,40,1));
     }
 }

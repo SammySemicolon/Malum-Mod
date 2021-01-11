@@ -2,8 +2,11 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.book.MalumBookCategories;
+import com.sammy.malum.common.book.categories.BookCategory;
+import com.sammy.malum.common.book.pages.BookPage;
 import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.core.init.StartupEvents;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.modcontent.*;
 import net.minecraft.block.Block;
@@ -13,7 +16,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -34,20 +36,14 @@ public class MalumLangProvider extends LanguageProvider
     @Override
     protected void addTranslations()
     {
-        MalumSpiritKilnRecipes.init();
-        MalumSpiritKilnFuels.init();
-        MalumRunes.init();
-        MalumChiseling.init();
-        MalumRites.init();
-        MalumSpiritTypes.init();
-        MalumTransfusions.init();
+        StartupEvents.registerModContents(null);
         
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
         Set<RegistryObject<Effect>> effects = new HashSet<>(MalumEffects.EFFECTS.getEntries());
-        Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(MalumSounds.SOUNDS.getEntries());
         ArrayList<MalumRites.MalumRite> rites = MalumRites.RITES;
+        ArrayList<BookCategory> bookChapters = MalumBookCategories.categories;
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         blocks.forEach(b -> {
@@ -74,13 +70,18 @@ public class MalumLangProvider extends LanguageProvider
             String name = MalumHelper.toTitleCase(e.getId().getPath(), "_");
             add("effect.malum." + e.get().getRegistryName().getPath(), name);
         });
-        sounds.forEach(s -> {
-        
-        });
         rites.forEach(
                 r -> add(r.translationKey, MalumHelper.toTitleCase(r.identifier, "_"))
         );
-        
+        bookChapters.forEach(
+                r -> {
+                    add(r.translationKey, MalumHelper.toTitleCase(r.translationKey.substring("malum.gui.book.chapter.".length()), "_"));
+                    for(BookPage page : r.pages)
+                    {
+                        add(page.translationKey, MalumHelper.toTitleCase(page.translationKey.substring("malum.gui.book.page.".length()), "_"));
+                    }
+                }
+        );
         add("malum.subtitle.tainted_rock_break" , "Tainted Rock Broken");
         add("malum.subtitle.tainted_rock_step" , "Tainted Rock Footsteps");
         add("malum.subtitle.tainted_rock_place" , "Tainted Rock Placed");
@@ -116,7 +117,7 @@ public class MalumLangProvider extends LanguageProvider
     
         add("death.attack.bleeding" , "%1$s bled out");
         add("death.attack.bleeding.player" , "%1$s bled out whilst trying to escape %2$s");
-    
+        
         addTooltip("contains", "Contains: ");
         addTooltip("sneak", "Sneak");
         addTooltip("hold", "Hold: ");

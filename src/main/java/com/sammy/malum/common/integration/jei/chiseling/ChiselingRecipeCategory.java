@@ -4,9 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.modcontent.MalumChiseling;
 import com.sammy.malum.core.modcontent.MalumChiseling.MalumChiselRecipe;
-import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes.MalumSpiritKilnRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -14,12 +12,10 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
 
@@ -36,7 +32,7 @@ public class ChiselingRecipeCategory implements IRecipeCategory<MalumChiselRecip
         background = guiHelper.createBlankDrawable(65, 27);
         localizedName = I18n.format("malum.jei.runic_chiseling");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/runic_chiseling_recipe_overlay.png"), 0, 0, 63, 25);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.RUNIC_CHISEL.get()));
+        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.CHISEL.get()));
     }
     
     @Override

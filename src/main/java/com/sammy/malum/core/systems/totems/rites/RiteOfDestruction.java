@@ -47,7 +47,7 @@ public class RiteOfDestruction extends AffectBlocksRite
     }
     
     @Override
-    public void effect(BlockPos pos, BlockState state, World world)
+    public boolean effect(BlockPos pos, BlockState state, World world)
     {
         int amount = 0;
         if (map.containsKey(pos))
@@ -91,5 +91,6 @@ public class RiteOfDestruction extends AffectBlocksRite
         {
             map.remove(pos);
         }
+        return false;
     }
 }

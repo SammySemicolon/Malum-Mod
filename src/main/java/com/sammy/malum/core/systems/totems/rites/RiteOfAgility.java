@@ -1,14 +1,15 @@
 package com.sammy.malum.core.systems.totems.rites;
 
-import com.sammy.malum.core.modcontent.MalumRunes.MalumRune;
+import com.sammy.malum.core.init.MalumEffects;
+import com.sammy.malum.core.modcontent.MalumRunes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-public class RiteOfWater extends AffectEntitiesRite
+public class RiteOfAgility extends AffectEntitiesRite
 {
-    public RiteOfWater(String identifier, boolean isInstant, MalumRune... runes)
+    public RiteOfAgility(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
     {
         super(identifier, isInstant, runes);
     }
@@ -18,7 +19,7 @@ public class RiteOfWater extends AffectEntitiesRite
     {
         if (entity instanceof PlayerEntity)
         {
-            entity.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 400, 0));
+            entity.addPotionEffect(new EffectInstance(MalumEffects.AGILITY.get(), 100, 1));
         }
     }
 }

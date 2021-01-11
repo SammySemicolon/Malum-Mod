@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init;
 
+import com.sammy.malum.common.items.MalumBookItem;
 import com.sammy.malum.common.items.MalumRuneItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
 import com.sammy.malum.common.items.equipment.curios.*;
@@ -62,6 +63,8 @@ public class MalumItems
     {
         return new Item.Properties().maxStackSize(1);
     }
+    
+    public static final RegistryObject<Item> MALUM_BOOK = ITEMS.register("malum_book", () -> new MalumBookItem(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> TAINTED_ROCK = ITEMS.register("tainted_rock", () -> new BlockItem(MalumBlocks.TAINTED_ROCK.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> SMOOTH_TAINTED_ROCK = ITEMS.register("smooth_tainted_rock", () -> new BlockItem(MalumBlocks.SMOOTH_TAINTED_ROCK.get(), BUILDING_PROPERTIES()));
@@ -314,7 +317,7 @@ public class MalumItems
     //endregion
     
     //region crafting blocks
-    public static final RegistryObject<Item> RUNIC_CHISEL = ITEMS.register("runic_chisel", () -> new RunicChiselItem(GEAR_PROPERTIES().defaultMaxDamage(42)));
+    public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () -> new RunicChiselItem(GEAR_PROPERTIES().defaultMaxDamage(42)));
     public static final RegistryObject<Item> TOTEM_CORE = ITEMS.register("totem_core", () -> new BlockItem(MalumBlocks.TOTEM_CORE.get(), DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));

@@ -1,7 +1,9 @@
 package com.sammy.malum.core.systems.totems.rites;
 
+import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.modcontent.MalumRunes;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
@@ -21,6 +23,9 @@ public class RiteOfFortitude extends AffectEntitiesRite
     @Override
     public void effect(LivingEntity entity)
     {
-        entity.addPotionEffect(new EffectInstance(Effects.RESISTANCE,100,0));
+        if (entity instanceof PlayerEntity)
+        {
+            entity.addPotionEffect(new EffectInstance(MalumEffects.FORTITUDE.get(), 100, 1));
+        }
     }
 }

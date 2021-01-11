@@ -50,13 +50,20 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         {
             if (MalumHelper.areWeOnClient(world))
             {
-                MalumHelper.updateState(world, pos);
                 prolongedRiteEffects();
             }
-            if (rite.cooldown() != 0 && world.getGameTime() % rite.cooldown() == 0)
+            else
+            {
+                MalumHelper.updateState(getBlockState(),world, pos);
+            }
+            if (rite.isInstant)
+            {
+                reset(false); //This shouldn't ever happen, but might aswell check
+                return;
+            }
+            if (rite.cooldown() == 0 || world.getGameTime() % rite.cooldown() == 0)
             {
                 rite.effect(pos, world);
-                progress = rite.cooldown();
             }
             else
             {
@@ -246,6 +253,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");
         height = compound.getInt("height");
+        runes = new ArrayList<>();
         for (int i = 0; i < compound.getInt("runeCount"); i++)
         {
             MalumRune rune = MalumRunes.getRune(compound.getString("rune" + i));

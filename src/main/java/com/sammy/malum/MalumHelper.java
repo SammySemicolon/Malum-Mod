@@ -27,12 +27,22 @@ import static com.sammy.malum.MalumMod.MODID;
 
 public class MalumHelper
 {
-    public static Entity getClosestEntity(List<Entity> entities, Vector3d pos)
+    public static Vector3d[] offsets = new Vector3d[]{
+            new Vector3d(0,0,1),
+            new Vector3d(1,0,1),
+            new Vector3d(1,0,0),
+            new Vector3d(1,0,-1),
+            new Vector3d(0,0,-1),
+            new Vector3d(-1,0,-1),
+            new Vector3d(-1,0,0),
+            new Vector3d(-1,0,1)
+    };
+    public static <T extends Entity> Entity getClosestEntity(List<T> entities, Vector3d pos)
     {
         double cachedDistance = -1.0D;
         Entity resultEntity = null;
         
-        for (Entity entity : entities)
+        for (T entity : entities)
         {
             double newDistance = entity.getDistanceSq(pos.x, pos.y, pos.z);
             if (cachedDistance == -1.0D || newDistance < cachedDistance)
@@ -140,7 +150,7 @@ public class MalumHelper
     }
     @SafeVarargs
     @SuppressWarnings("varargs")
-    public static <T> Collection<T> takeAll(Set<? extends T> src, T... items)
+    public static <T> Collection<T> takeAll(Collection<? extends T> src, T... items)
     {
         List<T> ret = Arrays.asList(items);
         for (T item : items)
@@ -157,7 +167,7 @@ public class MalumHelper
         return ret;
     }
     
-    public static <T> Collection<T> takeAll(Set<T> src, Predicate<T> pred)
+    public static <T> Collection<T> takeAll(Collection<T> src, Predicate<T> pred)
     {
         List<T> ret = new ArrayList<>();
         
@@ -179,7 +189,7 @@ public class MalumHelper
         return ret;
     }
     
-    public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState, int flags, boolean notify)
+    public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState, int flags)
     {
         BlockState oldState = world.getBlockState(pos);
         
@@ -191,10 +201,8 @@ public class MalumHelper
                 finalState = newStateWithOldProperty(oldState, finalState, property);
             }
         }
-        if (notify)
-        {
             world.notifyBlockUpdate(pos, oldState, finalState, flags);
-        }
+        
         world.setBlockState(pos, finalState, flags);
     }
     
@@ -231,7 +239,7 @@ public class MalumHelper
     
     public static void updateState(BlockState state, World worldIn, BlockPos pos)
     {
-        worldIn.notifyBlockUpdate(pos, state, state, 1);
+        worldIn.notifyBlockUpdate(pos, state, state, 2);
     }
     public static void updateState(World worldIn, BlockPos pos)
     {

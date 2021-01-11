@@ -216,7 +216,7 @@ fe0489ee7bb190e6638c82c1eb516dba14970ef0 assets/malum/blockstates/wild_farmland.
 b50946b4ac6ff9c55d005834275d7f87c7ba0ce1 assets/malum/blockstates/yellow_ether_brazier.json
 d0b5dce0aeaf703d4bcabfe54cf9536d18ce5da8 assets/malum/blockstates/yellow_ether_torch.json
 6b1be3db33119feb2ced25ae88e22087a6cbc3d1 assets/malum/blockstates/yellow_wall_ether_torch.json
-012722a00539d8207a694dd5976682f6dadbdb15 assets/malum/lang/en_us.json
+1d8b638e9edc61bd4c1a24239a05aa57156621f4 assets/malum/lang/en_us.json
 88117aa565642313e4b22a96e2f382a522506478 assets/malum/models/block/abstruse_block.json
 e60a46f402d25c94d3e7cf80525deae0527fa043 assets/malum/models/block/blue_ether.json
 bb695acef4c06b05036c7c628a2784748b7f4ab8 assets/malum/models/block/blue_ether_torch.json
@@ -633,6 +633,7 @@ e91316b852579a60855016e7a285abfad75ef9d2 assets/malum/models/item/brown_ether_br
 15742d6f963acb1efd05a1e6b976b6d62849abf9 assets/malum/models/item/brown_ether_torch.json
 73abbd2e2bfd9af24a2718b680bbbf347d80aa27 assets/malum/models/item/carved_bone_tile.json
 4ac3fa9546b34aadf6f88f893dad70e9411a0c09 assets/malum/models/item/charred_spirit_splinter.json
+6b0665a01bbd49ce4ce4841084e43a9f22f1045d assets/malum/models/item/chisel.json
 06cda4a8d269549b22b1803ef1d76861bebbf90e assets/malum/models/item/chiseled_darkened_rock.json
 b8e7a5411c7acba80cf649a1d98d328165b9d5c6 assets/malum/models/item/chiseled_tainted_rock.json
 751b15bc0531e0a69619b2c1fc51b7dcd86d3e94 assets/malum/models/item/cracked_bone_bricks.json
@@ -708,6 +709,7 @@ e91316b852579a60855016e7a285abfad75ef9d2 assets/malum/models/item/lime_ether_bra
 94e253d7db8fc3e05c67ccba90f9e4b29a670346 assets/malum/models/item/magenta_ether.json
 e91316b852579a60855016e7a285abfad75ef9d2 assets/malum/models/item/magenta_ether_brazier.json
 15742d6f963acb1efd05a1e6b976b6d62849abf9 assets/malum/models/item/magenta_ether_torch.json
+5dd45b043bf9bb38d7e066ebfd5fcae56784f86d assets/malum/models/item/malum_book.json
 aaa5ff75720531e51392db80df94f50daa592182 assets/malum/models/item/marigold.json
 67abf74ba64d06ee64cfca25fd44509c5a83c3b8 assets/malum/models/item/mossy_darkened_rock_bricks.json
 d6c5fb2e38209367dc6dffdaa53c79911e3033b6 assets/malum/models/item/mossy_darkened_rock_bricks_slab.json
@@ -752,7 +754,6 @@ a2eb85b39799428c00f3b31c1448e4576ea5a9d6 assets/malum/models/item/rune_of_earth.
 f7ee782b60ba1349e713a4c8c00274ff807a6781 assets/malum/models/item/rune_of_life.json
 d4df259341b5f4a57d0f260a3d9181c0b515a7c3 assets/malum/models/item/rune_of_soul.json
 50be79d2a696b0a2c3257d1297f72d30da30510c assets/malum/models/item/rune_of_water.json
-0a86e6d3f68afa3b7f058fcc2d851278c531bb43 assets/malum/models/item/runic_chisel.json
 9482a2415045022a0712168a7e3e1905e9d7cb24 assets/malum/models/item/short_sun_kissed_grass.json
 4ac3fa9546b34aadf6f88f893dad70e9411a0c09 assets/malum/models/item/sinister_spirit_splinter.json
 64c2afd391a004bd7a9be214f6d88c35f805c5a6 assets/malum/models/item/smooth_darkened_rock.json
