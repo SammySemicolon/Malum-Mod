@@ -8,9 +8,9 @@ import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnItemRendererModule;
-import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnDebugTextRendererModule;
 import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
+import com.sammy.malum.common.entities.PlayerSoulRenderer;
 import com.sammy.malum.common.entities.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.common.entities.SpiritSplinterItemRenderer;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
@@ -53,7 +53,7 @@ public class ClientStartupEvents
     {
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_KILN_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new SpiritKilnItemRendererModule(), new SpiritKilnDebugTextRendererModule())));
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_KILN_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new SpiritKilnItemRendererModule())));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, MalumHelper.toArrayList(new ItemStandItemRendererModule())));
     }
     @SubscribeEvent
@@ -61,6 +61,7 @@ public class ClientStartupEvents
     {
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SPIRIT_ESSENCE.get(), ClientStartupEvents::essenceRenderer);
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SCYTHE_BOOMERANG.get(), ClientStartupEvents::scytheRenderer);
+        RenderingRegistry.registerEntityRenderingHandler(MalumEntities.PLAYER_SOUL.get(), ClientStartupEvents::playerSoulRenderer);
     }
     
     public static SpiritSplinterItemRenderer essenceRenderer(EntityRendererManager manager)
@@ -70,6 +71,10 @@ public class ClientStartupEvents
     public static ScytheBoomerangEntityRenderer scytheRenderer(EntityRendererManager manager)
     {
         return new ScytheBoomerangEntityRenderer(manager, Minecraft.getInstance().getItemRenderer());
+    }
+    public static PlayerSoulRenderer playerSoulRenderer(EntityRendererManager manager)
+    {
+        return new PlayerSoulRenderer(manager, Minecraft.getInstance().getItemRenderer());
     }
     
     @SubscribeEvent

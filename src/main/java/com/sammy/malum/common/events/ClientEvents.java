@@ -36,26 +36,6 @@ import java.util.Random;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientEvents
 {
-    @SubscribeEvent()
-    public static void addInformation(ItemTooltipEvent event)
-    {
-        if (event.getItemStack().getItem() instanceof ISpiritUsingItem)
-        {
-            ArrayList<ITextComponent> components = new ArrayList<>();
-            ItemStack stack = event.getItemStack();
-            World worldIn = event.getEntity().world;
-            ISpiritUsingItem item = (ISpiritUsingItem) event.getItemStack().getItem();
-            
-            components.add(item.textComponent(stack, Minecraft.getInstance().player));
-            if (stack.getTag() != null)
-            {
-                CompoundNBT nbt = stack.getTag();
-                components.add(ClientHelper.importantComponent(nbt.getInt("spiritIntegrity") + "/" + item.integrity(), true));
-            }
-            ClientHelper.makeTooltip(stack,worldIn,event.getToolTip(),event.getFlags(),components);
-        }
-    }
-    
     protected static final ResourceLocation ICONS_TEXTURE = MalumHelper.prefix("textures/gui/overlay.png");
     
     @SubscribeEvent(priority = EventPriority.LOWEST)

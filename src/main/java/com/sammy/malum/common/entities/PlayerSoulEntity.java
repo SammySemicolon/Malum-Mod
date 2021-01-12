@@ -1,12 +1,16 @@
 package com.sammy.malum.common.entities;
 
+import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
+import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
@@ -20,21 +24,20 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import java.awt.*;
 import java.util.UUID;
 
-public class SpiritSplinterItemEntity extends ProjectileItemEntity
+public class PlayerSoulEntity extends ProjectileItemEntity
 {
-    public static final DataParameter<String> SPLINTER_NAME = EntityDataManager.createKey(SpiritSplinterItemEntity.class, DataSerializers.STRING);
-    
-    public SpiritSplinterItem splinter;
+    public UUID oldOwnerUUID;
     public UUID ownerUUID;
-    public PlayerEntity owner()
+    public PlayerEntity player(UUID uuid)
     {
-        if (ownerUUID != null)
+        if (uuid != null)
         {
             if (MalumHelper.areWeOnServer(world))
             {
-                return (PlayerEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
+                return (PlayerEntity) ((ServerWorld) world).getEntityByUuid(uuid);
             }
         }
         return null;
@@ -44,7 +47,7 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     public float rotation;
     public final float hoverStart;
     
-    public SpiritSplinterItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
+    public PlayerSoulEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
     {
         super(type, worldIn);
         noClip = false;
@@ -52,18 +55,22 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     }
     
     @Override
+    protected Item getDefaultItem()
+    {
+        return MalumItems.FLUFFY_TAIL.get();
+    }
+    
+    public void setData(UUID oldOwnerUUID, UUID ownerUUID)
+    {
+        this.oldOwnerUUID = oldOwnerUUID;
+        this.ownerUUID = ownerUUID;
+    }
+    @Override
     protected void registerData()
     {
-        super.registerData();
-        dataManager.register(SPLINTER_NAME, "wild");
-    }
-    public void setData(SpiritSplinterItem item, UUID ownerUUID)
-    {
-        this.splinter = item;
-        this.ownerUUID = ownerUUID;
-        getDataManager().set(SpiritSplinterItemEntity.SPLINTER_NAME, item.type.identifier);
     
     }
+    
     @Override
     public void tick()
     {
@@ -75,25 +82,33 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
         rotation += age > rotationTime ? rotationSpeed : rotationSpeed + ((rotationTime - age) / rotationTime) * extraSpeed;
         if (MalumHelper.areWeOnServer(world))
         {
-            setMotion(getMotion().mul(0.9f, 0.8f, 0.9f));
-            PlayerEntity entity = owner();
-            if (entity != null)
+            setMotion(getMotion().mul(0.95f, 0.8f, 0.95f));
+            PlayerEntity soulOwner = player(oldOwnerUUID);
+            PlayerEntity newOwner = player(ownerUUID);
+            if (age > 10)
             {
-                float distance = getDistance(entity);
-                if (age > 10)
+                if (soulOwner != null)
                 {
-                    if (distance < 2f)
-                    {
-                        float velocity = 0.25f;
-                        Vector3d ownerPos = entity.getPositionVec().add(0, 0, 0);
-                        Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(), ownerPos.z - getPosZ()).normalize().mul(velocity, velocity, velocity);
-                        setMotion(desiredMotion);
-                    }
-                    if (distance < 0.5f)
+                    float distance = getDistance(soulOwner);
+                    float velocity = 0.025f;
+                    Vector3d ownerPos = soulOwner.getPositionVec();
+                    Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(), ownerPos.z - getPosZ()).normalize().mul(velocity, velocity, velocity);
+                    setMotion(desiredMotion);
+                    if (distance < 1f)
                     {
                         if (isAlive())
                         {
-                            SpiritHelper.harvestSpirit(splinter.type.identifier, entity);
+                            remove();
+                        }
+                    }
+                }
+                if (newOwner != null)
+                {
+                    float distance = getDistance(newOwner);
+                    if (distance < 1f)
+                    {
+                        if (isAlive())
+                        {
                             remove();
                         }
                     }
@@ -102,16 +117,23 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
         }
         else
         {
-            updateSplinter();
             double x = getPosX(), y = getPosY() + yOffset(0)+0.25f, z = getPosZ();
-            float r = splinter.type.color.getRed() / 255.0f, g = splinter.type.color.getGreen() / 255.0f, b = splinter.type.color.getBlue() / 255.0f;
+            Color color1 = MalumConstants.dark();
+            Color color2 = MalumConstants.bright();
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(1.0f, 0).setScale(0.05f, 0).setLifetime(20)
-                    .randomOffset(0.2, 0.1).randomVelocity(0.02f, 0.06f)
+                    .setAlpha(1.0f, 0).setScale(0.075f, 0).setLifetime(20)
+                    .randomOffset(0.1, 0.1).randomVelocity(0.005f, 0.005f)
                     .addVelocity(0, 0.01f, 0)
-                    .setColor(r, g, b, r, g * 1.5f, b * 1.5f)
-                    .setSpin(0.4f)
-                    .repeat(world, x, y, z, 2);
+                    .setColor(color1,color1)
+                    .setSpin(0.3f)
+                    .repeat(world, x, y, z, 3);
+            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                    .setAlpha(1.0f, 0).setScale(0.025f, 0).setLifetime(10)
+                    .randomOffset(0.2, 0.2).randomVelocity(0.005f, 0.005f)
+                    .addVelocity(0, 0.01f, 0)
+                    .setColor(color2,color2)
+                    .setSpin(0.6f)
+                    .repeat(world, x, y, z, 1);
         }
     }
     public float yOffset(float partialTicks)
@@ -121,12 +143,14 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     @Override
     public void writeAdditional(CompoundNBT compound)
     {
-        super.writeAdditional(compound);
         if (ownerUUID != null)
         {
             compound.putUniqueId("ownerUUID", ownerUUID);
         }
-        compound.putString("splinterType", splinter.type.identifier);
+        if (oldOwnerUUID != null)
+        {
+            compound.putUniqueId("oldOwnerUUID", oldOwnerUUID);
+        }
         compound.putInt("age",age);
         compound.putFloat("rotation",rotation);
     }
@@ -134,13 +158,14 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
     @Override
     public void readAdditional(CompoundNBT compound)
     {
-        super.readAdditional(compound);
         if (compound.contains("ownerUUID"))
         {
             ownerUUID = compound.getUniqueId("ownerUUID");
         }
-        splinter = SpiritHelper.figureOutType(compound.getString("splinterType")).splinterItem;
-        dataManager.set(SPLINTER_NAME, splinter.type.identifier);
+        if (compound.contains("oldOwnerUUID"))
+        {
+            oldOwnerUUID = compound.getUniqueId("oldOwnerUUID");
+        }
         age = compound.getInt("age");
         rotation = compound.getFloat("rotation");
     }
@@ -163,17 +188,4 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
         return 4f;
     }
     
-    @Override
-    protected Item getDefaultItem()
-    {
-        updateSplinter();
-        return splinter;
-    }
-    public void updateSplinter()
-    {
-        if (splinter == null)
-        {
-            splinter = SpiritHelper.figureOutType(dataManager.get(SPLINTER_NAME)).splinterItem;
-        }
-    }
 }

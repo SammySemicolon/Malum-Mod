@@ -7,6 +7,7 @@ import java.awt.*;
 public class MalumConstants
 {
     public static final String INTEGRITY_NBT = "spirit_integrity";
+    public static final String SOUL_UUID_NBT = "soul_uuid";
     
     public static final Color[] SPIRIT_COLORS = new Color[]{
             new Color(255, 210, 243),

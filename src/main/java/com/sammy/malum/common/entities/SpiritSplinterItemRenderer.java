@@ -44,12 +44,7 @@ public class SpiritSplinterItemRenderer extends EntityRenderer<SpiritSplinterIte
         matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
         float f3 = (entityIn.rotation + partialTicks) / 20.0F + entityIn.hoverStart;
         matrixStackIn.rotate(Vector3f.YP.rotation(f3));
-    
-        matrixStackIn.push();
-    
-    
         this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
-        matrixStackIn.pop();
         matrixStackIn.pop();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }

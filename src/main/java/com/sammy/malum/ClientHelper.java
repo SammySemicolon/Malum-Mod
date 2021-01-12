@@ -45,22 +45,6 @@ public class ClientHelper
         int b = color.getBlue();
         itemColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
     }
-    public static void makeTooltip(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, ArrayList<ITextComponent> components)
-    {
-        tooltip.add(combinedComponent(simpleTranslatableComponent("malum.tooltip.hold"), importantTranslatableComponent("malum.tooltip.sneak", Screen.hasShiftDown())));
-        if (Screen.hasShiftDown())
-        {
-            tooltip.addAll(components);
-        }
-    }
-    public static void makeTooltip(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, ITextComponent component)
-    {
-        tooltip.add(combinedComponent(simpleTranslatableComponent("malum.tooltip.hold"), importantTranslatableComponent("malum.tooltip.sneak", Screen.hasShiftDown())));
-        if (Screen.hasShiftDown())
-        {
-            tooltip.add(component);
-        }
-    }
     
     public static IFormattableTextComponent simpleComponent(String message)
     {
@@ -72,16 +56,14 @@ public class ClientHelper
         return new TranslationTextComponent(message).mergeStyle(TextFormatting.WHITE);
     }
     
-    public static IFormattableTextComponent importantComponent(String message, boolean litUp)
+    public static IFormattableTextComponent importantComponent(String message)
     {
-        TextFormatting textFormatting = litUp ? TextFormatting.LIGHT_PURPLE : TextFormatting.DARK_PURPLE;
-        return combinedComponent(new StringTextComponent("[").mergeStyle(TextFormatting.WHITE), new StringTextComponent(message).mergeStyle(textFormatting), new StringTextComponent("] ").mergeStyle(TextFormatting.WHITE)).mergeStyle(TextFormatting.BOLD);
+        return new StringTextComponent(message).mergeStyle(TextFormatting.DARK_PURPLE, TextFormatting.ITALIC);
     }
     
-    public static IFormattableTextComponent importantTranslatableComponent(String message, boolean litUp)
+    public static IFormattableTextComponent importantTranslatableComponent(String message)
     {
-        TextFormatting textFormatting = litUp ? TextFormatting.LIGHT_PURPLE : TextFormatting.DARK_PURPLE;
-        return combinedComponent(new StringTextComponent("[").mergeStyle(TextFormatting.WHITE), new TranslationTextComponent(message).mergeStyle(textFormatting), new StringTextComponent("] ").mergeStyle(TextFormatting.WHITE)).mergeStyle(TextFormatting.BOLD);
+        return new TranslationTextComponent(message).mergeStyle(TextFormatting.DARK_PURPLE, TextFormatting.ITALIC);
     }
     
     public static IFormattableTextComponent combinedComponent(IFormattableTextComponent... components)

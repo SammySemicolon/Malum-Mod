@@ -6,18 +6,26 @@ import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.state.Property;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -278,6 +286,24 @@ public class MalumHelper
                 }
             }
         }
-        
+    }
+    
+    public static void giveItemToPlayerNoSound(PlayerEntity player, @Nonnull ItemStack stack)
+    {
+        if (stack.isEmpty()) return;
+        IItemHandler inventory = new PlayerMainInvWrapper(player.inventory);
+        World world = player.world;
+        ItemStack remainder = stack;
+        if (!remainder.isEmpty())
+        {
+            remainder = ItemHandlerHelper.insertItemStacked(inventory, remainder, false);
+        }
+        if (!remainder.isEmpty() && !world.isRemote)
+        {
+            ItemEntity entityitem = new ItemEntity(world, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), remainder);
+            entityitem.setPickupDelay(40);
+            entityitem.setMotion(entityitem.getMotion().mul(0, 1, 0));
+            world.addEntity(entityitem);
+        }
     }
 }
