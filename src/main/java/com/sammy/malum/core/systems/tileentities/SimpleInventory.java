@@ -101,6 +101,18 @@ public class SimpleInventory extends ItemStackHandler
         }
         return stacks;
     }
+    public ArrayList<ItemStack> nonEmptyStacks()
+    {
+        ArrayList<ItemStack> stacks = new ArrayList<>();
+        for (int i = 0; i < slotCount; i++)
+        {
+            if (!getStackInSlot(i).isEmpty())
+            {
+                stacks.add(getStackInSlot(i));
+            }
+        }
+        return stacks;
+    }
     public void dumpItems(World world, Vector3d pos)
     {
         for (int i = 0; i < slotCount; i++)

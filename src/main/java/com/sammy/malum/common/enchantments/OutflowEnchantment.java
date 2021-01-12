@@ -1,5 +1,6 @@
 package com.sammy.malum.common.enchantments;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.enchantments.MalumEnchantmentTypes;
 import com.sammy.malum.core.init.MalumEffects;
 import net.minecraft.enchantment.Enchantment;
@@ -21,12 +22,7 @@ public class OutflowEnchantment extends Enchantment
         if (target instanceof LivingEntity)
         {
             LivingEntity entity = (LivingEntity) target;
-            int duration = 80;
-            if (entity.getActivePotionEffect(MalumEffects.BLEEDING.get()) != null)
-            {
-                duration += entity.getActivePotionEffect(MalumEffects.BLEEDING.get()).getDuration();
-            }
-            entity.addPotionEffect(new EffectInstance(MalumEffects.BLEEDING.get(), duration, level));
+            MalumHelper.giveStackingEffect(MalumEffects.BLEEDING.get(), entity, 80,1);
         }
         super.onEntityDamaged(user, target, level);
     }
@@ -34,7 +30,7 @@ public class OutflowEnchantment extends Enchantment
     @Override
     public int getMaxLevel()
     {
-        return 5;
+        return 2;
     }
     
 }

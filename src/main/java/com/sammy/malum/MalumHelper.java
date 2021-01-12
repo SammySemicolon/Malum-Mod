@@ -2,15 +2,19 @@ package com.sammy.malum;
 
 import com.sammy.malum.common.blocks.extractionfocus.ExtractionFocusBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
+import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.Property;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -287,7 +291,15 @@ public class MalumHelper
             }
         }
     }
-    
+    public static void giveStackingEffect(Effect effect, LivingEntity target, int duration, int amplifier)
+    {
+        EffectInstance instance = target.getActivePotionEffect(effect);
+        if (instance != null)
+        {
+            duration += instance.duration;
+        }
+        target.addPotionEffect(new EffectInstance(effect, duration, amplifier));
+    }
     public static void giveItemToPlayerNoSound(PlayerEntity player, @Nonnull ItemStack stack)
     {
         if (stack.isEmpty()) return;

@@ -39,16 +39,16 @@ public class PoppetItem extends Item
     {
         return false;
     }
-    public void effect(LivingDamageEvent event,World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets)
+    public void effect(LivingHurtEvent event,World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets)
     {
         targets.forEach(t -> effect(event,world,playerEntity,t));
     }
-    public void effect(LivingDamageEvent event,World world, PlayerEntity playerEntity, LivingEntity target)
+    public void effect(LivingHurtEvent event,World world, PlayerEntity playerEntity, LivingEntity target)
     {
     
     }
     @SubscribeEvent
-    public static void onHurt(LivingDamageEvent event)
+    public static void onHurt(LivingHurtEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
@@ -73,9 +73,9 @@ public class PoppetItem extends Item
                 {
                     ItemStack belt = CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.POPPET_BELT.get(), playerEntity).get().right;
                     SimpleInventory inventory = CurioPoppetBelt.create(belt);
-                    poppets.addAll(inventory.stacks());
+                    poppets.addAll(inventory.nonEmptyStacks());
                 }
-                MalumHelper.takeAll(poppets, p -> cast(p).onlyDirect()).forEach(p -> {
+                    MalumHelper.takeAll(poppets, p -> cast(p).onlyDirect()).forEach(p -> {
                             if (event.getSource().getTrueSource() instanceof LivingEntity)
                             {
                                 cast(p).effect(event, world, playerEntity, (LivingEntity) event.getSource().getTrueSource());

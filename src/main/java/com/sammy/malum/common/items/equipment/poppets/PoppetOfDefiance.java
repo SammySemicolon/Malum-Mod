@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,6 @@ public class PoppetOfDefiance extends PoppetItem
         super(properties);
     }
     
-    
     @Override
     public boolean onlyDirect()
     {
@@ -24,9 +24,9 @@ public class PoppetOfDefiance extends PoppetItem
     }
     
     @Override
-    public void effect(LivingDamageEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
+    public void effect(LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
     {
-        if (!event.getSource().equals(DamageSource.MAGIC))
+        if (!event.getSource().isMagicDamage())
         {
             return;
         }

@@ -68,7 +68,6 @@ public class ScytheItem extends ModSwordItem
         {
             PlayerEntity playerEntity = (PlayerEntity) attacker;
             sweepingEdgeTypeBeat(playerEntity, target, (float) playerEntity.getAttributeValue(Attributes.ATTACK_DAMAGE));
-            playerEntity.spawnSweepParticles();
         }
         return super.hitEntity(stack, target, attacker);
     }

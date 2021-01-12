@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class PoppetOfShattering extends PoppetItem
     }
     
     @Override
-    public void effect(LivingDamageEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets)
+    public void effect(LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets)
     {
         if (!event.getSource().equals(DamageSource.FALL))
         {
@@ -27,9 +28,13 @@ public class PoppetOfShattering extends PoppetItem
     }
     
     @Override
-    public void effect(LivingDamageEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
+    public void effect(LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
     {
-        float damage = Math.min(event.getAmount(), target.getMaxHealth()) * 0.5f;
+        float damage = Math.min(event.getAmount(), target.getMaxHealth());
+        if (damage == 0)
+        {
+            return;
+        }
         event.setAmount(event.getAmount() - damage);
         target.attackEntityFrom(MalumDamageSources.VOODOO, damage);
         super.effect(event, world, playerEntity, target);

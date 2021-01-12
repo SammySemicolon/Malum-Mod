@@ -1,11 +1,13 @@
 package com.sammy.malum.common.items.equipment.poppets;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class PoppetOfBleeding extends PoppetItem
 {
@@ -15,9 +17,9 @@ public class PoppetOfBleeding extends PoppetItem
     }
     
     @Override
-    public void effect(LivingDamageEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
+    public void effect(LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
     {
-        target.addPotionEffect(new EffectInstance(MalumEffects.BLEEDING.get(), 140, 2));
+        MalumHelper.giveStackingEffect(MalumEffects.BLEEDING.get(), target, 80,1);
         super.effect(event, world, playerEntity, target);
     }
     

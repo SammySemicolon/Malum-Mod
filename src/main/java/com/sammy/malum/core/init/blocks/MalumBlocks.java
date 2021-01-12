@@ -321,6 +321,9 @@ public class MalumBlocks
     public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     //endregion
     
+    public static final RegistryObject<Block> CLEAN_GRAVEL = BLOCKS.register("clean_gravel", () -> new GravelBlock(AbstractBlock.Properties.from(Blocks.GRAVEL)));
+    public static final RegistryObject<Block> CLEAN_SAND = BLOCKS.register("clean_sand", () -> new SandBlock(14406560,AbstractBlock.Properties.from(Blocks.SAND)));
+    
     public static final RegistryObject<Block> POLISHED_BONE_BLOCK = BLOCKS.register("polished_bone_block", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BONE_BEAM = BLOCKS.register("bone_beam", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BONE_TILES = BLOCKS.register("bone_tiles", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));

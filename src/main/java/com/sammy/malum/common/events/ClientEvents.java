@@ -131,13 +131,4 @@ public class ClientEvents
             }
         }
     }
-    @SubscribeEvent
-    public static void bleedingParticles(LivingEvent.LivingUpdateEvent event)
-    {
-        LivingEntity entity = event.getEntityLiving();
-        if (entity.getActivePotionEffect(MalumEffects.BLEEDING.get()) != null)
-        {
-            entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK,Blocks.REDSTONE_BLOCK.getDefaultState()),entity.getPosXRandom(1),entity.getPosYRandom(),entity.getPosZRandom(1),0,0,0);
-        }
-    }
 }

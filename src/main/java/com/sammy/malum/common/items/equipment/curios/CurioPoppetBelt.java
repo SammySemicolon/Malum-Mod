@@ -47,7 +47,7 @@ public class CurioPoppetBelt extends Item implements ICurio
             @Override
             public boolean canRightClickEquip()
             {
-                return true;
+                return false;
             }
         });
     }
@@ -61,7 +61,7 @@ public class CurioPoppetBelt extends Item implements ICurio
             if (nbt.contains("inventory"))
             {
                 SimpleInventory inventory = create(stack);
-                inventory.stacks().forEach(s -> tooltip.add(ClientHelper.importantTranslatableComponent(s.getItem().getTranslationKey()))
+                inventory.nonEmptyStacks().forEach(s -> tooltip.add(ClientHelper.importantTranslatableComponent(s.getItem().getTranslationKey()))
                 );
             }
         }

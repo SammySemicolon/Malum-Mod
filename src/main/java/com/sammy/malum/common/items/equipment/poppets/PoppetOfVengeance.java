@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class PoppetOfVengeance extends PoppetItem
 {
@@ -15,11 +16,11 @@ public class PoppetOfVengeance extends PoppetItem
     }
     
     @Override
-    public void effect(LivingDamageEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
+    public void effect(LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
     {
-        float amount = event.getAmount() * 0.05f;
+        float amount = event.getAmount() * 0.1f;
         event.setAmount(event.getAmount() - amount);
-        target.attackEntityFrom(MalumDamageSources.VOODOO, amount * 3);
+        target.attackEntityFrom(MalumDamageSources.VOODOO, amount * 2);
         super.effect(event, world, playerEntity, target);
     }
 }

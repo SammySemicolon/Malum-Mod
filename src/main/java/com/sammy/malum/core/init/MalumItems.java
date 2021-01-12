@@ -4,7 +4,7 @@ import com.sammy.malum.common.items.MalumBookItem;
 import com.sammy.malum.common.items.MalumRuneItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
 import com.sammy.malum.common.items.equipment.curios.*;
-import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
+import com.sammy.malum.common.items.equipment.poppets.*;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
 
@@ -247,6 +247,9 @@ public class MalumItems
     public static final RegistryObject<Item> GREEN_ETHER_BRAZIER = ITEMS.register("green_ether_brazier", () -> new BlockItem(MalumBlocks.GREEN_ETHER_BRAZIER.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> RED_ETHER_BRAZIER = ITEMS.register("red_ether_brazier", () -> new BlockItem(MalumBlocks.RED_ETHER_BRAZIER.get(), BUILDING_PROPERTIES()));
     
+    public static final RegistryObject<Item> CLEAN_GRAVEL = ITEMS.register("clean_gravel", () -> new BlockItem(MalumBlocks.CLEAN_GRAVEL.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> CLEAN_SAND = ITEMS.register("clean_sand", () -> new BlockItem(MalumBlocks.CLEAN_SAND.get(), BUILDING_PROPERTIES()));
+    
     public static final RegistryObject<Item> POLISHED_BONE_BLOCK = ITEMS.register("polished_bone_block", () -> new BlockItem(MalumBlocks.POLISHED_BONE_BLOCK.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> BONE_BEAM = ITEMS.register("bone_beam", () -> new BlockItem(MalumBlocks.BONE_BEAM.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> BONE_TILES = ITEMS.register("bone_tiles", () -> new BlockItem(MalumBlocks.BONE_TILES.get(), BUILDING_PROPERTIES()));
@@ -361,7 +364,12 @@ public class MalumItems
     //    public static final RegistryObject<Item> UMBRAL_LEGGINGS = ITEMS.register("umbral_leggings", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     //    public static final RegistryObject<Item> UMBRAL_BOOTS = ITEMS.register("umbral_boots", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> TEST_POPPET = ITEMS.register("test_poppet", () -> new PoppetItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> POPPET_OF_BLEEDING = ITEMS.register("poppet_of_bleeding", () -> new PoppetOfBleeding(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> POPPET_OF_DEFIANCE = ITEMS.register("poppet_of_defiance", () -> new PoppetOfDefiance(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> POPPET_OF_MISFORTUNE = ITEMS.register("poppet_of_misfortune", () -> new PoppetOfMisfortune(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> POPPET_OF_SAPPING = ITEMS.register("poppet_of_sapping", () -> new PoppetOfSapping(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> POPPET_OF_SHATTERING = ITEMS.register("poppet_of_shattering", () -> new PoppetOfShattering(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> POPPET_OF_VENGEANCE = ITEMS.register("poppet_of_vengeance", () -> new PoppetOfVengeance(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
     
