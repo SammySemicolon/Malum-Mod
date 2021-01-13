@@ -7,17 +7,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-public class RiteOfFortitude extends AffectEntitiesRite
+public class RiteOfFortitude extends AffectEntitiesRite implements IPoppetBlessing
 {
     public RiteOfFortitude(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
     {
         super(identifier, isInstant, runes);
-    }
-    
-    @Override
-    public int range()
-    {
-        return 5;
     }
     
     @Override
@@ -27,5 +21,11 @@ public class RiteOfFortitude extends AffectEntitiesRite
         {
             entity.addPotionEffect(new EffectInstance(MalumEffects.FORTITUDE.get(), 100, 1));
         }
+    }
+    
+    @Override
+    public void blessingEffect(PlayerEntity entity)
+    {
+        entity.addPotionEffect(new EffectInstance(MalumEffects.FORTITUDE.get(), 200, 0));
     }
 }

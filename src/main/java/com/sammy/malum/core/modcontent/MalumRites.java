@@ -37,13 +37,24 @@ public class MalumRites
         new RiteOfRain("rite_of_rain",true, RUNE_OF_WATER, RUNE_OF_SOUL, RUNE_OF_LIFE);
     }
     
+    public static MalumRite getRite(String identifier)
+    {
+        for (MalumRite rite : RITES)
+        {
+            if (rite.identifier.equals(identifier))
+            {
+                return rite;
+            }
+        }
+        return null;
+    }
     public static MalumRite getRite(ArrayList<MalumRunes.MalumRune> runes)
     {
-        for (MalumRite recipe : RITES)
+        for (MalumRite rite : RITES)
         {
-            if (recipe.runes.equals(runes))
+            if (rite.runes.equals(runes))
             {
-                return recipe;
+                return rite;
             }
         }
         return null;
@@ -66,7 +77,6 @@ public class MalumRites
         }
         public void effect(BlockPos pos, World world)
         {
-        
         }
         public int range()
         {

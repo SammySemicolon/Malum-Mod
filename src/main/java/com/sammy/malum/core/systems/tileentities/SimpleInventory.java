@@ -25,6 +25,8 @@ import java.util.stream.Collectors;
 
 public class SimpleInventory extends ItemStackHandler
 {
+    public ItemStack beltItem;
+    
     public int slotCount;
     public int slotSize;
     public Predicate<ItemStack> inputPredicate;

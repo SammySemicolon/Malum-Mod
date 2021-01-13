@@ -1,8 +1,10 @@
 package com.sammy.malum.common.items.equipment.poppets;
 
 import com.sammy.malum.core.init.MalumDamageSources;
+import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -18,17 +20,7 @@ public class PoppetOfShattering extends PoppetItem
     }
     
     @Override
-    public void effect(LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets)
-    {
-        if (!event.getSource().equals(DamageSource.FALL))
-        {
-            return;
-        }
-        super.effect(event, world, playerEntity, targets);
-    }
-    
-    @Override
-    public void effect(LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target)
+    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory, int slot)
     {
         float damage = Math.min(event.getAmount(), target.getMaxHealth());
         if (damage == 0)
@@ -37,6 +29,15 @@ public class PoppetOfShattering extends PoppetItem
         }
         event.setAmount(event.getAmount() - damage);
         target.attackEntityFrom(MalumDamageSources.VOODOO, damage);
-        super.effect(event, world, playerEntity, target);
+        super.effect(poppet, event, world, playerEntity, target, inventory, slot);
+    }
+    @Override
+    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory, int slot)
+    {
+        if (!event.getSource().equals(DamageSource.FALL))
+        {
+            return;
+        }
+        super.effect(poppet, event, world, playerEntity, targets, inventory, slot);
     }
 }

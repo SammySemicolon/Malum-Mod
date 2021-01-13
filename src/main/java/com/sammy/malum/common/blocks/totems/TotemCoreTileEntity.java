@@ -12,6 +12,7 @@ import com.sammy.malum.core.modcontent.MalumRunes;
 import com.sammy.malum.core.modcontent.MalumRunes.MalumRune;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
+import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
@@ -183,6 +184,10 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         {
             progress = 0;
             riteEffects();
+            if (rite instanceof IPoppetBlessing)
+            {
+                ((IPoppetBlessing) rite).blessPoppet(pos,world,rite);
+            }
             if (rite.isInstant)
             {
                 rite.effect(pos, world);

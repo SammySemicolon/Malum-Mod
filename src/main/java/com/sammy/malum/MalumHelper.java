@@ -10,12 +10,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.Property;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -31,6 +34,7 @@ import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -49,6 +53,31 @@ public class MalumHelper
             new Vector3d(-1,0,0),
             new Vector3d(-1,0,1)
     };
+    public static <T extends LivingEntity> boolean damageItem(ItemStack stack, int amount, T entityIn, Consumer<T> onBroken)
+    {
+        if (!entityIn.world.isRemote && (!(entityIn instanceof PlayerEntity) || !((PlayerEntity) entityIn).abilities.isCreativeMode))
+        {
+            if (stack.isDamageable())
+            {
+                amount = stack.getItem().damageItem(stack, amount, entityIn, onBroken);
+                if (stack.attemptDamageItem(amount, entityIn.getRNG(), entityIn instanceof ServerPlayerEntity ? (ServerPlayerEntity) entityIn : null))
+                {
+                    onBroken.accept(entityIn);
+                    Item item = stack.getItem();
+                    stack.shrink(1);
+                    if (entityIn instanceof PlayerEntity)
+                    {
+                        ((PlayerEntity) entityIn).addStat(Stats.ITEM_BROKEN.get(item));
+                    }
+                    
+                    stack.setDamage(0);
+                    return true;
+                }
+    
+            }
+        }
+        return false;
+    }
     public static <T extends Entity> Entity getClosestEntity(List<T> entities, Vector3d pos)
     {
         double cachedDistance = -1.0D;

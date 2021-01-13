@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init;
 
+import com.sammy.malum.common.items.BoneNeedleItem;
 import com.sammy.malum.common.items.MalumBookItem;
 import com.sammy.malum.common.items.MalumRuneItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
@@ -364,12 +365,18 @@ public class MalumItems
     //    public static final RegistryObject<Item> UMBRAL_LEGGINGS = ITEMS.register("umbral_leggings", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     //    public static final RegistryObject<Item> UMBRAL_BOOTS = ITEMS.register("umbral_boots", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> POPPET_OF_BLEEDING = ITEMS.register("poppet_of_bleeding", () -> new PoppetOfBleeding(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> POPPET_OF_DEFIANCE = ITEMS.register("poppet_of_defiance", () -> new PoppetOfDefiance(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> POPPET_OF_MISFORTUNE = ITEMS.register("poppet_of_misfortune", () -> new PoppetOfMisfortune(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> POPPET_OF_SAPPING = ITEMS.register("poppet_of_sapping", () -> new PoppetOfSapping(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> POPPET_OF_SHATTERING = ITEMS.register("poppet_of_shattering", () -> new PoppetOfShattering(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> POPPET_OF_VENGEANCE = ITEMS.register("poppet_of_vengeance", () -> new PoppetOfVengeance(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(GEAR_PROPERTIES()));
+    
+    public static final RegistryObject<Item> POPPET_OF_BLEEDING = ITEMS.register("poppet_of_bleeding", () -> new PoppetOfBleeding(GEAR_PROPERTIES().maxDamage(402)));
+    public static final RegistryObject<Item> POPPET_OF_DEFIANCE = ITEMS.register("poppet_of_defiance", () -> new PoppetOfDefiance(GEAR_PROPERTIES().maxDamage(402)));
+    public static final RegistryObject<Item> POPPET_OF_MISFORTUNE = ITEMS.register("poppet_of_misfortune", () -> new PoppetOfMisfortune(GEAR_PROPERTIES().maxDamage(402)));
+    public static final RegistryObject<Item> POPPET_OF_SAPPING = ITEMS.register("poppet_of_sapping", () -> new PoppetOfSapping(GEAR_PROPERTIES().maxDamage(402)));
+    public static final RegistryObject<Item> POPPET_OF_SHATTERING = ITEMS.register("poppet_of_shattering", () -> new PoppetOfShattering(GEAR_PROPERTIES().maxDamage(402)));
+    public static final RegistryObject<Item> POPPET_OF_VENGEANCE = ITEMS.register("poppet_of_vengeance", () -> new PoppetOfVengeance(GEAR_PROPERTIES().maxDamage(402)));
+    public static final RegistryObject<Item> POPPET_OF_UNDYING = ITEMS.register("poppet_of_undying", () -> new PoppetOfUndying(GEAR_PROPERTIES()));
+    
+    public static final RegistryObject<Item> BLESSED_POPPET = ITEMS.register("blessed_poppet", () -> new BlessedPoppet(GEAR_PROPERTIES().maxDamage(101)));
+    public static final RegistryObject<Item> BONE_NEEDLE = ITEMS.register("bone_needle", () -> new BoneNeedleItem(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
     

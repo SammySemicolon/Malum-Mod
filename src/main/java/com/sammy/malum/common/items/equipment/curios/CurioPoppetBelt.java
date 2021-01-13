@@ -79,7 +79,7 @@ public class CurioPoppetBelt extends Item implements ICurio
             if (poppet.getItem() instanceof PoppetItem)
             {
                 SimpleInventory inventory = create(belt);
-                if (inventory.nonEmptyItems() < 3)
+                if (inventory.nonEmptyItems() < inventory.slotCount)
                 {
                     inventory.setStackInSlot(inventory.firstEmptyItem(), poppet);
                     inventory.writeData(nbt);
@@ -102,7 +102,8 @@ public class CurioPoppetBelt extends Item implements ICurio
     }
     public static SimpleInventory create(ItemStack stack)
     {
-        SimpleInventory inventory = new SimpleInventory(3,1);
+        SimpleInventory inventory = new SimpleInventory(2,1);
+        inventory.beltItem = stack;
         if (stack.getOrCreateTag().contains("inventory"))
         {
             inventory.readData(stack.getOrCreateTag());

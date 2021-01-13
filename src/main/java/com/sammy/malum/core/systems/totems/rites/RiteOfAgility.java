@@ -4,10 +4,11 @@ import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.modcontent.MalumRunes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-public class RiteOfAgility extends AffectEntitiesRite
+public class RiteOfAgility extends AffectEntitiesRite implements IPoppetBlessing
 {
     public RiteOfAgility(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
     {
@@ -21,5 +22,11 @@ public class RiteOfAgility extends AffectEntitiesRite
         {
             entity.addPotionEffect(new EffectInstance(MalumEffects.AGILITY.get(), 100, 1));
         }
+    }
+    
+    @Override
+    public void blessingEffect(PlayerEntity entity)
+    {
+        entity.addPotionEffect(new EffectInstance(MalumEffects.AGILITY.get(), 200, 0));
     }
 }

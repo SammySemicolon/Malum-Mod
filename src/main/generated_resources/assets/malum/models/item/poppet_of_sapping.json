@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/player_soul"
+    "layer0": "malum:item/poppet_of_sapping"
   }
 }

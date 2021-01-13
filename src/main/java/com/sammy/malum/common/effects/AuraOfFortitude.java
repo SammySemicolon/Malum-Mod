@@ -10,6 +10,6 @@ public class AuraOfFortitude extends Effect
     public AuraOfFortitude()
     {
         super(EffectType.BENEFICIAL, 10044730);
-        this.addAttributesModifier(Attributes.ARMOR, "1608235b-c1aa-45dd-b1d2-1626988cb99b", 0.2F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        this.addAttributesModifier(Attributes.ARMOR, "1608235b-c1aa-45dd-b1d2-1626988cb99b", 0.3F, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 }

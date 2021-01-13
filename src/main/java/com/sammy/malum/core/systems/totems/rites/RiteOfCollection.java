@@ -36,20 +36,17 @@ public class RiteOfCollection extends MalumRite
     {
         if (!entity.getTags().contains(tag))
         {
-            Color color1 = MalumConstants.faded();
-            if (MalumHelper.areWeOnClient(entity.world))
-            {
-                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(30).setScale(0.15f, 0).setColor(color1.getRed() / 255f, color1.getGreen() / 255f, color1.getBlue() / 255f, color1.getRed() / 255f, (color1.getGreen() * 0.5f) / 255f, (color1.getBlue() * 0.5f) / 255f).randomOffset(entity.getWidth() / 2, entity.getHeight() / 2).randomVelocity(0.01f, 0.01f).enableNoClip().repeat(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 20);
-            }
             Vector3d desiredPos = MalumHelper.offsets[entity.world.rand.nextInt(MalumHelper.offsets.length)].add(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             BlockPos extractionFocus = MalumHelper.extractionFocus(entity.world, pos);
             if (extractionFocus != null)
             {
                 desiredPos = MalumHelper.pos(extractionFocus).add(0.5, 0.5, 0.5);
             }
-            if (MalumHelper.areWeOnServer(entity.world))
+            if (MalumHelper.areWeOnClient(entity.world))
             {
-                MalumHelper.makeCircle((ServerWorld) entity.world, desiredPos);
+                Color color1 = MalumConstants.faded();
+                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(30).setScale(0.1f, 0).setColor(color1.getRed() / 255f, color1.getGreen() / 255f, color1.getBlue() / 255f, color1.getRed() / 255f, (color1.getGreen() * 0.5f) / 255f, (color1.getBlue() * 0.5f) / 255f).randomOffset(entity.getWidth() / 2, entity.getHeight() / 2).randomVelocity(0.01f, 0.01f).enableNoClip().repeat(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 20);
+                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(30).setScale(0.15f, 0).setColor(color1.getRed() / 255f, color1.getGreen() / 255f, color1.getBlue() / 255f, color1.getRed() / 255f, (color1.getGreen() * 0.5f) / 255f, (color1.getBlue() * 0.5f) / 255f).randomOffset(entity.getWidth() / 2, entity.getHeight() / 2).randomVelocity(0.01f, 0.01f).enableNoClip().repeat(entity.world, desiredPos.x, desiredPos.y, desiredPos.z, 20);
             }
             entity.addTag(tag);
             entity.setPositionAndUpdate(desiredPos.x, desiredPos.y, desiredPos.z);

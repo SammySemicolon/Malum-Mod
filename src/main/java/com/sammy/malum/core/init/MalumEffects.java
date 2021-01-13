@@ -18,6 +18,7 @@ public class MalumEffects
     public static final RegistryObject<Effect> BLEEDING = EFFECTS.register("bleeding", Bleeding::new);
     public static final RegistryObject<Effect> WARDING = EFFECTS.register("warding_aura", Warding::new);
     public static final RegistryObject<Effect> AGILITY = EFFECTS.register("aura_of_agility", AuraOfAgility::new);
+    public static final RegistryObject<Effect> LIFE = EFFECTS.register("aura_of_life", AuraOfLife::new);
     public static final RegistryObject<Effect> FORTITUDE = EFFECTS.register("aura_of_fortitude", AuraOfFortitude::new);
     
 }
