@@ -286,39 +286,25 @@ public class MalumHelper
     {
         updateState(worldIn.getBlockState(pos),worldIn,pos);
     }
-    public static void makeCircle(ServerWorld world, Vector3d pos)
+
+    public static ArrayList<Vector3d> blockOutlinePositions(World world, BlockPos pos)
     {
-        MalumParticleData data = new MalumParticleData(MalumParticles.ITEM_CIRCLE.get());
-        data.scale1 = 0.75f + world.rand.nextFloat() * 0.5f;
-        data.scale2 = data.scale1;
-        data.a2 = 0.75f;
-        data.setColor(MalumConstants.bright(), MalumConstants.faded());
-        makeCircle(world, pos, data);
-    }
-    public static void makeCircle(ServerWorld world, Vector3d pos, MalumParticleData data)
-    {
-        world.spawnParticle(data,pos.getX(),pos.getY(),pos.getZ(),1,0,0,0,0);
-    }
-    public static void spawnParticles(World world, BlockPos pos, IParticleData data, float chance)
-    {
+        ArrayList<Vector3d> arrayList = new ArrayList<>();
         double d0 = 0.5625D;
         Random random = world.rand;
-        
         for (Direction direction : Direction.values())
         {
             BlockPos blockpos = pos.offset(direction);
             if (!world.getBlockState(blockpos).isOpaqueCube(world, blockpos))
             {
-                if (chance == 0f || (chance != 0f && random.nextFloat() < chance))
-                {
-                    Direction.Axis direction$axis = direction.getAxis();
-                    double d1 = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getXOffset() : (double) random.nextFloat();
-                    double d2 = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getYOffset() : (double) random.nextFloat();
-                    double d3 = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getZOffset() : (double) random.nextFloat();
-                    world.addParticle(data, (double) pos.getX() + d1, (double) pos.getY() + d2, (double) pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-                }
+                Direction.Axis direction$axis = direction.getAxis();
+                double d1 = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getXOffset() : (double) random.nextFloat();
+                double d2 = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getYOffset() : (double) random.nextFloat();
+                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getZOffset() : (double) random.nextFloat();
+                arrayList.add(new Vector3d((double) pos.getX() + d1, (double) pos.getY() + d2, (double) pos.getZ() + d3));
             }
         }
+        return arrayList;
     }
     public static void giveStackingEffect(Effect effect, LivingEntity target, int duration, int amplifier)
     {

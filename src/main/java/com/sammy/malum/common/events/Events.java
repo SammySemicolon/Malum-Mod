@@ -1,6 +1,7 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.items.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.curios.CurioPoppetBelt;
 import com.sammy.malum.common.items.equipment.poppets.BlessedPoppet;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
@@ -8,11 +9,13 @@ import com.sammy.malum.common.items.equipment.poppets.PoppetOfUndying;
 import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
+import com.sammy.malum.network.packets.ParticlePacket;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -26,8 +29,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -38,6 +41,7 @@ import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.network.PacketDistributor;
 import org.antlr.v4.runtime.misc.Triple;
 import top.theillusivec4.curios.api.CuriosApi;
 
@@ -46,11 +50,33 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.common.items.equipment.poppets.PoppetItem.cast;
+import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 @Mod.EventBusSubscriber
 public class Events
 {
-    
+    @SubscribeEvent
+    public static void tyrvingHurt(LivingHurtEvent event)
+    {
+        if (event.getSource().getTrueSource() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+            if (playerEntity.swingingHand != null)
+            {
+                ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
+                if (stack.getItem() instanceof TyrvingSwordItem)
+                {
+                    LivingEntity entity = event.getEntityLiving();
+                    playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_HIT, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
+                    event.setAmount((event.getAmount() / 8) * (8 + entity.getTotalArmorValue()));
+                    if (playerEntity.world instanceof ServerWorld)
+                    {
+                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(event::getEntityLiving), new ParticlePacket(0, entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ()));
+                    }
+                }
+            }
+        }
+    }
     @SubscribeEvent
     public static void blessedEffect(LivingEvent.LivingUpdateEvent event)
     {

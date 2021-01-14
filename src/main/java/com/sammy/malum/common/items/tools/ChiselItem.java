@@ -23,11 +23,14 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.ArrayList;
 
 @Mod.EventBusSubscriber
 public class ChiselItem extends Item
@@ -86,7 +89,8 @@ public class ChiselItem extends Item
                 }
                 for (int i = 0; i < 5; i++)
                 {
-                    MalumHelper.spawnParticles(world, pos, new BlockParticleData(ParticleTypes.BLOCK, outputBlock.getDefaultState()), 0);
+                    ArrayList<Vector3d> particlePositions = MalumHelper.blockOutlinePositions(world, pos);
+                    particlePositions.forEach(p -> world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, outputBlock.getDefaultState()), p.x, p.y, p.z, 0, world.rand.nextFloat() * 0.1f, 0));
                 }
             }
             event.setCanceled(true);

@@ -23,6 +23,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -151,9 +152,10 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         if (MalumHelper.areWeOnClient(world))
         {
             Color color = MalumConstants.darkest();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 12; i++)
             {
-                MalumHelper.spawnParticles(world, pos, ParticleTypes.SMOKE, 0);
+                ArrayList<Vector3d> particlePositionsUp = MalumHelper.blockOutlinePositions(world, pos);
+                particlePositionsUp.forEach(p -> world.addParticle(ParticleTypes.SMOKE, p.x, p.y, p.z, 0, world.rand.nextFloat() * 0.1f, 0));
             }
             ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 80);
         }

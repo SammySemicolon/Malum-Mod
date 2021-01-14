@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:lime_dye"
+    },
+    {
+      "item": "malum:ether_brazier"
+    }
+  ],
+  "result": {
+    "item": "malum:lime_ether_brazier"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "malum:ether_brazier"
+    }
+  ],
+  "result": {
+    "item": "malum:red_ether_brazier"
+  }
+}

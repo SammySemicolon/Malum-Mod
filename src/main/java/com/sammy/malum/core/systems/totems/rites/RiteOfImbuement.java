@@ -12,9 +12,11 @@ import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RiteOfImbuement extends AffectBlocksRite
@@ -71,9 +73,10 @@ public class RiteOfImbuement extends AffectBlocksRite
             {
                 Color color = MalumConstants.darkest();
                 ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 20 + 4 * amount);
-                for (int i = 0; i < 5;i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    MalumHelper.spawnParticles(world, pos, new BlockParticleData(ParticleTypes.BLOCK, outputBlock.getDefaultState()), 0);
+                    ArrayList<Vector3d> particlePositions = MalumHelper.blockOutlinePositions(world, pos);
+                    particlePositions.forEach(p -> world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, outputBlock.getDefaultState()), p.x, p.y, p.z, 0, world.rand.nextFloat() * 0.1f, 0));
                 }
             }
         }

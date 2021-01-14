@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_mossy_darkened_rock_tiles": {
+    "has_darkened_rock": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:mossy_darkened_rock_tiles"
+            "item": "malum:darkened_rock"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_mossy_darkened_rock_tiles",
+      "has_darkened_rock",
       "has_the_recipe"
     ]
   ]

@@ -3,6 +3,7 @@ package com.sammy.malum.core.init;
 import com.sammy.malum.common.items.BoneNeedleItem;
 import com.sammy.malum.common.items.MalumBookItem;
 import com.sammy.malum.common.items.MalumRuneItem;
+import com.sammy.malum.common.items.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
 import com.sammy.malum.common.items.equipment.curios.*;
 import com.sammy.malum.common.items.equipment.poppets.*;
@@ -17,10 +18,9 @@ import com.sammy.malum.core.init.tabs.MalumSplinterTab;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
+import com.sammy.malum.core.systems.tiers.MalumItemTiers;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -28,6 +28,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import static com.sammy.malum.MalumMod.MODID;
 import static com.sammy.malum.core.systems.tiers.MalumArmorTiers.ArmorTierEnum.SPIRITED_METAL_ARMOR;
 import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.SPIRITED_METAL_ITEM;
+import static com.sammy.malum.core.systems.tiers.MalumItemTiers.ItemTierEnum.TYRVING_ITEM;
 import static net.minecraft.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -324,10 +325,6 @@ public class MalumItems
     public static final RegistryObject<Item> SPIRITED_METAL_NUGGET = ITEMS.register("spirited_metal_nugget", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRITED_METAL_BLOCK = ITEMS.register("spirited_metal_block", () -> new BlockItem(MalumBlocks.SPIRITED_METAL_BLOCK.get(), DEFAULT_PROPERTIES()));
     
-    public static final RegistryObject<Item> PENUMBRAL_MOLD = ITEMS.register("penumbral_mold", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> REANIMATED_MATTER = ITEMS.register("reanimated_matter", () -> new Item(DEFAULT_PROPERTIES().food((new Food.Builder()).effect(new EffectInstance(Effects.HUNGER, 300, 1), 0.2F).meat().hunger(10).saturation(2F).build())));
-    public static final RegistryObject<Item> GREATER_SOUL_SHARD = ITEMS.register("greater_soul_shard", () -> new Item(DEFAULT_PROPERTIES()));
-    
     public static final RegistryObject<Item> UMBRAL_METAL_INGOT = ITEMS.register("umbral_metal_ingot", () -> new Item(DEFAULT_PROPERTIES().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> UMBRAL_METAL_SHARDS = ITEMS.register("umbral_metal_shards", () -> new Item(DEFAULT_PROPERTIES().rarity(Rarity.RARE)));
     //endregion
@@ -378,6 +375,7 @@ public class MalumItems
     public static final RegistryObject<Item> BLESSED_POPPET = ITEMS.register("blessed_poppet", () -> new BlessedPoppet(GEAR_PROPERTIES().maxDamage(101)));
     public static final RegistryObject<Item> BONE_NEEDLE = ITEMS.register("bone_needle", () -> new BoneNeedleItem(GEAR_PROPERTIES()));
     
+    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingSwordItem(TYRVING_ITEM, 0, -0.1f,GEAR_PROPERTIES()));
     public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> RING_OF_SUPPRESSION = ITEMS.register("ring_of_suppression", () -> new CurioRingOfSuppression(GEAR_PROPERTIES()));

@@ -6,8 +6,10 @@ import com.sammy.malum.core.systems.particles.ParticlePhaseMalumParticle;
 import com.sammy.malum.core.systems.particles.ParticleRendering;
 import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import com.sammy.malum.core.systems.particles.phases.ParticlePhase;
+import com.sammy.malum.core.systems.particles.rendertypes.SpriteParticleRenderType;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleFactory;
+import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.world.ClientWorld;
@@ -36,5 +38,14 @@ public class SpiritFlameParticle extends ParticlePhaseMalumParticle
             motionY *= 0.9f;
         }
         motionZ *= 0.9f;
+    }
+    @Override
+    public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
+        super.renderParticle(ParticleRendering.getDelayedRender().getBuffer(RenderUtil.GLOWING_PARTICLE), info, pticks);
+    }
+    @Override
+    public IParticleRenderType getRenderType()
+    {
+        return SpriteParticleRenderType.INSTANCE;
     }
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:brown_ether"
+    ]
+  },
+  "criteria": {
+    "has_ether": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:ether"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:brown_ether"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ether",
+      "has_the_recipe"
+    ]
+  ]
+}

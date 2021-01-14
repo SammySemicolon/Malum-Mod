@@ -46,7 +46,6 @@ public class MalumConstants
         return SPIRIT_COLORS[9];
     }
     
-    
     public static final Color ORANGE = new Color(170, 76, 16);
     public static final Color MAGENTA = new Color(224, 51, 224);
     public static final Color LIGHT_BLUE = new Color(101, 219, 219);

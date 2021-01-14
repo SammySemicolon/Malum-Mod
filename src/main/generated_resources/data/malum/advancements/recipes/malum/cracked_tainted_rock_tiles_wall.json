@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:cracked_tainted_rock_tiles_wall"
+    ]
+  },
+  "criteria": {
+    "has_tainted_rock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:tainted_rock"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:cracked_tainted_rock_tiles_wall"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tainted_rock",
+      "has_the_recipe"
+    ]
+  ]
+}

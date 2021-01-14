@@ -28,6 +28,7 @@
   "totem_charge": { "sounds":["malum:totems/charge0","malum:totems/charge1","malum:totems/charge2"], "subtitle": "malum.subtitle.totem_charge" },
   "totem_complete": { "sounds":["malum:totems/complete0","malum:totems/complete1","malum:totems/complete2"], "subtitle": "malum.subtitle.totem_complete" },
 
+  "tyrving_hit": { "sounds":["malum:tyrving/hit1","malum:tyrving/hit2"], "subtitle": "malum.subtitle.tyrving_hit" },
   "equip": { "sounds":["malum:equip"], "subtitle": "malum.subtitle.equip" },
 
   "karmic_holder_activate": { "sounds":["malum:karmic_holder/activate0","malum:karmic_holder/activate1"], "subtitle": "malum.subtitle.karmic_holder_activate" },

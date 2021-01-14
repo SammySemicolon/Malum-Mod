@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:cyan_dye"
+    },
+    {
+      "item": "malum:ether_torch"
+    }
+  ],
+  "result": {
+    "item": "malum:cyan_ether_torch"
+  }
+}

@@ -99,13 +99,10 @@ public class ParticlePhaseMalumParticle extends SpriteTexturedParticle
     }
     
     @Override
-    public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
-        super.renderParticle(ParticleRendering.getDelayedRender().getBuffer(RenderUtil.GLOWING_PARTICLE), info, pticks);
-    }
-    @Override
     public IParticleRenderType getRenderType()
     {
-        return SpriteParticleRenderType.INSTANCE;
+        return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
+    
 }
 

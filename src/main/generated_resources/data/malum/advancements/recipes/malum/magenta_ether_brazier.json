@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:solar_sapball"
+      "malum:magenta_ether_brazier"
     ]
   },
   "criteria": {
-    "has_solar_sap": {
+    "has_ether": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:solar_sap_bottle"
+            "item": "malum:ether"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:solar_sapball"
+        "recipe": "malum:magenta_ether_brazier"
       }
     }
   },
   "requirements": [
     [
-      "has_solar_sap",
+      "has_ether",
       "has_the_recipe"
     ]
   ]

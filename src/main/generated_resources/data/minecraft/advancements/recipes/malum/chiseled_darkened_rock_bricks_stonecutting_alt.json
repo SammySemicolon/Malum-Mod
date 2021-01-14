@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_darkened_rock_bricks": {
+    "has_darkened_rock": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:darkened_rock_bricks"
+            "item": "malum:darkened_rock"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_darkened_rock_bricks",
+      "has_darkened_rock",
       "has_the_recipe"
     ]
   ]

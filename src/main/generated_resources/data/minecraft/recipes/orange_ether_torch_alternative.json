@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "malum:orange_ether"
+    }
+  },
+  "result": {
+    "item": "malum:orange_ether_torch",
+    "count": 4
+  }
+}

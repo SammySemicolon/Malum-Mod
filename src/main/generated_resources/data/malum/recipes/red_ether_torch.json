@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:penumbral_mold"
+      "item": "minecraft:red_dye"
     },
     {
-      "item": "malum:solar_sap_bottle"
+      "item": "malum:ether_torch"
     }
   ],
   "result": {
-    "item": "malum:solar_sapball"
+    "item": "malum:red_ether_torch"
   }
 }

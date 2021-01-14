@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:light_blue_dye"
+    },
+    {
+      "item": "malum:ether_torch"
+    }
+  ],
+  "result": {
+    "item": "malum:light_blue_ether_torch"
+  }
+}
