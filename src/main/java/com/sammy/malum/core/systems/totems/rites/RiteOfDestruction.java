@@ -2,15 +2,11 @@ package com.sammy.malum.core.systems.totems.rites;
 
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.modcontent.MalumRunes;
-import com.sammy.malum.core.modcontent.MalumTransfusions;
 import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.AirBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundCategory;
@@ -25,9 +21,9 @@ import java.util.HashMap;
 public class RiteOfDestruction extends AffectBlocksRite
 {
     HashMap<BlockPos, Integer> map = new HashMap<>();
-    public RiteOfDestruction(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
+    public RiteOfDestruction(String identifier, boolean isInstant, MalumSpiritType... spirits)
     {
-        super(identifier, isInstant, runes);
+        super(identifier, isInstant, spirits);
     }
     
     @Override

@@ -139,25 +139,19 @@ public class ClientStartupEvents
         ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_BRAZIER, MalumConstants.GREEN.brighter().brighter());
         ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_BRAZIER, MalumConstants.RED.brighter().brighter());
         
-        ClientHelper.registerItemColor(itemColors, MalumItems.WILD_SPIRIT_SPLINTER, MalumSpiritTypes.WILD_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.UNDEAD_SPIRIT_SPLINTER, MalumSpiritTypes.UNDEAD_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.NIMBLE_SPIRIT_SPLINTER, MalumSpiritTypes.NIMBLE_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT_SPLINTER, MalumSpiritTypes.AQUATIC_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.SINISTER_SPIRIT_SPLINTER, MalumSpiritTypes.SINISTER_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT_SPLINTER, MalumSpiritTypes.ARCANE_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.SULPHURIC_SPIRIT_SPLINTER, MalumSpiritTypes.SULPHURIC_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.NETHERBORNE_SPIRIT_SPLINTER, MalumSpiritTypes.NETHERBORNE_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.AVARICIOUS_SPIRIT_SPLINTER, MalumSpiritTypes.AVARICIOUS_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.FUSIBLE_SPIRIT_SPLINTER, MalumSpiritTypes.FUSIBLE_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.CHARRED_SPIRIT_SPLINTER, MalumSpiritTypes.CHARRED_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.TERMINUS_SPIRIT_SPLINTER, MalumSpiritTypes.TERMINUS_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.LIFE_SPIRIT_SPLINTER, MalumSpiritTypes.LIFE_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.DEATH_SPIRIT_SPLINTER, MalumSpiritTypes.DEATH_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.AIR_SPIRIT_SPLINTER, MalumSpiritTypes.AIR_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.WATER_SPIRIT_SPLINTER, MalumSpiritTypes.WATER_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.MAGIC_SPIRIT_SPLINTER, MalumSpiritTypes.MAGIC_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.FIRE_SPIRIT_SPLINTER, MalumSpiritTypes.FIRE_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.EARTH_SPIRIT_SPLINTER, MalumSpiritTypes.EARTH_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, MalumSpiritTypes.ELDRITCH_SPIRIT_COLOR);
     }
     
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)
     {
-        
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemCoreBlock).forEach(ClientStartupEvents::setCutout);

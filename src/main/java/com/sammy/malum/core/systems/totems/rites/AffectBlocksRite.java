@@ -1,24 +1,17 @@
 package com.sammy.malum.core.systems.totems.rites;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
-import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.core.modcontent.MalumRites.MalumRite;
-import com.sammy.malum.core.modcontent.MalumRunes;
-import com.sammy.malum.core.modcontent.MalumTransfusions;
-import net.minecraft.block.Block;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
-
 public class AffectBlocksRite extends MalumRite
 {
-    public AffectBlocksRite(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
+    public AffectBlocksRite(String identifier, boolean isInstant, MalumSpiritType... spirits)
     {
-        super(identifier, isInstant, runes);
+        super(identifier, isInstant, spirits);
     }
     
     public boolean effect(BlockPos pos, BlockState state, World world)

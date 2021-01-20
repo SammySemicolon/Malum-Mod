@@ -3,9 +3,9 @@ package com.sammy.malum.core.systems.totems.rites;
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.modcontent.MalumRunes;
 import com.sammy.malum.core.modcontent.MalumTransfusions;
 import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.particles.BlockParticleData;
@@ -22,9 +22,9 @@ import java.util.HashMap;
 public class RiteOfImbuement extends AffectBlocksRite
 {
     HashMap<BlockPos, Integer> map = new HashMap<>();
-    public RiteOfImbuement(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
+    public RiteOfImbuement(String identifier, boolean isInstant, MalumSpiritType... spirits)
     {
-        super(identifier, isInstant, runes);
+        super(identifier, isInstant, spirits);
     }
     
     @Override

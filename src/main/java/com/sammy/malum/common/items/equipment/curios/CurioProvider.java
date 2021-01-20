@@ -17,7 +17,7 @@
  * License along with Curios.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.sammy.malum.core.systems.curios;
+package com.sammy.malum.common.items.equipment.curios;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;

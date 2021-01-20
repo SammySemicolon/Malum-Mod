@@ -11,11 +11,10 @@ import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes.MalumSpiritKilnRecipe;
-import com.sammy.malum.core.systems.fuel.IHeatTileEntity;
+import com.sammy.malum.core.systems.fuel.IFuelTileEntity;
 import com.sammy.malum.core.systems.fuel.SimpleFuelSystem;
 import com.sammy.malum.core.systems.multiblock.MultiblockTileEntity;
 import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.network.packets.ParticlePacket;
@@ -33,8 +32,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.awt.*;
@@ -42,11 +39,10 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock.STATE;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
-import static net.minecraft.particles.ParticleTypes.EXPLOSION;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 @SuppressWarnings("ConstantConditions")
-public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements ITickableTileEntity, IHeatTileEntity
+public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements ITickableTileEntity, IFuelTileEntity
 {
     public SpiritKilnCoreTileEntity()
     {

@@ -4,31 +4,25 @@ import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumRites.MalumRite;
-import com.sammy.malum.core.modcontent.MalumRunes;
 import com.sammy.malum.core.systems.particles.ParticleManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 import java.awt.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class RiteOfCollection extends MalumRite
 {
-    public RiteOfCollection(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
+    public RiteOfCollection(String identifier, boolean isInstant, MalumSpiritType... spirits)
     {
-        super(identifier, isInstant, runes);
+        super(identifier, isInstant, spirits);
     }
     
     String tag = MalumMod.MODID + ":collected";

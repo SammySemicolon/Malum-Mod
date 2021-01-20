@@ -1,4 +1,4 @@
-package com.sammy.malum.common.items;
+package com.sammy.malum.common.items.tools;
 
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;

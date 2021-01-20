@@ -5,7 +5,7 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnFuels;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnFuels.MalumSpiritKilnFuel;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
-import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
+import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;

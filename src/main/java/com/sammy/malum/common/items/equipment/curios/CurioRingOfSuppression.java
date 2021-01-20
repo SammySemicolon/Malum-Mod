@@ -1,6 +1,5 @@
 package com.sammy.malum.common.items.equipment.curios;
 
-import com.sammy.malum.core.systems.curios.CurioProvider;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

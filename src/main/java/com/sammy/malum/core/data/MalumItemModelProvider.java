@@ -4,12 +4,10 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
-import com.sammy.malum.common.items.MalumRuneItem;
-import com.sammy.malum.common.items.tools.ChiselItem;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
-import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
+import com.sammy.malum.common.items.SpiritSplinterItem;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;
@@ -41,7 +39,6 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
         takeAll(items, i -> i.get() instanceof SpiritSplinterItem).forEach(this::spiritSplinterItem);
-        takeAll(items, i -> i.get() instanceof MalumRuneItem).forEach(this::runeItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);
@@ -60,7 +57,6 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         takeAll(items, i -> i.get() instanceof ToolItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof BowItem).forEach(this::handheldItem);
-        takeAll(items, i -> i.get() instanceof ChiselItem).forEach(this::handheldItem);
         items.forEach(this::generatedItem);
     }
     
@@ -73,19 +69,9 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         withExistingParent(name, HANDHELD).texture("layer0", prefix("item/" + name));
     }
     
-    private void runeItem(RegistryObject<Item> i)
-    {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("runes/" + name + "_item"));
-    }
     private void spiritSplinterItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        if (i.equals(MalumItems.ELDRITCH_SPIRIT_SPLINTER) || i .equals(MalumItems.TERMINUS_SPIRIT_SPLINTER))
-        {
-            withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_large"));
-            return;
-        }
 //        SpiritSplinterItem spiritSplinterItem = (SpiritSplinterItem) i.get();
 //        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/" + name + spiritSplinterItem.type.identifier));
         withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));

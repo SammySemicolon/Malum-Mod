@@ -8,15 +8,13 @@ import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.core.modcontent.MalumRites.MalumRite;
-import com.sammy.malum.core.modcontent.MalumRunes;
-import com.sammy.malum.core.modcontent.MalumRunes.MalumRune;
 import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -42,7 +40,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     public int progress;
     public int height;
     public MalumRite rite;
-    public ArrayList<MalumRune> runes = new ArrayList<>();
+    public ArrayList<MalumSpiritType> spirits = new ArrayList<>();
     
     
     @Override
@@ -103,9 +101,19 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                             return;
                         }
                     }
-                    TotemPoleBlock poleBlock = (TotemPoleBlock) poleState.getBlock();
-                    world.setBlockState(polePos, poleState.with(BlockStateProperties.POWERED, true));
-                    addRune(polePos, poleBlock.rune);
+                    if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity)
+                    {
+                        TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
+                        if (totemPoleTileEntity.type != null)
+                        {
+                            world.setBlockState(polePos, poleState.with(BlockStateProperties.POWERED, true));
+                            addRune(polePos, totemPoleTileEntity.type);
+                        }
+                        else
+                        {
+                            fail();
+                        }
+                    }
                 }
                 else
                 {
@@ -171,17 +179,17 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + height * 0.25f);
     }
     
-    public void addRune(BlockPos pos, MalumRune rune)
+    public void addRune(BlockPos pos, MalumSpiritType rune)
     {
         addRuneEffects(pos);
     
-        runes.add(rune);
+        spirits.add(rune);
         progress = 0;
     }
     
     public void tryRite()
     {
-        MalumRite rite = MalumRites.getRite(runes);
+        MalumRite rite = MalumRites.getRite(spirits);
         if (rite != null)
         {
             progress = 0;
@@ -234,7 +242,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         progress = 0;
         height = 0;
         rite = null;
-        runes = new ArrayList<>();
+        spirits = new ArrayList<>();
     }
     
     @Override
@@ -245,12 +253,12 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         compound.putInt("height", height);
         
         int i = 0;
-        for (MalumRune rune : runes)
+        for (MalumSpiritType spiritType : spirits)
         {
-            compound.putString("rune" + i, rune.id);
+            compound.putString("spiritType" + i, spiritType.identifier);
             i++;
         }
-        compound.putInt("runeCount", i);
+        compound.putInt("spiritCount", i);
         return super.writeData(compound);
     }
     
@@ -260,13 +268,13 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");
         height = compound.getInt("height");
-        runes = new ArrayList<>();
-        for (int i = 0; i < compound.getInt("runeCount"); i++)
+        spirits = new ArrayList<>();
+        for (int i = 0; i < compound.getInt("spiritCount"); i++)
         {
-            MalumRune rune = MalumRunes.getRune(compound.getString("rune" + i));
-            runes.add(rune);
+            MalumSpiritType spiritType = SpiritHelper.figureOutType(compound.getString("spiritType" + i));
+            spirits.add(spiritType);
         }
-        rite = MalumRites.getRite(runes);
+        rite = MalumRites.getRite(spirits);
         super.readData(compound);
     }
 }

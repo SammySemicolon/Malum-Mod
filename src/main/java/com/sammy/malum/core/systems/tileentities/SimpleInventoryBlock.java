@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.tileentities;
 
-import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
+import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

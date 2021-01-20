@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/drift_boots"
+    "layer0": "malum:item/boots_of_levitation"
   }
 }

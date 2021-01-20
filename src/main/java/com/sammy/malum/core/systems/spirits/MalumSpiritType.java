@@ -1,7 +1,7 @@
-package com.sammy.malum.core.systems.spirits.types;
+package com.sammy.malum.core.systems.spirits;
 
 import com.sammy.malum.core.systems.spirits.CountPredicate;
-import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
+import com.sammy.malum.common.items.SpiritSplinterItem;
 import net.minecraft.entity.LivingEntity;
 
 import java.awt.*;

@@ -1,8 +1,10 @@
 package com.sammy.malum.common.events;
 
+import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.items.equipment.curios.CurioArcaneSeal;
 import com.sammy.malum.common.items.equipment.curios.CurioKarmicHolder;
 import com.sammy.malum.common.items.equipment.curios.CurioFlaskOfGreed;
-import com.sammy.malum.common.items.equipment.curios.CurioDriftBoots;
+import com.sammy.malum.common.items.equipment.curios.CurioBootsOFLevitation;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,29 +20,37 @@ import top.theillusivec4.curios.api.CuriosApi;
 public class CurioEvents
 {
     @SubscribeEvent
-    public static void arcaneSandalsJumpSound(LivingEvent.LivingJumpEvent event)
+    public static void bootsOfLevitationJump(LivingEvent.LivingJumpEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioDriftBoots, playerEntity).ifPresent(triple -> {
-                playerEntity.world.playSound(null, playerEntity.getPosition(), MalumSounds.DRIFT_BOOTS_JUMP, SoundCategory.PLAYERS, 0.4f, 0.75f + playerEntity.world.rand.nextFloat() * 0.5f);
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioBootsOFLevitation, playerEntity).ifPresent(triple -> {
+                if (MalumHelper.areWeOnServer(playerEntity.world))
+                {
+                    playerEntity.world.playSound(null, playerEntity.getPosition(), MalumSounds.DRIFT_BOOTS_JUMP, SoundCategory.PLAYERS, 0.4f, 0.75f + playerEntity.world.rand.nextFloat() * 0.5f);
+                }
+                else
+                {
+                
+                }
             });
         }
     }
+    
     @SubscribeEvent
-    public static void arcaneSandalsFallDamage(LivingFallEvent event)
+    public static void bootsOfLevitationFallDamage(LivingFallEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
-            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioDriftBoots, event.getEntityLiving()).ifPresent(triple -> {
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioBootsOFLevitation, event.getEntityLiving()).ifPresent(triple -> {
                 event.setDistance(event.getDistance() / 3);
             });
         }
     }
     
     @SubscribeEvent
-    public static void triggerThroneOfGold(LootingLevelEvent event)
+    public static void flaskOfGreedLooting(LootingLevelEvent event)
     {
         if (event.getDamageSource().getTrueSource() instanceof PlayerEntity)
         {
@@ -48,8 +58,9 @@ public class CurioEvents
             CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioFlaskOfGreed, playerEntity).ifPresent(triple -> event.setLootingLevel(event.getLootingLevel() + 1));
         }
     }
+    
     @SubscribeEvent
-    public static void triggerFoolsLuck(LivingHurtEvent event)
+    public static void karmicHolderHurt(LivingHurtEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
@@ -71,8 +82,9 @@ public class CurioEvents
             }
         }
     }
+    
     @SubscribeEvent
-    public static void foolsLuckExtra(LivingKnockBackEvent event)
+    public static void karmicHolderKnockback(LivingKnockBackEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
@@ -81,6 +93,35 @@ public class CurioEvents
             {
                 event.setStrength(event.getOriginalStrength() * 0.1f);
             }
+        }
+    }
+    
+    @SubscribeEvent
+    public static void arcaneSealHurt(LivingHurtEvent event)
+    {
+        if (event.getEntityLiving() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioArcaneSeal, playerEntity).ifPresent(triple -> {
+                if (event.getSource().isMagicDamage())
+                {
+                    event.setAmount(event.getAmount() * 0.5f);
+                }
+            });
+        }
+    }
+    @SubscribeEvent
+    public static void arcaneSealAttack(LivingAttackEvent event)
+    {
+        if (event.getSource().getTrueSource() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioArcaneSeal, playerEntity).ifPresent(triple -> {
+                if (event.getSource().isMagicDamage())
+                {
+                    event.setCanceled(true);
+                }
+            });
         }
     }
 }

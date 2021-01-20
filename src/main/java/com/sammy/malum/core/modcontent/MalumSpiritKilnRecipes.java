@@ -15,8 +15,8 @@ public class MalumSpiritKilnRecipes
     public static void init()
     {
         new MalumSpiritKilnRecipe(Items.SOUL_SAND, 1, MalumItems.SOUL_SHARD.get(), 1, 2, MalumItems.BLAZE_QUARTZ.get(), Items.QUARTZ);
-        new MalumSpiritKilnRecipe(Items.GOLD_INGOT, 1, MalumItems.HALLOWED_GOLD_INGOT.get(), 1, 4, MalumItems.AVARICIOUS_SPIRIT_SPLINTER.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
-        new MalumSpiritKilnRecipe(Items.IRON_INGOT, 1, MalumItems.SPIRITED_METAL_INGOT.get(), 1, 4, MalumItems.SINISTER_SPIRIT_SPLINTER.get(), MalumItems.FUSIBLE_SPIRIT_SPLINTER.get());
+        new MalumSpiritKilnRecipe(Items.GOLD_INGOT, 1, MalumItems.HALLOWED_GOLD_INGOT.get(), 1, 4, MalumItems.LIFE_SPIRIT_SPLINTER.get(), MalumItems.MAGIC_SPIRIT_SPLINTER.get(), MalumItems.DEATH_SPIRIT_SPLINTER.get());
+        new MalumSpiritKilnRecipe(Items.IRON_INGOT, 1, MalumItems.SPIRITED_METAL_INGOT.get(), 1, 4, MalumItems.MAGIC_SPIRIT_SPLINTER.get(), MalumItems.EARTH_SPIRIT_SPLINTER.get());
     }
     
     public static MalumSpiritKilnRecipe getRecipe(ItemStack stack)

@@ -2,7 +2,7 @@ package com.sammy.malum.core.systems.totems.rites;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.modcontent.MalumRites;
-import com.sammy.malum.core.modcontent.MalumRunes;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -11,9 +11,9 @@ import net.minecraft.world.server.ServerWorld;
 
 public class RiteOfRain extends MalumRites.MalumRite
 {
-    public RiteOfRain(String identifier, boolean isInstant, MalumRunes.MalumRune... runes)
+    public RiteOfRain(String identifier, boolean isInstant, MalumSpiritType... spirits)
     {
-        super(identifier, isInstant, runes);
+        super(identifier, isInstant, spirits);
     }
     
     @Override

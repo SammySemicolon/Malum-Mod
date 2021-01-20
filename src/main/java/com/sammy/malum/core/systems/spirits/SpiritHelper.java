@@ -1,7 +1,6 @@
 package com.sammy.malum.core.systems.spirits;
 
 import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entities.PlayerSoulEntity;
 import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
@@ -10,8 +9,7 @@ import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
-import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
-import com.sammy.malum.core.systems.spirits.types.MalumSpiritType;
+import com.sammy.malum.common.items.SpiritSplinterItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +20,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class SpiritHelper

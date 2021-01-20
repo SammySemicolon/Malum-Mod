@@ -11,7 +11,6 @@ public class TotemMagicCategory extends BookCategory
                 new BookPage(MalumItems.SUN_KISSED_SAPLING.get(), "natural_flora"),
                 new BookPage(MalumItems.SUN_KISSED_LOG.get(), "magic_wood"),
                 new BookPage(MalumItems.SOLAR_SAP_BOTTLE.get(), "tree sap"),
-                new BookPage(MalumItems.CHISEL.get(), "rune_carving"),
                 new BookPage(MalumItems.TOTEM_CORE.get(), "totem basics"),
                 new BookPage(MalumItems.IMPERVIOUS_ROCK.get(), "magic resistance"),
                 new BookPage(MalumItems.TOTEM_CORE.get(), "rite_of_sacrifice"),

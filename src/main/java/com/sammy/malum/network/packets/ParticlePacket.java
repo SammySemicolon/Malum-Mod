@@ -2,8 +2,11 @@ package com.sammy.malum.network.packets;
 
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.particles.itemcircle.ItemCircleParticle;
+import com.sammy.malum.client.particles.itemcircle.ItemCircleParticleType;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.ParticleTypes;
@@ -59,8 +62,8 @@ public class ParticlePacket
             {
                 case 0:
                 {
-                    Color color2 = MalumConstants.darkest();
-                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.8f, 0f).setLifetime(12).setSpin(0.8f).setScale(0.3f, 0).setColor(color2.getRed() / 255f, color2.getGreen() / 255f, color2.getBlue() / 255f, color2.getRed() / 255f, (color2.getGreen() * 0.5f) / 255f, (color2.getBlue() * 0.5f) / 255f).randomOffset(0.1f).randomVelocity(0.075f, 0.075f).enableNoClip().repeat(world, posX,posY,posZ, 40);
+                    Color color = MalumConstants.darkest();
+                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.8f, 0f).setLifetime(12).setSpin(0.8f).setScale(0.3f, 0).setColor(color,color).randomOffset(0.1f).randomVelocity(0.075f, 0.075f).enableNoClip().repeat(world, posX,posY,posZ, 40);
                     break;
                 }
                 case 1:
@@ -75,14 +78,15 @@ public class ParticlePacket
                     }
                     Color color1 = MalumConstants.faded();
                     Color color2 = MalumConstants.darkest();
-                    ParticleManager.create(MalumParticles.SPIRIT_FLAME).setScale(0.75f+world.rand.nextFloat(),0).setColor(color1.getRed() / 255f, color1.getGreen() / 255f, color1.getBlue() / 255f, color2.getRed() / 255f, (color2.getGreen() * 0.5f) / 255f, (color2.getBlue() * 0.5f) / 255f).addVelocity(0,0.1,0).randomOffset(0.1f).randomVelocity(0.075f, 0.075f).enableNoClip().repeatEdges(world, new BlockPos(posX,posY,posZ), 24);
+                    ParticleManager.create(MalumParticles.SPIRIT_FLAME).setScale(0.75f+world.rand.nextFloat(),0).setColor(color1,color2).addVelocity(0,0.1,0).randomOffset(0.1f).randomVelocity(0.075f, 0.075f).enableNoClip().repeatEdges(world, new BlockPos(posX,posY,posZ), 24);
                     break;
                 }
                 case 2:
                 {
                     Color color1 = MalumConstants.faded();
                     Color color2 = MalumConstants.dark();
-                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setLifetime(18).setSpin(0.4f).randomVelocity(0.25f, 0f).setScale(0.1f+world.rand.nextFloat()*0.1f,0).setColor(color1.getRed() / 255f, color1.getGreen() / 255f, color1.getBlue() / 255f, color2.getRed() / 255f, (color2.getGreen() * 0.5f) / 255f, (color2.getBlue() * 0.5f) / 255f).enableNoClip().repeatCircle(world, posX,posY,posZ, 0.15f,24);
+                    ParticleManager.create(MalumParticles.ITEM_CIRCLE).setAlpha(0.75f,0).setColor(MalumConstants.bright(), color1).enableNoClip().repeat(world, posX,posY,posZ, 1);
+                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setLifetime(18).setSpin(0.4f).randomVelocity(0.04f, 0.04f).setScale(0.025f+world.rand.nextFloat()*0.025f,0).setColor(color1, color2).enableNoClip().repeat(world, posX,posY,posZ, 24);
                 }
             }
         });

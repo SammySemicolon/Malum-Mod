@@ -9,9 +9,9 @@ import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-public class CurioKarmicHolder extends Item implements ICurio
+public class CurioArcaneSeal extends Item implements ICurio
 {
-    public CurioKarmicHolder(Properties builder)
+    public CurioArcaneSeal(Properties builder)
     {
         super(builder);
     }
@@ -25,6 +25,12 @@ public class CurioKarmicHolder extends Item implements ICurio
             public void playRightClickEquipSound(LivingEntity livingEntity)
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+            }
+    
+            @Override
+            public boolean showAttributesTooltip(String identifier)
+            {
+                return false;
             }
     
             @Override

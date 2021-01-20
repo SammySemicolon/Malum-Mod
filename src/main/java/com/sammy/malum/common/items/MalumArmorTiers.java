@@ -1,4 +1,4 @@
-package com.sammy.malum.core.systems.tiers;
+package com.sammy.malum.common.items;
 
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;

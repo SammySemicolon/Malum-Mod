@@ -3,7 +3,6 @@ package com.sammy.malum.common.items.equipment.curios;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.systems.curios.CurioProvider;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -19,9 +18,9 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.UUID;
 
-public class CurioDriftBoots extends Item implements ICurio
+public class CurioBootsOFLevitation extends Item implements ICurio
 {
-    public CurioDriftBoots(Properties builder)
+    public CurioBootsOFLevitation(Properties builder)
     {
         super(builder);
     }

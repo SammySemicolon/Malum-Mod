@@ -1,7 +1,7 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.items.TyrvingSwordItem;
+import com.sammy.malum.common.items.tools.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.curios.CurioPoppetBelt;
 import com.sammy.malum.common.items.equipment.poppets.BlessedPoppet;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
@@ -12,7 +12,7 @@ import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.modcontent.MalumRites;
-import com.sammy.malum.core.systems.otherutilities.IAlwaysActivatedBlock;
+import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
 import com.sammy.malum.network.packets.ParticlePacket;

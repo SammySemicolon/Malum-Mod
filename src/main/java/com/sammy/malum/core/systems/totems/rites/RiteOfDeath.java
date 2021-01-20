@@ -1,20 +1,14 @@
 package com.sammy.malum.core.systems.totems.rites;
 
-import com.sammy.malum.core.modcontent.MalumRites;
-import com.sammy.malum.core.modcontent.MalumRites.MalumRite;
-import com.sammy.malum.core.modcontent.MalumRunes;
-import com.sammy.malum.core.modcontent.MalumRunes.MalumRune;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public class RiteOfDeath extends AffectEntitiesRite
 {
-    public RiteOfDeath(String identifier, boolean isInstant, MalumRune... runes)
+    public RiteOfDeath(String identifier, boolean isInstant, MalumSpiritType... spirits)
     {
-        super(identifier, isInstant, runes);
+        super(identifier, isInstant, spirits);
     }
     
     @Override

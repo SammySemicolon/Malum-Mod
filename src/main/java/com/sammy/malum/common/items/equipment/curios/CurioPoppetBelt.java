@@ -4,12 +4,10 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.systems.curios.CurioProvider;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -20,10 +18,8 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.items.ItemStackHandler;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CurioPoppetBelt extends Item implements ICurio

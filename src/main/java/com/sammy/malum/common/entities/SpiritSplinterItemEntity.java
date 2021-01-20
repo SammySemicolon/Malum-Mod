@@ -4,7 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.core.systems.spirits.item.SpiritSplinterItem;
+import com.sammy.malum.common.items.SpiritSplinterItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;

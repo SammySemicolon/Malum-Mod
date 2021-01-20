@@ -5,10 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.modcontent.MalumChiseling.MalumChiselRecipe;
-import com.sammy.malum.core.modcontent.MalumRites;
-import com.sammy.malum.core.modcontent.MalumRunes;
-import com.sammy.malum.core.modcontent.MalumRunes.MalumRune;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -18,7 +15,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -103,9 +99,9 @@ public class RiteRecipeCategory implements IRecipeCategory<MalumRite>
     public void setIngredients(MalumRite recipe, IIngredients iIngredients)
     {
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        for (MalumRune rune : recipe.runes)
+        for (MalumSpiritType spirit : recipe.spirits)
         {
-            stacks.add(rune.item.getDefaultInstance());
+            stacks.add(spirit.splinterItem.getDefaultInstance());
         }
         iIngredients.setInputs(VanillaTypes.ITEM, stacks);
     }
@@ -114,10 +110,10 @@ public class RiteRecipeCategory implements IRecipeCategory<MalumRite>
     public void setRecipe(IRecipeLayout iRecipeLayout, MalumRite recipe, IIngredients iIngredients)
     {
         int i = 0;
-        for (MalumRune rune : recipe.runes)
+        for (MalumSpiritType spirit : recipe.spirits)
         {
             iRecipeLayout.getItemStacks().init(i, true, 4+21*i, 12);
-            iRecipeLayout.getItemStacks().set(i, rune.item.getDefaultInstance());
+            iRecipeLayout.getItemStacks().set(i, spirit.splinterItem.getDefaultInstance());
             i++;
         }
     }
