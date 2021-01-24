@@ -40,13 +40,17 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessRecipe(Items.YELLOW_DYE,2).addIngredient(MalumItems.MARIGOLD.get()).addCriterion("has_marigold", hasItem(MalumItems.MARIGOLD.get())).build(consumer);
         
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.SUN_KISSED_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.SUN_KISSED_LOGS)).build(consumer);
-        shapedRecipe(MalumItems.SPIRIT_KILN.get()).key('#', MalumItems.ETHER.get()).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.DARKENED_ROCK.get()).key('Z', Items.FURNACE).key('C', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("C#C").patternLine("YZY").patternLine("XYX").addCriterion("has_dark_ether", hasItem(MalumItems.ETHER.get())).build(consumer);
+        shapedRecipe(MalumItems.SPIRIT_KILN.get()).key('#', MalumItems.MAGIC_SPIRIT_SPLINTER.get()).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.DARKENED_ROCK.get()).key('Z', Items.FURNACE).key('C', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("C#C").patternLine("YZY").patternLine("XYX").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.ITEM_STAND.get()).key('#', MalumItems.TAINTED_ROCK.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine(" Y ").patternLine("#X#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         
         //        shapedRecipe(MalumItems.KARMIC_HOLDER.get()).key('#', MalumItems.SHARD_OF_WISDOM.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', Items.STRING).patternLine(" Y ").patternLine("YXY").patternLine(" # ").addCriterion("has_shard_of_wisdom", hasItem(MalumItems.SHARD_OF_WISDOM.get())).build(consumer);
         
-        ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
-        
+        ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addIngredient(Items.GUNPOWDER).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.MALUM_BOOK.get()).addIngredient(MalumItems.ARCANE_GRIT.get()).addIngredient(Items.BOOK).addCriterion("has_ashen_blend", hasItem(MalumItems.ASHEN_BLEND.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.ASHEN_BLEND.get(), 4).addIngredient(MalumItemTags.UNHOLY_TRINKET).addIngredient(Items.SOUL_SAND).addIngredient(Items.REDSTONE).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.SUN_KISSED_LOGS)).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.RUDIMENTARY_SNARE.get(), 4).key('#', Items.IRON_NUGGET).key('Y', MalumItems.ARCANE_GRIT.get()).key('X', Items.STRING).patternLine("##X").patternLine("#Y#").patternLine("X##").addCriterion("has_arcane_grit", hasItem(MalumItems.ARCANE_GRIT.get())).build(consumer);
+        smeltingRecipe(Ingredient.fromItems(MalumItems.ARCANE_GRIT.get()), MalumItems.ASHEN_BLEND.get(),0.1f,200).addCriterion("has_ashen_blend", hasItem(MalumItems.ASHEN_BLEND.get())).build(consumer);
+    
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOLAR_SAP_BOTTLE.get()), MalumItems.SOLAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
         
         ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(MalumItems.SOLAR_SAPBALL.get()).addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER)).build(consumer, "magma_cream_from_sapballs");
@@ -290,6 +294,7 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessColoredEther(consumer, MalumItems.LIGHT_BLUE_ETHER.get(), Items.LIGHT_BLUE_DYE);
         shapelessColoredEther(consumer, MalumItems.YELLOW_ETHER.get(), Items.YELLOW_DYE);
         shapelessColoredEther(consumer, MalumItems.LIME_ETHER.get(), Items.LIME_DYE);
+        shapelessColoredEther(consumer, MalumItems.PINK_ETHER.get(), Items.PINK_DYE);
         shapelessColoredEther(consumer, MalumItems.CYAN_ETHER.get(), Items.CYAN_DYE);
         shapelessColoredEther(consumer, MalumItems.PURPLE_ETHER.get(), Items.PURPLE_DYE);
         shapelessColoredEther(consumer, MalumItems.BLUE_ETHER.get(), Items.BLUE_DYE);
@@ -302,6 +307,7 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessColoredEtherTorch(consumer, MalumItems.LIGHT_BLUE_ETHER_TORCH.get(), Items.LIGHT_BLUE_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.YELLOW_ETHER_TORCH.get(), Items.YELLOW_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.LIME_ETHER_TORCH.get(), Items.LIME_DYE);
+        shapelessColoredEtherTorch(consumer, MalumItems.PINK_ETHER_TORCH.get(), Items.PINK_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.CYAN_ETHER_TORCH.get(), Items.CYAN_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.PURPLE_ETHER_TORCH.get(), Items.PURPLE_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.BLUE_ETHER_TORCH.get(), Items.BLUE_DYE);
@@ -314,6 +320,7 @@ public class MalumRecipeProvider extends RecipeProvider
         coloredEtherTorch(consumer, MalumItems.LIGHT_BLUE_ETHER_TORCH.get(), MalumItems.LIGHT_BLUE_ETHER.get());
         coloredEtherTorch(consumer, MalumItems.YELLOW_ETHER_TORCH.get(), MalumItems.YELLOW_ETHER.get());
         coloredEtherTorch(consumer, MalumItems.LIME_ETHER_TORCH.get(), MalumItems.LIME_ETHER.get());
+        coloredEtherTorch(consumer, MalumItems.PINK_ETHER_TORCH.get(), MalumItems.PINK_ETHER.get());
         coloredEtherTorch(consumer, MalumItems.CYAN_ETHER_TORCH.get(), MalumItems.CYAN_ETHER.get());
         coloredEtherTorch(consumer, MalumItems.PURPLE_ETHER_TORCH.get(), MalumItems.PURPLE_ETHER.get());
         coloredEtherTorch(consumer, MalumItems.BLUE_ETHER_TORCH.get(), MalumItems.BLUE_ETHER.get());
@@ -326,6 +333,7 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedColoredEtherBrazier(consumer, MalumItems.LIGHT_BLUE_ETHER_BRAZIER.get(), MalumItems.LIGHT_BLUE_ETHER.get());
         shapedColoredEtherBrazier(consumer, MalumItems.YELLOW_ETHER_BRAZIER.get(), MalumItems.YELLOW_ETHER.get());
         shapedColoredEtherBrazier(consumer, MalumItems.LIME_ETHER_BRAZIER.get(), MalumItems.LIME_ETHER.get());
+        shapedColoredEtherBrazier(consumer, MalumItems.PINK_ETHER_BRAZIER.get(), MalumItems.PINK_ETHER.get());
         shapedColoredEtherBrazier(consumer, MalumItems.CYAN_ETHER_BRAZIER.get(), MalumItems.CYAN_ETHER.get());
         shapedColoredEtherBrazier(consumer, MalumItems.PURPLE_ETHER_BRAZIER.get(), MalumItems.PURPLE_ETHER.get());
         shapedColoredEtherBrazier(consumer, MalumItems.BLUE_ETHER_BRAZIER.get(), MalumItems.BLUE_ETHER.get());
@@ -338,32 +346,30 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessColoredEtherBrazier(consumer, MalumItems.LIGHT_BLUE_ETHER_BRAZIER.get(), Items.LIGHT_BLUE_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.YELLOW_ETHER_BRAZIER.get(), Items.YELLOW_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.LIME_ETHER_BRAZIER.get(), Items.LIME_DYE);
+        shapelessColoredEtherBrazier(consumer, MalumItems.PINK_ETHER_BRAZIER.get(), Items.PINK_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.CYAN_ETHER_BRAZIER.get(), Items.CYAN_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.PURPLE_ETHER_BRAZIER.get(), Items.PURPLE_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.BLUE_ETHER_BRAZIER.get(), Items.BLUE_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.BROWN_ETHER_BRAZIER.get(), Items.BROWN_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.GREEN_ETHER_BRAZIER.get(), Items.GREEN_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.RED_ETHER_BRAZIER.get(), Items.RED_DYE);
-    
-        shapedColoredEtherBrazier(consumer, MalumItems.ETHER_BRAZIER.get(), MalumItems.ETHER.get());
-        coloredEtherTorch(consumer, MalumItems.ETHER_TORCH.get(), MalumItems.ETHER.get());
     }
     private static void shapelessColoredEther(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider dye) {
-        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.ETHER.get()).addCriterion("has_ether", hasItem(MalumItems.ETHER.get())).build(recipeConsumer);
+        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.PINK_ETHER.get()).addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer);
     }
     private static void shapelessColoredEtherTorch(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider dye) {
-        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.ETHER_TORCH.get()).addCriterion("has_ether", hasItem(MalumItems.ETHER.get())).build(recipeConsumer);
+        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.PINK_ETHER_TORCH.get()).addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer);
     }
     private static void shapelessColoredEtherBrazier(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider dye) {
-        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.ETHER_BRAZIER.get()).addCriterion("has_ether", hasItem(MalumItems.ETHER.get())).build(recipeConsumer);
+        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.PINK_ETHER_BRAZIER.get()).addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer);
     }
     private static void shapedColoredEtherBrazier(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider ether)
     {
-        ShapedRecipeBuilder.shapedRecipe(output,2).key('#', MalumItems.TAINTED_ROCK.get()).key('S', Items.STICK).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", hasItem(MalumItems.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_brazier");
+        ShapedRecipeBuilder.shapedRecipe(output,2).key('#', MalumItems.TAINTED_ROCK.get()).key('S', Items.STICK).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_brazier");
     }
     private static void coloredEtherTorch(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider ether)
     {
-        ShapedRecipeBuilder.shapedRecipe(output, 4).key('#', Items.STICK).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", hasItem(MalumItems.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
+        ShapedRecipeBuilder.shapedRecipe(output, 4).key('#', Items.STICK).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
     }
     private static void smithingReinforce(Consumer<IFinishedRecipe> recipeConsumer, Item itemToReinforce, Item output)
     {

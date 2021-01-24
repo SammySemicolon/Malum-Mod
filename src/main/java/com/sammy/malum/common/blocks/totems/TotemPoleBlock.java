@@ -4,7 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
@@ -15,21 +17,17 @@ public class TotemPoleBlock extends Block
     public TotemPoleBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
+    }
+    @Override
+    public boolean hasTileEntity(BlockState state)
+    {
+        return true;
     }
     
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        blockStateBuilder.add(HORIZONTAL_FACING);
+        return new TotemPoleTileEntity();
     }
     
-    @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        return state(context.getNearestLookingDirection());
-    }
-    public BlockState state(Direction direction)
-    {
-        return getDefaultState().with(HORIZONTAL_FACING, direction);
-    }
 }

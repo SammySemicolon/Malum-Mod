@@ -51,7 +51,6 @@ public class TotemCoreBlock extends Block
                 }
                 else if (!tileEntity.active)
                 {
-                    tileEntity.addRuneEffects(pos);
                     worldIn.setBlockState(pos, state.with(POWERED, true));
                     tileEntity.active = true;
                     return ActionResultType.SUCCESS;

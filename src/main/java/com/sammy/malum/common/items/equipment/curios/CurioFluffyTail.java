@@ -20,6 +20,10 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
+import javax.annotation.Nonnull;
+
+import static top.theillusivec4.curios.api.type.capability.ICurio.DropRule.ALWAYS_KEEP;
+
 public class CurioFluffyTail extends Item implements ICurio
 {
     public CurioFluffyTail(Properties builder)
@@ -40,7 +44,14 @@ public class CurioFluffyTail extends Item implements ICurio
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-
+    
+            @Nonnull
+            @Override
+            public DropRule getDropRule(LivingEntity livingEntity)
+            {
+                return ALWAYS_KEEP;
+            }
+    
             @Override
             public boolean canRightClickEquip()
             {

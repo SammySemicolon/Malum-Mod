@@ -26,39 +26,39 @@ public class MalumSpiritTypes
 {
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
     
-    public static final Color LIFE_SPIRIT_COLOR = new Color(153, 222, 58);
+    public static final Color LIFE_SPIRIT_COLOR = new Color(241, 76, 123);
     public static MalumSpiritType LIFE_SPIRIT;
     
-    public static final Color DEATH_SPIRIT_COLOR = new Color(135, 54, 46);
+    public static final Color DEATH_SPIRIT_COLOR = new Color(113, 41, 57);
     public static MalumSpiritType DEATH_SPIRIT;
     
     public static final Color AIR_SPIRIT_COLOR = new Color(173, 255, 243);
     public static  MalumSpiritType AIR_SPIRIT;
     
-    public static final Color WATER_SPIRIT_COLOR = new Color(27, 163, 255);
+    public static final Color WATER_SPIRIT_COLOR = new Color(25, 118, 231);
     public static  MalumSpiritType WATER_SPIRIT;
     
-    public static final Color FIRE_SPIRIT_COLOR = new Color(163, 13, 10);
+    public static final Color FIRE_SPIRIT_COLOR = new Color(175, 63, 19);
     public static  MalumSpiritType FIRE_SPIRIT;
     
-    public static final Color EARTH_SPIRIT_COLOR = new Color(62, 101, 44);
+    public static final Color EARTH_SPIRIT_COLOR = new Color(65, 125, 42);
     public static  MalumSpiritType EARTH_SPIRIT;
     
-    public static final Color MAGIC_SPIRIT_COLOR = new Color(224, 88, 205);
+    public static final Color MAGIC_SPIRIT_COLOR = new Color(243, 85, 218);
     public static  MalumSpiritType MAGIC_SPIRIT;
     
-    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(19, 13, 17);
+    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(85, 17, 66);
     public static MalumSpiritType ELDRITCH_SPIRIT;
     
     public static void init()
     {
-        LIFE_SPIRIT = create("life", MalumSpiritTypes::isWild, MalumSpiritTypes::howWild, LIFE_SPIRIT_COLOR, MalumItems.LIFE_SPIRIT_SPLINTER);
-        DEATH_SPIRIT = create("death", MalumSpiritTypes::isGrave, MalumSpiritTypes::howGrave, DEATH_SPIRIT_COLOR, MalumItems.DEATH_SPIRIT_SPLINTER);
-        AIR_SPIRIT = create("air", MalumSpiritTypes::isSwift, MalumSpiritTypes::howSwift, AIR_SPIRIT_COLOR, MalumItems.AIR_SPIRIT_SPLINTER);
-        WATER_SPIRIT = create("water", MalumSpiritTypes::isAquatic, MalumSpiritTypes::howAquatic, WATER_SPIRIT_COLOR, MalumItems.WATER_SPIRIT_SPLINTER);
-        FIRE_SPIRIT = create("fire", MalumSpiritTypes::isNetherborne, MalumSpiritTypes::howNetherborne, FIRE_SPIRIT_COLOR, MalumItems.FIRE_SPIRIT_SPLINTER);
-        EARTH_SPIRIT = create("earth", MalumSpiritTypes::isFusible, MalumSpiritTypes::howFusible, EARTH_SPIRIT_COLOR, MalumItems.FIRE_SPIRIT_SPLINTER);
-        MAGIC_SPIRIT = create("magic", MalumSpiritTypes::isArcane, MalumSpiritTypes::howArcane, MAGIC_SPIRIT_COLOR, MalumItems.MAGIC_SPIRIT_SPLINTER);
+        LIFE_SPIRIT = create("life", MalumSpiritTypes::isLife, MalumSpiritTypes::howLife, LIFE_SPIRIT_COLOR, MalumItems.LIFE_SPIRIT_SPLINTER);
+        DEATH_SPIRIT = create("death", MalumSpiritTypes::isDeath, MalumSpiritTypes::howDeath, DEATH_SPIRIT_COLOR, MalumItems.DEATH_SPIRIT_SPLINTER);
+        AIR_SPIRIT = create("air", MalumSpiritTypes::isAir, MalumSpiritTypes::howAir, AIR_SPIRIT_COLOR, MalumItems.AIR_SPIRIT_SPLINTER);
+        WATER_SPIRIT = create("water", MalumSpiritTypes::isWater, MalumSpiritTypes::howWater, WATER_SPIRIT_COLOR, MalumItems.WATER_SPIRIT_SPLINTER);
+        FIRE_SPIRIT = create("fire", MalumSpiritTypes::isFire, MalumSpiritTypes::howFire, FIRE_SPIRIT_COLOR, MalumItems.FIRE_SPIRIT_SPLINTER);
+        EARTH_SPIRIT = create("earth", MalumSpiritTypes::isEarth, MalumSpiritTypes::howEarth, EARTH_SPIRIT_COLOR, MalumItems.EARTH_SPIRIT_SPLINTER);
+        MAGIC_SPIRIT = create("magic", MalumSpiritTypes::isMagic, MalumSpiritTypes::howMagic, MAGIC_SPIRIT_COLOR, MalumItems.MAGIC_SPIRIT_SPLINTER);
         ELDRITCH_SPIRIT = create("eldritch", MalumSpiritTypes::isEldritch, MalumSpiritTypes::howEldritch, ELDRITCH_SPIRIT_COLOR, MalumItems.ELDRITCH_SPIRIT_SPLINTER);
     }
     
@@ -69,12 +69,12 @@ public class MalumSpiritTypes
         return spiritType;
     }
     
-    public static boolean isWild(LivingEntity entity) //animal.
+    public static boolean isLife(LivingEntity entity) //animal.
     {
         return entity instanceof AnimalEntity || entity instanceof SquidEntity;
     }
     
-    public static int howWild(LivingEntity entity) //size.
+    public static int howLife(LivingEntity entity) //size.
     {
         if (entity instanceof AbstractHorseEntity)
         {
@@ -87,12 +87,12 @@ public class MalumSpiritTypes
         return 1;
     }
     
-    public static boolean isGrave(LivingEntity entity) //dead.
+    public static boolean isDeath(LivingEntity entity) //dead.
     {
         return entity.isEntityUndead();
     }
     
-    public static int howGrave(LivingEntity entity) //how menacing.
+    public static int howDeath(LivingEntity entity) //how menacing.
     {
         if (entity instanceof WitherEntity)
         {
@@ -109,12 +109,12 @@ public class MalumSpiritTypes
         return 1;
     }
     
-    public static boolean isSwift(LivingEntity entity) //capable of flying or fast
+    public static boolean isAir(LivingEntity entity) //capable of flying or fast
     {
-        return entity instanceof AbstractHorseEntity || entity instanceof SpiderEntity || entity instanceof FlyingEntity || entity instanceof VexEntity || entity instanceof ParrotEntity || entity instanceof BatEntity || entity instanceof CatEntity || entity instanceof FoxEntity || entity instanceof OcelotEntity || entity instanceof RabbitEntity || entity instanceof StriderEntity || entity instanceof EndermanEntity || entity instanceof SilverfishEntity;
+        return entity instanceof BeeEntity || entity instanceof AbstractHorseEntity || entity instanceof SpiderEntity || entity instanceof FlyingEntity || entity instanceof VexEntity || entity instanceof ParrotEntity || entity instanceof BatEntity || entity instanceof CatEntity || entity instanceof FoxEntity || entity instanceof OcelotEntity || entity instanceof RabbitEntity || entity instanceof StriderEntity || entity instanceof EndermanEntity || entity instanceof SilverfishEntity;
     }
     
-    public static int howSwift(LivingEntity entity) //zoom potential.
+    public static int howAir(LivingEntity entity) //zoom potential.
     {
         if (entity instanceof StriderEntity || entity instanceof SilverfishEntity || entity instanceof AbstractHorseEntity)
         {
@@ -124,19 +124,19 @@ public class MalumSpiritTypes
         {
             return 3;
         }
-        if (entity instanceof RabbitEntity || entity instanceof FoxEntity || entity instanceof SpiderEntity)
+        if (entity instanceof BeeEntity || entity instanceof RabbitEntity || entity instanceof FoxEntity || entity instanceof SpiderEntity)
         {
             return 2;
         }
         return 1;
     }
     
-    public static boolean isAquatic(LivingEntity entity) //le fishe
+    public static boolean isWater(LivingEntity entity) //le fishe
     {
         return entity.getCreatureAttribute().equals(CreatureAttribute.WATER);
     }
     
-    public static int howAquatic(LivingEntity entity) //how is le fishe doing.
+    public static int howWater(LivingEntity entity) //how is le fishe doing.
     {
         if (entity instanceof ElderGuardianEntity)
         {
@@ -153,7 +153,7 @@ public class MalumSpiritTypes
         return 1;
     }
     
-    public static boolean isArcane(LivingEntity entity) //made or capable of using magic, or a phenomenon
+    public static boolean isMagic(LivingEntity entity) //made or capable of using magic, or a phenomenon
     {
         if (entity.getType().getRegistryName().getPath().equals("wraith"))
         {
@@ -162,7 +162,7 @@ public class MalumSpiritTypes
         return entity instanceof SpellcastingIllagerEntity || entity instanceof SlimeEntity || entity instanceof AbstractSkeletonEntity || entity instanceof VexEntity || entity instanceof WanderingTraderEntity || entity instanceof WitchEntity || entity instanceof PhantomEntity || entity instanceof GhastEntity || entity instanceof MooshroomEntity;
     }
     
-    public static int howArcane(LivingEntity entity) //wooooo magic yeahhh.
+    public static int howMagic(LivingEntity entity) //wooooo magic yeahhh.
     {
         if (entity instanceof WanderingTraderEntity || entity instanceof SpellcastingIllagerEntity || entity instanceof WitchEntity)
         {
@@ -183,7 +183,7 @@ public class MalumSpiritTypes
         return 1;
     }
     
-    public static boolean isNetherborne(LivingEntity entity) //born in the netha
+    public static boolean isFire(LivingEntity entity) //born in the netha
     {
         if (entity.isImmuneToFire())
         {
@@ -192,7 +192,7 @@ public class MalumSpiritTypes
         return entity instanceof CreeperEntity || entity instanceof HuskEntity || entity instanceof ZoglinEntity || entity instanceof GhastEntity || entity instanceof HoglinEntity || entity instanceof AbstractPiglinEntity || entity instanceof MagmaCubeEntity || entity instanceof StriderEntity || entity instanceof WitherEntity || entity instanceof WitherSkeletonEntity;
     }
     
-    public static int howNetherborne(LivingEntity entity) //how annoying are they to kill.
+    public static int howFire(LivingEntity entity) //how annoying are they to kill.
     {
         if (entity instanceof WitherEntity)
         {
@@ -209,7 +209,7 @@ public class MalumSpiritTypes
         return 1;
     }
     
-    public static boolean isFusible(LivingEntity entity) //metal, iron stuff
+    public static boolean isEarth(LivingEntity entity) //metal, iron stuff
     {
         if (entity.getType().getRegistryName().getPath().equals("zombie_brute"))
         {
@@ -218,7 +218,7 @@ public class MalumSpiritTypes
         return entity instanceof IronGolemEntity || entity instanceof ZombieEntity || entity instanceof ZombieHorseEntity || entity instanceof AbstractPiglinEntity;
     }
     
-    public static int howFusible(LivingEntity entity) //what if we merge into one :flushed:
+    public static int howEarth(LivingEntity entity) //what if we merge into one :flushed:
     {
         if (entity instanceof IronGolemEntity)
         {

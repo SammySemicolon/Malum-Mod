@@ -1,6 +1,7 @@
 package com.sammy.malum.core.systems.tileentityrendering;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.core.systems.tileentityrendering.modules.RendererModule;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -12,10 +13,10 @@ import java.util.ArrayList;
 public class AdjustableTileEntityRenderer extends TileEntityRenderer<TileEntity>
 {
     public ArrayList<RendererModule> modules;
-    public AdjustableTileEntityRenderer(Object rendererDispatcherIn, ArrayList<RendererModule> modules)
+    public AdjustableTileEntityRenderer(Object rendererDispatcherIn, RendererModule... modules)
     {
         super((TileEntityRendererDispatcher) rendererDispatcherIn);
-        this.modules = modules;
+        this.modules = MalumHelper.toArrayList(modules);
     }
     @Override
     public void render(TileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)

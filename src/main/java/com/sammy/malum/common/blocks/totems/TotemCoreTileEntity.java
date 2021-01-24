@@ -46,67 +46,65 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     @Override
     public void tick()
     {
-        if (rite != null)
+        if (MalumHelper.areWeOnClient(world))
         {
-            if (MalumHelper.areWeOnClient(world))
+            prolongedRiteEffects();
+        }
+        else
+        {
+    
+    
+            if (rite != null)
             {
-                prolongedRiteEffects();
-            }
-            else
-            {
-                MalumHelper.updateState(getBlockState(),world, pos);
-            }
-            if (rite.isInstant)
-            {
-                reset(false); //This shouldn't ever happen, but might aswell check
-                return;
-            }
-            if (rite.cooldown() == 0 || world.getGameTime() % rite.cooldown() == 0)
-            {
-                rite.effect(pos, world);
-            }
-            else
-            {
-                progress--;
-            }
-            for (int i =1; i < height; i++)
-            {
-                if (!(world.getBlockState(pos.up(i)).getBlock() instanceof TotemPoleBlock))
+                if (rite.isInstant)
                 {
-                    fail();
+                    reset(false); //This shouldn't ever happen, but might aswell check
                     return;
                 }
-            }
-            return;
-        }
-        if (active)
-        {
-            progress++;
-            if (progress > 20)
-            {
-                BlockPos previousPolePos = pos.up(height);
-                BlockState previousPoleState = world.getBlockState(previousPolePos);
-                height++;
-                
-                BlockPos polePos = pos.up(height);
-                BlockState poleState = world.getBlockState(polePos);
-    
-                if (poleState.getBlock() instanceof TotemPoleBlock)
+                if (rite.cooldown() == 0 || world.getGameTime() % rite.cooldown() == 0)
                 {
-                    if (previousPoleState.getBlock() instanceof TotemPoleBlock)
+                    rite.effect(pos, world);
+                }
+                else
+                {
+                    progress--;
+                }
+                for (int i = 1; i < height; i++)
+                {
+                    if (!(world.getBlockState(pos.up(i)).getBlock() instanceof TotemPoleBlock))
                     {
-                        if (!poleState.get(HORIZONTAL_FACING).equals(previousPoleState.get(HORIZONTAL_FACING)))
-                        {
-                            fail();
-                            return;
-                        }
+                        fail();
+                        return;
                     }
+                }
+                return;
+            }
+            if (active)
+            {
+                progress++;
+                if (progress >= 20)
+                {
+                    BlockPos previousPolePos = pos.up(height);
+                    height++;
+                    BlockPos polePos = pos.up(height);
+            
                     if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity)
                     {
                         TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
+                        if (world.getTileEntity(previousPolePos) instanceof TotemPoleTileEntity)
+                        {
+                            TotemPoleTileEntity previousTotemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(previousPolePos);
+                            if (!previousTotemPoleTileEntity.direction.equals(totemPoleTileEntity.direction))
+                            {
+                                fail();
+                                return;
+                            }
+                        }
                         if (totemPoleTileEntity.type != null)
                         {
-                            world.setBlockState(polePos, poleState.with(BlockStateProperties.POWERED, true));
+                            totemPoleTileEntity.active = true;
+                            totemPoleTileEntity.expectedActiveTime = 10;
+                            MalumHelper.updateState(world,polePos);
                             addRune(polePos, totemPoleTileEntity.type);
                         }
                         else
@@ -114,10 +112,10 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                             fail();
                         }
                     }
-                }
-                else
-                {
-                    tryRite();
+                    else
+                    {
+                        tryRite();
+                    }
                 }
             }
         }
@@ -125,64 +123,21 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     
     public void prolongedRiteEffects()
     {
-        if (MalumHelper.areWeOnClient(world))
+        for (int i = 0; i < height; i++)
         {
-            Color color = MalumConstants.faded();
-            for (int i = 0; i < height; i++)
+            BlockPos currentPolePos = getPos().up(i);
+            if (world.getTileEntity(currentPolePos) instanceof TotemPoleTileEntity)
             {
-                BlockPos currentPolePos = getPos().up(i);
-                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, currentPolePos, 2);
+                TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
+                Color color = totemPoleTileEntity.type.color;
+                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.75f, 0f).setLifetime(20).setScale(0.075f, 0).setColor(color, color).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, currentPolePos, 2);
             }
         }
-    }
-    public void riteEffects()
-    {
-        if (MalumHelper.areWeOnClient(world))
-        {
-            Color color = MalumConstants.bright();
-    
-            for (int i = 0; i < height; i++)
-            {
-                BlockPos currentPolePos = getPos().up(i);
-                if (world.getBlockState(currentPolePos).getBlock() instanceof TotemPoleBlock)
-                {
-                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, currentPolePos, 80);
-                }
-            }
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 80);
-        }
-        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f + world.rand.nextFloat() * 0.25f);
-    }
-    
-    
-    public void failureEffects(BlockPos pos)
-    {
-        if (MalumHelper.areWeOnClient(world))
-        {
-            Color color = MalumConstants.darkest();
-            for (int i = 0; i < 12; i++)
-            {
-                ArrayList<Vector3d> particlePositionsUp = MalumHelper.blockOutlinePositions(world, pos);
-                particlePositionsUp.forEach(p -> world.addParticle(ParticleTypes.SMOKE, p.x, p.y, p.z, 0, world.rand.nextFloat() * 0.1f, 0));
-            }
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 80);
-        }
-    }
-    
-    public void addRuneEffects(BlockPos pos)
-    {
-        if (MalumHelper.areWeOnClient(world))
-        {
-            Color color = MalumConstants.bright();
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setScale(0.05f, 0).setColor(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getRed() / 255f, (color.getGreen() * 0.5f) / 255f, (color.getBlue() * 0.5f) / 255f).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 80);
-        }
-        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + height * 0.25f);
     }
     
     public void addRune(BlockPos pos, MalumSpiritType rune)
     {
-        addRuneEffects(pos);
-    
+        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + height * 0.25f);
         spirits.add(rune);
         progress = 0;
     }
@@ -192,11 +147,21 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         MalumRite rite = MalumRites.getRite(spirits);
         if (rite != null)
         {
+            world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f + world.rand.nextFloat() * 0.25f);
             progress = 0;
-            riteEffects();
+            for (int i = 0; i < height; i++)
+            {
+                BlockPos currentPolePos = getPos().up(i);
+                if (world.getTileEntity(currentPolePos) instanceof TotemPoleTileEntity)
+                {
+                    TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
+                    totemPoleTileEntity.expectedActiveTime = 20;
+                    MalumHelper.updateState(world,currentPolePos);
+                }
+            }
             if (rite instanceof IPoppetBlessing)
             {
-                ((IPoppetBlessing) rite).blessPoppet(pos,world,rite);
+                ((IPoppetBlessing) rite).blessPoppet(pos, world, rite);
             }
             if (rite.isInstant)
             {
@@ -211,6 +176,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         {
             fail();
         }
+        MalumHelper.updateState(world, pos);
     }
     
     public void fail()
@@ -224,20 +190,21 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         for (int i = 0; i < height; i++)
         {
             BlockPos currentPolePos = getPos().up(i);
-            if (world.getBlockState(currentPolePos).getBlock() instanceof TotemPoleBlock)
+            if (isFailure)
             {
-                if (isFailure)
-                {
-                    failureEffects(currentPolePos);
-                }
-                world.setBlockState(currentPolePos, MalumBlocks.SUN_KISSED_LOG.get().getDefaultState());
             }
+            if (world.getTileEntity(currentPolePos) instanceof TotemPoleTileEntity)
+            {
+                TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
+                tileEntity.active = false;
+                tileEntity.expectedActiveTime = 0;
+            }
+//            if (world.getBlockState(currentPolePos).getBlock() instanceof TotemPoleBlock)
+//            {
+//                world.setBlockState(currentPolePos, MalumBlocks.SUN_KISSED_LOG.get().getDefaultState());
+//            }
         }
-        if (isFailure)
-        {
-            failureEffects(pos);
-        }
-        world.setBlockState(pos,getBlockState().with(POWERED, false));
+        world.setBlockState(pos, getBlockState().with(POWERED, false));
         active = false;
         progress = 0;
         height = 0;

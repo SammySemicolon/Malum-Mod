@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_dark_ether": {
+    "has_tainted_rock": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:ether"
+            "item": "malum:tainted_rock"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_dark_ether",
+      "has_tainted_rock",
       "has_the_recipe"
     ]
   ]

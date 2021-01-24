@@ -1,6 +1,0 @@
-{
-  "parent": "malum:block/template_totem_pole",
-  "textures": {
-    "2": "malum:runes/rune_of_earth_powered"
-  }
-}

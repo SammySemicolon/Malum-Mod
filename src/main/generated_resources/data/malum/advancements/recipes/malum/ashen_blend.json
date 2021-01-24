@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:ashen_blend"
+    ]
+  },
+  "criteria": {
+    "has_sun_kissed_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "malum:sun_logs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:ashen_blend"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sun_kissed_log",
+      "has_the_recipe"
+    ]
+  ]
+}

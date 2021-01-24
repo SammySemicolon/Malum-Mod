@@ -36,17 +36,11 @@ public class RiteOfSacrifice extends AffectEntitiesRite
         {
             return;
         }
-        int count = SpiritHelper.totalSpirits(entity);
-        entity.world.addEntity(new ItemEntity(entity.world, entity.getPosXRandom(1),entity.getPosYRandom(), entity.getPosZRandom(1), new ItemStack(MalumItems.ETHER.get(), Math.min(count, 64))));
-        entity.onKillCommand();
-        Color color1 = MalumConstants.faded();
-        Color color2 = MalumConstants.darkest();
-        entity.world.playSound(null, entity.getPosition(), MalumSounds.SPIRIT_HARVEST, SoundCategory.NEUTRAL,1,1.5f + entity.world.rand.nextFloat() * 0.5f);
-        if (MalumHelper.areWeOnClient(entity.world))
+        if (entity.getMaxHealth() > 30)
         {
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(30).setScale(0.15f, 0).setColor(color1.getRed() / 255f, color1.getGreen() / 255f, color1.getBlue() / 255f, color2.getRed() / 255f, (color2.getGreen() * 0.5f) / 255f, (color2.getBlue() * 0.5f) / 255f).randomOffset(entity.getWidth() / 2, entity.getHeight() / 2).randomVelocity(0.01f, 0.01f).enableNoClip().repeat(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 80);
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(1.0f, 0f).setLifetime(30).setScale(0.2f, 0).setColor(color2.getRed() / 255f, color2.getGreen() / 255f, color2.getBlue() / 255f, color2.getRed() / 255f, (color2.getGreen() * 0.5f) / 255f, (color2.getBlue() * 0.5f) / 255f).randomOffset(entity.getWidth() / 2, entity.getHeight() / 2).randomVelocity(0.01f, 0.01f).enableNoClip().repeat(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 80);
+            return;
         }
-        super.effect(entity);
+        SpiritHelper.summonSpirits(entity);
+        entity.onKillCommand();
     }
 }

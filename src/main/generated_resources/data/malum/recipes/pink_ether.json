@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:pink_dye"
+    },
+    {
+      "item": "malum:pink_ether"
+    }
+  ],
+  "result": {
+    "item": "malum:pink_ether"
+  }
+}

@@ -47,14 +47,16 @@ public class SpiritSplinterItem extends Item
         }
         if (outputBlock != null)
         {
-            world.setBlockState(context.getPos(), outputBlock.getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getFace()));
+            world.setBlockState(pos, outputBlock.getDefaultState());
             MalumHelper.updateState(world, pos);
             playerEntity.swingArm(Hand.MAIN_HAND);
             world.playSound(null, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1, 1.1f);
-            if (world.getTileEntity(context.getPos()) instanceof TotemPoleTileEntity)
+            if (world.getTileEntity(pos) instanceof TotemPoleTileEntity)
             {
-                TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(context.getPos());
+                TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(pos);
                 totemPoleTileEntity.type = type;
+                totemPoleTileEntity.activeTime = 15;
+                totemPoleTileEntity.direction = context.getFace();
             }
             return ActionResultType.SUCCESS;
         }

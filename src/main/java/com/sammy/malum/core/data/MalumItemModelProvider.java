@@ -79,31 +79,16 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     private void etherBrazierItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        if (i.equals(MalumItems.ETHER_BRAZIER))
-        {
-            generatedItem(i);
-            return;
-        }
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/colored_ether_brazier_overlay")).texture("layer1", prefix("item/colored_ether_brazier"));
     }
     private void etherTorchItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        if (i.equals(MalumItems.ETHER_TORCH))
-        {
-            generatedItem(i);
-            return;
-        }
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/colored_ether_torch_overlay")).texture("layer1", prefix("item/colored_ether_torch"));
     }
     private void etherItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        if (i.equals(MalumItems.ETHER))
-        {
-            generatedItem(i);
-            return;
-        }
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/colored_ether"));
     }
     private void generatedItem(RegistryObject<Item> i)

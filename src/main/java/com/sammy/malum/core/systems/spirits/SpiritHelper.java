@@ -10,17 +10,22 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.common.items.SpiritSplinterItem;
+import com.sammy.malum.network.packets.ParticlePacket;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class SpiritHelper
 {
@@ -62,61 +67,56 @@ public class SpiritHelper
                 spirits.set(random, Pair.of(pair.getFirst(), pair.getSecond()+1));
             }
         }
-        float speed = 0.2f + 0.5f / (totalSpirits(target) + 1);
         if (!spirits.isEmpty())
         {
-            player.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SPIRIT_HARVEST, player.getSoundCategory(), 1.0F, 0.9f + player.world.rand.nextFloat() * 0.2f);
+            summonSpirits(spirits,target, player);
         }
+    }
+    public static void summonSpirits(LivingEntity target)
+    {
+        ArrayList<Pair<String, Integer>> spirits = entitySpirits(target);
+        if (!spirits.isEmpty())
+        {
+            summonSpirits(spirits,target, null);
+        }
+    }
+    public static void summonSpirits(ArrayList<Pair<String, Integer>> spirits, LivingEntity target, PlayerEntity player)
+    {
+        if (player == null)
+        {
+            player = target.world.getClosestPlayer(target.getPosX(),target.getPosY(), target.getPosZ(),-1,e -> true);
+        }
+        float speed = 0.2f + 0.5f / (totalSpirits(target) + 1);
+        target.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SPIRIT_HARVEST, target.getSoundCategory(), 1.0F, 0.9f + target.world.rand.nextFloat() * 0.2f);
         for (int i = 0; i < spirits.size(); i++)
         {
             String spirit = spirits.get(i).getFirst();
             int count = spirits.get(i).getSecond();
+            MalumSpiritType type = figureOutType(spirit);
             if (count == 0)
             {
                 continue;
             }
+            if (player == null)
+            {
+                for (int j = 0; j < count; j++)
+                {
+                    ItemEntity itemEntity = new ItemEntity(target.world, target.getPosXRandom(1), target.getPosYRandom(), target.getPosZRandom(1), type.splinterItem.getDefaultInstance());
+                    target.world.addEntity(itemEntity);
+                    spirits.set(i, Pair.of(spirit, count - 1));
+                }
+                continue;
+            }
             for (int j = 0; j < count; j++)
             {
-                SpiritSplinterItemEntity essenceEntity = new SpiritSplinterItemEntity(MalumEntities.SPIRIT_ESSENCE.get(), player.world);
+                SpiritSplinterItemEntity essenceEntity = new SpiritSplinterItemEntity(MalumEntities.SPIRIT_ESSENCE.get(), target.world);
                 essenceEntity.setMotion(MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed), MathHelper.nextFloat(MalumMod.RANDOM, 0.05f, 0.05f), MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed));
                 essenceEntity.setPosition(target.getPositionVec().x, target.getPositionVec().y + target.getHeight() / 2f, target.getPositionVec().z);
-                essenceEntity.setData(figureOutType(spirit).splinterItem, player.getUniqueID());
-                player.world.addEntity(essenceEntity);
+                essenceEntity.setData(type.splinterItem, player.getUniqueID());
+                target.world.addEntity(essenceEntity);
                 spirits.set(i, Pair.of(spirit, count - 1));
             }
         }
-    }
-    public static boolean consumeSpirit(String identifier, int count, int integrity, PlayerEntity playerEntity, ItemStack stack)
-    {
-        ArrayList<ItemStack> stacks = (ArrayList<ItemStack>) playerEntity.inventory.mainInventory.stream().filter(i -> i.getItem() instanceof SpiritSplinterItem).collect(Collectors.toList());
-        CompoundNBT tag = stack.getOrCreateTag();
-    
-        if (integrity != 0)
-        {
-    
-            if (tag.getInt("spiritIntegrity") > 0)
-            {
-                tag.putInt("spiritIntegrity", tag.getInt("spiritIntegrity") - 1);
-                return true;
-            }
-        }
-        for (ItemStack splinter : stacks)
-        {
-            SpiritSplinterItem item = (SpiritSplinterItem) splinter.getItem();
-            if (item.type.identifier.equals(identifier))
-            {
-                if (splinter.getCount() >= count)
-                {
-                    if (integrity != 0)
-                    {
-                        tag.putInt("spiritIntegrity", integrity);
-                    }
-                    splinter.shrink(count);
-                    return true;
-                }
-            }
-        }
-        return false;
     }
     public static void harvestSpirit(ArrayList<Pair<String, Integer>> spirits, PlayerEntity player)
     {

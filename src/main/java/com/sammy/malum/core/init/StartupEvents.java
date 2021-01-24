@@ -18,8 +18,8 @@ public class StartupEvents
     {
         MalumSpiritKilnRecipes.init();
         MalumSpiritKilnFuels.init();
-        MalumRites.init();
         MalumSpiritTypes.init();
+        MalumRites.init();
         MalumTransfusions.init();
         MalumBookCategories.init();
     }

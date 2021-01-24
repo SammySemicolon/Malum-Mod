@@ -3,6 +3,12 @@
   "ingredients": [
     {
       "item": "malum:blaze_quartz"
+    },
+    {
+      "item": "malum:blaze_quartz"
+    },
+    {
+      "item": "minecraft:gunpowder"
     }
   ],
   "result": {

@@ -60,7 +60,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         blocks.remove(MalumBlocks.TOTEM_CORE);
         
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
-        
+    
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
@@ -194,6 +194,11 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
                 .addModel();
     }
     
+    public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        ModelFile file = models().cubeBottomTop(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/sun_kissed_log"),prefix("block/sun_kissed_log_top"),prefix("block/sun_kissed_log_top"));
+        simpleBlock(blockRegistryObject.get(),file);
+    }
     public void malumLeavesBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
@@ -258,14 +263,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         getVariantBuilder(blockRegistryObject.get()).partialState().with(PressurePlateBlock.POWERED, true).modelForState().modelFile(pressurePlateDown).addModel().partialState().with(PressurePlateBlock.POWERED, false).modelForState().modelFile(pressurePlateUp).addModel();
     }
     
-    public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String rune = name.substring("totem_pole_".length());
-        ModelFile pole = models().withExistingParent(name, MalumHelper.prefix("block/template_totem_pole")).texture("2", MalumHelper.prefix("runes/") + rune);
-        ModelFile powered = models().withExistingParent(name+"_powered", MalumHelper.prefix("block/template_totem_pole")).texture("2", MalumHelper.prefix("runes/") + rune + "_powered");
-        horizontalBlock(blockRegistryObject.get(), s -> s.get(TotemCoreBlock.POWERED) ? powered : pole, 180);
-    }
     public void brazierBlock(RegistryObject<Block> blockRegistryObject)
     {
         ModelFile brazier = models().getExistingFile(MalumHelper.prefix("block/template_ether_brazier"));

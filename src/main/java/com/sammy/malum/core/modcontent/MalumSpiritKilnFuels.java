@@ -14,7 +14,6 @@ public class MalumSpiritKilnFuels
     public static void init()
     {
         new MalumSpiritKilnFuel(MalumItems.ARCANE_CHARCOAL, 16, 1);
-        new MalumSpiritKilnFuel(MalumItems.ETHER, 32, 1);
     }
     public static MalumSpiritKilnFuel getData(ItemStack stack)
     {
