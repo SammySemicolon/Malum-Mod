@@ -2,7 +2,6 @@ package com.sammy.malum.common.blocks.spiritkiln;
 
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.extractionfocus.ExtractionFocusBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.core.init.MalumSounds;
@@ -57,7 +56,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
                 MalumHelper.updateState(world.getBlockState(pos), world, pos);
             }
         };
-        advancedInventory = new SimpleInventory(3, 1)
+        sideInventory = new SimpleInventory(3, 64)
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -82,25 +81,21 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     }
     
     public SimpleInventory inventory;
-    public SimpleInventory advancedInventory;
+    public SimpleInventory sideInventory;
     public SimpleFuelSystem powerStorage;
     public BlockPos extractionFocus;
     
     public int state;
     public MalumSpiritKilnRecipe currentRecipe;
     public float progress;
-    public float advancedProgress;
-    public ArrayList<BlockPos> blacklistedStands = new ArrayList<>();
     
     @Override
     public void readData(CompoundNBT compound)
     {
         inventory.readData(compound);
-        advancedInventory.readData(compound, "advancedInventory");
         powerStorage.readData(compound);
         extractionFocus = NBTUtil.readBlockPos(compound);
         progress = compound.getFloat("progress");
-        advancedProgress = compound.getFloat("advancedProgress");
         
         super.readData(compound);
     }
@@ -109,14 +104,12 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public CompoundNBT writeData(CompoundNBT compound)
     {
         inventory.writeData(compound);
-        advancedInventory.writeData(compound, "advancedInventory");
         powerStorage.writeData(compound);
         if (extractionFocus != null)
         {
             NBTUtil.writeBlockPos(extractionFocus);
         }
         compound.putFloat("progress", progress);
-        compound.putFloat("advancedProgress", advancedProgress);
         return super.writeData(compound);
     }
     
@@ -124,15 +117,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public void tick()
     {
         ItemStack stack = inventory.getStackInSlot(0);
-        currentRecipe = MalumSpiritKilnRecipes.getRecipe(stack);
         state = getBlockState().get(STATE);
-        if (MalumHelper.areWeOnClient(world))
-        {
-            if (state != 1 && powerStorage.fuel > 0 && currentRecipe != null)
-            {
-                passiveParticles();
-            }
-        }
         if (MalumHelper.areWeOnServer(world))
         {
             if (state != 1)
@@ -144,82 +129,16 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
                 if (powerStorage.fuel > 0)
                 {
                     passiveSound();
-                    if (state != 1)
-                    {
-                        simpleProcessing();
-                    }
                 }
             }
             else
             {
-                if (progress > 0 || advancedProgress > 0 || !blacklistedStands.isEmpty())
+                if (progress > 0)
                 {
-                    resetCachedValues();
+                    progress = 0;
                 }
             }
         }
-    }
-    
-    //region effect helpers
-    public void passiveParticles()
-    {
-        Color color = MalumConstants.faded();
-        if (world.rand.nextFloat() < 0.2f) // flame around bottom block
-        {
-            ParticleManager.create(MalumParticles.SPIRIT_FLAME)
-                    .setAlpha(1.0f, 0f).setScale(0.65f, 0)
-                    .setColor(color, color)
-                    .randomOffset(0.15, 0.025).randomVelocity(0f, 0.01f)
-                    .addVelocity(0, 0.02f, 0)
-                    .enableGravity()
-                    .repeatEdges(world, pos, 2);
-        }
-        Vector3d exhaustPos = smokeParticleOutputPos();
-        if (world.rand.nextFloat() < 0.25f) //smoke out of exhaust tubes
-        {
-            world.addParticle(ParticleTypes.SMOKE, exhaustPos.getX(), exhaustPos.getY(), exhaustPos.getZ(), 0, 0.04f, 0);
-        }
-        Vector3d itemOffset = itemOffset(this);
-        Vector3d furnaceItemPos = new Vector3d(pos.getX() + itemOffset.x,pos.getY() + itemOffset.y-0.15f,pos.getZ() + itemOffset.z);
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setScale(0.08f, 0).setLifetime(20)
-                    .randomOffset(0.15, 0.025).randomVelocity(0.025f, 0.01f)
-                    .addVelocity(0, 0.02f, 0)
-                    .setColor(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getRed()/255f, (color.getGreen() * 0.5f)/255f, (color.getBlue() * 0.5f)/255f)
-                    .setSpin(0.4f)
-                    .repeat(world, furnaceItemPos.x,furnaceItemPos.y,furnaceItemPos.z, 5);
-    
-        ParticleManager.create(MalumParticles.SPIRIT_FLAME)
-                .setAlpha(1.0f, 0).setScale(0.3f, 0)
-                .randomOffset(0.25, 0.025).randomVelocity(0.01f, 0.01f)
-                .setColor(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getRed()/255f, (color.getGreen() * 0.5f)/255f, (color.getBlue() * 0.5f)/255f)
-                .addVelocity(0, 0.01f, 0)
-                .repeat(world, furnaceItemPos.x,furnaceItemPos.y,furnaceItemPos.z, 2);
-    }
-    
-    public void finishEffects(Vector3d outputPos)
-    {
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()-> world.getChunkAt(pos)), new ParticlePacket(2, outputPos.getX(),outputPos.getY(),outputPos.getZ()));
-    
-        world.playSound(null, this.pos, MalumSounds.SPIRIT_KILN_FINISH, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
-    }
-    
-    public void dumpEffects()
-    {
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()-> world.getChunkAt(pos)), new ParticlePacket(1, pos.getX(),pos.getY(),pos.getZ()));
-    
-        world.playSound(null, this.pos, MalumSounds.SPIRIT_KILN_FAIL, SoundCategory.BLOCKS, 0.4f, 1f);
-        world.playSound(null, this.pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
-    }
-    
-    public void itemConsumeEffects(ItemStandTileEntity standTileEntity)
-    {
-        BlockPos standPos = standTileEntity.getPos();
-        Vector3d itemOffset = ItemStandTileEntity.itemOffset(standTileEntity);
-        Vector3d standItemPos = new Vector3d(standPos.getX() + itemOffset.x, standPos.getY() + itemOffset.y, standPos.getZ() + itemOffset.z);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()-> world.getChunkAt(pos)), new ParticlePacket(2, standItemPos.getX(),standItemPos.getY(),standItemPos.getZ()));
-    
-        world.playSound(null, standPos, MalumSounds.SPIRIT_KILN_CONSUME, SoundCategory.BLOCKS, 0.4f, 0.9f + world.rand.nextFloat() * 0.2f);
     }
     
     public void passiveSound()
@@ -278,34 +197,6 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         return finalPos;
     }
     
-    public Vector3d itemOutputPos()
-    {
-        extractionFocus = MalumHelper.extractionFocus(world,pos.up());
-        if (extractionFocus != null)
-        {
-            if (world.getBlockState(extractionFocus).getBlock() instanceof ExtractionFocusBlock)
-            {
-                return new Vector3d(extractionFocus.getX() + 0.5f, extractionFocus.getY() + 0.5f, extractionFocus.getZ() + 0.5f);
-            }
-        }
-        Direction direction = getBlockState().get(HORIZONTAL_FACING);
-        Vector3i directionVector = new Vector3i(direction.getXOffset(), 0, direction.getZOffset());
-        return new Vector3d(this.pos.getX() + 0.5f - directionVector.getX(), this.pos.getY() + 1.5f, this.pos.getZ() + 0.5f - directionVector.getZ());
-    }
-    //endregion
-    
-    //region logic helpers
-    public void resetCachedValues()
-    {
-        progress = 0;
-        advancedProgress = 0;
-        blacklistedStands.clear();
-        if (state == 1)
-        {
-            MalumHelper.updateState(world.getBlockState(pos), world, pos);
-        }
-    }
-    
     public void repairKiln()
     {
         if (MalumHelper.areWeOnServer(world))
@@ -324,129 +215,6 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
             }
         }
     }
-    
-    public void simpleProcessing()
-    {
-        MalumHelper.updateState(getBlockState(), world, pos);
-        progress += powerStorage.speed;
-        if (progress >= currentRecipe.recipeTime)
-        {
-            if (currentRecipe.isAdvanced())
-            {
-                progress = currentRecipe.recipeTime;
-                advancedProgress += powerStorage.speed;
-                if (advancedProgress >= MalumMod.globalSpeedMultiplier / 4f)
-                {
-                    advancedProcessing();
-                }
-            }
-            else
-            {
-                finishProcessing(currentRecipe);
-            }
-        }
-    }
-    
-    public void advancedProcessing()
-    {
-        ArrayList<BlockPos> stands = MalumHelper.itemStands(world, pos, Direction.UP, Direction.DOWN);
-        boolean success = finishAdvancedProcessing(stands);
-        if (success)
-        {
-            return;
-        }
-        stands.removeAll(blacklistedStands);
-        if (stands.isEmpty())
-        {
-            return;
-        }
-        for (BlockPos pos : stands)
-        {
-            if (world.getTileEntity(pos) instanceof ItemStandTileEntity)
-            {
-                ItemStandTileEntity standTileEntity = (ItemStandTileEntity) world.getTileEntity(pos);
-                ItemStack standStack = standTileEntity.inventory.getStackInSlot(0);
-                if (!standStack.isEmpty())
-                {
-                    int firstEmpty = advancedInventory.firstEmptyItem();
-                    if (firstEmpty != -1)
-                    {
-                        advancedInventory.setStackInSlot(firstEmpty, standStack.split(1));
-                        advancedProgress = 0;
-                        blacklistedStands.add(pos);
-                        MalumHelper.updateState(world, pos);
-                        
-                        itemConsumeEffects(standTileEntity);
-                        break;
-                    }
-                }
-                else
-                {
-                    blacklistedStands.add(pos);
-                }
-            }
-        }
-    }
-    
-    public boolean finishAdvancedProcessing(ArrayList<BlockPos> stands)
-    {
-        if (stands.size() == blacklistedStands.size())
-        {
-            ArrayList<Item> advancedItems = advancedInventory.items();
-            
-            if (currentRecipe.hasAlternatives)
-            {
-                MalumSpiritKilnRecipe maybeRightRecipe = MalumSpiritKilnRecipes.getPreciseRecipe(inventory.getStackInSlot(0), MalumHelper.toArrayList(advancedItems.stream().filter(i -> !i.getDefaultInstance().isEmpty())));
-                if (maybeRightRecipe != null)
-                {
-                    currentRecipe = maybeRightRecipe;
-                }
-            }
-            if (advancedItems.stream().filter(i -> !i.getDefaultInstance().isEmpty()).anyMatch(i -> !currentRecipe.extraItems.contains(i))) //any item in the inventory, ISN'T present in the recipe.
-            {
-                dumpAllItems();
-                return false;
-            }
-            if (MalumHelper.hasDuplicate(advancedItems.stream().filter(i -> !i.getDefaultInstance().isEmpty()).toArray())) //any item in the inventory present more than once
-            {
-                dumpAllItems();
-                return false;
-            }
-            if (advancedItems.containsAll(currentRecipe.extraItems))
-            {
-                finishProcessing(currentRecipe);
-            }
-            else
-            {
-                dumpAllItems();
-            }
-            return true;
-        }
-        return false;
-    }
-    
-    public void dumpAllItems()
-    {
-        setAndUpdateState(1);
-        powerStorage.wipe();
-        Vector3d outputPos = itemOutputPos();
-        inventory.dumpItems(world, outputPos);
-        advancedInventory.dumpItems(world, outputPos);
-        dumpEffects();
-    }
-    
-    public void finishProcessing(MalumSpiritKilnRecipe recipe)
-    {
-        Vector3d outputPos = itemOutputPos();
-        ItemEntity entity = new ItemEntity(world, outputPos.getX(), outputPos.getY(), outputPos.getZ(), new ItemStack(recipe.outputItem, recipe.outputItemCount));
-        world.addEntity(entity);
-        resetCachedValues();
-        inventory.getStackInSlot(0).shrink(recipe.inputItemCount);
-        advancedInventory.clearItems();
-        powerStorage.fuel -= (float) recipe.recipeTime / MalumMod.globalSpeedMultiplier;
-        finishEffects(outputPos);
-    }
-    //endregion
     
     public static Vector3d itemOffset(SimpleTileEntity tileEntity)
     {

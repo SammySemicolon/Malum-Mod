@@ -78,7 +78,7 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
         {
             SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos);
             ArrayList<ItemStack> stacks = tileEntity.inventory.stacks();
-            stacks.addAll(tileEntity.advancedInventory.stacks());
+            stacks.addAll(tileEntity.sideInventory.stacks());
             for (ItemStack itemStack : stacks)
             {
                 worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,itemStack));

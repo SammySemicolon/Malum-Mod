@@ -4,8 +4,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes.MalumSpiritKilnRecipe;
+import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -89,35 +89,23 @@ public class SpiritKilnRecipeCategory implements IRecipeCategory<MalumSpiritKiln
     @Override
     public void setIngredients(MalumSpiritKilnRecipe recipe, IIngredients iIngredients)
     {
-        iIngredients.setOutput(VanillaTypes.ITEM, recipe.outputItem.getDefaultInstance());
-        ArrayList<ItemStack> stacks = new ArrayList<>();
-        stacks.add(recipe.inputItem.getDefaultInstance());
-        if (recipe.isAdvanced())
-        {
-            for (Item item : recipe.extraItems)
-            {
-                stacks.add(item.getDefaultInstance());
-            }
-        }
-        iIngredients.setInputs(VanillaTypes.ITEM, stacks);
+        iIngredients.setOutputs(VanillaTypes.ITEM, recipe.outputIngredient.stacks());
+        iIngredients.setInputs(VanillaTypes.ITEM, recipe.inputIngredient.stacks());
     }
     
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, MalumSpiritKilnRecipe recipe, IIngredients iIngredients)
     {
         iRecipeLayout.getItemStacks().init(0, true, 21, 6);
-        iRecipeLayout.getItemStacks().set(0, new ItemStack(recipe.inputItem, recipe.inputItemCount));
+        iRecipeLayout.getItemStacks().set(0, recipe.inputIngredient.stacks());
         iRecipeLayout.getItemStacks().init(1, true, 81, 6);
-        iRecipeLayout.getItemStacks().set(1, new ItemStack(recipe.outputItem, recipe.outputItemCount));
-        if (recipe.isAdvanced())
+        iRecipeLayout.getItemStacks().set(1, recipe.outputIngredient.stacks());
+        int i = 0;
+        for (MalumSpiritIngredient spirit : recipe.spirits)
         {
-            int i = 0;
-            for (Item item : recipe.extraItems)
-            {
-                iRecipeLayout.getItemStacks().init(i + 2, true, 21+30*i, 33);
-                iRecipeLayout.getItemStacks().set(i + 2, item.getDefaultInstance());
-                i++;
-            }
+            iRecipeLayout.getItemStacks().init(i + 2, true, 21 + 30 * i, 33);
+            iRecipeLayout.getItemStacks().set(i + 2, new ItemStack(spirit.type.splinterItem, spirit.count));
+            i++;
         }
     }
 }

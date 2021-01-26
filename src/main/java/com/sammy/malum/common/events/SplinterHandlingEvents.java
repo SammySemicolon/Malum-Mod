@@ -12,6 +12,7 @@ import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -59,14 +60,14 @@ public class SplinterHandlingEvents
         {
             ItemStack stack = ItemStack.EMPTY;
             PlayerEntity attacker = (PlayerEntity) event.getSource().getTrueSource();
-            if (attacker.getHeldItemOffhand().getItem().equals(MalumItems.RUDIMENTARY_SNARE.get()))
+            if (event.getEntityLiving().getActivePotionEffect(MalumEffects.ENTANGLED.get()) != null)
             {
-                attacker.getHeldItemOffhand().shrink(1);
                 SpiritHelper.summonSpirits(event.getEntityLiving(), attacker, stack);
                 return;
             }
-            if (event.getEntityLiving().getActivePotionEffect(MalumEffects.ENTANGLED.get()) != null)
+            else if (attacker.getHeldItemOffhand().getItem().equals(MalumItems.RUDIMENTARY_SNARE.get()))
             {
+                attacker.getHeldItemOffhand().shrink(1);
                 SpiritHelper.summonSpirits(event.getEntityLiving(), attacker, stack);
                 return;
             }

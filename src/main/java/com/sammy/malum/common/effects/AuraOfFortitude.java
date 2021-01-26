@@ -2,6 +2,7 @@ package com.sammy.malum.common.effects;
 
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.monster.ZombifiedPiglinEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 
