@@ -16,9 +16,9 @@ public class StartupEvents
     @SubscribeEvent
     public static void registerModContents(FMLCommonSetupEvent event)
     {
+        MalumSpiritTypes.init();
         MalumSpiritKilnRecipes.init();
         MalumSpiritKilnFuels.init();
-        MalumSpiritTypes.init();
         MalumRites.init();
         MalumTransfusions.init();
         MalumBookCategories.init();

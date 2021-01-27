@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "malum:runewood_logs"
+    }
+  ],
+  "result": {
+    "item": "malum:runewood_planks",
+    "count": 4
+  }
+}

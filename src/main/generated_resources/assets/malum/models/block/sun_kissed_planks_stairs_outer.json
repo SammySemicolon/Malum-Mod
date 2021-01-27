@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "side": "malum:block/sun_kissed_planks",
-    "bottom": "malum:block/sun_kissed_planks",
-    "top": "malum:block/sun_kissed_planks"
-  }
-}

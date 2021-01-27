@@ -22,7 +22,7 @@ import java.util.Set;
 
 import static com.sammy.malum.MalumHelper.prefix;
 import static com.sammy.malum.MalumHelper.takeAll;
-import static com.sammy.malum.core.init.MalumItems.ITEMS;
+import static com.sammy.malum.core.init.MalumItems.*;
 
 public class MalumItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider
 {
@@ -36,6 +36,10 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         items.remove(MalumItems.FOOLS_BLESSING);
+        items.remove(MalumItems.SWORD_OF_MOVING_CLOUDS);
+        spiritedToolItem(SWORD_OF_MOVING_CLOUDS);
+        items.remove(PICKAXE_OF_THE_CORE);
+        spiritedToolItem(PICKAXE_OF_THE_CORE);
         takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
         takeAll(items, i -> i.get() instanceof SpiritSplinterItem).forEach(this::spiritSplinterItem);
@@ -75,6 +79,11 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
 //        SpiritSplinterItem spiritSplinterItem = (SpiritSplinterItem) i.get();
 //        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/" + name + spiritSplinterItem.type.identifier));
         withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));
+    }
+    private void spiritedToolItem(RegistryObject<Item> i)
+    {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        withExistingParent(name, HANDHELD).texture("layer0", prefix("item/" + name + "_overlay")).texture("layer1", prefix("item/" + name));
     }
     private void etherBrazierItem(RegistryObject<Item> i)
     {

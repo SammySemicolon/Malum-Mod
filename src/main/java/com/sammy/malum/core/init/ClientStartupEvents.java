@@ -8,6 +8,7 @@ import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnItemRendererModule;
+import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnSideItemRendererModule;
 import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleRendererModule;
@@ -56,7 +57,7 @@ public class ClientStartupEvents
     {
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_KILN_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new SpiritKilnItemRendererModule()));
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_KILN_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new SpiritKilnItemRendererModule(),new SpiritKilnSideItemRendererModule()));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new TotemPoleRendererModule()));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new ItemStandItemRendererModule()));
     }
@@ -106,7 +107,10 @@ public class ClientStartupEvents
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
             ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
-        
+    
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.SWORD_OF_MOVING_CLOUDS, MalumSpiritTypes.AIR_SPIRIT_COLOR);
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.PICKAXE_OF_THE_CORE, MalumSpiritTypes.FIRE_SPIRIT_COLOR);
+    
         ClientHelper.registerItemColor(itemColors, MalumItems.ORANGE_ETHER, MalumConstants.ORANGE.brighter().brighter());
         ClientHelper.registerItemColor(itemColors, MalumItems.MAGENTA_ETHER, MalumConstants.MAGENTA.brighter().brighter());
         ClientHelper.registerItemColor(itemColors, MalumItems.LIGHT_BLUE_ETHER, MalumConstants.LIGHT_BLUE.brighter().brighter());

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "malum:sun_logs"
+    "tag": "malum:runewood_logs"
   },
   "result": "malum:arcane_charcoal",
   "experience": 0.1,

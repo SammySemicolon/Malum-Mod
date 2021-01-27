@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:runewood_planks_pressure_plate"
+    ]
+  },
+  "criteria": {
+    "has_input": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:runewood_planks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:runewood_planks_pressure_plate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_input",
+      "has_the_recipe"
+    ]
+  ]
+}

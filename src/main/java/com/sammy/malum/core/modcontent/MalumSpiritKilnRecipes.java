@@ -5,7 +5,6 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
 import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -20,9 +19,9 @@ public class MalumSpiritKilnRecipes
     
     public static void init()
     {
-        new MalumSpiritKilnRecipe(Items.SOUL_SAND, 1, MalumItems.SOUL_SHARD.get(), 1, 2, simpleIngredient(MalumSpiritTypes.MAGIC_SPIRIT), simpleIngredient(MalumSpiritTypes.EARTH_SPIRIT));
-        new MalumSpiritKilnRecipe(Items.GOLD_INGOT, 1, MalumItems.HALLOWED_GOLD_INGOT.get(), 1, 4, simpleIngredient(MalumSpiritTypes.LIFE_SPIRIT), simpleIngredient(MalumSpiritTypes.MAGIC_SPIRIT), simpleIngredient(MalumSpiritTypes.DEATH_SPIRIT));
-        new MalumSpiritKilnRecipe(Items.IRON_INGOT, 1, MalumItems.SPIRITED_METAL_INGOT.get(), 1, 4, new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 2), simpleIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritKilnRecipe(Items.DIAMOND, 2, MalumItems.SOUL_GEM.get(), 1, 2, simpleIngredient(MalumSpiritTypes.MAGIC_SPIRIT,2), simpleIngredient(MalumSpiritTypes.EARTH_SPIRIT));
+        new MalumSpiritKilnRecipe(Items.GOLD_INGOT, 1, MalumItems.HALLOWED_GOLD_INGOT.get(), 1, 4, simpleIngredient(MalumSpiritTypes.LIFE_SPIRIT,2), simpleIngredient(MalumSpiritTypes.MAGIC_SPIRIT), simpleIngredient(MalumSpiritTypes.DEATH_SPIRIT));
+        new MalumSpiritKilnRecipe(Items.IRON_INGOT, 1, MalumItems.SPIRITED_METAL_INGOT.get(), 1, 4, simpleIngredient(MalumSpiritTypes.EARTH_SPIRIT, 2), simpleIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
     }
     
     public static MalumSpiritKilnRecipe getRecipe(ItemStack stack)
@@ -82,6 +81,7 @@ public class MalumSpiritKilnRecipes
                     this.hasAlternatives = true;
                 }
             }
+            INFUSING.add(this);
         }
     }
 }

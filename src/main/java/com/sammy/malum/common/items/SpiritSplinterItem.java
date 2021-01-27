@@ -41,7 +41,7 @@ public class SpiritSplinterItem extends Item
         }
         PlayerEntity playerEntity = context.getPlayer();
         Block outputBlock = null;
-        if (block.equals(MalumBlocks.SUN_KISSED_LOG.get()))
+        if (block.equals(MalumBlocks.RUNEWOOD_LOG.get()))
         {
             outputBlock = MalumBlocks.TOTEM_POLE.get();
         }
@@ -57,6 +57,7 @@ public class SpiritSplinterItem extends Item
                 totemPoleTileEntity.type = type;
                 totemPoleTileEntity.activeTime = 15;
                 totemPoleTileEntity.direction = context.getFace();
+                context.getItem().shrink(1);
             }
             return ActionResultType.SUCCESS;
         }

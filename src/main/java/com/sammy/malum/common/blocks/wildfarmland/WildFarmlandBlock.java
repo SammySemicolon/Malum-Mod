@@ -28,6 +28,24 @@ public class WildFarmlandBlock extends FarmlandBlock
     }
     
     @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random)
+    {
+        BlockState upState = worldIn.getBlockState(pos.up());
+        if (upState.getBlock() instanceof IGrowable)
+        {
+            IGrowable growable = (IGrowable) upState.getBlock();
+            if (growable.canGrow(worldIn,pos.up(), upState, false))
+            {
+                if (worldIn.rand.nextFloat() < 0.05f)
+                {
+                    growable.grow(worldIn, worldIn.rand, pos.up(),upState);
+                    worldIn.playEvent(2005, pos.up(), 0);
+                }
+            }
+        }
+    }
+    
+    @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand)
     {
     
@@ -42,7 +60,7 @@ public class WildFarmlandBlock extends FarmlandBlock
     @Override
     public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable)
     {
-        if (state.getBlock() instanceof CropsBlock)
+        if (plantable instanceof CropsBlock)
         {
             return true;
         }

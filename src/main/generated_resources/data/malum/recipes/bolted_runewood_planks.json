@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:runewood_planks"
+    },
+    "X": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "item": "malum:bolted_runewood_planks",
+    "count": 8
+  }
+}

@@ -40,16 +40,16 @@ public class MalumBlockTagProvider extends BlockTagsProvider
         getOrCreateBuilder(BUTTONS).add(getModBlocks(b -> b instanceof AbstractButtonBlock));
         getOrCreateBuilder(WOODEN_BUTTONS).add(getModBlocks(b -> b instanceof WoodButtonBlock));
         getOrCreateBuilder(PRESSURE_PLATES).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
-        getOrCreateBuilder(LOGS).add(MalumBlocks.SUN_KISSED_LOG.get(), MalumBlocks.SUN_KISSED_WOOD.get());
+        getOrCreateBuilder(LOGS).add(MalumBlocks.RUNEWOOD_LOG.get(), MalumBlocks.RUNEWOOD.get());
         getOrCreateBuilder(DIRT).add(getModBlocks(b -> b instanceof GrassBlock));
         getOrCreateBuilder(SAPLINGS).add(getModBlocks(b -> b instanceof SaplingBlock));
-        getOrCreateBuilder(PLANKS).add(MalumBlocks.SUN_KISSED_PLANKS.get());
-        getOrCreateBuilder(WOODEN_FENCES).add(MalumBlocks.SUN_KISSED_PLANKS_FENCE.get(),MalumBlocks.SUN_KISSED_PLANKS_FENCE_GATE.get());
-        getOrCreateBuilder(WOODEN_DOORS).add(MalumBlocks.SUN_KISSED_DOOR.get());
-        getOrCreateBuilder(WOODEN_STAIRS).add(MalumBlocks.SUN_KISSED_PLANKS_STAIRS.get());
-        getOrCreateBuilder(WOODEN_SLABS).add(MalumBlocks.SUN_KISSED_PLANKS_SLAB.get());
-        getOrCreateBuilder(WOODEN_TRAPDOORS).add(MalumBlocks.SUN_KISSED_TRAPDOOR.get(),MalumBlocks.SOLID_SUN_KISSED_TRAPDOOR.get());
-        getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(MalumBlocks.SUN_KISSED_PLANKS_PRESSURE_PLATE.get());
+        getOrCreateBuilder(PLANKS).add(MalumBlocks.RUNEWOOD_PLANKS.get());
+        getOrCreateBuilder(WOODEN_FENCES).add(MalumBlocks.RUNEWOOD_PLANKS_FENCE.get(),MalumBlocks.RUNEWOOD_PLANKS_FENCE_GATE.get());
+        getOrCreateBuilder(WOODEN_DOORS).add(MalumBlocks.RUNEWOOD_DOOR.get());
+        getOrCreateBuilder(WOODEN_STAIRS).add(MalumBlocks.RUNEWOOD_PLANKS_STAIRS.get());
+        getOrCreateBuilder(WOODEN_SLABS).add(MalumBlocks.RUNEWOOD_PLANKS_SLAB.get());
+        getOrCreateBuilder(WOODEN_TRAPDOORS).add(MalumBlocks.RUNEWOOD_TRAPDOOR.get(),MalumBlocks.SOLID_RUNEWOOD_TRAPDOOR.get());
+        getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(MalumBlocks.RUNEWOOD_PLANKS_PRESSURE_PLATE.get());
     }
     
     @Override

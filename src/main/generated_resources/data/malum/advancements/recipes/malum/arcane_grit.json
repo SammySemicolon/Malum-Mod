@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:arcane_grit"
+    ]
+  },
+  "criteria": {
+    "has_ashen_blend": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:ashen_blend"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:arcane_grit"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ashen_blend",
+      "has_the_recipe"
+    ]
+  ]
+}

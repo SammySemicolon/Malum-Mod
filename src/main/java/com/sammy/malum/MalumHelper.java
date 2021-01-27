@@ -306,6 +306,15 @@ public class MalumHelper
         }
         return arrayList;
     }
+    public static void giveAmplifyingEffect(Effect effect, LivingEntity target, int duration, int amplifier, int cap)
+    {
+        EffectInstance instance = target.getActivePotionEffect(effect);
+        if (instance != null)
+        {
+            amplifier += instance.amplifier+1;
+        }
+        target.addPotionEffect(new EffectInstance(effect, duration, Math.min(amplifier, cap)));
+    }
     public static void giveStackingEffect(Effect effect, LivingEntity target, int duration, int amplifier)
     {
         EffectInstance instance = target.getActivePotionEffect(effect);

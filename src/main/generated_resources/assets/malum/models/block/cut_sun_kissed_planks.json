@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "side": "malum:block/cut_sun_kissed_planks",
-    "bottom": "malum:block/cut_sun_kissed_planks",
-    "top": "malum:block/sun_kissed_panel"
-  }
-}

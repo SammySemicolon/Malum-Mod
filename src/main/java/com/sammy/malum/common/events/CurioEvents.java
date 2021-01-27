@@ -1,11 +1,10 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.items.equipment.curios.CurioArcaneSeal;
-import com.sammy.malum.common.items.equipment.curios.CurioKarmicHolder;
-import com.sammy.malum.common.items.equipment.curios.CurioFlaskOfGreed;
+import com.sammy.malum.common.items.equipment.curios.SimpleCurio;
 import com.sammy.malum.common.items.equipment.curios.CurioBootsOFLevitation;
 import com.sammy.malum.core.init.MalumEffects;
+import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -55,7 +54,7 @@ public class CurioEvents
         if (event.getDamageSource().getTrueSource() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getDamageSource().getTrueSource();
-            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioFlaskOfGreed, playerEntity).ifPresent(triple -> event.setLootingLevel(event.getLootingLevel() + 1));
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem().equals(MalumItems.FLASK_OF_GREED.get()), playerEntity).ifPresent(triple -> event.setLootingLevel(event.getLootingLevel() + 1));
         }
     }
     
@@ -69,7 +68,7 @@ public class CurioEvents
             {
                 if (playerEntity.getActivePotionEffect(Effects.WEAKNESS) == null)
                 {
-                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioKarmicHolder, playerEntity).ifPresent(triple -> {
+                    CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem().equals(MalumItems.KARMIC_HOLDER.get()), playerEntity).ifPresent(triple -> {
                         playerEntity.addPotionEffect(new EffectInstance(MalumEffects.FOOLS_LUCK.get(), 200, 0));
                         playerEntity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 1200, 0));
                         playerEntity.world.playSound(null, playerEntity.getPosition(), MalumSounds.KARMIC_HOLDER_ACTIVATE, SoundCategory.PLAYERS, 1, 1);
@@ -102,7 +101,7 @@ public class CurioEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioArcaneSeal, playerEntity).ifPresent(triple -> {
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof SimpleCurio, playerEntity).ifPresent(triple -> {
                 if (event.getSource().isMagicDamage())
                 {
                     event.setAmount(event.getAmount() * 0.5f);
@@ -116,7 +115,7 @@ public class CurioEvents
         if (event.getSource().getTrueSource() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
-            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioArcaneSeal, playerEntity).ifPresent(triple -> {
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof SimpleCurio, playerEntity).ifPresent(triple -> {
                 if (event.getSource().isMagicDamage())
                 {
                     event.setCanceled(true);

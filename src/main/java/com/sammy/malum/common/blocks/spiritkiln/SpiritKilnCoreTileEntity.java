@@ -17,6 +17,7 @@ import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.tileentities.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.network.packets.ParticlePacket;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,10 +36,12 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock.STATE;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
+import static net.minecraft.util.Direction.*;
 
 @SuppressWarnings("ConstantConditions")
 public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements ITickableTileEntity, IFuelTileEntity
@@ -83,6 +86,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     public SimpleInventory inventory;
     public SimpleInventory sideInventory;
     public SimpleFuelSystem powerStorage;
+    public HashMap<Direction, Integer> slotToDirection = new HashMap<>();
     public BlockPos extractionFocus;
     
     public int state;
@@ -96,7 +100,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
         powerStorage.readData(compound);
         extractionFocus = NBTUtil.readBlockPos(compound);
         progress = compound.getFloat("progress");
-        
+        setupDirections(getBlockState());
         super.readData(compound);
     }
     
@@ -140,7 +144,39 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
             }
         }
     }
-    
+    public void setupDirections(BlockState state)
+    {
+        switch (state.get(HORIZONTAL_FACING))
+        {
+            case NORTH:
+            {
+                slotToDirection.put(EAST, 0);
+                slotToDirection.put(SOUTH, 1);
+                slotToDirection.put(WEST, 2);
+                break;
+            }
+            case SOUTH:
+            {
+                slotToDirection.put(WEST, 0);
+                slotToDirection.put(NORTH, 1);
+                slotToDirection.put(EAST, 2);
+                break;
+            }
+            case EAST:
+            {
+                slotToDirection.put(SOUTH, 0);
+                slotToDirection.put(WEST, 1);
+                slotToDirection.put(NORTH, 2);
+                break;
+            }
+            case WEST:
+            {
+                slotToDirection.put(NORTH, 0);
+                slotToDirection.put(EAST, 1);
+                slotToDirection.put(SOUTH, 2);
+            }
+        }
+    }
     public void passiveSound()
     {
         if (world.rand.nextFloat() < 0.05f)

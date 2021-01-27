@@ -20,7 +20,7 @@ public class MalumTransfusions
         new MalumTransfusionRecipe(Blocks.STONE, MalumBlocks.TAINTED_ROCK.get());
         new MalumTransfusionRecipe(Blocks.BLACKSTONE, MalumBlocks.DARKENED_ROCK.get());
         new MalumTransfusionRecipe(Blocks.GRASS_BLOCK, MalumBlocks.SUN_KISSED_GRASS_BLOCK.get());
-        new MalumTransfusionRecipe(BlockTags.LOGS, MalumBlocks.SUN_KISSED_LOG.get());
+        new MalumTransfusionRecipe(BlockTags.LOGS, MalumBlocks.RUNEWOOD_LOG.get());
         new MalumTransfusionRecipe(Blocks.COBBLESTONE, Blocks.NETHERRACK);
     }
     

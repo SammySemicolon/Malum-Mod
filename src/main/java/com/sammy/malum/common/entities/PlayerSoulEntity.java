@@ -16,6 +16,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.awt.*;
 import java.util.UUID;
@@ -84,6 +85,10 @@ public class PlayerSoulEntity extends ProjectileItemEntity
                 {
                     float distance = getDistance(soulOwner);
                     float velocity = 0.025f;
+                    if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem().equals(MalumItems.RING_OF_ATTRACTION.get()),soulOwner).isPresent())
+                    {
+                        velocity = 0.1f;
+                    }
                     Vector3d ownerPos = soulOwner.getPositionVec();
                     Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(), ownerPos.z - getPosZ()).normalize().mul(velocity, velocity, velocity);
                     setMotion(desiredMotion);
@@ -102,6 +107,7 @@ public class PlayerSoulEntity extends ProjectileItemEntity
                     {
                         if (isAlive())
                         {
+                            newOwner.heal(newOwner.getMaxHealth());
                             remove();
                         }
                     }

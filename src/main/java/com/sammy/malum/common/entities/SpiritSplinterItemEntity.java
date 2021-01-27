@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entities;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
@@ -19,6 +20,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.UUID;
 
@@ -82,7 +84,12 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
                 float distance = getDistance(entity);
                 if (age > 10)
                 {
-                    if (distance < 2f)
+                    float minimumDistance = 2f;
+                    if (CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem().equals(MalumItems.RING_OF_ATTRACTION.get()),entity).isPresent())
+                    {
+                        minimumDistance = 10f;
+                    }
+                    if (distance < minimumDistance)
                     {
                         float velocity = 0.25f;
                         Vector3d ownerPos = entity.getPositionVec().add(0, 0, 0);

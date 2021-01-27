@@ -17,6 +17,10 @@ public class MalumSpiritIngredient
     {
         return new MalumSpiritIngredient(type, 1);
     }
+    public static MalumSpiritIngredient simpleIngredient(MalumSpiritType type, int count)
+    {
+        return new MalumSpiritIngredient(type, count);
+    }
     public MalumSpiritIngredient(MalumSpiritType type, int count) {
         this.type = type;
         this.count = count;

@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "malum:sun_kissed_trapdoor",
-    "malum:solid_sun_kissed_trapdoor"
+    "malum:runewood_trapdoor",
+    "malum:solid_runewood_trapdoor"
   ]
 }

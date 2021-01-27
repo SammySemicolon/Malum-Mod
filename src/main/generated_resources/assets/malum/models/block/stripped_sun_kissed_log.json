@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "malum:block/stripped_sun_kissed_log",
-    "end": "malum:block/stripped_sun_kissed_log_top"
-  }
-}

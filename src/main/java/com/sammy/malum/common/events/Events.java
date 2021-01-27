@@ -158,6 +158,24 @@ public class Events
         }
     }
     @SubscribeEvent
+    public static void bladeOfWind(LivingHurtEvent event)
+    {
+        if (event.getSource().getTrueSource() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+            if (playerEntity.world instanceof ServerWorld)
+            {
+                if (playerEntity.swingingHand != null)
+                {
+                    if (playerEntity.getHeldItem(playerEntity.swingingHand).getItem().equals(MalumItems.SWORD_OF_MOVING_CLOUDS.get()))
+                    {
+                        MalumHelper.giveAmplifyingEffect(MalumEffects.BLADE_OF_WIND.get(), playerEntity, 100, 0, 4);
+                    }
+                }
+            }
+        }
+    }
+    @SubscribeEvent
     public static void onHurt(LivingHurtEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)

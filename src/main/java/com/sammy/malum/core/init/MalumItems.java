@@ -166,42 +166,42 @@ public class MalumItems
     public static final RegistryObject<Item> TALL_SUN_KISSED_GRASS = ITEMS.register("tall_sun_kissed_grass", () -> new BlockItem(MalumBlocks.TALL_SUN_KISSED_GRASS.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(MalumBlocks.LAVENDER.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> SUN_KISSED_LOG = ITEMS.register("sun_kissed_log", () -> new BlockItem(MalumBlocks.SUN_KISSED_LOG.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_WOOD = ITEMS.register("sun_kissed_wood", () -> new BlockItem(MalumBlocks.SUN_KISSED_WOOD.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STRIPPED_SUN_KISSED_LOG = ITEMS.register("stripped_sun_kissed_log", () -> new BlockItem(MalumBlocks.STRIPPED_SUN_KISSED_LOG.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> STRIPPED_SUN_KISSED_WOOD = ITEMS.register("stripped_sun_kissed_wood", () -> new BlockItem(MalumBlocks.STRIPPED_SUN_KISSED_WOOD.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_LOG = ITEMS.register("runewood_log", () -> new BlockItem(MalumBlocks.RUNEWOOD_LOG.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD = ITEMS.register("runewood", () -> new BlockItem(MalumBlocks.RUNEWOOD.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_RUNEWOOD_LOG = ITEMS.register("stripped_runewood_log", () -> new BlockItem(MalumBlocks.STRIPPED_RUNEWOOD_LOG.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_RUNEWOOD = ITEMS.register("stripped_runewood", () -> new BlockItem(MalumBlocks.STRIPPED_RUNEWOOD.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> SUN_KISSED_PLANKS = ITEMS.register("sun_kissed_planks", () -> new BlockItem(MalumBlocks.SUN_KISSED_PLANKS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> VERTICAL_SUN_KISSED_PLANKS = ITEMS.register("vertical_sun_kissed_planks", () -> new BlockItem(MalumBlocks.VERTICAL_SUN_KISSED_PLANKS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BOLTED_SUN_KISSED_PLANKS = ITEMS.register("bolted_sun_kissed_planks", () -> new BlockItem(MalumBlocks.BOLTED_SUN_KISSED_PLANKS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_PANEL = ITEMS.register("sun_kissed_panel", () -> new BlockItem(MalumBlocks.SUN_KISSED_PANEL.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_TILES = ITEMS.register("sun_kissed_tiles", () -> new BlockItem(MalumBlocks.SUN_KISSED_TILES.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS = ITEMS.register("runewood_planks", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS = ITEMS.register("vertical_runewood_planks", () -> new BlockItem(MalumBlocks.VERTICAL_RUNEWOOD_PLANKS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> BOLTED_RUNEWOOD_PLANKS = ITEMS.register("bolted_runewood_planks", () -> new BlockItem(MalumBlocks.BOLTED_RUNEWOOD_PLANKS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PANEL = ITEMS.register("runewood_panel", () -> new BlockItem(MalumBlocks.RUNEWOOD_PANEL.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_TILES = ITEMS.register("runewood_tiles", () -> new BlockItem(MalumBlocks.RUNEWOOD_TILES.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> SUN_KISSED_PLANKS_SLAB = ITEMS.register("sun_kissed_planks_slab", () -> new BlockItem(MalumBlocks.SUN_KISSED_PLANKS_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> VERTICAL_SUN_KISSED_PLANKS_SLAB = ITEMS.register("vertical_sun_kissed_planks_slab", () -> new BlockItem(MalumBlocks.VERTICAL_SUN_KISSED_PLANKS_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BOLTED_SUN_KISSED_PLANKS_SLAB = ITEMS.register("bolted_sun_kissed_planks_slab", () -> new BlockItem(MalumBlocks.BOLTED_SUN_KISSED_PLANKS_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_PANEL_SLAB = ITEMS.register("sun_kissed_panel_slab", () -> new BlockItem(MalumBlocks.SUN_KISSED_PANEL_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_TILES_SLAB = ITEMS.register("sun_kissed_tiles_slab", () -> new BlockItem(MalumBlocks.SUN_KISSED_TILES_SLAB.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_SLAB = ITEMS.register("runewood_planks_slab", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_SLAB.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS_SLAB = ITEMS.register("vertical_runewood_planks_slab", () -> new BlockItem(MalumBlocks.VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> BOLTED_RUNEWOOD_PLANKS_SLAB = ITEMS.register("bolted_runewood_planks_slab", () -> new BlockItem(MalumBlocks.BOLTED_RUNEWOOD_PLANKS_SLAB.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PANEL_SLAB = ITEMS.register("runewood_panel_slab", () -> new BlockItem(MalumBlocks.RUNEWOOD_PANEL_SLAB.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_TILES_SLAB = ITEMS.register("runewood_tiles_slab", () -> new BlockItem(MalumBlocks.RUNEWOOD_TILES_SLAB.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> SUN_KISSED_PLANKS_STAIRS = ITEMS.register("sun_kissed_planks_stairs", () -> new BlockItem(MalumBlocks.SUN_KISSED_PLANKS_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> VERTICAL_SUN_KISSED_PLANKS_STAIRS = ITEMS.register("vertical_sun_kissed_planks_stairs", () -> new BlockItem(MalumBlocks.VERTICAL_SUN_KISSED_PLANKS_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BOLTED_SUN_KISSED_PLANKS_STAIRS = ITEMS.register("bolted_sun_kissed_planks_stairs", () -> new BlockItem(MalumBlocks.BOLTED_SUN_KISSED_PLANKS_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_PANEL_STAIRS = ITEMS.register("sun_kissed_panel_stairs", () -> new BlockItem(MalumBlocks.SUN_KISSED_PANEL_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_TILES_STAIRS = ITEMS.register("sun_kissed_tiles_stairs", () -> new BlockItem(MalumBlocks.SUN_KISSED_TILES_STAIRS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_STAIRS = ITEMS.register("runewood_planks_stairs", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_STAIRS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS_STAIRS = ITEMS.register("vertical_runewood_planks_stairs", () -> new BlockItem(MalumBlocks.VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> BOLTED_RUNEWOOD_PLANKS_STAIRS = ITEMS.register("bolted_runewood_planks_stairs", () -> new BlockItem(MalumBlocks.BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PANEL_STAIRS = ITEMS.register("runewood_panel_stairs", () -> new BlockItem(MalumBlocks.RUNEWOOD_PANEL_STAIRS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_TILES_STAIRS = ITEMS.register("runewood_tiles_stairs", () -> new BlockItem(MalumBlocks.RUNEWOOD_TILES_STAIRS.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> CUT_SUN_KISSED_PLANKS = ITEMS.register("cut_sun_kissed_planks", () -> new BlockItem(MalumBlocks.CUT_SUN_KISSED_PLANKS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_BEAM = ITEMS.register("sun_kissed_beam", () -> new BlockItem(MalumBlocks.SUN_KISSED_BEAM.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BOLTED_SUN_KISSED_BEAM = ITEMS.register("bolted_sun_kissed_beam", () -> new BlockItem(MalumBlocks.BOLTED_SUN_KISSED_BEAM.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> CUT_RUNEWOOD_PLANKS = ITEMS.register("cut_runewood_planks", () -> new BlockItem(MalumBlocks.CUT_RUNEWOOD_PLANKS.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_BEAM = ITEMS.register("runewood_beam", () -> new BlockItem(MalumBlocks.RUNEWOOD_BEAM.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> BOLTED_RUNEWOOD_BEAM = ITEMS.register("bolted_runewood_beam", () -> new BlockItem(MalumBlocks.BOLTED_RUNEWOOD_BEAM.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> SUN_KISSED_DOOR = ITEMS.register("sun_kissed_door", () -> new BlockItem(MalumBlocks.SUN_KISSED_DOOR.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_TRAPDOOR = ITEMS.register("sun_kissed_trapdoor", () -> new BlockItem(MalumBlocks.SUN_KISSED_TRAPDOOR.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SOLID_SUN_KISSED_TRAPDOOR = ITEMS.register("solid_sun_kissed_trapdoor", () -> new BlockItem(MalumBlocks.SOLID_SUN_KISSED_TRAPDOOR.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_DOOR = ITEMS.register("runewood_door", () -> new BlockItem(MalumBlocks.RUNEWOOD_DOOR.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_TRAPDOOR = ITEMS.register("runewood_trapdoor", () -> new BlockItem(MalumBlocks.RUNEWOOD_TRAPDOOR.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> SOLID_RUNEWOOD_TRAPDOOR = ITEMS.register("solid_runewood_trapdoor", () -> new BlockItem(MalumBlocks.SOLID_RUNEWOOD_TRAPDOOR.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> SUN_KISSED_PLANKS_BUTTON = ITEMS.register("sun_kissed_planks_button", () -> new BlockItem(MalumBlocks.SUN_KISSED_PLANKS_BUTTON.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_PLANKS_PRESSURE_PLATE = ITEMS.register("sun_kissed_planks_pressure_plate", () -> new BlockItem(MalumBlocks.SUN_KISSED_PLANKS_PRESSURE_PLATE.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_BUTTON = ITEMS.register("runewood_planks_button", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_BUTTON.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("runewood_planks_pressure_plate", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_PRESSURE_PLATE.get(), BUILDING_PROPERTIES()));
     
-    public static final RegistryObject<Item> SUN_KISSED_PLANKS_FENCE = ITEMS.register("sun_kissed_planks_fence", () -> new BlockItem(MalumBlocks.SUN_KISSED_PLANKS_FENCE.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_PLANKS_FENCE_GATE = ITEMS.register("sun_kissed_planks_fence_gate", () -> new BlockItem(MalumBlocks.SUN_KISSED_PLANKS_FENCE_GATE.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE = ITEMS.register("runewood_planks_fence", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_FENCE.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE_GATE = ITEMS.register("runewood_planks_fence_gate", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_FENCE_GATE.get(), BUILDING_PROPERTIES()));
     
     public static final RegistryObject<Item> SUN_KISSED_LEAVES = ITEMS.register("sun_kissed_leaves", () -> new BlockItem(MalumBlocks.SUN_KISSED_LEAVES.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> SUN_KISSED_SAPLING = ITEMS.register("sun_kissed_sapling", () -> new BlockItem(MalumBlocks.SUN_KISSED_SAPLING.get(), BUILDING_PROPERTIES()));
@@ -309,7 +309,7 @@ public class MalumItems
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ASHEN_BLEND = ITEMS.register("ashen_blend", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_GRIT = ITEMS.register("arcane_grit", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_SHARD = ITEMS.register("soul_shard", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_GEM = ITEMS.register("soul_gem", () -> new Item(DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -357,6 +357,9 @@ public class MalumItems
     //    public static final RegistryObject<Item> UMBRAL_LEGGINGS = ITEMS.register("umbral_leggings", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     //    public static final RegistryObject<Item> UMBRAL_BOOTS = ITEMS.register("umbral_boots", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
+    public static final RegistryObject<Item> SWORD_OF_MOVING_CLOUDS = ITEMS.register("sword_of_moving_clouds", () -> new ModSwordItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> PICKAXE_OF_THE_CORE = ITEMS.register("pickaxe_of_the_core", () -> new ModPickaxeItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> POPPET_OF_BLEEDING = ITEMS.register("poppet_of_bleeding", () -> new PoppetOfBleeding(GEAR_PROPERTIES().maxDamage(402)));
@@ -373,13 +376,14 @@ public class MalumItems
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingSwordItem(TYRVING_ITEM, 0, -0.1f,GEAR_PROPERTIES()));
     public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> RING_OF_SUPPRESSION = ITEMS.register("ring_of_suppression", () -> new CurioRingOfSuppression(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_SUPPRESSION = ITEMS.register("ring_of_suppression", () -> new SimpleCurio(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_ATTRACTION = ITEMS.register("ring_of_attraction", () -> new SimpleCurio(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> POPPET_BELT = ITEMS.register("poppet_belt", () -> new CurioPoppetBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> BOOTS_OF_LEVITATION = ITEMS.register("boots_of_levitation", () -> new CurioBootsOFLevitation(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> ARCANE_SEAL = ITEMS.register("arcane_seal", () -> new CurioArcaneSeal(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> FLASK_OF_GREED = ITEMS.register("flask_of_greed", () -> new CurioFlaskOfGreed(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> ARCANE_SEAL = ITEMS.register("arcane_seal", () -> new SimpleCurio(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> FLASK_OF_GREED = ITEMS.register("flask_of_greed", () -> new SimpleCurio(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ANCESTRAL_VEIL = ITEMS.register("ancestral_veil", () -> new CurioAncestralVeil(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> KARMIC_HOLDER = ITEMS.register("karmic_holder", () -> new CurioKarmicHolder(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> KARMIC_HOLDER = ITEMS.register("karmic_holder", () -> new SimpleCurio(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));

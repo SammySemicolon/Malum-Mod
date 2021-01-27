@@ -6,7 +6,6 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
-import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
@@ -66,7 +65,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getTranslationKey().endsWith("_cap")).forEach(this::pillarCapBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof FarmlandBlock).forEach(this::farmlandBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof FarmlandBlock).forEach(this::wildFarmlandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof StairsBlock).forEach(this::stairsBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
@@ -161,10 +160,10 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
                 .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.EAST)
                 .modelForState().modelFile(torch).addModel();
     }
-    public void farmlandBlock(RegistryObject<Block> blockRegistryObject)
+    public void wildFarmlandBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile farmland = models().withExistingParent(name, new ResourceLocation("block/farmland")).texture("top", prefix("block/" + name));
+        ModelFile farmland = models().withExistingParent(name, prefix("block/template_farmland")).texture("side", prefix("block/sun_kissed_grass_block_side")).texture("top", prefix("block/wild_farmland")).texture("dirt", new ResourceLocation("block/dirt"));
         
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(farmland).build());
     }
@@ -196,7 +195,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
     {
-        ModelFile file = models().cubeBottomTop(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/sun_kissed_log"),prefix("block/sun_kissed_log_top"),prefix("block/sun_kissed_log_top"));
+        ModelFile file = models().cubeBottomTop(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/runewood_log"),prefix("block/runewood_log_top"),prefix("block/runewood_log_top"));
         simpleBlock(blockRegistryObject.get(),file);
     }
     public void malumLeavesBlock(RegistryObject<Block> blockRegistryObject)
@@ -318,7 +317,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     
     public void logBlock(RegistryObject<Block> blockRegistryObject)
     {
-        if (blockRegistryObject.get().getTranslationKey().endsWith("_wood"))
+        if (blockRegistryObject.equals(MalumBlocks.RUNEWOOD) || blockRegistryObject.equals(MalumBlocks.STRIPPED_RUNEWOOD))
         {
             woodBlock(blockRegistryObject);
             return;
@@ -329,7 +328,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     public void woodBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String baseName = name.substring(0, name.length() - 4) + "log";
+        String baseName = name + "_log";
         axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/" + baseName), prefix("block/" + baseName));
     }
 }

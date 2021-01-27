@@ -2,9 +2,9 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"0": "malum:block/sun_kissed_log",
-		"1": "malum:block/sun_kissed_log_top",
-		"2": "malum:block/sun_kissed_planks",
+		"0": "malum:block/runewood_log",
+		"1": "malum:block/runewood_log_top",
+		"2": "malum:block/runewood_planks",
 		"3": "malum:block/totem_core_powered",
 		"particle": "malum:block/sun_kissed_log"
 	},

@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
+import com.sammy.malum.common.items.SpiritSplinterItem;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnFuels;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysActivatedBlock
+public class SpiritKilnCoreBlock extends Block implements IMultiblock
 {
     public static final IntegerProperty STATE = IntegerProperty.create("state", 0, 2);
     
@@ -59,7 +60,9 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new SpiritKilnCoreTileEntity();
+        SpiritKilnCoreTileEntity coreTileEntity = new SpiritKilnCoreTileEntity();
+        coreTileEntity.setupDirections(state);
+        return coreTileEntity;
     }
     
     @Override
@@ -106,9 +109,9 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
                             stack.shrink(4);
                             tileEntity.repairKiln();
                             player.swing(handIn, true);
-                            return ActionResultType.SUCCESS;
                         }
                     }
+                    return ActionResultType.SUCCESS;
                 }
                 if (MalumSpiritKilnFuels.getData(stack) != null)
                 {
@@ -122,7 +125,21 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock, IAlwaysAc
                         return ActionResultType.SUCCESS;
                     }
                 }
-            
+                if (tileEntity.slotToDirection.containsKey(hit.getFace()))
+                {
+                    int slot = tileEntity.slotToDirection.get(hit.getFace());
+                    if (!tileEntity.sideInventory.getStackInSlot(slot).isEmpty())
+                    {
+                        tileEntity.sideInventory.extractItem(player, tileEntity.sideInventory.getStackInSlot(slot), slot);
+                        player.swing(handIn, true);
+                        return ActionResultType.SUCCESS;
+                    }
+                    if (stack.getItem() instanceof SpiritSplinterItem)
+                    {
+                        tileEntity.sideInventory.insertItem(stack, tileEntity.slotToDirection.get(hit.getFace()));
+                        player.swing(handIn, true);
+                    }
+                }
             }
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

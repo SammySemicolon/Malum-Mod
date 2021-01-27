@@ -215,6 +215,16 @@ public class SimpleInventory extends ItemStackHandler
             }
         }
     }
+    public void insertItem(ItemStack stack, int slot)
+    {
+        ItemStack simulate = this.insertItem(slot, stack, true);
+        int count = stack.getCount() - simulate.getCount();
+        if (count > slotSize)
+        {
+            count = slotSize;
+        }
+        insertItem(slot, stack.split(count), false);
+    }
     
     public void extractItem(PlayerEntity playerEntity, ItemStack stack, int slot)
     {

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:runewood_planks"
+    }
+  ],
+  "result": {
+    "item": "malum:runewood_planks_button"
+  }
+}
