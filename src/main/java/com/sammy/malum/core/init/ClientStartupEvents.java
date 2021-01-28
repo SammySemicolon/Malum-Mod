@@ -110,6 +110,8 @@ public class ClientStartupEvents
     
         ClientHelper.registerItemColorTint(itemColors, MalumItems.SWORD_OF_MOVING_CLOUDS, MalumSpiritTypes.AIR_SPIRIT_COLOR);
         ClientHelper.registerItemColorTint(itemColors, MalumItems.PICKAXE_OF_THE_CORE, MalumSpiritTypes.FIRE_SPIRIT_COLOR);
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.SHOVEL_OF_TREMORS, MalumSpiritTypes.EARTH_SPIRIT_COLOR);
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.HOE_OF_GROWTH, MalumSpiritTypes.LIFE_SPIRIT_COLOR);
     
         ClientHelper.registerItemColor(itemColors, MalumItems.ORANGE_ETHER, MalumConstants.ORANGE.brighter().brighter());
         ClientHelper.registerItemColor(itemColors, MalumItems.MAGENTA_ETHER, MalumConstants.MAGENTA.brighter().brighter());

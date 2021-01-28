@@ -39,27 +39,6 @@ public class MalumSpiritKilnRecipes
         return null;
     }
     
-    
-    public static MalumSpiritKilnRecipe getPreciseRecipe(ItemStack stack, ArrayList<Item> extraItems)
-    {
-        for (MalumSpiritKilnRecipe recipe : INFUSING)
-        {
-            if (recipe.hasAlternatives)
-            {
-                if (recipe.inputIngredient.item.equals(stack.getItem()))
-                {
-                    if (stack.getCount() >= recipe.inputIngredient.count)
-                    {
-                        if (recipe.spirits.containsAll(extraItems))
-                        {
-                            return recipe;
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
     public static class MalumSpiritKilnRecipe
     {
         public final MalumItemIngredient inputIngredient;

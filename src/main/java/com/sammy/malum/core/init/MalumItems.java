@@ -9,6 +9,10 @@ import com.sammy.malum.common.items.equipment.poppets.*;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
 
+import com.sammy.malum.common.items.tools.elementaltools.HoeOfGrowth;
+import com.sammy.malum.common.items.tools.elementaltools.PickaxeOfTheCore;
+import com.sammy.malum.common.items.tools.elementaltools.ShovelOfTremors;
+import com.sammy.malum.common.items.tools.elementaltools.SwordOfShiftingSkies;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.init.tabs.MalumBuildingTab;
 import com.sammy.malum.core.init.tabs.MalumCreativeTab;
@@ -307,7 +311,7 @@ public class MalumItems
     
     //region simple components
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ASHEN_BLEND = ITEMS.register("ashen_blend", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> UNHOLY_BLEND = ITEMS.register("unholy_blend", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_GRIT = ITEMS.register("arcane_grit", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_GEM = ITEMS.register("soul_gem", () -> new Item(DEFAULT_PROPERTIES()));
     
@@ -357,8 +361,10 @@ public class MalumItems
     //    public static final RegistryObject<Item> UMBRAL_LEGGINGS = ITEMS.register("umbral_leggings", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     //    public static final RegistryObject<Item> UMBRAL_BOOTS = ITEMS.register("umbral_boots", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> SWORD_OF_MOVING_CLOUDS = ITEMS.register("sword_of_moving_clouds", () -> new ModSwordItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> PICKAXE_OF_THE_CORE = ITEMS.register("pickaxe_of_the_core", () -> new ModPickaxeItem(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SWORD_OF_MOVING_CLOUDS = ITEMS.register("sword_of_moving_clouds", () -> new SwordOfShiftingSkies(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> PICKAXE_OF_THE_CORE = ITEMS.register("pickaxe_of_the_core", () -> new PickaxeOfTheCore(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SHOVEL_OF_TREMORS = ITEMS.register("shovel_of_tremors", () -> new ShovelOfTremors(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> HOE_OF_GROWTH = ITEMS.register("hoe_of_growth", () -> new HoeOfGrowth(SPIRITED_METAL_ITEM, 0, 0, GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(GEAR_PROPERTIES()));
     

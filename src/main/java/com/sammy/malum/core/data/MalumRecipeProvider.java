@@ -46,10 +46,10 @@ public class MalumRecipeProvider extends RecipeProvider
         //        shapedRecipe(MalumItems.KARMIC_HOLDER.get()).key('#', MalumItems.SHARD_OF_WISDOM.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', Items.STRING).patternLine(" Y ").patternLine("YXY").patternLine(" # ").addCriterion("has_shard_of_wisdom", hasItem(MalumItems.SHARD_OF_WISDOM.get())).build(consumer);
         
         ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addIngredient(Items.GUNPOWDER).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.MALUM_BOOK.get()).addIngredient(MalumItems.ARCANE_GRIT.get()).addIngredient(Items.BOOK).addCriterion("has_ashen_blend", hasItem(MalumItems.ASHEN_BLEND.get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.ASHEN_BLEND.get(), 4).addIngredient(MalumItemTags.UNHOLY_TRINKET).addIngredient(Items.SOUL_SAND).addIngredient(Items.REDSTONE).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.MALUM_BOOK.get()).addIngredient(MalumItems.ARCANE_GRIT.get()).addIngredient(Items.BOOK).addCriterion("has_ashen_blend", hasItem(MalumItems.UNHOLY_BLEND.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.UNHOLY_BLEND.get(), 4).addIngredient(MalumItemTags.UNHOLY_TRINKET).addIngredient(Items.SOUL_SAND).addIngredient(Items.REDSTONE).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.RUDIMENTARY_SNARE.get(), 4).key('#', Items.IRON_NUGGET).key('Y', MalumItems.ARCANE_GRIT.get()).key('X', Items.STRING).patternLine("##X").patternLine("#Y#").patternLine("X##").addCriterion("has_arcane_grit", hasItem(MalumItems.ARCANE_GRIT.get())).build(consumer);
-        smeltingRecipe(Ingredient.fromItems(MalumItems.ASHEN_BLEND.get()), MalumItems.ARCANE_GRIT.get(),0.1f,200).addCriterion("has_ashen_blend", hasItem(MalumItems.ASHEN_BLEND.get())).build(consumer);
+        smeltingRecipe(Ingredient.fromItems(MalumItems.UNHOLY_BLEND.get()), MalumItems.ARCANE_GRIT.get(),0.1f,200).addCriterion("has_ashen_blend", hasItem(MalumItems.UNHOLY_BLEND.get())).build(consumer);
         
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOLAR_SAP_BOTTLE.get()), MalumItems.SOLAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
         

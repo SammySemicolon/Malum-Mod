@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/ashen_blend"
+    "layer0": "malum:item/unholy_blend"
   }
 }

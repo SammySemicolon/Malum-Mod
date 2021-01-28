@@ -122,6 +122,7 @@ public class SpiritKilnCoreTileEntity extends MultiblockTileEntity implements IT
     {
         ItemStack stack = inventory.getStackInSlot(0);
         state = getBlockState().get(STATE);
+        currentRecipe = MalumSpiritKilnRecipes.getRecipe(stack);
         if (MalumHelper.areWeOnServer(world))
         {
             if (state != 1)

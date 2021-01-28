@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "malum:ashen_blend"
+    "item": "malum:unholy_blend"
   },
   "result": "malum:arcane_grit",
   "experience": 0.1,
