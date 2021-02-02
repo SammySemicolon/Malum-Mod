@@ -118,7 +118,7 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock
                     boolean success = tileEntity.powerStorage.increase(data);
                     if (success)
                     {
-                        stack.shrink(1);
+                        stack.shrink(data.inputIngredient.count);
                         worldIn.playSound(null, pos, MalumSounds.SPIRIT_KILN_FUEL, SoundCategory.BLOCKS, 0.4f, 0.9f + worldIn.rand.nextFloat() * 0.2f);
                         player.swing(handIn, true);
                         return ActionResultType.SUCCESS;

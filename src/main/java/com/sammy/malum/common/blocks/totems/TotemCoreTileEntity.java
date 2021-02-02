@@ -42,6 +42,18 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     public MalumRite rite;
     public ArrayList<MalumSpiritType> spirits = new ArrayList<>();
     
+    @Override
+    public void remove()
+    {
+        for (int i = 1; i < height; i++)
+        {
+            if ((world.getBlockState(pos.up(i)).getBlock() instanceof TotemPoleBlock))
+            {
+                resetBlock(pos.up(i), true);
+            }
+        }
+        super.remove();
+    }
     
     @Override
     public void tick()
@@ -57,14 +69,6 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                 if (rite.cooldown() == 0 || world.getGameTime() % rite.cooldown() == 0)
                 {
                     rite.effect(pos, world);
-                }
-                for (int i = 1; i < height; i++)
-                {
-                    if (!(world.getBlockState(pos.up(i)).getBlock() instanceof TotemPoleBlock))
-                    {
-                        fail();
-                        return;
-                    }
                 }
                 return;
             }
@@ -92,6 +96,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                         {
                             totemPoleTileEntity.active = true;
                             totemPoleTileEntity.expectedActiveTime = 10;
+                            totemPoleTileEntity.corePos = pos;
                             MalumHelper.updateState(world, polePos);
                             addRune(polePos, totemPoleTileEntity.type);
                         }
@@ -142,9 +147,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                 BlockPos currentPolePos = getPos().up(i);
                 if (world.getTileEntity(currentPolePos) instanceof TotemPoleTileEntity)
                 {
-                    TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
-                    totemPoleTileEntity.expectedActiveTime = 20;
-                    MalumHelper.updateState(world, currentPolePos);
+                    ((TotemPoleTileEntity) world.getTileEntity(currentPolePos)).activate();
                 }
             }
             if (rite instanceof IPoppetBlessing)
@@ -173,19 +176,23 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         reset(true);
     }
     
-    public void reset(boolean isFailure)
+    public void resetBlock(BlockPos pos, boolean isFailure)
     {
-        for (int i = 0; i < height; i++)
+        if (world.getBlockState(pos).getBlock() instanceof TotemPoleBlock)
         {
-            BlockPos currentPolePos = getPos().up(i);
+            world.setBlockState(pos, MalumBlocks.RUNEWOOD_LOG.get().getDefaultState());
             if (isFailure)
             {
             
             }
-            if (world.getBlockState(currentPolePos).getBlock() instanceof TotemPoleBlock)
-            {
-                world.setBlockState(currentPolePos, MalumBlocks.RUNEWOOD_LOG.get().getDefaultState());
-            }
+        }
+    }
+    
+    public void reset(boolean isFailure)
+    {
+        for (int i = 0; i < height; i++)
+        {
+            resetBlock(pos, isFailure);
         }
         active = false;
         progress = 0;

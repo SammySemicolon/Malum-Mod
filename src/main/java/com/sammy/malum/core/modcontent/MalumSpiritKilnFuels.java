@@ -1,6 +1,7 @@
 package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.RegistryObject;
@@ -13,13 +14,13 @@ public class MalumSpiritKilnFuels
     
     public static void init()
     {
-        new MalumSpiritKilnFuel(MalumItems.ARCANE_CHARCOAL, 16, 1);
+        new MalumSpiritKilnFuel(new MalumItemIngredient(MalumItems.ARCANE_CHARCOAL.get(), 1), 16, 1);
     }
     public static MalumSpiritKilnFuel getData(ItemStack stack)
     {
         for (MalumSpiritKilnFuel data : data)
         {
-            if (data.inputItem.equals(stack.getItem()))
+            if (data.inputIngredient.matches(stack))
             {
                 return data;
             }
@@ -28,13 +29,12 @@ public class MalumSpiritKilnFuels
     }
     public static class MalumSpiritKilnFuel
     {
-    
-        public final Item inputItem;
+        public final MalumItemIngredient inputIngredient;
         public final int fuelDuration;
         public final float fuelSpeed;
     
-        public MalumSpiritKilnFuel(RegistryObject<Item> inputItem, int fuelDuration, float fuelSpeed) {
-            this.inputItem = inputItem.get();
+        public MalumSpiritKilnFuel(MalumItemIngredient inputIngredient, int fuelDuration, float fuelSpeed) {
+            this.inputIngredient = inputIngredient;
             this.fuelDuration = fuelDuration;
             this.fuelSpeed = fuelSpeed;
             data.add(this);

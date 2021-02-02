@@ -80,7 +80,7 @@ public class MalumSpiritTypes
         {
             return 3;
         }
-        if (entity instanceof CowEntity || entity instanceof SheepEntity)
+        if (entity instanceof TameableEntity || entity instanceof CowEntity || entity instanceof SheepEntity)
         {
             return 2;
         }
