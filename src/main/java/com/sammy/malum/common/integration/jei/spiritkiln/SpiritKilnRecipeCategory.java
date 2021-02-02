@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes.MalumSpiritKilnRecipe;
+import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
 import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -13,13 +14,10 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-
-import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
 
@@ -101,10 +99,10 @@ public class SpiritKilnRecipeCategory implements IRecipeCategory<MalumSpiritKiln
         iRecipeLayout.getItemStacks().init(1, true, 81, 6);
         iRecipeLayout.getItemStacks().set(1, recipe.outputIngredient.stacks());
         int i = 0;
-        for (MalumSpiritIngredient spirit : recipe.spirits)
+        for (MalumItemIngredient item : recipe.items)
         {
             iRecipeLayout.getItemStacks().init(i + 2, true, 21 + 30 * i, 33);
-            iRecipeLayout.getItemStacks().set(i + 2, new ItemStack(spirit.type.splinterItem, spirit.count));
+            iRecipeLayout.getItemStacks().set(i + 2, item.stacks());
             i++;
         }
     }

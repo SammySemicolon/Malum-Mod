@@ -28,43 +28,54 @@ public class AffectBlocksRite extends MalumRite
     {
         return 0;
     }
+    public boolean doVertical()
+    {
+        return false;
+    }
     public int yOffset()
     {
         return 0;
     }
-    public boolean doCheckpoints()
-    {
-        return false;
-    }
-    public int lastX = -range();
-    public int lastZ = -range();
     @Override
     public void effect(BlockPos pos, World world)
     {
-        int startingX = -range();
-        if (doCheckpoints())
+        if (doVertical())
         {
-            startingX = lastX;
-        }
-        int startingZ = -range();
-        if (doCheckpoints())
-        {
-            startingZ = lastZ;
-        }
-        for (int x = startingX; x <= range(); x++)
-        {
-            for (int z = startingZ; z <= range(); z++)
+            for (int x = -range(); x <= range(); x++)
             {
-                BlockPos blockPos = pos.add(x, yOffset(), z);
-                BlockState state = world.getBlockState(blockPos);
-                if (!state.getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get()))
+                for (int y = -range(); y <= range(); y++)
                 {
-                    boolean success = effect(blockPos, state, world);
-                    if (success)
+                    for (int z = -range(); z <= range(); z++)
                     {
-                        lastX = x;
-                        lastZ = z;
-                        return;
+                        BlockPos blockPos = pos.add(x, yOffset() + y, z);
+                        BlockState state = world.getBlockState(blockPos);
+                        if (!state.getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get()))
+                        {
+                            boolean success = effect(blockPos, state, world);
+                            if (success)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int x = -range(); x <= range(); x++)
+            {
+                for (int z = -range(); z <= range(); z++)
+                {
+                    BlockPos blockPos = pos.add(x, yOffset(), z);
+                    BlockState state = world.getBlockState(blockPos);
+                    if (!state.getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get()))
+                    {
+                        boolean success = effect(blockPos, state, world);
+                        if (success)
+                        {
+                            return;
+                        }
                     }
                 }
             }

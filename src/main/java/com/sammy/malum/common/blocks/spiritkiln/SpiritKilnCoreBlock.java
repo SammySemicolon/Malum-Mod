@@ -111,7 +111,6 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock
                             player.swing(handIn, true);
                         }
                     }
-                    return ActionResultType.SUCCESS;
                 }
                 if (MalumSpiritKilnFuels.getData(stack) != null)
                 {
@@ -134,7 +133,7 @@ public class SpiritKilnCoreBlock extends Block implements IMultiblock
                         player.swing(handIn, true);
                         return ActionResultType.SUCCESS;
                     }
-                    if (stack.getItem() instanceof SpiritSplinterItem)
+                    else if (!stack.isEmpty())
                     {
                         tileEntity.sideInventory.insertItem(stack, tileEntity.slotToDirection.get(hit.getFace()));
                         player.swing(handIn, true);

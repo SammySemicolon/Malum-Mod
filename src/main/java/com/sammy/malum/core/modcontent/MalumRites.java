@@ -18,6 +18,7 @@ public class MalumRites
     {
         new RiteOfSacrifice("rite_of_sacrifice",true, LIFE_SPIRIT, DEATH_SPIRIT);
         new RiteOfImbuement("rite_of_imbuement",false, EARTH_SPIRIT, MAGIC_SPIRIT);
+        new RiteOfIgnition("rite_of_ignition",true, MAGIC_SPIRIT, FIRE_SPIRIT, FIRE_SPIRIT);
         new RiteOfLife("rite_of_life",false, LIFE_SPIRIT, LIFE_SPIRIT, LIFE_SPIRIT, LIFE_SPIRIT);
         new RiteOfDeath("rite_of_death",false, DEATH_SPIRIT, DEATH_SPIRIT, DEATH_SPIRIT, DEATH_SPIRIT);
         new RiteOfWater("rite_of_water",false, WATER_SPIRIT, WATER_SPIRIT, WATER_SPIRIT, WATER_SPIRIT);

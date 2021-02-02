@@ -24,12 +24,10 @@ import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FAC
 
 public class TotemCoreBlock extends Block
 {
-    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     
     public TotemCoreBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(POWERED, false));
     }
     
     @Override
@@ -51,7 +49,6 @@ public class TotemCoreBlock extends Block
                 }
                 else if (!tileEntity.active)
                 {
-                    worldIn.setBlockState(pos, state.with(POWERED, true));
                     tileEntity.active = true;
                     return ActionResultType.SUCCESS;
                 }
@@ -59,18 +56,6 @@ public class TotemCoreBlock extends Block
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
-    
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
-    {
-        blockStateBuilder.add(POWERED);
-    }
-    
-    @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        return getDefaultState().with(POWERED, false);
-    }
-    
     @Override
     public boolean hasTileEntity(BlockState state)
     {

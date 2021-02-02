@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
+import com.sammy.malum.common.items.SpiritSplinterItem;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
@@ -41,9 +42,10 @@ public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysAct
             if (worldIn.getTileEntity(pos.down()) instanceof SpiritKilnCoreTileEntity)
             {
                 SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos.down());
+    
+                ItemStack stack = player.getHeldItemMainhand();
                 if (state.get(STATE) == 1)
                 {
-                    ItemStack stack = player.getHeldItemMainhand();
                     if (stack.getItem().equals(MalumItems.TAINTED_ROCK.get()))
                     {
                         if (stack.getCount() >= 4)
@@ -54,6 +56,12 @@ public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysAct
                             return ActionResultType.SUCCESS;
                         }
                     }
+                }
+                if (!tileEntity.outputInventory.getStackInSlot(0).isEmpty())
+                {
+                    tileEntity.outputInventory.extractItem(player, tileEntity.outputInventory.getStackInSlot(0), 0);
+                    player.swing(handIn, true);
+                    return ActionResultType.SUCCESS;
                 }
                 tileEntity.inventory.playerHandleItem(state, worldIn, pos.down(), player, handIn);
                 return ActionResultType.SUCCESS;

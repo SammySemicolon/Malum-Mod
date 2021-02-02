@@ -52,22 +52,11 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         }
         else
         {
-    
-    
             if (rite != null)
             {
-                if (rite.isInstant)
-                {
-                    reset(false); //This shouldn't ever happen, but might aswell check
-                    return;
-                }
                 if (rite.cooldown() == 0 || world.getGameTime() % rite.cooldown() == 0)
                 {
                     rite.effect(pos, world);
-                }
-                else
-                {
-                    progress--;
                 }
                 for (int i = 1; i < height; i++)
                 {
@@ -81,13 +70,12 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
             }
             if (active)
             {
-                progress++;
-                if (progress >= 20)
+                if (progress == 0)
                 {
                     BlockPos previousPolePos = pos.up(height);
                     height++;
                     BlockPos polePos = pos.up(height);
-            
+    
                     if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity)
                     {
                         TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
@@ -104,18 +92,18 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                         {
                             totemPoleTileEntity.active = true;
                             totemPoleTileEntity.expectedActiveTime = 10;
-                            MalumHelper.updateState(world,polePos);
+                            MalumHelper.updateState(world, polePos);
                             addRune(polePos, totemPoleTileEntity.type);
-                        }
-                        else
-                        {
-                            fail();
                         }
                     }
                     else
                     {
                         tryRite();
                     }
+                }
+                else
+                {
+                    progress--;
                 }
             }
         }
@@ -139,7 +127,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     {
         world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + height * 0.25f);
         spirits.add(rune);
-        progress = 0;
+        progress = 20;
     }
     
     public void tryRite()
@@ -156,7 +144,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                 {
                     TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
                     totemPoleTileEntity.expectedActiveTime = 20;
-                    MalumHelper.updateState(world,currentPolePos);
+                    MalumHelper.updateState(world, currentPolePos);
                 }
             }
             if (rite instanceof IPoppetBlessing)
@@ -192,19 +180,13 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
             BlockPos currentPolePos = getPos().up(i);
             if (isFailure)
             {
+            
             }
-            if (world.getTileEntity(currentPolePos) instanceof TotemPoleTileEntity)
+            if (world.getBlockState(currentPolePos).getBlock() instanceof TotemPoleBlock)
             {
-                TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
-                tileEntity.active = false;
-                tileEntity.expectedActiveTime = 0;
+                world.setBlockState(currentPolePos, MalumBlocks.RUNEWOOD_LOG.get().getDefaultState());
             }
-//            if (world.getBlockState(currentPolePos).getBlock() instanceof TotemPoleBlock)
-//            {
-//                world.setBlockState(currentPolePos, MalumBlocks.SUN_KISSED_LOG.get().getDefaultState());
-//            }
         }
-        world.setBlockState(pos, getBlockState().with(POWERED, false));
         active = false;
         progress = 0;
         height = 0;
