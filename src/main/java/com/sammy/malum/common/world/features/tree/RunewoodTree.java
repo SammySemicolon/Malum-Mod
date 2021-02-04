@@ -7,7 +7,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 import java.util.Random;
 
-public class SunKissedTree extends BigTree
+public class RunewoodTree extends BigTree
 {
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive)

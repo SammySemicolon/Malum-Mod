@@ -35,7 +35,7 @@
                   ]
                 }
               ],
-              "name": "malum:sun_kissed_leaves"
+              "name": "malum:rune_leaves"
             },
             {
               "type": "minecraft:item",
@@ -55,7 +55,7 @@
                   ]
                 }
               ],
-              "name": "malum:sun_kissed_sapling"
+              "name": "malum:runewood_sapling"
             }
           ]
         }

@@ -1,6 +1,5 @@
 package com.sammy.malum.common.blocks.totems;
 
-import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
@@ -13,21 +12,14 @@ import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
-import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
 import java.util.ArrayList;
-
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
-import static net.minecraft.state.properties.BlockStateProperties.POWERED;
 
 public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
@@ -35,7 +27,6 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     {
         super(MalumTileEntities.TOTEM_CORE_TILE_ENTITY.get());
     }
-    
     public boolean active;
     public int progress;
     public int height;
@@ -58,11 +49,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     @Override
     public void tick()
     {
-        if (MalumHelper.areWeOnClient(world))
-        {
-            prolongedRiteEffects();
-        }
-        else
+        if (MalumHelper.areWeOnServer(world))
         {
             if (rite != null)
             {
@@ -94,9 +81,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                         }
                         if (totemPoleTileEntity.type != null)
                         {
-                            totemPoleTileEntity.active = true;
-                            totemPoleTileEntity.expectedActiveTime = 10;
-                            totemPoleTileEntity.corePos = pos;
+                            totemPoleTileEntity.start(pos);
                             MalumHelper.updateState(world, polePos);
                             addRune(polePos, totemPoleTileEntity.type);
                         }
@@ -110,20 +95,6 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                 {
                     progress--;
                 }
-            }
-        }
-    }
-    
-    public void prolongedRiteEffects()
-    {
-        for (int i = 0; i < height; i++)
-        {
-            BlockPos currentPolePos = getPos().up(i);
-            if (world.getTileEntity(currentPolePos) instanceof TotemPoleTileEntity)
-            {
-                TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
-                Color color = totemPoleTileEntity.type.color;
-                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.75f, 0f).setLifetime(20).setScale(0.075f, 0).setColor(color, color).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, currentPolePos, 2);
             }
         }
     }
@@ -190,9 +161,9 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     
     public void reset(boolean isFailure)
     {
-        for (int i = 0; i < height; i++)
+        for (int i = 1; i < height; i++)
         {
-            resetBlock(pos, isFailure);
+            resetBlock(pos.up(i), isFailure);
         }
         active = false;
         progress = 0;

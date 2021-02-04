@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "malum:block/sun_kissed_sapling"
+    "cross": "malum:block/runewood_sapling"
   }
 }

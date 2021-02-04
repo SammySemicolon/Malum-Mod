@@ -47,9 +47,9 @@ public class TotemPoleRendererModule extends RendererModule
     {
         Color color1 = new Color(10, 8, 8);
         Color color2 = totemPoleTileEntity.type.color;
-        int red = (int) MathHelper.lerp(totemPoleTileEntity.activeTime /20f,color1.getRed(),color2.getRed());
-        int green = (int) MathHelper.lerp(totemPoleTileEntity.activeTime /20f,color1.getGreen(),color2.getGreen());
-        int blue = (int) MathHelper.lerp(totemPoleTileEntity.activeTime /20f,color1.getBlue(),color2.getBlue());
+        int red = (int) MathHelper.lerp(totemPoleTileEntity.colorPercentage /20f,color1.getRed(),color2.getRed());
+        int green = (int) MathHelper.lerp(totemPoleTileEntity.colorPercentage /20f,color1.getGreen(),color2.getGreen());
+        int blue = (int) MathHelper.lerp(totemPoleTileEntity.colorPercentage /20f,color1.getBlue(),color2.getBlue());
         return new Color(red,green,blue);
     }
     public void renderTheThing(TotemPoleTileEntity totemPoleTileEntity, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn)

@@ -1,7 +1,6 @@
 package com.sammy.malum.common.items;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleTileEntity;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
@@ -10,7 +9,6 @@ import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -55,7 +53,7 @@ public class SpiritSplinterItem extends Item
             {
                 TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(pos);
                 totemPoleTileEntity.type = type;
-                totemPoleTileEntity.activeTime = 15;
+                totemPoleTileEntity.colorPercentage = 15;
                 totemPoleTileEntity.direction = context.getFace();
                 context.getItem().shrink(1);
             }

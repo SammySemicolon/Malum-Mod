@@ -3,7 +3,6 @@ package com.sammy.malum.core.data;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
@@ -12,7 +11,6 @@ import net.minecraft.advancements.criterion.*;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
-import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -85,7 +83,7 @@ public class MalumLootTableProvider extends LootTableProvider
         takeAll(blocks, b -> true).forEach(b -> registerLootTable(b.get(), dropping(b.get().asItem())));
     
         registerLootTable(MalumBlocks.BLAZE_QUARTZ_ORE.get(),droppingItemWithFortune(MalumBlocks.BLAZE_QUARTZ_ORE.get(), MalumItems.BLAZE_QUARTZ.get()));
-        registerLootTable(MalumBlocks.SUN_KISSED_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.SUN_KISSED_LEAVES.get(), MalumBlocks.SUN_KISSED_SAPLING.get(), RARE_SAPLING_DROP_RATES));
+        registerLootTable(MalumBlocks.RUNE_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.RUNE_LEAVES.get(), MalumBlocks.RUNEWOOD_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         return tables;
     }
     
