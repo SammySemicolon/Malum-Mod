@@ -1,6 +1,5 @@
 package com.sammy.malum.common.items.equipment.armor;
 
-import com.sammy.malum.client.models.ModelRuinArmor;
 import com.sammy.malum.client.models.ModelUmbralArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;

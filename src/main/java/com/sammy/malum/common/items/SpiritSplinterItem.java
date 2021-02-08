@@ -52,9 +52,7 @@ public class SpiritSplinterItem extends Item
             if (world.getTileEntity(pos) instanceof TotemPoleTileEntity)
             {
                 TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(pos);
-                totemPoleTileEntity.type = type;
-                totemPoleTileEntity.colorPercentage = 15;
-                totemPoleTileEntity.direction = context.getFace();
+                totemPoleTileEntity.setup(context.getFace(), type);
                 context.getItem().shrink(1);
             }
             return ActionResultType.SUCCESS;

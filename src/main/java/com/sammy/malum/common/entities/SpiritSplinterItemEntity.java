@@ -22,7 +22,11 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 import top.theillusivec4.curios.api.CuriosApi;
 
+import java.awt.*;
 import java.util.UUID;
+
+import static com.sammy.malum.MalumHelper.brighter;
+import static com.sammy.malum.MalumHelper.darker;
 
 public class SpiritSplinterItemEntity extends ProjectileItemEntity
 {
@@ -111,14 +115,10 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
         {
             updateSplinter();
             double x = getPosX(), y = getPosY() + yOffset(0)+0.25f, z = getPosZ();
-            float r = splinter.type.color.getRed() / 255.0f, g = splinter.type.color.getGreen() / 255.0f, b = splinter.type.color.getBlue() / 255.0f;
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(1.0f, 0).setScale(0.05f, 0).setLifetime(20)
-                    .randomOffset(0.2, 0.1).randomVelocity(0.02f, 0.06f)
-                    .addVelocity(0, 0.01f, 0)
-                    .setColor(r, g, b, r, g * 1.5f, b * 1.5f)
-                    .setSpin(0.4f)
-                    .repeat(world, x, y, z, 2);
+            Color color = splinter.type.color;
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.4f, 0f).setLifetime(20).setScale(0.075f, 0).randomOffset(0.25, 0.25).randomVelocity(0.02f, 0.08f).setColor(brighter(color, 2), darker(color, 3)).randomVelocity(0f, 0.01f).addVelocity(0, 0.01f, 0).enableNoClip().repeat(world, x,y,z, 1);
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.03f, 0f).setLifetime(60).setScale(0.3f, 0).randomOffset(0.2, 0.1).randomVelocity(0.02f, 0.02f).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).addVelocity(0, -0.005f, 0).enableNoClip().repeat(world, x,y,z,2);
+    
         }
     }
     public float yOffset(float partialTicks)

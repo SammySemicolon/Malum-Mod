@@ -12,8 +12,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
 
 import java.awt.*;
+import java.util.ArrayList;
+
+import static net.minecraft.particles.ParticleTypes.SMOKE;
 
 public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
@@ -111,14 +116,25 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         }
         if (active)
         {
-            passiveEffects();
+            passiveParticles(pos, world, type.color);
         }
     }
     
+    public void setup(Direction direction, MalumSpiritType type)
+    {
+        colorPercentage = 15;
+        this.type = type;
+        this.direction = direction;
+        MalumHelper.updateState(world, this.pos);
+        particles(pos, world, type.color, 8);
+        smoke(pos,world, 4);
+    }
     public void scan(BlockPos pos)
     {
         expectedColorPercentage = 10;
         corePos = pos;
+        MalumHelper.updateState(world, this.pos);
+        particles(this.pos, world, type.color, 8);
     }
     
     public void deactivate()
@@ -127,6 +143,8 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         colorPercentage = 20;
         active = false;
         MalumHelper.updateState(world, pos);
+        badParticles(pos, world, type.color, 2);
+        smoke(pos, world, 6);
     }
     
     public void activate()
@@ -134,16 +152,54 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         active = true;
         expectedColorPercentage = 20;
         MalumHelper.updateState(world, pos);
+        particles(pos, world, type.color, 8);
     }
     
     public void reset()
     {
         world.setBlockState(pos, MalumBlocks.RUNEWOOD_LOG.get().getDefaultState());
+        smoke(pos, world, 8);
+        badParticles(pos, world, type.color, 8);
     }
     
-    public void passiveEffects()
+    public static void smoke(BlockPos pos, World world, int count)
     {
-        Color color = type.color;
-        ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.75f, 0f).setLifetime(20).setScale(0.075f, 0).setColor(color, color).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 2);
+        if (MalumHelper.areWeOnClient(world))
+        {
+            for (int j = 0; j < count; j++)
+            {
+                ArrayList<Vector3d> particlePositions = MalumHelper.blockOutlinePositions(world, pos);
+                particlePositions.forEach(p -> world.addParticle(SMOKE, p.x, p.y, p.z, 0, world.rand.nextFloat() * 0.1f, 0));
+            }
+        }
+    }
+    
+    public static void badParticles(BlockPos pos, World world, Color color, float countMultiplier)
+    {
+        if (MalumHelper.areWeOnClient(world))
+        {
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.5f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color.brighter(), MalumHelper.darker(color, 2)).randomVelocity(0f, 0.01f).enableNoClip().evenlyRepeatEdges(world, pos, (int) (1 * countMultiplier));
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(80).setScale(0.4f, 0).setColor(color.darker(), MalumHelper.darker(color, 3)).randomVelocity(0.0025f, 0.0025f).enableNoClip().evenlyRepeatEdges(world, pos, (int) (2 * countMultiplier));
+        }
+    }
+    public static void particles(BlockPos pos, World world, Color color, float countMultiplier)
+    {
+        if (MalumHelper.areWeOnClient(world))
+        {
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.5f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).randomVelocity(0f, 0.01f).enableNoClip().evenlyRepeatEdges(world, pos, (int) (1 * countMultiplier));
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(80).setScale(0.4f, 0).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).enableNoClip().evenlyRepeatEdges(world, pos, (int) (2 * countMultiplier));
+        }
+    }
+    
+    public static void passiveParticles(BlockPos pos, World world, Color color)
+    {
+        if (MalumHelper.areWeOnClient(world))
+        {
+            if (world.rand.nextFloat() <= 0.4f)
+            {
+                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.5f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 1);
+            }
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(80).setScale(0.4f, 0).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).enableNoClip().repeatEdges(world, pos, 2);
+        }
     }
 }

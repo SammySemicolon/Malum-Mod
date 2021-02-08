@@ -46,6 +46,7 @@ import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.sammy.malum.MalumHelper.brighter;
 import static com.sammy.malum.core.init.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 
@@ -100,7 +101,7 @@ public class ClientStartupEvents
             return r << 16 | g << 8 | b;
         }, block.get()));
         blockColors.register((state, reader, pos, color) -> {
-            Color waterColor = MalumSpiritTypes.WATER_SPIRIT_COLOR.brighter().brighter();
+            Color waterColor = brighter(MalumSpiritTypes.WATER_SPIRIT_COLOR, 2);
             return waterColor.getRed() << 16 | waterColor.getGreen() << 8 | waterColor.getBlue();
         }, MalumBlocks.ABSTRUSE_BLOCK.get());
     }
@@ -115,60 +116,60 @@ public class ClientStartupEvents
             ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
     
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.SWORD_OF_MOVING_CLOUDS, MalumSpiritTypes.AIR_SPIRIT_COLOR);
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PICKAXE_OF_THE_CORE, MalumSpiritTypes.FIRE_SPIRIT_COLOR);
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.SHOVEL_OF_TREMORS, MalumSpiritTypes.EARTH_SPIRIT_COLOR);
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.HOE_OF_GROWTH, MalumSpiritTypes.LIFE_SPIRIT_COLOR);
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.SWORD_OF_MOVING_CLOUDS, brighter(MalumSpiritTypes.AIR_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.PICKAXE_OF_THE_CORE, brighter(MalumSpiritTypes.FIRE_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.SHOVEL_OF_TREMORS, brighter(MalumSpiritTypes.EARTH_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.HOE_OF_GROWTH, brighter(MalumSpiritTypes.LIFE_SPIRIT_COLOR,1));
         
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.ABSTRUSE_BLOCK, MalumSpiritTypes.WATER_SPIRIT_COLOR.brighter().brighter());
-        
-        ClientHelper.registerItemColor(itemColors, MalumItems.ORANGE_ETHER, MalumConstants.ORANGE.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.MAGENTA_ETHER, MalumConstants.MAGENTA.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.LIGHT_BLUE_ETHER, MalumConstants.LIGHT_BLUE.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.YELLOW_ETHER, MalumConstants.YELLOW.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.LIME_ETHER, MalumConstants.LIME.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.CYAN_ETHER, MalumConstants.CYAN.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.PURPLE_ETHER, MalumConstants.PURPLE.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.BLUE_ETHER, MalumConstants.BLUE.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.BROWN_ETHER, MalumConstants.BROWN.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.GREEN_ETHER, MalumConstants.GREEN.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.RED_ETHER, MalumConstants.RED.brighter().brighter());
-        ClientHelper.registerItemColor(itemColors, MalumItems.PINK_ETHER, MalumConstants.PINK.brighter().brighter());
-        
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.ORANGE_ETHER_TORCH, MalumConstants.ORANGE.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.MAGENTA_ETHER_TORCH, MalumConstants.MAGENTA.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIGHT_BLUE_ETHER_TORCH, MalumConstants.LIGHT_BLUE.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.YELLOW_ETHER_TORCH, MalumConstants.YELLOW.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIME_ETHER_TORCH, MalumConstants.LIME.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.CYAN_ETHER_TORCH, MalumConstants.CYAN.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PURPLE_ETHER_TORCH, MalumConstants.PURPLE.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.BLUE_ETHER_TORCH, MalumConstants.BLUE.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.BROWN_ETHER_TORCH, MalumConstants.BROWN.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_TORCH, MalumConstants.GREEN.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_TORCH, MalumConstants.RED.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_TORCH, MalumConstants.PINK.brighter().brighter());
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.ABSTRUSE_BLOCK, brighter(MalumSpiritTypes.WATER_SPIRIT_COLOR, 2));
     
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.ORANGE_ETHER_BRAZIER, MalumConstants.ORANGE.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.MAGENTA_ETHER_BRAZIER, MalumConstants.MAGENTA.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIGHT_BLUE_ETHER_BRAZIER, MalumConstants.LIGHT_BLUE.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.YELLOW_ETHER_BRAZIER, MalumConstants.YELLOW.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIME_ETHER_BRAZIER, MalumConstants.LIME.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.CYAN_ETHER_BRAZIER, MalumConstants.CYAN.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PURPLE_ETHER_BRAZIER, MalumConstants.PURPLE.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.BLUE_ETHER_BRAZIER, MalumConstants.BLUE.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.BROWN_ETHER_BRAZIER, MalumConstants.BROWN.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_BRAZIER, MalumConstants.GREEN.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_BRAZIER, MalumConstants.RED.brighter().brighter());
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_BRAZIER, MalumConstants.PINK.brighter().brighter());
+        ClientHelper.registerItemColor(itemColors, MalumItems.ORANGE_ETHER, brighter(MalumConstants.ORANGE, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.MAGENTA_ETHER, brighter(MalumConstants.MAGENTA, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.LIGHT_BLUE_ETHER, brighter(MalumConstants.LIGHT_BLUE, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.YELLOW_ETHER, brighter(MalumConstants.YELLOW, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.LIME_ETHER, brighter(MalumConstants.LIME, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.CYAN_ETHER, brighter(MalumConstants.CYAN, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.PURPLE_ETHER, brighter(MalumConstants.PURPLE, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.BLUE_ETHER, brighter(MalumConstants.BLUE, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.BROWN_ETHER, brighter(MalumConstants.BROWN, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.GREEN_ETHER, brighter(MalumConstants.GREEN, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.RED_ETHER, brighter(MalumConstants.RED, 2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.PINK_ETHER, brighter(MalumConstants.PINK, 2));
+    
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.ORANGE_ETHER_TORCH, brighter(MalumConstants.ORANGE, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.MAGENTA_ETHER_TORCH, brighter(MalumConstants.MAGENTA, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIGHT_BLUE_ETHER_TORCH, brighter(MalumConstants.LIGHT_BLUE, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.YELLOW_ETHER_TORCH, brighter(MalumConstants.YELLOW, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIME_ETHER_TORCH, brighter(MalumConstants.LIME, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.CYAN_ETHER_TORCH, brighter(MalumConstants.CYAN, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.PURPLE_ETHER_TORCH, brighter(MalumConstants.PURPLE, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.BLUE_ETHER_TORCH, brighter(MalumConstants.BLUE, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.BROWN_ETHER_TORCH, brighter(MalumConstants.BROWN, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_TORCH, brighter(MalumConstants.GREEN, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_TORCH, brighter(MalumConstants.RED, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_TORCH, brighter(MalumConstants.PINK, 2));
+    
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.ORANGE_ETHER_BRAZIER, brighter(MalumConstants.ORANGE, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.MAGENTA_ETHER_BRAZIER, brighter(MalumConstants.MAGENTA, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIGHT_BLUE_ETHER_BRAZIER, brighter(MalumConstants.LIGHT_BLUE, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.YELLOW_ETHER_BRAZIER, brighter(MalumConstants.YELLOW, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIME_ETHER_BRAZIER, brighter(MalumConstants.LIME, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.CYAN_ETHER_BRAZIER, brighter(MalumConstants.CYAN, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.PURPLE_ETHER_BRAZIER, brighter(MalumConstants.PURPLE, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.BLUE_ETHER_BRAZIER, brighter(MalumConstants.BLUE, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.BROWN_ETHER_BRAZIER, brighter(MalumConstants.BROWN, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_BRAZIER, brighter(MalumConstants.GREEN, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_BRAZIER, brighter(MalumConstants.RED, 2));
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_BRAZIER, brighter(MalumConstants.PINK, 2));
         
-        ClientHelper.registerItemColor(itemColors, MalumItems.LIFE_SPIRIT_SPLINTER, MalumSpiritTypes.LIFE_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.DEATH_SPIRIT_SPLINTER, MalumSpiritTypes.DEATH_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.AIR_SPIRIT_SPLINTER, MalumSpiritTypes.AIR_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.WATER_SPIRIT_SPLINTER, MalumSpiritTypes.WATER_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.MAGIC_SPIRIT_SPLINTER, MalumSpiritTypes.MAGIC_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.FIRE_SPIRIT_SPLINTER, MalumSpiritTypes.FIRE_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.EARTH_SPIRIT_SPLINTER, MalumSpiritTypes.EARTH_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, MalumSpiritTypes.ELDRITCH_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, MalumItems.LIFE_SPIRIT_SPLINTER, brighter(MalumSpiritTypes.LIFE_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.DEATH_SPIRIT_SPLINTER, brighter(MalumSpiritTypes.DEATH_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.AIR_SPIRIT_SPLINTER, brighter(MalumSpiritTypes.AIR_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.WATER_SPIRIT_SPLINTER, brighter(MalumSpiritTypes.WATER_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.MAGIC_SPIRIT_SPLINTER, brighter(MalumSpiritTypes.MAGIC_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.FIRE_SPIRIT_SPLINTER, brighter(MalumSpiritTypes.FIRE_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.EARTH_SPIRIT_SPLINTER, brighter(MalumSpiritTypes.EARTH_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, brighter(MalumSpiritTypes.ELDRITCH_SPIRIT_COLOR,1));
     }
     
     @SubscribeEvent

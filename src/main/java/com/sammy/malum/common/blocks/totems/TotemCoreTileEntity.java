@@ -52,7 +52,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                 BlockPos previousPolePos = pos.up(height);
                 height++;
                 BlockPos polePos = pos.up(height);
-            
+    
                 if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity)
                 {
                     TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
@@ -66,11 +66,8 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                             return;
                         }
                     }
-                    
                     if (totemPoleTileEntity.type != null)
                     {
-                        totemPoleTileEntity.scan(pos);
-                        MalumHelper.updateState(world, polePos);
                         addRune(totemPoleTileEntity, totemPoleTileEntity.type);
                     }
                 }
@@ -92,6 +89,16 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                 {
                     rite.effect(pos, world);
                 }
+                if (MalumHelper.areWeOnClient(world))
+                {
+                    int size = rite.spirits.size();
+                    for (int i = 0; i < size; i++)
+                    {
+                        MalumSpiritType type = rite.spirits.get(i);
+                        Color color = type.color;
+                        TotemPoleTileEntity.passiveParticles(pos, world, color);
+                    }
+                }
             }
         }
         if (state == 3)
@@ -106,14 +113,14 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
             }
         }
     }
+    
     public void addRune(TotemPoleTileEntity totemPoleTileEntity, MalumSpiritType rune)
     {
-        world.playSound(null, totemPoleTileEntity.getPos(), MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + height * 0.25f);
+        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + 0.25f * height);
+    
         spirits.add(rune);
         cooldown = 20;
-        Color color = totemPoleTileEntity.type.color;
-        ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.75f, 0f).setLifetime(30).setScale(0.125f, 0).setColor(color, color.darker()).randomVelocity(0f, 0.02f).enableNoClip().repeatEdges(world, totemPoleTileEntity.getPos(), 40);
-    
+        totemPoleTileEntity.scan(pos);
     }
     
     public void tryRite()
@@ -129,9 +136,6 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                 {
                     TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
                     totemPoleTileEntity.activate();
-                    Color color = totemPoleTileEntity.type.color;
-                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.75f, 0f).setLifetime(40).setScale(0.125f, 0).setColor(color, color.darker()).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, currentPolePos, 20);
-    
                 }
             }
             if (rite instanceof IPoppetBlessing)
@@ -168,6 +172,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         }
         setState(3);
     }
+    
     public void reset()
     {
         for (int i = 1; i <= height; i++)
@@ -177,14 +182,6 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
             {
                 TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) world.getTileEntity(pos.up(i));
                 tileEntity.reset();
-                
-                Color color = tileEntity.type.color;
-                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.75f, 0f).setLifetime(40).setScale(0.125f, 0).setColor(color.darker(), color.darker().darker()).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, polePos, 20);
-                for (int j = 0; j < 5; j++)
-                {
-                    ArrayList<Vector3d> particlePositions = MalumHelper.blockOutlinePositions(world, polePos);
-                    particlePositions.forEach(p -> world.addParticle(SMOKE, p.x, p.y, p.z, 0, world.rand.nextFloat() * 0.1f, 0));
-                }
             }
         }
         if (height > 0)
@@ -193,6 +190,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         }
         setState(0);
     }
+    
     public void setState(int state)
     {
         this.state = state;
@@ -208,6 +206,10 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         }
         cooldown = 0;
     }
+    public void circleParticles()
+    {
+    
+    }
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
@@ -218,6 +220,10 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         if (height != 0)
         {
             compound.putInt("height", height);
+        }
+        if (state != 0)
+        {
+            compound.putInt("state", state);
         }
         if (!spirits.isEmpty())
         {
@@ -237,6 +243,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     {
         cooldown = compound.getInt("cooldown");
         height = compound.getInt("height");
+        state = compound.getInt("state");
         spirits = new ArrayList<>();
         for (int i = 0; i < compound.getInt("spiritCount"); i++)
         {

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.items.equipment.armor;
 
-import com.sammy.malum.client.models.ModelRuinArmor;
+import com.sammy.malum.client.models.ModelSpiritedArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -25,7 +25,7 @@ public class SpiritedSteelArmorItem extends ArmorItem
     
         if (FMLEnvironment.dist == Dist.CLIENT)
         {
-            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelRuinArmor(slot)), () -> () -> null);
+            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelSpiritedArmor(slot)), () -> () -> null);
         }
     }
     

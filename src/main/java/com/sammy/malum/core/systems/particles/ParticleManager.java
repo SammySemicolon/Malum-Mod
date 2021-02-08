@@ -239,6 +239,25 @@ public class ParticleManager
             return this;
         }
     
+        public ParticleBuilder evenlySpawnAtEdges(World world, BlockPos pos)
+        {
+            for (Direction direction : Direction.values())
+            {
+                double yaw = random.nextFloat() * Math.PI * 2, pitch = random.nextFloat() * Math.PI - Math.PI / 2, xSpeed = random.nextFloat() * maxXSpeed, ySpeed = random.nextFloat() * maxYSpeed, zSpeed = random.nextFloat() * maxZSpeed;
+                this.vx += Math.sin(yaw) * Math.cos(pitch) * xSpeed;
+                this.vy += Math.sin(pitch) * ySpeed;
+                this.vz += Math.cos(yaw) * Math.cos(pitch) * zSpeed;
+    
+                Direction.Axis direction$axis = direction.getAxis();
+                double d0 = 0.5625D;
+                this.dx = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getXOffset() : (double) random.nextFloat();
+                this.dy = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getYOffset() : (double) random.nextFloat();
+                this.dz = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getZOffset() : (double) random.nextFloat();
+    
+                world.addParticle(data, pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz, vx, vy, vz);
+            
+            }return this;
+        }
         public ParticleBuilder spawnAtEdges(World world, BlockPos pos)
         {
             Direction direction = Direction.values()[world.rand.nextInt(Direction.values().length)];
@@ -268,9 +287,15 @@ public class ParticleManager
             );
             return this;
         }
-        public ParticleBuilder repeatCircle(World world, double x, double y, double z, double distance, int n)
+        public ParticleBuilder evenlyRepeatEdges(World world, BlockPos pos, int n)
         {
-            for (int i = 0; i < n; i++) spawnCircle(world, x, y, z, distance,i, n);
+            for (int i = 0; i < n; i++) evenlySpawnAtEdges(world, pos
+            );
+            return this;
+        }
+        public ParticleBuilder repeatCircle(World world, double x, double y, double z, double distance, int times)
+        {
+            for (int i = 0; i < times; i++) spawnCircle(world, x, y, z, distance,i, times);
             return this;
         }
     }

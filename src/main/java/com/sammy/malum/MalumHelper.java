@@ -33,7 +33,9 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -53,6 +55,22 @@ public class MalumHelper
             new Vector3d(-1,0,0),
             new Vector3d(-1,0,1)
     };
+    public static Color darker(Color color, int times)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            color.darker();
+        }
+        return color;
+    }
+    public static Color brighter(Color color, int times)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            color.brighter();
+        }
+        return color;
+    }
     public static <T extends LivingEntity> boolean damageItem(ItemStack stack, int amount, T entityIn, Consumer<T> onBroken)
     {
         if (!entityIn.world.isRemote && (!(entityIn instanceof PlayerEntity) || !((PlayerEntity) entityIn).abilities.isCreativeMode))
@@ -287,6 +305,18 @@ public class MalumHelper
         updateState(worldIn.getBlockState(pos),worldIn,pos);
     }
 
+    public static Vector3d circlePosition(World world, Vector3d pos, float distance, int currentAngle, int totalCount)
+    {
+        double theta = (Math.PI * 2) / totalCount;
+        double finalAngle = (currentAngle / (float)totalCount) + (theta * currentAngle);
+        double dx2 = (distance * Math.cos(finalAngle));
+        double dz2 = (distance * Math.sin(finalAngle));
+    
+        Vector3d vector2f = new Vector3d(dx2,0,dz2);
+        double x = vector2f.x * distance;
+        double z = vector2f.z * distance;
+        return pos.add(x,0,z);
+    }
     public static ArrayList<Vector3d> blockOutlinePositions(World world, BlockPos pos)
     {
         ArrayList<Vector3d> arrayList = new ArrayList<>();
