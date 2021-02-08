@@ -42,6 +42,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,10 +58,11 @@ public class ClientStartupEvents
     {
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_CRAFTING_TABLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new ItemModule())));
         //        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t,MalumHelper.toArrayList(new SpiritHolderRendererModule())));
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_KILN_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new SpiritKilnItemRendererModule(),new SpiritKilnSideItemRendererModule()));
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_KILN_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new SpiritKilnItemRendererModule(), new SpiritKilnSideItemRendererModule()));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new TotemPoleRendererModule()));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new ItemStandItemRendererModule()));
     }
+    
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
@@ -73,10 +75,12 @@ public class ClientStartupEvents
     {
         return new SpiritSplinterItemRenderer(manager, Minecraft.getInstance().getItemRenderer());
     }
+    
     public static ScytheBoomerangEntityRenderer scytheRenderer(EntityRendererManager manager)
     {
         return new ScytheBoomerangEntityRenderer(manager, Minecraft.getInstance().getItemRenderer());
     }
+    
     public static PlayerSoulRenderer playerSoulRenderer(EntityRendererManager manager)
     {
         return new PlayerSoulRenderer(manager, Minecraft.getInstance().getItemRenderer());
@@ -95,7 +99,10 @@ public class ClientStartupEvents
             int b = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
             return r << 16 | g << 8 | b;
         }, block.get()));
-        
+        blockColors.register((state, reader, pos, color) -> {
+            Color waterColor = MalumSpiritTypes.WATER_SPIRIT_COLOR.brighter().brighter();
+            return waterColor.getRed() << 16 | waterColor.getGreen() << 8 | waterColor.getBlue();
+        }, MalumBlocks.ABSTRUSE_BLOCK.get());
     }
     
     @SubscribeEvent
@@ -112,7 +119,9 @@ public class ClientStartupEvents
         ClientHelper.registerItemColorTint(itemColors, MalumItems.PICKAXE_OF_THE_CORE, MalumSpiritTypes.FIRE_SPIRIT_COLOR);
         ClientHelper.registerItemColorTint(itemColors, MalumItems.SHOVEL_OF_TREMORS, MalumSpiritTypes.EARTH_SPIRIT_COLOR);
         ClientHelper.registerItemColorTint(itemColors, MalumItems.HOE_OF_GROWTH, MalumSpiritTypes.LIFE_SPIRIT_COLOR);
-    
+        
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.ABSTRUSE_BLOCK, MalumSpiritTypes.WATER_SPIRIT_COLOR.brighter().brighter());
+        
         ClientHelper.registerItemColor(itemColors, MalumItems.ORANGE_ETHER, MalumConstants.ORANGE.brighter().brighter());
         ClientHelper.registerItemColor(itemColors, MalumItems.MAGENTA_ETHER, MalumConstants.MAGENTA.brighter().brighter());
         ClientHelper.registerItemColor(itemColors, MalumItems.LIGHT_BLUE_ETHER, MalumConstants.LIGHT_BLUE.brighter().brighter());
@@ -124,6 +133,7 @@ public class ClientStartupEvents
         ClientHelper.registerItemColor(itemColors, MalumItems.BROWN_ETHER, MalumConstants.BROWN.brighter().brighter());
         ClientHelper.registerItemColor(itemColors, MalumItems.GREEN_ETHER, MalumConstants.GREEN.brighter().brighter());
         ClientHelper.registerItemColor(itemColors, MalumItems.RED_ETHER, MalumConstants.RED.brighter().brighter());
+        ClientHelper.registerItemColor(itemColors, MalumItems.PINK_ETHER, MalumConstants.PINK.brighter().brighter());
         
         ClientHelper.registerItemColorTint(itemColors, MalumItems.ORANGE_ETHER_TORCH, MalumConstants.ORANGE.brighter().brighter());
         ClientHelper.registerItemColorTint(itemColors, MalumItems.MAGENTA_ETHER_TORCH, MalumConstants.MAGENTA.brighter().brighter());
@@ -136,6 +146,7 @@ public class ClientStartupEvents
         ClientHelper.registerItemColorTint(itemColors, MalumItems.BROWN_ETHER_TORCH, MalumConstants.BROWN.brighter().brighter());
         ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_TORCH, MalumConstants.GREEN.brighter().brighter());
         ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_TORCH, MalumConstants.RED.brighter().brighter());
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_TORCH, MalumConstants.PINK.brighter().brighter());
     
         ClientHelper.registerItemColorTint(itemColors, MalumItems.ORANGE_ETHER_BRAZIER, MalumConstants.ORANGE.brighter().brighter());
         ClientHelper.registerItemColorTint(itemColors, MalumItems.MAGENTA_ETHER_BRAZIER, MalumConstants.MAGENTA.brighter().brighter());
@@ -148,6 +159,7 @@ public class ClientStartupEvents
         ClientHelper.registerItemColorTint(itemColors, MalumItems.BROWN_ETHER_BRAZIER, MalumConstants.BROWN.brighter().brighter());
         ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_BRAZIER, MalumConstants.GREEN.brighter().brighter());
         ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_BRAZIER, MalumConstants.RED.brighter().brighter());
+        ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_BRAZIER, MalumConstants.PINK.brighter().brighter());
         
         ClientHelper.registerItemColor(itemColors, MalumItems.LIFE_SPIRIT_SPLINTER, MalumSpiritTypes.LIFE_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.DEATH_SPIRIT_SPLINTER, MalumSpiritTypes.DEATH_SPIRIT_COLOR);
@@ -164,6 +176,7 @@ public class ClientStartupEvents
     {
         MalumSpiritTypes.SPIRITS.forEach(s -> event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay")));
     }
+    
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)
     {
@@ -181,10 +194,11 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(ClientStartupEvents::setCutout);
         setCutout(MalumBlocks.ITEM_STAND);
-//        setCutout(MalumBlocks.SPIRIT_JAR);
-//        setCutout(MalumBlocks.SPIRIT_PIPE);
-//        setCutout(MalumBlocks.BLAZE_QUARTZ_ORE);
+        //        setCutout(MalumBlocks.SPIRIT_JAR);
+        //        setCutout(MalumBlocks.SPIRIT_PIPE);
+        //        setCutout(MalumBlocks.BLAZE_QUARTZ_ORE);
     }
+    
     public static void setCutout(RegistryObject<Block> b)
     {
         RenderTypeLookup.setRenderLayer(b.get(), RenderType.getCutout());

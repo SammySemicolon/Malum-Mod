@@ -1,5 +1,6 @@
 package com.sammy.malum.core.systems.tileentities;
 
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;

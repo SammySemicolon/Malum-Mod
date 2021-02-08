@@ -21,6 +21,7 @@ public class MalumEffects
     public static final RegistryObject<Effect> AGILITY = EFFECTS.register("aura_of_agility", AuraOfAgility::new);
     public static final RegistryObject<Effect> BLADE_OF_WIND = EFFECTS.register("blade_of_wind", BladeOfWind::new);
     public static final RegistryObject<Effect> LIFE = EFFECTS.register("aura_of_life", AuraOfLife::new);
+    public static final RegistryObject<Effect> ENDER_LINK = EFFECTS.register("ender_link", EnderLink::new);
     public static final RegistryObject<Effect> FORTITUDE = EFFECTS.register("aura_of_fortitude", AuraOfFortitude::new);
     
 }

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.blocks.spiritkiln;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.core.systems.tileentityrendering.modules.RendererModule;
 import net.minecraft.client.Minecraft;

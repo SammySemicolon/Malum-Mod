@@ -1,5 +1,6 @@
 package com.sammy.malum.common.events;
 
+import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.tools.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.curios.CurioPoppetBelt;
@@ -13,7 +14,8 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
-import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.inventory.ItemInventory;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
 import com.sammy.malum.network.packets.ParticlePacket;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -126,15 +128,19 @@ public class Events
             if (!event.getSource().canHarmInCreative())
             {
                 PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-                ArrayList<Triple<ItemStack, SimpleInventory, Integer>> poppets = PoppetItem.poppets(playerEntity, i -> i.getItem() instanceof PoppetOfUndying);
-                Optional<Triple<ItemStack, SimpleInventory, Integer>> poppetOfUndying = poppets.stream().findFirst();
-                if (poppetOfUndying.isPresent())
+                ArrayList<Pair<ItemStack, ItemInventory>> poppets = PoppetItem.poppets(playerEntity, i -> i.getItem() instanceof PoppetOfUndying);
+                if (poppets.isEmpty())
+                {
+                    return;
+                }
+                ItemStack poppetOfUndying = poppets.get(0).getFirst();
+                if (!poppetOfUndying.isEmpty())
                 {
                     if (playerEntity instanceof ServerPlayerEntity)
                     {
                         ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) playerEntity;
                         serverplayerentity.addStat(Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING));
-                        CriteriaTriggers.USED_TOTEM.trigger(serverplayerentity, poppetOfUndying.get().a);
+                        CriteriaTriggers.USED_TOTEM.trigger(serverplayerentity, poppetOfUndying);
                     }
                     playerEntity.setHealth(1.0F);
                     playerEntity.clearActivePotions();
@@ -142,15 +148,22 @@ public class Events
                     playerEntity.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 100, 1));
                     playerEntity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 800, 0));
                     playerEntity.world.setEntityState(playerEntity, (byte) 35);
-                    if (poppetOfUndying.get().b != null)
+                    if (poppets.get(0).getSecond() != null)
                     {
-                        SimpleInventory inventory = poppetOfUndying.get().b;
-                        inventory.setStackInSlot(poppetOfUndying.get().c, ItemStack.EMPTY);
-                        inventory.writeData(inventory.beltItem.getOrCreateTag());
+                        ItemInventory inventory = poppets.get(0).getSecond();
+                        for (int i = 0; i < inventory.slotCount; i++)
+                        {
+                            ItemStack stack = inventory.getStackInSlot(i);
+                            if (ItemStack.areItemStacksEqual(stack, poppetOfUndying))
+                            {
+                                inventory.setStackInSlot(i, ItemStack.EMPTY);
+                                break;
+                            }
+                        }
                     }
                     else
                     {
-                        poppetOfUndying.get().a.shrink(1);
+                        poppetOfUndying.shrink(1);
                     }
                     event.setCanceled(true);
                 }
@@ -170,16 +183,20 @@ public class Events
                     return;
                 }
                 ServerWorld world = (ServerWorld) playerEntity.world;
-                ArrayList<Triple<ItemStack, SimpleInventory, Integer>> poppets = PoppetItem.poppets(playerEntity, i -> i.getItem() instanceof PoppetItem);
-                MalumHelper.takeAll(poppets, p -> cast(p.a).onlyDirect()).forEach(p -> {
+                ArrayList<Pair<ItemStack, ItemInventory>> poppets = PoppetItem.poppets(playerEntity, i -> i.getItem() instanceof PoppetItem);
+                if (poppets.isEmpty())
+                {
+                    return;
+                }
+                MalumHelper.takeAll(poppets, p -> cast(p.getFirst()).onlyDirect()).forEach(p -> {
                     if (event.getSource().getTrueSource() instanceof LivingEntity)
                     {
-                        cast(p.a).effect(p.a, event, world, playerEntity, (LivingEntity) event.getSource().getTrueSource(),p.b,p.c);
+                        cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, (LivingEntity) event.getSource().getTrueSource(), p.getSecond());
                     }
                 });
                 ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerEntity.getPosition()).grow(12)).stream().filter(e -> !world.getBlockState(e.getPosition().down()).getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get())).collect(Collectors.toList());
                 targets.remove(playerEntity);
-                poppets.forEach(p -> cast(p.a).effect(p.a, event, world, playerEntity, targets, p.b,p.c));
+                poppets.forEach(p -> cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, targets, p.getSecond()));
             }
         }
     }

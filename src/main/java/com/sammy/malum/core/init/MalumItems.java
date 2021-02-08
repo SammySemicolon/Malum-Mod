@@ -1,6 +1,7 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.items.BoneNeedleItem;
+import com.sammy.malum.common.items.EnderQuarksItem;
 import com.sammy.malum.common.items.MalumBookItem;
 import com.sammy.malum.common.items.tools.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
@@ -392,6 +393,7 @@ public class MalumItems
     public static final RegistryObject<Item> KARMIC_HOLDER = ITEMS.register("karmic_holder", () -> new SimpleCurio(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ENDER_QUARKS = ITEMS.register("ender_quarks", () -> new EnderQuarksItem(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WILD_FARMLAND = ITEMS.register("wild_farmland", () -> new BlockItem(MalumBlocks.WILD_FARMLAND.get(), DEFAULT_PROPERTIES()));
     //endregion

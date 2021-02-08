@@ -10,7 +10,7 @@ import com.sammy.malum.core.systems.fuel.IFuelTileEntity;
 import com.sammy.malum.core.systems.fuel.SimpleFuelSystem;
 import com.sammy.malum.core.systems.multiblock.MultiblockTileEntity;
 import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
-import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;

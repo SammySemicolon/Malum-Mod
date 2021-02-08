@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+      "model": "malum:block/abstruse_block"
+      },
+      {
+      "model": "malum:block/abstruse_block",
+        "y": 90
+      },
+      {
+      "model": "malum:block/abstruse_block",
+        "y": 180
+      },
+      {
+      "model": "malum:block/abstruse_block",
+        "y": 270
+      }
+    ]
+  }
+}

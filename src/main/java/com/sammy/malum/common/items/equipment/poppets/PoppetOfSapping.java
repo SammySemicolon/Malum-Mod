@@ -1,7 +1,7 @@
 package com.sammy.malum.common.items.equipment.poppets;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -19,7 +19,7 @@ public class PoppetOfSapping extends PoppetItem
     }
     
     @Override
-    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory, int slot)
+    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
     {
         Effect[] effects = new Effect[]{POISON, SLOWNESS, HUNGER, BLINDNESS, WEAKNESS, WITHER};
         for (int i = 0; i < 3; i++)
@@ -27,6 +27,6 @@ public class PoppetOfSapping extends PoppetItem
             int effect = world.rand.nextInt(effects.length);
             MalumHelper.giveStackingEffect(effects[effect], target, 100, 1);
         }
-        super.effect(poppet, event, world, playerEntity, target, inventory, slot);
+        super.effect(poppet, event, world, playerEntity, target, inventory);
     }
 }

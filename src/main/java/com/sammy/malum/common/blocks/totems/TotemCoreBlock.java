@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.totems;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -42,14 +43,17 @@ public class TotemCoreBlock extends Block
                 {
                     if (player.isSneaking())
                     {
-                        tileEntity.fail();
-                        return ActionResultType.SUCCESS;
+                        if (tileEntity.state != 3)
+                        {
+                            tileEntity.primeForReset();
+                            return ActionResultType.SUCCESS;
+                        }
                     }
                     return ActionResultType.FAIL;
                 }
-                else if (!tileEntity.active)
+                else if (tileEntity.state == 0)
                 {
-                    tileEntity.active = true;
+                    tileEntity.state = 1;
                     return ActionResultType.SUCCESS;
                 }
             }

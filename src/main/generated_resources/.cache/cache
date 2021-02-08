@@ -1,4 +1,3 @@
-17f4b397f4f659da8311d6c68caec723f771f697 assets/malum/blockstates/abstruse_block.json
 99c70b5d47f99cfd377c1b477cb59a5da0455c52 assets/malum/blockstates/blue_ether.json
 b50946b4ac6ff9c55d005834275d7f87c7ba0ce1 assets/malum/blockstates/blue_ether_brazier.json
 216d95d717321862e3353bbb38dc33e8f2aa27e1 assets/malum/blockstates/blue_ether_torch.json
@@ -197,8 +196,7 @@ fe0489ee7bb190e6638c82c1eb516dba14970ef0 assets/malum/blockstates/wild_farmland.
 b50946b4ac6ff9c55d005834275d7f87c7ba0ce1 assets/malum/blockstates/yellow_ether_brazier.json
 d0b5dce0aeaf703d4bcabfe54cf9536d18ce5da8 assets/malum/blockstates/yellow_ether_torch.json
 6b1be3db33119feb2ced25ae88e22087a6cbc3d1 assets/malum/blockstates/yellow_wall_ether_torch.json
-e28f0d0e55cdea66d1ecd7d9a823969ace830cec assets/malum/lang/en_us.json
-88117aa565642313e4b22a96e2f382a522506478 assets/malum/models/block/abstruse_block.json
+ff12ffe5dcc656578aadb725795f210f96b1c243 assets/malum/lang/en_us.json
 e60a46f402d25c94d3e7cf80525deae0527fa043 assets/malum/models/block/blue_ether.json
 bb695acef4c06b05036c7c628a2784748b7f4ab8 assets/malum/models/block/blue_ether_torch.json
 8e98b63783097d6e7454ed24c8547290fe6a60c5 assets/malum/models/block/blue_wall_ether_torch.json
@@ -628,6 +626,7 @@ ea0012633af88420a42f91ef0ed09ee659abd7b4 assets/malum/models/item/darkened_rock_
 4ac3fa9546b34aadf6f88f893dad70e9411a0c09 assets/malum/models/item/death_spirit_splinter.json
 4ac3fa9546b34aadf6f88f893dad70e9411a0c09 assets/malum/models/item/earth_spirit_splinter.json
 4ac3fa9546b34aadf6f88f893dad70e9411a0c09 assets/malum/models/item/eldritch_spirit_splinter.json
+8f3ec67e8a834af23b34f9b0ddbe894643979265 assets/malum/models/item/ender_quarks.json
 7a6a11af6b5cf9e3458c15c9bd33700097d5e2a4 assets/malum/models/item/extraction_focus.json
 4ac3fa9546b34aadf6f88f893dad70e9411a0c09 assets/malum/models/item/fire_spirit_splinter.json
 66c54439eda6e38f1605662de4a9a62b74f282ed assets/malum/models/item/flask_of_greed.json

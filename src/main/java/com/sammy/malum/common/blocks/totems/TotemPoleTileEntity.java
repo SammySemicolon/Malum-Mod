@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.totems;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
@@ -20,6 +21,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     {
         super(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get());
     }
+    
     public MalumSpiritType type;
     public boolean active;
     public int colorPercentage;
@@ -30,9 +32,18 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        compound.putBoolean("active", active);
-        compound.putInt("activeTime", colorPercentage);
-        compound.putInt("expectedActiveTime", expectedColorPercentage);
+        if (active)
+        {
+            compound.putBoolean("active", true);
+        }
+        if (colorPercentage != 0)
+        {
+            compound.putInt("colorPercentage", colorPercentage);
+        }
+        if (expectedColorPercentage != 0)
+        {
+            compound.putInt("expectedColorPercentage", expectedColorPercentage);
+        }
         if (direction != null)
         {
             compound.putInt("direction", direction.getIndex());
@@ -52,8 +63,8 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     public void readData(CompoundNBT compound)
     {
         active = compound.getBoolean("active");
-        colorPercentage = compound.getInt("activeTime");
-        expectedColorPercentage = compound.getInt("expectedActiveTime");
+        colorPercentage = compound.getInt("colorPercentage");
+        expectedColorPercentage = compound.getInt("expectedColorPercentage");
         if (compound.contains("direction"))
         {
             direction = Direction.values()[compound.getInt("direction")];
@@ -73,9 +84,16 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     @Override
     public void remove()
     {
-        if (world.getTileEntity(corePos) instanceof TotemCoreTileEntity)
+        if (corePos != null)
         {
-            ((TotemCoreTileEntity) world.getTileEntity(corePos)).reset(true);
+            if (world.getTileEntity(corePos) instanceof TotemCoreTileEntity)
+            {
+                TotemCoreTileEntity tileEntity = (TotemCoreTileEntity) world.getTileEntity(corePos);
+                if (tileEntity.state != 0)
+                {
+                    tileEntity.reset();
+                }
+            }
         }
         super.remove();
     }
@@ -96,21 +114,36 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
             passiveEffects();
         }
     }
-    public void start(BlockPos pos)
+    
+    public void scan(BlockPos pos)
     {
         expectedColorPercentage = 10;
         corePos = pos;
     }
+    
+    public void deactivate()
+    {
+        expectedColorPercentage = 0;
+        colorPercentage = 20;
+        active = false;
+        MalumHelper.updateState(world, pos);
+    }
+    
     public void activate()
     {
         active = true;
         expectedColorPercentage = 20;
         MalumHelper.updateState(world, pos);
     }
+    
+    public void reset()
+    {
+        world.setBlockState(pos, MalumBlocks.RUNEWOOD_LOG.get().getDefaultState());
+    }
+    
     public void passiveEffects()
     {
         Color color = type.color;
         ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.75f, 0f).setLifetime(20).setScale(0.075f, 0).setColor(color, color).randomVelocity(0f, 0.01f).enableNoClip().repeatEdges(world, pos, 2);
-    
     }
 }

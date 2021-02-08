@@ -1,6 +1,6 @@
 package com.sammy.malum.common.items.equipment.poppets;
 
-import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -17,14 +17,7 @@ public class PoppetOfUndying extends PoppetItem
     }
     
     @Override
-    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory, int slot)
+    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory)
     {
-    
-    }
-    
-    @Override
-    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory, int slot)
-    {
-    
     }
 }

@@ -53,6 +53,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(BLAZE_QUARTZ_ORE);
+        blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
         blocks.remove(MalumBlocks.ITEM_STAND);
         blocks.remove(MalumBlocks.ARCANE_WORKBENCH);
         blocks.remove(MalumBlocks.EXTRACTION_FOCUS);

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.tileentityrendering.modules;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.client.Minecraft;
@@ -10,9 +10,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.World;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 

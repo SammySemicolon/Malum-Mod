@@ -1,6 +1,6 @@
 package com.sammy.malum.common.items.equipment.poppets;
 
-import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -19,9 +19,7 @@ public class BlessedPoppet extends PoppetItem
     }
     
     @Override
-    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory, int slot)
+    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory)
     {
-        super.effect(poppet, event, world, playerEntity, (LivingEntity)null, inventory, slot);
     }
-    
 }

@@ -4,7 +4,8 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.systems.tileentities.SimpleInventory;
+import com.sammy.malum.core.systems.inventory.ItemInventory;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -74,7 +75,7 @@ public class CurioPoppetBelt extends Item implements ICurio
             CompoundNBT nbt = belt.getOrCreateTag();
             if (poppet.getItem() instanceof PoppetItem)
             {
-                SimpleInventory inventory = create(belt);
+                ItemInventory inventory = create(belt);
                 if (inventory.nonEmptyItems() < inventory.slotCount)
                 {
                     inventory.setStackInSlot(inventory.firstEmptyItem(), poppet);
@@ -85,7 +86,7 @@ public class CurioPoppetBelt extends Item implements ICurio
             }
             else if (playerIn.isSneaking())
             {
-                SimpleInventory inventory = create(belt);
+                ItemInventory inventory = create(belt);
                 for (ItemStack stack : inventory.stacks())
                 {
                     MalumHelper.giveItemToPlayerNoSound(playerIn, stack);
@@ -96,15 +97,9 @@ public class CurioPoppetBelt extends Item implements ICurio
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
-    public static SimpleInventory create(ItemStack stack)
+    public static ItemInventory create(ItemStack stack)
     {
-        SimpleInventory inventory = new SimpleInventory(2,1);
-        inventory.beltItem = stack;
-        if (stack.getOrCreateTag().contains("inventory"))
-        {
-            inventory.readData(stack.getOrCreateTag());
-        }
-        return inventory;
+        return new ItemInventory(stack, 2,1);
     }
 }
 
