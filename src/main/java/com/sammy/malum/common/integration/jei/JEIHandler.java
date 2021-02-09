@@ -7,7 +7,6 @@ import com.sammy.malum.common.integration.jei.transfusion.TransfusionRecipeCateg
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
-import com.sammy.malum.core.modcontent.MalumTransfusions;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;

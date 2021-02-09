@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blocks.spiritkiln;
+package com.sammy.malum.common.blocks.infernalkiln;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;

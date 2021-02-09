@@ -1,9 +1,6 @@
 package com.sammy.malum.core.systems.totems.rites;
 
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock;
-import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreTileEntity;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.common.blocks.infernalkiln.SpiritKilnCoreTileEntity;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

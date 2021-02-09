@@ -4,9 +4,8 @@ import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlockTileEntity;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 
 import com.sammy.malum.common.blocks.lighting.BasicLightingTileEntity;
-import com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreTileEntity;
+import com.sammy.malum.common.blocks.infernalkiln.SpiritKilnCoreTileEntity;
 
-import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemCoreTileEntity;
 import com.sammy.malum.common.blocks.totems.TotemPoleTileEntity;
 import com.sammy.malum.core.systems.multiblock.BoundingBlockTileEntity;

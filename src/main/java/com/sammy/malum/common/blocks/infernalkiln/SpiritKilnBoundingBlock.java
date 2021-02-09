@@ -1,6 +1,5 @@
-package com.sammy.malum.common.blocks.spiritkiln;
+package com.sammy.malum.common.blocks.infernalkiln;
 
-import com.sammy.malum.common.items.SpiritSplinterItem;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
@@ -14,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
-import static com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock.STATE;
+import static com.sammy.malum.common.blocks.infernalkiln.SpiritKilnCoreBlock.STATE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysActivatedBlock

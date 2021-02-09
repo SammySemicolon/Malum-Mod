@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blocks.spiritkiln;
+package com.sammy.malum.common.blocks.infernalkiln;
 
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
@@ -26,7 +26,7 @@ import net.minecraft.util.math.vector.Vector3i;
 
 import java.util.HashMap;
 
-import static com.sammy.malum.common.blocks.spiritkiln.SpiritKilnCoreBlock.STATE;
+import static com.sammy.malum.common.blocks.infernalkiln.SpiritKilnCoreBlock.STATE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 import static net.minecraft.util.Direction.*;
 
