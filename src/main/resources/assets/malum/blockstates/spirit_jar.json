@@ -3,27 +3,17 @@
         {   "when": { "up": "0" },
             "apply": { "model": "malum:block/spirit_jar" }
         },
-        {   "when": { "up": "1" },
-            "apply": { "model": "malum:block/spirit_jar" }
-        },
-        {   "when": { "up": "1" },
-            "apply": { "model": "malum:block/spirit_jar_support" }
-        },
-        {   "when": { "up": "2" },
-            "apply": { "model": "malum:block/spirit_jar_pipe_top" }
-        },
-
         {   "when": { "north_connection": "true" },
-            "apply": { "model": "malum:block/spirit_jar_pipe_connections" }
+            "apply": { "model": "malum:block/spirit_jar_connection" }
         },
         {   "when": { "east_connection": "true" },
-            "apply": { "model": "malum:block/spirit_jar_pipe_connections", "y": 90 }
+            "apply": { "model": "malum:block/spirit_jar_connection", "y": 90 }
         },
         {   "when": { "south_connection": "true" },
-            "apply": { "model": "malum:block/spirit_jar_pipe_connections", "y": 180 }
+            "apply": { "model": "malum:block/spirit_jar_connection", "y": 180 }
         },
         {   "when": { "west_connection": "true" },
-            "apply": { "model": "malum:block/spirit_jar_pipe_connections", "y": 270 }
+            "apply": { "model": "malum:block/spirit_jar_connection", "y": 270 }
         }
     ]
 }

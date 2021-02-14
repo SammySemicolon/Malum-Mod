@@ -2,22 +2,22 @@
     "multipart": [
         {   "apply": { "model": "malum:block/spirit_pipe_core" }},
         {   "when": { "north_extension": "true" },
-            "apply": { "model": "malum:block/spirit_pipe_extension" }
+            "apply": { "model": "malum:block/spirit_pipe_connection" }
         },
         {   "when": { "east_extension": "true" },
-            "apply": { "model": "malum:block/spirit_pipe_extension", "y": 90 }
+            "apply": { "model": "malum:block/spirit_pipe_connection", "y": 90 }
         },
         {   "when": { "south_extension": "true" },
-            "apply": { "model": "malum:block/spirit_pipe_extension", "y": 180 }
+            "apply": { "model": "malum:block/spirit_pipe_connection", "y": 180 }
         },
         {   "when": { "west_extension": "true" },
-            "apply": { "model": "malum:block/spirit_pipe_extension", "y": 270 }
+            "apply": { "model": "malum:block/spirit_pipe_connection", "y": 270 }
         },
         {   "when": { "up_extension": "true" },
-            "apply": { "model": "malum:block/spirit_pipe_extension", "x": 270 }
+            "apply": { "model": "malum:block/spirit_pipe_connection", "x": 270 }
         },
         {   "when": { "down_extension": "true" },
-            "apply": { "model": "malum:block/spirit_pipe_extension", "x": 90 }
+            "apply": { "model": "malum:block/spirit_pipe_connection", "x": 90 }
         }
     ]
 }
