@@ -3,15 +3,17 @@ package com.sammy.malum.core.init.blocks;
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.common.blocks.*;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
-import com.sammy.malum.common.blocks.arcaneworkbench.ArcaneWorkbenchBlock;
 import com.sammy.malum.common.blocks.extractionfocus.ExtractionFocusBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.blocks.lighting.WallEtherTorchBlock;
-import com.sammy.malum.common.blocks.infernalkiln.SpiritKilnBoundingBlock;
-import com.sammy.malum.common.blocks.infernalkiln.SpiritKilnCoreBlock;
+import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarBlock;
+import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnBoundingBlock;
+import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnCoreBlock;
+import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnBoundingBlock;
+import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.common.blocks.wildfarmland.WildFarmlandBlock;
@@ -311,7 +313,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
     public static final RegistryObject<Block> SHORT_SUN_KISSED_GRASS = BLOCKS.register("short_sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
     public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new SaplingBlock(new RunewoodTree(), SUN_KISSED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> RUNE_LEAVES = BLOCKS.register("rune_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(207, 47, 198), new Color(215, 128, 210)));
+    public static final RegistryObject<Block> RUNE_LEAVES = BLOCKS.register("rune_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(163, 72, 11), new Color(255, 198, 82)));
     
     public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     //endregion
@@ -358,13 +360,18 @@ public class MalumBlocks
     //region crafting blocks
     //    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
     //
+    public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().notSolid()));
     
     public static final RegistryObject<Block> TOTEM_CORE = BLOCKS.register("totem_core", () -> new TotemCoreBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(RUNEWOOD_LOG.get())));
     
     public static final RegistryObject<Block> SPIRIT_KILN = BLOCKS.register("spirit_kiln", () -> new SpiritKilnCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SPIRIT_KILN_TOP = BLOCKS.register("spirit_kiln_top", () -> new SpiritKilnBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> ARCANE_WORKBENCH = BLOCKS.register("arcane_workbench", () -> new ArcaneWorkbenchBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    
+    public static final RegistryObject<Block> DAMAGED_SPIRIT_KILN = BLOCKS.register("damaged_spirit_kiln", () -> new DamagedSpiritKilnCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> DAMAGED_SPIRIT_KILN_TOP = BLOCKS.register("damaged_spirit_kiln_top", () -> new DamagedSpiritKilnBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    
+    
     public static final RegistryObject<Block> ITEM_STAND = BLOCKS.register("item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> EXTRACTION_FOCUS = BLOCKS.register("extraction_focus", () -> new ExtractionFocusBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> IMPERVIOUS_ROCK = BLOCKS.register("impervious_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));

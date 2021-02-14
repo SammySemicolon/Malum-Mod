@@ -164,19 +164,19 @@ public class SimpleInventory extends ItemStackHandler
         return super.extractItem(slot, amount, simulate);
     }
     
-    public void playerHandleItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
+    public void playerHandleItem(World worldIn, PlayerEntity player, Hand handIn)
     {
         if (player.isSneaking() || player.getHeldItem(handIn).isEmpty())
         {
-            playerExtractItem(state, worldIn, pos, player, handIn);
+            playerExtractItem(worldIn, player);
         }
         else
         {
-            playerInsertItem(state, worldIn, pos, player, handIn);
+            playerInsertItem(worldIn, player.getHeldItem(handIn));
         }
-        player.swingArm(handIn);
+        player.swing(handIn, true);
     }
-    public void playerExtractItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
+    public void playerExtractItem(World worldIn, PlayerEntity player)
     {
         if (MalumHelper.areWeOnServer(worldIn))
         {
@@ -192,24 +192,21 @@ public class SimpleInventory extends ItemStackHandler
                 return;
             }
             extractItem(player, takeOutStack, stacks.indexOf(takeOutStack));
-            MalumHelper.updateState(state, worldIn, pos);
         }
     }
-    public void playerInsertItem(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn)
+    public void playerInsertItem(World worldIn, ItemStack stack)
     {
         if (MalumHelper.areWeOnServer(worldIn))
         {
-            if (!player.getHeldItem(handIn).isEmpty())
+            if (!stack.isEmpty())
             {
-                ItemStack desiredStack = player.getHeldItem(handIn);
-                ItemStack simulate = ItemHandlerHelper.insertItem(this, desiredStack, true);
-                int count = desiredStack.getCount() - simulate.getCount();
+                ItemStack simulate = ItemHandlerHelper.insertItem(this, stack, true);
+                int count = stack.getCount() - simulate.getCount();
                 if (count > slotSize)
                 {
                     count = slotSize;
                 }
-                ItemHandlerHelper.insertItem(this, desiredStack.split(count), false);
-                MalumHelper.updateState(state, worldIn, pos);
+                ItemHandlerHelper.insertItem(this, stack.split(count), false);
             }
         }
     }
@@ -249,4 +246,5 @@ public class SimpleInventory extends ItemStackHandler
         compound.put(name, serializeNBT());
         return compound;
     }
+    
 }

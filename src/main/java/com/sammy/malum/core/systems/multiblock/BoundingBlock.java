@@ -39,7 +39,7 @@ public class BoundingBlock extends Block
         return new BoundingBlockTileEntity();
     }
     
-    public BlockState stateForPlacement(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)
+    public BlockState multiblockState(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)
     {
         return getDefaultState();
     }

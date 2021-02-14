@@ -55,7 +55,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         blocks.remove(BLAZE_QUARTZ_ORE);
         blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
         blocks.remove(MalumBlocks.ITEM_STAND);
-        blocks.remove(MalumBlocks.ARCANE_WORKBENCH);
+        blocks.remove(MalumBlocks.SPIRIT_ALTAR);
         blocks.remove(MalumBlocks.EXTRACTION_FOCUS);
         blocks.remove(MalumBlocks.TOTEM_CORE);
         

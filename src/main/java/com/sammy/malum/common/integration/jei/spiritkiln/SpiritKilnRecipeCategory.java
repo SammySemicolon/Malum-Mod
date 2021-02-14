@@ -98,12 +98,5 @@ public class SpiritKilnRecipeCategory implements IRecipeCategory<MalumSpiritKiln
         iRecipeLayout.getItemStacks().set(0, recipe.inputIngredient.stacks());
         iRecipeLayout.getItemStacks().init(1, true, 81, 6);
         iRecipeLayout.getItemStacks().set(1, recipe.outputIngredient.stacks());
-        int i = 0;
-        for (MalumItemIngredient item : recipe.items)
-        {
-            iRecipeLayout.getItemStacks().init(i + 2, true, 21 + 30 * i, 33);
-            iRecipeLayout.getItemStacks().set(i + 2, item.stacks());
-            i++;
-        }
     }
 }

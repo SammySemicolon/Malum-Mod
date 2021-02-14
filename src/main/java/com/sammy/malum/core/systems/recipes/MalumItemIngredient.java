@@ -17,7 +17,7 @@ public class MalumItemIngredient
     {
         return tag == null;
     }
-    public ItemStack random()
+    public ItemStack outputItem()
     {
         if (isSimple())
         {

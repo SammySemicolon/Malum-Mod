@@ -31,6 +31,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.server.ServerWorld;
@@ -60,6 +61,10 @@ public class Events
     @SubscribeEvent
     public static void tyrvingHurt(LivingHurtEvent event)
     {
+        if (event.getSource().equals(MalumDamageSources.VOODOO))
+        {
+            return;
+        }
         if (event.getSource().getTrueSource() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
@@ -69,8 +74,10 @@ public class Events
                 if (stack.getItem() instanceof TyrvingSwordItem)
                 {
                     LivingEntity entity = event.getEntityLiving();
+                    float amount = (event.getAmount() / 8) * (8 + entity.getTotalArmorValue());
+                    event.setAmount(amount/2f);
+                    event.getEntity().attackEntityFrom(MalumDamageSources.VOODOO, amount/2f);
                     playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_HIT, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
-                    event.setAmount((event.getAmount() / 8) * (8 + entity.getTotalArmorValue()));
                     if (playerEntity.world instanceof ServerWorld)
                     {
                         INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(event::getEntityLiving), new ParticlePacket(0, entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ()));

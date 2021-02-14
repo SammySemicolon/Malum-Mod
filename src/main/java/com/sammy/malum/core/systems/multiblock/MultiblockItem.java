@@ -45,7 +45,7 @@ public class MultiblockItem extends BlockItem
             BlockPos targetPos = placePos.add(pos);
             if (isValid(targetPos) && world.getBlockState(targetPos).getMaterial().isReplaceable())
             {
-                world.setBlockState(targetPos, structure.boundingBlock.stateForPlacement(placePos, world, player, stack, state, pos));
+                world.setBlockState(targetPos, structure.boundingBlock.multiblockState(placePos, world, player, stack, state, pos));
                 if (world.getTileEntity(targetPos) instanceof BoundingBlockTileEntity)
                 {
                     BoundingBlockTileEntity tileEntity = (BoundingBlockTileEntity) world.getTileEntity(targetPos);

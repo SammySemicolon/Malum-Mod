@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MultiblockTileEntity extends SimpleTileEntity
+public class MultiblockTileEntity extends SimpleTileEntity
 {
     public List<BlockPos> parts;
     public MultiblockTileEntity(TileEntityType type)

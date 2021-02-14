@@ -1,6 +1,5 @@
-package com.sammy.malum.common.blocks.infernalkiln;
+package com.sammy.malum.common.blocks.spiritkiln.functional;
 
-import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
@@ -13,23 +12,23 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
-import static com.sammy.malum.common.blocks.infernalkiln.SpiritKilnCoreBlock.STATE;
+import static com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreBlock.POWERED;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysActivatedBlock
+public class SpiritKilnBoundingBlock extends BoundingBlock
 {
     public SpiritKilnBoundingBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(STATE, 0));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(POWERED, false));
     }
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
     {
-        blockStateBuilder.add(STATE);
+        blockStateBuilder.add(POWERED);
         blockStateBuilder.add(HORIZONTAL_FACING);
     }
     @Override
-    public BlockState stateForPlacement(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)
+    public BlockState multiblockState(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)
     {
         return getDefaultState().with(HORIZONTAL_FACING, state.get(HORIZONTAL_FACING));
     }
@@ -42,27 +41,13 @@ public class SpiritKilnBoundingBlock extends BoundingBlock implements IAlwaysAct
             {
                 SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) worldIn.getTileEntity(pos.down());
     
-                ItemStack stack = player.getHeldItemMainhand();
-                if (state.get(STATE) == 1)
+                player.swing(handIn, true);
+                if (tileEntity.outputInventory.nonEmptyItems() != 0)
                 {
-                    if (stack.getItem().equals(MalumItems.TAINTED_ROCK.get()))
-                    {
-                        if (stack.getCount() >= 4)
-                        {
-                            stack.shrink(4);
-                            tileEntity.repairKiln();
-                            player.swingArm(handIn);
-                            return ActionResultType.SUCCESS;
-                        }
-                    }
-                }
-                if (!tileEntity.outputInventory.getStackInSlot(0).isEmpty())
-                {
-                    tileEntity.outputInventory.extractItem(player, tileEntity.outputInventory.getStackInSlot(0), 0);
-                    player.swing(handIn, true);
+                    tileEntity.outputInventory.playerExtractItem(worldIn, player);
                     return ActionResultType.SUCCESS;
                 }
-                tileEntity.inventory.playerHandleItem(state, worldIn, pos.down(), player, handIn);
+                tileEntity.inventory.playerHandleItem(worldIn, player, handIn);
                 return ActionResultType.SUCCESS;
             }
         }

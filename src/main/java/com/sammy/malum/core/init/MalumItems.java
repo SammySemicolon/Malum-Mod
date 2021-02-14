@@ -304,10 +304,10 @@ public class MalumItems
     public static final RegistryObject<Item> TOTEM_CORE = ITEMS.register("totem_core", () -> new BlockItem(MalumBlocks.TOTEM_CORE.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));
+    public static final RegistryObject<Item> DAMAGED_SPIRIT_KILN = ITEMS.register("damaged_spirit_kiln", () -> new MultiblockItem(MalumBlocks.DAMAGED_SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.DAMAGED_SPIRIT_KILN_TOP.get())));
     public static final RegistryObject<Item> ITEM_STAND = ITEMS.register("item_stand", () -> new BlockItem(MalumBlocks.ITEM_STAND.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> EXTRACTION_FOCUS = ITEMS.register("extraction_focus", () -> new BlockItem(MalumBlocks.EXTRACTION_FOCUS.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> IMPERVIOUS_ROCK = ITEMS.register("impervious_rock", () -> new BlockItem(MalumBlocks.IMPERVIOUS_ROCK.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ARCANE_WORKBENCH = ITEMS.register("arcane_workbench", () -> new BlockItem(MalumBlocks.ARCANE_WORKBENCH.get(), DEFAULT_PROPERTIES()));
     //endregion
     
     //region simple components

@@ -2,15 +2,13 @@ package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.RegistryObject;
 
 import java.util.ArrayList;
 
 public class MalumSpiritKilnFuels
 {
-    public static final ArrayList<MalumSpiritKilnFuel> data = new ArrayList<>();
+    public static final ArrayList<MalumSpiritKilnFuel> DATA = new ArrayList<>();
     
     public static void init()
     {
@@ -18,7 +16,7 @@ public class MalumSpiritKilnFuels
     }
     public static MalumSpiritKilnFuel getData(ItemStack stack)
     {
-        for (MalumSpiritKilnFuel data : data)
+        for (MalumSpiritKilnFuel data : DATA)
         {
             if (data.inputIngredient.matches(stack))
             {
@@ -37,7 +35,7 @@ public class MalumSpiritKilnFuels
             this.inputIngredient = inputIngredient;
             this.fuelDuration = fuelDuration;
             this.fuelSpeed = fuelSpeed;
-            data.add(this);
+            DATA.add(this);
         }
     }
 }

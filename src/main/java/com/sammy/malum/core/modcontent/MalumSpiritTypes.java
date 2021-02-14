@@ -26,22 +26,22 @@ public class MalumSpiritTypes
 {
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
     
-    public static final Color LIFE_SPIRIT_COLOR = new Color(232, 64, 113);
+    public static final Color LIFE_SPIRIT_COLOR = new Color(252, 57, 113);
     public static MalumSpiritType LIFE_SPIRIT;
     
     public static final Color DEATH_SPIRIT_COLOR = new Color(121, 30, 53);
     public static MalumSpiritType DEATH_SPIRIT;
     
-    public static final Color AIR_SPIRIT_COLOR = new Color(65, 213, 179);
+    public static final Color AIR_SPIRIT_COLOR = new Color(57, 231, 225);
     public static  MalumSpiritType AIR_SPIRIT;
     
     public static final Color WATER_SPIRIT_COLOR = new Color(49, 123, 213);
     public static  MalumSpiritType WATER_SPIRIT;
     
-    public static final Color FIRE_SPIRIT_COLOR = new Color(186, 146, 46);
+    public static final Color FIRE_SPIRIT_COLOR = new Color(217, 102, 48);
     public static  MalumSpiritType FIRE_SPIRIT;
     
-    public static final Color EARTH_SPIRIT_COLOR = new Color(35, 113, 29);
+    public static final Color EARTH_SPIRIT_COLOR = new Color(32, 134, 24);
     public static  MalumSpiritType EARTH_SPIRIT;
     
     public static final Color MAGIC_SPIRIT_COLOR = new Color(231, 67, 215);

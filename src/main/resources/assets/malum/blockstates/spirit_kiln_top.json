@@ -1,16 +1,12 @@
 {
   "variants": {
-    "facing=north,state=0": { "model": "malum:block/spirit_kiln_top" },
-    "facing=south,state=0": { "model": "malum:block/spirit_kiln_top", "y": 180 },
-    "facing=west,state=0":  { "model": "malum:block/spirit_kiln_top", "y": 270 },
-    "facing=east,state=0":  { "model": "malum:block/spirit_kiln_top", "y": 90 },
-    "facing=north,state=1": { "model": "malum:block/spirit_kiln_top_damaged" },
-    "facing=south,state=1": { "model": "malum:block/spirit_kiln_top_damaged", "y": 180 },
-    "facing=west,state=1":  { "model": "malum:block/spirit_kiln_top_damaged", "y": 270 },
-    "facing=east,state=1":  { "model": "malum:block/spirit_kiln_top_damaged", "y": 90 },
-    "facing=north,state=2": { "model": "malum:block/spirit_kiln_top_powered" },
-    "facing=south,state=2": { "model": "malum:block/spirit_kiln_top_powered", "y": 180 },
-    "facing=west,state=2":  { "model": "malum:block/spirit_kiln_top_powered", "y": 270 },
-    "facing=east,state=2":  { "model": "malum:block/spirit_kiln_top_powered", "y": 90 }
+    "facing=north,powered=false": { "model": "malum:block/spirit_kiln_top" },
+    "facing=south,powered=false": { "model": "malum:block/spirit_kiln_top", "y": 180 },
+    "facing=west,powered=false":  { "model": "malum:block/spirit_kiln_top", "y": 270 },
+    "facing=east,powered=false":  { "model": "malum:block/spirit_kiln_top", "y": 90 },
+    "facing=north,powered=true": { "model": "malum:block/spirit_kiln_top_powered" },
+    "facing=south,powered=true": { "model": "malum:block/spirit_kiln_top_powered", "y": 180 },
+    "facing=west,powered=true":  { "model": "malum:block/spirit_kiln_top_powered", "y": 270 },
+    "facing=east,powered=true":  { "model": "malum:block/spirit_kiln_top_powered", "y": 90 }
   }
 }

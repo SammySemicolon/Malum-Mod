@@ -20,7 +20,7 @@ public class StartupEvents
         MalumSpiritKilnRecipes.init();
         MalumSpiritKilnFuels.init();
         MalumRites.init();
-        MalumTransfusions.init();
+        MalumSpiritAltarRecipes.init();
         MalumBookCategories.init();
     }
     @SubscribeEvent

@@ -3,7 +3,6 @@ package com.sammy.malum.common.integration.jei;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.integration.jei.rites.RiteRecipeCategory;
 import com.sammy.malum.common.integration.jei.spiritkiln.SpiritKilnRecipeCategory;
-import com.sammy.malum.common.integration.jei.transfusion.TransfusionRecipeCategory;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
@@ -27,15 +26,13 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipeCategories(new SpiritKilnRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new RiteRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new TransfusionRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
     
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
-        registry.addRecipes(MalumSpiritKilnRecipes.INFUSING, SpiritKilnRecipeCategory.UID);
+        registry.addRecipes(MalumSpiritKilnRecipes.RECIPES, SpiritKilnRecipeCategory.UID);
         registry.addRecipes(MalumRites.RITES, RiteRecipeCategory.UID);
-        registry.addRecipes(MalumTransfusions.TRANSFUSIONS, TransfusionRecipeCategory.UID);
     
     }
     
@@ -44,7 +41,6 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_KILN.get()), SpiritKilnRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), RiteRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), TransfusionRecipeCategory.UID);
     }
     @Nonnull
     @Override

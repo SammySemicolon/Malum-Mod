@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.totems.rites;
 
-import com.sammy.malum.common.blocks.infernalkiln.SpiritKilnCoreTileEntity;
+import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreTileEntity;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -31,7 +31,6 @@ public class RiteOfIgnition extends AffectBlocksRite
         if (world.getTileEntity(pos) instanceof SpiritKilnCoreTileEntity)
         {
             SpiritKilnCoreTileEntity tileEntity = (SpiritKilnCoreTileEntity) world.getTileEntity(pos);
-            tileEntity.activateKiln();
         }
         return false;
     }
