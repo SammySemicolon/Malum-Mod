@@ -26,6 +26,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.IItemHandler;
@@ -115,6 +116,10 @@ public class MalumHelper
     public static Vector3d pos(BlockPos pos)
     {
         return new Vector3d(pos.getX(),pos.getY(),pos.getZ());
+    }
+    public static Vector3f fPos(BlockPos pos)
+    {
+        return new Vector3f(pos.getX(),pos.getY(),pos.getZ());
     }
     public static Vector3d randPos(BlockPos pos, Random rand, double min, double max)
     {

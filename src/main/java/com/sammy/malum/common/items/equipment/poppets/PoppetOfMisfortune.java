@@ -18,7 +18,7 @@ public class PoppetOfMisfortune extends PoppetItem
     @Override
     public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
     {
-        target.applyKnockback(0.6f, MathHelper.nextFloat(world.rand, -1,1), MathHelper.nextFloat(world.rand, -1,1));
+        target.applyKnockback(1f, MathHelper.nextFloat(world.rand, -1,1), MathHelper.nextFloat(world.rand, -1,1));
         super.effect(poppet, event, world, playerEntity, target, inventory);
     }
 }

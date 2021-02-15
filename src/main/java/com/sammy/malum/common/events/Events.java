@@ -33,12 +33,10 @@ import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -54,6 +52,7 @@ import java.util.stream.Collectors;
 
 import static com.sammy.malum.common.items.equipment.poppets.PoppetItem.cast;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
+import static net.minecraftforge.eventbus.api.Event.Result.DENY;
 
 @Mod.EventBusSubscriber
 public class Events
@@ -75,7 +74,7 @@ public class Events
                 {
                     LivingEntity entity = event.getEntityLiving();
                     float amount = (event.getAmount() / 8) * (8 + entity.getTotalArmorValue());
-                    event.setAmount(amount/2f);
+                    event.setAmount(event.getAmount() / 2);
                     event.getEntity().attackEntityFrom(MalumDamageSources.VOODOO, amount/2f);
                     playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_HIT, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
                     if (playerEntity.world instanceof ServerWorld)
@@ -221,8 +220,8 @@ public class Events
                 }
             }
             state.getBlock().onBlockActivated(state, event.getWorld(), event.getPos(), event.getPlayer(), event.getHand(), null);
-            event.setUseBlock(Event.Result.DENY);
-            event.setUseItem(Event.Result.DENY);
+            event.setUseBlock(DENY);
+            event.setUseItem(DENY);
         }
     }
     @SubscribeEvent

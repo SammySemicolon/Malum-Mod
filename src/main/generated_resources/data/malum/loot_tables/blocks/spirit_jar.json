@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:arcane_workbench"
+          "name": "malum:spirit_jar"
         }
       ],
       "conditions": [

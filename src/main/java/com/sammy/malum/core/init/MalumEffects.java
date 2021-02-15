@@ -14,7 +14,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class MalumEffects
 {
     public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, MalumMod.MODID);
-    public static final RegistryObject<Effect> ENTANGLED = EFFECTS.register("entangled", Entangled::new);
     public static final RegistryObject<Effect> FOOLS_LUCK = EFFECTS.register("fools_luck", FoolsLuck::new);
     public static final RegistryObject<Effect> BLEEDING = EFFECTS.register("bleeding", Bleeding::new);
     public static final RegistryObject<Effect> WARDING = EFFECTS.register("warding_aura", Warding::new);

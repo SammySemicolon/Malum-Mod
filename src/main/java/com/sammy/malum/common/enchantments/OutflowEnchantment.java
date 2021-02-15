@@ -22,7 +22,7 @@ public class OutflowEnchantment extends Enchantment
         if (target instanceof LivingEntity)
         {
             LivingEntity entity = (LivingEntity) target;
-            MalumHelper.giveStackingEffect(MalumEffects.BLEEDING.get(), entity, 80,1);
+            MalumHelper.giveStackingEffect(MalumEffects.BLEEDING.get(), entity, 80*(level+1),1);
         }
         super.onEntityDamaged(user, target, level);
     }

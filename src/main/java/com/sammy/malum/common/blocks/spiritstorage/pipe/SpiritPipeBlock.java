@@ -167,17 +167,14 @@ public class SpiritPipeBlock extends Block implements IPipeConnected
     {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
     
-        if (MalumHelper.areWeOnServer(worldIn))
+        worldIn.setBlockState(pos, figureOutState(worldIn, pos));
+        if (worldIn.getTileEntity(pos) instanceof SpiritPipeTileEntity)
         {
-            if (worldIn.getTileEntity(pos) instanceof SpiritPipeTileEntity)
-            {
-                worldIn.setBlockState(pos, figureOutState(worldIn, pos));
-                SpiritPipeTileEntity tileEntity = (SpiritPipeTileEntity) worldIn.getTileEntity(pos);
-                tileEntity.needsUpdate = true;
-                notifyNeighbors(worldIn, pos, blockIn);
-                MalumHelper.updateState(worldIn, pos);
-            }
+            SpiritPipeTileEntity tileEntity = (SpiritPipeTileEntity) worldIn.getTileEntity(pos);
+            tileEntity.needsUpdate = true;
         }
+        notifyNeighbors(worldIn, pos, blockIn);
+        MalumHelper.updateState(worldIn, pos);
     }
     
     public static void notifyNeighbors(World world, BlockPos pos, Block blockIn)
