@@ -8,6 +8,7 @@ import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnCoreTileEntity;
 import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreTileEntity;
 
+import com.sammy.malum.common.blocks.spiritstorage.pipe.SpiritPipeTileEntity;
 import com.sammy.malum.common.blocks.totems.TotemCoreTileEntity;
 import com.sammy.malum.common.blocks.totems.TotemPoleTileEntity;
 import com.sammy.malum.core.systems.multiblock.BoundingBlockTileEntity;
@@ -27,6 +28,8 @@ public class MalumTileEntities
     
     public static final RegistryObject<TileEntityType<?>> BOUNDING_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("bounding_block_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) BoundingBlockTileEntity::new, MalumBlocks.SPIRIT_KILN_TOP.get(), MalumBlocks.DAMAGED_SPIRIT_KILN_TOP.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> SPIRIT_ALTAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_altar_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) SpiritAltarTileEntity::new, MalumBlocks.SPIRIT_ALTAR.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> SPIRIT_PIPE_TILE_ENTITY = TILE_ENTITIES.register("spirit_pipe_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) SpiritPipeTileEntity::new, MalumBlocks.SPIRIT_PIPE.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> SPIRIT_JAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_jar_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) SpiritAltarTileEntity::new, MalumBlocks.SPIRIT_ALTAR.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> SPIRIT_KILN_TILE_ENTITY = TILE_ENTITIES.register("spirit_kiln_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) SpiritKilnCoreTileEntity::new, MalumBlocks.SPIRIT_KILN.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> DAMAGED_SPIRIT_KILN_TILE_ENTITY = TILE_ENTITIES.register("damaged_spirit_kiln_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) DamagedSpiritKilnCoreTileEntity::new, MalumBlocks.DAMAGED_SPIRIT_KILN.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> ABSTRUSE_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("abstruse_block_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) AbstruseBlockTileEntity::new, MalumBlocks.ABSTRUSE_BLOCK.get()).build(null));

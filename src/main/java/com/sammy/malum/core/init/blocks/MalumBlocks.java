@@ -14,6 +14,7 @@ import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnBoundingBlock;
 import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnCoreBlock;
 import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnBoundingBlock;
 import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreBlock;
+import com.sammy.malum.common.blocks.spiritstorage.pipe.SpiritPipeBlock;
 import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.common.blocks.wildfarmland.WildFarmlandBlock;
@@ -361,6 +362,7 @@ public class MalumBlocks
     //    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
     //
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> SPIRIT_PIPE = BLOCKS.register("spirit_pipe", () -> new SpiritPipeBlock(HALLOWED_GOLD_PROPERTIES().notSolid()));
     
     public static final RegistryObject<Block> TOTEM_CORE = BLOCKS.register("totem_core", () -> new TotemCoreBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(RUNEWOOD_LOG.get())));

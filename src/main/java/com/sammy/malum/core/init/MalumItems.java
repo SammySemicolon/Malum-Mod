@@ -301,7 +301,9 @@ public class MalumItems
     public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
     
+    public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_CORE = ITEMS.register("totem_core", () -> new BlockItem(MalumBlocks.TOTEM_CORE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));
     public static final RegistryObject<Item> DAMAGED_SPIRIT_KILN = ITEMS.register("damaged_spirit_kiln", () -> new MultiblockItem(MalumBlocks.DAMAGED_SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.DAMAGED_SPIRIT_KILN_TOP.get())));

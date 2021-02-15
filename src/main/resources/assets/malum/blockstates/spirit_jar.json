@@ -1,8 +1,6 @@
   {
     "multipart": [
-        {   "when": { "up": "0" },
-            "apply": { "model": "malum:block/spirit_jar" }
-        },
+        {   "apply": { "model": "malum:block/spirit_jar" }},
         {   "when": { "north_connection": "true" },
             "apply": { "model": "malum:block/spirit_jar_connection" }
         },
