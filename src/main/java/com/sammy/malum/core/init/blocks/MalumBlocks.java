@@ -9,6 +9,8 @@ import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.blocks.lighting.WallEtherTorchBlock;
+import com.sammy.malum.common.blocks.sign.MalumStandingSignBlock;
+import com.sammy.malum.common.blocks.sign.MalumWallSignBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarBlock;
 import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnBoundingBlock;
 import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnCoreBlock;
@@ -243,6 +245,11 @@ public class MalumBlocks
     public static final RegistryObject<Block> RUNEWOOD_BEAM = BLOCKS.register("runewood_beam", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> BOLTED_RUNEWOOD_BEAM = BLOCKS.register("bolted_runewood_beam", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     
+    
+    public static final RegistryObject<Block> RUNEWOOD_SIGN = BLOCKS.register("runewood_sign", () -> new MalumStandingSignBlock(RUNEWOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> RUNEWOOD_WALL_SIGN = BLOCKS.register("runewood_wall_sign", () -> new MalumWallSignBlock(RUNEWOOD_PROPERTIES().notSolid()));
+    
+    
     public static final RegistryObject<Block> RUNEWOOD_DOOR = BLOCKS.register("runewood_door", () -> new DoorBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> RUNEWOOD_TRAPDOOR = BLOCKS.register("runewood_trapdoor", () -> new TrapDoorBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SOLID_RUNEWOOD_TRAPDOOR = BLOCKS.register("solid_runewood_trapdoor", () -> new TrapDoorBlock(RUNEWOOD_PROPERTIES().notSolid()));
@@ -259,7 +266,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> YELLOW_ETHER_TORCH = BLOCKS.register("yellow_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.YELLOW));
     public static final RegistryObject<Block> PINK_ETHER_TORCH = BLOCKS.register("pink_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PINK));
     public static final RegistryObject<Block> LIME_ETHER_TORCH = BLOCKS.register("lime_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIME));
-    public static final RegistryObject<Block> CYAN_ETHER_TORCH = BLOCKS.register("cyan_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.CYAN));
+    public static final RegistryObject<Block> CYAN_ETHER_TORCH = BLOCKS.register("cyan_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.CYAN));
     public static final RegistryObject<Block> PURPLE_ETHER_TORCH = BLOCKS.register("purple_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PURPLE));
     public static final RegistryObject<Block> BLUE_ETHER_TORCH = BLOCKS.register("blue_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BLUE));
     public static final RegistryObject<Block> BROWN_ETHER_TORCH = BLOCKS.register("brown_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BROWN));
@@ -392,5 +399,9 @@ public class MalumBlocks
             }
         }
         return strength;
+    }
+    public static WoodType register(WoodType woodTypeIn) {
+        WoodType.VALUES.add(woodTypeIn);
+        return woodTypeIn;
     }
 }

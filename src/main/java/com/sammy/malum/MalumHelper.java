@@ -309,14 +309,25 @@ public class MalumHelper
     {
         updateState(worldIn.getBlockState(pos),worldIn,pos);
     }
-
-    public static Vector3d circlePosition(World world, Vector3d pos, float distance, int currentAngle, int totalCount)
-    {
-        double theta = (Math.PI * 2) / totalCount;
-        double finalAngle = (currentAngle / (float)totalCount) + (theta * currentAngle);
-        double dx2 = (distance * Math.cos(finalAngle));
-        double dz2 = (distance * Math.sin(finalAngle));
     
+    public static Vector3d circlePosition(Vector3d pos, float distance, float current, float total)
+    {
+        double angle = current / total * (Math.PI * 2);
+        double dx2 = (distance * Math.cos(angle));
+        double dz2 = (distance * Math.sin(angle));
+        
+        Vector3d vector2f = new Vector3d(dx2,0,dz2);
+        double x = vector2f.x * distance;
+        double z = vector2f.z * distance;
+        return pos.add(x,0,z);
+    }
+    public static Vector3d rotatedCirclePosition(Vector3d pos, float distance, float current, float total, long gameTime, float time)
+    {
+        double angle = current / total * (Math.PI * 2);
+        angle += ((gameTime % time) / time) * (Math.PI * 2);
+        double dx2 = (distance * Math.cos(angle));
+        double dz2 = (distance * Math.sin(angle));
+        
         Vector3d vector2f = new Vector3d(dx2,0,dz2);
         double x = vector2f.x * distance;
         double z = vector2f.z * distance;

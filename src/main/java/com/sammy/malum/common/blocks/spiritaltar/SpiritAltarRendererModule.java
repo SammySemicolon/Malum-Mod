@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.spiritaltar;
 
+import com.ibm.icu.impl.coll.UVector32;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreTileEntity;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;

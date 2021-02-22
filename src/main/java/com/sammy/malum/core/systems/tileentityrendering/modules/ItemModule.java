@@ -23,13 +23,14 @@ public class ItemModule extends RendererModule
         SimpleInventory inventory = simpleInventory(tileEntityIn);
         if (inventory != null)
         {
+            int nonEmptyItems = inventory.nonEmptyItems();
             for (int i = 0; i < inventory.slotCount; i++)
             {
                 ItemStack item = inventory.getStackInSlot(i);
                 if (!item.isEmpty())
                 {
                     matrixStackIn.push();
-                    Vector3f offset = itemOffset(tileEntityIn, partialTicks, 0.2f, i,inventory.nonEmptyItems());
+                    Vector3f offset = itemOffset(tileEntityIn, partialTicks, 0.2f, i,nonEmptyItems);
                     matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
                     matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
                     matrixStackIn.scale(0.5f, 0.5f, 0.5f);

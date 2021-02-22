@@ -18,6 +18,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -46,14 +47,14 @@ public class SpiritAltarBlock extends Block implements IPipeConnected
                     MalumSpiritAltarRecipe recipe = MalumSpiritAltarRecipes.getRecipe(heldStack);
                     if (recipe != null && recipe.matches(tileEntity.spiritInventory.nonEmptyStacks()))
                     {
-                        Vector3d itemPos = MalumHelper.pos(pos).add(0.5f,1.25f,0.5f);
+                        Vector3d itemPos = MalumHelper.pos(pos).add(0.5f,1.05f,0.5f);
                         for (MalumSpiritIngredient ingredient : recipe.spiritIngredients)
                         {
                             if (MalumHelper.areWeOnClient(player.world))
                             {
                                 Color color = ingredient.type.color;
-                                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.5f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).randomOffset(0.1f).randomVelocity(0.015f, 0.01f).enableNoClip().repeat(worldIn,itemPos.x,itemPos.y,itemPos.z, 10);
-                                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(80).setScale(0.4f, 0).setColor(color, color.darker()).randomOffset(0.1f).randomVelocity(0.004f, 0.004f).enableNoClip().repeat(worldIn, itemPos.x, itemPos.y, itemPos.z, 20);
+                                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.5f, 0f).setLifetime(10).setScale(0.075f, 0).setColor(color, color.darker()).randomOffset(0.1f).randomVelocity(0.04f, 0.04f).enableNoClip().repeat(worldIn,itemPos.x,itemPos.y,itemPos.z, 10);
+                                ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(40).setScale(0.4f, 0).setColor(color, color.darker()).randomOffset(0.1f).randomVelocity(0.016f, 0.0160f).enableNoClip().repeat(worldIn, itemPos.x, itemPos.y, itemPos.z, 20);
                             }
                             for (int i = 0; i < tileEntity.spiritInventory.slotCount; i++)
                             {
