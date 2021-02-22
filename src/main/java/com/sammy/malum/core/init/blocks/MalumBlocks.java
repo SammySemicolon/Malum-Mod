@@ -9,8 +9,6 @@ import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.blocks.lighting.WallEtherTorchBlock;
-import com.sammy.malum.common.blocks.sign.MalumStandingSignBlock;
-import com.sammy.malum.common.blocks.sign.MalumWallSignBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarBlock;
 import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnBoundingBlock;
 import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnCoreBlock;
@@ -244,11 +242,6 @@ public class MalumBlocks
     public static final RegistryObject<Block> CUT_RUNEWOOD_PLANKS = BLOCKS.register("cut_runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_BEAM = BLOCKS.register("runewood_beam", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> BOLTED_RUNEWOOD_BEAM = BLOCKS.register("bolted_runewood_beam", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
-    
-    
-    public static final RegistryObject<Block> RUNEWOOD_SIGN = BLOCKS.register("runewood_sign", () -> new MalumStandingSignBlock(RUNEWOOD_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> RUNEWOOD_WALL_SIGN = BLOCKS.register("runewood_wall_sign", () -> new MalumWallSignBlock(RUNEWOOD_PROPERTIES().notSolid()));
-    
     
     public static final RegistryObject<Block> RUNEWOOD_DOOR = BLOCKS.register("runewood_door", () -> new DoorBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> RUNEWOOD_TRAPDOOR = BLOCKS.register("runewood_trapdoor", () -> new TrapDoorBlock(RUNEWOOD_PROPERTIES().notSolid()));
