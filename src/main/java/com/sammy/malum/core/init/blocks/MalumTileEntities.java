@@ -4,7 +4,6 @@ import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlockTileEntity;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 
 import com.sammy.malum.common.blocks.lighting.BasicLightingTileEntity;
-import com.sammy.malum.common.blocks.sign.MalumSignTileEntity;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnCoreTileEntity;
 import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreTileEntity;
@@ -39,7 +38,4 @@ public class MalumTileEntities
     public static final RegistryObject<TileEntityType<?>> ITEM_STAND_TILE_ENTITY = TILE_ENTITIES.register("item_stand_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) ItemStandTileEntity::new, MalumBlocks.ITEM_STAND.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> TOTEM_CORE_TILE_ENTITY = TILE_ENTITIES.register("totem_core_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) TotemCoreTileEntity::new, MalumBlocks.TOTEM_CORE.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> TOTEM_POLE_TILE_ENTITY = TILE_ENTITIES.register("totem_pole_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) TotemPoleTileEntity::new, MalumBlocks.TOTEM_POLE.get()).build(null));
-    
-    
-    public static final RegistryObject<TileEntityType<?>> SIGN_TILE_ENTITY = TILE_ENTITIES.register("sign_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) MalumSignTileEntity::new, MalumBlocks.RUNEWOOD_SIGN.get(), MalumBlocks.RUNEWOOD_WALL_SIGN.get()).build(null));
 }

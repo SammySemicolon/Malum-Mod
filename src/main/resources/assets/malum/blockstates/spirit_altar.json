@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+      "model": "malum:block/spirit_altar"
+      },
+      {
+      "model": "malum:block/spirit_altar",
+        "y": 90
+      },
+      {
+      "model": "malum:block/spirit_altar",
+        "y": 180
+      },
+      {
+      "model": "malum:block/spirit_altar",
+        "y": 270
+      }
+    ]
+  }
+}
