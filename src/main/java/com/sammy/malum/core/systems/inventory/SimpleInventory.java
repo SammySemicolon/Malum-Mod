@@ -164,37 +164,39 @@ public class SimpleInventory extends ItemStackHandler
         return super.extractItem(slot, amount, simulate);
     }
     
-    public void playerHandleItem(World worldIn, PlayerEntity player, Hand handIn)
+    public boolean playerHandleItem(World worldIn, PlayerEntity player, Hand handIn)
     {
+        player.swing(handIn, true);
         if (player.isSneaking() || player.getHeldItem(handIn).isEmpty())
         {
-            playerExtractItem(worldIn, player);
+            return playerExtractItem(worldIn, player);
         }
         else
         {
-            playerInsertItem(worldIn, player.getHeldItem(handIn));
+            return playerInsertItem(worldIn, player.getHeldItem(handIn));
         }
-        player.swing(handIn, true);
     }
-    public void playerExtractItem(World worldIn, PlayerEntity player)
+    public boolean playerExtractItem(World worldIn, PlayerEntity player)
     {
         if (MalumHelper.areWeOnServer(worldIn))
         {
             List<ItemStack> nonEmptyStacks = stacks.stream().filter(i -> !i.isEmpty()).collect(Collectors.toList());
             if (nonEmptyStacks.isEmpty())
             {
-                return;
+                return false;
             }
             ItemStack takeOutStack = nonEmptyStacks.get(nonEmptyStacks.size() - 1);
             int slot = stacks.indexOf(takeOutStack);
             if (extractItem(slot, takeOutStack.getCount(), true).equals(ItemStack.EMPTY))
             {
-                return;
+                return false;
             }
             extractItem(player, takeOutStack, stacks.indexOf(takeOutStack));
+            return true;
         }
+        return false;
     }
-    public void playerInsertItem(World worldIn, ItemStack stack)
+    public boolean playerInsertItem(World worldIn, ItemStack stack)
     {
         if (MalumHelper.areWeOnServer(worldIn))
         {
@@ -207,8 +209,10 @@ public class SimpleInventory extends ItemStackHandler
                     count = slotSize;
                 }
                 ItemHandlerHelper.insertItem(this, stack.split(count), false);
+                return true;
             }
         }
+        return false;
     }
     public void insertItem(ItemStack stack, int slot)
     {

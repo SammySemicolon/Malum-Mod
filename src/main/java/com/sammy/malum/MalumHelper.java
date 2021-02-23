@@ -60,7 +60,7 @@ public class MalumHelper
     {
         for (int i = 0; i < times; i++)
         {
-            color.darker();
+            color = color.darker();
         }
         return color;
     }
@@ -68,7 +68,7 @@ public class MalumHelper
     {
         for (int i = 0; i < times; i++)
         {
-            color.brighter();
+            color = color.brighter();
         }
         return color;
     }

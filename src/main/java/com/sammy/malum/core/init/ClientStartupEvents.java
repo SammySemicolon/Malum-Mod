@@ -6,7 +6,9 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
+import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRenderer;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRendererModule;
+import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnOutputItemRendererModule;
 import com.sammy.malum.common.blocks.itemstand.ItemStandItemRendererModule;
 import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnItemRendererModule;
@@ -63,7 +65,7 @@ public class ClientStartupEvents
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_KILN_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new SpiritKilnItemRendererModule(), new SpiritKilnOutputItemRendererModule()));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new TotemPoleRendererModule()));
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new ItemStandItemRendererModule()));
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), t -> new AdjustableTileEntityRenderer(t, new SpiritAltarRendererModule()));
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
     }
     
     @SubscribeEvent

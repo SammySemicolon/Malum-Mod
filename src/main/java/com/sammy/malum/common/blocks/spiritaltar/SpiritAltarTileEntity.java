@@ -5,10 +5,14 @@ import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreTileEnt
 import com.sammy.malum.common.items.SpiritSplinterItem;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
+import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
 import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -28,6 +32,17 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     {
         super(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get());
     
+        inventory = new SimpleInventory(1, 64, t-> !(t.getItem() instanceof SpiritSplinterItem))
+        {
+            @Override
+            protected void onContentsChanged(int slot)
+            {
+                SpiritAltarTileEntity.this.markDirty();
+                updateContainingBlockInfo();
+                MalumHelper.updateState(world.getBlockState(pos), world, pos);
+                recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(slot));
+            }
+        };
         spiritInventory = new SimpleInventory(5, 64, t-> t.getItem() instanceof SpiritSplinterItem)
         {
             @Override
@@ -40,11 +55,26 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         };
     }
     
+    public int progress;
+    public int spinUp;
+    public float spin;
+    public SimpleInventory inventory;
     public SimpleInventory spiritInventory;
+    public MalumSpiritAltarRecipes.MalumSpiritAltarRecipe recipe;
     
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
+        if (progress != 0)
+        {
+            compound.putInt("progress", progress);
+        }
+        if (spinUp != 0)
+        {
+            compound.putInt("spinUp", spinUp);
+        }
+        
+        inventory.writeData(compound);
         spiritInventory.writeData(compound, "spiritInventory");
         return super.writeData(compound);
     }
@@ -52,15 +82,73 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     @Override
     public void readData(CompoundNBT compound)
     {
+        progress = compound.getInt("progress");
+        spinUp = compound.getInt("spinUp");
+        inventory.readData(compound);
         spiritInventory.readData(compound, "spiritInventory");
+        recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(0));
         super.readData(compound);
     }
     
     @Override
     public void tick()
     {
+        if (recipe != null)
+        {
+            if (spinUp < 10)
+            {
+                spinUp++;
+            }
+            ItemStack stack = inventory.getStackInSlot(0);
+            progress++;
+            if (progress >= 60)
+            {
+                Vector3d itemPos = MalumHelper.pos(pos).add(0.5f,1.15f,0.5f);
+                if (recipe.matches(spiritInventory.nonEmptyStacks()))
+                {
+                    for (MalumSpiritIngredient ingredient : recipe.spiritIngredients)
+                    {
+                        if (MalumHelper.areWeOnClient(world))
+                        {
+                            Color color = ingredient.type.color;
+                            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.6f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).randomOffset(0.1f).addVelocity(0,0.12f,0).randomVelocity(0.03f, 0.08f).enableGravity().repeat(world,itemPos.x,itemPos.y,itemPos.z, 20);
+                            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(60).setScale(0.4f, 0).setColor(color, color.darker()).randomOffset(0.25f, 0.1f).randomVelocity(0.004f, 0.004f).enableNoClip().repeat(world, itemPos.x, itemPos.y, itemPos.z, 12);
+                            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.05f, 0f).setLifetime(30).setScale(0.2f, 0).setColor(color, color.darker()).randomOffset(0.05f, 0.05f).randomVelocity(0.002f, 0.002f).enableNoClip().repeat(world, itemPos.x, itemPos.y, itemPos.z, 8);
+                        }
+                        for (int i = 0; i < spiritInventory.slotCount; i++)
+                        {
+                            ItemStack spiritStack = spiritInventory.getStackInSlot(i);
+                            if (ingredient.matches(spiritStack))
+                            {
+                                spiritStack.shrink(ingredient.count);
+                                break;
+                            }
+                        }
+                    }
+                    stack.shrink(recipe.inputIngredient.count);
+                    ItemEntity entity = new ItemEntity(world, itemPos.x,itemPos.y,itemPos.z, recipe.outputIngredient.outputItem());
+                    world.addEntity(entity);
+                    progress = 0;
+                    recipe = MalumSpiritAltarRecipes.getRecipe(stack);
+                    MalumHelper.updateState(world.getBlockState(pos), world, pos);
+                    if (recipe != null && !recipe.matches(spiritInventory.nonEmptyStacks()))
+                    {
+                        inventory.dumpItems(world, itemPos);
+                    }
+                }
+            }
+        }
+        else
+        {
+            progress = 0;
+            if (spinUp > 0)
+            {
+                spinUp--;
+            }
+        }
         if (MalumHelper.areWeOnClient(world))
         {
+            spin += 1+ spinUp / 5f;
             for (int i = 0; i < spiritInventory.slotCount; i++)
             {
                 ItemStack item = spiritInventory.getStackInSlot(i);
@@ -79,9 +167,10 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             }
         }
     }
-    
     public static Vector3d itemOffset(SpiritAltarTileEntity tileEntity, int slot)
     {
-        return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,0.75f,0.5f), 1,slot, tileEntity.spiritInventory.nonEmptyItems(),tileEntity.world.getGameTime(),360);
+        float distance = 1 - tileEntity.spinUp / 40f;
+        float height = 0.75f + tileEntity.spinUp / 20f;
+        return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,height,0.5f), distance,slot, tileEntity.spiritInventory.nonEmptyItems(), (long)tileEntity.spin,360);
     }
 }

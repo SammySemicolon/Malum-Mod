@@ -48,7 +48,7 @@ public class CurioEvents
             if (event.getPotionEffect().getPotion().equals(Effects.HUNGER))
             {
                 PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-                if (CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.POPPET_BELT.get(), playerEntity).isPresent())
+                if (CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.LIVING_CAPACITOR.get(), playerEntity).isPresent())
                 {
                     event.setResult(DENY);
                     playerEntity.heal(4);

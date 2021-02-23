@@ -20,7 +20,7 @@ public class VoidBerriesItem extends Item
     {
         if (entityLiving instanceof PlayerEntity)
         {
-            ((PlayerEntity) entityLiving).addExhaustion(5);
+            ((PlayerEntity) entityLiving).addExhaustion(20);
         }
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
