@@ -56,18 +56,18 @@ public class BasicLightingTileEntity extends SimpleTileEntity implements ITickab
                 {
                     ParticleManager.create(MalumParticles.WISP_PARTICLE)
                             .setScale(scale, 0).setLifetime(lifeTime)
-                            .setColor(finalColor.getRed()/255f, finalColor.getGreen()/255f, finalColor.getBlue()/255f, (finalColor.getRed() * 0.5f)/255f,(finalColor.getGreen() * 0.5f)/255f,(finalColor.getBlue() * 0.5f)/255f)
+                            .setColor(finalColor, MalumHelper.darker(finalColor,2))
                             .addVelocity(0,0.05f,0)
                             .setSpin(world.rand.nextFloat() * 0.5f)
                             .spawn(world,x,y,z);
                 }
-                if (world.rand.nextFloat() < 0.1f)
+                if (world.getGameTime() % 8L == 0 && world.rand.nextFloat() < 0.5f)
                 {
                     ParticleManager.create(MalumParticles.SPIRIT_FLAME)
                             .setScale(0.75f, 0)
-                            .setColor(finalColor.getRed()/255f, finalColor.getGreen()/255f, finalColor.getBlue()/255f, (finalColor.getRed() * 0.5f)/255f,(finalColor.getGreen() * 0.5f)/255f,(finalColor.getBlue() * 0.5f)/255f)
-                            .randomOffset(0.3f)
-                            .addVelocity(0,0.01f,0)
+                            .setColor(finalColor, MalumHelper.darker(finalColor,2))
+                            .randomOffset(0.2f, 0.3f)
+                            .addVelocity(0,0.02f,0)
                             .spawn(world,x,y,z);
                 }
             }

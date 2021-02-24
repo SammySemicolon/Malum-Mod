@@ -103,7 +103,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             progress++;
             if (progress >= 60)
             {
-                Vector3d itemPos = MalumHelper.pos(pos).add(0.5f,1.15f,0.5f);
+                Vector3d itemPos = itemPos(this);
                 if (recipe.matches(spiritInventory.nonEmptyStacks()))
                 {
                     for (MalumSpiritIngredient ingredient : recipe.spiritIngredients)
@@ -149,6 +149,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         if (MalumHelper.areWeOnClient(world))
         {
             spin += 1+ spinUp / 5f;
+            Vector3d itemPos = itemPos(this);
             for (int i = 0; i < spiritInventory.slotCount; i++)
             {
                 ItemStack item = spiritInventory.getStackInSlot(i);
@@ -158,14 +159,24 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                     double x = getPos().getX() + offset.getX();
                     double y = getPos().getY() + offset.getY();
                     double z = getPos().getZ() + offset.getZ();
-                    
                     SpiritSplinterItem spiritSplinterItem = (SpiritSplinterItem) item.getItem();
                     Color color = spiritSplinterItem.type.color;
                     ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.4f, 0f).setLifetime(20).setScale(0.075f, 0).randomOffset(0.25, 0.25).randomVelocity(0.02f, 0.08f).setColor(brighter(color, 2), darker(color, 3)).randomVelocity(0f, 0.01f).addVelocity(0, 0.01f, 0).enableNoClip().repeat(world, x,y,z, 1);
                     ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.03f, 0f).setLifetime(60).setScale(0.3f, 0).randomOffset(0.2, 0.1).randomVelocity(0.02f, 0.02f).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).addVelocity(0, -0.005f, 0).enableNoClip().repeat(world, x,y,z,2);
+                    if (recipe != null)
+                    {
+                        Vector3d velocity = new Vector3d(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
+                        ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(40).setScale(0.1f, 0).randomOffset(0.02f).randomVelocity(0.01f, 0.01f).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).addVelocity(velocity.x, velocity.y, velocity.z).enableNoClip().repeat(world, x, y, z, 2);
+                        float alpha = 0.075f - spiritInventory.slotCount * 0.01f;
+                        ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(alpha, 0f).setLifetime(20).setScale(0.4f, 0).randomOffset(0.1, 0.1).randomVelocity(0.02f, 0.02f).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).enableNoClip().repeat(world, itemPos.x,itemPos.y,itemPos.z,2);
+                    }
                 }
             }
         }
+    }
+    public static Vector3d itemPos(SpiritAltarTileEntity tileEntity)
+    {
+        return MalumHelper.pos(tileEntity.getPos()).add(0.5f,1.15f,0.5f);
     }
     public static Vector3d itemOffset(SpiritAltarTileEntity tileEntity, int slot)
     {

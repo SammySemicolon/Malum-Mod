@@ -69,10 +69,6 @@ public class SimpleInventory extends ItemStackHandler
             {
                 itemCount++;
             }
-            else
-            {
-                break;
-            }
         }
         return itemCount;
     }
