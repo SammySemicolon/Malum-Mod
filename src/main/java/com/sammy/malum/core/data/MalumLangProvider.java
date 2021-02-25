@@ -71,56 +71,58 @@ public class MalumLangProvider extends LanguageProvider
             String name = MalumHelper.toTitleCase(e.getId().getPath(), "_");
             add("effect.malum." + e.get().getRegistryName().getPath(), name);
         });
-        rites.forEach(
-                r -> add(r.translationKey, MalumHelper.toTitleCase(r.identifier, "_"))
-        );
-        bookChapters.forEach(
-                r -> {
-                    add(r.translationKey, MalumHelper.toTitleCase(r.translationKey.substring("malum.gui.book.chapter.".length()), "_"));
-                    for (BookPageGrouping grouping : r.groupings)
+        rites.forEach(r -> add(r.translationKey, MalumHelper.toTitleCase(r.identifier, "_")));
+        bookChapters.forEach(r -> {
+            add(r.translationKey, MalumHelper.toTitleCase(r.translationKey.substring("malum.gui.book.chapter.".length()), "_"));
+            for (BookPageGrouping grouping : r.groupings)
+            {
+                for (BookPage page : grouping.pages)
+                {
+                    add(page.translationKey, MalumHelper.toTitleCase(page.translationKey.substring("malum.gui.book.page.".length()), "_"));
+            
+                    for (BookPage linkedPage : page.linkedPages)
                     {
-                        for (BookPage page : grouping.pages)
-                        {
-                            add(page.translationKey, MalumHelper.toTitleCase(page.translationKey.substring("malum.gui.book.page.".length()), "_"));
-                        }
+                        add(linkedPage.translationKey, MalumHelper.toTitleCase(linkedPage.translationKey.substring("malum.gui.book.page.".length()), "_"));
                     }
                 }
-        );
-        add("malum.subtitle.tainted_rock_break" , "Tainted Rock Broken");
-        add("malum.subtitle.tainted_rock_step" , "Tainted Rock Footsteps");
-        add("malum.subtitle.tainted_rock_place" , "Tainted Rock Placed");
-        add("malum.subtitle.tainted_rock_hit" , "Tainted Rock Breaking");
+            }
+        });
+        add("malum.gui.book.page.ether.detailed", "Rawr x3 nuzzles how are you pounces on you you're so warm o3o notices you have a bulge o: someone's happy ;) nuzzles your necky wecky~ murr~ hehehe rubbies your bulgy wolgy you're so big :oooo rubbies more on your bulgy wolgy it doesn't stop growing ·///· kisses you and lickies your necky daddy likies (; nuzzles wuzzles I hope daddy really likes $: wiggles butt and squirms I want to see your big daddy meat~ wiggles butt I have a little itch o3o wags tail can you please get my itch~ puts paws on your chest nyea~ its a seven inch itch rubs your chest can you help me pwease squirms pwetty pwease sad face I need to be punished runs paws down your chest and bites lip like I need to be punished really good~ paws on your bulge as I lick my lips I'm getting thirsty. I can go for some milk unbuttons your pants as my eyes glow you smell so musky :v licks shaft mmmm~ so musky drools all over your cock your daddy meat I like fondles Mr. Fuzzy Balls hehe puts snout on balls and inhales deeply oh god im so hard~ licks balls punish me daddy~ nyea~ squirms more and wiggles butt I love your musky goodness bites lip please punish me licks lips nyea~ suckles on your tip so good licks pre of your cock salty goodness~ eyes role back and goes balls deep mmmm~ moans and suckles");
+        add("malum.subtitle.tainted_rock_break", "Tainted Rock Broken");
+        add("malum.subtitle.tainted_rock_step", "Tainted Rock Footsteps");
+        add("malum.subtitle.tainted_rock_place", "Tainted Rock Placed");
+        add("malum.subtitle.tainted_rock_hit", "Tainted Rock Breaking");
     
-        add("malum.subtitle.transmissive_alloy_break" , "Transmissive Alloy Broken");
-        add("malum.subtitle.transmissive_alloy_step" , "Transmissive Alloy Footsteps");
-        add("malum.subtitle.transmissive_alloy_place" , "Transmissive Alloy Placed");
-        add("malum.subtitle.transmissive_alloy_hit" , "Transmissive Alloy Breaking");
+        add("malum.subtitle.transmissive_alloy_break", "Transmissive Alloy Broken");
+        add("malum.subtitle.transmissive_alloy_step", "Transmissive Alloy Footsteps");
+        add("malum.subtitle.transmissive_alloy_place", "Transmissive Alloy Placed");
+        add("malum.subtitle.transmissive_alloy_hit", "Transmissive Alloy Breaking");
     
-        add("malum.subtitle.spirited_steel_break" , "Spirited Steel Broken");
-        add("malum.subtitle.spirited_steel_step" , "Spirited Steel Footsteps");
-        add("malum.subtitle.spirited_steel_place" , "Spirited Steel Placed");
-        add("malum.subtitle.spirited_steel_hit" , "Spirited Steel Breaking");
+        add("malum.subtitle.spirited_steel_break", "Spirited Steel Broken");
+        add("malum.subtitle.spirited_steel_step", "Spirited Steel Footsteps");
+        add("malum.subtitle.spirited_steel_place", "Spirited Steel Placed");
+        add("malum.subtitle.spirited_steel_hit", "Spirited Steel Breaking");
     
-        add("malum.subtitle.abstruse_block_return" , "Abstruse Block Returns");
-        add("malum.subtitle.taint_spread" , "Taint Spreads");
-        add("malum.subtitle.scythe_strike" , "Scythe Cuts");
-        add("malum.subtitle.spirit_harvest" , "Spirit Harvested");
-        add("malum.subtitle.spirit_collect" , "Spirit Collected");
+        add("malum.subtitle.abstruse_block_return", "Abstruse Block Returns");
+        add("malum.subtitle.taint_spread", "Taint Spreads");
+        add("malum.subtitle.scythe_strike", "Scythe Cuts");
+        add("malum.subtitle.spirit_harvest", "Spirit Harvested");
+        add("malum.subtitle.spirit_collect", "Spirit Collected");
     
-        add("malum.subtitle.spirit_kiln_consume" , "Spirit Kiln Item Consumed");
-        add("malum.subtitle.spirit_kiln_fail" , "Spirit Kiln Processing Failed");
-        add("malum.subtitle.spirit_kiln_finish" , "Spirit Kiln Processing Finished");
-        add("malum.subtitle.spirit_kiln_repair" , "Spirit Kiln Repaired");
-        add("malum.subtitle.spirit_kiln_fuel" , "Spirit Kiln Fueled");
+        add("malum.subtitle.spirit_kiln_consume", "Spirit Kiln Item Consumed");
+        add("malum.subtitle.spirit_kiln_fail", "Spirit Kiln Processing Failed");
+        add("malum.subtitle.spirit_kiln_finish", "Spirit Kiln Processing Finished");
+        add("malum.subtitle.spirit_kiln_repair", "Spirit Kiln Repaired");
+        add("malum.subtitle.spirit_kiln_fuel", "Spirit Kiln Fueled");
     
-        add("malum.subtitle.totem_charge" , "Totem Charges");
-        add("malum.subtitle.totem_complete" , "Totem Fully Charges");
+        add("malum.subtitle.totem_charge", "Totem Charges");
+        add("malum.subtitle.totem_complete", "Totem Fully Charges");
     
-        add("malum.subtitle.karmic_holder_activate" , "Karmic Holder Activates");
-        add("malum.subtitle.nexus_overload_jump" , "Nexus Drive Booster");
+        add("malum.subtitle.karmic_holder_activate", "Karmic Holder Activates");
+        add("malum.subtitle.nexus_overload_jump", "Nexus Drive Booster");
     
-        add("death.attack.bleeding" , "%1$s bled out");
-        add("death.attack.bleeding.player" , "%1$s bled out whilst trying to escape %2$s");
+        add("death.attack.bleeding", "%1$s bled out");
+        add("death.attack.bleeding.player", "%1$s bled out whilst trying to escape %2$s");
         
         addTooltip("contains", "Contains: ");
         addTooltip("sneak", "Sneak");
@@ -147,6 +149,7 @@ public class MalumLangProvider extends LanguageProvider
     {
         add("malum.tooltip." + identifier, tooltip);
     }
+    
     public String specialBlockNameChanges(String name)
     {
         if ((!name.endsWith("_bricks")))
