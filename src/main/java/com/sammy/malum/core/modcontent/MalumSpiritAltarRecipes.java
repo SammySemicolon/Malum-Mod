@@ -17,9 +17,8 @@ public class MalumSpiritAltarRecipes
     
     public static void init()
     {
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.TAINTED_ROCK.get(), 16));
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.BLACKSTONE, 16), new MalumItemIngredient(MalumItems.DARKENED_ROCK.get(), 16));
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.TAINTED_ROCK.get(), 4), new MalumItemIngredient(MalumItems.IMPERVIOUS_ROCK.get(), 4), new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 2), new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.TAINTED_ROCK.get(), 16),new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.DARKENED_ROCK.get(), 16),new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
     }
     
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack)

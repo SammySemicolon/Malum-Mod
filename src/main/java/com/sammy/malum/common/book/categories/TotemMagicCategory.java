@@ -27,7 +27,8 @@ public class TotemMagicCategory extends BookCategory
                 new BookPage(MalumItems.TOTEM_CORE.get(), "rite_of_destruction"),
                 new BookPage(MalumItems.TOTEM_CORE.get(), "rite_of_collection"),
                 new BookPage(MalumItems.TOTEM_CORE.get(), "rite_of_drought"),
-                new BookPage(MalumItems.TOTEM_CORE.get(), "rite_of_rain")
+                new BookPage(MalumItems.TOTEM_CORE.get(), "rite_of_rain"),
+                new BookPage(MalumItems.TOTEM_CORE.get(), "rite_of_gay")
                 );
     }
 }

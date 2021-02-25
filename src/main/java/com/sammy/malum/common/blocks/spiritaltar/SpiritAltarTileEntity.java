@@ -167,6 +167,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                     {
                         Vector3d velocity = new Vector3d(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
                         ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(40).setScale(0.1f, 0).randomOffset(0.02f).randomVelocity(0.01f, 0.01f).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).addVelocity(velocity.x, velocity.y, velocity.z).enableNoClip().repeat(world, x, y, z, 2);
+                        
                         float alpha = 0.075f - spiritInventory.slotCount * 0.01f;
                         ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(alpha, 0f).setLifetime(20).setScale(0.4f, 0).randomOffset(0.1, 0.1).randomVelocity(0.02f, 0.02f).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).enableNoClip().repeat(world, itemPos.x,itemPos.y,itemPos.z,2);
                     }
@@ -180,7 +181,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     }
     public static Vector3d itemOffset(SpiritAltarTileEntity tileEntity, int slot)
     {
-        float distance = 1 - tileEntity.spinUp / 40f;
+        float distance = 1 - tileEntity.spinUp / 40f + (float)Math.sin(tileEntity.spin/20f)*0.025f;
         float height = 0.75f + tileEntity.spinUp / 20f;
         return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,height,0.5f), distance,slot, tileEntity.spiritInventory.nonEmptyItems(), (long)tileEntity.spin,360);
     }

@@ -7,7 +7,7 @@ public class DarkArtsCategory extends BookCategory
 {
     public DarkArtsCategory()
     {
-        super(MalumItems.PINK_ETHER.get().getDefaultInstance(), "dark_arts",
+        super(MalumItems.POPPET.get().getDefaultInstance(), "dark_arts",
                 new BookPage(MalumItems.PINK_ETHER.get(), "ether"));
     }
 }

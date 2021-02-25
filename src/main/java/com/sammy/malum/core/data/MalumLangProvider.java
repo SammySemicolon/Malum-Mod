@@ -5,6 +5,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.book.MalumBookCategories;
 import com.sammy.malum.common.book.categories.BookCategory;
 import com.sammy.malum.common.book.pages.BookPage;
+import com.sammy.malum.common.book.pages.BookPageGrouping;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.StartupEvents;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
@@ -76,9 +77,12 @@ public class MalumLangProvider extends LanguageProvider
         bookChapters.forEach(
                 r -> {
                     add(r.translationKey, MalumHelper.toTitleCase(r.translationKey.substring("malum.gui.book.chapter.".length()), "_"));
-                    for(BookPage page : r.pages)
+                    for (BookPageGrouping grouping : r.groupings)
                     {
-                        add(page.translationKey, MalumHelper.toTitleCase(page.translationKey.substring("malum.gui.book.page.".length()), "_"));
+                        for (BookPage page : grouping.pages)
+                        {
+                            add(page.translationKey, MalumHelper.toTitleCase(page.translationKey.substring("malum.gui.book.page.".length()), "_"));
+                        }
                     }
                 }
         );

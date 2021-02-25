@@ -23,7 +23,7 @@ public class MalumBookItem extends Item
     {
         if (MalumHelper.areWeOnClient(worldIn))
         {
-            BookScreen.openScreen();
+            BookScreen.openScreen(true);
             playerIn.swingArm(handIn);
             playerIn.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
             return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));

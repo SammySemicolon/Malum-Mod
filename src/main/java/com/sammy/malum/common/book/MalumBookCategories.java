@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 
-@Mod.EventBusSubscriber
 public class MalumBookCategories
 {
     public static ArrayList<BookCategory> categories = new ArrayList<>();
