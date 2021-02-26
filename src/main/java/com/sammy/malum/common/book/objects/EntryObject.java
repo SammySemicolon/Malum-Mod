@@ -13,12 +13,21 @@ import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class EntryObject extends BookObject
 {
+    public NameObject nameObject;
     public final BookEntry entry;
     
     public EntryObject(int posX, int posY, int width, int height, BookObject returnObject, BookEntry page)
     {
         super(posX, posY, width, height, returnObject);
         this.entry = page;
+    }
+    
+    @Override
+    public void interact(BookScreen screen)
+    {
+        screen.currentPage = 0;
+        draw = 0;
+        super.interact(screen);
     }
     
     @Override

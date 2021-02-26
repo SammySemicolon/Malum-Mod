@@ -2,6 +2,7 @@ package com.sammy.malum.common.book.entries;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.book.pages.BookPage;
+import com.sammy.malum.common.book.pages.TextPage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -21,6 +22,10 @@ public class BookEntry
     }
     public BookEntry addPage(BookPage page)
     {
+        if (pages.isEmpty() && page instanceof TextPage)
+        {
+            ((TextPage) page).hasHeadline = true;
+        }
         pages.add(page);
         return this;
     }

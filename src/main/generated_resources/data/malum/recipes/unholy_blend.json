@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "malum:unholy_trinket"
+      "item": "minecraft:rotten_flesh"
     },
     {
       "item": "minecraft:soul_sand"

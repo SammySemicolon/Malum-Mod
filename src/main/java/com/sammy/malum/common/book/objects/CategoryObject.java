@@ -28,6 +28,14 @@ public class CategoryObject extends BookObject
     }
     
     @Override
+    public void interact(BookScreen screen)
+    {
+        screen.currentGrouping = 0;
+        screen.currentPage = 0;
+        super.interact(screen);
+    }
+    
+    @Override
     public void draw(Minecraft minecraft, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
     {
         if (isHovering)

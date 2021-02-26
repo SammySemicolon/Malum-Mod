@@ -13,12 +13,17 @@ import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class NameObject extends BookObject
 {
-    
     public String text;
     public NameObject(String text, int posX, int posY, int width, int height)
     {
         super(posX, posY, width, height);
         this.text = text;
+    }
+    
+    @Override
+    public void interact(BookScreen screen)
+    {
+    
     }
     
     @Override

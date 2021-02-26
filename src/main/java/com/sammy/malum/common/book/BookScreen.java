@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -63,11 +64,14 @@ public class BookScreen extends Screen
             posX = guiLeft - 2;
             posY = guiTop + 12 + (i * 32);
             CategoryObject categoryObject = new CategoryObject(category, posX, posY, 26, 26);
-            firstCategory = categoryObject;
+            if (i == 0)
+            {
+                firstCategory = categoryObject;
+            }
             posX = guiLeft + 34;
             posY = guiTop + 15;
-            NameObject nameObject = (NameObject) new NameObject(category.translationKey, posX, posY, 101, 16).addSpecialPredicate((s) -> currentObject.equals(categoryObject) && currentGrouping == 0);
-            objects.add(nameObject);
+            NameObject categoryNameObject = (NameObject) new NameObject(category.translationKey, posX, posY, 101, 16).addSpecialPredicate((s) -> currentObject.equals(categoryObject) && currentGrouping == 0);
+            objects.add(categoryNameObject);
             for (int j = 0; j < category.groupings.size(); j++)
             {
                 BookEntryGrouping grouping = category.groupings.get(j);
@@ -91,18 +95,24 @@ public class BookScreen extends Screen
                     int finalJ = j;
                     EntryObject entryObject = (EntryObject) new EntryObject(posX, posY, 101, 16, categoryObject, entry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(categoryObject) && s.currentGrouping == finalJ);
                     objects.add(entryObject);
+                    posX = guiLeft + 34;
+                    posY = guiTop + 15;
+                    NameObject entryNameObject = (NameObject) new NameObject(entry.translationKey, posX, posY, 101, 16).addSpecialPredicate((s) -> currentObject.equals(entryObject) && currentPage == 0);
+                    entryObject.nameObject = entryNameObject;
+                    objects.add(entryNameObject);
                     for (int l = 0; l < entry.links.size(); l++)
                     {
                         posX = guiLeft + 268;
                         posY = guiTop + 12 + (l * 32);
                         BookEntry linkedEntry = entry.links.get(l);
-                        LinkedEntryObject linkedPageObject = (LinkedEntryObject) new LinkedEntryObject(posX, posY, 26, 26, entryObject, entry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(entryObject));
+                        LinkedEntryObject linkedPageObject = (LinkedEntryObject) new LinkedEntryObject(posX, posY, 26, 26, entryObject, linkedEntry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(entryObject));
                         objects.add(linkedPageObject);
                     }
                 }
             }
             objects.add(categoryObject);
         }
+        currentObject = firstCategory;
     }
     public final int bookWidth = 292;
     public final int bookHeight = 190;
@@ -137,14 +147,25 @@ public class BookScreen extends Screen
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         blit(matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
+        if (currentObject instanceof EntryObject)
+        {
+            EntryObject entryObject = (EntryObject) currentObject;
+            for (int i = 0; i < 2; i++)
+            {
+                int page = currentPage * 2 + i;
+                if (entryObject.entry.pages.size() > page)
+                {
+                    BookPage bookPage = entryObject.entry.pages.get(page);
+                    bookPage.draw(matrixStack, entryObject, this, mouseX, mouseY, guiLeft, guiTop, i == 1);
+                }
+            }
+        }
         for (BookObject object : objects)
         {
             if (object.canAccess(this))
             {
-                if (object.draw < 20)
-                {
-                    object.draw++;
-                }
+                object.draw++;
+    
                 if (isHovering(mouseX, mouseY, object.posX, object.posY, object.width, object.height))
                 {
                     if (object.hover < 20)
@@ -165,7 +186,7 @@ public class BookScreen extends Screen
             }
             else if (object.draw > 0)
             {
-                object.draw--;
+                object.draw = 0;
             }
         }
     }
@@ -199,7 +220,14 @@ public class BookScreen extends Screen
         screen.isLectern = isLectern;
         return screen;
     }
-    
+    public void drawItem(MatrixStack matrixStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY)
+    {
+        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(stack, posX, posY);
+        if (screen.isHovering(mouseX, mouseY, posX, posY, 16,16))
+        {
+            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(stack.getTranslationKey()), mouseX, mouseY);
+        }
+    }
     public void playSound()
     {
         PlayerEntity playerEntity = Minecraft.getInstance().player;
@@ -245,7 +273,8 @@ public class BookScreen extends Screen
         if (!line.isEmpty()) lines.add(line);
         for (int i = 0; i < lines.size(); i++)
         {
-            screen.renderPurpleText(mStack, lines.get(i), x, y + i * (font.FONT_HEIGHT + 1), brightness);
+            screen.renderPurpleText(mStack, lines.get(i), x, y + i * (font.FONT_HEIGHT + 1), Math.max(0,Math.min(brightness, 1)));
+            brightness -= 1;
         }
     }
     

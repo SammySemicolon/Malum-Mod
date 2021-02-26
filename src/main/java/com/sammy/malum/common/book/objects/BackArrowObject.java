@@ -76,7 +76,6 @@ public class BackArrowObject extends BookObject
         }
         if (screen.currentObject != null && screen.currentObject.returnObject != null)
         {
-            screen.playSound();
             screen.currentObject.returnObject.interact(screen);
         }
     }

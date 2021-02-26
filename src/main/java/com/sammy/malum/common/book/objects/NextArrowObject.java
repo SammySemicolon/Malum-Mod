@@ -35,12 +35,12 @@ public class NextArrowObject extends BookObject
         if (screen.currentObject instanceof EntryObject)
         {
             EntryObject object = (EntryObject) screen.currentObject;
-            return screen.currentPage < object.entry.pages.size()-1;
+            return object.entry.pages.size() > 2 && screen.currentPage < object.entry.pages.size()/2f;
         }
         if (screen.currentObject instanceof CategoryObject)
         {
             CategoryObject object = (CategoryObject) screen.currentObject;
-            return screen.currentGrouping < object.category.groupings.size()-1;
+            return object.category.groupings.size() > 2 && screen.currentGrouping < object.category.groupings.size()/2f;
         }
         return false;
     }
@@ -51,7 +51,7 @@ public class NextArrowObject extends BookObject
         if (screen.currentObject instanceof EntryObject)
         {
             EntryObject object = (EntryObject) screen.currentObject;
-            if (screen.currentPage < object.entry.pages.size()-1)
+            if (object.entry.pages.size() > 2 && screen.currentPage < object.entry.pages.size()/2f)
             {
                 screen.currentPage++;
                 screen.playSound();
@@ -61,7 +61,7 @@ public class NextArrowObject extends BookObject
         if (screen.currentObject instanceof CategoryObject)
         {
             CategoryObject object = (CategoryObject) screen.currentObject;
-            if (screen.currentGrouping < object.category.groupings.size()-1)
+            if (object.category.groupings.size() > 2 && screen.currentGrouping < object.category.groupings.size()/2f)
             {
                 screen.currentGrouping++;
                 screen.playSound();

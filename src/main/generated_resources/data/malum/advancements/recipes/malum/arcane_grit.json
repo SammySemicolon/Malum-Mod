@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_ashen_blend": {
+    "has_unholy_blend": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_ashen_blend",
+      "has_unholy_blend",
       "has_the_recipe"
     ]
   ]
