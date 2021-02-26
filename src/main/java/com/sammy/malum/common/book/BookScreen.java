@@ -274,7 +274,7 @@ public class BookScreen extends Screen
         for (int i = 0; i < lines.size(); i++)
         {
             screen.renderPurpleText(mStack, lines.get(i), x, y + i * (font.FONT_HEIGHT + 1), Math.max(0,Math.min(brightness, 1)));
-            brightness -= 1;
+            brightness *= 0.85f;
         }
     }
     

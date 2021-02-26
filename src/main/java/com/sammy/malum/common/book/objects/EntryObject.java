@@ -33,12 +33,13 @@ public class EntryObject extends BookObject
     @Override
     public void draw(Minecraft minecraft, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
     {
+        matrixStack.push();
         float brightness = hover / 20f;
-        int offset = (int) (brightness*2);
         minecraft.getTextureManager().bindTexture(screen.texture());
         blit(matrixStack, posX, posY, 1, 193, 101, 16, 512, 512);
         Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 2, posY);
-        screen.renderPurpleText(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey), posX + 20+offset, posY + 3, brightness);
-        
+        matrixStack.translate(brightness*2,0,0);
+        screen.renderPurpleText(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey), posX + 20, posY + 3, brightness);
+        matrixStack.pop();
     }
 }

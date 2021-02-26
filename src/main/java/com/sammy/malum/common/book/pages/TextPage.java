@@ -30,6 +30,6 @@ public class TextPage extends BookPage
         {
             yOffset+= 22;
         }
-        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), guiLeft + xOffset, guiTop + yOffset, 100, object.nameObject.draw / 20f);
+        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), guiLeft + xOffset, guiTop + yOffset, 100, object.nameObject.hover / 20f);
     }
 }
