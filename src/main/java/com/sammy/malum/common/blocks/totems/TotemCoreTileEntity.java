@@ -116,7 +116,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     
     public void addRune(TotemPoleTileEntity totemPoleTileEntity, MalumSpiritType rune)
     {
-        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + 0.25f * height);
+        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.65f + 0.15f * height);
     
         spirits.add(rune);
         cooldown = 20;
@@ -128,7 +128,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         MalumRite rite = MalumRites.getRite(spirits);
         if (rite != null)
         {
-            world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 1.5f + world.rand.nextFloat() * 0.5f);
+            world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + 0.15f * (height-1));
             for (int i = 0; i < height; i++)
             {
                 BlockPos currentPolePos = getPos().up(i);
@@ -160,7 +160,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
     
     public void primeForReset()
     {
-        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + height * 0.25f);
+        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f + 0.125f * (height-1));
         for (int i = 1; i < height; i++)
         {
             BlockPos polePos = pos.up(i);
@@ -186,7 +186,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         }
         if (height > 0)
         {
-            world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f);
+            world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.6f);
         }
         setState(0);
     }

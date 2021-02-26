@@ -15,10 +15,16 @@ public class CategoryObject extends BookObject
 {
     public final BookCategory category;
     
-    public CategoryObject(BookCategory category, int posX, int posY, int width, int height, Predicate<BookScreen> showPredicate)
+    public CategoryObject(BookCategory category, int posX, int posY, int width, int height)
     {
-        super(posX, posY, width, height, showPredicate);
+        super(posX, posY, width, height);
         this.category = category;
+    }
+    
+    @Override
+    public boolean canAccess(BookScreen screen)
+    {
+        return true;
     }
     
     @Override
@@ -31,15 +37,6 @@ public class CategoryObject extends BookObject
         minecraft.getTextureManager().bindTexture(screen.texture());
         blit(matrixStack, posX,posY, 1, 211, 26, 26, 512, 512);
         Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(category.iconStack, posX + 5, posY + 5);
-        
-    }
-    
-    @Override
-    public void interact(BookScreen screen)
-    {
-        screen.currentCategory = category;
-        screen.currentObject = null;
-        screen.currentGrouping = 0;
         
     }
 }

@@ -25,8 +25,11 @@
   "spirit_kiln_repair": { "sounds":["malum:spirit_kiln/repair1"], "subtitle": "malum.subtitle.spirit_kiln_repair" },
   "spirit_kiln_fuel": { "sounds":["malum:spirit_kiln/fuel1","malum:spirit_kiln/fuel2"], "subtitle": "malum.subtitle.spirit_kiln_fuel" },
 
-  "totem_charge": { "sounds":["malum:totems/charge0","malum:totems/charge1","malum:totems/charge2"], "subtitle": "malum.subtitle.totem_charge" },
-  "totem_complete": { "sounds":["malum:totems/complete0","malum:totems/complete1","malum:totems/complete2"], "subtitle": "malum.subtitle.totem_complete" },
+  "totem_charge": { "sounds":["malum:totems/totem_charge"], "subtitle": "malum.subtitle.totem_charge" },
+  "totem_charged": { "sounds":["malum:totems/totem_charged"], "subtitle": "malum.subtitle.totem_charged" },
+  "totem_engrave": { "sounds":["malum:totems/totem_engrave"], "subtitle": "malum.subtitle.engrave" },
+
+  "book_travel": { "sounds":["malum:book/book_travel"], "subtitle": "malum.subtitle.book_travel" },
 
   "tyrving_hit": { "sounds":["malum:tyrving/hit1","malum:tyrving/hit2"], "subtitle": "malum.subtitle.tyrving_hit" },
   "equip": { "sounds":["malum:equip"], "subtitle": "malum.subtitle.equip" },

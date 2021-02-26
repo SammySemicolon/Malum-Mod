@@ -4,8 +4,10 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.book.MalumBookCategories;
 import com.sammy.malum.common.book.categories.BookCategory;
+import com.sammy.malum.common.book.entries.BookEntry;
+import com.sammy.malum.common.book.entries.BookEntryGrouping;
 import com.sammy.malum.common.book.pages.BookPage;
-import com.sammy.malum.common.book.pages.BookPageGrouping;
+import com.sammy.malum.common.book.pages.TextPage;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.StartupEvents;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
@@ -74,15 +76,19 @@ public class MalumLangProvider extends LanguageProvider
         rites.forEach(r -> add(r.translationKey, MalumHelper.toTitleCase(r.identifier, "_")));
         bookChapters.forEach(r -> {
             add(r.translationKey, MalumHelper.toTitleCase(r.translationKey.substring("malum.gui.book.chapter.".length()), "_"));
-            for (BookPageGrouping grouping : r.groupings)
+            for (BookEntryGrouping grouping : r.groupings)
             {
-                for (BookPage page : grouping.pages)
+                for (BookEntry entry : grouping.entries)
                 {
-                    add(page.translationKey, MalumHelper.toTitleCase(page.translationKey.substring("malum.gui.book.page.".length()), "_"));
+                    add(entry.translationKey, MalumHelper.toTitleCase(entry.translationKey.substring("malum.gui.book.entry.".length()), "_"));
             
-                    for (BookPage linkedPage : page.linkedPages)
+                    for (BookPage page : entry.pages)
                     {
-                        add(linkedPage.translationKey, MalumHelper.toTitleCase(linkedPage.translationKey.substring("malum.gui.book.page.".length()), "_"));
+                        if (page instanceof TextPage)
+                        {
+                            TextPage textPage = (TextPage) page;
+                            add(textPage.text, MalumHelper.toTitleCase(textPage.text.substring("malum.gui.book.page.".length()), "_"));
+                        }
                     }
                 }
             }

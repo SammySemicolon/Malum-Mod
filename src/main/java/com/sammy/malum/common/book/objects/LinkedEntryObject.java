@@ -3,7 +3,7 @@ package com.sammy.malum.common.book.objects;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.common.book.BookScreen;
-import com.sammy.malum.common.book.pages.BookPage;
+import com.sammy.malum.common.book.entries.BookEntry;
 import net.minecraft.client.Minecraft;
 
 import java.util.function.Predicate;
@@ -11,11 +11,11 @@ import java.util.function.Predicate;
 import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
-public class LinkedPageObject extends PageObject
+public class LinkedEntryObject extends EntryObject
 {
-    public LinkedPageObject(int posX, int posY, int width, int height, BookObject returnObject, Predicate<BookScreen> showPredicate, BookPage page)
+    public LinkedEntryObject(int posX, int posY, int width, int height, BookObject returnObject, BookEntry page)
     {
-        super(posX, posY, width, height, returnObject, showPredicate, page);
+        super(posX, posY, width, height, returnObject, page);
     }
     
     @Override
@@ -23,23 +23,23 @@ public class LinkedPageObject extends PageObject
     {
         if (isHovering)
         {
-            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(page.translationKey), mouseX, mouseY);
+            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey), mouseX, mouseY);
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
         blit(matrixStack, posX,posY, 1, 211, 26, 26, 512, 512);
-        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(page.iconStack, posX + 5, posY + 5);
+        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 5, posY + 5);
         
     }
     
     @Override
     public void interact(BookScreen screen)
     {
-        draw = 0;
         if (screen.currentObject.equals(this))
         {
             screen.currentObject = returnObject;
+            screen.playSound();
             return;
         }
-        screen.currentObject = this;
+        super.interact(screen);
     }
 }

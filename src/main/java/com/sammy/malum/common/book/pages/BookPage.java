@@ -1,27 +1,19 @@
 package com.sammy.malum.common.book.pages;
 
-import com.sammy.malum.MalumHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.sammy.malum.common.book.BookScreen;
+import com.sammy.malum.common.book.objects.BookObject;
 
-import java.util.ArrayList;
+import static com.sammy.malum.common.book.BookScreen.drawWrappingText;
 
 public class BookPage
 {
-    public final ItemStack iconStack;
-    public final String translationKey;
-    public final String detailedTranslationKey;
-    public BookPage sourcePage;
-    public ArrayList<BookPage> linkedPages = new ArrayList<>();
+    public BookPage()
+    {
     
-    public BookPage(Item item, String translationKey) {
-        this.iconStack = item.getDefaultInstance();
-        this.translationKey = "malum.gui.book.page." + translationKey;
-        this.detailedTranslationKey = "malum.gui.book.page." + translationKey + ".detailed";
     }
-    public BookPage(Item item, String translationKey, BookPage... linkedPages) {
-        this(item, translationKey);
-        this.linkedPages = MalumHelper.toArrayList(linkedPages);
-        this.linkedPages.forEach(p -> p.sourcePage = this);
+    public void draw(MatrixStack stack, BookObject object, BookScreen screen, int guiLeft, int guiTop)
+    {
+    
     }
 }

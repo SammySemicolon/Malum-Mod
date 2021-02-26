@@ -2,6 +2,7 @@ package com.sammy.malum.common.items;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.totems.TotemPoleTileEntity;
+import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.Block;
@@ -14,6 +15,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class SpiritSplinterItem extends Item
@@ -49,6 +51,7 @@ public class SpiritSplinterItem extends Item
             MalumHelper.updateState(world, pos);
             playerEntity.swingArm(Hand.MAIN_HAND);
             world.playSound(null, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1, 1.1f);
+            world.playSound(null, pos, MalumSounds.TOTEM_ENGRAVE, SoundCategory.BLOCKS, 1, MathHelper.nextFloat(random, 0.9f, 1.2f));
             if (world.getTileEntity(pos) instanceof TotemPoleTileEntity)
             {
                 TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(pos);

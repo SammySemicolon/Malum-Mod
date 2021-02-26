@@ -9,9 +9,9 @@ import java.util.function.Predicate;
 import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
-public class BackArrowObject extends BookObject
+public class NextArrowObject extends BookObject
 {
-    public BackArrowObject(int posX, int posY, int width, int height)
+    public NextArrowObject(int posX, int posY, int width, int height)
     {
         super(posX, posY, width, height);
     }
@@ -22,11 +22,11 @@ public class BackArrowObject extends BookObject
         if (isHovering)
         {
             minecraft.getTextureManager().bindTexture(screen.texture());
-            blit(matrixStack, posX, posY, 29, 231, 32, 18, 512, 512);
+            blit(matrixStack, posX, posY, 63, 231, 32, 18, 512, 512);
             return;
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX, posY, 29, 211, 32, 18, 512, 512);
+        blit(matrixStack, posX, posY, 63, 211, 32, 18, 512, 512);
     }
     
     @Override
@@ -34,21 +34,13 @@ public class BackArrowObject extends BookObject
     {
         if (screen.currentObject instanceof EntryObject)
         {
-            if (screen.currentPage > 0)
-            {
-                return true;
-            }
+            EntryObject object = (EntryObject) screen.currentObject;
+            return screen.currentPage < object.entry.pages.size()-1;
         }
         if (screen.currentObject instanceof CategoryObject)
         {
-            if (screen.currentGrouping > 0)
-            {
-                return true;
-            }
-        }
-        if (screen.currentObject != null && screen.currentObject.returnObject != null)
-        {
-            return true;
+            CategoryObject object = (CategoryObject) screen.currentObject;
+            return screen.currentGrouping < object.category.groupings.size()-1;
         }
         return false;
     }
@@ -58,26 +50,22 @@ public class BackArrowObject extends BookObject
     {
         if (screen.currentObject instanceof EntryObject)
         {
-            if (screen.currentPage > 0)
+            EntryObject object = (EntryObject) screen.currentObject;
+            if (screen.currentPage < object.entry.pages.size()-1)
             {
+                screen.currentPage++;
                 screen.playSound();
-                screen.currentPage--;
                 return;
             }
         }
         if (screen.currentObject instanceof CategoryObject)
         {
-            if (screen.currentGrouping > 0)
+            CategoryObject object = (CategoryObject) screen.currentObject;
+            if (screen.currentGrouping < object.category.groupings.size()-1)
             {
+                screen.currentGrouping++;
                 screen.playSound();
-                screen.currentGrouping--;
-                return;
             }
-        }
-        if (screen.currentObject != null && screen.currentObject.returnObject != null)
-        {
-            screen.playSound();
-            screen.currentObject.returnObject.interact(screen);
         }
     }
 }
