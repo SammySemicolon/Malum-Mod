@@ -343,7 +343,6 @@ public class MalumItems
     //endregion
     
     //region contents
-    public static final RegistryObject<Item> RUDIMENTARY_SNARE = ITEMS.register("rudimentary_snare", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(ItemTier.IRON, 0, 0.1f,GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> SPIRITED_METAL_SCYTHE = ITEMS.register("spirited_metal_scythe", () -> new ScytheItem(SPIRITED_METAL_ITEM, 0, 0.2f,GEAR_PROPERTIES()));

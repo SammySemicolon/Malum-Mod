@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:magma_cream_from_sapballs"
+      "malum:solar_sapball"
     ]
   },
   "criteria": {
-    "has_sapball": {
+    "has_solar_sap": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:solar_sapball"
+            "item": "malum:solar_sap_bottle"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:magma_cream_from_sapballs"
+        "recipe": "malum:solar_sapball"
       }
     }
   },
   "requirements": [
     [
-      "has_sapball",
+      "has_solar_sap",
       "has_the_recipe"
     ]
   ]

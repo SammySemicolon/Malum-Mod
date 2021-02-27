@@ -11,10 +11,10 @@ import java.util.function.Predicate;
 import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
-public class NameObject extends BookObject
+public class HeadlineObject extends BookObject
 {
     public String text;
-    public NameObject(String text, int posX, int posY, int width, int height)
+    public HeadlineObject(String text, int posX, int posY, int width, int height)
     {
         super(posX, posY, width, height);
         this.text = text;

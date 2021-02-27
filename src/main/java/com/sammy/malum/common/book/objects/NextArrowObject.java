@@ -35,12 +35,12 @@ public class NextArrowObject extends BookObject
         if (screen.currentObject instanceof EntryObject)
         {
             EntryObject object = (EntryObject) screen.currentObject;
-            return object.entry.pages.size() > 2 && screen.currentPage < object.entry.pages.size()/2f;
+            return object.entry.pages.size() > 2 && screen.currentPage < Math.ceil(object.entry.pages.size()/2f)-1;
         }
         if (screen.currentObject instanceof CategoryObject)
         {
             CategoryObject object = (CategoryObject) screen.currentObject;
-            return object.category.groupings.size() > 2 && screen.currentGrouping < object.category.groupings.size()/2f;
+            return object.category.groupings.size() > 2 && screen.currentGrouping < Math.ceil(object.category.groupings.size()/2f)-1;
         }
         return false;
     }
@@ -51,7 +51,7 @@ public class NextArrowObject extends BookObject
         if (screen.currentObject instanceof EntryObject)
         {
             EntryObject object = (EntryObject) screen.currentObject;
-            if (object.entry.pages.size() > 2 && screen.currentPage < object.entry.pages.size()/2f)
+            if (object.entry.pages.size() > 2 && screen.currentPage < Math.ceil(object.entry.pages.size()/2f)-1)
             {
                 screen.currentPage++;
                 screen.playSound();
@@ -61,7 +61,7 @@ public class NextArrowObject extends BookObject
         if (screen.currentObject instanceof CategoryObject)
         {
             CategoryObject object = (CategoryObject) screen.currentObject;
-            if (object.category.groupings.size() > 2 && screen.currentGrouping < object.category.groupings.size()/2f)
+            if (object.category.groupings.size() > 2 && screen.currentGrouping < Math.ceil(object.category.groupings.size()/2f)-1)
             {
                 screen.currentGrouping++;
                 screen.playSound();

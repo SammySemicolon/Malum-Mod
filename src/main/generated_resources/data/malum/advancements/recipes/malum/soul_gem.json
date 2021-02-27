@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:rudimentary_snare"
+      "malum:soul_gem"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:rudimentary_snare"
+        "recipe": "malum:soul_gem"
       }
     }
   },

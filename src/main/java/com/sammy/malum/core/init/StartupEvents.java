@@ -1,6 +1,6 @@
 package com.sammy.malum.core.init;
 
-import com.sammy.malum.common.book.MalumBookCategories;
+import com.sammy.malum.core.modcontent.MalumBookCategories;
 import com.sammy.malum.core.modcontent.*;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

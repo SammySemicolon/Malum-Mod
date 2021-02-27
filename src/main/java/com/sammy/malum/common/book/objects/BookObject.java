@@ -11,12 +11,15 @@ public class BookObject
     public BookObject returnObject;
     public boolean isHovering;
     public float hover;
-    public final int posX;
-    public final int posY;
-    public final int width;
-    public final int height;
+    public int posX;
+    public int posY;
+    public int width;
+    public int height;
     public float draw;
     public Predicate<BookScreen> specialPredicate;
+    public BookObject()
+    {
+    }
     public BookObject(int posX, int posY, int width, int height)
     {
         this.posX = posX;

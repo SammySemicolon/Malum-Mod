@@ -2,12 +2,12 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.book.MalumBookCategories;
+import com.sammy.malum.common.book.pages.BookPage;
+import com.sammy.malum.common.book.pages.HeadlineTextPage;
+import com.sammy.malum.core.modcontent.MalumBookCategories;
 import com.sammy.malum.common.book.categories.BookCategory;
 import com.sammy.malum.common.book.entries.BookEntry;
 import com.sammy.malum.common.book.entries.BookEntryGrouping;
-import com.sammy.malum.common.book.pages.BookPage;
-import com.sammy.malum.common.book.pages.TextPage;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.StartupEvents;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
@@ -46,7 +46,7 @@ public class MalumLangProvider extends LanguageProvider
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
         Set<RegistryObject<Effect>> effects = new HashSet<>(MalumEffects.EFFECTS.getEntries());
         ArrayList<MalumRites.MalumRite> rites = MalumRites.RITES;
-        ArrayList<BookCategory> bookChapters = MalumBookCategories.categories;
+        ArrayList<BookCategory> bookChapters = MalumBookCategories.CATEGORIES;
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         blocks.forEach(b -> {
@@ -81,10 +81,35 @@ public class MalumLangProvider extends LanguageProvider
                 for (BookEntry entry : grouping.entries)
                 {
                     add(entry.translationKey, MalumHelper.toTitleCase(entry.translationKey.substring("malum.gui.book.entry.".length()), "_"));
+                    for (BookPage page : entry.pages)
+                    {
+                        if (page instanceof HeadlineTextPage)
+                        {
+                            HeadlineTextPage textPage = (HeadlineTextPage) page;
+                            add(textPage.headline, MalumHelper.toTitleCase(textPage.headline.substring("malum.gui.book.page.headline.".length()), "_"));
+                        }
+                    }
                 }
             }
         });
-        add("malum.gui.book.page.unholy_blend", "Your dark journey begins with this unholy powder. It's made by combining redstone and rotten flesh with the only naturally found source of souls; soul sand.");
+        add("malum.gui.book.page.arcane_basics", "Welcome to the Arcane Codex! Here you can delve into all sorts of sinister magics, starting with soul energy; naturally found in soul sand.");
+        add("malum.gui.book.page.soul_sand", "This bizarre hellish sand only found in the darkest of places is a key component to many magical phenomena. Most notably, it's the key component to drawing out one's soul");
+        add("malum.gui.book.page.redstone_dust", "This natural resource not only has great engineering capabilities, it also makes for a great magical reagent.");
+    
+        add("malum.gui.book.page.runewood_trees", "Magic isn't present only in certain resources, it can also be found in nature. A good example of that is the runewood tree, it can be found in forests and plains.");
+        add("malum.gui.book.page.sun_kissed_leaves", "The sun kissed leaves of the runewood tree appear in a gradient. Their yellow-orange colors can be altered with the use of glowstone.");
+        add("malum.gui.book.page.sun_kissed_grass", "Sun kissed grass can always be found surrounding runewood trees, it's bright yellow and quite tall. Additionally, lavender can be often found.");
+        
+        add("malum.gui.book.page.solar_sap", "The runewood tree can often be found with sap in it, ready to be harvested. You can quite easily take it out with a bottle. If you strip the wood beforehand, more sap can be taken");
+        add("malum.gui.book.page.solar_sap_again", "Do note however, sap will not naturally regenerate inside of the tree. Sap can only be obtained by planting new trees, perhaps there is a way to get around this...");
+        add("malum.gui.book.page.solar_syrup", "By heating up sap in a furnace, you can create syrup. This tasty mixture will recover some of your health when consumed");
+        add("malum.gui.book.page.solar_sapball", "When combining solar sap with slimeballs, solar sapballs will be made. They work just the same and can be used for whatever slimy needs you have.");
+    
+        add("malum.gui.book.page.unholy_blend", "Your dark journey into the unknown begins with this unholy powder. Soul sand and rotten flesh combined with redstone dust is the simplest way to create such magical phenomena");
+        add("malum.gui.book.page.unholy_blend_again", "The unholy blend has many uses. Notably by exposing it to heat can create arcane grit, a more refined version of the powder.");
+    
+        add("malum.gui.book.page.soul_gem", "By combining diamonds with arcane grit, you can create this pristine gem. You can see the image of your soul inside of it if you look hard enough");
+    
         add("malum.subtitle.tainted_rock_break", "Tainted Rock Broken");
         add("malum.subtitle.tainted_rock_step", "Tainted Rock Footsteps");
         add("malum.subtitle.tainted_rock_place", "Tainted Rock Placed");

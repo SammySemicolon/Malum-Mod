@@ -6,20 +6,16 @@ import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.entries.BookEntry;
 import net.minecraft.client.Minecraft;
 
-import java.util.function.Predicate;
-
 import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class EntryObject extends BookObject
 {
-    public NameObject nameObject;
     public final BookEntry entry;
-    
-    public EntryObject(int posX, int posY, int width, int height, BookObject returnObject, BookEntry page)
+    public EntryObject(int posX, int posY, int width, int height, BookObject returnObject, BookEntry entry)
     {
         super(posX, posY, width, height, returnObject);
-        this.entry = page;
+        this.entry = entry;
     }
     
     @Override

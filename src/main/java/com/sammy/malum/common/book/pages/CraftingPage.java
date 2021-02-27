@@ -11,6 +11,7 @@ import com.sammy.malum.common.book.objects.EntryObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 import static com.sammy.malum.common.book.BookScreen.drawWrappingText;
 import static com.sammy.malum.common.book.BookScreen.screen;
@@ -34,6 +35,11 @@ public class CraftingPage extends BookPage
         ItemStack[] stackInputs = new ItemStack[inputs.length];
         for (int i = 0; i < inputs.length; i++)
         {
+            if (inputs[i].equals(Items.BARRIER))
+            {
+                stackInputs[i] = ItemStack.EMPTY;
+                continue;
+            }
             stackInputs[i] = inputs[i].getDefaultInstance();
         }
         this.result = stackResult;
@@ -60,7 +66,7 @@ public class CraftingPage extends BookPage
                 }
             }
         }
-        screen.drawItem(stack, result, posX+45, posY+92, mouseX, mouseY);
+        screen.drawItem(stack, result, posX+45, posY+108, mouseX, mouseY);
         super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
     }
 }

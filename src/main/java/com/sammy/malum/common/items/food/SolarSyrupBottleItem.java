@@ -15,7 +15,7 @@ public class SolarSyrupBottleItem extends HoneyBottleItem
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
     {
-        entityLiving.heal(3);
+        entityLiving.heal(4);
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 }

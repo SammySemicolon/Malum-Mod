@@ -42,16 +42,14 @@ public class MalumLeavesBlock extends LeavesBlock
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (player.getHeldItem(handIn).getItem().equals(Items.COAL) || player.getHeldItem(handIn).getItem().equals(Items.GLOWSTONE_DUST))
+        if (player.getHeldItem(handIn).getItem().equals(Items.GLOWSTONE_DUST))
         {
             worldIn.setBlockState(pos,state.with(COLOR, (state.get(COLOR) + 1) % 9));
-            doAction(player,handIn);
+    
+            player.swingArm(handIn);
+            player.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1F, 1.5f + RANDOM.nextFloat() * 0.5f);
+            return ActionResultType.SUCCESS;
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-    }
-    public void doAction(PlayerEntity playerEntity, Hand hand)
-    {
-        playerEntity.swingArm(hand);
-        playerEntity.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1F, 1.5f + RANDOM.nextFloat() * 0.5f);
     }
 }

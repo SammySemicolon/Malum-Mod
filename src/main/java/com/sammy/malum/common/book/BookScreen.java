@@ -9,6 +9,7 @@ import com.sammy.malum.common.book.entries.BookEntry;
 import com.sammy.malum.common.book.entries.BookEntryGrouping;
 import com.sammy.malum.common.book.pages.BookPage;
 import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.core.modcontent.MalumBookCategories;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -58,9 +59,9 @@ public class BookScreen extends Screen
         NextArrowObject nextArrowObject = new NextArrowObject(posX, posY, 32, 18);
         objects.add(nextArrowObject);
         
-        for (int i = 0; i < MalumBookCategories.categories.size(); i++)
+        for (int i = 0; i < MalumBookCategories.CATEGORIES.size(); i++)
         {
-            BookCategory category = MalumBookCategories.categories.get(i);
+            BookCategory category = MalumBookCategories.CATEGORIES.get(i);
             posX = guiLeft - 2;
             posY = guiTop + 12 + (i * 32);
             CategoryObject categoryObject = new CategoryObject(category, posX, posY, 26, 26);
@@ -70,7 +71,7 @@ public class BookScreen extends Screen
             }
             posX = guiLeft + 34;
             posY = guiTop + 15;
-            NameObject categoryNameObject = (NameObject) new NameObject(category.translationKey, posX, posY, 101, 16).addSpecialPredicate((s) -> currentObject.equals(categoryObject) && currentGrouping == 0);
+            HeadlineObject categoryNameObject = (HeadlineObject) new HeadlineObject(category.translationKey, posX, posY, 101, 16).addSpecialPredicate((s) -> currentObject.equals(categoryObject) && currentGrouping == 0);
             objects.add(categoryNameObject);
             for (int j = 0; j < category.groupings.size(); j++)
             {
@@ -97,9 +98,6 @@ public class BookScreen extends Screen
                     objects.add(entryObject);
                     posX = guiLeft + 34;
                     posY = guiTop + 15;
-                    NameObject entryNameObject = (NameObject) new NameObject(entry.translationKey, posX, posY, 101, 16).addSpecialPredicate((s) -> currentObject.equals(entryObject) && currentPage == 0);
-                    entryObject.nameObject = entryNameObject;
-                    objects.add(entryNameObject);
                     for (int l = 0; l < entry.links.size(); l++)
                     {
                         posX = guiLeft + 268;

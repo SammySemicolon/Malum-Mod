@@ -74,16 +74,16 @@ public class MalumLootTableProvider extends LootTableProvider
         takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);
         takeAll(blocks, b -> b.get() instanceof LeavesBlock);
-        takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> registerLootTable(b.get(),onlyWithShears(b.get().asItem())));
+        takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> registerLootTable(b.get(), onlyWithShears(b.get().asItem())));
     
-        takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(b -> registerLootTable(b.get(),droppingWithSilkTouch(b.get(), Items.DIRT)));
-        takeAll(blocks, b -> b.get() instanceof SlabBlock).forEach(b -> registerLootTable(b.get(),droppingSlab(b.get())));
-        takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(b -> registerLootTable(b.get(),droppingDoor(b.get())));
+        takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(b -> registerLootTable(b.get(), droppingWithSilkTouch(b.get(), Items.DIRT)));
+        takeAll(blocks, b -> b.get() instanceof SlabBlock).forEach(b -> registerLootTable(b.get(), droppingSlab(b.get())));
+        takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(b -> registerLootTable(b.get(), droppingDoor(b.get())));
     
         takeAll(blocks, b -> true).forEach(b -> registerLootTable(b.get(), dropping(b.get().asItem())));
     
-        registerLootTable(MalumBlocks.BLAZE_QUARTZ_ORE.get(),droppingItemWithFortune(MalumBlocks.BLAZE_QUARTZ_ORE.get(), MalumItems.BLAZE_QUARTZ.get()));
-        registerLootTable(MalumBlocks.RUNE_LEAVES.get(),droppingWithChancesAndSticks(MalumBlocks.RUNE_LEAVES.get(), MalumBlocks.RUNEWOOD_SAPLING.get(), RARE_SAPLING_DROP_RATES));
+        registerLootTable(MalumBlocks.BLAZE_QUARTZ_ORE.get(), droppingItemWithFortune(MalumBlocks.BLAZE_QUARTZ_ORE.get(), MalumItems.BLAZE_QUARTZ.get()));
+        registerLootTable(MalumBlocks.RUNE_LEAVES.get(), droppingWithChancesAndSticks(MalumBlocks.RUNE_LEAVES.get(), MalumBlocks.RUNEWOOD_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         return tables;
     }
     
@@ -141,6 +141,7 @@ public class MalumLootTableProvider extends LootTableProvider
     {
         return LootTable.builder().addLootPool(LootPool.builder().acceptCondition(SILK_TOUCH_OR_SHEARS).rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(item)));
     }
+    
     protected static LootTable.Builder onlyWithSilkTouch(IItemProvider item)
     {
         return LootTable.builder().addLootPool(LootPool.builder().acceptCondition(SILK_TOUCH).rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(item)));
@@ -281,19 +282,11 @@ public class MalumLootTableProvider extends LootTableProvider
     
     protected void registerLootTable(Block blockIn, LootTable.Builder table)
     {
-        MalumMod.LOGGER.info(blockIn);
         addTable(blockIn.getLootTable(), table);
     }
+    
     void addTable(ResourceLocation path, LootTable.Builder lootTable)
     {
-        try
-        {
-            MalumMod.LOGGER.info(path);
-            tables.add(Pair.of(() -> (lootBuilder) -> lootBuilder.accept(path, lootTable), LootParameterSets.BLOCK));
-        }
-        catch (RuntimeException runtimeException)
-        {
-            MalumMod.LOGGER.info(path);
-        }
+        tables.add(Pair.of(() -> (lootBuilder) -> lootBuilder.accept(path, lootTable), LootParameterSets.BLOCK));
     }
 }

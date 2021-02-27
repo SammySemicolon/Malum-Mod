@@ -30,16 +30,4 @@ public class LinkedEntryObject extends EntryObject
         Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 5, posY + 5);
         
     }
-    
-    @Override
-    public void interact(BookScreen screen)
-    {
-        if (screen.currentObject.equals(this))
-        {
-            screen.currentObject = returnObject;
-            screen.playSound();
-            return;
-        }
-        super.interact(screen);
-    }
 }

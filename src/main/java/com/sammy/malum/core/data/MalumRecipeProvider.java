@@ -13,6 +13,7 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
@@ -47,13 +48,15 @@ public class MalumRecipeProvider extends RecipeProvider
         
         ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addIngredient(Items.GUNPOWDER).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.MALUM_BOOK.get()).addIngredient(MalumItems.ARCANE_GRIT.get()).addIngredient(Items.BOOK).addCriterion("has_unholy_blend", hasItem(MalumItems.UNHOLY_BLEND.get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.UNHOLY_BLEND.get(), 4).addIngredient(Items.ROTTEN_FLESH).addIngredient(Items.SOUL_SAND).addIngredient(Items.REDSTONE).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.RUDIMENTARY_SNARE.get(), 4).key('#', Items.IRON_NUGGET).key('Y', MalumItems.ARCANE_GRIT.get()).key('X', Items.STRING).patternLine("##X").patternLine("#Y#").patternLine("X##").addCriterion("has_arcane_grit", hasItem(MalumItems.ARCANE_GRIT.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.UNHOLY_BLEND.get()).addIngredient(Items.ROTTEN_FLESH).addIngredient(Items.SOUL_SAND).addIngredient(Items.REDSTONE).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
         smeltingRecipe(Ingredient.fromItems(MalumItems.UNHOLY_BLEND.get()), MalumItems.ARCANE_GRIT.get(),0.1f,200).addCriterion("has_unholy_blend", hasItem(MalumItems.UNHOLY_BLEND.get())).build(consumer);
-        
+        shapedRecipe(MalumItems.SOUL_GEM.get()).key('#', MalumItems.ARCANE_GRIT.get()).key('X', Items.DIAMOND).patternLine(" # ").patternLine("#X#").patternLine(" # ").addCriterion("has_arcane_grit", hasItem(MalumItems.ARCANE_GRIT.get())).build(consumer);
+    
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SOLAR_SAPBALL.get(), 3).addIngredient(MalumItems.SOLAR_SAP_BOTTLE.get()).addIngredient(Tags.Items.SLIMEBALLS).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
+    
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOLAR_SAP_BOTTLE.get()), MalumItems.SOLAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
         
-        ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(MalumItems.SOLAR_SAPBALL.get()).addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER)).build(consumer, "magma_cream_from_sapballs");
+        ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(MalumItems.SOLAR_SAPBALL.get()).addCriterion("has_sapball", hasItem(MalumItems.SOLAR_SAPBALL.get())).build(consumer, "magma_cream_from_sapballs");
         ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON).key('P', Blocks.PISTON).key('S', MalumItems.SOLAR_SAPBALL.get()).patternLine("S").patternLine("P").addCriterion("has_sapball", hasItem(MalumItems.SOLAR_SAPBALL.get())).build(consumer, "sticky_piston_from_sapballs");
         ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2).key('~', Items.STRING).key('O', MalumItems.SOLAR_SAPBALL.get()).patternLine("~~ ").patternLine("~O ").patternLine("  ~").addCriterion("has_sapball", hasItem(MalumItems.SOLAR_SAPBALL.get())).build(consumer);
         

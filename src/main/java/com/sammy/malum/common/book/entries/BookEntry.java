@@ -22,10 +22,6 @@ public class BookEntry
     }
     public BookEntry addPage(BookPage page)
     {
-        if (pages.isEmpty() && page instanceof TextPage)
-        {
-            ((TextPage) page).hasHeadline = true;
-        }
         pages.add(page);
         return this;
     }

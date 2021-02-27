@@ -22,12 +22,6 @@ public class SplinterHandlingEvents
         {
             ItemStack stack = ItemStack.EMPTY;
             PlayerEntity attacker = (PlayerEntity) event.getSource().getTrueSource();
-            if (attacker.getHeldItemOffhand().getItem().equals(MalumItems.RUDIMENTARY_SNARE.get()))
-            {
-                attacker.getHeldItemOffhand().shrink(1);
-                SpiritHelper.summonSpirits(event.getEntityLiving(), attacker, stack);
-                return;
-            }
             if (attacker.swingingHand != null)
             {
                 stack = attacker.getHeldItem(attacker.swingingHand);
