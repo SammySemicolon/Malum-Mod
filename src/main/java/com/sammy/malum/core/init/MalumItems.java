@@ -1,8 +1,6 @@
 package com.sammy.malum.core.init;
 
-import com.sammy.malum.common.items.BoneNeedleItem;
-import com.sammy.malum.common.items.EnderQuarksItem;
-import com.sammy.malum.common.items.MalumBookItem;
+import com.sammy.malum.common.items.*;
 import com.sammy.malum.common.items.food.VoidBerriesItem;
 import com.sammy.malum.common.items.tools.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
@@ -22,7 +20,6 @@ import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.tabs.MalumSplinterTab;
 import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
-import com.sammy.malum.common.items.SpiritSplinterItem;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
@@ -295,7 +292,7 @@ public class MalumItems
     public static final RegistryObject<Item> ELDRITCH_SPIRIT_SPLINTER = ITEMS.register("eldritch_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     
     public static final RegistryObject<Item> BLAZE_QUARTZ_ORE = ITEMS.register("blaze_quartz_ore", () -> new BlockItem(MalumBlocks.BLAZE_QUARTZ_ORE.get(), ORE_PROPERTIES()));
-    public static final RegistryObject<Item> BLAZE_QUARTZ = ITEMS.register("blaze_quartz", () -> new Item(MATERIAL_PROPERTIES()));
+    public static final RegistryObject<Item> BLAZE_QUARTZ = ITEMS.register("blaze_quartz", () -> new FuelItem(MATERIAL_PROPERTIES(), 3200));
     //endregion
     
     //region crafting blocks
@@ -318,7 +315,7 @@ public class MalumItems
     //endregion
     
     //region simple components
-    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new FuelItem(DEFAULT_PROPERTIES(), 4800));
     public static final RegistryObject<Item> UNHOLY_BLEND = ITEMS.register("unholy_blend", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_GRIT = ITEMS.register("arcane_grit", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_GEM = ITEMS.register("soul_gem", () -> new Item(DEFAULT_PROPERTIES()));
@@ -399,6 +396,7 @@ public class MalumItems
     public static final RegistryObject<Item> ANCESTRAL_VEIL = ITEMS.register("ancestral_veil", () -> new CurioAncestralVeil(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> KARMIC_HOLDER = ITEMS.register("karmic_holder", () -> new SimpleCurio(GEAR_PROPERTIES()));
     
+    public static final RegistryObject<Item> SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ENDER_QUARKS = ITEMS.register("ender_quarks", () -> new EnderQuarksItem(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));

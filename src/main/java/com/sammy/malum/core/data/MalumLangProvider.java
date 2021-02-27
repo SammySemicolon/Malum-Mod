@@ -99,7 +99,10 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.gui.book.page.runewood_trees", "Magic isn't present only in certain resources, it can also be found in nature. A good example of that is the runewood tree, it can be found in forests and plains.");
         add("malum.gui.book.page.sun_kissed_leaves", "The sun kissed leaves of the runewood tree appear in a gradient. Their yellow-orange colors can be altered with the use of glowstone.");
         add("malum.gui.book.page.sun_kissed_grass", "Sun kissed grass can always be found surrounding runewood trees, it's bright yellow and quite tall. Additionally, lavender can be often found.");
-        
+    
+        add("malum.gui.book.page.arcane_charcoal", "Runewood seems to react differently to heat than other wood types. Instead of creating normal charcoal, arcane charcoal is made. It can smelt three times as many items");
+        add("malum.gui.book.page.blaze_quartz", "Blaze quartz is a strange gem only found in the nether realm. It makes for a great fuel source, smelting twice as many items as coal");
+    
         add("malum.gui.book.page.solar_sap", "The runewood tree can often be found with sap in it, ready to be harvested. You can quite easily take it out with a bottle. If you strip the wood beforehand, more sap can be taken");
         add("malum.gui.book.page.solar_sap_again", "Do note however, sap will not naturally regenerate inside of the tree. Sap can only be obtained by planting new trees, perhaps there is a way to get around this...");
         add("malum.gui.book.page.solar_syrup", "By heating up sap in a furnace, you can create syrup. This tasty mixture will recover some of your health when consumed");
@@ -109,6 +112,14 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.gui.book.page.unholy_blend_again", "The unholy blend has many uses. Notably by exposing it to heat can create arcane grit, a more refined version of the powder.");
     
         add("malum.gui.book.page.soul_gem", "By combining diamonds with arcane grit, you can create this pristine gem. You can see the image of your soul inside of it if you look hard enough");
+    
+        add("malum.gui.book.page.spirit_basics", "In the world of magic exists a precious resource. There are many means of obtaining this resource, different sources name it differently too. Some know it as Vis, some as Mana, Blood, Will. We know it as Spirits.");
+        add("malum.gui.book.page.spirit_basics_part_two", "Spirits are a magical energy found primarily inside souls, they're like magical subcomponents of said soul. Every living being has a soul, some however are too complex to be easily turned into spirits");
+        add("malum.gui.book.page.spirit_basics_part_three", "There are many types of spirits that each reside within different souls. Each have different properties and abilities, waiting to be uncovered.");
+    
+        add("malum.gui.book.page.spirit_harvesting", "Hunting for this resource is no easy task, it requires proper tools and knowledge. The simplest way of doing so is through the use of a scythe.");
+        add("malum.gui.book.page.spirit_harvesting_part_two", "Scythes are powerful weapons, much like axes they are slow to use. In exchange they have great area of effect damage, perfect for use against tons of enemies.");
+        add("malum.gui.book.page.spirit_harvesting_part_three", "Most notably however; upon slaying a living being it's soul will shatter into a few spirit splinters; the natural exposed form of a splinter. There's few creatures that are immune to this process");
     
         add("malum.subtitle.tainted_rock_break", "Tainted Rock Broken");
         add("malum.subtitle.tainted_rock_step", "Tainted Rock Footsteps");

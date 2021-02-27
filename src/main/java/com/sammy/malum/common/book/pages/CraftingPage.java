@@ -22,12 +22,6 @@ public class CraftingPage extends BookPage
     public ItemStack result;
     public ItemStack[] inputs;
     
-    public CraftingPage(ItemStack result, ItemStack... inputs)
-    {
-        BACKGROUND = MalumHelper.prefix("textures/gui/pages/crafting.png");
-        this.result = result;
-        this.inputs = inputs;
-    }
     public CraftingPage(Item result, Item... inputs)
     {
         BACKGROUND = MalumHelper.prefix("textures/gui/pages/crafting.png");
@@ -60,13 +54,13 @@ public class CraftingPage extends BookPage
                 if (index < inputs.length && !inputs[index].isEmpty())
                 {
                     ItemStack itemStack = inputs[index];
-                    int itemPosX = posX + 23 + j*22;
+                    int itemPosX = posX + 28 + j*22;
                     int itemPosY = posY + 19 + i*22;
                     screen.drawItem(stack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }
         }
-        screen.drawItem(stack, result, posX+45, posY+108, mouseX, mouseY);
+        screen.drawItem(stack, result, posX+50, posY+108, mouseX, mouseY);
         super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
     }
 }

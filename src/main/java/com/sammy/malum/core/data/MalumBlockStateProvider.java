@@ -325,9 +325,18 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
             woodBlock(blockRegistryObject);
             return;
         }
+        if (blockRegistryObject.equals(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG))
+        {
+            sapFilledBlock(blockRegistryObject);
+            return;
+        }
         logBlock((RotatedPillarBlock) blockRegistryObject.get());
     }
     
+    public void sapFilledBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/sap_filled_runewood_log"), prefix("block/runewood_log_top"));
+    }
     public void woodBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();

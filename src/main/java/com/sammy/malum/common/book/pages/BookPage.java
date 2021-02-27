@@ -22,7 +22,7 @@ public class BookPage
     }
     public Pair<Integer, Integer> getPosition(int guiLeft, int guiTop, boolean isSecondPage)
     {
-        int posX = guiLeft + 34;
+        int posX = guiLeft + 23;
         int posY = guiTop + 8;
         if (isSecondPage)
         {
@@ -39,7 +39,7 @@ public class BookPage
             int posX = position.first;
             int posY = position.second;
             minecraft.getTextureManager().bindTexture(BACKGROUND);
-            blit(stack, posX, posY, 1, 1, 106, 144, 512, 512);
+            blit(stack, posX, posY, 1, 1, 116, 144, 512, 512);
         }
     }
 }

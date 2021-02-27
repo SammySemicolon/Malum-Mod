@@ -350,6 +350,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> BONE_TILE_WALL = BLOCKS.register("bone_tile_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     
     //region contents
+    public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES().tickRandomly()));
     public static final RegistryObject<Block> BLAZE_QUARTZ_ORE = BLOCKS.register("blaze_quartz_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_QUARTZ_ORE)));
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
     

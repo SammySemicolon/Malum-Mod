@@ -26,10 +26,16 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("sun_kissed_leaves"))
                 .addPage(new HeadlineTextPage("sun_kissed_grass"))
                 .addPage(new CraftingPage(Items.PURPLE_DYE, MalumItems.LAVENDER.get()));
+    
+        BookEntry arcaneFuels = new BookEntry(MalumItems.ARCANE_CHARCOAL.get(), "arcane_fuels")
+                .addPage(new HeadlineTextPage("arcane_charcoal"))
+                .addPage(new SmeltingPage(MalumItems.RUNEWOOD_LOG.get(), MalumItems.ARCANE_CHARCOAL.get()))
+                .addPage(new HeadlineTextPage("blaze_quartz"))
+                .addLink(runewoodTrees);
         
         BookEntry solarSap = new BookEntry(MalumItems.SOLAR_SAP_BOTTLE.get(), "solar_sap")
                 .addPage(new HeadlineTextPage("solar_sap"))
-                .addPage(new HeadlineTextPage("solar_sap_again"))
+                .addPage(new TextPage("solar_sap_again"))
                 .addPage(new HeadlineTextPage("solar_syrup"))
                 .addPage(new SmeltingPage(MalumItems.SOLAR_SAP_BOTTLE.get(), MalumItems.SOLAR_SYRUP_BOTTLE.get()))
                 .addPage(new HeadlineTextPage("solar_sapball"))
@@ -47,6 +53,17 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("soul_gem"))
                 .addPage(new CraftingPage(MalumItems.SOUL_GEM.get(), EMPTY, MalumItems.ARCANE_GRIT.get(), EMPTY, MalumItems.ARCANE_GRIT.get(), Items.DIAMOND, MalumItems.ARCANE_GRIT.get(), EMPTY, MalumItems.ARCANE_GRIT.get(), EMPTY))
                 .addLink(unholyBlend);
-        addEntries(arcaneBasics, runewoodTrees, solarSap, unholyBlend, soulGem);
+    
+        BookEntry spiritBasics = new BookEntry(MalumItems.CRUDE_SCYTHE.get(), "spirit_basics")
+                .addPage(new HeadlineTextPage("spirit_basics"))
+                .addPage(new TextPage("spirit_basics_part_two"))
+                .addPage(new TextPage("spirit_basics_part_three"))
+                .addPage(new HeadlineTextPage("spirit_harvesting"))
+                .addPage(new TextPage("spirit_harvesting_part_two"))
+                .addPage(new TextPage("spirit_harvesting_part_three"))
+        
+                .addPage(new CraftingPage(MalumItems.CRUDE_SCYTHE.get(), Items.IRON_INGOT, Items.IRON_INGOT, MalumItems.SOUL_GEM.get(), EMPTY, Items.STICK, Items.IRON_INGOT, Items.STICK));
+        
+        addEntries(arcaneBasics, runewoodTrees, arcaneFuels, solarSap, unholyBlend, soulGem, spiritBasics);
     }
 }

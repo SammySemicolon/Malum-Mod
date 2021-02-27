@@ -12,12 +12,12 @@ public class RunewoodTree extends BigTree
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive)
     {
-        return MalumFeatures.SUN_KISSED_TREE;
+        return MalumFeatures.RUNEWOOD_TREE;
     }
     
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getHugeTreeFeature(Random rand)
     {
-        return MalumFeatures.HUGE_SUN_KISSED_TREE;
+        return MalumFeatures.HUGE_RUNEWOOD_TREE;
     }
 }

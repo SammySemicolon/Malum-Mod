@@ -22,6 +22,6 @@ public class TextPage extends BookPage
     {
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         
-        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+2, position.second+7, 100, 0);
+        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+2, position.second+7, 110, 0);
     }
 }

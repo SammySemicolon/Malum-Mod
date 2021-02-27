@@ -43,8 +43,8 @@ public class CategoryObject extends BookObject
             screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(category.translationKey), mouseX, mouseY);
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX,posY, 1, 211, 26, 26, 512, 512);
-        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(category.iconStack, posX + 5, posY + 5);
+        blit(matrixStack, posX,posY, 41, 211, 23, 23, 512, 512);
+        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(category.iconStack, posX + 4, posY + 4);
         
     }
 }
