@@ -1,6 +1,7 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.items.*;
+import com.sammy.malum.common.items.food.ElixirOfLifeItem;
 import com.sammy.malum.common.items.food.VoidBerriesItem;
 import com.sammy.malum.common.items.tools.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.armor.SpiritedSteelArmorItem;
@@ -300,6 +301,7 @@ public class MalumItems
     public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+    public static final RegistryObject<Item> ELIXIR_OF_LIFE = ITEMS.register("elixir_of_life", () -> new ElixirOfLifeItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(4F).build())));
     public static final RegistryObject<Item> VOID_BERRIES = ITEMS.register("void_berries", () -> new VoidBerriesItem(DEFAULT_PROPERTIES().food((new Food.Builder()).hunger(1).build())));
     
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));

@@ -22,6 +22,22 @@ public class CraftingPage extends BookPage
     public ItemStack result;
     public ItemStack[] inputs;
     
+    public CraftingPage(ItemStack result, Item... inputs)
+    {
+        BACKGROUND = MalumHelper.prefix("textures/gui/pages/crafting.png");
+        ItemStack[] stackInputs = new ItemStack[inputs.length];
+        for (int i = 0; i < inputs.length; i++)
+        {
+            if (inputs[i].equals(Items.BARRIER))
+            {
+                stackInputs[i] = ItemStack.EMPTY;
+                continue;
+            }
+            stackInputs[i] = inputs[i].getDefaultInstance();
+        }
+        this.result = result;
+        this.inputs = stackInputs;
+    }
     public CraftingPage(Item result, Item... inputs)
     {
         BACKGROUND = MalumHelper.prefix("textures/gui/pages/crafting.png");
@@ -43,6 +59,7 @@ public class CraftingPage extends BookPage
     @Override
     public void draw(MatrixStack stack, EntryObject object, BookScreen screen, int mouseX, int mouseY, int guiLeft, int guiTop, boolean isSecondPage)
     {
+        super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         int posX = position.first;
         int posY = position.second;
@@ -61,6 +78,5 @@ public class CraftingPage extends BookPage
             }
         }
         screen.drawItem(stack, result, posX+50, posY+108, mouseX, mouseY);
-        super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
     }
 }

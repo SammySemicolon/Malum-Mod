@@ -37,7 +37,7 @@ public class MalumRecipeProvider extends RecipeProvider
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer)
     {
-        shapelessRecipe(Items.PURPLE_DYE,2).addIngredient(MalumItemTags.LAVENDER).addCriterion("has_lavender", hasItem(MalumItemTags.LAVENDER)).build(consumer);
+        shapelessRecipe(Items.PURPLE_DYE,2).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
         shapelessRecipe(Items.YELLOW_DYE,2).addIngredient(MalumItems.MARIGOLD.get()).addCriterion("has_marigold", hasItem(MalumItems.MARIGOLD.get())).build(consumer);
         
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.RUNEWOOD_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
@@ -45,14 +45,15 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.ITEM_STAND.get()).key('#', MalumItems.TAINTED_ROCK.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine(" Y ").patternLine("#X#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         
         //        shapedRecipe(MalumItems.KARMIC_HOLDER.get()).key('#', MalumItems.SHARD_OF_WISDOM.get()).key('X', MalumItems.DARKENED_ROCK.get()).key('Y', Items.STRING).patternLine(" Y ").patternLine("YXY").patternLine(" # ").addCriterion("has_shard_of_wisdom", hasItem(MalumItems.SHARD_OF_WISDOM.get())).build(consumer);
-        
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_ALTAR.get()).key('Z', Items.GOLD_INGOT).key('Y', MalumItems.SOUL_GEM.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine(" Y ").patternLine("ZXZ").patternLine("XXX").addCriterion("has_soul_gem", hasItem(MalumItems.SOUL_GEM.get())).build(consumer);
+    
         ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addIngredient(MalumItems.BLAZE_QUARTZ.get()).addIngredient(Items.GUNPOWDER).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZE_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.MALUM_BOOK.get()).addIngredient(MalumItems.ARCANE_GRIT.get()).addIngredient(Items.BOOK).addCriterion("has_unholy_blend", hasItem(MalumItems.UNHOLY_BLEND.get())).build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.UNHOLY_BLEND.get()).addIngredient(Items.ROTTEN_FLESH).addIngredient(Items.SOUL_SAND).addIngredient(Items.REDSTONE).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
         smeltingRecipe(Ingredient.fromItems(MalumItems.UNHOLY_BLEND.get()), MalumItems.ARCANE_GRIT.get(),0.1f,200).addCriterion("has_unholy_blend", hasItem(MalumItems.UNHOLY_BLEND.get())).build(consumer);
         shapedRecipe(MalumItems.SOUL_GEM.get()).key('#', MalumItems.ARCANE_GRIT.get()).key('X', Items.DIAMOND).patternLine(" # ").patternLine("#X#").patternLine(" # ").addCriterion("has_arcane_grit", hasItem(MalumItems.ARCANE_GRIT.get())).build(consumer);
     
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SOLAR_SAPBALL.get(), 3).addIngredient(MalumItems.SOLAR_SAP_BOTTLE.get()).addIngredient(Tags.Items.SLIMEBALLS).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SOLAR_SAPBALL.get(), 3).addIngredient(MalumItems.SOLAR_SAP_BOTTLE.get()).addIngredient(Items.SLIME_BALL).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
     
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOLAR_SAP_BOTTLE.get()), MalumItems.SOLAR_SYRUP_BOTTLE.get(),0.1f,200).addCriterion("has_solar_sap", hasItem(MalumItems.SOLAR_SAP_BOTTLE.get())).build(consumer);
         
@@ -60,7 +61,7 @@ public class MalumRecipeProvider extends RecipeProvider
         ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON).key('P', Blocks.PISTON).key('S', MalumItems.SOLAR_SAPBALL.get()).patternLine("S").patternLine("P").addCriterion("has_sapball", hasItem(MalumItems.SOLAR_SAPBALL.get())).build(consumer, "sticky_piston_from_sapballs");
         ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2).key('~', Items.STRING).key('O', MalumItems.SOLAR_SAPBALL.get()).patternLine("~~ ").patternLine("~O ").patternLine("  ~").addCriterion("has_sapball", hasItem(MalumItems.SOLAR_SAPBALL.get())).build(consumer);
         
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.CRUDE_SCYTHE.get()).key('#', Items.STICK).key('Y', MalumItems.SOUL_GEM.get()).key('X', Items.IRON_INGOT).patternLine("XXY").patternLine(" #X").patternLine("#  ").addCriterion("has_soul_shard", hasItem(MalumItems.SOUL_GEM.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.CRUDE_SCYTHE.get()).key('#', Items.STICK).key('Y', MalumItems.SOUL_GEM.get()).key('X', Items.IRON_INGOT).patternLine("XXY").patternLine(" #X").patternLine("#  ").addCriterion("has_soul_gem", hasItem(MalumItems.SOUL_GEM.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_AXE.get()).key('#', Items.STICK).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("XX").patternLine("X#").patternLine(" #").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_BOOTS.get()).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("X X").patternLine("X X").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRITED_METAL_CHESTPLATE.get()).key('X', MalumItems.SPIRITED_METAL_INGOT.get()).patternLine("X X").patternLine("XXX").patternLine("XXX").addCriterion("has_spirited_metal", hasItem(MalumItems.SPIRITED_METAL_INGOT.get())).build(consumer);

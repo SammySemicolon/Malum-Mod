@@ -111,7 +111,7 @@ public class BookScreen extends Screen
     }
     public final int bookWidth = 292;
     public final int bookHeight = 190;
-    public final static BookScreen screen = new BookScreen();
+    public static BookScreen screen;
     public ArrayList<BookObject> objects;
     
     public BookObject firstCategory;
@@ -124,7 +124,9 @@ public class BookScreen extends Screen
     protected BookScreen()
     {
         super(ClientHelper.simpleTranslatableComponent("malum.gui.book.title"));
+        MalumBookCategories.init();
         setupObjects(Minecraft.getInstance());
+        
     }
     
     @Override
@@ -145,7 +147,7 @@ public class BookScreen extends Screen
         if (currentObject instanceof EntryObject)
         {
             EntryObject entryObject = (EntryObject) currentObject;
-            for (int i = 0; i < 2; i++)
+            for (int i = 1; i >= 0; i--)
             {
                 int page = currentPage * 2 + i;
                 if (entryObject.entry.pages.size() > page)
@@ -211,13 +213,18 @@ public class BookScreen extends Screen
     
     public static BookScreen getInstance(boolean isLectern)
     {
-        screen.currentObject = screen.firstCategory;
+        if (screen == null)
+        {
+            screen = new BookScreen();
+            screen.currentObject = screen.firstCategory;
+        }
         screen.isLectern = isLectern;
         return screen;
     }
     public void drawItem(MatrixStack matrixStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY)
     {
         Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(stack, posX, posY);
+        Minecraft.getInstance().getItemRenderer().renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, posX, posY, null);
         if (screen.isHovering(mouseX, mouseY, posX, posY, 16,16))
         {
             screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(stack.getTranslationKey()), mouseX, mouseY);

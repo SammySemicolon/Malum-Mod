@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
     "side": "malum:block/sap_filled_runewood_log",
     "end": "malum:block/runewood_log_top"

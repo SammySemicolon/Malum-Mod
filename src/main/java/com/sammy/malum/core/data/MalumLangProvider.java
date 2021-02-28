@@ -40,7 +40,7 @@ public class MalumLangProvider extends LanguageProvider
     protected void addTranslations()
     {
         StartupEvents.registerModContents(null);
-        
+        MalumBookCategories.init();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
@@ -103,8 +103,8 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.gui.book.page.arcane_charcoal", "Runewood seems to react differently to heat than other wood types. Instead of creating normal charcoal, arcane charcoal is made. It can smelt three times as many items");
         add("malum.gui.book.page.blaze_quartz", "Blaze quartz is a strange gem only found in the nether realm. It makes for a great fuel source, smelting twice as many items as coal");
     
-        add("malum.gui.book.page.solar_sap", "The runewood tree can often be found with sap in it, ready to be harvested. You can quite easily take it out with a bottle. If you strip the wood beforehand, more sap can be taken");
-        add("malum.gui.book.page.solar_sap_again", "Do note however, sap will not naturally regenerate inside of the tree. Sap can only be obtained by planting new trees, perhaps there is a way to get around this...");
+        add("malum.gui.book.page.solar_sap", "The runewood tree can often be found with sap in it, ready to be harvested. You can quite easily take it out with a bottle.");
+        add("malum.gui.book.page.solar_sap_again", "Do note however, sap will not naturally regenerate inside of the tree. Sap can only be obtained by planting new trees.");
         add("malum.gui.book.page.solar_syrup", "By heating up sap in a furnace, you can create syrup. This tasty mixture will recover some of your health when consumed");
         add("malum.gui.book.page.solar_sapball", "When combining solar sap with slimeballs, solar sapballs will be made. They work just the same and can be used for whatever slimy needs you have.");
     
@@ -113,13 +113,23 @@ public class MalumLangProvider extends LanguageProvider
     
         add("malum.gui.book.page.soul_gem", "By combining diamonds with arcane grit, you can create this pristine gem. You can see the image of your soul inside of it if you look hard enough");
     
-        add("malum.gui.book.page.spirit_basics", "In the world of magic exists a precious resource. There are many means of obtaining this resource, different sources name it differently too. Some know it as Vis, some as Mana, Blood, Will. We know it as Spirits.");
+        add("malum.gui.book.page.spirit_basics", "In the world of magic exists a precious resource, some know it as Vis, some as Mana, Blood, Will. We know it as Spirits.");
         add("malum.gui.book.page.spirit_basics_part_two", "Spirits are a magical energy found primarily inside souls, they're like magical subcomponents of said soul. Every living being has a soul, some however are too complex to be easily turned into spirits");
         add("malum.gui.book.page.spirit_basics_part_three", "There are many types of spirits that each reside within different souls. Each have different properties and abilities, waiting to be uncovered.");
     
         add("malum.gui.book.page.spirit_harvesting", "Hunting for this resource is no easy task, it requires proper tools and knowledge. The simplest way of doing so is through the use of a scythe.");
         add("malum.gui.book.page.spirit_harvesting_part_two", "Scythes are powerful weapons, much like axes they are slow to use. In exchange they have great area of effect damage, perfect for use against tons of enemies.");
         add("malum.gui.book.page.spirit_harvesting_part_three", "Most notably however; upon slaying a living being it's soul will shatter into a few spirit splinters; the natural exposed form of a splinter. There's few creatures that are immune to this process");
+    
+        add("malum.gui.book.page.spirit_altar", "The spirit altar is the most essential tool in your journey of spirit magic. It holds slots for up to 5 spirit splinters and a single item. With this block you'll be able to create many new wonders.");
+    
+        add("malum.gui.book.page.tainted_rock", "Through the use of spirit infusion you can turn cobblestone into tainted rock. Tainted rock is a greater, magic reactive material perfect for your magic works.");
+        add("malum.gui.book.page.darkened_rock", "If we replace the life spirit with a death spirit, darkened rock will be created instead. This material is harder and very blast resistant.");
+        add("malum.gui.book.page.runewood_replication", "By infusing normal wood with earth and magic spirits, runewood will be created. This reaction can happen with logs, planks and saplings.");
+    
+        add("malum.gui.book.page.ether", "Made from glowstone and infused with fire, ether is a magical flame that burns forever.  It can be dyed, placed in a brazier or on a torch.");
+        
+        add("malum.gui.book.page.elixir_of_life", "By infusing the already health recovering solar syrup with life spirits we can create the elixir of life. This wondrous cocktail will recover even more health and grant you the regeneration effect.");
     
         add("malum.subtitle.tainted_rock_break", "Tainted Rock Broken");
         add("malum.subtitle.tainted_rock_step", "Tainted Rock Footsteps");

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class MalumBookCategories
 {
-    public static ArrayList<BookCategory> CATEGORIES = new ArrayList<>();
+    public static ArrayList<BookCategory> CATEGORIES;
     public static void init()
     {
+        CATEGORIES = new ArrayList<>();
         CATEGORIES.add(new DiscoveryCategory());
-        CATEGORIES.add(new DarkArtsCategory());
     }
     
 }

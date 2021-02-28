@@ -17,7 +17,7 @@ public class MalumItemIngredient
     {
         return tag == null;
     }
-    public ItemStack outputItem()
+    public ItemStack getItem()
     {
         if (isSimple())
         {

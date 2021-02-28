@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Y ",
+    "ZXZ",
+    "XXX"
+  ],
+  "key": {
+    "Z": {
+      "item": "minecraft:gold_ingot"
+    },
+    "Y": {
+      "item": "malum:soul_gem"
+    },
+    "X": {
+      "item": "malum:runewood_planks"
+    }
+  },
+  "result": {
+    "item": "malum:spirit_altar"
+  }
+}

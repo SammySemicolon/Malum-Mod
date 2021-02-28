@@ -21,7 +21,6 @@ public class StartupEvents
         MalumSpiritKilnFuels.init();
         MalumRites.init();
         MalumSpiritAltarRecipes.init();
-        MalumBookCategories.init();
     }
     @SubscribeEvent
     public static void registerFeatures(FMLCommonSetupEvent event)

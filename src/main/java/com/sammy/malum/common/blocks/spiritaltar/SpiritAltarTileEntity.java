@@ -1,30 +1,23 @@
 package com.sammy.malum.common.blocks.spiritaltar;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreTileEntity;
 import com.sammy.malum.common.items.SpiritSplinterItem;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
-import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.World;
 
 import java.awt.*;
 
 import static com.sammy.malum.MalumHelper.*;
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
@@ -40,7 +33,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 SpiritAltarTileEntity.this.markDirty();
                 updateContainingBlockInfo();
                 MalumHelper.updateState(world.getBlockState(pos), world, pos);
-                recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(slot));
+                recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(slot), spiritInventory.nonEmptyStacks());
             }
         };
         spiritInventory = new SimpleInventory(5, 64, t-> t.getItem() instanceof SpiritSplinterItem)
@@ -104,37 +97,34 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             if (progress >= 60)
             {
                 Vector3d itemPos = itemPos(this);
-                if (recipe.matches(spiritInventory.nonEmptyStacks()))
+                for (MalumSpiritIngredient ingredient : recipe.spiritIngredients)
                 {
-                    for (MalumSpiritIngredient ingredient : recipe.spiritIngredients)
+                    if (MalumHelper.areWeOnClient(world))
                     {
-                        if (MalumHelper.areWeOnClient(world))
+                        Color color = ingredient.type.color;
+                        ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.6f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).randomOffset(0.1f).addVelocity(0, 0.12f, 0).randomVelocity(0.03f, 0.08f).enableGravity().repeat(world, itemPos.x, itemPos.y, itemPos.z, 20);
+                        ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(60).setScale(0.4f, 0).setColor(color, color.darker()).randomOffset(0.25f, 0.1f).randomVelocity(0.004f, 0.004f).enableNoClip().repeat(world, itemPos.x, itemPos.y, itemPos.z, 12);
+                        ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.05f, 0f).setLifetime(30).setScale(0.2f, 0).setColor(color, color.darker()).randomOffset(0.05f, 0.05f).randomVelocity(0.002f, 0.002f).enableNoClip().repeat(world, itemPos.x, itemPos.y, itemPos.z, 8);
+                    }
+                    for (int i = 0; i < spiritInventory.slotCount; i++)
+                    {
+                        ItemStack spiritStack = spiritInventory.getStackInSlot(i);
+                        if (ingredient.matches(spiritStack))
                         {
-                            Color color = ingredient.type.color;
-                            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.6f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).randomOffset(0.1f).addVelocity(0,0.12f,0).randomVelocity(0.03f, 0.08f).enableGravity().repeat(world,itemPos.x,itemPos.y,itemPos.z, 20);
-                            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(60).setScale(0.4f, 0).setColor(color, color.darker()).randomOffset(0.25f, 0.1f).randomVelocity(0.004f, 0.004f).enableNoClip().repeat(world, itemPos.x, itemPos.y, itemPos.z, 12);
-                            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.05f, 0f).setLifetime(30).setScale(0.2f, 0).setColor(color, color.darker()).randomOffset(0.05f, 0.05f).randomVelocity(0.002f, 0.002f).enableNoClip().repeat(world, itemPos.x, itemPos.y, itemPos.z, 8);
-                        }
-                        for (int i = 0; i < spiritInventory.slotCount; i++)
-                        {
-                            ItemStack spiritStack = spiritInventory.getStackInSlot(i);
-                            if (ingredient.matches(spiritStack))
-                            {
-                                spiritStack.shrink(ingredient.count);
-                                break;
-                            }
+                            spiritStack.shrink(ingredient.count);
+                            break;
                         }
                     }
-                    stack.shrink(recipe.inputIngredient.count);
-                    ItemEntity entity = new ItemEntity(world, itemPos.x,itemPos.y,itemPos.z, recipe.outputIngredient.outputItem());
-                    world.addEntity(entity);
-                    progress = 0;
-                    recipe = MalumSpiritAltarRecipes.getRecipe(stack);
-                    MalumHelper.updateState(world.getBlockState(pos), world, pos);
-                    if (recipe != null && !recipe.matches(spiritInventory.nonEmptyStacks()))
-                    {
-                        inventory.dumpItems(world, itemPos);
-                    }
+                }
+                stack.shrink(recipe.inputIngredient.count);
+                ItemEntity entity = new ItemEntity(world, itemPos.x, itemPos.y, itemPos.z, recipe.outputIngredient.getItem());
+                world.addEntity(entity);
+                progress = 0;
+                recipe = MalumSpiritAltarRecipes.getRecipe(stack, spiritInventory.nonEmptyStacks());
+                MalumHelper.updateState(world.getBlockState(pos), world, pos);
+                if (recipe == null)
+                {
+                    inventory.dumpItems(world, itemPos);
                 }
             }
         }

@@ -30,7 +30,7 @@ public class HeadlineTextPage extends BookPage
         
         int width = 101;
         int height = 16;
-        int posX = position.first+5;
+        int posX = position.first+6;
         int posY = position.second + 7;
         if (screen.isHovering(mouseX, mouseY, posX,posY,width,height))
         {

@@ -4,8 +4,10 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
 import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
@@ -19,6 +21,11 @@ public class MalumSpiritAltarRecipes
     {
         new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.TAINTED_ROCK.get(), 16),new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
         new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.DARKENED_ROCK.get(), 16),new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(ItemTags.LOGS, 16), new MalumItemIngredient(MalumItems.RUNEWOOD_LOG.get(), 16),new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(ItemTags.PLANKS, 64), new MalumItemIngredient(MalumItems.RUNEWOOD_PLANKS.get(), 64),new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(ItemTags.SAPLINGS, 4), new MalumItemIngredient(MalumItems.RUNEWOOD_SAPLING.get(), 4),new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.SOLAR_SAP_BOTTLE.get(), 1), new MalumItemIngredient(MalumItems.ELIXIR_OF_LIFE.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 2));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GLOWSTONE_DUST, 4), new MalumItemIngredient(MalumItems.ORANGE_ETHER.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 2));
     }
     
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack)
@@ -27,7 +34,29 @@ public class MalumSpiritAltarRecipes
         {
             if (recipe.inputIngredient.matches(stack))
             {
+                if (stack.getItem().equals(recipe.outputIngredient.getItem().getItem()))
+                {
+                    continue;
+                }
                 return recipe;
+            }
+        }
+        return null;
+    }
+    public static MalumSpiritAltarRecipe getRecipe(ItemStack stack, ArrayList<ItemStack> stacks)
+    {
+        for (MalumSpiritAltarRecipe recipe : RECIPES)
+        {
+            if (recipe.inputIngredient.matches(stack))
+            {
+                if (stack.getItem().equals(recipe.outputIngredient.getItem().getItem()))
+                {
+                    continue;
+                }
+                if (recipe.matches(stacks))
+                {
+                    return recipe;
+                }
             }
         }
         return null;

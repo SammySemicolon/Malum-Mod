@@ -29,11 +29,11 @@ public class SmeltingPage extends BookPage
     @Override
     public void draw(MatrixStack stack, EntryObject object, BookScreen screen, int mouseX, int mouseY, int guiLeft, int guiTop, boolean isSecondPage)
     {
+        super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         int posX = position.first;
         int posY = position.second;
         screen.drawItem(stack, result, posX+50, posY+24, mouseX, mouseY);
         screen.drawItem(stack, input, posX+50, posY+102, mouseX, mouseY);
-        super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
     }
 }
