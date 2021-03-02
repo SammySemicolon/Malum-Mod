@@ -71,8 +71,8 @@ public class CraftingPage extends BookPage
                 if (index < inputs.length && !inputs[index].isEmpty())
                 {
                     ItemStack itemStack = inputs[index];
-                    int itemPosX = posX + 28 + j*22;
-                    int itemPosY = posY + 19 + i*22;
+                    int itemPosX = posX + 23 + j*27;
+                    int itemPosY = posY + 13 + i*27;
                     screen.drawItem(stack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }

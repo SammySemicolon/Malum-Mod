@@ -127,9 +127,18 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.gui.book.page.darkened_rock", "If we replace the life spirit with a death spirit, darkened rock will be created instead. This material is harder and very blast resistant.");
         add("malum.gui.book.page.runewood_replication", "By infusing normal wood with earth and magic spirits, runewood will be created. This reaction can happen with logs, planks and saplings.");
     
+        add("malum.gui.book.page.life_spirit", "Life is by far the most commonly present spirit of the three most basic spirits. It's life bringing capabilities are phenomenal, close to a miracle even.");
+        add("malum.gui.book.page.death_spirit", "Death, something unavoidable. The death spirit represents the undead, strange beings found in this world that were somehow brought back to life.");
+        add("malum.gui.book.page.magic_spirit", "The magic spirit shines brightly with potential. Anything born out of magic will have this spirit in their soul. Advanced magicians such as an evoker overtime have earned this spirit too.");
+        add("malum.gui.book.page.earth_spirit", "Named after our planet, the earth spirit resides within metal. Anything even remotely associated with iron or copper will have earth in it's soul.");
+        add("malum.gui.book.page.fire_spirit", "The fire spirit, reminiscent of the nether is also most commonly found there. The flame of the blaze burns forever due to this spirit.");
+        add("malum.gui.book.page.air_spirit", "The air spirit represents agility, any nimble soul will have plenty of it. The spider for example; it's wall-climbing abilities are born from the air in it's soul.");
+        add("malum.gui.book.page.water_spirit", "Water, found in every body, but so few souls. Any aquatic creature will contain the spirit; it can take any form, it's easy to manipulate. ");
+        add("malum.gui.book.page.eldritch_spirit", "The mere thought of this spirit fills your mind with wicked thoughts. This powerful element is only found within the unexplainable, strange abominations brought into this realm.");
+    
         add("malum.gui.book.page.ether", "Made from glowstone and infused with fire, ether is a magical flame that burns forever.  It can be dyed, placed in a brazier or on a torch.");
         
-        add("malum.gui.book.page.elixir_of_life", "By infusing the already health recovering solar syrup with life spirits we can create the elixir of life. This wondrous cocktail will recover even more health and grant you the regeneration effect.");
+        add("malum.gui.book.page.elixir_of_life", "By infusing solar syrup with life spirits we can create the elixir of life. This wondrous cocktail will recover even more health and grant you the regeneration effect.");
     
         add("malum.subtitle.tainted_rock_break", "Tainted Rock Broken");
         add("malum.subtitle.tainted_rock_step", "Tainted Rock Footsteps");

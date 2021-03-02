@@ -1,7 +1,6 @@
 package com.sammy.malum.common.blocks.spiritaltar;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.spiritstorage.pipe.IPipeConnected;
 import com.sammy.malum.common.items.SpiritSplinterItem;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
@@ -25,7 +24,7 @@ import net.minecraft.world.World;
 
 import java.awt.*;
 
-public class SpiritAltarBlock extends Block implements IPipeConnected
+public class SpiritAltarBlock extends Block
 {
     public SpiritAltarBlock(Properties properties)
     {

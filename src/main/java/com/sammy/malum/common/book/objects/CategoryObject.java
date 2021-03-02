@@ -30,7 +30,10 @@ public class CategoryObject extends BookObject
     @Override
     public void interact(BookScreen screen)
     {
-        screen.currentGrouping = 0;
+        if (screen.currentObject instanceof CategoryObject)
+        {
+            screen.currentGrouping = 0;
+        }
         screen.currentPage = 0;
         super.interact(screen);
     }
@@ -43,7 +46,7 @@ public class CategoryObject extends BookObject
             screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(category.translationKey), mouseX, mouseY);
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX,posY, 41, 211, 23, 23, 512, 512);
+        blit(matrixStack, posX,posY, 41, 211, 24, 24, 512, 512);
         Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(category.iconStack, posX + 4, posY + 4);
         
     }

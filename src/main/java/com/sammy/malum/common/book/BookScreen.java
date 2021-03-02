@@ -63,7 +63,7 @@ public class BookScreen extends Screen
             BookCategory category = MalumBookCategories.CATEGORIES.get(i);
             posX = guiLeft - 3;
             posY = guiTop + 12 + (i * 26);
-            CategoryObject categoryObject = new CategoryObject(category, posX, posY, 23, 23);
+            CategoryObject categoryObject = new CategoryObject(category, posX, posY, 24, 24);
             if (i == 0)
             {
                 firstCategory = categoryObject;
@@ -97,10 +97,10 @@ public class BookScreen extends Screen
                     objects.add(entryObject);
                     for (int l = 0; l < entry.links.size(); l++)
                     {
-                        posX = guiLeft + 268;
-                        posY = guiTop + 12 + (l * 32);
+                        posX = guiLeft + 271;
+                        posY = guiTop + 12 + (l * 26);
                         BookEntry linkedEntry = entry.links.get(l);
-                        LinkedEntryObject linkedPageObject = (LinkedEntryObject) new LinkedEntryObject(posX, posY, 26, 26, entryObject, linkedEntry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(entryObject));
+                        LinkedEntryObject linkedPageObject = (LinkedEntryObject) new LinkedEntryObject(posX, posY, 24, 24, entryObject, linkedEntry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(entryObject));
                         objects.add(linkedPageObject);
                     }
                 }

@@ -32,27 +32,18 @@ public class SpiritInfusionPage extends BookPage
     public void draw(MatrixStack stack, EntryObject object, BookScreen screen, int mouseX, int mouseY, int guiLeft, int guiTop, boolean isSecondPage)
     {
         super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
-        Minecraft minecraft = Minecraft.getInstance();
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         
         int posX = position.first;
         int posY = position.second;
         
-        float angleStep = Math.min(30, 120 / spirits.size());
-        double rootAngle = 90 - (spirits.size() - 1) * angleStep / 2;
-        stack.push();
-        stack.translate(-0.5f, 0,0);
+        ArrayList<Pair<Integer, Integer>> offsets = MalumHelper.toArrayList(Pair.of(50, 15), Pair.of(50, 67), Pair.of(24, 41), Pair.of(76, 41), Pair.of(28, 19), Pair.of(72, 63), Pair.of(72, 19), Pair.of(28, 63));
         for (int i = 0; i < spirits.size(); i++)
         {
-            double a = Math.toRadians(rootAngle + angleStep * i);
-            int dx = (int) (59 - 42 * Math.cos(a));
-            int dy = (int) (71 - 32 * Math.sin(a));
-            minecraft.getTextureManager().bindTexture(BACKGROUND);
-            blit(stack, posX+dx-8, posY+dy-8, 119, 1, 16, 16, 512, 512);
-            screen.drawItem(stack, spirits.get(i), posX + dx - 8, posY + dy - 8, mouseX, mouseY);
+            Pair<Integer, Integer> offset = offsets.get(i);
+            screen.drawItem(stack, spirits.get(i), posX + offset.first, posY + offset.second, mouseX, mouseY);
         }
-        stack.pop();
-        screen.drawItem(stack, inputStack, posX + 50, posY + 62, mouseX, mouseY);
-        screen.drawItem(stack, outputStack, posX + 50, posY + 102, mouseX, mouseY);
+        screen.drawItem(stack, inputStack, posX + 50, posY + 41, mouseX, mouseY);
+        screen.drawItem(stack, outputStack, posX + 50, posY + 108, mouseX, mouseY);
     }
 }

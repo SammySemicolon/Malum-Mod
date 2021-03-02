@@ -1,17 +1,21 @@
-  {
-    "multipart": [
-        {   "apply": { "model": "malum:block/spirit_jar_core" }},
-        {   "when": { "north_connection": "true" },
-            "apply": { "model": "malum:block/spirit_jar_connection" }
-        },
-        {   "when": { "east_connection": "true" },
-            "apply": { "model": "malum:block/spirit_jar_connection", "y": 90 }
-        },
-        {   "when": { "south_connection": "true" },
-            "apply": { "model": "malum:block/spirit_jar_connection", "y": 180 }
-        },
-        {   "when": { "west_connection": "true" },
-            "apply": { "model": "malum:block/spirit_jar_connection", "y": 270 }
-        }
+{
+  "variants": {
+    "": [
+      {
+      "model": "malum:block/spirit_jar"
+      },
+      {
+      "model": "malum:block/spirit_jar",
+        "y": 90
+      },
+      {
+      "model": "malum:block/spirit_jar",
+        "y": 180
+      },
+      {
+      "model": "malum:block/spirit_jar",
+        "y": 270
+      }
     ]
+  }
 }

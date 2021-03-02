@@ -285,11 +285,11 @@ public class MalumItems
     
     public static final RegistryObject<Item> LIFE_SPIRIT_SPLINTER = ITEMS.register("life_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> DEATH_SPIRIT_SPLINTER = ITEMS.register("death_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> MAGIC_SPIRIT_SPLINTER = ITEMS.register("magic_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> EARTH_SPIRIT_SPLINTER = ITEMS.register("earth_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> FIRE_SPIRIT_SPLINTER = ITEMS.register("fire_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> AIR_SPIRIT_SPLINTER = ITEMS.register("air_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> WATER_SPIRIT_SPLINTER = ITEMS.register("water_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
-    public static final RegistryObject<Item> FIRE_SPIRIT_SPLINTER = ITEMS.register("fire_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
-    public static final RegistryObject<Item> EARTH_SPIRIT_SPLINTER = ITEMS.register("earth_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
-    public static final RegistryObject<Item> MAGIC_SPIRIT_SPLINTER = ITEMS.register("magic_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> ELDRITCH_SPIRIT_SPLINTER = ITEMS.register("eldritch_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     
     public static final RegistryObject<Item> BLAZE_QUARTZ_ORE = ITEMS.register("blaze_quartz_ore", () -> new BlockItem(MalumBlocks.BLAZE_QUARTZ_ORE.get(), ORE_PROPERTIES()));
@@ -306,7 +306,6 @@ public class MalumItems
     
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_CORE = ITEMS.register("totem_core", () -> new BlockItem(MalumBlocks.TOTEM_CORE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> SPIRIT_KILN = ITEMS.register("spirit_kiln", () -> new MultiblockItem(MalumBlocks.SPIRIT_KILN.get(), DEFAULT_PROPERTIES(), MultiblockStructure.doubleTallBlock(MalumBlocks.SPIRIT_KILN_TOP.get())));
