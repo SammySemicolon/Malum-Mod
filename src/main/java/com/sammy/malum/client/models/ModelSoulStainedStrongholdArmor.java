@@ -26,8 +26,6 @@ public class ModelSoulStainedStrongholdArmor extends ModelArmor
 
 	public ModelSoulStainedStrongholdArmor(EquipmentSlotType slot) {
 		super(slot, 64, 64);
-		textureWidth = 64;
-		textureHeight = 64;
 		
 		torso = new ModelRenderer(this);
 		torso.setRotationPoint(0.0F, 0.0F, 0.0F);
