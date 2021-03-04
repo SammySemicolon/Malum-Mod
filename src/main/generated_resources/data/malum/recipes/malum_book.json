@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:arcane_grit"
+      "item": "malum:lavender"
     },
     {
       "item": "minecraft:book"

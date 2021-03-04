@@ -14,23 +14,43 @@ import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
 
 public class DarkArtsCategory extends BookCategory
 {
+    public static BookEntry hallowed_gold;
+    public static BookEntry soul_stained_steel;
     public static BookEntry ether;
     public static BookEntry elixirOfLife;
     public DarkArtsCategory()
     {
         super(MalumItems.HALLOWED_GOLD_INGOT.get().getDefaultInstance(), "dark_arts");
         Item EMPTY = Items.BARRIER;
+        hallowed_gold = new BookEntry(MalumItems.HALLOWED_GOLD_INGOT.get(), "hallowed_gold")
+                .addPage(new HeadlineTextPage("hallowed_gold"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.GOLD_INGOT, 2), new ItemStack(MalumItems.HALLOWED_GOLD_INGOT.get(), 2), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.FIRE_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.AIR_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.WATER_SPIRIT_SPLINTER.get())))
+                .addPage(new CraftingPage(new ItemStack(MalumItems.HALLOWED_GOLD_NUGGET.get(), 9), EMPTY, EMPTY, EMPTY, EMPTY, MalumItems.HALLOWED_GOLD_INGOT.get(), EMPTY, EMPTY, EMPTY, EMPTY))
+                .addPage(new CraftingPage(new ItemStack(MalumItems.HALLOWED_GOLD_BLOCK.get()), MalumItems.HALLOWED_GOLD_INGOT.get(), MalumItems.HALLOWED_GOLD_INGOT.get(), MalumItems.HALLOWED_GOLD_INGOT.get(), MalumItems.HALLOWED_GOLD_INGOT.get(), MalumItems.HALLOWED_GOLD_INGOT.get(), MalumItems.HALLOWED_GOLD_INGOT.get(), MalumItems.HALLOWED_GOLD_INGOT.get(), MalumItems.HALLOWED_GOLD_INGOT.get(), MalumItems.HALLOWED_GOLD_INGOT.get()))
+                .addLink(earthSpirit).addLink(fireSpirit).addLink(airSpirit).addLink(waterSpirit);
+        
+        soul_stained_steel = new BookEntry(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), "soul_stained_steel")
+                .addPage(new HeadlineTextPage("soul_stained_steel"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.IRON_INGOT, 2), new ItemStack(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 2), new ItemStack(MalumItems.DEATH_SPIRIT_SPLINTER.get(), 2), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get(), 2)))
+                .addPage(new CraftingPage(new ItemStack(MalumItems.SOUL_STAINED_STEEL_NUGGET.get(), 9), EMPTY, EMPTY, EMPTY, EMPTY, MalumItems.SOUL_STAINED_STEEL_INGOT.get(), EMPTY, EMPTY, EMPTY, EMPTY))
+                .addPage(new CraftingPage(new ItemStack(MalumItems.SOUL_STAINED_STEEL_BLOCK.get()), MalumItems.SOUL_STAINED_STEEL_INGOT.get(), MalumItems.SOUL_STAINED_STEEL_INGOT.get(), MalumItems.SOUL_STAINED_STEEL_INGOT.get(), MalumItems.SOUL_STAINED_STEEL_INGOT.get(), MalumItems.SOUL_STAINED_STEEL_INGOT.get(), MalumItems.SOUL_STAINED_STEEL_INGOT.get(), MalumItems.SOUL_STAINED_STEEL_INGOT.get(), MalumItems.SOUL_STAINED_STEEL_INGOT.get(), MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addLink(deathSpirit).addLink(magicSpirit);
+        
+        elixirOfLife = new BookEntry(MalumItems.ELIXIR_OF_LIFE.get(), "elixir_of_life")
+                .addPage(new HeadlineTextPage("elixir_of_life"))
+                .addPage(new SpiritInfusionPage(new ItemStack(MalumItems.SOLAR_SYRUP_BOTTLE.get()), new ItemStack(MalumItems.ELIXIR_OF_LIFE.get()), new ItemStack(MalumItems.LIFE_SPIRIT_SPLINTER.get(), 2)))
+                .addLink(solarSap).addLink(lifeSpirit);
         ether = new BookEntry(MalumItems.ORANGE_ETHER.get(), "ether")
                 .addPage(new HeadlineTextPage("ether"))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.GLOWSTONE_DUST, 4), new ItemStack(MalumItems.ORANGE_ETHER.get()), new ItemStack(MalumItems.FIRE_SPIRIT_SPLINTER.get(), 2)))
                 .addPage(new CraftingPage(new ItemStack(MalumItems.ORANGE_ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, MalumItems.ORANGE_ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
                 .addPage(new CraftingPage(new ItemStack(MalumItems.ORANGE_ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, MalumItems.TAINTED_ROCK.get(), MalumItems.ORANGE_ETHER.get(), MalumItems.TAINTED_ROCK.get(), Items.STICK, MalumItems.TAINTED_ROCK.get(), Items.STICK))
                 .addLink(fireSpirit);
-                
+        
         elixirOfLife = new BookEntry(MalumItems.ELIXIR_OF_LIFE.get(), "elixir_of_life")
                 .addPage(new HeadlineTextPage("elixir_of_life"))
                 .addPage(new SpiritInfusionPage(new ItemStack(MalumItems.SOLAR_SYRUP_BOTTLE.get()), new ItemStack(MalumItems.ELIXIR_OF_LIFE.get()), new ItemStack(MalumItems.LIFE_SPIRIT_SPLINTER.get(), 2)))
                 .addLink(solarSap).addLink(lifeSpirit);
-        addEntries(ether, elixirOfLife);
+        addEntries(hallowed_gold, soul_stained_steel, ether, elixirOfLife);
     }
 }

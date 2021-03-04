@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "malum:soul_stained_steel_ingot"
+    }
+  },
+  "result": {
+    "item": "malum:soul_stained_steel_shovel"
+  }
+}

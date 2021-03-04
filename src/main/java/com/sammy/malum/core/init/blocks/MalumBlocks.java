@@ -68,16 +68,6 @@ public class MalumBlocks
         return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).harvestTool(ToolType.HOE).zeroHardnessAndResistance();
     }
     
-    
-    public static AbstractBlock.Properties TAINTED_GRASS_BLOCK_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.PURPLE).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.45f).tickRandomly();
-    }
-    public static AbstractBlock.Properties TAINTED_PLANTS_PROPERTIES()
-    {
-        return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.PURPLE).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).harvestTool(ToolType.HOE).zeroHardnessAndResistance();
-    }
-    
     public static AbstractBlock.Properties LEAVES_PROPERTIES()
     {
         return AbstractBlock.Properties.from(Blocks.OAK_LEAVES);
@@ -97,9 +87,9 @@ public class MalumBlocks
         return AbstractBlock.Properties.create(Material.IRON, MaterialColor.YELLOW).sound(MalumSounds.HALLOWED_GOLD).notSolid().hardnessAndResistance(2F, 16.0F);
     }
     
-    public static AbstractBlock.Properties SPIRITED_METAL_BLOCK_PROPERTIES()
+    public static AbstractBlock.Properties SOUL_STAINED_STEEL_BLOCK_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.IRON, MaterialColor.BLUE).sound(MalumSounds.SPIRITED_METAL_BLOCK).hardnessAndResistance(5f,3600f);
+        return AbstractBlock.Properties.create(Material.IRON, MaterialColor.BLUE).sound(MalumSounds.SOUL_STAINED_STEEL).hardnessAndResistance(5f,3600f);
     }
     
     public static AbstractBlock.Properties SPIRIT_JAR_PROPERTIES()
@@ -354,7 +344,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
     
     public static final RegistryObject<Block> HALLOWED_GOLD_BLOCK = BLOCKS.register("hallowed_gold_block", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
-    public static final RegistryObject<Block> SPIRITED_METAL_BLOCK = BLOCKS.register("spirited_metal_block", () -> new Block(SPIRITED_METAL_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> SOUL_STAINED_STEEL_BLOCK = BLOCKS.register("soul_stained_steel_block", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
     
     public static final RegistryObject<Block> WITHER_SAND = BLOCKS.register("wither_sand", () -> new WitherSandBlock(AbstractBlock.Properties.from(Blocks.SOUL_SAND).harvestTool(ToolType.SHOVEL)));
     //endregion

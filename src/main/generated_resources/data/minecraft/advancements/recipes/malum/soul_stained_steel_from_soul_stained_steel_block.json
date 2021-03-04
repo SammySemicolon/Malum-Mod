@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:soul_stained_steel_from_soul_stained_steel_block"
+    ]
+  },
+  "criteria": {
+    "has_soul_stained_steel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:soul_stained_steel_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:soul_stained_steel_from_soul_stained_steel_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_stained_steel",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "malum:sun_kissed_grass_block"
+    "malum:sun_kissed_grass_block",
+    "malum:wild_farmland"
   ]
 }

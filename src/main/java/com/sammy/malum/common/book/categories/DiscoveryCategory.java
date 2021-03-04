@@ -110,6 +110,9 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_LOG, 16), new ItemStack(MalumItems.RUNEWOOD_LOG.get(), 16), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_PLANKS, 64), new ItemStack(MalumItems.RUNEWOOD_PLANKS.get(), 64), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_SAPLING, 4), new ItemStack(MalumItems.RUNEWOOD_SAPLING.get(), 4), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.DIRT, 32), new ItemStack(MalumItems.SUN_KISSED_GRASS_BLOCK.get(), 32), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
+                .addPage(new HeadlineTextPage("bringing_forth_life"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.DIRT, 32), new ItemStack(Items.GRASS_BLOCK, 32), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get())))
                 .addLink(lifeSpirit).addLink(deathSpirit).addLink(magicSpirit).addLink(earthSpirit);
             
         addEntries(arcaneBasics, runewoodTrees, arcaneFuels, solarSap, unholyBlend, soulGem, spiritBasics, spiritAltar, simpleInfusion, lifeSpirit, deathSpirit, magicSpirit, earthSpirit,fireSpirit,airSpirit,waterSpirit,eldritchSpirit);
