@@ -16,21 +16,24 @@ public class MalumRites
     
     public static void init()
     {
-        new RiteOfSacrifice("rite_of_sacrifice",true, LIFE_SPIRIT, DEATH_SPIRIT);
-        new RiteOfIgnition("rite_of_ignition",true, MAGIC_SPIRIT, FIRE_SPIRIT, FIRE_SPIRIT);
-        new RiteOfLife("rite_of_life",false, LIFE_SPIRIT, LIFE_SPIRIT, LIFE_SPIRIT, LIFE_SPIRIT);
-        new RiteOfDeath("rite_of_death",false, DEATH_SPIRIT, DEATH_SPIRIT, DEATH_SPIRIT, DEATH_SPIRIT);
-        new RiteOfWater("rite_of_water",false, WATER_SPIRIT, WATER_SPIRIT, WATER_SPIRIT, WATER_SPIRIT);
-        new RiteOfFortitude("rite_of_fortitude",false, EARTH_SPIRIT, EARTH_SPIRIT, EARTH_SPIRIT, EARTH_SPIRIT);
-        new RiteOfAir("rite_of_air",true, AIR_SPIRIT, AIR_SPIRIT, AIR_SPIRIT, AIR_SPIRIT);
-        new RiteOfAgility("rite_of_agility",false, AIR_SPIRIT, LIFE_SPIRIT, AIR_SPIRIT, AIR_SPIRIT, AIR_SPIRIT);
+        //new RiteOfIgnition("rite_of_ignition",true, MAGIC_SPIRIT, FIRE_SPIRIT, FIRE_SPIRIT);
+        
+        new RiteOfLife("rite_of_life",false, MAGIC_SPIRIT, LIFE_SPIRIT, LIFE_SPIRIT); //entity effects
+        new RiteOfDeath("rite_of_death",false, MAGIC_SPIRIT, DEATH_SPIRIT, DEATH_SPIRIT);
+        new RiteOfFire("rite_of_fire",false, MAGIC_SPIRIT, FIRE_SPIRIT, FIRE_SPIRIT);
+        new RiteOfEarth("rite_of_earth",false, MAGIC_SPIRIT, EARTH_SPIRIT, EARTH_SPIRIT);
+        new RiteOfAir("rite_of_air",false, MAGIC_SPIRIT, AIR_SPIRIT, AIR_SPIRIT);
+        new RiteOfWater("rite_of_water",false, MAGIC_SPIRIT, WATER_SPIRIT, WATER_SPIRIT);
+        
+        new RiteOfWarding("rite_of_warding",false, MAGIC_SPIRIT, EARTH_SPIRIT, EARTH_SPIRIT, WATER_SPIRIT, WATER_SPIRIT);
         new RiteOfLevitation("rite_of_levitation",false, AIR_SPIRIT);
-        new RiteOfGrowth("rite_of_growth",false, EARTH_SPIRIT, LIFE_SPIRIT, LIFE_SPIRIT, LIFE_SPIRIT);
-        new RiteOfWarding("rite_of_warding",false, WATER_SPIRIT, EARTH_SPIRIT, MAGIC_SPIRIT, WATER_SPIRIT, WATER_SPIRIT);
-        new RiteOfDestruction("rite_of_destruction",false, DEATH_SPIRIT, EARTH_SPIRIT,EARTH_SPIRIT, MAGIC_SPIRIT, DEATH_SPIRIT);
-        new RiteOfCollection("rite_of_collection",false, AIR_SPIRIT, EARTH_SPIRIT, MAGIC_SPIRIT, MAGIC_SPIRIT);
-        new RiteOFDrought("rite_of_drought",true, WATER_SPIRIT, MAGIC_SPIRIT, DEATH_SPIRIT);
-        new RiteOfRain("rite_of_rain",true, WATER_SPIRIT, MAGIC_SPIRIT, LIFE_SPIRIT);
+        
+        //block effects
+        new RiteOfGrowth("rite_of_growth",false, MAGIC_SPIRIT, EARTH_SPIRIT, LIFE_SPIRIT, EARTH_SPIRIT, LIFE_SPIRIT);
+        
+        //instant effects
+        new RiteOFDrought("rite_of_drought",true, MAGIC_SPIRIT, WATER_SPIRIT, DEATH_SPIRIT);
+        new RiteOfRain("rite_of_rain",true, MAGIC_SPIRIT, WATER_SPIRIT, LIFE_SPIRIT);
     }
     
     public static MalumRite getRite(String identifier)

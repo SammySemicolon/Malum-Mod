@@ -2,6 +2,7 @@ package com.sammy.malum.common.items.equipment.curios;
 
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.items.equipment.poppets.BlessedPoppet;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
@@ -40,7 +41,23 @@ public class CurioPoppetBelt extends Item implements ICurio
             {
                 livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
-            
+    
+            @Override
+            public void curioTick(String identifier, int index, LivingEntity livingEntity)
+            {
+                if (stack.hasTag())
+                {
+                    CompoundNBT nbt = stack.getTag();
+                    if (nbt.contains("inventory"))
+                    {
+                        SimpleInventory inventory = create(stack);
+                        inventory.nonEmptyStacks().stream().filter(s -> s.getItem() instanceof BlessedPoppet).forEach(s -> s.inventoryTick(
+                                livingEntity.world,livingEntity,0,true
+                        ));
+                    }
+                }
+            }
+    
             @Override
             public boolean canRightClickEquip()
             {

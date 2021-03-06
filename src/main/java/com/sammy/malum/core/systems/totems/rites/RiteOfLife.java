@@ -18,13 +18,13 @@ public class RiteOfLife extends AffectEntitiesRite implements IPoppetBlessing
     {
         if (entity instanceof PlayerEntity)
         {
-            entity.addPotionEffect(new EffectInstance(MalumEffects.LIFE.get(), 100, 1));
+            entity.addPotionEffect(new EffectInstance(MalumEffects.LIFE.get(), 400, 1));
         }
     }
     
     @Override
     public void blessingEffect(PlayerEntity entity)
     {
-        entity.addPotionEffect(new EffectInstance(MalumEffects.LIFE.get(), 200, 0));
+        entity.addPotionEffect(new EffectInstance(MalumEffects.LIFE.get(), 400, 0));
     }
 }

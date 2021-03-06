@@ -4,9 +4,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 
-public class Warding extends Effect
+public class AuraOfWarding extends Effect
 {
-    public Warding()
+    public AuraOfWarding()
     {
         super(EffectType.HARMFUL, 14270531);
     }

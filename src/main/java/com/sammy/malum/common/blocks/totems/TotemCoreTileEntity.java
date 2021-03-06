@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.totems;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
@@ -11,9 +12,13 @@ import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -140,7 +145,32 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
             }
             if (rite instanceof IPoppetBlessing)
             {
-                ((IPoppetBlessing) rite).blessPoppet(pos, world, rite);
+                world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos).grow(3)).forEach(e -> {
+                    if (e.getItem().getItem().equals(MalumItems.POPPET.get()))
+                    {
+                        ItemStack stack = new ItemStack(MalumItems.BLESSED_POPPET.get());
+                        stack.getOrCreateTag().putString("blessing", rite.identifier);
+                        if (MalumHelper.areWeOnClient(world))
+                        {
+                            float alphaMultiplier = 1 - height * 0.1f;
+                            for (int i = 0; i < height; i++)
+                            {
+                                BlockPos currentPolePos = getPos().up(i);
+                                if (world.getTileEntity(currentPolePos) instanceof TotemPoleTileEntity)
+                                {
+                                    TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) world.getTileEntity(currentPolePos);
+                                    Color color = totemPoleTileEntity.type.color;
+                                    world.playSound(null, e.getPosition(), SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST_FAR, SoundCategory.BLOCKS, 1, 1.5f);
+                                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.5f*alphaMultiplier, 0f).setLifetime(40).setScale(0.01f, 0).randomOffset(0.2f).setColor(color, color.darker()).randomVelocity(0.02f, 0.04f).enableNoClip().repeat(world, e.getPosX(), e.getPosY()+0.25f, e.getPosZ(), 10);
+                                    ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f*alphaMultiplier, 0f).setLifetime(80).setScale(0.5f, 0).randomOffset(0.1f).setColor(color, color.darker()).randomVelocity(0.01f, 0.01f).enableNoClip().repeat(world, e.getPosX(), e.getPosY()+0.25f, e.getPosZ(), 20);
+                                }
+                            }
+                        }
+                        world.addEntity(new ItemEntity(world, e.getPosX(), e.getPosY(), e.getPosZ(), stack));
+                        e.remove();
+            
+                    }
+                });
             }
             if (rite.isInstant)
             {

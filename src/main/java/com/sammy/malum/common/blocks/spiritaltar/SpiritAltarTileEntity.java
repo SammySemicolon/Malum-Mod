@@ -36,7 +36,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(slot), spiritInventory.nonEmptyStacks());
             }
         };
-        spiritInventory = new SimpleInventory(5, 64, t-> t.getItem() instanceof SpiritSplinterItem)
+        spiritInventory = new SimpleInventory(8, 64, t-> t.getItem() instanceof SpiritSplinterItem)
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -44,6 +44,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 SpiritAltarTileEntity.this.markDirty();
                 updateContainingBlockInfo();
                 MalumHelper.updateState(world.getBlockState(pos), world, pos);
+                recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(slot), spiritInventory.nonEmptyStacks());
             }
         };
     }
@@ -79,7 +80,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         spinUp = compound.getInt("spinUp");
         inventory.readData(compound);
         spiritInventory.readData(compound, "spiritInventory");
-        recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(0));
+        recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
         super.readData(compound);
     }
     

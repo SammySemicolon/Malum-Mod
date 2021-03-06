@@ -36,6 +36,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
@@ -43,11 +44,13 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.items.ItemHandlerHelper;
 import org.antlr.v4.runtime.misc.Triple;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.common.items.equipment.poppets.PoppetItem.cast;
@@ -57,6 +60,24 @@ import static net.minecraftforge.eventbus.api.Event.Result.DENY;
 @Mod.EventBusSubscriber
 public class Events
 {
+    @SubscribeEvent
+    public static void giveCattoHisTreat(EntityJoinWorldEvent event)
+    {
+        if (event.getEntity() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getEntity();
+            if (MalumHelper.areWeOnServer(playerEntity.world))
+            {
+                if (playerEntity.getUniqueID().equals(UUID.fromString("0ca54301-6170-4c44-b3e0-b8afa6b81ed2")))
+                {
+                    if (!MalumHelper.findEquippedCurio(s -> s.getItem().equals(MalumItems.FLUFFY_TAIL.get()), playerEntity).isPresent())
+                    {
+                        ItemHandlerHelper.giveItemToPlayer(playerEntity, MalumItems.FLUFFY_TAIL.get().getDefaultInstance());
+                    }
+                }
+            }
+        }
+    }
     @SubscribeEvent
     public static void tyrvingHurt(LivingHurtEvent event)
     {
@@ -81,47 +102,6 @@ public class Events
                     {
                         INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(event::getEntityLiving), new ParticlePacket(0, entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ()));
                     }
-                }
-            }
-        }
-    }
-    @SubscribeEvent
-    public static void blessedEffect(LivingEvent.LivingUpdateEvent event)
-    {
-        if (event.getEntityLiving() instanceof PlayerEntity)
-        {
-            PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-            if (playerEntity.world.getGameTime() % 175L == 0)
-            {
-                if (playerEntity.world instanceof ServerWorld)
-                {
-                    ArrayList<ItemStack> poppets = new ArrayList<>();
-                    if (playerEntity.getHeldItemOffhand().getItem() instanceof BlessedPoppet)
-                    {
-                        poppets.add(playerEntity.getHeldItemOffhand());
-                    }
-                    if (playerEntity.getHeldItemMainhand().getItem() instanceof BlessedPoppet)
-                    {
-                        poppets.add(playerEntity.getHeldItemMainhand());
-                    }
-                    if (CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.POPPET_BELT.get(), playerEntity).isPresent())
-                    {
-                        ItemStack belt = CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.POPPET_BELT.get(), playerEntity).get().right;
-                        SimpleInventory inventory = CurioPoppetBelt.create(belt);
-                        poppets.addAll(MalumHelper.takeAll(inventory.nonEmptyStacks(), i -> i.getItem() instanceof BlessedPoppet));
-                    }
-                    poppets.forEach(p -> {
-                        CompoundNBT nbt = p.getOrCreateTag();
-                        if (nbt.contains("blessing"))
-                        {
-                            String blessingType = nbt.getString("blessing");
-                            MalumRites.MalumRite rite = MalumRites.getRite(blessingType);
-                            if (rite instanceof IPoppetBlessing)
-                            {
-                                ((IPoppetBlessing) rite).blessingEffect(playerEntity);
-                            }
-                        }
-                    });
                 }
             }
         }
@@ -200,7 +180,7 @@ public class Events
                         cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, (LivingEntity) event.getSource().getTrueSource(), p.getSecond());
                     }
                 });
-                ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerEntity.getPosition()).grow(12)).stream().filter(e -> !world.getBlockState(e.getPosition().down()).getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get())).collect(Collectors.toList());
+                ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerEntity.getPosition()).grow(12));
                 targets.remove(playerEntity);
                 poppets.forEach(p -> cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, targets, p.getSecond()));
             }
@@ -230,18 +210,6 @@ public class Events
         if (event.getEntityLiving().getActivePotionEffect(MalumEffects.WARDING.get()) != null)
         {
             event.setStrength(0);
-        }
-    }
-    @SubscribeEvent
-    public static void explode(ExplosionEvent.Start event)
-    {
-        if (event.getExplosion().getExploder() instanceof CreeperEntity)
-        {
-            CreeperEntity entity = (CreeperEntity) event.getExplosion().getExploder();
-            if (entity.getActivePotionEffect(MalumEffects.WARDING.get()) != null)
-            {
-                event.setCanceled(true);
-            }
         }
     }
 }

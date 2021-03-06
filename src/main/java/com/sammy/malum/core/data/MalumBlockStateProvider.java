@@ -167,7 +167,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile farmland = models().withExistingParent(name, prefix("block/template_farmland")).texture("side", prefix("block/sun_kissed_grass_block_side")).texture("top", prefix("block/wild_farmland")).texture("dirt", new ResourceLocation("block/dirt"));
-        
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(farmland).build());
     }
     

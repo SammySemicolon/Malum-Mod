@@ -22,7 +22,7 @@ public class RiteOfWarding extends AffectEntitiesRite implements IPoppetBlessing
     @Override
     public void effect(LivingEntity entity)
     {
-        entity.addPotionEffect(new EffectInstance(MalumEffects.WARDING.get(),200,0));
+        entity.addPotionEffect(new EffectInstance(MalumEffects.WARDING.get(),400,0));
     }
     
     @Override

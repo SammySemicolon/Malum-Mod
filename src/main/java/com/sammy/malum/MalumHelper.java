@@ -32,6 +32,10 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -46,16 +50,8 @@ import static com.sammy.malum.MalumMod.MODID;
 
 public class MalumHelper
 {
-    public static Vector3d[] offsets = new Vector3d[]{
-            new Vector3d(0,0,1),
-            new Vector3d(1,0,1),
-            new Vector3d(1,0,0),
-            new Vector3d(1,0,-1),
-            new Vector3d(0,0,-1),
-            new Vector3d(-1,0,-1),
-            new Vector3d(-1,0,0),
-            new Vector3d(-1,0,1)
-    };
+    public static Vector3d[] offsets = new Vector3d[]{new Vector3d(0, 0, 1), new Vector3d(1, 0, 1), new Vector3d(1, 0, 0), new Vector3d(1, 0, -1), new Vector3d(0, 0, -1), new Vector3d(-1, 0, -1), new Vector3d(-1, 0, 0), new Vector3d(-1, 0, 1)};
+    
     public static Color darker(Color color, int times)
     {
         for (int i = 0; i < times; i++)
@@ -64,6 +60,7 @@ public class MalumHelper
         }
         return color;
     }
+    
     public static Color brighter(Color color, int times)
     {
         for (int i = 0; i < times; i++)
@@ -72,6 +69,7 @@ public class MalumHelper
         }
         return color;
     }
+    
     public static <T extends LivingEntity> boolean damageItem(ItemStack stack, int amount, T entityIn, Consumer<T> onBroken)
     {
         if (!entityIn.world.isRemote && (!(entityIn instanceof PlayerEntity) || !((PlayerEntity) entityIn).abilities.isCreativeMode))
@@ -97,6 +95,7 @@ public class MalumHelper
         }
         return false;
     }
+    
     public static <T extends Entity> Entity getClosestEntity(List<T> entities, Vector3d pos)
     {
         double cachedDistance = -1.0D;
@@ -113,14 +112,17 @@ public class MalumHelper
         }
         return resultEntity;
     }
+    
     public static Vector3d pos(BlockPos pos)
     {
-        return new Vector3d(pos.getX(),pos.getY(),pos.getZ());
+        return new Vector3d(pos.getX(), pos.getY(), pos.getZ());
     }
+    
     public static Vector3f fPos(BlockPos pos)
     {
-        return new Vector3f(pos.getX(),pos.getY(),pos.getZ());
+        return new Vector3f(pos.getX(), pos.getY(), pos.getZ());
     }
+    
     public static Vector3d randPos(BlockPos pos, Random rand, double min, double max)
     {
         double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
@@ -168,6 +170,7 @@ public class MalumHelper
         }
         return null;
     }
+    
     public static ArrayList<BlockPos> itemStands(World world, BlockPos pos, Direction... excludedDirections)
     {
         ArrayList<BlockPos> positions = new ArrayList<>();
@@ -207,11 +210,13 @@ public class MalumHelper
         }
         return stringBuilder.toString().trim().replaceAll(regex, " ").substring(0, stringBuilder.length() - 1);
     }
+    
     public static <T> boolean hasDuplicate(T[] things)
     {
         Set<T> thingSet = new HashSet<>();
         return !Arrays.stream(things).allMatch(thingSet::add);
     }
+    
     @SafeVarargs
     @SuppressWarnings("varargs")
     public static <T> Collection<T> takeAll(Collection<? extends T> src, T... items)
@@ -265,7 +270,7 @@ public class MalumHelper
                 finalState = newStateWithOldProperty(oldState, finalState, property);
             }
         }
-            world.notifyBlockUpdate(pos, oldState, finalState, flags);
+        world.notifyBlockUpdate(pos, oldState, finalState, flags);
         
         world.setBlockState(pos, finalState, flags);
     }
@@ -305,9 +310,10 @@ public class MalumHelper
     {
         worldIn.notifyBlockUpdate(pos, state, state, 2);
     }
+    
     public static void updateState(World worldIn, BlockPos pos)
     {
-        updateState(worldIn.getBlockState(pos),worldIn,pos);
+        updateState(worldIn.getBlockState(pos), worldIn, pos);
     }
     
     public static Vector3d circlePosition(Vector3d pos, float distance, float current, float total)
@@ -316,11 +322,12 @@ public class MalumHelper
         double dx2 = (distance * Math.cos(angle));
         double dz2 = (distance * Math.sin(angle));
         
-        Vector3d vector2f = new Vector3d(dx2,0,dz2);
+        Vector3d vector2f = new Vector3d(dx2, 0, dz2);
         double x = vector2f.x * distance;
         double z = vector2f.z * distance;
-        return pos.add(x,0,z);
+        return pos.add(x, 0, z);
     }
+    
     public static Vector3d rotatedCirclePosition(Vector3d pos, float distance, float current, float total, long gameTime, float time)
     {
         double angle = current / total * (Math.PI * 2);
@@ -328,11 +335,12 @@ public class MalumHelper
         double dx2 = (distance * Math.cos(angle));
         double dz2 = (distance * Math.sin(angle));
         
-        Vector3d vector2f = new Vector3d(dx2,0,dz2);
+        Vector3d vector2f = new Vector3d(dx2, 0, dz2);
         double x = vector2f.x * distance;
         double z = vector2f.z * distance;
-        return pos.add(x,0,z);
+        return pos.add(x, 0, z);
     }
+    
     public static ArrayList<Vector3d> blockOutlinePositions(World world, BlockPos pos)
     {
         ArrayList<Vector3d> arrayList = new ArrayList<>();
@@ -352,15 +360,17 @@ public class MalumHelper
         }
         return arrayList;
     }
+    
     public static void giveAmplifyingEffect(Effect effect, LivingEntity target, int duration, int amplifier, int cap)
     {
         EffectInstance instance = target.getActivePotionEffect(effect);
         if (instance != null)
         {
-            amplifier += instance.amplifier+1;
+            amplifier += instance.amplifier + 1;
         }
         target.addPotionEffect(new EffectInstance(effect, duration, Math.min(amplifier, cap)));
     }
+    
     public static void giveStackingEffect(Effect effect, LivingEntity target, int duration, int amplifier)
     {
         EffectInstance instance = target.getActivePotionEffect(effect);
@@ -370,6 +380,7 @@ public class MalumHelper
         }
         target.addPotionEffect(new EffectInstance(effect, duration, amplifier));
     }
+    
     public static void giveItemToPlayerNoSound(PlayerEntity player, @Nonnull ItemStack stack)
     {
         if (stack.isEmpty()) return;
@@ -387,5 +398,43 @@ public class MalumHelper
             entityitem.setMotion(entityitem.getMotion().mul(0, 1, 0));
             world.addEntity(entityitem);
         }
+    }
+    
+    @Nonnull
+    public static Optional<ImmutableTriple<String, Integer, ItemStack>> findEquippedCurio(Predicate<ItemStack> filter, @Nonnull final LivingEntity livingEntity)
+    {
+        
+        ImmutableTriple<String, Integer, ItemStack> result = CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(handler -> {
+            Map<String, ICurioStacksHandler> curios = handler.getCurios();
+    
+            for (String id : curios.keySet())
+            {
+                ICurioStacksHandler stacksHandler = curios.get(id);
+                IDynamicStackHandler stackHandler = stacksHandler.getStacks();
+                IDynamicStackHandler cosmeticStackHelper = stacksHandler.getCosmeticStacks();
+    
+                for (int i = 0; i < stackHandler.getSlots(); i++)
+                {
+                    ItemStack stack = stackHandler.getStackInSlot(i);
+        
+                    if (!stack.isEmpty() && filter.test(stack))
+                    {
+                        return new ImmutableTriple<>(id, i, stack);
+                    }
+                }
+                for (int i = 0; i < cosmeticStackHelper.getSlots(); i++)
+                {
+                    ItemStack stack = cosmeticStackHelper.getStackInSlot(i);
+        
+                    if (!stack.isEmpty() && filter.test(stack))
+                    {
+                        return new ImmutableTriple<>(id, i, stack);
+                    }
+                }
+            }
+            return new ImmutableTriple<>("", 0, ItemStack.EMPTY);
+        }).orElse(new ImmutableTriple<>("", 0, ItemStack.EMPTY));
+        
+        return result.getLeft().isEmpty() ? Optional.empty() : Optional.of(result);
     }
 }

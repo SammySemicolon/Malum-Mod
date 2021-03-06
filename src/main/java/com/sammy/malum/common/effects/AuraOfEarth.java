@@ -6,11 +6,11 @@ import net.minecraft.entity.monster.ZombifiedPiglinEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 
-public class AuraOfFortitude extends Effect
+public class AuraOfEarth extends Effect
 {
-    public AuraOfFortitude()
+    public AuraOfEarth()
     {
         super(EffectType.BENEFICIAL, 10044730);
-        this.addAttributesModifier(Attributes.ARMOR, "1608235b-c1aa-45dd-b1d2-1626988cb99b", 0.3F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        this.addAttributesModifier(Attributes.ARMOR, "1608235b-c1aa-45dd-b1d2-1626988cb99b", 2F, AttributeModifier.Operation.ADDITION);
     }
 }

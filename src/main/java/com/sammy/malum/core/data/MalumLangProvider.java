@@ -137,9 +137,11 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.gui.book.page.water_spirit", "Water, found in every body, but so few souls. Any aquatic creature will contain the spirit; it can take any form, it's easy to manipulate. ");
         add("malum.gui.book.page.eldritch_spirit", "The mere thought of this spirit fills your mind with wicked thoughts. This powerful element is only found within the unexplainable, strange abominations brought into this realm.");
     
-        add("malum.gui.book.page.hallowed_gold", "Infused with four elemental spirits, hallowed gold is a great magical material designed specifically for various mechanics. ");
-        
-        add("malum.gui.book.page.soul_stained_steel", "Iron infused with magic and death seems to make quite a powerful material, about as sturdy as diamond. Soul stained steel is the perfect metal for any piece of gear.");
+        add("malum.gui.book.page.hallowed_gold", "Infused with four elemental spirits, hallowed gold is a great magical material designed specifically for various mechanics.");
+        add("malum.gui.book.page.spirit_jar", "Out of the many utilities created with hallowed gold the spirit jar is the simplest one. It can store an infinitely large amount of just one spirit.");
+    
+        add("malum.gui.book.page.soul_stained_steel", "Iron infused with magic and death seems to make quite a strong metal. Soul stained steel reeks of death yet somehow, it seems to repel it.");
+        add("malum.gui.book.page.soul_stained_gear", "Using soul stained steel you can make powerful gear. Stronger and faster than iron, more durable than diamond.");
         
         add("malum.gui.book.page.ether", "Made from glowstone and infused with fire, ether is a magical flame that burns forever.  It can be dyed, placed in a brazier or on a torch.");
         

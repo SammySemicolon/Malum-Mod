@@ -5,13 +5,14 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
+import net.minecraftforge.common.ForgeMod;
 
-public class AuraOfLife extends Effect
+public class AuraOfWater extends Effect
 {
-    public AuraOfLife()
+    public AuraOfWater()
     {
         super(EffectType.BENEFICIAL, 13458603);
-        this.addAttributesModifier(Attributes.MAX_HEALTH, "da900b3a-5b5b-4fcd-8401-33f0ae38edc3", 2F, AttributeModifier.Operation.ADDITION);
+        this.addAttributesModifier(ForgeMod.SWIM_SPEED.get(), "59bdd704-bf7b-43df-894e-3ecc718954d9", 0.4F, AttributeModifier.Operation.MULTIPLY_TOTAL);
     
     }
     
