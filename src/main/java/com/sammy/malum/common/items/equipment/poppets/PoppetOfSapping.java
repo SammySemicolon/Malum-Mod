@@ -21,7 +21,7 @@ public class PoppetOfSapping extends PoppetItem
     @Override
     public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
     {
-        Effect[] effects = new Effect[]{POISON, SLOWNESS, HUNGER, BLINDNESS, WEAKNESS, WITHER};
+        Effect[] effects = new Effect[]{POISON, SLOWNESS, HUNGER, BLINDNESS, WEAKNESS};
         for (int i = 0; i < 3; i++)
         {
             int effect = world.rand.nextInt(effects.length);

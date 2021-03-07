@@ -9,11 +9,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
-import java.util.ArrayList;
-
-public class PoppetOfShattering extends PoppetItem
+public class PoppetOfInfernalProtection extends PoppetItem
 {
-    public PoppetOfShattering(Properties properties)
+    public PoppetOfInfernalProtection(Properties properties)
     {
         super(properties);
     }
@@ -21,22 +19,11 @@ public class PoppetOfShattering extends PoppetItem
     @Override
     public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
     {
-        float damage = Math.min(event.getAmount(), target.getMaxHealth());
-        if (damage == 0)
+        if (!event.getSource().isFireDamage())
         {
             return;
         }
-        event.setAmount(event.getAmount() - damage);
-        target.attackEntityFrom(MalumDamageSources.VOODOO, damage);
+        event.setCanceled(true);
         super.effect(poppet, event, world, playerEntity, target, inventory);
-    }
-    @Override
-    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory)
-    {
-        if (!event.getSource().equals(DamageSource.FALL))
-        {
-            return;
-        }
-        super.effect(poppet, event, world, playerEntity, targets, inventory);
     }
 }

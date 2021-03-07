@@ -16,8 +16,4 @@ public class PoppetOfUndying extends PoppetItem
         super(properties);
     }
     
-    @Override
-    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory)
-    {
-    }
 }

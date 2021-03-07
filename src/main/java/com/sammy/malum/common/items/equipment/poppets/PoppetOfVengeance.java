@@ -18,9 +18,8 @@ public class PoppetOfVengeance extends PoppetItem
     @Override
     public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
     {
-        float amount = event.getAmount() * 0.1f;
-        event.setAmount(event.getAmount() - amount);
-        target.attackEntityFrom(MalumDamageSources.VOODOO, amount * 2);
+        float amount = Math.max(2, event.getAmount() * 0.1f);
+        target.attackEntityFrom(MalumDamageSources.VOODOO, amount);
         target.hurtResistantTime = 0;
         super.effect(poppet, event, world, playerEntity, target, inventory);
     }

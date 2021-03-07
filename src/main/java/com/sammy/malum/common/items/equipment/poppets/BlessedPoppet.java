@@ -26,11 +26,6 @@ public class BlessedPoppet extends PoppetItem
     }
     
     @Override
-    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory)
-    {
-    }
-    
-    @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
         if (isSelected)

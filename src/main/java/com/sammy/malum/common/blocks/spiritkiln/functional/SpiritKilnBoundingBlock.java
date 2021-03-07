@@ -1,7 +1,6 @@
 package com.sammy.malum.common.blocks.spiritkiln.functional;
 
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
-import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

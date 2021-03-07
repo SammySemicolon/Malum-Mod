@@ -19,12 +19,7 @@ public class PoppetOfBleeding extends PoppetItem
     @Override
     public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
     {
-        MalumHelper.giveStackingEffect(MalumEffects.BLEEDING.get(), target, 80,1);
+        MalumHelper.giveStackingEffect(MalumEffects.BLEEDING.get(), target, 100,1);
         super.effect(poppet, event, world, playerEntity, target, inventory);
-    }
-    @Override
-    public boolean onlyDirect()
-    {
-        return true;
     }
 }

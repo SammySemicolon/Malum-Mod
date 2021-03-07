@@ -28,16 +28,13 @@ public class PoppetItem extends Item
     {
         super(properties);
     }
-    public boolean onlyDirect()
+    
+    public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
     {
-        return false;
-    }
-    public void effect(ItemStack poppet, LivingHurtEvent event,World world, PlayerEntity playerEntity, ArrayList<LivingEntity> targets, SimpleInventory inventory)
-    {
-        targets.forEach(t -> effect(poppet, event,world,playerEntity,t, inventory));
-    }
-    public void effect(ItemStack poppet, LivingHurtEvent event,World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
-    {
+        if (playerEntity.isCreative())
+        {
+            return;
+        }
         poppet.damageItem(1, playerEntity, (l) -> {
             l.world.playSound(null, l.getPosition(), SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1, 1);
             if (inventory != null)
@@ -54,6 +51,7 @@ public class PoppetItem extends Item
             }
         });
     }
+    
     public static ArrayList<Pair<ItemStack, ItemInventory>> poppets(PlayerEntity playerEntity, Predicate<ItemStack> predicate)
     {
         ArrayList<Pair<ItemStack, ItemInventory>> poppets = new ArrayList<>();
@@ -80,8 +78,9 @@ public class PoppetItem extends Item
         }
         return poppets;
     }
+    
     public static PoppetItem cast(ItemStack stack)
     {
-        return ((PoppetItem)(stack.getItem()));
+        return ((PoppetItem) (stack.getItem()));
     }
 }

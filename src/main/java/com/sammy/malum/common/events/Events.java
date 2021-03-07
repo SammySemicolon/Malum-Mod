@@ -3,55 +3,38 @@ package com.sammy.malum.common.events;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.tools.TyrvingSwordItem;
-import com.sammy.malum.common.items.equipment.curios.CurioPoppetBelt;
-import com.sammy.malum.common.items.equipment.poppets.BlessedPoppet;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.common.items.equipment.poppets.PoppetOfUndying;
 import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
-import com.sammy.malum.core.modcontent.MalumRites;
-import com.sammy.malum.common.blocks.IAlwaysActivatedBlock;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
-import com.sammy.malum.core.systems.inventory.SimpleInventory;
-import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
 import com.sammy.malum.network.packets.ParticlePacket;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.ExplosionEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
-import org.antlr.v4.runtime.misc.Triple;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.common.items.equipment.poppets.PoppetItem.cast;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
@@ -78,6 +61,7 @@ public class Events
             }
         }
     }
+    
     @SubscribeEvent
     public static void tyrvingHurt(LivingHurtEvent event)
     {
@@ -96,7 +80,7 @@ public class Events
                     LivingEntity entity = event.getEntityLiving();
                     float amount = (event.getAmount() / 8) * (8 + entity.getTotalArmorValue());
                     event.setAmount(event.getAmount() / 2);
-                    event.getEntity().attackEntityFrom(MalumDamageSources.VOODOO, amount/2f);
+                    event.getEntity().attackEntityFrom(MalumDamageSources.VOODOO, amount / 2f);
                     playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_HIT, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
                     if (playerEntity.world instanceof ServerWorld)
                     {
@@ -106,6 +90,7 @@ public class Events
             }
         }
     }
+    
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event)
     {
@@ -156,6 +141,7 @@ public class Events
             }
         }
     }
+    
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event)
     {
@@ -174,36 +160,19 @@ public class Events
                 {
                     return;
                 }
-                MalumHelper.takeAll(poppets, p -> cast(p.getFirst()).onlyDirect()).forEach(p -> {
-                    if (event.getSource().getTrueSource() instanceof LivingEntity)
-                    {
-                        cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, (LivingEntity) event.getSource().getTrueSource(), p.getSecond());
-                    }
-                });
                 ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerEntity.getPosition()).grow(12));
                 targets.remove(playerEntity);
-                poppets.forEach(p -> cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, targets, p.getSecond()));
+                targets.forEach(t -> poppets.forEach(p -> {
+                    if (event.isCanceled())
+                    {
+                        return;
+                    }
+                    cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, t, p.getSecond());
+                }));
             }
         }
     }
-    @SubscribeEvent
-    public static void onBlockRightClick(PlayerInteractEvent.RightClickBlock event)
-    {
-        BlockState state = event.getWorld().getBlockState(event.getPos());
-        if (state.getBlock() instanceof IAlwaysActivatedBlock)
-        {
-            if (event.getItemStack().getItem() instanceof BlockItem)
-            {
-                if (event.getPlayer().isSneaking())
-                {
-                    return;
-                }
-            }
-            state.getBlock().onBlockActivated(state, event.getWorld(), event.getPos(), event.getPlayer(), event.getHand(), null);
-            event.setUseBlock(DENY);
-            event.setUseItem(DENY);
-        }
-    }
+    
     @SubscribeEvent
     public static void knockBack(LivingKnockBackEvent event)
     {

@@ -5,14 +5,15 @@ import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import java.util.ArrayList;
 
-public class PoppetOfDefiance extends PoppetItem
+public class PoppetOfTerranProtection extends PoppetItem
 {
-    public PoppetOfDefiance(Properties properties)
+    public PoppetOfTerranProtection(Properties properties)
     {
         super(properties);
     }
@@ -20,12 +21,11 @@ public class PoppetOfDefiance extends PoppetItem
     @Override
     public void effect(ItemStack poppet, LivingHurtEvent event, World world, PlayerEntity playerEntity, LivingEntity target, SimpleInventory inventory)
     {
-        if (!event.getSource().isMagicDamage())
+        if (!event.getSource().equals(DamageSource.FALL))
         {
             return;
         }
-        target.attackEntityFrom(MalumDamageSources.VOODOO, event.getAmount() / 2f);
-        event.setAmount(event.getAmount() / 2f);
+        event.setAmount(event.getAmount() / 3f);
         super.effect(poppet, event, world, playerEntity, target, inventory);
     }
 }
