@@ -9,6 +9,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class PoppetOfShielding extends PoppetItem
 {
+    
     public PoppetOfShielding(Properties properties)
     {
         super(properties);

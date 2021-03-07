@@ -19,7 +19,7 @@ public class MalumEffects
     public static final RegistryObject<Effect> AIR = EFFECTS.register("aura_of_air", AuraOfAir::new);
     public static final RegistryObject<Effect> WATER = EFFECTS.register("aura_of_water", AuraOfWater::new);
     
-    public static final RegistryObject<Effect> WARDING = EFFECTS.register("warding_aura", AuraOfWarding::new);
+    public static final RegistryObject<Effect> WARDING = EFFECTS.register("aura_of_warding", AuraOfWarding::new);
     
     public static final RegistryObject<Effect> BLADE_OF_WIND = EFFECTS.register("blade_of_wind", BladeOfWind::new);
     public static final RegistryObject<Effect> ENDER_LINK = EFFECTS.register("ender_link", EnderLink::new);

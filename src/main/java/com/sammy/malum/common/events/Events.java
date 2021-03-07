@@ -160,15 +160,18 @@ public class Events
                 {
                     return;
                 }
-                ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerEntity.getPosition()).grow(12));
-                targets.remove(playerEntity);
-                targets.forEach(t -> poppets.forEach(p -> {
+                poppets.forEach(p -> {
                     if (event.isCanceled())
                     {
                         return;
                     }
-                    cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, t, p.getSecond());
-                }));
+                    LivingEntity target = null;
+                    if (event.getSource().getTrueSource() instanceof LivingEntity)
+                    {
+                        target = (LivingEntity) event.getSource().getTrueSource();
+                    }
+                    cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, target, p.getSecond());
+                });
             }
         }
     }
