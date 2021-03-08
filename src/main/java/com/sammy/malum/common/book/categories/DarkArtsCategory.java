@@ -20,6 +20,7 @@ public class DarkArtsCategory extends BookCategory
     public static BookEntry totemMagic;
     public static BookEntry primeRites;
     public static BookEntry advancedRites;
+    public static BookEntry poppetBlessings;
     public DarkArtsCategory()
     {
         super(HALLOWED_GOLD_INGOT.get().getDefaultInstance(), "dark_arts");
@@ -36,8 +37,39 @@ public class DarkArtsCategory extends BookCategory
                 .addPage(new HeadlineTextPage("elixir_of_life"))
                 .addPage(new SpiritInfusionPage(new ItemStack(SOLAR_SYRUP_BOTTLE.get()), new ItemStack(ELIXIR_OF_LIFE.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 2)))
                 .addLink(solarSap).addLink(lifeSpirit);
+    
+        voodooMagic = new BookEntry(POPPET.get(), "voodoo_magic")
+                .addPage(new HeadlineTextPage("voodoo_magic"))
+                .addPage(new TextPage("voodoo_magic_again"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.HAY_BLOCK), new ItemStack(POPPET.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 3), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 3), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 3)))
+                .addLink(lifeSpirit).addLink(earthSpirit).addLink(magicSpirit);
+    
+        offensivePoppets = new BookEntry(POPPET_OF_VENGEANCE.get(), "offensive_poppets")
+                .addPage(new HeadlineTextPage("offensive_poppets"))
+                .addPage(new ItemListPage(POPPET_OF_VENGEANCE.get(), POPPET_OF_BLEEDING.get(), POPPET_OF_DEFIANCE.get(), POPPET_OF_MISFORTUNE.get(), POPPET_OF_SAPPING.get()))
+                .addPage(new HeadlineTextPage("poppet_of_vengeance"))
+                .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_VENGEANCE.get()), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 8),new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 2),new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 2)))
+                .addPage(new HeadlineTextPage("poppet_of_bleeding"))
+                .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_BLEEDING.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 6),new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 6)))
+                .addPage(new HeadlineTextPage("poppet_of_defiance"))
+                .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_DEFIANCE.get()), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 8),new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 4)))
+                .addPage(new HeadlineTextPage("poppet_of_misfortune"))
+                .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_MISFORTUNE.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 6),new ItemStack(WATER_SPIRIT_SPLINTER.get(), 6)))
+                .addPage(new HeadlineTextPage("poppet_of_sapping"))
+                .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_SAPPING.get()), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 4),new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 4),new ItemStack(WATER_SPIRIT_SPLINTER.get(), 4)))
+                .addLink(voodooMagic);
+    
+        defensivePoppets = new BookEntry(POPPET_OF_SHIELDING.get(), "defensive_poppets")
+                .addPage(new HeadlineTextPage("defensive_poppets"))
+                .addPage(new ItemListPage(POPPET_OF_SHIELDING.get(), POPPET_OF_INFERNAL_PROTECTION.get(), POPPET_OF_TERRAN_PROTECTION.get()))
+                .addPage(new HeadlineTextPage("poppet_of_shielding"))
+                .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_SHIELDING.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 8),new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 2),new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 2)))
+                .addPage(new HeadlineTextPage("poppet_of_infernal_protection"))
+                .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_INFERNAL_PROTECTION.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 6),new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 6)))
+                .addPage(new HeadlineTextPage("poppet_of_terran_protection"))
+                .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_TERRAN_PROTECTION.get()), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 4),new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 8)))
+                .addLink(voodooMagic);
         
-        
-        addEntries(ether, elixirOfLife);
+        addEntries(ether, elixirOfLife, voodooMagic, offensivePoppets, defensivePoppets);
     }
 }
