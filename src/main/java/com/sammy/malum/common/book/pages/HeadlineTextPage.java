@@ -22,7 +22,10 @@ public class HeadlineTextPage extends BookPage
         this.text = "malum.gui.book.page." + text;
         this.headline = "malum.gui.book.page.headline." + text;
     }
-    
+    public int textWidth()
+    {
+        return 110;
+    }
     @Override
     public void draw(MatrixStack stack, EntryObject object, BookScreen screen, int mouseX, int mouseY, int guiLeft, int guiTop, boolean isSecondPage)
     {
@@ -50,7 +53,6 @@ public class HeadlineTextPage extends BookPage
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headline);
         screen.renderPurpleText(stack, component, posX + width/2 - minecraft.fontRenderer.getStringWidth(component.getString())/2, posY-8+ height/2, brightness);
     
-        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+2, posY + 17, 110, brightness);
-    
+        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+2, posY + 17, textWidth(), brightness);
     }
 }
