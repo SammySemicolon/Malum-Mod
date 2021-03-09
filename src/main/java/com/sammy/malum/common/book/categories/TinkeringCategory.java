@@ -19,8 +19,9 @@ public class TinkeringCategory extends BookCategory
     public static BookEntry ether;
     public TinkeringCategory()
     {
-        super(HALLOWED_GOLD_INGOT.get().getDefaultInstance(), "dark_arts");
+        super(HALLOWED_GOLD_INGOT.get().getDefaultInstance(), "tinkering");
         Item EMPTY = Items.BARRIER;
+        
         hallowed_gold = new BookEntry(HALLOWED_GOLD_INGOT.get(), "hallowed_gold")
                 .addPage(new HeadlineTextPage("hallowed_gold"))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.GOLD_INGOT, 2), new ItemStack(HALLOWED_GOLD_INGOT.get(), 2), new ItemStack(EARTH_SPIRIT_SPLINTER.get()), new ItemStack(FIRE_SPIRIT_SPLINTER.get()), new ItemStack(AIR_SPIRIT_SPLINTER.get()), new ItemStack(WATER_SPIRIT_SPLINTER.get())))

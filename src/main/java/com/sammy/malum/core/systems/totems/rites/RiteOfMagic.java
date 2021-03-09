@@ -6,9 +6,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 
-public class RiteOfWarding extends AffectEntitiesRite implements IPoppetBlessing
+public class RiteOfMagic extends AffectEntitiesRite implements IPoppetBlessing
 {
-    public RiteOfWarding(String identifier, boolean isInstant, MalumSpiritType... spirits)
+    public RiteOfMagic(String identifier, boolean isInstant, MalumSpiritType... spirits)
     {
         super(identifier, isInstant, spirits);
     }
@@ -22,12 +22,12 @@ public class RiteOfWarding extends AffectEntitiesRite implements IPoppetBlessing
     @Override
     public void effect(LivingEntity entity)
     {
-        entity.addPotionEffect(new EffectInstance(MalumEffects.WARDING.get(),400,0));
+        entity.addPotionEffect(new EffectInstance(MalumEffects.MAGIC.get(),400,1));
     }
     
     @Override
     public void blessingEffect(PlayerEntity entity)
     {
-        effect(entity);
+        entity.addPotionEffect(new EffectInstance(MalumEffects.MAGIC.get(),400,0));
     }
 }

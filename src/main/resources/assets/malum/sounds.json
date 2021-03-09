@@ -15,15 +15,8 @@
   "spirited_metal_hit": { "sounds":["malum:spirited_metal/hit1","malum:spirited_metal/hit2","malum:spirited_metal/hit3","malum:spirited_metal/hit4"], "subtitle": "malum.subtitle.spirited_metal_hit" },
 
   "abstruse_block_return": { "sounds":["malum:abstruse_block/return1","malum:abstruse_block/return2"], "subtitle": "malum.subtitle.abstruse_block_returns" },
-  "taint_spread": { "sounds":["malum:taint/spread1","malum:taint/spread2","malum:taint/spread3","malum:taint/spread4"], "subtitle": "malum.subtitle.taint_spread" },
   "scythe_strike": { "sounds":["malum:scythes/strike0","malum:scythes/strike1","malum:scythes/strike2"], "subtitle": "malum.subtitle.scythe_strike" },
   "spirit_harvest": { "sounds":["malum:spirits/harvest0","malum:spirits/harvest1","malum:spirits/harvest2"], "subtitle": "malum.subtitle.spirit_harvest" },
-
-  "spirit_kiln_consume": { "sounds":["malum:spirit_kiln/consume1","malum:spirit_kiln/consume2","malum:spirit_kiln/consume3"], "subtitle": "malum.subtitle.spirit_kiln_consume" },
-  "spirit_kiln_fail": { "sounds":["malum:spirit_kiln/fail1"], "subtitle": "malum.subtitle.spirit_kiln_fail" },
-  "spirit_kiln_finish": { "sounds":["malum:spirit_kiln/finish1","malum:spirit_kiln/finish2","malum:spirit_kiln/finish3"], "subtitle": "malum.subtitle.spirit_kiln_finish" },
-  "spirit_kiln_repair": { "sounds":["malum:spirit_kiln/repair1"], "subtitle": "malum.subtitle.spirit_kiln_repair" },
-  "spirit_kiln_fuel": { "sounds":["malum:spirit_kiln/fuel1","malum:spirit_kiln/fuel2"], "subtitle": "malum.subtitle.spirit_kiln_fuel" },
 
   "totem_charge": { "sounds":["malum:totems/totem_charge"], "subtitle": "malum.subtitle.totem_charge" },
   "totem_charged": { "sounds":["malum:totems/totem_charged"], "subtitle": "malum.subtitle.totem_charged" },
@@ -34,6 +27,4 @@
   "tyrving_hit": { "sounds":["malum:tyrving/hit1","malum:tyrving/hit2"], "subtitle": "malum.subtitle.tyrving_hit" },
   "equip": { "sounds":["malum:equip"], "subtitle": "malum.subtitle.equip" },
 
-  "karmic_holder_activate": { "sounds":["malum:karmic_holder/activate0","malum:karmic_holder/activate1"], "subtitle": "malum.subtitle.karmic_holder_activate" },
-  "drift_boots_jump": { "sounds":["malum:drift_boots/jump0","malum:drift_boots/jump1","malum:drift_boots/jump2"], "subtitle": "malum.subtitle.drift_boots_jump" }
 }

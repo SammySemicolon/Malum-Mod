@@ -7,6 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
+import static com.sammy.malum.core.init.MalumItems.*;
+
 public class DiscoveryCategory extends BookCategory
 {
     public static BookEntry lifeSpirit;
@@ -27,6 +29,8 @@ public class DiscoveryCategory extends BookCategory
     public static BookEntry spiritBasics;
     public static BookEntry spiritAltar;
     public static BookEntry simpleInfusion;
+    public static BookEntry elixirOfLife;
+    public static BookEntry voidBerries;
     
     public DiscoveryCategory()
     {
@@ -114,7 +118,16 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("bringing_forth_life"))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.DIRT, 32), new ItemStack(Items.GRASS_BLOCK, 32), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get())))
                 .addLink(lifeSpirit).addLink(deathSpirit).addLink(magicSpirit).addLink(earthSpirit);
-            
-        addEntries(arcaneBasics, runewoodTrees, arcaneFuels, solarSap, unholyBlend, soulGem, spiritBasics, spiritAltar, simpleInfusion, lifeSpirit, deathSpirit, magicSpirit, earthSpirit,fireSpirit,airSpirit,waterSpirit,eldritchSpirit);
+    
+        elixirOfLife = new BookEntry(ELIXIR_OF_LIFE.get(), "elixir_of_life")
+                .addPage(new HeadlineTextPage("elixir_of_life"))
+                .addPage(new SpiritInfusionPage(new ItemStack(SOLAR_SYRUP_BOTTLE.get()), new ItemStack(ELIXIR_OF_LIFE.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 2)))
+                .addLink(solarSap).addLink(lifeSpirit);
+        voidBerries = new BookEntry(VOID_BERRIES.get(), "void_berries")
+                .addPage(new HeadlineTextPage("void_berries"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.SWEET_BERRIES, 8), new ItemStack(VOID_BERRIES.get(), 8), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 2)))
+                .addLink(deathSpirit);
+        
+        addEntries(arcaneBasics, runewoodTrees, arcaneFuels, solarSap, unholyBlend, soulGem, spiritBasics, spiritAltar, simpleInfusion, elixirOfLife, lifeSpirit, deathSpirit, magicSpirit, earthSpirit,fireSpirit,airSpirit,waterSpirit,eldritchSpirit);
     }
 }

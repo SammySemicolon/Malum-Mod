@@ -51,40 +51,7 @@ public class ClientEvents
                 regen = ticks % 25;
             }
             Random rand = new Random();
-            rand.setSeed((long)(ticks * 312871));
-            
-            if (player.isPotionActive(MalumEffects.FOOLS_LUCK.get()))
-            {
-                MatrixStack matrixStack = event.getMatrixStack();
-                matrixStack.push();
-                
-                RenderSystem.pushTextureAttributes();
-                mc.getTextureManager().bindTexture(ICONS_TEXTURE);
-                
-                for (int i = MathHelper.ceil((healthMax) / 2.0F) - 1; i >= 0; --i)
-                {
-                    int x = left + i % 10 * 8;
-                    int y = top + rowHeight - 1;
-                    if (health <= 4)
-                    {
-                        y += rand.nextInt(2);
-                    }
-                    if (i == regen) {
-                        y -= 2;
-                    }
-                    if (i * 2 + 1 < health)
-                    {
-                        mc.ingameGUI.blit(matrixStack, x, y, 0, 0, 9, 9);
-                    }
-                    else if (i * 2 + 1 == health)
-                    {
-                        mc.ingameGUI.blit(matrixStack, x, y, 9, 0, 9, 9);
-                    }
-                }
-                RenderSystem.popAttributes();
-                matrixStack.pop();
-                return;
-            }
+            rand.setSeed(ticks * 312871);
             if (player.isPotionActive(MalumEffects.BLEEDING.get()))
             {
                 MatrixStack matrixStack = event.getMatrixStack();

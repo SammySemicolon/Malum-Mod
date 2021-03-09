@@ -392,15 +392,16 @@ public class MalumItems
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingSwordItem(TYRVING_ITEM, 0, -0.1f,GEAR_PROPERTIES()));
     public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
     
+    public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_SUPPRESSION = ITEMS.register("ring_of_suppression", () -> new SimpleCurio(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ATTRACTION = ITEMS.register("ring_of_attraction", () -> new SimpleCurio(GEAR_PROPERTIES()));
+    
+    public static final RegistryObject<Item> GILDED_BELT = ITEMS.register("gilded_belt", () -> new CurioGildedBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> POPPET_BELT = ITEMS.register("poppet_belt", () -> new CurioPoppetBelt(GEAR_PROPERTIES()));
+    
     public static final RegistryObject<Item> BOOTS_OF_LEVITATION = ITEMS.register("boots_of_levitation", () -> new CurioBootsOFLevitation(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_SEAL = ITEMS.register("arcane_seal", () -> new SimpleCurio(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> LIVING_CAPACITOR = ITEMS.register("living_capacitor", () -> new SimpleCurio(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> FLASK_OF_GREED = ITEMS.register("flask_of_greed", () -> new SimpleCurio(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> ANCESTRAL_VEIL = ITEMS.register("ancestral_veil", () -> new CurioAncestralVeil(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> KARMIC_HOLDER = ITEMS.register("karmic_holder", () -> new SimpleCurio(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));

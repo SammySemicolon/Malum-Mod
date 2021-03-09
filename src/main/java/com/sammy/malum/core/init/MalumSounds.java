@@ -28,24 +28,14 @@ public class MalumSounds
     public static final SoundEvent SPIRITED_METAL_STEP = new SoundEvent(MalumHelper.prefix("spirited_metal_step"));
     
     public static final SoundEvent ABSTRUSE_BLOCK_RETURN = new SoundEvent(MalumHelper.prefix("abstruse_block_return"));
-    public static final SoundEvent TAINT_SPREAD = new SoundEvent(MalumHelper.prefix("taint_spread"));
     public static final SoundEvent SCYTHE_STRIKE = new SoundEvent(MalumHelper.prefix("scythe_strike"));
     public static final SoundEvent SPIRIT_HARVEST = new SoundEvent(MalumHelper.prefix("spirit_harvest"));
-    
-    public static final SoundEvent SPIRIT_KILN_CONSUME = new SoundEvent(MalumHelper.prefix("spirit_kiln_consume"));
-    public static final SoundEvent SPIRIT_KILN_FAIL = new SoundEvent(MalumHelper.prefix("spirit_kiln_fail"));
-    public static final SoundEvent SPIRIT_KILN_FINISH = new SoundEvent(MalumHelper.prefix("spirit_kiln_finish"));
-    public static final SoundEvent SPIRIT_KILN_REPAIR = new SoundEvent(MalumHelper.prefix("spirit_kiln_repair"));
-    public static final SoundEvent SPIRIT_KILN_FUEL = new SoundEvent(MalumHelper.prefix("spirit_kiln_fuel"));
     
     public static final SoundEvent TOTEM_CHARGE = new SoundEvent(MalumHelper.prefix("totem_charge"));
     public static final SoundEvent TOTEM_CHARGED = new SoundEvent(MalumHelper.prefix("totem_charged"));
     public static final SoundEvent TOTEM_ENGRAVE = new SoundEvent(MalumHelper.prefix("totem_engrave"));
     
     public static final SoundEvent BOOK_TRAVEL = new SoundEvent(MalumHelper.prefix("book_travel"));
-    
-    public static final SoundEvent KARMIC_HOLDER_ACTIVATE = new SoundEvent(MalumHelper.prefix("karmic_holder_activate"));
-    public static final SoundEvent DRIFT_BOOTS_JUMP = new SoundEvent(MalumHelper.prefix("drift_boots_jump"));
     
     public static final SoundEvent EQUIP = new SoundEvent(MalumHelper.prefix("equip"));
     public static final SoundEvent TYRVING_HIT = new SoundEvent(MalumHelper.prefix("tyrving_hit"));
@@ -73,24 +63,14 @@ public class MalumSounds
         SOUNDS.register("spirited_metal_step", ()-> SPIRITED_METAL_STEP);
         
         SOUNDS.register("abstruse_block_return", ()-> ABSTRUSE_BLOCK_RETURN);
-        SOUNDS.register("taint_spread", ()-> TAINT_SPREAD);
         SOUNDS.register("scythe_strike", ()-> SCYTHE_STRIKE);
         SOUNDS.register("spirit_harvest", ()-> SPIRIT_HARVEST);
-        
-        SOUNDS.register("spirit_kiln_consume", ()-> SPIRIT_KILN_CONSUME);
-        SOUNDS.register("spirit_kiln_fail", ()-> SPIRIT_KILN_FAIL);
-        SOUNDS.register("spirit_kiln_finish", ()-> SPIRIT_KILN_FINISH);
-        SOUNDS.register("spirit_kiln_repair", ()-> SPIRIT_KILN_REPAIR);
-        SOUNDS.register("spirit_kiln_fuel", ()-> SPIRIT_KILN_FUEL);
         
         SOUNDS.register("totem_charge", ()-> TOTEM_CHARGE);
         SOUNDS.register("totem_charged", ()-> TOTEM_CHARGED);
         SOUNDS.register("totem_engrave", ()-> TOTEM_ENGRAVE);
     
         SOUNDS.register("book_travel", ()-> BOOK_TRAVEL);
-        
-        SOUNDS.register("karmic_holder_activate", ()-> KARMIC_HOLDER_ACTIVATE);
-        SOUNDS.register("drift_boots_jump", ()-> DRIFT_BOOTS_JUMP);
     
         SOUNDS.register("equip", ()-> EQUIP);
         SOUNDS.register("tyrving_hit", ()-> TYRVING_HIT);

@@ -12,9 +12,8 @@ import static com.sammy.malum.core.init.MalumItems.*;
 
 public class DarkArtsCategory extends BookCategory
 {
-    public static BookEntry ether;
-    public static BookEntry elixirOfLife;
     public static BookEntry voodooMagic;
+    public static BookEntry poppetBelt;
     public static BookEntry offensivePoppets;
     public static BookEntry defensivePoppets;
     public static BookEntry totemMagic;
@@ -23,24 +22,16 @@ public class DarkArtsCategory extends BookCategory
     public static BookEntry poppetBlessings;
     public DarkArtsCategory()
     {
-        super(HALLOWED_GOLD_INGOT.get().getDefaultInstance(), "dark_arts");
+        super(POPPET.get().getDefaultInstance(), "dark_arts");
         Item EMPTY = Items.BARRIER;
-
-        ether = new BookEntry(ORANGE_ETHER.get(), "ether")
-                .addPage(new HeadlineTextPage("ether"))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.GLOWSTONE_DUST, 4), new ItemStack(ORANGE_ETHER.get()), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 2)))
-                .addPage(new CraftingPage(new ItemStack(ORANGE_ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, ORANGE_ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
-                .addPage(new CraftingPage(new ItemStack(ORANGE_ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ORANGE_ETHER.get(), TAINTED_ROCK.get(), Items.STICK, TAINTED_ROCK.get(), Items.STICK))
-                .addLink(fireSpirit);
-        
-        elixirOfLife = new BookEntry(ELIXIR_OF_LIFE.get(), "elixir_of_life")
-                .addPage(new HeadlineTextPage("elixir_of_life"))
-                .addPage(new SpiritInfusionPage(new ItemStack(SOLAR_SYRUP_BOTTLE.get()), new ItemStack(ELIXIR_OF_LIFE.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 2)))
-                .addLink(solarSap).addLink(lifeSpirit);
     
         voodooMagic = new BookEntry(POPPET.get(), "voodoo_magic")
                 .addPage(new HeadlineTextPage("voodoo_magic"))
-                .addPage(new TextPage("voodoo_magic_again"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.HAY_BLOCK), new ItemStack(POPPET.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 3), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 3), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 3)))
+                .addLink(lifeSpirit).addLink(earthSpirit).addLink(magicSpirit);
+    
+        poppetBelt = new BookEntry(POPPET_BELT.get(), "poppet_belt")
+                .addPage(new HeadlineTextPage("poppet_belt"))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.HAY_BLOCK), new ItemStack(POPPET.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 3), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 3), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 3)))
                 .addLink(lifeSpirit).addLink(earthSpirit).addLink(magicSpirit);
     
@@ -70,6 +61,6 @@ public class DarkArtsCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_TERRAN_PROTECTION.get()), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 4),new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 8)))
                 .addLink(voodooMagic);
         
-        addEntries(ether, elixirOfLife, voodooMagic, offensivePoppets, defensivePoppets);
+        addEntries(voodooMagic, offensivePoppets, defensivePoppets);
     }
 }

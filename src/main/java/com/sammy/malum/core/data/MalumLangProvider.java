@@ -142,11 +142,24 @@ public class MalumLangProvider extends LanguageProvider
     
         add("malum.gui.book.page.soul_stained_steel", "Iron infused with magic and death seems to make quite a strong metal. Soul stained steel reeks of death yet somehow, it seems to repel it.");
         add("malum.gui.book.page.soul_stained_gear", "Using soul stained steel you can make powerful gear. Stronger and faster than iron, more durable than diamond.");
-        
+    
         add("malum.gui.book.page.ether", "Made from glowstone and infused with fire, ether is a magical flame that burns forever.  It can be dyed, placed in a brazier or on a torch.");
         
         add("malum.gui.book.page.elixir_of_life", "By infusing solar syrup with life spirits we can create the elixir of life. This wondrous cocktail will recover even more health and grant you the regeneration effect.");
-    
+        
+        add("malum.gui.book.page.voodoo_magic", "One of the simplest dark arts is voodoo magic. It's centered around voodoo dolls known as poppets. A poppet is a hay-built artifact that reacts to misfortune brought to the bearer.");
+        add("malum.gui.book.page.voodoo_magic_again", "For a poppet's effect to take place it must be held in either hand or slotted in an equipped poppet belt. ");
+        add("malum.gui.book.page.offensive_poppets", "Poppets are split into two groups: offensive and defensive. Offensive poppets will take effect on any source of misfortune that comes your way.");
+        add("malum.gui.book.page.poppet_of_vengeance", "The poppet of vengeance is a simple doll. Any enemy that dares to attack you will suffer damage, much like a thorns enchantment.");
+        add("malum.gui.book.page.poppet_of_bleeding", "This cruel doll will cause any attacker to start bleeding.");
+        add("malum.gui.book.page.poppet_of_defiance", "This clever doll will evenly split any magic damage between you and the attacker.");
+        add("malum.gui.book.page.poppet_of_misfortune", "This silly doll will cause anyone that attacks you to \"go flying\". They will receive knockback in a random direction");
+        add("malum.gui.book.page.poppet_of_sapping", "The poppet of sapping will bring great famine to whoever attacks you. It has a lot of disease in it's little potion.");
+        add("malum.gui.book.page.defensive_poppets", "The second category of poppets are offensive poppets. They will protect you from any misfortune that comes your way.");
+        add("malum.gui.book.page.poppet_of_shielding", "The poppet of shielding is an opposite to one of vengeance. Any attack that comes your way will be less impactful.");
+        add("malum.gui.book.page.poppet_of_infernal_protection", "This hot headed doll will protect you from all fire damage.");
+        add("malum.gui.book.page.poppet_of_terran_protection", "This strong doll will greatly negate any fall damage you take. The little guy never skips leg day.");
+        
         add("malum.subtitle.tainted_rock_break", "Tainted Rock Broken");
         add("malum.subtitle.tainted_rock_step", "Tainted Rock Footsteps");
         add("malum.subtitle.tainted_rock_place", "Tainted Rock Placed");
@@ -163,23 +176,12 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.subtitle.spirited_steel_hit", "Spirited Steel Breaking");
     
         add("malum.subtitle.abstruse_block_return", "Abstruse Block Returns");
-        add("malum.subtitle.taint_spread", "Taint Spreads");
         add("malum.subtitle.scythe_strike", "Scythe Cuts");
         add("malum.subtitle.spirit_harvest", "Spirit Harvested");
-        add("malum.subtitle.spirit_collect", "Spirit Collected");
-    
-        add("malum.subtitle.spirit_kiln_consume", "Spirit Kiln Item Consumed");
-        add("malum.subtitle.spirit_kiln_fail", "Spirit Kiln Processing Failed");
-        add("malum.subtitle.spirit_kiln_finish", "Spirit Kiln Processing Finished");
-        add("malum.subtitle.spirit_kiln_repair", "Spirit Kiln Repaired");
-        add("malum.subtitle.spirit_kiln_fuel", "Spirit Kiln Fueled");
     
         add("malum.subtitle.totem_charge", "Totem Charges");
         add("malum.subtitle.totem_complete", "Totem Fully Charges");
-    
-        add("malum.subtitle.karmic_holder_activate", "Karmic Holder Activates");
-        add("malum.subtitle.nexus_overload_jump", "Nexus Drive Booster");
-    
+        
         add("death.attack.bleeding", "%1$s bled out");
         add("death.attack.bleeding.player", "%1$s bled out whilst trying to escape %2$s");
         

@@ -20,12 +20,12 @@ public class MalumRites
         
         new RiteOfLife("rite_of_life",false, MAGIC_SPIRIT, LIFE_SPIRIT, LIFE_SPIRIT); //entity effects
         new RiteOfDeath("rite_of_death",false, MAGIC_SPIRIT, DEATH_SPIRIT, DEATH_SPIRIT);
+        new RiteOfMagic("rite_of_warding",false, MAGIC_SPIRIT, MAGIC_SPIRIT, MAGIC_SPIRIT);
         new RiteOfFire("rite_of_fire",false, MAGIC_SPIRIT, FIRE_SPIRIT, FIRE_SPIRIT);
         new RiteOfEarth("rite_of_earth",false, MAGIC_SPIRIT, EARTH_SPIRIT, EARTH_SPIRIT);
         new RiteOfAir("rite_of_air",false, MAGIC_SPIRIT, AIR_SPIRIT, AIR_SPIRIT);
         new RiteOfWater("rite_of_water",false, MAGIC_SPIRIT, WATER_SPIRIT, WATER_SPIRIT);
         
-        new RiteOfWarding("rite_of_warding",false, MAGIC_SPIRIT, EARTH_SPIRIT, EARTH_SPIRIT, WATER_SPIRIT, WATER_SPIRIT);
         new RiteOfLevitation("rite_of_levitation",false, AIR_SPIRIT);
         
         //block effects

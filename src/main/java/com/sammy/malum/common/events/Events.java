@@ -12,22 +12,18 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
 import com.sammy.malum.network.packets.ParticlePacket;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -38,7 +34,6 @@ import java.util.UUID;
 
 import static com.sammy.malum.common.items.equipment.poppets.PoppetItem.cast;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
-import static net.minecraftforge.eventbus.api.Event.Result.DENY;
 
 @Mod.EventBusSubscriber
 public class Events
@@ -179,7 +174,7 @@ public class Events
     @SubscribeEvent
     public static void knockBack(LivingKnockBackEvent event)
     {
-        if (event.getEntityLiving().getActivePotionEffect(MalumEffects.WARDING.get()) != null)
+        if (event.getEntityLiving().getActivePotionEffect(MalumEffects.MAGIC.get()) != null)
         {
             event.setStrength(0);
         }
