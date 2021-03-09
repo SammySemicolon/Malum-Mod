@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
+import static com.sammy.malum.common.book.categories.TinkeringCategory.basicBaubles;
 import static com.sammy.malum.core.init.MalumItems.*;
 
 public class DarkArtsCategory extends BookCategory
@@ -32,8 +33,8 @@ public class DarkArtsCategory extends BookCategory
     
         poppetBelt = new BookEntry(POPPET_BELT.get(), "poppet_belt")
                 .addPage(new HeadlineTextPage("poppet_belt"))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.HAY_BLOCK), new ItemStack(POPPET.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 3), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 3), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 3)))
-                .addLink(lifeSpirit).addLink(earthSpirit).addLink(magicSpirit);
+                .addPage(new SpiritInfusionPage(new ItemStack(GILDED_BELT.get()), new ItemStack(POPPET_BELT.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 3), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 3), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 3)))
+                .addLink(basicBaubles).addLink(lifeSpirit).addLink(earthSpirit).addLink(magicSpirit);
     
         offensivePoppets = new BookEntry(POPPET_OF_VENGEANCE.get(), "offensive_poppets")
                 .addPage(new HeadlineTextPage("offensive_poppets"))
@@ -61,6 +62,6 @@ public class DarkArtsCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(new ItemStack(POPPET.get()), new ItemStack(POPPET_OF_TERRAN_PROTECTION.get()), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 4),new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 8)))
                 .addLink(voodooMagic);
         
-        addEntries(voodooMagic, offensivePoppets, defensivePoppets);
+        addEntries(voodooMagic, poppetBelt, offensivePoppets, defensivePoppets);
     }
 }

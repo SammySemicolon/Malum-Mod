@@ -10,10 +10,6 @@ import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.blocks.lighting.WallEtherTorchBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarBlock;
-import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnBoundingBlock;
-import com.sammy.malum.common.blocks.spiritkiln.DamagedSpiritKilnCoreBlock;
-import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnBoundingBlock;
-import com.sammy.malum.common.blocks.spiritkiln.functional.SpiritKilnCoreBlock;
 import com.sammy.malum.common.blocks.spiritstorage.jar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
@@ -357,13 +353,6 @@ public class MalumBlocks
     
     public static final RegistryObject<Block> TOTEM_CORE = BLOCKS.register("totem_core", () -> new TotemCoreBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(RUNEWOOD_LOG.get())));
-    
-    public static final RegistryObject<Block> SPIRIT_KILN = BLOCKS.register("spirit_kiln", () -> new SpiritKilnCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> SPIRIT_KILN_TOP = BLOCKS.register("spirit_kiln_top", () -> new SpiritKilnBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    
-    public static final RegistryObject<Block> DAMAGED_SPIRIT_KILN = BLOCKS.register("damaged_spirit_kiln", () -> new DamagedSpiritKilnCoreBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> DAMAGED_SPIRIT_KILN_TOP = BLOCKS.register("damaged_spirit_kiln_top", () -> new DamagedSpiritKilnBoundingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    
     
     public static final RegistryObject<Block> ITEM_STAND = BLOCKS.register("item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> EXTRACTION_FOCUS = BLOCKS.register("extraction_focus", () -> new ExtractionFocusBlock(TAINTED_ROCK_PROPERTIES().notSolid()));

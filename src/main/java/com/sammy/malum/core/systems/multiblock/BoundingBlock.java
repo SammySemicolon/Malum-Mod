@@ -36,7 +36,7 @@ public class BoundingBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new BoundingBlockTileEntity();
+        return null;//new BoundingBlockTileEntity();
     }
     
     public BlockState multiblockState(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)

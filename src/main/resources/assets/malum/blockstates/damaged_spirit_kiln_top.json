@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "malum:block/spirit_kiln_top_damaged" },
-    "facing=south": { "model": "malum:block/spirit_kiln_top_damaged", "y": 180 },
-    "facing=west":  { "model": "malum:block/spirit_kiln_top_damaged", "y": 270 },
-    "facing=east":  { "model": "malum:block/spirit_kiln_top_damaged", "y": 90 }
-  }
-}

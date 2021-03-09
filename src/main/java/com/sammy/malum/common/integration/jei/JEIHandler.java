@@ -2,10 +2,8 @@ package com.sammy.malum.common.integration.jei;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.integration.jei.rites.RiteRecipeCategory;
-import com.sammy.malum.common.integration.jei.spiritkiln.SpiritKilnRecipeCategory;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.modcontent.MalumRites;
-import com.sammy.malum.core.modcontent.MalumSpiritKilnRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -24,14 +22,12 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry)
     {
-        registry.addRecipeCategories(new SpiritKilnRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new RiteRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
     
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
-        registry.addRecipes(MalumSpiritKilnRecipes.RECIPES, SpiritKilnRecipeCategory.UID);
         registry.addRecipes(MalumRites.RITES, RiteRecipeCategory.UID);
     
     }
@@ -39,7 +35,6 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_KILN.get()), SpiritKilnRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), RiteRecipeCategory.UID);
     }
     @Nonnull

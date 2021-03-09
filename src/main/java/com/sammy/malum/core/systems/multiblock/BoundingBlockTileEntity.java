@@ -11,13 +11,13 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class BoundingBlockTileEntity extends SimpleTileEntity
+public abstract class BoundingBlockTileEntity extends SimpleTileEntity
 {
     public BlockPos ownerPos;
     
     public BoundingBlockTileEntity()
     {
-        super(MalumTileEntities.BOUNDING_BLOCK_TILE_ENTITY.get());
+        super(null);
         ownerPos = new BlockPos.Mutable();
     }
     
