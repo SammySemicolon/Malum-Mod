@@ -4,24 +4,17 @@ import com.sammy.malum.common.items.*;
 import com.sammy.malum.common.items.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.items.food.ElixirOfLifeItem;
 import com.sammy.malum.common.items.food.VoidBerriesItem;
-import com.sammy.malum.common.items.tools.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.armor.SoulStainedStrongholdArmorItem;
 import com.sammy.malum.common.items.equipment.curios.*;
 import com.sammy.malum.common.items.equipment.poppets.*;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
 
-import com.sammy.malum.common.items.tools.elementaltools.HoeOfGrowth;
-import com.sammy.malum.common.items.tools.elementaltools.PickaxeOfTheCore;
-import com.sammy.malum.common.items.tools.elementaltools.ShovelOfTremors;
-import com.sammy.malum.common.items.tools.elementaltools.SwordOfShiftingSkies;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.init.tabs.MalumBuildingTab;
 import com.sammy.malum.core.init.tabs.MalumCreativeTab;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.tabs.MalumSplinterTab;
-import com.sammy.malum.core.systems.multiblock.MultiblockItem;
-import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -316,6 +309,7 @@ public class MalumItems
     public static final RegistryObject<Item> UNHOLY_BLEND = ITEMS.register("unholy_blend", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_GRIT = ITEMS.register("arcane_grit", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_GEM = ITEMS.register("soul_gem", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ABYSSAL_APPARATUS = ITEMS.register("abyssal_apparatus", () -> new Item(DEFAULT_PROPERTIES()));
     
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -339,7 +333,6 @@ public class MalumItems
     //region contents
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(ItemTier.IRON, 0, 0.1f,GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new ScytheItem(SOUL_STAINED_STEEL_ITEM, 0, 0.2f,GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SWORD = ITEMS.register("soul_stained_steel_sword", () -> new ModSwordItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_PICKAXE = ITEMS.register("soul_stained_steel_pickaxe", () -> new ModPickaxeItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_AXE = ITEMS.register("soul_stained_steel_axe", () -> new ModAxeItem(SOUL_STAINED_STEEL_ITEM, 2, 0, GEAR_PROPERTIES()));
@@ -367,15 +360,9 @@ public class MalumItems
     //    public static final RegistryObject<Item> UMBRAL_LEGGINGS = ITEMS.register("umbral_leggings", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     //    public static final RegistryObject<Item> UMBRAL_BOOTS = ITEMS.register("umbral_boots", () -> new UmbralArmor(UMBRAL_ARMOR, EquipmentSlotType.FEET, GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> SWORD_OF_MOVING_CLOUDS = ITEMS.register("sword_of_moving_clouds", () -> new SwordOfShiftingSkies(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> PICKAXE_OF_THE_CORE = ITEMS.register("pickaxe_of_the_core", () -> new PickaxeOfTheCore(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SHOVEL_OF_TREMORS = ITEMS.register("shovel_of_tremors", () -> new ShovelOfTremors(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> HOE_OF_GROWTH = ITEMS.register("hoe_of_growth", () -> new HoeOfGrowth(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    
     public static final RegistryObject<Item> POPPET = ITEMS.register("poppet", () -> new Item(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> POPPET_OF_VENGEANCE = ITEMS.register("poppet_of_vengeance", () -> new PoppetOfVengeance(GEAR_PROPERTIES().maxDamage(402)));
-    public static final RegistryObject<Item> POPPET_OF_BLEEDING = ITEMS.register("poppet_of_bleeding", () -> new PoppetOfBleeding(GEAR_PROPERTIES().maxDamage(402)));
     public static final RegistryObject<Item> POPPET_OF_DEFIANCE = ITEMS.register("poppet_of_defiance", () -> new PoppetOfDefiance(GEAR_PROPERTIES().maxDamage(402)));
     public static final RegistryObject<Item> POPPET_OF_MISFORTUNE = ITEMS.register("poppet_of_misfortune", () -> new PoppetOfMisfortune(GEAR_PROPERTIES().maxDamage(402)));
     public static final RegistryObject<Item> POPPET_OF_SAPPING = ITEMS.register("poppet_of_sapping", () -> new PoppetOfSapping(GEAR_PROPERTIES().maxDamage(402)));
@@ -387,18 +374,16 @@ public class MalumItems
     public static final RegistryObject<Item> BLESSED_POPPET = ITEMS.register("blessed_poppet", () -> new BlessedPoppet(GEAR_PROPERTIES().maxDamage(402)));
     public static final RegistryObject<Item> BONE_NEEDLE = ITEMS.register("bone_needle", () -> new BoneNeedleItem(GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingSwordItem(TYRVING_ITEM, 0, -0.1f,GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> FOOLS_BLESSING = ITEMS.register("fools_blessing", () -> new ModSwordItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new ModSwordItem(TYRVING_ITEM, 0, -0.1f,GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> RING_OF_SUPPRESSION = ITEMS.register("ring_of_suppression", () -> new SimpleCurio(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ATTRACTION = ITEMS.register("ring_of_attraction", () -> new SimpleCurio(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> GILDED_BELT = ITEMS.register("gilded_belt", () -> new CurioGildedBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> POPPET_BELT = ITEMS.register("poppet_belt", () -> new CurioPoppetBelt(GEAR_PROPERTIES()));
     
-    public static final RegistryObject<Item> BOOTS_OF_LEVITATION = ITEMS.register("boots_of_levitation", () -> new CurioBootsOFLevitation(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> ARCANE_SEAL = ITEMS.register("arcane_seal", () -> new SimpleCurio(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> ARCHANGEL_RING = ITEMS.register("archangel_ring", () -> new CurioArchangelRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> UNRELENTING_BELT = ITEMS.register("unrelenting_belt", () -> new SimpleCurio(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> LIVING_CAPACITOR = ITEMS.register("living_capacitor", () -> new SimpleCurio(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get(), DEFAULT_PROPERTIES()));

@@ -22,9 +22,9 @@
   "totem_charged": { "sounds":["malum:totems/totem_charged"], "subtitle": "malum.subtitle.totem_charged" },
   "totem_engrave": { "sounds":["malum:totems/totem_engrave"], "subtitle": "malum.subtitle.engrave" },
 
-  "book_travel": { "sounds":["malum:book/book_travel"], "subtitle": "malum.subtitle.book_travel" },
+  "book_travel": { "sounds":["malum:totems/totem_engrave"], "subtitle": "malum.subtitle.book_travel" },
 
   "tyrving_hit": { "sounds":["malum:tyrving/hit1","malum:tyrving/hit2"], "subtitle": "malum.subtitle.tyrving_hit" },
-  "equip": { "sounds":["malum:equip"], "subtitle": "malum.subtitle.equip" },
+  "equip": { "sounds":["malum:equip"], "subtitle": "malum.subtitle.equip" }
 
 }

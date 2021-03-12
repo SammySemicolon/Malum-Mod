@@ -29,6 +29,7 @@ public class HeadlineTextPage extends BookPage
     @Override
     public void draw(MatrixStack stack, EntryObject object, BookScreen screen, int mouseX, int mouseY, int guiLeft, int guiTop, boolean isSecondPage)
     {
+        super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         
         int width = 101;
@@ -54,5 +55,6 @@ public class HeadlineTextPage extends BookPage
         screen.renderPurpleText(stack, component, posX + width/2 - minecraft.fontRenderer.getStringWidth(component.getString())/2, posY-8+ height/2, brightness);
     
         drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+2, posY + 17, textWidth(), brightness);
+        
     }
 }

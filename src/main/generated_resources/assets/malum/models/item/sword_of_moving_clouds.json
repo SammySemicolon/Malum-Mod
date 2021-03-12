@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "malum:item/sword_of_moving_clouds_overlay",
-    "layer1": "malum:item/sword_of_moving_clouds"
-  }
-}

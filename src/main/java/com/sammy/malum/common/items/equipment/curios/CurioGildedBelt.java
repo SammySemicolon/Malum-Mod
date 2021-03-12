@@ -24,7 +24,7 @@ public class CurioGildedBelt extends Item implements ICurio
         super(builder);
     }
     
-    private static final UUID TOUGHNESS = UUID.fromString("0baf5041-f36d-4b33-b45f-b7d340a8fa6c");
+    private static final UUID ARMOR = UUID.fromString("0baf5041-f36d-4b33-b45f-b7d340a8fa6c");
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
@@ -46,7 +46,7 @@ public class CurioGildedBelt extends Item implements ICurio
             public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier)
             {
                 Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-                map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(TOUGHNESS, MalumMod.MODID + ":gilded_belt_toughness_boost", 1, AttributeModifier.Operation.ADDITION));
+                map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":gilded_belt_toughness_boost", 2, AttributeModifier.Operation.ADDITION));
                 return map;
             }
     

@@ -2,14 +2,13 @@ package com.sammy.malum.common.events;
 
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.items.tools.TyrvingSwordItem;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.common.items.equipment.poppets.PoppetOfUndying;
 import com.sammy.malum.core.init.MalumDamageSources;
-import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.network.packets.ParticlePacket;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
@@ -70,12 +69,13 @@ public class Events
             if (playerEntity.swingingHand != null)
             {
                 ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
-                if (stack.getItem() instanceof TyrvingSwordItem)
+                if (stack.getItem().equals(MalumItems.TYRVING.get()))
                 {
                     LivingEntity entity = event.getEntityLiving();
                     float amount = (event.getAmount() / 8) * (8 + entity.getTotalArmorValue());
                     event.setAmount(event.getAmount() / 2);
-                    event.getEntity().attackEntityFrom(MalumDamageSources.VOODOO, amount / 2f);
+                    event.getEntity().hurtResistantTime = 0;
+                    SpiritHelper.causeVoodooDamage(playerEntity, event.getEntityLiving(), amount / 2f);
                     playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_HIT, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
                     if (playerEntity.world instanceof ServerWorld)
                     {
@@ -168,15 +168,6 @@ public class Events
                     cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, target, p.getSecond());
                 });
             }
-        }
-    }
-    
-    @SubscribeEvent
-    public static void knockBack(LivingKnockBackEvent event)
-    {
-        if (event.getEntityLiving().getActivePotionEffect(MalumEffects.MAGIC.get()) != null)
-        {
-            event.setStrength(0);
         }
     }
 }

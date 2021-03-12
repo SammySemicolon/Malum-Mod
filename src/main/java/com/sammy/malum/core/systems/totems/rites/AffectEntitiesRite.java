@@ -35,8 +35,7 @@ public class AffectEntitiesRite extends MalumRite
     @Override
     public void effect(BlockPos pos, World world)
     {
-        world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(range())).forEach(e -> { if (!world.getBlockState(e.getPosition().down()).getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get())) effect(e); }
-        );
+        world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(range())).forEach(this::effect);
         super.effect(pos, world);
     }
 }

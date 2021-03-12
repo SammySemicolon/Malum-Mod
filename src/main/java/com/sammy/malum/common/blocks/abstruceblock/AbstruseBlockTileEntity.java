@@ -13,6 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.awt.*;
@@ -41,6 +43,10 @@ public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickab
     public void tick()
     {
         progress++;
+        if (progress == 1)
+        {
+            particles(world, pos, 2);
+        }
         if (progress > 100)
         {
             world.destroyBlock(pos, false);
@@ -50,12 +56,8 @@ public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickab
     @Override
     public void remove()
     {
-        
-        if (MalumHelper.areWeOnClient(world))
-        {
-            Color color = MalumSpiritTypes.WATER_SPIRIT_COLOR;
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.5f, 0f).setLifetime(10).setScale(0.075f, 0).setColor(color, color).enableNoClip().repeatEdges(world, pos, 12);
-        }
+        particles(world, pos, 8);
+    
         if (owner != null)
         {
             owner.playSound(MalumSounds.ABSTRUSE_BLOCK_RETURN, 1, world.rand.nextFloat() * 1.5f);
@@ -63,8 +65,19 @@ public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickab
         }
         else
         {
-            world.addEntity(new ItemEntity(world, pos.getX(),pos.getY(),pos.getZ(),new ItemStack(MalumItems.ABSTRUSE_BLOCK.get())));
+            world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(MalumItems.ABSTRUSE_BLOCK.get())));
         }
         super.remove();
+    }
+    public void particles(World worldIn, BlockPos pos, int countMultiplier)
+    {
+        if (MalumHelper.areWeOnClient(worldIn))
+        {
+            Color color = MalumSpiritTypes.AIR_SPIRIT_COLOR;
+            Color colorAgain = MalumSpiritTypes.WATER_SPIRIT_COLOR;
+            
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.25f, 0f).setLifetime(20).setScale(0.05f, 0).setColor(color, color.darker()).randomVelocity(0f, 0.01f).enableNoClip().evenlyRepeatEdges(worldIn, pos,  countMultiplier).setColor(colorAgain, colorAgain).evenlyRepeatEdges(worldIn, pos,  countMultiplier);
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.05f, 0f).setLifetime(40).setScale(0.2f, 0).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).enableNoClip().evenlyRepeatEdges(worldIn, pos, 2 * countMultiplier).setColor(colorAgain, colorAgain).evenlyRepeatEdges(worldIn, pos, 2 * countMultiplier);
+        }
     }
 }

@@ -35,15 +35,6 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     protected void registerModels()
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
-        items.remove(MalumItems.FOOLS_BLESSING);
-        items.remove(MalumItems.SWORD_OF_MOVING_CLOUDS);
-        spiritedToolItem(SWORD_OF_MOVING_CLOUDS);
-        items.remove(PICKAXE_OF_THE_CORE);
-        spiritedToolItem(PICKAXE_OF_THE_CORE);
-        items.remove(HOE_OF_GROWTH);
-        spiritedToolItem(HOE_OF_GROWTH);
-        items.remove(SHOVEL_OF_TREMORS);
-        spiritedToolItem(SHOVEL_OF_TREMORS);
         takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
         takeAll(items, i -> i.get() instanceof SpiritSplinterItem).forEach(this::spiritSplinterItem);

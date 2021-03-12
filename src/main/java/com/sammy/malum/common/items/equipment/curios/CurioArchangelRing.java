@@ -12,19 +12,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.UUID;
 
-public class CurioGildedRing extends Item implements ICurio
+public class CurioArchangelRing extends Item implements ICurio
 {
-    public CurioGildedRing(Properties builder)
+    public CurioArchangelRing(Properties builder)
     {
         super(builder);
     }
     
-    private static final UUID ARMOR = UUID.fromString("f792e379-4dce-4387-bd3a-099cd49b15f4");
+    private static final UUID GRAVITY = UUID.fromString("20fa6b59-20bc-4a63-b45e-edaa2fc69cf7");
+    private static final UUID SPEED = UUID.fromString("4dc15e7b-1c28-44be-ad1d-4b827269610b");
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
@@ -46,7 +48,8 @@ public class CurioGildedRing extends Item implements ICurio
             public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier)
             {
                 Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-                map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":gilded_ring_toughness_boost", 1f, AttributeModifier.Operation.ADDITION));
+                map.put(ForgeMod.ENTITY_GRAVITY.get(), new AttributeModifier(GRAVITY, MalumMod.MODID + ":gravity_boost", -0.5f, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                map.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(SPEED, MalumMod.MODID + ":speed_boost", 0.2f, AttributeModifier.Operation.MULTIPLY_TOTAL));
                 return map;
             }
     

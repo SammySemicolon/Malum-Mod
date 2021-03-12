@@ -48,7 +48,7 @@ public class MalumBlocks
     
     public static AbstractBlock.Properties DARKENED_ROCK_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.DARKENED_ROCK).hardnessAndResistance(2.25F, 3600.0F);
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.DARKENED_ROCK).hardnessAndResistance(1.25F, 9.0F);
     }
     
     public static AbstractBlock.Properties RUNEWOOD_PROPERTIES()
@@ -356,7 +356,7 @@ public class MalumBlocks
     
     public static final RegistryObject<Block> ITEM_STAND = BLOCKS.register("item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> EXTRACTION_FOCUS = BLOCKS.register("extraction_focus", () -> new ExtractionFocusBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> IMPERVIOUS_ROCK = BLOCKS.register("impervious_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> IMPERVIOUS_ROCK = BLOCKS.register("impervious_rock", () -> new Block(DARKENED_ROCK_PROPERTIES().hardnessAndResistance(1.25f, 3600000.0F)));
     public static final RegistryObject<Block> WILD_FARMLAND = BLOCKS.register("wild_farmland", () -> new WildFarmlandBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES().notSolid().tickRandomly()));
     //endregion
     

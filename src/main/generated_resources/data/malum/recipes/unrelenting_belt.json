@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "YXY",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "malum:impervious_rock"
+    },
+    "Y": {
+      "item": "minecraft:leather"
+    },
+    "X": {
+      "item": "malum:soul_gem"
+    }
+  },
+  "result": {
+    "item": "malum:unrelenting_belt"
+  }
+}

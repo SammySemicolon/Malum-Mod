@@ -2,6 +2,7 @@ package com.sammy.malum.common.items.equipment.poppets;
 
 import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -24,7 +25,7 @@ public class PoppetOfDefiance extends PoppetItem
         {
             return;
         }
-        target.attackEntityFrom(MalumDamageSources.VOODOO, event.getAmount() / 2f);
+        SpiritHelper.causeVoodooDamage(playerEntity, target, event.getAmount() / 2f);
         event.setAmount(event.getAmount() / 2f);
         super.effect(poppet, event, world, playerEntity, target, inventory);
     }

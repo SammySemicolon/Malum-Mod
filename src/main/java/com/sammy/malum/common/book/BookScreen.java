@@ -57,7 +57,7 @@ public class BookScreen extends Screen
         posX = guiLeft + 250;
         NextArrowObject nextArrowObject = new NextArrowObject(posX, posY, 18, 18);
         objects.add(nextArrowObject);
-        
+        ArrayList<BookObject> lastObjects = new ArrayList<>();
         for (int i = 0; i < MalumBookCategories.CATEGORIES.size(); i++)
         {
             BookCategory category = MalumBookCategories.CATEGORIES.get(i);
@@ -100,13 +100,20 @@ public class BookScreen extends Screen
                         posX = guiLeft + 271;
                         posY = guiTop + 12 + (l * 26);
                         BookEntry linkedEntry = entry.links.get(l);
-                        LinkedEntryObject linkedPageObject = (LinkedEntryObject) new LinkedEntryObject(posX, posY, 24, 24, entryObject, linkedEntry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(entryObject));
-                        objects.add(linkedPageObject);
+                        LinkedEntryObject linkedPageObject = (LinkedEntryObject) new LinkedEntryObject(posX, posY, 24, 24, entryObject, linkedEntry).addSpecialPredicate((s) -> {
+                            if (currentObject instanceof LinkedEntryObject && currentObject.returnObject.equals(entryObject))
+                            {
+                                return true;
+                            }
+                            return currentObject != null && s.currentObject.equals(entryObject);
+                        });
+                        lastObjects.add(linkedPageObject);
                     }
                 }
             }
-            objects.add(categoryObject);
+            lastObjects.add(categoryObject);
         }
+        objects.addAll(lastObjects);
         currentObject = firstCategory;
     }
     public final int bookWidth = 292;

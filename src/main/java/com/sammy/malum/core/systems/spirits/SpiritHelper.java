@@ -4,6 +4,8 @@ import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entities.PlayerSoulEntity;
 import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
+import com.sammy.malum.common.events.Events;
+import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
@@ -29,6 +31,10 @@ import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class SpiritHelper
 {
+    public static void causeVoodooDamage(LivingEntity attacker, LivingEntity target, float amount)
+    {
+        target.attackEntityFrom(MalumDamageSources.VOODOO, amount);
+    }
     public static void harvestSpirit(String spirit, PlayerEntity player)
     {
         ArrayList<Pair<String, Integer>> spirits = new ArrayList<>();
@@ -53,10 +59,6 @@ public class SpiritHelper
         }
         ArrayList<Pair<String, Integer>> spirits = entitySpirits(target);
     
-        if (CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.RING_OF_SUPPRESSION.get(), player).isPresent())
-        {
-            return;
-        }
         int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), stack);
         if (plunder > 0)
         {

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "#Y#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "malum:hallowed_gold_ingot"
+    },
+    "X": {
+      "item": "minecraft:leather"
+    },
+    "Y": {
+      "item": "malum:soul_gem"
+    }
+  },
+  "result": {
+    "item": "malum:gilded_belt"
+  }
+}

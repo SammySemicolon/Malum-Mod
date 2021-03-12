@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "malum:item/hoe_of_growth_overlay",
-    "layer1": "malum:item/hoe_of_growth"
-  }
-}

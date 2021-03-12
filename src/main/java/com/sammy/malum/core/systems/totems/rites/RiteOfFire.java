@@ -16,12 +16,15 @@ public class RiteOfFire extends AffectEntitiesRite implements IPoppetBlessing
     @Override
     public void effect(LivingEntity entity)
     {
-        entity.setFire(2);
+        if (entity instanceof PlayerEntity)
+        {
+            entity.addPotionEffect(new EffectInstance(MalumEffects.FIRE.get(), 400, 1));
+        }
     }
     
     @Override
     public void blessingEffect(PlayerEntity entity)
     {
-        entity.setFire(2);
+        entity.addPotionEffect(new EffectInstance(MalumEffects.FIRE.get(), 400, 0));
     }
 }

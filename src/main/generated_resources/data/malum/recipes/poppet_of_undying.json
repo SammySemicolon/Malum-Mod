@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:totem_of_undying"
+    },
+    {
+      "item": "malum:poppet"
+    }
+  ],
+  "result": {
+    "item": "malum:poppet_of_undying"
+  }
+}
