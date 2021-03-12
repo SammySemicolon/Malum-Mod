@@ -151,6 +151,7 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.gui.book.page.void_berries", "These things were made cause I was pissed off with blood magic. Eating this thing will quickly get rid of a large chunk of your hunger.");
         add("malum.gui.book.page.abstruse_block", "This fancy cool block will return to it's owner after 5 seconds. This internal timer is reset if it's stepped on. Breaking it will also return it directly to you.");
         add("malum.gui.book.page.impervious_rock", "The impervious rock is completely immune to any and ALL explosions.");
+        add("malum.gui.book.page.wither_sand", "Wither sand will damage anything on top of it.");
         add("malum.gui.book.page.unrelenting_belt", "Greatly reduces incoming explosion damage");
         add("malum.gui.book.page.archangel_ring", "Reduces gravity and increases movement speed");
         add("malum.gui.book.page.living_capacitor", "When receiving the hunger potion effect you will instead recover hunger and health. Also triggers when eating void berries");

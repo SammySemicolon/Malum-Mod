@@ -36,12 +36,12 @@ public class CurioEvents
         }
     }
     @SubscribeEvent
-    public static void bootsOfLevitationFallDamage(LivingFallEvent event)
+    public static void archangelFallDamage(LivingFallEvent event)
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioArchangelRing, event.getEntityLiving()).ifPresent(triple -> {
-                event.setDistance(event.getDistance() / 3);
+                event.setDistance(event.getDistance() / 2);
             });
         }
     }
@@ -55,7 +55,7 @@ public class CurioEvents
             CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof SimpleCurio, playerEntity).ifPresent(triple -> {
                 if (event.getSource().isExplosion())
                 {
-                    event.setAmount(event.getAmount() * 0.5f);
+                    event.setAmount(event.getAmount() * 0.1f);
                 }
             });
         }

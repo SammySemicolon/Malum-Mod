@@ -23,6 +23,7 @@ public class TinkeringCategory extends BookCategory
     public static BookEntry enderQuarks;
     public static BookEntry abstruseBlock;
     public static BookEntry imperviousRock;
+    public static BookEntry witherSand;
     public static BookEntry ringOfAttraction;
     public static BookEntry imperviousSeal;
     public static BookEntry archangelRing;
@@ -84,11 +85,16 @@ public class TinkeringCategory extends BookCategory
                 .addPage(new HeadlineTextPage("abstruse_block"))
                 .addPage(new SpiritInfusionPage(new ItemStack(TAINTED_ROCK.get(), 8), new ItemStack(ABSTRUSE_BLOCK.get(), 8), new ItemStack(AIR_SPIRIT_SPLINTER.get()), new ItemStack(WATER_SPIRIT_SPLINTER.get())))
                 .addLink(airSpirit).addLink(waterSpirit);
-        
+    
         imperviousRock = new BookEntry(IMPERVIOUS_ROCK.get(), "impervious_rock")
                 .addPage(new HeadlineTextPage("impervious_rock"))
                 .addPage(new SpiritInfusionPage(new ItemStack(TAINTED_ROCK.get(), 8), new ItemStack(IMPERVIOUS_ROCK.get(), 8), new ItemStack(DEATH_SPIRIT_SPLINTER.get())))
                 .addLink(basicBaubles).addLink(deathSpirit);
+    
+        witherSand = new BookEntry(WITHER_SAND.get(), "wither_sand")
+                .addPage(new HeadlineTextPage("wither_sand"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.SOUL_SAND, 8), new ItemStack(WITHER_SAND.get(), 8), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 2)))
+                .addLink(arcaneBasics).addLink(deathSpirit);
         
         imperviousSeal = new BookEntry(UNRELENTING_BELT.get(), "unrelenting_belt")
                 .addPage(new HeadlineTextPage("unrelenting_belt"))
@@ -114,6 +120,6 @@ public class TinkeringCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(new ItemStack(SOUL_STAINED_STEEL_BOOTS.get()), new ItemStack(SOUL_STAINED_STRONGHOLD_BOOTS.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 4), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 4), new ItemStack(WATER_SPIRIT_SPLINTER.get(), 8), new ItemStack(ELDRITCH_SPIRIT_SPLINTER.get(), 2)))
                 .addLink(soulStainedSteel).addLink(eldritchSpirit);
     
-        addEntries(hallowedGold, soulStainedSteel, ether, basicBaubles, elixirOfLife, voidBerries, abstruseBlock, imperviousRock, imperviousSeal, archangelRing, livingCapacitor, soulStainedStrongholdArmor);
+        addEntries(hallowedGold, soulStainedSteel, ether, basicBaubles, elixirOfLife, voidBerries, abstruseBlock, witherSand, imperviousRock, imperviousSeal, archangelRing, livingCapacitor, soulStainedStrongholdArmor);
     }
 }

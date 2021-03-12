@@ -7,6 +7,7 @@ import com.sammy.malum.common.items.equipment.poppets.PoppetOfUndying;
 import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.network.packets.ParticlePacket;
@@ -137,6 +138,18 @@ public class Events
         }
     }
     
+    @SubscribeEvent
+    public static void imperviousBlockNoBreak(LivingDestroyBlockEvent event)
+    {
+        if (event.getEntityLiving() instanceof PlayerEntity)
+        {
+            return;
+        }
+        if (event.getState().getBlock().equals(MalumBlocks.IMPERVIOUS_ROCK.get()))
+        {
+            event.setCanceled(true);
+        }
+    }
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event)
     {
