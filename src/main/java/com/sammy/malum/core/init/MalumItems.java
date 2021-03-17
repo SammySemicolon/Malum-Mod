@@ -62,7 +62,7 @@ public class MalumItems
         return new Item.Properties().maxStackSize(1);
     }
     
-    public static final RegistryObject<Item> MALUM_BOOK = ITEMS.register("malum_book", () -> new MalumBookItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = ITEMS.register("encyclopedia_arcana", () -> new EncyclopediaArcanaItem(GEAR_PROPERTIES()));
     
     public static final RegistryObject<Item> TAINTED_ROCK = ITEMS.register("tainted_rock", () -> new BlockItem(MalumBlocks.TAINTED_ROCK.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> SMOOTH_TAINTED_ROCK = ITEMS.register("smooth_tainted_rock", () -> new BlockItem(MalumBlocks.SMOOTH_TAINTED_ROCK.get(), BUILDING_PROPERTIES()));

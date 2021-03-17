@@ -181,8 +181,6 @@ public class ClientStartupEvents
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(ClientStartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemCoreBlock).forEach(ClientStartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientStartupEvents::setCutout);
@@ -195,6 +193,9 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstruseBlock).forEach(ClientStartupEvents::setCutout);
         setCutout(MalumBlocks.ITEM_STAND);
         setCutout(MalumBlocks.SPIRIT_JAR);
+        setCutout(MalumBlocks.TOTEM_CORE);
+        setCutout(MalumBlocks.TOTEM_POLE);
+        setCutout(MalumBlocks.SPIRIT_ALTAR);
         //        setCutout(MalumBlocks.SPIRIT_JAR);
         //        setCutout(MalumBlocks.SPIRIT_PIPE);
         //        setCutout(MalumBlocks.BLAZE_QUARTZ_ORE);

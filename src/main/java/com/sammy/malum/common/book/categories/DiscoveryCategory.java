@@ -7,8 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
-import static com.sammy.malum.core.init.MalumItems.*;
-
 public class DiscoveryCategory extends BookCategory
 {
     public static BookEntry lifeSpirit;
@@ -32,7 +30,7 @@ public class DiscoveryCategory extends BookCategory
     
     public DiscoveryCategory()
     {
-        super(MalumItems.MALUM_BOOK.get().getDefaultInstance(), "discovery");
+        super(MalumItems.ENCYCLOPEDIA_ARCANA.get().getDefaultInstance(), "discovery");
         Item EMPTY = Items.BARRIER;
     
         lifeSpirit = new BookEntry(MalumItems.LIFE_SPIRIT_SPLINTER.get(), "life_spirit")
