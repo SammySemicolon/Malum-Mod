@@ -35,6 +35,9 @@ public class MalumSounds
     public static final SoundEvent TOTEM_CHARGED = new SoundEvent(MalumHelper.prefix("totem_charged"));
     public static final SoundEvent TOTEM_ENGRAVE = new SoundEvent(MalumHelper.prefix("totem_engrave"));
     
+    public static final SoundEvent ALTAR_CRAFT = new SoundEvent(MalumHelper.prefix("altar_craft"));
+    public static final SoundEvent ALTAR_LOOP = new SoundEvent(MalumHelper.prefix("altar_loop"));
+    
     public static final SoundEvent BOOK_TRAVEL = new SoundEvent(MalumHelper.prefix("book_travel"));
     
     public static final SoundEvent EQUIP = new SoundEvent(MalumHelper.prefix("equip"));
@@ -69,6 +72,9 @@ public class MalumSounds
         SOUNDS.register("totem_charge", ()-> TOTEM_CHARGE);
         SOUNDS.register("totem_charged", ()-> TOTEM_CHARGED);
         SOUNDS.register("totem_engrave", ()-> TOTEM_ENGRAVE);
+        
+        SOUNDS.register("altar_craft", ()-> ALTAR_CRAFT);
+        SOUNDS.register("altar_loop", ()-> ALTAR_LOOP);
     
         SOUNDS.register("book_travel", ()-> BOOK_TRAVEL);
     

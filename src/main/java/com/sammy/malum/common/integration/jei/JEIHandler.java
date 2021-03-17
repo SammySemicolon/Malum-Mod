@@ -1,9 +1,9 @@
 package com.sammy.malum.common.integration.jei;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.integration.jei.rites.RiteRecipeCategory;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.modcontent.MalumRites;
+import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -23,19 +23,21 @@ public class JEIHandler implements IModPlugin
     public void registerCategories(IRecipeCategoryRegistration registry)
     {
         registry.addRecipeCategories(new RiteRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new SpiritAltarRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
     
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
         registry.addRecipes(MalumRites.RITES, RiteRecipeCategory.UID);
-    
+        registry.addRecipes(MalumSpiritAltarRecipes.RECIPES, SpiritAltarRecipeCategory.UID);
     }
     
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
         registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), RiteRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_ALTAR.get()), SpiritAltarRecipeCategory.UID);
     }
     @Nonnull
     @Override

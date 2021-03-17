@@ -24,6 +24,9 @@
 
   "book_travel": { "sounds":["malum:totems/totem_engrave"], "subtitle": "malum.subtitle.book_travel" },
 
+  "altar_craft": { "sounds":["malum:altar/craft"], "subtitle": "malum.subtitle.altar_craft" },
+  "altar_loop": { "sounds":["malum:altar/loop"], "subtitle": "malum.subtitle.altar_loop" },
+
   "tyrving_hit": { "sounds":["malum:tyrving/hit1","malum:tyrving/hit2"], "subtitle": "malum.subtitle.tyrving_hit" },
   "equip": { "sounds":["malum:equip"], "subtitle": "malum.subtitle.equip" }
 

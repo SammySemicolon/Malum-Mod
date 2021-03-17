@@ -1,4 +1,4 @@
-package com.sammy.malum.common.integration.jei.rites;
+package com.sammy.malum.common.integration.jei;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
+import static com.sammy.malum.common.book.BookScreen.packColor;
 import static com.sammy.malum.core.modcontent.MalumRites.*;
 
 public class RiteRecipeCategory implements IRecipeCategory<MalumRite>
@@ -54,7 +55,13 @@ public class RiteRecipeCategory implements IRecipeCategory<MalumRite>
         String formattedText = timeComponent.getString();
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fontRenderer = minecraft.fontRenderer;
-        fontRenderer.drawString(matrixStack, formattedText, 1, 1, 0xFF808080);
+        int posX = 55 - fontRenderer.getStringWidth(formattedText)/2;
+        fontRenderer.drawString(matrixStack, formattedText, posX, 0, packColor(128, 174, 174, 174));
+        fontRenderer.drawString(matrixStack, formattedText, posX, 2, packColor(128, 174, 174, 174));
+        fontRenderer.drawString(matrixStack, formattedText, posX-1, 1, packColor(128, 174, 174, 174));
+        fontRenderer.drawString(matrixStack, formattedText, posX+1, 1, packColor(128, 174, 174, 174));
+        
+        fontRenderer.drawString(matrixStack, formattedText, posX, 1, packColor(255, 128, 128, 128));
         
         GlStateManager.disableBlend();
         GlStateManager.disableAlphaTest();

@@ -2,6 +2,7 @@ package com.sammy.malum.common.blocks.spiritaltar;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.SpiritSplinterItem;
+import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
@@ -13,6 +14,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
@@ -44,11 +46,12 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 SpiritAltarTileEntity.this.markDirty();
                 updateContainingBlockInfo();
                 MalumHelper.updateState(world.getBlockState(pos), world, pos);
-                recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(slot), spiritInventory.nonEmptyStacks());
+                recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
             }
         };
     }
     
+    public int soundCooldown;
     public int progress;
     public int spinUp;
     public float spin;
@@ -87,8 +90,17 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     @Override
     public void tick()
     {
+        if (soundCooldown > 0)
+        {
+            soundCooldown--;
+        }
         if (recipe != null)
         {
+            if (soundCooldown == 0)
+            {
+                world.playSound(null, pos, MalumSounds.ALTAR_LOOP, SoundCategory.BLOCKS,1,1f);
+                soundCooldown = 180;
+            }
             if (spinUp < 10)
             {
                 spinUp++;
@@ -123,6 +135,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 progress = 0;
                 recipe = MalumSpiritAltarRecipes.getRecipe(stack, spiritInventory.nonEmptyStacks());
                 MalumHelper.updateState(world.getBlockState(pos), world, pos);
+                world.playSound(null, pos, MalumSounds.ALTAR_CRAFT, SoundCategory.BLOCKS,1,0.9f + world.rand.nextFloat() * 0.2f);
                 if (recipe == null)
                 {
                     inventory.dumpItems(world, itemPos);

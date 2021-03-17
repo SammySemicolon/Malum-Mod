@@ -13,16 +13,25 @@ public class MalumSpiritIngredient
     public MalumSpiritType type;
     public int count;
     
-    public MalumSpiritIngredient(MalumSpiritType type, int count) {
+    public MalumSpiritIngredient(MalumSpiritType type, int count)
+    {
         this.type = type;
         this.count = count;
     }
-    public MalumSpiritIngredient(MalumSpiritType type) {
+    
+    public MalumSpiritIngredient(MalumSpiritType type)
+    {
         this.type = type;
         this.count = 1;
     }
+    
     public boolean matches(ItemStack stack)
     {
         return stack.getItem().equals(type.splinterItem) && stack.getCount() >= count;
+    }
+    
+    public ItemStack getItem()
+    {
+        return new ItemStack(type.splinterItem, count);
     }
 }

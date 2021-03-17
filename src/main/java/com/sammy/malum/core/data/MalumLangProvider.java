@@ -137,7 +137,7 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.gui.book.page.water_spirit", "Water, anything aquatic really.");
         add("malum.gui.book.page.eldritch_spirit", "Rare powerful things, endermen, ravagers, bosses");
     
-        add("malum.gui.book.page.hallowed_gold", "Gold but magic, made from earth fire air and water");
+        add("malum.gui.book.page.hallowed_gold", "Gold but magic, made from earth fire air and water spirits");
         add("malum.gui.book.page.spirit_jar", "Spirit jar; stores spirit splinters.");
     
         add("malum.gui.book.page.soul_stained_steel", "Iron but powerful-er.");
@@ -145,16 +145,17 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.gui.book.page.basic_baubles", "Hallowed gold makes great curios, they provide a little bit of armor and are used as a basis for crafting other gear");
         add("malum.gui.book.page.poppet_belt", "The poppet belt lets you store poppets in it. To put a poppet in the belt simply hold said belt and desired poppet and right click. Up to two poppets can be stored");
     
-        add("malum.gui.book.page.ether", "Ether is a pretty lightsource. U can put it on a torch and a brazier. ");
+        add("malum.gui.book.page.ether", "Ether is a pretty lightsource. U can put it on a torch and a brazier. U can also dye it into almost every color");
     
         add("malum.gui.book.page.elixir_of_life", "Yknow solar syrup, it heals u a bunch. This does that, but more.");
         add("malum.gui.book.page.void_berries", "These things were made cause I was pissed off with blood magic. Eating this thing will quickly get rid of a large chunk of your hunger.");
         add("malum.gui.book.page.abstruse_block", "This fancy cool block will return to it's owner after 5 seconds. This internal timer is reset if it's stepped on. Breaking it will also return it directly to you.");
-        add("malum.gui.book.page.impervious_rock", "The impervious rock is completely immune to any and ALL explosions.");
+        add("malum.gui.book.page.impervious_rock", "The impervious rock is completely immune to most explosions.");
         add("malum.gui.book.page.wither_sand", "Wither sand will damage anything on top of it.");
         add("malum.gui.book.page.unrelenting_belt", "Greatly reduces incoming explosion damage");
         add("malum.gui.book.page.archangel_ring", "Reduces gravity and increases movement speed");
         add("malum.gui.book.page.living_capacitor", "When receiving the hunger potion effect you will instead recover hunger and health. Also triggers when eating void berries");
+        add("malum.gui.book.page.tyrving", "The tyrving is a cool fancy sword. Half the damage you deal with it will be converted to voodoo damage. On top of that, the voodoo damage it deals scales with how much armor the target has.");
         add("malum.gui.book.page.stronghold_armor", "Soul stained stronghold armor. It's big and it's tanky, you love to see it.");
         
         add("malum.gui.book.page.voodoo_magic", "Voodoo magic is one of many sinister magics in malum. It revolves around poppets, AKA cool voodoo dolls.");
@@ -222,6 +223,7 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.runic_chiseling", "Runic Chiseling");
         add("malum.jei.totem_rites", "Totem Rites");
+        add("malum.jei.spirit_altar", "Spirit Altar");
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_building_blocks", "Malum Building Blocks");
     }

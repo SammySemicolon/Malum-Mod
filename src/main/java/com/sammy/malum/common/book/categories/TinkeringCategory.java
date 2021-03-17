@@ -28,6 +28,7 @@ public class TinkeringCategory extends BookCategory
     public static BookEntry imperviousSeal;
     public static BookEntry archangelRing;
     public static BookEntry livingCapacitor;
+    public static BookEntry tyrving;
     public static BookEntry soulStainedStrongholdArmor;
     
     public TinkeringCategory()
@@ -111,6 +112,11 @@ public class TinkeringCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(new ItemStack(ABYSSAL_APPARATUS.get()), new ItemStack(LIVING_CAPACITOR.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 16), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 16)))
                 .addLink(voidBerries).addLink(lifeSpirit).addLink(deathSpirit).addLink(eldritchSpirit);
     
+        tyrving = new BookEntry(TYRVING.get(), "tyrving")
+                .addPage(new HeadlineTextPage("tyrving"))
+                .addPage(new SpiritInfusionPage(new ItemStack(SOUL_STAINED_STEEL_SWORD.get()), new ItemStack(TYRVING.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 12), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 6), new ItemStack(ELDRITCH_SPIRIT_SPLINTER.get(), 4)))
+                .addLink(soulStainedSteel).addLink(magicSpirit).addLink(earthSpirit).addLink(eldritchSpirit);
+        
         soulStainedStrongholdArmor = new BookEntry(SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(), "stronghold_armor")
                 .addPage(new HeadlineTextPage("stronghold_armor"))
                 .addPage(new ItemListPage(SOUL_STAINED_STRONGHOLD_HELMET.get(), SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(), SOUL_STAINED_STRONGHOLD_LEGGINGS.get(), SOUL_STAINED_STRONGHOLD_BOOTS.get()))
@@ -120,6 +126,6 @@ public class TinkeringCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(new ItemStack(SOUL_STAINED_STEEL_BOOTS.get()), new ItemStack(SOUL_STAINED_STRONGHOLD_BOOTS.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 4), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 4), new ItemStack(WATER_SPIRIT_SPLINTER.get(), 8), new ItemStack(ELDRITCH_SPIRIT_SPLINTER.get(), 2)))
                 .addLink(soulStainedSteel).addLink(eldritchSpirit);
     
-        addEntries(hallowedGold, soulStainedSteel, ether, basicBaubles, elixirOfLife, voidBerries, abstruseBlock, witherSand, imperviousRock, imperviousSeal, archangelRing, livingCapacitor, soulStainedStrongholdArmor);
+        addEntries(hallowedGold, soulStainedSteel, ether, basicBaubles, elixirOfLife, voidBerries, abstruseBlock, witherSand, imperviousRock, imperviousSeal, archangelRing, livingCapacitor,tyrving, soulStainedStrongholdArmor);
     }
 }
