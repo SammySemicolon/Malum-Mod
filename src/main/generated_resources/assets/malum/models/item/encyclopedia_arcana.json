@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/malum_book"
+    "layer0": "malum:item/encyclopedia_arcana"
   }
 }

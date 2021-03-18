@@ -28,6 +28,7 @@
   "altar_loop": { "sounds":["malum:altar/loop"], "subtitle": "malum.subtitle.altar_loop" },
 
   "tyrving_hit": { "sounds":["malum:crush"], "subtitle": "malum.subtitle.tyrving_hit" },
-  "equip": { "sounds":["malum:equip"], "subtitle": "malum.subtitle.equip" }
+  "holy_equip": { "sounds":["malum:holy_equip"], "subtitle": "malum.subtitle.equip" },
+  "sinister_equip": { "sounds":["malum:sinister_equip"], "subtitle": "malum.subtitle.equip" }
 
 }
