@@ -4,8 +4,6 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
 import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
@@ -21,7 +19,7 @@ public class MalumSpiritAltarRecipes
     public static void init()
     {
         new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.TAINTED_ROCK.get(), 16),new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.DARKENED_ROCK.get(), 16),new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.TWISTED_ROCK.get(), 16),new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
     
         new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GLOWSTONE_DUST, 4), new MalumItemIngredient(MalumItems.ORANGE_ETHER.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 2));
         new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GOLD_INGOT, 2), new MalumItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get(), 2),new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.AIR_SPIRIT),new MalumSpiritIngredient(MalumSpiritTypes.WATER_SPIRIT));
@@ -47,8 +45,8 @@ public class MalumSpiritAltarRecipes
         new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.POPPET.get(), 1), new MalumItemIngredient(MalumItems.POPPET_OF_SAPPING.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 4), new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 4), new MalumSpiritIngredient(MalumSpiritTypes.WATER_SPIRIT, 4));
     
         new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.POPPET.get(), 1), new MalumItemIngredient(MalumItems.POPPET_OF_SHIELDING.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 8), new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 2),new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 2));
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.POPPET.get(), 1), new MalumItemIngredient(MalumItems.POPPET_OF_INFERNAL_PROTECTION.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 6), new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 6));
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.POPPET.get(), 1), new MalumItemIngredient(MalumItems.POPPET_OF_TERRAN_PROTECTION.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 4), new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 8));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.POPPET.get(), 1), new MalumItemIngredient(MalumItems.POPPET_OF_FIRE.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 6), new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 6));
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.POPPET.get(), 1), new MalumItemIngredient(MalumItems.POPPET_OF_EARTH.get(), 1),new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 4), new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 8));
     
     
         new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.DIRT, 32), new MalumItemIngredient(Items.GRASS_BLOCK, 32),new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT));

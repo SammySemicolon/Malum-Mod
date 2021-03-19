@@ -1,5 +1,6 @@
 package com.sammy.malum.common.items.food;
 
+import com.sammy.malum.common.items.equipment.curios.CurioRingOfFeeding;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.entity.LivingEntity;
@@ -28,7 +29,7 @@ public class VoidBerriesItem extends Item
         if (entityLiving instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) entityLiving;
-            if (CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.LIVING_CAPACITOR.get(), playerEntity).isPresent())
+            if (CuriosApi.getCuriosHelper().findEquippedCurio(s -> s.getItem() instanceof CurioRingOfFeeding, playerEntity).isPresent())
             {
                 playerEntity.heal(4);
                 playerEntity.getFoodStats().addStats(2,2);

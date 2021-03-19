@@ -40,11 +40,12 @@ public class MalumSounds
     
     public static final SoundEvent BOOK_TRAVEL = new SoundEvent(MalumHelper.prefix("book_travel"));
     
-    public static final SoundEvent EQUIP = new SoundEvent(MalumHelper.prefix("equip"));
+    public static final SoundEvent SINISTER_EQUIP = new SoundEvent(MalumHelper.prefix("sinister_equip"));
+    public static final SoundEvent HOLY_EQUIP = new SoundEvent(MalumHelper.prefix("holy_equip"));
     public static final SoundEvent TYRVING_HIT = new SoundEvent(MalumHelper.prefix("tyrving_hit"));
     
     public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
-    public static final SoundType DARKENED_ROCK = new SoundType(1.0F, 0.75F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
+    public static final SoundType TWISTED_ROCK = new SoundType(1.0F, 0.75F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType HALLOWED_GOLD = new SoundType(1.0F, 1.0F, HALLOWED_GOLD_BREAK, HALLOWED_GOLD_STEP, HALLOWED_GOLD_PLACE, HALLOWED_GOLD_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType SOUL_STAINED_STEEL = new SoundType(1.0F, 1.0F, SPIRITED_METAL_BREAK, SPIRITED_METAL_STEP, SPIRITED_METAL_PLACE, SPIRITED_METAL_HIT, SoundEvents.BLOCK_STONE_FALL);
     
@@ -78,7 +79,8 @@ public class MalumSounds
     
         SOUNDS.register("book_travel", ()-> BOOK_TRAVEL);
     
-        SOUNDS.register("equip", ()-> EQUIP);
+        SOUNDS.register("sinister_equip", ()-> SINISTER_EQUIP);
+        SOUNDS.register("holy_equip", ()-> HOLY_EQUIP);
         SOUNDS.register("tyrving_hit", ()-> TYRVING_HIT);
     }
 }

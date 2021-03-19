@@ -17,9 +17,7 @@ public class MalumArmorTiers
     public enum ArmorTierEnum implements IArmorMaterial
     {
         SOUL_STAINED_STEEL("malum:soul_stained_steel", 22, new int[]{2, 6, 7, 3}, 11, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.SOUL_STAINED_STEEL_INGOT, 1),
-        SOUL_STAINED_STRONGHOLD("malum:soul_stained_stronghold", 36, new int[]{4, 7, 9, 4}, 13, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.SOUL_STAINED_STEEL_INGOT, 2),
-        UMBRAL_ARMOR("malum:umbral_armor", 45, new int[]{4, 7, 10, 4}, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.UMBRAL_METAL_INGOT, 5);
-        
+        SOUL_STAINED_STRONGHOLD("malum:soul_stained_stronghold", 36, new int[]{4, 7, 9, 4}, 13, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, MalumItems.SOUL_STAINED_STEEL_INGOT, 2);
         private final String name;
         private final int durabilityMultiplier;
         private final int[] damageReduction;
@@ -88,10 +86,6 @@ public class MalumArmorTiers
         @Override
         public float getKnockbackResistance()
         {
-            if (this.equals(UMBRAL_ARMOR))
-            {
-                return 0.25f;
-            }
             return 0;
         }
     }

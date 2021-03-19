@@ -1,7 +1,8 @@
 package com.sammy.malum.common.events;
 
-import com.sammy.malum.common.items.equipment.curios.SimpleCurio;
-import com.sammy.malum.common.items.equipment.curios.CurioArchangelRing;
+import com.sammy.malum.common.items.equipment.curios.CurioRingOfFeeding;
+import com.sammy.malum.common.items.equipment.curios.CurioUnrelentingBelt;
+import com.sammy.malum.common.items.equipment.curios.CurioHeavenlyPendant;
 import com.sammy.malum.core.init.MalumItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effects;
@@ -25,7 +26,7 @@ public class CurioEvents
             if (event.getPotionEffect().getPotion().equals(Effects.HUNGER))
             {
                 PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-                if (CuriosApi.getCuriosHelper().findEquippedCurio(MalumItems.LIVING_CAPACITOR.get(), playerEntity).isPresent())
+                if (CuriosApi.getCuriosHelper().findEquippedCurio(s -> s.getItem() instanceof CurioRingOfFeeding, playerEntity).isPresent())
                 {
                     event.setResult(DENY);
                     playerEntity.heal(4);
@@ -40,7 +41,7 @@ public class CurioEvents
     {
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
-            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioArchangelRing, event.getEntityLiving()).ifPresent(triple -> {
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioHeavenlyPendant, event.getEntityLiving()).ifPresent(triple -> {
                 event.setDistance(event.getDistance() / 2);
             });
         }
@@ -52,7 +53,7 @@ public class CurioEvents
         if (event.getEntityLiving() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
-            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof SimpleCurio, playerEntity).ifPresent(triple -> {
+            CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof CurioUnrelentingBelt, playerEntity).ifPresent(triple -> {
                 if (event.getSource().isExplosion())
                 {
                     event.setAmount(event.getAmount() * 0.1f);

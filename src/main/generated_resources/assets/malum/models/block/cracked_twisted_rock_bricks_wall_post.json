@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "malum:block/cracked_twisted_rock_bricks"
+  }
+}

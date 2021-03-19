@@ -24,10 +24,15 @@ public class TinkeringCategory extends BookCategory
     public static BookEntry abstruseBlock;
     public static BookEntry imperviousRock;
     public static BookEntry witherSand;
+    
     public static BookEntry ringOfAttraction;
-    public static BookEntry imperviousSeal;
-    public static BookEntry archangelRing;
-    public static BookEntry livingCapacitor;
+    public static BookEntry ringOfFeeding;
+    public static BookEntry ringOfWarding;
+    public static BookEntry ringOfHexing;
+    public static BookEntry heavenlyPendant;
+    public static BookEntry rejuvenationBrooch;
+    public static BookEntry unrelentingBelt;
+    public static BookEntry poppetBelt;
     public static BookEntry tyrving;
     public static BookEntry soulStainedStrongholdArmor;
     
@@ -62,10 +67,13 @@ public class TinkeringCategory extends BookCategory
                 .addLink(fireSpirit);
     
         basicBaubles = new BookEntry(GILDED_RING.get(), "basic_baubles")
-                .addPage(new HeadlineTextPage("basic_baubles"))
+                .addPage(new HeadlineTextPage("gilded_curio"))
                 .addPage(new CraftingPage(new ItemStack(GILDED_RING.get()), EMPTY, Items.LEATHER, HALLOWED_GOLD_INGOT.get(), Items.LEATHER, EMPTY, Items.LEATHER, EMPTY, Items.LEATHER, EMPTY))
                 .addPage(new CraftingPage(new ItemStack(GILDED_BELT.get()), Items.LEATHER, Items.LEATHER, Items.LEATHER, HALLOWED_GOLD_INGOT.get(), SOUL_GEM.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
-                .addLink(hallowedGold);
+                .addPage(new HeadlineTextPage("ornate_curio"))
+                .addPage(new CraftingPage(new ItemStack(ORNATE_RING.get()), EMPTY, Items.LEATHER, SOUL_STAINED_STEEL_INGOT.get(), Items.LEATHER, EMPTY, Items.LEATHER, EMPTY, Items.LEATHER, EMPTY))
+                .addPage(new CraftingPage(new ItemStack(ORNATE_NECKLACE.get()), EMPTY, Items.LEATHER, EMPTY, Items.LEATHER, EMPTY, Items.LEATHER, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
+                .addLink(hallowedGold).addLink(soulStainedSteel);
         
         elixirOfLife = new BookEntry(ELIXIR_OF_LIFE.get(), "elixir_of_life")
                 .addPage(new HeadlineTextPage("elixir_of_life"))
@@ -96,22 +104,47 @@ public class TinkeringCategory extends BookCategory
                 .addPage(new HeadlineTextPage("wither_sand"))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.SOUL_SAND, 8), new ItemStack(WITHER_SAND.get(), 8), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 2)))
                 .addLink(arcaneBasics).addLink(deathSpirit);
+    
+        ringOfAttraction = new BookEntry(RING_OF_ATTRACTION.get(), "ring_of_attraction")
+                .addPage(new HeadlineTextPage("ring_of_attraction"))
+                .addPage(new SpiritInfusionPage(new ItemStack(GILDED_RING.get()), new ItemStack(RING_OF_ATTRACTION.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 6), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 3)))
+                .addLink(basicBaubles).addLink(magicSpirit);
+    
+        ringOfFeeding = new BookEntry(RING_OF_FEEDING.get(), "ring_of_feeding")
+                .addPage(new HeadlineTextPage("ring_of_feeding"))
+                .addPage(new SpiritInfusionPage(new ItemStack(GILDED_RING.get()), new ItemStack(RING_OF_FEEDING.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 32), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 8)))
+                .addLink(basicBaubles).addLink(lifeSpirit).addLink(fireSpirit);
+    
+        ringOfWarding = new BookEntry(RING_OF_WARDING.get(), "ring_of_warding")
+                .addPage(new HeadlineTextPage("ring_of_warding"))
+                .addPage(new SpiritInfusionPage(new ItemStack(ORNATE_RING.get()), new ItemStack(RING_OF_WARDING.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 6), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 12), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 6), new ItemStack(WATER_SPIRIT_SPLINTER.get(), 3)))
+                .addLink(basicBaubles).addLink(lifeSpirit).addLink(magicSpirit).addLink(earthSpirit).addLink(waterSpirit);
+    
+        ringOfHexing = new BookEntry(RING_OF_HEXING.get(), "ring_of_hexing")
+                .addPage(new HeadlineTextPage("ring_of_hexing"))
+                .addPage(new SpiritInfusionPage(new ItemStack(GILDED_RING.get()), new ItemStack(RING_OF_FEEDING.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 32), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 8)))
+                .addLink(basicBaubles).addLink(lifeSpirit).addLink(fireSpirit);
         
-        imperviousSeal = new BookEntry(UNRELENTING_BELT.get(), "unrelenting_belt")
+        heavenlyPendant = new BookEntry(HEAVENLY_PENDANT.get(), "heavenly_pendant")
+                .addPage(new HeadlineTextPage("heavenly_pendant"))
+                .addPage(new SpiritInfusionPage(new ItemStack(ORNATE_NECKLACE.get()), new ItemStack(HEAVENLY_PENDANT.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 12), new ItemStack(AIR_SPIRIT_SPLINTER.get(), 12)))
+                .addLink(basicBaubles).addLink(magicSpirit).addLink(airSpirit);
+    
+        rejuvenationBrooch = new BookEntry(REJUVENATING_BROOCH.get(), "rejuvenating_brooch")
+                .addPage(new HeadlineTextPage("rejuvenating_brooch"))
+                .addPage(new SpiritInfusionPage(new ItemStack(ORNATE_NECKLACE.get()), new ItemStack(REJUVENATING_BROOCH.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 12), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 3), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 4)))
+                .addLink(basicBaubles).addLink(lifeSpirit).addLink(deathSpirit).addLink(magicSpirit);
+    
+        unrelentingBelt = new BookEntry(UNRELENTING_BELT.get(), "unrelenting_belt")
                 .addPage(new HeadlineTextPage("unrelenting_belt"))
                 .addPage(new CraftingPage(new ItemStack(UNRELENTING_BELT.get()), EMPTY, IMPERVIOUS_ROCK.get(), EMPTY, Items.LEATHER, SOUL_GEM.get(), Items.LEATHER, EMPTY, IMPERVIOUS_ROCK.get(), EMPTY))
                 .addLink(basicBaubles).addLink(imperviousRock);
     
-        archangelRing = new BookEntry(ARCHANGEL_RING.get(), "archangel_ring")
-                .addPage(new HeadlineTextPage("archangel_ring"))
-                .addPage(new SpiritInfusionPage(new ItemStack(GILDED_RING.get()), new ItemStack(ARCHANGEL_RING.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 12), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 6), new ItemStack(AIR_SPIRIT_SPLINTER.get(), 24)))
-                .addLink(magicSpirit).addLink(earthSpirit).addLink(airSpirit);
-    
-        livingCapacitor = new BookEntry(LIVING_CAPACITOR.get(), "living_capacitor")
-                .addPage(new HeadlineTextPage("living_capacitor"))
-                .addPage(new SpiritInfusionPage(new ItemStack(ABYSSAL_APPARATUS.get()), new ItemStack(LIVING_CAPACITOR.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 16), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 16)))
-                .addLink(voidBerries).addLink(lifeSpirit).addLink(deathSpirit).addLink(eldritchSpirit);
-    
+        poppetBelt = new BookEntry(POPPET_BELT.get(), "poppet_belt")
+                .addPage(new HeadlineTextPage("poppet_belt"))
+                .addPage(new SpiritInfusionPage(new ItemStack(GILDED_BELT.get()), new ItemStack(POPPET_BELT.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 3), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 3), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 3)))
+                .addLink(basicBaubles).addLink(lifeSpirit).addLink(earthSpirit).addLink(magicSpirit);
+       
         tyrving = new BookEntry(TYRVING.get(), "tyrving")
                 .addPage(new HeadlineTextPage("tyrving"))
                 .addPage(new SpiritInfusionPage(new ItemStack(SOUL_STAINED_STEEL_SWORD.get()), new ItemStack(TYRVING.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 12), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 6), new ItemStack(ELDRITCH_SPIRIT_SPLINTER.get(), 4)))
@@ -126,6 +159,6 @@ public class TinkeringCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(new ItemStack(SOUL_STAINED_STEEL_BOOTS.get()), new ItemStack(SOUL_STAINED_STRONGHOLD_BOOTS.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 4), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 4), new ItemStack(WATER_SPIRIT_SPLINTER.get(), 8), new ItemStack(ELDRITCH_SPIRIT_SPLINTER.get(), 2)))
                 .addLink(soulStainedSteel).addLink(eldritchSpirit);
     
-        addEntries(hallowedGold, soulStainedSteel, ether, basicBaubles, elixirOfLife, voidBerries, abstruseBlock, witherSand, imperviousRock, imperviousSeal, archangelRing, livingCapacitor,tyrving, soulStainedStrongholdArmor);
+        addEntries(hallowedGold, soulStainedSteel, ether, basicBaubles, elixirOfLife, voidBerries, abstruseBlock, witherSand, imperviousRock,ringOfAttraction,ringOfFeeding,ringOfWarding,ringOfHexing, heavenlyPendant, rejuvenationBrooch, unrelentingBelt, poppetBelt,tyrving, soulStainedStrongholdArmor);
     }
 }

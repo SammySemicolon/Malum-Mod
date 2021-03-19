@@ -1,10 +1,7 @@
 package com.sammy.malum.common.items.equipment.curios;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.items.equipment.poppets.BlessedPoppet;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.core.init.MalumSounds;
@@ -12,9 +9,6 @@ import com.sammy.malum.core.systems.inventory.ItemInventory;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,14 +16,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.List;
-import java.util.UUID;
 
 public class CurioPoppetBelt extends Item implements ICurio
 {
@@ -46,7 +38,7 @@ public class CurioPoppetBelt extends Item implements ICurio
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity)
             {
-                livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.SINISTER_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
     
             @Override
@@ -104,7 +96,7 @@ public class CurioPoppetBelt extends Item implements ICurio
                     inventory.setStackInSlot(inventory.firstEmptyItem(), poppet);
                     inventory.writeData(nbt);
                     poppet.shrink(1);
-                    worldIn.playSound(null, playerIn.getPosition(), MalumSounds.EQUIP, SoundCategory.PLAYERS,0.2f,1 + worldIn.rand.nextFloat() * 0.5f);
+                    worldIn.playSound(null, playerIn.getPosition(), MalumSounds.SINISTER_EQUIP, SoundCategory.PLAYERS,0.2f,1 + worldIn.rand.nextFloat() * 0.5f);
                     return ActionResult.resultSuccess(belt);
                 }
             }
@@ -116,7 +108,7 @@ public class CurioPoppetBelt extends Item implements ICurio
                     MalumHelper.giveItemToPlayerNoSound(playerIn, stack);
                 }
                 nbt.remove("inventory");
-                worldIn.playSound(null, playerIn.getPosition(),MalumSounds.EQUIP, SoundCategory.PLAYERS,0.2f,1 - worldIn.rand.nextFloat() * 0.5f);
+                worldIn.playSound(null, playerIn.getPosition(),MalumSounds.SINISTER_EQUIP, SoundCategory.PLAYERS,0.2f,1 - worldIn.rand.nextFloat() * 0.5f);
                 return ActionResult.resultSuccess(belt);
             }
         }

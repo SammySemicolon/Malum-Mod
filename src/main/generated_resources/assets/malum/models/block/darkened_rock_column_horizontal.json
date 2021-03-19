@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column_horizontal",
-  "textures": {
-    "side": "malum:block/darkened_rock_column",
-    "end": "malum:block/darkened_rock_column_top"
-  }
-}

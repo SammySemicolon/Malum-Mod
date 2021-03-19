@@ -28,7 +28,7 @@ public class MalumBlockTagProvider extends BlockTagsProvider
     {
        //getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.SOLAR_ORE.get());
        //getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.BLAZE_QUARTZ_ORE.get());
-        getOrCreateBuilder(FLOWERS).add(MalumBlocks.LAVENDER.get(), MalumBlocks.MARIGOLD.get());
+        getOrCreateBuilder(FLOWERS).add(MalumBlocks.LAVENDER.get());
         getOrCreateBuilder(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
         getOrCreateBuilder(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));
         getOrCreateBuilder(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));

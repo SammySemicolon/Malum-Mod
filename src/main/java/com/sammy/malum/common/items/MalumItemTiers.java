@@ -13,8 +13,7 @@ public class MalumItemTiers
     public enum ItemTierEnum implements IItemTier
     {
         SOUL_STAINED_STEEL_ITEM(1951, 7.5f, 2.5f, 3, 16, MalumItems.SOUL_STAINED_STEEL_INGOT),
-        TYRVING_ITEM(1021, 8f, 3f, 3, 12, MalumItems.DARKENED_ROCK),
-        UMBRAL_ITEM(2450, 11f, 5f, 4, 18, MalumItems.UMBRAL_METAL_INGOT);
+        TYRVING_ITEM(1021, 8f, 3f, 3, 12, MalumItems.TWISTED_ROCK);
         private final int maxUses;
         private final float efficiency;
         private final float attackDamage;

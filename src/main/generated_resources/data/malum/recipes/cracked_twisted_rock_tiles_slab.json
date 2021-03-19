@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:cracked_twisted_rock_tiles"
+    }
+  },
+  "result": {
+    "item": "malum:cracked_twisted_rock_tiles_slab",
+    "count": 6
+  }
+}

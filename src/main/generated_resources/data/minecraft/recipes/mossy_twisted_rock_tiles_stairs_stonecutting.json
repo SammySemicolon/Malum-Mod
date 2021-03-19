@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:mossy_twisted_rock_tiles"
+  },
+  "result": "malum:mossy_twisted_rock_tiles_stairs",
+  "count": 1
+}

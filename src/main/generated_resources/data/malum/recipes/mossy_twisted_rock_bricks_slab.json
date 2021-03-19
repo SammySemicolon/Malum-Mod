@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:mossy_twisted_rock_bricks"
+    }
+  },
+  "result": {
+    "item": "malum:mossy_twisted_rock_bricks_slab",
+    "count": 6
+  }
+}

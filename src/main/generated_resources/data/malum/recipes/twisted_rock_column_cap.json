@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "$",
+    "#"
+  ],
+  "key": {
+    "$": {
+      "item": "malum:twisted_rock_column"
+    },
+    "#": {
+      "item": "malum:twisted_rock"
+    }
+  },
+  "result": {
+    "item": "malum:twisted_rock_column_cap"
+  }
+}

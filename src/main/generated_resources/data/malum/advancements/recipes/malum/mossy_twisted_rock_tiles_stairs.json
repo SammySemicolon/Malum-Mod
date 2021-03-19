@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:mossy_twisted_rock_tiles_stairs"
+    ]
+  },
+  "criteria": {
+    "has_twisted_rock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:twisted_rock"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:mossy_twisted_rock_tiles_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_twisted_rock",
+      "has_the_recipe"
+    ]
+  ]
+}

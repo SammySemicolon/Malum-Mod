@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "malum:block/mossy_twisted_rock_bricks"
+  }
+}

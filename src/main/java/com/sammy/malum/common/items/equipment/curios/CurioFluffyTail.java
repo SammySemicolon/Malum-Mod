@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.models.ModelKittysTail;
+import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -14,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -38,11 +38,12 @@ public class CurioFluffyTail extends Item implements ICurio
         {
             //cute furry, kitty
             public final ResourceLocation kittys_tail_texture = new ResourceLocation(MalumMod.MODID, "textures/other/kittys_tail.png");public ModelKittysTail<LivingEntity> kittys_tail;
-
+    
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity)
             {
-                livingEntity.world.playSound(null, livingEntity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.SINISTER_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.HOLY_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
     
             @Nonnull

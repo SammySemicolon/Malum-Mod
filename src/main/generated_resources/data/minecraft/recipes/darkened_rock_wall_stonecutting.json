@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "malum:darkened_rock"
-  },
-  "result": "malum:darkened_rock_wall",
-  "count": 1
-}
