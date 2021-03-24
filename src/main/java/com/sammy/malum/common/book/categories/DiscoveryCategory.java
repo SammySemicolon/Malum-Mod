@@ -29,8 +29,7 @@ public class DiscoveryCategory extends BookCategory
     public static BookEntry taintedRock;
     public static BookEntry twistedRock;
     public static BookEntry runewoodInfusion;
-    public static BookEntry arcaneArchitecture;
-    
+
     public DiscoveryCategory()
     {
         super(MalumItems.TAINTED_ROCK.get().getDefaultInstance(), "discovery");
@@ -128,7 +127,7 @@ public class DiscoveryCategory extends BookCategory
                         .addList(MalumItems.TWISTED_ROCK_PILLAR.get(), MalumItems.TWISTED_ROCK_PILLAR_CAP.get(), MalumItems.TWISTED_ROCK_COLUMN.get(), MalumItems.TWISTED_ROCK_COLUMN_CAP.get())
                         .addList(MalumItems.CUT_TWISTED_ROCK.get(), MalumItems.CHISELED_TWISTED_ROCK.get()));
         
-        runewoodInfusion = new BookEntry(MalumItems.TAINTED_ROCK.get(), "runewood_infusion")
+        runewoodInfusion = new BookEntry(MalumItems.RUNEWOOD_PLANKS.get(), "runewood_infusion")
                 .addPage(new HeadlineTextPage("runewood_infusion"))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_LOG, 16), new ItemStack(MalumItems.RUNEWOOD_LOG.get(), 16), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_PLANKS, 64), new ItemStack(MalumItems.RUNEWOOD_PLANKS.get(), 64), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))

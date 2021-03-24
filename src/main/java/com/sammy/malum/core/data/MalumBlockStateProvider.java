@@ -58,7 +58,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         blocks.remove(MalumBlocks.ITEM_STAND);
         blocks.remove(MalumBlocks.SPIRIT_ALTAR);
         blocks.remove(MalumBlocks.SPIRIT_JAR);
-        blocks.remove(MalumBlocks.EXTRACTION_FOCUS);
         blocks.remove(MalumBlocks.TOTEM_CORE);
         
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
