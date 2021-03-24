@@ -10,7 +10,9 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
+import com.sammy.malum.network.NetworkManager;
 import com.sammy.malum.network.packets.ParticlePacket;
+import com.sammy.malum.network.packets.TotemPacket;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -94,7 +96,7 @@ public class Events
         {
             if (!event.getSource().canHarmInCreative())
             {
-                PlayerEntity playerEntity = (PlayerEntity) event.getEntityLiving();
+                ServerPlayerEntity playerEntity = (ServerPlayerEntity) event.getEntityLiving();
                 ArrayList<Pair<ItemStack, ItemInventory>> poppets = PoppetItem.poppets(playerEntity, i -> i.getItem() instanceof PoppetOfUndying);
                 if (poppets.isEmpty())
                 {
@@ -103,18 +105,17 @@ public class Events
                 ItemStack poppetOfUndying = poppets.get(0).getFirst();
                 if (!poppetOfUndying.isEmpty())
                 {
-                    if (playerEntity instanceof ServerPlayerEntity)
-                    {
-                        ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) playerEntity;
-                        serverplayerentity.addStat(Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING));
-                        CriteriaTriggers.USED_TOTEM.trigger(serverplayerentity, poppetOfUndying);
-                    }
+                    playerEntity.addStat(Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING));
+                    CriteriaTriggers.USED_TOTEM.trigger(playerEntity, poppetOfUndying);
+                    
                     playerEntity.setHealth(1.0F);
                     playerEntity.clearActivePotions();
                     playerEntity.addPotionEffect(new EffectInstance(Effects.REGENERATION, 900, 1));
                     playerEntity.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 100, 1));
                     playerEntity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 800, 0));
                     playerEntity.world.setEntityState(playerEntity, (byte) 35);
+                    NetworkManager.INSTANCE.send(PacketDistributor.PLAYER.with(() -> playerEntity), new TotemPacket());
+    
                     if (poppets.get(0).getSecond() != null)
                     {
                         ItemInventory inventory = poppets.get(0).getSecond();
@@ -150,6 +151,7 @@ public class Events
             event.setCanceled(true);
         }
     }
+    
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event)
     {

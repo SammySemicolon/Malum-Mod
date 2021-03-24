@@ -2,6 +2,7 @@ package com.sammy.malum.network;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.network.packets.ParticlePacket;
+import com.sammy.malum.network.packets.TotemPacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -22,6 +23,7 @@ public class NetworkManager
     {
         int index = 0;
         INSTANCE.registerMessage(index++, ParticlePacket.class, ParticlePacket::encode, ParticlePacket::decode, ParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, TotemPacket.class, TotemPacket::encode, TotemPacket::decode, TotemPacket::whenThisPacketIsReceived);
         
     }
 }
