@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_soul_gem": {
+    "has_grimslate": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:soul_gem"
+            "item": "malum:grimslate_ore"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_soul_gem",
+      "has_grimslate",
       "has_the_recipe"
     ]
   ]

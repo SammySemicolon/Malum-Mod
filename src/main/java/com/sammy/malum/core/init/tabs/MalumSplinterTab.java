@@ -12,7 +12,7 @@ public class MalumSplinterTab extends ItemGroup
     public static final MalumSplinterTab INSTANCE = new MalumSplinterTab();
     
     public MalumSplinterTab() {
-        super(MalumMod.MODID);
+        super(MalumMod.MODID + "_spirits");
     }
     
     @Nonnull

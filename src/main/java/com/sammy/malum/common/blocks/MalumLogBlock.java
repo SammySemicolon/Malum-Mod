@@ -21,12 +21,6 @@ public class MalumLogBlock extends RotatedPillarBlock
     }
     
     @Override
-    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos)
-    {
-        return super.propagatesSkylightDown(state, reader, pos);
-    }
-    
-    @Override
     public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType)
     {
         return stripped.getDefaultState().with(AXIS, state.get(AXIS));

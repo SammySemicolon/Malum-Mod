@@ -12,7 +12,7 @@ public class MalumBuildingTab extends ItemGroup
     public static final MalumBuildingTab INSTANCE = new MalumBuildingTab();
     
     public MalumBuildingTab() {
-        super(MalumMod.MODID);
+        super(MalumMod.MODID + "_building_blocks");
     }
     
     @Nonnull

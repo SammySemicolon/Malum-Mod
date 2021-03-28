@@ -49,26 +49,26 @@ public class BookScreen extends Screen
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         
-        int posX = guiLeft + 24;
-        int posY = guiTop + 132;
+        int posX = guiLeft + 12;
+        int posY = guiTop + 143;
         BackArrowObject backArrowObject = new BackArrowObject(posX, posY, 18, 18);
         objects.add(backArrowObject);
         
-        posX = guiLeft + 250;
+        posX = guiLeft + 262;
         NextArrowObject nextArrowObject = new NextArrowObject(posX, posY, 18, 18);
         objects.add(nextArrowObject);
         ArrayList<BookObject> lastObjects = new ArrayList<>();
         for (int i = 0; i < MalumBookCategories.CATEGORIES.size(); i++)
         {
             BookCategory category = MalumBookCategories.CATEGORIES.get(i);
-            posX = guiLeft - 3;
+            posX = guiLeft - 15;
             posY = guiTop + 12 + (i * 26);
             CategoryObject categoryObject = new CategoryObject(category, posX, posY, 24, 24);
             if (i == 0)
             {
                 firstCategory = categoryObject;
             }
-            posX = guiLeft + 29;
+            posX = guiLeft + 23;
             posY = guiTop + 15;
             HeadlineObject categoryNameObject = (HeadlineObject) new HeadlineObject(category.translationKey, posX, posY, 101, 16).addSpecialPredicate((s) -> currentObject.equals(categoryObject) && currentGrouping == 0);
             objects.add(categoryNameObject);
@@ -78,18 +78,18 @@ public class BookScreen extends Screen
                 for (int k = 0; k < grouping.entries.size(); k++)
                 {
                     BookEntry entry = grouping.entries.get(k);
-                    posX = guiLeft + 29;
-                    posY = guiTop + 15 + (k * 22);
+                    posX = guiLeft + 23;
+                    posY = guiTop + 15 + (k * 25);
                     int skipRequirement = 4;
                     if (grouping.isFirst)
                     {
-                        posY += 22;
+                        posY += 25;
                         skipRequirement--;
                     }
                     if (k > skipRequirement)
                     {
-                        posX += 133;
-                        posY -= 110;
+                        posX += 145;
+                        posY -= 125;
                     }
                     
                     int finalJ = j;
@@ -97,7 +97,7 @@ public class BookScreen extends Screen
                     objects.add(entryObject);
                     for (int l = 0; l < entry.links.size(); l++)
                     {
-                        posX = guiLeft + 271;
+                        posX = guiLeft + 283;
                         posY = guiTop + 12 + (l * 26);
                         BookEntry linkedEntry = entry.links.get(l);
                         LinkedEntryObject linkedPageObject = (LinkedEntryObject) new LinkedEntryObject(posX, posY, 24, 24, entryObject, linkedEntry).addSpecialPredicate((s) -> {

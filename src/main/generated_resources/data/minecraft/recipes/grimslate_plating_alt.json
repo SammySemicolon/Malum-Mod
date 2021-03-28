@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:grimslate_block"
+    }
+  ],
+  "result": {
+    "item": "malum:grimslate_plating",
+    "count": 9
+  }
+}

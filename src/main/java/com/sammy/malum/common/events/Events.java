@@ -79,7 +79,7 @@ public class Events
                     event.setAmount(event.getAmount() / 2);
                     event.getEntity().hurtResistantTime = 0;
                     SpiritHelper.causeVoodooDamage(playerEntity, event.getEntityLiving(), amount / 2f);
-                    playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_HIT, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
+                    playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_CRUSH, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
                     if (playerEntity.world instanceof ServerWorld)
                     {
                         INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(event::getEntityLiving), new ParticlePacket(0, entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ()));

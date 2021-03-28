@@ -31,15 +31,6 @@ public class MalumItems
 {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    public static Item.Properties ORE_PROPERTIES()
-    {
-        return new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
-    }
-
-    public static Item.Properties MATERIAL_PROPERTIES()
-    {
-        return new Item.Properties().group(ItemGroup.MATERIALS);
-    }
 
     public static Item.Properties DEFAULT_PROPERTIES()
     {
@@ -283,8 +274,15 @@ public class MalumItems
     public static final RegistryObject<Item> WATER_SPIRIT_SPLINTER = ITEMS.register("water_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> ELDRITCH_SPIRIT_SPLINTER = ITEMS.register("eldritch_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
 
-    public static final RegistryObject<Item> BLAZE_QUARTZ_ORE = ITEMS.register("blaze_quartz_ore", () -> new BlockItem(MalumBlocks.BLAZE_QUARTZ_ORE.get(), ORE_PROPERTIES()));
-    public static final RegistryObject<Item> BLAZE_QUARTZ = ITEMS.register("blaze_quartz", () -> new FuelItem(MATERIAL_PROPERTIES(), 3200));
+    public static final RegistryObject<Item> BLAZING_QUARTZ_ORE = ITEMS.register("blazing_quartz_ore", () -> new BlockItem(MalumBlocks.BLAZING_QUARTZ_ORE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new FuelItem(DEFAULT_PROPERTIES(), 3200));
+    public static final RegistryObject<Item> BLAZING_QUARTZ_BLOCK = ITEMS.register("blazing_quartz_block", () -> new BlockItem(MalumBlocks.BLAZING_QUARTZ_BLOCK.get(), DEFAULT_PROPERTIES()));
+
+    public static final RegistryObject<Item> GRIMSLATE_ORE = ITEMS.register("grimslate_ore", () -> new BlockItem(MalumBlocks.GRIMSLATE_ORE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> GRIMSLATE_PLATING = ITEMS.register("grimslate_plating", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> GRIMSLATE_BLOCK = ITEMS.register("grimslate_block", () -> new BlockItem(MalumBlocks.GRIMSLATE_BLOCK.get(), DEFAULT_PROPERTIES()));
+
+
     //endregion
 
     //region crafting blocks
@@ -302,9 +300,6 @@ public class MalumItems
 
     //region simple components
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new FuelItem(DEFAULT_PROPERTIES(), 4800));
-    public static final RegistryObject<Item> UNHOLY_BLEND = ITEMS.register("unholy_blend", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ARCANE_GRIT = ITEMS.register("arcane_grit", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_GEM = ITEMS.register("soul_gem", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -368,6 +363,7 @@ public class MalumItems
     public static final RegistryObject<Item> RING_OF_HEXING = ITEMS.register("ring_of_hexing", () -> new CurioRingOfHexing(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> ORNATE_NECKLACE = ITEMS.register("ornate_necklace", () -> new CurioOrnateNecklace(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> WICKED_TALISMAN = ITEMS.register("wicked_talisman", () -> new CurioWickedTalisman(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> HEAVENLY_PENDANT = ITEMS.register("heavenly_pendant", () -> new CurioHeavenlyPendant(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> REJUVENATING_BROOCH = ITEMS.register("rejuvenating_brooch", () -> new CurioRejuvenatingBrooch(GEAR_PROPERTIES()));
 
@@ -383,7 +379,6 @@ public class MalumItems
     public static final RegistryObject<Item> ENDER_QUARKS = ITEMS.register("ender_quarks", () -> new EnderQuarksItem(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ELIXIR_OF_LIFE = ITEMS.register("elixir_of_life", () -> new ElixirOfLifeItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(4F).build())));
     public static final RegistryObject<Item> VOID_BERRIES = ITEMS.register("void_berries", () -> new VoidBerriesItem(DEFAULT_PROPERTIES().food((new Food.Builder()).setAlwaysEdible().build())));
-    public static final RegistryObject<Item> ABYSSAL_APPARATUS = ITEMS.register("abyssal_apparatus", () -> new Item(DEFAULT_PROPERTIES()));
     //endregion
     public static final RegistryObject<Item> COMICALLY_LARGE_TOPHAT = ITEMS.register("comically_large_tophat", () -> new CurioComicallyLargeTophat(GEAR_PROPERTIES()));
 

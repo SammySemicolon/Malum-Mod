@@ -30,7 +30,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.core.init.blocks.MalumBlocks.BLAZE_QUARTZ_ORE;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.BLAZING_QUARTZ_ORE;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
@@ -53,13 +53,14 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     protected void registerStatesAndModels()
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        blocks.remove(BLAZE_QUARTZ_ORE);
+        blocks.remove(BLAZING_QUARTZ_ORE);
         blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
         blocks.remove(MalumBlocks.ITEM_STAND);
         blocks.remove(MalumBlocks.SPIRIT_ALTAR);
         blocks.remove(MalumBlocks.SPIRIT_JAR);
         blocks.remove(MalumBlocks.TOTEM_CORE);
-        
+
+        glowingBlock(BLAZING_QUARTZ_ORE);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
     
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
@@ -101,6 +102,13 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     {
         ModelFile empty = models().getExistingFile(new ResourceLocation("block/air"));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
+    }
+    public void glowingBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String glow = name + "_glow";
+        ModelFile farmland = models().withExistingParent(name, prefix("block/template_glowing_block")).texture("all", prefix("block/" + name)).texture("glow", prefix("block/" + glow));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(farmland).build());
     }
     public void rotatedBlock(RegistryObject<Block> blockRegistryObject)
     {

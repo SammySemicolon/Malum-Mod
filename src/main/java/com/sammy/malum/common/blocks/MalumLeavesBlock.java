@@ -1,11 +1,11 @@
 package com.sammy.malum.common.blocks;
 
+import com.sammy.malum.core.init.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Items;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
@@ -42,7 +42,7 @@ public class MalumLeavesBlock extends LeavesBlock
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (player.getHeldItem(handIn).getItem().equals(Items.GLOWSTONE_DUST))
+        if (player.getHeldItem(handIn).getItem().equals(MalumItems.FIRE_SPIRIT_SPLINTER.get()))
         {
             worldIn.setBlockState(pos,state.with(COLOR, (state.get(COLOR) + 1) % 9));
     

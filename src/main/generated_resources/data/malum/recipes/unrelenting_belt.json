@@ -2,18 +2,21 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " # ",
-    "YXY",
-    " # "
+    "YZY",
+    "X#X"
   ],
   "key": {
     "#": {
       "item": "malum:impervious_rock"
     },
+    "Z": {
+      "item": "malum:gilded_belt"
+    },
     "Y": {
       "item": "minecraft:leather"
     },
     "X": {
-      "item": "malum:soul_gem"
+      "item": "malum:grimslate_plating"
     }
   },
   "result": {

@@ -44,11 +44,6 @@ public class MalumSpiritAltarRecipes
                                    new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 2),
                                    new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 2));
 
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 4),
-                                   new MalumItemIngredient(MalumItems.ABYSSAL_APPARATUS.get(), 1),
-                                   new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 16),
-                                   new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 16),
-                                   new MalumSpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2));
 
         new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.SOLAR_SAP_BOTTLE.get(), 1),
                                    new MalumItemIngredient(MalumItems.ELIXIR_OF_LIFE.get(), 1),

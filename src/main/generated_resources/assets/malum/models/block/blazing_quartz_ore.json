@@ -1,0 +1,7 @@
+{
+  "parent": "malum:block/template_glowing_block",
+  "textures": {
+    "all": "malum:block/blazing_quartz_ore",
+    "glow": "malum:block/blazing_quartz_ore_glow"
+  }
+}

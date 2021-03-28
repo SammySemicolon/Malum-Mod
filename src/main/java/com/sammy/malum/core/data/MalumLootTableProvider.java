@@ -68,7 +68,7 @@ public class MalumLootTableProvider extends LootTableProvider
         
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
-        blocks.remove(MalumBlocks.BLAZE_QUARTZ_ORE);
+        blocks.remove(MalumBlocks.BLAZING_QUARTZ_ORE);
         takeAll(blocks, b -> b.get() instanceof TotemPoleBlock);
         takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);
@@ -81,7 +81,7 @@ public class MalumLootTableProvider extends LootTableProvider
     
         takeAll(blocks, b -> true).forEach(b -> registerLootTable(b.get(), dropping(b.get().asItem())));
     
-        registerLootTable(MalumBlocks.BLAZE_QUARTZ_ORE.get(), droppingItemWithFortune(MalumBlocks.BLAZE_QUARTZ_ORE.get(), MalumItems.BLAZE_QUARTZ.get()));
+        registerLootTable(MalumBlocks.BLAZING_QUARTZ_ORE.get(), droppingItemWithFortune(MalumBlocks.BLAZING_QUARTZ_ORE.get(), MalumItems.BLAZING_QUARTZ.get()));
         registerLootTable(MalumBlocks.SUN_KISSED_LEAVES.get(), droppingWithChancesAndSticks(MalumBlocks.SUN_KISSED_LEAVES.get(), MalumBlocks.RUNEWOOD_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         return tables;
     }

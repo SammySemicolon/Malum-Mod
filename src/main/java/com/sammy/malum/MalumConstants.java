@@ -19,8 +19,6 @@ public class MalumConstants
             new Color(112, 30, 169),
             new Color(97, 22, 140)
     };
-    public static int globalCharcoalToFuelRatio = 20;
-    public static int globalSpeedMultiplier = 40;
     
     public static Color random()
     {

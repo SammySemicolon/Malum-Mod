@@ -49,7 +49,19 @@ public class MalumBlocks
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
     }
-    
+
+    public static AbstractBlock.Properties GRIMSLATE_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(5.0F, 3.0F).sound(MalumSounds.GRIMSLATE);
+    }
+    public static AbstractBlock.Properties BLAZE_QUARTZ_ORE_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).sound(MalumSounds.BLAZING_QUARTZ);
+    }
+    public static AbstractBlock.Properties BLAZE_QUARTZ_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.RED).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).sound(SoundType.NETHER_ORE);
+    }
     public static AbstractBlock.Properties RUNEWOOD_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.WOOD, MaterialColor.YELLOW).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(1.75F, 4.0F);
@@ -328,7 +340,15 @@ public class MalumBlocks
     
     //region contents
     public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES().tickRandomly()));
-    public static final RegistryObject<Block> BLAZE_QUARTZ_ORE = BLOCKS.register("blaze_quartz_ore", () -> new Block(AbstractBlock.Properties.from(Blocks.NETHER_QUARTZ_ORE)));
+
+    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new MalumOreBlock(BLAZE_QUARTZ_ORE_PROPERTIES(), 4, 12));
+    public static final RegistryObject<Block> BLAZING_QUARTZ_BLOCK = BLOCKS.register("blazing_quartz_block", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
+
+    public static final RegistryObject<Block> GRIMSLATE_ORE = BLOCKS.register("grimslate_ore", () -> new Block(
+            GRIMSLATE_PROPERTIES()));
+    public static final RegistryObject<Block> GRIMSLATE_BLOCK = BLOCKS.register("grimslate_block", () -> new Block(GRIMSLATE_PROPERTIES()));
+
+
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
     
     public static final RegistryObject<Block> HALLOWED_GOLD_BLOCK = BLOCKS.register("hallowed_gold_block", () -> new Block(HALLOWED_GOLD_PROPERTIES()));

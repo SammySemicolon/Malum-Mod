@@ -19,7 +19,7 @@ public class AddFeaturesToBiomes
         if (event.getCategory().equals(Biome.Category.NETHER))
         {
             event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.BLAZE_QUARTZ_ORE);
-    
         }
+        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.RUNESTONE_ORE);
     }
 }

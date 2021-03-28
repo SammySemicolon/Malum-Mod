@@ -133,7 +133,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
         MalumRite rite = MalumRites.getRite(spirits);
         if (rite != null)
         {
-            world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.75f + 0.15f * (height-1));
+            world.playSound(null, pos, MalumSounds.TOTEM_CHARGED, SoundCategory.BLOCKS, 1, 0.75f + 0.15f * (height-1));
             for (int i = 0; i < height; i++)
             {
                 BlockPos currentPolePos = getPos().up(i);

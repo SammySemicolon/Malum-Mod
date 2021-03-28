@@ -52,7 +52,6 @@ public class MalumMod
         MalumParticles.PARTICLES.register(modBus);
         SOUNDS.register(modBus);
         MalumDamageSources.init();
-        MalumSounds.init();
         MalumItemTags.init();
         modBus.addListener(this::gatherData);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {

@@ -43,14 +43,14 @@ public class ItemListPage extends BookPage
         for (int i = 0; i < inputs.size(); i++)
         {
             ArrayList<ItemStack> stacks = inputs.get(i);
-            int startingPosX = posX + 59 - (step/2)* stacks.size();
-            int itemPosY = posY + 6 + 26 * i;
+            int startingPosX = posX + 65 - (step/2)* stacks.size();
+            int itemPosY = posY + 9 + 26 * i;
             for (int j = 0; j < stacks.size(); j++)
             {
                 ItemStack itemStack = stacks.get(j);
                 int itemPosX = startingPosX + step * j;
                 minecraft.getTextureManager().bindTexture(BACKGROUND);
-                blit(stack, itemPosX, itemPosY, 119, 1, 20, 21, 512, 512);
+                blit(stack, itemPosX, itemPosY, 131, 1, 20, 21, 512, 512);
                 screen.drawItem(stack, itemStack, itemPosX+2, itemPosY+2, mouseX, mouseY);
             }
         }

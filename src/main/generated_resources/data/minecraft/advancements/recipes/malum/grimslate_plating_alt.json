@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:grimslate_plating_alt"
+    ]
+  },
+  "criteria": {
+    "has_grimslate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:grimslate_ore"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:grimslate_plating_alt"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_grimslate",
+      "has_the_recipe"
+    ]
+  ]
+}

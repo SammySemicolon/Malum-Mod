@@ -60,7 +60,7 @@ public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickab
     
         if (owner != null)
         {
-            owner.playSound(MalumSounds.ABSTRUSE_BLOCK_RETURN, 1, world.rand.nextFloat() * 1.5f);
+            owner.playSound(MalumSounds.ABSTRUSE_BLOCK_RETURNS, 1, world.rand.nextFloat() * 1.5f);
             ItemHandlerHelper.giveItemToPlayer(owner, new ItemStack(MalumItems.ABSTRUSE_BLOCK.get()));
         }
         else
