@@ -18,6 +18,10 @@ public class MalumSpiritAltarRecipes
 
     public static void init()
     {
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.BLAZING_QUARTZ.get(), 4),
+                new MalumItemIngredient(Items.BLAZE_POWDER, 2),
+                new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 4));
+
         new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16),
                                    new MalumItemIngredient(MalumItems.TAINTED_ROCK.get(), 16),
                                    new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT),
@@ -28,7 +32,7 @@ public class MalumSpiritAltarRecipes
                                    new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT),
                                    new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
 
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GLOWSTONE_DUST, 4),
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.BLAZING_QUARTZ.get(), 4),
                                    new MalumItemIngredient(MalumItems.ORANGE_ETHER.get(), 1),
                                    new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 2));
 
@@ -43,7 +47,6 @@ public class MalumSpiritAltarRecipes
                                    new MalumItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 2),
                                    new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 2),
                                    new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 2));
-
 
         new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.SOLAR_SAP_BOTTLE.get(), 1),
                                    new MalumItemIngredient(MalumItems.ELIXIR_OF_LIFE.get(), 1),

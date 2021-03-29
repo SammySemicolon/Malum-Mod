@@ -2,17 +2,16 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.book.pages.BookPage;
-import com.sammy.malum.common.book.pages.HeadlineTextPage;
-import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.modcontent.MalumBookCategories;
 import com.sammy.malum.common.book.categories.BookCategory;
 import com.sammy.malum.common.book.entries.BookEntry;
 import com.sammy.malum.common.book.entries.BookEntryGrouping;
+import com.sammy.malum.common.book.pages.BookPage;
+import com.sammy.malum.common.book.pages.HeadlineTextPage;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.StartupEvents;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
-import com.sammy.malum.core.modcontent.*;
+import com.sammy.malum.core.modcontent.MalumBookCategories;
+import com.sammy.malum.core.modcontent.MalumRites;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
@@ -120,11 +119,16 @@ public class MalumLangProvider extends LanguageProvider
         addPage("spirit_harvesting_2", "A scythe is a powerful weapon with many uses. It's sharp blade allows it to hit many enemies at once, much alike a sword enchanted with sweeping edge. The scythe is also one of the many means of shattering a soul, simply killing an enemy will do the trick.");
         addPage("spirit_harvesting_3", "There are many types of spirit all within different souls. Each spirit has a reason to be found within a soul, the burning environment of the nether find their way to the various hostiles found there. The green hills and plains of the overworld do the same.");
 
+        addPage("spirit_infusion", "The Spirit Altar is as important to a magic practitioner as a crafting table is to a simpleton, this wondrous workstation will allow you to infuse spirits into items. This process is known as Spirit Infusion.");
+        addPage("spirit_infusion_2", "The process is rather easy. Simply put the desired item in the altar, supply it with the required spirits and watch it work it's magic!");
 
+        addPage("tainted_rock", "\"A clean slate\" One of the simplest spirit infusions known revolves around the process of animating stone. Infusing cobblestone with life and magic will result in tainted rock. ");
+        addPage("tainted_rock_architecture", "Using a crafting table or the stone cutter, you can make many variants of tainted rock.");
 
+        addPage("twisted_rock", "\"Turned wicked\". If we are to replace the life spirit with one of death, cobblestone will instead be animated into twisted rock.");
+        addPage("twisted_rock_architecture", "Much alike the tainted rock, using a crafting table or the stone cutter, you can make many variants of twisted rock.");
 
-
-/*
+        /*
         add("malum.gui.book.page.unholy_blend", "Unholy blend is a cool crafting material made from redstone dust, soulsand and rotten flesh. I'll make some building blocks made from it at some point.");
         add("malum.gui.book.page.unholy_blend_again", "Right now this material is only used to make arcane grit. Shove the thing into a furnace and get your cool powder.");
 

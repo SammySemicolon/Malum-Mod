@@ -27,6 +27,9 @@ public class DiscoveryCategory extends BookCategory
     public static BookEntry blazingQuartz;
     public static BookEntry grimslate;
     public static BookEntry spiritHarvesting;
+    public static BookEntry spiritInfusion;
+    public static BookEntry taintedRock;
+    public static BookEntry twistedRock;
 
     public DiscoveryCategory()
     {
@@ -90,6 +93,33 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new TextPage("spirit_harvesting_3"))
                 .addPage(new CraftingPage(MalumItems.CRUDE_SCYTHE.get(), Items.IRON_INGOT, Items.IRON_INGOT, GRIMSLATE_PLATING.get(), EMPTY, Items.STICK, Items.IRON_INGOT, Items.STICK))
                 .addLink(basicsOfMagic).addLink(grimslate);
+
+        spiritInfusion = new BookEntry(SPIRIT_ALTAR.get(), "spirit_infusion")
+                .addPage(new HeadlineTextPage("spirit_infusion"))
+                .addPage(new TextPage("spirit_infusion_2"))
+                .addPage(new CraftingPage(SPIRIT_ALTAR.get(), EMPTY, GRIMSLATE_PLATING.get(), EMPTY, Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
+                .addPage(new SpiritInfusionPage(new ItemStack(BLAZING_QUARTZ.get(), 4), new ItemStack(Items.BLAZE_POWDER, 2), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 4)))
+                .addLink(basicsOfMagic).addLink(grimslate).addLink(spiritHarvesting);
+
+        taintedRock = new BookEntry(MalumItems.TAINTED_ROCK.get(), "tainted_rock")
+                .addPage(new HeadlineTextPage("tainted_rock"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.COBBLESTONE, 16), new ItemStack(MalumItems.TAINTED_ROCK.get(),16), new ItemStack(MalumItems.LIFE_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
+                .addPage(new HeadlineTextPage("tainted_rock_architecture"))
+                .addPage(new ItemListPage(MalumItems.TAINTED_ROCK.get(), MalumItems.SMOOTH_TAINTED_ROCK.get(), MalumItems.POLISHED_TAINTED_ROCK.get(), MalumItems.TAINTED_ROCK_BRICKS.get(), MalumItems.TAINTED_ROCK_TILES.get())
+                        .addList(MalumItems.TAINTED_ROCK_SLAB.get(), MalumItems.SMOOTH_TAINTED_ROCK_SLAB.get(), MalumItems.POLISHED_TAINTED_ROCK_SLAB.get(), MalumItems.TAINTED_ROCK_BRICKS_SLAB.get(), MalumItems.TAINTED_ROCK_TILES_SLAB.get())
+                        .addList(MalumItems.TAINTED_ROCK_STAIRS.get(), MalumItems.SMOOTH_TAINTED_ROCK_STAIRS.get(), MalumItems.POLISHED_TAINTED_ROCK_STAIRS.get(), MalumItems.TAINTED_ROCK_BRICKS_STAIRS.get(), MalumItems.TAINTED_ROCK_TILES_STAIRS.get())
+                        .addList(MalumItems.TAINTED_ROCK_PILLAR.get(), MalumItems.TAINTED_ROCK_PILLAR_CAP.get(), MalumItems.TAINTED_ROCK_COLUMN.get(), MalumItems.TAINTED_ROCK_COLUMN_CAP.get())
+                        .addList(MalumItems.CUT_TAINTED_ROCK.get(), MalumItems.CHISELED_TAINTED_ROCK.get()));
+
+        twistedRock = new BookEntry(MalumItems.TWISTED_ROCK.get(), "twisted_rock")
+                .addPage(new HeadlineTextPage("twisted_rock"))
+                .addPage(new SpiritInfusionPage(new ItemStack(Items.COBBLESTONE, 16), new ItemStack(MalumItems.TWISTED_ROCK.get(),16), new ItemStack(MalumItems.DEATH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
+                .addPage(new HeadlineTextPage("twisted_rock_architecture"))
+                .addPage(new ItemListPage(MalumItems.TWISTED_ROCK.get(), MalumItems.SMOOTH_TWISTED_ROCK.get(), MalumItems.POLISHED_TWISTED_ROCK.get(), MalumItems.TWISTED_ROCK_BRICKS.get(), MalumItems.TWISTED_ROCK_TILES.get())
+                        .addList(MalumItems.TWISTED_ROCK_SLAB.get(), MalumItems.SMOOTH_TWISTED_ROCK_SLAB.get(), MalumItems.POLISHED_TWISTED_ROCK_SLAB.get(), MalumItems.TWISTED_ROCK_BRICKS_SLAB.get(), MalumItems.TWISTED_ROCK_TILES_SLAB.get())
+                        .addList(MalumItems.TWISTED_ROCK_STAIRS.get(), MalumItems.SMOOTH_TWISTED_ROCK_STAIRS.get(), MalumItems.POLISHED_TWISTED_ROCK_STAIRS.get(), MalumItems.TWISTED_ROCK_BRICKS_STAIRS.get(), MalumItems.TWISTED_ROCK_TILES_STAIRS.get())
+                        .addList(MalumItems.TWISTED_ROCK_PILLAR.get(), MalumItems.TWISTED_ROCK_PILLAR_CAP.get(), MalumItems.TWISTED_ROCK_COLUMN.get(), MalumItems.TWISTED_ROCK_COLUMN_CAP.get())
+                        .addList(MalumItems.CUT_TWISTED_ROCK.get(), MalumItems.CHISELED_TWISTED_ROCK.get()));
 
         /*
         arcaneFuels = new BookEntry(MalumItems.ARCANE_CHARCOAL.get(), "arcane_fuels")
@@ -163,6 +193,6 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_LEAVES, 32), new ItemStack(MalumItems.SUN_KISSED_LEAVES.get(), 32), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
                 .addLink(lifeSpirit).addLink(deathSpirit).addLink(magicSpirit).addLink(earthSpirit);
 */
-        addEntries(basicsOfMagic, runewoodTrees, arcaneCharcoal, solarSap, blazingQuartz, grimslate, spiritHarvesting, lifeSpirit, deathSpirit, magicSpirit, earthSpirit, fireSpirit, airSpirit, waterSpirit, eldritchSpirit);
+        addEntries(basicsOfMagic, runewoodTrees, arcaneCharcoal, solarSap, blazingQuartz, grimslate, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, lifeSpirit, deathSpirit, magicSpirit, earthSpirit, fireSpirit, airSpirit, waterSpirit, eldritchSpirit);
     }
 }

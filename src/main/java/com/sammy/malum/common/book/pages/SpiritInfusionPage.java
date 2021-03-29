@@ -5,14 +5,9 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.objects.EntryObject;
-import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
-
-import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class SpiritInfusionPage extends BookPage
 {
@@ -37,13 +32,13 @@ public class SpiritInfusionPage extends BookPage
         int posX = position.first;
         int posY = position.second;
         
-        ArrayList<Pair<Integer, Integer>> offsets = MalumHelper.toArrayList(Pair.of(50, 15), Pair.of(50, 67), Pair.of(24, 41), Pair.of(76, 41), Pair.of(28, 19), Pair.of(72, 63), Pair.of(72, 19), Pair.of(28, 63));
+        ArrayList<Pair<Integer, Integer>> offsets = MalumHelper.toArrayList(Pair.of(56, 20), Pair.of(56, 72), Pair.of(30, 46), Pair.of(82, 46), Pair.of(34, 24), Pair.of(78, 68), Pair.of(78, 24), Pair.of(34, 69));
         for (int i = 0; i < spirits.size(); i++)
         {
             Pair<Integer, Integer> offset = offsets.get(i);
             screen.drawItem(stack, spirits.get(i), posX + offset.first, posY + offset.second, mouseX, mouseY);
         }
-        screen.drawItem(stack, inputStack, posX + 50, posY + 41, mouseX, mouseY);
-        screen.drawItem(stack, outputStack, posX + 50, posY + 108, mouseX, mouseY);
+        screen.drawItem(stack, inputStack, posX + 56, posY + 46, mouseX, mouseY);
+        screen.drawItem(stack, outputStack, posX + 56, posY + 113, mouseX, mouseY);
     }
 }
