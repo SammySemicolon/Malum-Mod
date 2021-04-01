@@ -1,12 +1,9 @@
 package com.sammy.malum;
 
-import com.sammy.malum.core.systems.particles.ParticleRendering;
 import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.MalumDamageSources;
-import com.sammy.malum.core.init.MalumItemTags;
-import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.modcontent.MalumSpiritTypes;
+import com.sammy.malum.core.systems.particles.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -52,14 +49,13 @@ public class MalumMod
         MalumParticles.PARTICLES.register(modBus);
         SOUNDS.register(modBus);
         MalumDamageSources.init();
-        MalumItemTags.init();
         modBus.addListener(this::gatherData);
+
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             MinecraftForge.EVENT_BUS.register(new ParticleRendering());
             return new Object();
         });
     }
-    
     public void gatherData(GatherDataEvent evt)
     {
         BlockTagsProvider provider = new MalumBlockTagProvider(evt.getGenerator());

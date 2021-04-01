@@ -1,18 +1,14 @@
 package com.sammy.malum.core.data;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumItems;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 
-import static com.sammy.malum.core.init.MalumItemTags.*;
+import static com.sammy.malum.core.init.MalumItemTags.RUNEWOOD_LOGS;
 
 public class MalumItemTagProvider extends ItemTagsProvider
 {
@@ -26,11 +22,7 @@ public class MalumItemTagProvider extends ItemTagsProvider
     {
         return "Malum Item Tags";
     }
-    
-    public static ITag.INamedTag<Item> makeWrapperTag(String id)
-    {
-        return ItemTags.createOptional(MalumHelper.prefix(id));
-    }
+
     @Override
     protected void registerTags()
     {

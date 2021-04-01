@@ -2,19 +2,12 @@ package com.sammy.malum.network.packets;
 
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.particles.itemcircle.ItemCircleParticle;
-import com.sammy.malum.client.particles.itemcircle.ItemCircleParticleType;
-import com.sammy.malum.common.blocks.totems.TotemPoleTileEntity;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -22,7 +15,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-import static net.minecraft.particles.ParticleTypes.*;
+import static net.minecraft.particles.ParticleTypes.EXPLOSION;
+import static net.minecraft.particles.ParticleTypes.SMOKE;
 
 public class ParticlePacket
 {

@@ -12,9 +12,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.16.3-1.0'
+version = "${project.minecraft}-${project.modVersion}"
 group = 'com.sammy.malum'
-archivesBaseName = 'malum'
+archivesBaseName = project.modId
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 sourceSets {
@@ -72,10 +72,6 @@ minecraft {
 }
 
 repositories {
-    maven {
-        name = "Hyperlightning-core Maven"
-        url = "https://maven.hypherionmc.me"
-    }
 	maven {
         name = "Curios Maven"
         url = "https://maven.theillusivec4.top/"
@@ -91,9 +87,6 @@ repositories {
 }
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.4-35.0.18'
-
-    implementation 'net.hypherionmc:HyperLightingCore-1.16.3:1.0.3:api'
-    //runtimeOnly 'net.hypherionmc:HyperLightingCore-1.16.3:1.0.3'
 
     compileOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25")
