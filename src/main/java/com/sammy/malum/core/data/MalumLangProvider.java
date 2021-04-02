@@ -128,6 +128,9 @@ public class MalumLangProvider extends LanguageProvider
         addPage("twisted_rock", "\"Turned wicked\". If we are to replace the life spirit with one of death, cobblestone will instead be animated into twisted rock.");
         addPage("twisted_rock_architecture", "Much alike the tainted rock, using a crafting table or the stone cutter, you can make many variants of twisted rock.");
 
+        addPage("ether", "\"The flame that burns Twice as bright burns half as long\". Ether is a magical substance that looks like flame, but shines bright forever. This pretty light source is a great arcane alternative to your regular coal based torches.");
+
+        addPage("arcane_utilities", "The Spirit Altar proves to be one of the most useful wonders of spirit magic, allowing you to easily infuse items into other, more precious items.");
         /*
         add("malum.gui.book.page.unholy_blend", "Unholy blend is a cool crafting material made from redstone dust, soulsand and rotten flesh. I'll make some building blocks made from it at some point.");
         add("malum.gui.book.page.unholy_blend_again", "Right now this material is only used to make arcane grit. Shove the thing into a furnace and get your cool powder.");

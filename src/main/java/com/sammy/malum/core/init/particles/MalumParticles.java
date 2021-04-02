@@ -17,9 +17,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class MalumParticles
 {
     public static DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MalumMod.MODID);
-    
+
     public static RegistryObject<WispParticleType>
             WISP_PARTICLE = PARTICLES.register("wisp_particle", WispParticleType::new);
+
+    public static RegistryObject<WispParticleType>
+            SMOKE_PARTICLE = PARTICLES.register("smoke_particle", WispParticleType::new);
+
+    public static RegistryObject<WispParticleType>
+            SPARKLE_PARTICLE = PARTICLES.register("sparkle_particle", WispParticleType::new);
 
     public static RegistryObject<SpiritFlameParticleType>
             SPIRIT_FLAME = PARTICLES.register("spirit_flame", SpiritFlameParticleType::new);
@@ -28,6 +34,8 @@ public class MalumParticles
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event)
     {
         Minecraft.getInstance().particles.registerFactory(WISP_PARTICLE.get(), WispParticleType.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(SMOKE_PARTICLE.get(), WispParticleType.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(SPARKLE_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particles.registerFactory(SPIRIT_FLAME.get(), SpiritFlameParticleType.Factory::new);
     }
 }

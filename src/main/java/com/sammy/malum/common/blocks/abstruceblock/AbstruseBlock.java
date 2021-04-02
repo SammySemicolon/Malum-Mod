@@ -10,7 +10,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 public class AbstruseBlock extends Block
 {
@@ -36,10 +35,11 @@ public class AbstruseBlock extends Block
     {
         if (entityIn instanceof PlayerEntity)
         {
-            if (worldIn.getTileEntity(pos) instanceof AbstruseBlockTileEntity)
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            if (tileEntity instanceof AbstruseBlockTileEntity)
             {
-                AbstruseBlockTileEntity tileEntity = (AbstruseBlockTileEntity) worldIn.getTileEntity(pos);
-                tileEntity.progress = 0;
+                AbstruseBlockTileEntity abstruseBlockTileEntity = (AbstruseBlockTileEntity) worldIn.getTileEntity(pos);
+                abstruseBlockTileEntity.progress = 0;
             }
         }
         super.onEntityWalk(worldIn, pos, entityIn);

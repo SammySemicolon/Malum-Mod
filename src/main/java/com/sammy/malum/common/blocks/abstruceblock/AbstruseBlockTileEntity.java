@@ -76,8 +76,9 @@ public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickab
             Color color = MalumSpiritTypes.AIR_SPIRIT_COLOR;
             Color colorAgain = MalumSpiritTypes.WATER_SPIRIT_COLOR;
             
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.25f, 0f).setLifetime(20).setScale(0.05f, 0).setColor(color, color.darker()).randomVelocity(0f, 0.01f).enableNoClip().evenlyRepeatEdges(worldIn, pos,  countMultiplier).setColor(colorAgain, colorAgain).evenlyRepeatEdges(worldIn, pos,  countMultiplier);
+            ParticleManager.create(MalumParticles.SMOKE_PARTICLE).setAlpha(0.25f, 0f).setLifetime(20).setScale(0.05f, 0).setColor(color, color.darker()).randomVelocity(0f, 0.01f).enableNoClip().evenlyRepeatEdges(worldIn, pos,  countMultiplier).setColor(colorAgain, colorAgain).evenlyRepeatEdges(worldIn, pos,  countMultiplier);
             ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.05f, 0f).setLifetime(40).setScale(0.2f, 0).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).enableNoClip().evenlyRepeatEdges(worldIn, pos, 2 * countMultiplier).setColor(colorAgain, colorAgain).evenlyRepeatEdges(worldIn, pos, 2 * countMultiplier);
         }
     }
+
 }

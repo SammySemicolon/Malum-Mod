@@ -1,6 +1,5 @@
 package com.sammy.malum.common.entities;
 
-import com.sammy.malum.MalumConstants;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
@@ -24,7 +23,6 @@ import java.util.UUID;
 public class PlayerSoulEntity extends ProjectileItemEntity
 {
     public UUID oldOwnerUUID;
-    public UUID ownerUUID;
     public PlayerEntity player(UUID uuid)
     {
         if (uuid != null)
@@ -57,7 +55,6 @@ public class PlayerSoulEntity extends ProjectileItemEntity
     public void setData(UUID oldOwnerUUID, UUID ownerUUID)
     {
         this.oldOwnerUUID = oldOwnerUUID;
-        this.ownerUUID = ownerUUID;
     }
     @Override
     protected void registerData()
@@ -78,7 +75,6 @@ public class PlayerSoulEntity extends ProjectileItemEntity
         {
             setMotion(getMotion().mul(0.95f, 0.8f, 0.95f));
             PlayerEntity soulOwner = player(oldOwnerUUID);
-            PlayerEntity newOwner = player(ownerUUID);
             if (age > 10)
             {
                 if (soulOwner != null)
@@ -100,39 +96,33 @@ public class PlayerSoulEntity extends ProjectileItemEntity
                         }
                     }
                 }
-                if (newOwner != null)
-                {
-                    float distance = getDistance(newOwner);
-                    if (distance < 1f)
-                    {
-                        if (isAlive())
-                        {
-                            newOwner.heal(newOwner.getMaxHealth());
-                            remove();
-                        }
-                    }
-                }
             }
         }
         else
         {
             double x = getPosX(), y = getPosY() + yOffset(0)+0.25f, z = getPosZ();
-            Color color1 = MalumConstants.dark();
-            Color color2 = MalumConstants.bright();
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(1.0f, 0).setScale(0.075f, 0).setLifetime(20)
-                    .randomOffset(0.1, 0.1).randomVelocity(0.005f, 0.005f)
-                    .addVelocity(0, 0.01f, 0)
-                    .setColor(color1,color1)
-                    .setSpin(0.3f)
-                    .repeat(world, x, y, z, 3);
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(1.0f, 0).setScale(0.025f, 0).setLifetime(10)
-                    .randomOffset(0.2, 0.2).randomVelocity(0.005f, 0.005f)
-                    .addVelocity(0, 0.01f, 0)
-                    .setColor(color2,color2)
-                    .setSpin(0.6f)
-                    .repeat(world, x, y, z, 1);
+            int lifeTime = 14 + world.rand.nextInt(4);
+            float scale = 0.17f + world.rand.nextFloat() * 0.03f;
+            float velocity = 0.04f + world.rand.nextFloat() * 0.02f;
+
+            Color color = new Color(240, 36, 235);
+            ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
+                    .setScale(scale * 2, 0)
+                    .setLifetime(lifeTime)
+                    .setAlpha(0.2f)
+                    .setColor(color, color)
+                    .spawn(world,x,y,z);
+            if (world.rand.nextFloat() < 0.9f)
+            {
+                ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                        .setScale(scale, 0)
+                        .setLifetime(lifeTime)
+                        .setAlpha(0.9f, 0.75f)
+                        .setColor(color, MalumHelper.darker(color,2))
+                        .addVelocity(0,velocity,0)
+                        .setSpin(world.rand.nextFloat() * 0.5f)
+                        .spawn(world,x,y,z);
+            }
         }
     }
     public float yOffset(float partialTicks)
@@ -142,10 +132,6 @@ public class PlayerSoulEntity extends ProjectileItemEntity
     @Override
     public void writeAdditional(CompoundNBT compound)
     {
-        if (ownerUUID != null)
-        {
-            compound.putUniqueId("ownerUUID", ownerUUID);
-        }
         if (oldOwnerUUID != null)
         {
             compound.putUniqueId("oldOwnerUUID", oldOwnerUUID);
@@ -157,10 +143,6 @@ public class PlayerSoulEntity extends ProjectileItemEntity
     @Override
     public void readAdditional(CompoundNBT compound)
     {
-        if (compound.contains("ownerUUID"))
-        {
-            ownerUUID = compound.getUniqueId("ownerUUID");
-        }
         if (compound.contains("oldOwnerUUID"))
         {
             oldOwnerUUID = compound.getUniqueId("oldOwnerUUID");

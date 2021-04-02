@@ -31,12 +31,13 @@ public class SunKissedGroundDecorator extends AlterGroundTreeDecorator
     public void func_225576_a_(ISeedReader seedReader, Random random, List<BlockPos> positions, List<BlockPos> noClue, Set<BlockPos> noClue2, MutableBoundingBox area)
     {
         int i = positions.get(0).getY();
-        positions.stream().filter((pos) -> pos.getY() == i).forEach((pos) -> {
+        positions.stream().filter((pos) -> pos.getY() == i).forEach((pos) ->
+        {
             transformBlocks(seedReader, random, pos.west().north());
             transformBlocks(seedReader, random, pos.east(2).north());
             transformBlocks(seedReader, random, pos.west().south(2));
             transformBlocks(seedReader, random, pos.east(2).south(2));
-            
+
             for (int j = 0; j < 5; ++j)
             {
                 int k = random.nextInt(64);

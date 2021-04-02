@@ -33,8 +33,74 @@ public class MalumSpiritAltarRecipes
                                    new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
 
         new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.BLAZING_QUARTZ.get(), 4),
-                                   new MalumItemIngredient(MalumItems.ORANGE_ETHER.get(), 1),
-                                   new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 2));
+                new MalumItemIngredient(MalumItems.ORANGE_ETHER.get(), 2),
+                new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 4));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.DIAMOND, 1),
+                new MalumItemIngredient(MalumItems.GRIMSLATE_PLATING.get(), 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 2));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.QUARTZ, 8),
+                new MalumItemIngredient(MalumItems.BLAZING_QUARTZ.get(), 8),
+                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 2));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.ROTTEN_FLESH, 2),
+                new MalumItemIngredient(Items.LEATHER, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.LEATHER, 2),
+                new MalumItemIngredient(Items.RABBIT_HIDE, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 2));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.DIRT, 4),
+                new MalumItemIngredient(Items.CLAY, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.WATER_SPIRIT, 2));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GRAVEL, 16),
+                new MalumItemIngredient(Items.FLINT, 16),
+                new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 2));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.REDSTONE, 16),
+                new MalumItemIngredient(Items.GLOWSTONE_DUST, 16),
+                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.REDSTONE, 16),
+                new MalumItemIngredient(Items.GUNPOWDER, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 2),
+                new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 1));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GUNPOWDER, 2),
+                new MalumItemIngredient(Items.BLAZE_POWDER, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 2));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GUNPOWDER, 4),
+                new MalumItemIngredient(Items.GHAST_TEAR, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 2),
+                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.WATER_SPIRIT, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 1));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GUNPOWDER, 2),
+                new MalumItemIngredient(Items.SLIME_BALL, 1),
+                new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 4),
+                new MalumSpiritIngredient(MalumSpiritTypes.WATER_SPIRIT, 8));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.IRON_INGOT, 2),
+                new MalumItemIngredient(Items.GOLD_INGOT, 2),
+                new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT, 1));
+
+        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GOLD_INGOT, 2),
+                new MalumItemIngredient(Items.IRON_INGOT, 2),
+                new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT, 1));
+
 
         new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GOLD_INGOT, 2),
                                    new MalumItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get(), 2),

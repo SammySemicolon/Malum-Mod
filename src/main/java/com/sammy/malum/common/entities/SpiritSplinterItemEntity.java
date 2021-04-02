@@ -1,11 +1,11 @@
 package com.sammy.malum.common.entities;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.common.items.SpiritSplinterItem;
+import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.particles.MalumParticles;
+import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
@@ -24,9 +24,6 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 import java.awt.*;
 import java.util.UUID;
-
-import static com.sammy.malum.MalumHelper.brighter;
-import static com.sammy.malum.MalumHelper.darker;
 
 public class SpiritSplinterItemEntity extends ProjectileItemEntity
 {
@@ -116,9 +113,25 @@ public class SpiritSplinterItemEntity extends ProjectileItemEntity
             updateSplinter();
             double x = getPosX(), y = getPosY() + yOffset(0)+0.25f, z = getPosZ();
             Color color = splinter.type.color;
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.4f, 0f).setLifetime(20).setScale(0.075f, 0).randomOffset(0.25, 0.25).randomVelocity(0.02f, 0.08f).setColor(brighter(color, 2), darker(color, 3)).randomVelocity(0f, 0.01f).addVelocity(0, 0.01f, 0).enableNoClip().repeat(world, x,y,z, 1);
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.03f, 0f).setLifetime(60).setScale(0.3f, 0).randomOffset(0.2, 0.1).randomVelocity(0.02f, 0.02f).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).addVelocity(0, -0.005f, 0).enableNoClip().repeat(world, x,y,z,2);
-    
+
+            ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
+                    .setAlpha(0.2f, 0f)
+                    .setLifetime(10)
+                    .setScale(0.4f, 0)
+                    .setColor(color.brighter(), color.darker())
+                    .enableNoClip()
+                    .repeat(world, x,y,z, 2);
+
+            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                    .setAlpha(0.1f, 0f)
+                    .setLifetime(20)
+                    .setSpin(0.1f)
+                    .setScale(0.2f, 0)
+                    .setColor(color, color.darker())
+                    .randomOffset(0.1f)
+                    .enableNoClip()
+                    .randomVelocity(0.01f, 0.01f)
+                    .repeat(world, x,y,z, 1);
         }
     }
     public float yOffset(float partialTicks)
