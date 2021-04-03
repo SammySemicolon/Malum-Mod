@@ -1,0 +1,7 @@
+{
+  "parent": "malum:block/template_item_pedestal",
+  "textures": {
+    "pedestal": "malum:block/twisted_item_pedestal",
+    "particle": "malum:block/twisted_item_pedestal"
+  }
+}

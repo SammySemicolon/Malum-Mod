@@ -4,30 +4,21 @@ import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entities.PlayerSoulEntity;
 import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
-import com.sammy.malum.common.events.Events;
 import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumEntities;
-import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
-import com.sammy.malum.common.items.SpiritSplinterItem;
-import com.sammy.malum.network.packets.ParticlePacket;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class SpiritHelper
 {
@@ -156,9 +147,10 @@ public class SpiritHelper
         ArrayList<Pair<String, Integer>> spirits = new ArrayList<>();
         for (MalumSpiritType type : MalumSpiritTypes.SPIRITS)
         {
-            if (type.predicate.test(entity))
+            int count = type.spiritCount(entity);
+            if (count != 0)
             {
-                spirits.add(Pair.of(type.identifier, type.spiritCount(entity)));
+                spirits.add(Pair.of(type.identifier, count));
             }
         }
         return spirits;

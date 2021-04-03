@@ -295,7 +295,10 @@ public class MalumItems
     public static final RegistryObject<Item> TOTEM_CORE = ITEMS.register("totem_core", () -> new BlockItem(MalumBlocks.TOTEM_CORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
 
-    public static final RegistryObject<Item> ITEM_STAND = ITEMS.register("item_stand", () -> new BlockItem(MalumBlocks.ITEM_STAND.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TAINTED_ITEM_STAND = ITEMS.register("tainted_item_stand", () -> new BlockItem(MalumBlocks.TAINTED_ITEM_STAND.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TWISTED_ITEM_STAND = ITEMS.register("twisted_item_stand", () -> new BlockItem(MalumBlocks.TWISTED_ITEM_STAND.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TAINTED_ITEM_PEDESTAL = ITEMS.register("tainted_item_pedestal", () -> new BlockItem(MalumBlocks.TAINTED_ITEM_PEDESTAL.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TWISTED_ITEM_PEDESTAL = ITEMS.register("twisted_item_pedestal", () -> new BlockItem(MalumBlocks.TWISTED_ITEM_PEDESTAL.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region simple components

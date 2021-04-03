@@ -4,6 +4,8 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
+import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
@@ -55,15 +57,16 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(BLAZING_QUARTZ_ORE);
         blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
-        blocks.remove(MalumBlocks.ITEM_STAND);
         blocks.remove(MalumBlocks.SPIRIT_ALTAR);
         blocks.remove(MalumBlocks.SPIRIT_JAR);
         blocks.remove(MalumBlocks.TOTEM_CORE);
 
         glowingBlock(BLAZING_QUARTZ_ORE);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
-    
+
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
@@ -169,6 +172,31 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
                 .modelForState().modelFile(torch).rotationY(90).addModel()
                 .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.EAST)
                 .modelForState().modelFile(torch).addModel();
+    }
+    public void itemStandBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile stand = models().withExistingParent(name, prefix("block/template_item_stand")).texture("stand", prefix("block/" + name)).texture("particle", prefix("block/" + name));
+
+        getVariantBuilder(blockRegistryObject.get()).partialState()
+                .partialState().with(BlockStateProperties.FACING, Direction.NORTH)
+                .modelForState().modelFile(stand).rotationX(90).addModel()
+                .partialState().with(BlockStateProperties.FACING, Direction.WEST)
+                .modelForState().modelFile(stand).rotationX(90).rotationY(270).addModel()
+                .partialState().with(BlockStateProperties.FACING, Direction.SOUTH)
+                .modelForState().modelFile(stand).rotationX(90).rotationY(180).addModel()
+                .partialState().with(BlockStateProperties.FACING, Direction.EAST)
+                .modelForState().modelFile(stand).rotationX(90).rotationY(90).addModel()
+                .partialState().with(BlockStateProperties.FACING, Direction.DOWN)
+                .modelForState().modelFile(stand).rotationX(180).addModel()
+                .partialState().with(BlockStateProperties.FACING, Direction.UP)
+                .modelForState().modelFile(stand).addModel();
+    }
+    public void itemPedestalBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile pedestal = models().withExistingParent(name, prefix("block/template_item_pedestal")).texture("pedestal", prefix("block/" + name)).texture("particle", prefix("block/" + name));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(pedestal).build());
     }
     public void wildFarmlandBlock(RegistryObject<Block> blockRegistryObject)
     {

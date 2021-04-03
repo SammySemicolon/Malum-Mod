@@ -26,7 +26,18 @@ public class MalumItemIngredient
         else
         {
             ArrayList<ItemStack> stacks = (ArrayList<ItemStack>) stacks();
-            return stacks().get(MalumMod.RANDOM.nextInt(stacks.size()));
+            return stacks.get(MalumMod.RANDOM.nextInt(stacks.size()));
+        }
+    }
+    public ItemStack getItemAlt()
+    {
+        if (isSimple())
+        {
+            return new ItemStack(item, count);
+        }
+        else
+        {
+            return stacks().get(0);
         }
     }
     public List<ItemStack> stacks()

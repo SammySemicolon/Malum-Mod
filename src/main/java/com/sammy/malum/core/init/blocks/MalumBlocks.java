@@ -3,6 +3,7 @@ package com.sammy.malum.core.init.blocks;
 import com.sammy.malum.MalumConstants;
 import com.sammy.malum.common.blocks.*;
 import com.sammy.malum.common.blocks.abstruceblock.AbstruseBlock;
+import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
@@ -365,8 +366,11 @@ public class MalumBlocks
     
     public static final RegistryObject<Block> TOTEM_CORE = BLOCKS.register("totem_core", () -> new TotemCoreBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(RUNEWOOD_LOG.get())));
-    
-    public static final RegistryObject<Block> ITEM_STAND = BLOCKS.register("item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+
+    public static final RegistryObject<Block> TAINTED_ITEM_STAND = BLOCKS.register("tainted_item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> TWISTED_ITEM_STAND = BLOCKS.register("twisted_item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> TAINTED_ITEM_PEDESTAL = BLOCKS.register("tainted_item_pedestal", () -> new ItemPedestalBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> TWISTED_ITEM_PEDESTAL = BLOCKS.register("twisted_item_pedestal", () -> new ItemPedestalBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> IMPERVIOUS_ROCK = BLOCKS.register("impervious_rock", () -> new ImperviousRockBlock(TWISTED_ROCK_PROPERTIES().hardnessAndResistance(1.25f, 3600000.0F)));
     public static final RegistryObject<Block> WILD_FARMLAND = BLOCKS.register("wild_farmland", () -> new WildFarmlandBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES().notSolid().tickRandomly()));
     //endregion

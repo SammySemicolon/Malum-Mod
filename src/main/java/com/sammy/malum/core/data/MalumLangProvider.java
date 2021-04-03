@@ -130,6 +130,10 @@ public class MalumLangProvider extends LanguageProvider
 
         addPage("ether", "\"The flame that burns Twice as bright burns half as long\". Ether is a magical substance that looks like flame, but shines bright forever. This pretty light source is a great arcane alternative to your regular coal based torches.");
 
+        addPage("working_with_ashes", "Gunpowder proves to be quite a mutable material. Through the use of spirit magic we can not only create it, but convert it into many other hellish materials.");
+        addPage("bringing_forth_life", "The Spirit Altar is certainly one of the most useful wonders of spirit magic, allowing you to easily fuse items with life.");
+        addPage("spirit_transmutation", "Many natural resources can easily be shaped into other, very similar goods. This process can often go both ways.");
+
         addPage("arcane_utilities", "The Spirit Altar proves to be one of the most useful wonders of spirit magic, allowing you to easily infuse items into other, more precious items.");
         /*
         add("malum.gui.book.page.unholy_blend", "Unholy blend is a cool crafting material made from redstone dust, soulsand and rotten flesh. I'll make some building blocks made from it at some point.");

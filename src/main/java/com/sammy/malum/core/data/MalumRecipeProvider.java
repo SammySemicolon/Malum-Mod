@@ -40,8 +40,11 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessRecipe(Items.PURPLE_DYE,2).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
         
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.RUNEWOOD_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
-        shapedRecipe(MalumItems.ITEM_STAND.get()).key('#', MalumItems.TAINTED_ROCK.get()).key('X', MalumItems.TWISTED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine(" Y ").patternLine("#X#").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
-        
+        shapedRecipe(MalumItems.TAINTED_ITEM_STAND.get(), 2).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
+        shapedRecipe(MalumItems.TWISTED_ITEM_STAND.get(), 2).key('X', MalumItems.TWISTED_ROCK.get()).key('Y', MalumItems.TWISTED_ROCK_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_twisted_rock", hasItem(MalumItems.TWISTED_ROCK.get())).build(consumer);
+        shapedRecipe(MalumItems.TAINTED_ITEM_PEDESTAL.get()).key('X', MalumItems.TAINTED_ROCK.get()).key('Y', MalumItems.TAINTED_ROCK_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
+        shapedRecipe(MalumItems.TWISTED_ITEM_PEDESTAL.get()).key('X', MalumItems.TWISTED_ROCK.get()).key('Y', MalumItems.TWISTED_ROCK_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_twisted_rock", hasItem(MalumItems.TWISTED_ROCK.get())).build(consumer);
+
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_ALTAR.get()).key('Z', Items.GOLD_INGOT).key('Y', MalumItems.GRIMSLATE_PLATING.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine(" Y ").patternLine("ZXZ").patternLine("XXX").addCriterion("has_grimslate", hasItem(MalumItems.GRIMSLATE_ORE.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_JAR.get()).key('Z', MalumItems.HALLOWED_GOLD_INGOT.get()).key('Y', Tags.Items.GLASS_PANES).patternLine("YZY").patternLine("Y Y").patternLine("YYY").addCriterion("has_hallowed_gold", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
         
