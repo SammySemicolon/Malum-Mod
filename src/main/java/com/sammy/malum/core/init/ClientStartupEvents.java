@@ -19,6 +19,7 @@ import com.sammy.malum.common.entities.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.common.entities.SpiritSplinterItemRenderer;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -48,7 +49,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.MalumHelper.brighter;
-import static com.sammy.malum.core.init.MalumItems.ITEMS;
+import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)

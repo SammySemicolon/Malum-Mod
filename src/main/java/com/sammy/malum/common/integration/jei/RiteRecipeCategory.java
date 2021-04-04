@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;

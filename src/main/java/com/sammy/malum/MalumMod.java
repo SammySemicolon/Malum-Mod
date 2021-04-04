@@ -2,7 +2,6 @@ package com.sammy.malum;
 
 import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.MalumDamageSources;
-import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,13 +18,13 @@ import java.util.Random;
 
 import static com.sammy.malum.core.init.MalumEffects.EFFECTS;
 import static com.sammy.malum.core.init.MalumEntities.ENTITY_TYPES;
-import static com.sammy.malum.core.init.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.blocks.MalumTileEntities.TILE_ENTITIES;
 import static com.sammy.malum.core.init.enchantments.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.init.worldgen.MalumFoliagePlacerTypes.FOLIAGE;
-import static com.sammy.malum.core.init.worldgen.MalumSurfaceBuilders.BUILDERS;
+import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
+import static com.sammy.malum.core.init.particles.MalumParticles.PARTICLES;
+import static com.sammy.malum.core.init.worldgen.MalumFeatures.FEATURES;
 
 @SuppressWarnings("unused")
 @Mod("malum")
@@ -43,11 +42,10 @@ public class MalumMod
         ITEMS.register(modBus);
         TILE_ENTITIES.register(modBus);
         ENTITY_TYPES.register(modBus);
-        FOLIAGE.register(modBus);
-        BUILDERS.register(modBus);
         EFFECTS.register(modBus);
-        MalumParticles.PARTICLES.register(modBus);
+        PARTICLES.register(modBus);
         SOUNDS.register(modBus);
+        FEATURES.register(modBus);
         MalumDamageSources.init();
         modBus.addListener(this::gatherData);
 

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:twisted_rock_bricks_from_small_bricks"
+    ]
+  },
+  "criteria": {
+    "has_twisted_rock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:twisted_rock"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:twisted_rock_bricks_from_small_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_twisted_rock",
+      "has_the_recipe"
+    ]
+  ]
+}

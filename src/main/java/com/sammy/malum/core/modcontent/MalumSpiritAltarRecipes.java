@@ -1,7 +1,7 @@
 package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
 import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
 import net.minecraft.item.ItemStack;

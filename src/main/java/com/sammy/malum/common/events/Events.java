@@ -5,9 +5,10 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.common.items.equipment.poppets.PoppetOfUndying;
 import com.sammy.malum.core.init.MalumDamageSources;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.worldgen.MalumStaticFeatures;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.network.NetworkManager;
@@ -23,9 +24,12 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -40,6 +44,19 @@ import static com.sammy.malum.network.NetworkManager.INSTANCE;
 @Mod.EventBusSubscriber
 public class Events
 {
+    @SubscribeEvent
+    public static void addFeatures(BiomeLoadingEvent event)
+    {
+        if (event.getCategory().equals(Biome.Category.PLAINS) || event.getCategory().equals(Biome.Category.FOREST))
+        {
+           // event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.SUN_SPOT);
+        }
+        if (event.getCategory().equals(Biome.Category.NETHER))
+        {
+            event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumStaticFeatures.BLAZE_QUARTZ_ORE);
+        }
+        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumStaticFeatures.RUNESTONE_ORE);
+    }
     @SubscribeEvent
     public static void giveCattoHisTreat(EntityJoinWorldEvent event)
     {

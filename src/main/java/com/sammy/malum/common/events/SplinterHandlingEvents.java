@@ -3,7 +3,6 @@ package com.sammy.malum.common.events;
 import com.sammy.malum.common.entities.ScytheBoomerangEntity;
 import com.sammy.malum.common.items.equipment.curios.CurioWickedTalisman;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
-import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

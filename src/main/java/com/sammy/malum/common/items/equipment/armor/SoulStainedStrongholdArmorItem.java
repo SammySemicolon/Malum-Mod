@@ -15,7 +15,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import javax.annotation.Nullable;
 
-import static com.sammy.malum.common.items.MalumArmorTiers.ArmorTierEnum.SOUL_STAINED_STRONGHOLD;
+import static com.sammy.malum.core.init.items.MalumArmorTiers.ArmorTierEnum.SOUL_STAINED_STRONGHOLD;
 
 public class SoulStainedStrongholdArmorItem extends ArmorItem
 {

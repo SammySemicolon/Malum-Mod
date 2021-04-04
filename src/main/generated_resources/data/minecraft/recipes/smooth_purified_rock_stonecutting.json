@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:purified_rock"
+  },
+  "result": "malum:smooth_purified_rock",
+  "count": 1
+}

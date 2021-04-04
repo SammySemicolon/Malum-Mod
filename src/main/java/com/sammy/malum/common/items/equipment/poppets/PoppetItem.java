@@ -2,7 +2,7 @@ package com.sammy.malum.common.items.equipment.poppets;
 
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.items.equipment.curios.CurioPoppetBelt;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.entity.LivingEntity;
@@ -15,9 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import static com.mojang.datafixers.util.Pair.*;

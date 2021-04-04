@@ -1,6 +1,6 @@
 package com.sammy.malum.core.data;
 
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
@@ -8,7 +8,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 
-import static com.sammy.malum.core.init.MalumItemTags.RUNEWOOD_LOGS;
+import static com.sammy.malum.core.init.items.MalumItemTags.RUNEWOOD_LOGS;
 
 public class MalumItemTagProvider extends ItemTagsProvider
 {

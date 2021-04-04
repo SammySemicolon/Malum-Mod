@@ -1,7 +1,7 @@
 package com.sammy.malum.common.blocks.abstruceblock;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;

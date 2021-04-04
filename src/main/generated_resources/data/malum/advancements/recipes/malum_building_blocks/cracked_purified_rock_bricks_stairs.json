@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:cracked_purified_rock_bricks_stairs"
+    ]
+  },
+  "criteria": {
+    "has_cracked_purified_rock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:purified_rock"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:cracked_purified_rock_bricks_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cracked_purified_rock",
+      "has_the_recipe"
+    ]
+  ]
+}

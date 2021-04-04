@@ -2,7 +2,7 @@ package com.sammy.malum.common.entities;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.SpiritSplinterItem;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;

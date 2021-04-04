@@ -5,7 +5,6 @@ import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
-import com.sammy.malum.core.init.MalumItems;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import com.sammy.malum.common.items.SpiritSplinterItem;
 import net.minecraft.block.*;
@@ -22,7 +21,7 @@ import java.util.Set;
 
 import static com.sammy.malum.MalumHelper.prefix;
 import static com.sammy.malum.MalumHelper.takeAll;
-import static com.sammy.malum.core.init.MalumItems.*;
+import static com.sammy.malum.core.init.items.MalumItems.*;
 
 public class MalumItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider
 {

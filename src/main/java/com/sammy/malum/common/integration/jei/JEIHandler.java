@@ -1,7 +1,7 @@
 package com.sammy.malum.common.integration.jei;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
 import mezz.jei.api.IModPlugin;

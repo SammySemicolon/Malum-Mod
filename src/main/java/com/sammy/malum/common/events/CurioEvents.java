@@ -3,7 +3,6 @@ package com.sammy.malum.common.events;
 import com.sammy.malum.common.items.equipment.curios.CurioRingOfFeeding;
 import com.sammy.malum.common.items.equipment.curios.CurioUnrelentingBelt;
 import com.sammy.malum.common.items.equipment.curios.CurioHeavenlyPendant;
-import com.sammy.malum.core.init.MalumItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundCategory;

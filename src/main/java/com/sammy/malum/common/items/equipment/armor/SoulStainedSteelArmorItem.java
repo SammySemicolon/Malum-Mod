@@ -1,7 +1,6 @@
 package com.sammy.malum.common.items.equipment.armor;
 
 import com.sammy.malum.client.models.ModelSoulStainedSteelArmor;
-import com.sammy.malum.client.models.ModelSoulStainedStrongholdArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +15,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import javax.annotation.Nullable;
 
-import static com.sammy.malum.common.items.MalumArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
+import static com.sammy.malum.core.init.items.MalumArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
 
 public class SoulStainedSteelArmorItem extends ArmorItem
 {

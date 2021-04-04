@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "malum:block/mossy_twisted_rock_tiles"
-  }
-}

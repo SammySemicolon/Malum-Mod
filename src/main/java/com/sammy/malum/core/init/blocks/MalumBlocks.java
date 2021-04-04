@@ -14,7 +14,6 @@ import com.sammy.malum.common.blocks.spiritstorage.jar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.totems.TotemCoreBlock;
 import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.common.blocks.wildfarmland.WildFarmlandBlock;
-import com.sammy.malum.common.world.features.tree.RunewoodTree;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -38,17 +37,29 @@ import static net.minecraft.block.PressurePlateBlock.Sensitivity.MOBS;
 public class MalumBlocks
 {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    
+
     //region properties
-    
+
     public static AbstractBlock.Properties TAINTED_ROCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).sound(MalumSounds.TAINTED_ROCK).setRequiresTool().hardnessAndResistance(1.25F, 9.0F);
     }
-    
+
     public static AbstractBlock.Properties TWISTED_ROCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
+    }
+    public static AbstractBlock.Properties PURIFIED_ROCK_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
+    }
+    public static AbstractBlock.Properties CLEANSED_ROCK_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN_TERRACOTTA).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
+    }
+    public static AbstractBlock.Properties ERODED_ROCK_PROPERTIES()
+    {
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.GRAY_TERRACOTTA).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
     }
 
     public static AbstractBlock.Properties GRIMSLATE_PROPERTIES()
@@ -75,12 +86,12 @@ public class MalumBlocks
     {
         return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).harvestTool(ToolType.HOE).zeroHardnessAndResistance();
     }
-    
+
     public static AbstractBlock.Properties LEAVES_PROPERTIES()
     {
         return AbstractBlock.Properties.from(Blocks.OAK_LEAVES);
     }
-    
+
     public static AbstractBlock.Properties ETHER_BLOCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14));
@@ -89,167 +100,220 @@ public class MalumBlocks
     {
         return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).zeroHardnessAndResistance().noDrops().notSolid();
     }
-    
+
     public static AbstractBlock.Properties HALLOWED_GOLD_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.IRON, MaterialColor.YELLOW).sound(MalumSounds.HALLOWED_GOLD).notSolid().hardnessAndResistance(2F, 16.0F);
     }
-    
+
     public static AbstractBlock.Properties SOUL_STAINED_STEEL_BLOCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.IRON, MaterialColor.BLUE).sound(MalumSounds.SOUL_STAINED_STEEL).hardnessAndResistance(5f,3600f);
     }
-    
+
     public static AbstractBlock.Properties SPIRIT_JAR_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(MalumSounds.HALLOWED_GOLD).notSolid();
     }
     //endregion
-    
+
     //region tainted rock
     public static final RegistryObject<Block> TAINTED_ROCK = BLOCKS.register("tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_TAINTED_ROCK = BLOCKS.register("smooth_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> POLISHED_TAINTED_ROCK = BLOCKS.register("polished_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS = BLOCKS.register("tainted_rock_bricks", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS = BLOCKS.register("cracked_tainted_rock_bricks", () -> new Block(TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_BRICKS = BLOCKS.register("mossy_tainted_rock_bricks", () -> new Block(TAINTED_ROCK_PROPERTIES()));
-    
+    public static final RegistryObject<Block> SMALL_TAINTED_ROCK_BRICKS = BLOCKS.register("small_tainted_rock_bricks", () -> new Block(TAINTED_ROCK_PROPERTIES()));
+
     public static final RegistryObject<Block> TAINTED_ROCK_TILES = BLOCKS.register("tainted_rock_tiles", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES = BLOCKS.register("cracked_tainted_rock_tiles", () -> new Block(TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_TILES = BLOCKS.register("mossy_tainted_rock_tiles", () -> new Block(TAINTED_ROCK_PROPERTIES()));
-    
+    public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS = BLOCKS.register("cracked_small_tainted_rock_bricks", () -> new Block(TAINTED_ROCK_PROPERTIES()));
+
     public static final RegistryObject<Block> TAINTED_ROCK_PILLAR = BLOCKS.register("tainted_rock_pillar", () -> new RotatedPillarBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_PILLAR_CAP = BLOCKS.register("tainted_rock_pillar_cap", () -> new MalumDirectionalBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_COLUMN = BLOCKS.register("tainted_rock_column", () -> new RotatedPillarBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_COLUMN_CAP = BLOCKS.register("tainted_rock_column_cap", () -> new MalumDirectionalBlock(TAINTED_ROCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> CUT_TAINTED_ROCK = BLOCKS.register("cut_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CHISELED_TAINTED_ROCK = BLOCKS.register("chiseled_tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> TAINTED_ROCK_SLAB = BLOCKS.register("tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_TAINTED_ROCK_SLAB = BLOCKS.register("smooth_tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> POLISHED_TAINTED_ROCK_SLAB = BLOCKS.register("polished_tainted_rock_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("tainted_rock_bricks_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_tainted_rock_bricks_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("mossy_tainted_rock_bricks_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("small_tainted_rock_bricks_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_TILES_SLAB = BLOCKS.register("tainted_rock_tiles_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES_SLAB = BLOCKS.register("cracked_tainted_rock_tiles_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_TILES_SLAB = BLOCKS.register("mossy_tainted_rock_tiles_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
-    
+    public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_small_tainted_rock_bricks_slab", () -> new SlabBlock(TAINTED_ROCK_PROPERTIES()));
+
     public static final RegistryObject<Block> TAINTED_ROCK_STAIRS = BLOCKS.register("tainted_rock_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_TAINTED_ROCK_STAIRS = BLOCKS.register("smooth_tainted_rock_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> POLISHED_TAINTED_ROCK_STAIRS = BLOCKS.register("polished_tainted_rock_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("tainted_rock_bricks_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_tainted_rock_bricks_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("mossy_tainted_rock_bricks_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("small_tainted_rock_bricks_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_TILES_STAIRS = BLOCKS.register("tainted_rock_tiles_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES_STAIRS = BLOCKS.register("cracked_tainted_rock_tiles_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_TILES_STAIRS = BLOCKS.register("mossy_tainted_rock_tiles_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
-    
+    public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_small_tainted_rock_bricks_stairs", () -> new StairsBlock(TAINTED_ROCK.get().getDefaultState(), TAINTED_ROCK_PROPERTIES()));
+
     public static final RegistryObject<Block> TAINTED_ROCK_PRESSURE_PLATE = BLOCKS.register("tainted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, TAINTED_ROCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> TAINTED_ROCK_WALL = BLOCKS.register("tainted_rock_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("small_tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TAINTED_ROCK_TILES_WALL = BLOCKS.register("tainted_rock_tiles_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TAINTED_ROCK_TILES_WALL = BLOCKS.register("mossy_tainted_rock_tiles_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_SMALL_TAINTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_small_tainted_rock_bricks_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TAINTED_ROCK_TILES_WALL = BLOCKS.register("cracked_tainted_rock_tiles_wall", () -> new WallBlock(TAINTED_ROCK_PROPERTIES()));
     //endregion
-    
+
     //region twisted rock
     public static final RegistryObject<Block> TWISTED_ROCK = BLOCKS.register("twisted_rock", () -> new Block(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_TWISTED_ROCK = BLOCKS.register("smooth_twisted_rock", () -> new Block(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> POLISHED_TWISTED_ROCK = BLOCKS.register("polished_twisted_rock", () -> new Block(TWISTED_ROCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS = BLOCKS.register("twisted_rock_bricks", () -> new Block(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_BRICKS = BLOCKS.register("cracked_twisted_rock_bricks", () -> new Block(TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TWISTED_ROCK_BRICKS = BLOCKS.register("mossy_twisted_rock_bricks", () -> new Block(TWISTED_ROCK_PROPERTIES()));
-    
+    public static final RegistryObject<Block> SMALL_TWISTED_ROCK_BRICKS = BLOCKS.register("small_twisted_rock_bricks", () -> new Block(TWISTED_ROCK_PROPERTIES()));
+
     public static final RegistryObject<Block> TWISTED_ROCK_TILES = BLOCKS.register("twisted_rock_tiles", () -> new Block(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_TILES = BLOCKS.register("cracked_twisted_rock_tiles", () -> new Block(TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TWISTED_ROCK_TILES = BLOCKS.register("mossy_twisted_rock_tiles", () -> new Block(TWISTED_ROCK_PROPERTIES()));
-    
+    public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS = BLOCKS.register("cracked_small_twisted_rock_bricks", () -> new Block(TWISTED_ROCK_PROPERTIES()));
+
     public static final RegistryObject<Block> TWISTED_ROCK_PILLAR = BLOCKS.register("twisted_rock_pillar", () -> new RotatedPillarBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_PILLAR_CAP = BLOCKS.register("twisted_rock_pillar_cap", () -> new MalumDirectionalBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_COLUMN = BLOCKS.register("twisted_rock_column", () -> new RotatedPillarBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_COLUMN_CAP = BLOCKS.register("twisted_rock_column_cap", () -> new MalumDirectionalBlock(TWISTED_ROCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> CUT_TWISTED_ROCK = BLOCKS.register("cut_twisted_rock", () -> new Block(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CHISELED_TWISTED_ROCK = BLOCKS.register("chiseled_twisted_rock", () -> new Block(TWISTED_ROCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> TWISTED_ROCK_SLAB = BLOCKS.register("twisted_rock_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_TWISTED_ROCK_SLAB = BLOCKS.register("smooth_twisted_rock_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> POLISHED_TWISTED_ROCK_SLAB = BLOCKS.register("polished_twisted_rock_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("twisted_rock_bricks_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_twisted_rock_bricks_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("mossy_twisted_rock_bricks_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("small_twisted_rock_bricks_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_TILES_SLAB = BLOCKS.register("twisted_rock_tiles_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_TILES_SLAB = BLOCKS.register("cracked_twisted_rock_tiles_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TWISTED_ROCK_TILES_SLAB = BLOCKS.register("mossy_twisted_rock_tiles_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
-    
+    public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_small_twisted_rock_bricks_slab", () -> new SlabBlock(TWISTED_ROCK_PROPERTIES()));
+
     public static final RegistryObject<Block> TWISTED_ROCK_STAIRS = BLOCKS.register("twisted_rock_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> SMOOTH_TWISTED_ROCK_STAIRS = BLOCKS.register("smooth_twisted_rock_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> POLISHED_TWISTED_ROCK_STAIRS = BLOCKS.register("polished_twisted_rock_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("twisted_rock_bricks_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_twisted_rock_bricks_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("mossy_twisted_rock_bricks_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("small_twisted_rock_bricks_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_TILES_STAIRS = BLOCKS.register("twisted_rock_tiles_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_TILES_STAIRS = BLOCKS.register("cracked_twisted_rock_tiles_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TWISTED_ROCK_TILES_STAIRS = BLOCKS.register("mossy_twisted_rock_tiles_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
-    
+    public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_small_twisted_rock_bricks_stairs", () -> new StairsBlock(TWISTED_ROCK.get().getDefaultState(), TWISTED_ROCK_PROPERTIES()));
+
     public static final RegistryObject<Block> TWISTED_ROCK_PRESSURE_PLATE = BLOCKS.register("twisted_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, TWISTED_ROCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> TWISTED_ROCK_WALL = BLOCKS.register("twisted_rock_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("twisted_rock_bricks_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("mossy_twisted_rock_bricks_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("small_twisted_rock_bricks_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_twisted_rock_bricks_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> TWISTED_ROCK_TILES_WALL = BLOCKS.register("twisted_rock_tiles_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
-    public static final RegistryObject<Block> MOSSY_TWISTED_ROCK_TILES_WALL = BLOCKS.register("mossy_twisted_rock_tiles_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_SMALL_TWISTED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_small_twisted_rock_bricks_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
     public static final RegistryObject<Block> CRACKED_TWISTED_ROCK_TILES_WALL = BLOCKS.register("cracked_twisted_rock_tiles_wall", () -> new WallBlock(TWISTED_ROCK_PROPERTIES()));
     //endregion
-    
+
+    //region purified rock
+    public static final RegistryObject<Block> PURIFIED_ROCK = BLOCKS.register("purified_rock", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMOOTH_PURIFIED_ROCK = BLOCKS.register("smooth_purified_rock", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> POLISHED_PURIFIED_ROCK = BLOCKS.register("polished_purified_rock", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> PURIFIED_ROCK_BRICKS = BLOCKS.register("purified_rock_bricks", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_PURIFIED_ROCK_BRICKS = BLOCKS.register("cracked_purified_rock_bricks", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_PURIFIED_ROCK_BRICKS = BLOCKS.register("small_purified_rock_bricks", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> PURIFIED_ROCK_TILES = BLOCKS.register("purified_rock_tiles", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_PURIFIED_ROCK_TILES = BLOCKS.register("cracked_purified_rock_tiles", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_SMALL_PURIFIED_ROCK_BRICKS = BLOCKS.register("cracked_small_purified_rock_bricks", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> PURIFIED_ROCK_PILLAR = BLOCKS.register("purified_rock_pillar", () -> new RotatedPillarBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_PILLAR_CAP = BLOCKS.register("purified_rock_pillar_cap", () -> new MalumDirectionalBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_COLUMN = BLOCKS.register("purified_rock_column", () -> new RotatedPillarBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_COLUMN_CAP = BLOCKS.register("purified_rock_column_cap", () -> new MalumDirectionalBlock(PURIFIED_ROCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> CUT_PURIFIED_ROCK = BLOCKS.register("cut_purified_rock", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CHISELED_PURIFIED_ROCK = BLOCKS.register("chiseled_purified_rock", () -> new Block(PURIFIED_ROCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> PURIFIED_ROCK_SLAB = BLOCKS.register("purified_rock_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMOOTH_PURIFIED_ROCK_SLAB = BLOCKS.register("smooth_purified_rock_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> POLISHED_PURIFIED_ROCK_SLAB = BLOCKS.register("polished_purified_rock_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_BRICKS_SLAB = BLOCKS.register("purified_rock_bricks_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_PURIFIED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_purified_rock_bricks_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_PURIFIED_ROCK_BRICKS_SLAB = BLOCKS.register("small_purified_rock_bricks_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_TILES_SLAB = BLOCKS.register("purified_rock_tiles_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_PURIFIED_ROCK_TILES_SLAB = BLOCKS.register("cracked_purified_rock_tiles_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_SMALL_PURIFIED_ROCK_BRICKS_SLAB = BLOCKS.register("cracked_small_purified_rock_bricks_slab", () -> new SlabBlock(PURIFIED_ROCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> PURIFIED_ROCK_STAIRS = BLOCKS.register("purified_rock_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMOOTH_PURIFIED_ROCK_STAIRS = BLOCKS.register("smooth_purified_rock_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> POLISHED_PURIFIED_ROCK_STAIRS = BLOCKS.register("polished_purified_rock_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_BRICKS_STAIRS = BLOCKS.register("purified_rock_bricks_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_PURIFIED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_purified_rock_bricks_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_PURIFIED_ROCK_BRICKS_STAIRS = BLOCKS.register("small_purified_rock_bricks_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_TILES_STAIRS = BLOCKS.register("purified_rock_tiles_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_PURIFIED_ROCK_TILES_STAIRS = BLOCKS.register("cracked_purified_rock_tiles_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_SMALL_PURIFIED_ROCK_BRICKS_STAIRS = BLOCKS.register("cracked_small_purified_rock_bricks_stairs", () -> new StairsBlock(PURIFIED_ROCK.get().getDefaultState(), PURIFIED_ROCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> PURIFIED_ROCK_PRESSURE_PLATE = BLOCKS.register("purified_rock_pressure_plate", () -> new PressurePlateBlock(MOBS, PURIFIED_ROCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> PURIFIED_ROCK_WALL = BLOCKS.register("purified_rock_wall", () -> new WallBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_BRICKS_WALL = BLOCKS.register("purified_rock_bricks_wall", () -> new WallBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> SMALL_PURIFIED_ROCK_BRICKS_WALL = BLOCKS.register("small_purified_rock_bricks_wall", () -> new WallBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_PURIFIED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_purified_rock_bricks_wall", () -> new WallBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> PURIFIED_ROCK_TILES_WALL = BLOCKS.register("purified_rock_tiles_wall", () -> new WallBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_SMALL_PURIFIED_ROCK_BRICKS_WALL = BLOCKS.register("cracked_small_purified_rock_bricks_wall", () -> new WallBlock(PURIFIED_ROCK_PROPERTIES()));
+    public static final RegistryObject<Block> CRACKED_PURIFIED_ROCK_TILES_WALL = BLOCKS.register("cracked_purified_rock_tiles_wall", () -> new WallBlock(PURIFIED_ROCK_PROPERTIES()));
+
+    //endregion
+
     //region sun kissed wood
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_LOG = BLOCKS.register("runewood_log", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG.get()));
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD = BLOCKS.register("stripped_runewood", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD.get()));
-    
+
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_SLAB = BLOCKS.register("runewood_planks_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("runewood_planks_stairs", () -> new StairsBlock(RUNEWOOD_PLANKS.get().getDefaultState(), RUNEWOOD_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> VERTICAL_RUNEWOOD_PLANKS = BLOCKS.register("vertical_runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> VERTICAL_RUNEWOOD_PLANKS_SLAB = BLOCKS.register("vertical_runewood_planks_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> VERTICAL_RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("vertical_runewood_planks_stairs", () -> new StairsBlock(VERTICAL_RUNEWOOD_PLANKS.get().getDefaultState(), RUNEWOOD_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> BOLTED_RUNEWOOD_PLANKS = BLOCKS.register("bolted_runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> BOLTED_RUNEWOOD_PLANKS_SLAB = BLOCKS.register("bolted_runewood_planks_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> BOLTED_RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("bolted_runewood_planks_stairs", () -> new StairsBlock(RUNEWOOD_PLANKS.get().getDefaultState(), RUNEWOOD_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> RUNEWOOD_PANEL = BLOCKS.register("runewood_panel", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PANEL_SLAB = BLOCKS.register("runewood_panel_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PANEL_STAIRS = BLOCKS.register("runewood_panel_stairs", () -> new StairsBlock(RUNEWOOD_PANEL.get().getDefaultState(), RUNEWOOD_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> RUNEWOOD_TILES = BLOCKS.register("runewood_tiles", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_TILES_SLAB = BLOCKS.register("runewood_tiles_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_TILES_STAIRS = BLOCKS.register("runewood_tiles_stairs", () -> new StairsBlock(RUNEWOOD_TILES.get().getDefaultState(), RUNEWOOD_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> CUT_RUNEWOOD_PLANKS = BLOCKS.register("cut_runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_BEAM = BLOCKS.register("runewood_beam", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> BOLTED_RUNEWOOD_BEAM = BLOCKS.register("bolted_runewood_beam", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> RUNEWOOD_DOOR = BLOCKS.register("runewood_door", () -> new DoorBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> RUNEWOOD_TRAPDOOR = BLOCKS.register("runewood_trapdoor", () -> new TrapDoorBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SOLID_RUNEWOOD_TRAPDOOR = BLOCKS.register("solid_runewood_trapdoor", () -> new TrapDoorBlock(RUNEWOOD_PROPERTIES().notSolid()));
-    
+
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_BUTTON = BLOCKS.register("runewood_planks_button", () -> new WoodButtonBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_PRESSURE_PLATE = BLOCKS.register("runewood_planks_pressure_plate", () -> new PressurePlateBlock(EVERYTHING, RUNEWOOD_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_FENCE = BLOCKS.register("runewood_planks_fence", () -> new FenceBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_FENCE_GATE = BLOCKS.register("runewood_planks_fence_gate", () -> new FenceGateBlock(RUNEWOOD_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> ORANGE_ETHER_TORCH = BLOCKS.register("orange_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.ORANGE));
     public static final RegistryObject<Block> MAGENTA_ETHER_TORCH = BLOCKS.register("magenta_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.MAGENTA));
     public static final RegistryObject<Block> LIGHT_BLUE_ETHER_TORCH = BLOCKS.register("light_blue_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIGHT_BLUE));
@@ -262,7 +326,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> BROWN_ETHER_TORCH = BLOCKS.register("brown_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BROWN));
     public static final RegistryObject<Block> GREEN_ETHER_TORCH = BLOCKS.register("green_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.GREEN));
     public static final RegistryObject<Block> RED_ETHER_TORCH = BLOCKS.register("red_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.RED));
-    
+
     public static final RegistryObject<Block> ORANGE_WALL_ETHER_TORCH = BLOCKS.register("orange_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(ORANGE_ETHER_TORCH.get()), MalumConstants.ORANGE));
     public static final RegistryObject<Block> MAGENTA_WALL_ETHER_TORCH = BLOCKS.register("magenta_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(MAGENTA_ETHER_TORCH.get()), MalumConstants.MAGENTA));
     public static final RegistryObject<Block> LIGHT_BLUE_WALL_ETHER_TORCH = BLOCKS.register("light_blue_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(LIGHT_BLUE_ETHER_TORCH.get()), MalumConstants.LIGHT_BLUE));
@@ -275,7 +339,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> BROWN_WALL_ETHER_TORCH = BLOCKS.register("brown_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(BROWN_ETHER_TORCH.get()), MalumConstants.BROWN));
     public static final RegistryObject<Block> GREEN_WALL_ETHER_TORCH = BLOCKS.register("green_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(GREEN_ETHER_TORCH.get()), MalumConstants.GREEN));
     public static final RegistryObject<Block> RED_WALL_ETHER_TORCH = BLOCKS.register("red_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(RED_ETHER_TORCH.get()), MalumConstants.RED));
-    
+
     public static final RegistryObject<Block> ORANGE_ETHER = BLOCKS.register("orange_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.ORANGE));
     public static final RegistryObject<Block> MAGENTA_ETHER = BLOCKS.register("magenta_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.MAGENTA));
     public static final RegistryObject<Block> LIGHT_BLUE_ETHER = BLOCKS.register("light_blue_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.LIGHT_BLUE));
@@ -288,7 +352,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> BROWN_ETHER = BLOCKS.register("brown_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.BROWN));
     public static final RegistryObject<Block> GREEN_ETHER = BLOCKS.register("green_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.GREEN));
     public static final RegistryObject<Block> RED_ETHER = BLOCKS.register("red_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.RED));
-    
+
     public static final RegistryObject<Block> ORANGE_ETHER_BRAZIER = BLOCKS.register("orange_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.ORANGE));
     public static final RegistryObject<Block> MAGENTA_ETHER_BRAZIER = BLOCKS.register("magenta_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.MAGENTA));
     public static final RegistryObject<Block> LIGHT_BLUE_ETHER_BRAZIER = BLOCKS.register("light_blue_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.LIGHT_BLUE));
@@ -301,16 +365,16 @@ public class MalumBlocks
     public static final RegistryObject<Block> BROWN_ETHER_BRAZIER = BLOCKS.register("brown_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.BROWN));
     public static final RegistryObject<Block> GREEN_ETHER_BRAZIER = BLOCKS.register("green_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.GREEN));
     public static final RegistryObject<Block> RED_ETHER_BRAZIER = BLOCKS.register("red_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.RED));
-    
+
     //endregion
-    
+
     public static final RegistryObject<Block> SUN_KISSED_GRASS_BLOCK = BLOCKS.register("sun_kissed_grass_block", () -> new GrassBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES()));
     public static final RegistryObject<Block> TALL_SUN_KISSED_GRASS = BLOCKS.register("tall_sun_kissed_grass", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
     public static final RegistryObject<Block> SHORT_SUN_KISSED_GRASS = BLOCKS.register("short_sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
-    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new SaplingBlock(new RunewoodTree(), SUN_KISSED_PLANTS_PROPERTIES()));
+    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new RunewoodSaplingBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(163, 72, 11), new Color(255, 198, 82)));
-    
+
     public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
     //endregion
     public static final RegistryObject<Block> POLISHED_BONE_BLOCK = BLOCKS.register("polished_bone_block", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
@@ -321,7 +385,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> CRACKED_BONE_BRICKS = BLOCKS.register("cracked_bone_bricks", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BONE_TILE = BLOCKS.register("bone_tile", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> CARVED_BONE_TILE = BLOCKS.register("carved_bone_tile", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    
+
     public static final RegistryObject<Block> BONE_TILES_SLAB = BLOCKS.register("bone_tiles_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BONE_TILES_STAIRS = BLOCKS.register("bone_tiles_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> CRACKED_BONE_TILES_SLAB = BLOCKS.register("cracked_bone_tiles_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
@@ -332,13 +396,13 @@ public class MalumBlocks
     public static final RegistryObject<Block> CRACKED_BONE_BRICKS_STAIRS = BLOCKS.register("cracked_bone_bricks_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BONE_TILE_SLAB = BLOCKS.register("bone_tile_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BONE_TILE_STAIRS = BLOCKS.register("bone_tile_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    
+
     public static final RegistryObject<Block> BONE_TILES_WALL = BLOCKS.register("bone_tiles_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> CRACKED_BONE_TILES_WALL = BLOCKS.register("cracked_bone_tiles_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BONE_BRICKS_WALL = BLOCKS.register("bone_bricks_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> CRACKED_BONE_BRICKS_WALL = BLOCKS.register("cracked_bone_bricks_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
     public static final RegistryObject<Block> BONE_TILE_WALL = BLOCKS.register("bone_tile_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    
+
     //region contents
     public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES().tickRandomly()));
 
@@ -351,19 +415,19 @@ public class MalumBlocks
 
 
     public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> HALLOWED_GOLD_BLOCK = BLOCKS.register("hallowed_gold_block", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
     public static final RegistryObject<Block> SOUL_STAINED_STEEL_BLOCK = BLOCKS.register("soul_stained_steel_block", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
-    
+
     public static final RegistryObject<Block> WITHER_SAND = BLOCKS.register("wither_sand", () -> new WitherSandBlock(AbstractBlock.Properties.from(Blocks.SOUL_SAND).harvestTool(ToolType.SHOVEL)));
     //endregion
-    
+
     //region crafting blocks
     //    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
     //
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(HALLOWED_GOLD_PROPERTIES().notSolid()));
-    
+
     public static final RegistryObject<Block> TOTEM_CORE = BLOCKS.register("totem_core", () -> new TotemCoreBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(RUNEWOOD_LOG.get())));
 
@@ -374,7 +438,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> IMPERVIOUS_ROCK = BLOCKS.register("impervious_rock", () -> new ImperviousRockBlock(TWISTED_ROCK_PROPERTIES().hardnessAndResistance(1.25f, 3600000.0F)));
     public static final RegistryObject<Block> WILD_FARMLAND = BLOCKS.register("wild_farmland", () -> new WildFarmlandBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES().notSolid().tickRandomly()));
     //endregion
-    
+
     public static int light(BlockState state, int strength)
     {
         if (ModList.get().isLoaded("hypcore"))

@@ -1,16 +1,10 @@
 package com.sammy.malum.common.book.categories;
 
 import com.sammy.malum.common.book.entries.BookEntry;
-import com.sammy.malum.common.book.pages.CraftingPage;
-import com.sammy.malum.common.book.pages.HeadlineTextPage;
-import com.sammy.malum.common.book.pages.ItemListPage;
-import com.sammy.malum.common.book.pages.SpiritInfusionPage;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
-import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
-import static com.sammy.malum.core.init.MalumItems.*;
+import static com.sammy.malum.core.init.items.MalumItems.*;
 
 public class TinkeringCategory extends BookCategory
 {

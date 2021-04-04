@@ -1,7 +1,7 @@
 package com.sammy.malum.common.blocks.totems;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
@@ -20,12 +20,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
 import java.util.ArrayList;
-
-import static net.minecraft.particles.ParticleTypes.SMOKE;
 
 public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {

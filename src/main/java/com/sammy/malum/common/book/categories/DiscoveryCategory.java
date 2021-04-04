@@ -2,12 +2,12 @@ package com.sammy.malum.common.book.categories;
 
 import com.sammy.malum.common.book.entries.BookEntry;
 import com.sammy.malum.common.book.pages.*;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
-import static com.sammy.malum.core.init.MalumItems.*;
+import static com.sammy.malum.core.init.items.MalumItems.*;
 
 public class DiscoveryCategory extends BookCategory
 {

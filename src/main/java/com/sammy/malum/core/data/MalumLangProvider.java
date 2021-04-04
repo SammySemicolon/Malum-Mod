@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.init.MalumItems.ITEMS;
+import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 
@@ -220,6 +220,7 @@ public class MalumLangProvider extends LanguageProvider
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_building_blocks", "Malum Building Blocks");
         add("itemGroup.malum_spirits", "Malum Spirits");
+        add("itemGroup.malum_natural_wonders", "Malum Natural Wonders");
     }
 
     @Override

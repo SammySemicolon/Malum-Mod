@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
-import static com.sammy.malum.core.init.MalumItems.*;
+import static com.sammy.malum.core.init.items.MalumItems.*;
 
 public class DarkArtsCategory extends BookCategory
 {

@@ -1,20 +1,14 @@
 package com.sammy.malum.common.items.food;
 
 import com.sammy.malum.common.items.equipment.curios.CurioRingOfFeeding;
-import com.sammy.malum.core.init.MalumItems;
-import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.HoneyBottleItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import top.theillusivec4.curios.api.CuriosApi;
-
-import static net.minecraftforge.eventbus.api.Event.Result.DENY;
 
 public class VoidBerriesItem extends Item
 {

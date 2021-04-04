@@ -1,7 +1,7 @@
 package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.common.items.SpiritSplinterItem;
-import com.sammy.malum.core.init.MalumItems;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.spirits.CountPredicate;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.entity.CreatureAttribute;

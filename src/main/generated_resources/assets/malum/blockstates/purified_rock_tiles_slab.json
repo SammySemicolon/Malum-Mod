@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "malum:block/purified_rock_tiles_slab_top"
+    },
+    "type=bottom": {
+      "model": "malum:block/purified_rock_tiles_slab"
+    },
+    "type=double": {
+      "model": "malum:block/purified_rock_tiles"
+    }
+  }
+}
