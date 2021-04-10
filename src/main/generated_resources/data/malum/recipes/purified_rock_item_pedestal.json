@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "YYY",
+    " X ",
+    "YYY"
+  ],
+  "key": {
+    "X": {
+      "item": "malum:purified_rock"
+    },
+    "Y": {
+      "item": "malum:purified_rock_slab"
+    }
+  },
+  "result": {
+    "item": "malum:purified_rock_item_pedestal"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:eroded_rock"
+  },
+  "result": "malum:eroded_rock_column_cap",
+  "count": 1
+}

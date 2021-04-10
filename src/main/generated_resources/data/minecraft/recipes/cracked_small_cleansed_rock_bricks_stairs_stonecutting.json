@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "malum:cracked_small_cleansed_rock_bricks"
+  },
+  "result": "malum:cracked_small_cleansed_rock_bricks_stairs",
+  "count": 1
+}

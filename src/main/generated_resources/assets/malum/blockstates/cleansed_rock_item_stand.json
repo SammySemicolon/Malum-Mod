@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "malum:block/cleansed_rock_item_stand",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "malum:block/cleansed_rock_item_stand"
+    },
+    "facing=north": {
+      "model": "malum:block/cleansed_rock_item_stand",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "malum:block/cleansed_rock_item_stand",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "malum:block/cleansed_rock_item_stand",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "malum:block/cleansed_rock_item_stand",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

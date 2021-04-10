@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:eroded_rock_pillar_cap_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_eroded_rock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:eroded_rock"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:eroded_rock_pillar_cap_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_eroded_rock",
+      "has_the_recipe"
+    ]
+  ]
+}

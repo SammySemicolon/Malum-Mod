@@ -8,6 +8,7 @@ import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.init.worldgen.MalumStaticFeatures;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
@@ -47,9 +48,13 @@ public class Events
     @SubscribeEvent
     public static void addFeatures(BiomeLoadingEvent event)
     {
-        if (event.getCategory().equals(Biome.Category.PLAINS) || event.getCategory().equals(Biome.Category.FOREST))
+        if (event.getCategory().equals(Biome.Category.PLAINS))
         {
-           // event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.SUN_SPOT);
+            event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.CONFIGURED_RUNEWOOD_TREE);
+        }
+        if (event.getCategory().equals(Biome.Category.FOREST))
+        {
+            event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.RARE_CONFIGURED_RUNEWOOD_TREE);
         }
         if (event.getCategory().equals(Biome.Category.NETHER))
         {

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "malum:cleansed_rock"
+  },
+  "result": "malum:smooth_cleansed_rock",
+  "experience": 0.1,
+  "cookingtime": 200
+}

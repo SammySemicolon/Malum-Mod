@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "malum:block/eroded_rock_column_cap",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "malum:block/eroded_rock_column_cap"
+    },
+    "facing=north": {
+      "model": "malum:block/eroded_rock_column_cap",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "malum:block/eroded_rock_column_cap",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "malum:block/eroded_rock_column_cap",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "malum:block/eroded_rock_column_cap",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

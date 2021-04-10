@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "$",
+    "#"
+  ],
+  "key": {
+    "$": {
+      "item": "malum:eroded_rock_pillar"
+    },
+    "#": {
+      "item": "malum:eroded_rock"
+    }
+  },
+  "result": {
+    "item": "malum:eroded_rock_pillar_cap"
+  }
+}

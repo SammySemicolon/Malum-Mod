@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "malum:block/cracked_cleansed_rock_bricks"
+  }
+}

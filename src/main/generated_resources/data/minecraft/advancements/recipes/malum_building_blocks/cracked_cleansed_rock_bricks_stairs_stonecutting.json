@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:cracked_cleansed_rock_bricks_stairs_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_cracked_cleansed_rock_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:cracked_cleansed_rock_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:cracked_cleansed_rock_bricks_stairs_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cracked_cleansed_rock_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

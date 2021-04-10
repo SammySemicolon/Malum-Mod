@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "malum:block/eroded_rock_pressure_plate_up"
+    },
+    "powered=true": {
+      "model": "malum:block/eroded_rock_pressure_plate_down"
+    }
+  }
+}

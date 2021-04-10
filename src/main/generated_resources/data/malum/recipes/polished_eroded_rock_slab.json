@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:polished_eroded_rock"
+    }
+  },
+  "result": {
+    "item": "malum:polished_eroded_rock_slab",
+    "count": 6
+  }
+}
