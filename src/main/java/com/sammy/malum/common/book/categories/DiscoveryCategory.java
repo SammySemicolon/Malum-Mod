@@ -21,7 +21,6 @@ public class DiscoveryCategory extends BookCategory
 
     public static BookEntry basicsOfMagic;
     public static BookEntry runewoodTrees;
-    public static BookEntry arcaneCharcoal;
     public static BookEntry solarSap;
     public static BookEntry blazingQuartz;
     public static BookEntry grimslate;
@@ -30,9 +29,8 @@ public class DiscoveryCategory extends BookCategory
     public static BookEntry taintedRock;
     public static BookEntry twistedRock;
     public static BookEntry ether;
-    public static BookEntry workingWithAshes;
-    public static BookEntry bringingForthLife;
-    public static BookEntry spiritTransmutation;
+    public static BookEntry hexAsh;
+    public static BookEntry spiritArchitecture;
 
     public DiscoveryCategory()
     {
@@ -62,26 +60,16 @@ public class DiscoveryCategory extends BookCategory
 
         runewoodTrees = new BookEntry(RUNEWOOD_SAPLING.get(), "runewood")
                 .addPage(new HeadlineTextPage("runewood_trees"))
-                .addPage(new TextPage("runewood_trees_2"))
-                .addPage(new HeadlineTextPage("runewood_architecture"))
-                .addPage(new ItemListPage(RUNEWOOD_PLANKS.get(), VERTICAL_RUNEWOOD_PLANKS.get(), BOLTED_RUNEWOOD_PLANKS.get(), RUNEWOOD_PANEL.get(), RUNEWOOD_TILES.get())
-                                 .addList(RUNEWOOD_PLANKS_SLAB.get(), VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), BOLTED_RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PANEL_SLAB.get(), RUNEWOOD_TILES_SLAB.get())
-                                 .addList(RUNEWOOD_PLANKS_STAIRS.get(), VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), RUNEWOOD_PANEL_STAIRS.get(), RUNEWOOD_TILES_STAIRS.get())
-                                 .addList(CUT_RUNEWOOD_PLANKS.get(), RUNEWOOD_BEAM.get(), BOLTED_RUNEWOOD_BEAM.get()))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_LOG, 16), new ItemStack(RUNEWOOD_LOG.get(), 16), new ItemStack(EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_PLANKS, 64), new ItemStack(RUNEWOOD_PLANKS.get(), 64), new ItemStack(EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_SAPLING, 4), new ItemStack(RUNEWOOD_SAPLING.get(), 4), new ItemStack(EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.DIRT, 32), new ItemStack(SUN_KISSED_GRASS_BLOCK.get(), 32), new ItemStack(EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_LEAVES, 32), new ItemStack(SUN_KISSED_LEAVES.get(), 32), new ItemStack(EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get())));
-
-        arcaneCharcoal = new BookEntry(ARCANE_CHARCOAL.get(), "arcane_charcoal")
-                .addPage(new HeadlineTextPage("arcane_charcoal"))
                 .addPage(new SmeltingPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
-                .addLink(runewoodTrees);
+                .addPage(new ItemListPage(RUNEWOOD_PLANKS.get(), VERTICAL_RUNEWOOD_PLANKS.get(), BOLTED_RUNEWOOD_PLANKS.get(), RUNEWOOD_PANEL.get(), RUNEWOOD_TILES.get())
+                            .addList(RUNEWOOD_PLANKS_SLAB.get(), VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), BOLTED_RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PANEL_SLAB.get(), RUNEWOOD_TILES_SLAB.get())
+                            .addList(RUNEWOOD_PLANKS_STAIRS.get(), VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), RUNEWOOD_PANEL_STAIRS.get(), RUNEWOOD_TILES_STAIRS.get())
+                            .addList(CUT_RUNEWOOD_PLANKS.get(), RUNEWOOD_BEAM.get(), BOLTED_RUNEWOOD_BEAM.get()))
+                .addPage(new CraftingPage(new ItemStack(RUNEWOOD_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
+                .addPage(new CraftingPage(RUNEWOOD_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()));
 
         solarSap = new BookEntry(SOLAR_SAP_BOTTLE.get(), "solar_sap")
                 .addPage(new HeadlineTextPage("solar_sap"))
-                .addPage(new TextPage("solar_sap_2"))
                 .addPage(new SmeltingPage(SOLAR_SAP_BOTTLE.get(), SOLAR_SYRUP_BOTTLE.get()))
                 .addPage(new CraftingPage(new ItemStack(SOLAR_SAPBALL.get(),3), SOLAR_SAP_BOTTLE.get(), Items.SLIME_BALL))
                 .addLink(runewoodTrees);
@@ -110,159 +98,71 @@ public class DiscoveryCategory extends BookCategory
 
         taintedRock = new BookEntry(TAINTED_ROCK.get(), "tainted_rock")
                 .addPage(new HeadlineTextPage("tainted_rock"))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.COBBLESTONE, 16), new ItemStack(TAINTED_ROCK.get(),16), new ItemStack(LIFE_SPIRIT_SPLINTER.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get())))
+                .addPage(new SpiritInfusionPage(TAINTED_ROCK.get()))
                 .addPage(new HeadlineTextPage("tainted_rock_architecture"))
                 .addPage(new ItemListPage(TAINTED_ROCK.get(), SMOOTH_TAINTED_ROCK.get(), POLISHED_TAINTED_ROCK.get(), TAINTED_ROCK_BRICKS.get(), TAINTED_ROCK_TILES.get())
                         .addList(TAINTED_ROCK_SLAB.get(), SMOOTH_TAINTED_ROCK_SLAB.get(), POLISHED_TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_BRICKS_SLAB.get(), TAINTED_ROCK_TILES_SLAB.get())
                         .addList(TAINTED_ROCK_STAIRS.get(), SMOOTH_TAINTED_ROCK_STAIRS.get(), POLISHED_TAINTED_ROCK_STAIRS.get(), TAINTED_ROCK_BRICKS_STAIRS.get(), TAINTED_ROCK_TILES_STAIRS.get())
                         .addList(TAINTED_ROCK_PILLAR.get(), TAINTED_ROCK_PILLAR_CAP.get(), TAINTED_ROCK_COLUMN.get(), TAINTED_ROCK_COLUMN_CAP.get())
-                        .addList(CUT_TAINTED_ROCK.get(), CHISELED_TAINTED_ROCK.get())
-                        .addList(TAINTED_ROCK_ITEM_STAND.get(), TAINTED_ROCK_ITEM_PEDESTAL.get()))
+                        .addList(CUT_TAINTED_ROCK.get(), CHISELED_TAINTED_ROCK.get()))
                 .addPage(new CraftingPage(new ItemStack(TAINTED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get()))
                 .addPage(new CraftingPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get()))
-
                 .addLink(lifeSpirit).addLink(magicSpirit);
 
         twistedRock = new BookEntry(TWISTED_ROCK.get(), "twisted_rock")
                 .addPage(new HeadlineTextPage("twisted_rock"))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.COBBLESTONE, 16), new ItemStack(TWISTED_ROCK.get(),16), new ItemStack(DEATH_SPIRIT_SPLINTER.get()), new ItemStack(MAGIC_SPIRIT_SPLINTER.get())))
+                .addPage(new SpiritInfusionPage(TWISTED_ROCK.get()))
                 .addPage(new HeadlineTextPage("twisted_rock_architecture"))
                 .addPage(new ItemListPage(TWISTED_ROCK.get(), SMOOTH_TWISTED_ROCK.get(), POLISHED_TWISTED_ROCK.get(), TWISTED_ROCK_BRICKS.get(), TWISTED_ROCK_TILES.get())
                         .addList(TWISTED_ROCK_SLAB.get(), SMOOTH_TWISTED_ROCK_SLAB.get(), POLISHED_TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_BRICKS_SLAB.get(), TWISTED_ROCK_TILES_SLAB.get())
                         .addList(TWISTED_ROCK_STAIRS.get(), SMOOTH_TWISTED_ROCK_STAIRS.get(), POLISHED_TWISTED_ROCK_STAIRS.get(), TWISTED_ROCK_BRICKS_STAIRS.get(), TWISTED_ROCK_TILES_STAIRS.get())
                         .addList(TWISTED_ROCK_PILLAR.get(), TWISTED_ROCK_PILLAR_CAP.get(), TWISTED_ROCK_COLUMN.get(), TWISTED_ROCK_COLUMN_CAP.get())
-                        .addList(CUT_TWISTED_ROCK.get(), CHISELED_TWISTED_ROCK.get())
-                        .addList(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK_ITEM_PEDESTAL.get()))
+                        .addList(CUT_TWISTED_ROCK.get(), CHISELED_TWISTED_ROCK.get()))
                 .addPage(new CraftingPage(new ItemStack(TWISTED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get()))
                 .addPage(new CraftingPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get()))
 
                 .addLink(deathSpirit).addLink(magicSpirit);
 
-        ether = new BookEntry(ORANGE_ETHER.get(), "ether")
+        ether = new BookEntry(YELLOW_ETHER.get(), "ether")
                 .addPage(new HeadlineTextPage("ether"))
-                .addPage(new SpiritInfusionPage(PINK_ETHER.get()))
-                .addPage(new CraftingPage(new ItemStack(ORANGE_ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, ORANGE_ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
-                .addPage(new CraftingPage(new ItemStack(ORANGE_ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ORANGE_ETHER.get(), TAINTED_ROCK.get(), Items.STICK, TAINTED_ROCK.get(), Items.STICK))
+                .addPage(new SpiritInfusionPage(YELLOW_ETHER.get()))
+                .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, ORANGE_ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
+                .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ORANGE_ETHER.get(), TAINTED_ROCK.get(), Items.STICK, TAINTED_ROCK.get(), Items.STICK))
                 .addLink(fireSpirit);
 
-        workingWithAshes = new BookEntry(Items.GUNPOWDER, "working_with_ashes")
-                .addPage(new HeadlineTextPage("working_with_ashes"))
-                .addPage(new SpiritInfusionPage(Items.GUNPOWDER))
-                .addPage(new SpiritInfusionPage(Items.BLAZE_POWDER))
-                .addPage(new SpiritInfusionPage(Items.GHAST_TEAR))
-                .addPage(new SpiritInfusionPage(Items.CHARCOAL))
+        hexAsh = new BookEntry(HEX_ASH.get(), "hex_ash")
+                .addPage(new HeadlineTextPage("hex_ash"))
+                .addPage(new SpiritInfusionPage(HEX_ASH.get()))
                 .addLink(spiritInfusion);
 
-        bringingForthLife = new BookEntry(Items.DIRT, "bringing_forth_life")
-                .addPage(new HeadlineTextPage("bringing_forth_life"))
-                .addPage(new SpiritInfusionPage(Items.LEATHER))
-                .addPage(new SpiritInfusionPage(Items.RABBIT_HIDE))
-                .addPage(new SpiritInfusionPage(Items.CLAY))
-                .addPage(new SpiritInfusionPage(Items.SAND))
-                .addPage(new SpiritInfusionPage(Items.GRAVEL))
-                .addPage(new SpiritInfusionPage(Items.SLIME_BALL))
-                .addLink(spiritInfusion);
+        spiritArchitecture = new BookEntry(ERODED_ROCK.get(), "spirit_architecture")
+                .addPage(new HeadlineTextPage("spirit_architecture"))
+                .addPage(new SpiritInfusionPage(CLEANSED_ROCK.get()))
+                .addPage(new ItemListPage(CLEANSED_ROCK.get(), SMOOTH_CLEANSED_ROCK.get(), POLISHED_CLEANSED_ROCK.get(), CLEANSED_ROCK_BRICKS.get(), CLEANSED_ROCK_TILES.get())
+                        .addList(CLEANSED_ROCK_SLAB.get(), SMOOTH_CLEANSED_ROCK_SLAB.get(), POLISHED_CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_BRICKS_SLAB.get(), CLEANSED_ROCK_TILES_SLAB.get())
+                        .addList(CLEANSED_ROCK_STAIRS.get(), SMOOTH_CLEANSED_ROCK_STAIRS.get(), POLISHED_CLEANSED_ROCK_STAIRS.get(), CLEANSED_ROCK_BRICKS_STAIRS.get(), CLEANSED_ROCK_TILES_STAIRS.get())
+                        .addList(CLEANSED_ROCK_PILLAR.get(), CLEANSED_ROCK_PILLAR_CAP.get(), CLEANSED_ROCK_COLUMN.get(), CLEANSED_ROCK_COLUMN_CAP.get())
+                        .addList(CUT_CLEANSED_ROCK.get(), CHISELED_CLEANSED_ROCK.get()))
+                .addPage(new CraftingPage(new ItemStack(CLEANSED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK.get()))
+                .addPage(new CraftingPage(CLEANSED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK.get()))
+                .addPage(new SpiritInfusionPage(PURIFIED_ROCK.get()))
+                .addPage(new ItemListPage(PURIFIED_ROCK.get(), SMOOTH_PURIFIED_ROCK.get(), POLISHED_PURIFIED_ROCK.get(), PURIFIED_ROCK_BRICKS.get(), PURIFIED_ROCK_TILES.get())
+                        .addList(PURIFIED_ROCK_SLAB.get(), SMOOTH_PURIFIED_ROCK_SLAB.get(), POLISHED_PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_BRICKS_SLAB.get(), PURIFIED_ROCK_TILES_SLAB.get())
+                        .addList(PURIFIED_ROCK_STAIRS.get(), SMOOTH_PURIFIED_ROCK_STAIRS.get(), POLISHED_PURIFIED_ROCK_STAIRS.get(), PURIFIED_ROCK_BRICKS_STAIRS.get(), PURIFIED_ROCK_TILES_STAIRS.get())
+                        .addList(PURIFIED_ROCK_PILLAR.get(), PURIFIED_ROCK_PILLAR_CAP.get(), PURIFIED_ROCK_COLUMN.get(), PURIFIED_ROCK_COLUMN_CAP.get())
+                        .addList(CUT_PURIFIED_ROCK.get(), CHISELED_PURIFIED_ROCK.get()))
+                        .addPage(new CraftingPage(new ItemStack(PURIFIED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get()))
+                .addPage(new CraftingPage(PURIFIED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get()))
+                .addPage(new SpiritInfusionPage(ERODED_ROCK.get()))
+                .addPage(new ItemListPage(ERODED_ROCK.get(), SMOOTH_ERODED_ROCK.get(), POLISHED_ERODED_ROCK.get(), ERODED_ROCK_BRICKS.get(), ERODED_ROCK_TILES.get())
+                        .addList(ERODED_ROCK_SLAB.get(), SMOOTH_ERODED_ROCK_SLAB.get(), POLISHED_ERODED_ROCK_SLAB.get(), ERODED_ROCK_BRICKS_SLAB.get(), ERODED_ROCK_TILES_SLAB.get())
+                        .addList(ERODED_ROCK_STAIRS.get(), SMOOTH_ERODED_ROCK_STAIRS.get(), POLISHED_ERODED_ROCK_STAIRS.get(), ERODED_ROCK_BRICKS_STAIRS.get(), ERODED_ROCK_TILES_STAIRS.get())
+                        .addList(ERODED_ROCK_PILLAR.get(), ERODED_ROCK_PILLAR_CAP.get(), ERODED_ROCK_COLUMN.get(), ERODED_ROCK_COLUMN_CAP.get())
+                        .addList(CUT_ERODED_ROCK.get(), CHISELED_ERODED_ROCK.get()))
+                .addPage(new CraftingPage(new ItemStack(ERODED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK.get(), ERODED_ROCK.get(), ERODED_ROCK.get()))
+                .addPage(new CraftingPage(ERODED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK.get(), ERODED_ROCK.get(), ERODED_ROCK.get()))
+                .addLink(magicSpirit);
 
-        spiritTransmutation = new BookEntry(Items.DIAMOND, "spirit_transmutation")
-                .addPage(new HeadlineTextPage("spirit_transmutation"))
-                .addPage(new SpiritInfusionPage(GRIMSLATE_PLATING.get()))
-                .addPage(new SpiritInfusionPage(BLAZING_QUARTZ.get()))
-                .addPage(new SpiritInfusionPage(Items.QUARTZ))
-                .addPage(new SpiritInfusionPage(Items.EMERALD))
-                .addPage(new SpiritInfusionPage(Items.DIAMOND))
-                .addPage(new SpiritInfusionPage(Items.GOLD_INGOT))
-                .addPage(new SpiritInfusionPage(Items.IRON_INGOT))
-                .addLink(spiritInfusion);
-//
-//        workingWithAshes = new BookEntry(Items.GUNPOWDER, "working_with_ashes")
-//                .addPage(new HeadlineTextPage("arcane_utilities"))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.DIAMOND, 1), new ItemStack(GRIMSLATE_PLATING.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 4), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 4), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 2)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.QUARTZ,  8), new ItemStack(BLAZING_QUARTZ.get(), 8), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 1), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 4), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 2)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.ROTTEN_FLESH, 2), new ItemStack(Items.LEATHER), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 1), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 1)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.LEATHER, 2), new ItemStack(Items.RABBIT_HIDE), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 2)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.DIRT, 4), new ItemStack(Items.CLAY, 4), new ItemStack(WATER_SPIRIT_SPLINTER.get(), 2)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.GRAVEL, 16), new ItemStack(Items.FLINT), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 2)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.REDSTONE, 16), new ItemStack(Items.GLOWSTONE_DUST, 16), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 1)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.REDSTONE, 16), new ItemStack(Items.GUNPOWDER, 4), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 1), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 2), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 1)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.GUNPOWDER, 2), new ItemStack(Items.BLAZE_POWDER, 1), new ItemStack(FIRE_SPIRIT_SPLINTER.get(), 2)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.GUNPOWDER, 4), new ItemStack(Items.GHAST_TEAR, 1), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 4), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 2), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 1), new ItemStack(WATER_SPIRIT_SPLINTER.get(), 4), new ItemStack(ELDRITCH_SPIRIT_SPLINTER.get(), 1)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.GUNPOWDER, 2), new ItemStack(Items.SLIME_BALL, 1), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 4), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 4), new ItemStack(WATER_SPIRIT_SPLINTER.get(), 8)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.IRON_INGOT, 2), new ItemStack(Items.GOLD_INGOT, 2), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 1)))
-//                .addPage(new SpiritInfusionPage(new ItemStack(Items.GOLD_INGOT, 2), new ItemStack(Items.IRON_INGOT, 2), new ItemStack(DEATH_SPIRIT_SPLINTER.get(), 1)))
-//
-//                .addLink(spiritInfusion);
-        /*
-        arcaneFuels = new BookEntry(MalumItems.ARCANE_CHARCOAL.get(), "arcane_fuels")
-                .addPage(new HeadlineTextPage("arcane_charcoal"))
-                .addPage(new SmeltingPage(MalumItems.RUNEWOOD_LOG.get(), MalumItems.ARCANE_CHARCOAL.get()))
-                .addPage(new HeadlineTextPage("blaze_quartz"))
-                .addLink(runewood);
-
-        solarSap = new BookEntry(MalumItems.SOLAR_SAP_BOTTLE.get(), "solar_sap")
-                .addPage(new HeadlineTextPage("solar_sap"))
-                .addPage(new TextPage("solar_sap_again"))
-                .addPage(new HeadlineTextPage("solar_syrup"))
-                .addPage(new SmeltingPage(MalumItems.SOLAR_SAP_BOTTLE.get(), MalumItems.SOLAR_SYRUP_BOTTLE.get()))
-                .addPage(new HeadlineTextPage("solar_sapball"))
-                .addPage(new CraftingPage(new ItemStack(MalumItems.SOLAR_SAPBALL.get(),3), MalumItems.SOLAR_SAP_BOTTLE.get(), Items.SLIME_BALL))
-                .addLink(runewood);
-
-        unholyBlend = new BookEntry(MalumItems.UNHOLY_BLEND.get(), "unholy_blend")
-                .addPage(new HeadlineTextPage("unholy_blend"))
-                .addPage(new TextPage("unholy_blend_again"))
-                .addPage(new CraftingPage(MalumItems.UNHOLY_BLEND.get(), Items.REDSTONE, Items.ROTTEN_FLESH, Items.SOUL_SAND))
-                .addPage(new SmeltingPage(MalumItems.UNHOLY_BLEND.get(), MalumItems.ARCANE_GRIT.get()))
-                .addLink(magicalBasics);
-
-        soulGem = new BookEntry(MalumItems.SOUL_GEM.get(), "soul_gem")
-                .addPage(new HeadlineTextPage("soul_gem"))
-                .addPage(new CraftingPage(MalumItems.SOUL_GEM.get(), EMPTY, MalumItems.ARCANE_GRIT.get(), EMPTY, MalumItems.ARCANE_GRIT.get(), Items.DIAMOND, MalumItems.ARCANE_GRIT.get(), EMPTY, MalumItems.ARCANE_GRIT.get(), EMPTY))
-                .addLink(unholyBlend);
-
-        spiritBasics = new BookEntry(MalumItems.CRUDE_SCYTHE.get(), "spirit_basics")
-                .addPage(new HeadlineTextPage("spirit_basics"))
-                .addPage(new TextPage("spirit_basics_part_two"))
-                .addPage(new TextPage("spirit_basics_part_three"))
-                .addPage(new HeadlineTextPage("spirit_harvesting"))
-                .addPage(new TextPage("spirit_harvesting_part_two"))
-                .addPage(new TextPage("spirit_harvesting_part_three"))
-                .addPage(new CraftingPage(MalumItems.CRUDE_SCYTHE.get(), Items.IRON_INGOT, Items.IRON_INGOT, MalumItems.SOUL_GEM.get(), EMPTY, Items.STICK, Items.IRON_INGOT, Items.STICK));
-
-        spiritAltar = new BookEntry(MalumItems.SPIRIT_ALTAR.get(), "spirit_altar")
-                .addPage(new HeadlineTextPage("spirit_altar"))
-                .addPage(new CraftingPage(MalumItems.SPIRIT_ALTAR.get(), EMPTY, MalumItems.SOUL_GEM.get(), EMPTY, Items.GOLD_INGOT, MalumItems.RUNEWOOD_PLANKS.get(), Items.GOLD_INGOT, MalumItems.RUNEWOOD_PLANKS.get(), MalumItems.RUNEWOOD_PLANKS.get(), MalumItems.RUNEWOOD_PLANKS.get()));
-
-        taintedRock = new BookEntry(MalumItems.TAINTED_ROCK.get(), "tainted_rock")
-                .addPage(new HeadlineTextPage("tainted_rock"))
-                .addPage(new TextPage("tainted_rock_again"))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.COBBLESTONE, 16), new ItemStack(MalumItems.TAINTED_ROCK.get(),16), new ItemStack(MalumItems.LIFE_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new HeadlineTextPage("tainted_rock_architecture"))
-                .addPage(new ItemListPage(MalumItems.TAINTED_ROCK.get(), MalumItems.SMOOTH_TAINTED_ROCK.get(), MalumItems.POLISHED_TAINTED_ROCK.get(), MalumItems.TAINTED_ROCK_BRICKS.get(), MalumItems.TAINTED_ROCK_TILES.get())
-                        .addList(MalumItems.TAINTED_ROCK_SLAB.get(), MalumItems.SMOOTH_TAINTED_ROCK_SLAB.get(), MalumItems.POLISHED_TAINTED_ROCK_SLAB.get(), MalumItems.TAINTED_ROCK_BRICKS_SLAB.get(), MalumItems.TAINTED_ROCK_TILES_SLAB.get())
-                        .addList(MalumItems.TAINTED_ROCK_STAIRS.get(), MalumItems.SMOOTH_TAINTED_ROCK_STAIRS.get(), MalumItems.POLISHED_TAINTED_ROCK_STAIRS.get(), MalumItems.TAINTED_ROCK_BRICKS_STAIRS.get(), MalumItems.TAINTED_ROCK_TILES_STAIRS.get())
-                        .addList(MalumItems.TAINTED_ROCK_PILLAR.get(), MalumItems.TAINTED_ROCK_PILLAR_CAP.get(), MalumItems.TAINTED_ROCK_COLUMN.get(), MalumItems.TAINTED_ROCK_COLUMN_CAP.get())
-                        .addList(MalumItems.CUT_TAINTED_ROCK.get(), MalumItems.CHISELED_TAINTED_ROCK.get()));
-
-        twistedRock = new BookEntry(MalumItems.TWISTED_ROCK.get(), "twisted_rock")
-                .addPage(new HeadlineTextPage("twisted_rock"))
-                .addPage(new TextPage("twisted_rock_again"))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.COBBLESTONE, 16), new ItemStack(MalumItems.TWISTED_ROCK.get(),16), new ItemStack(MalumItems.DEATH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new HeadlineTextPage("twisted_rock_architecture"))
-                .addPage(new ItemListPage(MalumItems.TWISTED_ROCK.get(), MalumItems.SMOOTH_TWISTED_ROCK.get(), MalumItems.POLISHED_TWISTED_ROCK.get(), MalumItems.TWISTED_ROCK_BRICKS.get(), MalumItems.TWISTED_ROCK_TILES.get())
-                        .addList(MalumItems.TWISTED_ROCK_SLAB.get(), MalumItems.SMOOTH_TWISTED_ROCK_SLAB.get(), MalumItems.POLISHED_TWISTED_ROCK_SLAB.get(), MalumItems.TWISTED_ROCK_BRICKS_SLAB.get(), MalumItems.TWISTED_ROCK_TILES_SLAB.get())
-                        .addList(MalumItems.TWISTED_ROCK_STAIRS.get(), MalumItems.SMOOTH_TWISTED_ROCK_STAIRS.get(), MalumItems.POLISHED_TWISTED_ROCK_STAIRS.get(), MalumItems.TWISTED_ROCK_BRICKS_STAIRS.get(), MalumItems.TWISTED_ROCK_TILES_STAIRS.get())
-                        .addList(MalumItems.TWISTED_ROCK_PILLAR.get(), MalumItems.TWISTED_ROCK_PILLAR_CAP.get(), MalumItems.TWISTED_ROCK_COLUMN.get(), MalumItems.TWISTED_ROCK_COLUMN_CAP.get())
-                        .addList(MalumItems.CUT_TWISTED_ROCK.get(), MalumItems.CHISELED_TWISTED_ROCK.get()));
-
-        runewoodInfusion = new BookEntry(MalumItems.RUNEWOOD_PLANKS.get(), "runewood_infusion")
-                .addPage(new HeadlineTextPage("runewood_infusion"))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_LOG, 16), new ItemStack(MalumItems.RUNEWOOD_LOG.get(), 16), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_PLANKS, 64), new ItemStack(MalumItems.RUNEWOOD_PLANKS.get(), 64), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_SAPLING, 4), new ItemStack(MalumItems.RUNEWOOD_SAPLING.get(), 4), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.DIRT, 32), new ItemStack(MalumItems.SUN_KISSED_GRASS_BLOCK.get(), 32), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
-                .addPage(new SpiritInfusionPage(new ItemStack(Items.OAK_LEAVES, 32), new ItemStack(MalumItems.SUN_KISSED_LEAVES.get(), 32), new ItemStack(MalumItems.EARTH_SPIRIT_SPLINTER.get()), new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get())))
-                .addLink(lifeSpirit).addLink(deathSpirit).addLink(magicSpirit).addLink(earthSpirit);
-*/
-        addEntries(basicsOfMagic, runewoodTrees, arcaneCharcoal, solarSap, blazingQuartz, grimslate, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, workingWithAshes, bringingForthLife, spiritTransmutation, lifeSpirit, deathSpirit, magicSpirit, earthSpirit, fireSpirit, airSpirit, waterSpirit, eldritchSpirit);
+        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, grimslate, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, hexAsh, spiritArchitecture, lifeSpirit, deathSpirit, magicSpirit, earthSpirit, fireSpirit, airSpirit, waterSpirit, eldritchSpirit);
     }
 }

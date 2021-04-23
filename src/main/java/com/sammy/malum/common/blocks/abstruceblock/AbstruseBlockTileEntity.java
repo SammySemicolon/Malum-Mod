@@ -1,21 +1,17 @@
 package com.sammy.malum.common.blocks.abstruceblock;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.awt.*;
 
@@ -61,11 +57,11 @@ public class AbstruseBlockTileEntity extends SimpleTileEntity implements ITickab
         if (owner != null)
         {
             owner.playSound(MalumSounds.ABSTRUSE_BLOCK_RETURNS, 1, world.rand.nextFloat() * 1.5f);
-            ItemHandlerHelper.giveItemToPlayer(owner, new ItemStack(MalumItems.ABSTRUSE_BLOCK.get()));
+//            ItemHandlerHelper.giveItemToPlayer(owner, new ItemStack(MalumItems.ABSTRUSE_BLOCK.get()));
         }
         else
         {
-            world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(MalumItems.ABSTRUSE_BLOCK.get())));
+//            world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(MalumItems.ABSTRUSE_BLOCK.get())));
         }
         super.remove();
     }

@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 
 import static com.sammy.malum.common.book.BookScreen.drawWrappingText;
-import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class HeadlineTextPage extends BookPage
@@ -28,10 +27,10 @@ public class HeadlineTextPage extends BookPage
         super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         
-        int width = 101;
-        int height = 16;
-        int posX = position.first+12;
-        int posY = position.second + 7;
+        int width = 124;
+        int height = 24;
+        int posX = position.first;
+        int posY = position.second;
         if (screen.isHovering(mouseX, mouseY, posX,posY,width,height))
         {
             if (hover < 20)
@@ -46,11 +45,11 @@ public class HeadlineTextPage extends BookPage
         float brightness = hover / 20f;
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(stack, posX,posY, 104, 193, 101, 16, 512, 512);
+        blit(stack, posX,posY, 53, 193, 128, 24, 512, 512);
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headline);
-        screen.renderPurpleText(stack, component, posX + width/2 - minecraft.fontRenderer.getStringWidth(component.getString())/2, posY-8+ height/2, brightness);
+        screen.renderPurpleText(stack, component, posX + width/2 - minecraft.fontRenderer.getStringWidth(component.getString())/2, posY-2+ height/2, brightness);
     
-        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+4, posY + 17, 124, brightness);
+        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), posX+4, posY+ height/2 + 16, 120, brightness);
         
     }
 }

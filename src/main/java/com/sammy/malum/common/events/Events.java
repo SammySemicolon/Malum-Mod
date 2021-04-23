@@ -5,9 +5,9 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.equipment.poppets.PoppetItem;
 import com.sammy.malum.common.items.equipment.poppets.PoppetOfUndying;
 import com.sammy.malum.core.init.MalumDamageSources;
-import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.init.worldgen.MalumStaticFeatures;
 import com.sammy.malum.core.systems.inventory.ItemInventory;
@@ -29,7 +29,9 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDestroyBlockEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,6 +47,7 @@ import static com.sammy.malum.network.NetworkManager.INSTANCE;
 @Mod.EventBusSubscriber
 public class Events
 {
+
     @SubscribeEvent
     public static void addFeatures(BiomeLoadingEvent event)
     {
@@ -80,37 +83,7 @@ public class Events
             }
         }
     }
-    
-    @SubscribeEvent
-    public static void tyrvingHurt(LivingHurtEvent event)
-    {
-        if (event.getSource().equals(MalumDamageSources.VOODOO))
-        {
-            return;
-        }
-        if (event.getSource().getTrueSource() instanceof PlayerEntity)
-        {
-            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
-            if (playerEntity.swingingHand != null)
-            {
-                ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
-                if (stack.getItem().equals(MalumItems.TYRVING.get()))
-                {
-                    LivingEntity entity = event.getEntityLiving();
-                    float amount = (event.getAmount() / 8) * (8 + entity.getTotalArmorValue());
-                    event.setAmount(event.getAmount() / 2);
-                    event.getEntity().hurtResistantTime = 0;
-                    SpiritHelper.causeVoodooDamage(playerEntity, event.getEntityLiving(), amount / 2f);
-                    playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_CRUSH, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
-                    if (playerEntity.world instanceof ServerWorld)
-                    {
-                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(event::getEntityLiving), new ParticlePacket(0, entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ()));
-                    }
-                }
-            }
-        }
-    }
-    
+
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event)
     {
@@ -204,6 +177,32 @@ public class Events
                     }
                     cast(p.getFirst()).effect(p.getFirst(), event, world, playerEntity, target, p.getSecond());
                 });
+            }
+        }
+
+        if (event.getSource().equals(MalumDamageSources.VOODOO))
+        {
+            return;
+        }
+        if (event.getSource().getTrueSource() instanceof PlayerEntity)
+        {
+            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();
+            if (playerEntity.swingingHand != null)
+            {
+                ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
+                if (stack.getItem().equals(MalumItems.TYRVING.get()))
+                {
+                    LivingEntity entity = event.getEntityLiving();
+                    float amount = (event.getAmount() / 8) * (8 + entity.getTotalArmorValue());
+                    event.setAmount(event.getAmount() / 2);
+                    event.getEntity().hurtResistantTime = 0;
+                    SpiritHelper.causeVoodooDamage(playerEntity, event.getEntityLiving(), amount / 2f);
+                    playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_CRUSH, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
+                    if (playerEntity.world instanceof ServerWorld)
+                    {
+                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(event::getEntityLiving), new ParticlePacket(0, entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ()));
+                    }
+                }
             }
         }
     }

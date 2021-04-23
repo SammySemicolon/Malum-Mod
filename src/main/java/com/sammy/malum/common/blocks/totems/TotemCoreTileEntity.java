@@ -1,24 +1,16 @@
 package com.sammy.malum.common.blocks.totems;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
-import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumRites;
 import com.sammy.malum.core.modcontent.MalumRites.MalumRite;
-import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import com.sammy.malum.core.systems.totems.rites.IPoppetBlessing;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
 import java.awt.*;
@@ -140,7 +132,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
                     totemPoleTileEntity.activate();
                 }
             }
-            if (rite instanceof IPoppetBlessing)
+            /*if (rite instanceof IPoppetBlessing)
             {
                 world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos).grow(3)).forEach(e -> {
                     if (e.getItem().getItem().equals(MalumItems.POPPET.get()))
@@ -168,7 +160,7 @@ public class TotemCoreTileEntity extends SimpleTileEntity implements ITickableTi
             
                     }
                 });
-            }
+            }*/
             if (rite.isInstant)
             {
                 rite.effect(pos, world);

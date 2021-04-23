@@ -50,11 +50,6 @@
     "malum:vertical_runewood_planks_slab",
     "malum:bolted_runewood_planks_slab",
     "malum:runewood_panel_slab",
-    "malum:runewood_tiles_slab",
-    "malum:bone_tiles_slab",
-    "malum:cracked_bone_tiles_slab",
-    "malum:bone_bricks_slab",
-    "malum:cracked_bone_bricks_slab",
-    "malum:bone_tile_slab"
+    "malum:runewood_tiles_slab"
   ]
 }

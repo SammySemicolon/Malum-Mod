@@ -4,7 +4,6 @@ import com.ibm.icu.impl.Pair;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.common.book.BookScreen;
-import com.sammy.malum.common.book.objects.BookObject;
 import com.sammy.malum.common.book.objects.EntryObject;
 
 import static com.sammy.malum.common.book.BookScreen.drawWrappingText;
@@ -22,6 +21,6 @@ public class TextPage extends BookPage
     {
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         
-        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+4, position.second+7, 124, 0);
+        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+4, position.second+7, 120, 0);
     }
 }

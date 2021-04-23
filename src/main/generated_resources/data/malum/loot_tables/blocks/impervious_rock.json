@@ -6,12 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:impervious_rock"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          "name": "minecraft:air"
         }
       ]
     }

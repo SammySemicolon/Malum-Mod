@@ -25,40 +25,40 @@ public class MalumSpiritTypes
 {
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
 
-    public static final Color LIFE_SPIRIT_COLOR = new Color(243, 28, 60);
+    public static final Color LIFE_SPIRIT_COLOR = new Color(234, 73, 95);
     public static MalumSpiritType LIFE_SPIRIT;
 
-    public static final Color DEATH_SPIRIT_COLOR = new Color(121, 7, 71);
+    public static final Color DEATH_SPIRIT_COLOR = new Color(127, 34, 84);
     public static MalumSpiritType DEATH_SPIRIT;
 
-    public static final Color MAGIC_SPIRIT_COLOR = new Color(221, 18, 243);
+    public static final Color MAGIC_SPIRIT_COLOR = new Color(218, 68, 231);
     public static  MalumSpiritType MAGIC_SPIRIT;
 
-    public static final Color AIR_SPIRIT_COLOR = new Color(20, 234, 160);
+    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(72, 31, 118);
+    public static MalumSpiritType ELDRITCH_SPIRIT;
+
+    public static final Color AIR_SPIRIT_COLOR = new Color(51, 229, 155);
     public static  MalumSpiritType AIR_SPIRIT;
 
-    public static final Color WATER_SPIRIT_COLOR = new Color(17, 134, 236);
+    public static final Color WATER_SPIRIT_COLOR = new Color(37, 77, 147);
     public static  MalumSpiritType WATER_SPIRIT;
 
-    public static final Color FIRE_SPIRIT_COLOR = new Color(238, 108, 18);
+    public static final Color FIRE_SPIRIT_COLOR = new Color(210, 134, 39);
     public static  MalumSpiritType FIRE_SPIRIT;
 
-    public static final Color EARTH_SPIRIT_COLOR = new Color(103, 224, 16);
+    public static final Color EARTH_SPIRIT_COLOR = new Color(98, 180, 40);
     public static  MalumSpiritType EARTH_SPIRIT;
-
-    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(95, 18, 224);
-    public static MalumSpiritType ELDRITCH_SPIRIT;
 
     public static void init()
     {
         LIFE_SPIRIT = create("life", MalumSpiritTypes::isLife, LIFE_SPIRIT_COLOR, MalumItems.LIFE_SPIRIT_SPLINTER);
         DEATH_SPIRIT = create("death", MalumSpiritTypes::isDeath, DEATH_SPIRIT_COLOR, MalumItems.DEATH_SPIRIT_SPLINTER);
         MAGIC_SPIRIT = create("magic", MalumSpiritTypes::isMagic, MAGIC_SPIRIT_COLOR, MalumItems.MAGIC_SPIRIT_SPLINTER);
+        ELDRITCH_SPIRIT = create("eldritch", MalumSpiritTypes::isEldritch, ELDRITCH_SPIRIT_COLOR, MalumItems.ELDRITCH_SPIRIT_SPLINTER);
         AIR_SPIRIT = create("air", MalumSpiritTypes::isAir, AIR_SPIRIT_COLOR, MalumItems.AIR_SPIRIT_SPLINTER);
         WATER_SPIRIT = create("water", MalumSpiritTypes::isWater, WATER_SPIRIT_COLOR, MalumItems.WATER_SPIRIT_SPLINTER);
         FIRE_SPIRIT = create("fire", MalumSpiritTypes::isFire, FIRE_SPIRIT_COLOR, MalumItems.FIRE_SPIRIT_SPLINTER);
         EARTH_SPIRIT = create("earth", MalumSpiritTypes::isEarth, EARTH_SPIRIT_COLOR, MalumItems.EARTH_SPIRIT_SPLINTER);
-        ELDRITCH_SPIRIT = create("eldritch", MalumSpiritTypes::isEldritch, ELDRITCH_SPIRIT_COLOR, MalumItems.ELDRITCH_SPIRIT_SPLINTER);
     }
 
     public static MalumSpiritType create(String identifier, CountPredicate countPredicate, Color color, RegistryObject<Item> splinterItem)

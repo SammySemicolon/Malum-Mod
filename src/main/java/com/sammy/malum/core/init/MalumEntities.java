@@ -2,12 +2,11 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entities.PlayerSoulEntity;
-import com.sammy.malum.common.entities.ScytheBoomerangEntity;
-import com.sammy.malum.common.entities.SpiritSplinterItemEntity;
+import com.sammy.malum.common.entities.spirit.PlayerSoulEntity;
+import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.entities.spirit.SpiritSplinterItemEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

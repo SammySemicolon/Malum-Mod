@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column_horizontal",
-  "textures": {
-    "side": "malum:block/bone_beam",
-    "end": "malum:block/bone_beam_top"
-  }
-}

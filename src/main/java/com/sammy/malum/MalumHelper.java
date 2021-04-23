@@ -1,9 +1,5 @@
 package com.sammy.malum;
 
-import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
-import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.systems.particles.data.MalumParticleData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -13,21 +9,17 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.Property;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -38,8 +30,8 @@ import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -295,17 +287,21 @@ public class MalumHelper
         double z = vector2f.z * distance;
         return pos.add(x, 0, z);
     }
-    
+
     public static Vector3d rotatedCirclePosition(Vector3d pos, float distance, float current, float total, long gameTime, float time)
+    {
+        return rotatedCirclePosition(pos, distance, distance, current, total, gameTime, time);
+    }
+    public static Vector3d rotatedCirclePosition(Vector3d pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time)
     {
         double angle = current / total * (Math.PI * 2);
         angle += ((gameTime % time) / time) * (Math.PI * 2);
-        double dx2 = (distance * Math.cos(angle));
-        double dz2 = (distance * Math.sin(angle));
+        double dx2 = (distanceX * Math.cos(angle));
+        double dz2 = (distanceZ * Math.sin(angle));
         
         Vector3d vector2f = new Vector3d(dx2, 0, dz2);
-        double x = vector2f.x * distance;
-        double z = vector2f.z * distance;
+        double x = vector2f.x * distanceX;
+        double z = vector2f.z * distanceZ;
         return pos.add(x, 0, z);
     }
     

@@ -6,8 +6,6 @@ import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.categories.BookCategory;
 import net.minecraft.client.Minecraft;
 
-import java.util.function.Predicate;
-
 import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
@@ -46,7 +44,7 @@ public class CategoryObject extends BookObject
             screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(category.translationKey), mouseX, mouseY);
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX,posY, 41, 211, 24, 24, 512, 512);
+        blit(matrixStack, posX,posY, 1, 193, 24, 24, 512, 512);
         Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(category.iconStack, posX + 4, posY + 4);
         
     }

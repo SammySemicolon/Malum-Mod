@@ -27,6 +27,9 @@ public class MalumParticles
     public static RegistryObject<WispParticleType>
             SPARKLE_PARTICLE = PARTICLES.register("sparkle_particle", WispParticleType::new);
 
+    public static RegistryObject<WispParticleType>
+            CIRCLE_PARTICLE = PARTICLES.register("circle_particle", WispParticleType::new);
+
     public static RegistryObject<SpiritFlameParticleType>
             SPIRIT_FLAME = PARTICLES.register("spirit_flame", SpiritFlameParticleType::new);
     
@@ -36,6 +39,7 @@ public class MalumParticles
         Minecraft.getInstance().particles.registerFactory(WISP_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particles.registerFactory(SMOKE_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particles.registerFactory(SPARKLE_PARTICLE.get(), WispParticleType.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(CIRCLE_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particles.registerFactory(SPIRIT_FLAME.get(), SpiritFlameParticleType.Factory::new);
     }
 }

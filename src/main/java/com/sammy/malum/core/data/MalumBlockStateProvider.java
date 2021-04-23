@@ -110,7 +110,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String glow = name + "_glow";
-        ModelFile farmland = models().withExistingParent(name, prefix("block/template_glowing_block")).texture("all", prefix("block/" + name)).texture("glow", prefix("block/" + glow));
+        ModelFile farmland = models().withExistingParent(name, prefix("block/template_glowing_block")).texture("all", prefix("block/" + name)).texture("particle", prefix("block/" + name)).texture("glow", prefix("block/" + glow));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(farmland).build());
     }
     public void rotatedBlock(RegistryObject<Block> blockRegistryObject)
@@ -373,7 +373,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     
     public void sapFilledBlock(RegistryObject<Block> blockRegistryObject)
     {
-        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/sap_filled_runewood_log"), prefix("block/runewood_log_top"));
+        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/sap_filled_runewood_log"), prefix("block/stripped_runewood_log_top"));
     }
     public void woodBlock(RegistryObject<Block> blockRegistryObject)
     {

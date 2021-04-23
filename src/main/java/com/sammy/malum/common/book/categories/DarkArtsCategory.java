@@ -1,14 +1,10 @@
 package com.sammy.malum.common.book.categories;
 
 import com.sammy.malum.common.book.entries.BookEntry;
-import com.sammy.malum.common.book.pages.*;
-import com.sammy.malum.core.modcontent.MalumRites;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
-import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
-import static com.sammy.malum.core.init.items.MalumItems.*;
+import static com.sammy.malum.core.init.items.MalumItems.POPPET;
 
 public class DarkArtsCategory extends BookCategory
 {
@@ -32,7 +28,7 @@ public class DarkArtsCategory extends BookCategory
     {
         super(POPPET.get().getDefaultInstance(), "dark_arts");
         Item EMPTY = Items.BARRIER;
-    
+    /*
         voodooMagic = new BookEntry(POPPET.get(), "voodoo_magic")
                 .addPage(new HeadlineTextPage("voodoo_magic"))
                 .addPage(new SpiritInfusionPage(new ItemStack(Items.HAY_BLOCK), new ItemStack(POPPET.get()), new ItemStack(LIFE_SPIRIT_SPLINTER.get(), 3), new ItemStack(MAGIC_SPIRIT_SPLINTER.get(), 3), new ItemStack(EARTH_SPIRIT_SPLINTER.get(), 3)))
@@ -130,5 +126,7 @@ public class DarkArtsCategory extends BookCategory
                 .addLink(totemMagic).addLink(lifeSpirit).addLink(waterSpirit);
     
         addEntries(voodooMagic, offensivePoppets, defensivePoppets, poppetOfUndying, totemMagic, poppetBlessings, riteOfLife, riteOfDeath, riteOfMagic, riteOfEarth, riteOfFire, riteOfAir, riteOfWater, riteOfGrowth, riteOfDrought, riteOfRain);
+        */
     }
+
 }

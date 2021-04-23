@@ -32,10 +32,10 @@ public class EntryObject extends BookObject
         matrixStack.push();
         float brightness = hover / 20f;
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX, posY, 1, 193, 101, 16, 512, 512);
-        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 2, posY);
+        blit(matrixStack, posX, posY, 183, 193, 128, 24, 512, 512);
+        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 4, posY + 4);
         matrixStack.translate(brightness*2,0,0);
-        screen.renderPurpleText(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey), posX + 20, posY + 3, brightness);
+        screen.renderPurpleText(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey), posX + 26, posY-4+ height/2, brightness);
         matrixStack.pop();
     }
 }

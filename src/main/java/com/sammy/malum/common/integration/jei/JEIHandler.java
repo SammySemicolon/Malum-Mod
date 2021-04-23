@@ -36,7 +36,7 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), RiteRecipeCategory.UID);
+        //registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), RiteRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_ALTAR.get()), SpiritAltarRecipeCategory.UID);
     }
     @Nonnull

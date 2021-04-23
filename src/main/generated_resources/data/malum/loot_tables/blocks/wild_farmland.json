@@ -6,12 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:wild_farmland"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          "name": "minecraft:air"
         }
       ]
     }

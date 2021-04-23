@@ -1,7 +1,7 @@
 package com.sammy.malum.common.items.tools.scythes;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.entities.ScytheBoomerangEntity;
+import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.items.tools.ModSwordItem;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
@@ -11,7 +11,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;

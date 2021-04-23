@@ -6,8 +6,6 @@ import com.sammy.malum.common.book.BookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 
-import java.util.function.Predicate;
-
 import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
@@ -31,9 +29,9 @@ public class HeadlineObject extends BookObject
     {
         float brightness = hover / 20f;
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX,posY, 104, 193, 101, 16, 512, 512);
+        blit(matrixStack, posX,posY, 53, 193, 128, 24, 512, 512);
         ITextComponent component = ClientHelper.simpleTranslatableComponent(text);
-        screen.renderPurpleText(matrixStack, component, posX + width/2 - minecraft.fontRenderer.getStringWidth(component.getString())/2, posY-8+ height/2, brightness);
+        screen.renderPurpleText(matrixStack, component, posX + width/2 - minecraft.fontRenderer.getStringWidth(component.getString())/2, posY-2+ height/2, brightness);
     
         super.draw(minecraft, matrixStack, mouseX, mouseY, partialTicks);
     }

@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 
 public class ImperviousRockBlock extends Block
@@ -12,7 +13,13 @@ public class ImperviousRockBlock extends Block
     {
         super(properties);
     }
-    
+
+    @Override
+    public float getExplosionResistance(BlockState state, IBlockReader world, BlockPos pos, Explosion explosion)
+    {
+        return 1000000;
+    }
+
     @Override
     public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity)
     {

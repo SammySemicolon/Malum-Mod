@@ -51,6 +51,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     
     public int soundCooldown;
     public int progress;
+    public boolean spedUp;
     public int spinUp;
     public float spin;
     public SimpleInventory inventory;
@@ -68,6 +69,10 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         {
             compound.putInt("spinUp", spinUp);
         }
+        if (spedUp)
+        {
+            compound.putByte("spedUp", (byte) 0);
+        }
         
         inventory.writeData(compound);
         spiritInventory.writeData(compound, "spiritInventory");
@@ -79,6 +84,10 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     {
         progress = compound.getInt("progress");
         spinUp = compound.getInt("spinUp");
+        if (compound.contains("spedUp"))
+        {
+            spedUp = true;
+        }
         inventory.readData(compound);
         spiritInventory.readData(compound, "spiritInventory");
         recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
@@ -99,13 +108,15 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 world.playSound(null, pos, MalumSounds.ALTAR_LOOP, SoundCategory.BLOCKS,1,1f);
                 soundCooldown = 180;
             }
-            if (spinUp < 10)
+            int spinCap = spedUp ? 30 : 10;
+            if (spinUp < spinCap)
             {
                 spinUp++;
             }
             ItemStack stack = inventory.getStackInSlot(0);
             progress++;
-            if (progress >= 60)
+            int progressCap = spedUp ? 20 : 60;
+            if (progress >= progressCap)
             {
                 Vector3d itemPos = itemPos(this);
                 for (MalumSpiritIngredient ingredient : recipe.spiritIngredients)
@@ -174,6 +185,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             {
                 spinUp--;
             }
+            spedUp = false;
         }
         if (MalumHelper.areWeOnClient(world))
         {
@@ -194,7 +206,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
 
                     ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
                             .setAlpha(0.2f, 0f)
-                            .setLifetime(10)
+                            .setLifetime(10 - Math.max(0, spinUp-10)/4)
                             .setScale(0.3f, 0)
                             .setColor(color.brighter(), color.darker())
                             .enableNoClip()
@@ -202,7 +214,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
 
                     ParticleManager.create(MalumParticles.WISP_PARTICLE)
                             .setAlpha(0.2f, 0f)
-                            .setLifetime(80)
+                            .setLifetime(80 - Math.max(0, spinUp-10)*2)
                             .setSpin(0.1f)
                             .setScale(0.2f, 0)
                             .setColor(color, color.darker())
@@ -246,8 +258,8 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     }
     public static Vector3d itemOffset(SpiritAltarTileEntity tileEntity, int slot)
     {
-        float distance = 1 - tileEntity.spinUp / 40f + (float)Math.sin(tileEntity.spin/20f)*0.025f;
-        float height = 0.75f + tileEntity.spinUp / 20f;
+        float distance = 1 - Math.min(0.25f, tileEntity.spinUp / 40f) + (float)Math.sin(tileEntity.spin/20f)*0.025f;
+        float height = 0.75f + Math.min(0.5f, tileEntity.spinUp / 20f);
         return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,height,0.5f), distance,slot, tileEntity.spiritInventory.nonEmptyItems(), (long)tileEntity.spin,360);
     }
 }

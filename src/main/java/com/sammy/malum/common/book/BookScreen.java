@@ -4,9 +4,9 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.book.categories.BookCategory;
-import com.sammy.malum.common.book.objects.*;
 import com.sammy.malum.common.book.entries.BookEntry;
 import com.sammy.malum.common.book.entries.BookEntryGrouping;
+import com.sammy.malum.common.book.objects.*;
 import com.sammy.malum.common.book.pages.BookPage;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.modcontent.MalumBookCategories;
@@ -49,12 +49,12 @@ public class BookScreen extends Screen
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         
-        int posX = guiLeft + 12;
+        int posX = guiLeft + 13;
         int posY = guiTop + 143;
         BackArrowObject backArrowObject = new BackArrowObject(posX, posY, 18, 18);
         objects.add(backArrowObject);
         
-        posX = guiLeft + 262;
+        posX = guiLeft + 261;
         NextArrowObject nextArrowObject = new NextArrowObject(posX, posY, 18, 18);
         objects.add(nextArrowObject);
         ArrayList<BookObject> lastObjects = new ArrayList<>();
@@ -68,9 +68,9 @@ public class BookScreen extends Screen
             {
                 firstCategory = categoryObject;
             }
-            posX = guiLeft + 23;
-            posY = guiTop + 15;
-            HeadlineObject categoryNameObject = (HeadlineObject) new HeadlineObject(category.translationKey, posX, posY, 101, 16).addSpecialPredicate((s) -> currentObject.equals(categoryObject) && currentGrouping == 0);
+            posX = guiLeft + 11;
+            posY = guiTop + 8;
+            HeadlineObject categoryNameObject = (HeadlineObject) new HeadlineObject(category.translationKey, posX, posY, 128, 24).addSpecialPredicate((s) -> currentObject.equals(categoryObject) && currentGrouping == 0);
             objects.add(categoryNameObject);
             for (int j = 0; j < category.groupings.size(); j++)
             {
@@ -78,7 +78,7 @@ public class BookScreen extends Screen
                 for (int k = 0; k < grouping.entries.size(); k++)
                 {
                     BookEntry entry = grouping.entries.get(k);
-                    posX = guiLeft + 23;
+                    posX = guiLeft + 11;
                     posY = guiTop + 15 + (k * 25);
                     int skipRequirement = 4;
                     if (grouping.isFirst)
@@ -88,12 +88,12 @@ public class BookScreen extends Screen
                     }
                     if (k > skipRequirement)
                     {
-                        posX += 145;
+                        posX = guiLeft + 153;
                         posY -= 125;
                     }
                     
                     int finalJ = j;
-                    EntryObject entryObject = (EntryObject) new EntryObject(posX, posY, 101, 16, categoryObject, entry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(categoryObject) && s.currentGrouping == finalJ);
+                    EntryObject entryObject = (EntryObject) new EntryObject(posX, posY, 128, 24, categoryObject, entry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(categoryObject) && s.currentGrouping == finalJ);
                     objects.add(entryObject);
                     for (int l = 0; l < entry.links.size(); l++)
                     {
@@ -151,6 +151,7 @@ public class BookScreen extends Screen
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         blit(matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
+
         if (currentObject instanceof EntryObject)
         {
             EntryObject entryObject = (EntryObject) currentObject;

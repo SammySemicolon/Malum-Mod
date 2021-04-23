@@ -12,12 +12,12 @@ public class MalumBuildingTab extends ItemGroup
     public static final MalumBuildingTab INSTANCE = new MalumBuildingTab();
     
     public MalumBuildingTab() {
-        super(MalumMod.MODID + "_building_blocks");
+        super(MalumMod.MODID + "_shaped_stones");
     }
     
     @Nonnull
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(MalumItems.RUNEWOOD_PLANKS.get());
+        return new ItemStack(MalumItems.TAINTED_ROCK.get());
     }
 }

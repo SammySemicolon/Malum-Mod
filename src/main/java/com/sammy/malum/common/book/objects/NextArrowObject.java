@@ -4,8 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.common.book.BookScreen;
 import net.minecraft.client.Minecraft;
 
-import java.util.function.Predicate;
-
 import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
@@ -22,11 +20,11 @@ public class NextArrowObject extends BookObject
         if (isHovering)
         {
             minecraft.getTextureManager().bindTexture(screen.texture());
-            blit(matrixStack, posX, posY, 21, 231, 18, 18, 512, 512);
+            blit(matrixStack, posX, posY, 21, 239, 18, 18, 512, 512);
             return;
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX, posY, 21, 211, 18, 18, 512, 512);
+        blit(matrixStack, posX, posY, 21, 219, 18, 18, 512, 512);
     }
     
     @Override

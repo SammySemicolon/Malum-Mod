@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "side": "malum:block/sap_filled_runewood_log",
-    "end": "malum:block/runewood_log_top"
+    "end": "malum:block/stripped_runewood_log_top"
   }
 }

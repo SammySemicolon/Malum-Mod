@@ -7,16 +7,15 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.objects.EntryObject;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Vector3d;
 
-import java.util.ArrayList;
+import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class SpiritInfusionPage extends BookPage
 {
-    public final ItemStack inputStack;
-    public final ItemStack outputStack;
-    public final ArrayList<ItemStack> spirits;
+    public final MalumSpiritAltarRecipes.MalumSpiritAltarRecipe recipe;
 
     public SpiritInfusionPage(Item outputStack)
     {
@@ -32,20 +31,10 @@ public class SpiritInfusionPage extends BookPage
         if (finalRecipe == null)
         {
             MalumMod.LOGGER.info("this ain't good");
-            throw new NullPointerException();
+            //throw new NullPointerException();
+            finalRecipe = MalumSpiritAltarRecipes.RECIPES.get(0);
         }
-        this.inputStack = finalRecipe.inputIngredient.getItemAlt();
-        this.outputStack = finalRecipe.outputIngredient.getItemAlt();
-        ArrayList<ItemStack> spirits = new ArrayList<>();
-        finalRecipe.spiritIngredients.forEach(s -> spirits.add(s.getItem()));
-        this.spirits = spirits;
-        BACKGROUND = MalumHelper.prefix("textures/gui/pages/infusion.png");
-    }
-    public SpiritInfusionPage(ItemStack inputStack, ItemStack outputStack, ItemStack... spirits)
-    {
-        this.inputStack = inputStack;
-        this.outputStack = outputStack;
-        this.spirits = MalumHelper.toArrayList(spirits);
+        this.recipe = finalRecipe;
         BACKGROUND = MalumHelper.prefix("textures/gui/pages/infusion.png");
     }
     
@@ -54,17 +43,33 @@ public class SpiritInfusionPage extends BookPage
     {
         super.draw(stack, object, screen, mouseX, mouseY, guiLeft, guiTop, isSecondPage);
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
-        
+        Minecraft minecraft = Minecraft.getInstance();
         int posX = position.first;
         int posY = position.second;
-        
-        ArrayList<Pair<Integer, Integer>> offsets = MalumHelper.toArrayList(Pair.of(56, 20), Pair.of(56, 72), Pair.of(30, 46), Pair.of(82, 46), Pair.of(34, 24), Pair.of(78, 68), Pair.of(78, 24), Pair.of(34, 69));
-        for (int i = 0; i < spirits.size(); i++)
+        float shortDistance = 5.2f;
+        float longDistance = 7f;
+        int inputX = posX + 56;
+        int inputY = posY + 42;
+
+        for (int i = 0; i < recipe.extraItemIngredients.size(); i++)
         {
-            Pair<Integer, Integer> offset = offsets.get(i);
-            screen.drawItem(stack, spirits.get(i), posX + offset.first, posY + offset.second, mouseX, mouseY);
+            Vector3d itemOffset = itemOffset(shortDistance, i, recipe.extraItemIngredients.size());
+            minecraft.getTextureManager().bindTexture(BACKGROUND);
+            blit(stack, inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, 131, 1, 16, 16, 512, 512);
+            screen.drawItem(stack, recipe.extraItemIngredients.get(i).getItem(), inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, mouseX, mouseY);
         }
-        screen.drawItem(stack, inputStack, posX + 56, posY + 46, mouseX, mouseY);
-        screen.drawItem(stack, outputStack, posX + 56, posY + 113, mouseX, mouseY);
+        for (int i = 0; i < recipe.spiritIngredients.size(); i++)
+        {
+            Vector3d itemOffset = itemOffset(recipe.extraItemIngredients.size() > 1 ? longDistance :  shortDistance, i,recipe.spiritIngredients.size());
+            minecraft.getTextureManager().bindTexture(BACKGROUND);
+            blit(stack, inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, 131, 1, 16, 16, 512, 512);
+            screen.drawItem(stack, recipe.spiritIngredients.get(i).getItem(), inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, mouseX, mouseY);
+        }
+        screen.drawItem(stack, recipe.inputIngredient.getItemAlt(), inputX, inputY, mouseX, mouseY);
+        screen.drawItem(stack, recipe.outputIngredient.getItemAlt(), posX + 56, posY + 109, mouseX, mouseY);
+    }
+    public static Vector3d itemOffset(float distance, int slot, int maxSlots)
+    {
+        return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,0,0.5f), distance, distance * 0.9f,slot, maxSlots, maxSlots == 1 ? 12 : 0, 16);
     }
 }

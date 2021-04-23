@@ -1,8 +1,8 @@
 package com.sammy.malum.common.blocks;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import net.minecraft.block.BlockState;
@@ -46,7 +46,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock
             ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(MalumItems.SOLAR_SAP_BOTTLE.get()));
             if (worldIn.rand.nextBoolean())
             {
-                MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, MalumBlocks.RUNEWOOD_LOG.get().getDefaultState(), 3);
+                MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, MalumBlocks.STRIPPED_RUNEWOOD_LOG.get().getDefaultState(), 3);
             }
             particles(worldIn,pos,8);
             return ActionResultType.SUCCESS;
@@ -57,9 +57,9 @@ public class SapFilledLogBlock extends RotatedPillarBlock
     {
         if (MalumHelper.areWeOnClient(worldIn))
         {
-            Color color = new Color(227, 154, 45);
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.5f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).randomVelocity(0f, 0.01f).enableNoClip().evenlyRepeatEdges(worldIn, pos, (int) (1 * countMultiplier));
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.1f, 0f).setLifetime(80).setScale(0.4f, 0).setColor(color, color.darker()).randomVelocity(0.0025f, 0.0025f).enableNoClip().evenlyRepeatEdges(worldIn, pos, (int) (2 * countMultiplier));
+            Color color = new Color(229, 177, 19);
+            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.3f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).enableNoClip().evenlyRepeatEdges(worldIn, pos, countMultiplier);
+            ParticleManager.create(MalumParticles.SMOKE_PARTICLE).setAlpha(0.1f, 0f).setLifetime(80).setScale(0.4f, 0).setColor(color, color.darker()).enableNoClip().evenlyRepeatEdges(worldIn, pos, 2 * countMultiplier);
         }
     }
 }

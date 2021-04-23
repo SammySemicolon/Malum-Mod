@@ -1,10 +1,12 @@
 package com.sammy.malum.network.packets;
 
 import com.sammy.malum.core.init.particles.MalumParticles;
+import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -75,6 +77,29 @@ public class ParticlePacket
                             .randomVelocity(0.025f, 0.025f)
                             .repeat(world, posX,posY,posZ, 20);
                     break;
+                }
+                case 1:
+                {
+                    ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                            .setAlpha(0.1f, 0f)
+                            .setLifetime(20)
+                            .setSpin(MathHelper.nextFloat(world.rand, -0.1f, 0.1f))
+                            .setScale(0.6f, 0)
+                            .setColor(MalumSpiritTypes.LIFE_SPIRIT_COLOR, MalumSpiritTypes.DEATH_SPIRIT_COLOR)
+                            .enableNoClip()
+                            .repeat(world, posX, posY, posZ, 8);
+                    ParticleManager.create(MalumParticles.CIRCLE_PARTICLE)
+                            .setAlpha(0.2f, 0f)
+                            .setLifetime(10)
+                            .setSpin(MathHelper.nextFloat(world.rand, -0.1f, 0.1f))
+                            .setScale(0.2f, 0)
+                            .setColor(MalumSpiritTypes.LIFE_SPIRIT_COLOR, MalumSpiritTypes.DEATH_SPIRIT_COLOR)
+                            .enableNoClip()
+                            .repeat(world, posX, posY, posZ, 8)
+                            .setScale(0.4f, 0)
+                            .repeat(world, posX, posY, posZ, 8)
+                            .setScale(0.6f, 0)
+                            .repeat(world, posX, posY, posZ, 8);
                 }
             }
         });

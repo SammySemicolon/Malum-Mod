@@ -18,11 +18,8 @@ import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -38,8 +35,6 @@ public class MalumBlocks
 {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
-    //region properties
-
     public static AbstractBlock.Properties TAINTED_ROCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).sound(MalumSounds.TAINTED_ROCK).setRequiresTool().hardnessAndResistance(1.25F, 9.0F);
@@ -49,14 +44,17 @@ public class MalumBlocks
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
     }
+
     public static AbstractBlock.Properties PURIFIED_ROCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
     }
+
     public static AbstractBlock.Properties CLEANSED_ROCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BROWN_TERRACOTTA).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
     }
+
     public static AbstractBlock.Properties ERODED_ROCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.GRAY_TERRACOTTA).setRequiresTool().sound(MalumSounds.TWISTED_ROCK).hardnessAndResistance(1.25F, 9.0F);
@@ -66,22 +64,27 @@ public class MalumBlocks
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(5.0F, 3.0F).sound(MalumSounds.GRIMSLATE);
     }
+
     public static AbstractBlock.Properties BLAZE_QUARTZ_ORE_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).sound(MalumSounds.BLAZING_QUARTZ);
     }
+
     public static AbstractBlock.Properties BLAZE_QUARTZ_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.RED).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).sound(SoundType.NETHER_ORE);
     }
+
     public static AbstractBlock.Properties RUNEWOOD_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.WOOD, MaterialColor.YELLOW).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(1.75F, 4.0F);
     }
+
     public static AbstractBlock.Properties SUN_KISSED_GRASS_BLOCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.YELLOW).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.45f);
     }
+
     public static AbstractBlock.Properties SUN_KISSED_PLANTS_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).harvestTool(ToolType.HOE).zeroHardnessAndResistance();
@@ -94,8 +97,9 @@ public class MalumBlocks
 
     public static AbstractBlock.Properties ETHER_BLOCK_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14));
+        return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14));
     }
+
     public static AbstractBlock.Properties ABSTRUSE_BLOCK_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).zeroHardnessAndResistance().noDrops().notSolid();
@@ -108,14 +112,13 @@ public class MalumBlocks
 
     public static AbstractBlock.Properties SOUL_STAINED_STEEL_BLOCK_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.IRON, MaterialColor.BLUE).sound(MalumSounds.SOUL_STAINED_STEEL).hardnessAndResistance(5f,3600f);
+        return AbstractBlock.Properties.create(Material.IRON, MaterialColor.BLUE).sound(MalumSounds.SOUL_STAINED_STEEL).hardnessAndResistance(5f, 3600f);
     }
 
     public static AbstractBlock.Properties SPIRIT_JAR_PROPERTIES()
     {
         return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(MalumSounds.HALLOWED_GOLD).notSolid();
     }
-    //endregion
 
     //region tainted rock
     public static final RegistryObject<Block> TAINTED_ROCK = BLOCKS.register("tainted_rock", () -> new Block(TAINTED_ROCK_PROPERTIES()));
@@ -170,7 +173,6 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> TAINTED_ROCK_ITEM_STAND = BLOCKS.register("tainted_rock_item_stand", () -> new ItemStandBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TAINTED_ROCK_ITEM_PEDESTAL = BLOCKS.register("tainted_rock_item_pedestal", () -> new ItemPedestalBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-
     //endregion
 
     //region twisted rock
@@ -226,7 +228,6 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> TWISTED_ROCK_ITEM_STAND = BLOCKS.register("twisted_rock_item_stand", () -> new ItemStandBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TWISTED_ROCK_ITEM_PEDESTAL = BLOCKS.register("twisted_rock_item_pedestal", () -> new ItemPedestalBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
-
     //endregion
 
     //region purified rock
@@ -282,7 +283,6 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> PURIFIED_ROCK_ITEM_STAND = BLOCKS.register("purified_rock_item_stand", () -> new ItemStandBlock(PURIFIED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> PURIFIED_ROCK_ITEM_PEDESTAL = BLOCKS.register("purified_rock_item_pedestal", () -> new ItemPedestalBlock(PURIFIED_ROCK_PROPERTIES().notSolid()));
-
     //endregion
 
     //region cleansed rock
@@ -338,9 +338,7 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> CLEANSED_ROCK_ITEM_STAND = BLOCKS.register("cleansed_rock_item_stand", () -> new ItemStandBlock(CLEANSED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> CLEANSED_ROCK_ITEM_PEDESTAL = BLOCKS.register("cleansed_rock_item_pedestal", () -> new ItemPedestalBlock(CLEANSED_ROCK_PROPERTIES().notSolid()));
-
     //endregion
-
 
     //region eroded rock
     public static final RegistryObject<Block> ERODED_ROCK = BLOCKS.register("eroded_rock", () -> new Block(ERODED_ROCK_PROPERTIES()));
@@ -395,12 +393,21 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> ERODED_ROCK_ITEM_STAND = BLOCKS.register("eroded_rock_item_stand", () -> new ItemStandBlock(ERODED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> ERODED_ROCK_ITEM_PEDESTAL = BLOCKS.register("eroded_rock_item_pedestal", () -> new ItemPedestalBlock(ERODED_ROCK_PROPERTIES().notSolid()));
-
     //endregion
 
-    //region sun kissed wood
+    //region runewood
+
+    public static final RegistryObject<Block> SUN_KISSED_GRASS_BLOCK = BLOCKS.register("sun_kissed_grass_block", () -> new GrassBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> TALL_SUN_KISSED_GRASS = BLOCKS.register("tall_sun_kissed_grass", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
+    public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
+    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new RunewoodSaplingBlock(SUN_KISSED_PLANTS_PROPERTIES()));
+    public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(175, 65, 48), new Color(251, 193, 76)));
+
+    public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
+    public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES().tickRandomly()));
+
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
-    public static final RegistryObject<Block> RUNEWOOD_LOG = BLOCKS.register("runewood_log", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG.get()));
+    public static final RegistryObject<Block> RUNEWOOD_LOG = BLOCKS.register("runewood_log", () -> new RunewoodLogBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD = BLOCKS.register("stripped_runewood", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD.get()));
 
@@ -438,31 +445,36 @@ public class MalumBlocks
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_FENCE = BLOCKS.register("runewood_planks_fence", () -> new FenceBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_FENCE_GATE = BLOCKS.register("runewood_planks_fence_gate", () -> new FenceGateBlock(RUNEWOOD_PROPERTIES()));
 
-    public static final RegistryObject<Block> ORANGE_ETHER_TORCH = BLOCKS.register("orange_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.ORANGE));
-    public static final RegistryObject<Block> MAGENTA_ETHER_TORCH = BLOCKS.register("magenta_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.MAGENTA));
-    public static final RegistryObject<Block> LIGHT_BLUE_ETHER_TORCH = BLOCKS.register("light_blue_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIGHT_BLUE));
-    public static final RegistryObject<Block> YELLOW_ETHER_TORCH = BLOCKS.register("yellow_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.YELLOW));
-    public static final RegistryObject<Block> PINK_ETHER_TORCH = BLOCKS.register("pink_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PINK));
-    public static final RegistryObject<Block> LIME_ETHER_TORCH = BLOCKS.register("lime_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.LIME));
-    public static final RegistryObject<Block> CYAN_ETHER_TORCH = BLOCKS.register("cyan_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.CYAN));
-    public static final RegistryObject<Block> PURPLE_ETHER_TORCH = BLOCKS.register("purple_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.PURPLE));
-    public static final RegistryObject<Block> BLUE_ETHER_TORCH = BLOCKS.register("blue_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BLUE));
-    public static final RegistryObject<Block> BROWN_ETHER_TORCH = BLOCKS.register("brown_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.BROWN));
-    public static final RegistryObject<Block> GREEN_ETHER_TORCH = BLOCKS.register("green_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.GREEN));
-    public static final RegistryObject<Block> RED_ETHER_TORCH = BLOCKS.register("red_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)), MalumConstants.RED));
+    public static final RegistryObject<Block> RUNEWOOD_ITEM_STAND = BLOCKS.register("runewood_item_stand", () -> new ItemStandBlock(RUNEWOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> RUNEWOOD_ITEM_PEDESTAL = BLOCKS.register("runewood_item_pedestal", () -> new ItemPedestalBlock(RUNEWOOD_PROPERTIES().notSolid()));
+    //endregion
 
-    public static final RegistryObject<Block> ORANGE_WALL_ETHER_TORCH = BLOCKS.register("orange_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(ORANGE_ETHER_TORCH.get()), MalumConstants.ORANGE));
-    public static final RegistryObject<Block> MAGENTA_WALL_ETHER_TORCH = BLOCKS.register("magenta_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(MAGENTA_ETHER_TORCH.get()), MalumConstants.MAGENTA));
-    public static final RegistryObject<Block> LIGHT_BLUE_WALL_ETHER_TORCH = BLOCKS.register("light_blue_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(LIGHT_BLUE_ETHER_TORCH.get()), MalumConstants.LIGHT_BLUE));
-    public static final RegistryObject<Block> YELLOW_WALL_ETHER_TORCH = BLOCKS.register("yellow_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(YELLOW_ETHER_TORCH.get()), MalumConstants.YELLOW));
-    public static final RegistryObject<Block> PINK_WALL_ETHER_TORCH = BLOCKS.register("pink_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(PINK_ETHER_TORCH.get()), MalumConstants.PINK));
-    public static final RegistryObject<Block> LIME_WALL_ETHER_TORCH = BLOCKS.register("lime_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(LIME_ETHER_TORCH.get()), MalumConstants.LIME));
-    public static final RegistryObject<Block> CYAN_WALL_ETHER_TORCH = BLOCKS.register("cyan_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(CYAN_ETHER_TORCH.get()), MalumConstants.CYAN));
-    public static final RegistryObject<Block> PURPLE_WALL_ETHER_TORCH = BLOCKS.register("purple_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(PURPLE_ETHER_TORCH.get()), MalumConstants.PINK));
-    public static final RegistryObject<Block> BLUE_WALL_ETHER_TORCH = BLOCKS.register("blue_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(BLUE_ETHER_TORCH.get()), MalumConstants.BLUE));
-    public static final RegistryObject<Block> BROWN_WALL_ETHER_TORCH = BLOCKS.register("brown_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(BROWN_ETHER_TORCH.get()), MalumConstants.BROWN));
-    public static final RegistryObject<Block> GREEN_WALL_ETHER_TORCH = BLOCKS.register("green_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(GREEN_ETHER_TORCH.get()), MalumConstants.GREEN));
-    public static final RegistryObject<Block> RED_WALL_ETHER_TORCH = BLOCKS.register("red_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b,14)).lootFrom(RED_ETHER_TORCH.get()), MalumConstants.RED));
+    //region ether
+    public static final RegistryObject<Block> ORANGE_ETHER_TORCH = BLOCKS.register("orange_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.ORANGE));
+    public static final RegistryObject<Block> MAGENTA_ETHER_TORCH = BLOCKS.register("magenta_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.MAGENTA));
+    public static final RegistryObject<Block> LIGHT_BLUE_ETHER_TORCH = BLOCKS.register("light_blue_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.LIGHT_BLUE));
+    public static final RegistryObject<Block> YELLOW_ETHER_TORCH = BLOCKS.register("yellow_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.YELLOW));
+    public static final RegistryObject<Block> PINK_ETHER_TORCH = BLOCKS.register("pink_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.PINK));
+    public static final RegistryObject<Block> LIME_ETHER_TORCH = BLOCKS.register("lime_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.LIME));
+    public static final RegistryObject<Block> CYAN_ETHER_TORCH = BLOCKS.register("cyan_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.CYAN));
+    public static final RegistryObject<Block> PURPLE_ETHER_TORCH = BLOCKS.register("purple_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.PURPLE));
+    public static final RegistryObject<Block> BLUE_ETHER_TORCH = BLOCKS.register("blue_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.BLUE));
+    public static final RegistryObject<Block> BROWN_ETHER_TORCH = BLOCKS.register("brown_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.BROWN));
+    public static final RegistryObject<Block> GREEN_ETHER_TORCH = BLOCKS.register("green_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.GREEN));
+    public static final RegistryObject<Block> RED_ETHER_TORCH = BLOCKS.register("red_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumConstants.RED));
+
+    public static final RegistryObject<Block> ORANGE_WALL_ETHER_TORCH = BLOCKS.register("orange_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(ORANGE_ETHER_TORCH.get()), MalumConstants.ORANGE));
+    public static final RegistryObject<Block> MAGENTA_WALL_ETHER_TORCH = BLOCKS.register("magenta_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(MAGENTA_ETHER_TORCH.get()), MalumConstants.MAGENTA));
+    public static final RegistryObject<Block> LIGHT_BLUE_WALL_ETHER_TORCH = BLOCKS.register("light_blue_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(LIGHT_BLUE_ETHER_TORCH.get()), MalumConstants.LIGHT_BLUE));
+    public static final RegistryObject<Block> YELLOW_WALL_ETHER_TORCH = BLOCKS.register("yellow_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(YELLOW_ETHER_TORCH.get()), MalumConstants.YELLOW));
+    public static final RegistryObject<Block> PINK_WALL_ETHER_TORCH = BLOCKS.register("pink_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(PINK_ETHER_TORCH.get()), MalumConstants.PINK));
+    public static final RegistryObject<Block> LIME_WALL_ETHER_TORCH = BLOCKS.register("lime_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(LIME_ETHER_TORCH.get()), MalumConstants.LIME));
+    public static final RegistryObject<Block> CYAN_WALL_ETHER_TORCH = BLOCKS.register("cyan_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(CYAN_ETHER_TORCH.get()), MalumConstants.CYAN));
+    public static final RegistryObject<Block> PURPLE_WALL_ETHER_TORCH = BLOCKS.register("purple_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(PURPLE_ETHER_TORCH.get()), MalumConstants.PINK));
+    public static final RegistryObject<Block> BLUE_WALL_ETHER_TORCH = BLOCKS.register("blue_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(BLUE_ETHER_TORCH.get()), MalumConstants.BLUE));
+    public static final RegistryObject<Block> BROWN_WALL_ETHER_TORCH = BLOCKS.register("brown_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(BROWN_ETHER_TORCH.get()), MalumConstants.BROWN));
+    public static final RegistryObject<Block> GREEN_WALL_ETHER_TORCH = BLOCKS.register("green_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(GREEN_ETHER_TORCH.get()), MalumConstants.GREEN));
+    public static final RegistryObject<Block> RED_WALL_ETHER_TORCH = BLOCKS.register("red_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(RED_ETHER_TORCH.get()), MalumConstants.RED));
 
     public static final RegistryObject<Block> ORANGE_ETHER = BLOCKS.register("orange_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.ORANGE));
     public static final RegistryObject<Block> MAGENTA_ETHER = BLOCKS.register("magenta_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.MAGENTA));
@@ -477,100 +489,48 @@ public class MalumBlocks
     public static final RegistryObject<Block> GREEN_ETHER = BLOCKS.register("green_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.GREEN));
     public static final RegistryObject<Block> RED_ETHER = BLOCKS.register("red_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumConstants.RED));
 
-    public static final RegistryObject<Block> ORANGE_ETHER_BRAZIER = BLOCKS.register("orange_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.ORANGE));
-    public static final RegistryObject<Block> MAGENTA_ETHER_BRAZIER = BLOCKS.register("magenta_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.MAGENTA));
-    public static final RegistryObject<Block> LIGHT_BLUE_ETHER_BRAZIER = BLOCKS.register("light_blue_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.LIGHT_BLUE));
-    public static final RegistryObject<Block> YELLOW_ETHER_BRAZIER = BLOCKS.register("yellow_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.YELLOW));
-    public static final RegistryObject<Block> PINK_ETHER_BRAZIER = BLOCKS.register("pink_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.PINK));
-    public static final RegistryObject<Block> LIME_ETHER_BRAZIER = BLOCKS.register("lime_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.LIME));
-    public static final RegistryObject<Block> CYAN_ETHER_BRAZIER = BLOCKS.register("cyan_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.CYAN));
-    public static final RegistryObject<Block> PURPLE_ETHER_BRAZIER = BLOCKS.register("purple_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.PURPLE));
-    public static final RegistryObject<Block> BLUE_ETHER_BRAZIER = BLOCKS.register("blue_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.BLUE));
-    public static final RegistryObject<Block> BROWN_ETHER_BRAZIER = BLOCKS.register("brown_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.BROWN));
-    public static final RegistryObject<Block> GREEN_ETHER_BRAZIER = BLOCKS.register("green_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.GREEN));
-    public static final RegistryObject<Block> RED_ETHER_BRAZIER = BLOCKS.register("red_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b,14)), MalumConstants.RED));
-
+    public static final RegistryObject<Block> ORANGE_ETHER_BRAZIER = BLOCKS.register("orange_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.ORANGE));
+    public static final RegistryObject<Block> MAGENTA_ETHER_BRAZIER = BLOCKS.register("magenta_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.MAGENTA));
+    public static final RegistryObject<Block> LIGHT_BLUE_ETHER_BRAZIER = BLOCKS.register("light_blue_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.LIGHT_BLUE));
+    public static final RegistryObject<Block> YELLOW_ETHER_BRAZIER = BLOCKS.register("yellow_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.YELLOW));
+    public static final RegistryObject<Block> PINK_ETHER_BRAZIER = BLOCKS.register("pink_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.PINK));
+    public static final RegistryObject<Block> LIME_ETHER_BRAZIER = BLOCKS.register("lime_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.LIME));
+    public static final RegistryObject<Block> CYAN_ETHER_BRAZIER = BLOCKS.register("cyan_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.CYAN));
+    public static final RegistryObject<Block> PURPLE_ETHER_BRAZIER = BLOCKS.register("purple_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.PURPLE));
+    public static final RegistryObject<Block> BLUE_ETHER_BRAZIER = BLOCKS.register("blue_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.BLUE));
+    public static final RegistryObject<Block> BROWN_ETHER_BRAZIER = BLOCKS.register("brown_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.BROWN));
+    public static final RegistryObject<Block> GREEN_ETHER_BRAZIER = BLOCKS.register("green_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.GREEN));
+    public static final RegistryObject<Block> RED_ETHER_BRAZIER = BLOCKS.register("red_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumConstants.RED));
     //endregion
 
-    public static final RegistryObject<Block> SUN_KISSED_GRASS_BLOCK = BLOCKS.register("sun_kissed_grass_block", () -> new GrassBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TALL_SUN_KISSED_GRASS = BLOCKS.register("tall_sun_kissed_grass", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> SUN_KISSED_GRASS = BLOCKS.register("sun_kissed_grass", () -> new MalumTallGrassBlock(SUN_KISSED_PLANTS_PROPERTIES(), TALL_SUN_KISSED_GRASS));
-    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new RunewoodSaplingBlock(SUN_KISSED_PLANTS_PROPERTIES()));
-    public static final RegistryObject<Block> SUN_KISSED_LEAVES = BLOCKS.register("sun_kissed_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(236, 121, 33), new Color(255, 198, 82)));
-
-    public static final RegistryObject<Block> LAVENDER = BLOCKS.register("lavender", () -> new DoublePlantBlock(SUN_KISSED_PLANTS_PROPERTIES()));
-    //endregion
-    public static final RegistryObject<Block> POLISHED_BONE_BLOCK = BLOCKS.register("polished_bone_block", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_BEAM = BLOCKS.register("bone_beam", () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_TILES = BLOCKS.register("bone_tiles", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CRACKED_BONE_TILES = BLOCKS.register("cracked_bone_tiles", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_BRICKS = BLOCKS.register("bone_bricks", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CRACKED_BONE_BRICKS = BLOCKS.register("cracked_bone_bricks", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_TILE = BLOCKS.register("bone_tile", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CARVED_BONE_TILE = BLOCKS.register("carved_bone_tile", () -> new Block(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-
-    public static final RegistryObject<Block> BONE_TILES_SLAB = BLOCKS.register("bone_tiles_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_TILES_STAIRS = BLOCKS.register("bone_tiles_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CRACKED_BONE_TILES_SLAB = BLOCKS.register("cracked_bone_tiles_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CRACKED_BONE_TILES_STAIRS = BLOCKS.register("cracked_bone_tiles_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_BRICKS_SLAB = BLOCKS.register("bone_bricks_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_BRICKS_STAIRS = BLOCKS.register("bone_bricks_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CRACKED_BONE_BRICKS_SLAB = BLOCKS.register("cracked_bone_bricks_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CRACKED_BONE_BRICKS_STAIRS = BLOCKS.register("cracked_bone_bricks_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_TILE_SLAB = BLOCKS.register("bone_tile_slab", () -> new SlabBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_TILE_STAIRS = BLOCKS.register("bone_tile_stairs", () -> new StairsBlock(BONE_TILES.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-
-    public static final RegistryObject<Block> BONE_TILES_WALL = BLOCKS.register("bone_tiles_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CRACKED_BONE_TILES_WALL = BLOCKS.register("cracked_bone_tiles_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_BRICKS_WALL = BLOCKS.register("bone_bricks_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> CRACKED_BONE_BRICKS_WALL = BLOCKS.register("cracked_bone_bricks_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-    public static final RegistryObject<Block> BONE_TILE_WALL = BLOCKS.register("bone_tile_wall", () -> new WallBlock(AbstractBlock.Properties.from(Blocks.BONE_BLOCK)));
-
-    //region contents
-    public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES().tickRandomly()));
 
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new MalumOreBlock(BLAZE_QUARTZ_ORE_PROPERTIES(), 4, 12));
     public static final RegistryObject<Block> BLAZING_QUARTZ_BLOCK = BLOCKS.register("blazing_quartz_block", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
 
-    public static final RegistryObject<Block> GRIMSLATE_ORE = BLOCKS.register("grimslate_ore", () -> new Block(
-            GRIMSLATE_PROPERTIES()));
+    public static final RegistryObject<Block> GRIMSLATE_ORE = BLOCKS.register("grimslate_ore", () -> new Block(GRIMSLATE_PROPERTIES()));
     public static final RegistryObject<Block> GRIMSLATE_BLOCK = BLOCKS.register("grimslate_block", () -> new Block(GRIMSLATE_PROPERTIES()));
-
-
-    public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
 
     public static final RegistryObject<Block> HALLOWED_GOLD_BLOCK = BLOCKS.register("hallowed_gold_block", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
     public static final RegistryObject<Block> SOUL_STAINED_STEEL_BLOCK = BLOCKS.register("soul_stained_steel_block", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
 
-    public static final RegistryObject<Block> WITHER_SAND = BLOCKS.register("wither_sand", () -> new WitherSandBlock(AbstractBlock.Properties.from(Blocks.SOUL_SAND).harvestTool(ToolType.SHOVEL)));
-    //endregion
 
-    //region crafting blocks
-    //    public static final RegistryObject<Block> ARCANE_CRAFTING_TABLE = BLOCKS.register("arcane_crafting_table", () -> new ArcaneCraftingTableBlock(TAINTED_WOOD_PROPERTIES().notSolid()));
-    //
+    //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(HALLOWED_GOLD_PROPERTIES().notSolid()));
 
     public static final RegistryObject<Block> TOTEM_CORE = BLOCKS.register("totem_core", () -> new TotemCoreBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(RUNEWOOD_LOG.get())));
 
-    public static final RegistryObject<Block> IMPERVIOUS_ROCK = BLOCKS.register("impervious_rock", () -> new ImperviousRockBlock(TWISTED_ROCK_PROPERTIES().hardnessAndResistance(1.25f, 3600000.0F)));
+
+    public static final RegistryObject<Block> IMPERVIOUS_ROCK = BLOCKS.register("impervious_rock", () -> new ImperviousRockBlock(TWISTED_ROCK_PROPERTIES().hardnessAndResistance(5f, 3600000.0F)));
     public static final RegistryObject<Block> WILD_FARMLAND = BLOCKS.register("wild_farmland", () -> new WildFarmlandBlock(SUN_KISSED_GRASS_BLOCK_PROPERTIES().notSolid().tickRandomly()));
+    public static final RegistryObject<Block> ABSTRUSE_BLOCK = BLOCKS.register("abstruse_block", () -> new AbstruseBlock(ABSTRUSE_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> WITHER_SAND = BLOCKS.register("wither_sand", () -> new WitherSandBlock(AbstractBlock.Properties.from(Blocks.SOUL_SAND).harvestTool(ToolType.SHOVEL)));
+
     //endregion
 
     public static int light(BlockState state, int strength)
     {
-        if (ModList.get().isLoaded("hypcore"))
-        {
-            if (FMLEnvironment.dist == Dist.CLIENT)
-            {
-                return 0;
-            }
-        }
         return strength;
-    }
-    public static WoodType register(WoodType woodTypeIn) {
-        WoodType.VALUES.add(woodTypeIn);
-        return woodTypeIn;
     }
 }

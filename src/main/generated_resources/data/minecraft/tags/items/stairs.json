@@ -50,11 +50,6 @@
     "malum:vertical_runewood_planks_stairs",
     "malum:bolted_runewood_planks_stairs",
     "malum:runewood_panel_stairs",
-    "malum:runewood_tiles_stairs",
-    "malum:bone_tiles_stairs",
-    "malum:cracked_bone_tiles_stairs",
-    "malum:bone_bricks_stairs",
-    "malum:cracked_bone_bricks_stairs",
-    "malum:bone_tile_stairs"
+    "malum:runewood_tiles_stairs"
   ]
 }

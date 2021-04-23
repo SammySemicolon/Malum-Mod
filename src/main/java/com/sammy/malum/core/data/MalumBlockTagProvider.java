@@ -50,6 +50,9 @@ public class MalumBlockTagProvider extends BlockTagsProvider
         getOrCreateBuilder(WOODEN_SLABS).add(MalumBlocks.RUNEWOOD_PLANKS_SLAB.get());
         getOrCreateBuilder(WOODEN_TRAPDOORS).add(MalumBlocks.RUNEWOOD_TRAPDOOR.get(),MalumBlocks.SOLID_RUNEWOOD_TRAPDOOR.get());
         getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(MalumBlocks.RUNEWOOD_PLANKS_PRESSURE_PLATE.get());
+
+        getOrCreateBuilder(WITHER_IMMUNE).add(MalumBlocks.IMPERVIOUS_ROCK.get());
+        getOrCreateBuilder(DRAGON_IMMUNE).add(MalumBlocks.IMPERVIOUS_ROCK.get());
     }
     
     @Override

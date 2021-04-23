@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_grimslate": {
+    "has_lavender": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:grimslate_ore"
+            "item": "malum:lavender"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_grimslate",
+      "has_lavender",
       "has_the_recipe"
     ]
   ]

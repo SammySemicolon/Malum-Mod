@@ -1,19 +1,18 @@
 package com.sammy.malum.core.init.items;
 
-import com.sammy.malum.common.items.*;
+import com.sammy.malum.common.items.EncyclopediaArcanaItem;
+import com.sammy.malum.common.items.FuelItem;
+import com.sammy.malum.common.items.SpiritSplinterItem;
 import com.sammy.malum.common.items.equipment.armor.SoulStainedSteelArmorItem;
-import com.sammy.malum.common.items.food.ElixirOfLifeItem;
-import com.sammy.malum.common.items.food.VoidBerriesItem;
 import com.sammy.malum.common.items.equipment.armor.SoulStainedStrongholdArmorItem;
 import com.sammy.malum.common.items.equipment.curios.*;
 import com.sammy.malum.common.items.equipment.poppets.*;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
-
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.items.tabs.MalumBuildingTab;
 import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.items.tabs.MalumNatureTab;
 import com.sammy.malum.core.init.items.tabs.MalumSplinterTab;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -378,6 +377,11 @@ public class MalumItems
 
     public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE = ITEMS.register("runewood_planks_fence", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_FENCE.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_PLANKS_FENCE_GATE = ITEMS.register("runewood_planks_fence_gate", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_FENCE_GATE.get(), NATURE_PROPERTIES()));
+
+
+    public static final RegistryObject<Item> RUNEWOOD_ITEM_STAND = ITEMS.register("runewood_item_stand", () -> new BlockItem(MalumBlocks.RUNEWOOD_ITEM_STAND.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_ITEM_PEDESTAL = ITEMS.register("runewood_item_pedestal", () -> new BlockItem(MalumBlocks.RUNEWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
+
     //endregion
 
     //region ether
@@ -421,43 +425,15 @@ public class MalumItems
     public static final RegistryObject<Item> RED_ETHER_BRAZIER = ITEMS.register("red_ether_brazier", () -> new BlockItem(MalumBlocks.RED_ETHER_BRAZIER.get(), BUILDING_PROPERTIES()));
     //endregion
 
-    //region bone
-    public static final RegistryObject<Item> POLISHED_BONE_BLOCK = ITEMS.register("polished_bone_block", () -> new BlockItem(MalumBlocks.POLISHED_BONE_BLOCK.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_BEAM = ITEMS.register("bone_beam", () -> new BlockItem(MalumBlocks.BONE_BEAM.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_TILES = ITEMS.register("bone_tiles", () -> new BlockItem(MalumBlocks.BONE_TILES.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_BONE_TILES = ITEMS.register("cracked_bone_tiles", () -> new BlockItem(MalumBlocks.CRACKED_BONE_TILES.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_BRICKS = ITEMS.register("bone_bricks", () -> new BlockItem(MalumBlocks.BONE_BRICKS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_BONE_BRICKS = ITEMS.register("cracked_bone_bricks", () -> new BlockItem(MalumBlocks.CRACKED_BONE_BRICKS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_TILE = ITEMS.register("bone_tile", () -> new BlockItem(MalumBlocks.BONE_TILE.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CARVED_BONE_TILE = ITEMS.register("carved_bone_tile", () -> new BlockItem(MalumBlocks.CARVED_BONE_TILE.get(), BUILDING_PROPERTIES()));
-
-    public static final RegistryObject<Item> BONE_TILES_SLAB = ITEMS.register("bone_tiles_slab", () -> new BlockItem(MalumBlocks.BONE_TILES_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_TILES_STAIRS = ITEMS.register("bone_tiles_stairs", () -> new BlockItem(MalumBlocks.BONE_TILES_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_BONE_TILES_SLAB = ITEMS.register("cracked_bone_tiles_slab", () -> new BlockItem(MalumBlocks.CRACKED_BONE_TILES_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_BONE_TILES_STAIRS = ITEMS.register("cracked_bone_tiles_stairs", () -> new BlockItem(MalumBlocks.CRACKED_BONE_TILES_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_BRICKS_SLAB = ITEMS.register("bone_bricks_slab", () -> new BlockItem(MalumBlocks.BONE_BRICKS_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_BRICKS_STAIRS = ITEMS.register("bone_bricks_stairs", () -> new BlockItem(MalumBlocks.BONE_BRICKS_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_BONE_BRICKS_SLAB = ITEMS.register("cracked_bone_bricks_slab", () -> new BlockItem(MalumBlocks.CRACKED_BONE_BRICKS_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_BONE_BRICKS_STAIRS = ITEMS.register("cracked_bone_bricks_stairs", () -> new BlockItem(MalumBlocks.CRACKED_BONE_BRICKS_STAIRS.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_TILE_SLAB = ITEMS.register("bone_tile_slab", () -> new BlockItem(MalumBlocks.BONE_TILE_SLAB.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_TILE_STAIRS = ITEMS.register("bone_tile_stairs", () -> new BlockItem(MalumBlocks.BONE_TILE_STAIRS.get(), BUILDING_PROPERTIES()));
-
-    public static final RegistryObject<Item> BONE_TILES_WALL = ITEMS.register("bone_tiles_wall", () -> new BlockItem(MalumBlocks.BONE_TILES_WALL.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_BONE_TILES_WALL = ITEMS.register("cracked_bone_tiles_wall", () -> new BlockItem(MalumBlocks.CRACKED_BONE_TILES_WALL.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_BRICKS_WALL = ITEMS.register("bone_bricks_wall", () -> new BlockItem(MalumBlocks.BONE_BRICKS_WALL.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_BONE_BRICKS_WALL = ITEMS.register("cracked_bone_bricks_wall", () -> new BlockItem(MalumBlocks.CRACKED_BONE_BRICKS_WALL.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> BONE_TILE_WALL = ITEMS.register("bone_tile_wall", () -> new BlockItem(MalumBlocks.BONE_TILE_WALL.get(), BUILDING_PROPERTIES()));
-    //endregion
-
     //region spirits
     public static final RegistryObject<Item> LIFE_SPIRIT_SPLINTER = ITEMS.register("life_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> DEATH_SPIRIT_SPLINTER = ITEMS.register("death_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> MAGIC_SPIRIT_SPLINTER = ITEMS.register("magic_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
+    public static final RegistryObject<Item> ELDRITCH_SPIRIT_SPLINTER = ITEMS.register("eldritch_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> EARTH_SPIRIT_SPLINTER = ITEMS.register("earth_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> FIRE_SPIRIT_SPLINTER = ITEMS.register("fire_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> AIR_SPIRIT_SPLINTER = ITEMS.register("air_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     public static final RegistryObject<Item> WATER_SPIRIT_SPLINTER = ITEMS.register("water_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
-    public static final RegistryObject<Item> ELDRITCH_SPIRIT_SPLINTER = ITEMS.register("eldritch_spirit_splinter", () -> new SpiritSplinterItem(SPLINTER_PROPERTIES()));
     //endregion
 
     //region ores
@@ -475,10 +451,11 @@ public class MalumItems
     public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
 
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TOTEM_CORE = ITEMS.register("totem_core", () -> new BlockItem(MalumBlocks.TOTEM_CORE.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> TOTEM_CORE = ITEMS.register("totem_core", () -> new BlockItem(MalumBlocks.TOTEM_CORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new FuelItem(DEFAULT_PROPERTIES(), 4800));
+    public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -490,6 +467,7 @@ public class MalumItems
 
     //region contents
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(ItemTier.IRON, 0, 0.1f, GEAR_PROPERTIES()));
+//    public static final RegistryObject<Item> TRANSMUTATION_ITEM = ITEMS.register("transmutation_item", () -> new TransmutationItem(GEAR_PROPERTIES().defaultMaxDamage(48)));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SWORD = ITEMS.register("soul_stained_steel_sword", () -> new ModSwordItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_PICKAXE = ITEMS.register("soul_stained_steel_pickaxe", () -> new ModPickaxeItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
@@ -520,7 +498,7 @@ public class MalumItems
     public static final RegistryObject<Item> POPPET_OF_FIRE = ITEMS.register("poppet_of_fire", () -> new PoppetOfFire(GEAR_PROPERTIES().maxDamage(402)));
     public static final RegistryObject<Item> POPPET_OF_UNDYING = ITEMS.register("poppet_of_undying", () -> new PoppetOfUndying(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> BLESSED_POPPET = ITEMS.register("blessed_poppet", () -> new BlessedPoppet(GEAR_PROPERTIES().maxDamage(402)));
+//    public static final RegistryObject<Item> BLESSED_POPPET = ITEMS.register("blessed_poppet", () -> new BlessedPoppet(GEAR_PROPERTIES().maxDamage(402)));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ATTRACTION = ITEMS.register("ring_of_attraction", () -> new CurioRingOfAttraction(GEAR_PROPERTIES()));
@@ -540,13 +518,14 @@ public class MalumItems
     public static final RegistryObject<Item> POPPET_BELT = ITEMS.register("poppet_belt", () -> new CurioPoppetBelt(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> WILD_FARMLAND = ITEMS.register("wild_farmland", () -> new BlockItem(MalumBlocks.WILD_FARMLAND.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> IMPERVIOUS_ROCK = ITEMS.register("impervious_rock", () -> new BlockItem(MalumBlocks.IMPERVIOUS_ROCK.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ENDER_QUARKS = ITEMS.register("ender_quarks", () -> new EnderQuarksItem(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ELIXIR_OF_LIFE = ITEMS.register("elixir_of_life", () -> new ElixirOfLifeItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(4F).build())));
-    public static final RegistryObject<Item> VOID_BERRIES = ITEMS.register("void_berries", () -> new VoidBerriesItem(DEFAULT_PROPERTIES().food((new Food.Builder()).setAlwaysEdible().build())));
+
+    //    public static final RegistryObject<Item> WITHER_SAND = ITEMS.register("wither_sand", () -> new BlockItem(MalumBlocks.WITHER_SAND.get(), DEFAULT_PROPERTIES()));
+    //    public static final RegistryObject<Item> WILD_FARMLAND = ITEMS.register("wild_farmland", () -> new BlockItem(MalumBlocks.WILD_FARMLAND.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> IMPERVIOUS_ROCK = ITEMS.register("impervious_rock", () -> new BlockItem(MalumBlocks.IMPERVIOUS_ROCK.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> ABSTRUSE_BLOCK = ITEMS.register("abstruse_block", () -> new BlockItem(MalumBlocks.ABSTRUSE_BLOCK.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> ENDER_QUARKS = ITEMS.register("ender_quarks", () -> new EnderQuarksItem(DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> ELIXIR_OF_LIFE = ITEMS.register("elixir_of_life", () -> new ElixirOfLifeItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(4F).build())));
+//    public static final RegistryObject<Item> VOID_BERRIES = ITEMS.register("void_berries", () -> new VoidBerriesItem(DEFAULT_PROPERTIES().food((new Food.Builder()).setAlwaysEdible().build())));
     //endregion
     public static final RegistryObject<Item> COMICALLY_LARGE_TOPHAT = ITEMS.register("comically_large_tophat", () -> new CurioComicallyLargeTophat(GEAR_PROPERTIES()));
 

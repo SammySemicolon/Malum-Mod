@@ -17,6 +17,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
+import static net.minecraft.data.CookingRecipeBuilder.blastingRecipe;
 import static net.minecraft.data.CookingRecipeBuilder.smeltingRecipe;
 import static net.minecraft.data.ShapedRecipeBuilder.shapedRecipe;
 import static net.minecraft.data.ShapelessRecipeBuilder.shapelessRecipe;
@@ -45,13 +46,15 @@ public class MalumRecipeProvider extends RecipeProvider
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_JAR.get()).key('Z', MalumItems.HALLOWED_GOLD_INGOT.get()).key('Y', Tags.Items.GLASS_PANES).patternLine("YZY").patternLine("Y Y").patternLine("YYY").addCriterion("has_hallowed_gold", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
         
         ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZING_QUARTZ.get()).addIngredient(MalumItems.BLAZING_QUARTZ.get()).addIngredient(Items.GUNPOWDER).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.ENCYCLOPEDIA_ARCANA.get()).addIngredient(MalumItems.GRIMSLATE_PLATING.get()).addIngredient(Items.BOOK).addCriterion("has_grimslate", hasItem(MalumItems.GRIMSLATE_ORE.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.ENCYCLOPEDIA_ARCANA.get()).addIngredient(MalumItems.LAVENDER.get()).addIngredient(Items.BOOK).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
 
         smeltingRecipe(Ingredient.fromItems(MalumItems.GRIMSLATE_ORE.get()), MalumItems.GRIMSLATE_PLATING.get(),0.25f,200).addCriterion("has_grimslate", hasItem(MalumItems.GRIMSLATE_ORE.get())).build(consumer);
+        blastingRecipe(Ingredient.fromItems(MalumItems.GRIMSLATE_ORE.get()), MalumItems.GRIMSLATE_PLATING.get(),0.25f,200).addCriterion("has_grimslate", hasItem(MalumItems.GRIMSLATE_ORE.get())).build(consumer, "grimslate_plating_blasting");
         ShapedRecipeBuilder.shapedRecipe(MalumItems.GRIMSLATE_BLOCK.get()).key('#', MalumItems.GRIMSLATE_PLATING.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_grimslate", hasItem(MalumItems.GRIMSLATE_ORE.get())).build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.GRIMSLATE_PLATING.get(), 9).addIngredient(MalumItems.GRIMSLATE_BLOCK.get()).addCriterion("has_grimslate", hasItem(MalumItems.GRIMSLATE_ORE.get())).build(consumer, "grimslate_plating_alt");
 
         smeltingRecipe(Ingredient.fromItems(MalumItems.BLAZING_QUARTZ_ORE.get()), MalumItems.BLAZING_QUARTZ.get(),0.25f,200).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer);
+        blastingRecipe(Ingredient.fromItems(MalumItems.BLAZING_QUARTZ_ORE.get()), MalumItems.BLAZING_QUARTZ.get(),0.25f,200).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer, "blazing_quartz_blasting");
         ShapedRecipeBuilder.shapedRecipe(MalumItems.BLAZING_QUARTZ_BLOCK.get()).key('#', MalumItems.BLAZING_QUARTZ.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.BLAZING_QUARTZ.get(), 9).addIngredient(MalumItems.BLAZING_QUARTZ_BLOCK.get()).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer, "blaze_quartz_alt");
 
@@ -66,8 +69,7 @@ public class MalumRecipeProvider extends RecipeProvider
         
         shapedRecipe(MalumItems.GILDED_BELT.get()).key('#', MalumItems.HALLOWED_GOLD_INGOT.get()).key('X', Items.LEATHER).key('Y', MalumItems.GRIMSLATE_PLATING.get()).patternLine("XXX").patternLine("#Y#").patternLine(" # ").addCriterion("has_hallowed_gold", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
         shapedRecipe(MalumItems.GILDED_RING.get()).key('#', MalumItems.HALLOWED_GOLD_INGOT.get()).key('X', Items.LEATHER).patternLine(" X#").patternLine("X X").patternLine(" X ").addCriterion("has_hallowed_gold", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
-        shapedRecipe(MalumItems.UNRELENTING_BELT.get()).key('#', MalumItems.IMPERVIOUS_ROCK.get()).key('Z', MalumItems.GILDED_BELT.get()).key('Y', Items.LEATHER).key('X', MalumItems.GRIMSLATE_PLATING.get()).patternLine(" # ").patternLine("YZY").patternLine("X#X").addCriterion("has_impervious_rock", hasItem(MalumItems.IMPERVIOUS_ROCK.get())).build(consumer);
-        
+
         ShapedRecipeBuilder.shapedRecipe(MalumItems.CRUDE_SCYTHE.get()).key('#', Items.STICK).key('Y', MalumItems.GRIMSLATE_PLATING.get()).key('X', Items.IRON_INGOT).patternLine("XXY").patternLine(" #X").patternLine("#  ").addCriterion("has_grimslate", hasItem(MalumItems.GRIMSLATE_ORE.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SOUL_STAINED_STEEL_AXE.get()).key('#', Items.STICK).key('X', MalumItems.SOUL_STAINED_STEEL_INGOT.get()).patternLine("XX").patternLine("X#").patternLine(" #").addCriterion("has_soul_stained_steel", hasItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SOUL_STAINED_STEEL_BOOTS.get()).key('X', MalumItems.SOUL_STAINED_STEEL_INGOT.get()).patternLine("X X").patternLine("X X").addCriterion("has_soul_stained_steel", hasItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get())).build(consumer);
@@ -121,6 +123,9 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedRecipe(MalumItems.CUT_RUNEWOOD_PLANKS.get(),4).key('#', MalumItems.RUNEWOOD_PANEL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("##").patternLine("XX").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedRecipe(MalumItems.RUNEWOOD_BEAM.get(),3).key('#', MalumItems.VERTICAL_RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedRecipe(MalumItems.BOLTED_RUNEWOOD_BEAM.get(),8).key('#', MalumItems.RUNEWOOD_BEAM.get()).key('X', Items.IRON_NUGGET).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+
+        shapedRecipe(MalumItems.RUNEWOOD_ITEM_STAND.get(), 2).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', MalumItems.RUNEWOOD_PLANKS_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.RUNEWOOD_ITEM_PEDESTAL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', MalumItems.RUNEWOOD_PLANKS_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(MalumItems.TAINTED_ROCK_WALL.get(), 6).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("###").patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.TAINTED_ROCK_SLAB.get(), 6).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
@@ -677,21 +682,21 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessColoredEtherBrazier(consumer, MalumItems.RED_ETHER_BRAZIER.get(), Items.RED_DYE);
     }
     private static void shapelessColoredEther(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider dye) {
-        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.PINK_ETHER.get()).addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer);
+        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.YELLOW_ETHER.get()).addCriterion("has_ether", hasItem(MalumItems.YELLOW_ETHER.get())).build(recipeConsumer);
     }
     private static void shapelessColoredEtherTorch(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider dye) {
-        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.PINK_ETHER_TORCH.get()).addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer);
+        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.YELLOW_ETHER_TORCH.get()).addCriterion("has_ether", hasItem(MalumItems.YELLOW_ETHER.get())).build(recipeConsumer);
     }
     private static void shapelessColoredEtherBrazier(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider dye) {
-        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.PINK_ETHER_BRAZIER.get()).addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer);
+        ShapelessRecipeBuilder.shapelessRecipe(output).addIngredient(dye).addIngredient(MalumItems.YELLOW_ETHER_BRAZIER.get()).addCriterion("has_ether", hasItem(MalumItems.YELLOW_ETHER.get())).build(recipeConsumer);
     }
     private static void shapedColoredEtherBrazier(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider ether)
     {
-        ShapedRecipeBuilder.shapedRecipe(output,2).key('#', MalumItems.TAINTED_ROCK.get()).key('S', Items.STICK).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_brazier");
+        ShapedRecipeBuilder.shapedRecipe(output,2).key('#', MalumItems.TAINTED_ROCK.get()).key('S', Items.STICK).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", hasItem(MalumItems.YELLOW_ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_brazier");
     }
     private static void coloredEtherTorch(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider ether)
     {
-        ShapedRecipeBuilder.shapedRecipe(output, 4).key('#', Items.STICK).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", hasItem(MalumItems.PINK_ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
+        ShapedRecipeBuilder.shapedRecipe(output, 4).key('#', Items.STICK).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", hasItem(MalumItems.YELLOW_ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
     }
     private static void smithingReinforce(Consumer<IFinishedRecipe> recipeConsumer, Item itemToReinforce, Item output)
     {

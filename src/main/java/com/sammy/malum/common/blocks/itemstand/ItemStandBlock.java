@@ -14,7 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -96,7 +95,7 @@ public class ItemStandBlock extends SimpleInventoryBlock
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        return getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
+        return getDefaultState().with(FACING, context.getFace());
     }
     
     @Override

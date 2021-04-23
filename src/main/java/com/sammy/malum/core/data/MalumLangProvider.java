@@ -99,17 +99,12 @@ public class MalumLangProvider extends LanguageProvider
                 }
             }
         });
-        addPage("basics_of_magic", "In the world of magic exists a phenomenon; spirits. Spirits are primarily found within living things, they exist within souls. The Encyclopedia Arcana will allow you to easily delve your mind deep into various evil magics.");
-        addPage("basics_of_magic_2", "The entire concept of Spirits is rather sinister. Everything has a soul, and within everyone's soul there are spirits, different souls contain different spirits. To obtain spirits you must not only kill one's body, but also shatter their soul.");
+        addPage("basics_of_magic", "Within our realm exists an arcane phenomenon; spirits. A spirit is found within a soul. The soul is one's magical representation. The Encyclopedia Arcana will be your guide for everything arcane. ");
+        addPage("basics_of_magic_2", "There are many types of spirits found within many different souls. When you kill a living thing, it's body dies. To obtain spirits you must go a step further, not only slay their body but also shatter their soul.");
 
-        addPage("runewood_trees", "Magic doesn't only exist within souls and spirits, it can also be found in nature. A prime example of this is the runewood tree, imbued with fire, forged from the sun. It's leaves are painted yellow and orange, ground around it hallowed.");
-        addPage("runewood_trees_2", "All these fiery properties of this tree make for a fine supplement to your magics. Runewood planks function as the foundation of many wonders. Sun kissed leaves will change color when touched by blaze quartz.");
-        addPage("runewood_architecture", "Most magic made blocks have a variety of uses, runewood planks are no exception.");
+        addPage("runewood_trees", "Throughout plains and various forests a strange tree is often found; the runewood tree. It's wood makes a fine magical supplement. The runewood tree seems to react differently to heat than most, yielding different results");
 
-        addPage("arcane_charcoal", "Like previously stated, the runewood tree is imbued with fire spirits. Due to this fact, charcoal created from processing runewood logs in a furnace makes for a much more desirable fuel source.");
-
-        addPage("solar_sap", "While traveling throughout the world often you may notice that runewood trees often have logs with exposed sap in it. Solar sap is a strong mixture of fire spirit magic brought into regular, earthen sap.");
-        addPage("solar_sap_2", "You can collect sap from the tree by using a glass bottle, similar to honey. This sticky substance has many various usages, Solar Sapballs can be made by combining slimeballs with solar sap, Solar syrup can be made by heating up the mixture.");
+        addPage("solar_sap", "Within the runewood tree flows a fiery sap known as solar sap. This rejuvenating substance is gathered by stripping the bark of a runewood tree, collect with a bottle.");
 
         addPage("blazing_quartz", "Within the hellish plane many know as the nether exists many bizarre anomalies. One of those anomalies are the blaze quartz deposits you may often find. This fiery gem makes for a great furnace fuel.");
 
@@ -130,11 +125,9 @@ public class MalumLangProvider extends LanguageProvider
 
         addPage("ether", "\"The flame that burns Twice as bright burns half as long\". Ether is a magical substance that looks like flame, but shines bright forever. This pretty light source is a great arcane alternative to your regular coal based torches.");
 
-        addPage("working_with_ashes", "Gunpowder proves to be quite a mutable material. Through the use of spirit magic we can not only create it, but convert it into many other hellish materials.");
-        addPage("bringing_forth_life", "The Spirit Altar is certainly one of the most useful wonders of spirit magic, allowing you to easily fuse items with life.");
-        addPage("spirit_transmutation", "Many natural resources can easily be shaped into other, very similar goods. This process can often go both ways.");
+        addPage("hex_ash", "Hex ash is a fine powder often used for various rituals. It can also be used to speed up the process of spirit infusion. Interacting with an active spirit altar will greatly accelerate the infusion process.");
 
-        addPage("arcane_utilities", "The Spirit Altar proves to be one of the most useful wonders of spirit magic, allowing you to easily infuse items into other, more precious items.");
+        addPage("spirit_architecture", "The Spirit Altar proves to be one of the most useful wonders of spirit magic, allowing you to easily infuse items into other, more precious items.");
         /*
         add("malum.gui.book.page.unholy_blend", "Unholy blend is a cool crafting material made from redstone dust, soulsand and rotten flesh. I'll make some building blocks made from it at some point.");
         add("malum.gui.book.page.unholy_blend_again", "Right now this material is only used to make arcane grit. Shove the thing into a furnace and get your cool powder.");
@@ -218,7 +211,7 @@ public class MalumLangProvider extends LanguageProvider
         add("malum.jei.totem_rites", "Totem Rites");
         add("malum.jei.spirit_altar", "Spirit Altar");
         add("itemGroup.malum", "Malum");
-        add("itemGroup.malum_building_blocks", "Malum Building Blocks");
+        add("itemGroup.malum_shaped_stones", "Malum Shaped Stones");
         add("itemGroup.malum_spirits", "Malum Spirits");
         add("itemGroup.malum_natural_wonders", "Malum Natural Wonders");
     }

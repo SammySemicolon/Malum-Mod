@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "YYY",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "malum:runewood_planks"
+    },
+    "Y": {
+      "item": "malum:runewood_planks_slab"
+    }
+  },
+  "result": {
+    "item": "malum:runewood_item_stand",
+    "count": 2
+  }
+}

@@ -2,11 +2,8 @@ package com.sammy.malum.common.book.objects;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.ClientHelper;
-import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.entries.BookEntry;
 import net.minecraft.client.Minecraft;
-
-import java.util.function.Predicate;
 
 import static com.sammy.malum.common.book.BookScreen.screen;
 import static net.minecraft.client.gui.AbstractGui.blit;
@@ -26,7 +23,7 @@ public class LinkedEntryObject extends EntryObject
             screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey), mouseX, mouseY);
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX,posY, 67, 211, 24, 24, 512, 512);
+        blit(matrixStack, posX,posY, 27, 193, 24, 24, 512, 512);
         Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 4, posY + 4);
     
     }

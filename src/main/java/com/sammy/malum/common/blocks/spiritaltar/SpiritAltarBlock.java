@@ -1,15 +1,9 @@
 package com.sammy.malum.common.blocks.spiritaltar;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.SpiritSplinterItem;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
-import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes.MalumSpiritAltarRecipe;
-import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
+import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -17,12 +11,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
-import java.awt.*;
 
 public class SpiritAltarBlock extends Block
 {
@@ -40,6 +30,16 @@ public class SpiritAltarBlock extends Block
             {
                 SpiritAltarTileEntity tileEntity = (SpiritAltarTileEntity) worldIn.getTileEntity(pos);
                 ItemStack heldStack = player.getHeldItemMainhand();
+                if (heldStack.getItem().equals(MalumItems.HEX_ASH.get()) && !tileEntity.inventory.getStackInSlot(0).isEmpty())
+                {
+                    if (!tileEntity.spedUp)
+                    {
+                        heldStack.shrink(1);
+                        tileEntity.spedUp = true;
+                        return ActionResultType.SUCCESS;
+                    }
+                    return ActionResultType.PASS;
+                }
                 if (!(heldStack.getItem() instanceof SpiritSplinterItem))
                 {
                     boolean success = tileEntity.inventory.playerHandleItem(worldIn, player, handIn);

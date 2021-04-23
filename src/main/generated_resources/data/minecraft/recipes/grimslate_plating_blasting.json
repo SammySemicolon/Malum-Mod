@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "malum:grimslate_ore"
+  },
+  "result": "malum:grimslate_plating",
+  "experience": 0.25,
+  "cookingtime": 200
+}

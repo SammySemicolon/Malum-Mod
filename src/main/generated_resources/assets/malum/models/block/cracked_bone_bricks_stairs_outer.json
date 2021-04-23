@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "side": "malum:block/cracked_bone_bricks",
-    "bottom": "malum:block/cracked_bone_bricks",
-    "top": "malum:block/cracked_bone_bricks"
-  }
-}

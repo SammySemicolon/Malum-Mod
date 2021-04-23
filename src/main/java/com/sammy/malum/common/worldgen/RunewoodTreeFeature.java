@@ -51,12 +51,6 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
     public static int leavesSizeExtra = 1;
     public static int leavesShrinkStart = 5;
 
-    public static BlockState getLogState(Random rand)
-    {
-        BlockState defaultLog = MalumBlocks.RUNEWOOD_LOG.get().getDefaultState();
-        BlockState sapLog = MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get().getDefaultState();
-        return rand.nextFloat() < 0.1f ? sapLog : defaultLog;
-    }
 
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
@@ -65,6 +59,8 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
         {
             return false;
         }
+        BlockState defaultLog = MalumBlocks.RUNEWOOD_LOG.get().getDefaultState();
+
         MalumFiller treeFiller = new MalumFiller();
         MalumFiller leavesFiller = new MalumFiller();
 
@@ -77,7 +73,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
             BlockPos trunkPos = pos.up(i);
             if (canPlace(reader, trunkPos))
             {
-                treeFiller.entries.add(new BlockStateEntry(getLogState(rand), trunkPos));
+                treeFiller.entries.add(new BlockStateEntry(defaultLog, trunkPos));
             }
             else
             {
@@ -94,7 +90,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos sideTrunkPos = pos.offset(direction).up(i);
                 if (canPlace(reader, sideTrunkPos))
                 {
-                    treeFiller.entries.add(new BlockStateEntry(getLogState(rand), sideTrunkPos));
+                    treeFiller.entries.add(new BlockStateEntry(defaultLog, sideTrunkPos));
                 }
                 else
                 {
@@ -113,7 +109,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                             BlockPos sideSideTrunkPos = pos.offset(direction).offset(direction2).up(i);
                             if (canPlace(reader, sideSideTrunkPos))
                             {
-                                treeFiller.entries.add(new BlockStateEntry(getLogState(rand), sideSideTrunkPos));
+                                treeFiller.entries.add(new BlockStateEntry(defaultLog, sideSideTrunkPos));
                             }
                             else
                             {
@@ -136,7 +132,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos branchConnectionPos = branchStartPos.offset(direction.getOpposite(), i);
                 if (canPlace(reader, branchConnectionPos))
                 {
-                    treeFiller.entries.add(new BlockStateEntry(getLogState(rand).with(RotatedPillarBlock.AXIS, direction.getAxis()), branchConnectionPos));
+                    treeFiller.entries.add(new BlockStateEntry(defaultLog.with(RotatedPillarBlock.AXIS, direction.getAxis()), branchConnectionPos));
                 }
                 else
                 {
@@ -149,7 +145,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                 BlockPos branchPos = branchStartPos.up(i);
                 if (canPlace(reader, branchPos))
                 {
-                    treeFiller.entries.add(new BlockStateEntry(getLogState(rand), branchPos));
+                    treeFiller.entries.add(new BlockStateEntry(defaultLog, branchPos));
                 }
                 else
                 {
