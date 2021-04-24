@@ -1,22 +1,13 @@
 package com.sammy.malum;
 
-import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.text.*;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientHelper

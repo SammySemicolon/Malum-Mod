@@ -1,6 +1,6 @@
 package com.sammy.malum.common.enchantments;
 
-import com.sammy.malum.core.systems.spirits.SpiritHelper;
+import com.sammy.malum.core.systems.souls.SpiritHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

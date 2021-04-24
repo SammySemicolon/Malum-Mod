@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blocks.spiritaltar;
 
-import com.sammy.malum.common.items.SpiritSplinterItem;
+import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -40,7 +40,7 @@ public class SpiritAltarBlock extends Block
                     }
                     return ActionResultType.PASS;
                 }
-                if (!(heldStack.getItem() instanceof SpiritSplinterItem))
+                if (!(heldStack.getItem() instanceof SpiritItem))
                 {
                     boolean success = tileEntity.inventory.playerHandleItem(worldIn, player, handIn);
                     if (success)
@@ -48,7 +48,7 @@ public class SpiritAltarBlock extends Block
                         return ActionResultType.SUCCESS;
                     }
                 }
-                if (heldStack.getItem() instanceof SpiritSplinterItem || heldStack.isEmpty())
+                if (heldStack.getItem() instanceof SpiritItem || heldStack.isEmpty())
                 {
                     boolean success = tileEntity.spiritInventory.playerHandleItem(worldIn, player, handIn);
                     if (success)

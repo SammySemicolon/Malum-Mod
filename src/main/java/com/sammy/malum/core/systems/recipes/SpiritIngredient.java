@@ -1,12 +1,7 @@
 package com.sammy.malum.core.systems.recipes;
 
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
-import net.minecraft.block.Block;
+import com.sammy.malum.core.systems.souls.MalumSpiritType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.ITag;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SpiritIngredient
 {

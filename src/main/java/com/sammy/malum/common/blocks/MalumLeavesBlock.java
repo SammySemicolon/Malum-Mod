@@ -42,7 +42,7 @@ public class MalumLeavesBlock extends LeavesBlock
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (player.getHeldItem(handIn).getItem().equals(MalumItems.FIRE_SPIRIT_SPLINTER.get()))
+        if (player.getHeldItem(handIn).getItem().equals(MalumItems.INFERNAL_SPIRIT.get()))
         {
             worldIn.setBlockState(pos,state.with(COLOR, (state.get(COLOR) + 1) % 9));
     

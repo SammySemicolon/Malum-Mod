@@ -18,17 +18,17 @@ public class MalumSpiritAltarRecipes
     {
         //tainted rock
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TAINTED_ROCK.get(), 16))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+                .addSpirit(new SpiritIngredient(MalumSoulTypes.HOLY_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSoulTypes.ARCANE_SPIRIT));
 
         //twisted rock
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TWISTED_ROCK.get(), 16))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+                .addSpirit(new SpiritIngredient(MalumSoulTypes.WICKED_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSoulTypes.ARCANE_SPIRIT));
 
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 2), new ItemIngredient(MalumItems.YELLOW_ETHER.get(), 4))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSoulTypes.INFERNAL_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSoulTypes.ARCANE_SPIRIT, 2))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
 
 /*

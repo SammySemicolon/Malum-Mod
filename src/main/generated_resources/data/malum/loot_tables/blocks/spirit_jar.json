@@ -8,11 +8,6 @@
           "type": "minecraft:item",
           "name": "malum:spirit_jar"
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
       ]
     }
   ]

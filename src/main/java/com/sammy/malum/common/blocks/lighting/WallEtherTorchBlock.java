@@ -1,20 +1,11 @@
 package com.sammy.malum.common.blocks.lighting;
 
-import com.sammy.malum.MalumConstants;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.systems.particles.ParticleManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WallTorchBlock;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.*;
 import java.util.Random;

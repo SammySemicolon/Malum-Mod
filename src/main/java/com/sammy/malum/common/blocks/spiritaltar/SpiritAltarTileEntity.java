@@ -1,7 +1,7 @@
 package com.sammy.malum.common.blocks.spiritaltar;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.items.SpiritSplinterItem;
+import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
@@ -25,7 +25,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     {
         super(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get());
     
-        inventory = new SimpleInventory(1, 64, t-> !(t.getItem() instanceof SpiritSplinterItem))
+        inventory = new SimpleInventory(1, 64, t-> !(t.getItem() instanceof SpiritItem))
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -36,7 +36,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(slot), spiritInventory.nonEmptyStacks());
             }
         };
-        spiritInventory = new SimpleInventory(8, 64, t-> t.getItem() instanceof SpiritSplinterItem)
+        spiritInventory = new SimpleInventory(8, 64, t-> t.getItem() instanceof SpiritItem)
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -194,13 +194,13 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             for (int i = 0; i < spiritInventory.slotCount; i++)
             {
                 ItemStack item = spiritInventory.getStackInSlot(i);
-                if (item.getItem() instanceof SpiritSplinterItem)
+                if (item.getItem() instanceof SpiritItem)
                 {
                     Vector3d offset = itemOffset(this, i);
                     double x = getPos().getX() + offset.getX();
                     double y = getPos().getY() + offset.getY();
                     double z = getPos().getZ() + offset.getZ();
-                    SpiritSplinterItem spiritSplinterItem = (SpiritSplinterItem) item.getItem();
+                    SpiritItem spiritSplinterItem = (SpiritItem) item.getItem();
                     Color color = spiritSplinterItem.type.color;
 
 

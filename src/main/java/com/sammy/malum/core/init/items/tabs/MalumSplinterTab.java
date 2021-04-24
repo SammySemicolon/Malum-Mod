@@ -18,6 +18,6 @@ public class MalumSplinterTab extends ItemGroup
     @Nonnull
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(MalumItems.MAGIC_SPIRIT_SPLINTER.get());
+        return new ItemStack(MalumItems.ARCANE_SPIRIT.get());
     }
 }

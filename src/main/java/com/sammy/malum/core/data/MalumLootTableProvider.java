@@ -2,7 +2,6 @@ package com.sammy.malum.core.data;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
-import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
@@ -37,7 +36,7 @@ import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 public class MalumLootTableProvider extends LootTableProvider
 {
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> tables = new ArrayList<>();
-    private static final Set<Item> IMMUNE_TO_EXPLOSIONS = Stream.of(MalumBlocks.WITHER_SAND, MalumBlocks.ABSTRUSE_BLOCK).map(c -> c.get().asItem()).collect(ImmutableSet.toImmutableSet());
+    private static final Set<Item> IMMUNE_TO_EXPLOSIONS = Stream.of(MalumBlocks.SPIRIT_ALTAR, MalumBlocks.SPIRIT_JAR).map(c -> c.get().asItem()).collect(ImmutableSet.toImmutableSet());
     
     private static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
     private static final ILootCondition.IBuilder SHEARS = MatchTool.builder(ItemPredicate.Builder.create().item(Items.SHEARS));
@@ -65,11 +64,9 @@ public class MalumLootTableProvider extends LootTableProvider
     @Override
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables()
     {
-        
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
         blocks.remove(MalumBlocks.BLAZING_QUARTZ_ORE);
-        takeAll(blocks, b -> b.get() instanceof TotemPoleBlock);
+
         takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);
         takeAll(blocks, b -> b.get() instanceof LeavesBlock);

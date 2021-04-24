@@ -1,8 +1,0 @@
-{
-  "parent": "malum:block/template_farmland",
-  "textures": {
-    "side": "malum:block/sun_kissed_grass_block_side",
-    "top": "malum:block/wild_farmland",
-    "dirt": "minecraft:block/dirt"
-  }
-}

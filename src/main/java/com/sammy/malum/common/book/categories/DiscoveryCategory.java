@@ -10,14 +10,14 @@ import static com.sammy.malum.core.init.items.MalumItems.*;
 
 public class DiscoveryCategory extends BookCategory
 {
-    public static BookEntry lifeSpirit;
-    public static BookEntry deathSpirit;
-    public static BookEntry magicSpirit;
-    public static BookEntry earthSpirit;
-    public static BookEntry fireSpirit;
-    public static BookEntry airSpirit;
-    public static BookEntry waterSpirit;
+    public static BookEntry holySpirit;
+    public static BookEntry wickedSpirit;
+    public static BookEntry arcaneSpirit;
     public static BookEntry eldritchSpirit;
+    public static BookEntry earthenSpirit;
+    public static BookEntry infernalSpirit;
+    public static BookEntry aerialSpirit;
+    public static BookEntry aquaticSpirit;
 
     public static BookEntry basicsOfMagic;
     public static BookEntry runewoodTrees;
@@ -37,21 +37,21 @@ public class DiscoveryCategory extends BookCategory
         super(TAINTED_ROCK.get().getDefaultInstance(), "discovery");
         Item EMPTY = Items.BARRIER;
 
-        lifeSpirit = new BookEntry(LIFE_SPIRIT_SPLINTER.get(), "life_spirit")
+        holySpirit = new BookEntry(HOLY_SPIRIT.get(), "life_spirit")
                 .addPage(new HeadlineTextPage("life_spirit"));
-        deathSpirit = new BookEntry(DEATH_SPIRIT_SPLINTER.get(), "death_spirit")
+        wickedSpirit = new BookEntry(WICKED_SPIRIT.get(), "death_spirit")
                 .addPage(new HeadlineTextPage("death_spirit"));
-        magicSpirit = new BookEntry(MAGIC_SPIRIT_SPLINTER.get(), "magic_spirit")
+        arcaneSpirit = new BookEntry(ARCANE_SPIRIT.get(), "magic_spirit")
                 .addPage(new HeadlineTextPage("magic_spirit"));
-        eldritchSpirit = new BookEntry(ELDRITCH_SPIRIT_SPLINTER.get(), "eldritch_spirit")
+        eldritchSpirit = new BookEntry(ELDRITCH_SPIRIT.get(), "eldritch_spirit")
                 .addPage(new HeadlineTextPage("eldritch_spirit"));
-        earthSpirit = new BookEntry(EARTH_SPIRIT_SPLINTER.get(), "earth_spirit")
+        earthenSpirit = new BookEntry(EARTHEN_SPIRIT.get(), "earth_spirit")
                 .addPage(new HeadlineTextPage("earth_spirit"));
-        fireSpirit = new BookEntry(FIRE_SPIRIT_SPLINTER.get(), "fire_spirit")
-                .addPage(new HeadlineTextPage("fire_spirit"));
-        airSpirit = new BookEntry(AIR_SPIRIT_SPLINTER.get(), "air_spirit")
+        infernalSpirit = new BookEntry(INFERNAL_SPIRIT.get(), "infernal_spirit")
+                .addPage(new HeadlineTextPage("infernal_spirit"));
+        aerialSpirit = new BookEntry(AERIAL_SPIRIT.get(), "air_spirit")
                 .addPage(new HeadlineTextPage("air_spirit"));
-        waterSpirit = new BookEntry(WATER_SPIRIT_SPLINTER.get(), "water_spirit")
+        aquaticSpirit = new BookEntry(AQUATIC_SPIRIT.get(), "water_spirit")
                 .addPage(new HeadlineTextPage("water_spirit"));
 
         basicsOfMagic = new BookEntry(Items.SOUL_SAND, "basics_of_magic")
@@ -62,9 +62,9 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("runewood_trees"))
                 .addPage(new SmeltingPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
                 .addPage(new ItemListPage(RUNEWOOD_PLANKS.get(), VERTICAL_RUNEWOOD_PLANKS.get(), BOLTED_RUNEWOOD_PLANKS.get(), RUNEWOOD_PANEL.get(), RUNEWOOD_TILES.get())
-                            .addList(RUNEWOOD_PLANKS_SLAB.get(), VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), BOLTED_RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PANEL_SLAB.get(), RUNEWOOD_TILES_SLAB.get())
-                            .addList(RUNEWOOD_PLANKS_STAIRS.get(), VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), RUNEWOOD_PANEL_STAIRS.get(), RUNEWOOD_TILES_STAIRS.get())
-                            .addList(CUT_RUNEWOOD_PLANKS.get(), RUNEWOOD_BEAM.get(), BOLTED_RUNEWOOD_BEAM.get()))
+                        .addList(RUNEWOOD_PLANKS_SLAB.get(), VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), BOLTED_RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PANEL_SLAB.get(), RUNEWOOD_TILES_SLAB.get())
+                        .addList(RUNEWOOD_PLANKS_STAIRS.get(), VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), RUNEWOOD_PANEL_STAIRS.get(), RUNEWOOD_TILES_STAIRS.get())
+                        .addList(CUT_RUNEWOOD_PLANKS.get(), RUNEWOOD_BEAM.get(), BOLTED_RUNEWOOD_BEAM.get()))
                 .addPage(new CraftingPage(new ItemStack(RUNEWOOD_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(new CraftingPage(RUNEWOOD_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()));
 
@@ -107,7 +107,7 @@ public class DiscoveryCategory extends BookCategory
                         .addList(CUT_TAINTED_ROCK.get(), CHISELED_TAINTED_ROCK.get()))
                 .addPage(new CraftingPage(new ItemStack(TAINTED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get()))
                 .addPage(new CraftingPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get()))
-                .addLink(lifeSpirit).addLink(magicSpirit);
+                .addLink(holySpirit).addLink(arcaneSpirit);
 
         twistedRock = new BookEntry(TWISTED_ROCK.get(), "twisted_rock")
                 .addPage(new HeadlineTextPage("twisted_rock"))
@@ -121,14 +121,14 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new CraftingPage(new ItemStack(TWISTED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get()))
                 .addPage(new CraftingPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get()))
 
-                .addLink(deathSpirit).addLink(magicSpirit);
+                .addLink(wickedSpirit).addLink(arcaneSpirit);
 
         ether = new BookEntry(YELLOW_ETHER.get(), "ether")
                 .addPage(new HeadlineTextPage("ether"))
                 .addPage(new SpiritInfusionPage(YELLOW_ETHER.get()))
                 .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, ORANGE_ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
                 .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ORANGE_ETHER.get(), TAINTED_ROCK.get(), Items.STICK, TAINTED_ROCK.get(), Items.STICK))
-                .addLink(fireSpirit);
+                .addLink(infernalSpirit);
 
         hexAsh = new BookEntry(HEX_ASH.get(), "hex_ash")
                 .addPage(new HeadlineTextPage("hex_ash"))
@@ -151,7 +151,7 @@ public class DiscoveryCategory extends BookCategory
                         .addList(PURIFIED_ROCK_STAIRS.get(), SMOOTH_PURIFIED_ROCK_STAIRS.get(), POLISHED_PURIFIED_ROCK_STAIRS.get(), PURIFIED_ROCK_BRICKS_STAIRS.get(), PURIFIED_ROCK_TILES_STAIRS.get())
                         .addList(PURIFIED_ROCK_PILLAR.get(), PURIFIED_ROCK_PILLAR_CAP.get(), PURIFIED_ROCK_COLUMN.get(), PURIFIED_ROCK_COLUMN_CAP.get())
                         .addList(CUT_PURIFIED_ROCK.get(), CHISELED_PURIFIED_ROCK.get()))
-                        .addPage(new CraftingPage(new ItemStack(PURIFIED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get()))
+                .addPage(new CraftingPage(new ItemStack(PURIFIED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get()))
                 .addPage(new CraftingPage(PURIFIED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get()))
                 .addPage(new SpiritInfusionPage(ERODED_ROCK.get()))
                 .addPage(new ItemListPage(ERODED_ROCK.get(), SMOOTH_ERODED_ROCK.get(), POLISHED_ERODED_ROCK.get(), ERODED_ROCK_BRICKS.get(), ERODED_ROCK_TILES.get())
@@ -161,8 +161,8 @@ public class DiscoveryCategory extends BookCategory
                         .addList(CUT_ERODED_ROCK.get(), CHISELED_ERODED_ROCK.get()))
                 .addPage(new CraftingPage(new ItemStack(ERODED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK.get(), ERODED_ROCK.get(), ERODED_ROCK.get()))
                 .addPage(new CraftingPage(ERODED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK.get(), ERODED_ROCK.get(), ERODED_ROCK.get()))
-                .addLink(magicSpirit);
+                .addLink(arcaneSpirit);
 
-        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, grimslate, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, hexAsh, spiritArchitecture, lifeSpirit, deathSpirit, magicSpirit, eldritchSpirit, earthSpirit, fireSpirit, airSpirit, waterSpirit, eldritchSpirit);
+        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, grimslate, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, hexAsh, spiritArchitecture, holySpirit, wickedSpirit, arcaneSpirit, eldritchSpirit, earthenSpirit, infernalSpirit, aerialSpirit, aquaticSpirit);
     }
 }

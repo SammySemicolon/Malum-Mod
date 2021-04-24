@@ -8,8 +8,6 @@ import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
-import com.sammy.malum.common.blocks.totems.TotemPoleBlock;
-import com.sammy.malum.common.blocks.wildfarmland.WildFarmlandBlock;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -56,22 +54,19 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(BLAZING_QUARTZ_ORE);
-        blocks.remove(MalumBlocks.ABSTRUSE_BLOCK);
+        glowingBlock(BLAZING_QUARTZ_ORE);
+
         blocks.remove(MalumBlocks.SPIRIT_ALTAR);
         blocks.remove(MalumBlocks.SPIRIT_JAR);
-        blocks.remove(MalumBlocks.TOTEM_CORE);
 
-        glowingBlock(BLAZING_QUARTZ_ORE);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
 
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getTranslationKey().endsWith("_cap")).forEach(this::pillarCapBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof WildFarmlandBlock).forEach(this::wildFarmlandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof StairsBlock).forEach(this::stairsBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
@@ -101,11 +96,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         simpleBlock(blockRegistryObject.get());
     }
 
-    public void emptyBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        ModelFile empty = models().getExistingFile(new ResourceLocation("block/air"));
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
-    }
     public void glowingBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();

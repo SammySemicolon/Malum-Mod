@@ -41,8 +41,6 @@ import static com.sammy.malum.MalumMod.MODID;
 
 public class MalumHelper
 {
-    public static Vector3d[] offsets = new Vector3d[]{new Vector3d(0, 0, 1), new Vector3d(1, 0, 1), new Vector3d(1, 0, 0), new Vector3d(1, 0, -1), new Vector3d(0, 0, -1), new Vector3d(-1, 0, -1), new Vector3d(-1, 0, 0), new Vector3d(-1, 0, 1)};
-    
     public static Color darker(Color color, int times)
     {
         for (int i = 0; i < times; i++)
@@ -60,7 +58,7 @@ public class MalumHelper
         }
         return color;
     }
-    
+
     public static <T extends LivingEntity> boolean damageItem(ItemStack stack, int amount, T entityIn, Consumer<T> onBroken)
     {
         if (!entityIn.world.isRemote && (!(entityIn instanceof PlayerEntity) || !((PlayerEntity) entityIn).abilities.isCreativeMode))
@@ -77,21 +75,21 @@ public class MalumHelper
                     {
                         ((PlayerEntity) entityIn).addStat(Stats.ITEM_BROKEN.get(item));
                     }
-                    
+
                     stack.setDamage(0);
                     return true;
                 }
-    
+
             }
         }
         return false;
     }
-    
+
     public static <T extends Entity> Entity getClosestEntity(List<T> entities, Vector3d pos)
     {
         double cachedDistance = -1.0D;
         Entity resultEntity = null;
-        
+
         for (T entity : entities)
         {
             double newDistance = entity.getDistanceSq(pos.x, pos.y, pos.z);
@@ -103,7 +101,7 @@ public class MalumHelper
         }
         return resultEntity;
     }
-    
+
     public static Vector3d pos(BlockPos pos)
     {
         return new Vector3d(pos.getX(), pos.getY(), pos.getZ());
@@ -365,7 +363,7 @@ public class MalumHelper
     }
     
     @Nonnull
-    public static Optional<ImmutableTriple<String, Integer, ItemStack>> findEquippedCurio(Predicate<ItemStack> filter, @Nonnull final LivingEntity livingEntity)
+    public static Optional<ImmutableTriple<String, Integer, ItemStack>> findCosmeticCurio(Predicate<ItemStack> filter, @Nonnull final LivingEntity livingEntity)
     {
         
         ImmutableTriple<String, Integer, ItemStack> result = CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(handler -> {
