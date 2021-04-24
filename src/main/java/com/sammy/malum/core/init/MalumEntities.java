@@ -2,7 +2,6 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entities.spirit.PlayerSoulEntity;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entities.spirit.SpiritSplinterItemEntity;
 import net.minecraft.entity.EntityClassification;
@@ -22,8 +21,5 @@ public class MalumEntities
     public static final RegistryObject<EntityType<ScytheBoomerangEntity>> SCYTHE_BOOMERANG = ENTITY_TYPES.register("scythe_boomerang",
             () -> EntityType.Builder.create(ScytheBoomerangEntity::new, EntityClassification.MISC).size(2.5F, 0.75F)
                     .trackingRange(9).build(MalumHelper.prefix("scythe_boomerang").toString()));
-    
-    public static final RegistryObject<EntityType<PlayerSoulEntity>> PLAYER_SOUL = ENTITY_TYPES.register("player_soul",
-            () -> EntityType.Builder.create(PlayerSoulEntity::new, EntityClassification.MISC).size(0.5F, 0.75F)
-                    .trackingRange(9).build(MalumHelper.prefix("player_soul").toString()));
+
 }

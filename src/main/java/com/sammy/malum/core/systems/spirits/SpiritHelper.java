@@ -2,7 +2,6 @@ package com.sammy.malum.core.systems.spirits;
 
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entities.spirit.PlayerSoulEntity;
 import com.sammy.malum.common.entities.spirit.SpiritSplinterItemEntity;
 import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumEntities;

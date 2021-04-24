@@ -13,7 +13,6 @@ import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRenderer;
 import com.sammy.malum.common.blocks.spiritstorage.jar.SpiritJarRenderer;
 import com.sammy.malum.common.blocks.totems.TotemPoleRendererModule;
-import com.sammy.malum.common.entities.spirit.PlayerSoulRenderer;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.common.entities.spirit.SpiritSplinterItemRenderer;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
@@ -74,7 +73,6 @@ public class ClientStartupEvents
     {
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SPIRIT_ESSENCE.get(), ClientStartupEvents::essenceRenderer);
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SCYTHE_BOOMERANG.get(), ClientStartupEvents::scytheRenderer);
-        RenderingRegistry.registerEntityRenderingHandler(MalumEntities.PLAYER_SOUL.get(), ClientStartupEvents::playerSoulRenderer);
     }
     
     public static SpiritSplinterItemRenderer essenceRenderer(EntityRendererManager manager)
@@ -86,12 +84,7 @@ public class ClientStartupEvents
     {
         return new ScytheBoomerangEntityRenderer(manager, Minecraft.getInstance().getItemRenderer());
     }
-    
-    public static PlayerSoulRenderer playerSoulRenderer(EntityRendererManager manager)
-    {
-        return new PlayerSoulRenderer(manager, Minecraft.getInstance().getItemRenderer());
-    }
-    
+
     @SubscribeEvent
     public static void setBlockColors(ColorHandlerEvent.Block event)
     {
