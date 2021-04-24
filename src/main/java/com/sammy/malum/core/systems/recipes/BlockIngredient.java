@@ -7,7 +7,7 @@ import net.minecraft.tags.ITag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MalumBlockIngredient
+public class BlockIngredient
 {
     public ITag<Block> tag;
     public Block block;
@@ -32,10 +32,10 @@ public class MalumBlockIngredient
         }
         return stacks;
     }
-    public MalumBlockIngredient(ITag<Block> tag) {
+    public BlockIngredient(ITag<Block> tag) {
         this.tag = tag;
     }
-    public MalumBlockIngredient(Block block) {
+    public BlockIngredient(Block block) {
         this.block = block;
     }
 }

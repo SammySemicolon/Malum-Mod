@@ -8,7 +8,7 @@ import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
+import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
@@ -119,7 +119,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             if (progress >= progressCap)
             {
                 Vector3d itemPos = itemPos(this);
-                for (MalumSpiritIngredient ingredient : recipe.spiritIngredients)
+                for (SpiritIngredient ingredient : recipe.spiritIngredients)
                 {
                     if (MalumHelper.areWeOnClient(world))
                     {

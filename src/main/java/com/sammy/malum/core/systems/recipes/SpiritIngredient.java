@@ -8,18 +8,18 @@ import net.minecraft.tags.ITag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MalumSpiritIngredient
+public class SpiritIngredient
 {
     public MalumSpiritType type;
     public int count;
     
-    public MalumSpiritIngredient(MalumSpiritType type, int count)
+    public SpiritIngredient(MalumSpiritType type, int count)
     {
         this.type = type;
         this.count = count;
     }
     
-    public MalumSpiritIngredient(MalumSpiritType type)
+    public SpiritIngredient(MalumSpiritType type)
     {
         this.type = type;
         this.count = 1;

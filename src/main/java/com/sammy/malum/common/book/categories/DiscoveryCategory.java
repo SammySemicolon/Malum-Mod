@@ -43,6 +43,8 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("death_spirit"));
         magicSpirit = new BookEntry(MAGIC_SPIRIT_SPLINTER.get(), "magic_spirit")
                 .addPage(new HeadlineTextPage("magic_spirit"));
+        eldritchSpirit = new BookEntry(ELDRITCH_SPIRIT_SPLINTER.get(), "eldritch_spirit")
+                .addPage(new HeadlineTextPage("eldritch_spirit"));
         earthSpirit = new BookEntry(EARTH_SPIRIT_SPLINTER.get(), "earth_spirit")
                 .addPage(new HeadlineTextPage("earth_spirit"));
         fireSpirit = new BookEntry(FIRE_SPIRIT_SPLINTER.get(), "fire_spirit")
@@ -51,8 +53,6 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("air_spirit"));
         waterSpirit = new BookEntry(WATER_SPIRIT_SPLINTER.get(), "water_spirit")
                 .addPage(new HeadlineTextPage("water_spirit"));
-        eldritchSpirit = new BookEntry(ELDRITCH_SPIRIT_SPLINTER.get(), "eldritch_spirit")
-                .addPage(new HeadlineTextPage("eldritch_spirit"));
 
         basicsOfMagic = new BookEntry(Items.SOUL_SAND, "basics_of_magic")
                 .addPage(new HeadlineTextPage("basics_of_magic"))
@@ -163,6 +163,6 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new CraftingPage(ERODED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK.get(), ERODED_ROCK.get(), ERODED_ROCK.get()))
                 .addLink(magicSpirit);
 
-        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, grimslate, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, hexAsh, spiritArchitecture, lifeSpirit, deathSpirit, magicSpirit, earthSpirit, fireSpirit, airSpirit, waterSpirit, eldritchSpirit);
+        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, grimslate, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, hexAsh, spiritArchitecture, lifeSpirit, deathSpirit, magicSpirit, eldritchSpirit, earthSpirit, fireSpirit, airSpirit, waterSpirit, eldritchSpirit);
     }
 }

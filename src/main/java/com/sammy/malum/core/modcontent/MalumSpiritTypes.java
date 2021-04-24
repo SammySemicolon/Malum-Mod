@@ -196,7 +196,7 @@ public class MalumSpiritTypes
         {
             return 3;
         }
-        if (entity instanceof ZombieHorseEntity || entity instanceof AbstractPiglinEntity )
+        if (entity instanceof ZombieHorseEntity || entity instanceof AbstractPiglinEntity)
         {
             return 2;
         }

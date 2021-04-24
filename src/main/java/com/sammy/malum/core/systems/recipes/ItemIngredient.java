@@ -8,7 +8,7 @@ import net.minecraft.tags.ITag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MalumItemIngredient
+public class ItemIngredient
 {
     public ITag<Item> tag;
     public Item item;
@@ -67,12 +67,12 @@ public class MalumItemIngredient
             return tag.contains(stack.getItem()) && stack.getCount() >= count;
         }
     }
-    public MalumItemIngredient(ITag<Item> tag, int count)
+    public ItemIngredient(ITag<Item> tag, int count)
     {
         this.tag = tag;
         this.count = count;
     }
-    public MalumItemIngredient(Item item, int count) {
+    public ItemIngredient(Item item, int count) {
         this.item = item;
         this.count = count;
     }

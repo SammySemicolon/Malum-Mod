@@ -7,7 +7,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes.MalumSpiritAltarRecipe;
-import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
+import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -90,7 +90,7 @@ public class SpiritAltarRecipeCategory implements IRecipeCategory<MalumSpiritAlt
     public void setIngredients(MalumSpiritAltarRecipe recipe, IIngredients iIngredients)
     {
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        for (MalumSpiritIngredient spirit : recipe.spiritIngredients)
+        for (SpiritIngredient spirit : recipe.spiritIngredients)
         {
             stacks.add(spirit.getItem());
         }
@@ -104,7 +104,7 @@ public class SpiritAltarRecipeCategory implements IRecipeCategory<MalumSpiritAlt
     {
         ArrayList<Pair<Integer, Integer>> offsets = MalumHelper.toArrayList(Pair.of(46, 14), Pair.of(46, 66), Pair.of(20, 40), Pair.of(72, 40), Pair.of(24, 18), Pair.of(68, 62), Pair.of(68, 18), Pair.of(24, 62));
         int i = 0;
-        for (MalumSpiritIngredient spirit : recipe.spiritIngredients)
+        for (SpiritIngredient spirit : recipe.spiritIngredients)
         {
             Pair<Integer, Integer> offset = offsets.get(i);
             iRecipeLayout.getItemStacks().init(i, true, offset.first, offset.second);

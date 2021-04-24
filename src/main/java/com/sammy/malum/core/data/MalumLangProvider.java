@@ -128,6 +128,11 @@ public class MalumLangProvider extends LanguageProvider
         addPage("hex_ash", "Hex ash is a fine powder often used for various rituals. It can also be used to speed up the process of spirit infusion. Interacting with an active spirit altar will greatly accelerate the infusion process.");
 
         addPage("spirit_architecture", "The Spirit Altar proves to be one of the most useful wonders of spirit magic, allowing you to easily infuse items into other, more precious items.");
+
+        addPage("life_spirit", "The holy spirit is a symbol of the living. It contains many strange curative properties that will greatly aid your rise to power.");
+        addPage("death_spirit", "The wicked spirit is a symbol of the reanimated. It's deathly properties sure are useful.");
+        addPage("magic_spirit", "The arcane spirit represents the supernatural. It's a very flexible magic, provides many uses.");
+        addPage("eldritch_spirit", "From darkness a great power is born, the umbral spirit represents that dark power. It's found only within the strangest of souls.");
         /*
         add("malum.gui.book.page.unholy_blend", "Unholy blend is a cool crafting material made from redstone dust, soulsand and rotten flesh. I'll make some building blocks made from it at some point.");
         add("malum.gui.book.page.unholy_blend_again", "Right now this material is only used to make arcane grit. Shove the thing into a furnace and get your cool powder.");

@@ -1,8 +1,9 @@
 package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.systems.recipes.MalumItemIngredient;
-import com.sammy.malum.core.systems.recipes.MalumSpiritIngredient;
+import com.sammy.malum.core.systems.recipes.ItemIngredient;
+import com.sammy.malum.core.systems.recipes.SimpleItemIngredient;
+import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Tags;
 
@@ -16,19 +17,19 @@ public class MalumSpiritAltarRecipes
     public static void init()
     {
         //tainted rock
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.TAINTED_ROCK.get(), 16))
-                .addSpirit(new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT))
-                .addSpirit(new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TAINTED_ROCK.get(), 16))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
 
         //twisted rock
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16), new MalumItemIngredient(MalumItems.TWISTED_ROCK.get(), 16))
-                .addSpirit(new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT))
-                .addSpirit(new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TWISTED_ROCK.get(), 16))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
 
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 2), new MalumItemIngredient(MalumItems.YELLOW_ETHER.get(), 4))
-                .addSpirit(new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT))
-                .addSpirit(new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 2))
-                .addExtraItem(new MalumItemIngredient(MalumItems.BLAZING_QUARTZ.get(), 1));
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 2), new ItemIngredient(MalumItems.YELLOW_ETHER.get(), 4))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 2))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
 
 /*
         //tainted rock
@@ -110,12 +111,12 @@ public class MalumSpiritAltarRecipes
 
     public static class MalumSpiritAltarRecipe
     {
-        public MalumItemIngredient inputIngredient;
-        public ArrayList<MalumItemIngredient> extraItemIngredients;
-        public MalumItemIngredient outputIngredient;
-        public ArrayList<MalumSpiritIngredient> spiritIngredients;
+        public ItemIngredient inputIngredient;
+        public ArrayList<SimpleItemIngredient> extraItemIngredients;
+        public ItemIngredient outputIngredient;
+        public ArrayList<SpiritIngredient> spiritIngredients;
 
-        public MalumSpiritAltarRecipe(MalumItemIngredient inputIngredient, MalumItemIngredient outputIngredient)
+        public MalumSpiritAltarRecipe(ItemIngredient inputIngredient, ItemIngredient outputIngredient)
         {
             this.inputIngredient = inputIngredient;
             this.outputIngredient = outputIngredient;
@@ -124,13 +125,13 @@ public class MalumSpiritAltarRecipes
             RECIPES.add(this);
         }
 
-        public MalumSpiritAltarRecipe addExtraItem(MalumItemIngredient ingredient)
+        public MalumSpiritAltarRecipe addExtraItem(SimpleItemIngredient ingredient)
         {
             extraItemIngredients.add(ingredient);
             return this;
         }
 
-        public MalumSpiritAltarRecipe addSpirit(MalumSpiritIngredient ingredient)
+        public MalumSpiritAltarRecipe addSpirit(SpiritIngredient ingredient)
         {
             spiritIngredients.add(ingredient);
             return this;
@@ -139,7 +140,7 @@ public class MalumSpiritAltarRecipes
         public ArrayList<ItemStack> sortedStacks(ArrayList<ItemStack> stacks)
         {
             ArrayList<ItemStack> sortedStacks = new ArrayList<>();
-            for (MalumSpiritIngredient ingredient : spiritIngredients)
+            for (SpiritIngredient ingredient : spiritIngredients)
             {
                 for (ItemStack stack : stacks)
                 {
@@ -166,7 +167,7 @@ public class MalumSpiritAltarRecipes
             }
             for (int i = 0; i < spiritIngredients.size(); i++)
             {
-                MalumSpiritIngredient ingredient = spiritIngredients.get(i);
+                SpiritIngredient ingredient = spiritIngredients.get(i);
                 ItemStack stack = sortedStacks.get(i);
                 if (!ingredient.matches(stack))
                 {

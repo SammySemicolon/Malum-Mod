@@ -164,12 +164,12 @@ public class ClientStartupEvents
         
         ClientHelper.registerItemColor(itemColors, MalumItems.LIFE_SPIRIT_SPLINTER, brighter(LIFE_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.DEATH_SPIRIT_SPLINTER, brighter(DEATH_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.MAGIC_SPIRIT_SPLINTER, brighter(MAGIC_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, ELDRITCH_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.AIR_SPIRIT_SPLINTER, brighter(AIR_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.WATER_SPIRIT_SPLINTER, brighter(WATER_SPIRIT_COLOR,2));
-        ClientHelper.registerItemColor(itemColors, MalumItems.MAGIC_SPIRIT_SPLINTER, brighter(MAGIC_SPIRIT_COLOR,1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.FIRE_SPIRIT_SPLINTER, brighter(FIRE_SPIRIT_COLOR,2));
+        ClientHelper.registerItemColor(itemColors, MalumItems.FIRE_SPIRIT_SPLINTER, brighter(FIRE_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.EARTH_SPIRIT_SPLINTER, brighter(EARTH_SPIRIT_COLOR,1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT_SPLINTER, ELDRITCH_SPIRIT_COLOR);
     }
     
     @SubscribeEvent
