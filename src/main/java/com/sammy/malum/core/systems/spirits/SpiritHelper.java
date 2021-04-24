@@ -31,20 +31,10 @@ public class SpiritHelper
         spirits.add(new Pair<>(spirit, 1));
         harvestSpirit(spirits, player);
     }
-    public static void summonPlayerSoul(PlayerEntity target, PlayerEntity player)
-    {
-        PlayerSoulEntity soulEntity = new PlayerSoulEntity(MalumEntities.PLAYER_SOUL.get(), player.world);
-        float speed = 0.25f;
-        soulEntity.setMotion(MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed), MathHelper.nextFloat(MalumMod.RANDOM, 0.05f, 0.05f), MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed));
-        soulEntity.setPosition(target.getPositionVec().x, target.getPositionVec().y + target.getHeight() / 2f, target.getPositionVec().z);
-        soulEntity.setData(target.getUniqueID(), player.getUniqueID());
-        player.world.addEntity(soulEntity);
-    }
     public static void summonSpirits(LivingEntity target, PlayerEntity player, ItemStack stack)
     {
         if (target instanceof PlayerEntity)
         {
-            summonPlayerSoul((PlayerEntity) target, player);
             return;
         }
         ArrayList<Pair<String, Integer>> spirits = entitySpirits(target);
