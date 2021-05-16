@@ -24,7 +24,7 @@ public class CurioOrnateRing extends Item implements ICurio
         super(builder);
     }
     
-    private static final UUID TOUGHNESS = UUID.fromString("335abd8a-0e66-4b11-aa33-4aee88f0f614");
+    private static final UUID ARMOR = UUID.fromString("335abd8a-0e66-4b11-aa33-4aee88f0f614");
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
@@ -46,7 +46,7 @@ public class CurioOrnateRing extends Item implements ICurio
             public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier)
             {
                 Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-                map.put(Attributes.ARMOR, new AttributeModifier(TOUGHNESS, MalumMod.MODID + ":ornate_ring_toughness_boost", 1f, AttributeModifier.Operation.ADDITION));
+                map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_ring_armor_boost", 1f, AttributeModifier.Operation.ADDITION));
                 return map;
             }
     

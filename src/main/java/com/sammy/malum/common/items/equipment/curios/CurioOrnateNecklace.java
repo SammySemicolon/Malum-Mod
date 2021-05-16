@@ -24,7 +24,7 @@ public class CurioOrnateNecklace extends Item implements ICurio
         super(builder);
     }
     
-    private static final UUID TOUGHNESS = UUID.fromString("bf622288-b96f-4219-8623-9a6f3f60850d");
+    private static final UUID ARMOR = UUID.fromString("bf622288-b96f-4219-8623-9a6f3f60850d");
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
     {
@@ -46,7 +46,7 @@ public class CurioOrnateNecklace extends Item implements ICurio
             public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier)
             {
                 Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-                map.put(Attributes.ARMOR, new AttributeModifier(TOUGHNESS, MalumMod.MODID + ":ornate_necklace_toughness_boost", 2f, AttributeModifier.Operation.ADDITION));
+                map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_necklace_armor_boost", 4f, AttributeModifier.Operation.ADDITION));
                 return map;
             }
     
