@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/grimslate_plating"
+    "layer0": "malum:item/soulstone"
   }
 }

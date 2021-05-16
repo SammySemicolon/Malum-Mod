@@ -60,15 +60,64 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
-        //cursed nebulous
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.ENDER_PEARLS, 1), new ItemIngredient(MalumItems.CURSED_NEBULOUS.get(), 1))
+        //radiant soulstone
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOULSTONE.get(), 2), new ItemIngredient(MalumItems.RADIANT_SOULSTONE.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
-                .addExtraItem(new SimpleItemIngredient(Items.PHANTOM_MEMBRANE))
+                .addExtraItem(new SimpleItemIngredient(Items.DIAMOND))
+                .addExtraItem(new SimpleItemIngredient(Items.LAPIS_LAZULI))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
+        //tyrving
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_SWORD.get(), 1), new ItemIngredient(MalumItems.TYRVING.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 6))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 4))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
+        //soul stained stronghold
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_HELMET.get(), 1), new ItemIngredient(MalumItems.SOUL_STAINED_STRONGHOLD_HELMET.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 6))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
+
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_CHESTPLATE.get(), 1), new ItemIngredient(MalumItems.SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.INFERNAL_SPIRIT, 6))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
+
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_LEGGINGS.get(), 1), new ItemIngredient(MalumItems.SOUL_STAINED_STRONGHOLD_LEGGINGS.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.AERIAL_SPIRIT, 6))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
+
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_BOOTS.get(), 1), new ItemIngredient(MalumItems.SOUL_STAINED_STRONGHOLD_BOOTS.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.AQUATIC_SPIRIT, 6))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
     }
 
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack)

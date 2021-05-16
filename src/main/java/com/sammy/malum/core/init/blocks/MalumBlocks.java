@@ -503,8 +503,8 @@ public class MalumBlocks
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new MalumOreBlock(BLAZE_QUARTZ_ORE_PROPERTIES(), 4, 12));
     public static final RegistryObject<Block> BLAZING_QUARTZ_BLOCK = BLOCKS.register("blazing_quartz_block", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
 
-    public static final RegistryObject<Block> GRIMSLATE_ORE = BLOCKS.register("grimslate_ore", () -> new Block(GRIMSLATE_PROPERTIES()));
-    public static final RegistryObject<Block> GRIMSLATE_BLOCK = BLOCKS.register("grimslate_block", () -> new Block(GRIMSLATE_PROPERTIES()));
+    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new Block(GRIMSLATE_PROPERTIES()));
+    public static final RegistryObject<Block> SOULSTONE_BLOCK = BLOCKS.register("soulstone_block", () -> new Block(GRIMSLATE_PROPERTIES()));
 
     public static final RegistryObject<Block> HALLOWED_GOLD_BLOCK = BLOCKS.register("hallowed_gold_block", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
     public static final RegistryObject<Block> SOUL_STAINED_STEEL_BLOCK = BLOCKS.register("soul_stained_steel_block", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));

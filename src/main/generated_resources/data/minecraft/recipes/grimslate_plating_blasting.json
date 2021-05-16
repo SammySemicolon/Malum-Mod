@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "malum:grimslate_ore"
+    "item": "malum:soulstone_ore"
   },
-  "result": "malum:grimslate_plating",
+  "result": "malum:soulstone",
   "experience": 0.25,
   "cookingtime": 200
 }

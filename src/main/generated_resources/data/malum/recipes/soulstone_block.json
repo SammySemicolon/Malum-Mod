@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "malum:grimslate_plating"
+      "item": "malum:soulstone"
     }
   },
   "result": {
-    "item": "malum:grimslate_block"
+    "item": "malum:soulstone_block"
   }
 }

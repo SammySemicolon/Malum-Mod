@@ -443,9 +443,9 @@ public class MalumItems
     public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new FuelItem(DEFAULT_PROPERTIES(), 3200));
     public static final RegistryObject<Item> BLAZING_QUARTZ_BLOCK = ITEMS.register("blazing_quartz_block", () -> new BlockItem(MalumBlocks.BLAZING_QUARTZ_BLOCK.get(), DEFAULT_PROPERTIES()));
 
-    public static final RegistryObject<Item> GRIMSLATE_ORE = ITEMS.register("grimslate_ore", () -> new BlockItem(MalumBlocks.GRIMSLATE_ORE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> GRIMSLATE_PLATING = ITEMS.register("grimslate_plating", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> GRIMSLATE_BLOCK = ITEMS.register("grimslate_block", () -> new BlockItem(MalumBlocks.GRIMSLATE_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOULSTONE_ORE = ITEMS.register("soulstone_ore", () -> new BlockItem(MalumBlocks.SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOULSTONE = ITEMS.register("soulstone", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOULSTONE_BLOCK = ITEMS.register("soulstone_block", () -> new BlockItem(MalumBlocks.SOULSTONE_BLOCK.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region crafting blocks
@@ -456,7 +456,7 @@ public class MalumItems
     //region materials
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new FuelItem(DEFAULT_PROPERTIES(), 4800));
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CURSED_NEBULOUS = ITEMS.register("cursed_nebulous", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));

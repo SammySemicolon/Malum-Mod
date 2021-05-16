@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:grimslate_plating"
+      "malum:soulstone_block"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "malum:grimslate_ore"
+            "item": "malum:soulstone_ore"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:grimslate_plating"
+        "recipe": "malum:soulstone_block"
       }
     }
   },

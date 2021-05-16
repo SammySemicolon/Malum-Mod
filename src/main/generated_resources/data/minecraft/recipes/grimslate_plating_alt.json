@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:grimslate_block"
+      "item": "malum:soulstone_block"
     }
   ],
   "result": {
-    "item": "malum:grimslate_plating",
+    "item": "malum:soulstone",
     "count": 9
   }
 }

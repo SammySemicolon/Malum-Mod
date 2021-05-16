@@ -99,18 +99,19 @@ public class MalumLangProvider extends LanguageProvider
         addPage("basics_of_magic", "Within our realm exists an arcane phenomenon; spirits. Spirits are a magical resource found primarily within a soul; the magical representation of a living being. This book will teach you everything you need to know about souls and spirits.");
         addPage("basics_of_magic_2", "When you kill a living being, you destroy it's body. Harvesting spirits requires you to go a step further, not only slay their body but also shatter their soul. Harvesting spirits is the first step in your journey to becoming a warlock.");
 
-        addPage("runewood_trees", "Throughout plains and various forests a strange tree grows; the runewood tree. The bark of the wood seems to make a great magical supplement. Many magics are certain to be derived from this.");
+        addPage("runewood_trees", "Throughout various plains and forests a strange tree grows; the runewood tree. The tree itself is a perfect mix of nature and magic, the bark of the wood makes a great magical supplement.");
 
         addPage("solar_sap", "Within the runewood tree flows a fiery sap known as solar sap. This rejuvenating substance is gathered by stripping the bark of a runewood tree, collect with a bottle.");
 
         addPage("blazing_quartz", "Within the hellish plane many know as the nether exists many bizarre oddities. One of them is the blazing quartz, a fiery gem that makes for a great furnace fuel.");
 
-        addPage("grimslate", "Within the deepest layers of deepslate, in the darkest corners of our world exists a pristine resource, grimslate. This soul reactive material will be your start to evil schemes.");
+        addPage("soulstone", "Within the deepest layers of deepslate, in the darkest corners of our world exists a pristine gem, soulstone. This soul reactive crystal will be your start to evil schemes.");
 
         addPage("spirit_harvesting", "\"The soul rules over it's body from a fortress of bone, learning of the world around it through fleshy portals\". When you slay an enemy with a scythe, you destroy the body and shatter the soul.");
-        addPage("spirit_harvesting_2", "A scythe is a powerful weapon with many uses. It's sharp blade allows it to hit many enemies at once, much alike a sword enchanted with sweeping edge. The simplest scythe is a crude one, made with iron ingots and grimslate plating.");
+        addPage("spirit_harvesting_2", "A scythe is a powerful weapon with many uses. It's sharp blade allows it to hit many enemies at once, much alike a sword enchanted with sweeping edge. The simplest scythe is a crude one, made with iron ingots and a soulstone gem.");
 
-        addPage("spirit_infusion", "The Spirit Altar is a warlock's crafting table. This wondrous workstation will allow you to infuse spirits into items through a process known as spirit infusion. Any additional items must be placed on nearby item pedestals.");
+        addPage("spirit_infusion", "The Spirit Altar is a warlock's crafting table. This wondrous workstation will allow you to infuse spirits into items through a process known as spirit infusion. The process takes a moderate amount of time.");
+        addPage("spirit_infusion_2", "Spirit infusion requires a prime item, spirits and additional items. The prime item needs to be placed in the altar and surrounded with spirits. Additional items must be placed on surrounding item pedestals or stands.");
         addPage("hex_ash", "Hex ash is a haunted powder meant for various magics, most notably it can be used to speed up spirit infusion. Interacting with an active spirit altar will greatly greatly accelerate the infusion process.");
 
         addPage("tainted_rock", "\"A clean slate\". One of the simplest spirit infusions known revolves around the process of animating stone. Infusing cobblestone with holy and arcane spirits will result in tainted rock.");
@@ -124,6 +125,10 @@ public class MalumLangProvider extends LanguageProvider
         addPage("spirit_architecture", "Not only cobblestone can be infused into an arcane rock. Granite, Diorite and Andesite all have their magic counterparts.");
 
         addPage("soul_stained_steel", "Soul Stained Steel is a very strong magical metal, perfect for strong tools and armor. It's created by infusing iron with wicked and arcane spirit.");
+        addPage("soul_stained_steel_gear", "Gear made from Soul Stained Steel is nearly as strong as gear made from diamond. It is also much more durable.");
+
+        addPage("hallowed_gold", "Hallowed Gold is a very versatile metal meant for various arcane mechanisms and utilities. It's created by infusing gold with holy and arcane spirit.");
+        addPage("spirit_jar", "The Spirit Jar is a useful block designed for storing spirits, it can contain a nearly infinite amount of one spirit.");
 
         addPage("holy_spirit", "The holy spirit is a symbol of the living. It contains many strange curative properties that will greatly aid your rise to power.");
         addPage("wicked_spirit", "The wicked spirit is a symbol of the reanimated. It's deathly properties sure are useful.");

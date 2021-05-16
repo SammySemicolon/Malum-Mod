@@ -20,11 +20,11 @@ public class BackArrowObject extends BookObject
         if (isHovering)
         {
             minecraft.getTextureManager().bindTexture(screen.texture());
-            blit(matrixStack, posX, posY, 1, 239, 18, 18, 512, 512);
+            blit(matrixStack, posX, posY, 1, 245, 24, 24, 512, 512);
             return;
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX, posY, 1, 219, 18, 18, 512, 512);
+        blit(matrixStack, posX, posY, 1, 219, 24, 24, 512, 512);
     }
     
     @Override

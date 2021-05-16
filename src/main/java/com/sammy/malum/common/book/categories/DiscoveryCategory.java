@@ -23,7 +23,7 @@ public class DiscoveryCategory extends BookCategory
     public static BookEntry runewoodTrees;
     public static BookEntry solarSap;
     public static BookEntry blazingQuartz;
-    public static BookEntry grimslate;
+    public static BookEntry soulstone;
     public static BookEntry spiritHarvesting;
     public static BookEntry spiritInfusion;
     public static BookEntry taintedRock;
@@ -77,23 +77,24 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("blazing_quartz"))
                 .addPage(new CraftingPage(new ItemStack(BLAZING_QUARTZ_BLOCK.get()), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get()));
 
-        grimslate = new BookEntry(GRIMSLATE_PLATING.get(), "grimslate")
-                .addPage(new HeadlineTextPage("grimslate"))
-                .addPage(new SmeltingPage(GRIMSLATE_ORE.get(), GRIMSLATE_PLATING.get()))
-                .addPage(new CraftingPage(new ItemStack(GRIMSLATE_BLOCK.get()), GRIMSLATE_PLATING.get(), GRIMSLATE_PLATING.get(), GRIMSLATE_PLATING.get(), GRIMSLATE_PLATING.get(), GRIMSLATE_PLATING.get(), GRIMSLATE_PLATING.get(), GRIMSLATE_PLATING.get(), GRIMSLATE_PLATING.get(), GRIMSLATE_PLATING.get()));
+        soulstone = new BookEntry(SOULSTONE.get(), "soulstone")
+                .addPage(new HeadlineTextPage("soulstone"))
+                .addPage(new SmeltingPage(SOULSTONE_ORE.get(), SOULSTONE.get()))
+                .addPage(new CraftingPage(new ItemStack(SOULSTONE_BLOCK.get()), SOULSTONE.get(), SOULSTONE.get(), SOULSTONE.get(), SOULSTONE.get(), SOULSTONE.get(), SOULSTONE.get(), SOULSTONE.get(), SOULSTONE.get(), SOULSTONE.get()));
 
         spiritHarvesting = new BookEntry(CRUDE_SCYTHE.get(), "spirit_harvesting")
                 .addPage(new HeadlineTextPage("spirit_harvesting"))
                 .addPage(new TextPage("spirit_harvesting_2"))
-                .addPage(new CraftingPage(CRUDE_SCYTHE.get(), Items.IRON_INGOT, Items.IRON_INGOT, GRIMSLATE_PLATING.get(), EMPTY, Items.STICK, Items.IRON_INGOT, Items.STICK))
-                .addLink(basicsOfMagic).addLink(grimslate);
+                .addPage(new CraftingPage(CRUDE_SCYTHE.get(), Items.IRON_INGOT, Items.IRON_INGOT, SOULSTONE.get(), EMPTY, Items.STICK, Items.IRON_INGOT, Items.STICK))
+                .addLink(basicsOfMagic).addLink(soulstone);
 
         spiritInfusion = new BookEntry(SPIRIT_ALTAR.get(), "spirit_infusion")
                 .addPage(new HeadlineTextPage("spirit_infusion"))
-                .addPage(new CraftingPage(SPIRIT_ALTAR.get(), EMPTY, GRIMSLATE_PLATING.get(), EMPTY, Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
+                .addPage(new TextPage("spirit_infusion_2"))
+                .addPage(new CraftingPage(SPIRIT_ALTAR.get(), EMPTY, SOULSTONE.get(), EMPTY, Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(new HeadlineTextPage("hex_ash"))
                 .addPage(new SpiritInfusionPage(HEX_ASH.get()))
-                .addLink(basicsOfMagic).addLink(grimslate).addLink(spiritHarvesting).addLink(arcaneSpirit);
+                .addLink(basicsOfMagic).addLink(soulstone).addLink(spiritHarvesting).addLink(arcaneSpirit);
 
         taintedRock = new BookEntry(TAINTED_ROCK.get(), "tainted_rock")
                 .addPage(new HeadlineTextPage("tainted_rock"))
@@ -156,6 +157,6 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new CraftingPage(ERODED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK.get(), ERODED_ROCK.get(), ERODED_ROCK.get()))
                 .addLink(arcaneSpirit);
 
-        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, grimslate, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, spiritArchitecture, holySpirit, wickedSpirit, arcaneSpirit, eldritchSpirit, earthenSpirit, infernalSpirit, aerialSpirit, aquaticSpirit);
+        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, soulstone, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, spiritArchitecture, holySpirit, wickedSpirit, arcaneSpirit, eldritchSpirit, earthenSpirit, infernalSpirit, aerialSpirit, aquaticSpirit);
     }
 }

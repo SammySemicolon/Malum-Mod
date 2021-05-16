@@ -20,11 +20,11 @@ public class NextArrowObject extends BookObject
         if (isHovering)
         {
             minecraft.getTextureManager().bindTexture(screen.texture());
-            blit(matrixStack, posX, posY, 21, 239, 18, 18, 512, 512);
+            blit(matrixStack, posX, posY, 27, 245, 24, 24, 512, 512);
             return;
         }
         minecraft.getTextureManager().bindTexture(screen.texture());
-        blit(matrixStack, posX, posY, 21, 219, 18, 18, 512, 512);
+        blit(matrixStack, posX, posY, 27, 219, 24, 24, 512, 512);
     }
     
     @Override

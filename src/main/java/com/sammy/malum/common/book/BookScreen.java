@@ -50,12 +50,12 @@ public class BookScreen extends Screen
         int guiTop = (height - bookHeight) / 2;
         
         int posX = guiLeft + 13;
-        int posY = guiTop + 143;
-        BackArrowObject backArrowObject = new BackArrowObject(posX, posY, 18, 18);
+        int posY = guiTop - 15;
+        BackArrowObject backArrowObject = new BackArrowObject(posX, posY, 24, 24);
         objects.add(backArrowObject);
         
-        posX = guiLeft + 261;
-        NextArrowObject nextArrowObject = new NextArrowObject(posX, posY, 18, 18);
+        posX = guiLeft + 255;
+        NextArrowObject nextArrowObject = new NextArrowObject(posX, posY, 24, 24);
         objects.add(nextArrowObject);
         ArrayList<BookObject> lastObjects = new ArrayList<>();
         for (int i = 0; i < MalumBookCategories.CATEGORIES.size(); i++)

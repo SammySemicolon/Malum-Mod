@@ -130,7 +130,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             }
             ItemStack stack = inventory.getStackInSlot(0);
             progress++;
-            int progressCap = spedUp ? 20 : 60;
+            int progressCap = spedUp ? 60 : 360;
             if (progress >= progressCap)
             {
                 int extras = extrasInventory.nonEmptyItems();

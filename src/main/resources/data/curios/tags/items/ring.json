@@ -2,9 +2,5 @@
   "replace": "false",
   "values": [
     "malum:gilded_ring",
-    "malum:ring_of_attraction",
-    "malum:ring_of_feeding",
-    "malum:ornate_ring",
-    "malum:ring_of_warding",
-    "malum:ring_of_hexing"]
+    "malum:ornate_ring"]
 }

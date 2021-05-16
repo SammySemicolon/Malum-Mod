@@ -1,8 +1,5 @@
 {
   "replace": "false",
   "values": [
-    "malum:ornate_necklace",
-    "malum:wicked_talisman",
-    "malum:heavenly_pendant",
-    "malum:rejuvenating_brooch"]
+    "malum:ornate_necklace"]
 }

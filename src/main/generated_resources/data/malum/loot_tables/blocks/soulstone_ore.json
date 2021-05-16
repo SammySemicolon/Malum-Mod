@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:grimslate_block"
+          "name": "malum:soulstone_ore"
         }
       ],
       "conditions": [
