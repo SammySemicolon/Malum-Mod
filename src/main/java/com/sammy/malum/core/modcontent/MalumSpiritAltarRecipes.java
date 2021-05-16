@@ -61,12 +61,12 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //cursed nebulous
-        new MalumSpiritAltarRecipe(new ItemIngredient(Items.PHANTOM_MEMBRANE, 1), new ItemIngredient(MalumItems.CURSED_NEBULOUS.get(), 1))
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.ENDER_PEARLS, 1), new ItemIngredient(MalumItems.CURSED_NEBULOUS.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
-                .addExtraItem(new SimpleItemIngredient(Tags.Items.DUSTS_GLOWSTONE))
-                .addExtraItem(new SimpleItemIngredient(Tags.Items.DUSTS_REDSTONE));
+                .addExtraItem(new SimpleItemIngredient(Items.PHANTOM_MEMBRANE))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
 
     }
