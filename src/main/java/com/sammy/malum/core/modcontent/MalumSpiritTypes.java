@@ -21,7 +21,7 @@ import net.minecraftforge.fml.RegistryObject;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MalumSoulTypes
+public class MalumSpiritTypes
 {
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
 
@@ -51,14 +51,14 @@ public class MalumSoulTypes
 
     public static void init()
     {
-        HOLY_SPIRIT = create("holy", MalumSoulTypes::isLife, HOLY_SPIRIT_COLOR, MalumItems.HOLY_SPIRIT);
-        WICKED_SPIRIT = create("wicked", MalumSoulTypes::isDeath, WICKED_SPIRIT_COLOR, MalumItems.WICKED_SPIRIT);
-        ARCANE_SPIRIT = create("arcane", MalumSoulTypes::isMagic, ARCANE_SPIRIT_COLOR, MalumItems.ARCANE_SPIRIT);
-        ELDRITCH_SPIRIT = create("eldritch", MalumSoulTypes::isEldritch, ELDRITCH_SPIRIT_COLOR, MalumItems.ELDRITCH_SPIRIT);
-        AERIAL_SPIRIT = create("aerial", MalumSoulTypes::isAir, AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT);
-        AQUATIC_SPIRIT = create("aquatic", MalumSoulTypes::isWater, AQUATIC_SPIRIT_COLOR, MalumItems.AQUATIC_SPIRIT);
-        INFERNAL_SPIRIT = create("infernal", MalumSoulTypes::isFire, INFERNAL_SPIRIT_COLOR, MalumItems.INFERNAL_SPIRIT);
-        EARTHEN_SPIRIT = create("earthen", MalumSoulTypes::isEarth, EARTHEN_SPIRIT_COLOR, MalumItems.EARTHEN_SPIRIT);
+        HOLY_SPIRIT = create("holy", MalumSpiritTypes::isLife, HOLY_SPIRIT_COLOR, MalumItems.HOLY_SPIRIT);
+        WICKED_SPIRIT = create("wicked", MalumSpiritTypes::isDeath, WICKED_SPIRIT_COLOR, MalumItems.WICKED_SPIRIT);
+        ARCANE_SPIRIT = create("arcane", MalumSpiritTypes::isMagic, ARCANE_SPIRIT_COLOR, MalumItems.ARCANE_SPIRIT);
+        ELDRITCH_SPIRIT = create("eldritch", MalumSpiritTypes::isEldritch, ELDRITCH_SPIRIT_COLOR, MalumItems.ELDRITCH_SPIRIT);
+        AERIAL_SPIRIT = create("aerial", MalumSpiritTypes::isAir, AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT);
+        AQUATIC_SPIRIT = create("aquatic", MalumSpiritTypes::isWater, AQUATIC_SPIRIT_COLOR, MalumItems.AQUATIC_SPIRIT);
+        INFERNAL_SPIRIT = create("infernal", MalumSpiritTypes::isFire, INFERNAL_SPIRIT_COLOR, MalumItems.INFERNAL_SPIRIT);
+        EARTHEN_SPIRIT = create("earthen", MalumSpiritTypes::isEarth, EARTHEN_SPIRIT_COLOR, MalumItems.EARTHEN_SPIRIT);
     }
 
     public static MalumSpiritType create(String identifier, CountPredicate countPredicate, Color color, RegistryObject<Item> splinterItem)

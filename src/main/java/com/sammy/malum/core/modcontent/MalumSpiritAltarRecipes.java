@@ -5,6 +5,7 @@ import com.sammy.malum.core.systems.recipes.ItemIngredient;
 import com.sammy.malum.core.systems.recipes.SimpleItemIngredient;
 import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
@@ -16,61 +17,48 @@ public class MalumSpiritAltarRecipes
 
     public static void init()
     {
+        //hex ash
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_REDSTONE, 2), new ItemIngredient(MalumItems.HEX_ASH.get(), 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
+
         //tainted rock
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TAINTED_ROCK.get(), 16))
-                .addSpirit(new SpiritIngredient(MalumSoulTypes.HOLY_SPIRIT))
-                .addSpirit(new SpiritIngredient(MalumSoulTypes.ARCANE_SPIRIT));
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //twisted rock
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TWISTED_ROCK.get(), 16))
-                .addSpirit(new SpiritIngredient(MalumSoulTypes.WICKED_SPIRIT))
-                .addSpirit(new SpiritIngredient(MalumSoulTypes.ARCANE_SPIRIT));
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 2), new ItemIngredient(MalumItems.YELLOW_ETHER.get(), 4))
-                .addSpirit(new SpiritIngredient(MalumSoulTypes.INFERNAL_SPIRIT))
-                .addSpirit(new SpiritIngredient(MalumSoulTypes.ARCANE_SPIRIT, 2))
+        //ether
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 4), new ItemIngredient(MalumItems.YELLOW_ETHER.get(), 4))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.INFERNAL_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
 
-/*
-        //tainted rock
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16),
-                                   new MalumItemIngredient(MalumItems.TAINTED_ROCK.get(), 16),
-                                   new MalumSpiritIngredient(MalumSpiritTypes.LIFE_SPIRIT),
-                                   new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
-        //twisted rock
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Tags.Items.COBBLESTONE, 16),
-                                   new MalumItemIngredient(MalumItems.TWISTED_ROCK.get(), 16),
-                                   new MalumSpiritIngredient(MalumSpiritTypes.DEATH_SPIRIT),
-                                   new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT));
-        //ether
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(MalumItems.BLAZING_QUARTZ.get(), 2),
-                new MalumItemIngredient(MalumItems.PINK_ETHER.get(), 1),
-                new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 1),
-                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 2));
-
-        //hex ash
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.REDSTONE, 4),
-                new MalumItemIngredient(MalumItems.HEX_ASH.get(), 4),
-                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1),
-                new MalumSpiritIngredient(MalumSpiritTypes.EARTH_SPIRIT, 1),
-                new MalumSpiritIngredient(MalumSpiritTypes.FIRE_SPIRIT, 1),
-                new MalumSpiritIngredient(MalumSpiritTypes.AIR_SPIRIT, 1),
-                new MalumSpiritIngredient(MalumSpiritTypes.WATER_SPIRIT, 1));
+        //spectral cinders
+        new MalumSpiritAltarRecipe(new ItemIngredient(Items.PHANTOM_MEMBRANE, 1), new ItemIngredient(MalumItems.SPECTRAL_CINDERS.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()))
+                .addExtraItem(new SimpleItemIngredient(Tags.Items.GUNPOWDER))
+                .addExtraItem(new SimpleItemIngredient(Tags.Items.DUSTS_GLOWSTONE))
+                .addExtraItem(new SimpleItemIngredient(Tags.Items.DUSTS_REDSTONE));
 
         //arcane architecture
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.GRANITE, 16),
-                new MalumItemIngredient(MalumItems.CLEANSED_ROCK.get(), 16),
-                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1));
+        new MalumSpiritAltarRecipe(new ItemIngredient(Items.GRANITE, 16), new ItemIngredient(MalumItems.CLEANSED_ROCK.get(), 16))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.DIORITE, 16),
-                new MalumItemIngredient(MalumItems.PURIFIED_ROCK.get(), 16),
-                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1));
+        new MalumSpiritAltarRecipe(new ItemIngredient(Items.DIORITE, 16), new ItemIngredient(MalumItems.PURIFIED_ROCK.get(), 16))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
-        new MalumSpiritAltarRecipe(new MalumItemIngredient(Items.ANDESITE, 16),
-                new MalumItemIngredient(MalumItems.ERODED_ROCK.get(), 16),
-                new MalumSpiritIngredient(MalumSpiritTypes.MAGIC_SPIRIT, 1));
-
-*/
+        new MalumSpiritAltarRecipe(new ItemIngredient(Items.ANDESITE, 16), new ItemIngredient(MalumItems.ERODED_ROCK.get(), 16))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
     }
 
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack)

@@ -190,7 +190,6 @@ public class MalumRecipeProvider extends RecipeProvider
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.SMALL_TAINTED_ROCK_BRICKS.get()), MalumItems.SMALL_TAINTED_ROCK_BRICKS_WALL.get()).addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer, "small_tainted_rock_bricks_wall_stonecutting");
 
         shapedRecipe(MalumItems.TAINTED_ROCK_BRICKS.get(),4).key('#', MalumItems.SMALL_TAINTED_ROCK_BRICKS.get()).patternLine("##").patternLine("##").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer, "tainted_rock_bricks_from_small_bricks");
-
         smeltingRecipe(Ingredient.fromItems(MalumItems.SMALL_TAINTED_ROCK_BRICKS.get()), MalumItems.CRACKED_SMALL_TAINTED_ROCK_BRICKS.get(),0.1f,200).addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer, "cracked_small_tainted_rock_bricks_smelting");
         shapedRecipe(MalumItems.CRACKED_SMALL_TAINTED_ROCK_BRICKS.get(),4).key('#', MalumItems.CRACKED_TAINTED_ROCK_TILES.get()).patternLine("##").patternLine("##").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.CRACKED_SMALL_TAINTED_ROCK_BRICKS_SLAB.get(), 6).key('#', MalumItems.CRACKED_SMALL_TAINTED_ROCK_BRICKS.get()).patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);

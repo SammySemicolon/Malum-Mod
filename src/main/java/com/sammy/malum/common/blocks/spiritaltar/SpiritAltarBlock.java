@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.spiritaltar;
 
 import com.sammy.malum.common.items.SpiritItem;
+import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -36,6 +38,7 @@ public class SpiritAltarBlock extends Block
                     {
                         heldStack.shrink(1);
                         tileEntity.spedUp = true;
+                        worldIn.playSound(null, pos, MalumSounds.ALTAR_SPEED_UP, SoundCategory.BLOCKS,1,0.9f + worldIn.rand.nextFloat() * 0.2f);
                         return ActionResultType.SUCCESS;
                     }
                     return ActionResultType.PASS;

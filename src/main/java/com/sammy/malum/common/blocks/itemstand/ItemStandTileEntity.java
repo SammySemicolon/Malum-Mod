@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.itemstand;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.blocks.spiritaltar.IAltarProvider;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
@@ -10,7 +11,7 @@ import net.minecraft.util.math.vector.Vector3d;
 
 import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
-public class ItemStandTileEntity extends SimpleInventoryTileEntity
+public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IAltarProvider
 {
     public ItemStandTileEntity()
     {
@@ -26,7 +27,18 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity
             }
         };
     }
-    
+
+    @Override
+    public SimpleInventory providedInventory()
+    {
+        return inventory;
+    }
+    @Override
+    public Vector3d providedItemOffset()
+    {
+        return itemOffset(this);
+    }
+
     public static Vector3d itemOffset(SimpleTileEntity tileEntity)
     {
         Direction direction = tileEntity.getBlockState().get(FACING);

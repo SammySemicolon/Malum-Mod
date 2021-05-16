@@ -46,7 +46,9 @@ public class MalumSounds
     
     public static final SoundEvent ALTAR_CRAFT = register(new SoundEvent(MalumHelper.prefix("altar_craft")));
     public static final SoundEvent ALTAR_LOOP = register(new SoundEvent(MalumHelper.prefix("altar_loop")));
-    
+    public static final SoundEvent ALTAR_CONSUME = register(new SoundEvent(MalumHelper.prefix("altar_consume")));
+    public static final SoundEvent ALTAR_SPEED_UP = register(new SoundEvent(MalumHelper.prefix("altar_speed_up")));
+
     public static final SoundEvent BOOK_TRAVEL = register(new SoundEvent(MalumHelper.prefix("book_travel")));
     
     public static final SoundEvent SINISTER_EQUIP = register(new SoundEvent(MalumHelper.prefix("sinister_equip")));

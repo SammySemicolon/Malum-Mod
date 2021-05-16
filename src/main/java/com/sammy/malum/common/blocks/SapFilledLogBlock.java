@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.awt.*;
-import java.util.Random;
 
 public class SapFilledLogBlock extends RotatedPillarBlock
 {
@@ -28,13 +27,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock
     {
         super(properties);
     }
-    
-    @Override
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
-    {
-        particles(worldIn,pos,1);
-    }
-    
+
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {

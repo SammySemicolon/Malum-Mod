@@ -1,12 +1,13 @@
 package com.sammy.malum.common.blocks.itempedestal;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.blocks.spiritaltar.IAltarProvider;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
 import net.minecraft.util.math.vector.Vector3d;
 
-public class ItemPedestalTileEntity extends SimpleInventoryTileEntity
+public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements IAltarProvider
 {
     public ItemPedestalTileEntity()
     {
@@ -22,7 +23,17 @@ public class ItemPedestalTileEntity extends SimpleInventoryTileEntity
             }
         };
     }
-    
+
+    @Override
+    public SimpleInventory providedInventory()
+    {
+        return inventory;
+    }
+    @Override
+    public Vector3d providedItemOffset()
+    {
+        return itemOffset();
+    }
     public static Vector3d itemOffset()
     {
         return new Vector3d(0.5f, 1.1f, 0.5f);

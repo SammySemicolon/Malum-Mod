@@ -7,7 +7,7 @@ import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
-import com.sammy.malum.core.modcontent.MalumSoulTypes;
+import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -118,7 +118,7 @@ public class SpiritHelper
     
     public static MalumSpiritType figureOutType(String spirit)
     {
-        ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) MalumSoulTypes.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
+        ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) MalumSpiritTypes.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
         if (type.isEmpty())
         {
             throw new RuntimeException("Somehow, an invalid spirit identifier was harvested. 'Why?' is a good question my friend. Incorrect identifier: " + spirit);
@@ -134,7 +134,7 @@ public class SpiritHelper
     public static ArrayList<Pair<String, Integer>> entitySpirits(LivingEntity entity)
     {
         ArrayList<Pair<String, Integer>> spirits = new ArrayList<>();
-        for (MalumSpiritType type : MalumSoulTypes.SPIRITS)
+        for (MalumSpiritType type : MalumSpiritTypes.SPIRITS)
         {
             int count = type.spiritCount(entity);
             if (count != 0)

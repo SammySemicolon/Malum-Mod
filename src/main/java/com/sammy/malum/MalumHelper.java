@@ -263,7 +263,25 @@ public class MalumHelper
     {
         return new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z"));
     }
-    
+    public static ArrayList<BlockPos> getBlocks(BlockPos pos, int x, int y, int z)
+    {
+        return getBlocks(pos, -x,x,-y,y,-z,z);
+    }
+    public static ArrayList<BlockPos> getBlocks(BlockPos pos, int x1, int x2, int y1, int y2, int z1, int z2)
+    {
+        ArrayList<BlockPos> positions = new ArrayList<>();
+        for (int x = x1; x < x2; x++)
+        {
+            for (int y = y1; y < y2; y++)
+            {
+                for (int z = z1; z < z2; z++)
+                {
+                    positions.add(pos.add(x,y,z));
+                }
+            }
+        }
+        return positions;
+    }
     public static void updateState(BlockState state, World worldIn, BlockPos pos)
     {
         worldIn.notifyBlockUpdate(pos, state, state, 2);

@@ -66,12 +66,12 @@ public class ScytheItem extends ModSwordItem
         if (attacker instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) attacker;
-            sweepingEdgeTypeBeat(playerEntity, target, (float) playerEntity.getAttributeValue(Attributes.ATTACK_DAMAGE));
+            cuttingEdge(playerEntity, target, (float) playerEntity.getAttributeValue(Attributes.ATTACK_DAMAGE));
         }
         return super.hitEntity(stack, target, attacker);
     }
     
-    public void sweepingEdgeTypeBeat(PlayerEntity playerEntity, LivingEntity target, float amount)
+    public void cuttingEdge(PlayerEntity playerEntity, LivingEntity target, float amount)
     {
         float multiplier = 0.4f;
         float damage = 1.0F + (amount * multiplier) + (amount * EnchantmentHelper.getSweepingDamageRatio(playerEntity));

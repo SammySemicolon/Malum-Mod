@@ -45,7 +45,7 @@ import static com.sammy.malum.MalumColors.*;
 import static com.sammy.malum.MalumHelper.brighter;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
-import static com.sammy.malum.core.modcontent.MalumSoulTypes.*;
+import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class ClientStartupEvents

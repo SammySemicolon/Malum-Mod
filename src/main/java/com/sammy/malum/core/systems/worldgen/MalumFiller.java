@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.worldgen;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.RunewoodSaplingBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
@@ -59,7 +59,17 @@ public class MalumFiller
                 return false;
             }
             BlockState state = reader.getBlockState(pos);
-            return state.getBlock() instanceof RunewoodSaplingBlock || reader.isAirBlock(pos) || state.getMaterial().isReplaceable();
+            return reader.isAirBlock(pos) || state.getMaterial().isReplaceable();
+        }
+
+        public boolean canPlace(ISeedReader reader, BlockPos pos, Block block)
+        {
+            if (World.isOutsideBuildHeight(pos))
+            {
+                return false;
+            }
+            BlockState state = reader.getBlockState(pos);
+            return state.getBlock().equals(block) || reader.isAirBlock(pos) || state.getMaterial().isReplaceable();
         }
 
         public void additionalPlacement(ISeedReader reader)
