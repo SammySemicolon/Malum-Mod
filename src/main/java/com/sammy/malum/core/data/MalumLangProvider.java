@@ -96,32 +96,34 @@ public class MalumLangProvider extends LanguageProvider
                 }
             }
         });
-        addPage("basics_of_magic", "Within our realm exists an arcane phenomenon; spirits. A spirit is found within a soul. The soul is one's magical representation. The Encyclopedia Arcana will be your guide for everything arcane.");
-        addPage("basics_of_magic_2", "When you kill a living thing, it's body dies. To harvest spirits you must go a step further, not only slay their body but also shatter their soul. Shattering different souls will yield different spirit types.");
+        addPage("basics_of_magic", "Within our realm exists an arcane phenomenon; spirits. Spirits are a magical resource found primarily within a soul; the magical representation of a living being. This book will teach you everything you need to know about souls and spirits.");
+        addPage("basics_of_magic_2", "When you kill a living being, you destroy it's body. Harvesting spirits requires you to go a step further, not only slay their body but also shatter their soul. Harvesting spirits is the first step in your journey to becoming a warlock.");
 
-        addPage("runewood_trees", "Throughout plains and various forests a strange tree is often found; the runewood tree. It's wood makes a fine magical supplement. The runewood tree seems to react differently to heat than most, yielding different results.");
+        addPage("runewood_trees", "Throughout plains and various forests a strange tree grows; the runewood tree. The bark of the wood seems to make a great magical supplement. Many magics are certain to be derived from this.");
 
         addPage("solar_sap", "Within the runewood tree flows a fiery sap known as solar sap. This rejuvenating substance is gathered by stripping the bark of a runewood tree, collect with a bottle.");
 
-        addPage("blazing_quartz", "Within the hellish plane many know as the nether exists many bizarre oddities such as the blazing quartz. This fiery gem makes for a great furnace fuel.");
+        addPage("blazing_quartz", "Within the hellish plane many know as the nether exists many bizarre oddities. One of them is the blazing quartz, a fiery gem that makes for a great furnace fuel.");
 
         addPage("grimslate", "Within the deepest layers of deepslate, in the darkest corners of our world exists a pristine resource, grimslate. This soul reactive material will be your start to evil schemes.");
 
         addPage("spirit_harvesting", "\"The soul rules over it's body from a fortress of bone, learning of the world around it through fleshy portals\". When you slay an enemy with a scythe, you destroy the body and shatter the soul.");
         addPage("spirit_harvesting_2", "A scythe is a powerful weapon with many uses. It's sharp blade allows it to hit many enemies at once, much alike a sword enchanted with sweeping edge. The simplest scythe is a crude one, made with iron ingots and grimslate plating.");
 
-        addPage("spirit_infusion", "The Spirit Altar is a warlock's crafting table. This wondrous workstation will allow you to infuse spirits into items. Often, additional items must be placed on nearby item providers. This process is known as spirit infusion.");
-        addPage("hex_ash", "Hex ash is a fine powder often used for various rituals. It can also be used to speed up the process of spirit infusion. Interacting with an active spirit altar will greatly accelerate the infusion process.");
+        addPage("spirit_infusion", "The Spirit Altar is a warlock's crafting table. This wondrous workstation will allow you to infuse spirits into items through a process known as spirit infusion. Any additional items must be placed on nearby item pedestals.");
+        addPage("hex_ash", "Hex ash is a haunted powder meant for various magics, most notably it can be used to speed up spirit infusion. Interacting with an active spirit altar will greatly greatly accelerate the infusion process.");
 
-        addPage("tainted_rock", "\"A clean slate\" One of the simplest spirit infusions known revolves around the process of animating stone. Infusing cobblestone with life and magic will result in tainted rock. ");
+        addPage("tainted_rock", "\"A clean slate\". One of the simplest spirit infusions known revolves around the process of animating stone. Infusing cobblestone with holy and arcane spirits will result in tainted rock.");
         addPage("tainted_rock_architecture", "Using a crafting table or the stone cutter, you can make many variants of tainted rock.");
 
-        addPage("twisted_rock", "\"Turned wicked\". If we are to replace the life spirit with one of death, cobblestone will instead be animated into twisted rock.");
+        addPage("twisted_rock", "\"Turned wicked\". If we are to replace the holy spirit with a wicked spirit, cobblestone will instead be animated into twisted rock.");
         addPage("twisted_rock_architecture", "Much alike the tainted rock, using a crafting table or the stone cutter, you can make many variants of twisted rock.");
 
-        addPage("ether", "\"The flame that burns Twice as bright burns half as long\". Ether is a magical substance that looks like flame, but shines bright forever. This pretty light source is a great arcane alternative to your regular coal based torches.");
+        addPage("ether", "Think of a lit matchstick, but without the matchstick. Ether is just that! It's a magical substance that looks much like fire and shines bright forever. It can be put on a torch and a tainted brazier.");
 
-        addPage("spirit_architecture", "The Spirit Altar proves to be one of the most useful wonders of spirit magic, allowing you to easily infuse items into other, more precious items.");
+        addPage("spirit_architecture", "Not only cobblestone can be infused into an arcane rock. Granite, Diorite and Andesite all have their magic counterparts.");
+
+        addPage("soul_stained_steel", "Soul Stained Steel is a very strong magical metal, perfect for strong tools and armor. It's created by infusing iron with wicked and arcane spirit.");
 
         addPage("holy_spirit", "The holy spirit is a symbol of the living. It contains many strange curative properties that will greatly aid your rise to power.");
         addPage("wicked_spirit", "The wicked spirit is a symbol of the reanimated. It's deathly properties sure are useful.");
@@ -132,7 +134,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("aquatic_spirit", "Magic of the elder guardians and their weaker siblings is a strong one. The water spirit can be found within all aquatic creatures.");
         addPage("aerial_spirit", "The nimble phantom and the agile arthropods share one thing in common. The aerial spirit is found within the quick.");
 
-        add("malum.jei.totem_rites", "Totem Rites");
+
         add("malum.jei.spirit_altar", "Spirit Altar");
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_shaped_stones", "Malum Shaped Stones");

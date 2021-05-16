@@ -2,20 +2,12 @@ package com.sammy.malum.common.book.pages;
 
 import com.ibm.icu.impl.Pair;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.book.BookScreen;
-import com.sammy.malum.common.book.objects.BookObject;
-import com.sammy.malum.common.book.objects.CategoryObject;
 import com.sammy.malum.common.book.objects.EntryObject;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-
-import static com.sammy.malum.common.book.BookScreen.drawWrappingText;
-import static com.sammy.malum.common.book.BookScreen.screen;
-import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class CraftingPage extends BookPage
 {
@@ -78,5 +70,14 @@ public class CraftingPage extends BookPage
             }
         }
         screen.drawItem(stack, result, posX+56, posY+114, mouseX, mouseY);
+    }
+    public static CraftingPage blockCraftingPage(Item output, Item input)
+    {
+        return new CraftingPage(output, input,input,input,input,input,input,input,input,input);
+    }
+    public static CraftingPage nuggetCraftingPage(Item output, Item input)
+    {
+        Item EMPTY = Items.BARRIER;
+        return new CraftingPage(new ItemStack(output, 9), EMPTY,EMPTY,EMPTY,EMPTY,input,EMPTY,EMPTY,EMPTY,EMPTY);
     }
 }

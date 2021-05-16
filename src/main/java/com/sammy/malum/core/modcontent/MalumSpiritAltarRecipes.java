@@ -37,16 +37,6 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
 
-        //spectral cinders
-        new MalumSpiritAltarRecipe(new ItemIngredient(Items.PHANTOM_MEMBRANE, 1), new ItemIngredient(MalumItems.SPECTRAL_CINDERS.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()))
-                .addExtraItem(new SimpleItemIngredient(Tags.Items.GUNPOWDER))
-                .addExtraItem(new SimpleItemIngredient(Tags.Items.DUSTS_GLOWSTONE))
-                .addExtraItem(new SimpleItemIngredient(Tags.Items.DUSTS_REDSTONE));
-
         //arcane architecture
         new MalumSpiritAltarRecipe(new ItemIngredient(Items.GRANITE, 16), new ItemIngredient(MalumItems.CLEANSED_ROCK.get(), 16))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT))
@@ -59,6 +49,26 @@ public class MalumSpiritAltarRecipes
         new MalumSpiritAltarRecipe(new ItemIngredient(Items.ANDESITE, 16), new ItemIngredient(MalumItems.ERODED_ROCK.get(), 16))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
+
+        //soul stained steel
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.INGOTS_IRON, 1), new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
+
+        //hallowed gold
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.INGOTS_GOLD, 1), new ItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
+
+        //cursed nebulous
+        new MalumSpiritAltarRecipe(new ItemIngredient(Items.PHANTOM_MEMBRANE, 1), new ItemIngredient(MalumItems.CURSED_NEBULOUS.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
+                .addExtraItem(new SimpleItemIngredient(Tags.Items.DUSTS_GLOWSTONE))
+                .addExtraItem(new SimpleItemIngredient(Tags.Items.DUSTS_REDSTONE));
+
+
     }
 
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack)

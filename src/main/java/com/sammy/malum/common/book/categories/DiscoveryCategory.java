@@ -90,7 +90,6 @@ public class DiscoveryCategory extends BookCategory
 
         spiritInfusion = new BookEntry(SPIRIT_ALTAR.get(), "spirit_infusion")
                 .addPage(new HeadlineTextPage("spirit_infusion"))
-                .addPage(new TextPage("spirit_infusion_2"))
                 .addPage(new CraftingPage(SPIRIT_ALTAR.get(), EMPTY, GRIMSLATE_PLATING.get(), EMPTY, Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(new HeadlineTextPage("hex_ash"))
                 .addPage(new SpiritInfusionPage(HEX_ASH.get()))

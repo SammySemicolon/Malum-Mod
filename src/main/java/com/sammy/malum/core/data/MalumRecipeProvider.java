@@ -617,7 +617,6 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessColoredEther(consumer, MalumItems.ORANGE_ETHER.get(), Items.ORANGE_DYE);
         shapelessColoredEther(consumer, MalumItems.MAGENTA_ETHER.get(), Items.MAGENTA_DYE);
         shapelessColoredEther(consumer, MalumItems.LIGHT_BLUE_ETHER.get(), Items.LIGHT_BLUE_DYE);
-        shapelessColoredEther(consumer, MalumItems.YELLOW_ETHER.get(), Items.YELLOW_DYE);
         shapelessColoredEther(consumer, MalumItems.LIME_ETHER.get(), Items.LIME_DYE);
         shapelessColoredEther(consumer, MalumItems.PINK_ETHER.get(), Items.PINK_DYE);
         shapelessColoredEther(consumer, MalumItems.CYAN_ETHER.get(), Items.CYAN_DYE);
@@ -630,7 +629,6 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessColoredEtherTorch(consumer, MalumItems.ORANGE_ETHER_TORCH.get(), Items.ORANGE_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.MAGENTA_ETHER_TORCH.get(), Items.MAGENTA_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.LIGHT_BLUE_ETHER_TORCH.get(), Items.LIGHT_BLUE_DYE);
-        shapelessColoredEtherTorch(consumer, MalumItems.YELLOW_ETHER_TORCH.get(), Items.YELLOW_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.LIME_ETHER_TORCH.get(), Items.LIME_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.PINK_ETHER_TORCH.get(), Items.PINK_DYE);
         shapelessColoredEtherTorch(consumer, MalumItems.CYAN_ETHER_TORCH.get(), Items.CYAN_DYE);
@@ -669,7 +667,6 @@ public class MalumRecipeProvider extends RecipeProvider
         shapelessColoredEtherBrazier(consumer, MalumItems.ORANGE_ETHER_BRAZIER.get(), Items.ORANGE_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.MAGENTA_ETHER_BRAZIER.get(), Items.MAGENTA_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.LIGHT_BLUE_ETHER_BRAZIER.get(), Items.LIGHT_BLUE_DYE);
-        shapelessColoredEtherBrazier(consumer, MalumItems.YELLOW_ETHER_BRAZIER.get(), Items.YELLOW_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.LIME_ETHER_BRAZIER.get(), Items.LIME_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.PINK_ETHER_BRAZIER.get(), Items.PINK_DYE);
         shapelessColoredEtherBrazier(consumer, MalumItems.CYAN_ETHER_BRAZIER.get(), Items.CYAN_DYE);
