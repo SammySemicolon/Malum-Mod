@@ -46,30 +46,63 @@ public class SpiritInfusionPage extends BookPage
         Minecraft minecraft = Minecraft.getInstance();
         int posX = position.first;
         int posY = position.second;
-        float shortDistance = 5.2f;
-        float longDistance = 7f;
         int inputX = posX + 56;
-        int inputY = posY + 42;
+        int inputY = posY + 48;
 
         for (int i = 0; i < recipe.extraItemIngredients.size(); i++)
         {
-            Vector3d itemOffset = itemOffset(shortDistance, i, recipe.extraItemIngredients.size());
+            Vector3d itemOffset = itemOffset(false, i, recipe.extraItemIngredients.size());
             minecraft.getTextureManager().bindTexture(BACKGROUND);
-            blit(stack, inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, 131, 1, 16, 16, 512, 512);
+            blit(stack, inputX + (int)itemOffset.x-2, inputY + (int)itemOffset.z-2, 131, 1, 20, 21, 512, 512);
             screen.drawItem(stack, recipe.extraItemIngredients.get(i).getItem(), inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, mouseX, mouseY);
         }
         for (int i = 0; i < recipe.spiritIngredients.size(); i++)
         {
-            Vector3d itemOffset = itemOffset(recipe.extraItemIngredients.size() > 1 ? longDistance :  shortDistance, i,recipe.spiritIngredients.size());
+            Vector3d itemOffset = itemOffset(recipe.extraItemIngredients.size() > 1, i,recipe.spiritIngredients.size());
             minecraft.getTextureManager().bindTexture(BACKGROUND);
-            blit(stack, inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, 131, 1, 16, 16, 512, 512);
+            blit(stack, inputX + (int)itemOffset.x-2, inputY + (int)itemOffset.z-2, 131, 1, 20, 21, 512, 512);
             screen.drawItem(stack, recipe.spiritIngredients.get(i).getItem(), inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, mouseX, mouseY);
         }
         screen.drawItem(stack, recipe.inputIngredient.getItemAlt(), inputX, inputY, mouseX, mouseY);
-        screen.drawItem(stack, recipe.outputIngredient.getItemAlt(), posX + 56, posY + 109, mouseX, mouseY);
+        screen.drawItem(stack, recipe.outputIngredient.getItemAlt(), inputX, posY + 115, mouseX, mouseY);
     }
-    public static Vector3d itemOffset(float distance, int slot, int maxSlots)
+    public static Vector3d itemOffset(boolean far, int slot, int maxSlots)
     {
-        return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,0,0.5f), distance, distance * 0.9f,slot, maxSlots, maxSlots == 1 ? 12 : 0, 16);
+        float distance = far ? 6.75f : 5f;
+        long gameTime = 0;
+        if (maxSlots % 2 == 1)
+        {
+            gameTime = 12;
+        }
+        if (maxSlots % 3 == 0)
+        {
+            if (far)
+            {
+                gameTime = 12;
+                distance = 6.25f;
+            }
+            else
+            {
+                gameTime = 4;
+                distance = 5.25f;
+            }
+        }
+        if (maxSlots % 4 == 0)
+        {
+            if (far)
+            {
+                gameTime = 2;
+            }
+            else
+            {
+                gameTime = 0;
+            }
+        }
+        Vector3d position = MalumHelper.rotatedCirclePosition(new Vector3d(0.5f, 0, 0.5f), distance, distance, slot, maxSlots, gameTime, 16);
+        if (position.x < 0)
+        {
+            position = position.subtract(1,0,0);
+        }
+        return position;
     }
 }

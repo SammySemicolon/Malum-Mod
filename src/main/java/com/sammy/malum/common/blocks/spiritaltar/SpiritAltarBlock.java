@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blocks.spiritaltar;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.items.MalumItems;
@@ -26,6 +27,10 @@ public class SpiritAltarBlock extends Block
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
+        if (MalumHelper.areWeOnClient(worldIn))
+        {
+            return ActionResultType.SUCCESS;
+        }
         if (handIn.equals(Hand.MAIN_HAND))
         {
             if (worldIn.getTileEntity(pos) instanceof SpiritAltarTileEntity)

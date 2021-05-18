@@ -13,7 +13,7 @@
       "item": "malum:soulstone"
     },
     "X": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     }
   },
   "result": {

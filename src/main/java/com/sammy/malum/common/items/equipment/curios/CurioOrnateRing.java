@@ -46,7 +46,7 @@ public class CurioOrnateRing extends Item implements ICurio
             public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier)
             {
                 Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-                map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_ring_armor_boost", 1f, AttributeModifier.Operation.ADDITION));
+                map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_ring_armor_boost", 2f, AttributeModifier.Operation.ADDITION));
                 return map;
             }
     

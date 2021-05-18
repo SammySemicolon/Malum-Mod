@@ -64,9 +64,9 @@ public class DiscoveryCategory extends BookCategory
                         .addList(RUNEWOOD_PLANKS_SLAB.get(), VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), BOLTED_RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PANEL_SLAB.get(), RUNEWOOD_TILES_SLAB.get())
                         .addList(RUNEWOOD_PLANKS_STAIRS.get(), VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), RUNEWOOD_PANEL_STAIRS.get(), RUNEWOOD_TILES_STAIRS.get())
                         .addList(CUT_RUNEWOOD_PLANKS.get(), RUNEWOOD_BEAM.get(), BOLTED_RUNEWOOD_BEAM.get()))
-                .addPage(new CraftingPage(new ItemStack(RUNEWOOD_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
-                .addPage(new CraftingPage(RUNEWOOD_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()));
 
+                .addPage(CraftingPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
+                .addPage(CraftingPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()));
         solarSap = new BookEntry(SOLAR_SAP_BOTTLE.get(), "solar_sap")
                 .addPage(new HeadlineTextPage("solar_sap"))
                 .addPage(new SmeltingPage(SOLAR_SAP_BOTTLE.get(), SOLAR_SYRUP_BOTTLE.get()))
@@ -105,8 +105,8 @@ public class DiscoveryCategory extends BookCategory
                         .addList(TAINTED_ROCK_STAIRS.get(), SMOOTH_TAINTED_ROCK_STAIRS.get(), POLISHED_TAINTED_ROCK_STAIRS.get(), TAINTED_ROCK_BRICKS_STAIRS.get(), TAINTED_ROCK_TILES_STAIRS.get())
                         .addList(TAINTED_ROCK_PILLAR.get(), TAINTED_ROCK_PILLAR_CAP.get(), TAINTED_ROCK_COLUMN.get(), TAINTED_ROCK_COLUMN_CAP.get())
                         .addList(CUT_TAINTED_ROCK.get(), CHISELED_TAINTED_ROCK.get()))
-                .addPage(new CraftingPage(new ItemStack(TAINTED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get()))
-                .addPage(new CraftingPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK_SLAB.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get(), TAINTED_ROCK.get()))
+                .addPage(CraftingPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
+                .addPage(CraftingPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
                 .addLink(holySpirit).addLink(arcaneSpirit);
 
         twistedRock = new BookEntry(TWISTED_ROCK.get(), "twisted_rock")
@@ -118,8 +118,8 @@ public class DiscoveryCategory extends BookCategory
                         .addList(TWISTED_ROCK_STAIRS.get(), SMOOTH_TWISTED_ROCK_STAIRS.get(), POLISHED_TWISTED_ROCK_STAIRS.get(), TWISTED_ROCK_BRICKS_STAIRS.get(), TWISTED_ROCK_TILES_STAIRS.get())
                         .addList(TWISTED_ROCK_PILLAR.get(), TWISTED_ROCK_PILLAR_CAP.get(), TWISTED_ROCK_COLUMN.get(), TWISTED_ROCK_COLUMN_CAP.get())
                         .addList(CUT_TWISTED_ROCK.get(), CHISELED_TWISTED_ROCK.get()))
-                .addPage(new CraftingPage(new ItemStack(TWISTED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get()))
-                .addPage(new CraftingPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK_SLAB.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get(), TWISTED_ROCK.get()))
+                .addPage(CraftingPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
+                .addPage(CraftingPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
                 .addLink(wickedSpirit).addLink(arcaneSpirit);
 
         ether = new BookEntry(YELLOW_ETHER.get(), "ether")
@@ -137,24 +137,24 @@ public class DiscoveryCategory extends BookCategory
                         .addList(CLEANSED_ROCK_STAIRS.get(), SMOOTH_CLEANSED_ROCK_STAIRS.get(), POLISHED_CLEANSED_ROCK_STAIRS.get(), CLEANSED_ROCK_BRICKS_STAIRS.get(), CLEANSED_ROCK_TILES_STAIRS.get())
                         .addList(CLEANSED_ROCK_PILLAR.get(), CLEANSED_ROCK_PILLAR_CAP.get(), CLEANSED_ROCK_COLUMN.get(), CLEANSED_ROCK_COLUMN_CAP.get())
                         .addList(CUT_CLEANSED_ROCK.get(), CHISELED_CLEANSED_ROCK.get()))
-                .addPage(new CraftingPage(new ItemStack(CLEANSED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK.get()))
-                .addPage(new CraftingPage(CLEANSED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK_SLAB.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK.get()))
+                .addPage(CraftingPage.itemStandPage(CLEANSED_ROCK_ITEM_STAND.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK_SLAB.get()))
+                .addPage(CraftingPage.itemPedestalPage(CLEANSED_ROCK_ITEM_PEDESTAL.get(), CLEANSED_ROCK.get(), CLEANSED_ROCK_SLAB.get()))
                 .addPage(new SpiritInfusionPage(PURIFIED_ROCK.get()))
                 .addPage(new ItemListPage(PURIFIED_ROCK.get(), SMOOTH_PURIFIED_ROCK.get(), POLISHED_PURIFIED_ROCK.get(), PURIFIED_ROCK_BRICKS.get(), PURIFIED_ROCK_TILES.get())
                         .addList(PURIFIED_ROCK_SLAB.get(), SMOOTH_PURIFIED_ROCK_SLAB.get(), POLISHED_PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_BRICKS_SLAB.get(), PURIFIED_ROCK_TILES_SLAB.get())
                         .addList(PURIFIED_ROCK_STAIRS.get(), SMOOTH_PURIFIED_ROCK_STAIRS.get(), POLISHED_PURIFIED_ROCK_STAIRS.get(), PURIFIED_ROCK_BRICKS_STAIRS.get(), PURIFIED_ROCK_TILES_STAIRS.get())
                         .addList(PURIFIED_ROCK_PILLAR.get(), PURIFIED_ROCK_PILLAR_CAP.get(), PURIFIED_ROCK_COLUMN.get(), PURIFIED_ROCK_COLUMN_CAP.get())
                         .addList(CUT_PURIFIED_ROCK.get(), CHISELED_PURIFIED_ROCK.get()))
-                .addPage(new CraftingPage(new ItemStack(PURIFIED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get()))
-                .addPage(new CraftingPage(PURIFIED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK_SLAB.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK.get()))
+                .addPage(CraftingPage.itemStandPage(PURIFIED_ROCK_ITEM_STAND.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK_SLAB.get()))
+                .addPage(CraftingPage.itemPedestalPage(PURIFIED_ROCK_ITEM_PEDESTAL.get(), PURIFIED_ROCK.get(), PURIFIED_ROCK_SLAB.get()))
                 .addPage(new SpiritInfusionPage(ERODED_ROCK.get()))
                 .addPage(new ItemListPage(ERODED_ROCK.get(), SMOOTH_ERODED_ROCK.get(), POLISHED_ERODED_ROCK.get(), ERODED_ROCK_BRICKS.get(), ERODED_ROCK_TILES.get())
                         .addList(ERODED_ROCK_SLAB.get(), SMOOTH_ERODED_ROCK_SLAB.get(), POLISHED_ERODED_ROCK_SLAB.get(), ERODED_ROCK_BRICKS_SLAB.get(), ERODED_ROCK_TILES_SLAB.get())
                         .addList(ERODED_ROCK_STAIRS.get(), SMOOTH_ERODED_ROCK_STAIRS.get(), POLISHED_ERODED_ROCK_STAIRS.get(), ERODED_ROCK_BRICKS_STAIRS.get(), ERODED_ROCK_TILES_STAIRS.get())
                         .addList(ERODED_ROCK_PILLAR.get(), ERODED_ROCK_PILLAR_CAP.get(), ERODED_ROCK_COLUMN.get(), ERODED_ROCK_COLUMN_CAP.get())
                         .addList(CUT_ERODED_ROCK.get(), CHISELED_ERODED_ROCK.get()))
-                .addPage(new CraftingPage(new ItemStack(ERODED_ROCK_ITEM_STAND.get(), 2), EMPTY, EMPTY, EMPTY, ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK.get(), ERODED_ROCK.get(), ERODED_ROCK.get()))
-                .addPage(new CraftingPage(ERODED_ROCK_ITEM_PEDESTAL.get(), EMPTY, EMPTY, EMPTY, ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK_SLAB.get(), ERODED_ROCK.get(), ERODED_ROCK.get(), ERODED_ROCK.get()))
+                .addPage(CraftingPage.itemStandPage(ERODED_ROCK_ITEM_STAND.get(), ERODED_ROCK.get(), ERODED_ROCK_SLAB.get()))
+                .addPage(CraftingPage.itemPedestalPage(ERODED_ROCK_ITEM_PEDESTAL.get(), ERODED_ROCK.get(), ERODED_ROCK_SLAB.get()))
                 .addLink(arcaneSpirit);
 
         addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, soulstone, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, spiritArchitecture, holySpirit, wickedSpirit, arcaneSpirit, eldritchSpirit, earthenSpirit, infernalSpirit, aerialSpirit, aquaticSpirit);

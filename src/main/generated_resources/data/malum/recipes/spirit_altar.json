@@ -7,7 +7,7 @@
   ],
   "key": {
     "Z": {
-      "item": "minecraft:gold_ingot"
+      "tag": "forge:ingots/gold"
     },
     "Y": {
       "item": "malum:soulstone"

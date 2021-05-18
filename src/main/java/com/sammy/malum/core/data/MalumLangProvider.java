@@ -50,19 +50,18 @@ public class MalumLangProvider extends LanguageProvider
         ArrayList<BookCategory> bookChapters = MalumBookCategories.CATEGORIES;
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
-        blocks.forEach(b -> {
+        blocks.forEach(b ->
+        {
             String name = b.get().getTranslationKey().replaceFirst("block.malum.", "");
             name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
             add(b.get().getTranslationKey(), name);
         });
 
-        items.forEach(i -> {
-            if (!(i.get() instanceof BlockItem))
-            {
-                String name = i.get().getTranslationKey().replaceFirst("item.malum.", "");
-                name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
-                add(i.get().getTranslationKey(), name);
-            }
+        items.forEach(i ->
+        {
+            String name = i.get().getTranslationKey().replaceFirst("item.malum.", "");
+            name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
+            add(i.get().getTranslationKey(), name);
         });
 
         sounds.forEach(s -> {
@@ -120,7 +119,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("twisted_rock", "\"Turned wicked\". If we are to replace the holy spirit with a wicked spirit, cobblestone will instead be animated into twisted rock.");
         addPage("twisted_rock_architecture", "Much alike the tainted rock, using a crafting table or the stone cutter, you can make many variants of twisted rock.");
 
-        addPage("ether", "Think of a lit matchstick, but without the matchstick. Ether is just that! It's a magical substance that looks much like fire and shines bright forever. It can be put on a torch and a tainted brazier.");
+        addPage("ether", "Think of a lit matchstick, but without the matchstick. Ether is just that! It's a magical substance that looks much like fire and shines bright forever. It can be put on a torch and a tainted rock brazier. It can also be colored with most dyes.");
 
         addPage("spirit_architecture", "Not only cobblestone can be infused into an arcane rock. Granite, Diorite and Andesite all have their magic counterparts.");
 
@@ -129,6 +128,11 @@ public class MalumLangProvider extends LanguageProvider
 
         addPage("hallowed_gold", "Hallowed Gold is a very versatile metal meant for various arcane mechanisms and utilities. It's created by infusing gold with holy and arcane spirit.");
         addPage("spirit_jar", "The Spirit Jar is a useful block designed for storing spirits, it can contain a nearly infinite amount of one spirit.");
+
+        addPage("curios", "Through hallowed gold and soul stained steel you may create various gilded and ornate equipment to aid you in combat. These simple curios will provide a moderate boost to your armor and toughness respectively.");
+        addPage("curios_2","Each one of these simple trinkets functions as a basis for spirit infusion. They can be shaped into many other accessories with various uses.");
+
+        addPage("tyrving", "The Tyrving is a type of twisted spellblade designed to crush armor. It is very proficient at dealing with tough opponents, increasing in magic damage for each point of armor your enemy has.");
 
         addPage("holy_spirit", "The holy spirit is a symbol of the living. It contains many strange curative properties that will greatly aid your rise to power.");
         addPage("wicked_spirit", "The wicked spirit is a symbol of the reanimated. It's deathly properties sure are useful.");

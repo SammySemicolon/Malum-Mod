@@ -18,7 +18,7 @@ public class MalumSpiritAltarRecipes
     public static void init()
     {
         //hex ash
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_REDSTONE, 2), new ItemIngredient(MalumItems.HEX_ASH.get(), 2))
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.GUNPOWDER, 1), new ItemIngredient(MalumItems.HEX_ASH.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //tainted rock
@@ -32,7 +32,7 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //ether
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 4), new ItemIngredient(MalumItems.YELLOW_ETHER.get(), 4))
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 4), new ItemIngredient(MalumItems.YELLOW_ETHER.get(), 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.INFERNAL_SPIRIT))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
@@ -65,17 +65,16 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
-                .addExtraItem(new SimpleItemIngredient(Items.DIAMOND))
-                .addExtraItem(new SimpleItemIngredient(Items.LAPIS_LAZULI))
+                .addExtraItem(new SimpleItemIngredient(Items.PHANTOM_MEMBRANE))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
         //tyrving
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_SWORD.get(), 1), new ItemIngredient(MalumItems.TYRVING.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 6))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 4))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.OBSIDIAN))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
         //soul stained stronghold

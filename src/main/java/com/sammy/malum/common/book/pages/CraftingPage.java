@@ -63,13 +63,13 @@ public class CraftingPage extends BookPage
                 if (index < inputs.length && !inputs[index].isEmpty())
                 {
                     ItemStack itemStack = inputs[index];
-                    int itemPosX = posX + 29 + j*27;
-                    int itemPosY = posY + 19 + i*27;
+                    int itemPosX = posX + 34 + j*22;
+                    int itemPosY = posY + 23 + i*22;
                     screen.drawItem(stack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }
         }
-        screen.drawItem(stack, result, posX+56, posY+114, mouseX, mouseY);
+        screen.drawItem(stack, result, posX+56, posY+115, mouseX, mouseY);
     }
     public static CraftingPage blockCraftingPage(Item output, Item input)
     {
@@ -79,5 +79,15 @@ public class CraftingPage extends BookPage
     {
         Item EMPTY = Items.BARRIER;
         return new CraftingPage(new ItemStack(output, 9), EMPTY,EMPTY,EMPTY,EMPTY,input,EMPTY,EMPTY,EMPTY,EMPTY);
+    }
+    public static CraftingPage itemStandPage(Item output, Item fullBlock, Item slab)
+    {
+        Item EMPTY = Items.BARRIER;
+        return new CraftingPage(new ItemStack(output, 2), EMPTY,EMPTY,EMPTY,slab,slab,slab,fullBlock,fullBlock,fullBlock);
+    }
+    public static CraftingPage itemPedestalPage(Item output, Item fullBlock, Item slab)
+    {
+        Item EMPTY = Items.BARRIER;
+        return new CraftingPage(new ItemStack(output, 2), slab,slab,slab,EMPTY,fullBlock,EMPTY,slab,slab,slab);
     }
 }

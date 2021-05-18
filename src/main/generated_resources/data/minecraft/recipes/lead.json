@@ -7,7 +7,7 @@
   ],
   "key": {
     "~": {
-      "item": "minecraft:string"
+      "tag": "forge:string"
     },
     "O": {
       "item": "malum:solar_sapball"

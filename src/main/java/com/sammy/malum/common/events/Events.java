@@ -83,14 +83,14 @@ public class Events
                 if (stack.getItem().equals(MalumItems.TYRVING.get()))
                 {
                     LivingEntity entity = event.getEntityLiving();
-                    float amount = (event.getAmount() / 8) * (8 + entity.getTotalArmorValue());
-                    event.setAmount(event.getAmount() / 2);
                     event.getEntity().hurtResistantTime = 0;
-                    SpiritHelper.causeVoodooDamage(playerEntity, event.getEntityLiving(), amount / 2f);
+                    float amount = event.getAmount() * (1 + entity.getTotalArmorValue()/10);
+                    SpiritHelper.causeVoodooDamage(playerEntity, entity, amount);
+                    event.setAmount(0);
                     playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_CRUSH, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
                     if (playerEntity.world instanceof ServerWorld)
                     {
-                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(event::getEntityLiving), new TyrvingParticlePacket(entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ()));
+                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new TyrvingParticlePacket(entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ()));
                     }
                 }
             }

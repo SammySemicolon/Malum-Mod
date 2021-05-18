@@ -50,7 +50,7 @@ public class ItemListPage extends BookPage
                 ItemStack itemStack = stacks.get(j);
                 int itemPosX = startingPosX + step * j;
                 minecraft.getTextureManager().bindTexture(BACKGROUND);
-                blit(stack, itemPosX, itemPosY, 131, 1, 20, 21, 512, 512);
+                blit(stack, itemPosX, itemPosY, 131, 1, 20, 22, 512, 512);
                 screen.drawItem(stack, itemStack, itemPosX+2, itemPosY+2, mouseX, mouseY);
             }
         }
