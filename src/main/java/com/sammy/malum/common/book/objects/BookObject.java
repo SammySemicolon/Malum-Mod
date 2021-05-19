@@ -17,6 +17,8 @@ public class BookObject
     public int height;
     public float draw;
     public Predicate<BookScreen> specialPredicate;
+    public boolean renderAfterPages;
+
     public BookObject()
     {
     }
@@ -33,7 +35,11 @@ public class BookObject
         this(posX, posY, width, height);
         this.returnObject = returnObject;
     }
-    
+    public BookObject renderAfterPages()
+    {
+        this.renderAfterPages = true;
+        return this;
+    }
     public void draw(Minecraft minecraft, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
     {
     

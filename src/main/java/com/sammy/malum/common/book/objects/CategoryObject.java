@@ -28,10 +28,7 @@ public class CategoryObject extends BookObject
     @Override
     public void interact(BookScreen screen)
     {
-        if (screen.currentObject instanceof CategoryObject)
-        {
-            screen.currentGrouping = 0;
-        }
+        screen.currentGrouping = 0;
         screen.currentPage = 0;
         super.interact(screen);
     }

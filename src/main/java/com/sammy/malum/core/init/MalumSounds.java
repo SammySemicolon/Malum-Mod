@@ -64,7 +64,7 @@ public class MalumSounds
 
     public static SoundEvent register(SoundEvent soundEvent)
     {
-        SOUNDS.register(soundEvent.getName().getPath(), ()->soundEvent);
+        SOUNDS.register(soundEvent.name.getPath(), ()->soundEvent);
         return soundEvent;
     }
 }

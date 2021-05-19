@@ -43,20 +43,21 @@ public class BookScreen extends Screen
     
     public void setupObjects(Minecraft mc)
     {
+        highPriorityObjects = new ArrayList<>();
         objects = new ArrayList<>();
         this.width = mc.getMainWindow().getScaledWidth();
         this.height = mc.getMainWindow().getScaledHeight();
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
-        
+
         int posX = guiLeft + 13;
         int posY = guiTop - 15;
-        BackArrowObject backArrowObject = new BackArrowObject(posX, posY, 24, 24);
-        objects.add(backArrowObject);
-        
+        BookObject backArrowObject = new BackArrowObject(posX, posY, 24, 24).renderAfterPages();
+        highPriorityObjects.add(backArrowObject);
+
         posX = guiLeft + 255;
-        NextArrowObject nextArrowObject = new NextArrowObject(posX, posY, 24, 24);
-        objects.add(nextArrowObject);
+        BookObject nextArrowObject = new NextArrowObject(posX, posY, 24, 24).renderAfterPages();
+        highPriorityObjects.add(nextArrowObject);
         ArrayList<BookObject> lastObjects = new ArrayList<>();
         for (int i = 0; i < MalumBookCategories.CATEGORIES.size(); i++)
         {
@@ -91,7 +92,7 @@ public class BookScreen extends Screen
                         posX = guiLeft + 153;
                         posY -= 125;
                     }
-                    
+
                     int finalJ = j;
                     EntryObject entryObject = (EntryObject) new EntryObject(posX, posY, 128, 24, categoryObject, entry).addSpecialPredicate((s) -> currentObject != null && s.currentObject.equals(categoryObject) && s.currentGrouping == finalJ);
                     objects.add(entryObject);
@@ -119,6 +120,7 @@ public class BookScreen extends Screen
     public final int bookWidth = 292;
     public final int bookHeight = 190;
     public static BookScreen screen;
+    public ArrayList<BookObject> highPriorityObjects;
     public ArrayList<BookObject> objects;
     
     public BookObject firstCategory;
@@ -152,6 +154,10 @@ public class BookScreen extends Screen
         int guiTop = (height - bookHeight) / 2;
         blit(matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
 
+        for (BookObject object : highPriorityObjects)
+        {
+            drawBookObject(object, mouseX, mouseY, matrixStack, partialTicks);
+        }
         if (currentObject instanceof EntryObject)
         {
             EntryObject entryObject = (EntryObject) currentObject;
@@ -167,39 +173,44 @@ public class BookScreen extends Screen
         }
         for (BookObject object : objects)
         {
-            if (object.canAccess(this))
-            {
-                object.draw++;
-    
-                if (isHovering(mouseX, mouseY, object.posX, object.posY, object.width, object.height))
-                {
-                    if (object.hover < 20)
-                    {
-                        object.hover++;
-                    }
-                    object.isHovering = true;
-                }
-                else
-                {
-                    if (object.hover > 0)
-                    {
-                        object.hover--;
-                    }
-                    object.isHovering = false;
-                }
-                object.draw(mc, matrixStack, mouseX, mouseY, partialTicks);
-            }
-            else if (object.draw > 0)
-            {
-                object.draw = 0;
-            }
+            drawBookObject(object, mouseX, mouseY, matrixStack, partialTicks);
         }
     }
-    
+    public void drawBookObject(BookObject object, int mouseX, int mouseY, MatrixStack matrixStack, float partialTicks)
+    {
+        Minecraft mc = Minecraft.getInstance();
+        if (object.canAccess(this))
+        {
+            object.draw++;
+            if (isHovering(mouseX, mouseY, object.posX, object.posY, object.width, object.height))
+            {
+                if (object.hover < 20)
+                {
+                    object.hover++;
+                }
+                object.isHovering = true;
+            }
+            else
+            {
+                if (object.hover > 0)
+                {
+                    object.hover--;
+                }
+                object.isHovering = false;
+            }
+            object.draw(mc, matrixStack, mouseX, mouseY, partialTicks);
+        }
+        else if (object.draw > 0)
+        {
+            object.draw = 0;
+        }
+    }
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button)
     {
-        for (BookObject object : objects)
+        ArrayList<BookObject> allObjects = objects;
+        allObjects.addAll(highPriorityObjects);
+        for (BookObject object : allObjects)
         {
             if (object.canAccess(this))
             {

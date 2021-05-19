@@ -13,7 +13,7 @@ public class SpiritTinkeringCategory extends BookCategory
     public static BookEntry hallowed_gold;
     public static BookEntry curios;
     public static BookEntry radiant_soulstone;
-    public static BookEntry soul_stained_stronghold;
+    public static BookEntry stronghold_armor;
     public static BookEntry tyrving;
 
     public SpiritTinkeringCategory()
@@ -49,11 +49,21 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addPage(new CraftingPage(GILDED_RING.get(), EMPTY, Items.LEATHER, HALLOWED_GOLD_INGOT.get(), Items.LEATHER, EMPTY, Items.LEATHER, EMPTY, Items.LEATHER, EMPTY))
                 .addLink(soul_stained_steel).addLink(hallowed_gold);
 
+        radiant_soulstone = new BookEntry(RADIANT_SOULSTONE.get(), "radiant_soulstone")
+                .addPage(new HeadlineTextPage("radiant_soulstone"))
+                .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()));
+
         tyrving = new BookEntry(TYRVING.get(), "tyrving")
                 .addPage(new HeadlineTextPage("tyrving"))
                 .addPage(new SpiritInfusionPage(TYRVING.get()))
-                .addLink(DiscoveryCategory.wickedSpirit).addLink(DiscoveryCategory.eldritchSpirit).addLink(soul_stained_steel);
+                .addLink(DiscoveryCategory.wickedSpirit).addLink(DiscoveryCategory.eldritchSpirit).addLink(soul_stained_steel).addLink(radiant_soulstone);
 
-        addEntries(soul_stained_steel, hallowed_gold, curios, tyrving);
+        stronghold_armor = new BookEntry(SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(), "stronghold_armor")
+                .addPage(new HeadlineTextPage("stronghold_armor"))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_HELMET.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_CHESTPLATE.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_LEGGINGS.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_BOOTS.get()));
+        addEntries(soul_stained_steel, hallowed_gold, curios, radiant_soulstone, tyrving, stronghold_armor);
     }
 }

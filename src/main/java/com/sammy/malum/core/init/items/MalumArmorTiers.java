@@ -84,6 +84,10 @@ public class MalumArmorTiers
         @Override
         public float getKnockbackResistance()
         {
+            if (this.equals(SOUL_STAINED_STRONGHOLD))
+            {
+                return 1;
+            }
             return 0;
         }
     }

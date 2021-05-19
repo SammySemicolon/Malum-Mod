@@ -46,7 +46,7 @@ public class CurioOrnateNecklace extends Item implements ICurio
             public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier)
             {
                 Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-                map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_necklace_armor_boost", 4f, AttributeModifier.Operation.ADDITION));
+                map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_necklace_armor_boost", 4f, AttributeModifier.Operation.ADDITION));
                 return map;
             }
     

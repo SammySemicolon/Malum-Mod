@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entities.soul;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
@@ -9,6 +10,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -19,16 +21,43 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.awt.*;
 import java.util.UUID;
 
 public class SoulItemEntity extends ProjectileItemEntity
 {
-    public static final DataParameter<String> SOUL_NAME = EntityDataManager.createKey(SoulItemEntity.class, DataSerializers.STRING);
-    
-    public SpiritItem soulItem;
+    public static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(ScytheBoomerangEntity.class, DataSerializers.ITEMSTACK);
+
+    public ItemStack stack;
     public UUID ownerUUID;
+
+    public int age;
+    public float rotation;
+    public final float hoverStart;
+
+    public SoulItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
+    {
+        super(type, worldIn);
+        noClip = false;
+        this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
+    }
+
+    @Override
+    protected void registerData()
+    {
+        super.registerData();
+        dataManager.register(STACK, ItemStack.EMPTY);
+    }
+
+    public void setData(ItemStack stack, UUID ownerUUID)
+    {
+        this.stack = stack;
+        this.ownerUUID = ownerUUID;
+        getDataManager().set(STACK, stack);
+    }
+
     public PlayerEntity owner()
     {
         if (ownerUUID != null)
@@ -39,31 +68,6 @@ public class SoulItemEntity extends ProjectileItemEntity
             }
         }
         return null;
-    };
-    
-    public int age;
-    public float rotation;
-    public final float hoverStart;
-    
-    public SoulItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
-    {
-        super(type, worldIn);
-        noClip = false;
-        this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
-    }
-    
-    @Override
-    protected void registerData()
-    {
-        super.registerData();
-        dataManager.register(SOUL_NAME, "holy");
-    }
-    public void setData(SpiritItem soulItem, UUID ownerUUID)
-    {
-        this.soulItem = soulItem;
-        this.ownerUUID = ownerUUID;
-        getDataManager().set(SoulItemEntity.SOUL_NAME, soulItem.type.identifier);
-    
     }
     @Override
     public void tick()
@@ -77,17 +81,17 @@ public class SoulItemEntity extends ProjectileItemEntity
         if (MalumHelper.areWeOnServer(world))
         {
             setMotion(getMotion().mul(0.9f, 0.8f, 0.9f));
-            PlayerEntity entity = owner();
-            if (entity != null)
+            PlayerEntity owner = owner();
+            if (owner != null)
             {
-                float distance = getDistance(entity);
+                float distance = getDistance(owner);
                 if (age > 10)
                 {
                     float minimumDistance = 2f;
                     if (distance < minimumDistance)
                     {
                         float velocity = 0.25f;
-                        Vector3d ownerPos = entity.getPositionVec().add(0, 0, 0);
+                        Vector3d ownerPos = owner.getPositionVec().add(0, 0, 0);
                         Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(), ownerPos.z - getPosZ()).normalize().mul(velocity, velocity, velocity);
                         setMotion(desiredMotion);
                     }
@@ -95,7 +99,15 @@ public class SoulItemEntity extends ProjectileItemEntity
                     {
                         if (isAlive())
                         {
-                            SpiritHelper.harvestSpirit(soulItem.type.identifier, entity);
+                            if (stack.getItem() instanceof SpiritItem)
+                            {
+                                SpiritItem spiritItem = (SpiritItem) stack.getItem();
+                                SpiritHelper.harvestSpirit(spiritItem.type.identifier, owner);
+                            }
+                            else
+                            {
+                                ItemHandlerHelper.giveItemToPlayer(owner, stack);
+                            }
                             remove();
                         }
                     }
@@ -104,47 +116,56 @@ public class SoulItemEntity extends ProjectileItemEntity
         }
         else
         {
-            updateSplinter();
-            double x = getPosX(), y = getPosY() + yOffset(0)+0.25f, z = getPosZ();
-            Color color = soulItem.type.color;
+            double x = getPosX(), y = getPosY() + yOffset(0) + 0.25f, z = getPosZ();
+            if (stack == null)
+            {
+                stack = dataManager.get(STACK);
+            }
+            if (stack.getItem() instanceof SpiritItem)
+            {
+                SpiritItem spiritItem = (SpiritItem) stack.getItem();
+                Color color = spiritItem.type.color;
 
-            ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
-                    .setAlpha(0.2f, 0f)
-                    .setLifetime(10)
-                    .setScale(0.4f, 0)
-                    .setColor(color.brighter(), color.darker())
-                    .enableNoClip()
-                    .repeat(world, x,y,z, 2);
+                ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
+                        .setAlpha(0.1f, 0f)
+                        .setLifetime(4)
+                        .setScale(0.4f, 0)
+                        .setColor(color.brighter(), color.darker())
+                        .enableNoClip()
+                        .repeat(world, x, y, z, 2);
 
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(0.1f, 0f)
-                    .setLifetime(20)
-                    .setSpin(0.1f)
-                    .setScale(0.2f, 0)
-                    .setColor(color, color.darker())
-                    .randomOffset(0.1f)
-                    .enableNoClip()
-                    .randomVelocity(0.01f, 0.01f)
-                    .repeat(world, x,y,z, 1);
+                ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                        .setAlpha(0.1f, 0f)
+                        .setLifetime(20)
+                        .setSpin(0.1f)
+                        .setScale(0.2f, 0)
+                        .setColor(color, color.darker())
+                        .randomOffset(0.1f)
+                        .enableNoClip()
+                        .randomVelocity(0.01f, 0.01f)
+                        .repeat(world, x, y, z, 1);
+            }
         }
     }
+
     public float yOffset(float partialTicks)
     {
         return MathHelper.sin(((float) age + partialTicks) / 10.0F + hoverStart) * 0.1F + 0.1F;
     }
+
     @Override
     public void writeAdditional(CompoundNBT compound)
     {
         super.writeAdditional(compound);
+        compound.put("stack", stack.serializeNBT());
         if (ownerUUID != null)
         {
             compound.putUniqueId("ownerUUID", ownerUUID);
         }
-        compound.putString("splinterType", soulItem.type.identifier);
-        compound.putInt("age",age);
-        compound.putFloat("rotation",rotation);
+        compound.putInt("age", age);
+        compound.putFloat("rotation", rotation);
     }
-    
+
     @Override
     public void readAdditional(CompoundNBT compound)
     {
@@ -153,41 +174,40 @@ public class SoulItemEntity extends ProjectileItemEntity
         {
             ownerUUID = compound.getUniqueId("ownerUUID");
         }
-        soulItem = SpiritHelper.figureOutType(compound.getString("splinterType")).splinterItem;
-        dataManager.set(SOUL_NAME, soulItem.type.identifier);
+        if (compound.contains("stack"))
+        {
+            stack = ItemStack.read(compound.getCompound("stack"));
+        }
+        dataManager.set(STACK, stack);
         age = compound.getInt("age");
         rotation = compound.getFloat("rotation");
     }
-    
+
     @Override
     public IPacket<?> createSpawnPacket()
     {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
-    
+
     @Override
     public boolean hasNoGravity()
     {
         return true;
     }
-    
+
     @Override
     public float getCollisionBorderSize()
     {
         return 4f;
     }
-    
+
     @Override
     protected Item getDefaultItem()
     {
-        updateSplinter();
-        return soulItem;
-    }
-    public void updateSplinter()
-    {
-        if (soulItem == null)
+        if (stack == null)
         {
-            soulItem = SpiritHelper.figureOutType(dataManager.get(SOUL_NAME)).splinterItem;
+            stack = dataManager.get(STACK);
         }
+        return stack.getItem();
     }
 }

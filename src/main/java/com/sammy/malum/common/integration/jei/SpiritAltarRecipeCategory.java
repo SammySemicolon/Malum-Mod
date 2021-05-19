@@ -105,13 +105,13 @@ public class SpiritAltarRecipeCategory implements IRecipeCategory<MalumSpiritAlt
 
         for (int i = 0; i < recipe.extraItemIngredients.size(); i++)
         {
-            Vector3d itemOffset = itemOffset(recipe.extraItemIngredients.size() > 1, i, recipe.extraItemIngredients.size());
+            Vector3d itemOffset = itemOffset(false, i, recipe.extraItemIngredients.size());
             minecraft.getTextureManager().bindTexture(BACKGROUND);
             blit(matrixStack, inputX + (int) itemOffset.x, inputY + (int) itemOffset.z, 131, 0, 20, 21, 256, 256);
         }
         for (int i = 0; i < recipe.spiritIngredients.size(); i++)
         {
-            Vector3d itemOffset = itemOffset(false, i, recipe.spiritIngredients.size());
+            Vector3d itemOffset = itemOffset(recipe.extraItemIngredients.size() > 1, i, recipe.spiritIngredients.size());
             minecraft.getTextureManager().bindTexture(BACKGROUND);
             blit(matrixStack, inputX + (int) itemOffset.x, inputY + (int) itemOffset.z, 131, 0, 20, 21, 256, 256);
         }
@@ -131,7 +131,7 @@ public class SpiritAltarRecipeCategory implements IRecipeCategory<MalumSpiritAlt
 
         for (int i = 0; i < recipe.extraItemIngredients.size(); i++)
         {
-            Vector3d itemOffset = itemOffset(recipe.extraItemIngredients.size() > 1, i, recipe.extraItemIngredients.size());
+            Vector3d itemOffset = itemOffset(false, i, recipe.extraItemIngredients.size());
 
             iRecipeLayout.getItemStacks().init(itemCounter, true, inputX + (int) itemOffset.x, inputY + (int) itemOffset.z);
             iRecipeLayout.getItemStacks().set(itemCounter, recipe.extraItemIngredients.get(i).stacks());
@@ -139,7 +139,7 @@ public class SpiritAltarRecipeCategory implements IRecipeCategory<MalumSpiritAlt
         }
         for (int i = 0; i < recipe.spiritIngredients.size(); i++)
         {
-            Vector3d itemOffset = itemOffset(false, i, recipe.spiritIngredients.size());
+            Vector3d itemOffset = itemOffset(recipe.extraItemIngredients.size() > 1, i, recipe.spiritIngredients.size());
             iRecipeLayout.getItemStacks().init(itemCounter, true, inputX + (int) itemOffset.x, inputY + (int) itemOffset.z);
             iRecipeLayout.getItemStacks().set(itemCounter, recipe.spiritIngredients.get(i).getItem());
             itemCounter++;

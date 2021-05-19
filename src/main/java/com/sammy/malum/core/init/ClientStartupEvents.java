@@ -30,7 +30,6 @@ import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -152,11 +151,11 @@ public class ClientStartupEvents
         ClientHelper.registerItemColor(itemColors, MalumItems.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR,1));
     }
     
-    @SubscribeEvent
-    public static void stitchTextures(TextureStitchEvent.Pre event)
-    {
-        SPIRITS.forEach(s -> event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay")));
-    }
+//    @SubscribeEvent
+//    public static void stitchTextures(TextureStitchEvent.Pre event)
+//    {
+//        SPIRITS.forEach(s -> event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay")));
+//    }
     
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)

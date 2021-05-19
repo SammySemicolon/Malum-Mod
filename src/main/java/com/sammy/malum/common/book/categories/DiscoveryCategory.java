@@ -59,18 +59,18 @@ public class DiscoveryCategory extends BookCategory
 
         runewoodTrees = new BookEntry(RUNEWOOD_SAPLING.get(), "runewood")
                 .addPage(new HeadlineTextPage("runewood_trees"))
-                .addPage(new SmeltingPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
                 .addPage(new ItemListPage(RUNEWOOD_PLANKS.get(), VERTICAL_RUNEWOOD_PLANKS.get(), BOLTED_RUNEWOOD_PLANKS.get(), RUNEWOOD_PANEL.get(), RUNEWOOD_TILES.get())
                         .addList(RUNEWOOD_PLANKS_SLAB.get(), VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), BOLTED_RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PANEL_SLAB.get(), RUNEWOOD_TILES_SLAB.get())
                         .addList(RUNEWOOD_PLANKS_STAIRS.get(), VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), RUNEWOOD_PANEL_STAIRS.get(), RUNEWOOD_TILES_STAIRS.get())
                         .addList(CUT_RUNEWOOD_PLANKS.get(), RUNEWOOD_BEAM.get(), BOLTED_RUNEWOOD_BEAM.get()))
 
                 .addPage(CraftingPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
-                .addPage(CraftingPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()));
+                .addPage(CraftingPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
+                .addPage(new SmeltingPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()));
         solarSap = new BookEntry(SOLAR_SAP_BOTTLE.get(), "solar_sap")
                 .addPage(new HeadlineTextPage("solar_sap"))
                 .addPage(new SmeltingPage(SOLAR_SAP_BOTTLE.get(), SOLAR_SYRUP_BOTTLE.get()))
-                .addPage(new CraftingPage(new ItemStack(SOLAR_SAPBALL.get(),3), SOLAR_SAP_BOTTLE.get(), Items.SLIME_BALL))
+                .addPage(new CraftingPage(new ItemStack(SOLAR_SAPBALL.get(), 3), SOLAR_SAP_BOTTLE.get(), Items.SLIME_BALL))
                 .addLink(runewoodTrees);
 
         blazingQuartz = new BookEntry(BLAZING_QUARTZ.get(), "blazing_quartz")
@@ -86,6 +86,10 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("spirit_harvesting"))
                 .addPage(new TextPage("spirit_harvesting_2"))
                 .addPage(new CraftingPage(CRUDE_SCYTHE.get(), Items.IRON_INGOT, Items.IRON_INGOT, SOULSTONE.get(), EMPTY, Items.STICK, Items.IRON_INGOT, Items.STICK))
+                .addPage(new HeadlineTextPage("scythe_enchanting"))
+                .addPage(new HeadlineTextPage("haunting"))
+                .addPage(new HeadlineTextPage("rebound"))
+                .addPage(new HeadlineTextPage("spirit_plunder"))
                 .addLink(basicsOfMagic).addLink(soulstone);
 
         spiritInfusion = new BookEntry(SPIRIT_ALTAR.get(), "spirit_infusion")

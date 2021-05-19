@@ -33,7 +33,7 @@ public class SmeltingPage extends BookPage
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         int posX = position.first;
         int posY = position.second;
-        screen.drawItem(stack, result, posX+56, posY+46, mouseX, mouseY);
-        screen.drawItem(stack, input, posX+56, posY+113, mouseX, mouseY);
+        screen.drawItem(stack, result, posX+56, posY+48, mouseX, mouseY);
+        screen.drawItem(stack, input, posX+56, posY+115, mouseX, mouseY);
     }
 }
