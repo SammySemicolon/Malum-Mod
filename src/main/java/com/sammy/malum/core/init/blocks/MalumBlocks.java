@@ -93,7 +93,7 @@ public class MalumBlocks
 
     public static AbstractBlock.Properties ETHER_BLOCK_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundType.CLOTH).doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14));
+        return AbstractBlock.Properties.create(Material.GLASS, MaterialColor.BLUE).sound(MalumSounds.ETHER).doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14));
     }
 
     public static AbstractBlock.Properties ABSTRUSE_BLOCK_PROPERTIES()

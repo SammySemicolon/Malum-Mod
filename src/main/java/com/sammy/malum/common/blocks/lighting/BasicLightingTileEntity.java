@@ -18,6 +18,13 @@ public class BasicLightingTileEntity extends SimpleTileEntity implements ITickab
     {
         super(MalumTileEntities.ETHER_BLOCK_TILE_ENTITY.get());
     }
+
+    @Override
+    public void remove()
+    {
+        super.remove();
+    }
+
     @Override
     public void tick()
     {

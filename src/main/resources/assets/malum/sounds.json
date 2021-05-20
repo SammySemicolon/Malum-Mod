@@ -22,6 +22,9 @@
   "soul_stained_steel_place": { "sounds":["malum:soul_stained_steel/break1","malum:soul_stained_steel/break2","malum:soul_stained_steel/break3","malum:soul_stained_steel/break4"], "subtitle": "malum.subtitle.soul_stained_steel_place" },
   "soul_stained_steel_hit": { "sounds":["malum:soul_stained_steel/hit1","malum:soul_stained_steel/hit2","malum:soul_stained_steel/hit3","malum:soul_stained_steel/hit4"], "subtitle": "malum.subtitle.soul_stained_steel_hit" },
 
+  "ether_break": { "sounds":["malum:ether/break1","malum:ether/break2","malum:ether/break3","malum:ether/break4"], "subtitle": "malum.subtitle.ether_break" },
+  "ether_place": { "sounds":["malum:ether/break1","malum:ether/break2","malum:ether/break3","malum:ether/break4"], "subtitle": "malum.subtitle.ether_place" },
+  
   "abstruse_block_returns": { "sounds":["malum:abstruse_block/return1","malum:abstruse_block/return2"], "subtitle": "malum.subtitle.abstruse_block_returns" },
   
   "scythe_strike": { "sounds":["malum:scythes/strike1","malum:scythes/strike2","malum:scythes/strike3"], "subtitle": "malum.subtitle.scythe_strike" },
