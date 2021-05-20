@@ -1,30 +1,34 @@
 modLoader="javafml"
 loaderVersion="[33,)"
 license="All rights reserved"
+issueTrackerURL="https://github.com/SammySemicolon/Malum-Mod/issues"
 [[mods]]
 modId="malum"
 version="${file.jarVersion}"
 displayName="Malum"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/malum"
 logoFile="malum.png"
-credits='''The Minecraft Modding Discord and everyone there.
-It's an amazing place full of a ton of amazing people, this mod wouldn't be possible without them.
-
-Funny Furry Tail by TheU1t1mateGuy
-'''
+credits='''The Minecraft Modding Discord and everyone there. It's an amazing place full of a ton of amazing people, this mod wouldn't be possible without them.'''
 authors="Sammy;"
 description='''
-Malum is a sinister magic mod;
+Malum is a magic mod centered around souls and spirits
 '''
 [[dependencies.malum]]
     modId="forge"
     mandatory=true
-    versionRange="[34.0.5,)"
+    versionRange="[34,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.malum]]
     modId="curios"
     mandatory=true
-    versionRange="[1.16.3-4.0.1.0,)"
+    versionRange="[1.16.5-4.0.5.1,)"
     ordering="AFTER"
+    side="BOTH"
+[[dependencies.malum]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3,1.17)"
+    ordering="NONE"
     side="BOTH"

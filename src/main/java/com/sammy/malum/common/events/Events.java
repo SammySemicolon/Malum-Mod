@@ -46,7 +46,8 @@ public class Events
         {
             event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumStaticFeatures.BLAZE_QUARTZ_ORE);
         }
-        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumStaticFeatures.RUNESTONE_ORE);
+        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumStaticFeatures.SOULSTONE_ORE);
+        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumStaticFeatures.SOULSTONE_ORE_SURFACE);
     }
     @SubscribeEvent
     public static void giveCattoHisTreat(EntityJoinWorldEvent event)
