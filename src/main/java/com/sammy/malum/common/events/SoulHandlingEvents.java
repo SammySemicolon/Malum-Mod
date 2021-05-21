@@ -2,7 +2,7 @@ package com.sammy.malum.common.events;
 
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
-import com.sammy.malum.core.systems.souls.SpiritHelper;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

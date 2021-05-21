@@ -4,7 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.souls.MalumSpiritType;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

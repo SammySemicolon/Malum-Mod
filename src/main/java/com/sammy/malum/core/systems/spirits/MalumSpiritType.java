@@ -1,4 +1,4 @@
-package com.sammy.malum.core.systems.souls;
+package com.sammy.malum.core.systems.spirits;
 
 import com.sammy.malum.common.items.SpiritItem;
 import net.minecraft.entity.LivingEntity;

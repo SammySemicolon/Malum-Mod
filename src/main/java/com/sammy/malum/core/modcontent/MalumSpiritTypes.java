@@ -2,8 +2,8 @@ package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.systems.souls.CountPredicate;
-import com.sammy.malum.core.systems.souls.MalumSpiritType;
+import com.sammy.malum.core.systems.spirits.CountPredicate;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.LivingEntity;

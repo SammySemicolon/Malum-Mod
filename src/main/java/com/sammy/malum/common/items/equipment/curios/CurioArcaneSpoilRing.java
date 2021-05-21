@@ -14,4 +14,10 @@ public class CurioArcaneSpoilRing extends MalumCurioItem
     {
         return true;
     }
+
+    @Override
+    public int spiritYieldBonus()
+    {
+        return 1;
+    }
 }

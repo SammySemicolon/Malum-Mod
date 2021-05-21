@@ -1,4 +1,4 @@
-package com.sammy.malum.common.entities.soul;
+package com.sammy.malum.common.entities.spirit;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
@@ -6,7 +6,7 @@ import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.souls.SpiritHelper;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
@@ -27,7 +27,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.awt.*;
 import java.util.UUID;
 
-public class SoulItemEntity extends ProjectileItemEntity
+public class SpiritItemEntity extends ProjectileItemEntity
 {
     public static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(ScytheBoomerangEntity.class, DataSerializers.ITEMSTACK);
 
@@ -38,7 +38,7 @@ public class SoulItemEntity extends ProjectileItemEntity
     public float rotation;
     public final float hoverStart;
 
-    public SoulItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
+    public SpiritItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
     {
         super(type, worldIn);
         noClip = false;

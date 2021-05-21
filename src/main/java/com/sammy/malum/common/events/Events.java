@@ -6,7 +6,7 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.init.worldgen.MalumStaticFeatures;
-import com.sammy.malum.core.systems.souls.SpiritHelper;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.network.packets.TyrvingParticlePacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

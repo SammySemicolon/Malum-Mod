@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.recipes;
 
-import com.sammy.malum.core.systems.souls.MalumSpiritType;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.item.ItemStack;
 
 public class SpiritIngredient

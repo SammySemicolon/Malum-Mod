@@ -1,4 +1,4 @@
-package com.sammy.malum.common.entities.soul;
+package com.sammy.malum.common.entities.spirit;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -14,12 +14,12 @@ import net.minecraft.util.math.vector.Vector3f;
 
 import java.util.Random;
 
-public class SoulItemRenderer extends EntityRenderer<SoulItemEntity>
+public class SpiritItemRenderer extends EntityRenderer<SpiritItemEntity>
 {
     public final net.minecraft.client.renderer.ItemRenderer itemRenderer;
     public final Random random = new Random();
     
-    public SoulItemRenderer(EntityRendererManager renderManager, net.minecraft.client.renderer.ItemRenderer itemRendererIn)
+    public SpiritItemRenderer(EntityRendererManager renderManager, net.minecraft.client.renderer.ItemRenderer itemRendererIn)
     {
         super(renderManager);
         this.itemRenderer = itemRendererIn;
@@ -29,7 +29,7 @@ public class SoulItemRenderer extends EntityRenderer<SoulItemEntity>
     
     
     @Override
-    public void render(SoulItemEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
+    public void render(SpiritItemEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
     {
         matrixStackIn.push();
         ItemStack itemstack = entityIn.getItem();
@@ -44,7 +44,7 @@ public class SoulItemRenderer extends EntityRenderer<SoulItemEntity>
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
     @Override
-    public ResourceLocation getEntityTexture(SoulItemEntity entity)
+    public ResourceLocation getEntityTexture(SpiritItemEntity entity)
     {
         return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
     }

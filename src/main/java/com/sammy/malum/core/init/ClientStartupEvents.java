@@ -12,7 +12,7 @@ import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRenderer;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarRenderer;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntityRenderer;
-import com.sammy.malum.common.entities.soul.SoulItemRenderer;
+import com.sammy.malum.common.entities.spirit.SpiritItemRenderer;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.items.MalumItems;
@@ -66,9 +66,9 @@ public class ClientStartupEvents
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SCYTHE_BOOMERANG.get(), ClientStartupEvents::scytheRenderer);
     }
     
-    public static SoulItemRenderer essenceRenderer(EntityRendererManager manager)
+    public static SpiritItemRenderer essenceRenderer(EntityRendererManager manager)
     {
-        return new SoulItemRenderer(manager, Minecraft.getInstance().getItemRenderer());
+        return new SpiritItemRenderer(manager, Minecraft.getInstance().getItemRenderer());
     }
     
     public static ScytheBoomerangEntityRenderer scytheRenderer(EntityRendererManager manager)

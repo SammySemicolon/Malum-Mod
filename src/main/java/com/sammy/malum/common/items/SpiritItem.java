@@ -1,6 +1,6 @@
 package com.sammy.malum.common.items;
 
-import com.sammy.malum.core.systems.souls.MalumSpiritType;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.item.Item;
 
 public class SpiritItem extends Item

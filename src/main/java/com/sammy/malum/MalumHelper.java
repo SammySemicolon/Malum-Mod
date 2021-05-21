@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.sammy.malum.common.items.equipment.curios.MalumCurioItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -20,8 +21,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
@@ -421,5 +424,43 @@ public class MalumHelper
     public static boolean hasCurioEquipped(LivingEntity entity, RegistryObject<Item> curio)
     {
         return CuriosApi.getCuriosHelper().findEquippedCurio(curio.get(), entity).isPresent();
+    }
+    public static ArrayList<MalumCurioItem> equippedMalumCurios(LivingEntity entity)
+    {
+        IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
+        ArrayList<MalumCurioItem> items = new ArrayList<>();
+        for (int i = 0; i < handler.getSlots(); i++)
+        {
+            Item item = handler.getStackInSlot(i).getItem();
+            if (item instanceof MalumCurioItem)
+            {
+                items.add((MalumCurioItem) item);
+            }
+        }
+        return items;
+    }
+    public static ArrayList<ItemStack> equippedCurios(LivingEntity entity)
+    {
+        IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
+        ArrayList<ItemStack> stacks = new ArrayList<>();
+        for (int i = 0; i < handler.getSlots(); i++)
+        {
+            stacks.add(handler.getStackInSlot(i));
+        }
+        return stacks;
+    }
+    public static ArrayList<ItemStack> equippedCurios(LivingEntity entity, Predicate<ItemStack> predicate)
+    {
+        IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
+        ArrayList<ItemStack> stacks = new ArrayList<>();
+        for (int i = 0; i < handler.getSlots(); i++)
+        {
+            ItemStack stack = handler.getStackInSlot(i);
+            if (predicate.test(stack))
+            {
+                stacks.add(stack);
+            }
+        }
+        return stacks;
     }
 }

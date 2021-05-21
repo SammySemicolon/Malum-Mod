@@ -23,7 +23,10 @@ public class MalumCurioItem extends Item implements ICurioItem
     {
         return false;
     }
-
+    public int spiritYieldBonus()
+    {
+        return 0;
+    }
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack)
     {

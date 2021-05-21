@@ -11,9 +11,11 @@ import static com.sammy.malum.common.book.BookScreen.drawWrappingText;
 public class TextPage extends BookPage
 {
     public final String text;
+    public int textWidth;
     public TextPage(String text)
     {
         this.text = "malum.gui.book.page." + text;
+        this.textWidth = 124;
     }
     
     @Override
@@ -21,6 +23,10 @@ public class TextPage extends BookPage
     {
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         
-        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+4, position.second+7, 120, 0);
+        drawWrappingText(stack, ClientHelper.simpleTranslatableComponent(text), position.first+4, position.second+7, textWidth, 0);
+    }
+    public void textWidth(int textWidth)
+    {
+        this.textWidth = textWidth;
     }
 }

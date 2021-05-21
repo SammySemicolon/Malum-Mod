@@ -1,8 +1,10 @@
-package com.sammy.malum.core.systems.souls;
+package com.sammy.malum.core.systems.spirits;
 
 import com.mojang.datafixers.util.Pair;
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entities.soul.SoulItemEntity;
+import com.sammy.malum.common.entities.spirit.SpiritItemEntity;
+import com.sammy.malum.common.items.equipment.curios.MalumCurioItem;
 import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
@@ -43,6 +45,10 @@ public class SpiritHelper
         ArrayList<ItemStack> spirits = entitySpirits(target);
 
         int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
+        for (MalumCurioItem item : MalumHelper.equippedMalumCurios(player))
+        {
+            plunder += item.spiritYieldBonus();
+        }
         if (plunder > 0)
         {
             for (int i = 0; i < plunder; i++)
@@ -97,7 +103,7 @@ public class SpiritHelper
             }
             for (int j = 0; j < count; j++)
             {
-                SoulItemEntity essenceEntity = new SoulItemEntity(MalumEntities.SPIRIT_ESSENCE.get(), target.world);
+                SpiritItemEntity essenceEntity = new SpiritItemEntity(MalumEntities.SPIRIT_ESSENCE.get(), target.world);
                 essenceEntity.setMotion(MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed), MathHelper.nextFloat(MalumMod.RANDOM, 0.05f, 0.05f), MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed));
                 essenceEntity.setPosition(target.getPositionVec().x, target.getPositionVec().y + target.getHeight() / 2f, target.getPositionVec().z);
                 essenceEntity.setData(stack.getItem().getDefaultInstance(), player.getUniqueID());
