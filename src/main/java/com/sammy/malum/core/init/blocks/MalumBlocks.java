@@ -58,7 +58,7 @@ public class MalumBlocks
 
     public static AbstractBlock.Properties GRIMSLATE_PROPERTIES()
     {
-        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(5.0F, 3.0F).sound(MalumSounds.GRIMSLATE);
+        return AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(5.0F, 3.0F).sound(MalumSounds.SOULSTONE);
     }
 
     public static AbstractBlock.Properties BLAZE_QUARTZ_ORE_PROPERTIES()
