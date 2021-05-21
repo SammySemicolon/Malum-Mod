@@ -65,6 +65,7 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()));
