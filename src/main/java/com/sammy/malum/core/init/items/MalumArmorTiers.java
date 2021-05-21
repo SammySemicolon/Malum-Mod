@@ -86,7 +86,7 @@ public class MalumArmorTiers
         {
             if (this.equals(SOUL_STAINED_STRONGHOLD))
             {
-                return 1;
+                return 0.1f;
             }
             return 0;
         }
