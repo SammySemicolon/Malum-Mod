@@ -1,7 +1,6 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
@@ -71,7 +70,7 @@ public class Events
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event)
     {
-        if (event.getSource().equals(MalumDamageSources.VOODOO))
+        if (event.getSource().isMagicDamage())
         {
             return;
         }
@@ -85,7 +84,7 @@ public class Events
                 {
                     LivingEntity entity = event.getEntityLiving();
                     event.getEntity().hurtResistantTime = 0;
-                    float amount = event.getAmount() * (1 + entity.getTotalArmorValue()/10);
+                    float amount = event.getAmount() * (1 + entity.getTotalArmorValue()/10f);
                     SpiritHelper.causeVoodooDamage(playerEntity, entity, amount);
                     event.setAmount(0);
                     playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_CRUSH, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);

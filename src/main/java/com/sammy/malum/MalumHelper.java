@@ -15,6 +15,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.Property;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -387,7 +388,6 @@ public class MalumHelper
     @Nonnull
     public static Optional<ImmutableTriple<String, Integer, ItemStack>> findCosmeticCurio(Predicate<ItemStack> filter, @Nonnull final LivingEntity livingEntity)
     {
-        
         ImmutableTriple<String, Integer, ItemStack> result = CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(handler -> {
             Map<String, ICurioStacksHandler> curios = handler.getCurios();
     
@@ -420,6 +420,26 @@ public class MalumHelper
         }).orElse(new ImmutableTriple<>("", 0, ItemStack.EMPTY));
         
         return result.getLeft().isEmpty() ? Optional.empty() : Optional.of(result);
+    }
+    public static ItemStack heldItem(PlayerEntity playerEntity, Predicate<ItemStack> stackPredicate)
+    {
+        if (stackPredicate.test(playerEntity.getHeldItem(playerEntity.swingingHand)))
+        {
+            return playerEntity.getHeldItem(playerEntity.swingingHand);
+        }
+        if (stackPredicate.test(playerEntity.getHeldItem(playerEntity.getActiveHand())))
+        {
+            return playerEntity.getHeldItem(playerEntity.getActiveHand());
+        }
+        if (stackPredicate.test(playerEntity.getHeldItem(Hand.MAIN_HAND)))
+        {
+            return playerEntity.getHeldItem(Hand.MAIN_HAND);
+        }
+        if (stackPredicate.test(playerEntity.getHeldItem(Hand.OFF_HAND)))
+        {
+            return playerEntity.getHeldItem(Hand.OFF_HAND);
+        }
+        return null;
     }
     public static boolean hasCurioEquipped(LivingEntity entity, RegistryObject<Item> curio)
     {

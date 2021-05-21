@@ -1,7 +1,6 @@
 package com.sammy.malum;
 
 import com.sammy.malum.core.data.*;
-import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.systems.particles.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,7 +45,6 @@ public class MalumMod
         PARTICLES.register(modBus);
         SOUNDS.register(modBus);
         FEATURES.register(modBus);
-        MalumDamageSources.init();
         modBus.addListener(this::gatherData);
 
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {

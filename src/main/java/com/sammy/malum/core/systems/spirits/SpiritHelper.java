@@ -5,17 +5,19 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entities.spirit.SpiritItemEntity;
 import com.sammy.malum.common.items.equipment.curios.MalumCurioItem;
-import com.sammy.malum.core.init.MalumDamageSources;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -24,9 +26,13 @@ import java.util.stream.Collectors;
 
 public class SpiritHelper
 {
+    public static DamageSource voodooDamageSource(Entity entity)
+    {
+        return new EntityDamageSource("voodoo", entity).setMagicDamage();
+    }
     public static void causeVoodooDamage(LivingEntity attacker, LivingEntity target, float amount)
     {
-        target.attackEntityFrom(MalumDamageSources.VOODOO, amount);
+        target.attackEntityFrom(voodooDamageSource(attacker), amount);
     }
 
     public static void harvestSpirit(String spirit, PlayerEntity player)
