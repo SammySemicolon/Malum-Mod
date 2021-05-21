@@ -124,17 +124,17 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         }
         if (recipe != null)
         {
+            int spinCap = spedUp ? 30 : 10;
+            if (spinUp < spinCap)
+            {
+                spinUp++;
+            }
             if (MalumHelper.areWeOnServer(world))
             {
                 if (soundCooldown == 0)
                 {
                     world.playSound(null, pos, MalumSounds.ALTAR_LOOP, SoundCategory.BLOCKS, 1, 1f);
                     soundCooldown = 180;
-                }
-                int spinCap = spedUp ? 30 : 10;
-                if (spinUp < spinCap)
-                {
-                    spinUp++;
                 }
                 ItemStack stack = inventory.getStackInSlot(0);
                 progress++;
