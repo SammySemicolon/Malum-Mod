@@ -3,58 +3,35 @@ package com.sammy.malum.common.items.equipment.curios;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.MalumSounds;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.UUID;
 
-public class CurioOrnateRing extends Item implements ICurio
+public class CurioOrnateRing extends MalumCurioItem
 {
+    private static final UUID ARMOR = UUID.fromString("335abd8a-0e66-4b11-aa33-4aee88f0f614");
     public CurioOrnateRing(Properties builder)
     {
         super(builder);
     }
-    
-    private static final UUID ARMOR = UUID.fromString("335abd8a-0e66-4b11-aa33-4aee88f0f614");
+
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
-        return CurioProvider.createProvider(new ICurio()
-        {
-            @Override
-            public void playRightClickEquipSound(LivingEntity livingEntity)
-            {
-                livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.SINISTER_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-            }
-    
-            @Override
-            public boolean showAttributesTooltip(String identifier)
-            {
-                return false;
-            }
-    
-            @Override
-            public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier)
-            {
-                Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-                map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_ring_armor_boost", 2f, AttributeModifier.Operation.ADDITION));
-                return map;
-            }
-    
-            @Override
-            public boolean canRightClickEquip()
-            {
-                return true;
-            }
-        });
+        Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
+        map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_ring_armor_boost", 2f, AttributeModifier.Operation.ADDITION));
+        return map;
+    }
+
+    @Override
+    public boolean isOrnate()
+    {
+        return true;
     }
 }

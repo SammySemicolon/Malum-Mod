@@ -60,6 +60,15 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
+        //ring of arcane reach
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.GILDED_RING.get(), 1), new ItemIngredient(MalumItems.RING_OF_ARCANE_REACH.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()));
+
         //radiant soulstone
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOULSTONE.get(), 2), new ItemIngredient(MalumItems.RADIANT_SOULSTONE.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))

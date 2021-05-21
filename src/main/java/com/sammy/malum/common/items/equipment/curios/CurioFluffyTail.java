@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 
 import static top.theillusivec4.curios.api.type.capability.ICurio.DropRule.ALWAYS_KEEP;
 
-public class CurioFluffyTail extends Item implements ICurio
+public class CurioFluffyTail extends Item
 {
     public CurioFluffyTail(Properties builder)
     {

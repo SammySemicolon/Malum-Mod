@@ -20,6 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -416,5 +417,9 @@ public class MalumHelper
         }).orElse(new ImmutableTriple<>("", 0, ItemStack.EMPTY));
         
         return result.getLeft().isEmpty() ? Optional.empty() : Optional.of(result);
+    }
+    public static boolean hasCurioEquipped(LivingEntity entity, RegistryObject<Item> curio)
+    {
+        return CuriosApi.getCuriosHelper().findEquippedCurio(curio.get(), entity).isPresent();
     }
 }

@@ -18,7 +18,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-public class CurioComicallyLargeTophat extends Item implements ICurio
+public class CurioComicallyLargeTophat extends Item
 {
     public CurioComicallyLargeTophat(Properties builder)
     {

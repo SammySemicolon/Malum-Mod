@@ -3,6 +3,7 @@ package com.sammy.malum.common.entities.soul;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.items.SpiritItem;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.souls.SpiritHelper;
@@ -88,9 +89,14 @@ public class SoulItemEntity extends ProjectileItemEntity
                 if (age > 10)
                 {
                     float minimumDistance = 2f;
+                    float velocity = 0.25f;
+                    if (MalumHelper.hasCurioEquipped(owner, MalumItems.RING_OF_ARCANE_REACH))
+                    {
+                        minimumDistance = 8f;
+                        velocity = 0.4f;
+                    }
                     if (distance < minimumDistance)
                     {
-                        float velocity = 0.25f;
                         Vector3d ownerPos = owner.getPositionVec().add(0, 0, 0);
                         Vector3d desiredMotion = new Vector3d(ownerPos.x - getPosX(), ownerPos.y - getPosY(), ownerPos.z - getPosZ()).normalize().mul(velocity, velocity, velocity);
                         setMotion(desiredMotion);

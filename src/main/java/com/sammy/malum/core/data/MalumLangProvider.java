@@ -137,6 +137,8 @@ public class MalumLangProvider extends LanguageProvider
         addPage("curios", "Through hallowed gold and soul stained steel you may create various gilded and ornate equipment to aid you in combat. These simple curios will provide a moderate boost to your armor and toughness respectively.");
         addPage("curios_2","Each one of these simple trinkets functions as a basis for spirit infusion. They can be shaped into many other accessories with various uses.");
 
+        addPage("arcane_reach_ring", "Collecting harvested spirits can sometimes be a tiresome task. This simple yet practical trinket will greatly extend your spirit reach, allowing them to lock onto you from much further out.");
+
         addPage("radiant_soulstone", "A radiant soulstone is the penumbral form of a soulstone. Unlike a regular soulstone, it lacks impurities, possible cuts, or any other form of damage a soulstone may have. It's a perfect arcane craft.");
         addPage("tyrving", "The Tyrving is a type of twisted spell-blade designed to crush armor. It is very proficient at dealing with tough opponents, increasing in magic damage for each point of armor your enemy has.");
 

@@ -12,6 +12,7 @@ public class SpiritTinkeringCategory extends BookCategory
     public static BookEntry soul_stained_steel;
     public static BookEntry hallowed_gold;
     public static BookEntry curios;
+    public static BookEntry arcane_reach_ring;
     public static BookEntry radiant_soulstone;
     public static BookEntry stronghold_armor;
     public static BookEntry tyrving;
@@ -49,9 +50,15 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addPage(new CraftingPage(GILDED_RING.get(), EMPTY, Items.LEATHER, HALLOWED_GOLD_INGOT.get(), Items.LEATHER, EMPTY, Items.LEATHER, EMPTY, Items.LEATHER, EMPTY))
                 .addLink(soul_stained_steel).addLink(hallowed_gold);
 
+        arcane_reach_ring = new BookEntry(RING_OF_ARCANE_REACH.get(), "arcane_reach_ring")
+                .addPage(new HeadlineTextPage("arcane_reach_ring"))
+                .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
+                .addLink(DiscoveryCategory.holySpirit).addLink(DiscoveryCategory.wickedSpirit).addLink(DiscoveryCategory.soulstone).addLink(curios);
+
         radiant_soulstone = new BookEntry(RADIANT_SOULSTONE.get(), "radiant_soulstone")
                 .addPage(new HeadlineTextPage("radiant_soulstone"))
-                .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()));
+                .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()))
+                .addLink(DiscoveryCategory.holySpirit).addLink(DiscoveryCategory.wickedSpirit).addLink(DiscoveryCategory.arcaneSpirit).addLink(DiscoveryCategory.soulstone);
 
         tyrving = new BookEntry(TYRVING.get(), "tyrving")
                 .addPage(new HeadlineTextPage("tyrving"))
@@ -63,7 +70,9 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_HELMET.get()))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_CHESTPLATE.get()))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_LEGGINGS.get()))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_BOOTS.get()));
-        addEntries(soul_stained_steel, hallowed_gold, curios, radiant_soulstone, tyrving, stronghold_armor);
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_BOOTS.get()))
+                .addLink(DiscoveryCategory.eldritchSpirit).addLink(soul_stained_steel).addLink(radiant_soulstone);
+
+        addEntries(soul_stained_steel, hallowed_gold, curios, arcane_reach_ring, radiant_soulstone, tyrving, stronghold_armor);
     }
 }

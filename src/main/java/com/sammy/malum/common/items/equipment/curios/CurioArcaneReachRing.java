@@ -6,27 +6,16 @@ import com.sammy.malum.MalumMod;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import java.util.UUID;
 
-public class CurioGildedRing extends MalumCurioItem
+public class CurioArcaneReachRing extends MalumCurioItem
 {
     private static final UUID ARMOR = UUID.fromString("f792e379-4dce-4387-bd3a-099cd49b15f4");
-    public CurioGildedRing(Properties builder)
+    public CurioArcaneReachRing(Properties builder)
     {
         super(builder);
-    }
-
-    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
-    {
-        Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":gilded_ring_armor_boost", 2f, AttributeModifier.Operation.ADDITION));
-        return map;
     }
 
     @Override
