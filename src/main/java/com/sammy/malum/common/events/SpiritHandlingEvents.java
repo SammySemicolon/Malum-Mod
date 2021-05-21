@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @SuppressWarnings("all")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class SoulHandlingEvents
+public class SpiritHandlingEvents
 {
     @SubscribeEvent
     public static void onEntityKill(LivingDeathEvent event)

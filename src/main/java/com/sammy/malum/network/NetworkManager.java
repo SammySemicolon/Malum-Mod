@@ -1,6 +1,8 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.network.packets.SpiritAltarConsumeParticlePacket;
+import com.sammy.malum.network.packets.SpiritAltarCraftParticlePacket;
 import com.sammy.malum.network.packets.TyrvingParticlePacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,6 +24,8 @@ public class NetworkManager
     {
         int index = 0;
         INSTANCE.registerMessage(index++, TyrvingParticlePacket.class, TyrvingParticlePacket::encode, TyrvingParticlePacket::decode, TyrvingParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritAltarCraftParticlePacket.class, SpiritAltarCraftParticlePacket::encode, SpiritAltarCraftParticlePacket::decode, SpiritAltarCraftParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritAltarConsumeParticlePacket.class, SpiritAltarConsumeParticlePacket::encode, SpiritAltarConsumeParticlePacket::decode, SpiritAltarConsumeParticlePacket::whenThisPacketIsReceived);
 
     }
 }

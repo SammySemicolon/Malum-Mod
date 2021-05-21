@@ -1,5 +1,6 @@
 package com.sammy.malum.core.systems.tileentities;
 
+import com.sammy.malum.MalumHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,6 +25,10 @@ public abstract class SimpleInventoryBlock extends Block
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
+        if (MalumHelper.areWeOnClient(worldIn))
+        {
+            return ActionResultType.SUCCESS;
+        }
         if (handIn.equals(Hand.MAIN_HAND))
         {
             if (worldIn.getTileEntity(pos) instanceof SimpleInventoryTileEntity)
