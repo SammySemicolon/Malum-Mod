@@ -33,6 +33,10 @@ public class SpiritHandlingEvents
             }
             if (stack != null)
             {
+                if (stack.getItem() instanceof ScytheItem && event.getSource().isProjectile())
+                {
+                    return;
+                }
                 SpiritHelper.summonSpirits(event.getEntityLiving(), attacker, stack);
             }
         }

@@ -2,6 +2,7 @@ package com.sammy.malum;
 
 import com.sammy.malum.common.items.equipment.curios.MalumCurioItem;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -482,5 +483,17 @@ public class MalumHelper
             }
         }
         return stacks;
+    }
+    public static void applyEnchantments(LivingEntity user, Entity target, ItemStack stack) {
+        EnchantmentHelper.IEnchantmentVisitor visitor = (enchantment, level) -> {
+            enchantment.onEntityDamaged(user, target, level);
+        };
+        if (user != null) {
+            EnchantmentHelper.applyEnchantmentModifierArray(visitor, user.getEquipmentAndArmor());
+        }
+
+        if (user instanceof PlayerEntity) {
+            EnchantmentHelper.applyEnchantmentModifier(visitor, stack);
+        }
     }
 }

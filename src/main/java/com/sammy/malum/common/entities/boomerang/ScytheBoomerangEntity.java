@@ -105,7 +105,10 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     {
         DamageSource source = DamageSource.causeIndirectDamage(this, owner());
         Entity entity = p_213868_1_.getEntity();
-        
+        if (MalumHelper.areWeOnClient(world))
+        {
+            return;
+        }
         if (entity.equals(owner))
         {
             super.onEntityHit(p_213868_1_);
@@ -119,11 +122,11 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                 if (entity instanceof LivingEntity)
                 {
                     LivingEntity livingentity = (LivingEntity) entity;
-                    EnchantmentHelper.applyThornEnchantments(livingentity, owner());
-                    EnchantmentHelper.applyArthropodEnchantments(owner, livingentity);
-                    if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT,scythe) > 0)
-                    {
-                        entity.setFire(EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT,scythe)*4);
+                    scythe.damageItem(1, owner(), (e) -> e.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+                    MalumHelper.applyEnchantments(owner, livingentity, scythe);
+                    int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
+                    if (i > 0) {
+                        livingentity.setFire(i * 4);
                     }
                 }
             }
@@ -132,6 +135,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
         }
         super.onEntityHit(p_213868_1_);
     }
+
     @Override
     public void tick()
     {
@@ -185,7 +189,6 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                 {
                     if (isAlive())
                     {
-                        scythe.damageItem(1, playerEntity, (entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
                         if (!playerEntity.abilities.isCreativeMode)
                         {

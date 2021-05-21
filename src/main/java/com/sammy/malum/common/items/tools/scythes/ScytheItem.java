@@ -39,7 +39,7 @@ public class ScytheItem extends ModSwordItem
             if (MalumHelper.areWeOnServer(worldIn))
             {
                 playerIn.setHeldItem(handIn, ItemStack.EMPTY);
-                double baseDamage = playerIn.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                double baseDamage = playerIn.getAttributeManager().getAttributeValue(Attributes.ATTACK_DAMAGE);
                 float multiplier = 1.2f;
                 double damage = 1.0F + baseDamage * multiplier;
     

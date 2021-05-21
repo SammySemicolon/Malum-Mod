@@ -20,11 +20,13 @@ public class HauntingEnchantment extends Enchantment
         {
             LivingEntity entity = (LivingEntity) target;
             entity.hurtResistantTime = 0;
+            float i = entity.getHealth();
             SpiritHelper.causeVoodooDamage(user, entity, level+1);
+            i = entity.getHealth();
         }
         super.onEntityDamaged(user, target, level);
     }
-    
+
     @Override
     public int getMaxLevel()
     {
