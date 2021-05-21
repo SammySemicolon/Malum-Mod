@@ -82,6 +82,7 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 4))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.OBSIDIAN))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(Items.OBSIDIAN))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
@@ -93,8 +94,9 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 6))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
-                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_CHESTPLATE.get(), 1), new ItemIngredient(MalumItems.SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(), 1))
@@ -103,8 +105,9 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.INFERNAL_SPIRIT, 6))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
-                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_LEGGINGS.get(), 1), new ItemIngredient(MalumItems.SOUL_STAINED_STRONGHOLD_LEGGINGS.get(), 1))
@@ -113,8 +116,9 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.AERIAL_SPIRIT, 6))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
-                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_BOOTS.get(), 1), new ItemIngredient(MalumItems.SOUL_STAINED_STRONGHOLD_BOOTS.get(), 1))
@@ -123,8 +127,9 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.AQUATIC_SPIRIT, 6))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
-                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
+                .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
     }
 
