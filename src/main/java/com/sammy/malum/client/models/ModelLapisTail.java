@@ -9,11 +9,11 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 
-public class ModelKittysTail<T extends LivingEntity> extends BipedModel<T>
+public class ModelLapisTail<T extends LivingEntity> extends BipedModel<T>
 {
     private final ModelRenderer tail;
     
-    public ModelKittysTail()
+    public ModelLapisTail()
     {
         super(1);
         textureWidth = 64;

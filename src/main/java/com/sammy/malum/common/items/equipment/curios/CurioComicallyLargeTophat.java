@@ -18,57 +18,42 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-public class CurioComicallyLargeTophat extends Item
+public class CurioComicallyLargeTophat extends MalumCurioItem
 {
     public CurioComicallyLargeTophat(Properties builder)
     {
         super(builder);
     }
-    
+
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT unused)
+    public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack)
     {
-        return CurioProvider.createProvider(new ICurio()
+        livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.SINISTER_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+        livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.HOLY_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+    }
+
+    @Override
+    public boolean canRender(String identifier, int index, LivingEntity livingEntity, ItemStack stack)
+    {
+        return true;
+    }
+
+    public final ResourceLocation hat_texture = MalumHelper.prefix("textures/other/tophat.png");
+    public ModelComicallyLargeTophat<LivingEntity> hat;
+    @Override
+    public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack)
+    {
+        if (livingEntity instanceof PlayerEntity)
         {
-            //cute furry, kitty
-            public final ResourceLocation hat_texture = MalumHelper.prefix("textures/other/tophat.png");
-            public ModelComicallyLargeTophat<LivingEntity> hat;
-
-            @Override
-            public void playRightClickEquipSound(LivingEntity livingEntity)
+            matrixStack.push();
+            if (hat == null)
             {
-                livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.SINISTER_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-                livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.HOLY_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                hat = new ModelComicallyLargeTophat<>();
             }
-    
-            @Override
-            public boolean canRightClickEquip()
-            {
-                return true;
-            }
-
-            @Override
-            public boolean canRender(String identifier, int index, LivingEntity livingEntity)
-            {
-                return true;
-            }
-            
-            @Override
-            public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
-            {
-                if (livingEntity instanceof PlayerEntity)
-                {
-                    matrixStack.push();
-                    if (hat == null)
-                    {
-                        hat = new ModelComicallyLargeTophat<>();
-                    }
-                    ICurio.RenderHelper.followHeadRotations(livingEntity, hat.tophat);
-                    IVertexBuilder jtBuilder = ItemRenderer.getBuffer(renderTypeBuffer, hat.getRenderType(hat_texture), false, stack.hasEffect());
-                    hat.render(matrixStack, jtBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-                    matrixStack.pop();
-                }
-            }
-        });
+            ICurio.RenderHelper.followHeadRotations(livingEntity, hat.tophat);
+            IVertexBuilder jtBuilder = ItemRenderer.getBuffer(renderTypeBuffer, hat.getRenderType(hat_texture), false, stack.hasEffect());
+            hat.render(matrixStack, jtBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStack.pop();
+        }
     }
 }
