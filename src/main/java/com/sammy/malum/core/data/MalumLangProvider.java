@@ -137,6 +137,10 @@ public class MalumLangProvider extends LanguageProvider
         addPage("curios", "Through hallowed gold and soul stained steel you may create various gilded and ornate equipment to aid you in combat. These simple curios will provide a moderate boost to your armor and toughness respectively.");
         addPage("curios_2","Each one of these simple trinkets functions as a basis for spirit infusion. They can be shaped into many other accessories with various uses.");
 
+        addPage("spirit_resonators", "As you delve deeper into spirit tinkering, you'll start needing more complex composite ingredients for your infusions and crafts. Spirit Resonators serve as a 'link' of sorts, they allow a mechanism or a magic practitioner to interact with spirits on a further level.");
+        addPage("spirit_resonators_2", "There are two types of Spirit Resonators, Hallowed and Stained. Both are made with their respective metal and serve their own, similar purposes.\n");
+
+        addPage("arcane_spoil_ring", "Harvesting Spirits may often yield insufficient result, even after a long night of hunting you might not have enough spirit spoils for your needs. The Arcane Spoils ring will increase how many spirits you get from spirit harvesting.");
         addPage("arcane_reach_ring", "Collecting harvested spirits can sometimes be a tiresome task. This simple yet practical trinket will greatly extend your spirit reach, allowing them to lock onto you from much further out.");
 
         addPage("radiant_soulstone", "A radiant soulstone is the penumbral form of a soulstone. Unlike a regular soulstone, it lacks impurities, possible cuts, or any other form of damage a soulstone may have. It's a perfect arcane craft.");

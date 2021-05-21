@@ -67,6 +67,7 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(CraftingPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(CraftingPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(new SmeltingPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()));
+
         solarSap = new BookEntry(SOLAR_SAP_BOTTLE.get(), "solar_sap")
                 .addPage(new HeadlineTextPage("solar_sap"))
                 .addPage(new SmeltingPage(SOLAR_SAP_BOTTLE.get(), SOLAR_SYRUP_BOTTLE.get()))
@@ -90,7 +91,7 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new HeadlineTextPage("haunting"))
                 .addPage(new HeadlineTextPage("rebound"))
                 .addPage(new HeadlineTextPage("spirit_plunder"))
-                .addLink(basicsOfMagic).addLink(soulstone);
+                .addLink(basicsOfMagic).addLink(runewoodTrees).addLink(soulstone);
 
         spiritInfusion = new BookEntry(SPIRIT_ALTAR.get(), "spirit_infusion")
                 .addPage(new HeadlineTextPage("spirit_infusion"))
@@ -111,7 +112,7 @@ public class DiscoveryCategory extends BookCategory
                         .addList(CUT_TAINTED_ROCK.get(), CHISELED_TAINTED_ROCK.get()))
                 .addPage(CraftingPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
                 .addPage(CraftingPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
-                .addLink(holySpirit).addLink(arcaneSpirit);
+                .addLink(spiritInfusion).addLink(holySpirit).addLink(arcaneSpirit);
 
         twistedRock = new BookEntry(TWISTED_ROCK.get(), "twisted_rock")
                 .addPage(new HeadlineTextPage("twisted_rock"))
@@ -124,14 +125,14 @@ public class DiscoveryCategory extends BookCategory
                         .addList(CUT_TWISTED_ROCK.get(), CHISELED_TWISTED_ROCK.get()))
                 .addPage(CraftingPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
                 .addPage(CraftingPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
-                .addLink(wickedSpirit).addLink(arcaneSpirit);
+                .addLink(spiritInfusion).addLink(wickedSpirit).addLink(arcaneSpirit);
 
         ether = new BookEntry(YELLOW_ETHER.get(), "ether")
                 .addPage(new HeadlineTextPage("ether"))
                 .addPage(new SpiritInfusionPage(YELLOW_ETHER.get()))
                 .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, YELLOW_ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
                 .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), YELLOW_ETHER.get(), TAINTED_ROCK.get(), Items.STICK, TAINTED_ROCK.get(), Items.STICK))
-                .addLink(infernalSpirit);
+                .addLink(spiritInfusion).addLink(arcaneSpirit).addLink(infernalSpirit);
 
         spiritArchitecture = new BookEntry(ERODED_ROCK.get(), "spirit_architecture")
                 .addPage(new HeadlineTextPage("spirit_architecture"))
@@ -159,7 +160,7 @@ public class DiscoveryCategory extends BookCategory
                         .addList(CUT_ERODED_ROCK.get(), CHISELED_ERODED_ROCK.get()))
                 .addPage(CraftingPage.itemStandPage(ERODED_ROCK_ITEM_STAND.get(), ERODED_ROCK.get(), ERODED_ROCK_SLAB.get()))
                 .addPage(CraftingPage.itemPedestalPage(ERODED_ROCK_ITEM_PEDESTAL.get(), ERODED_ROCK.get(), ERODED_ROCK_SLAB.get()))
-                .addLink(arcaneSpirit);
+                .addLink(spiritInfusion).addLink(arcaneSpirit).addLink(earthenSpirit);
 
         addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, soulstone, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, spiritArchitecture, holySpirit, wickedSpirit, arcaneSpirit, eldritchSpirit, earthenSpirit, infernalSpirit, aerialSpirit, aquaticSpirit);
     }

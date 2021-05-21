@@ -12,7 +12,6 @@ import java.util.UUID;
 
 public class CurioArcaneReachRing extends MalumCurioItem
 {
-    private static final UUID ARMOR = UUID.fromString("f792e379-4dce-4387-bd3a-099cd49b15f4");
     public CurioArcaneReachRing(Properties builder)
     {
         super(builder);
