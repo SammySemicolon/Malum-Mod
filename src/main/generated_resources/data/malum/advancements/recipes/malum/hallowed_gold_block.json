@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_transmissive_metal": {
+    "has_hallowed_gold": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_transmissive_metal",
+      "has_hallowed_gold",
       "has_the_recipe"
     ]
   ]

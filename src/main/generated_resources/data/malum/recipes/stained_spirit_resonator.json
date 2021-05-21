@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "#Y#",
+    " X "
+  ],
+  "key": {
+    "#": {
+      "item": "malum:soul_stained_steel_ingot"
+    },
+    "X": {
+      "item": "malum:runewood_planks"
+    },
+    "Y": {
+      "tag": "forge:gems/quartz"
+    }
+  },
+  "result": {
+    "item": "malum:stained_spirit_resonator"
+  }
+}

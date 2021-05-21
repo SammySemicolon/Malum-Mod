@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:hallowed_gold_nugget"
+      "minecraft:hallowed_gold_ingot_from_hallowed_gold_block"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:hallowed_gold_nugget"
+        "recipe": "minecraft:hallowed_gold_ingot_from_hallowed_gold_block"
       }
     }
   },

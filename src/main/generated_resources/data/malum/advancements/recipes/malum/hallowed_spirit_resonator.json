@@ -2,11 +2,11 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:transmissive_metal_ingot_from_transmissive_metal_block"
+      "malum:hallowed_spirit_resonator"
     ]
   },
   "criteria": {
-    "has_transmissive_metal": {
+    "has_hallowed_gold": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:transmissive_metal_ingot_from_transmissive_metal_block"
+        "recipe": "malum:hallowed_spirit_resonator"
       }
     }
   },
   "requirements": [
     [
-      "has_transmissive_metal",
+      "has_hallowed_gold",
       "has_the_recipe"
     ]
   ]

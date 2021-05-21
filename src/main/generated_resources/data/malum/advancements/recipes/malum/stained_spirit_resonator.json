@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:transmissive_metal_from_nuggets"
+      "malum:stained_spirit_resonator"
     ]
   },
   "criteria": {
-    "has_transmissive_metal": {
+    "has_soul_stained_steel": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:hallowed_gold_ingot"
+            "item": "malum:soul_stained_steel_ingot"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:transmissive_metal_from_nuggets"
+        "recipe": "malum:stained_spirit_resonator"
       }
     }
   },
   "requirements": [
     [
-      "has_transmissive_metal",
+      "has_soul_stained_steel",
       "has_the_recipe"
     ]
   ]
