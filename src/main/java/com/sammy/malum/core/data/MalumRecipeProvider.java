@@ -106,7 +106,7 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedSlab(consumer, MalumItems.RUNEWOOD_PLANKS_SLAB.get(), MalumItems.RUNEWOOD_PLANKS.get());
         shapedStairs(consumer, MalumItems.RUNEWOOD_PLANKS_STAIRS.get(), MalumItems.RUNEWOOD_PLANKS.get());
         shapedTrapdoor(consumer, MalumItems.RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_PLANKS.get());
-        shapelessSolidTrapdoor(consumer, MalumItems.SOLID_RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_PLANKS.get());
+        shapelessSolidTrapdoor(consumer, MalumItems.SOLID_RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_TRAPDOOR.get());
 
         shapedRecipe(MalumItems.BOLTED_RUNEWOOD_PLANKS.get(),8).key('#', MalumItems.RUNEWOOD_PLANKS.get()).key('X', Items.IRON_NUGGET).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedSlab(consumer, MalumItems.BOLTED_RUNEWOOD_PLANKS_SLAB.get(), MalumItems.BOLTED_RUNEWOOD_PLANKS.get());
@@ -738,9 +738,9 @@ public class MalumRecipeProvider extends RecipeProvider
     {
         shapedRecipe(stairs, 4).key('#', input).patternLine("#  ").patternLine("## ").patternLine("###").addCriterion("has_input", hasItem(input)).build(recipeConsumer);
     }
-    private static void shapelessSolidTrapdoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider button, IItemProvider input)
+    private static void shapelessSolidTrapdoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider solid, IItemProvider normal)
     {
-        shapelessRecipe(button).addIngredient(input).addCriterion("has_input", hasItem(input)).build(recipeConsumer);
+        shapelessRecipe(solid).addIngredient(normal).addCriterion("has_input", hasItem(normal)).build(recipeConsumer);
     }
     private static void shapedTrapdoor(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider trapdoor, IItemProvider input)
     {
