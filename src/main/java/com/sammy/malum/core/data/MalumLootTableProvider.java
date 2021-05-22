@@ -70,8 +70,9 @@ public class MalumLootTableProvider extends LootTableProvider
         takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);
         takeAll(blocks, b -> b.get() instanceof LeavesBlock);
-        takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> registerLootTable(b.get(), onlyWithShears(b.get().asItem())));
-    
+        takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> registerLootTable(b.get(), onlyWithSilkTouchOrShears(b.get().asItem())));
+        takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(b -> registerLootTable(b.get(), onlyWithSilkTouchOrShears(b.get().asItem())));
+
         takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(b -> registerLootTable(b.get(), droppingWithSilkTouch(b.get(), Items.DIRT)));
         takeAll(blocks, b -> b.get() instanceof SlabBlock).forEach(b -> registerLootTable(b.get(), droppingSlab(b.get())));
         takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(b -> registerLootTable(b.get(), droppingDoor(b.get())));
