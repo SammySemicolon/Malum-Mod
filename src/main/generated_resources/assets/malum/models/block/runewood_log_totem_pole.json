@@ -1,0 +1,7 @@
+{
+  "parent": "malum:block/template_totem_pole",
+  "textures": {
+    "pole": "malum:block/runewood_log_totem_pole",
+    "particle": "malum:block/runewood_log_totem_pole"
+  }
+}

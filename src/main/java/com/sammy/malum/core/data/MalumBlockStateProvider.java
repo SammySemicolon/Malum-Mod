@@ -8,6 +8,8 @@ import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
+import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
+import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -61,6 +63,8 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
 
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
 
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
@@ -220,11 +224,37 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
                 .nextModel().modelFile(file).rotationY(270)
                 .addModel();
     }
-    
+
+
+    public void totemBaseBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile pole = models().withExistingParent(name, prefix("block/template_totem_base")).texture("base", prefix("block/" + name));
+
+        getVariantBuilder(blockRegistryObject.get()).partialState()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+                .modelForState().modelFile(pole).addModel()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                .modelForState().modelFile(pole).rotationY(270).addModel()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                .modelForState().modelFile(pole).rotationY(180).addModel()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+                .modelForState().modelFile(pole).rotationY(90).addModel();
+    }
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
     {
-        ModelFile file = models().cubeBottomTop(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/runewood_log"),prefix("block/runewood_log_top"),prefix("block/runewood_log_top"));
-        simpleBlock(blockRegistryObject.get(),file);
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile pole = models().withExistingParent(name, prefix("block/template_totem_pole")).texture("pole", prefix("block/" + name)).texture("particle", prefix("block/" + name));
+
+        getVariantBuilder(blockRegistryObject.get()).partialState()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+                .modelForState().modelFile(pole).addModel()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                .modelForState().modelFile(pole).rotationY(270).addModel()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                .modelForState().modelFile(pole).rotationY(180).addModel()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+                .modelForState().modelFile(pole).rotationY(90).addModel();
     }
     public void malumLeavesBlock(RegistryObject<Block> blockRegistryObject)
     {

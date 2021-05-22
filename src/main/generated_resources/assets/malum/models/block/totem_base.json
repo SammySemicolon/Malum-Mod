@@ -1,0 +1,6 @@
+{
+  "parent": "malum:block/template_totem_base",
+  "textures": {
+    "base": "malum:block/totem_base"
+  }
+}
