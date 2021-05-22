@@ -46,7 +46,7 @@ public class MalumRecipeProvider extends RecipeProvider
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_JAR.get()).key('Z', MalumItems.HALLOWED_GOLD_INGOT.get()).key('Y', Tags.Items.GLASS_PANES).patternLine("YZY").patternLine("Y Y").patternLine("YYY").addCriterion("has_hallowed_gold", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
 
         ShapelessRecipeBuilder.shapelessRecipe(Items.BLAZE_POWDER).addIngredient(MalumItems.BLAZING_QUARTZ.get()).addIngredient(MalumItems.BLAZING_QUARTZ.get()).addIngredient(Items.GUNPOWDER).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer, "blaze_powder_from_blaze_quartz");
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.ENCYCLOPEDIA_ARCANA.get()).addIngredient(MalumItems.LAVENDER.get()).addIngredient(Items.BOOK).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.ENCYCLOPEDIA_ARCANA.get()).addIngredient(MalumItems.SOULSTONE.get()).addIngredient(Items.BOOK).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
 
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOULSTONE_ORE.get()), MalumItems.SOULSTONE.get(),0.25f,200).addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
         blastingRecipe(Ingredient.fromItems(MalumItems.SOULSTONE_ORE.get()), MalumItems.SOULSTONE.get(),0.25f,200).addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer, "grimslate_plating_blasting");
