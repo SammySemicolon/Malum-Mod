@@ -161,7 +161,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                                     extrasInventory.playerInsertItem(world, providedStack.split(1));
                                     world.playSound(null, pos, MalumSounds.ALTAR_CONSUME, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
 
-                                    Vector3d providedItemPos = tileEntity.providedItemOffset().add(pos.getX(), pos.getY(), pos.getZ());
+                                    Vector3d providedItemPos = tileEntity.providedItemPos();
                                     INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromIngredients(providedStack, recipe.spiritIngredients, providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
                                     break;
                                 }
@@ -211,7 +211,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             passiveParticles();
         }
     }
-    public static Vector3d itemPos(SpiritAltarTileEntity tileEntity)
+    public static Vector3d itemPos(SimpleTileEntity tileEntity)
     {
         return MalumHelper.pos(tileEntity.getPos()).add(0.5f,1.15f,0.5f);
     }
@@ -241,20 +241,20 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
 
                 ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
                         .setAlpha(0.2f, 0f)
-                        .setLifetime(10 - Math.max(0, spinUp-10)/4)
+                        .setLifetime(10)
                         .setScale(0.3f, 0)
                         .setColor(color.brighter(), color.darker())
                         .enableNoClip()
-                        .repeat(world, x,y,z, 2);
+                        .repeat(world, x,y,z, spedUp ? 3 : 2);
 
                 ParticleManager.create(MalumParticles.WISP_PARTICLE)
                         .setAlpha(0.2f, 0f)
-                        .setLifetime(80 - Math.max(0, spinUp-10)*2)
+                        .setLifetime(80)
                         .setSpin(0.1f)
                         .setScale(0.2f, 0)
                         .setColor(color, color.darker())
                         .enableNoClip()
-                        .repeat(world, x,y,z, 1);
+                        .repeat(world, x,y,z, spedUp ? 2 : 1);
 
                 if (recipe != null)
                 {
@@ -269,7 +269,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                             .randomVelocity(0.0025f, 0.0025f)
                             .addVelocity(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
-                            .repeat(world, x, y, z, 2);
+                            .repeat(world, x, y, z, spedUp ? 4 : 2);
 
                     float alpha = 0.08f - spiritInventory.slotCount * 0.005f;
                     ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
@@ -281,7 +281,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                             .setColor(color, color.darker())
                             .randomVelocity(0.0025f, 0.0025f)
                             .enableNoClip()
-                            .repeat(world, itemPos.x,itemPos.y,itemPos.z,2);
+                            .repeat(world, itemPos.x,itemPos.y,itemPos.z,spedUp ? 4 : 2);
                 }
             }
         }

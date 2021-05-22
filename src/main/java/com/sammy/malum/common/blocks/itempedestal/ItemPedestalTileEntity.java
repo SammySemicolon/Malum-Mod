@@ -2,12 +2,15 @@ package com.sammy.malum.common.blocks.itempedestal;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.spiritaltar.IAltarProvider;
+import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
+import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.vector.Vector3d;
 
-public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements IAltarProvider
+public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements IAltarProvider, ITickableTileEntity
 {
     public ItemPedestalTileEntity()
     {
@@ -30,12 +33,22 @@ public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements
         return inventory;
     }
     @Override
-    public Vector3d providedItemOffset()
+    public Vector3d providedItemPos()
     {
-        return itemOffset();
+        return itemPos(this);
+    }
+    public static Vector3d itemPos(SimpleTileEntity tileEntity)
+    {
+        return MalumHelper.pos(tileEntity.getPos()).add(0.5f,1.15f,0.5f);
     }
     public static Vector3d itemOffset()
     {
         return new Vector3d(0.5f, 1.1f, 0.5f);
+    }
+
+    @Override
+    public void tick()
+    {
+
     }
 }

@@ -6,5 +6,5 @@ import net.minecraft.util.math.vector.Vector3d;
 public interface IAltarProvider
 {
     public SimpleInventory providedInventory();
-    public Vector3d providedItemOffset();
+    public Vector3d providedItemPos();
 }

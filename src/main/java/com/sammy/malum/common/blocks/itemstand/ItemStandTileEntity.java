@@ -2,16 +2,22 @@ package com.sammy.malum.common.blocks.itemstand;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.spiritaltar.IAltarProvider;
+import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
+import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
+import com.sammy.malum.core.systems.recipes.SimpleItemIngredient;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3d;
 
+import java.awt.*;
+
 import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
-public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IAltarProvider
+public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IAltarProvider, ITickableTileEntity
 {
     public ItemStandTileEntity()
     {
@@ -34,15 +40,29 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IA
         return inventory;
     }
     @Override
-    public Vector3d providedItemOffset()
+    public Vector3d providedItemPos()
     {
-        return itemOffset(this);
+        return itemPos(this);
     }
 
+    public static Vector3d itemPos(SimpleTileEntity tileEntity)
+    {
+        return MalumHelper.pos(tileEntity.getPos()).add(0.5f,1.15f,0.5f);
+    }
     public static Vector3d itemOffset(SimpleTileEntity tileEntity)
     {
         Direction direction = tileEntity.getBlockState().get(FACING);
         Vector3d directionVector = new Vector3d(direction.getXOffset(), 0.5f, direction.getZOffset());
         return new Vector3d(0.5f - directionVector.getX() * 0.25f, directionVector.getY(), 0.5f - directionVector.getZ() * 0.25f);
+    }
+
+    @Override
+    public void tick()
+    {
+        if (inventory.getStackInSlot(0).getItem() instanceof SpiritItem)
+        {
+            SpiritItem item = (SpiritItem) inventory.getStackInSlot(0).getItem();
+            Color color = item.type.color;
+        }
     }
 }

@@ -44,6 +44,7 @@ public class SpiritAltarBlock extends Block
                         heldStack.shrink(1);
                         tileEntity.spedUp = true;
                         worldIn.playSound(null, pos, MalumSounds.ALTAR_SPEED_UP, SoundCategory.BLOCKS,1,0.9f + worldIn.rand.nextFloat() * 0.2f);
+                        MalumHelper.updateState(worldIn, pos);
                         return ActionResultType.SUCCESS;
                     }
                     return ActionResultType.PASS;
