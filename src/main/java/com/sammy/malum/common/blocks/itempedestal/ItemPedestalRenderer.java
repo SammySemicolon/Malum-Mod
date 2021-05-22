@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.itempedestal;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.sammy.malum.common.items.SpiritItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -29,6 +30,11 @@ public class ItemPedestalRenderer extends TileEntityRenderer<ItemPedestalTileEnt
         {
             matrixStackIn.push();
             Vector3f offset = new Vector3f(ItemPedestalTileEntity.itemOffset());
+            if (stack.getItem() instanceof SpiritItem)
+            {
+                double y = Math.sin(tileEntityIn.getWorld().getGameTime() / 20f) * 0.1f;
+                matrixStackIn.translate(0, y, 0);
+            }
             matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
             matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
             matrixStackIn.scale(0.6f, 0.6f, 0.6f);
