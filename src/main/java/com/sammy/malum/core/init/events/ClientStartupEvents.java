@@ -1,4 +1,4 @@
-package com.sammy.malum.core.init;
+package com.sammy.malum.core.init.events;
 
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
@@ -11,8 +11,10 @@ import com.sammy.malum.common.blocks.itemstand.ItemStandRenderer;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRenderer;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarRenderer;
+import com.sammy.malum.common.blocks.totem.pole.TotemPoleRenderer;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.common.entities.spirit.SpiritItemRenderer;
+import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.items.MalumItems;
@@ -30,6 +32,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -54,6 +57,7 @@ public class ClientStartupEvents
     public static void bindTERs(FMLClientSetupEvent event)
     {
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), TotemPoleRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), ItemStandRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get(), ItemPedestalRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), SpiritJarRenderer::new);
@@ -151,11 +155,11 @@ public class ClientStartupEvents
         ClientHelper.registerItemColor(itemColors, MalumItems.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR,1));
     }
     
-//    @SubscribeEvent
-//    public static void stitchTextures(TextureStitchEvent.Pre event)
-//    {
-//        SPIRITS.forEach(s -> event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay")));
-//    }
+    @SubscribeEvent
+    public static void stitchTextures(TextureStitchEvent.Pre event)
+    {
+        SPIRITS.forEach(s -> event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay")));
+    }
     
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)

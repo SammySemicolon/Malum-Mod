@@ -229,22 +229,22 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     public void totemBaseBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile pole = models().withExistingParent(name, prefix("block/template_totem_base")).texture("base", prefix("block/" + name));
+        ModelFile base = models().withExistingParent(name, prefix("block/template_totem_base"));
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
-                .modelForState().modelFile(pole).addModel()
+                .modelForState().modelFile(base).addModel()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
-                .modelForState().modelFile(pole).rotationY(270).addModel()
+                .modelForState().modelFile(base).rotationY(270).addModel()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
-                .modelForState().modelFile(pole).rotationY(180).addModel()
+                .modelForState().modelFile(base).rotationY(180).addModel()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
-                .modelForState().modelFile(pole).rotationY(90).addModel();
+                .modelForState().modelFile(base).rotationY(90).addModel();
     }
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile pole = models().withExistingParent(name, prefix("block/template_totem_pole")).texture("pole", prefix("block/" + name)).texture("particle", prefix("block/" + name));
+        ModelFile pole = models().withExistingParent(name, prefix("block/template_totem_pole"));
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)

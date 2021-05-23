@@ -8,7 +8,7 @@ import com.sammy.malum.common.book.entries.BookEntryGrouping;
 import com.sammy.malum.common.book.pages.BookPage;
 import com.sammy.malum.common.book.pages.HeadlineTextPage;
 import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.init.StartupEvents;
+import com.sammy.malum.core.init.events.StartupEvents;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.modcontent.MalumBookCategories;
 import net.minecraft.block.Block;

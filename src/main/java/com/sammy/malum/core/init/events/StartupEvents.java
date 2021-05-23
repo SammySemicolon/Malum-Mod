@@ -1,4 +1,4 @@
-package com.sammy.malum.core.init;
+package com.sammy.malum.core.init.events;
 
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.modcontent.*;

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:runewood_planks"
+      "item": "malum:runewood_trapdoor"
     }
   ],
   "result": {

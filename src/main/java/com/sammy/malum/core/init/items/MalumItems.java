@@ -452,6 +452,7 @@ public class MalumItems
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TOTEM_POLE = ITEMS.register("totem_pole", () -> new BlockItem(MalumBlocks.TOTEM_POLE.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region materials
