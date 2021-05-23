@@ -25,6 +25,14 @@ public class MalumRiteType
     {
         return defaultRange();
     }
+    public int defaultInterval()
+    {
+        return 20;
+    }
+    public int interval()
+    {
+        return defaultInterval();
+    }
     public void executeRite(BlockPos pos)
     {
 

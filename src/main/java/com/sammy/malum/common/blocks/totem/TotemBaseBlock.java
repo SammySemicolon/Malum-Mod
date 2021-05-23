@@ -1,13 +1,20 @@
 package com.sammy.malum.common.blocks.totem;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
@@ -37,5 +44,28 @@ public class TotemBaseBlock extends Block
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(HORIZONTAL_FACING);
+    }
+
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    {
+        if (MalumHelper.areWeOnClient(worldIn) || handIn == Hand.OFF_HAND)
+        {
+            return ActionResultType.FAIL;
+        }
+        if (worldIn.getTileEntity(pos) instanceof TotemBaseTileEntity)
+        {
+            TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) worldIn.getTileEntity(pos);
+            if (totemBaseTileEntity.active && totemBaseTileEntity.rite != null)
+            {
+                totemBaseTileEntity.riteEnding();
+            }
+            else
+            {
+                totemBaseTileEntity.riteStarting();
+            }
+            player.swing(Hand.MAIN_HAND, true);
+        }
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 }

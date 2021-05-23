@@ -1,5 +1,7 @@
 package com.sammy.malum.common.blocks.totem.pole;
 
+import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
@@ -8,6 +10,7 @@ import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.SoundCategory;
 
 public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
@@ -54,5 +57,27 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         desiredColor = compound.getInt("desiredColor");
         currentColor = compound.getInt("currentColor");
         super.readData(compound);
+    }
+    public void create(MalumSpiritType type)
+    {
+        world.playSound(null, pos, MalumSounds.TOTEM_ENGRAVE, SoundCategory.BLOCKS,1,1);
+        this.type = type;
+        this.currentColor = 10;
+    }
+    public void riteStarting(int height)
+    {
+        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1 + 0.2f * height);
+        this.desiredColor = 10;
+        MalumHelper.updateState(world,pos);
+    }
+    public void riteComplete(int height)
+    {
+        this.desiredColor = 20;
+        MalumHelper.updateState(world,pos);
+    }
+    public void riteEnding()
+    {
+        this.desiredColor = 0;
+        MalumHelper.updateState(world,pos);
     }
 }

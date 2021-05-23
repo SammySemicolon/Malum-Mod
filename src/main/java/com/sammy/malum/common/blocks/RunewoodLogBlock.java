@@ -1,16 +1,13 @@
 package com.sammy.malum.common.blocks;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
@@ -34,13 +31,29 @@ public class RunewoodLogBlock extends RotatedPillarBlock
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context)
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        Block block = context.getWorld().getBlockState(context.getPos().down()).getBlock();
-        if (block instanceof TotemBaseBlock || block instanceof TotemPoleBlock)
+        ItemStack stack = player.getHeldItem(handIn);
+        if (MalumHelper.areWeOnClient(worldIn))
         {
-            return MalumBlocks.TOTEM_POLE.get().getStateForPlacement(context);
+            if (stack.getItem() instanceof SpiritItem)
+            {
+                return ActionResultType.SUCCESS;
+            }
         }
-        return super.getStateForPlacement(context);
+        if (stack.getItem() instanceof SpiritItem)
+        {
+            SpiritItem item = (SpiritItem) stack.getItem();
+            worldIn.setBlockState(pos, MalumBlocks.TOTEM_POLE.get().getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, player.getHorizontalFacing().getOpposite()));
+            if (worldIn.getTileEntity(pos) instanceof TotemPoleTileEntity)
+            {
+                TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) worldIn.getTileEntity(pos);
+                tileEntity.create(item.type);
+            }
+            MalumHelper.updateState(worldIn,pos);
+            stack.shrink(1);
+            player.swing(handIn, true);
+        }
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 }
