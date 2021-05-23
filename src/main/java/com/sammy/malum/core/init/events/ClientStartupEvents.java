@@ -158,7 +158,11 @@ public class ClientStartupEvents
     @SubscribeEvent
     public static void stitchTextures(TextureStitchEvent.Pre event)
     {
-        SPIRITS.forEach(s -> event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay")));
+        SPIRITS.forEach(s ->
+        {
+            event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay"));
+            event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_cutout"));
+        });
     }
     
     @SubscribeEvent

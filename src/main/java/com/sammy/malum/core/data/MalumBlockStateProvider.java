@@ -233,13 +233,13 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
-                .modelForState().modelFile(base).addModel()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
                 .modelForState().modelFile(base).rotationY(270).addModel()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
                 .modelForState().modelFile(base).rotationY(180).addModel()
+                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                .modelForState().modelFile(base).rotationY(90).addModel()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
-                .modelForState().modelFile(base).rotationY(90).addModel();
+                .modelForState().modelFile(base).addModel();
     }
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
     {
@@ -248,7 +248,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
-                .modelForState().modelFile(pole).addModel()
+                .modelForState().modelFile(pole).rotationY(0).addModel()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
                 .modelForState().modelFile(pole).rotationY(270).addModel()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)

@@ -22,16 +22,23 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     @Override
     public void tick()
     {
-        if (currentColor != desiredColor)
+        if (currentColor > desiredColor)
         {
-            currentColor = currentColor > desiredColor ? currentColor-- : currentColor++;
+            currentColor--;
+        }
+        if (currentColor < desiredColor)
+        {
+            currentColor++;
         }
     }
 
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        compound.putString("type", type.identifier);
+        if (type != null)
+        {
+            compound.putString("type", type.identifier);
+        }
         compound.putInt("desiredColor", desiredColor);
         compound.putInt("currentColor", currentColor);
         return super.writeData(compound);
