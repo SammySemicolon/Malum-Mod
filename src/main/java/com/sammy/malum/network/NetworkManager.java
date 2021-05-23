@@ -1,9 +1,7 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.network.packets.SpiritAltarConsumeParticlePacket;
-import com.sammy.malum.network.packets.SpiritAltarCraftParticlePacket;
-import com.sammy.malum.network.packets.TyrvingParticlePacket;
+import com.sammy.malum.network.packets.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,6 +24,8 @@ public class NetworkManager
         INSTANCE.registerMessage(index++, TyrvingParticlePacket.class, TyrvingParticlePacket::encode, TyrvingParticlePacket::decode, TyrvingParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, SpiritAltarCraftParticlePacket.class, SpiritAltarCraftParticlePacket::encode, SpiritAltarCraftParticlePacket::decode, SpiritAltarCraftParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, SpiritAltarConsumeParticlePacket.class, SpiritAltarConsumeParticlePacket::encode, SpiritAltarConsumeParticlePacket::decode, SpiritAltarConsumeParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, TotemParticlePacket.class, TotemParticlePacket::encode, TotemParticlePacket::decode, TotemParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, TotemBlockParticlePacket.class, TotemBlockParticlePacket::encode, TotemBlockParticlePacket::decode, TotemBlockParticlePacket::whenThisPacketIsReceived);
 
     }
 }

@@ -28,19 +28,19 @@ public class MalumSpiritTypes
     public static final Color HOLY_SPIRIT_COLOR = new Color(234, 73, 95);
     public static MalumSpiritType HOLY_SPIRIT;
 
-    public static final Color WICKED_SPIRIT_COLOR = new Color(127, 34, 84);
+    public static final Color WICKED_SPIRIT_COLOR = new Color(178, 29, 232);
     public static MalumSpiritType WICKED_SPIRIT;
 
-    public static final Color ARCANE_SPIRIT_COLOR = new Color(218, 68, 231);
+    public static final Color ARCANE_SPIRIT_COLOR = new Color(231, 68, 196);
     public static  MalumSpiritType ARCANE_SPIRIT;
 
-    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(72, 31, 118);
+    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(142, 62, 234, 255);
     public static MalumSpiritType ELDRITCH_SPIRIT;
 
     public static final Color AERIAL_SPIRIT_COLOR = new Color(51, 229, 155);
     public static  MalumSpiritType AERIAL_SPIRIT;
 
-    public static final Color AQUATIC_SPIRIT_COLOR = new Color(37, 77, 147);
+    public static final Color AQUATIC_SPIRIT_COLOR = new Color(42, 114, 232);
     public static  MalumSpiritType AQUATIC_SPIRIT;
 
     public static final Color INFERNAL_SPIRIT_COLOR = new Color(210, 134, 39);

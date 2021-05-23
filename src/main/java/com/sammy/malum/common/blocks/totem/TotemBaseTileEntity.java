@@ -9,13 +9,18 @@ import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
+import com.sammy.malum.network.packets.SpiritAltarCraftParticlePacket;
+import com.sammy.malum.network.packets.TotemParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
@@ -56,7 +61,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         int size = compound.getInt("spiritCount");
         for (int i = 0; i < size; i++)
         {
-            spirits.add(SpiritHelper.figureOutType(compound.getString("spirit_"+1)));
+            spirits.add(SpiritHelper.figureOutType(compound.getString("spirit_"+i)));
         }
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");
@@ -80,11 +85,11 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
             }
             else if (active)
             {
-                progress++;
-                if (progress >= 20)
+                progress--;
+                if (progress <= 0)
                 {
                     height++;
-                    progress = 0;
+                    progress = 20;
                     BlockPos polePos = pos.up(height);
                     if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity)
                     {
@@ -135,13 +140,13 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     }
     public void riteStarting()
     {
-        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1);
         active = true;
         MalumHelper.updateState(world,pos);
     }
     public void riteComplete(MalumRiteType rite)
     {
         world.playSound(null, pos, MalumSounds.TOTEM_CHARGED, SoundCategory.BLOCKS,1,1);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, true));
         poles().forEach(p -> p.riteComplete(height));
         progress = 0;
         if (rite.isInstant)
@@ -156,6 +161,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     public void riteEnding()
     {
         world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS,1,0.5f);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, false));
         reset();
     }
 }
