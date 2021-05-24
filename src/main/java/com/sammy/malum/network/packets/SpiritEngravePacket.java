@@ -7,30 +7,27 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class TotemBlockParticlePacket
+public class SpiritEngravePacket
 {
     String spirit;
     int posX;
     int posY;
     int posZ;
-    boolean success;
-    public TotemBlockParticlePacket(String spirit, int posX, int posY, int posZ, boolean success)
+    public SpiritEngravePacket(String spirit, int posX, int posY, int posZ)
     {
         this.spirit = spirit;
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
-        this.success = success;
     }
 
-    public static TotemBlockParticlePacket decode(PacketBuffer buf)
+    public static SpiritEngravePacket decode(PacketBuffer buf)
     {
         String spirit = buf.readString();
         int posX = buf.readInt();
         int posY = buf.readInt();
         int posZ = buf.readInt();
-        boolean sparkles = buf.readBoolean();
-        return new TotemBlockParticlePacket(spirit, posX, posY, posZ, sparkles);
+        return new SpiritEngravePacket(spirit, posX, posY, posZ);
     }
 
     public void encode(PacketBuffer buf)
@@ -39,12 +36,11 @@ public class TotemBlockParticlePacket
         buf.writeInt(posX);
         buf.writeInt(posY);
         buf.writeInt(posZ);
-        buf.writeBoolean(success);
     }
 
     public void whenThisPacketIsReceived(Supplier<NetworkEvent.Context> context)
     {
-        context.get().enqueueWork(() -> PacketEffects.totemBlockParticlePacket(spirit, new BlockPos(posX,posY,posZ), success));
+        context.get().enqueueWork(() -> PacketEffects.spiritEngrave(spirit, new BlockPos(posX,posY,posZ)));
         context.get().setPacketHandled(true);
     }
 }

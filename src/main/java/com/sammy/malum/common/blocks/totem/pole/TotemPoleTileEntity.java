@@ -4,14 +4,12 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import com.sammy.malum.network.packets.TotemBlockParticlePacket;
-import com.sammy.malum.network.packets.TotemParticlePacket;
-import net.minecraft.block.BlockState;
+import com.sammy.malum.network.packets.SpiritEngravePacket;
+import com.sammy.malum.network.packets.TotemPoleParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
@@ -77,13 +75,14 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     public void create(MalumSpiritType type)
     {
         world.playSound(null, pos, MalumSounds.TOTEM_ENGRAVE, SoundCategory.BLOCKS,1,1);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new SpiritEngravePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ()));
         this.type = type;
         this.currentColor = 10;
     }
     public void riteStarting(int height)
     {
         world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1 + 0.2f * height);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new TotemBlockParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ(), false));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new TotemPoleParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ(), false));
         this.desiredColor = 10;
         MalumHelper.updateState(world,pos);
     }

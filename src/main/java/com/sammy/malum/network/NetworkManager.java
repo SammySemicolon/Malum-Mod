@@ -25,7 +25,8 @@ public class NetworkManager
         INSTANCE.registerMessage(index++, SpiritAltarCraftParticlePacket.class, SpiritAltarCraftParticlePacket::encode, SpiritAltarCraftParticlePacket::decode, SpiritAltarCraftParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, SpiritAltarConsumeParticlePacket.class, SpiritAltarConsumeParticlePacket::encode, SpiritAltarConsumeParticlePacket::decode, SpiritAltarConsumeParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, TotemParticlePacket.class, TotemParticlePacket::encode, TotemParticlePacket::decode, TotemParticlePacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, TotemBlockParticlePacket.class, TotemBlockParticlePacket::encode, TotemBlockParticlePacket::decode, TotemBlockParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, TotemPoleParticlePacket.class, TotemPoleParticlePacket::encode, TotemPoleParticlePacket::decode, TotemPoleParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritEngravePacket.class, SpiritEngravePacket::encode, SpiritEngravePacket::decode, SpiritEngravePacket::whenThisPacketIsReceived);
 
     }
 }

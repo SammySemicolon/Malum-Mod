@@ -1,6 +1,5 @@
 package com.sammy.malum.network.packets;
 
-import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.network.PacketBuffer;
@@ -66,7 +65,7 @@ public class TotemParticlePacket
 
     public void whenThisPacketIsReceived(Supplier<NetworkEvent.Context> context)
     {
-        context.get().enqueueWork(() -> PacketEffects.totemParticlePacket(spirits, new BlockPos(posX,posY,posZ), success));
+        context.get().enqueueWork(() -> PacketEffects.totemParticles(spirits, new BlockPos(posX,posY,posZ), success));
         context.get().setPacketHandled(true);
     }
 }

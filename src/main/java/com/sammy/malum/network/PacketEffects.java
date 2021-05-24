@@ -1,15 +1,12 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.awt.*;
@@ -120,7 +117,25 @@ public class PacketEffects
                 .repeat(world, posX, posY, posZ, 20);
 
     }
-    public static void totemBlockParticlePacket(String spirit, BlockPos pos, boolean success)
+    public static void spiritEngrave(String spirit, BlockPos pos)
+    {
+        World world = Minecraft.getInstance().world;
+        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        Color color = type.color;
+        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                .setAlpha(0.5f, 0f)
+                .setLifetime(30)
+                .setSpin(0f)
+                .setScale(0.4f, 0)
+                .setColor(color, color)
+                .enableNoClip()
+                .randomOffset(0.3f, 0.3f)
+                .randomVelocity(0.001f, 0.001f)
+                .evenlyRepeatEdges(world, pos, 4);
+
+        totemBlockParticles(spirit, pos, true);
+    }
+    public static void totemBlockParticles(String spirit, BlockPos pos, boolean success)
     {
         World world = Minecraft.getInstance().world;
         MalumSpiritType type = SpiritHelper.figureOutType(spirit);
@@ -129,6 +144,7 @@ public class PacketEffects
         {
             color = color.darker();
         }
+
         ParticleManager.create(MalumParticles.WISP_PARTICLE)
                 .setAlpha(0.05f, 0f)
                 .setLifetime(20)
@@ -151,11 +167,11 @@ public class PacketEffects
                 .randomVelocity(0.001f, 0.001f)
                 .evenlyRepeatEdges(world, pos, 60);
     }
-    public static void totemParticlePacket(ArrayList<String> spirits, BlockPos pos, boolean success)
+    public static void totemParticles(ArrayList<String> spirits, BlockPos pos, boolean success)
     {
         for (int i = 0; i < spirits.size(); i++)
         {
-            totemBlockParticlePacket(spirits.get(i), pos.up(1+i), success);
+            totemBlockParticles(spirits.get(i), pos.up(1+i), success);
         }
     }
 }
