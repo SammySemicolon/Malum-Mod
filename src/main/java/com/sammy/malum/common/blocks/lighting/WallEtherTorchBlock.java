@@ -28,6 +28,7 @@ public class WallEtherTorchBlock extends WallTorchBlock implements IColor
     {
         super(properties,null);
         this.color = color;
+        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
     }
 
     @Override

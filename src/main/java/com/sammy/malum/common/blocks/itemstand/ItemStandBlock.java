@@ -5,15 +5,20 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -23,10 +28,11 @@ import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
 public class ItemStandBlock extends SimpleInventoryBlock
 {
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public ItemStandBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
     }
     
     @Override
@@ -48,11 +54,7 @@ public class ItemStandBlock extends SimpleInventoryBlock
         }
         super.spawnAdditionalDrops(state, worldIn, pos, stack);
     }
-    
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> blockStateBuilder)
-    {
-        blockStateBuilder.add(FACING);
-    }
+
     public final VoxelShape up =Block.makeCuboidShape(4, 0, 4, 12, 2, 12);
     public final VoxelShape down =Block.makeCuboidShape(4, 14, 4, 12, 16, 12);
     public final VoxelShape south =Block.makeCuboidShape(4, 4, 0, 12, 12, 2);
@@ -92,12 +94,6 @@ public class ItemStandBlock extends SimpleInventoryBlock
         return super.getShape(state, worldIn, pos, context);
     }
     
-    @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        return getDefaultState().with(FACING, context.getFace());
-    }
-    
     @Override
     public boolean hasTileEntity(BlockState state)
     {
@@ -108,5 +104,36 @@ public class ItemStandBlock extends SimpleInventoryBlock
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
         return new ItemStandTileEntity();
+    }
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    {
+        builder.add(WATERLOGGED);
+        builder.add(FACING);
+        super.fillStateContainer(builder);
+    }
+
+    @Override
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
+    {
+        if (stateIn.get(WATERLOGGED))
+        {
+            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+        }
+        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state)
+    {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context)
+    {
+        FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
+        return getDefaultState().with(FACING, context.getFace()).with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
     }
 }

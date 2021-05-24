@@ -28,6 +28,7 @@ public class EtherBlock extends Block implements IColor
     {
         super(properties);
         this.color = color;
+        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
     }
     
     @Override
