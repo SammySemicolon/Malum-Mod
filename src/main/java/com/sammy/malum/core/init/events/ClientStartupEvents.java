@@ -45,6 +45,7 @@ import java.util.Set;
 
 import static com.sammy.malum.MalumColors.*;
 import static com.sammy.malum.MalumHelper.brighter;
+import static com.sammy.malum.MalumHelper.darker;
 import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
@@ -146,9 +147,9 @@ public class ClientStartupEvents
         ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_BRAZIER, brighter(PINK, 3));
 
         ClientHelper.registerItemColor(itemColors, MalumItems.HOLY_SPIRIT, brighter(HOLY_SPIRIT_COLOR,1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.WICKED_SPIRIT, brighter(WICKED_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR,1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT, brighter(ELDRITCH_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT, brighter(AQUATIC_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR,1));

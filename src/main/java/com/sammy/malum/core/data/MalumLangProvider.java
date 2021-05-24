@@ -124,7 +124,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("twisted_rock", "\"Turned wicked\". If we are to replace the holy spirit with a wicked spirit, cobblestone will instead be animated into twisted rock.");
         addPage("twisted_rock_architecture", "Much alike the tainted rock, using a crafting table or the stone cutter, you can make many variants of twisted rock.");
 
-        addPage("ether", "Think of a lit matchstick, but without the matchstick. Ether is just that! It's a magical substance that looks much like fire and shines bright forever. It can be put on a torch and a tainted rock brazier. It can also be colored with most dyes.");
+        addPage("ether", "Think of a lit matchstick, but without the matchstick. Ether is just that! It's a magical substance that looks much like fire and shines bright forever. It can be put on a torch and a tainted rock brazier. It can be colored with most dyes and placed underwater.");
 
         addPage("spirit_architecture", "Not only cobblestone can be infused into an arcane rock. Granite, Diorite and Andesite all have their magic counterparts.");
 
@@ -163,6 +163,10 @@ public class MalumLangProvider extends LanguageProvider
         add("itemGroup.malum_shaped_stones", "Malum Shaped Stones");
         add("itemGroup.malum_spirits", "Malum Spirits");
         add("itemGroup.malum_natural_wonders", "Malum Natural Wonders");
+
+        add("enchantment.malum.haunting.desc", "Attacking enemies deals extra magic damage.");
+        add("enchantment.malum.rebound.desc", "Allows the scythe to be thrown much like a boomerang, cooldown decreases with tier.");
+        add("enchantment.malum.spirit_plunder.desc", "Increases spirit yields from each successful spirit harvest.");
     }
 
     @Override

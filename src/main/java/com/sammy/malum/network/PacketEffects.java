@@ -125,7 +125,7 @@ public class PacketEffects
         World world = Minecraft.getInstance().world;
         MalumSpiritType type = SpiritHelper.figureOutType(spirit);
         Color color = type.color;
-        if (success)
+        if (!success)
         {
             color = color.darker();
         }
