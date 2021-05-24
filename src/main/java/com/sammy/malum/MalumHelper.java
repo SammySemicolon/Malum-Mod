@@ -55,7 +55,7 @@ public class MalumHelper
         }
         return color;
     }
-    
+
     public static Color brighter(Color color, int times)
     {
         for (int i = 0; i < times; i++)
@@ -112,12 +112,12 @@ public class MalumHelper
     {
         return new Vector3d(pos.getX(), pos.getY(), pos.getZ());
     }
-    
+
     public static Vector3f fPos(BlockPos pos)
     {
         return new Vector3f(pos.getX(), pos.getY(), pos.getZ());
     }
-    
+
     public static Vector3d randPos(BlockPos pos, Random rand, double min, double max)
     {
         double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
@@ -125,27 +125,27 @@ public class MalumHelper
         double z = MathHelper.nextDouble(rand, min, max) + pos.getZ();
         return new Vector3d(x, y, z);
     }
-    
+
     public static boolean areWeOnClient(World world)
     {
         return world.isRemote;
     }
-    
+
     public static boolean areWeOnServer(World world)
     {
         return !areWeOnClient(world);
     }
-    
+
     public static ResourceLocation prefix(String path)
     {
         return new ResourceLocation(MODID, path);
     }
-    
+
     public static <T> ArrayList<T> toArrayList(T... items)
     {
         return new ArrayList<>(Arrays.asList(items));
     }
-    
+
     public static <T> ArrayList<T> toArrayList(Stream<T> items)
     {
         return items.collect(Collectors.toCollection(ArrayList::new));
@@ -163,7 +163,7 @@ public class MalumHelper
         }
         return nonEmptyStacks;
     }
-    
+
     public static String toTitleCase(String givenString, String regex)
     {
         String[] stringArray = givenString.split(regex);
@@ -174,13 +174,13 @@ public class MalumHelper
         }
         return stringBuilder.toString().trim().replaceAll(regex, " ").substring(0, stringBuilder.length() - 1);
     }
-    
+
     public static <T> boolean hasDuplicate(T[] things)
     {
         Set<T> thingSet = new HashSet<>();
         return !Arrays.stream(things).allMatch(thingSet::add);
     }
-    
+
     @SafeVarargs
     @SuppressWarnings("varargs")
     public static <T> Collection<T> takeAll(Collection<? extends T> src, T... items)
@@ -199,11 +199,11 @@ public class MalumHelper
         }
         return ret;
     }
-    
+
     public static <T> Collection<T> takeAll(Collection<T> src, Predicate<T> pred)
     {
         List<T> ret = new ArrayList<>();
-        
+
         Iterator<T> iter = src.iterator();
         while (iter.hasNext())
         {
@@ -214,18 +214,18 @@ public class MalumHelper
                 ret.add(item);
             }
         }
-        
+
         if (ret.isEmpty())
         {
             return Collections.emptyList();
         }
         return ret;
     }
-    
+
     public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState, int flags)
     {
         BlockState oldState = world.getBlockState(pos);
-        
+
         BlockState finalState = newState;
         for (Property<?> property : oldState.getProperties())
         {
@@ -235,15 +235,15 @@ public class MalumHelper
             }
         }
         world.notifyBlockUpdate(pos, oldState, finalState, flags);
-        
+
         world.setBlockState(pos, finalState, flags);
     }
-    
+
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, Property<T> property)
     {
         return newState.with(property, oldState.get(property));
     }
-    
+
     public static CompoundNBT writeBlockPos(CompoundNBT compoundNBT, BlockPos pos)
     {
         compoundNBT.putInt("X", pos.getX());
@@ -251,7 +251,7 @@ public class MalumHelper
         compoundNBT.putInt("Z", pos.getZ());
         return compoundNBT;
     }
-    
+
     public static CompoundNBT writeBlockPosExtra(CompoundNBT compoundNBT, BlockPos pos, String extra)
     {
         compoundNBT.putInt(extra + "X", pos.getX());
@@ -259,20 +259,22 @@ public class MalumHelper
         compoundNBT.putInt(extra + "Z", pos.getZ());
         return compoundNBT;
     }
-    
+
     public static BlockPos readBlockPos(CompoundNBT tag)
     {
         return new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
     }
-    
+
     public static BlockPos readBlockPosExtra(CompoundNBT tag, String extra)
     {
         return new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z"));
     }
+
     public static ArrayList<BlockPos> getBlocks(BlockPos pos, int x, int y, int z)
     {
-        return getBlocks(pos, -x,x,-y,y,-z,z);
+        return getBlocks(pos, -x, x, -y, y, -z, z);
     }
+
     public static ArrayList<BlockPos> getBlocks(BlockPos pos, int x1, int x2, int y1, int y2, int z1, int z2)
     {
         ArrayList<BlockPos> positions = new ArrayList<>();
@@ -282,28 +284,29 @@ public class MalumHelper
             {
                 for (int z = z1; z < z2; z++)
                 {
-                    positions.add(pos.add(x,y,z));
+                    positions.add(pos.add(x, y, z));
                 }
             }
         }
         return positions;
     }
+
     public static void updateState(BlockState state, World worldIn, BlockPos pos)
     {
         worldIn.notifyBlockUpdate(pos, state, state, 2);
     }
-    
+
     public static void updateState(World worldIn, BlockPos pos)
     {
         updateState(worldIn.getBlockState(pos), worldIn, pos);
     }
-    
+
     public static Vector3d circlePosition(Vector3d pos, float distance, float current, float total)
     {
         double angle = current / total * (Math.PI * 2);
         double dx2 = (distance * Math.cos(angle));
         double dz2 = (distance * Math.sin(angle));
-        
+
         Vector3d vector2f = new Vector3d(dx2, 0, dz2);
         double x = vector2f.x * distance;
         double z = vector2f.z * distance;
@@ -314,19 +317,20 @@ public class MalumHelper
     {
         return rotatedCirclePosition(pos, distance, distance, current, total, gameTime, time);
     }
+
     public static Vector3d rotatedCirclePosition(Vector3d pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time)
     {
         double angle = current / total * (Math.PI * 2);
         angle += ((gameTime % time) / time) * (Math.PI * 2);
         double dx2 = (distanceX * Math.cos(angle));
         double dz2 = (distanceZ * Math.sin(angle));
-        
+
         Vector3d vector2f = new Vector3d(dx2, 0, dz2);
         double x = vector2f.x * distanceX;
         double z = vector2f.z * distanceZ;
         return pos.add(x, 0, z);
     }
-    
+
     public static ArrayList<Vector3d> blockOutlinePositions(World world, BlockPos pos)
     {
         ArrayList<Vector3d> arrayList = new ArrayList<>();
@@ -346,7 +350,7 @@ public class MalumHelper
         }
         return arrayList;
     }
-    
+
     public static void giveAmplifyingEffect(Effect effect, LivingEntity target, int duration, int amplifier, int cap)
     {
         EffectInstance instance = target.getActivePotionEffect(effect);
@@ -356,7 +360,7 @@ public class MalumHelper
         }
         target.addPotionEffect(new EffectInstance(effect, duration, Math.min(amplifier, cap)));
     }
-    
+
     public static void giveStackingEffect(Effect effect, LivingEntity target, int duration, int amplifier)
     {
         EffectInstance instance = target.getActivePotionEffect(effect);
@@ -366,7 +370,7 @@ public class MalumHelper
         }
         target.addPotionEffect(new EffectInstance(effect, duration, amplifier));
     }
-    
+
     public static void giveItemToPlayerNoSound(PlayerEntity player, @Nonnull ItemStack stack)
     {
         if (stack.isEmpty()) return;
@@ -385,23 +389,24 @@ public class MalumHelper
             world.addEntity(entityitem);
         }
     }
-    
+
     @Nonnull
     public static Optional<ImmutableTriple<String, Integer, ItemStack>> findCosmeticCurio(Predicate<ItemStack> filter, @Nonnull final LivingEntity livingEntity)
     {
-        ImmutableTriple<String, Integer, ItemStack> result = CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(handler -> {
+        ImmutableTriple<String, Integer, ItemStack> result = CuriosApi.getCuriosHelper().getCuriosHandler(livingEntity).map(handler ->
+        {
             Map<String, ICurioStacksHandler> curios = handler.getCurios();
-    
+
             for (String id : curios.keySet())
             {
                 ICurioStacksHandler stacksHandler = curios.get(id);
                 IDynamicStackHandler stackHandler = stacksHandler.getStacks();
                 IDynamicStackHandler cosmeticStackHelper = stacksHandler.getCosmeticStacks();
-    
+
                 for (int i = 0; i < stackHandler.getSlots(); i++)
                 {
                     ItemStack stack = stackHandler.getStackInSlot(i);
-        
+
                     if (!stack.isEmpty() && filter.test(stack))
                     {
                         return new ImmutableTriple<>(id, i, stack);
@@ -410,7 +415,7 @@ public class MalumHelper
                 for (int i = 0; i < cosmeticStackHelper.getSlots(); i++)
                 {
                     ItemStack stack = cosmeticStackHelper.getStackInSlot(i);
-        
+
                     if (!stack.isEmpty() && filter.test(stack))
                     {
                         return new ImmutableTriple<>(id, i, stack);
@@ -419,14 +424,18 @@ public class MalumHelper
             }
             return new ImmutableTriple<>("", 0, ItemStack.EMPTY);
         }).orElse(new ImmutableTriple<>("", 0, ItemStack.EMPTY));
-        
+
         return result.getLeft().isEmpty() ? Optional.empty() : Optional.of(result);
     }
+
     public static ItemStack heldItem(LivingEntity livingEntity, Predicate<ItemStack> stackPredicate)
     {
-        if (stackPredicate.test(livingEntity.getHeldItem(livingEntity.swingingHand)))
+        if (livingEntity.swingingHand != null)
         {
-            return livingEntity.getHeldItem(livingEntity.swingingHand);
+            if (stackPredicate.test(livingEntity.getHeldItem(livingEntity.swingingHand)))
+            {
+                return livingEntity.getHeldItem(livingEntity.swingingHand);
+            }
         }
         if (stackPredicate.test(livingEntity.getHeldItem(livingEntity.getActiveHand())))
         {
@@ -442,10 +451,12 @@ public class MalumHelper
         }
         return null;
     }
+
     public static boolean hasCurioEquipped(LivingEntity entity, RegistryObject<Item> curio)
     {
         return CuriosApi.getCuriosHelper().findEquippedCurio(curio.get(), entity).isPresent();
     }
+
     public static ArrayList<MalumCurioItem> equippedMalumCurios(LivingEntity entity)
     {
         IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
@@ -460,6 +471,7 @@ public class MalumHelper
         }
         return items;
     }
+
     public static ArrayList<ItemStack> equippedCurios(LivingEntity entity)
     {
         IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
@@ -470,6 +482,7 @@ public class MalumHelper
         }
         return stacks;
     }
+
     public static ArrayList<ItemStack> equippedCurios(LivingEntity entity, Predicate<ItemStack> predicate)
     {
         IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
@@ -484,18 +497,24 @@ public class MalumHelper
         }
         return stacks;
     }
-    public static void applyEnchantments(LivingEntity user, Entity target, ItemStack stack) {
-        EnchantmentHelper.IEnchantmentVisitor visitor = (enchantment, level) -> {
+
+    public static void applyEnchantments(LivingEntity user, Entity target, ItemStack stack)
+    {
+        EnchantmentHelper.IEnchantmentVisitor visitor = (enchantment, level) ->
+        {
             enchantment.onEntityDamaged(user, target, level);
         };
-        if (user != null) {
+        if (user != null)
+        {
             EnchantmentHelper.applyEnchantmentModifierArray(visitor, user.getEquipmentAndArmor());
         }
 
-        if (user instanceof PlayerEntity) {
+        if (user instanceof PlayerEntity)
+        {
             EnchantmentHelper.applyEnchantmentModifier(visitor, stack);
         }
     }
+
     public static void giveItemToEntity(ItemStack item, LivingEntity entity)
     {
         if (entity instanceof PlayerEntity)
