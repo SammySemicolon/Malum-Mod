@@ -160,9 +160,11 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                                 {
                                     extrasInventory.playerInsertItem(world, providedStack.split(1));
                                     world.playSound(null, pos, MalumSounds.ALTAR_CONSUME, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
-
                                     Vector3d providedItemPos = tileEntity.providedItemPos();
                                     INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromIngredients(providedStack, recipe.spiritIngredients, providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
+                                    MalumHelper.updateState(world, pos);
+                                    MalumHelper.updateState(world, this.pos);
+
                                     break;
                                 }
                             }
@@ -194,6 +196,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                     {
                         inventory.dumpItems(world, itemPos);
                     }
+                    MalumHelper.updateState(world, pos);
                 }
             }
         }

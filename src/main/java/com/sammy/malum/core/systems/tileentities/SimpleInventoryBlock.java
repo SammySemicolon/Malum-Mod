@@ -34,6 +34,7 @@ public abstract class SimpleInventoryBlock extends Block
             if (worldIn.getTileEntity(pos) instanceof SimpleInventoryTileEntity)
             {
                 ((SimpleInventoryTileEntity) worldIn.getTileEntity(pos)).inventory.playerHandleItem(worldIn, player, handIn);
+                MalumHelper.updateState(worldIn, pos);
                 return ActionResultType.SUCCESS;
             }
         }

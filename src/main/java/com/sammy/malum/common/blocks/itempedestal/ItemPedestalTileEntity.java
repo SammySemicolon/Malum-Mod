@@ -27,7 +27,7 @@ public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements
             {
                 ItemPedestalTileEntity.this.markDirty();
                 updateContainingBlockInfo();
-                MalumHelper.updateState(world.getBlockState(pos), world, pos);
+                MalumHelper.updateState(world, pos);
             }
         };
     }
