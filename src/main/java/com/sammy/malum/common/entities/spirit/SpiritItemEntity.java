@@ -8,6 +8,7 @@ import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
@@ -59,13 +60,13 @@ public class SpiritItemEntity extends ProjectileItemEntity
         getDataManager().set(STACK, stack);
     }
 
-    public PlayerEntity owner()
+    public LivingEntity owner()
     {
         if (ownerUUID != null)
         {
             if (MalumHelper.areWeOnServer(world))
             {
-                return (PlayerEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
+                return (LivingEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
             }
         }
         return null;
@@ -82,7 +83,7 @@ public class SpiritItemEntity extends ProjectileItemEntity
         if (MalumHelper.areWeOnServer(world))
         {
             setMotion(getMotion().mul(0.9f, 0.8f, 0.9f));
-            PlayerEntity owner = owner();
+            LivingEntity owner = owner();
             if (owner != null)
             {
                 float distance = getDistance(owner);
@@ -112,7 +113,7 @@ public class SpiritItemEntity extends ProjectileItemEntity
                             }
                             else
                             {
-                                ItemHandlerHelper.giveItemToPlayer(owner, stack);
+                                MalumHelper.giveItemToEntity(stack, owner);
                             }
                             remove();
                         }

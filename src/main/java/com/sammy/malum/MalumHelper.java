@@ -422,23 +422,23 @@ public class MalumHelper
         
         return result.getLeft().isEmpty() ? Optional.empty() : Optional.of(result);
     }
-    public static ItemStack heldItem(PlayerEntity playerEntity, Predicate<ItemStack> stackPredicate)
+    public static ItemStack heldItem(LivingEntity livingEntity, Predicate<ItemStack> stackPredicate)
     {
-        if (stackPredicate.test(playerEntity.getHeldItem(playerEntity.swingingHand)))
+        if (stackPredicate.test(livingEntity.getHeldItem(livingEntity.swingingHand)))
         {
-            return playerEntity.getHeldItem(playerEntity.swingingHand);
+            return livingEntity.getHeldItem(livingEntity.swingingHand);
         }
-        if (stackPredicate.test(playerEntity.getHeldItem(playerEntity.getActiveHand())))
+        if (stackPredicate.test(livingEntity.getHeldItem(livingEntity.getActiveHand())))
         {
-            return playerEntity.getHeldItem(playerEntity.getActiveHand());
+            return livingEntity.getHeldItem(livingEntity.getActiveHand());
         }
-        if (stackPredicate.test(playerEntity.getHeldItem(Hand.MAIN_HAND)))
+        if (stackPredicate.test(livingEntity.getHeldItem(Hand.MAIN_HAND)))
         {
-            return playerEntity.getHeldItem(Hand.MAIN_HAND);
+            return livingEntity.getHeldItem(Hand.MAIN_HAND);
         }
-        if (stackPredicate.test(playerEntity.getHeldItem(Hand.OFF_HAND)))
+        if (stackPredicate.test(livingEntity.getHeldItem(Hand.OFF_HAND)))
         {
-            return playerEntity.getHeldItem(Hand.OFF_HAND);
+            return livingEntity.getHeldItem(Hand.OFF_HAND);
         }
         return null;
     }
@@ -494,6 +494,20 @@ public class MalumHelper
 
         if (user instanceof PlayerEntity) {
             EnchantmentHelper.applyEnchantmentModifier(visitor, stack);
+        }
+    }
+    public static void giveItemToEntity(ItemStack item, LivingEntity entity)
+    {
+        if (entity instanceof PlayerEntity)
+        {
+            ItemHandlerHelper.giveItemToPlayer((PlayerEntity) entity, item);
+        }
+        else
+        {
+            ItemEntity entityitem = new ItemEntity(entity.world, entity.getPosX(), entity.getPosY() + 0.5, entity.getPosZ(), item);
+            entityitem.setPickupDelay(40);
+            entityitem.setMotion(entityitem.getMotion().mul(0, 1, 0));
+            entity.world.addEntity(entityitem);
         }
     }
 }

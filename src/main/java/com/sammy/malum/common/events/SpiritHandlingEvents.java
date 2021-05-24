@@ -4,6 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,10 +19,10 @@ public class SpiritHandlingEvents
     @SubscribeEvent
     public static void onEntityKill(LivingDeathEvent event)
     {
-        if (event.getSource().getTrueSource() instanceof PlayerEntity)
+        if (event.getSource().getTrueSource() instanceof LivingEntity)
         {
             ItemStack stack = ItemStack.EMPTY;
-            PlayerEntity attacker = (PlayerEntity) event.getSource().getTrueSource();
+            LivingEntity attacker = (LivingEntity) event.getSource().getTrueSource();
             if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity)
             {
                 ScytheBoomerangEntity entity = (ScytheBoomerangEntity) event.getSource().getImmediateSource();

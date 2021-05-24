@@ -35,14 +35,14 @@ public class SpiritHelper
         target.attackEntityFrom(voodooDamageSource(attacker), amount);
     }
 
-    public static void harvestSpirit(String spirit, PlayerEntity player)
+    public static void harvestSpirit(String spirit, LivingEntity player)
     {
         ArrayList<Pair<String, Integer>> spirits = new ArrayList<>();
         spirits.add(new Pair<>(spirit, 1));
         harvestSpirit(spirits, player);
     }
 
-    public static void summonSpirits(LivingEntity target, PlayerEntity player, ItemStack harvestStack)
+    public static void summonSpirits(LivingEntity target, LivingEntity attacker, ItemStack harvestStack)
     {
         if (target instanceof PlayerEntity)
         {
@@ -51,7 +51,7 @@ public class SpiritHelper
         ArrayList<ItemStack> spirits = entitySpirits(target);
 
         int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
-        for (MalumCurioItem item : MalumHelper.equippedMalumCurios(player))
+        for (MalumCurioItem item : MalumHelper.equippedMalumCurios(attacker))
         {
             plunder += item.spiritYieldBonus();
         }
@@ -59,17 +59,17 @@ public class SpiritHelper
         {
             for (int i = 0; i < plunder; i++)
             {
-                int random = player.world.rand.nextInt(spirits.size());
+                int random = attacker.world.rand.nextInt(spirits.size());
                 spirits.get(random).grow(1);
             }
         }
-        if (player.world.rand.nextFloat() < 0.01f)
+        if (attacker.world.rand.nextFloat() < 0.01f)
         {
             spirits.add(new ItemStack(MalumItems.COMICALLY_LARGE_TOPHAT.get()));
         }
         if (!spirits.isEmpty())
         {
-            summonSpirits(spirits, target, player);
+            summonSpirits(spirits, target, attacker);
         }
     }
 
@@ -82,11 +82,11 @@ public class SpiritHelper
         }
     }
 
-    public static void summonSpirits(ArrayList<ItemStack> spirits, LivingEntity target, PlayerEntity player)
+    public static void summonSpirits(ArrayList<ItemStack> spirits, LivingEntity target, LivingEntity attacker)
     {
-        if (player == null)
+        if (attacker == null)
         {
-            player = target.world.getClosestPlayer(target.getPosX(), target.getPosY(), target.getPosZ(), -1, e -> true);
+            attacker = target.world.getClosestPlayer(target.getPosX(), target.getPosY(), target.getPosZ(), -1, e -> true);
         }
         float speed = 0.2f + 0.5f / (totalSpirits(target) + 1);
         target.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SPIRIT_HARVEST, target.getSoundCategory(), 1.0F, 0.9f + target.world.rand.nextFloat() * 0.2f);
@@ -97,7 +97,7 @@ public class SpiritHelper
             {
                 continue;
             }
-            if (player == null)
+            if (attacker == null)
             {
                 for (int j = 0; j < count; j++)
                 {
@@ -112,14 +112,14 @@ public class SpiritHelper
                 SpiritItemEntity essenceEntity = new SpiritItemEntity(MalumEntities.SPIRIT_ESSENCE.get(), target.world);
                 essenceEntity.setMotion(MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed), MathHelper.nextFloat(MalumMod.RANDOM, 0.05f, 0.05f), MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed));
                 essenceEntity.setPosition(target.getPositionVec().x, target.getPositionVec().y + target.getHeight() / 2f, target.getPositionVec().z);
-                essenceEntity.setData(stack.getItem().getDefaultInstance(), player.getUniqueID());
+                essenceEntity.setData(stack.getItem().getDefaultInstance(), attacker.getUniqueID());
                 target.world.addEntity(essenceEntity);
                 stack.shrink(1);
             }
         }
     }
 
-    public static void harvestSpirit(ArrayList<Pair<String, Integer>> spirits, PlayerEntity player)
+    public static void harvestSpirit(ArrayList<Pair<String, Integer>> spirits, LivingEntity attacker)
     {
         for (int i = 0; i < spirits.size(); i++)
         {
@@ -130,7 +130,7 @@ public class SpiritHelper
                 continue;
             }
             MalumSpiritType spiritType = figureOutType(spirit);
-            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(spiritType.splinterItem, count));
+            MalumHelper.giveItemToEntity(new ItemStack(spiritType.splinterItem, count), attacker);
             spirits.set(i, Pair.of(spirit, 0));
         }
     }

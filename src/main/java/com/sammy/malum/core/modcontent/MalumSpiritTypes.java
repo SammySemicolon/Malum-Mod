@@ -2,24 +2,31 @@ package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.systems.spirits.CountPredicate;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.FlyingEntity;
+import net.minecraft.entity.IShearable;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.merchant.villager.WanderingTraderEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.monster.piglin.AbstractPiglinEntity;
+import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import net.minecraft.entity.passive.horse.HorseEntity;
+import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
 import net.minecraft.entity.passive.horse.ZombieHorseEntity;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.awt.*;
 import java.util.ArrayList;
+
+import static net.minecraft.entity.CreatureAttribute.WATER;
 
 public class MalumSpiritTypes
 {
@@ -49,181 +56,67 @@ public class MalumSpiritTypes
     public static final Color EARTHEN_SPIRIT_COLOR = new Color(98, 180, 40);
     public static  MalumSpiritType EARTHEN_SPIRIT;
 
+    @SuppressWarnings("unchecked")
     public static void init()
     {
-        HOLY_SPIRIT = create("holy", MalumSpiritTypes::isLife, HOLY_SPIRIT_COLOR, MalumItems.HOLY_SPIRIT);
-        WICKED_SPIRIT = create("wicked", MalumSpiritTypes::isDeath, WICKED_SPIRIT_COLOR, MalumItems.WICKED_SPIRIT);
-        ARCANE_SPIRIT = create("arcane", MalumSpiritTypes::isMagic, ARCANE_SPIRIT_COLOR, MalumItems.ARCANE_SPIRIT);
-        ELDRITCH_SPIRIT = create("eldritch", MalumSpiritTypes::isEldritch, ELDRITCH_SPIRIT_COLOR, MalumItems.ELDRITCH_SPIRIT);
-        AERIAL_SPIRIT = create("aerial", MalumSpiritTypes::isAir, AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT);
-        AQUATIC_SPIRIT = create("aquatic", MalumSpiritTypes::isWater, AQUATIC_SPIRIT_COLOR, MalumItems.AQUATIC_SPIRIT);
-        INFERNAL_SPIRIT = create("infernal", MalumSpiritTypes::isFire, INFERNAL_SPIRIT_COLOR, MalumItems.INFERNAL_SPIRIT);
-        EARTHEN_SPIRIT = create("earthen", MalumSpiritTypes::isEarth, EARTHEN_SPIRIT_COLOR, MalumItems.EARTHEN_SPIRIT);
+        HOLY_SPIRIT = create("holy", HOLY_SPIRIT_COLOR, MalumItems.HOLY_SPIRIT)
+                .addTest(0, "rat")
+                .addTest(1, AnimalEntity.class)
+                .addTest(2, e -> (e instanceof AnimalEntity && e.getMaxHealth() > 4))
+                .addTest(2, AbstractVillagerEntity.class, PiglinEntity.class, HoglinEntity.class)
+                .addTest(3, e -> !e.isEntityUndead() && e instanceof TameableEntity);
+
+        WICKED_SPIRIT = create("wicked", WICKED_SPIRIT_COLOR, MalumItems.WICKED_SPIRIT)
+                .addTest(1, "rat")
+                .addTest(1, CreatureAttribute.UNDEAD)
+                .addTest(1, CreatureAttribute.ILLAGER)
+                .addTest(2, ZombifiedPiglinEntity.class, ZoglinEntity.class)
+                .addTest(3, e -> e.isEntityUndead() && e.getMaxHealth() > 20)
+                .addTest(3, e -> (e instanceof AbstractHorseEntity && e.isEntityUndead()) || e instanceof SpellcastingIllagerEntity)
+                .addTest(5, RavagerEntity.class, WitherEntity.class)
+                .addTest(5, "rats:rat_king");
+
+        ARCANE_SPIRIT = create("arcane", ARCANE_SPIRIT_COLOR, MalumItems.ARCANE_SPIRIT)
+                .addTest(1, CreatureAttribute.ILLAGER)
+                .addTest(1, AbstractSkeletonEntity.class, MooshroomEntity.class, SlimeEntity.class, VexEntity.class, BlazeEntity.class)
+                .addTest(2, "wraith")
+                .addTest(2, SkeletonHorseEntity.class)
+                .addTest(3, PhantomEntity.class, SpellcastingIllagerEntity.class, WitchEntity.class, WanderingTraderEntity.class, GhastEntity.class);
+
+        ELDRITCH_SPIRIT = create("eldritch", ELDRITCH_SPIRIT_COLOR, MalumItems.ELDRITCH_SPIRIT)
+                .addTest(1, EndermiteEntity.class, EndermiteEntity.class)
+                .addTest(2, e -> !e.isNonBoss());
+
+        AERIAL_SPIRIT = create("aerial", AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT)
+                .addTest(1, "wraith")
+                .addTest(1, SpiderEntity.class)
+                .addTest(2, IFlyingAnimal.class, BatEntity.class, SilverfishEntity.class, OcelotEntity.class, CatEntity.class, RavagerEntity.class, FoxEntity.class)
+                .addTest(2, e -> e.getAttributeValue(Attributes.MOVEMENT_SPEED) >= 0.3f)
+                .addTest(3, AbstractHorseEntity.class, String.class, VexEntity.class, GhastEntity.class);
+
+        AQUATIC_SPIRIT = create("aquatic", AQUATIC_SPIRIT_COLOR, MalumItems.AQUATIC_SPIRIT)
+                .addTest(1, WATER)
+                .addTest(2, WaterMobEntity.class, DrownedEntity.class)
+                .addTest(2, e -> e.getCreatureAttribute().equals(WATER) && e.getMaxHealth() >= 10)
+                .addTest(3, GuardianEntity.class)
+                .addTest(5, ElderGuardianEntity.class);
+
+        INFERNAL_SPIRIT = create("infernal", INFERNAL_SPIRIT_COLOR, MalumItems.INFERNAL_SPIRIT)
+                .addTest(1, WitherSkeletonEntity.class, HuskEntity.class, MagmaCubeEntity.class, AbstractPiglinEntity.class, ZombifiedPiglinEntity.class, HoglinEntity.class, ZoglinEntity.class)
+                .addTest(2, CreeperEntity.class, BlazeEntity.class, GhastEntity.class)
+                .addTest(3, GhastEntity.class, StriderEntity.class)
+                .addTest(5, WitherEntity.class);
+
+        EARTHEN_SPIRIT = create("earthen", EARTHEN_SPIRIT_COLOR, MalumItems.EARTHEN_SPIRIT)
+                .addTest(1, ZombieEntity.class, CreeperEntity.class, IForgeShearable.class, CowEntity.class)
+                .addTest(2, HorseEntity.class, ZombieHorseEntity.class)
+                .addTest(3, "zombie_brute");
     }
 
-    public static MalumSpiritType create(String identifier, CountPredicate countPredicate, Color color, RegistryObject<Item> splinterItem)
+    public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)
     {
-        MalumSpiritType spiritType = new MalumSpiritType(identifier, countPredicate, color, (SpiritItem) splinterItem.get());
+        MalumSpiritType spiritType = new MalumSpiritType(identifier, color, (SpiritItem) splinterItem.get());
         SPIRITS.add(spiritType);
         return spiritType;
-    }
-
-    public static int isLife(LivingEntity entity) //size.
-    {
-        if (entity instanceof RavagerEntity)
-        {
-            return 5;
-        }
-        if (!entity.isEntityUndead() && entity instanceof TameableEntity && !(entity instanceof ParrotEntity))
-        {
-            return 3;
-        }
-        if (entity instanceof ChickenEntity || entity instanceof SquidEntity || entity instanceof DolphinEntity || entity instanceof ParrotEntity || entity instanceof AbstractRaiderEntity)
-        {
-            return 1;
-        }
-        if (entity instanceof AnimalEntity || entity instanceof AbstractVillagerEntity)
-        {
-            return 2;
-        }
-        return 0;
-    }
-
-    public static int isDeath(LivingEntity entity) //how menacing.
-    {
-        if (entity instanceof WitherEntity || entity instanceof RavagerEntity)
-        {
-            return 5;
-        }
-        if ((entity.isEntityUndead() && entity instanceof AbstractHorseEntity) || entity instanceof SpellcastingIllagerEntity)
-        {
-            return 3;
-        }
-        if (entity instanceof ZoglinEntity || entity instanceof ZombifiedPiglinEntity)
-        {
-            return 2;
-        }
-        if (entity.isEntityUndead() || entity instanceof AbstractRaiderEntity)
-        {
-            return 1;
-        }
-        return 0;
-    }
-
-    public static int isAir(LivingEntity entity) //zoom potential.
-    {
-        if (entity instanceof FlyingEntity || entity instanceof AbstractHorseEntity || entity instanceof StriderEntity || entity instanceof VexEntity || entity instanceof EndermanEntity || entity instanceof ShulkerEntity || entity instanceof BatEntity || entity instanceof ParrotEntity)
-        {
-            return 3;
-        }
-        if (entity instanceof BeeEntity || entity instanceof SilverfishEntity || entity instanceof OcelotEntity || entity instanceof CatEntity || entity instanceof RabbitEntity || entity instanceof FoxEntity)
-        {
-            return 2;
-        }
-        if (entity instanceof SpiderEntity || entity instanceof BlazeEntity)
-        {
-            return 1;
-        }
-        return 0;
-    }
-
-    public static int isWater(LivingEntity entity) //how is le fishe doing.
-    {
-        if (entity instanceof ElderGuardianEntity)
-        {
-            return 5;
-        }
-        if (entity instanceof GuardianEntity)
-        {
-            return 3;
-        }
-        if (entity instanceof SquidEntity || entity instanceof DrownedEntity || entity instanceof DolphinEntity)
-        {
-            return 2;
-        }
-        if (entity.getCreatureAttribute().equals(CreatureAttribute.WATER))
-        {
-            return 1;
-        }
-        return 0;
-    }
-
-    public static int isMagic(LivingEntity entity) //wooooo magic yeahhh.
-    {
-        if (entity instanceof SpellcastingIllagerEntity || entity instanceof WanderingTraderEntity || entity instanceof WitchEntity || entity instanceof GhastEntity)
-        {
-            return 3;
-        }
-        if (entity.getType().getRegistryName().getPath().equals("wraith") || (entity instanceof SlimeEntity && !(entity instanceof MagmaCubeEntity)) || entity instanceof PhantomEntity)
-        {
-            return 2;
-        }
-        if (entity instanceof AbstractSkeletonEntity || entity instanceof MooshroomEntity || entity instanceof MagmaCubeEntity || entity instanceof VexEntity || entity instanceof BlazeEntity || entity instanceof EndermiteEntity)
-        {
-            return 1;
-        }
-        return 0;
-    }
-
-    public static int isFire(LivingEntity entity) //how annoying are they to kill.
-    {
-        if (entity instanceof WitherEntity)
-        {
-            return 5;
-        }
-        if (entity instanceof GhastEntity || entity instanceof StriderEntity)
-        {
-            return 3;
-        }
-        if (entity instanceof AbstractPiglinEntity || entity instanceof BlazeEntity || entity instanceof CreeperEntity || entity instanceof ZoglinEntity || entity instanceof HoglinEntity)
-        {
-            return 2;
-        }
-        if (entity.isImmuneToFire() || entity instanceof WitherSkeletonEntity || entity instanceof MagmaCubeEntity || entity instanceof HuskEntity)
-        {
-            return 1;
-        }
-        return 0;
-    }
-
-    public static int isEarth(LivingEntity entity) //what if we merge into one :flushed:
-    {
-        if (entity instanceof IronGolemEntity)
-        {
-            return 5;
-        }
-        if (entity.getType().getRegistryName().getPath().equals("zombie_brute"))
-        {
-            return 3;
-        }
-        if (entity instanceof ZombieHorseEntity || entity instanceof AbstractPiglinEntity)
-        {
-            return 2;
-        }
-        if (entity instanceof ZombieEntity || entity instanceof CreeperEntity || entity instanceof EndermiteEntity || entity instanceof SheepEntity)
-        {
-            return 1;
-        }
-        return 0;
-    }
-
-    public static int isEldritch(LivingEntity entity) //hear me out, boss monster
-    {
-        if (!entity.isNonBoss())
-        {
-            return 2;
-        }
-        if (entity instanceof RavagerEntity || entity instanceof ElderGuardianEntity)
-        {
-            return 1;
-        }
-        if (entity instanceof EndermanEntity)
-        {
-            if (entity.world.rand.nextFloat() < 0.2f)
-            {
-                return 1;
-            }
-        }
-        return 0;
     }
 }
