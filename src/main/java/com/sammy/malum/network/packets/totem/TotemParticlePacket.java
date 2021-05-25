@@ -1,4 +1,4 @@
-package com.sammy.malum.network.packets;
+package com.sammy.malum.network.packets.totem;
 
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;

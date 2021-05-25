@@ -1,16 +1,13 @@
-package com.sammy.malum.network.packets;
+package com.sammy.malum.network.packets.altar;
 
 import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import com.sammy.malum.network.PacketEffects;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class SpiritAltarConsumeParticlePacket
 {

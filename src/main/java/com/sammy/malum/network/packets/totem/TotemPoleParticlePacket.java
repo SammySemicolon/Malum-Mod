@@ -1,4 +1,4 @@
-package com.sammy.malum.network.packets;
+package com.sammy.malum.network.packets.totem;
 
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.network.PacketBuffer;
@@ -29,8 +29,8 @@ public class TotemPoleParticlePacket
         int posX = buf.readInt();
         int posY = buf.readInt();
         int posZ = buf.readInt();
-        boolean sparkles = buf.readBoolean();
-        return new TotemPoleParticlePacket(spirit, posX, posY, posZ, sparkles);
+        boolean success = buf.readBoolean();
+        return new TotemPoleParticlePacket(spirit, posX, posY, posZ, success);
     }
 
     public void encode(PacketBuffer buf)

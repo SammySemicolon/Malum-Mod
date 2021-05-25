@@ -3,6 +3,8 @@ package com.sammy.malum.core.systems.rites;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 
@@ -33,7 +35,7 @@ public class MalumRiteType
     {
         return defaultInterval();
     }
-    public void executeRite(BlockPos pos)
+    public void executeRite(ServerWorld world, BlockPos pos)
     {
 
     }

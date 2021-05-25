@@ -9,15 +9,14 @@ import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import com.sammy.malum.network.packets.SpiritAltarCraftParticlePacket;
-import com.sammy.malum.network.packets.TotemParticlePacket;
+import com.sammy.malum.network.packets.totem.TotemParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.PacketDistributor;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
@@ -77,9 +76,9 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
             if (rite != null)
             {
                 progress++;
-                if (progress >= rite.defaultInterval())
+                if (progress >= rite.interval())
                 {
-                    rite.executeRite(pos);
+                    rite.executeRite((ServerWorld) world, pos);
                     progress = 0;
                 }
             }
@@ -151,7 +150,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         progress = 0;
         if (rite.isInstant)
         {
-            rite.executeRite(pos);
+            rite.executeRite((ServerWorld) world, pos);
             reset();
             return;
         }

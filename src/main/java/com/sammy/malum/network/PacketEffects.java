@@ -175,4 +175,34 @@ public class PacketEffects
             totemBlockParticles(spirits.get(i), pos.up(1+i), success);
         }
     }
+    public static void upwardsBlockParticles(String spirit, BlockPos pos)
+    {
+        World world = Minecraft.getInstance().world;
+        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        Color color = type.color;
+
+        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                .setAlpha(0.05f, 0f)
+                .setLifetime(20)
+                .setSpin(0.2f)
+                .setScale(0.2f, 0)
+                .setColor(color, color)
+                .enableNoClip()
+                .randomOffset(0.1f, 0.1f)
+                .randomVelocity(0.001f, 0.001f)
+                .addVelocity(0, 0.02f, 0)
+                .evenlyRepeatEdges(world, pos, 40);
+
+        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+                .setAlpha(0.025f, 0f)
+                .setLifetime(40)
+                .setSpin(0.1f)
+                .setScale(0.4f, 0)
+                .setColor(color, color)
+                .randomOffset(0.2f)
+                .enableNoClip()
+                .randomVelocity(0.001f, 0.001f)
+                .addVelocity(0, 0.02f, 0)
+                .evenlyRepeatEdges(world, pos, 60);
+    }
 }
