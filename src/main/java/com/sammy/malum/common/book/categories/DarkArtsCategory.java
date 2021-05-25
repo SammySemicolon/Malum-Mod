@@ -2,6 +2,7 @@ package com.sammy.malum.common.book.categories;
 
 import com.sammy.malum.common.book.entries.BookEntry;
 import com.sammy.malum.common.book.pages.*;
+import com.sammy.malum.common.rites.RiteOfGrowth;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
@@ -31,6 +32,7 @@ public class DarkArtsCategory extends BookCategory
 
         rite_of_growth = new BookEntry(HOLY_SPIRIT.get(), "rite_of_growth")
                 .addPage(new HeadlineTextPage("rite_of_growth"))
+                .addPage(new RitePage(new RiteOfGrowth()))
                 .addLink(spiritInfusion).addLink(holySpirit).addLink(arcaneSpirit);
 
         addEntries(totem_magic, rite_of_growth);
