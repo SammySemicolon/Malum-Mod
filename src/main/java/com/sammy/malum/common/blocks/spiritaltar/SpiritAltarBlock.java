@@ -8,6 +8,7 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -31,7 +32,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 
-public class SpiritAltarBlock extends Block
+public class SpiritAltarBlock extends Block implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public SpiritAltarBlock(Properties properties)

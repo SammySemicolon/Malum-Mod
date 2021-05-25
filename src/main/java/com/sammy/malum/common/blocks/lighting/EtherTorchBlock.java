@@ -1,9 +1,6 @@
 package com.sammy.malum.common.blocks.lighting;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.TorchBlock;
+import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
@@ -21,7 +18,7 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.Random;
 
-public class EtherTorchBlock extends TorchBlock implements IColor
+public class EtherTorchBlock extends TorchBlock implements IColor, IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public Color color;

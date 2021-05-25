@@ -3,6 +3,7 @@ package com.sammy.malum.common.blocks.itemstand;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -26,7 +27,7 @@ import javax.annotation.Nullable;
 
 import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
-public class ItemStandBlock extends SimpleInventoryBlock
+public class ItemStandBlock extends SimpleInventoryBlock implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public ItemStandBlock(Properties properties)

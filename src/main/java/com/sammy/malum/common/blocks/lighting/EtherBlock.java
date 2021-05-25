@@ -2,6 +2,7 @@ package com.sammy.malum.common.blocks.lighting;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
@@ -19,7 +20,7 @@ import net.minecraft.world.IWorld;
 import javax.annotation.Nullable;
 import java.awt.*;
 
-public class EtherBlock extends Block implements IColor
+public class EtherBlock extends Block implements IColor, IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public final VoxelShape SHAPE =Block.makeCuboidShape(6, 6, 6, 10, 10, 10);

@@ -1,5 +1,6 @@
 package com.sammy.malum.network;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
@@ -121,12 +122,12 @@ public class PacketEffects
     {
         World world = Minecraft.getInstance().world;
         MalumSpiritType type = SpiritHelper.figureOutType(spirit);
-        Color color = type.color;
-        ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                .setAlpha(0.5f, 0f)
-                .setLifetime(30)
-                .setSpin(0f)
-                .setScale(0.4f, 0)
+        Color color = MalumHelper.brighter(type.color, 3);
+        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+                .setAlpha(0.1f, 0f)
+                .setLifetime(15)
+                .setSpin(0.2f)
+                .setScale(0.5f, 0)
                 .setColor(color, color)
                 .enableNoClip()
                 .randomOffset(0.3f, 0.3f)

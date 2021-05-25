@@ -3,6 +3,7 @@ package com.sammy.malum.common.blocks.itempedestal;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -27,7 +28,7 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
-public class ItemPedestalBlock extends SimpleInventoryBlock
+public class ItemPedestalBlock extends SimpleInventoryBlock implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 

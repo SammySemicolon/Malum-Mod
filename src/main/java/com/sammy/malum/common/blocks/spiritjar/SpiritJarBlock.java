@@ -7,6 +7,7 @@ import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -34,7 +35,7 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.stream.Stream;
 
-public class SpiritJarBlock extends Block
+public class SpiritJarBlock extends Block implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public SpiritJarBlock(Properties properties)

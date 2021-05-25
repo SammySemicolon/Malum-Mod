@@ -80,6 +80,14 @@ public class WallEtherTorchBlock extends WallTorchBlock implements IColor
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
         FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
-        return super.getStateForPlacement(context).with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
+        BlockState state = super.getStateForPlacement(context);
+        if (state != null)
+        {
+            return state.with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
+        }
+        else
+        {
+            return null;
+        }
     }
 }
