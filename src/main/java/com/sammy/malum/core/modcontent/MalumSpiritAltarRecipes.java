@@ -142,6 +142,14 @@ public class MalumSpiritAltarRecipes
                 .addExtraItem(new SimpleItemIngredient(Items.NETHERITE_SCRAP))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
+
+        //totem base
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.RUNEWOOD_LOG.get(), 4), new ItemIngredient(MalumItems.TOTEM_BASE.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 12))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 6))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.STAINED_SPIRIT_RESONATOR.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()));
     }
 
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack)

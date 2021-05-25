@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "waterlogged=false": {
+      "model": "malum:block/lime_ether_torch"
+    },
+    "waterlogged=true": {
       "model": "malum:block/lime_ether_torch"
     }
   }

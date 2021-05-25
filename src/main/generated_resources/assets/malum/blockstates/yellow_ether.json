@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "waterlogged=false": {
+      "model": "malum:block/yellow_ether"
+    },
+    "waterlogged=true": {
       "model": "malum:block/yellow_ether"
     }
   }

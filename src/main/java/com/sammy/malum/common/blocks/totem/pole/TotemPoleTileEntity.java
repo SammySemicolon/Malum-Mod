@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.totem.pole;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.blocks.totem.TotemBaseTileEntity;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
@@ -13,6 +14,7 @@ import com.sammy.malum.network.packets.totem.TotemPoleParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.awt.*;
@@ -29,6 +31,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     public MalumSpiritType type;
     public int desiredColor;
     public int currentColor;
+    public int baseLevel;
     @Override
     public void tick()
     {
@@ -58,6 +61,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         }
         compound.putInt("desiredColor", desiredColor);
         compound.putInt("currentColor", currentColor);
+        compound.putInt("baseLevel", baseLevel);
         return super.writeData(compound);
     }
 
@@ -70,6 +74,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         }
         desiredColor = compound.getInt("desiredColor");
         currentColor = compound.getInt("currentColor");
+        baseLevel = compound.getInt("baseLevel");
         super.readData(compound);
     }
     public void create(MalumSpiritType type)
@@ -84,6 +89,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1 + 0.2f * height);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new TotemPoleParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ(), false));
         this.desiredColor = 10;
+        this.baseLevel = pos.getY() - height;
         MalumHelper.updateState(world,pos);
     }
     public void riteComplete(int height)
@@ -96,6 +102,23 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         this.desiredColor = 0;
         MalumHelper.updateState(world,pos);
     }
+
+    @Override
+    public void remove()
+    {
+        if (MalumHelper.areWeOnClient(world))
+        {
+            return;
+        }
+        BlockPos basePos = new BlockPos(pos.getX(), baseLevel, pos.getZ());
+        if (world.getTileEntity(basePos) instanceof TotemBaseTileEntity)
+        {
+            TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) world.getTileEntity(basePos);
+            totemBaseTileEntity.riteEnding();
+        }
+        super.remove();
+    }
+
     public void passiveParticles()
     {
         Color color = type.color;

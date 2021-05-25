@@ -2,11 +2,13 @@ package com.sammy.malum.common.blocks.totem;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarTileEntity;
+import com.sammy.malum.common.blocks.totem.pole.TotemPoleTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -68,4 +70,5 @@ public class TotemBaseBlock extends Block
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
+
 }

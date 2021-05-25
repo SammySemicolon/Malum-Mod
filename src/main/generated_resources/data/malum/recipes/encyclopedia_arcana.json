@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:soulstone"
+      "item": "minecraft:bone"
     },
     {
       "item": "minecraft:book"

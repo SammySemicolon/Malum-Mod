@@ -11,6 +11,7 @@ import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import com.sammy.malum.network.packets.totem.TotemParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -90,7 +91,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
                     height++;
                     progress = 20;
                     BlockPos polePos = pos.up(height);
-                    if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity)
+                    if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity && world.getBlockState(polePos).get(BlockStateProperties.HORIZONTAL_FACING).equals(getBlockState().get(BlockStateProperties.HORIZONTAL_FACING)))
                     {
                         TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
                         if (tileEntity.type != null)

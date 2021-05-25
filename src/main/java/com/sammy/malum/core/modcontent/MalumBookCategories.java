@@ -1,6 +1,7 @@
 package com.sammy.malum.core.modcontent;
 
 import com.sammy.malum.common.book.categories.BookCategory;
+import com.sammy.malum.common.book.categories.DarkArtsCategory;
 import com.sammy.malum.common.book.categories.DiscoveryCategory;
 import com.sammy.malum.common.book.categories.SpiritTinkeringCategory;
 
@@ -14,7 +15,7 @@ public class MalumBookCategories
         CATEGORIES = new ArrayList<>();
         CATEGORIES.add(new DiscoveryCategory());
         CATEGORIES.add(new SpiritTinkeringCategory());
-//        CATEGORIES.add(new DarkArtsCategory());
+        CATEGORIES.add(new DarkArtsCategory());
 //        CATEGORIES.add(new TinkeringCategory());
     }
     

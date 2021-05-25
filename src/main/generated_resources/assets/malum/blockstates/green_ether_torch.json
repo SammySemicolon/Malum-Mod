@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "waterlogged=false": {
+      "model": "malum:block/green_ether_torch"
+    },
+    "waterlogged=true": {
       "model": "malum:block/green_ether_torch"
     }
   }

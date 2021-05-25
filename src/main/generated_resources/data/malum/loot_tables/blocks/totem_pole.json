@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:totem_pole"
+          "name": "minecraft:air"
         }
       ],
       "conditions": [

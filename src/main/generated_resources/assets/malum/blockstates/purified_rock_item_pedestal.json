@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "waterlogged=false": {
+      "model": "malum:block/purified_rock_item_pedestal"
+    },
+    "waterlogged=true": {
       "model": "malum:block/purified_rock_item_pedestal"
     }
   }
