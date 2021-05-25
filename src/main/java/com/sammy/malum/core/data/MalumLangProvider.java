@@ -148,6 +148,12 @@ public class MalumLangProvider extends LanguageProvider
 
         addPage("stronghold_armor", "The Soul Stained Stronghold Armor Set is a perfect mix between magic and metallurgic strength. The set provides tons of resilience to it's bearer, much more than any other armor set available. Much like netherite, it provides knockback immunity.");
 
+        addPage("totem_magic", "The arcane properties of runewood is directly tied to spirits, making runewood a perfect candidate for totem magic; totem rites. Totem magic allows you to perform rituals known as spirit rites.");
+        addPage("totem_magic_2", "To perform a spirit rite you will need a totem. A totem is made up of runewood logs supported by a totem base. Each spirit rite is represented by a set of spirits which must be engraved on runewood logs placed above your totem base.");
+        addPage("totem_magic_3", "Once your totem is ready, you may interact with the totem base in order to perform your desired spirit rite. Interacting with it again will cancel the rite. Spirit rites are either instant, or take effect over an indefinite amount of time. They're almost always confined to a limited area.");
+
+        addPage("rite_of_growth", "The holy spirit provides great rejuvinating, life bringing abilities for you to utilize. The rite of growth takes advantage of the holy spirit to accelerate the growth of nearby plants and crops.");
+
         addPage("holy_spirit", "The holy spirit is a symbol of the living. It contains many strange curative properties that will greatly aid your rise to power.");
         addPage("wicked_spirit", "The wicked spirit is a symbol of the reanimated. It's deathly properties sure are useful.");
         addPage("arcane_spirit", "The arcane spirit represents the supernatural. It's a very flexible magic, provides many uses.");
