@@ -96,7 +96,7 @@ public class PacketEffects
         Color color1 = new Color(158, 7, 219);
         Color color2 = new Color(56, 20, 95);
         ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                .setAlpha(0.1f, 0f)
+                .setAlpha(0.2f, 0f)
                 .setLifetime(10)
                 .setSpin(0.4f)
                 .setScale(0.4f, 0)
@@ -107,8 +107,8 @@ public class PacketEffects
                 .repeat(world, posX, posY, posZ, 12);
 
         ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
-                .setAlpha(0.04f, 0f)
-                .setLifetime(40)
+                .setAlpha(0.08f, 0f)
+                .setLifetime(20)
                 .setSpin(0.1f)
                 .setScale(0.6f, 0)
                 .setColor(color1, color2)
