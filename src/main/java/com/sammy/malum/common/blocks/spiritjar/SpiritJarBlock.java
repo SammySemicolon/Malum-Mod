@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.spiritjar;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
@@ -8,6 +9,7 @@ import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -29,6 +31,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
@@ -43,7 +46,30 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
         super(properties);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
     }
-    
+    @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+    {
+        if (worldIn instanceof ServerWorld)
+        {
+            spawnAdditionalDrops(state, (ServerWorld) worldIn, pos, player.getActiveItemStack());
+        }
+        super.onBlockHarvested(worldIn, pos, state, player);
+    }
+    @Override
+    public void spawnAdditionalDrops(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack)
+    {
+        if (worldIn.getTileEntity(pos) instanceof SpiritJarTileEntity)
+        {
+            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) worldIn.getTileEntity(pos);
+            while (tileEntity.count > 0)
+            {
+                int stackCount = Math.min(tileEntity.count, 64);
+                worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,new ItemStack(tileEntity.type.splinterItem, stackCount)));
+                tileEntity.count -= stackCount;
+            }
+        }
+        super.spawnAdditionalDrops(state, worldIn, pos, stack);
+    }
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
