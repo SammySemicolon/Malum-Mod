@@ -41,7 +41,7 @@
   "altar_speed_up": { "sounds":["malum:infusion_speed_up"], "subtitle": "malum.subtitle.altar_speed_up" },
   "altar_consume": { "sounds":["malum:infusion_consume"], "subtitle": "malum.subtitle.altar_consume" },
 
-  "tyrving_crush": { "sounds":["malum:tyrving_crush1"], "subtitle": "malum.subtitle.tyrving_crush" },
+  "tyrving_crush": { "sounds":["malum:tyrving_crush"], "subtitle": "malum.subtitle.tyrving_crush" },
   "holy_equip": { "sounds":["malum:equip_holy"], "subtitle": "malum.subtitle.holy_equip" },
   "sinister_equip": { "sounds":["malum:equip_sinister"], "subtitle": "malum.subtitle.sinister_equip" }
 

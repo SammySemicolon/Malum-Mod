@@ -95,6 +95,15 @@ public class MalumLangProvider extends LanguageProvider
                 }
             }
         });
+        addPage("holy_spirit", "The holy spirit is a symbol of the living. It contains many strange curative properties that will greatly aid your rise to power.");
+        addPage("wicked_spirit", "The wicked spirit is a symbol of the reanimated. It's deathly properties sure are useful.");
+        addPage("arcane_spirit", "The arcane spirit represents the supernatural. It's a very flexible magic, provides many uses.");
+        addPage("eldritch_spirit", "From darkness a great power is born, the eldritch spirit represents that dark power. It's found only within the strangest of souls.");
+        addPage("infernal_spirit", "Have you ever wondered how a blaze flies? The infernal spirit is what powers it and many more hellish creatures.");
+        addPage("earthen_spirit", "The earthen spirit is like a magical molding clay found within those who are strong. It represents strength, strength of earth.");
+        addPage("aquatic_spirit", "Magic of the elder guardians and their weaker siblings is a strong one. The water spirit can be found within all aquatic creatures.");
+        addPage("aerial_spirit", "The nimble phantom and the agile arthropods share one thing in common. The aerial spirit is found within the quick.");
+
         addPage("basics_of_magic", "Within our realm exists an arcane phenomenon; spirits. Spirits are a magical resource found primarily within a soul; the magical representation of a living being. This book will teach you everything you need to know about souls and spirits.");
         addPage("basics_of_magic_2", "When you kill a living being, you destroy it's body. Harvesting spirits requires you to go a step further, not only slay their body but also shatter their soul. Harvesting spirits is the first step in your journey to becoming a warlock.");
 
@@ -143,7 +152,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("arcane_spoil_ring", "Harvesting Spirits may often yield insufficient result, even after a long night of hunting you might not have enough spirit spoils for your needs. The Arcane Spoils ring will increase how many spirits you get from spirit harvesting.");
         addPage("arcane_reach_ring", "Collecting harvested spirits can sometimes be a tiresome task. This simple yet practical trinket will greatly extend your spirit reach, allowing them to lock onto you from much further out.");
 
-        addPage("radiant_soulstone", "A radiant soulstone is the penumbral form of a soulstone. Unlike a regular soulstone, it lacks impurities, possible cuts, or any other form of damage a soulstone may have. It's a perfect arcane craft.");
+        addPage("radiant_soulstone", "A radiant soulstone is the faultless form of a soulstone. Unlike a regular soulstone, it lacks impurities, possible cuts, or any other form of damage a soulstone may have. It's a perfect arcane craft.");
         addPage("tyrving", "The Tyrving is a type of twisted spell-blade designed to crush armor. It is very proficient at dealing with tough opponents, increasing in magic damage for each point of armor your enemy has.");
 
         addPage("stronghold_armor", "The Soul Stained Stronghold Armor Set is a perfect mix between magic and metallurgic strength. The set provides tons of resilience to it's bearer, much more than any other armor set available. Much like netherite, it provides knockback immunity.");
@@ -152,19 +161,11 @@ public class MalumLangProvider extends LanguageProvider
         addPage("totem_magic_2", "To perform a spirit rite you will need a totem. A totem is made up of runewood logs supported by a totem base. Each spirit rite is represented by a set of spirits which must be engraved on runewood logs placed above your totem base.");
         addPage("totem_magic_3", "Once your totem is ready, you may interact with the totem base in order to perform your desired spirit rite. Interacting with it again will cancel the rite. Spirit rites are either instant, or take effect over an indefinite amount of time. They're almost always confined to a limited area.");
 
-        addPage("rite_of_growth", "The holy spirit provides great rejuvinating, life bringing abilities for you to utilize. The rite of growth takes advantage of the holy spirit to accelerate the growth of nearby plants and crops.");
-
-        addPage("holy_spirit", "The holy spirit is a symbol of the living. It contains many strange curative properties that will greatly aid your rise to power.");
-        addPage("wicked_spirit", "The wicked spirit is a symbol of the reanimated. It's deathly properties sure are useful.");
-        addPage("arcane_spirit", "The arcane spirit represents the supernatural. It's a very flexible magic, provides many uses.");
-        addPage("eldritch_spirit", "From darkness a great power is born, the eldritch spirit represents that dark power. It's found only within the strangest of souls.");
-        addPage("infernal_spirit", "Have you ever wondered how a blaze flies? The infernal spirit is what powers it and many more hellish creatures.");
-        addPage("earthen_spirit", "The earthen spirit is like a magical molding clay found within those who are strong. It represents strength, strength of earth.");
-        addPage("aquatic_spirit", "Magic of the elder guardians and their weaker siblings is a strong one. The water spirit can be found within all aquatic creatures.");
-        addPage("aerial_spirit", "The nimble phantom and the agile arthropods share one thing in common. The aerial spirit is found within the quick.");
-
+        addPage("rite_of_growth", "The holy spirit provides great rejuvenating, life bringing abilities for you to utilize. The rite of growth takes advantage of the holy spirit to accelerate the growth of nearby plants and crops.");
+        addPage("rite_of_death", "Through the use of the wicked spirit, the rite of death will quickly drain the life force of nearby living things. It attacks the body directly through magic.");
 
         add("malum.jei.spirit_altar", "Spirit Altar");
+
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_shaped_stones", "Malum Shaped Stones");
         add("itemGroup.malum_spirits", "Malum Spirits");

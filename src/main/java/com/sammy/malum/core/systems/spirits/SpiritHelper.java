@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -26,6 +27,10 @@ import java.util.stream.Collectors;
 
 public class SpiritHelper
 {
+    public static DamageSource voodooDamageSource()
+    {
+        return new DamageSource("voodoo").setMagicDamage();
+    }
     public static DamageSource voodooDamageSource(Entity entity)
     {
         return new EntityDamageSource("voodoo", entity).setMagicDamage();

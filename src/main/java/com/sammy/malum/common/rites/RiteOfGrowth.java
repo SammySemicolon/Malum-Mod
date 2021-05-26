@@ -2,10 +2,8 @@ package com.sammy.malum.common.rites;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.network.packets.rites.CropGrowthPacket;
-import com.sammy.malum.network.packets.totem.TotemPoleParticlePacket;
+import com.sammy.malum.network.packets.rites.UpwardsBlockParticlesPacket;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.GrassBlock;
 import net.minecraft.block.IGrowable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -51,7 +49,7 @@ public class RiteOfGrowth extends MalumRiteType
         IGrowable iGrowable = (IGrowable) state.getBlock();
         iGrowable.grow(world, world.rand, nearbyPos, state);
         BlockPos packetPos = state.isSolid() ? nearbyPos : nearbyPos.down();
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(nearbyPos)), new CropGrowthPacket("holy", packetPos.getX(),packetPos.getY(), packetPos.getZ()));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), UpwardsBlockParticlesPacket.fromSpirits(packetPos.getX(),packetPos.getY(), packetPos.getZ(), spirits));
         super.executeRite(world, pos);
     }
 

@@ -8,10 +8,12 @@ import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class PacketEffects
 {
@@ -90,34 +92,6 @@ public class PacketEffects
                     .repeat(world, posX, posY, posZ, 8);
         }
     }
-    public static void tyrving(double posX, double posY, double posZ)
-    {
-        World world = Minecraft.getInstance().world;
-        Color color1 = new Color(158, 7, 219);
-        Color color2 = new Color(56, 20, 95);
-        ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                .setAlpha(0.2f, 0f)
-                .setLifetime(10)
-                .setSpin(0.4f)
-                .setScale(0.4f, 0)
-                .setColor(color1, color1)
-                .enableNoClip()
-                .randomOffset(0.2f, 0.2f)
-                .randomVelocity(0.01f, 0.01f)
-                .repeat(world, posX, posY, posZ, 12);
-
-        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
-                .setAlpha(0.08f, 0f)
-                .setLifetime(20)
-                .setSpin(0.1f)
-                .setScale(0.6f, 0)
-                .setColor(color1, color2)
-                .randomOffset(0.4f)
-                .enableNoClip()
-                .randomVelocity(0.025f, 0.025f)
-                .repeat(world, posX, posY, posZ, 20);
-
-    }
     public static void spiritEngrave(String spirit, BlockPos pos)
     {
         World world = Minecraft.getInstance().world;
@@ -175,6 +149,7 @@ public class PacketEffects
             totemBlockParticles(spirits.get(i), pos.up(1+i), success);
         }
     }
+
     public static void upwardsBlockParticles(String spirit, BlockPos pos)
     {
         World world = Minecraft.getInstance().world;
@@ -204,5 +179,48 @@ public class PacketEffects
                 .randomVelocity(0.001f, 0.001f)
                 .addVelocity(0, 0.02f, 0)
                 .evenlyRepeatEdges(world, pos, 60);
+    }
+    public static void upwardsBlockParticles(ArrayList<String> spirits, BlockPos pos)
+    {
+        for (String spirit : spirits)
+        {
+            upwardsBlockParticles(spirit, pos);
+        }
+    }
+
+    public static void burstParticles(String spirit, Vector3d pos)
+    {
+        World world = Minecraft.getInstance().world;
+        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        Color color = type.color;
+
+        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                .setAlpha(0.1f, 0f)
+                .setLifetime(10)
+                .setSpin(0.4f)
+                .setScale(0.4f, 0)
+                .setColor(color, color.darker())
+                .enableNoClip()
+                .randomOffset(0.2f, 0.2f)
+                .randomVelocity(0.01f, 0.01f)
+                .repeat(world, pos.x,pos.y,pos.z, 12);
+
+        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+                .setAlpha(0.05f, 0f)
+                .setLifetime(20)
+                .setSpin(0.1f)
+                .setScale(0.6f, 0)
+                .setColor(color, color.darker())
+                .randomOffset(0.4f)
+                .enableNoClip()
+                .randomVelocity(0.025f, 0.025f)
+                .repeat(world, pos.x,pos.y,pos.z, 20);
+    }
+    public static void burstParticles(ArrayList<String> spirits, Vector3d pos)
+    {
+        for (String spirit : spirits)
+        {
+            burstParticles(spirit, pos);
+        }
     }
 }

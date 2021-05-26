@@ -66,6 +66,7 @@ public class MalumLootTableProvider extends LootTableProvider
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(MalumBlocks.BLAZING_QUARTZ_ORE);
+        blocks.remove(MalumBlocks.TOTEM_POLE);
 
         takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);

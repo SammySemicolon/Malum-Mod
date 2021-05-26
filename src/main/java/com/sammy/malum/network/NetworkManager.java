@@ -4,7 +4,8 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.network.packets.*;
 import com.sammy.malum.network.packets.altar.SpiritAltarConsumeParticlePacket;
 import com.sammy.malum.network.packets.altar.SpiritAltarCraftParticlePacket;
-import com.sammy.malum.network.packets.rites.CropGrowthPacket;
+import com.sammy.malum.network.packets.rites.BlastParticlePacket;
+import com.sammy.malum.network.packets.rites.UpwardsBlockParticlesPacket;
 import com.sammy.malum.network.packets.totem.SpiritEngravePacket;
 import com.sammy.malum.network.packets.totem.TotemParticlePacket;
 import com.sammy.malum.network.packets.totem.TotemPoleParticlePacket;
@@ -27,13 +28,13 @@ public class NetworkManager
     public static void registerNetworkStuff(FMLCommonSetupEvent event)
     {
         int index = 0;
-        INSTANCE.registerMessage(index++, TyrvingParticlePacket.class, TyrvingParticlePacket::encode, TyrvingParticlePacket::decode, TyrvingParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, SpiritAltarCraftParticlePacket.class, SpiritAltarCraftParticlePacket::encode, SpiritAltarCraftParticlePacket::decode, SpiritAltarCraftParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, SpiritAltarConsumeParticlePacket.class, SpiritAltarConsumeParticlePacket::encode, SpiritAltarConsumeParticlePacket::decode, SpiritAltarConsumeParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, TotemParticlePacket.class, TotemParticlePacket::encode, TotemParticlePacket::decode, TotemParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, TotemPoleParticlePacket.class, TotemPoleParticlePacket::encode, TotemPoleParticlePacket::decode, TotemPoleParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, SpiritEngravePacket.class, SpiritEngravePacket::encode, SpiritEngravePacket::decode, SpiritEngravePacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, CropGrowthPacket.class, CropGrowthPacket::encode, CropGrowthPacket::decode, CropGrowthPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, UpwardsBlockParticlesPacket.class, UpwardsBlockParticlesPacket::encode, UpwardsBlockParticlesPacket::decode, UpwardsBlockParticlesPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, BlastParticlePacket.class, BlastParticlePacket::encode, BlastParticlePacket::decode, BlastParticlePacket::whenThisPacketIsReceived);
 
     }
 }
