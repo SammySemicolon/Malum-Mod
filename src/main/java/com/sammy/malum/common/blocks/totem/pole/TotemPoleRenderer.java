@@ -58,7 +58,7 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
 
     public Color color(TotemPoleTileEntity totemPoleTileEntity)
     {
-        Color color1 = new Color(27, 17, 16);
+        Color color1 = new Color(12, 8, 7);
         Color color2 = totemPoleTileEntity.type.color;
         int red = (int) MathHelper.lerp(totemPoleTileEntity.currentColor / 20f, color1.getRed(), color2.getRed());
         int green = (int) MathHelper.lerp(totemPoleTileEntity.currentColor / 20f, color1.getGreen(), color2.getGreen());
