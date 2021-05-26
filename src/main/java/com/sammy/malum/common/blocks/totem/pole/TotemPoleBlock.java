@@ -57,8 +57,7 @@ public class TotemPoleBlock extends Block
         }
         if (worldIn.getTileEntity(pos) instanceof TotemPoleTileEntity)
         {
-            ItemStack stack = player.getHeldItem(handIn);
-            if (stack.getItem() instanceof SpiritItem || player.isSneaking())
+            if (player.isSneaking())
             {
                 TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) worldIn.getTileEntity(pos);
                 if (totemPoleTileEntity.type != null)
