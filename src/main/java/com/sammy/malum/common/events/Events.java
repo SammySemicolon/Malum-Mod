@@ -24,6 +24,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.UUID;
 
+import static com.sammy.malum.common.items.equipment.curios.CurioTokenOfGratitude.sammyUUID;
 import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
@@ -50,18 +51,18 @@ public class Events
         event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumStaticFeatures.SOULSTONE_ORE_SURFACE);
     }
     @SubscribeEvent
-    public static void giveCattoHisTreat(EntityJoinWorldEvent event)
+    public static void showGratitude(EntityJoinWorldEvent event)
     {
         if (event.getEntity() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntity();
             if (MalumHelper.areWeOnServer(playerEntity.world))
             {
-                if (playerEntity.getUniqueID().equals(UUID.fromString("0ca54301-6170-4c44-b3e0-b8afa6b81ed2")))
+                if (playerEntity.getUniqueID().equals(UUID.fromString(sammyUUID)))
                 {
-                    if (!MalumHelper.findCosmeticCurio(s -> s.getItem().equals(MalumItems.FLUFFY_TAIL.get()), playerEntity).isPresent())
+                    if (!MalumHelper.findCosmeticCurio(s -> s.getItem().equals(MalumItems.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent())
                     {
-                        ItemHandlerHelper.giveItemToPlayer(playerEntity, MalumItems.FLUFFY_TAIL.get().getDefaultInstance());
+                        ItemHandlerHelper.giveItemToPlayer(playerEntity, MalumItems.TOKEN_OF_GRATITUDE.get().getDefaultInstance());
                     }
                 }
             }

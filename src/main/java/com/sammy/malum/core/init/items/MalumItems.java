@@ -505,6 +505,6 @@ public class MalumItems
     //region hidden items
     public static final RegistryObject<Item> COMICALLY_LARGE_TOPHAT = ITEMS.register("comically_large_tophat", () -> new CurioComicallyLargeTophat(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(ItemTier.IRON, 9993, 9.19f, CREATIVE_PROPERTIES().defaultMaxDamage(0)));
-    public static final RegistryObject<Item> FLUFFY_TAIL = ITEMS.register("fluffy_tail", () -> new CurioFluffyTail(CREATIVE_PROPERTIES()));
+    public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(CREATIVE_PROPERTIES()));
     //endregion
 }
