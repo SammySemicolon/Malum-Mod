@@ -2,8 +2,10 @@ package com.sammy.malum.common.book.categories;
 
 import com.sammy.malum.common.book.entries.BookEntry;
 import com.sammy.malum.common.book.pages.*;
+import com.sammy.malum.common.rites.RiteOfCelerity;
 import com.sammy.malum.common.rites.RiteOfDeath;
 import com.sammy.malum.common.rites.RiteOfGrowth;
+import com.sammy.malum.common.rites.RiteOfWarding;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
@@ -34,13 +36,23 @@ public class DarkArtsCategory extends BookCategory
         rite_of_growth = new BookEntry(HOLY_SPIRIT.get(), "rite_of_growth")
                 .addPage(new HeadlineTextPage("rite_of_growth"))
                 .addPage(new RitePage(new RiteOfGrowth()))
-                .addLink(spiritInfusion).addLink(holySpirit).addLink(arcaneSpirit);
+                .addLink(totem_magic).addLink(holySpirit).addLink(arcaneSpirit);
 
         rite_of_death = new BookEntry(WICKED_SPIRIT.get(), "rite_of_death")
                 .addPage(new HeadlineTextPage("rite_of_death"))
                 .addPage(new RitePage(new RiteOfDeath()))
-                .addLink(spiritInfusion).addLink(wickedSpirit).addLink(arcaneSpirit);
+                .addLink(totem_magic).addLink(wickedSpirit).addLink(arcaneSpirit);
 
-        addEntries(totem_magic, rite_of_growth, rite_of_death);
+        rite_of_warding = new BookEntry(EARTHEN_SPIRIT.get(), "rite_of_warding")
+                .addPage(new HeadlineTextPage("rite_of_warding"))
+                .addPage(new RitePage(new RiteOfWarding()))
+                .addLink(totem_magic).addLink(earthenSpirit).addLink(arcaneSpirit);
+
+        rite_of_celerity = new BookEntry(AERIAL_SPIRIT.get(), "rite_of_celerity")
+                .addPage(new HeadlineTextPage("rite_of_celerity"))
+                .addPage(new RitePage(new RiteOfCelerity()))
+                .addLink(totem_magic).addLink(aerialSpirit).addLink(arcaneSpirit);
+
+        addEntries(totem_magic, rite_of_growth, rite_of_death, rite_of_warding, rite_of_celerity);
     }
 }

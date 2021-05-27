@@ -38,7 +38,7 @@ public class SpiritAltarRecipeCategory implements IRecipeCategory<MalumSpiritAlt
     public SpiritAltarRecipeCategory(IGuiHelper guiHelper)
     {
         background = guiHelper.createBlankDrawable(132, 163);
-        localizedName = I18n.format("malum.jei.spirit_altar");
+        localizedName = I18n.format("malum.jei.spirit_infusion");
         overlay = guiHelper.createDrawable(BACKGROUND, 0, 0, 130, 161);
         icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.SPIRIT_ALTAR.get()));
     }

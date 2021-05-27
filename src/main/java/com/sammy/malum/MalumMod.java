@@ -36,6 +36,7 @@ public class MalumMod
     public MalumMod()
     {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ITEMS.register(modBus);
         ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
         ITEMS.register(modBus);

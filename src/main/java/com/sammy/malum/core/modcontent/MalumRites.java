@@ -1,8 +1,9 @@
 package com.sammy.malum.core.modcontent;
 
+import com.sammy.malum.common.rites.RiteOfCelerity;
 import com.sammy.malum.common.rites.RiteOfDeath;
 import com.sammy.malum.common.rites.RiteOfGrowth;
-import com.sammy.malum.common.rites.RiteOfProtection;
+import com.sammy.malum.common.rites.RiteOfWarding;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 
@@ -16,7 +17,8 @@ public class MalumRites
     {
         RITES.add(new RiteOfGrowth());
         RITES.add(new RiteOfDeath());
-        RITES.add(new RiteOfProtection());
+        RITES.add(new RiteOfWarding());
+        RITES.add(new RiteOfCelerity());
     }
 
     public static MalumRiteType getRite(String identifier)

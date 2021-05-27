@@ -3,21 +3,23 @@ package com.sammy.malum.common.blocks.totem.pole;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.network.packets.totem.TotemPoleParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.PacketDistributor;
 
+import static com.sammy.malum.network.NetworkManager.INSTANCE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemPoleBlock extends Block
@@ -57,13 +59,15 @@ public class TotemPoleBlock extends Block
         }
         if (worldIn.getTileEntity(pos) instanceof TotemPoleTileEntity)
         {
-            if (player.isSneaking())
+            if (player.getHeldItem(handIn).getItem() instanceof AxeItem)
             {
                 TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) worldIn.getTileEntity(pos);
                 if (totemPoleTileEntity.type != null)
                 {
                     worldIn.setBlockState(pos, MalumBlocks.RUNEWOOD_LOG.get().getDefaultState());
-                    totemPoleTileEntity.riteEnding();
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->worldIn.getChunkAt(pos)), new TotemPoleParticlePacket(totemPoleTileEntity.type.identifier, pos.getX(),pos.getY(),pos.getZ(), false));
+                    worldIn.playSound(null, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS,1,1);
+                    return ActionResultType.SUCCESS;
                 }
             }
         }

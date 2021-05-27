@@ -158,13 +158,16 @@ public class MalumLangProvider extends LanguageProvider
         addPage("stronghold_armor", "The Soul Stained Stronghold Armor Set is a perfect mix between magic and metallurgic strength. The set provides tons of resilience to it's bearer, much more than any other armor set available. Much like netherite, it provides knockback immunity.");
 
         addPage("totem_magic", "The arcane properties of runewood is directly tied to spirits, making runewood a perfect candidate for totem magic; totem rites. Totem magic allows you to perform rituals known as spirit rites.");
-        addPage("totem_magic_2", "To perform a spirit rite you will need a totem. A totem is made up of runewood logs supported by a totem base. Each spirit rite is represented by a set of spirits which must be engraved on runewood logs placed above your totem base.");
+        addPage("totem_magic_2", "To perform a spirit rite you will need a totem. A totem is made up of runewood logs supported by a totem base. Each spirit rite is represented by a set of spirits which must be engraved on runewood logs placed above your totem base. You can remove engraved spirits using an axe.");
         addPage("totem_magic_3", "Once your totem is ready, you may interact with the totem base in order to perform your desired spirit rite. Interacting with it again will cancel the rite. Spirit rites are either instant, or take effect over an indefinite amount of time. They're almost always confined to a limited area.");
 
         addPage("rite_of_growth", "The holy spirit provides great rejuvenating, life bringing abilities for you to utilize. The rite of growth takes advantage of the holy spirit to accelerate the growth of nearby plants and crops.");
         addPage("rite_of_death", "Through the use of the wicked spirit, the rite of death will quickly drain the life force of nearby living things. It attacks the body directly through magic.");
+        addPage("rite_of_warding", "Earthen spirit combined with the arcane creates a really powerful spirit rite. The Rite of Warding will provide a strong shielding aura to those nearby.");
+        addPage("rite_of_celerity", "The Rite of Celerity provides you with a strong agility boost. It also increases your reach distance by a short amount.");
 
-        add("malum.jei.spirit_altar", "Spirit Altar");
+        add("malum.jei.spirit_infusion", "Spirit Infusion");
+        add("malum.jei.spirit_rites", "Spirit Rites");
 
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_shaped_stones", "Malum Shaped Stones");
