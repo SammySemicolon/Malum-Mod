@@ -31,41 +31,6 @@ public class MalumSpiritType
         this.splinterItem = splinterItem;
         splinterItem.type = this;
     }
-    public MalumSpiritType addTest(int value, Predicate<LivingEntity> predicate)
-    {
-        tests.add(new SpiritCountTest(value, predicate));
-        return this;
-    }
-    public MalumSpiritType addTest(int value, CreatureAttribute attribute)
-    {
-        tests.add(new SpiritCountTest(value, e -> e.getCreatureAttribute().equals(attribute)));
-        return this;
-    }
-    public MalumSpiritType addTest(int value, String name)
-    {
-        tests.add(new SpiritCountTest(value, e -> e.getType().getRegistryName().getPath().equals(name)).setImportant());
-        return this;
-    }
-    public <U>  MalumSpiritType addTest(int value, Class<U> clazz)
-    {
-        tests.add(new SpiritCountTest(value, clazz::isInstance));
-        return this;
-    }
-    public <U>  MalumSpiritType addTest(int value, Class<? extends U>... clazzes)
-    {
-        tests.add(new SpiritCountTest(value, e ->
-        {
-            for (Class<?> clazz : clazzes)
-            {
-                if (!clazz.isInstance(e))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }));
-        return this;
-    }
     public int spiritCount(LivingEntity entity)
     {
         int count = 0;
@@ -100,5 +65,40 @@ public class MalumSpiritType
             important = true;
             return this;
         }
+    }
+    public MalumSpiritType addTest(int value, Predicate<LivingEntity> predicate)
+    {
+        tests.add(new SpiritCountTest(value, predicate));
+        return this;
+    }
+    public MalumSpiritType addTest(int value, CreatureAttribute attribute)
+    {
+        tests.add(new SpiritCountTest(value, e -> e.getCreatureAttribute().equals(attribute)));
+        return this;
+    }
+    public MalumSpiritType addTest(int value, String name)
+    {
+        tests.add(new SpiritCountTest(value, e -> e.getType().getRegistryName().getPath().equals(name)).setImportant());
+        return this;
+    }
+    public <U>  MalumSpiritType addTest(int value, Class<U> clazz)
+    {
+        tests.add(new SpiritCountTest(value, clazz::isInstance));
+        return this;
+    }
+    public <U>  MalumSpiritType addTest(int value, Class<? extends U>... clazzes)
+    {
+        tests.add(new SpiritCountTest(value, e ->
+        {
+            for (Class<?> clazz : clazzes)
+            {
+                if (!clazz.isInstance(e))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }));
+        return this;
     }
 }

@@ -21,6 +21,7 @@ import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
@@ -168,6 +169,7 @@ public class ClientStartupEvents
         {
             return;
         }
+        MalumSpiritTypes.init();
         SPIRITS.forEach(s ->
         {
             event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay"));

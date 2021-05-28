@@ -30,7 +30,7 @@ import static net.minecraft.entity.CreatureAttribute.WATER;
 
 public class MalumSpiritTypes
 {
-    public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
+    public static ArrayList<MalumSpiritType> SPIRITS;
 
     public static final Color HOLY_SPIRIT_COLOR = new Color(234, 73, 95);
     public static MalumSpiritType HOLY_SPIRIT;
@@ -59,6 +59,7 @@ public class MalumSpiritTypes
     @SuppressWarnings("unchecked")
     public static void init()
     {
+        SPIRITS = new ArrayList<>();
         HOLY_SPIRIT = create("holy", HOLY_SPIRIT_COLOR, MalumItems.HOLY_SPIRIT)
                 .addTest(0, "rat")
                 .addTest(1, AnimalEntity.class)
