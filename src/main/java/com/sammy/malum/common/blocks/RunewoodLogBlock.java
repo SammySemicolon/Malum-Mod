@@ -51,7 +51,10 @@ public class RunewoodLogBlock extends RotatedPillarBlock
                 tileEntity.create(item.type);
             }
             MalumHelper.updateState(worldIn,pos);
-            stack.shrink(1);
+            if (!player.isCreative())
+            {
+                stack.shrink(1);
+            }
             player.swing(handIn, true);
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

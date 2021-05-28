@@ -3,6 +3,7 @@ package com.sammy.malum.common.blocks.totem.pole;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.client.Minecraft;
@@ -21,6 +22,9 @@ import net.minecraft.world.LightType;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.function.Function;
+
+import static com.sammy.malum.core.modcontent.MalumSpiritTypes.SPIRITS;
 
 
 public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
