@@ -42,7 +42,7 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addPage(CraftingPage.nuggetCraftingPage(HALLOWED_GOLD_NUGGET.get(), HALLOWED_GOLD_INGOT.get()))
                 .addPage(new HeadlineTextPage("spirit_jar"))
                 .addPage(new CraftingPage(SPIRIT_JAR.get(), Items.GLASS_PANE, HALLOWED_GOLD_INGOT.get(), Items.GLASS_PANE, Items.GLASS_PANE, EMPTY, Items.GLASS_PANE, Items.GLASS_PANE, Items.GLASS_PANE, Items.GLASS_PANE))
-                .addLink(spiritInfusion).addLink(holySpirit).addLink(arcaneSpirit);
+                .addLink(spiritInfusion).addLink(sacredSpirit).addLink(arcaneSpirit);
 
         curios = new BookEntry(GILDED_RING.get(), "curios")
                 .addPage(new HeadlineTextPage("curios"))
@@ -63,17 +63,17 @@ public class SpiritTinkeringCategory extends BookCategory
         arcane_spoil_ring = new BookEntry(RING_OF_ARCANE_SPOIL.get(), "arcane_spoil_ring")
                 .addPage(new HeadlineTextPage("arcane_spoil_ring"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_SPOIL.get()))
-                .addLink(spiritInfusion).addLink(soulstone).addLink(holySpirit).addLink(wickedSpirit).addLink(curios);
+                .addLink(spiritInfusion).addLink(soulstone).addLink(sacredSpirit).addLink(wickedSpirit).addLink(curios);
 
         arcane_reach_ring = new BookEntry(RING_OF_ARCANE_REACH.get(), "arcane_reach_ring")
                 .addPage(new HeadlineTextPage("arcane_reach_ring"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
-                .addLink(spiritInfusion).addLink(soulstone).addLink(holySpirit).addLink(wickedSpirit).addLink(curios);
+                .addLink(spiritInfusion).addLink(soulstone).addLink(sacredSpirit).addLink(wickedSpirit).addLink(curios);
 
         radiant_soulstone = new BookEntry(RADIANT_SOULSTONE.get(), "radiant_soulstone")
                 .addPage(new HeadlineTextPage("radiant_soulstone"))
                 .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()))
-                .addLink(spiritInfusion).addLink(soulstone).addLink(holySpirit).addLink(wickedSpirit).addLink(arcaneSpirit);
+                .addLink(spiritInfusion).addLink(soulstone).addLink(sacredSpirit).addLink(wickedSpirit).addLink(arcaneSpirit);
 
         tyrving = new BookEntry(TYRVING.get(), "tyrving")
                 .addPage(new HeadlineTextPage("tyrving"))

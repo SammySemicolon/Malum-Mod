@@ -10,7 +10,7 @@ import static com.sammy.malum.core.init.items.MalumItems.*;
 
 public class DiscoveryCategory extends BookCategory
 {
-    public static BookEntry holySpirit;
+    public static BookEntry sacredSpirit;
     public static BookEntry wickedSpirit;
     public static BookEntry arcaneSpirit;
     public static BookEntry eldritchSpirit;
@@ -36,8 +36,8 @@ public class DiscoveryCategory extends BookCategory
         super(TAINTED_ROCK.get().getDefaultInstance(), "discovery");
         Item EMPTY = Items.BARRIER;
 
-        holySpirit = new BookEntry(SACRED_SPIRIT.get(), "holy_spirit")
-                .addPage(new HeadlineTextPage("holy_spirit"));
+        sacredSpirit = new BookEntry(SACRED_SPIRIT.get(), "sacred_spirit")
+                .addPage(new HeadlineTextPage("sacred_spirit"));
         wickedSpirit = new BookEntry(WICKED_SPIRIT.get(), "wicked_spirit")
                 .addPage(new HeadlineTextPage("wicked_spirit"));
         arcaneSpirit = new BookEntry(ARCANE_SPIRIT.get(), "arcane_spirit")
@@ -112,7 +112,7 @@ public class DiscoveryCategory extends BookCategory
                         .addList(CUT_TAINTED_ROCK.get(), CHISELED_TAINTED_ROCK.get()))
                 .addPage(CraftingPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
                 .addPage(CraftingPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
-                .addLink(spiritInfusion).addLink(holySpirit).addLink(arcaneSpirit);
+                .addLink(spiritInfusion).addLink(sacredSpirit).addLink(arcaneSpirit);
 
         twistedRock = new BookEntry(TWISTED_ROCK.get(), "twisted_rock")
                 .addPage(new HeadlineTextPage("twisted_rock"))
@@ -162,6 +162,6 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(CraftingPage.itemPedestalPage(ERODED_ROCK_ITEM_PEDESTAL.get(), ERODED_ROCK.get(), ERODED_ROCK_SLAB.get()))
                 .addLink(spiritInfusion).addLink(arcaneSpirit).addLink(earthenSpirit);
 
-        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, soulstone, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, spiritArchitecture, holySpirit, wickedSpirit, arcaneSpirit, eldritchSpirit, earthenSpirit, infernalSpirit, aerialSpirit, aquaticSpirit);
+        addEntries(basicsOfMagic, runewoodTrees, solarSap, blazingQuartz, soulstone, spiritHarvesting, spiritInfusion, taintedRock, twistedRock, ether, spiritArchitecture, sacredSpirit, wickedSpirit, arcaneSpirit, eldritchSpirit, earthenSpirit, infernalSpirit, aerialSpirit, aquaticSpirit);
     }
 }

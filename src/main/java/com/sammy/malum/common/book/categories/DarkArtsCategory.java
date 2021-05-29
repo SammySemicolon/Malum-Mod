@@ -36,7 +36,7 @@ public class DarkArtsCategory extends BookCategory
         rite_of_growth = new BookEntry(SACRED_SPIRIT.get(), "rite_of_growth")
                 .addPage(new HeadlineTextPage("rite_of_growth"))
                 .addPage(new RitePage(new RiteOfGrowth()))
-                .addLink(totem_magic).addLink(holySpirit).addLink(arcaneSpirit);
+                .addLink(totem_magic).addLink(sacredSpirit).addLink(arcaneSpirit);
 
         rite_of_death = new BookEntry(WICKED_SPIRIT.get(), "rite_of_death")
                 .addPage(new HeadlineTextPage("rite_of_death"))
