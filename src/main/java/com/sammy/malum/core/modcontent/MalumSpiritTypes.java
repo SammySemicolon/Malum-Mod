@@ -92,7 +92,7 @@ public class MalumSpiritTypes
     public static  MalumSpiritType EARTHEN_SPIRIT = create("earthen", EARTHEN_SPIRIT_COLOR, MalumItems.EARTHEN_SPIRIT)
             .addTest(1, ZombieEntity.class, CreeperEntity.class, IForgeShearable.class, CowEntity.class)
             .addTest(2, HorseEntity.class, ZombieHorseEntity.class)
-            .addTest(3, "zombie_brute");;
+            .addTest(3, "zombie_brute");
 
 
     public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)

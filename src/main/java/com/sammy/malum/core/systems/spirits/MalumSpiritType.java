@@ -98,12 +98,12 @@ public class MalumSpiritType
         {
             for (Class<?> clazz : clazzes)
             {
-                if (!clazz.isInstance(e))
+                if (clazz.isInstance(e))
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }));
         return this;
     }
