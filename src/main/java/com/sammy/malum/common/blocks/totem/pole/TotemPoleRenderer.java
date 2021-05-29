@@ -53,8 +53,8 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
         {
             MalumSpiritTypes.SPIRITS.forEach(s ->
                     {
-                        overlayHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + s.identifier + "_overlay")));
-                        cutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + s.identifier + "_cutout")));
+                        overlayHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "overlay_" + s.identifier)));
+                        cutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "cutout_" + s.identifier)));
                     }
             );
             setup = true;

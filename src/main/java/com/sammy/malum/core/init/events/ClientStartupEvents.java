@@ -169,8 +169,8 @@ public class ClientStartupEvents
         }
         SPIRITS.forEach(s ->
         {
-            event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_overlay"));
-            event.addSprite(MalumHelper.prefix("spirit/" + s.identifier + "_cutout"));
+            event.addSprite(MalumHelper.prefix("spirit/" + "overlay_" + s.identifier));
+            event.addSprite(MalumHelper.prefix("spirit/" + "cutout_" + s.identifier));
         });
     }
     
