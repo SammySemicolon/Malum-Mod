@@ -98,7 +98,8 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
             }
             else if (tileEntity.type != null)
             {
-                int count = Math.min(tileEntity.count, 64);
+                int max = player.isSneaking() ? 64 : 1;
+                int count = Math.min(tileEntity.count, max);
                 ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(tileEntity.type.splinterItem(), count));
                 tileEntity.count -= count;
                 particles(worldIn,hit, tileEntity.type);

@@ -140,7 +140,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("soul_stained_steel", "Soul Stained Steel is a very strong magical metal, perfect for strong tools and armor. It's created by infusing iron with wicked and arcane spirit.");
         addPage("soul_stained_steel_gear", "Gear made from Soul Stained Steel is nearly as strong as gear made from diamond. It is also much more durable.");
 
-        addPage("hallowed_gold", "Hallowed Gold is a very versitile metal meant for various arcane mechanisms and utilities. Most notably, spirits react to it strangely. It's created by infusing gold with holy and arcane spirit.");
+        addPage("hallowed_gold", "Hallowed Gold is a very versitile metal meant for various arcane mechanisms and utilities. Most notably, spirits react to it strangely. It's created by infusing gold with sacred and arcane spirit.");
         addPage("spirit_jar", "One of the simplest arcane utilities hallowed gold can provide is the spirit Jar. It is a block designed for storing large quantities of spirits. It stores a nearly infinite amount of just one spirit.");
 
         addPage("curios", "Through hallowed gold and soul stained steel you may create various gilded and ornate equipment to aid you in combat. These simple curios will provide a moderate boost to your armor and toughness respectively.");
@@ -161,7 +161,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("totem_magic_2", "To perform a spirit rite you will need a totem. A totem is made up of runewood logs supported by a totem base. Each spirit rite is represented by a set of spirits which must be engraved on runewood logs placed above your totem base. You can remove engraved spirits using an axe.");
         addPage("totem_magic_3", "Once your totem is ready, you may interact with the totem base in order to perform your desired spirit rite. Interacting with it again will cancel the rite. Spirit rites are either instant, or take effect over an indefinite amount of time. They're almost always confined to a limited area.");
 
-        addPage("rite_of_growth", "The holy spirit provides great rejuvenating, life bringing abilities for you to utilize. The rite of growth takes advantage of the holy spirit to accelerate the growth of nearby plants and crops.");
+        addPage("rite_of_growth", "The sacred spirit provides great rejuvenating, life bringing abilities for you to utilize. The rite of growth takes advantage of the sacred spirit to accelerate the growth of nearby plants and crops.");
         addPage("rite_of_death", "Through the use of the wicked spirit, the rite of death will quickly drain the life force of nearby living things. It attacks the body directly through magic.");
         addPage("rite_of_warding", "Earthen spirit combined with the arcane creates a really powerful spirit rite. The Rite of Warding will provide a strong shielding aura to those nearby.");
         addPage("rite_of_celerity", "The Rite of Celerity provides you with a strong agility boost. It also increases your reach distance by a short amount.");
