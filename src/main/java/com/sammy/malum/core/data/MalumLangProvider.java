@@ -99,8 +99,8 @@ public class MalumLangProvider extends LanguageProvider
         addPage("wicked_spirit", "Flip-side of the sacred, the wicked spirit is a symbol of the undead. It holds virulent properties, aches when touched even.");
         addPage("arcane_spirit", "The arcane spirit represents the supernatural. It's a very flexible magic, provides many uses.");
         addPage("eldritch_spirit", "Within our plane of existence you may often find, strange visitors. They hold powers that vastly surpass that of anything other. The eldritch spirit is found within souls of those from another realm.");
-        addPage("infernal_spirit", "Have you ever wondered how a blaze flies? The infernal spirit is what powers it and many more hellish creatures.");
-        addPage("earthen_spirit", "The earthen spirit is reminiscent of nature . It holds great strength within");
+        addPage("infernal_spirit", "Have you ever wondered how a blaze flies? The infernal spirit is what powers it and many more nether-born creatures.");
+        addPage("earthen_spirit", "Earthen spirit represents the strong, natural force of various earth wonders and magics. The earthen spirit is reminiscent of nature. It holds great strength within");
         addPage("aquatic_spirit", "Magic of the elder guardians and their weaker siblings is a strong one. The water spirit can be found within all aquatic creatures.");
         addPage("aerial_spirit", "The nimble phantom and the agile arthropods share one thing in common. The aerial spirit is found within the quick.");
 
@@ -113,7 +113,7 @@ public class MalumLangProvider extends LanguageProvider
 
         addPage("blazing_quartz", "Within the hellish plane many know as the nether exists many bizarre oddities. One of them is the blazing quartz, a fiery gem that makes for a great furnace fuel.");
 
-        addPage("soulstone", "Within the deepest layers of deepslate, in the darkest corners of our world exists a pristine gem, soulstone. This soul reactive crystal will be your start to evil schemes.");
+        addPage("soulstone", "Soulstone is a spirit reactive crystal found deep underground and rarely on surface. The soul reactive gem will be the start to your various evil schemes and plans.");
 
         addPage("spirit_harvesting", "\"The soul rules over it's body from a fortress of bone, learning of the world around it through fleshy portals\". When you slay an enemy with a scythe, you destroy the body and shatter the soul.");
         addPage("spirit_harvesting_2", "A scythe is a powerful weapon with many uses. It's sharp blade allows it to hit many enemies at once, much alike a sword enchanted with sweeping edge. The simplest scythe is a crude one, made with iron ingots and a soulstone gem.");

@@ -66,7 +66,7 @@ public class SpiritHelper
                 spirits.get(random).grow(1);
             }
         }
-        if (attacker.world.rand.nextFloat() < 0.0025f)
+        if (attacker.world.rand.nextFloat() < 0.001f)
         {
             spirits.add(new ItemStack(MalumItems.COMICALLY_LARGE_TOPHAT.get()));
         }
@@ -89,7 +89,7 @@ public class SpiritHelper
     {
         if (attacker == null)
         {
-            attacker = target.world.getClosestPlayer(target.getPosX(), target.getPosY(), target.getPosZ(), -1, e -> true);
+            attacker = target.world.getClosestPlayer(target.getPosX(), target.getPosY(), target.getPosZ(), 8, e -> true);
         }
         float speed = 0.2f + 0.5f / (totalSpirits(target) + 1);
         target.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SPIRIT_HARVEST, target.getSoundCategory(), 1.0F, 0.9f + target.world.rand.nextFloat() * 0.2f);
