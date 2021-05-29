@@ -5,10 +5,13 @@ import com.sammy.malum.common.items.SpiritItem;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.RegistryObject;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class MalumSpiritType
 {
@@ -16,20 +19,23 @@ public class MalumSpiritType
     public final String identifier;
     public final String translationKey;
     public final String description;
-    public SpiritItem splinterItem;
+    protected Supplier<Item> splinterItem;
 
     public ArrayList<SpiritCountTest> tests = new ArrayList<>();
-    public MalumSpiritType(String identifier, Color color, SpiritItem splinterItem)
+    public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem)
     {
 
         this.identifier = identifier;
         this.color = color;
-        
+
         this.translationKey = "malum.tooltip.spirit." + identifier;
         this.description = translationKey + "_description";
-        
+
         this.splinterItem = splinterItem;
-        splinterItem.type = this;
+    }
+    public SpiritItem splinterItem()
+    {
+        return (SpiritItem) splinterItem.get();
     }
     public int spiritCount(LivingEntity entity)
     {
@@ -38,9 +44,9 @@ public class MalumSpiritType
         {
             if (test.predicate.test(entity))
             {
-                if (test.value == 0)
+                if (test.important)
                 {
-                    return 0;
+                    return test.value;
                 }
                 if (test.value > count)
                 {
@@ -60,9 +66,9 @@ public class MalumSpiritType
             this.value = value;
             this.predicate = predicate;
         }
-        public SpiritCountTest setImportant()
+        public SpiritCountTest setImportant(boolean important)
         {
-            important = true;
+            this.important = important;
             return this;
         }
     }
@@ -78,7 +84,7 @@ public class MalumSpiritType
     }
     public MalumSpiritType addTest(int value, String name)
     {
-        tests.add(new SpiritCountTest(value, e -> e.getType().getRegistryName().getPath().equals(name)).setImportant());
+        tests.add(new SpiritCountTest(value, e -> e.getType().getRegistryName().getPath().equals(name)).setImportant(true));
         return this;
     }
     public <U>  MalumSpiritType addTest(int value, Class<U> clazz)

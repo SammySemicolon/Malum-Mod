@@ -32,7 +32,7 @@ public class RitePage extends BookPage
             MalumSpiritType type = rite.spirits.get(i);
             int itemPosX = posX + 56;
             int itemPosY = posY + 113 - i * 22;
-            screen.drawItem(stack, type.splinterItem.getDefaultInstance(), itemPosX, itemPosY, mouseX, mouseY);
+            screen.drawItem(stack, type.splinterItem().getDefaultInstance(), itemPosX, itemPosY, mouseX, mouseY);
         }
     }
 }

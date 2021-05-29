@@ -30,7 +30,7 @@ public class SpiritJarRenderer extends TileEntityRenderer<SpiritJarTileEntity>
             matrixStackIn.translate(0.5f,y,0.5f);
             matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
             matrixStackIn.scale(0.6f, 0.6f, 0.6f);
-            itemRenderer.renderItem(tileEntityIn.type.splinterItem.getDefaultInstance(), ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
+            itemRenderer.renderItem(tileEntityIn.type.splinterItem().getDefaultInstance(), ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
             matrixStackIn.pop();
         }
     }

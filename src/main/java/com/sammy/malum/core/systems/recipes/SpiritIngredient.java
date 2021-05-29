@@ -22,11 +22,11 @@ public class SpiritIngredient
     
     public boolean matches(ItemStack stack)
     {
-        return stack.getItem().equals(type.splinterItem) && stack.getCount() >= count;
+        return stack.getItem().equals(type.splinterItem()) && stack.getCount() >= count;
     }
     
     public ItemStack getItem()
     {
-        return new ItemStack(type.splinterItem, count);
+        return new ItemStack(type.splinterItem(), count);
     }
 }

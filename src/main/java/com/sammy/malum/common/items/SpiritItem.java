@@ -6,8 +6,9 @@ import net.minecraft.item.Item;
 public class SpiritItem extends Item
 {
     public MalumSpiritType type;
-    public SpiritItem(Properties properties)
+    public SpiritItem(Properties properties, MalumSpiritType type)
     {
         super(properties);
+        this.type = type;
     }
 }

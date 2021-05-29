@@ -64,7 +64,7 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
             while (tileEntity.count > 0)
             {
                 int stackCount = Math.min(tileEntity.count, 64);
-                worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,new ItemStack(tileEntity.type.splinterItem, stackCount)));
+                worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,new ItemStack(tileEntity.type.splinterItem(), stackCount)));
                 tileEntity.count -= stackCount;
             }
         }
@@ -99,7 +99,7 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
             else if (tileEntity.type != null)
             {
                 int count = Math.min(tileEntity.count, 64);
-                ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(tileEntity.type.splinterItem, count));
+                ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(tileEntity.type.splinterItem(), count));
                 tileEntity.count -= count;
                 particles(worldIn,hit, tileEntity.type);
                 if (tileEntity.count == 0)

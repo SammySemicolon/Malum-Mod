@@ -135,7 +135,7 @@ public class SpiritHelper
                 continue;
             }
             MalumSpiritType spiritType = figureOutType(spirit);
-            MalumHelper.giveItemToEntity(new ItemStack(spiritType.splinterItem, count), attacker);
+            MalumHelper.giveItemToEntity(new ItemStack(spiritType.splinterItem(), count), attacker);
             spirits.set(i, Pair.of(spirit, 0));
         }
     }
@@ -163,7 +163,7 @@ public class SpiritHelper
             int count = type.spiritCount(entity);
             if (count != 0)
             {
-                spirits.add(new ItemStack(type.splinterItem, count));
+                spirits.add(new ItemStack(type.splinterItem(), count));
             }
         }
         return spirits;
