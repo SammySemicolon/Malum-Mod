@@ -108,7 +108,7 @@ public class SpiritRitesRecipeCategory implements IRecipeCategory<MalumRiteType>
         int g = 30;
         int b = 169;
         int x = 65 - minecraft.fontRenderer.getStringWidth(component.getString())/2;
-        int y = 6;
+        int y = 5;
         minecraft.fontRenderer.drawString(matrixStack, text, x, y - 1, packColor(128, 255, 183, 236));
         minecraft.fontRenderer.drawString(matrixStack, text, x - 1, y, packColor(128, 255, 210, 243));
         minecraft.fontRenderer.drawString(matrixStack, text, x + 1, y, packColor(128, 240, 131, 232));
