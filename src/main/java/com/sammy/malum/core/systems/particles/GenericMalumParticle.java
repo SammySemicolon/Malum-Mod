@@ -29,7 +29,7 @@ public class GenericMalumParticle extends SpriteTexturedParticle {
     }
 
     protected float getCoeff() {
-        return (float)this.age / this.maxAge;
+        return (float)this.age / (float)this.maxAge;
     }
 
     protected void updateTraits() {

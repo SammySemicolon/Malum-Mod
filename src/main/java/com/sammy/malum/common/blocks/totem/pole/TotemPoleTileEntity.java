@@ -90,17 +90,17 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new TotemPoleParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ(), false));
         this.desiredColor = 10;
         this.baseLevel = pos.getY() - height;
-        MalumHelper.updateState(world,pos);
+        MalumHelper.updateAndNotifyState(world,pos);
     }
     public void riteComplete(int height)
     {
         this.desiredColor = 20;
-        MalumHelper.updateState(world,pos);
+        MalumHelper.updateAndNotifyState(world,pos);
     }
     public void riteEnding()
     {
         this.desiredColor = 0;
-        MalumHelper.updateState(world,pos);
+        MalumHelper.updateAndNotifyState(world,pos);
     }
 
     @Override

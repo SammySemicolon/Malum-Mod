@@ -136,12 +136,12 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         active = false;
         progress = 0;
         spirits.clear();
-        MalumHelper.updateState(world,pos);
+        MalumHelper.updateAndNotifyState(world,pos);
     }
     public void riteStarting()
     {
         active = true;
-        MalumHelper.updateState(world,pos);
+        MalumHelper.updateAndNotifyState(world,pos);
     }
     public void riteComplete(MalumRiteType rite)
     {
@@ -156,7 +156,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
             return;
         }
         this.rite = rite;
-        MalumHelper.updateState(world,pos);
+        MalumHelper.updateAndNotifyState(world,pos);
     }
     public void riteEnding()
     {

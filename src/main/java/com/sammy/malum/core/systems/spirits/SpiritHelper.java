@@ -52,6 +52,10 @@ public class SpiritHelper
             return;
         }
         ArrayList<ItemStack> spirits = entitySpirits(target);
+        if (spirits.isEmpty())
+        {
+            return;
+        }
 
         int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
         for (MalumCurioItem item : MalumHelper.equippedMalumCurios(attacker))
@@ -70,10 +74,7 @@ public class SpiritHelper
         {
             spirits.add(new ItemStack(MalumItems.COMICALLY_LARGE_TOPHAT.get()));
         }
-        if (!spirits.isEmpty())
-        {
-            summonSpirits(spirits, target, attacker);
-        }
+        summonSpirits(spirits, target, attacker);
     }
 
     public static void summonSpirits(LivingEntity target)

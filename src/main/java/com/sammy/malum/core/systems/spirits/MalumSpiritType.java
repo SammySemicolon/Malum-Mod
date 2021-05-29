@@ -1,6 +1,7 @@
 package com.sammy.malum.core.systems.spirits;
 
 import com.sammy.malum.common.items.SpiritItem;
+import net.minecraft.block.ObserverBlock;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
@@ -85,11 +86,12 @@ public class MalumSpiritType
         tests.add(new SpiritCountTest(value, e -> e.getType().getRegistryName().getPath().equals(name)).setImportant(true));
         return this;
     }
-    public <U>  MalumSpiritType addTest(int value, Class<U> clazz)
+    public <U>  MalumSpiritType addTest(int value, Class<U> clazz, boolean important)
     {
-        tests.add(new SpiritCountTest(value, clazz::isInstance));
+        tests.add(new SpiritCountTest(value, clazz::isInstance).setImportant(important));
         return this;
     }
+
     public <U>  MalumSpiritType addTest(int value, Class<? extends U>... clazzes)
     {
         tests.add(new SpiritCountTest(value, e ->

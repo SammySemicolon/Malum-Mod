@@ -50,7 +50,7 @@ public class RunewoodLogBlock extends RotatedPillarBlock
                 TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) worldIn.getTileEntity(pos);
                 tileEntity.create(item.type);
             }
-            MalumHelper.updateState(worldIn,pos);
+            MalumHelper.updateAndNotifyState(worldIn,pos);
             if (!player.isCreative())
             {
                 stack.shrink(1);

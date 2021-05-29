@@ -65,9 +65,9 @@ public class MalumSpiritTypes
     public static final Color AERIAL_SPIRIT_COLOR = new Color(51, 229, 155);
     public static  MalumSpiritType AERIAL_SPIRIT = create("aerial", AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT)
             .addTest(1, "wraith")
-            .addTest(1, SpiderEntity.class)
+            .addTest(1, SpiderEntity.class, true)
             .addTest(2, IFlyingAnimal.class, BatEntity.class, SilverfishEntity.class, OcelotEntity.class, CatEntity.class, RavagerEntity.class, FoxEntity.class)
-            .addTest(2, e -> e.getAttributeValue(Attributes.MOVEMENT_SPEED) >= 0.3f)
+            .addTest(2, e -> e.getAttributeValue(Attributes.MOVEMENT_SPEED) >= 0.3f && !(e instanceof EndermanEntity))
             .addTest(3, AbstractHorseEntity.class, String.class, VexEntity.class, GhastEntity.class);
 
     public static final Color AQUATIC_SPIRIT_COLOR = new Color(42, 114, 232);

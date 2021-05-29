@@ -31,7 +31,7 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IA
             {
                 ItemStandTileEntity.this.markDirty();
                 updateContainingBlockInfo();
-                MalumHelper.updateState(world.getBlockState(pos), world, pos);
+                MalumHelper.updateAndNotifyState(world, pos);
             }
         };
     }
