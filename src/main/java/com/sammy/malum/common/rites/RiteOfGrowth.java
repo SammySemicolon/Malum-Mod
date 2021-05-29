@@ -18,7 +18,7 @@ public class RiteOfGrowth extends MalumRiteType
 {
     public RiteOfGrowth()
     {
-        super("rite_of_growth", false, ARCANE_SPIRIT, HOLY_SPIRIT, HOLY_SPIRIT);
+        super("rite_of_growth", false, ARCANE_SPIRIT, SACRED_SPIRIT, SACRED_SPIRIT);
     }
 
     @Override

@@ -18,9 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -142,10 +140,14 @@ public class SpiritHelper
 
     public static MalumSpiritType figureOutType(String spirit)
     {
+        if (spirit.equals("holy")) //TODO: one day remove this
+        {
+            return MalumSpiritTypes.SACRED_SPIRIT;
+        }
         ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) MalumSpiritTypes.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
         if (type.isEmpty())
         {
-            throw new RuntimeException("Somehow, an invalid spirit identifier was harvested. 'Why?' is a good question my friend. Incorrect identifier: " + spirit);
+            throw new RuntimeException("Somehow, an invalid spirit identifier was found. 'Why?' is a good question my friend. Incorrect identifier: " + spirit);
         }
         return type.get(0);
     }

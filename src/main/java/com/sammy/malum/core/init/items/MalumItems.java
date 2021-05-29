@@ -15,7 +15,6 @@ import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
 import com.sammy.malum.core.init.items.tabs.MalumNatureTab;
 import com.sammy.malum.core.init.items.tabs.MalumSplinterTab;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -25,7 +24,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import static com.sammy.malum.MalumMod.MODID;
 import static com.sammy.malum.core.init.items.MalumItemTiers.ItemTierEnum.SOUL_STAINED_STEEL_ITEM;
 import static com.sammy.malum.core.init.items.MalumItemTiers.ItemTierEnum.TYRVING_ITEM;
-import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
 import static net.minecraft.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -431,7 +429,7 @@ public class MalumItems
     //endregion
 
     //region spirits
-    public static final RegistryObject<Item> HOLY_SPIRIT = ITEMS.register("holy_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.HOLY_SPIRIT));
+    public static final RegistryObject<Item> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.SACRED_SPIRIT));
     public static final RegistryObject<Item> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.WICKED_SPIRIT));
     public static final RegistryObject<Item> ARCANE_SPIRIT = ITEMS.register("arcane_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.ARCANE_SPIRIT));
     public static final RegistryObject<Item> ELDRITCH_SPIRIT = ITEMS.register("eldritch_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.ELDRITCH_SPIRIT));

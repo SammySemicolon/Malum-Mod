@@ -23,7 +23,7 @@ public class MalumSpiritAltarRecipes
 
         //tainted rock
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TAINTED_ROCK.get(), 16))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //twisted rock
@@ -57,12 +57,12 @@ public class MalumSpiritAltarRecipes
 
         //hallowed gold
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.INGOTS_GOLD, 1), new ItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //ring of arcane reach
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.GILDED_RING.get(), 1), new ItemIngredient(MalumItems.RING_OF_ARCANE_REACH.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 4))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 4))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()))
@@ -72,7 +72,7 @@ public class MalumSpiritAltarRecipes
 
         //ring of arcane spoil
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.ORNATE_RING.get(), 1), new ItemIngredient(MalumItems.RING_OF_ARCANE_SPOIL.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 4))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.STAINED_SPIRIT_RESONATOR.get()))
@@ -82,7 +82,7 @@ public class MalumSpiritAltarRecipes
 
         //radiant soulstone
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOULSTONE.get(), 2), new ItemIngredient(MalumItems.RADIANT_SOULSTONE.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.HOLY_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
                 .addExtraItem(new SimpleItemIngredient(Items.PHANTOM_MEMBRANE))

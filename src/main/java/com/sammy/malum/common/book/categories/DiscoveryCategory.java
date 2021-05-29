@@ -36,7 +36,7 @@ public class DiscoveryCategory extends BookCategory
         super(TAINTED_ROCK.get().getDefaultInstance(), "discovery");
         Item EMPTY = Items.BARRIER;
 
-        holySpirit = new BookEntry(HOLY_SPIRIT.get(), "holy_spirit")
+        holySpirit = new BookEntry(SACRED_SPIRIT.get(), "holy_spirit")
                 .addPage(new HeadlineTextPage("holy_spirit"));
         wickedSpirit = new BookEntry(WICKED_SPIRIT.get(), "wicked_spirit")
                 .addPage(new HeadlineTextPage("wicked_spirit"));

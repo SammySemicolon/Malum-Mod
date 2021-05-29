@@ -1,10 +1,8 @@
 package com.sammy.malum.core.systems.spirits;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.items.SpiritItem;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 

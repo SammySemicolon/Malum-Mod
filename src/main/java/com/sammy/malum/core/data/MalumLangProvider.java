@@ -95,12 +95,12 @@ public class MalumLangProvider extends LanguageProvider
                 }
             }
         });
-        addPage("holy_spirit", "The holy spirit is a symbol of the living. It contains many strange curative properties that will greatly aid your rise to power.");
-        addPage("wicked_spirit", "The wicked spirit is a symbol of the reanimated. It's deathly properties sure are useful.");
+        addPage("sacred_spirit", "The sacred spirit is a symbol of the living, the untainted. It yields many curative abilities that will greatly aid your rise to power. It fills your mind with a strange sense of delight.");
+        addPage("wicked_spirit", "Flip-side of the sacred, the wicked spirit is a symbol of the undead. It holds virulent properties, aches when touched even.");
         addPage("arcane_spirit", "The arcane spirit represents the supernatural. It's a very flexible magic, provides many uses.");
-        addPage("eldritch_spirit", "From darkness a great power is born, the eldritch spirit represents that dark power. It's found only within the strangest of souls.");
+        addPage("eldritch_spirit", "Within our plane of existence you may often find, strange visitors. They hold powers that vastly surpass that of anything other. The eldritch spirit is found within souls of those from another realm.");
         addPage("infernal_spirit", "Have you ever wondered how a blaze flies? The infernal spirit is what powers it and many more hellish creatures.");
-        addPage("earthen_spirit", "The earthen spirit is like a magical molding clay found within those who are strong. It represents strength, strength of earth.");
+        addPage("earthen_spirit", "The earthen spirit is reminiscent of nature . It holds great strength within");
         addPage("aquatic_spirit", "Magic of the elder guardians and their weaker siblings is a strong one. The water spirit can be found within all aquatic creatures.");
         addPage("aerial_spirit", "The nimble phantom and the agile arthropods share one thing in common. The aerial spirit is found within the quick.");
 
@@ -127,10 +127,10 @@ public class MalumLangProvider extends LanguageProvider
         addPage("spirit_infusion_2", "Spirit infusion requires a prime item, spirits and additional items. The prime item needs to be placed in the altar and surrounded with spirits. Additional items must be placed on surrounding item pedestals or stands.");
         addPage("hex_ash", "Hex ash is a haunted powder meant for various magics, most notably it can be used to speed up spirit infusion. Interacting with an active spirit altar will greatly greatly accelerate the infusion process.");
 
-        addPage("tainted_rock", "\"A clean slate\". One of the simplest spirit infusions known revolves around the process of animating stone. Infusing cobblestone with holy and arcane spirits will result in tainted rock.");
+        addPage("tainted_rock", "\"A clean slate\". One of the simplest spirit infusions known revolves around the process of animating stone. Infusing cobblestone with sacred and arcane spirits will result in tainted rock.");
         addPage("tainted_rock_architecture", "Using a crafting table or the stone cutter, you can make many variants of tainted rock.");
 
-        addPage("twisted_rock", "\"Turned wicked\". If we are to replace the holy spirit with a wicked spirit, cobblestone will instead be animated into twisted rock.");
+        addPage("twisted_rock", "\"Turned wicked\". If we are to replace the sacred spirit with a wicked spirit, cobblestone will instead be animated into twisted rock.");
         addPage("twisted_rock_architecture", "Much alike the tainted rock, using a crafting table or the stone cutter, you can make many variants of twisted rock.");
 
         addPage("ether", "Think of a lit matchstick, but without the matchstick. Ether is just that! It's a magical substance that looks much like fire and shines bright forever. It can be put on a torch and a tainted rock brazier. It can be colored with most dyes and placed underwater.");

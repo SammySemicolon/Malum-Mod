@@ -1,14 +1,11 @@
 package com.sammy.malum.core.modcontent;
 
-import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.FlyingEntity;
-import net.minecraft.entity.IShearable;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.merchant.villager.WanderingTraderEntity;
 import net.minecraft.entity.monster.*;
@@ -33,8 +30,8 @@ public class MalumSpiritTypes
 {
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
 
-    public static final Color HOLY_SPIRIT_COLOR = new Color(234, 73, 95);
-    public static MalumSpiritType HOLY_SPIRIT = create("holy", HOLY_SPIRIT_COLOR, MalumItems.HOLY_SPIRIT)
+    public static final Color SACRED_SPIRIT_COLOR = new Color(234, 73, 95);
+    public static MalumSpiritType SACRED_SPIRIT = create("sacred", SACRED_SPIRIT_COLOR, MalumItems.SACRED_SPIRIT)
             .addTest(0, "rat")
             .addTest(1, AnimalEntity.class)
             .addTest(2, e -> (e instanceof AnimalEntity && e.getMaxHealth() > 4))
@@ -62,8 +59,8 @@ public class MalumSpiritTypes
 
     public static final Color ELDRITCH_SPIRIT_COLOR = new Color(142, 62, 234, 255);
     public static MalumSpiritType ELDRITCH_SPIRIT = create("eldritch", ELDRITCH_SPIRIT_COLOR, MalumItems.ELDRITCH_SPIRIT)
-            .addTest(1, EndermiteEntity.class, EndermanEntity.class)
-            .addTest(2, e -> !e.isNonBoss());
+            .addTest(1, EndermiteEntity.class, EndermanEntity.class, ShulkerEntity.class)
+            .addTest(5, EnderDragonEntity.class);
 
     public static final Color AERIAL_SPIRIT_COLOR = new Color(51, 229, 155);
     public static  MalumSpiritType AERIAL_SPIRIT = create("aerial", AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT)
@@ -91,7 +88,7 @@ public class MalumSpiritTypes
     public static final Color EARTHEN_SPIRIT_COLOR = new Color(98, 180, 40);
     public static  MalumSpiritType EARTHEN_SPIRIT = create("earthen", EARTHEN_SPIRIT_COLOR, MalumItems.EARTHEN_SPIRIT)
             .addTest(1, ZombieEntity.class, CreeperEntity.class, IForgeShearable.class, CowEntity.class)
-            .addTest(2, HorseEntity.class, ZombieHorseEntity.class)
+            .addTest(2, HorseEntity.class, ZombieHorseEntity.class, IronGolemEntity.class)
             .addTest(3, "zombie_brute");
 
 

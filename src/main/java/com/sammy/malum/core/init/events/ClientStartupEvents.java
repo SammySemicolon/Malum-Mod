@@ -12,7 +12,6 @@ import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRenderer;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarRenderer;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
-import com.sammy.malum.common.blocks.totem.TotemBaseTileEntity;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleRenderer;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntityRenderer;
@@ -21,10 +20,8 @@ import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -153,7 +150,7 @@ public class ClientStartupEvents
         ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_BRAZIER, brighter(RED, 3));
         ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_BRAZIER, brighter(PINK, 3));
 
-        ClientHelper.registerItemColor(itemColors, MalumItems.HOLY_SPIRIT, brighter(HOLY_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
         ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR,1));
