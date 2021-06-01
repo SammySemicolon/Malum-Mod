@@ -2,9 +2,11 @@ package com.sammy.malum.common.items.equipment.curios;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.sammy.malum.MalumColors;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.models.ModelComicallyLargeTophat;
 import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.core.systems.spirits.ISpiritEntityGlow;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -18,7 +20,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-public class CurioComicallyLargeTophat extends MalumCurioItem
+import java.awt.*;
+
+public class CurioComicallyLargeTophat extends MalumCurioItem implements ISpiritEntityGlow
 {
     public CurioComicallyLargeTophat(Properties builder)
     {
@@ -55,5 +59,11 @@ public class CurioComicallyLargeTophat extends MalumCurioItem
             hat.render(matrixStack, jtBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStack.pop();
         }
+    }
+
+    @Override
+    public Color getColor()
+    {
+        return MalumColors.PINK;
     }
 }

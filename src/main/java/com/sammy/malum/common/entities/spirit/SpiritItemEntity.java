@@ -6,6 +6,7 @@ import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.spirits.ISpiritEntityGlow;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -128,10 +129,10 @@ public class SpiritItemEntity extends ProjectileItemEntity
             {
                 stack = dataManager.get(STACK);
             }
-            if (stack.getItem() instanceof SpiritItem)
+            if (stack.getItem() instanceof ISpiritEntityGlow)
             {
-                SpiritItem spiritItem = (SpiritItem) stack.getItem();
-                Color color = spiritItem.type.color;
+                ISpiritEntityGlow entityGlow = (ISpiritEntityGlow) stack.getItem();
+                Color color = entityGlow.getColor();
 
                 ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
                         .setAlpha(0.1f, 0f)

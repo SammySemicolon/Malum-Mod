@@ -65,7 +65,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem
         if (livingEntity instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) livingEntity;
-            //if (playerEntity.getUniqueID().equals(UUID.fromString(ura_uuid)))
+            if (playerEntity.getUniqueID().equals(UUID.fromString(ura_uuid)))
             {
                 matrixStack.push();
                 if (ura_model == null)
@@ -76,7 +76,6 @@ public class CurioTokenOfGratitude extends MalumCurioItem
                 IVertexBuilder jtBuilder = ItemRenderer.getBuffer(renderTypeBuffer, ura_model.getRenderType(ura_texture), false, stack.hasEffect());
                 ura_model.render(matrixStack, jtBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
                 matrixStack.pop();
-
             }
             if (playerEntity.getUniqueID().equals(UUID.fromString(sammy_uuid)))
             {

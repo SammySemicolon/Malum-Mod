@@ -84,7 +84,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     @Override
     public void shoot(double x, double y, double z, float velocity, float inaccuracy)
     {
-        Vector3d motion = (new Vector3d(x, y, z)).normalize().add(this.rand.nextGaussian() * 0.0075F * inaccuracy, this.rand.nextGaussian() * 0.0075F * inaccuracy, this.rand.nextGaussian() * 0.0075F * inaccuracy).scale(velocity).mul(1,0.25f,1);
+        Vector3d motion = (new Vector3d(x, y, z)).normalize().add(this.rand.nextGaussian() * 0.0075F * inaccuracy, this.rand.nextGaussian() * 0.0075F * inaccuracy, this.rand.nextGaussian() * 0.0075F * inaccuracy).scale(velocity).mul(1,1,1);
         this.setMotion(motion);
         float f = MathHelper.sqrt(horizontalMag(motion));
         this.rotationYaw = (float) (MathHelper.atan2(motion.x, motion.z) * (180F / (float) Math.PI));
