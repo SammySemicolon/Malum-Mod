@@ -76,6 +76,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem
                 IVertexBuilder jtBuilder = ItemRenderer.getBuffer(renderTypeBuffer, ura_model.getRenderType(ura_texture), false, stack.hasEffect());
                 ura_model.render(matrixStack, jtBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
                 matrixStack.pop();
+                return;
             }
             if (playerEntity.getUniqueID().equals(UUID.fromString(sammy_uuid)))
             {

@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.HoeItem;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
@@ -14,10 +15,11 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.common.extensions.IForgeBlock;
 
 import java.awt.*;
 
-public class MalumLeavesBlock extends LeavesBlock
+public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock
 {
     public static final IntegerProperty COLOR = IntegerProperty.create("color",0,9);
     public final Color maxColor;
@@ -30,7 +32,7 @@ public class MalumLeavesBlock extends LeavesBlock
         this.minColor = minColor;
         setDefaultState(getDefaultState().with(COLOR, 0));
     }
-    
+
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(DISTANCE, PERSISTENT,COLOR);
     }

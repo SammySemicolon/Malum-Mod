@@ -90,7 +90,7 @@ public class MalumBlocks
 
     public static AbstractBlock.Properties LEAVES_PROPERTIES()
     {
-        return AbstractBlock.Properties.from(Blocks.OAK_LEAVES);
+        return AbstractBlock.Properties.from(Blocks.OAK_LEAVES).harvestTool(ToolType.HOE);
     }
 
     public static AbstractBlock.Properties ETHER_BLOCK_PROPERTIES()

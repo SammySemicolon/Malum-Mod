@@ -1,7 +1,9 @@
 package com.sammy.malum.core.init.events;
 
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.modcontent.*;
+import net.minecraft.item.HoeItem;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
