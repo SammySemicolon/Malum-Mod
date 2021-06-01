@@ -24,7 +24,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.UUID;
 
-import static com.sammy.malum.common.items.equipment.curios.CurioTokenOfGratitude.sammyUUID;
+import static com.sammy.malum.common.items.equipment.curios.CurioTokenOfGratitude.sammy_uuid;
 import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
@@ -58,7 +58,7 @@ public class Events
             PlayerEntity playerEntity = (PlayerEntity) event.getEntity();
             if (MalumHelper.areWeOnServer(playerEntity.world))
             {
-                if (playerEntity.getUniqueID().equals(UUID.fromString(sammyUUID)))
+                if (playerEntity.getUniqueID().equals(UUID.fromString(sammy_uuid)))
                 {
                     if (!MalumHelper.findCosmeticCurio(s -> s.getItem().equals(MalumItems.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent())
                     {

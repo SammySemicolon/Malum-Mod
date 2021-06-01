@@ -2,7 +2,9 @@ package com.sammy.malum.common.items.equipment.curios;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.models.ModelDarkPrincesCrown;
 import com.sammy.malum.client.models.ModelLapisTail;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -11,12 +13,10 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import javax.annotation.Nonnull;
@@ -52,22 +52,37 @@ public class CurioTokenOfGratitude extends MalumCurioItem
         return true;
     }
 
-    public static final String sammyUUID = "0ca54301-6170-4c44-b3e0-b8afa6b81ed2";
-    public final ResourceLocation lapis_tail_texture = new ResourceLocation(MalumMod.MODID, "textures/other/kittys_tail.png");
-    public ModelLapisTail<LivingEntity> lapis_tail;
+    public static final String sammy_uuid = "0ca54301-6170-4c44-b3e0-b8afa6b81ed2";
+    public final ResourceLocation sammy_texture = new ResourceLocation(MalumMod.MODID, "textures/other/sammy_texture.png");
+    public ModelLapisTail<LivingEntity> sammy_model;
 
+    public static final String ura_uuid = "fddaefa0-31d2-4acf-9cd2-4711d0e5e5d5";
+    public final ResourceLocation ura_texture = MalumHelper.prefix("textures/other/ura_texture.png");
+    public ModelDarkPrincesCrown<LivingEntity> ura_model;
     @Override
     public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack)
     {
         if (livingEntity instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) livingEntity;
-            if (playerEntity.getUniqueID().equals(UUID.fromString(sammyUUID)))
+            if (playerEntity.getUniqueID().equals(UUID.fromString(ura_uuid)))
             {
                 matrixStack.push();
-                if (lapis_tail == null)
+                if (ura_model == null)
                 {
-                    lapis_tail = new ModelLapisTail<>();
+                    ura_model = new ModelDarkPrincesCrown<>();
+                }
+                ICurio.RenderHelper.followHeadRotations(livingEntity, ura_model.crown);
+                IVertexBuilder jtBuilder = ItemRenderer.getBuffer(renderTypeBuffer, ura_model.getRenderType(ura_texture), false, stack.hasEffect());
+                ura_model.render(matrixStack, jtBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                matrixStack.pop();
+            }
+            if (playerEntity.getUniqueID().equals(UUID.fromString(sammy_uuid)))
+            {
+                matrixStack.push();
+                if (sammy_model == null)
+                {
+                    sammy_model = new ModelLapisTail<>();
                 }
                 double curSpeed = livingEntity.getMotion().length();
                 if (curSpeed != 0.0)
@@ -86,14 +101,14 @@ public class CurioTokenOfGratitude extends MalumCurioItem
                     double xRotation = Math.sin(livingEntity.world.getGameTime() / 18f) * 6;
                     matrixStack.rotate(Vector3f.XP.rotationDegrees((float) xRotation));
                 }
-                lapis_tail.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-                lapis_tail.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
+                sammy_model.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+                sammy_model.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
 
-                ICurio.RenderHelper.followBodyRotations(livingEntity, lapis_tail);
+                ICurio.RenderHelper.followBodyRotations(livingEntity, sammy_model);
                 ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
                 ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
-                IVertexBuilder vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, lapis_tail.getRenderType(lapis_tail_texture), false, false);
-                lapis_tail.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+                IVertexBuilder vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, sammy_model.getRenderType(sammy_texture), false, false);
+                sammy_model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
                 matrixStack.pop();
             }
         }
