@@ -13,6 +13,7 @@ import com.sammy.malum.network.packets.totem.SpiritEngravePacket;
 import com.sammy.malum.network.packets.totem.TotemPoleParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -129,8 +130,8 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         {
             float extraVelocity = 0.03f * i;
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(0.01f, 0f)
-                    .setLifetime(80)
+                    .setAlpha(0.015f, 0f)
+                    .setLifetime(40)
                     .setSpin(0.2f)
                     .setScale(0.175f, 0)
                     .setColor(color, color)
@@ -138,11 +139,11 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 2);
+                    .evenlyRepeatEdges(world, pos, 2, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
             ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
-                    .setAlpha(0.01f, 0f)
-                    .setLifetime(160)
+                    .setAlpha(0.015f, 0f)
+                    .setLifetime(80)
                     .setSpin(0.1f)
                     .setScale(0.35f, 0)
                     .setColor(color, color)
@@ -150,7 +151,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 2);
+                    .evenlyRepeatEdges(world, pos, 2, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
         }
     }
 }
