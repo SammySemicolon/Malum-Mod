@@ -40,9 +40,9 @@ public class MalumRecipeProvider extends RecipeProvider
     {
         shapelessRecipe(Items.PURPLE_DYE,2).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
 
-        shapelessRecipe(MalumItems.COAL_FRAGMENT.get(),8).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_coal", hasItem(Items.COAL)).build(consumer);
-        shapelessRecipe(MalumItems.BLAZING_QUARTZ_FRAGMENT.get(),8).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_blazing_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer);
-        shapelessRecipe(MalumItems.ARCANE_CHARCOAL_FRAGMENT.get(),8).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_arcane_charcoal", hasItem(MalumItems.ARCANE_CHARCOAL.get())).build(consumer);
+        shapelessRecipe(MalumItems.COAL_FRAGMENT.get(),8).addIngredient(Items.COAL).addCriterion("has_coal", hasItem(Items.COAL)).build(consumer);
+        shapelessRecipe(MalumItems.BLAZING_QUARTZ_FRAGMENT.get(),8).addIngredient(MalumItems.BLAZING_QUARTZ.get()).addCriterion("has_blazing_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer);
+        shapelessRecipe(MalumItems.ARCANE_CHARCOAL_FRAGMENT.get(),8).addIngredient(MalumItems.ARCANE_CHARCOAL.get()).addCriterion("has_arcane_charcoal", hasItem(MalumItems.ARCANE_CHARCOAL.get())).build(consumer);
 
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.RUNEWOOD_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
 

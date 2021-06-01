@@ -91,9 +91,6 @@ public class MalumSpiritTypes
             .addTest(2, HorseEntity.class, ZombieHorseEntity.class, IronGolemEntity.class)
             .addTest(3, "zombie_brute");
 
-    public static  MalumSpiritType CONFINED_BRILLIANCE = create("confined_brilliance", MalumColors.GREEN, MalumItems.CONFINED_BRILLIANCE);
-
-
     public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)
     {
         MalumSpiritType spiritType = new MalumSpiritType(identifier, color, splinterItem);

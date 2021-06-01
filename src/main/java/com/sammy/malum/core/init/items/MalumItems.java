@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init.items;
 
+import com.sammy.malum.common.items.ConfinedBrillianceItem;
 import com.sammy.malum.common.items.EncyclopediaArcanaItem;
 import com.sammy.malum.common.items.FuelItem;
 import com.sammy.malum.common.items.SpiritItem;
@@ -437,7 +438,6 @@ public class MalumItems
     public static final RegistryObject<Item> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.INFERNAL_SPIRIT));
     public static final RegistryObject<Item> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.AERIAL_SPIRIT));
     public static final RegistryObject<Item> AQUATIC_SPIRIT = ITEMS.register("aquatic_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.AQUATIC_SPIRIT));
-    public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.CONFINED_BRILLIANCE));
     //endregion
 
     //region ores
@@ -462,6 +462,7 @@ public class MalumItems
     public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_SPIRIT_RESONATOR = ITEMS.register("hallowed_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 200));
     public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 400));

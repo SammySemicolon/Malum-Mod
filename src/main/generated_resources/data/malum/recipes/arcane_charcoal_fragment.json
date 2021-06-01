@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:lavender"
+      "item": "malum:arcane_charcoal"
     }
   ],
   "result": {
