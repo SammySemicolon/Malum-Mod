@@ -2634,6 +2634,7 @@ fff96879df2c2d4cf91f0500e3a901cf9650b23b data/minecraft/tags/blocks/fences.json
 2a73d99f25cfc497bc7fbac067a0e5b7ed4b7d76 data/minecraft/tags/blocks/saplings.json
 c26d3c88c91043ac9e40b078b0fb03b7f5c408f7 data/minecraft/tags/blocks/slabs.json
 3884246ea1e733ee477663d4bfee1e02882e7d20 data/minecraft/tags/blocks/stairs.json
+3d236caac9d55d42a9527e05a0f26ec13c75d9f1 data/minecraft/tags/blocks/tall_flowers.json
 e7427cf65fb070fc32066db9c2c111a77cc29ee1 data/minecraft/tags/blocks/trapdoors.json
 3e9d09a2434ac6361e51fde0c16d82dbecad7e35 data/minecraft/tags/blocks/walls.json
 5a8530ae374c450bb4da71d3e98bac6b6fbec7cd data/minecraft/tags/blocks/wooden_buttons.json
@@ -2670,7 +2671,7 @@ c26d3c88c91043ac9e40b078b0fb03b7f5c408f7 data/minecraft/tags/items/slabs.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/spruce_logs.json
 3884246ea1e733ee477663d4bfee1e02882e7d20 data/minecraft/tags/items/stairs.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/stone_bricks.json
-74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/tall_flowers.json
+3d236caac9d55d42a9527e05a0f26ec13c75d9f1 data/minecraft/tags/items/tall_flowers.json
 e7427cf65fb070fc32066db9c2c111a77cc29ee1 data/minecraft/tags/items/trapdoors.json
 3e9d09a2434ac6361e51fde0c16d82dbecad7e35 data/minecraft/tags/items/walls.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/warped_stems.json
