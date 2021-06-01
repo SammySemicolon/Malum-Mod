@@ -253,8 +253,7 @@ public class BookScreen extends Screen
     {
         PlayerEntity playerEntity = Minecraft.getInstance().player;
         playerEntity.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
-        playerEntity.playSound(MalumSounds.BOOK_TRAVEL, SoundCategory.PLAYERS, 1.0f, 0.75f + playerEntity.world.rand.nextFloat() * 0.5f);
-        
+
     }
     public static void openScreen(boolean isLectern)
     {
