@@ -21,6 +21,7 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SpiritHelper
@@ -56,9 +57,9 @@ public class SpiritHelper
         {
             return;
         }
-
+        ArrayList<MalumCurioItem> equippedMalumCurios = MalumHelper.equippedMalumCurios(attacker);
         int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
-        for (MalumCurioItem item : MalumHelper.equippedMalumCurios(attacker))
+        for (MalumCurioItem item : equippedMalumCurios)
         {
             plunder += item.spiritYieldBonus();
         }
@@ -69,6 +70,16 @@ public class SpiritHelper
                 int random = attacker.world.rand.nextInt(spirits.size());
                 spirits.get(random).grow(1);
             }
+        }
+        Optional<MalumCurioItem> firstModifier = equippedMalumCurios.stream().filter(s -> !s.spiritReplacementStack(ItemStack.EMPTY).equals(ItemStack.EMPTY)).findFirst();
+        if (firstModifier.isPresent())
+        {
+            ArrayList<ItemStack> newSpirits = new ArrayList<>();
+            for (ItemStack stack : spirits)
+            {
+                newSpirits.add(firstModifier.get().spiritReplacementStack(stack));
+            }
+            spirits = newSpirits;
         }
         if (attacker.world.rand.nextFloat() < 0.001f)
         {

@@ -8,6 +8,8 @@ import net.minecraft.util.SoundCategory;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
+import java.util.ArrayList;
+
 public class MalumCurioItem extends Item implements ICurioItem
 {
     public MalumCurioItem(Properties properties)
@@ -26,6 +28,10 @@ public class MalumCurioItem extends Item implements ICurioItem
     public int spiritYieldBonus()
     {
         return 0;
+    }
+    public ItemStack spiritReplacementStack(ItemStack previousStack)
+    {
+        return ItemStack.EMPTY;
     }
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack)
