@@ -6,6 +6,7 @@ import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.common.items.tools.scythes.ScytheItem;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
@@ -21,6 +22,7 @@ import java.util.Set;
 
 import static com.sammy.malum.MalumHelper.prefix;
 import static com.sammy.malum.MalumHelper.takeAll;
+import static com.sammy.malum.core.init.items.MalumItems.CONFINED_BRILLIANCE;
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 
 public class MalumItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider
@@ -34,6 +36,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     protected void registerModels()
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+        items.remove(CONFINED_BRILLIANCE);
         takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
         takeAll(items, i -> i.get() instanceof SpiritItem).forEach(this::spiritSplinterItem);
@@ -56,6 +59,8 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof BowItem).forEach(this::handheldItem);
         items.forEach(this::generatedItem);
+
+        generatedItem(CONFINED_BRILLIANCE);
     }
     
     private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");

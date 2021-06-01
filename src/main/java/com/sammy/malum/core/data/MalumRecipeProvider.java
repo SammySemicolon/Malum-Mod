@@ -40,6 +40,10 @@ public class MalumRecipeProvider extends RecipeProvider
     {
         shapelessRecipe(Items.PURPLE_DYE,2).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
 
+        shapelessRecipe(MalumItems.COAL_FRAGMENT.get(),8).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_coal", hasItem(Items.COAL)).build(consumer);
+        shapelessRecipe(MalumItems.BLAZING_QUARTZ_FRAGMENT.get(),8).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_blazing_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer);
+        shapelessRecipe(MalumItems.ARCANE_CHARCOAL_FRAGMENT.get(),8).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_arcane_charcoal", hasItem(MalumItems.ARCANE_CHARCOAL.get())).build(consumer);
+
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.RUNEWOOD_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_ALTAR.get()).key('Z', Tags.Items.INGOTS_GOLD).key('Y', MalumItems.SOULSTONE.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine(" Y ").patternLine("ZXZ").patternLine("XXX").addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);

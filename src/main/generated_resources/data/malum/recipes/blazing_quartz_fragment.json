@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:lavender"
+    }
+  ],
+  "result": {
+    "item": "malum:blazing_quartz_fragment",
+    "count": 8
+  }
+}

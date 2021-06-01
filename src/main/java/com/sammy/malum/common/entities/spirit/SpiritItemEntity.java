@@ -35,6 +35,7 @@ public class SpiritItemEntity extends ProjectileItemEntity
 
     public ItemStack stack;
     public UUID ownerUUID;
+    public LivingEntity owner;
 
     public int age;
     public float rotation;
@@ -58,20 +59,13 @@ public class SpiritItemEntity extends ProjectileItemEntity
     {
         this.stack = stack;
         this.ownerUUID = ownerUUID;
+        if (MalumHelper.areWeOnServer(world))
+        {
+            owner = (LivingEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
+        }
         getDataManager().set(STACK, stack);
     }
 
-    public LivingEntity owner()
-    {
-        if (ownerUUID != null)
-        {
-            if (MalumHelper.areWeOnServer(world))
-            {
-                return (LivingEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
-            }
-        }
-        return null;
-    }
     @Override
     public void tick()
     {
@@ -84,7 +78,6 @@ public class SpiritItemEntity extends ProjectileItemEntity
         if (MalumHelper.areWeOnServer(world))
         {
             setMotion(getMotion().mul(0.9f, 0.8f, 0.9f));
-            LivingEntity owner = owner();
             if (owner != null)
             {
                 float distance = getDistance(owner);

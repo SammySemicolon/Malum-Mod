@@ -1,5 +1,6 @@
 package com.sammy.malum.core.modcontent;
 
+import com.sammy.malum.MalumColors;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.entity.CreatureAttribute;
@@ -89,6 +90,8 @@ public class MalumSpiritTypes
             .addTest(1, ZombieEntity.class, CreeperEntity.class, IForgeShearable.class, CowEntity.class)
             .addTest(2, HorseEntity.class, ZombieHorseEntity.class, IronGolemEntity.class)
             .addTest(3, "zombie_brute");
+
+    public static  MalumSpiritType CONFINED_BRILLIANCE = create("confined_brilliance", MalumColors.GREEN, MalumItems.CONFINED_BRILLIANCE);
 
 
     public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)

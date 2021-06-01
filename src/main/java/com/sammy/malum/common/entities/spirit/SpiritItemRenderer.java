@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
@@ -33,7 +34,7 @@ public class SpiritItemRenderer extends EntityRenderer<SpiritItemEntity>
     {
         matrixStackIn.push();
         ItemStack itemstack = entityIn.getItem();
-        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, null);
+        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, (LivingEntity)null);
         float f1 = entityIn.yOffset(partialTicks);
         float f2 = ibakedmodel.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.getY();
         matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
@@ -43,6 +44,7 @@ public class SpiritItemRenderer extends EntityRenderer<SpiritItemEntity>
         matrixStackIn.pop();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
+
     @Override
     public ResourceLocation getEntityTexture(SpiritItemEntity entity)
     {

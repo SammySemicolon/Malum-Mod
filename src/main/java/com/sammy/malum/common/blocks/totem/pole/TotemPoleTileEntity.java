@@ -130,19 +130,19 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         {
             float extraVelocity = 0.03f * i;
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(0.015f, 0f)
+                    .setAlpha(0.025f, 0f)
                     .setLifetime(40)
                     .setSpin(0.2f)
-                    .setScale(0.175f, 0)
+                    .setScale(0.25f, 0)
                     .setColor(color, color)
                     .addVelocity(0, extraVelocity,0)
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 2, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                    .evenlyRepeatEdges(world, pos, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
             ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
-                    .setAlpha(0.015f, 0f)
+                    .setAlpha(0.025f, 0f)
                     .setLifetime(80)
                     .setSpin(0.1f)
                     .setScale(0.35f, 0)
@@ -151,7 +151,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 2, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                    .evenlyRepeatEdges(world, pos, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
         }
     }
 }

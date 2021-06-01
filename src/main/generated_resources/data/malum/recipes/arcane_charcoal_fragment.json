@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:lavender"
+    }
+  ],
+  "result": {
+    "item": "malum:arcane_charcoal_fragment",
+    "count": 8
+  }
+}
