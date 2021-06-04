@@ -10,6 +10,7 @@ import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.blocks.lighting.WallEtherTorchBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarBlock;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
+import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeBlock;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
 import com.sammy.malum.core.init.MalumSounds;
@@ -515,6 +516,7 @@ public class MalumBlocks
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(HALLOWED_GOLD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> SPIRIT_PIPE = BLOCKS.register("spirit_pipe", () -> new SpiritPipeBlock(HALLOWED_GOLD_PROPERTIES().notSolid()));
 
     public static final RegistryObject<Block> TOTEM_BASE = BLOCKS.register("totem_base", () -> new TotemBaseBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(MalumBlocks.RUNEWOOD_LOG.get())));
