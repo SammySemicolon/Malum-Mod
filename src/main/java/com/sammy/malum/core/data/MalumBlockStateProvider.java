@@ -32,8 +32,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.core.init.blocks.MalumBlocks.BLAZING_QUARTZ_ORE;
-import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.init.blocks.MalumBlocks.*;
 import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
 
@@ -58,8 +57,9 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         blocks.remove(BLAZING_QUARTZ_ORE);
         glowingBlock(BLAZING_QUARTZ_ORE);
 
-        blocks.remove(MalumBlocks.SPIRIT_ALTAR);
-        blocks.remove(MalumBlocks.SPIRIT_JAR);
+        blocks.remove(SPIRIT_ALTAR);
+        blocks.remove(SPIRIT_JAR);
+        blocks.remove(SPIRIT_PIPE);
 
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
 

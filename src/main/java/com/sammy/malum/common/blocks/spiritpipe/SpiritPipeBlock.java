@@ -153,7 +153,7 @@ public class SpiritPipeBlock extends Block
 
     public BlockState figureOutState(World world, BlockPos pos)
     {
-        Predicate<TileEntity> tileEntityPredicate = t -> t instanceof IPipeAcceptor;
+        Predicate<TileEntity> tileEntityPredicate = t -> t instanceof IPipeAcceptor || t instanceof SpiritPipeTileEntity;
         BlockState finalState = getDefaultState();
         TileEntity north = world.getTileEntity(pos.north());
         TileEntity south = world.getTileEntity(pos.south());

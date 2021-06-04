@@ -22,6 +22,7 @@ import java.util.Set;
 import static com.sammy.malum.MalumHelper.prefix;
 import static com.sammy.malum.MalumHelper.takeAll;
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
+import static com.sammy.malum.core.init.items.MalumItems.SPIRIT_PIPE;
 
 public class MalumItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider
 {
@@ -34,6 +35,9 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     protected void registerModels()
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+        items.remove(SPIRIT_PIPE);
+        spiritPipeItem(SPIRIT_PIPE);
+
         takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
         takeAll(items, i -> i.get() instanceof SpiritItem).forEach(this::spiritSplinterItem);
@@ -104,7 +108,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         String name = Registry.ITEM.getKey(i.get()).getPath();
         withExistingParent(name, GENERATED).texture("layer0", prefix("block/" + name));
     }
-    private void essencePipeItem(RegistryObject<Item> i)
+    private void spiritPipeItem(RegistryObject<Item> i)
     {
         getBuilder("spirit_pipe").parent(new ModelFile.UncheckedModelFile(prefix("block/" + "spirit_pipe_core")));
     }
