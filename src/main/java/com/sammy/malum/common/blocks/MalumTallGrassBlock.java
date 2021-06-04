@@ -12,15 +12,16 @@ import java.util.Random;
 
 public class MalumTallGrassBlock extends TallGrassBlock
 {
-    private final RegistryObject<Block> blockRegistryObject;
-    public MalumTallGrassBlock(Properties properties, RegistryObject<Block> blockRegistryObject)
+    private final RegistryObject<Block> doublePlantBlock;
+    public MalumTallGrassBlock(Properties properties, RegistryObject<Block> doublePlantBlock)
     {
         super(properties);
-        this.blockRegistryObject = blockRegistryObject;
+        this.doublePlantBlock = doublePlantBlock;
     }
+
     public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state)
     {
-        DoublePlantBlock doubleplantblock = (DoublePlantBlock) blockRegistryObject.get();
+        DoublePlantBlock doubleplantblock = (DoublePlantBlock) doublePlantBlock.get();
         if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()))
         {
             doubleplantblock.placeAt(worldIn, pos, 2);

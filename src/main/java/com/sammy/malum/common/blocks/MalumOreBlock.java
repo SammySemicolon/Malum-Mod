@@ -24,14 +24,4 @@ public class MalumOreBlock extends OreBlock
     {
         return MathHelper.nextInt(rand, min, max);
     }
-
-    @Override
-    public void dropXpOnBlockBreak(ServerWorld worldIn, BlockPos pos, int amount)
-    {
-        if (this.equals(MalumBlocks.BLAZING_QUARTZ_ORE.get()))
-        {
-
-        }
-        super.dropXpOnBlockBreak(worldIn, pos, amount);
-    }
 }
