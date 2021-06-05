@@ -1,6 +1,7 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.items.tools.spirittools.TyrvingItem;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
@@ -82,7 +83,7 @@ public class Events
             if (playerEntity.swingingHand != null)
             {
                 ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
-                if (stack.getItem().equals(MalumItems.TYRVING.get()))
+                if (stack.getItem() instanceof TyrvingItem)
                 {
                     LivingEntity entity = event.getEntityLiving();
                     event.getEntity().hurtResistantTime = 0;

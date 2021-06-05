@@ -31,7 +31,7 @@ public class DarkArtsCategory extends BookCategory
                 .addPage(new TextPage("totem_magic_2"))
                 .addPage(new TextPage("totem_magic_3"))
                 .addPage(new SpiritInfusionPage(TOTEM_BASE.get()))
-                .addLink(spiritInfusion).addLink(runewoodTrees).addLink(spirit_resonators).addLink(arcaneSpirit).addLink(earthenSpirit);
+                .addLink(spirit_infusion).addLink(runewood_trees).addLink(spirit_resonators).addLink(arcaneSpirit).addLink(earthenSpirit);
 
         rite_of_growth = new BookEntry(SACRED_SPIRIT.get(), "rite_of_growth")
                 .addPage(new HeadlineTextPage("rite_of_growth"))

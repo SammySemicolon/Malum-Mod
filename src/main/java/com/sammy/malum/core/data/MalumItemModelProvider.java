@@ -5,7 +5,7 @@ import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.items.SpiritItem;
-import com.sammy.malum.common.items.tools.scythes.ScytheItem;
+import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;

@@ -5,6 +5,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entities.spirit.SpiritItemEntity;
 import com.sammy.malum.common.items.equipment.curios.MalumCurioItem;
+import com.sammy.malum.common.items.tools.spirittools.ISpiritTool;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
@@ -48,6 +49,10 @@ public class SpiritHelper
 
     public static void summonSpirits(LivingEntity target, LivingEntity attacker, ItemStack harvestStack)
     {
+        if (!(harvestStack.getItem() instanceof ISpiritTool))
+        {
+            return;
+        }
         if (target instanceof PlayerEntity)
         {
             return;
@@ -57,8 +62,9 @@ public class SpiritHelper
         {
             return;
         }
+        ISpiritTool tool = (ISpiritTool) harvestStack.getItem();
         ArrayList<MalumCurioItem> equippedMalumCurios = MalumHelper.equippedMalumCurios(attacker);
-        int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
+        int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack) + tool.spiritBonus(target);
         for (MalumCurioItem item : equippedMalumCurios)
         {
             plunder += item.spiritYieldBonus();

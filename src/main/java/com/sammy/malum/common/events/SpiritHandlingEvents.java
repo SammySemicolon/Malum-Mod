@@ -2,11 +2,10 @@ package com.sammy.malum.common.events;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.common.items.tools.scythes.ScytheItem;
+import com.sammy.malum.common.items.tools.spirittools.ISpiritTool;
+import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,11 +29,11 @@ public class SpiritHandlingEvents
             }
             else
             {
-                stack = MalumHelper.heldItem(attacker, s -> s.getItem() instanceof ScytheItem);
+                stack = MalumHelper.heldItem(attacker, s -> s.getItem() instanceof ISpiritTool);
             }
             if (stack != null)
             {
-                if (stack.getItem() instanceof ScytheItem && event.getSource().isProjectile())
+                if (stack.getItem() instanceof ISpiritTool && event.getSource().isProjectile())
                 {
                     return;
                 }

@@ -37,6 +37,14 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
 
+        //sac dag
+        new MalumSpiritAltarRecipe(new ItemIngredient(Items.IRON_SWORD, 1), new ItemIngredient(MalumItems.SACRIFICIAL_DAGGER.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 8))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()));
+
         //arcane architecture
         new MalumSpiritAltarRecipe(new ItemIngredient(Items.GRANITE, 16), new ItemIngredient(MalumItems.CLEANSED_ROCK.get(), 16))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT))

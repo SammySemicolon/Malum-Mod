@@ -1,7 +1,8 @@
-package com.sammy.malum.common.items.tools.scythes;
+package com.sammy.malum.common.items.tools.spirittools;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.items.tools.ModCombatItem;
 import com.sammy.malum.common.items.tools.ModSwordItem;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
@@ -21,11 +22,11 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 
-public class ScytheItem extends ModSwordItem
+public class ScytheItem extends ModCombatItem implements ISpiritTool
 {
     public ScytheItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn)
     {
-        super(tier, attackDamageIn, attackSpeedIn - 0.8f, builderIn);
+        super(tier, attackDamageIn+4, attackSpeedIn - 3.2f, builderIn);
     }
     
     @Nonnull
@@ -33,7 +34,6 @@ public class ScytheItem extends ModSwordItem
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        
         if (EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.REBOUND.get(), itemstack) > 0)
         {
             if (MalumHelper.areWeOnServer(worldIn))
@@ -86,8 +86,8 @@ public class ScytheItem extends ModSwordItem
                 }
             }
         }
-    
-        playerEntity.world.playSound(null, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), MalumSounds.SCYTHE_STRIKE, playerEntity.getSoundCategory(), 1.0F, 0.9f + playerEntity.world.rand.nextFloat() * 0.2f);
+
+        playerEntity.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SCYTHE_STRIKE, playerEntity.getSoundCategory(), 1.0F, 0.9f + target.world.rand.nextFloat() * 0.2f);
         playerEntity.spawnSweepParticles();
     }
 }

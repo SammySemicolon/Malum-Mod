@@ -135,6 +135,8 @@ public class MalumLangProvider extends LanguageProvider
 
         addPage("ether", "Think of a lit matchstick, but without the matchstick. Ether is just that! It's a magical substance that looks much like fire and shines bright forever. It can be put on a torch and a tainted rock brazier. It can be colored with most dyes and placed underwater.");
 
+        addPage("sacrificial_dagger", "A scythe, while efficient at cutting through hordes of enemies, may prove to be quite ineffective at shattering just one soul. The sacrificial dagger is a fix to that problem, it's a simple dagger that can hit only one enemy.");
+
         addPage("spirit_architecture", "Not only cobblestone can be infused into an arcane rock. Granite, Diorite and Andesite all have their magic counterparts.");
 
         addPage("soul_stained_steel", "Soul Stained Steel is a very strong magical metal, perfect for strong tools and armor. It's created by infusing iron with wicked and arcane spirit.");

@@ -9,7 +9,9 @@ import com.sammy.malum.common.items.equipment.armor.SoulStainedStrongholdArmorIt
 import com.sammy.malum.common.items.equipment.curios.*;
 import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
 import com.sammy.malum.common.items.tools.*;
-import com.sammy.malum.common.items.tools.scythes.ScytheItem;
+import com.sammy.malum.common.items.tools.spirittools.SacrificialDaggerItem;
+import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
+import com.sammy.malum.common.items.tools.spirittools.TyrvingItem;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.items.tabs.MalumBuildingTab;
 import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
@@ -23,8 +25,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static com.sammy.malum.MalumMod.MODID;
-import static com.sammy.malum.core.init.items.MalumItemTiers.ItemTierEnum.SOUL_STAINED_STEEL_ITEM;
-import static com.sammy.malum.core.init.items.MalumItemTiers.ItemTierEnum.TYRVING_ITEM;
+import static com.sammy.malum.core.init.items.MalumItemTiers.ItemTierEnum.*;
 import static net.minecraft.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -498,7 +499,8 @@ public class MalumItems
     public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_LEGGINGS = ITEMS.register("soul_stained_stronghold_leggings", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_BOOTS = ITEMS.register("soul_stained_stronghold_boots", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new ModSwordItem(TYRVING_ITEM, 0, -0.1f, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SACRIFICIAL_DAGGER = ITEMS.register("sacrificial_dagger", () -> new SacrificialDaggerItem(SACRIFICIAL_DAGGER_ITEM, 0, -0.1f, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 0, -0.1f, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));
