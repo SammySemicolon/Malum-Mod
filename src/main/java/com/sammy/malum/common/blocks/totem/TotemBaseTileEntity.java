@@ -13,6 +13,7 @@ import com.sammy.malum.network.packets.totem.TotemParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import java.util.ArrayList;
 
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
+import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
@@ -91,13 +93,23 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
                     height++;
                     progress = 20;
                     BlockPos polePos = pos.up(height);
-                    if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity && world.getBlockState(polePos).get(BlockStateProperties.HORIZONTAL_FACING).equals(getBlockState().get(BlockStateProperties.HORIZONTAL_FACING)))
+                    if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity)
                     {
-                        TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
-                        if (tileEntity.type != null)
+                        Direction poleFacing = world.getBlockState(polePos).get(HORIZONTAL_FACING);
+                        Direction baseFacing = getBlockState().get(HORIZONTAL_FACING);
+                        if (poleFacing.equals(baseFacing))
                         {
-                            spirits.add(tileEntity.type);
-                            tileEntity.riteStarting(height);
+                            TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
+                            if (tileEntity.type != null)
+                            {
+                                spirits.add(tileEntity.type);
+                                tileEntity.riteStarting(height);
+                            }
+                        }
+                        else if (height == 1)
+                        {
+                            world.setBlockState(pos, getBlockState().with(HORIZONTAL_FACING, poleFacing));
+                            MalumHelper.updateState(world, pos);
                         }
                     }
                     else
