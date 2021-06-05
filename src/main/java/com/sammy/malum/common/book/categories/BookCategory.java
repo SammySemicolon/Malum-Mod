@@ -20,7 +20,7 @@ public class BookCategory
     {
         ArrayList<BookEntryGrouping> groupings = new ArrayList<>();
         int currentPage = 0;
-        for (int i =0; i < Math.ceil(pages.length / 10f); i++)
+        for (int i =0; i <= Math.ceil(pages.length / 10f); i++)
         {
             BookEntryGrouping grouping = new BookEntryGrouping(i==0);
             int entries = 10;
