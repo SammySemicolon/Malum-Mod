@@ -159,22 +159,6 @@ public class MalumSpiritAltarRecipes
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()));
     }
 
-    public static MalumSpiritAltarRecipe getRecipe(ItemStack stack)
-    {
-        for (MalumSpiritAltarRecipe recipe : RECIPES)
-        {
-            if (recipe.inputIngredient.matches(stack))
-            {
-                if (stack.getItem().equals(recipe.outputIngredient.getItem().getItem()))
-                {
-                    continue;
-                }
-                return recipe;
-            }
-        }
-        return null;
-    }
-
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack, ArrayList<ItemStack> stacks)
     {
         for (MalumSpiritAltarRecipe recipe : RECIPES)

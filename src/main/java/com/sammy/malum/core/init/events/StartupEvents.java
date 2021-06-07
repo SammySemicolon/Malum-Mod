@@ -18,6 +18,7 @@ public class StartupEvents
     public static void registerModContents(FMLCommonSetupEvent event)
     {
         MalumSpiritAltarRecipes.init();
+        MalumWellOfSufferingRecipes.init();
         MalumRites.init();
     }
     @SubscribeEvent
