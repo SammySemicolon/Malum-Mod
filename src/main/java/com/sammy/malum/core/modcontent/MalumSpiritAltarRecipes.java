@@ -18,22 +18,22 @@ public class MalumSpiritAltarRecipes
     public static void init()
     {
         //hex ash
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.GUNPOWDER, 1), new ItemIngredient(MalumItems.HEX_ASH.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.GUNPOWDER, 2), new ItemIngredient(MalumItems.HEX_ASH.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 2));
 
         //tainted rock
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TAINTED_ROCK.get(), 16))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //twisted rock
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.COBBLESTONE, 16), new ItemIngredient(MalumItems.TWISTED_ROCK.get(), 16))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //ether
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 4), new ItemIngredient(MalumItems.YELLOW_ETHER.get(), 2))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.INFERNAL_SPIRIT))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.INFERNAL_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
 
@@ -41,7 +41,6 @@ public class MalumSpiritAltarRecipes
         new MalumSpiritAltarRecipe(new ItemIngredient(Items.IRON_SWORD, 1), new ItemIngredient(MalumItems.SACRIFICIAL_DAGGER.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 8))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()));
 
@@ -60,12 +59,12 @@ public class MalumSpiritAltarRecipes
 
         //soul stained steel
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.INGOTS_IRON, 1), new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 3))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //hallowed gold
         new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.INGOTS_GOLD, 1), new ItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 3))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //ring of arcane reach
