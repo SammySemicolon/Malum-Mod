@@ -8,6 +8,7 @@ import com.sammy.malum.common.blocks.spiritjar.SpiritJarTileEntity;
 import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeTileEntity;
 import com.sammy.malum.common.blocks.totem.TotemBaseTileEntity;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleTileEntity;
+import com.sammy.malum.common.blocks.wellofsuffering.WellOfSufferingTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
@@ -21,8 +22,10 @@ import static com.sammy.malum.MalumMod.MODID;
 public class MalumTileEntities
 {
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
-    
+
     public static final RegistryObject<TileEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_altar_tile_entity", () -> TileEntityType.Builder.create(SpiritAltarTileEntity::new, MalumBlocks.SPIRIT_ALTAR.get()).build(null));
+    public static final RegistryObject<TileEntityType<WellOfSufferingTileEntity>> WELL_OF_SUFFERING_TILE_ENTITY = TILE_ENTITIES.register("well_of_suffering_tile_entity", () -> TileEntityType.Builder.create(WellOfSufferingTileEntity::new, MalumBlocks.WELL_OF_SUFFERING.get()).build(null));
+
     public static final RegistryObject<TileEntityType<SpiritJarTileEntity>> SPIRIT_JAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_jar_tile_entity", () -> TileEntityType.Builder.create(SpiritJarTileEntity::new, MalumBlocks.SPIRIT_JAR.get()).build(null));
     public static final RegistryObject<TileEntityType<SpiritPipeTileEntity>> SPIRIT_PIPE_TILE_ENTITY = TILE_ENTITIES.register("spirit_pipe_tile_entity", () -> TileEntityType.Builder.create(SpiritPipeTileEntity::new, MalumBlocks.SPIRIT_PIPE.get()).build(null));
 

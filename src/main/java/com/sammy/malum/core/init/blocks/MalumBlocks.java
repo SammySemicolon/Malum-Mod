@@ -13,6 +13,7 @@ import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeBlock;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
+import com.sammy.malum.common.blocks.wellofsuffering.WellOfSufferingBlock;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -515,6 +516,7 @@ public class MalumBlocks
 
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> WELL_OF_SUFFERING = BLOCKS.register("well_of_suffering", () -> new WellOfSufferingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(HALLOWED_GOLD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> SPIRIT_PIPE = BLOCKS.register("spirit_pipe", () -> new SpiritPipeBlock(HALLOWED_GOLD_PROPERTIES().notSolid()));
 

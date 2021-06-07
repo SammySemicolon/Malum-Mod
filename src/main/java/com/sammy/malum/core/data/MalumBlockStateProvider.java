@@ -10,6 +10,7 @@ import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
+import com.sammy.malum.common.blocks.wellofsuffering.WellOfSufferingBlock;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiblock;
@@ -63,6 +64,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
 
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
 
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof WellOfSufferingBlock).forEach(this::wellOfSufferingBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
@@ -240,6 +242,12 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
                 .modelForState().modelFile(base).rotationY(90).addModel()
                 .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
                 .modelForState().modelFile(base).addModel();
+    }
+    public void wellOfSufferingBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile well = models().withExistingParent(name, MalumHelper.prefix("block/template_well_of_suffering")).texture("0", prefix("block/" + name)).texture("particle", prefix("block/tainted_rock"));
+        simpleBlock(blockRegistryObject.get(), well);
     }
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
     {
