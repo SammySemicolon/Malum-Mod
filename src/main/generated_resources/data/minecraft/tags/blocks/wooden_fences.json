@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "malum:runewood_planks_fence",
-    "malum:runewood_planks_fence_gate"
+    "malum:runewood_planks_fence"
   ]
 }

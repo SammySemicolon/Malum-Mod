@@ -2645,7 +2645,7 @@ e7427cf65fb070fc32066db9c2c111a77cc29ee1 data/minecraft/tags/blocks/trapdoors.js
 3e9d09a2434ac6361e51fde0c16d82dbecad7e35 data/minecraft/tags/blocks/walls.json
 5a8530ae374c450bb4da71d3e98bac6b6fbec7cd data/minecraft/tags/blocks/wooden_buttons.json
 def9b635848b146654d8acdd2af4ead3ddc59b15 data/minecraft/tags/blocks/wooden_doors.json
-e3755503aaf80a4003580aeb4944436868001276 data/minecraft/tags/blocks/wooden_fences.json
+fff96879df2c2d4cf91f0500e3a901cf9650b23b data/minecraft/tags/blocks/wooden_fences.json
 9daebca3f255ad71bd90db5b7f3ed6706cfea896 data/minecraft/tags/blocks/wooden_pressure_plates.json
 aaf1658bc1b518186bc5426acdb64e03aaca6a8a data/minecraft/tags/blocks/wooden_slabs.json
 a542f0886f318b5934ba27be887c41c2002577fd data/minecraft/tags/blocks/wooden_stairs.json
@@ -2683,7 +2683,7 @@ e7427cf65fb070fc32066db9c2c111a77cc29ee1 data/minecraft/tags/items/trapdoors.jso
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/warped_stems.json
 5a8530ae374c450bb4da71d3e98bac6b6fbec7cd data/minecraft/tags/items/wooden_buttons.json
 def9b635848b146654d8acdd2af4ead3ddc59b15 data/minecraft/tags/items/wooden_doors.json
-e3755503aaf80a4003580aeb4944436868001276 data/minecraft/tags/items/wooden_fences.json
+fff96879df2c2d4cf91f0500e3a901cf9650b23b data/minecraft/tags/items/wooden_fences.json
 9daebca3f255ad71bd90db5b7f3ed6706cfea896 data/minecraft/tags/items/wooden_pressure_plates.json
 aaf1658bc1b518186bc5426acdb64e03aaca6a8a data/minecraft/tags/items/wooden_slabs.json
 a542f0886f318b5934ba27be887c41c2002577fd data/minecraft/tags/items/wooden_stairs.json
