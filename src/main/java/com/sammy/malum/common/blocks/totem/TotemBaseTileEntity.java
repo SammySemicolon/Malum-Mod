@@ -97,6 +97,11 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
                     {
                         Direction poleFacing = world.getBlockState(polePos).get(HORIZONTAL_FACING);
                         Direction baseFacing = getBlockState().get(HORIZONTAL_FACING);
+                        if (height == 1)
+                        {
+                            world.setBlockState(pos, getBlockState().with(HORIZONTAL_FACING, poleFacing));
+                            MalumHelper.updateState(world, pos);
+                        }
                         if (poleFacing.equals(baseFacing))
                         {
                             TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
@@ -105,11 +110,6 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
                                 spirits.add(tileEntity.type);
                                 tileEntity.riteStarting(height);
                             }
-                        }
-                        else if (height == 1)
-                        {
-                            world.setBlockState(pos, getBlockState().with(HORIZONTAL_FACING, poleFacing));
-                            MalumHelper.updateState(world, pos);
                         }
                     }
                     else
