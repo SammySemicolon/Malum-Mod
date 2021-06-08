@@ -246,7 +246,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     public void wellOfSufferingBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile well = models().withExistingParent(name, MalumHelper.prefix("block/template_well_of_suffering")).texture("0", prefix("block/" + name)).texture("particle", prefix("block/tainted_rock"));
+        ModelFile well = models().withExistingParent(name, MalumHelper.prefix("block/template_well_of_suffering")).texture("well", prefix("block/" + name)).texture("particle", prefix("block/tainted_rock"));
         simpleBlock(blockRegistryObject.get(), well);
     }
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)

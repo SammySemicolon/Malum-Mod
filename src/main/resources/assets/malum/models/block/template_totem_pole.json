@@ -4,7 +4,7 @@
 	"ambientocclusion": false,
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "malum:block/totem",
+		"pole": "malum:block/totem",
 		"particle": "malum:block/runewood_log"
 	},
 	"elements": [
@@ -13,11 +13,11 @@
 			"to": [16, 16, 16],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
-				"east": {"uv": [5.5, 0, 9.5, 4], "texture": "#0"},
-				"south": {"uv": [5.5, 0, 9.5, 4], "texture": "#0"},
-				"west": {"uv": [5.5, 0, 9.5, 4], "texture": "#0"},
-				"up": {"uv": [5.5, 4, 9.5, 8], "texture": "#0"},
-				"down": {"uv": [5.5, 4, 9.5, 8], "texture": "#0"}
+				"east": {"uv": [5.5, 0, 9.5, 4], "texture": "#pole"},
+				"south": {"uv": [5.5, 0, 9.5, 4], "texture": "#pole"},
+				"west": {"uv": [5.5, 0, 9.5, 4], "texture": "#pole"},
+				"up": {"uv": [5.5, 4, 9.5, 8], "texture": "#pole"},
+				"down": {"uv": [5.5, 4, 9.5, 8], "texture": "#pole"}
 			}
 		}
 	]

@@ -1,7 +1,7 @@
 {
   "parent": "malum:block/template_well_of_suffering",
   "textures": {
-    "0": "malum:block/well_of_suffering",
+    "well": "malum:block/well_of_suffering",
     "particle": "malum:block/tainted_rock"
   }
 }
