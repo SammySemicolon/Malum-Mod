@@ -55,7 +55,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
     {
-        if (reader.isAirBlock(pos.down()) || !(reader.getBlockState(pos.down()).getBlock() instanceof GrassBlock))
+        if (reader.isAirBlock(pos.down()) || !MalumBlocks.RUNEWOOD_SAPLING.get().getDefaultState().isValidPosition(reader, pos))
         {
             return false;
         }

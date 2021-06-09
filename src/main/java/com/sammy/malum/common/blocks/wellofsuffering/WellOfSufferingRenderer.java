@@ -49,7 +49,7 @@ public class WellOfSufferingRenderer extends TileEntityRenderer<WellOfSufferingT
                 Vector3f offset = new Vector3f(WellOfSufferingTileEntity.itemOffset(tileEntityIn, i));
                 matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
                 matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
-                matrixStackIn.scale(0.5f, 0.5f, 0.5f);
+                matrixStackIn.scale(0.4f, 0.4f, 0.4f);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
                 matrixStackIn.pop();
             }

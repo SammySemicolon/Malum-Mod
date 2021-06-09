@@ -25,7 +25,6 @@ public class WellOfSufferingTileEntity extends SimpleInventoryTileEntity impleme
     public boolean active;
 
     public float water;
-    public int evaporation;
 
     public int spinUp;
     public float spin;
@@ -81,20 +80,19 @@ public class WellOfSufferingTileEntity extends SimpleInventoryTileEntity impleme
                 SpiritItem spiritSplinterItem = (SpiritItem) item.getItem();
                 Color color = spiritSplinterItem.type.color;
 
-
                 ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
                         .setAlpha(0.2f, 0f)
                         .setLifetime(10)
-                        .setScale(0.3f, 0)
+                        .setScale(0.25f, 0)
                         .setColor(color.brighter(), color.darker())
                         .enableNoClip()
                         .repeat(world, x, y, z, 2);
 
                 ParticleManager.create(MalumParticles.WISP_PARTICLE)
                         .setAlpha(0.2f, 0f)
-                        .setLifetime(80)
+                        .setLifetime(20)
                         .setSpin(0.1f)
-                        .setScale(0.2f, 0)
+                        .setScale(0.15f, 0)
                         .setColor(color, color.darker())
                         .enableNoClip()
                         .repeat(world, x, y, z, 1);
