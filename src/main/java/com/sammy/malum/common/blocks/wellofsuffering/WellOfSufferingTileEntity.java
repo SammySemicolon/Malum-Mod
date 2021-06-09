@@ -21,6 +21,12 @@ import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
 public class WellOfSufferingTileEntity extends SimpleInventoryTileEntity implements ITickableTileEntity
 {
+    public float progress;
+    public boolean active;
+
+    public float water;
+    public int evaporation;
+
     public int spinUp;
     public float spin;
 
