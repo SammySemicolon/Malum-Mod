@@ -47,7 +47,7 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IA
     }
     public static Vector3d itemOffset()
     {
-        return new Vector3d(0.5f, 1.2f, 0.5f);
+        return new Vector3d(0.5f, 1.4f, 0.5f);
     }
 
     @Override
