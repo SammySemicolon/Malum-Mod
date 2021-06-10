@@ -4,6 +4,7 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.itemfocus.ItemFocusBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
@@ -68,6 +69,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemFocusBlock).forEach(this::itemFocusBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
@@ -172,7 +174,12 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     public void itemStandBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile stand = models().withExistingParent(name, prefix("block/template_item_stand")).texture("stand", prefix("block/" + name)).texture("particle", prefix("block/" + name));
+        String particleName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_item_stand", "");
+        if (!particleName.endsWith("_rock"))
+        {
+            particleName += "_planks";
+        }
+        ModelFile stand = models().withExistingParent(name, prefix("block/template_item_stand")).texture("stand", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.FACING, Direction.NORTH)
@@ -188,10 +195,21 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
                 .partialState().with(BlockStateProperties.FACING, Direction.UP)
                 .modelForState().modelFile(stand).addModel();
     }
+    public void itemFocusBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile pedestal = models().withExistingParent(name, prefix("block/template_item_focus")).texture("focus", prefix("block/" + name));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(pedestal).build());
+    }
     public void itemPedestalBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile pedestal = models().withExistingParent(name, prefix("block/template_item_pedestal")).texture("pedestal", prefix("block/" + name)).texture("particle", prefix("block/" + name));
+        String particleName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_item_pedestal", "");
+        if (!particleName.endsWith("_rock"))
+        {
+            particleName += "_planks";
+        }
+        ModelFile pedestal = models().withExistingParent(name, prefix("block/template_item_pedestal")).texture("pedestal", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(pedestal).build());
     }
     public void wildFarmlandBlock(RegistryObject<Block> blockRegistryObject)

@@ -453,10 +453,12 @@ public class MalumItems
 
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> WELL_OF_SUFFERING = ITEMS.register("well_of_suffering", () -> new BlockItem(MalumBlocks.WELL_OF_SUFFERING.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
+
+    public static final RegistryObject<Item> WELL_OF_SUFFERING = ITEMS.register("well_of_suffering", () -> new BlockItem(MalumBlocks.WELL_OF_SUFFERING.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ITEM_FOCUS = ITEMS.register("item_focus", () -> new BlockItem(MalumBlocks.ITEM_FOCUS.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region materials

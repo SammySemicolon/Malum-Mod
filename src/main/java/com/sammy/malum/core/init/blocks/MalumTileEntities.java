@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init.blocks;
 
+import com.sammy.malum.common.blocks.itemfocus.ItemFocusTileEntity;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalTileEntity;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.common.blocks.lighting.BasicLightingTileEntity;
@@ -25,6 +26,7 @@ public class MalumTileEntities
 
     public static final RegistryObject<TileEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_altar_tile_entity", () -> TileEntityType.Builder.create(SpiritAltarTileEntity::new, MalumBlocks.SPIRIT_ALTAR.get()).build(null));
     public static final RegistryObject<TileEntityType<WellOfSufferingTileEntity>> WELL_OF_SUFFERING_TILE_ENTITY = TILE_ENTITIES.register("well_of_suffering_tile_entity", () -> TileEntityType.Builder.create(WellOfSufferingTileEntity::new, MalumBlocks.WELL_OF_SUFFERING.get()).build(null));
+    public static final RegistryObject<TileEntityType<ItemFocusTileEntity>> ITEM_FOCUS_TILE_ENTITY = TILE_ENTITIES.register("item_focus_tile_entity", () -> TileEntityType.Builder.create(ItemFocusTileEntity::new, MalumBlocks.ITEM_FOCUS.get()).build(null));
 
     public static final RegistryObject<TileEntityType<SpiritJarTileEntity>> SPIRIT_JAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_jar_tile_entity", () -> TileEntityType.Builder.create(SpiritJarTileEntity::new, MalumBlocks.SPIRIT_JAR.get()).build(null));
     public static final RegistryObject<TileEntityType<SpiritPipeTileEntity>> SPIRIT_PIPE_TILE_ENTITY = TILE_ENTITIES.register("spirit_pipe_tile_entity", () -> TileEntityType.Builder.create(SpiritPipeTileEntity::new, MalumBlocks.SPIRIT_PIPE.get()).build(null));

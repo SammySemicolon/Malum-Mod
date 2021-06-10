@@ -2,6 +2,6 @@
   "parent": "malum:block/template_item_pedestal",
   "textures": {
     "pedestal": "malum:block/purified_rock_item_pedestal",
-    "particle": "malum:block/purified_rock_item_pedestal"
+    "particle": "malum:block/purified_rock"
   }
 }

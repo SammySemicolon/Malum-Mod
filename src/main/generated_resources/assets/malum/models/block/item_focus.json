@@ -1,0 +1,6 @@
+{
+  "parent": "malum:block/template_item_focus",
+  "textures": {
+    "focus": "malum:block/item_focus"
+  }
+}

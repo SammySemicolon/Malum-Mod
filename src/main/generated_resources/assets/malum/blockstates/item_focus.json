@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "malum:block/item_focus"
+    },
+    "waterlogged=true": {
+      "model": "malum:block/item_focus"
+    }
+  }
+}

@@ -39,27 +39,16 @@ public class WellOfSufferingRenderer extends TileEntityRenderer<WellOfSufferingT
     @Override
     public void render(WellOfSufferingTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
-        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        for (int i = 0; i < tileEntityIn.inventory.slotCount; i++)
+        if (tileEntityIn.water != 0)
         {
-            ItemStack item = tileEntityIn.inventory.getStackInSlot(i);
-            if (!item.isEmpty())
-            {
-                matrixStackIn.push();
-                Vector3f offset = new Vector3f(WellOfSufferingTileEntity.itemOffset(tileEntityIn, i));
-                matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
-                matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
-                matrixStackIn.scale(0.4f, 0.4f, 0.4f);
-                itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
-                matrixStackIn.pop();
-            }
+            int color = BiomeColors.getWaterColor(tileEntityIn.getWorld(), tileEntityIn.getPos());
+            int red = ColorHelper.PackedColor.getRed(color);
+            int green = ColorHelper.PackedColor.getGreen(color);
+            int blue = ColorHelper.PackedColor.getBlue(color);
+
+            matrixStackIn.translate(0, 0.25f + tileEntityIn.renderedWater * 0.6125f, 0);
+            renderQuad(WATER, new Color(red, green, blue), combinedLightIn, matrixStackIn, bufferIn);
         }
-        int color = BiomeColors.getWaterColor(tileEntityIn.getWorld(), tileEntityIn.getPos());
-        int red = ColorHelper.PackedColor.getRed(color);
-        int green = ColorHelper.PackedColor.getGreen(color);
-        int blue = ColorHelper.PackedColor.getBlue(color);
-        matrixStackIn.translate(0,0.8f,0);
-        renderQuad(WATER, new Color(red,green,blue), combinedLightIn, matrixStackIn, bufferIn);
     }
     public void renderQuad(RenderMaterial material, Color color, int light, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn)
     {

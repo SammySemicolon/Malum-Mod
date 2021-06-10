@@ -2,6 +2,6 @@
   "parent": "malum:block/template_item_stand",
   "textures": {
     "stand": "malum:block/runewood_item_stand",
-    "particle": "malum:block/runewood_item_stand"
+    "particle": "malum:block/runewood_planks"
   }
 }
