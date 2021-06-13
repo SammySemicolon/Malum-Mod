@@ -14,7 +14,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
-public class ItemPedestalRenderer extends TileEntityRenderer<ItemPedestalTileEntity>
+public class  ItemPedestalRenderer extends TileEntityRenderer<ItemPedestalTileEntity>
 {
     public ItemPedestalRenderer(Object rendererDispatcherIn)
     {
