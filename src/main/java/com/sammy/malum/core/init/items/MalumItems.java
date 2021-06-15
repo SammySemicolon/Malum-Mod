@@ -467,6 +467,7 @@ public class MalumItems
     public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_SPIRIT_RESONATOR = ITEMS.register("hallowed_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SIMPLE_ARCANE_APPARATUS = ITEMS.register("simple_arcane_apparatus", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 200));

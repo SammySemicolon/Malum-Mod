@@ -61,6 +61,10 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IA
     @Override
     public void tick()
     {
+        if (MalumHelper.areWeOnServer(world))
+        {
+            return;
+        }
         if (inventory.getStackInSlot(0).getItem() instanceof SpiritItem)
         {
             SpiritItem item = (SpiritItem) inventory.getStackInSlot(0).getItem();

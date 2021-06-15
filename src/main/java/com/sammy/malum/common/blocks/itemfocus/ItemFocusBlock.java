@@ -1,5 +1,9 @@
 package com.sammy.malum.common.blocks.itemfocus;
 
+import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
+import com.sammy.malum.common.items.SpiritItem;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,8 +18,11 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -39,6 +46,32 @@ public class ItemFocusBlock extends SimpleInventoryBlock implements IWaterLoggab
     }
 
     @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    {
+        if (MalumHelper.areWeOnClient(worldIn))
+        {
+            return ActionResultType.SUCCESS;
+        }
+        if (handIn.equals(Hand.MAIN_HAND))
+        {
+            if (worldIn.getTileEntity(pos) instanceof ItemFocusTileEntity)
+            {
+                ItemFocusTileEntity tileEntity = (ItemFocusTileEntity) worldIn.getTileEntity(pos);
+                ItemStack heldStack = player.getHeldItemMainhand();
+                if (heldStack.getItem().equals(MalumItems.SIMPLE_ARCANE_APPARATUS.get()) || heldStack.isEmpty())
+                {
+                    boolean success = tileEntity.apparatusInventory.playerHandleItem(worldIn, player, handIn);
+                    if (success)
+                    {
+                        return ActionResultType.SUCCESS;
+                    }
+                }
+            }
+        }
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+    }
+
+    @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
     {
         if (worldIn instanceof ServerWorld)
@@ -54,7 +87,14 @@ public class ItemFocusBlock extends SimpleInventoryBlock implements IWaterLoggab
         if (worldIn.getTileEntity(pos) instanceof ItemFocusTileEntity)
         {
             ItemFocusTileEntity tileEntity = (ItemFocusTileEntity) worldIn.getTileEntity(pos);
-            worldIn.addEntity(new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, tileEntity.inventory.getStackInSlot(0)));
+            for (ItemStack itemStack : tileEntity.inventory.stacks())
+            {
+                worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,itemStack));
+            }
+            for (ItemStack itemStack : tileEntity.apparatusInventory.stacks())
+            {
+                worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,itemStack));
+            }
         }
         super.spawnAdditionalDrops(state, worldIn, pos, stack);
     }

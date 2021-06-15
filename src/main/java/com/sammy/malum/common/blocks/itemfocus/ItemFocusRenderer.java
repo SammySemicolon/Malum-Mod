@@ -2,7 +2,9 @@ package com.sammy.malum.common.blocks.itemfocus;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
+import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -16,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 
+import static com.sammy.malum.common.blocks.itemfocus.ItemFocusTileEntity.PRESS_DURATION;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
@@ -23,7 +26,6 @@ public class ItemFocusRenderer extends TileEntityRenderer<ItemFocusTileEntity>
 {
     private final ModelRenderer compressorModel;
     public static final ResourceLocation COMPRESSOR_TEXTURE = MalumHelper.prefix("textures/block/arcane_compressor.png");
-    public static final float BIT = 0.0625f;
 
     public ItemFocusRenderer(Object rendererDispatcherIn)
     {
@@ -39,28 +41,52 @@ public class ItemFocusRenderer extends TileEntityRenderer<ItemFocusTileEntity>
     {
         Minecraft mc = Minecraft.getInstance();
 
-        matrixStackIn.push();
-        mc.getTextureManager().bindTexture(COMPRESSOR_TEXTURE);
-        matrixStackIn.translate(0.5f,1, 0.5f);
-        compressorModel.render(matrixStackIn, bufferIn.getBuffer(RenderType.getEntitySolid(COMPRESSOR_TEXTURE)), combinedLightIn, combinedOverlayIn);
-        matrixStackIn.pop();
-
-        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        ItemStack stack = tileEntityIn.inventory.getStackInSlot(0);
-        if (!stack.isEmpty())
+        float press = Math.min(PRESS_DURATION,
+                tileEntityIn.progress > 0 ? tileEntityIn.progress+ (tileEntityIn.active ? partialTicks : -partialTicks) : 0);
+        float pressPercentage = 1f - (press / PRESS_DURATION);
+        press = tileEntityIn.pressDistance > 0 && tileEntityIn.pressDistance < 20 ? tileEntityIn.pressDistance+ (tileEntityIn.inventory.nonEmptyItems() == 0 ? -partialTicks : partialTicks) : tileEntityIn.pressDistance;
+        float pressDistance = 0.25f + 0.5f * press/20f;
+        for (int i = 0; i < 2; i++)
         {
-            matrixStackIn.push();
-            Vector3f offset = new Vector3f(ItemFocusTileEntity.itemOffset());
-            if (stack.getItem() instanceof SpiritItem)
+            if (tileEntityIn.apparatusInventory.getStackInSlot(i).isEmpty())
             {
-                double y = Math.sin(tileEntityIn.getWorld().getGameTime() / 20f) * 0.1f;
-                matrixStackIn.translate(0, y, 0);
+                break;
             }
-            matrixStackIn.translate(offset.getX(), offset.getY() + BIT*5, offset.getZ());
-            matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
-            matrixStackIn.scale(0.6f, 0.6f, 0.6f);
-            itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
+            matrixStackIn.push();
+            matrixStackIn.translate(0.5f, 1.5f, 0.5f);
+            if (i == 1)
+            {
+                matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
+            }
+            matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90));
+            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-(tileEntityIn.pressSpin + partialTicks)));
+            matrixStackIn.translate(-pressDistance * pressPercentage,0,0);
+            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90));
+
+            mc.getTextureManager().bindTexture(COMPRESSOR_TEXTURE);
+            compressorModel.render(matrixStackIn, bufferIn.getBuffer(RenderType.getEntitySolid(COMPRESSOR_TEXTURE)), combinedLightIn, combinedOverlayIn);
             matrixStackIn.pop();
+        }
+        if (tileEntityIn.progress > PRESS_DURATION)
+        {
+            return;
+        }
+        float minPercentage = Math.min(1, pressPercentage+0.5f);
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        SimpleInventory inventory = tileEntityIn.inventory;
+        for (int i = 0; i < inventory.slotCount; i++)
+        {
+            ItemStack item = inventory.getStackInSlot(i);
+            if (!item.isEmpty())
+            {
+                matrixStackIn.push();
+                Vector3f offset = new Vector3f(ItemFocusTileEntity.itemOffset(tileEntityIn, i));
+                matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
+                matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
+                matrixStackIn.scale(0.5f*minPercentage, 0.5f*minPercentage, 0.5f*minPercentage);
+                itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
+                matrixStackIn.pop();
+            }
         }
     }
 }

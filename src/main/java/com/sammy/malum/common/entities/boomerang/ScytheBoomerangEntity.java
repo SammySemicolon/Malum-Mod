@@ -151,6 +151,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                 }
             }
         }
+
         if (MalumHelper.areWeOnServer(world))
         {
             PlayerEntity playerEntity = owner();
