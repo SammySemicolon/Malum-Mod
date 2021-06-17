@@ -79,7 +79,7 @@ public class ScytheItem extends ModCombatItem implements ISpiritTool
         {
             if (livingentity.isAlive())
             {
-                if (livingentity != playerEntity && livingentity != target && !playerEntity.isOnSameTeam(livingentity) && (!(livingentity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingentity).hasMarker()) && playerEntity.getDistanceSq(livingentity) < 9.0D)
+                if (livingentity != playerEntity && livingentity != target && !playerEntity.isOnSameTeam(livingentity) && (!(livingentity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingentity).hasMarker()) && playerEntity.getDistanceSq(livingentity) < 27.0D)
                 {
                     livingentity.applyKnockback(0.4F, MathHelper.sin(playerEntity.rotationYaw * ((float) Math.PI / 180F)), (-MathHelper.cos(playerEntity.rotationYaw * ((float) Math.PI / 180F))));
                     livingentity.attackEntityFrom(DamageSource.causePlayerDamage(playerEntity), damage);
