@@ -38,27 +38,6 @@ public class ItemPedestalBlock extends SimpleInventoryBlock implements IWaterLog
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
     }
 
-    @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
-    {
-        if (worldIn instanceof ServerWorld)
-        {
-            spawnAdditionalDrops(state, (ServerWorld) worldIn, pos, player.getActiveItemStack());
-        }
-        super.onBlockHarvested(worldIn, pos, state, player);
-    }
-
-    @Override
-    public void spawnAdditionalDrops(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack)
-    {
-        if (worldIn.getTileEntity(pos) instanceof ItemPedestalTileEntity)
-        {
-            ItemPedestalTileEntity tileEntity = (ItemPedestalTileEntity) worldIn.getTileEntity(pos);
-            worldIn.addEntity(new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, tileEntity.inventory.getStackInSlot(0)));
-        }
-        super.spawnAdditionalDrops(state, worldIn, pos, stack);
-    }
-
     public final VoxelShape shape = Stream.of(
             Block.makeCuboidShape(4, 2, 4, 12, 10, 12),
             Block.makeCuboidShape(2, 10, 2, 14, 13, 14),

@@ -1,0 +1,7 @@
+{
+  "parent": "malum:block/template_arcane_compressor",
+  "textures": {
+    "compressor": "malum:block/arcane_compressor",
+    "particle": "malum:block/tainted_rock"
+  }
+}

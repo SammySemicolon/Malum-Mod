@@ -46,32 +46,6 @@ public class ItemFocusBlock extends SimpleInventoryBlock implements IWaterLoggab
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
-    {
-        if (MalumHelper.areWeOnClient(worldIn))
-        {
-            return ActionResultType.SUCCESS;
-        }
-        if (handIn.equals(Hand.MAIN_HAND))
-        {
-            if (worldIn.getTileEntity(pos) instanceof ItemFocusTileEntity)
-            {
-                ItemFocusTileEntity tileEntity = (ItemFocusTileEntity) worldIn.getTileEntity(pos);
-                ItemStack heldStack = player.getHeldItemMainhand();
-                if (heldStack.getItem().equals(MalumItems.SIMPLE_ARCANE_APPARATUS.get()) || heldStack.isEmpty())
-                {
-                    boolean success = tileEntity.apparatusInventory.playerHandleItem(worldIn, player, handIn);
-                    if (success)
-                    {
-                        return ActionResultType.SUCCESS;
-                    }
-                }
-            }
-        }
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-    }
-
-    @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
     {
         if (worldIn instanceof ServerWorld)
@@ -88,10 +62,6 @@ public class ItemFocusBlock extends SimpleInventoryBlock implements IWaterLoggab
         {
             ItemFocusTileEntity tileEntity = (ItemFocusTileEntity) worldIn.getTileEntity(pos);
             for (ItemStack itemStack : tileEntity.inventory.stacks())
-            {
-                worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,itemStack));
-            }
-            for (ItemStack itemStack : tileEntity.apparatusInventory.stacks())
             {
                 worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,itemStack));
             }

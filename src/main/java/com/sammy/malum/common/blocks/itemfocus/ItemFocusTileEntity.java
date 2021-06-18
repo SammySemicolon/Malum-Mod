@@ -1,16 +1,12 @@
 package com.sammy.malum.common.blocks.itemfocus;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.spiritaltar.IAltarProvider;
-import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
-import com.sammy.malum.common.rites.RiteOfAssembly;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
-import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -18,30 +14,16 @@ import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
 
-public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements ITickableTileEntity, RiteOfAssembly.IAssembled
+import static com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorTileEntity.PRESS_DURATION;
+
+public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements ITickableTileEntity
 {
-    public static final int PRESS_DURATION = 2;
-    public boolean active;
-    public int pressDistance;
-    public float pressSpin;
-    public float pressSpinUp;
     public int progress;
     public int spin;
-    public SimpleInventory apparatusInventory;
     public ItemFocusTileEntity()
     {
         super(MalumTileEntities.ITEM_FOCUS_TILE_ENTITY.get());
         inventory = new SimpleInventory(3, 64)
-        {
-            @Override
-            protected void onContentsChanged(int slot)
-            {
-                ItemFocusTileEntity.this.markDirty();
-                updateContainingBlockInfo();
-                MalumHelper.updateAndNotifyState(world, pos);
-            }
-        };
-        apparatusInventory = new SimpleInventory(2, 1)
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -57,10 +39,6 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
     public CompoundNBT writeData(CompoundNBT compound)
     {
         compound.putInt("progress", progress);
-        compound.putInt("pressDistance", pressDistance);
-        compound.putFloat("pressSpinUp", pressSpinUp);
-        compound.putBoolean("active", active);
-        apparatusInventory.writeData(compound, "apparatus_inventory");
         return super.writeData(compound);
     }
 
@@ -68,10 +46,6 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
     public void readData(CompoundNBT compound)
     {
         progress = compound.getInt("progress");
-        pressDistance = compound.getInt("pressDistance");
-        pressSpinUp = compound.getFloat("pressSpinUp");
-        active = compound.getBoolean("active");
-        apparatusInventory.readData(compound, "apparatus_inventory");
         super.readData(compound);
     }
 
@@ -86,43 +60,9 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
         float pressPercentage = 0.25f * (press / PRESS_DURATION);
         return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,1.5f,0.5f), 0.5f-pressPercentage,slot, nonEmpty, (long)tileEntity.spin,360);
     }
-
-    @Override
-    public void assemble()
-    {
-        MalumHelper.updateAndNotifyState(world, pos);
-
-        active = true;
-    }
     @Override
     public void tick()
     {
-        pressDistance += inventory.nonEmptyItems() == 0 ? (pressDistance > 0 ? -1 : 0) : (pressDistance < 20 ? 1 : 0);
-
-        if (active)
-        {
-            if (pressSpinUp > 0)
-            {
-                pressSpinUp -= 0.2f;
-            }
-            progress++;
-            if (progress > 60)
-            {
-                active = false;
-                progress = 10;
-            }
-        }
-        else
-        {
-            if (pressSpinUp < 1)
-            {
-                pressSpinUp +=0.2f;
-            }
-            if (progress > 0)
-            {
-                progress--;
-            }
-        }
         if (MalumHelper.areWeOnClient(world))
         {
             passiveParticles();
@@ -130,7 +70,6 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
     }
     public void passiveParticles()
     {
-        pressSpin += pressSpinUp;
         spin += 1;
         for (int i = 0; i < inventory.slotCount; i++)
         {

@@ -1,10 +1,13 @@
 package com.sammy.malum.core.data;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import net.minecraft.block.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -18,16 +21,17 @@ import static net.minecraftforge.common.Tags.Blocks.DIRT;
 
 public class MalumBlockTagProvider extends BlockTagsProvider
 {
-    public MalumBlockTagProvider(DataGenerator generatorIn)
+    public MalumBlockTagProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper)
     {
-        super(generatorIn);
+        super(generatorIn, MalumMod.MODID, existingFileHelper);
     }
     
     @Override
     protected void registerTags()
     {
-       //getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.SOLAR_ORE.get());
-       //getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.BLAZE_QUARTZ_ORE.get());
+        getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.SOULSTONE_ORE.get(), MalumBlocks.BLAZING_QUARTZ_ORE.get());
+        getOrCreateBuilder(Tags.Blocks.ORES_QUARTZ).add(MalumBlocks.BLAZING_QUARTZ_ORE.get());
+
         getOrCreateBuilder(FLOWERS).add(MalumBlocks.LAVENDER.get());
         getOrCreateBuilder(TALL_FLOWERS).add(MalumBlocks.LAVENDER.get());
 

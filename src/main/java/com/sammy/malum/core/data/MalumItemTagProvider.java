@@ -1,5 +1,7 @@
 package com.sammy.malum.core.data;
 
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -7,14 +9,15 @@ import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static com.sammy.malum.core.init.items.MalumItemTags.RUNEWOOD_LOGS;
 
 public class MalumItemTagProvider extends ItemTagsProvider
 {
-    public MalumItemTagProvider(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider)
+    public MalumItemTagProvider(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper)
     {
-        super(dataGenerator, blockTagProvider);
+        super(dataGenerator, blockTagProvider, MalumMod.MODID, existingFileHelper);
     }
     
     @Override
@@ -26,6 +29,9 @@ public class MalumItemTagProvider extends ItemTagsProvider
     @Override
     protected void registerTags()
     {
+        getOrCreateBuilder(Tags.Items.GEMS).add(MalumItems.SOULSTONE_ORE.get(), MalumItems.BLAZING_QUARTZ.get());
+        getOrCreateBuilder(Tags.Items.GEMS_QUARTZ).add(MalumItems.BLAZING_QUARTZ.get());
+
         this.copy(BlockTags.WOOL, ItemTags.WOOL);
         this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
         this.copy(BlockTags.STONE_BRICKS, ItemTags.STONE_BRICKS);

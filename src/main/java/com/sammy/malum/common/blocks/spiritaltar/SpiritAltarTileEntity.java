@@ -6,6 +6,7 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
+import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes.MalumSpiritAltarRecipe;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.recipes.SpiritIngredient;
@@ -75,7 +76,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     public SimpleInventory inventory;
     public SimpleInventory extrasInventory;
     public SimpleInventory spiritInventory;
-    public MalumSpiritAltarRecipes.MalumSpiritAltarRecipe recipe;
+    public MalumSpiritAltarRecipe recipe;
     
     @Override
     public CompoundNBT writeData(CompoundNBT compound)

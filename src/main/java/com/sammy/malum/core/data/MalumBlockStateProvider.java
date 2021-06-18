@@ -4,6 +4,7 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorBlock;
 import com.sammy.malum.common.blocks.itemfocus.ItemFocusBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
@@ -66,6 +67,7 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock || b.get() instanceof BoundingBlock);
 
         MalumHelper.takeAll(blocks, b -> b.get() instanceof WellOfSufferingBlock).forEach(this::wellOfSufferingBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof ArcaneCompressorBlock).forEach(this::arcaneCompressorBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
@@ -266,6 +268,12 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile well = models().withExistingParent(name, MalumHelper.prefix("block/template_well_of_suffering")).texture("well", prefix("block/" + name)).texture("particle", prefix("block/tainted_rock"));
         simpleBlock(blockRegistryObject.get(), well);
+    }
+    public void arcaneCompressorBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile compressor = models().withExistingParent(name, MalumHelper.prefix("block/template_arcane_compressor")).texture("compressor", prefix("block/" + name)).texture("particle", prefix("block/tainted_rock"));
+        simpleBlock(blockRegistryObject.get(), compressor);
     }
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
     {

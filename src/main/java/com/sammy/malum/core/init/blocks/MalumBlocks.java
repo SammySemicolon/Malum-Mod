@@ -2,6 +2,7 @@ package com.sammy.malum.core.init.blocks;
 
 import com.sammy.malum.MalumColors;
 import com.sammy.malum.common.blocks.*;
+import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorBlock;
 import com.sammy.malum.common.blocks.itemfocus.ItemFocusBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
@@ -526,6 +527,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> ITEM_FOCUS = BLOCKS.register("item_focus", () -> new ItemFocusBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
 
     public static final RegistryObject<Block> WELL_OF_SUFFERING = BLOCKS.register("well_of_suffering", () -> new WellOfSufferingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> ARCANE_COMPRESSOR = BLOCKS.register("arcane_compressor", () -> new ArcaneCompressorBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
 
     //endregion
 

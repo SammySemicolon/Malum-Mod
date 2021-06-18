@@ -1,4 +1,5 @@
 {
+  "block.malum.arcane_compressor": "Arcane Compressor",
   "block.malum.blazing_quartz_block": "Blazing Quartz Block",
   "block.malum.blazing_quartz_ore": "Blazing Quartz Ore",
   "block.malum.blue_ether": "Blue Ether",
@@ -339,6 +340,7 @@
   "item.malum.ring_of_prowess": "Ring Of Prowess",
   "item.malum.sacred_spirit": "Sacred Spirit",
   "item.malum.sacrificial_dagger": "Sacrificial Dagger",
+  "item.malum.simple_arcane_apparatus": "Simple Arcane Apparatus",
   "item.malum.solar_sap_bottle": "Solar Sap Bottle",
   "item.malum.solar_sapball": "Solar Sapball",
   "item.malum.solar_syrup_bottle": "Solar Syrup Bottle",
@@ -359,7 +361,9 @@
   "item.malum.soul_stained_stronghold_leggings": "Soul Stained Stronghold Leggings",
   "item.malum.soulstone": "Soulstone",
   "item.malum.stained_spirit_resonator": "Stained Spirit Resonator",
+  "item.malum.tainted_rock_rune": "Tainted Rock Rune",
   "item.malum.token_of_gratitude": "Token Of Gratitude",
+  "item.malum.twisted_rock_rune": "Twisted Rock Rune",
   "item.malum.tyrving": "Tyrving",
   "item.malum.wicked_spirit": "Wicked Spirit",
   "itemGroup.malum": "Malum",

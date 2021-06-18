@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init.items;
 
+import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorItemRenderer;
 import com.sammy.malum.common.items.ConfinedBrillianceItem;
 import com.sammy.malum.common.items.EncyclopediaArcanaItem;
 import com.sammy.malum.common.items.FuelItem;
@@ -333,7 +334,7 @@ public class MalumItems
 
     //region nature
     public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE)));
-    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE)));
+    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
 
     public static final RegistryObject<Item> SUN_KISSED_GRASS = ITEMS.register("sun_kissed_grass", () -> new BlockItem(MalumBlocks.SUN_KISSED_GRASS.get(), NATURE_PROPERTIES()));
@@ -458,6 +459,7 @@ public class MalumItems
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> WELL_OF_SUFFERING = ITEMS.register("well_of_suffering", () -> new BlockItem(MalumBlocks.WELL_OF_SUFFERING.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ARCANE_COMPRESSOR = ITEMS.register("arcane_compressor", () -> new BlockItem(MalumBlocks.ARCANE_COMPRESSOR.get(), DEFAULT_PROPERTIES().setISTER(() -> ArcaneCompressorItemRenderer::new)));
     public static final RegistryObject<Item> ITEM_FOCUS = ITEMS.register("item_focus", () -> new BlockItem(MalumBlocks.ITEM_FOCUS.get(), DEFAULT_PROPERTIES()));
     //endregion
 

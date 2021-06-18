@@ -3,26 +3,26 @@ package com.sammy.malum.core.modcontent;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.recipes.ItemIngredient;
 import com.sammy.malum.core.systems.recipes.SimpleItemIngredient;
-import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
 
-public class MalumWellOfSufferingRecipes
+public class MalumCompressingRecipes
 {
 
-    public static final ArrayList<WellOfSufferingRecipe> RECIPES = new ArrayList<>();
+    public static final ArrayList<ArcaneCompressorRecipe> RECIPES = new ArrayList<>();
 
     public static void init()
     {
-
+        new ArcaneCompressorRecipe(new ItemIngredient(MalumItems.CONFINED_BRILLIANCE.get(), 8))
+                .addExtraItem(new ItemIngredient(MalumItems.ARCANE_SPIRIT.get(), 2))
+                .addExtraItem(new ItemIngredient(Tags.Items.GEMS_LAPIS, 8));
     }
 
-    public static WellOfSufferingRecipe getRecipe(ArrayList<ItemStack> stacks)
+    public static ArcaneCompressorRecipe getRecipe(ArrayList<ItemStack> stacks)
     {
-        for (WellOfSufferingRecipe recipe : RECIPES)
+        for (ArcaneCompressorRecipe recipe : RECIPES)
         {
             if (recipe.matches(stacks))
             {
@@ -33,19 +33,19 @@ public class MalumWellOfSufferingRecipes
     }
 
 
-    public static class WellOfSufferingRecipe
+    public static class ArcaneCompressorRecipe
     {
         public ArrayList<ItemIngredient> itemIngredients;
         public ItemIngredient outputIngredient;
 
-        public WellOfSufferingRecipe(ItemIngredient outputIngredient)
+        public ArcaneCompressorRecipe(ItemIngredient outputIngredient)
         {
             this.outputIngredient = outputIngredient;
             this.itemIngredients = new ArrayList<>();
             RECIPES.add(this);
         }
 
-        public WellOfSufferingRecipe addExtraItem(SimpleItemIngredient ingredient)
+        public ArcaneCompressorRecipe addExtraItem(ItemIngredient ingredient)
         {
             itemIngredients.add(ingredient);
             return this;

@@ -34,6 +34,7 @@ public class RiteOfDeath extends MalumRiteType
             return;
         }
         LivingEntity target = entities.get(world.rand.nextInt(entities.size()));
+        target.hurtResistantTime = 0;
         target.attackEntityFrom(SpiritHelper.voodooDamageSource(), 4);
         Vector3d targetPos = target.getPositionVec().add(0, target.getHeight()/2f,0);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BlastParticlePacket.fromSpirits(targetPos.getX(), targetPos.getY(), targetPos.getZ(), WICKED_SPIRIT));

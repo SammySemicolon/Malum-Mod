@@ -52,15 +52,15 @@ public class MalumMod
             return new Object();
         });
     }
-    public void gatherData(GatherDataEvent evt)
+    public void gatherData(GatherDataEvent event)
     {
-        BlockTagsProvider provider = new MalumBlockTagProvider(evt.getGenerator());
-        evt.getGenerator().addProvider(new MalumBlockStateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-        evt.getGenerator().addProvider(new MalumItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-        evt.getGenerator().addProvider(new MalumLangProvider(evt.getGenerator()));
-        evt.getGenerator().addProvider(provider);
-        evt.getGenerator().addProvider(new MalumLootTableProvider(evt.getGenerator()));
-        evt.getGenerator().addProvider(new MalumItemTagProvider(evt.getGenerator(),provider));
-        evt.getGenerator().addProvider(new MalumRecipeProvider(evt.getGenerator()));
+        BlockTagsProvider provider = new MalumBlockTagProvider(event.getGenerator(), event.getExistingFileHelper());
+        event.getGenerator().addProvider(new MalumBlockStateProvider(event.getGenerator(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new MalumItemModelProvider(event.getGenerator(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new MalumLangProvider(event.getGenerator()));
+        event.getGenerator().addProvider(provider);
+        event.getGenerator().addProvider(new MalumLootTableProvider(event.getGenerator()));
+        event.getGenerator().addProvider(new MalumItemTagProvider(event.getGenerator(),provider, event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new MalumRecipeProvider(event.getGenerator()));
     }
 }
