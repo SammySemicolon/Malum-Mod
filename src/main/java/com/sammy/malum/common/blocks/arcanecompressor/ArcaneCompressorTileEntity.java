@@ -15,6 +15,7 @@ import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -33,6 +34,12 @@ public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITic
     public ArcaneCompressorTileEntity()
     {
         super(MalumTileEntities.ARCANE_COMPRESSOR_TILE_ENTITY.get());
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+        return new AxisAlignedBB(pos.down(2), pos).grow(2);
     }
 
     @Override

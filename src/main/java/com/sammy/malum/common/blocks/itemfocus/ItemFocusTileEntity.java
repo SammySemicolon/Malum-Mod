@@ -34,16 +34,20 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
                 ItemFocusTileEntity.this.markDirty();
                 updateContainingBlockInfo();
                 recipe = MalumCompressingRecipes.getRecipe(stacks());
-                if (world.getTileEntity(pos.up(2)) instanceof ArcaneCompressorTileEntity)
-                {
-                    ArcaneCompressorTileEntity arcaneCompressorTileEntity = (ArcaneCompressorTileEntity) world.getTileEntity(pos.up(2));
-                    arcaneCompressorTileEntity.updateFocus(pos);
-                }
+                updateFocus();
                 MalumHelper.updateAndNotifyState(world, pos);
             }
         };
     }
 
+    public void updateFocus()
+    {
+        if (world.getTileEntity(pos.up(2)) instanceof ArcaneCompressorTileEntity)
+        {
+            ArcaneCompressorTileEntity arcaneCompressorTileEntity = (ArcaneCompressorTileEntity) world.getTileEntity(pos.up(2));
+            arcaneCompressorTileEntity.updateFocus(pos);
+        }
+    }
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
@@ -55,8 +59,9 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
     public void readData(CompoundNBT compound)
     {
         progress = compound.getInt("progress");
-        recipe = MalumCompressingRecipes.getRecipe(inventory.stacks());
         super.readData(compound);
+        recipe = MalumCompressingRecipes.getRecipe(inventory.stacks());
+        updateFocus();
     }
 
     public static Vector3d itemOffset(ItemFocusTileEntity tileEntity, int slot)

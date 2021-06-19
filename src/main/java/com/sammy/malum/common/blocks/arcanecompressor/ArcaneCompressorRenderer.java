@@ -2,6 +2,7 @@ package com.sammy.malum.common.blocks.arcanecompressor;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
+import net.minecraft.block.EnchantingTableBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -27,6 +28,12 @@ public class ArcaneCompressorRenderer extends TileEntityRenderer<ArcaneCompresso
     }
 
     @Override
+    public boolean isGlobalRenderer(ArcaneCompressorTileEntity te)
+    {
+        return true;
+    }
+
+    @Override
     public void render(ArcaneCompressorTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
         Minecraft mc = Minecraft.getInstance();
@@ -36,18 +43,24 @@ public class ArcaneCompressorRenderer extends TileEntityRenderer<ArcaneCompresso
 //        float pressPercentage = 1f - (press / PRESS_DURATION);
 //        press = tileEntityIn.pressDistance > 0 && tileEntityIn.pressDistance < 20 ? tileEntityIn.pressDistance+ (tileEntityIn.inventory.nonEmptyItems() == 0 ? -partialTicks : partialTicks) : tileEntityIn.pressDistance;
 //        float pressDistance = 0.25f + 0.5f * press/20f;
-        float animationProgress = tileEntityIn.animationProgress / 20f;
+
+        float animationProgress = tileEntityIn.animationProgress;
+        if (animationProgress > 0 && animationProgress < 20)
+        {
+            animationProgress += tileEntityIn.hasFocus ? partialTicks : -partialTicks;
+        }
+        float animationPercentage = animationProgress / 20f;
         for (int i = 0; i < 2; i++)
         {
             matrixStackIn.push();
-            matrixStackIn.translate(0.5f, 0.25f - 0.75f * animationProgress, 0.5f);
+            matrixStackIn.translate(0.5f, 0.25f - 0.75f * animationPercentage, 0.5f);
             if (i == 1)
             {
                 matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
             }
             matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90));
             matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-(tileEntityIn.spin + partialTicks)));
-            matrixStackIn.translate(-0.25f - 0.5f * animationProgress, 0, 0);
+            matrixStackIn.translate(-0.25f - 0.35f * animationPercentage, 0, 0);
             matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90));
 
             mc.getTextureManager().bindTexture(COMPRESSOR_TEXTURE);

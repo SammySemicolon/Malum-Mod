@@ -113,7 +113,6 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         spiritInventory.readData(compound, "spiritInventory");
         extrasInventory.readData(compound, "extrasInventory");
         recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
-        super.readData(compound);
     }
     
     @Override
