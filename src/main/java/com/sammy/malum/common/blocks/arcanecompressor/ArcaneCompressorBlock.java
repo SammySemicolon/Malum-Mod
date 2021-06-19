@@ -1,11 +1,14 @@
 package com.sammy.malum.common.blocks.arcanecompressor;
 
+import com.sammy.malum.MalumHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -18,6 +21,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
@@ -30,6 +34,17 @@ public class ArcaneCompressorBlock extends Block implements IWaterLoggable
     {
         super(properties);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+    {
+        if (worldIn.getTileEntity(pos) instanceof ArcaneCompressorTileEntity)
+        {
+            ArcaneCompressorTileEntity arcaneCompressorTileEntity = (ArcaneCompressorTileEntity) worldIn.getTileEntity(pos);
+            arcaneCompressorTileEntity.updateFocus(pos.down(2));
+        }
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
     public final VoxelShape shape = Stream.of(

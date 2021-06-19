@@ -5,14 +5,17 @@ import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 
 import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
 
-public class RiteOfAssembly extends MalumRiteType
+public abstract class RiteOfAssembly extends MalumRiteType
 {
-    public RiteOfAssembly()
+    public MalumSpiritType assemblyType;
+    public RiteOfAssembly(MalumSpiritType assemblyType, String identifier, boolean isInstant, MalumSpiritType... spirits)
     {
-        super("rite_of_assembly", true, ELDRITCH_SPIRIT, ARCANE_SPIRIT, AQUATIC_SPIRIT, INFERNAL_SPIRIT);
+        super(identifier, isInstant, spirits);
+        this.assemblyType = assemblyType;
     }
+
     public interface IAssembled
     {
-        public void assemble();
+        public void assemble(RiteOfAssembly assemblyType);
     }
 }

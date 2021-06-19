@@ -1,12 +1,16 @@
 package com.sammy.malum.core.modcontent;
 
+import com.sammy.malum.common.rites.RiteOfAssembly;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.recipes.ItemIngredient;
 import com.sammy.malum.core.systems.recipes.SimpleItemIngredient;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
+
+import static com.sammy.malum.core.modcontent.MalumSpiritTypes.AQUATIC_SPIRIT;
 
 public class MalumCompressingRecipes
 {
@@ -15,7 +19,7 @@ public class MalumCompressingRecipes
 
     public static void init()
     {
-        new ArcaneCompressorRecipe(new ItemIngredient(MalumItems.CONFINED_BRILLIANCE.get(), 8))
+        new ArcaneCompressorRecipe(new ItemIngredient(MalumItems.CONFINED_BRILLIANCE.get(), 8), AQUATIC_SPIRIT)
                 .addExtraItem(new ItemIngredient(MalumItems.ARCANE_SPIRIT.get(), 2))
                 .addExtraItem(new ItemIngredient(Tags.Items.GEMS_LAPIS, 8));
     }
@@ -37,10 +41,12 @@ public class MalumCompressingRecipes
     {
         public ArrayList<ItemIngredient> itemIngredients;
         public ItemIngredient outputIngredient;
+        public MalumSpiritType assemblyType;
 
-        public ArcaneCompressorRecipe(ItemIngredient outputIngredient)
+        public ArcaneCompressorRecipe(ItemIngredient outputIngredient, MalumSpiritType assemblyType)
         {
             this.outputIngredient = outputIngredient;
+            this.assemblyType = assemblyType;
             this.itemIngredients = new ArrayList<>();
             RECIPES.add(this);
         }

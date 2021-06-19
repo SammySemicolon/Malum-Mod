@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.arcanecompressor;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.blocks.itemfocus.ItemFocusTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.common.rites.RiteOfAssembly;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
@@ -14,6 +15,7 @@ import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
@@ -22,10 +24,12 @@ public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITic
 {
     public static final int PRESS_DURATION = 2;
     public boolean active;
+    public boolean hasFocus;
     public int progress;
-    public float spin;
     public float spinUp;
-    public ArcaneCompressorRecipe recipe;
+
+    public int animationProgress;
+    public float spin;
     public ArcaneCompressorTileEntity()
     {
         super(MalumTileEntities.ARCANE_COMPRESSOR_TILE_ENTITY.get());
@@ -34,8 +38,9 @@ public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITic
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        compound.putInt("progress", progress);
         compound.putBoolean("active", active);
+        compound.putBoolean("hasFocus", hasFocus);
+        compound.putInt("progress", progress);
         compound.putFloat("spinUp", spinUp);
         return super.writeData(compound);
     }
@@ -43,23 +48,37 @@ public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITic
     @Override
     public void readData(CompoundNBT compound)
     {
-        progress = compound.getInt("progress");
         active = compound.getBoolean("active");
+        hasFocus = compound.getBoolean("hasFocus");
+        progress = compound.getInt("progress");
         spinUp = compound.getFloat("spinUp");
+        updateFocus(pos.down(2));
+
         super.readData(compound);
     }
 
-    @Override
-    public void assemble()
+    public void updateFocus(BlockPos pos)
     {
-        MalumHelper.updateAndNotifyState(world, pos);
-
-        active = true;
+        if (world.getTileEntity(pos) instanceof ItemFocusTileEntity)
+        {
+            ItemFocusTileEntity tileEntity = (ItemFocusTileEntity) world.getTileEntity(pos);
+            hasFocus = tileEntity.recipe != null;
+            MalumHelper.updateAndNotifyState(world, this.pos);
+        }
+    }
+    @Override
+    public void assemble(RiteOfAssembly assemblyType)
+    {
+        if (hasFocus)
+        {
+            MalumHelper.updateAndNotifyState(world, pos);
+            active = true;
+        }
     }
     @Override
     public void tick()
     {
-        if (recipe != null && !active)
+        if (hasFocus && !active)
         {
             if (spinUp < 1)
             {
@@ -83,6 +102,17 @@ public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITic
         if (!active)
         {
             spin += 1 + spinUp;
+        }
+        if (hasFocus)
+        {
+            if (animationProgress < 20)
+            {
+                animationProgress++;
+            }
+        }
+        else if (animationProgress > 0)
+        {
+            animationProgress--;
         }
     }
 }

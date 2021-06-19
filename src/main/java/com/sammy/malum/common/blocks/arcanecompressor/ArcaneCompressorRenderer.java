@@ -36,17 +36,18 @@ public class ArcaneCompressorRenderer extends TileEntityRenderer<ArcaneCompresso
 //        float pressPercentage = 1f - (press / PRESS_DURATION);
 //        press = tileEntityIn.pressDistance > 0 && tileEntityIn.pressDistance < 20 ? tileEntityIn.pressDistance+ (tileEntityIn.inventory.nonEmptyItems() == 0 ? -partialTicks : partialTicks) : tileEntityIn.pressDistance;
 //        float pressDistance = 0.25f + 0.5f * press/20f;
+        float animationProgress = tileEntityIn.animationProgress / 20f;
         for (int i = 0; i < 2; i++)
         {
             matrixStackIn.push();
-            matrixStackIn.translate(0.5f, 0.25f, 0.5f);
+            matrixStackIn.translate(0.5f, 0.25f - 0.75f * animationProgress, 0.5f);
             if (i == 1)
             {
                 matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
             }
             matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90));
             matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-(tileEntityIn.spin + partialTicks)));
-             matrixStackIn.translate(-0.25f,0,0);
+            matrixStackIn.translate(-0.25f - 0.5f * animationProgress, 0, 0);
             matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90));
 
             mc.getTextureManager().bindTexture(COMPRESSOR_TEXTURE);

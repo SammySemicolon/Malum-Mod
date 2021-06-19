@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"brazier": "malum:block/ether_brazier",
-		"particle": "malum:block/ether_brazier"
+		"particle": "malum:block/ether_brazier",
+		"brazier": "malum:block/ether_brazier"
 	},
 	"elements": [
 		{
@@ -93,8 +93,8 @@
 			}
 		},
 		{
-			"from": [7, -1.5, 8.69763],
-			"to": [9, 3.5, 9.69763],
+			"from": [6.95, -1.55, 8.64763],
+			"to": [9.05, 3.55, 9.74763],
 			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 7, 8]},
 			"faces": {
 				"north": {"uv": [1, 6, 3, 11], "texture": "#brazier"},
@@ -105,8 +105,8 @@
 			}
 		},
 		{
-			"from": [7, -1.5, 6.30237],
-			"to": [9, 3.5, 7.30237],
+			"from": [6.95, -1.55, 6.25237],
+			"to": [9.05, 3.55, 7.35237],
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 7, 8]},
 			"faces": {
 				"north": {"uv": [1, 6, 3, 11], "texture": "#brazier"},
@@ -117,8 +117,8 @@
 			}
 		},
 		{
-			"from": [8.69763, -1.5, 7],
-			"to": [9.69763, 3.5, 9],
+			"from": [8.64763, -1.55, 6.95],
+			"to": [9.74763, 3.55, 9.05],
 			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 7, 8]},
 			"faces": {
 				"north": {"uv": [3, 6, 4, 11], "texture": "#brazier"},
@@ -129,8 +129,8 @@
 			}
 		},
 		{
-			"from": [6.30237, -1.5, 7],
-			"to": [7.30237, 3.5, 9],
+			"from": [6.25237, -1.55, 6.95],
+			"to": [7.35237, 3.55, 9.05],
 			"rotation": {"angle": -22.5, "axis": "z", "origin": [8, 7, 8]},
 			"faces": {
 				"north": {"uv": [0, 6, 1, 11], "texture": "#brazier"},

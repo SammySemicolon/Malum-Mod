@@ -1,6 +1,7 @@
 package com.sammy.malum.common.blocks.itemfocus;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorTileEntity;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.items.MalumItems;
@@ -8,6 +9,7 @@ import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -43,6 +45,17 @@ public class ItemFocusBlock extends SimpleInventoryBlock implements IWaterLoggab
     {
         super(properties);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+    {
+        if (worldIn.getTileEntity(pos.up(2)) instanceof ArcaneCompressorTileEntity)
+        {
+            ArcaneCompressorTileEntity arcaneCompressorTileEntity = (ArcaneCompressorTileEntity) worldIn.getTileEntity(pos.up(2));
+            arcaneCompressorTileEntity.updateFocus(pos);
+        }
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
     @Override
