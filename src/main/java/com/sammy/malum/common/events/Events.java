@@ -73,10 +73,6 @@ public class Events
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event)
     {
-        if (event.getSource().isMagicDamage())
-        {
-            return;
-        }
         if (event.getSource().getTrueSource() instanceof PlayerEntity)
         {
             PlayerEntity playerEntity = (PlayerEntity) event.getSource().getTrueSource();

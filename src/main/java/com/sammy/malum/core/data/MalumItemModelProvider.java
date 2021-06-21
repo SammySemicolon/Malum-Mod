@@ -35,7 +35,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         items.remove(SPIRIT_PIPE);
-        items.remove(ARCANE_COMPRESSOR);
+//        items.remove(ARCANE_COMPRESSOR);
         items.remove(AWAKENED_TYRVING);
         spiritPipeItem(SPIRIT_PIPE);
 
@@ -74,10 +74,13 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     
     private void spiritSplinterItem(RegistryObject<Item> i)
     {
-        String name = Registry.ITEM.getKey(i.get()).getPath();
-//        SpiritSplinterItem spiritSplinterItem = (SpiritSplinterItem) i.get();
-//        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/" + name + spiritSplinterItem.type.identifier));
-        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));
+        if (i.get() instanceof SpiritItem)
+        {
+            SpiritItem spiritItem = (SpiritItem) i.get();
+            String texture = spiritItem.type.isCompound ? "spirit/spirit_cluster_base" : "spirit/spirit_splinter_base";
+            String name = Registry.ITEM.getKey(i.get()).getPath();
+            withExistingParent(name, GENERATED).texture("layer0", prefix(texture));
+        }
     }
     private void spiritedToolItem(RegistryObject<Item> i)
     {

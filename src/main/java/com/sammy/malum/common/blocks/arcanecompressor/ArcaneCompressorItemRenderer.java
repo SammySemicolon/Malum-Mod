@@ -30,7 +30,7 @@ public class ArcaneCompressorItemRenderer extends ItemStackTileEntityRenderer
         for (int i = 0; i < 2; i++)
         {
             matrixStackIn.push();
-            mc.getBlockRendererDispatcher().renderBlock(MalumBlocks.ARCANE_COMPRESSOR.get().getDefaultState(), matrixStackIn, buffer,combinedLight, combinedOverlay);
+//            mc.getBlockRendererDispatcher().renderBlock(MalumBlocks.ARCANE_COMPRESSOR.get().getDefaultState(), matrixStackIn, buffer,combinedLight, combinedOverlay);
             matrixStackIn.translate(0.5f, 0.25f, 0.5f);
             if (i == 1)
             {

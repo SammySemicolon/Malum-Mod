@@ -1,7 +1,7 @@
 package com.sammy.malum.core.init.items;
 
+import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorBlockItem;
 import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorItemRenderer;
-import com.sammy.malum.common.items.ConfinedBrillianceItem;
 import com.sammy.malum.common.items.EncyclopediaArcanaItem;
 import com.sammy.malum.common.items.FuelItem;
 import com.sammy.malum.common.items.SpiritItem;
@@ -440,6 +440,8 @@ public class MalumItems
     public static final RegistryObject<Item> INFERNAL_SPIRIT = ITEMS.register("infernal_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.INFERNAL_SPIRIT));
     public static final RegistryObject<Item> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.AERIAL_SPIRIT));
     public static final RegistryObject<Item> AQUATIC_SPIRIT = ITEMS.register("aquatic_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.AQUATIC_SPIRIT));
+
+    public static final RegistryObject<Item> BRILLIANCE_SPIRIT = ITEMS.register("brilliance_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.BRILLIANCE_SPIRIT));
     //endregion
 
     //region ores
@@ -457,10 +459,10 @@ public class MalumItems
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
-
-    public static final RegistryObject<Item> WELL_OF_SUFFERING = ITEMS.register("well_of_suffering", () -> new BlockItem(MalumBlocks.WELL_OF_SUFFERING.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ARCANE_COMPRESSOR = ITEMS.register("arcane_compressor", () -> new BlockItem(MalumBlocks.ARCANE_COMPRESSOR.get(), DEFAULT_PROPERTIES().setISTER(() -> ArcaneCompressorItemRenderer::new)));
     public static final RegistryObject<Item> ITEM_FOCUS = ITEMS.register("item_focus", () -> new BlockItem(MalumBlocks.ITEM_FOCUS.get(), DEFAULT_PROPERTIES()));
+
+//    public static final RegistryObject<Item> WELL_OF_SUFFERING = ITEMS.register("well_of_suffering", () -> new BlockItem(MalumBlocks.WELL_OF_SUFFERING.get(), DEFAULT_PROPERTIES()));
+//    public static final RegistryObject<Item> ARCANE_COMPRESSOR = ITEMS.register("arcane_compressor", () -> new ArcaneCompressorBlockItem(DEFAULT_PROPERTIES().setISTER(() -> ArcaneCompressorItemRenderer::new)));
     //endregion
 
     //region materials
@@ -469,8 +471,6 @@ public class MalumItems
     public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_SPIRIT_RESONATOR = ITEMS.register("hallowed_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SIMPLE_ARCANE_APPARATUS = ITEMS.register("simple_arcane_apparatus", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_ROCK_RUNE = ITEMS.register("tainted_rock_rune", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TWISTED_ROCK_RUNE = ITEMS.register("twisted_rock_rune", () -> new Item(DEFAULT_PROPERTIES()));
 

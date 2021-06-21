@@ -65,9 +65,9 @@ public class ClientStartupEvents
     public static void bindTERs(FMLClientSetupEvent event)
     {
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.WELL_OF_SUFFERING_TILE_ENTITY.get(), WellOfSufferingRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_FOCUS_TILE_ENTITY.get(), ItemFocusRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_COMPRESSOR_TILE_ENTITY.get(), ArcaneCompressorRenderer::new);
+//        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.WELL_OF_SUFFERING_TILE_ENTITY.get(), WellOfSufferingRenderer::new);
+//        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_COMPRESSOR_TILE_ENTITY.get(), ArcaneCompressorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), TotemPoleRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), ItemStandRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get(), ItemPedestalRenderer::new);
@@ -164,6 +164,7 @@ public class ClientStartupEvents
         ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT, brighter(AQUATIC_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.BRILLIANCE_SPIRIT, brighter(BRILLIANCE_SPIRIT_COLOR,1));
     }
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)

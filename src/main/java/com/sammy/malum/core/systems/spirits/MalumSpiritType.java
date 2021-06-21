@@ -16,22 +16,17 @@ public class MalumSpiritType
 {
     public final Color color;
     public final String identifier;
-    public final String translationKey;
-    public final String description;
     protected Supplier<Item> splinterItem;
+    public boolean isCompound;
 
     public ArrayList<SpiritCountTest> tests = new ArrayList<>();
     public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem)
     {
-
         this.identifier = identifier;
         this.color = color;
-
-        this.translationKey = "malum.tooltip.spirit." + identifier;
-        this.description = translationKey + "_description";
-
         this.splinterItem = splinterItem;
     }
+
     public SpiritItem splinterItem()
     {
         return (SpiritItem) splinterItem.get();
@@ -54,6 +49,11 @@ public class MalumSpiritType
             }
         }
         return count;
+    }
+    public MalumSpiritType setCompound()
+    {
+        isCompound = true;
+        return this;
     }
     public static class SpiritCountTest
     {

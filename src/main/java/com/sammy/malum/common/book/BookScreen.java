@@ -10,6 +10,7 @@ import com.sammy.malum.common.book.objects.*;
 import com.sammy.malum.common.book.pages.BookPage;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.modcontent.MalumBookCategories;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -80,8 +81,8 @@ public class BookScreen extends Screen
                 {
                     BookEntry entry = grouping.entries.get(k);
                     posX = guiLeft + 11;
-                    posY = guiTop + 15 + (k * 25);
-                    int skipRequirement = 4;
+                    posY = guiTop + 12 + (k * 25);
+                    int skipRequirement = 5;
                     if (grouping.isFirst)
                     {
                         posY += 25;
@@ -90,7 +91,7 @@ public class BookScreen extends Screen
                     if (k > skipRequirement)
                     {
                         posX = guiLeft + 153;
-                        posY -= 125;
+                        posY -= 150;
                     }
 
                     int finalJ = j;
@@ -247,6 +248,15 @@ public class BookScreen extends Screen
         if (screen.isHovering(mouseX, mouseY, posX, posY, 16,16))
         {
             screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(stack.getTranslationKey()), mouseX, mouseY);
+        }
+    }
+    public void drawItem(MatrixStack matrixStack, String translationKey, ItemStack stack, int posX, int posY, int mouseX, int mouseY)
+    {
+        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(stack, posX, posY);
+        Minecraft.getInstance().getItemRenderer().renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, posX, posY, null);
+        if (screen.isHovering(mouseX, mouseY, posX, posY, 16,16))
+        {
+            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(translationKey), mouseX, mouseY);
         }
     }
     public void playSound()

@@ -526,8 +526,8 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> ITEM_FOCUS = BLOCKS.register("item_focus", () -> new ItemFocusBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
 
-    public static final RegistryObject<Block> WELL_OF_SUFFERING = BLOCKS.register("well_of_suffering", () -> new WellOfSufferingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> ARCANE_COMPRESSOR = BLOCKS.register("arcane_compressor", () -> new ArcaneCompressorBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+//    public static final RegistryObject<Block> WELL_OF_SUFFERING = BLOCKS.register("well_of_suffering", () -> new WellOfSufferingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
+//    public static final RegistryObject<Block> ARCANE_COMPRESSOR = BLOCKS.register("arcane_compressor", () -> new ArcaneCompressorBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
 
     //endregion
 

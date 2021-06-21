@@ -13,7 +13,8 @@ public class WellOfSufferingTileEntity extends SimpleTileEntity implements ITick
 
     public WellOfSufferingTileEntity()
     {
-        super(MalumTileEntities.WELL_OF_SUFFERING_TILE_ENTITY.get());
+        super(null);
+//        super(MalumTileEntities.WELL_OF_SUFFERING_TILE_ENTITY.get());
     }
 
     @Override

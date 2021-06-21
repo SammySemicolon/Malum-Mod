@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class BookCategory
 {
+    public static float PAGES_PER_GROUPING = 12;
+
     public final ItemStack iconStack;
     public final String translationKey;
     public ArrayList<BookEntryGrouping> groupings;
@@ -20,10 +22,10 @@ public class BookCategory
     {
         ArrayList<BookEntryGrouping> groupings = new ArrayList<>();
         int currentPage = 0;
-        for (int i =0; i <= Math.ceil(pages.length / 10f); i++)
+        for (int i =0; i <= Math.ceil(pages.length / PAGES_PER_GROUPING); i++)
         {
             BookEntryGrouping grouping = new BookEntryGrouping(i==0);
-            int entries = 10;
+            int entries = (int) PAGES_PER_GROUPING;
             if (i == 0)
             {
                 entries--;

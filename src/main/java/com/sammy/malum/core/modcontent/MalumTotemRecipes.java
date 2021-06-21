@@ -4,27 +4,34 @@ import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.recipes.ItemIngredient;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
 
 import static com.sammy.malum.core.modcontent.MalumSpiritTypes.AQUATIC_SPIRIT;
 
-public class MalumCompressingRecipes
+public class MalumTotemRecipes
 {
 
-    public static final ArrayList<ArcaneCompressorRecipe> RECIPES = new ArrayList<>();
+    public static final ArrayList<MalumTotemRecipe> RECIPES = new ArrayList<>();
 
     public static void init()
     {
-        new ArcaneCompressorRecipe(new ItemIngredient(MalumItems.CONFINED_BRILLIANCE.get(), 8), AQUATIC_SPIRIT)
-                .addExtraItem(new ItemIngredient(MalumItems.ARCANE_SPIRIT.get(), 2))
-                .addExtraItem(new ItemIngredient(Tags.Items.GEMS_LAPIS, 8));
+        new MalumTotemRecipe(new ItemIngredient(MalumItems.BRILLIANCE_SPIRIT.get(), 1), AQUATIC_SPIRIT)
+                .addExtraItem(new ItemIngredient(MalumItems.ARCANE_SPIRIT.get(), 2));
+
+        new MalumTotemRecipe(new ItemIngredient(MalumItems.TAINTED_ROCK_RUNE.get(), 1), AQUATIC_SPIRIT)
+                .addExtraItem(new ItemIngredient(MalumItems.TAINTED_ROCK.get(), 8))
+                .addExtraItem(new ItemIngredient(MalumItems.AQUATIC_SPIRIT.get(), 2));
+
+        new MalumTotemRecipe(new ItemIngredient(MalumItems.TWISTED_ROCK_RUNE.get(), 1), AQUATIC_SPIRIT)
+                .addExtraItem(new ItemIngredient(MalumItems.TWISTED_ROCK.get(), 8))
+                .addExtraItem(new ItemIngredient(MalumItems.AQUATIC_SPIRIT.get(), 2));
+
     }
 
-    public static ArcaneCompressorRecipe getRecipe(ArrayList<ItemStack> stacks)
+    public static MalumTotemRecipe getRecipe(ArrayList<ItemStack> stacks)
     {
-        for (ArcaneCompressorRecipe recipe : RECIPES)
+        for (MalumTotemRecipe recipe : RECIPES)
         {
             if (recipe.matches(stacks))
             {
@@ -35,13 +42,13 @@ public class MalumCompressingRecipes
     }
 
 
-    public static class ArcaneCompressorRecipe
+    public static class MalumTotemRecipe
     {
         public ArrayList<ItemIngredient> itemIngredients;
         public ItemIngredient outputIngredient;
         public MalumSpiritType assemblyType;
 
-        public ArcaneCompressorRecipe(ItemIngredient outputIngredient, MalumSpiritType assemblyType)
+        public MalumTotemRecipe(ItemIngredient outputIngredient, MalumSpiritType assemblyType)
         {
             this.outputIngredient = outputIngredient;
             this.assemblyType = assemblyType;
@@ -49,7 +56,7 @@ public class MalumCompressingRecipes
             RECIPES.add(this);
         }
 
-        public ArcaneCompressorRecipe addExtraItem(ItemIngredient ingredient)
+        public MalumTotemRecipe addExtraItem(ItemIngredient ingredient)
         {
             itemIngredients.add(ingredient);
             return this;

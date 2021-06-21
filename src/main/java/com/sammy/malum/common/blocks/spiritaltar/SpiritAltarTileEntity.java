@@ -21,11 +21,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.Random;
 
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
@@ -236,6 +238,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             if (item.getItem() instanceof SpiritItem)
             {
                 Vector3d offset = itemOffset(this, i);
+                Random rand = world.rand;
                 double x = getPos().getX() + offset.getX();
                 double y = getPos().getY() + offset.getY();
                 double z = getPos().getZ() + offset.getZ();
@@ -245,11 +248,12 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
 
                 ParticleManager.create(MalumParticles.WISP_PARTICLE)
                         .setAlpha(0.16f, 0f)
-                        .setLifetime(80)
-                        .setSpin(0.1f)
+                        .setLifetime(80 + rand.nextInt(5))
+                        .setSpin(MathHelper.nextFloat(rand, 0.075f, 0.1f))
                         .setScale(0.2f, 0)
                         .setColor(color, color.darker())
                         .enableNoClip()
+                        .randomVelocity(0.005f, 0.005f)
                         .repeat(world, x,y,z, spedUp ? 2 : 1);
 
                 if (recipe != null)

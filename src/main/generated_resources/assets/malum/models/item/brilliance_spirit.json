@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/simple_arcane_apparatus"
+    "layer0": "malum:spirit/spirit_cluster_base"
   }
 }

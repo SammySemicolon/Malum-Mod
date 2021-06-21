@@ -4,10 +4,8 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.modcontent.MalumCompressingRecipes;
+import com.sammy.malum.core.modcontent.MalumTotemRecipes;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
-import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
 import net.minecraft.item.ItemStack;
@@ -23,7 +21,7 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
 {
     public int progress;
     public int spin;
-    public MalumCompressingRecipes.ArcaneCompressorRecipe recipe;
+    public MalumTotemRecipes.MalumTotemRecipe recipe;
     public ItemFocusTileEntity()
     {
         super(MalumTileEntities.ITEM_FOCUS_TILE_ENTITY.get());
@@ -34,7 +32,7 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
             {
                 ItemFocusTileEntity.this.markDirty();
                 updateContainingBlockInfo();
-                recipe = MalumCompressingRecipes.getRecipe(stacks());
+                recipe = MalumTotemRecipes.getRecipe(stacks());
                 updateFocus();
                 MalumHelper.updateAndNotifyState(world, pos);
             }
@@ -61,7 +59,7 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
     {
         progress = compound.getInt("progress");
         super.readData(compound);
-        recipe = MalumCompressingRecipes.getRecipe(inventory.stacks());
+        recipe = MalumTotemRecipes.getRecipe(inventory.stacks());
         updateFocus();
     }
 

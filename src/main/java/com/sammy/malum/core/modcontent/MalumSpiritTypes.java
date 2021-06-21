@@ -51,7 +51,7 @@ public class MalumSpiritTypes
             .addTest(5, "rat_king");
 
     public static final Color ARCANE_SPIRIT_COLOR = new Color(231, 68, 196);
-    public static  MalumSpiritType ARCANE_SPIRIT = create("arcane", ARCANE_SPIRIT_COLOR, MalumItems.ARCANE_SPIRIT)
+    public static MalumSpiritType ARCANE_SPIRIT = create("arcane", ARCANE_SPIRIT_COLOR, MalumItems.ARCANE_SPIRIT)
             .addTest(1, CreatureAttribute.ILLAGER)
             .addTest(1, AbstractSkeletonEntity.class, MooshroomEntity.class, SlimeEntity.class, VexEntity.class, BlazeEntity.class)
             .addTest(2, "wraith")
@@ -64,14 +64,14 @@ public class MalumSpiritTypes
             .addTest(5, EnderDragonEntity.class);
 
     public static final Color AERIAL_SPIRIT_COLOR = new Color(51, 229, 155);
-    public static  MalumSpiritType AERIAL_SPIRIT = create("aerial", AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT)
+    public static MalumSpiritType AERIAL_SPIRIT = create("aerial", AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT)
             .addTest(1, "wraith")
             .addTest(1, SpiderEntity.class, true)
             .addTest(2, IFlyingAnimal.class, BatEntity.class, SilverfishEntity.class, OcelotEntity.class, CatEntity.class, RavagerEntity.class, FoxEntity.class)
             .addTest(3, AbstractHorseEntity.class, String.class, VexEntity.class, GhastEntity.class);
 
     public static final Color AQUATIC_SPIRIT_COLOR = new Color(42, 114, 232);
-    public static  MalumSpiritType AQUATIC_SPIRIT = create("aquatic", AQUATIC_SPIRIT_COLOR, MalumItems.AQUATIC_SPIRIT)
+    public static MalumSpiritType AQUATIC_SPIRIT = create("aquatic", AQUATIC_SPIRIT_COLOR, MalumItems.AQUATIC_SPIRIT)
             .addTest(1, WATER)
             .addTest(2, WaterMobEntity.class, DrownedEntity.class)
             .addTest(2, e -> e.getCreatureAttribute().equals(WATER) && e.getMaxHealth() >= 10)
@@ -79,17 +79,21 @@ public class MalumSpiritTypes
             .addTest(5, ElderGuardianEntity.class);
 
     public static final Color INFERNAL_SPIRIT_COLOR = new Color(210, 134, 39);
-    public static  MalumSpiritType INFERNAL_SPIRIT = create("infernal", INFERNAL_SPIRIT_COLOR, MalumItems.INFERNAL_SPIRIT)
+    public static MalumSpiritType INFERNAL_SPIRIT = create("infernal", INFERNAL_SPIRIT_COLOR, MalumItems.INFERNAL_SPIRIT)
             .addTest(1, WitherSkeletonEntity.class, HuskEntity.class, MagmaCubeEntity.class, AbstractPiglinEntity.class, ZombifiedPiglinEntity.class, HoglinEntity.class, ZoglinEntity.class)
             .addTest(2, CreeperEntity.class, BlazeEntity.class, GhastEntity.class)
             .addTest(3, GhastEntity.class, StriderEntity.class)
             .addTest(5, WitherEntity.class);
 
     public static final Color EARTHEN_SPIRIT_COLOR = new Color(98, 180, 40);
-    public static  MalumSpiritType EARTHEN_SPIRIT = create("earthen", EARTHEN_SPIRIT_COLOR, MalumItems.EARTHEN_SPIRIT)
+    public static MalumSpiritType EARTHEN_SPIRIT = create("earthen", EARTHEN_SPIRIT_COLOR, MalumItems.EARTHEN_SPIRIT)
             .addTest(1, ZombieEntity.class, CreeperEntity.class, IForgeShearable.class, CowEntity.class)
             .addTest(2, HorseEntity.class, ZombieHorseEntity.class, IronGolemEntity.class)
             .addTest(3, "zombie_brute");
+
+    public static final Color BRILLIANCE_SPIRIT_COLOR = new Color(214, 246, 69);
+    public static MalumSpiritType BRILLIANCE_SPIRIT = create("brilliance", BRILLIANCE_SPIRIT_COLOR, MalumItems.BRILLIANCE_SPIRIT)
+            .setCompound();
 
     public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)
     {

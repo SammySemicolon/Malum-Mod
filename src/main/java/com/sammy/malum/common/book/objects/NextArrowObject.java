@@ -38,7 +38,7 @@ public class NextArrowObject extends BookObject
         if (screen.currentObject instanceof CategoryObject)
         {
             CategoryObject object = (CategoryObject) screen.currentObject;
-            return object.category.groupings.size() > 1 && screen.currentGrouping < object.category.groupings.size();
+            return object.category.groupings.size() > 1 && screen.currentGrouping < object.category.groupings.size()-1;
         }
         return false;
     }

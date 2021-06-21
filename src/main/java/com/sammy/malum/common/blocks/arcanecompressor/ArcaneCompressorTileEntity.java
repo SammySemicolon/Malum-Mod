@@ -23,7 +23,8 @@ public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITic
     public float spin;
     public ArcaneCompressorTileEntity()
     {
-        super(MalumTileEntities.ARCANE_COMPRESSOR_TILE_ENTITY.get());
+        super(null);
+//        super(MalumTileEntities.ARCANE_COMPRESSOR_TILE_ENTITY.get());
     }
 
     @Override
