@@ -46,7 +46,7 @@ public class ItemFocusRenderer extends TileEntityRenderer<ItemFocusTileEntity>
                 matrixStackIn.push();
                 Vector3f offset = new Vector3f(ItemFocusTileEntity.itemOffset(tileEntityIn, i));
                 matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
-                matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((world.getGameTime() % 360) + partialTicks) * 3));
+                matrixStackIn.rotate(Vector3f.YP.rotationDegrees((world.getGameTime() % 360)* 3 + partialTicks));
                 matrixStackIn.scale(0.5f*minPercentage, 0.5f*minPercentage, 0.5f*minPercentage);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
                 matrixStackIn.pop();

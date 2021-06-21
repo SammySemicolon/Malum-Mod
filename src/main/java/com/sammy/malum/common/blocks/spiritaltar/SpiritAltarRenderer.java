@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.world.World;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
@@ -24,6 +25,7 @@ public class SpiritAltarRenderer extends TileEntityRenderer<SpiritAltarTileEntit
     @Override
     public void render(SpiritAltarTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
+        World world = Minecraft.getInstance().world;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         SimpleInventory inventory = tileEntityIn.spiritInventory;
         for (int i = 0; i < inventory.slotCount; i++)
@@ -34,7 +36,7 @@ public class SpiritAltarRenderer extends TileEntityRenderer<SpiritAltarTileEntit
                 matrixStackIn.push();
                 Vector3f offset = new Vector3f(SpiritAltarTileEntity.itemOffset(tileEntityIn, i));
                 matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
-                matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
+                matrixStackIn.rotate(Vector3f.YP.rotationDegrees((world.getGameTime() % 360)* 3 + partialTicks));
                 matrixStackIn.scale(0.5f, 0.5f, 0.5f);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
                 matrixStackIn.pop();
@@ -45,7 +47,7 @@ public class SpiritAltarRenderer extends TileEntityRenderer<SpiritAltarTileEntit
         {
             matrixStackIn.push();
             matrixStackIn.translate(0.5f,1.15f, 0.5f);
-            matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
+            matrixStackIn.rotate(Vector3f.YP.rotationDegrees((world.getGameTime() % 360)* 3 + partialTicks));
             matrixStackIn.scale(0.4f, 0.4f, 0.4f);
             itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
             matrixStackIn.pop();

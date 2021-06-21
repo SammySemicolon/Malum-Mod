@@ -35,11 +35,11 @@ public class ItemStandRenderer extends TileEntityRenderer<ItemStandTileEntity>
             Vector3f offset = new Vector3f(ItemStandTileEntity.itemOffset(tileEntityIn));
             if (stack.getItem() instanceof SpiritItem)
             {
-                double y = Math.sin((world.getGameTime() % 360) / 20f + partialTicks) * 0.05f;
+                double y = Math.sin(((world.getGameTime() + partialTicks) % 360) / 20f) * 0.05f;
                 matrixStackIn.translate(0, y, 0);
             }
             matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
-            matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((world.getGameTime() % 360) + partialTicks) * 3));
+            matrixStackIn.rotate(Vector3f.YP.rotationDegrees((world.getGameTime() % 360)* 3 + partialTicks));
             matrixStackIn.scale(0.6f, 0.6f, 0.6f);
             itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
             matrixStackIn.pop();

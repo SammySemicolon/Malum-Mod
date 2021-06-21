@@ -72,7 +72,7 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IA
             Color color = item.type.color;
             Vector3d pos = itemPos(this);
             double x = pos.x;
-            double y = pos.y + Math.sin((world.getGameTime() / 20f) % 360) * 0.05f;
+            double y = pos.y + Math.sin((world.getGameTime() % 360) / 20f) * 0.05f;
             double z = pos.z;
             SpiritHelper.spiritParticles(world, x,y,z, color);
         }

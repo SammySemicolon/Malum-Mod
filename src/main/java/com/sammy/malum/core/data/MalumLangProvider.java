@@ -155,7 +155,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("arcane_reach_ring", "Collecting harvested spirits can sometimes be a tiresome task. This simple yet practical trinket will greatly extend your spirit reach, allowing them to lock onto you from much further out.");
 
         addPage("radiant_soulstone", "A radiant soulstone is the faultless form of a soulstone. Unlike a regular soulstone, it lacks impurities, possible cuts, or any other form of damage a soulstone may have. It's a perfect arcane craft.");
-        addPage("tyrving", "The Tyrving is a type of twisted spell-blade designed to crush armor. It is very proficient at dealing with tough opponents, increasing in magic damage for each point of armor your enemy has.");
+        addPage("tyrving", "The Tyrving is a type of twisted blade designed to crush armor. It is very proficient at dealing with tough opponents, increasing in damage for each point of armor your enemy has.");
 
         addPage("stronghold_armor", "The Soul Stained Stronghold Armor Set is a perfect mix between magic and metallurgic strength. The set provides tons of resilience to it's bearer, much more than any other armor set available. Much like netherite, it provides knockback immunity.");
 

@@ -196,6 +196,16 @@ public class SpiritHelper
     public static void spiritParticles(World world, double x, double y, double z, Color color)
     {
         Random rand = world.rand;
+        ParticleManager.create(MalumParticles.TWINKLE_PARTICLE)
+                .setAlpha(0.18f, 0f)
+                .setLifetime(10 + rand.nextInt(4))
+                .setScale(0.3f + rand.nextFloat() * 0.1f, 0)
+                .setColor(color, color.darker())
+                .randomOffset(0.05f)
+                .enableNoClip()
+                .randomVelocity(0.02f, 0.02f)
+                .repeat(world, x, y, z, 1);
+
         ParticleManager.create(MalumParticles.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(20 + rand.nextInt(4))
