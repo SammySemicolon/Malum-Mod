@@ -1,7 +1,5 @@
 package com.sammy.malum.core.init.items;
 
-import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorBlockItem;
-import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorItemRenderer;
 import com.sammy.malum.common.items.EncyclopediaArcanaItem;
 import com.sammy.malum.common.items.FuelItem;
 import com.sammy.malum.common.items.SpiritItem;

@@ -1,5 +1,4 @@
 {
-  "block.malum.arcane_compressor": "Arcane Compressor",
   "block.malum.blazing_quartz_block": "Blazing Quartz Block",
   "block.malum.blazing_quartz_ore": "Blazing Quartz Ore",
   "block.malum.blue_ether": "Blue Ether",
@@ -298,7 +297,6 @@
   "block.malum.vertical_runewood_planks": "Vertical Runewood Planks",
   "block.malum.vertical_runewood_planks_slab": "Vertical Runewood Planks Slab",
   "block.malum.vertical_runewood_planks_stairs": "Vertical Runewood Planks Stairs",
-  "block.malum.well_of_suffering": "Well Of Suffering",
   "block.malum.yellow_ether": "Yellow Ether",
   "block.malum.yellow_ether_brazier": "Yellow Ether Brazier",
   "block.malum.yellow_ether_torch": "Yellow Ether Torch",

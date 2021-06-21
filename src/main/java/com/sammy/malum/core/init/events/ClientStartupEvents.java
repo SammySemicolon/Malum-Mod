@@ -4,7 +4,6 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
-import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorRenderer;
 import com.sammy.malum.common.blocks.itemfocus.ItemFocusRenderer;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalRenderer;
@@ -16,7 +15,6 @@ import com.sammy.malum.common.blocks.spiritjar.SpiritJarRenderer;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleRenderer;
-import com.sammy.malum.common.blocks.wellofsuffering.WellOfSufferingRenderer;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.common.entities.spirit.SpiritItemRenderer;
 import com.sammy.malum.core.init.MalumEntities;
@@ -66,8 +64,6 @@ public class ClientStartupEvents
     {
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_FOCUS_TILE_ENTITY.get(), ItemFocusRenderer::new);
-//        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.WELL_OF_SUFFERING_TILE_ENTITY.get(), WellOfSufferingRenderer::new);
-//        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_COMPRESSOR_TILE_ENTITY.get(), ArcaneCompressorRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), TotemPoleRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), ItemStandRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get(), ItemPedestalRenderer::new);

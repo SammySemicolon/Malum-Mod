@@ -1,10 +1,5 @@
 package com.sammy.malum.common.blocks.itemfocus;
 
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorTileEntity;
-import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
-import com.sammy.malum.common.items.SpiritItem;
-import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,11 +15,8 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -35,7 +27,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
-import java.util.stream.Stream;
 
 public class ItemFocusBlock extends SimpleInventoryBlock implements IWaterLoggable
 {
@@ -46,18 +37,6 @@ public class ItemFocusBlock extends SimpleInventoryBlock implements IWaterLoggab
         super(properties);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
     }
-
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
-    {
-        if (worldIn.getTileEntity(pos.up(2)) instanceof ArcaneCompressorTileEntity)
-        {
-            ArcaneCompressorTileEntity arcaneCompressorTileEntity = (ArcaneCompressorTileEntity) worldIn.getTileEntity(pos.up(2));
-            arcaneCompressorTileEntity.updateFocus(pos);
-        }
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-    }
-
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
     {

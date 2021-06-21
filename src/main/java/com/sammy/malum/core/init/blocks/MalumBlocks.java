@@ -2,7 +2,6 @@ package com.sammy.malum.core.init.blocks;
 
 import com.sammy.malum.MalumColors;
 import com.sammy.malum.common.blocks.*;
-import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorBlock;
 import com.sammy.malum.common.blocks.itemfocus.ItemFocusBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
@@ -15,7 +14,6 @@ import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeBlock;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
-import com.sammy.malum.common.blocks.wellofsuffering.WellOfSufferingBlock;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -525,9 +523,6 @@ public class MalumBlocks
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(MalumBlocks.RUNEWOOD_LOG.get())));
 
     public static final RegistryObject<Block> ITEM_FOCUS = BLOCKS.register("item_focus", () -> new ItemFocusBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
-
-//    public static final RegistryObject<Block> WELL_OF_SUFFERING = BLOCKS.register("well_of_suffering", () -> new WellOfSufferingBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
-//    public static final RegistryObject<Block> ARCANE_COMPRESSOR = BLOCKS.register("arcane_compressor", () -> new ArcaneCompressorBlock(TAINTED_ROCK_PROPERTIES().notSolid()));
 
     //endregion
 

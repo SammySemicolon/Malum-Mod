@@ -1,7 +1,6 @@
 package com.sammy.malum.common.blocks.itemfocus;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.modcontent.MalumTotemRecipes;
@@ -15,7 +14,6 @@ import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
 
-import static com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorTileEntity.PRESS_DURATION;
 
 public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements ITickableTileEntity
 {
@@ -33,20 +31,11 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
                 ItemFocusTileEntity.this.markDirty();
                 updateContainingBlockInfo();
                 recipe = MalumTotemRecipes.getRecipe(stacks());
-                updateFocus();
                 MalumHelper.updateAndNotifyState(world, pos);
             }
         };
     }
 
-    public void updateFocus()
-    {
-        if (world.getTileEntity(pos.up(2)) instanceof ArcaneCompressorTileEntity)
-        {
-            ArcaneCompressorTileEntity arcaneCompressorTileEntity = (ArcaneCompressorTileEntity) world.getTileEntity(pos.up(2));
-            arcaneCompressorTileEntity.updateFocus(pos);
-        }
-    }
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
@@ -60,7 +49,6 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
         progress = compound.getInt("progress");
         super.readData(compound);
         recipe = MalumTotemRecipes.getRecipe(inventory.stacks());
-        updateFocus();
     }
 
     public static Vector3d itemOffset(ItemFocusTileEntity tileEntity, int slot)
@@ -70,9 +58,7 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
         {
             return new Vector3d(0.5, 1.5, 0.5);
         }
-        float press = Math.min(PRESS_DURATION,tileEntity.progress);
-        float pressPercentage = 0.25f * (press / PRESS_DURATION);
-        return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,1.5f,0.5f), 0.5f-pressPercentage,slot, nonEmpty, (long)tileEntity.spin,360);
+        return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,1.5f,0.5f), 0.5f,slot, nonEmpty, (long)tileEntity.spin,360);
     }
     @Override
     public void tick()
