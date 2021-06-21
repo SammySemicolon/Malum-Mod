@@ -6,8 +6,10 @@ import net.minecraft.item.IItemTier;
 
 public class TyrvingItem extends ModSwordItem
 {
-    public TyrvingItem(IItemTier material, int attackDamage, float attackSpeed, Properties properties)
+    public final float armorCrushing;
+    public TyrvingItem(IItemTier material, float armorCrushing, int attackDamage, float attackSpeed, Properties properties)
     {
         super(material, attackDamage, attackSpeed, properties);
+        this.armorCrushing = armorCrushing;
     }
 }

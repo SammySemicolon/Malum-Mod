@@ -131,7 +131,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
             float extraVelocity = 0.03f * i;
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
                     .setAlpha(0.025f, 0f)
-                    .setLifetime(40)
+                    .setLifetime(20)
                     .setSpin(0.2f)
                     .setScale(0.25f, 0)
                     .setColor(color, color)
@@ -143,7 +143,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
 
             ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
                     .setAlpha(0.025f, 0f)
-                    .setLifetime(80)
+                    .setLifetime(40)
                     .setSpin(0.1f)
                     .setScale(0.35f, 0)
                     .setColor(color, color)

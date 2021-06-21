@@ -10,7 +10,9 @@ import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
+import com.sammy.malum.core.systems.particles.ParticleManager;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -20,9 +22,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class SpiritHelper
@@ -187,5 +192,29 @@ public class SpiritHelper
             }
         }
         return spirits;
+    }
+    public static void spiritParticles(World world, double x, double y, double z, Color color)
+    {
+        Random rand = world.rand;
+        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                .setAlpha(0.1f, 0f)
+                .setLifetime(20 + rand.nextInt(4))
+                .setSpin(MathHelper.nextFloat(rand, 0.05f, 0.1f))
+                .setScale(0.2f + rand.nextFloat() * 0.05f, 0)
+                .setColor(color, color.darker())
+                .randomOffset(0.1f)
+                .enableNoClip()
+                .randomVelocity(0.02f, 0.02f)
+                .repeat(world, x, y, z, 1);
+
+        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                .setAlpha(0.2f, 0f)
+                .setLifetime(10 + rand.nextInt(2))
+                .setSpin(MathHelper.nextFloat(rand, 0.05f, 0.1f))
+                .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
+                .setColor(color, color.darker())
+                .enableNoClip()
+                .randomVelocity(0.01f, 0.01f)
+                .repeat(world, x, y, z, 1);
     }
 }

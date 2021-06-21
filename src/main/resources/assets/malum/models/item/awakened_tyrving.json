@@ -1,0 +1,15 @@
+{
+  "parent": "item/handheld",
+  "loader": "forge:separate-perspective",
+  "base": {
+    "parent": "malum:item/awakened_tyrving_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "malum:item/awakened_tyrving_gui"
+    },
+    "fixed": {
+      "parent": "malum:item/awakened_tyrving_gui"
+    }
+  }
+}

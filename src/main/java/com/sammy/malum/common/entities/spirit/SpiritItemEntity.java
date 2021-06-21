@@ -126,25 +126,7 @@ public class SpiritItemEntity extends ProjectileItemEntity
             {
                 ISpiritEntityGlow entityGlow = (ISpiritEntityGlow) stack.getItem();
                 Color color = entityGlow.getColor();
-
-                ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
-                        .setAlpha(0.1f, 0f)
-                        .setLifetime(4)
-                        .setScale(0.4f, 0)
-                        .setColor(color.brighter(), color.darker())
-                        .enableNoClip()
-                        .repeat(world, x, y, z, 2);
-
-                ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                        .setAlpha(0.1f, 0f)
-                        .setLifetime(20)
-                        .setSpin(0.1f)
-                        .setScale(0.2f, 0)
-                        .setColor(color, color.darker())
-                        .randomOffset(0.1f)
-                        .enableNoClip()
-                        .randomVelocity(0.01f, 0.01f)
-                        .repeat(world, x, y, z, 1);
+                SpiritHelper.spiritParticles(world, x,y,z, color);
             }
         }
     }

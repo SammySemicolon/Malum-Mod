@@ -1,9 +1,7 @@
 package com.sammy.malum.core.modcontent;
 
-import com.sammy.malum.common.rites.RiteOfAssembly;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.recipes.ItemIngredient;
-import com.sammy.malum.core.systems.recipes.SimpleItemIngredient;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Tags;

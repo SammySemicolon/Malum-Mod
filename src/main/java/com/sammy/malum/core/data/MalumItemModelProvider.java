@@ -36,6 +36,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         items.remove(SPIRIT_PIPE);
         items.remove(ARCANE_COMPRESSOR);
+        items.remove(AWAKENED_TYRVING);
         spiritPipeItem(SPIRIT_PIPE);
 
         takeAll(items, i -> i.get() instanceof ScytheItem);

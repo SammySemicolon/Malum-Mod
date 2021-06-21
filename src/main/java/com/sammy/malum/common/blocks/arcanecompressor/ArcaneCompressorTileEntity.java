@@ -2,26 +2,16 @@ package com.sammy.malum.common.blocks.arcanecompressor;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.blocks.itemfocus.ItemFocusTileEntity;
-import com.sammy.malum.common.items.SpiritItem;
-import com.sammy.malum.common.rites.RiteOfAssembly;
+import com.sammy.malum.common.rites.ActivatorRite;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.modcontent.MalumCompressingRecipes;
-import com.sammy.malum.core.modcontent.MalumCompressingRecipes.ArcaneCompressorRecipe;
-import com.sammy.malum.core.systems.inventory.SimpleInventory;
-import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 
-import java.awt.*;
-
-public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITickableTileEntity, RiteOfAssembly.IAssembled
+public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITickableTileEntity, ActivatorRite.IAssembled
 {
     public static final int PRESS_DURATION = 2;
     public boolean active;
@@ -74,7 +64,7 @@ public class ArcaneCompressorTileEntity extends SimpleTileEntity implements ITic
         }
     }
     @Override
-    public void assemble(RiteOfAssembly assemblyType)
+    public void assemble(MalumSpiritType assemblyType)
     {
         if (hasFocus)
         {

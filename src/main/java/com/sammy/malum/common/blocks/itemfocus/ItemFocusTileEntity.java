@@ -8,6 +8,7 @@ import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumCompressingRecipes;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -97,25 +98,7 @@ public class ItemFocusTileEntity extends SimpleInventoryTileEntity implements IT
                 double z = getPos().getZ() + offset.getZ();
                 SpiritItem spiritSplinterItem = (SpiritItem) item.getItem();
                 Color color = spiritSplinterItem.type.color;
-
-
-                ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
-                        .setAlpha(0.2f, 0f)
-                        .setLifetime(10)
-                        .setScale(0.25f, 0)
-                        .setColor(color.brighter(), color.darker())
-                        .enableNoClip()
-                        .repeat(world, x, y, z, 2);
-
-                ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                        .setAlpha(0.2f, 0f)
-                        .setLifetime(80)
-                        .setSpin(0.1f)
-                        .setScale(0.16f, 0)
-                        .setColor(color, color.darker())
-                        .enableNoClip()
-                        .repeat(world, x, y, z, 1);
-
+                SpiritHelper.spiritParticles(world, x,y,z, color);
             }
         }
     }

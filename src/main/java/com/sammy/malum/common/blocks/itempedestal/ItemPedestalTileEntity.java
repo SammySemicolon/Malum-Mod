@@ -8,6 +8,7 @@ import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.particles.ParticleManager;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -64,24 +65,9 @@ public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements
             Color color = item.type.color;
             Vector3d pos = itemPos(this);
             double x = pos.x;
-            double y = pos.y + Math.sin(world.getGameTime() / 20f) * 0.1f;
+            double y = pos.y + Math.sin((world.getGameTime() / 20f) % 360) * 0.1f;
             double z = pos.z;
-            ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
-                    .setAlpha(0.2f, 0f)
-                    .setLifetime(10)
-                    .setScale(0.3f, 0)
-                    .setColor(color.brighter(), color.darker())
-                    .enableNoClip()
-                    .repeat(world, x,y,z, 2);
-
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(0.2f, 0f)
-                    .setLifetime(80)
-                    .setSpin(0.1f)
-                    .setScale(0.2f, 0)
-                    .setColor(color, color.darker())
-                    .enableNoClip()
-                    .repeat(world, x,y,z, 1);
+            SpiritHelper.spiritParticles(world, x,y,z, color);
         }
     }
 }

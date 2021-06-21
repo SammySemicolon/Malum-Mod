@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.world.World;
 
 import static com.sammy.malum.common.blocks.arcanecompressor.ArcaneCompressorTileEntity.PRESS_DURATION;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
@@ -34,6 +35,7 @@ public class ItemFocusRenderer extends TileEntityRenderer<ItemFocusTileEntity>
         float pressPercentage = 1f - (press / PRESS_DURATION);
 
         float minPercentage = Math.min(1, pressPercentage+0.5f);
+        World world = Minecraft.getInstance().world;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         SimpleInventory inventory = tileEntityIn.inventory;
         for (int i = 0; i < inventory.slotCount; i++)
@@ -44,7 +46,7 @@ public class ItemFocusRenderer extends TileEntityRenderer<ItemFocusTileEntity>
                 matrixStackIn.push();
                 Vector3f offset = new Vector3f(ItemFocusTileEntity.itemOffset(tileEntityIn, i));
                 matrixStackIn.translate(offset.getX(), offset.getY(), offset.getZ());
-                matrixStackIn.rotate(Vector3f.YP.rotationDegrees((tileEntityIn.getWorld().getGameTime() + partialTicks) * 3));
+                matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((world.getGameTime() % 360) + partialTicks) * 3));
                 matrixStackIn.scale(0.5f*minPercentage, 0.5f*minPercentage, 0.5f*minPercentage);
                 itemRenderer.renderItem(item, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);
                 matrixStackIn.pop();

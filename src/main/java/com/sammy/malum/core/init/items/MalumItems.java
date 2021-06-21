@@ -508,7 +508,8 @@ public class MalumItems
     public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_BOOTS = ITEMS.register("soul_stained_stronghold_boots", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> SACRIFICIAL_DAGGER = ITEMS.register("sacrificial_dagger", () -> new SacrificialDaggerItem(SACRIFICIAL_DAGGER_ITEM, 0, -0.1f, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 0, -0.1f, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 10f, 0, -0.1f, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> AWAKENED_TYRVING = ITEMS.register("awakened_tyrving", () -> new TyrvingItem(TYRVING_ITEM, 5f, 2, 0.1f, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));

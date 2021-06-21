@@ -85,11 +85,10 @@ public class Events
                 ItemStack stack = playerEntity.getHeldItem(playerEntity.swingingHand);
                 if (stack.getItem() instanceof TyrvingItem)
                 {
+                    TyrvingItem tyrvingItem = (TyrvingItem) stack.getItem();
                     LivingEntity entity = event.getEntityLiving();
-                    event.getEntity().hurtResistantTime = 0;
-                    float amount = event.getAmount() * (1 + entity.getTotalArmorValue()/10f);
-                    SpiritHelper.causeVoodooDamage(playerEntity, entity, amount);
-                    event.setAmount(0);
+                    float amount = event.getAmount() * (1 + entity.getTotalArmorValue()/tyrvingItem.armorCrushing);
+                    event.setAmount(amount);
                     playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_CRUSH, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
                     if (playerEntity.world instanceof ServerWorld)
                     {

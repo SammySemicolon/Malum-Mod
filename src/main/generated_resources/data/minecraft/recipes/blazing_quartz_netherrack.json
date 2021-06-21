@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ZY",
+    "YZ"
+  ],
+  "key": {
+    "Z": {
+      "item": "malum:blazing_quartz"
+    },
+    "Y": {
+      "tag": "forge:cobblestone"
+    }
+  },
+  "result": {
+    "item": "minecraft:netherrack",
+    "count": 2
+  }
+}
