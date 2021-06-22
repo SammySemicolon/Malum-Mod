@@ -4,10 +4,13 @@ import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.recipes.ItemIngredient;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
 
 import static com.sammy.malum.core.modcontent.MalumSpiritTypes.AQUATIC_SPIRIT;
+import static com.sammy.malum.core.modcontent.MalumSpiritTypes.INFERNAL_SPIRIT;
 
 public class MalumTotemRecipes
 {
@@ -27,6 +30,9 @@ public class MalumTotemRecipes
                 .addExtraItem(new ItemIngredient(MalumItems.TWISTED_ROCK.get(), 8))
                 .addExtraItem(new ItemIngredient(MalumItems.AQUATIC_SPIRIT.get(), 2));
 
+        new MalumTotemRecipe(new ItemIngredient(Items.BLAZE_POWDER, 1), INFERNAL_SPIRIT)
+                .addExtraItem(new ItemIngredient(Tags.Items.GUNPOWDER, 1))
+                .addExtraItem(new ItemIngredient(MalumItems.BLAZING_QUARTZ.get(), 1));
     }
 
     public static MalumTotemRecipe getRecipe(ArrayList<ItemStack> stacks)

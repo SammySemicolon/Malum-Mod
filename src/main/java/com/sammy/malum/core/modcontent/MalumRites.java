@@ -17,6 +17,7 @@ public class MalumRites
         RITES.add(new RiteOfWarding());
         RITES.add(new RiteOfCelerity());
         RITES.add(new RiteOfAssembly());
+        RITES.add(new RiteOfImbuing());
     }
 
     public static MalumRiteType getRite(String identifier)

@@ -1,8 +1,12 @@
 package com.sammy.malum.common.rites;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
+import com.sammy.malum.core.systems.spirits.SpiritHelper;
+import com.sammy.malum.network.packets.rites.BlastParticlePacket;
 import com.sammy.malum.network.packets.rites.UpwardsBlockParticlesPacket;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
@@ -31,14 +35,9 @@ public abstract class ActivatorRite extends MalumRiteType
         {
             IAssembled assembled = (IAssembled) world.getTileEntity(nearbyPos);
             assembled.assemble(assemblyType);
-            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), UpwardsBlockParticlesPacket.fromSpirits(nearbyPos.getX(),nearbyPos.getY(), nearbyPos.getZ(), spirits));
+            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BlastParticlePacket.fromSpirits(nearbyPos.getX()+0.5f, nearbyPos.getY()+1.5f, nearbyPos.getZ()+0.5f, MalumSpiritTypes.ELDRITCH_SPIRIT, MalumSpiritTypes.AQUATIC_SPIRIT));
+            MalumHelper.updateAndNotifyState(world, pos);
         }
-        BlockPos nearbyPos = nearbyBlocks.get(world.rand.nextInt(nearbyBlocks.size()));
-        BlockState state = world.getBlockState(nearbyPos);
-        IGrowable iGrowable = (IGrowable) state.getBlock();
-        iGrowable.grow(world, world.rand, nearbyPos, state);
-        BlockPos packetPos = state.isSolid() ? nearbyPos : nearbyPos.down();
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), UpwardsBlockParticlesPacket.fromSpirits(packetPos.getX(),packetPos.getY(), packetPos.getZ(), spirits));
         super.executeRite(world, pos);
     }
     public interface IAssembled

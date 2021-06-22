@@ -101,7 +101,7 @@ public class BookScreen extends Screen
                     {
                         posX = guiLeft + 283;
                         posY = guiTop + 12 + (l * 26);
-                        BookEntry linkedEntry = entry.links.get(l);
+                        BookEntry linkedEntry = entry.links.get(l).get();
                         LinkedEntryObject linkedPageObject = (LinkedEntryObject) new LinkedEntryObject(posX, posY, 24, 24, entryObject, linkedEntry).addSpecialPredicate((s) -> {
                             if (currentObject instanceof LinkedEntryObject && currentObject.returnObject.equals(entryObject))
                             {

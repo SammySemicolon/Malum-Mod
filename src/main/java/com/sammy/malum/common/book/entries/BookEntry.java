@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 public class BookEntry
 {
@@ -14,7 +15,7 @@ public class BookEntry
     public final String translationKey;
     
     public ArrayList<BookPage> pages = new ArrayList<>();
-    public ArrayList<BookEntry> links = new ArrayList<>();
+    public ArrayList<Supplier<BookEntry>> links = new ArrayList<>();
     
     public BookEntry(Item item, String translationKey) {
         this.iconStack = item.getDefaultInstance();
@@ -25,7 +26,7 @@ public class BookEntry
         pages.add(page);
         return this;
     }
-    public BookEntry addLink(BookEntry entry)
+    public BookEntry addLink(Supplier<BookEntry> entry)
     {
         links.add(entry);
         return this;

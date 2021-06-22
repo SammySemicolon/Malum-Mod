@@ -154,10 +154,14 @@ public class MalumLangProvider extends LanguageProvider
         addPage("arcane_spoil_ring", "Harvesting Spirits may often yield insufficient result, even after a long night of hunting you might not have enough spirit spoils for your needs. The Arcane Spoils ring will increase how many spirits you get from spirit harvesting.");
         addPage("arcane_reach_ring", "Collecting harvested spirits can sometimes be a tiresome task. This simple yet practical trinket will greatly extend your spirit reach, allowing them to lock onto you from much further out.");
 
-        addPage("radiant_soulstone", "A radiant soulstone is the faultless form of a soulstone. Unlike a regular soulstone, it lacks impurities, possible cuts, or any other form of damage a soulstone may have. It's a perfect arcane craft.");
         addPage("tyrving", "The Tyrving is a type of twisted blade designed to crush armor. It is very proficient at dealing with tough opponents, increasing in damage for each point of armor your enemy has.");
 
+        addPage("radiant_soulstone", "A radiant soulstone is the faultless form of a soulstone. Unlike a regular soulstone, it lacks impurities, possible cuts, or any other form of damage a soulstone may have. It's a perfect arcane craft.");
         addPage("stronghold_armor", "The Soul Stained Stronghold Armor Set is a perfect mix between magic and metallurgic strength. The set provides tons of resilience to it's bearer, much more than any other armor set available. Much like netherite, it provides knockback immunity.");
+
+        addPage("cursed_nebulous", "Cursed Nebulous");
+
+        addPage("awakened_tyrving", "Awakened Tyrving");
 
         addPage("totem_magic", "The arcane properties of runewood is directly tied to spirits, making runewood a perfect candidate for totem magic; totem rites. Totem magic allows you to perform rituals known as spirit rites.");
         addPage("totem_magic_2", "To perform a spirit rite you will need a totem. A totem is made up of runewood logs supported by a totem base. Each spirit rite is represented by a set of spirits which must be engraved on runewood logs placed above your totem base. You can remove engraved spirits using an axe.");
@@ -167,6 +171,11 @@ public class MalumLangProvider extends LanguageProvider
         addPage("rite_of_death", "Through the use of the wicked spirit, the rite of death will quickly drain the life force of nearby living things. It attacks the body directly through magic.");
         addPage("rite_of_warding", "Earthen spirit combined with the arcane creates a really powerful spirit rite. The Rite of Warding will provide a strong shielding aura to those nearby.");
         addPage("rite_of_celerity", "The Rite of Celerity provides you with a strong agility boost. It also increases your reach distance by a short amount.");
+
+        addPage("totem_crafting", "Certain advanced Spirit Rites --Assembler Rites-- provide you with the ability to craft new magical items. Totem Crafting revolves around executing an assambler rite next to an item focus supplied with items placed atop. Different recipes require different assembler rites.");
+
+        addPage("rite_of_assembly", "The Rite of Assembly, designed for creating new things. An amazing potential of aquatic spirit grants it the ability to take any form similar to water, a type of shape-shifting magic. Also useful for shaping other things.");
+        addPage("rite_of_imbuing", "The Rite of Imbuing, made for fusing things together. Infernal spirits can make things merge into one quite easily.");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rites", "Spirit Rites");

@@ -70,7 +70,6 @@ public class MalumSpiritAltarRecipes
         //ring of arcane reach
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.GILDED_RING.get(), 1), new ItemIngredient(MalumItems.RING_OF_ARCANE_REACH.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 4))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
@@ -79,7 +78,6 @@ public class MalumSpiritAltarRecipes
 
         //ring of arcane spoil
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.ORNATE_RING.get(), 1), new ItemIngredient(MalumItems.RING_OF_ARCANE_SPOIL.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 4))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.STAINED_SPIRIT_RESONATOR.get()))
@@ -98,8 +96,8 @@ public class MalumSpiritAltarRecipes
         //tyrving
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_SWORD.get(), 1), new ItemIngredient(MalumItems.TYRVING.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 4))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ELDRITCH_SPIRIT, 2))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
                 .addExtraItem(new SimpleItemIngredient(Items.OBSIDIAN))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(Items.OBSIDIAN))
@@ -150,13 +148,18 @@ public class MalumSpiritAltarRecipes
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
 
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.TYRVING.get(), 1), new ItemIngredient(MalumItems.AWAKENED_TYRVING.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 32))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
+                .addExtraItem(new SimpleItemIngredient(Tags.Items.OBSIDIAN))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.CURSED_NEBULOUS.get()));
+
         //totem base
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.RUNEWOOD_LOG.get(), 4), new ItemIngredient(MalumItems.TOTEM_BASE.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 12))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 6))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.STAINED_SPIRIT_RESONATOR.get()))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()));
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()));
     }
 
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack, ArrayList<ItemStack> stacks)
