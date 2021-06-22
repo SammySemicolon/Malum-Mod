@@ -1,7 +1,9 @@
 package com.sammy.malum.core.systems.multiblock;
 
+import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntityType;
@@ -52,6 +54,10 @@ public class MultiblockTileEntity extends SimpleTileEntity
             if (world.getTileEntity(b) instanceof BoundingBlockTileEntity)
             {
                 world.removeBlock(b, true);
+            }
+            if (MalumHelper.areWeOnClient(world))
+            {
+                ClientHelper.spawnBlockParticles(b, getBlockState());
             }
         });
         super.remove();

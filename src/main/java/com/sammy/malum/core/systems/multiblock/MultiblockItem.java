@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 import static net.minecraft.world.World.isValid;
 
 public class MultiblockItem extends BlockItem
@@ -26,9 +28,8 @@ public class MultiblockItem extends BlockItem
     {
         World world = context.getWorld();
         BlockPos placePos = context.getPos();
-        for (BlockPos pos : structure.occupiedPositions)
+        for (BlockPos targetPos : structure.getOccupiedPositions(placePos, world, context.getPlayer(),context.getItem(),state))
         {
-            BlockPos targetPos = placePos.add(pos);
             if (!isValid(targetPos) || !world.getBlockState(targetPos).getMaterial().isReplaceable())
             {
                 return false;
@@ -40,12 +41,12 @@ public class MultiblockItem extends BlockItem
     @Override
     protected boolean onBlockPlaced(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state)
     {
-        for (BlockPos pos : structure.occupiedPositions)
+        List<BlockPos> occupiedPositions = structure.getOccupiedPositions(placePos, world, player, stack, state);
+        for (BlockPos targetPos : occupiedPositions)
         {
-            BlockPos targetPos = placePos.add(pos);
             if (isValid(targetPos) && world.getBlockState(targetPos).getMaterial().isReplaceable())
             {
-                world.setBlockState(targetPos, structure.boundingBlock.multiblockState(placePos, world, player, stack, state, pos));
+                world.setBlockState(targetPos, structure.getBoundingBlockState(placePos, targetPos, world, player, stack, state));
                 if (world.getTileEntity(targetPos) instanceof BoundingBlockTileEntity)
                 {
                     BoundingBlockTileEntity tileEntity = (BoundingBlockTileEntity) world.getTileEntity(targetPos);
@@ -56,10 +57,7 @@ public class MultiblockItem extends BlockItem
         if (world.getTileEntity(placePos) instanceof MultiblockTileEntity)
         {
             MultiblockTileEntity tileEntity = (MultiblockTileEntity) world.getTileEntity(placePos);
-            for (BlockPos pos : structure.occupiedPositions)
-            {
-                tileEntity.parts.add(placePos.add(pos));
-            }
+            tileEntity.parts.addAll(occupiedPositions);
         }
         return super.onBlockPlaced(placePos, world, player, stack, state);
     }

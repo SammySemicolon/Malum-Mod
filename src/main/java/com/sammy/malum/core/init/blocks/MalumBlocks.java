@@ -2,13 +2,14 @@ package com.sammy.malum.core.init.blocks;
 
 import com.sammy.malum.MalumColors;
 import com.sammy.malum.common.blocks.*;
-import com.sammy.malum.common.blocks.itemfocus.ItemFocusBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.blocks.lighting.WallEtherTorchBlock;
+import com.sammy.malum.common.blocks.runetable.RuneTableBlock;
+import com.sammy.malum.common.blocks.runetable.bounding.RuneTableBoundingBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarBlock;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarBlock;
 import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeBlock;
@@ -522,7 +523,8 @@ public class MalumBlocks
     public static final RegistryObject<Block> TOTEM_BASE = BLOCKS.register("totem_base", () -> new TotemBaseBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(MalumBlocks.RUNEWOOD_LOG.get())));
 
-    public static final RegistryObject<Block> ITEM_FOCUS = BLOCKS.register("item_focus", () -> new ItemFocusBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> RUNE_TABLE = BLOCKS.register("rune_table", () -> new RuneTableBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> RUNE_TABLE_BOUNDING_BLOCK = BLOCKS.register("rune_table_bounding_block", () -> new RuneTableBoundingBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
 
     //endregion
 

@@ -1,0 +1,35 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"texture_size": [32, 32],
+	"textures": {
+		"particle": "malum:block/twisted_rock"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [15, 10, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [9, 0, 16, 5], "texture": "#table"},
+				"east": {"uv": [9, 0, 16, 5], "texture": "#table"},
+				"south": {"uv": [9, 0, 16, 5], "texture": "#table"},
+				"west": {"uv": [9, 0, 16, 5], "texture": "#table"},
+				"down": {"uv": [9, 5, 16, 12], "texture": "#table"}
+			}
+		},
+		{
+			"from": [-1, 10, -1],
+			"to": [17, 16, 17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 9, 9, 12], "texture": "#table"},
+				"east": {"uv": [0, 9, 9, 12], "texture": "#table"},
+				"south": {"uv": [0, 9, 9, 12], "texture": "#table"},
+				"west": {"uv": [0, 9, 9, 12], "texture": "#table"},
+				"up": {"uv": [0, 0, 9, 9], "texture": "#table"},
+				"down": {"uv": [0, 0, 9, 9], "texture": "#table"}
+			}
+		}
+	]
+}

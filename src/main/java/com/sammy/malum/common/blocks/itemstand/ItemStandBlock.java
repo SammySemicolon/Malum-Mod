@@ -30,18 +30,20 @@ import static net.minecraft.state.properties.BlockStateProperties.FACING;
 public class ItemStandBlock extends SimpleInventoryBlock implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
+    public static final VoxelShape UP =Block.makeCuboidShape(4, 0, 4, 12, 2, 12);
+    public static final VoxelShape DOWN =Block.makeCuboidShape(4, 14, 4, 12, 16, 12);
+    public static final VoxelShape SOUTH =Block.makeCuboidShape(4, 4, 0, 12, 12, 2);
+    public static final VoxelShape NORTH =Block.makeCuboidShape(4, 4, 14, 12, 12, 16);
+    public static final VoxelShape WEST =Block.makeCuboidShape(14, 4, 4, 16, 12, 12);
+    public static final VoxelShape EAST =Block.makeCuboidShape(0, 4, 4, 2, 12, 12);
+
     public ItemStandBlock(Properties properties)
     {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
     }
 
-    public final VoxelShape up =Block.makeCuboidShape(4, 0, 4, 12, 2, 12);
-    public final VoxelShape down =Block.makeCuboidShape(4, 14, 4, 12, 16, 12);
-    public final VoxelShape south =Block.makeCuboidShape(4, 4, 0, 12, 12, 2);
-    public final VoxelShape north =Block.makeCuboidShape(4, 4, 14, 12, 12, 16);
-    public final VoxelShape west =Block.makeCuboidShape(14, 4, 4, 16, 12, 12);
-    public final VoxelShape east =Block.makeCuboidShape(0, 4, 4, 2, 12, 12);
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
@@ -49,27 +51,27 @@ public class ItemStandBlock extends SimpleInventoryBlock implements IWaterLoggab
         {
             case UP:
             {
-                return up;
+                return UP;
             }
             case DOWN:
             {
-                return down;
+                return DOWN;
             }
             case SOUTH:
             {
-                return south;
+                return SOUTH;
             }
             case NORTH:
             {
-                return north;
+                return NORTH;
             }
             case WEST:
             {
-                return west;
+                return WEST;
             }
             case EAST:
             {
-                return east;
+                return EAST;
             }
         }
         return super.getShape(state, worldIn, pos, context);

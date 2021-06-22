@@ -1,7 +1,12 @@
 package com.sammy.malum.core.systems.multiblock;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,20 +14,17 @@ import java.util.List;
 
 public class MultiblockStructure
 {
-    public List<BlockPos> occupiedPositions;
-    public BoundingBlock boundingBlock;
-    public MultiblockStructure(Block boundingBlock, BlockPos... offsets)
+    public MultiblockStructure()
     {
-        this.boundingBlock = (BoundingBlock) boundingBlock;
-        this.occupiedPositions = new ArrayList<>();
-        Collections.addAll(this.occupiedPositions, offsets);
     }
-    public static BlockPos off(int x, int y, int z)
+
+    public BlockState getBoundingBlockState(BlockPos sourcePos, BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state)
     {
-        return new BlockPos(x,y,z);
+        return Blocks.AIR.getDefaultState();
     }
-    public static MultiblockStructure doubleTallBlock(Block boundingBlock)
+
+    public List<BlockPos> getOccupiedPositions(BlockPos sourcePos, World world, PlayerEntity player, ItemStack stack, BlockState state)
     {
-        return new MultiblockStructure(boundingBlock, off(0,1,0));
+        return null;
     }
 }

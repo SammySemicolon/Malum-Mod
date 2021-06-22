@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:item_focus"
+          "name": "malum:rune_table"
         }
       ],
       "conditions": [

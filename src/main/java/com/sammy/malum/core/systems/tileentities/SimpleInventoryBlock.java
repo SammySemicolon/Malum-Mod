@@ -1,7 +1,6 @@
 package com.sammy.malum.core.systems.tileentities;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.itemfocus.ItemFocusTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;

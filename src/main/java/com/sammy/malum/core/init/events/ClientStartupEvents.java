@@ -4,12 +4,12 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
-import com.sammy.malum.common.blocks.itemfocus.ItemFocusRenderer;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalRenderer;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandRenderer;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
+import com.sammy.malum.common.blocks.runetable.RuneTableBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRenderer;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarRenderer;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
@@ -22,7 +22,6 @@ import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
-import com.sammy.malum.core.systems.multiblock.IMultiblock;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -31,7 +30,6 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
@@ -63,7 +61,6 @@ public class ClientStartupEvents
     public static void bindTERs(FMLClientSetupEvent event)
     {
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_FOCUS_TILE_ENTITY.get(), ItemFocusRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), TotemPoleRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), ItemStandRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get(), ItemPedestalRenderer::new);
@@ -183,7 +180,6 @@ public class ClientStartupEvents
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(ClientStartupEvents::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof IMultiblock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(ClientStartupEvents::setCutout);
@@ -195,6 +191,7 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof RuneTableBlock).forEach(ClientStartupEvents::setCutout);
         setCutout(MalumBlocks.SPIRIT_JAR);
         setCutout(MalumBlocks.SPIRIT_ALTAR);
         setCutout(MalumBlocks.BLAZING_QUARTZ_ORE);

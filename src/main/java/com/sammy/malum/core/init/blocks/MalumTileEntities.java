@@ -1,9 +1,10 @@
 package com.sammy.malum.core.init.blocks;
 
-import com.sammy.malum.common.blocks.itemfocus.ItemFocusTileEntity;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalTileEntity;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.common.blocks.lighting.BasicLightingTileEntity;
+import com.sammy.malum.common.blocks.runetable.RuneTableTileEntity;
+import com.sammy.malum.common.blocks.runetable.bounding.RuneTableBoundingBlockTileEntity;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarTileEntity;
 import com.sammy.malum.common.blocks.spiritpipe.SpiritPipeTileEntity;
@@ -24,7 +25,9 @@ public class MalumTileEntities
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
 
     public static final RegistryObject<TileEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_altar_tile_entity", () -> TileEntityType.Builder.create(SpiritAltarTileEntity::new, MalumBlocks.SPIRIT_ALTAR.get()).build(null));
-    public static final RegistryObject<TileEntityType<ItemFocusTileEntity>> ITEM_FOCUS_TILE_ENTITY = TILE_ENTITIES.register("item_focus_tile_entity", () -> TileEntityType.Builder.create(ItemFocusTileEntity::new, MalumBlocks.ITEM_FOCUS.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<RuneTableTileEntity>> RUNE_TABLE_TILE_ENTITY = TILE_ENTITIES.register("rune_table_tile_entity", () -> TileEntityType.Builder.create(RuneTableTileEntity::new, MalumBlocks.RUNE_TABLE.get()).build(null));
+    public static final RegistryObject<TileEntityType<RuneTableBoundingBlockTileEntity>> RUNE_TABLE_BOUNDING_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("rune_table_bounding_block_tile_entity", () -> TileEntityType.Builder.create(RuneTableBoundingBlockTileEntity::new, MalumBlocks.RUNE_TABLE_BOUNDING_BLOCK.get()).build(null));
 
     public static final RegistryObject<TileEntityType<SpiritJarTileEntity>> SPIRIT_JAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_jar_tile_entity", () -> TileEntityType.Builder.create(SpiritJarTileEntity::new, MalumBlocks.SPIRIT_JAR.get()).build(null));
     public static final RegistryObject<TileEntityType<SpiritPipeTileEntity>> SPIRIT_PIPE_TILE_ENTITY = TILE_ENTITIES.register("spirit_pipe_tile_entity", () -> TileEntityType.Builder.create(SpiritPipeTileEntity::new, MalumBlocks.SPIRIT_PIPE.get()).build(null));

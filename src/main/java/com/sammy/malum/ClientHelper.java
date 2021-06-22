@@ -1,7 +1,10 @@
 package com.sammy.malum;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -12,6 +15,11 @@ import java.awt.Color;
 @OnlyIn(Dist.CLIENT)
 public class ClientHelper
 {
+    public static void spawnBlockParticles(BlockPos pos, BlockState state)
+    {
+        Minecraft minecraft = Minecraft.getInstance();
+        minecraft.particles.addBlockDestroyEffects(pos, state);
+    }
     public static void registerItemColorTint(ItemColors itemColors, RegistryObject<Item> item, Color color)
     {
         int r = color.getRed();

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "malum:block/rune_table_bounding_block",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "malum:block/rune_table_bounding_block",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "malum:block/rune_table_bounding_block",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "malum:block/rune_table_bounding_block"
+    }
+  }
+}

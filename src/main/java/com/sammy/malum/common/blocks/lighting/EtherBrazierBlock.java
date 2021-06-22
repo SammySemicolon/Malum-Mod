@@ -7,7 +7,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -18,15 +17,13 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.Random;
 
 public class EtherBrazierBlock extends Block implements IColor, IWaterLoggable
 {
-    public VoxelShape shape = Block.makeCuboidShape(4, 0, 4, 12, 8, 12);
+    public static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 8, 12);
     public static final BooleanProperty ROTATED = BooleanProperty.create("rotated");
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -43,7 +40,7 @@ public class EtherBrazierBlock extends Block implements IColor, IWaterLoggable
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return shape;
+        return SHAPE;
     }
     
     @Override

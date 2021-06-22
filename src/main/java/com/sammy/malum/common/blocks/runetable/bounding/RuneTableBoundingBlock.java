@@ -1,64 +1,82 @@
-package com.sammy.malum.common.blocks.lighting;
+package com.sammy.malum.common.blocks.runetable.bounding;
 
+import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.IWaterLoggable;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 
-public class EtherBlock extends Block implements IColor, IWaterLoggable
+public class RuneTableBoundingBlock extends BoundingBlock
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final VoxelShape SHAPE =Block.makeCuboidShape(6, 6, 6, 10, 10, 10);
-    public Color color;
-
-    public EtherBlock(Properties properties, Color color)
+    public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final VoxelShape SOUTH = VoxelShapes.combineAndSimplify(Block.makeCuboidShape(3, 0, -1, 13, 9, 12), Block.makeCuboidShape(1, 9, -1, 15, 15, 14), IBooleanFunction.OR);
+    public static final VoxelShape WEST = VoxelShapes.combineAndSimplify(Block.makeCuboidShape(4, 0, 3, 17, 9, 13), Block.makeCuboidShape(2, 9, 1, 17, 15, 15), IBooleanFunction.OR);
+    public static final VoxelShape NORTH = VoxelShapes.combineAndSimplify(Block.makeCuboidShape(3, 0, 4, 13, 9, 17), Block.makeCuboidShape(1, 9, 2, 15, 15, 17), IBooleanFunction.OR);
+    public static final VoxelShape EAST = VoxelShapes.combineAndSimplify(Block.makeCuboidShape(-1, 0, 3, 12, 9, 13), Block.makeCuboidShape(-1, 9, 1, 14, 15, 15), IBooleanFunction.OR);
+    public RuneTableBoundingBlock(Properties properties)
     {
         super(properties);
-        this.color = color;
-        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
+        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false).with(HORIZONTAL_FACING, Direction.NORTH));
     }
-    
+
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return SHAPE;
+        switch (state.get(HORIZONTAL_FACING))
+        {
+            case NORTH:
+            {
+                return NORTH;
+            }
+            case EAST:
+            {
+                return EAST;
+            }
+            case SOUTH:
+            {
+                return SOUTH;
+            }
+            case WEST:
+            {
+                return WEST;
+            }
+        }
+        return super.getShape(state, worldIn, pos, context);
     }
+
     @Override
     public boolean hasTileEntity(BlockState state)
     {
         return true;
     }
-    
+
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new BasicLightingTileEntity();
-    }
-    
-    @Override
-    public Color getColor()
-    {
-        return color;
+        return new RuneTableBoundingBlockTileEntity();
     }
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(WATERLOGGED);
+        builder.add(HORIZONTAL_FACING);
         super.fillStateContainer(builder);
     }
 
@@ -83,6 +101,6 @@ public class EtherBlock extends Block implements IColor, IWaterLoggable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
         FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
-        return getDefaultState().with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
+        return getDefaultState().with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER).with(HORIZONTAL_FACING, Direction.NORTH);
     }
 }

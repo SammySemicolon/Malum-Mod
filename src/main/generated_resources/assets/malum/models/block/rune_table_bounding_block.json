@@ -1,0 +1,6 @@
+{
+  "parent": "malum:block/template_rune_table_side",
+  "textures": {
+    "table": "malum:block/rune_table_bounding_block"
+  }
+}

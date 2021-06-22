@@ -11,17 +11,6 @@ import net.minecraft.world.World;
 
 public class BoundingBlock extends Block
 {
-    @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
-    {
-        BlockPos pos1 = pos.down();
-        BlockState state1 = worldIn.getBlockState(pos1);
-        TileEntity entity = worldIn.getTileEntity(pos1);
-        spawnDrops(state1, worldIn, pos1, entity, player, player.getHeldItemMainhand());
-    
-        super.onBlockHarvested(worldIn, pos, state, player);
-    }
-    
     public BoundingBlock(Properties properties)
     {
         super(properties);
@@ -38,9 +27,19 @@ public class BoundingBlock extends Block
     {
         return null;//new BoundingBlockTileEntity();
     }
-    
-    public BlockState multiblockState(BlockPos placePos, World world, PlayerEntity player, ItemStack stack, BlockState state, BlockPos pos)
+
+    @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
     {
-        return getDefaultState();
+        if (worldIn.getTileEntity(pos) instanceof BoundingBlockTileEntity)
+        {
+            BoundingBlockTileEntity tileEntity = (BoundingBlockTileEntity) worldIn.getTileEntity(pos);
+            if (worldIn.getTileEntity(tileEntity.ownerPos) instanceof MultiblockTileEntity)
+            {
+                spawnDrops(worldIn.getBlockState(tileEntity.ownerPos), worldIn, pos, worldIn.getTileEntity(tileEntity.ownerPos), player, player.getHeldItemMainhand());
+                worldIn.removeBlock(tileEntity.ownerPos, true);
+            }
+        }
+        super.onBlockHarvested(worldIn, pos, state, player);
     }
 }

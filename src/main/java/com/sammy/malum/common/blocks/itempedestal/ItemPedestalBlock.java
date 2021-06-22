@@ -31,6 +31,11 @@ import java.util.stream.Stream;
 public class ItemPedestalBlock extends SimpleInventoryBlock implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final VoxelShape SHAPE = Stream.of(
+            Block.makeCuboidShape(4, 2, 4, 12, 10, 12),
+            Block.makeCuboidShape(2, 10, 2, 14, 13, 14),
+            Block.makeCuboidShape(1, 0, 1, 15, 2, 15)
+    ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
 
     public ItemPedestalBlock(Properties properties)
     {
@@ -38,16 +43,10 @@ public class ItemPedestalBlock extends SimpleInventoryBlock implements IWaterLog
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
     }
 
-    public final VoxelShape shape = Stream.of(
-            Block.makeCuboidShape(4, 2, 4, 12, 10, 12),
-            Block.makeCuboidShape(2, 10, 2, 14, 13, 14),
-            Block.makeCuboidShape(1, 0, 1, 15, 2, 15)
-    ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
-
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return shape;
+        return SHAPE;
     }
 
     @Override

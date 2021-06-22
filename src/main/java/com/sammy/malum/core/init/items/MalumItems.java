@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init.items;
 
+import com.sammy.malum.common.blocks.runetable.RuneTableBlockItem;
 import com.sammy.malum.common.items.EncyclopediaArcanaItem;
 import com.sammy.malum.common.items.FuelItem;
 import com.sammy.malum.common.items.SpiritItem;
@@ -17,6 +18,7 @@ import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
 import com.sammy.malum.core.init.items.tabs.MalumNatureTab;
 import com.sammy.malum.core.init.items.tabs.MalumSplinterTab;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
+import com.sammy.malum.core.systems.multiblock.MultiblockItem;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -457,10 +459,7 @@ public class MalumItems
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ITEM_FOCUS = ITEMS.register("item_focus", () -> new BlockItem(MalumBlocks.ITEM_FOCUS.get(), DEFAULT_PROPERTIES()));
-
-//    public static final RegistryObject<Item> WELL_OF_SUFFERING = ITEMS.register("well_of_suffering", () -> new BlockItem(MalumBlocks.WELL_OF_SUFFERING.get(), DEFAULT_PROPERTIES()));
-//    public static final RegistryObject<Item> ARCANE_COMPRESSOR = ITEMS.register("arcane_compressor", () -> new ArcaneCompressorBlockItem(DEFAULT_PROPERTIES().setISTER(() -> ArcaneCompressorItemRenderer::new)));
+    public static final RegistryObject<Item> RUNE_TABLE = ITEMS.register("rune_table", () -> new RuneTableBlockItem(MalumBlocks.RUNE_TABLE.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region materials

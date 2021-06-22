@@ -6,7 +6,7 @@ import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
-import com.sammy.malum.core.systems.multiblock.IMultiblock;
+import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;
@@ -35,12 +35,10 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         items.remove(SPIRIT_PIPE);
-//        items.remove(ARCANE_COMPRESSOR);
         items.remove(AWAKENED_TYRVING);
         spiritPipeItem(SPIRIT_PIPE);
 
         takeAll(items, i -> i.get() instanceof ScytheItem);
-        takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof IMultiblock);
         takeAll(items, i -> i.get() instanceof SpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);

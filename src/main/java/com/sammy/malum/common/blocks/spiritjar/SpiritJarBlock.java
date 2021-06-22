@@ -1,7 +1,6 @@
 package com.sammy.malum.common.blocks.spiritjar;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarTileEntity;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.systems.particles.ParticleManager;
@@ -41,6 +40,7 @@ import java.util.stream.Stream;
 public class SpiritJarBlock extends Block implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final VoxelShape SHAPE = Stream.of(Block.makeCuboidShape(2.5, 0.5, 2.5, 13.5, 13.5, 13.5), Block.makeCuboidShape(3.5, 14.5, 3.5, 12.5, 16.5, 12.5), Block.makeCuboidShape(4.5, 13.5, 4.5, 11.5, 14.5, 11.5), Block.makeCuboidShape(5.5, 0, 5.5, 10.5, 1, 10.5)).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
     public SpiritJarBlock(Properties properties)
     {
         super(properties);
@@ -128,11 +128,10 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
                     .repeat(world, hit.getHitVec().getX(), hit.getHitVec().y, hit.getHitVec().z, 10);
         }
     }
-    public static final VoxelShape base = Stream.of(Block.makeCuboidShape(2.5, 0.5, 2.5, 13.5, 13.5, 13.5), Block.makeCuboidShape(3.5, 14.5, 3.5, 12.5, 16.5, 12.5), Block.makeCuboidShape(4.5, 13.5, 4.5, 11.5, 14.5, 11.5), Block.makeCuboidShape(5.5, 0, 5.5, 10.5, 1, 10.5)).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return base;
+        return SHAPE;
     }
     @Override
     public boolean hasTileEntity(BlockState state)

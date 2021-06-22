@@ -1,10 +1,10 @@
 {
   "variants": {
     "waterlogged=false": {
-      "model": "malum:block/item_focus"
+      "model": "malum:block/rune_table"
     },
     "waterlogged=true": {
-      "model": "malum:block/item_focus"
+      "model": "malum:block/rune_table"
     }
   }
 }
