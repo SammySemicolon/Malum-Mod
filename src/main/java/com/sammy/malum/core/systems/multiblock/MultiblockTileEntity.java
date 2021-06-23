@@ -3,6 +3,7 @@ package com.sammy.malum.core.systems.multiblock;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
+import net.minecraft.block.Block;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
@@ -39,6 +40,7 @@ public class MultiblockTileEntity extends SimpleTileEntity
     {
         if (compound.contains("partsSize"))
         {
+            parts = new ArrayList<>();
             for (int i = 0; i < compound.getInt("partsSize"); i++)
             {
                 parts.add(MalumHelper.readBlockPosExtra(compound, "part" + i));
@@ -53,11 +55,11 @@ public class MultiblockTileEntity extends SimpleTileEntity
         parts.forEach(b -> {
             if (world.getTileEntity(b) instanceof BoundingBlockTileEntity)
             {
+                if (MalumHelper.areWeOnClient(world))
+                {
+                    ClientHelper.spawnBlockParticles(b, world.getBlockState(b));
+                }
                 world.removeBlock(b, true);
-            }
-            if (MalumHelper.areWeOnClient(world))
-            {
-                ClientHelper.spawnBlockParticles(b, getBlockState());
             }
         });
         super.remove();

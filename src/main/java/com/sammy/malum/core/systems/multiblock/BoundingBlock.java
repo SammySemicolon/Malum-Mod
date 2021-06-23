@@ -1,5 +1,7 @@
 package com.sammy.malum.core.systems.multiblock;
 
+import com.sammy.malum.ClientHelper;
+import com.sammy.malum.MalumHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,6 +38,10 @@ public class BoundingBlock extends Block
             BoundingBlockTileEntity tileEntity = (BoundingBlockTileEntity) worldIn.getTileEntity(pos);
             if (worldIn.getTileEntity(tileEntity.ownerPos) instanceof MultiblockTileEntity)
             {
+                if (MalumHelper.areWeOnClient(worldIn))
+                {
+                    ClientHelper.spawnBlockParticles(tileEntity.ownerPos, worldIn.getBlockState(tileEntity.ownerPos));
+                }
                 spawnDrops(worldIn.getBlockState(tileEntity.ownerPos), worldIn, pos, worldIn.getTileEntity(tileEntity.ownerPos), player, player.getHeldItemMainhand());
                 worldIn.removeBlock(tileEntity.ownerPos, true);
             }
