@@ -57,15 +57,19 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
-        //soul stained steel
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.INGOTS_IRON, 1), new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 3))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
+        //totem base
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.RUNEWOOD_LOG.get(), 4), new ItemIngredient(MalumItems.TOTEM_BASE.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 4))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()));
 
-        //hallowed gold
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.INGOTS_GOLD, 1), new ItemIngredient(MalumItems.HALLOWED_GOLD_INGOT.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 3))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
+        //rune table
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.TWISTED_ROCK_ITEM_PEDESTAL.get(), 1), new ItemIngredient(MalumItems.RUNE_TABLE.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 2))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 4))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()));
 
         //ring of arcane reach
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.GILDED_RING.get(), 1), new ItemIngredient(MalumItems.RING_OF_ARCANE_REACH.get(), 1))
@@ -154,12 +158,6 @@ public class MalumSpiritAltarRecipes
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(Tags.Items.OBSIDIAN))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.CURSED_NEBULOUS.get()));
-
-        //totem base
-        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.RUNEWOOD_LOG.get(), 4), new ItemIngredient(MalumItems.TOTEM_BASE.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 12))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 6))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()));
     }
 
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack, ArrayList<ItemStack> stacks)

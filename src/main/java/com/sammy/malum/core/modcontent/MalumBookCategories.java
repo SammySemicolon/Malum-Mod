@@ -14,8 +14,8 @@ public class MalumBookCategories
     {
         CATEGORIES = new ArrayList<>();
         CATEGORIES.add(new DiscoveryCategory());
-        CATEGORIES.add(new SpiritTinkeringCategory());
         CATEGORIES.add(new DarkArtsCategory());
+        CATEGORIES.add(new SpiritTinkeringCategory());
 //        CATEGORIES.add(new TinkeringCategory());
     }
     

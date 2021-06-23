@@ -20,11 +20,9 @@ import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public abstract class ActivatorRite extends MalumRiteType
 {
-    public MalumSpiritType assemblyType;
-    public ActivatorRite(MalumSpiritType assemblyType, String identifier, MalumSpiritType... spirits)
+    public ActivatorRite(String identifier, MalumSpiritType... spirits)
     {
         super(identifier, true, spirits);
-        this.assemblyType = assemblyType;
     }
 
     @Override
@@ -34,7 +32,7 @@ public abstract class ActivatorRite extends MalumRiteType
         for (BlockPos nearbyPos : nearbyBlocks)
         {
             IAssembled assembled = (IAssembled) world.getTileEntity(nearbyPos);
-            assembled.assemble(assemblyType);
+            assembled.assemble(pos);
             INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BlastParticlePacket.fromSpirits(nearbyPos.getX()+0.5f, nearbyPos.getY()+1.5f, nearbyPos.getZ()+0.5f, MalumSpiritTypes.ELDRITCH_SPIRIT, MalumSpiritTypes.AQUATIC_SPIRIT));
             MalumHelper.updateAndNotifyState(world, pos);
         }
@@ -42,6 +40,6 @@ public abstract class ActivatorRite extends MalumRiteType
     }
     public interface IAssembled
     {
-        public void assemble(MalumSpiritType assemblyType);
+        public void assemble(BlockPos pos);
     }
 }

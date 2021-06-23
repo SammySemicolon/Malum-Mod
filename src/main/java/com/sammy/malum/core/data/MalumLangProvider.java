@@ -104,28 +104,28 @@ public class MalumLangProvider extends LanguageProvider
         addPage("aquatic_spirit", "Magic of the elder guardians and their weaker siblings is a strong one. The water spirit can be found within all aquatic creatures.");
         addPage("aerial_spirit", "The nimble phantom and the agile arthropods share one thing in common. The aerial spirit is found within the quick.");
 
-        addPage("basics_of_magic", "Within our realm exists an arcane phenomenon; spirits. Spirits are a magical resource found primarily within a soul; the magical representation of a living being. This book will teach you everything you need to know about souls and spirits.");
-        addPage("basics_of_magic_2", "When you kill a living being, you destroy it's body. Harvesting spirits requires you to go a step further, not only slay their body but also shatter their soul. Harvesting spirits is the first step in your journey to becoming a warlock.");
+        addPage("basics_of_magic", "Within our realm exists an arcane phenomenon; spirits. Spirits are a magical resource found primarily within a soul; the magical representation of a living being. The Encyclopedia Arcana will teach you everything you need to know about souls and spirits.");
+        addPage("basics_of_magic_2", "When you kill a living being, you destroy it's body. To harvest spirits you need to go a step further, not only slay their body but also shatter their soul. Harvesting spirits is the most essential and first step towards mastering various soul manipulation magics.");
 
-        addPage("runewood_trees", "Throughout various plains and forests a strange tree grows; the runewood tree. The tree itself is a perfect mix of nature and magic, the bark of the wood makes a great magical supplement.");
+        addPage("runewood_trees", "Magic isn't limited just to souls and spirits, it appears that it comes in form of nature too. Throughout the world a strange tree grows; the runewood tree. The tree itself is a perfect mix of nature and magic, the bark of the wood makes a great magical supplement.");
 
-        addPage("solar_sap", "Within the runewood tree flows a fiery sap known as solar sap. This rejuvenating substance is gathered by stripping the bark of a runewood tree, collect with a bottle.");
+        addPage("solar_sap", "Solar Sap is a magical substance found flowing within runewood trees. This rejuvenating substance can be exposed by stripping the bark of a runewood tree. Extract it using a glass bottle.");
 
         addPage("blazing_quartz", "Within the hellish plane many know as the nether exists many bizarre oddities. One of them is the blazing quartz, a fiery gem that makes for a great furnace fuel.");
 
-        addPage("soulstone", "Soulstone is a spirit reactive crystal found deep underground and rarely on surface. The soul reactive gem will be the start to your various evil schemes and plans.");
+        addPage("soulstone", "Another natural example of magic is Soulstone, a soul reactive gem found deep underground and rarely on the surface. It's known to be able to draw out and even damage souls of your victims, this gem is filled with untapped evil.");
 
-        addPage("spirit_harvesting", "\"The soul rules over it's body from a fortress of bone, learning of the world around it through fleshy portals\". When you slay an enemy with a scythe, you destroy the body and shatter the soul.");
-        addPage("spirit_harvesting_2", "A scythe is a powerful weapon with many uses. It's sharp blade allows it to hit many enemies at once, much alike a sword enchanted with sweeping edge. The simplest scythe is a crude one, made with iron ingots and a soulstone gem.");
-        addPage("scythe_enchanting", "There is very little magic that doesn't revolve around spirits, the enchanting table is one of them. A scythe can be enchanted in various ways, providing it with many different buffs and perks.");
+        addPage("spirit_harvesting", "\"The soul rules over it's body from a fortress of bone, learning of the world around it through fleshy portals\". The Scythe is a weapon that utilizes the soul reactive soulstone to hurt both the body and the soul at once.");
+        addPage("spirit_harvesting_2", "The sharp, long blade of any scythe allows it to hit many enemies at once, much alike a sword enchanted with sweeping edge. The simplest scythe is a crude one, made with iron ingots and a soulstone gem.");
+        addPage("scythe_enchanting", "Spirit magic seems to have direct correlation to enchantment. Maybe it's due to the ties between experience and spirits, both found within souls. Regardless, there are many various enchantments applicable to scythes.");
 
         addPage("haunting", "The Haunting enchantment will allow the scythe to deal additional magic damage on top of the regular, physical damage.");
         addPage("rebound", "The Rebound enchantment allows you to throw the scythe much like a boomerang, greatly extending your range for spirit harvesting.");
         addPage("spirit_plunder", "The Spirit Plunder enchantment will yield extra spirits anytime a soul is shattered.");
 
-        addPage("spirit_infusion", "The Spirit Altar is a warlock's crafting table. This wondrous workstation will allow you to infuse spirits into items through a process known as spirit infusion. The process takes a moderate amount of time.");
-        addPage("spirit_infusion_2", "Spirit infusion requires a prime item, spirits and additional items. The prime item needs to be placed in the altar and surrounded with spirits. Additional items must be placed on surrounding item pedestals or stands.");
-        addPage("hex_ash", "Hex ash is a haunted powder meant for various magics, most notably it can be used to speed up spirit infusion. Interacting with an active spirit altar will greatly greatly accelerate the infusion process.");
+        addPage("spirit_infusion", "The Spirit Altar provides the warlock with a means of forging complex components and magics. This wondrous workstation will allow you to infuse spirits into items through a process known as spirit infusion.");
+        addPage("spirit_infusion_2", "Spirit Infusion is a rather long process, to start you'll need an item to focus your magic on, a prime item placed directly atop the altar. You'll also need spirits, these must also be input directly into the altar.");
+        addPage("spirit_infusion_3", "Some Spirit Infusions also require additional reagents or components, these must be placed on nearby item providers, such as item pedestals or item stands.");
 
         addPage("tainted_rock", "\"A clean slate\". One of the simplest spirit infusions known revolves around the process of animating stone. Infusing cobblestone with sacred and arcane spirits will result in tainted rock.");
         addPage("tainted_rock_architecture", "Using a crafting table or the stone cutter, you can make many variants of tainted rock.");
@@ -138,6 +138,21 @@ public class MalumLangProvider extends LanguageProvider
         addPage("sacrificial_dagger", "A scythe, while efficient at cutting through hordes of enemies, may prove to be quite ineffective at shattering just one soul. The sacrificial dagger is a fix to that problem, it's a simple dagger that can hit only one enemy.");
 
         addPage("spirit_architecture", "Not only cobblestone can be infused into an arcane rock. Granite, Diorite and Andesite all have their magic counterparts.");
+
+        addPage("totem_magic", "The arcane properties of runewood is directly tied to spirits, making runewood a perfect candidate for totem magic; totem rites. Totem magic allows you to perform rituals known as spirit rites.");
+        addPage("totem_magic_2", "To perform a spirit rite you will need a totem. A totem is made up of runewood logs supported by a totem base. Each spirit rite is represented by a set of spirits which must be engraved on runewood logs placed above your totem base. You can remove engraved spirits using an axe.");
+        addPage("totem_magic_3", "Once your totem is ready, you may interact with the totem base in order to perform your desired spirit rite. Interacting with it again will cancel the rite. Spirit rites are either instant, or take effect over an indefinite amount of time. They're almost always confined to a limited area.");
+
+        addPage("rite_of_growth", "The sacred spirit provides great rejuvenating, life bringing abilities for you to utilize. The rite of growth takes advantage of the sacred spirit to accelerate the growth of nearby plants and crops.");
+        addPage("rite_of_death", "Through the use of the wicked spirit, the rite of death will quickly drain the life force of nearby living things. It attacks the body directly through magic.");
+        addPage("rite_of_warding", "Earthen spirit combined with the arcane creates a really powerful spirit rite. The Rite of Warding will provide a strong shielding aura to those nearby.");
+        addPage("rite_of_celerity", "The Rite of Celerity provides you with a strong agility boost. It also increases your reach distance by a short amount.");
+
+        addPage("rune_table", "The rune table is a wide crafting station that utilizes a spirit rite to perform crafting. The multi-block has 3 slots for items, one on each of it's parts. Upon filling all needed slots, activate the rite of assembly to start crafting.");
+        addPage("rite_of_assembly", "The Rite of Assembly allows an arcane practitioner to bring select nearby blocks into action. It is mostly needed to begin the crafting process on blocks such as the rune table.");
+
+        addPage("creating_catalysts", "The Rune Table allows for quick and simple merging of items and spirits. Through this process, we can create quite a few rare items you may find required.");
+        addPage("creating_runes", "Utilizing the rune table once more, we create runes. A rune is a magical basis for spells, it can be shaped into an Effect Rune or Amplifier Rune. Assembling runes together at a rune table will allow you to make Spell Runes. This spell system is yet to be implemented.");
 
         addPage("soul_stained_steel", "Soul Stained Steel is a very strong magical metal, perfect for strong tools and armor. It's created by infusing iron with wicked and arcane spirit.");
         addPage("soul_stained_steel_gear", "Gear made from Soul Stained Steel is nearly as strong as gear made from diamond. It is also much more durable.");
@@ -162,20 +177,6 @@ public class MalumLangProvider extends LanguageProvider
         addPage("cursed_nebulous", "Cursed Nebulous");
 
         addPage("awakened_tyrving", "Awakened Tyrving");
-
-        addPage("totem_magic", "The arcane properties of runewood is directly tied to spirits, making runewood a perfect candidate for totem magic; totem rites. Totem magic allows you to perform rituals known as spirit rites.");
-        addPage("totem_magic_2", "To perform a spirit rite you will need a totem. A totem is made up of runewood logs supported by a totem base. Each spirit rite is represented by a set of spirits which must be engraved on runewood logs placed above your totem base. You can remove engraved spirits using an axe.");
-        addPage("totem_magic_3", "Once your totem is ready, you may interact with the totem base in order to perform your desired spirit rite. Interacting with it again will cancel the rite. Spirit rites are either instant, or take effect over an indefinite amount of time. They're almost always confined to a limited area.");
-
-        addPage("rite_of_growth", "The sacred spirit provides great rejuvenating, life bringing abilities for you to utilize. The rite of growth takes advantage of the sacred spirit to accelerate the growth of nearby plants and crops.");
-        addPage("rite_of_death", "Through the use of the wicked spirit, the rite of death will quickly drain the life force of nearby living things. It attacks the body directly through magic.");
-        addPage("rite_of_warding", "Earthen spirit combined with the arcane creates a really powerful spirit rite. The Rite of Warding will provide a strong shielding aura to those nearby.");
-        addPage("rite_of_celerity", "The Rite of Celerity provides you with a strong agility boost. It also increases your reach distance by a short amount.");
-
-        addPage("totem_crafting", "Certain advanced Spirit Rites --Assembler Rites-- provide you with the ability to craft new magical items. Totem Crafting revolves around executing an assambler rite next to an item focus supplied with items placed atop. Different recipes require different assembler rites.");
-
-        addPage("rite_of_assembly", "The Rite of Assembly, designed for creating new things. An amazing potential of aquatic spirit grants it the ability to take any form similar to water, a type of shape-shifting magic. Also useful for shaping other things.");
-        addPage("rite_of_imbuing", "The Rite of Imbuing, made for fusing things together. Infernal spirits can make things merge into one quite easily.");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rites", "Spirit Rites");

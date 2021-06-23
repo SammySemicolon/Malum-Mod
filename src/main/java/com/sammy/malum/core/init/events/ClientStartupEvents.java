@@ -157,7 +157,7 @@ public class ClientStartupEvents
         ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT, brighter(AQUATIC_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR,1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.BRILLIANCE_SPIRIT, brighter(BRILLIANCE_SPIRIT_COLOR,1));
+        ClientHelper.registerItemColor(itemColors, MalumItems.CONFINED_BRILLIANCE, brighter(BRILLIANCE_SPIRIT_COLOR,1));
     }
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)

@@ -5,8 +5,7 @@ import com.sammy.malum.common.book.pages.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
-import static com.sammy.malum.common.book.categories.DarkArtsCategory.rite_of_imbuing;
-import static com.sammy.malum.common.book.categories.DarkArtsCategory.totem_crafting;
+import static com.sammy.malum.common.book.categories.DarkArtsCategory.rune_table;
 import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
 import static com.sammy.malum.core.init.items.MalumItems.*;
 
@@ -31,22 +30,22 @@ public class SpiritTinkeringCategory extends BookCategory
 
         soul_stained_steel = new BookEntry(SOUL_STAINED_STEEL_INGOT.get(), "soul_stained_steel")
                 .addPage(new HeadlineTextPage("soul_stained_steel"))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(new RuneTablePage(SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingPage.blockCraftingPage(SOUL_STAINED_STEEL_BLOCK.get(), SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingPage.nuggetCraftingPage(SOUL_STAINED_STEEL_NUGGET.get(), SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new HeadlineTextPage("soul_stained_steel_gear"))
                 .addPage(new ItemListPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_HOE.get())
                         .addList(SOUL_STAINED_STEEL_HELMET.get(), SOUL_STAINED_STEEL_CHESTPLATE.get(), SOUL_STAINED_STEEL_LEGGINGS.get(), SOUL_STAINED_STEEL_BOOTS.get()))
-                .addLink(()->spirit_infusion).addLink(()->wickedSpirit).addLink(()->arcaneSpirit);
+                .addLink(()->rune_table);
 
         hallowed_gold = new BookEntry(HALLOWED_GOLD_INGOT.get(), "hallowed_gold")
                 .addPage(new HeadlineTextPage("hallowed_gold"))
-                .addPage(new SpiritInfusionPage(HALLOWED_GOLD_INGOT.get()))
+                .addPage(new RuneTablePage(HALLOWED_GOLD_INGOT.get()))
                 .addPage(CraftingPage.blockCraftingPage(HALLOWED_GOLD_BLOCK.get(), HALLOWED_GOLD_INGOT.get()))
                 .addPage(CraftingPage.nuggetCraftingPage(HALLOWED_GOLD_NUGGET.get(), HALLOWED_GOLD_INGOT.get()))
                 .addPage(new HeadlineTextPage("spirit_jar"))
                 .addPage(new CraftingPage(SPIRIT_JAR.get(), Items.GLASS_PANE, HALLOWED_GOLD_INGOT.get(), Items.GLASS_PANE, Items.GLASS_PANE, EMPTY, Items.GLASS_PANE, Items.GLASS_PANE, Items.GLASS_PANE, Items.GLASS_PANE))
-                .addLink(()->spirit_infusion).addLink(()->sacredSpirit).addLink(()->arcaneSpirit);
+                .addLink(()->rune_table);
 
         curios = new BookEntry(GILDED_RING.get(), "curios")
                 .addPage(new HeadlineTextPage("curios"))
@@ -62,27 +61,27 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addPage(new TextPage("spirit_resonators_2"))
                 .addPage(new CraftingPage(STAINED_SPIRIT_RESONATOR.get(), EMPTY, RUNEWOOD_PLANKS.get(), EMPTY, SOUL_STAINED_STEEL_INGOT.get(), Items.QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), EMPTY, RUNEWOOD_PLANKS.get(), EMPTY))
                 .addPage(new CraftingPage(HALLOWED_SPIRIT_RESONATOR.get(), EMPTY, RUNEWOOD_PLANKS.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), Items.QUARTZ, HALLOWED_GOLD_INGOT.get(), EMPTY, RUNEWOOD_PLANKS.get(), EMPTY))
-                .addLink(()->spirit_infusion).addLink(()->runewood_trees).addLink(()->soul_stained_steel).addLink(()->hallowed_gold);
+                .addLink(()->runewood_trees).addLink(()->soul_stained_steel).addLink(()->hallowed_gold);
 
         arcane_spoil_ring = new BookEntry(RING_OF_ARCANE_SPOIL.get(), "arcane_spoil_ring")
                 .addPage(new HeadlineTextPage("arcane_spoil_ring"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_SPOIL.get()))
-                .addLink(()->spirit_infusion).addLink(()->soulstone).addLink(()->wickedSpirit).addLink(()->curios);
+                .addLink(()->spirit_infusion).addLink(()->soulstone).addLink(()->curios);
 
         arcane_reach_ring = new BookEntry(RING_OF_ARCANE_REACH.get(), "arcane_reach_ring")
                 .addPage(new HeadlineTextPage("arcane_reach_ring"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
-                .addLink(()->spirit_infusion).addLink(()->soulstone).addLink(()->sacredSpirit).addLink(()->curios);
+                .addLink(()->spirit_infusion).addLink(()->soulstone).addLink(()->curios);
 
         tyrving = new BookEntry(TYRVING.get(), "tyrving")
                 .addPage(new HeadlineTextPage("tyrving"))
                 .addPage(new SpiritInfusionPage(TYRVING.get()))
-                .addLink(()->spirit_infusion).addLink(()->wickedSpirit).addLink(()->eldritchSpirit).addLink(()->soul_stained_steel).addLink(()->soulstone);
+                .addLink(()->spirit_infusion).addLink(()->soul_stained_steel).addLink(()->soulstone);
 
         radiant_soulstone = new BookEntry(RADIANT_SOULSTONE.get(), "radiant_soulstone")
                 .addPage(new HeadlineTextPage("radiant_soulstone"))
-                .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()))
-                .addLink(()->spirit_infusion).addLink(()->soulstone).addLink(()->sacredSpirit).addLink(()->wickedSpirit).addLink(()->arcaneSpirit);
+                .addPage(new RuneTablePage(RADIANT_SOULSTONE.get()))
+                .addLink(()->rune_table).addLink(()->soulstone);
 
         stronghold_armor = new BookEntry(SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(), "stronghold_armor")
                 .addPage(new HeadlineTextPage("stronghold_armor"))
@@ -93,12 +92,14 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addLink(()->spirit_infusion).addLink(()->eldritchSpirit).addLink(()->soul_stained_steel).addLink(()->radiant_soulstone);
 
         cursed_nebulous = new BookEntry(CURSED_NEBULOUS.get(), "cursed_nebulous")
-                .addPage(new HeadlineTextPage("cursed_nebulous"));
+                .addPage(new HeadlineTextPage("cursed_nebulous"))
+                .addPage(new RuneTablePage(CURSED_NEBULOUS.get()))
+                .addLink(()->rune_table);
 
         awakened_tyrving = new BookEntry(AWAKENED_TYRVING.get(), "awakened_tyrving")
                 .addPage(new HeadlineTextPage("awakened_tyrving"))
                 .addPage(new SpiritInfusionPage(AWAKENED_TYRVING.get()))
-                .addLink(()->spirit_infusion).addLink(()->eldritchSpirit).addLink(()->radiant_soulstone).addLink(()->cursed_nebulous);
+                .addLink(()->spirit_infusion).addLink(()->radiant_soulstone).addLink(()->cursed_nebulous);
 
         addEntries(soul_stained_steel, hallowed_gold, curios, spirit_resonators, arcane_spoil_ring, arcane_reach_ring, tyrving, radiant_soulstone, stronghold_armor, cursed_nebulous, awakened_tyrving);
     }

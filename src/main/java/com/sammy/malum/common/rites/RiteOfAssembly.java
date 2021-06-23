@@ -6,6 +6,6 @@ public class RiteOfAssembly extends ActivatorRite
 {
     public RiteOfAssembly()
     {
-        super(AQUATIC_SPIRIT, "rite_of_assembly", ELDRITCH_SPIRIT, ARCANE_SPIRIT, AQUATIC_SPIRIT, AQUATIC_SPIRIT);
+        super("rite_of_assembly", ELDRITCH_SPIRIT, ARCANE_SPIRIT, AQUATIC_SPIRIT, AQUATIC_SPIRIT);
     }
 }

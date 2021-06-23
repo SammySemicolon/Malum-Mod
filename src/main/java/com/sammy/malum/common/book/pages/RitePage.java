@@ -13,7 +13,7 @@ import net.minecraft.item.Items;
 
 public class RitePage extends BookPage
 {
-    public MalumRiteType rite;
+    public final MalumRiteType rite;
 
     public RitePage(MalumRiteType rite)
     {

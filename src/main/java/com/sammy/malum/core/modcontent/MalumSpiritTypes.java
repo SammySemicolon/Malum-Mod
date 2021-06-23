@@ -1,10 +1,8 @@
 package com.sammy.malum.core.modcontent;
 
-import com.sammy.malum.MalumColors;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
@@ -92,7 +90,7 @@ public class MalumSpiritTypes
             .addTest(3, "zombie_brute");
 
     public static final Color BRILLIANCE_SPIRIT_COLOR = new Color(173, 227, 112);
-    public static MalumSpiritType BRILLIANCE_SPIRIT = create("brilliance", BRILLIANCE_SPIRIT_COLOR, MalumItems.BRILLIANCE_SPIRIT)
+    public static MalumSpiritType BRILLIANCE_SPIRIT = create("brilliance", BRILLIANCE_SPIRIT_COLOR, MalumItems.CONFINED_BRILLIANCE)
             .setCompound();
 
     public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)

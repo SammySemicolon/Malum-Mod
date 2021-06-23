@@ -441,7 +441,7 @@ public class MalumItems
     public static final RegistryObject<Item> AERIAL_SPIRIT = ITEMS.register("aerial_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.AERIAL_SPIRIT));
     public static final RegistryObject<Item> AQUATIC_SPIRIT = ITEMS.register("aquatic_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.AQUATIC_SPIRIT));
 
-    public static final RegistryObject<Item> BRILLIANCE_SPIRIT = ITEMS.register("brilliance_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.BRILLIANCE_SPIRIT));
+    public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.BRILLIANCE_SPIRIT));
     //endregion
 
     //region ores
