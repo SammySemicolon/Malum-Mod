@@ -80,6 +80,15 @@ public class MalumSpiritAltarRecipes
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()));
 
+        //ring of prowess
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.GILDED_RING.get(), 1), new ItemIngredient(MalumItems.RING_OF_PROWESS.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 4))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.CONFINED_BRILLIANCE.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.CONFINED_BRILLIANCE.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.CONFINED_BRILLIANCE.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()));
+
         //ring of arcane spoil
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.ORNATE_RING.get(), 1), new ItemIngredient(MalumItems.RING_OF_ARCANE_SPOIL.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 4))
@@ -167,6 +176,10 @@ public class MalumSpiritAltarRecipes
             if (recipe.inputIngredient.matches(stack))
             {
                 if (stack.getItem().equals(recipe.outputIngredient.getItem().getItem()))
+                {
+                    continue;
+                }
+                if (recipe.spiritIngredients.size() != stacks.size())
                 {
                     continue;
                 }

@@ -10,6 +10,8 @@ import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandRenderer;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.runetable.RuneTableBlock;
+import com.sammy.malum.common.blocks.runetable.RuneTableRenderer;
+import com.sammy.malum.common.blocks.runetable.bounding.RuneTableBoundingRenderer;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRenderer;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarRenderer;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
@@ -62,6 +64,8 @@ public class ClientStartupEvents
     {
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), TotemPoleRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.RUNE_TABLE_TILE_ENTITY.get(), RuneTableRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.RUNE_TABLE_BOUNDING_BLOCK_TILE_ENTITY.get(), RuneTableBoundingRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), ItemStandRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get(), ItemPedestalRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), SpiritJarRenderer::new);
@@ -157,7 +161,6 @@ public class ClientStartupEvents
         ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT, brighter(AQUATIC_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR,1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.CONFINED_BRILLIANCE, brighter(BRILLIANCE_SPIRIT_COLOR,1));
     }
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)

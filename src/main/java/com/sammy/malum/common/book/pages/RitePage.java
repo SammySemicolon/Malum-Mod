@@ -5,6 +5,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.objects.EntryObject;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import net.minecraft.item.Item;
@@ -34,5 +35,6 @@ public class RitePage extends BookPage
             int itemPosY = posY + 113 - i * 22;
             screen.drawItem(stack, type.splinterItem().getDefaultInstance(), itemPosX, itemPosY, mouseX, mouseY);
         }
+        screen.drawItem(stack, MalumItems.TOTEM_BASE.get().getDefaultInstance(), posX + 101, posY + 115, mouseX, mouseY);
     }
 }

@@ -20,6 +20,7 @@ public class DarkArtsCategory extends BookCategory
     public static BookEntry rite_of_celerity;
     public static BookEntry rune_table;
     public static BookEntry creating_catalysts;
+    public static BookEntry brilliance_confining;
     public static BookEntry creating_runes;
 
     public DarkArtsCategory()
@@ -66,6 +67,13 @@ public class DarkArtsCategory extends BookCategory
                 .addPage(new RuneTablePage(Items.BLAZE_POWDER))
                 .addPage(new RuneTablePage(Items.ENDER_PEARL))
                 .addPage(new RuneTablePage(Items.GHAST_TEAR))
+                .addPage(new RuneTablePage(Items.PHANTOM_MEMBRANE))
+                .addLink(()->rune_table);
+
+        brilliance_confining = new BookEntry(CONFINED_BRILLIANCE.get(), "brilliance_confining")
+                .addPage(new HeadlineTextPage("brilliance_confining"))
+                .addPage(new RuneTablePage(CONFINED_BRILLIANCE.get()))
+                .addPage(new RuneTablePage(Items.EXPERIENCE_BOTTLE))
                 .addLink(()->rune_table);
 
         creating_runes = new BookEntry(TAINTED_ROCK_RUNE.get(), "creating_runes")
@@ -74,6 +82,6 @@ public class DarkArtsCategory extends BookCategory
                 .addPage(new RuneTablePage(TWISTED_ROCK_RUNE.get()))
                 .addLink(()->rune_table);
 
-        addEntries(totem_magic, rite_of_growth, rite_of_death, rite_of_warding, rite_of_celerity, rune_table, creating_catalysts, creating_runes);
+        addEntries(totem_magic, rite_of_growth, rite_of_death, rite_of_warding, rite_of_celerity, rune_table, creating_catalysts, brilliance_confining, creating_runes);
     }
 }

@@ -89,10 +89,6 @@ public class MalumSpiritTypes
             .addTest(2, HorseEntity.class, ZombieHorseEntity.class, IronGolemEntity.class)
             .addTest(3, "zombie_brute");
 
-    public static final Color BRILLIANCE_SPIRIT_COLOR = new Color(173, 227, 112);
-    public static MalumSpiritType BRILLIANCE_SPIRIT = create("brilliance", BRILLIANCE_SPIRIT_COLOR, MalumItems.CONFINED_BRILLIANCE)
-            .setCompound();
-
     public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)
     {
         MalumSpiritType spiritType = new MalumSpiritType(identifier, color, splinterItem);

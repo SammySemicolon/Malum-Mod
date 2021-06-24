@@ -97,6 +97,7 @@ public class DiscoveryCategory extends BookCategory
         spirit_infusion = new BookEntry(SPIRIT_ALTAR.get(), "spirit_infusion")
                 .addPage(new HeadlineTextPage("spirit_infusion"))
                 .addPage(new TextPage("spirit_infusion_2"))
+                .addPage(new TextPage("spirit_infusion_3"))
                 .addPage(new CraftingPage(SPIRIT_ALTAR.get(), EMPTY, SOULSTONE.get(), EMPTY, Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), Items.GOLD_INGOT, RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(new HeadlineTextPage("hex_ash"))
                 .addPage(new SpiritInfusionPage(HEX_ASH.get()))
@@ -138,7 +139,7 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(YELLOW_ETHER.get()))
                 .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, YELLOW_ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
                 .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), YELLOW_ETHER.get(), TAINTED_ROCK.get(), Items.STICK, TAINTED_ROCK.get(), Items.STICK))
-                .addLink(()->spirit_infusion);
+                .addLink(()->spirit_infusion).addLink(()->blazing_quartz);
 
         spirit_architecture = new BookEntry(ERODED_ROCK.get(), "spirit_architecture")
                 .addPage(new HeadlineTextPage("spirit_architecture"))

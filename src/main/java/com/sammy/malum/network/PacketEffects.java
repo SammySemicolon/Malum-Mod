@@ -7,7 +7,10 @@ import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
@@ -24,6 +27,16 @@ public class PacketEffects
         for (String string : spirits)
         {
             types.add(SpiritHelper.figureOutType(string));
+        }
+        for (int i = 0; i < 10; ++i)
+        {
+            float itemPosX = (float) (posX + MathHelper.nextFloat(world.rand, -0.1f, 0.1f));
+            float itemPosY = (float) (posY + MathHelper.nextFloat(world.rand, -0.1f, 0.1f));
+            float itemPosZ = (float) (posZ + MathHelper.nextFloat(world.rand, -0.1f, 0.1f));
+            float velocityX = MathHelper.nextFloat(world.rand, -0.02f, 0.02f);
+            float velocityY = MathHelper.nextFloat(world.rand, 0.01f, 0.04f);
+            float velocityZ = MathHelper.nextFloat(world.rand, -0.02f, 0.02f);
+            world.addParticle(new ItemParticleData(ParticleTypes.ITEM, stack), itemPosX,itemPosY,itemPosZ,velocityX,velocityY,velocityZ);
         }
         for (MalumSpiritType type : types)
         {
@@ -47,6 +60,18 @@ public class PacketEffects
                     .randomVelocity(0.002f, 0.002f)
                     .enableNoClip()
                     .repeat(world, posX, posY, posZ, 8);
+
+            Vector3d velocity = new Vector3d(posX, posY, posZ).subtract(altarPosX, altarPosY, altarPosZ).normalize().scale(-0.05f);
+            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                    .setAlpha(0.15f, 0f)
+                    .setLifetime(40)
+                    .setScale(0.3f, 0)
+                    .randomOffset(0.15f)
+                    .randomVelocity(0.005f, 0.005f)
+                    .setColor(color, color.darker())
+                    .addVelocity(velocity.x, velocity.y, velocity.z)
+                    .enableNoClip()
+                    .repeat(world, posX, posY, posZ, 36);
         }
     }
     public static void altarCraftParticles(ArrayList<String> spirits, double posX, double posY, double posZ)
@@ -60,7 +85,7 @@ public class PacketEffects
         for (MalumSpiritType type : types)
         {
             Color color = type.color;
-            ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
+            ParticleManager.create(MalumParticles.TWINKLE_PARTICLE)
                     .setAlpha(0.6f, 0f)
                     .setLifetime(80)
                     .setScale(0.15f, 0)
@@ -69,7 +94,7 @@ public class PacketEffects
                     .addVelocity(0, 0.13f, 0)
                     .randomVelocity(0.03f, 0.08f)
                     .enableGravity()
-                    .repeat(world, posX, posY, posZ, 20);
+                    .repeat(world, posX, posY, posZ, 24);
 
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
                     .setAlpha(0.1f, 0f)

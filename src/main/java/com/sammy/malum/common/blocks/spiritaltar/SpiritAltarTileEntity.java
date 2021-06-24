@@ -19,12 +19,17 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.Collection;
 import java.util.Random;
@@ -205,8 +210,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         }
         else
         {
-            progress = 0;
-            if (spinUp > 0)
+            progress = 0;            if (spinUp > 0)
             {
                 spinUp--;
             }
@@ -246,15 +250,6 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 Color color = spiritSplinterItem.type.color;
                 SpiritHelper.spiritParticles(world, x,y,z, color);
 
-                ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                        .setAlpha(0.16f, 0f)
-                        .setLifetime(80 + rand.nextInt(5))
-                        .setSpin(MathHelper.nextFloat(rand, 0.075f, 0.1f))
-                        .setScale(0.2f, 0)
-                        .setColor(color, color.darker())
-                        .enableNoClip()
-                        .randomVelocity(0.005f, 0.005f)
-                        .repeat(world, x,y,z, spedUp ? 2 : 1);
 
                 if (recipe != null)
                 {
@@ -271,7 +266,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                             .enableNoClip()
                             .repeat(world, x, y, z, spedUp ? 4 : 2);
 
-                    float alpha = 0.08f - spiritInventory.slotCount * 0.005f;
+                    float alpha = 0.08f / spiritInventory.nonEmptyItems();
                     ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
                             .setAlpha(alpha, 0f)
                             .setLifetime(20)
@@ -285,5 +280,26 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 }
             }
         }
+    }
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap)
+    {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+        {
+            return inventory.inventoryOptional.cast();
+        }
+        return super.getCapability(cap);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side)
+    {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+        {
+            return inventory.inventoryOptional.cast();
+        }
+        return super.getCapability(cap, side);
     }
 }

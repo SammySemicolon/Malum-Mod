@@ -4,6 +4,7 @@ import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.recipes.ItemIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
@@ -14,7 +15,17 @@ public class MalumRuneTableRecipes
 
     public static void init()
     {
-        new MalumRuneTableRecipe(new ItemIngredient(Items.BLAZE_POWDER, 1))
+        new MalumRuneTableRecipe(new ItemIngredient(MalumItems.CONFINED_BRILLIANCE.get(), 4))
+                .addExtraItem(new ItemIngredient(MalumItems.ARCANE_SPIRIT.get(), 1))
+                .addExtraItem(new ItemIngredient(Tags.Items.GEMS_LAPIS, 1))
+                .addExtraItem(new ItemIngredient(MalumItems.EARTHEN_SPIRIT.get(), 1));
+
+        new MalumRuneTableRecipe(new ItemIngredient(Items.EXPERIENCE_BOTTLE, 4))
+                .addExtraItem(new ItemIngredient(MalumItems.CONFINED_BRILLIANCE.get(), 4))
+                .addExtraItem(new ItemIngredient(Items.GLASS_BOTTLE, 1))
+                .addExtraItem(new ItemIngredient(MalumItems.AQUATIC_SPIRIT.get(), 1));
+        
+        new MalumRuneTableRecipe(new ItemIngredient(Items.BLAZE_POWDER, 2))
                 .addExtraItem(new ItemIngredient(MalumItems.INFERNAL_SPIRIT.get(), 1))
                 .addExtraItem(new ItemIngredient(MalumItems.BLAZING_QUARTZ.get(), 1))
                 .addExtraItem(new ItemIngredient(Tags.Items.GUNPOWDER, 1));
@@ -22,12 +33,17 @@ public class MalumRuneTableRecipes
         new MalumRuneTableRecipe(new ItemIngredient(Items.ENDER_PEARL, 1))
                 .addExtraItem(new ItemIngredient(MalumItems.ELDRITCH_SPIRIT.get(), 1))
                 .addExtraItem(new ItemIngredient(MalumItems.SOULSTONE.get(), 1))
-                .addExtraItem(new ItemIngredient(Tags.Items.GEMS_LAPIS, 1));
+                .addExtraItem(new ItemIngredient(MalumItems.HEX_ASH.get(), 1));
 
         new MalumRuneTableRecipe(new ItemIngredient(Items.GHAST_TEAR, 1))
                 .addExtraItem(new ItemIngredient(MalumItems.ELDRITCH_SPIRIT.get(), 1))
-                .addExtraItem(new ItemIngredient(MalumItems.SOULSTONE.get(), 1))
+                .addExtraItem(new ItemIngredient(MalumItems.SOULSTONE.get(), 2))
                 .addExtraItem(new ItemIngredient(MalumItems.AQUATIC_SPIRIT.get(), 2));
+
+        new MalumRuneTableRecipe(new ItemIngredient(Items.PHANTOM_MEMBRANE, 1))
+                .addExtraItem(new ItemIngredient(MalumItems.AERIAL_SPIRIT.get(), 4))
+                .addExtraItem(new ItemIngredient(MalumItems.SOULSTONE.get(), 2))
+                .addExtraItem(new ItemIngredient(MalumItems.ARCANE_SPIRIT.get(), 2));
 
         new MalumRuneTableRecipe(new ItemIngredient(MalumItems.TAINTED_ROCK_RUNE.get(), 1))
                 .addExtraItem(new ItemIngredient(MalumItems.SOULSTONE.get(), 1))

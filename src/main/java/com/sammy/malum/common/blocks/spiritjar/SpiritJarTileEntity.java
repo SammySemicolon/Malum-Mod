@@ -58,23 +58,7 @@ public class SpiritJarTileEntity extends SimpleTileEntity implements ITickableTi
                 double y = getPos().getY() + 0.5f + Math.sin(world.getGameTime() / 20f) * 0.2f;
                 double z = getPos().getZ() + 0.5f;
                 Color color = type.color;
-                ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
-                        .setAlpha(0.2f, 0f)
-                        .setLifetime(10)
-                        .setScale(0.3f, 0)
-                        .setColor(color.brighter(), color.darker())
-                        .enableNoClip()
-                        .repeat(world, x,y,z, 2);
-
-                ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                        .setAlpha(0.2f, 0f)
-                        .setLifetime(80)
-                        .setSpin(0.1f)
-                        .setScale(0.2f, 0)
-                        .setColor(color, color.darker())
-                        .enableNoClip()
-                        .repeat(world, x,y,z, 1);
-
+                SpiritHelper.spiritParticles(world, x,y,z, color);
             }
         }
     }

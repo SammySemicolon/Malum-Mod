@@ -6,6 +6,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.objects.EntryObject;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -65,6 +66,8 @@ public class SpiritInfusionPage extends BookPage
         }
         screen.drawItem(stack, recipe.inputIngredient.getItemAlt(), inputX, inputY, mouseX, mouseY);
         screen.drawItem(stack, recipe.outputIngredient.getItemAlt(), inputX, posY + 115, mouseX, mouseY);
+
+        screen.drawItem(stack, MalumItems.SPIRIT_ALTAR.get().getDefaultInstance(), posX + 101, posY + 115, mouseX, mouseY);
     }
     public static Vector3d itemOffset(boolean far, int slot, int maxSlots)
     {

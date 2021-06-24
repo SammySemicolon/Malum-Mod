@@ -107,16 +107,16 @@ public class MalumLangProvider extends LanguageProvider
         addPage("basics_of_magic", "Within our realm exists an arcane phenomenon; spirits. Spirits are a magical resource found primarily within a soul; the magical representation of a living being. The Encyclopedia Arcana will teach you everything you need to know about souls and spirits.");
         addPage("basics_of_magic_2", "When you kill a living being, you destroy it's body. To harvest spirits you need to go a step further, not only slay their body but also shatter their soul. Harvesting spirits is the most essential and first step towards mastering various soul manipulation magics.");
 
-        addPage("runewood_trees", "Magic isn't limited just to souls and spirits, it appears that it comes in form of nature too. Throughout the world a strange tree grows; the runewood tree. The tree itself is a perfect mix of nature and magic, the bark of the wood makes a great magical supplement.");
+        addPage("runewood_trees", "Magic isn't limited just to souls and spirits, it appears that it comes in form of nature too. Throughout the world a strange tree grows; the runewood tree. The tree itself is a perfect mix of nature and magic, it's bark of the wood makes a great magical supplement.");
 
-        addPage("solar_sap", "Solar Sap is a magical substance found flowing within runewood trees. This rejuvenating substance can be exposed by stripping the bark of a runewood tree. Extract it using a glass bottle.");
+        addPage("solar_sap", "Solar Sap is a magical substance found within runewood. It can be exposed by stripping the bark of a runewood tree. Extract it using a glass bottle. By heating it at a furnace you can create solar syrup, a rejuvenating substance that will instantly recover health upon consumption.");
 
-        addPage("blazing_quartz", "Within the hellish plane many know as the nether exists many bizarre oddities. One of them is the blazing quartz, a fiery gem that makes for a great furnace fuel.");
+        addPage("blazing_quartz", "Within the hellish plane many know as the nether exist many bizarre oddities. One of them is the blazing quartz, a fiery gem that makes for a great furnace fuel.");
 
         addPage("soulstone", "Another natural example of magic is Soulstone, a soul reactive gem found deep underground and rarely on the surface. It's known to be able to draw out and even damage souls of your victims, this gem is filled with untapped evil.");
 
-        addPage("spirit_harvesting", "\"The soul rules over it's body from a fortress of bone, learning of the world around it through fleshy portals\". The Scythe is a weapon that utilizes the soul reactive soulstone to hurt both the body and the soul at once.");
-        addPage("spirit_harvesting_2", "The sharp, long blade of any scythe allows it to hit many enemies at once, much alike a sword enchanted with sweeping edge. The simplest scythe is a crude one, made with iron ingots and a soulstone gem.");
+        addPage("spirit_harvesting", "\"The soul rules over it's body from a fortress of bone, learning of the world around it through fleshy portals\". The Scythe is a weapon that utilizes the soul reactive soulstone to hurt both the body and the soul at once. It serves as the simplest way to harvest spirits.");
+        addPage("spirit_harvesting_2", "The sharp, long blade of any scythe allows it to hit many enemies at once, this effect is much more powerful that one of a sword. Applying sweeping edge will strengthen this effect even further. The simplest scythe is a crude one, made with iron ingots and a soulstone gem.");
         addPage("scythe_enchanting", "Spirit magic seems to have direct correlation to enchantment. Maybe it's due to the ties between experience and spirits, both found within souls. Regardless, there are many various enchantments applicable to scythes.");
 
         addPage("haunting", "The Haunting enchantment will allow the scythe to deal additional magic damage on top of the regular, physical damage.");
@@ -126,6 +126,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("spirit_infusion", "The Spirit Altar provides the warlock with a means of forging complex components and magics. This wondrous workstation will allow you to infuse spirits into items through a process known as spirit infusion.");
         addPage("spirit_infusion_2", "Spirit Infusion is a rather long process, to start you'll need an item to focus your magic on, a prime item placed directly atop the altar. You'll also need spirits, these must also be input directly into the altar.");
         addPage("spirit_infusion_3", "Some Spirit Infusions also require additional reagents or components, these must be placed on nearby item providers, such as item pedestals or item stands.");
+        addPage("hex_ash", "Hex ash is a haunted powder meant for various magics, most notably it can be used to speed up spirit infusion. Interacting with an active spirit altar will greatly greatly accelerate the infusion process.");
 
         addPage("tainted_rock", "\"A clean slate\". One of the simplest spirit infusions known revolves around the process of animating stone. Infusing cobblestone with sacred and arcane spirits will result in tainted rock.");
         addPage("tainted_rock_architecture", "Using a crafting table or the stone cutter, you can make many variants of tainted rock.");
@@ -152,12 +153,13 @@ public class MalumLangProvider extends LanguageProvider
         addPage("rite_of_assembly", "The Rite of Assembly allows an arcane practitioner to bring select nearby blocks into action. It is mostly needed to begin the crafting process on blocks such as the rune table.");
 
         addPage("creating_catalysts", "The Rune Table allows for quick and simple merging of items and spirits. Through this process, we can create quite a few rare items you may find required.");
+        addPage("brilliance_confining", "Brilliance, otherwise known as experience is a strong magical representation of intelligence. Brilliance works, really similarly to how spirits work. Using the Rune Table we may artificially create Brilliance");
         addPage("creating_runes", "Utilizing the rune table once more, we create runes. A rune is a magical basis for spells, it can be shaped into an Effect Rune or Amplifier Rune. Assembling runes together at a rune table will allow you to make Spell Runes. This spell system is yet to be implemented.");
 
         addPage("soul_stained_steel", "Soul Stained Steel is a very strong magical metal, perfect for strong tools and armor. It's created by infusing iron with wicked and arcane spirit.");
         addPage("soul_stained_steel_gear", "Gear made from Soul Stained Steel is nearly as strong as gear made from diamond. It is also much more durable.");
 
-        addPage("hallowed_gold", "Hallowed Gold is a very versitile metal meant for various arcane mechanisms and utilities. Most notably, spirits react to it strangely. It's created by infusing gold with sacred and arcane spirit.");
+        addPage("hallowed_gold", "Hallowed Gold is a very versatile metal meant for various arcane mechanisms and utilities. Most notably, spirits react to it strangely. It's created by infusing gold with sacred and arcane spirit.");
         addPage("spirit_jar", "One of the simplest arcane utilities hallowed gold can provide is the spirit Jar. It is a block designed for storing large quantities of spirits. It stores a nearly infinite amount of just one spirit.");
 
         addPage("curios", "Through hallowed gold and soul stained steel you may create various gilded and ornate equipment to aid you in combat. These simple curios will provide a moderate boost to your armor and toughness respectively.");
@@ -166,8 +168,10 @@ public class MalumLangProvider extends LanguageProvider
         addPage("spirit_resonators", "As you delve deeper into spirit tinkering, you'll need more complex composite ingredients for your infusions and crafts. Spirit Resonators serve as a 'link' of sorts, they allow a mechanism or magic practitioner to work with spirits on a further level.");
         addPage("spirit_resonators_2", "There are two types of Spirit Resonators, Hallowed and Stained. Both are made with their respective metal and serve their own, similar purposes.");
 
-        addPage("arcane_spoil_ring", "Harvesting Spirits may often yield insufficient result, even after a long night of hunting you might not have enough spirit spoils for your needs. The Arcane Spoils ring will increase how many spirits you get from spirit harvesting.");
+        addPage("arcane_spoil_ring", "Harvesting Spirits may often yield insufficient result, even after a long night of hunting you might not have enough spirit spoils for your needs. The Ring of Arcane Spoils will increase how many spirits you get from spirit harvesting.");
+        addPage("arcane_spoil_ring_2", "This ring may bring up a good question, \"How can a soul shatter into more spirits than it holds\". Souls overtime adapt into the body they're placed into and therefore in a way 'grow spirits', using magic we can greatly accelerate this process. This however causes immense stress for the soul.");
         addPage("arcane_reach_ring", "Collecting harvested spirits can sometimes be a tiresome task. This simple yet practical trinket will greatly extend your spirit reach, allowing them to lock onto you from much further out.");
+        addPage("ring_of_prowess", "Brilliance and Spirits are truly very close in their behavior and magic. You can even think of spirits as a 'wavelength' of brilliance, as if each spirit was just wisdom focused in a given concept or field. The Ring of Prowess will revert all collected spirits to confined brilliance.");
 
         addPage("tyrving", "The Tyrving is a type of twisted blade designed to crush armor. It is very proficient at dealing with tough opponents, increasing in damage for each point of armor your enemy has.");
 
@@ -180,6 +184,7 @@ public class MalumLangProvider extends LanguageProvider
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rites", "Spirit Rites");
+        add("malum.jei.rune_table", "Rune Table");
 
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_shaped_stones", "Malum Shaped Stones");

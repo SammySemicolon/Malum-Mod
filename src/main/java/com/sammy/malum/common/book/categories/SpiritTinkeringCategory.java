@@ -5,6 +5,7 @@ import com.sammy.malum.common.book.pages.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
+import static com.sammy.malum.common.book.categories.DarkArtsCategory.brilliance_confining;
 import static com.sammy.malum.common.book.categories.DarkArtsCategory.rune_table;
 import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
 import static com.sammy.malum.core.init.items.MalumItems.*;
@@ -17,6 +18,7 @@ public class SpiritTinkeringCategory extends BookCategory
     public static BookEntry spirit_resonators;
     public static BookEntry arcane_spoil_ring;
     public static BookEntry arcane_reach_ring;
+    public static BookEntry ring_of_prowess;
     public static BookEntry radiant_soulstone;
     public static BookEntry stronghold_armor;
     public static BookEntry tyrving;
@@ -65,6 +67,7 @@ public class SpiritTinkeringCategory extends BookCategory
 
         arcane_spoil_ring = new BookEntry(RING_OF_ARCANE_SPOIL.get(), "arcane_spoil_ring")
                 .addPage(new HeadlineTextPage("arcane_spoil_ring"))
+                .addPage(new TextPage("arcane_spoil_ring_2"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_SPOIL.get()))
                 .addLink(()->spirit_infusion).addLink(()->soulstone).addLink(()->curios);
 
@@ -72,6 +75,11 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addPage(new HeadlineTextPage("arcane_reach_ring"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
                 .addLink(()->spirit_infusion).addLink(()->soulstone).addLink(()->curios);
+
+        ring_of_prowess = new BookEntry(RING_OF_PROWESS.get(), "ring_of_prowess")
+                .addPage(new HeadlineTextPage("ring_of_prowess"))
+                .addPage(new SpiritInfusionPage(RING_OF_PROWESS.get()))
+                .addLink(()->spirit_infusion).addLink(()->brilliance_confining).addLink(()->soulstone).addLink(()->curios);
 
         tyrving = new BookEntry(TYRVING.get(), "tyrving")
                 .addPage(new HeadlineTextPage("tyrving"))
@@ -101,6 +109,6 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(AWAKENED_TYRVING.get()))
                 .addLink(()->spirit_infusion).addLink(()->radiant_soulstone).addLink(()->cursed_nebulous);
 
-        addEntries(soul_stained_steel, hallowed_gold, curios, spirit_resonators, arcane_spoil_ring, arcane_reach_ring, tyrving, radiant_soulstone, stronghold_armor, cursed_nebulous, awakened_tyrving);
+        addEntries(soul_stained_steel, hallowed_gold, curios, spirit_resonators, arcane_spoil_ring, arcane_reach_ring, ring_of_prowess, tyrving, radiant_soulstone, stronghold_armor, cursed_nebulous, awakened_tyrving);
     }
 }

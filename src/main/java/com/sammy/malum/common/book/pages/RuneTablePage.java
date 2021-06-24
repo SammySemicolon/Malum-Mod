@@ -6,6 +6,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.objects.EntryObject;
+import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.modcontent.MalumRuneTableRecipes;
 import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -44,12 +45,17 @@ public class RuneTablePage extends BookPage
         Pair<Integer, Integer> position = getPosition(guiLeft, guiTop, isSecondPage);
         int posX = position.first;
         int posY = position.second;
+        int[] x = new int[]{31, 55, 81};
         for (int i = 0; i < recipe.itemIngredients.size(); i++)
         {
             ItemStack itemStack = recipe.itemIngredients.get(i).getItem();
-            int itemPosX = posX + 36 + i * 20;
+            int itemPosX = posX + 31+ 25*i;
             int itemPosY = posY + 48;
             screen.drawItem(stack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
         }
+        screen.drawItem(stack, recipe.outputIngredient.getItemAlt(), posX + 56, posY + 115, mouseX, mouseY);
+
+        screen.drawItem(stack, MalumItems.RUNE_TABLE.get().getDefaultInstance(), posX + 101, posY + 115, mouseX, mouseY);
+
     }
 }
