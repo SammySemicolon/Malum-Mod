@@ -1,5 +1,6 @@
 package com.sammy.malum.common.enchantments;
 
+import com.sammy.malum.core.init.enchantments.MalumEnchantmentTypes;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -10,7 +11,7 @@ public class HauntingEnchantment extends Enchantment
 {
     public HauntingEnchantment()
     {
-        super(Rarity.UNCOMMON, MalumEnchantmentTypes.scytheOnly, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
+        super(Rarity.UNCOMMON, MalumEnchantmentTypes.SCYTHE_DAGGER_ONLY, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
     }
     
     @Override
