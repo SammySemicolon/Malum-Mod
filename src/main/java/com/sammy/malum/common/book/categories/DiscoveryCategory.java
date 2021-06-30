@@ -56,27 +56,32 @@ public class DiscoveryCategory extends BookCategory
 
         basics_of_magic = new BookEntry(Items.SOUL_SAND, "basics_of_magic")
                 .addPage(new HeadlineTextPage("basics_of_magic"))
-                .addPage(new TextPage("basics_of_magic_2"));
+                .addPage(new TextPage("basics_of_magic_2"))
+                .addPage(new TextPage("basics_of_magic_3"))
+                .addPage(new TextPage("basics_of_magic_4"));
 
         runewood_trees = new BookEntry(RUNEWOOD_SAPLING.get(), "runewood")
                 .addPage(new HeadlineTextPage("runewood_trees"))
+                .addPage(new TextPage("runewood_trees_2"))
                 .addPage(new ItemListPage(RUNEWOOD_PLANKS.get(), VERTICAL_RUNEWOOD_PLANKS.get(), BOLTED_RUNEWOOD_PLANKS.get(), RUNEWOOD_PANEL.get(), RUNEWOOD_TILES.get())
                         .addList(RUNEWOOD_PLANKS_SLAB.get(), VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), BOLTED_RUNEWOOD_PLANKS_SLAB.get(), RUNEWOOD_PANEL_SLAB.get(), RUNEWOOD_TILES_SLAB.get())
                         .addList(RUNEWOOD_PLANKS_STAIRS.get(), VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), RUNEWOOD_PANEL_STAIRS.get(), RUNEWOOD_TILES_STAIRS.get())
                         .addList(CUT_RUNEWOOD_PLANKS.get(), RUNEWOOD_BEAM.get(), BOLTED_RUNEWOOD_BEAM.get()))
-
+                .addPage(new SmeltingPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
                 .addPage(CraftingPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
-                .addPage(CraftingPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
-                .addPage(new SmeltingPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()));
+                .addPage(CraftingPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()));
 
         solar_sap = new BookEntry(SOLAR_SAP_BOTTLE.get(), "solar_sap")
                 .addPage(new HeadlineTextPage("solar_sap"))
+                .addPage(new TextPage("solar_sap_2"))
+                .addPage(new TextPage("solar_sap_3"))
                 .addPage(new SmeltingPage(SOLAR_SAP_BOTTLE.get(), SOLAR_SYRUP_BOTTLE.get()))
                 .addPage(new CraftingPage(new ItemStack(SOLAR_SAPBALL.get(), 3), SOLAR_SAP_BOTTLE.get(), Items.SLIME_BALL))
                 .addLink(()->runewood_trees);
 
         blazing_quartz = new BookEntry(BLAZING_QUARTZ.get(), "blazing_quartz")
                 .addPage(new HeadlineTextPage("blazing_quartz"))
+                .addPage(new TextPage("blazing_quartz_2"))
                 .addPage(new CraftingPage(new ItemStack(BLAZING_QUARTZ_BLOCK.get()), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get(), BLAZING_QUARTZ.get()));
 
         soulstone = new BookEntry(SOULSTONE.get(), "soulstone")

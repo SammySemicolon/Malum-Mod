@@ -1,22 +1,13 @@
 package com.sammy.malum.common.rites;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
-import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.network.packets.rites.BlastParticlePacket;
-import com.sammy.malum.network.packets.rites.UpwardsBlockParticlesPacket;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IGrowable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
-
-import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public abstract class ActivatorRite extends MalumRiteType
 {
@@ -32,14 +23,13 @@ public abstract class ActivatorRite extends MalumRiteType
         for (BlockPos nearbyPos : nearbyBlocks)
         {
             IAssembled assembled = (IAssembled) world.getTileEntity(nearbyPos);
-            assembled.assemble(pos);
-            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BlastParticlePacket.fromSpirits(nearbyPos.getX()+0.5f, nearbyPos.getY()+1.5f, nearbyPos.getZ()+0.5f, MalumSpiritTypes.ELDRITCH_SPIRIT, MalumSpiritTypes.AQUATIC_SPIRIT));
+            assembled.assemble(pos, MalumHelper.toArrayList(MalumSpiritTypes.ELDRITCH_SPIRIT, MalumSpiritTypes.AQUATIC_SPIRIT));
             MalumHelper.updateAndNotifyState(world, pos);
         }
         super.executeRite(world, pos);
     }
     public interface IAssembled
     {
-        public void assemble(BlockPos pos);
+        public void assemble(BlockPos pos, ArrayList<MalumSpiritType> spirits);
     }
 }

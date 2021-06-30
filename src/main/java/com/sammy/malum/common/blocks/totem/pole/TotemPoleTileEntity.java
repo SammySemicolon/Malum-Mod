@@ -9,8 +9,8 @@ import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import com.sammy.malum.network.packets.totem.SpiritEngravePacket;
-import com.sammy.malum.network.packets.totem.TotemPoleParticlePacket;
+import com.sammy.malum.network.packets.particle.totem.SpiritEngraveParticlePacket;
+import com.sammy.malum.network.packets.particle.totem.TotemPoleParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
@@ -81,7 +81,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     public void create(MalumSpiritType type)
     {
         world.playSound(null, pos, MalumSounds.TOTEM_ENGRAVE, SoundCategory.BLOCKS,1,1);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new SpiritEngravePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ()));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new SpiritEngraveParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ()));
         this.type = type;
         this.currentColor = 10;
     }

@@ -1,4 +1,4 @@
-package com.sammy.malum.network.packets.totem;
+package com.sammy.malum.network.packets.particle.totem;
 
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.network.PacketBuffer;
@@ -7,13 +7,13 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class SpiritEngravePacket
+public class SpiritEngraveParticlePacket
 {
     String spirit;
     int posX;
     int posY;
     int posZ;
-    public SpiritEngravePacket(String spirit, int posX, int posY, int posZ)
+    public SpiritEngraveParticlePacket(String spirit, int posX, int posY, int posZ)
     {
         this.spirit = spirit;
         this.posX = posX;
@@ -21,13 +21,13 @@ public class SpiritEngravePacket
         this.posZ = posZ;
     }
 
-    public static SpiritEngravePacket decode(PacketBuffer buf)
+    public static SpiritEngraveParticlePacket decode(PacketBuffer buf)
     {
         String spirit = buf.readString();
         int posX = buf.readInt();
         int posY = buf.readInt();
         int posZ = buf.readInt();
-        return new SpiritEngravePacket(spirit, posX, posY, posZ);
+        return new SpiritEngraveParticlePacket(spirit, posX, posY, posZ);
     }
 
     public void encode(PacketBuffer buf)

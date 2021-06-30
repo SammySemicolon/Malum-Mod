@@ -30,7 +30,6 @@ public class MalumItemTagProvider extends ItemTagsProvider
     protected void registerTags()
     {
         getOrCreateBuilder(Tags.Items.GEMS).add(MalumItems.SOULSTONE_ORE.get(), MalumItems.BLAZING_QUARTZ.get());
-        getOrCreateBuilder(Tags.Items.GEMS_QUARTZ).add(MalumItems.BLAZING_QUARTZ.get());
 
         this.copy(BlockTags.WOOL, ItemTags.WOOL);
         this.copy(BlockTags.PLANKS, ItemTags.PLANKS);

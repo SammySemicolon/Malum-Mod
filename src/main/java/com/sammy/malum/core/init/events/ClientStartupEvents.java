@@ -101,7 +101,6 @@ public class ClientStartupEvents
             int b = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
             return r << 16 | g << 8 | b;
         }, block.get()));
-
     }
     
     @SubscribeEvent

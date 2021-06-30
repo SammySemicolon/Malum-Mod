@@ -2,7 +2,7 @@ package com.sammy.malum.common.rites;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.network.packets.rites.UpwardsBlockParticlesPacket;
+import com.sammy.malum.network.packets.particle.UpwardsFromBlockParticlesPacket;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
 import net.minecraft.util.math.BlockPos;
@@ -49,7 +49,7 @@ public class RiteOfGrowth extends MalumRiteType
         IGrowable iGrowable = (IGrowable) state.getBlock();
         iGrowable.grow(world, world.rand, nearbyPos, state);
         BlockPos packetPos = state.isSolid() ? nearbyPos : nearbyPos.down();
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), UpwardsBlockParticlesPacket.fromSpirits(packetPos.getX(),packetPos.getY(), packetPos.getZ(), spirits));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), UpwardsFromBlockParticlesPacket.fromSpirits(packetPos.getX(),packetPos.getY(), packetPos.getZ(), spirits));
         super.executeRite(world, pos);
     }
 

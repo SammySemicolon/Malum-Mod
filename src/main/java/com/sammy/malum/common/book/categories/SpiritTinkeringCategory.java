@@ -22,7 +22,6 @@ public class SpiritTinkeringCategory extends BookCategory
     public static BookEntry radiant_soulstone;
     public static BookEntry stronghold_armor;
     public static BookEntry tyrving;
-    public static BookEntry cursed_nebulous;
     public static BookEntry awakened_tyrving;
 
     public SpiritTinkeringCategory()
@@ -99,16 +98,11 @@ public class SpiritTinkeringCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STRONGHOLD_BOOTS.get()))
                 .addLink(()->spirit_infusion).addLink(()->eldritchSpirit).addLink(()->soul_stained_steel).addLink(()->radiant_soulstone);
 
-        cursed_nebulous = new BookEntry(CURSED_NEBULOUS.get(), "cursed_nebulous")
-                .addPage(new HeadlineTextPage("cursed_nebulous"))
-                .addPage(new RuneTablePage(CURSED_NEBULOUS.get()))
-                .addLink(()->rune_table);
-
         awakened_tyrving = new BookEntry(AWAKENED_TYRVING.get(), "awakened_tyrving")
                 .addPage(new HeadlineTextPage("awakened_tyrving"))
                 .addPage(new SpiritInfusionPage(AWAKENED_TYRVING.get()))
-                .addLink(()->spirit_infusion).addLink(()->radiant_soulstone).addLink(()->cursed_nebulous);
+                .addLink(()->spirit_infusion).addLink(()->radiant_soulstone);
 
-        addEntries(soul_stained_steel, hallowed_gold, curios, spirit_resonators, arcane_spoil_ring, arcane_reach_ring, ring_of_prowess, tyrving, radiant_soulstone, stronghold_armor, cursed_nebulous, awakened_tyrving);
+        addEntries(soul_stained_steel, hallowed_gold, curios, spirit_resonators, arcane_spoil_ring, arcane_reach_ring, ring_of_prowess, tyrving, radiant_soulstone, stronghold_armor, awakened_tyrving);
     }
 }

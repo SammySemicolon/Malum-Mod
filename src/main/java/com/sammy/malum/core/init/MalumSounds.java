@@ -40,6 +40,7 @@ public class MalumSounds
     public static final SoundEvent ETHER_BREAK = register(new SoundEvent(MalumHelper.prefix("ether_break")));
 
     public static final SoundEvent ABSTRUSE_BLOCK_RETURNS = register(new SoundEvent(MalumHelper.prefix("abstruse_block_returns")));
+
     public static final SoundEvent SCYTHE_STRIKE = register(new SoundEvent(MalumHelper.prefix("scythe_strike")));
     public static final SoundEvent SPIRIT_HARVEST = register(new SoundEvent(MalumHelper.prefix("spirit_harvest")));
 
@@ -52,11 +53,12 @@ public class MalumSounds
     public static final SoundEvent ALTAR_CONSUME = register(new SoundEvent(MalumHelper.prefix("altar_consume")));
     public static final SoundEvent ALTAR_SPEED_UP = register(new SoundEvent(MalumHelper.prefix("altar_speed_up")));
 
-    public static final SoundEvent BOOK_TRAVEL = register(new SoundEvent(MalumHelper.prefix("book_travel")));
+    public static final SoundEvent RUNE_TABLE_CRAFT = register(new SoundEvent(MalumHelper.prefix("rune_table_craft")));
 
     public static final SoundEvent SINISTER_EQUIP = register(new SoundEvent(MalumHelper.prefix("sinister_equip")));
     public static final SoundEvent HOLY_EQUIP = register(new SoundEvent(MalumHelper.prefix("holy_equip")));
     public static final SoundEvent TYRVING_CRUSH = register(new SoundEvent(MalumHelper.prefix("tyrving_crush")));
+    public static final SoundEvent AWAKENED_TYRVING_CRUSH = register(new SoundEvent(MalumHelper.prefix("awakened_tyrving_crush")));
 
     public static final SoundType SOULSTONE = new SoundType(1.0F, 1.0F, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, SOULSTONE_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType BLAZING_QUARTZ = new SoundType(1.0F, 1.0F, BLAZING_QUARTZ_BREAK, SoundEvents.BLOCK_NETHER_ORE_STEP, BLAZING_QUARTZ_PLACE, SoundEvents.BLOCK_NETHER_ORE_PLACE, SoundEvents.BLOCK_NETHER_GOLD_ORE_FALL);

@@ -1,15 +1,13 @@
 package com.sammy.malum.common.blocks.totem.pole;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
-import com.sammy.malum.network.packets.totem.TotemPoleParticlePacket;
+import com.sammy.malum.network.packets.particle.totem.TotemPoleParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;

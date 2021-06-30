@@ -13,6 +13,7 @@ import com.sammy.malum.common.items.tools.*;
 import com.sammy.malum.common.items.tools.spirittools.SacrificialDaggerItem;
 import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
 import com.sammy.malum.common.items.tools.spirittools.TyrvingItem;
+import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.items.tabs.MalumBuildingTab;
 import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
@@ -471,7 +472,6 @@ public class MalumItems
     public static final RegistryObject<Item> HALLOWED_SPIRIT_RESONATOR = ITEMS.register("hallowed_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CURSED_NEBULOUS = ITEMS.register("cursed_nebulous", () -> new SimpleFoiledItem(DEFAULT_PROPERTIES().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 200));
     public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 400));
@@ -507,8 +507,8 @@ public class MalumItems
     public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_BOOTS = ITEMS.register("soul_stained_stronghold_boots", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> SACRIFICIAL_DAGGER = ITEMS.register("sacrificial_dagger", () -> new SacrificialDaggerItem(SACRIFICIAL_DAGGER_ITEM, 0, -0.1f, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 10f, 0, -0.1f, GEAR_PROPERTIES().rarity(Rarity.RARE)));
-    public static final RegistryObject<Item> AWAKENED_TYRVING = ITEMS.register("awakened_tyrving", () -> new TyrvingItem(TYRVING_ITEM, 5f, 2, 0.1f, GEAR_PROPERTIES().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 10f, 0, -0.1f, ()->MalumSounds.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> AWAKENED_TYRVING = ITEMS.register("awakened_tyrving", () -> new TyrvingItem(TYRVING_ITEM, 5f, 2, 0.1f, ()->MalumSounds.AWAKENED_TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));

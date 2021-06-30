@@ -18,7 +18,7 @@ public class MalumSpiritAltarRecipes
     public static void init()
     {
         //hex ash
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.GUNPOWDER, 2), new ItemIngredient(MalumItems.HEX_ASH.get(), 1))
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.GUNPOWDER, 1), new ItemIngredient(MalumItems.HEX_ASH.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 2));
 
         //tainted rock
@@ -68,7 +68,7 @@ public class MalumSpiritAltarRecipes
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.TWISTED_ROCK_ITEM_PEDESTAL.get(), 1), new ItemIngredient(MalumItems.RUNE_TABLE.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 4))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()));
 
         //ring of arcane reach
@@ -166,7 +166,7 @@ public class MalumSpiritAltarRecipes
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RADIANT_SOULSTONE.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TWISTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(Tags.Items.OBSIDIAN))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.CURSED_NEBULOUS.get()));
+                .addExtraItem(new SimpleItemIngredient(Tags.Items.NETHER_STARS));
     }
 
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack, ArrayList<ItemStack> stacks)

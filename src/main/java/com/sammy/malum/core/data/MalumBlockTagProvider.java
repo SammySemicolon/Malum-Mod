@@ -30,7 +30,6 @@ public class MalumBlockTagProvider extends BlockTagsProvider
     protected void registerTags()
     {
         getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.SOULSTONE_ORE.get(), MalumBlocks.BLAZING_QUARTZ_ORE.get());
-        getOrCreateBuilder(Tags.Blocks.ORES_QUARTZ).add(MalumBlocks.BLAZING_QUARTZ_ORE.get());
 
         getOrCreateBuilder(FLOWERS).add(MalumBlocks.LAVENDER.get());
         getOrCreateBuilder(TALL_FLOWERS).add(MalumBlocks.LAVENDER.get());

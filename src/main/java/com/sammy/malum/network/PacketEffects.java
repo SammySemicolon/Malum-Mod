@@ -213,14 +213,49 @@ public class PacketEffects
         }
     }
 
-    public static void burstParticles(String spirit, Vector3d pos)
+    public static void altBurstParticles(String spirit, Vector3d pos, float multiplier)
     {
         World world = Minecraft.getInstance().world;
         MalumSpiritType type = SpiritHelper.figureOutType(spirit);
         Color color = type.color;
 
         ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                .setAlpha(0.1f, 0f)
+                .setAlpha(0.1f * multiplier, 0f)
+                .setLifetime(10)
+                .setSpin(0.4f)
+                .setScale(0.3f, 0)
+                .setColor(color, color.darker())
+                .enableNoClip()
+                .randomOffset(0.2f, 0.2f)
+                .randomVelocity(0.01f, 0.01f)
+                .repeat(world, pos.x,pos.y,pos.z, 12);
+
+        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+                .setAlpha(0.05f* multiplier, 0f)
+                .setLifetime(20)
+                .setSpin(0.1f)
+                .setScale(0.4f, 0)
+                .setColor(color, color.darker())
+                .randomOffset(0.4f)
+                .enableNoClip()
+                .randomVelocity(0.025f, 0.025f)
+                .repeat(world, pos.x,pos.y,pos.z, 20);
+    }
+    public static void altBurstParticles(ArrayList<String> spirits, Vector3d pos)
+    {
+        for (String spirit : spirits)
+        {
+            altBurstParticles(spirit, pos, 1 / (float)spirits.size());
+        }
+    }
+    public static void burstParticles(String spirit, Vector3d pos, float multiplier)
+    {
+        World world = Minecraft.getInstance().world;
+        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        Color color = type.color;
+
+        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                .setAlpha(0.1f * multiplier, 0f)
                 .setLifetime(10)
                 .setSpin(0.4f)
                 .setScale(0.4f, 0)
@@ -231,7 +266,7 @@ public class PacketEffects
                 .repeat(world, pos.x,pos.y,pos.z, 12);
 
         ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
-                .setAlpha(0.05f, 0f)
+                .setAlpha(0.05f* multiplier, 0f)
                 .setLifetime(20)
                 .setSpin(0.1f)
                 .setScale(0.6f, 0)
@@ -245,7 +280,7 @@ public class PacketEffects
     {
         for (String spirit : spirits)
         {
-            burstParticles(spirit, pos);
+            burstParticles(spirit, pos, 1 / (float)spirits.size());
         }
     }
 }

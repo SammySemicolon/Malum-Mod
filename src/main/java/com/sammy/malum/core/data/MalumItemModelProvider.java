@@ -5,6 +5,7 @@ import com.sammy.malum.common.blocks.lighting.EtherBlock;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
 import com.sammy.malum.common.items.SpiritItem;
+import com.sammy.malum.common.items.tools.ModCombatItem;
 import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import net.minecraft.block.*;
@@ -56,6 +57,7 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         
         takeAll(items, i -> i.get() instanceof BlockItem).forEach(this::blockItem);
         takeAll(items, i -> i.get() instanceof ToolItem).forEach(this::handheldItem);
+        takeAll(items, i -> i.get() instanceof ModCombatItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof BowItem).forEach(this::handheldItem);
         items.forEach(this::generatedItem);

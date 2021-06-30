@@ -6,8 +6,7 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.init.worldgen.MalumStaticFeatures;
-import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.network.packets.rites.BlastParticlePacket;
+import com.sammy.malum.network.packets.particle.BurstParticlePacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -85,10 +84,10 @@ public class Events
                     LivingEntity entity = event.getEntityLiving();
                     float amount = event.getAmount() * (1 + entity.getTotalArmorValue()/tyrvingItem.armorCrushing);
                     event.setAmount(amount);
-                    playerEntity.world.playSound(null, entity.getPosition(), MalumSounds.TYRVING_CRUSH, SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
+                    playerEntity.world.playSound(null, entity.getPosition(), tyrvingItem.soundEvent.get(), SoundCategory.PLAYERS, 1, 1f + playerEntity.world.rand.nextFloat() * 0.25f);
                     if (playerEntity.world instanceof ServerWorld)
                     {
-                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), BlastParticlePacket.fromSpirits(entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ(), WICKED_SPIRIT, ELDRITCH_SPIRIT));
+                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), BurstParticlePacket.fromSpirits(entity.getPosX(), entity.getPosY() + entity.getHeight() / 2, entity.getPosZ(), WICKED_SPIRIT, ELDRITCH_SPIRIT));
                     }
                 }
             }

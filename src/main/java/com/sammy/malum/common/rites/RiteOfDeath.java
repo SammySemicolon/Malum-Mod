@@ -1,11 +1,8 @@
 package com.sammy.malum.common.rites;
 
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.network.packets.rites.BlastParticlePacket;
+import com.sammy.malum.network.packets.particle.BurstParticlePacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -37,6 +34,6 @@ public class RiteOfDeath extends MalumRiteType
         target.hurtResistantTime = 0;
         target.attackEntityFrom(SpiritHelper.voodooDamageSource(), 4);
         Vector3d targetPos = target.getPositionVec().add(0, target.getHeight()/2f,0);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BlastParticlePacket.fromSpirits(targetPos.getX(), targetPos.getY(), targetPos.getZ(), WICKED_SPIRIT));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BurstParticlePacket.fromSpirits(targetPos.getX(), targetPos.getY(), targetPos.getZ(), WICKED_SPIRIT));
     }
 }

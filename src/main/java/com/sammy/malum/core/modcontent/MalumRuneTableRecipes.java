@@ -64,14 +64,9 @@ public class MalumRuneTableRecipes
                 .addExtraItem(new ItemIngredient(Tags.Items.INGOTS_IRON, 1));
 
         new MalumRuneTableRecipe(new ItemIngredient(MalumItems.RADIANT_SOULSTONE.get(), 1))
-                .addExtraItem(new ItemIngredient(Tags.Items.GEMS_DIAMOND, 1))
-                .addExtraItem(new ItemIngredient(MalumItems.SOULSTONE.get(), 2))
+                .addExtraItem(new ItemIngredient(MalumItems.SOULSTONE.get(), 4))
+                .addExtraItem(new ItemIngredient(Tags.Items.GEMS_DIAMOND, 2))
                 .addExtraItem(new ItemIngredient(MalumItems.INFERNAL_SPIRIT.get(), 4));
-
-        new MalumRuneTableRecipe(new ItemIngredient(MalumItems.CURSED_NEBULOUS.get(), 1))
-                .addExtraItem(new ItemIngredient(MalumItems.ELDRITCH_SPIRIT.get(), 4))
-                .addExtraItem(new ItemIngredient(Tags.Items.NETHER_STARS, 1))
-                .addExtraItem(new ItemIngredient(MalumItems.RADIANT_SOULSTONE.get(), 2));
     }
 
     public static MalumRuneTableRecipe getRecipe(ArrayList<ItemStack> stacks)
@@ -124,15 +119,14 @@ public class MalumRuneTableRecipes
 
         public boolean matches(ArrayList<ItemStack> stacks)
         {
-            ArrayList<ItemStack> sortedStacks = sortedStacks(stacks);
-            if (sortedStacks.size() < itemIngredients.size())
+            if (stacks.size() < itemIngredients.size())
             {
                 return false;
             }
             for (int i = 0; i < itemIngredients.size(); i++)
             {
                 ItemIngredient ingredient = itemIngredients.get(i);
-                ItemStack stack = sortedStacks.get(i);
+                ItemStack stack = stacks.get(i);
                 if (!ingredient.matches(stack))
                 {
                     return false;

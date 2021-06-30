@@ -92,7 +92,7 @@ public class SpiritHelper
             }
             spirits = newSpirits;
         }
-        if (attacker.world.rand.nextFloat() < 0.001f)
+        if (attacker.world.rand.nextFloat() < 0.002f)
         {
             spirits.add(new ItemStack(MalumItems.COMICALLY_LARGE_TOPHAT.get()));
         }

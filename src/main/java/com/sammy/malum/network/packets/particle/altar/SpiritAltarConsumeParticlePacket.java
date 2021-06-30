@@ -1,6 +1,7 @@
-package com.sammy.malum.network.packets.altar;
+package com.sammy.malum.network.packets.particle.altar;
 
 import com.sammy.malum.core.systems.recipes.SpiritIngredient;
+import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -26,6 +27,15 @@ public class SpiritAltarConsumeParticlePacket
         for (SpiritIngredient ingredient : spiritIngredients)
         {
             spirits.add(ingredient.type.identifier);
+        }
+        return new SpiritAltarConsumeParticlePacket(stack, spirits, posX, posY, posZ, altarPosX, altarPosY, altarPosZ);
+    }
+    public static SpiritAltarConsumeParticlePacket fromSpirits(ItemStack stack, ArrayList<MalumSpiritType> spiritTypes, double posX, double posY, double posZ, double altarPosX, double altarPosY, double altarPosZ)
+    {
+        ArrayList<String> spirits = new ArrayList<>();
+        for (MalumSpiritType spirit : spiritTypes)
+        {
+            spirits.add(spirit.identifier);
         }
         return new SpiritAltarConsumeParticlePacket(stack, spirits, posX, posY, posZ, altarPosX, altarPosY, altarPosZ);
     }

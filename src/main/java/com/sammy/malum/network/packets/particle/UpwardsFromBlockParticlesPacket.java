@@ -1,7 +1,6 @@
-package com.sammy.malum.network.packets.rites;
+package com.sammy.malum.network.packets.particle;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.network.PacketBuffer;
@@ -11,27 +10,27 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-public class UpwardsBlockParticlesPacket
+public class UpwardsFromBlockParticlesPacket
 {
     ArrayList<String> spirits;
     int posX;
     int posY;
     int posZ;
 
-    public static UpwardsBlockParticlesPacket fromSpirits(int posX, int posY, int posZ, MalumSpiritType... spirits)
+    public static UpwardsFromBlockParticlesPacket fromSpirits(int posX, int posY, int posZ, MalumSpiritType... spirits)
     {
         return fromSpirits(posX, posY,posZ, MalumHelper.toArrayList(spirits));
     }
-    public static UpwardsBlockParticlesPacket fromSpirits(int posX, int posY, int posZ, ArrayList<MalumSpiritType> spirits)
+    public static UpwardsFromBlockParticlesPacket fromSpirits(int posX, int posY, int posZ, ArrayList<MalumSpiritType> spirits)
     {
         ArrayList<String> strings = new ArrayList<>();
         for (MalumSpiritType type : spirits)
         {
             strings.add(type.identifier);
         }
-        return new UpwardsBlockParticlesPacket(strings, posX, posY, posZ);
+        return new UpwardsFromBlockParticlesPacket(strings, posX, posY, posZ);
     }
-    public UpwardsBlockParticlesPacket(ArrayList<String> spirits, int posX, int posY, int posZ)
+    public UpwardsFromBlockParticlesPacket(ArrayList<String> spirits, int posX, int posY, int posZ)
     {
         this.spirits = spirits;
         this.posX = posX;
@@ -39,7 +38,7 @@ public class UpwardsBlockParticlesPacket
         this.posZ = posZ;
     }
 
-    public static UpwardsBlockParticlesPacket decode(PacketBuffer buf)
+    public static UpwardsFromBlockParticlesPacket decode(PacketBuffer buf)
     {
         int strings = buf.readInt();
         ArrayList<String> spirits = new ArrayList<>();
@@ -50,7 +49,7 @@ public class UpwardsBlockParticlesPacket
         int posX = buf.readInt();
         int posY = buf.readInt();
         int posZ = buf.readInt();
-        return new UpwardsBlockParticlesPacket(spirits, posX, posY, posZ);
+        return new UpwardsFromBlockParticlesPacket(spirits, posX, posY, posZ);
     }
 
     public void encode(PacketBuffer buf)

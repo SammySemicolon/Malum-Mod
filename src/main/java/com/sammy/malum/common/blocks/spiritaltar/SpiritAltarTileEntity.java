@@ -12,9 +12,8 @@ import com.sammy.malum.core.systems.particles.ParticleManager;
 import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import com.sammy.malum.network.packets.altar.SpiritAltarConsumeParticlePacket;
-import com.sammy.malum.network.packets.altar.SpiritAltarCraftParticlePacket;
-import net.minecraft.block.LecternBlock;
+import com.sammy.malum.network.packets.particle.altar.SpiritAltarConsumeParticlePacket;
+import com.sammy.malum.network.packets.particle.altar.SpiritAltarCraftParticlePacket;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -22,7 +21,6 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -166,10 +164,10 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                                 ItemStack providedStack = tileEntity.providedInventory().getStackInSlot(0);
                                 if (recipe.extraItemIngredients.get(extrasInventory.nonEmptyItems()).matches(providedStack))
                                 {
-                                    extrasInventory.playerInsertItem(world, providedStack.split(1));
                                     world.playSound(null, pos, MalumSounds.ALTAR_CONSUME, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
                                     Vector3d providedItemPos = tileEntity.providedItemPos();
                                     INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromIngredients(providedStack, recipe.spiritIngredients, providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
+                                    extrasInventory.playerInsertItem(world, providedStack.split(1));
                                     MalumHelper.updateAndNotifyState(world, pos);
                                     MalumHelper.updateAndNotifyState(world, this.pos);
 
@@ -197,11 +195,10 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                     world.addEntity(entity);
                     progress = 0;
                     extrasInventory.clearItems();
-                    recipe = MalumSpiritAltarRecipes.getRecipe(stack, spiritInventory.nonEmptyStacks());
                     world.playSound(null, pos, MalumSounds.ALTAR_CRAFT, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
-                    if (recipe == null)
+                    if (recipe != null && !recipe.matches(spiritInventory.nonEmptyStacks()))
                     {
-                        inventory.dumpItems(world, itemPos);
+                        recipe = null;
                     }
                     MalumHelper.updateAndNotifyState(world, pos);
                 }

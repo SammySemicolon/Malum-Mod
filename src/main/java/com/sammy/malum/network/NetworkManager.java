@@ -1,14 +1,14 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.network.packets.*;
-import com.sammy.malum.network.packets.altar.SpiritAltarConsumeParticlePacket;
-import com.sammy.malum.network.packets.altar.SpiritAltarCraftParticlePacket;
-import com.sammy.malum.network.packets.rites.BlastParticlePacket;
-import com.sammy.malum.network.packets.rites.UpwardsBlockParticlesPacket;
-import com.sammy.malum.network.packets.totem.SpiritEngravePacket;
-import com.sammy.malum.network.packets.totem.TotemParticlePacket;
-import com.sammy.malum.network.packets.totem.TotemPoleParticlePacket;
+import com.sammy.malum.network.packets.particle.SmallBurstParticlePacket;
+import com.sammy.malum.network.packets.particle.altar.SpiritAltarConsumeParticlePacket;
+import com.sammy.malum.network.packets.particle.altar.SpiritAltarCraftParticlePacket;
+import com.sammy.malum.network.packets.particle.BurstParticlePacket;
+import com.sammy.malum.network.packets.particle.UpwardsFromBlockParticlesPacket;
+import com.sammy.malum.network.packets.particle.totem.SpiritEngraveParticlePacket;
+import com.sammy.malum.network.packets.particle.totem.TotemParticlePacket;
+import com.sammy.malum.network.packets.particle.totem.TotemPoleParticlePacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -32,9 +32,10 @@ public class NetworkManager
         INSTANCE.registerMessage(index++, SpiritAltarConsumeParticlePacket.class, SpiritAltarConsumeParticlePacket::encode, SpiritAltarConsumeParticlePacket::decode, SpiritAltarConsumeParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, TotemParticlePacket.class, TotemParticlePacket::encode, TotemParticlePacket::decode, TotemParticlePacket::whenThisPacketIsReceived);
         INSTANCE.registerMessage(index++, TotemPoleParticlePacket.class, TotemPoleParticlePacket::encode, TotemPoleParticlePacket::decode, TotemPoleParticlePacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, SpiritEngravePacket.class, SpiritEngravePacket::encode, SpiritEngravePacket::decode, SpiritEngravePacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, UpwardsBlockParticlesPacket.class, UpwardsBlockParticlesPacket::encode, UpwardsBlockParticlesPacket::decode, UpwardsBlockParticlesPacket::whenThisPacketIsReceived);
-        INSTANCE.registerMessage(index++, BlastParticlePacket.class, BlastParticlePacket::encode, BlastParticlePacket::decode, BlastParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SpiritEngraveParticlePacket.class, SpiritEngraveParticlePacket::encode, SpiritEngraveParticlePacket::decode, SpiritEngraveParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, UpwardsFromBlockParticlesPacket.class, UpwardsFromBlockParticlesPacket::encode, UpwardsFromBlockParticlesPacket::decode, UpwardsFromBlockParticlesPacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, BurstParticlePacket.class, BurstParticlePacket::encode, BurstParticlePacket::decode, BurstParticlePacket::whenThisPacketIsReceived);
+        INSTANCE.registerMessage(index++, SmallBurstParticlePacket.class, SmallBurstParticlePacket::encode, SmallBurstParticlePacket::decode, SmallBurstParticlePacket::whenThisPacketIsReceived);
 
     }
 }

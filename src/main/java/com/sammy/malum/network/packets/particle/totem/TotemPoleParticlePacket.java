@@ -1,4 +1,4 @@
-package com.sammy.malum.network.packets.totem;
+package com.sammy.malum.network.packets.particle.totem;
 
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.network.PacketBuffer;

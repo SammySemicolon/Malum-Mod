@@ -1,13 +1,8 @@
 package com.sammy.malum.common.rites;
 
-import com.sammy.malum.common.effects.AuraOfCelerity;
 import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.modcontent.MalumSpiritTypes;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
-import com.sammy.malum.core.systems.spirits.SpiritHelper;
-import com.sammy.malum.network.packets.rites.BlastParticlePacket;
-import net.minecraft.entity.LivingEntity;
+import com.sammy.malum.network.packets.particle.BurstParticlePacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -43,7 +38,7 @@ public class RiteOfWarding extends MalumRiteType
             {
                 Vector3d targetPos = e.getPositionVec().add(0, e.getHeight()/2f,0);
 
-                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BlastParticlePacket.fromSpirits(targetPos.x,targetPos.y,targetPos.z, EARTHEN_SPIRIT));
+                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BurstParticlePacket.fromSpirits(targetPos.x,targetPos.y,targetPos.z, EARTHEN_SPIRIT));
             }
             e.addPotionEffect(new EffectInstance(MalumEffects.AURA_OF_WARDING.get(), 100, 1));
         });
