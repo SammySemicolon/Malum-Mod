@@ -119,7 +119,7 @@ public class MalumRuneTableRecipes
 
         public boolean matches(ArrayList<ItemStack> stacks)
         {
-            if (stacks.size() < itemIngredients.size())
+            if (stacks.size() != itemIngredients.size())
             {
                 return false;
             }

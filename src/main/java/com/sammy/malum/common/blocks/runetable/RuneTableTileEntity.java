@@ -127,52 +127,61 @@ public class RuneTableTileEntity extends MultiblockTileEntity implements ITickab
             if (world.getTileEntity(part) instanceof RuneTableBoundingBlockTileEntity)
             {
                 RuneTableBoundingBlockTileEntity tileEntity = (RuneTableBoundingBlockTileEntity) world.getTileEntity(part);
-                ItemStack sideStack = tileEntity.inventory.getStackInSlot(0);
-                stacks.add(sideStack);
-                tileEntity.inventory.clearItems();
-                if (!sideStack.isEmpty())
+                ItemStack stack = tileEntity.inventory.getStackInSlot(0);
+                if (!stack.isEmpty())
                 {
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), SmallBurstParticlePacket.fromSpirits(part.getX() + 0.5f, part.getY() + 1.125f, part.getZ() + 0.5f, spirits));
+                    stacks.add(stack);
                 }
             }
         }
+        ItemStack stack = inventory.getStackInSlot(0);
+        if (!stack.isEmpty())
+        {
+            stacks.add(stack);
+        }
         ItemStack centerStack = inventory.getStackInSlot(0);
-        stacks.add(1, centerStack);
-        inventory.clearItems();
         if (!centerStack.isEmpty())
         {
-            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BurstParticlePacket.fromSpirits(getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, spirits));
+            stacks.add(1, centerStack);
         }
         MalumRuneTableRecipes.MalumRuneTableRecipe recipe = MalumRuneTableRecipes.getRecipe(stacks);
-        if (recipe == null)
+        if (recipe != null)
         {
-            return;
+
         }
-        if (stacks.size() != recipe.itemIngredients.size())
-        {
-            return;
-        }
-        int resultCount = 0;
-        do
-        {
-            for (int i = 0; i < stacks.size(); i++)
-            {
-                ItemStack stack = stacks.get(i);
-                stack.shrink(recipe.itemIngredients.get(i).count);
-            }
-            resultCount += recipe.outputIngredient.count;
-        }
-        while (recipe.matches(stacks));
-        while (resultCount != 0)
-        {
-            int stackCount = Math.min(resultCount, 64);
-            resultCount -= stackCount;
-            ItemStack stack = recipe.outputIngredient.getItem();
-            stack.setCount(stackCount);
-            ItemEntity itemEntity = new ItemEntity(world, getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, stack);
-            itemEntity.setVelocity(0,0,0);
-            world.addEntity(itemEntity);
-        }
-        world.playSound(null, getPos(), MalumSounds.RUNE_TABLE_CRAFT, SoundCategory.BLOCKS,1,1);
+
+//        if (!centerStack.isEmpty())
+//        {
+//            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BurstParticlePacket.fromSpirits(getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, spirits));
+//        }
+//        if (recipe == null)
+//        {
+//            return;
+//        }
+//        if (stacks.size() != recipe.itemIngredients.size())
+//        {
+//            return;
+//        }
+//        int resultCount = 0;
+//        do
+//        {
+//            for (int i = 0; i < stacks.size(); i++)
+//            {
+//                ItemStack stack = stacks.get(i);
+//                stack.shrink(recipe.itemIngredients.get(i).count);
+//            }
+//            resultCount += recipe.outputIngredient.count;
+//        }
+//        while (recipe.matches(stacks));
+//        while (resultCount != 0)
+//        {
+//            int stackCount = Math.min(resultCount, 64);
+//            resultCount -= stackCount;
+//            ItemStack stack = recipe.outputIngredient.getItem();
+//            stack.setCount(stackCount);
+//            ItemEntity itemEntity = new ItemEntity(world, getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, stack);
+//            world.addEntity(itemEntity);
+//        }
+//        world.playSound(null, getPos(), MalumSounds.RUNE_TABLE_CRAFT, SoundCategory.BLOCKS,1,1);
     }
 }
