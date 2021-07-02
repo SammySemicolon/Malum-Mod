@@ -9,6 +9,7 @@ import com.sammy.malum.core.init.blocks.MalumTileEntities;
 import com.sammy.malum.core.modcontent.MalumRuneTableRecipes;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.multiblock.MultiblockTileEntity;
+import com.sammy.malum.core.systems.recipes.ItemIngredient;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
@@ -134,11 +135,6 @@ public class RuneTableTileEntity extends MultiblockTileEntity implements ITickab
                 }
             }
         }
-        ItemStack stack = inventory.getStackInSlot(0);
-        if (!stack.isEmpty())
-        {
-            stacks.add(stack);
-        }
         ItemStack centerStack = inventory.getStackInSlot(0);
         if (!centerStack.isEmpty())
         {
@@ -147,41 +143,29 @@ public class RuneTableTileEntity extends MultiblockTileEntity implements ITickab
         MalumRuneTableRecipes.MalumRuneTableRecipe recipe = MalumRuneTableRecipes.getRecipe(stacks);
         if (recipe != null)
         {
-
+            int outputCount = 0;
+            do
+            {
+                for (int i = 0; i < stacks.size(); i++)
+                {
+                    ItemStack stack = stacks.get(i);
+                    ItemIngredient ingredient = recipe.itemIngredients.get(i);
+                    stack.shrink(ingredient.count);
+                }
+                outputCount += recipe.outputIngredient.count;
+            }
+            while (recipe.matches(stacks));
+            do
+            {
+                int stackCount = Math.min(outputCount, 64);
+                outputCount -= stackCount;
+                ItemStack stack = recipe.outputIngredient.getItem();
+                stack.setCount(stackCount);
+                ItemEntity itemEntity = new ItemEntity(world, getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, stack);
+                world.addEntity(itemEntity);
+            }
+            while(outputCount != 0);
+            world.playSound(null, getPos(), MalumSounds.RUNE_TABLE_CRAFT, SoundCategory.BLOCKS, 1, 1);
         }
-
-//        if (!centerStack.isEmpty())
-//        {
-//            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BurstParticlePacket.fromSpirits(getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, spirits));
-//        }
-//        if (recipe == null)
-//        {
-//            return;
-//        }
-//        if (stacks.size() != recipe.itemIngredients.size())
-//        {
-//            return;
-//        }
-//        int resultCount = 0;
-//        do
-//        {
-//            for (int i = 0; i < stacks.size(); i++)
-//            {
-//                ItemStack stack = stacks.get(i);
-//                stack.shrink(recipe.itemIngredients.get(i).count);
-//            }
-//            resultCount += recipe.outputIngredient.count;
-//        }
-//        while (recipe.matches(stacks));
-//        while (resultCount != 0)
-//        {
-//            int stackCount = Math.min(resultCount, 64);
-//            resultCount -= stackCount;
-//            ItemStack stack = recipe.outputIngredient.getItem();
-//            stack.setCount(stackCount);
-//            ItemEntity itemEntity = new ItemEntity(world, getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, stack);
-//            world.addEntity(itemEntity);
-//        }
-//        world.playSound(null, getPos(), MalumSounds.RUNE_TABLE_CRAFT, SoundCategory.BLOCKS,1,1);
     }
 }
