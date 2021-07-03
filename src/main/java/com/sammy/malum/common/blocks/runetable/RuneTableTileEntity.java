@@ -166,6 +166,21 @@ public class RuneTableTileEntity extends MultiblockTileEntity implements ITickab
             }
             while(outputCount != 0);
             world.playSound(null, getPos(), MalumSounds.RUNE_TABLE_CRAFT, SoundCategory.BLOCKS, 1, 1);
+            for (BlockPos part : parts)
+            {
+                MalumHelper.updateAndNotifyState(world, part);
+                if (world.getTileEntity(part) instanceof RuneTableBoundingBlockTileEntity)
+                {
+                    RuneTableBoundingBlockTileEntity tileEntity = (RuneTableBoundingBlockTileEntity) world.getTileEntity(part);
+                    ItemStack stack = tileEntity.inventory.getStackInSlot(0);
+                    if (!stack.isEmpty())
+                    {
+                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), SmallBurstParticlePacket.fromSpirits(part.getX() + 0.5f, part.getY() + 1.15f, part.getZ() + 0.5f, spirits));
+                    }
+                }
+            }
+            MalumHelper.updateAndNotifyState(world, getPos());
+            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BurstParticlePacket.fromSpirits(getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, spirits));
         }
     }
 }

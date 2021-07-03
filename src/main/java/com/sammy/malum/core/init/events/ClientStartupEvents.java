@@ -11,14 +11,15 @@ import com.sammy.malum.common.blocks.itemstand.ItemStandRenderer;
 import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.runetable.RuneTableBlock;
 import com.sammy.malum.common.blocks.runetable.RuneTableRenderer;
+import com.sammy.malum.common.blocks.runetable.bounding.RuneTableBoundingBlock;
 import com.sammy.malum.common.blocks.runetable.bounding.RuneTableBoundingRenderer;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarRenderer;
 import com.sammy.malum.common.blocks.spiritjar.SpiritJarRenderer;
 import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
 import com.sammy.malum.common.blocks.totem.pole.TotemPoleRenderer;
+import com.sammy.malum.common.entities.FloatingItemEntityRenderer;
 import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntityRenderer;
-import com.sammy.malum.common.entities.spirit.SpiritItemRenderer;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.blocks.MalumTileEntities;
@@ -74,13 +75,13 @@ public class ClientStartupEvents
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
-        RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SPIRIT_ESSENCE.get(), ClientStartupEvents::essenceRenderer);
+        RenderingRegistry.registerEntityRenderingHandler(MalumEntities.PLAYER_HOMING_ITEM.get(), ClientStartupEvents::floatingItemRenderer);
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SCYTHE_BOOMERANG.get(), ClientStartupEvents::scytheRenderer);
     }
     
-    public static SpiritItemRenderer essenceRenderer(EntityRendererManager manager)
+    public static FloatingItemEntityRenderer floatingItemRenderer(EntityRendererManager manager)
     {
-        return new SpiritItemRenderer(manager, Minecraft.getInstance().getItemRenderer());
+        return new FloatingItemEntityRenderer(manager, Minecraft.getInstance().getItemRenderer());
     }
     
     public static ScytheBoomerangEntityRenderer scytheRenderer(EntityRendererManager manager)
@@ -194,6 +195,7 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(ClientStartupEvents::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof RuneTableBlock).forEach(ClientStartupEvents::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof RuneTableBoundingBlock).forEach(ClientStartupEvents::setCutout);
         setCutout(MalumBlocks.SPIRIT_JAR);
         setCutout(MalumBlocks.SPIRIT_ALTAR);
         setCutout(MalumBlocks.BLAZING_QUARTZ_ORE);

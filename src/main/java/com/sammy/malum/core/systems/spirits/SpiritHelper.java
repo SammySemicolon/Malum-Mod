@@ -3,10 +3,9 @@ package com.sammy.malum.core.systems.spirits;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entities.spirit.SpiritItemEntity;
+import com.sammy.malum.common.entities.spirits.PlayerHomingItemEntity;
 import com.sammy.malum.common.items.equipment.curios.MalumCurioItem;
 import com.sammy.malum.common.items.tools.spirittools.ISpiritTool;
-import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
@@ -21,7 +20,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.awt.*;
@@ -29,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+
+import static net.minecraft.util.math.MathHelper.nextFloat;
 
 public class SpiritHelper
 {
@@ -69,11 +69,15 @@ public class SpiritHelper
         }
         ISpiritTool tool = (ISpiritTool) harvestStack.getItem();
         ArrayList<MalumCurioItem> equippedMalumCurios = MalumHelper.equippedMalumCurios(attacker);
-        int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack) + tool.spiritBonus(target);
+        int highestBonus = 0;
         for (MalumCurioItem item : equippedMalumCurios)
         {
-            plunder += item.spiritYieldBonus();
+            if (item.spiritYieldBonus() < highestBonus)
+            {
+                highestBonus = item.spiritYieldBonus();
+            }
         }
+        int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack) + tool.spiritBonus(target) + highestBonus;
         if (plunder > 0)
         {
             for (int i = 0; i < plunder; i++)
@@ -135,11 +139,14 @@ public class SpiritHelper
             }
             for (int j = 0; j < count; j++)
             {
-                SpiritItemEntity essenceEntity = new SpiritItemEntity(MalumEntities.SPIRIT_ESSENCE.get(), target.world);
-                essenceEntity.setMotion(MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed), MathHelper.nextFloat(MalumMod.RANDOM, 0.05f, 0.05f), MathHelper.nextFloat(MalumMod.RANDOM, -speed, speed));
-                essenceEntity.setPosition(target.getPositionVec().x, target.getPositionVec().y + target.getHeight() / 2f, target.getPositionVec().z);
-                essenceEntity.setData(stack.getItem().getDefaultInstance(), attacker.getUniqueID());
-                target.world.addEntity(essenceEntity);
+                PlayerHomingItemEntity entity = PlayerHomingItemEntity.makeEntity(target.world, attacker.getUniqueID(), MalumHelper.copyWithNewCount(stack, 1),
+                        target.getPositionVec().x,
+                        target.getPositionVec().y + target.getHeight() / 2f,
+                        target.getPositionVec().z,
+                        nextFloat(MalumMod.RANDOM, -speed, speed),
+                        nextFloat(MalumMod.RANDOM, 0.05f, 0.05f),
+                        nextFloat(MalumMod.RANDOM, -speed, speed));
+                target.world.addEntity(entity);
                 stack.shrink(1);
             }
         }
@@ -209,7 +216,7 @@ public class SpiritHelper
         ParticleManager.create(MalumParticles.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(20 + rand.nextInt(4))
-                .setSpin(MathHelper.nextFloat(rand, 0.05f, 0.1f))
+                .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.2f + rand.nextFloat() * 0.05f, 0)
                 .setColor(color, color.darker())
                 .randomOffset(0.1f)
@@ -220,7 +227,7 @@ public class SpiritHelper
         ParticleManager.create(MalumParticles.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
                 .setLifetime(10 + rand.nextInt(2))
-                .setSpin(MathHelper.nextFloat(rand, 0.05f, 0.1f))
+                .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
                 .setColor(color, color.darker())
                 .enableNoClip()

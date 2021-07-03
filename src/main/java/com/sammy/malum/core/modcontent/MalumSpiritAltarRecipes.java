@@ -98,14 +98,6 @@ public class MalumSpiritAltarRecipes
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()));
 
-        //radiant soulstone
-        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOULSTONE.get(), 2), new ItemIngredient(MalumItems.RADIANT_SOULSTONE.get(), 1))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 2))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 2))
-                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
-                .addExtraItem(new SimpleItemIngredient(Items.PHANTOM_MEMBRANE))
-                .addExtraItem(new SimpleItemIngredient(MalumItems.HEX_ASH.get()));
-
         //tyrving
         new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.SOUL_STAINED_STEEL_SWORD.get(), 1), new ItemIngredient(MalumItems.TYRVING.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.WICKED_SPIRIT, 12))

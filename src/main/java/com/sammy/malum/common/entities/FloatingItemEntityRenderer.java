@@ -1,4 +1,4 @@
-package com.sammy.malum.common.entities.spirit;
+package com.sammy.malum.common.entities;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -15,12 +15,12 @@ import net.minecraft.util.math.vector.Vector3f;
 
 import java.util.Random;
 
-public class SpiritItemRenderer extends EntityRenderer<SpiritItemEntity>
+public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity>
 {
     public final net.minecraft.client.renderer.ItemRenderer itemRenderer;
     public final Random random = new Random();
-    
-    public SpiritItemRenderer(EntityRendererManager renderManager, net.minecraft.client.renderer.ItemRenderer itemRendererIn)
+
+    public FloatingItemEntityRenderer(EntityRendererManager renderManager, net.minecraft.client.renderer.ItemRenderer itemRendererIn)
     {
         super(renderManager);
         this.itemRenderer = itemRendererIn;
@@ -30,15 +30,15 @@ public class SpiritItemRenderer extends EntityRenderer<SpiritItemEntity>
     
     
     @Override
-    public void render(SpiritItemEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
+    public void render(FloatingItemEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
     {
         matrixStackIn.push();
         ItemStack itemstack = entityIn.getItem();
-        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, (LivingEntity)null);
+        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, (LivingEntity) null);
         float f1 = entityIn.yOffset(partialTicks);
         float f2 = ibakedmodel.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.getY();
-        matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
         float f3 = (entityIn.rotation + partialTicks) / 20.0F + entityIn.hoverStart;
+        matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
         matrixStackIn.rotate(Vector3f.YP.rotation(f3));
         this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
         matrixStackIn.pop();
@@ -46,7 +46,7 @@ public class SpiritItemRenderer extends EntityRenderer<SpiritItemEntity>
     }
 
     @Override
-    public ResourceLocation getEntityTexture(SpiritItemEntity entity)
+    public ResourceLocation getEntityTexture(FloatingItemEntity entity)
     {
         return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
     }

@@ -57,7 +57,6 @@ public class DarkArtsCategory extends BookCategory
 
         rune_table = new BookEntry(RUNE_TABLE.get(), "rune_table")
                 .addPage(new HeadlineTextPage("rune_table"))
-                .addPage(new TextPage("rune_table_2"))
                 .addPage(new SpiritInfusionPage(RUNE_TABLE.get()))
                 .addPage(new HeadlineTextPage("rite_of_assembly"))
                 .addPage(new RitePage(new RiteOfAssembly()))

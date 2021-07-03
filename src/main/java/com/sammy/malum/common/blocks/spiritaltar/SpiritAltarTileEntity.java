@@ -148,7 +148,6 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 if (progress >= progressCap)
                 {
                     Vector3d itemPos = itemPos(this);
-
                     int extras = extrasInventory.nonEmptyItems();
                     if (extras != recipe.extraItemIngredients.size())
                     {
@@ -196,18 +195,18 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                     progress = 0;
                     extrasInventory.clearItems();
                     world.playSound(null, pos, MalumSounds.ALTAR_CRAFT, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
-                    if (recipe != null && !recipe.matches(spiritInventory.nonEmptyStacks()))
+                    if (recipe != null && (!recipe.inputIngredient.matches(stack) || !recipe.matches(spiritInventory.nonEmptyStacks())))
                     {
                         recipe = null;
                     }
                     MalumHelper.updateAndNotifyState(world, pos);
                 }
-
             }
         }
         else
         {
-            progress = 0;            if (spinUp > 0)
+            progress = 0;
+            if (spinUp > 0)
             {
                 spinUp--;
             }

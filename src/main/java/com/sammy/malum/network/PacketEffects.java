@@ -28,21 +28,12 @@ public class PacketEffects
         {
             types.add(SpiritHelper.figureOutType(string));
         }
-        for (int i = 0; i < 10; ++i)
-        {
-            float itemPosX = (float) (posX + MathHelper.nextFloat(world.rand, -0.1f, 0.1f));
-            float itemPosY = (float) (posY + MathHelper.nextFloat(world.rand, -0.1f, 0.1f));
-            float itemPosZ = (float) (posZ + MathHelper.nextFloat(world.rand, -0.1f, 0.1f));
-            float velocityX = MathHelper.nextFloat(world.rand, -0.02f, 0.02f);
-            float velocityY = MathHelper.nextFloat(world.rand, 0.01f, 0.04f);
-            float velocityZ = MathHelper.nextFloat(world.rand, -0.02f, 0.02f);
-            world.addParticle(new ItemParticleData(ParticleTypes.ITEM, stack), itemPosX,itemPosY,itemPosZ,velocityX,velocityY,velocityZ);
-        }
+        float alpha = 0.1f / types.size();
         for (MalumSpiritType type : types)
         {
             Color color = type.color;
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(0.1f, 0f)
+            ParticleManager.create(MalumParticles.TWINKLE_PARTICLE)
+                    .setAlpha(alpha*2, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
                     .setColor(color, color.darker())
@@ -52,7 +43,7 @@ public class PacketEffects
                     .repeat(world, posX, posY, posZ, 12);
 
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(0.05f, 0f)
+                    .setAlpha(alpha, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)
                     .setColor(color, color.darker())
@@ -63,7 +54,7 @@ public class PacketEffects
 
             Vector3d velocity = new Vector3d(posX, posY, posZ).subtract(altarPosX, altarPosY, altarPosZ).normalize().scale(-0.05f);
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                    .setAlpha(0.15f, 0f)
+                    .setAlpha(alpha, 0f)
                     .setLifetime(40)
                     .setScale(0.3f, 0)
                     .randomOffset(0.15f)

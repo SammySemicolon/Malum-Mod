@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
+	"ambientocclusion": false,
 	"texture_size": [64, 64],
 	"textures": {
 		"particle": "malum:block/twisted_rock"
@@ -37,6 +38,7 @@
 		{
 			"name": "VoxelShapes",
 			"origin": [0, 0, 0],
+			"color": 0,
 			"children": [0, 1]
 		}
 	]

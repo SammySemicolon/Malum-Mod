@@ -47,6 +47,12 @@ import static com.sammy.malum.MalumMod.MODID;
 
 public class MalumHelper
 {
+    public static ItemStack copyWithNewCount(ItemStack stack, int newCount)
+    {
+        ItemStack newStack = stack.copy();
+        newStack.setCount(newCount);
+        return newStack;
+    }
     public static Color darker(Color color, int times)
     {
         for (int i = 0; i < times; i++)
