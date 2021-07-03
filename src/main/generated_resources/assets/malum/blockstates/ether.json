@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "malum:block/ether"
+    },
+    "waterlogged=true": {
+      "model": "malum:block/ether"
+    }
+  }
+}

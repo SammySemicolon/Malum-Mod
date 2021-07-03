@@ -8,7 +8,7 @@ import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalRenderer;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandRenderer;
-import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
+import com.sammy.malum.common.blocks.ether.EtherBrazierBlock;
 import com.sammy.malum.common.blocks.runetable.RuneTableBlock;
 import com.sammy.malum.common.blocks.runetable.RuneTableRenderer;
 import com.sammy.malum.common.blocks.runetable.bounding.RuneTableBoundingBlock;
@@ -34,6 +34,7 @@ import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -113,45 +114,12 @@ public class ClientStartupEvents
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
             ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
-
-        ClientHelper.registerItemColor(itemColors, MalumItems.ORANGE_ETHER, brighter(ORANGE, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.MAGENTA_ETHER, brighter(MAGENTA, 3));
-        ClientHelper.registerItemColor(itemColors, MalumItems.LIGHT_BLUE_ETHER, brighter(LIGHT_BLUE, 3));
-        ClientHelper.registerItemColor(itemColors, MalumItems.YELLOW_ETHER, brighter(YELLOW, 3));
-        ClientHelper.registerItemColor(itemColors, MalumItems.LIME_ETHER, brighter(LIME, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.CYAN_ETHER, brighter(CYAN, 3));
-        ClientHelper.registerItemColor(itemColors, MalumItems.PURPLE_ETHER, brighter(PURPLE, 3));
-        ClientHelper.registerItemColor(itemColors, MalumItems.BLUE_ETHER, brighter(BLUE, 3));
-        ClientHelper.registerItemColor(itemColors, MalumItems.BROWN_ETHER, brighter(BROWN, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.GREEN_ETHER, brighter(GREEN, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.RED_ETHER, brighter(RED, 3));
-        ClientHelper.registerItemColor(itemColors, MalumItems.PINK_ETHER, brighter(PINK, 3));
-    
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.ORANGE_ETHER_TORCH, brighter(ORANGE, 1));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.MAGENTA_ETHER_TORCH, brighter(MAGENTA, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIGHT_BLUE_ETHER_TORCH, brighter(LIGHT_BLUE, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.YELLOW_ETHER_TORCH, brighter(YELLOW, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIME_ETHER_TORCH, brighter(LIME, 1));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.CYAN_ETHER_TORCH, brighter(CYAN, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PURPLE_ETHER_TORCH, brighter(PURPLE, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.BLUE_ETHER_TORCH, brighter(BLUE, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.BROWN_ETHER_TORCH, brighter(BROWN, 1));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_TORCH, brighter(GREEN, 1));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_TORCH, brighter(RED, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_TORCH, brighter(PINK, 3));
-    
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.ORANGE_ETHER_BRAZIER, brighter(ORANGE, 1));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.MAGENTA_ETHER_BRAZIER, brighter(MAGENTA, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIGHT_BLUE_ETHER_BRAZIER, brighter(LIGHT_BLUE, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.YELLOW_ETHER_BRAZIER, brighter(YELLOW, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.LIME_ETHER_BRAZIER, brighter(LIME, 1));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.CYAN_ETHER_BRAZIER, brighter(CYAN, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PURPLE_ETHER_BRAZIER, brighter(PURPLE, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.BLUE_ETHER_BRAZIER, brighter(BLUE, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.BROWN_ETHER_BRAZIER, brighter(BROWN, 1));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.GREEN_ETHER_BRAZIER, brighter(GREEN, 1));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.RED_ETHER_BRAZIER, brighter(RED, 3));
-        ClientHelper.registerItemColorTint(itemColors, MalumItems.PINK_ETHER_BRAZIER, brighter(PINK, 3));
+        itemColors.register((stack, color) ->
+                        color == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1,
+                MalumItems.ETHER_TORCH.get(), MalumItems.ETHER_BRAZIER.get());
+        itemColors.register((stack, color) ->
+                        ((IDyeableArmorItem) stack.getItem()).getColor(stack),
+                MalumItems.ETHER.get());
 
         ClientHelper.registerItemColor(itemColors, MalumItems.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR,1));
         ClientHelper.registerItemColor(itemColors, MalumItems.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);

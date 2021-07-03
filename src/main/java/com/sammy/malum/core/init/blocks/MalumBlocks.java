@@ -4,10 +4,10 @@ import com.sammy.malum.MalumColors;
 import com.sammy.malum.common.blocks.*;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
-import com.sammy.malum.common.blocks.lighting.EtherBlock;
-import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
-import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
-import com.sammy.malum.common.blocks.lighting.WallEtherTorchBlock;
+import com.sammy.malum.common.blocks.ether.EtherBlock;
+import com.sammy.malum.common.blocks.ether.EtherBrazierBlock;
+import com.sammy.malum.common.blocks.ether.EtherTorchBlock;
+import com.sammy.malum.common.blocks.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.blocks.runetable.RuneTableBlock;
 import com.sammy.malum.common.blocks.runetable.bounding.RuneTableBoundingBlock;
 import com.sammy.malum.common.blocks.spiritaltar.SpiritAltarBlock;
@@ -451,58 +451,11 @@ public class MalumBlocks
     //endregion
 
     //region ether
-    public static final RegistryObject<Block> ORANGE_ETHER_TORCH = BLOCKS.register("orange_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.ORANGE));
-    public static final RegistryObject<Block> MAGENTA_ETHER_TORCH = BLOCKS.register("magenta_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.MAGENTA));
-    public static final RegistryObject<Block> LIGHT_BLUE_ETHER_TORCH = BLOCKS.register("light_blue_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.LIGHT_BLUE));
-    public static final RegistryObject<Block> YELLOW_ETHER_TORCH = BLOCKS.register("yellow_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.YELLOW));
-    public static final RegistryObject<Block> PINK_ETHER_TORCH = BLOCKS.register("pink_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.PINK));
-    public static final RegistryObject<Block> LIME_ETHER_TORCH = BLOCKS.register("lime_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.LIME));
-    public static final RegistryObject<Block> CYAN_ETHER_TORCH = BLOCKS.register("cyan_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.CYAN));
-    public static final RegistryObject<Block> PURPLE_ETHER_TORCH = BLOCKS.register("purple_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.PURPLE));
-    public static final RegistryObject<Block> BLUE_ETHER_TORCH = BLOCKS.register("blue_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.BLUE));
-    public static final RegistryObject<Block> BROWN_ETHER_TORCH = BLOCKS.register("brown_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.BROWN));
-    public static final RegistryObject<Block> GREEN_ETHER_TORCH = BLOCKS.register("green_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.GREEN));
-    public static final RegistryObject<Block> RED_ETHER_TORCH = BLOCKS.register("red_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)), MalumColors.RED));
-
-    public static final RegistryObject<Block> ORANGE_WALL_ETHER_TORCH = BLOCKS.register("orange_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(ORANGE_ETHER_TORCH.get()), MalumColors.ORANGE));
-    public static final RegistryObject<Block> MAGENTA_WALL_ETHER_TORCH = BLOCKS.register("magenta_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(MAGENTA_ETHER_TORCH.get()), MalumColors.MAGENTA));
-    public static final RegistryObject<Block> LIGHT_BLUE_WALL_ETHER_TORCH = BLOCKS.register("light_blue_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(LIGHT_BLUE_ETHER_TORCH.get()), MalumColors.LIGHT_BLUE));
-    public static final RegistryObject<Block> YELLOW_WALL_ETHER_TORCH = BLOCKS.register("yellow_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(YELLOW_ETHER_TORCH.get()), MalumColors.YELLOW));
-    public static final RegistryObject<Block> PINK_WALL_ETHER_TORCH = BLOCKS.register("pink_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(PINK_ETHER_TORCH.get()), MalumColors.PINK));
-    public static final RegistryObject<Block> LIME_WALL_ETHER_TORCH = BLOCKS.register("lime_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(LIME_ETHER_TORCH.get()), MalumColors.LIME));
-    public static final RegistryObject<Block> CYAN_WALL_ETHER_TORCH = BLOCKS.register("cyan_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(CYAN_ETHER_TORCH.get()), MalumColors.CYAN));
-    public static final RegistryObject<Block> PURPLE_WALL_ETHER_TORCH = BLOCKS.register("purple_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(PURPLE_ETHER_TORCH.get()), MalumColors.PINK));
-    public static final RegistryObject<Block> BLUE_WALL_ETHER_TORCH = BLOCKS.register("blue_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(BLUE_ETHER_TORCH.get()), MalumColors.BLUE));
-    public static final RegistryObject<Block> BROWN_WALL_ETHER_TORCH = BLOCKS.register("brown_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(BROWN_ETHER_TORCH.get()), MalumColors.BROWN));
-    public static final RegistryObject<Block> GREEN_WALL_ETHER_TORCH = BLOCKS.register("green_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(GREEN_ETHER_TORCH.get()), MalumColors.GREEN));
-    public static final RegistryObject<Block> RED_WALL_ETHER_TORCH = BLOCKS.register("red_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(RED_ETHER_TORCH.get()), MalumColors.RED));
-
-    public static final RegistryObject<Block> ORANGE_ETHER = BLOCKS.register("orange_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.ORANGE));
-    public static final RegistryObject<Block> MAGENTA_ETHER = BLOCKS.register("magenta_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.MAGENTA));
-    public static final RegistryObject<Block> LIGHT_BLUE_ETHER = BLOCKS.register("light_blue_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.LIGHT_BLUE));
-    public static final RegistryObject<Block> YELLOW_ETHER = BLOCKS.register("yellow_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.YELLOW));
-    public static final RegistryObject<Block> PINK_ETHER = BLOCKS.register("pink_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.PINK));
-    public static final RegistryObject<Block> LIME_ETHER = BLOCKS.register("lime_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.LIME));
-    public static final RegistryObject<Block> CYAN_ETHER = BLOCKS.register("cyan_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.CYAN));
-    public static final RegistryObject<Block> PURPLE_ETHER = BLOCKS.register("purple_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.PURPLE));
-    public static final RegistryObject<Block> BLUE_ETHER = BLOCKS.register("blue_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.BLUE));
-    public static final RegistryObject<Block> BROWN_ETHER = BLOCKS.register("brown_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.BROWN));
-    public static final RegistryObject<Block> GREEN_ETHER = BLOCKS.register("green_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.GREEN));
-    public static final RegistryObject<Block> RED_ETHER = BLOCKS.register("red_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES(), MalumColors.RED));
-
-    public static final RegistryObject<Block> ORANGE_ETHER_BRAZIER = BLOCKS.register("orange_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.ORANGE));
-    public static final RegistryObject<Block> MAGENTA_ETHER_BRAZIER = BLOCKS.register("magenta_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.MAGENTA));
-    public static final RegistryObject<Block> LIGHT_BLUE_ETHER_BRAZIER = BLOCKS.register("light_blue_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.LIGHT_BLUE));
-    public static final RegistryObject<Block> YELLOW_ETHER_BRAZIER = BLOCKS.register("yellow_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.YELLOW));
-    public static final RegistryObject<Block> PINK_ETHER_BRAZIER = BLOCKS.register("pink_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.PINK));
-    public static final RegistryObject<Block> LIME_ETHER_BRAZIER = BLOCKS.register("lime_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.LIME));
-    public static final RegistryObject<Block> CYAN_ETHER_BRAZIER = BLOCKS.register("cyan_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.CYAN));
-    public static final RegistryObject<Block> PURPLE_ETHER_BRAZIER = BLOCKS.register("purple_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.PURPLE));
-    public static final RegistryObject<Block> BLUE_ETHER_BRAZIER = BLOCKS.register("blue_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.BLUE));
-    public static final RegistryObject<Block> BROWN_ETHER_BRAZIER = BLOCKS.register("brown_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.BROWN));
-    public static final RegistryObject<Block> GREEN_ETHER_BRAZIER = BLOCKS.register("green_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.GREEN));
-    public static final RegistryObject<Block> RED_ETHER_BRAZIER = BLOCKS.register("red_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)), MalumColors.RED));
-    //endregion
+    public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14))));
+    public static final RegistryObject<Block> WALL_ETHER_TORCH = BLOCKS.register("wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(ETHER_TORCH.get())));
+    public static final RegistryObject<Block> ETHER = BLOCKS.register("ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> ETHER_BRAZIER = BLOCKS.register("ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14))));
+   //endregion
 
 
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new MalumOreBlock(BLAZE_QUARTZ_ORE_PROPERTIES(), 4, 12));

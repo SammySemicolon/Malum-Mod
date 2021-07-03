@@ -1,13 +1,12 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blocks.lighting.EtherBlock;
-import com.sammy.malum.common.blocks.lighting.EtherBrazierBlock;
-import com.sammy.malum.common.blocks.lighting.EtherTorchBlock;
+import com.sammy.malum.common.blocks.ether.EtherBlock;
+import com.sammy.malum.common.blocks.ether.EtherBrazierBlock;
+import com.sammy.malum.common.blocks.ether.EtherTorchBlock;
 import com.sammy.malum.common.items.SpiritItem;
 import com.sammy.malum.common.items.tools.ModCombatItem;
 import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
-import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;

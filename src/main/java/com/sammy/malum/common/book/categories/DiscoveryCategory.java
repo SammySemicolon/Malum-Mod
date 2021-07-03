@@ -139,11 +139,11 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(new SpiritInfusionPage(SACRIFICIAL_DAGGER.get()))
                 .addLink(()->spirit_infusion).addLink(()->spirit_harvesting);
 
-        ether = new BookEntry(YELLOW_ETHER.get(), "ether")
+        ether = new BookEntry(ETHER.get(), "ether")
                 .addPage(new HeadlineTextPage("ether"))
-                .addPage(new SpiritInfusionPage(YELLOW_ETHER.get()))
-                .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, YELLOW_ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
-                .addPage(new CraftingPage(new ItemStack(YELLOW_ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), YELLOW_ETHER.get(), TAINTED_ROCK.get(), Items.STICK, TAINTED_ROCK.get(), Items.STICK))
+                .addPage(new SpiritInfusionPage(ETHER.get()))
+                .addPage(new CraftingPage(new ItemStack(ETHER_TORCH.get()), EMPTY, EMPTY, EMPTY, EMPTY, ETHER.get(), EMPTY, EMPTY, Items.STICK, EMPTY))
+                .addPage(new CraftingPage(new ItemStack(ETHER_BRAZIER.get()), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ETHER.get(), TAINTED_ROCK.get(), Items.STICK, TAINTED_ROCK.get(), Items.STICK))
                 .addLink(()->spirit_infusion).addLink(()->blazing_quartz);
 
         spirit_architecture = new BookEntry(ERODED_ROCK.get(), "spirit_architecture")

@@ -32,7 +32,7 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT));
 
         //ether
-        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 4), new ItemIngredient(MalumItems.YELLOW_ETHER.get(), 2))
+        new MalumSpiritAltarRecipe(new ItemIngredient(Tags.Items.DUSTS_GLOWSTONE, 4), new ItemIngredient(MalumItems.ETHER.get(), 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.INFERNAL_SPIRIT, 2))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
