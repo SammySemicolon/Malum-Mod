@@ -101,7 +101,7 @@ public class SpiritRitesRecipeCategory implements IRecipeCategory<MalumRiteType>
     {
         Minecraft minecraft = Minecraft.getInstance();
         overlay.draw(matrixStack);
-        TranslationTextComponent component = new TranslationTextComponent("malum.gui.book.entry." + recipe.identifier);
+        TranslationTextComponent component = new TranslationTextComponent("malum.gui.rite." + recipe.identifier);
 
         String text = component.getString();
         int r = 112;

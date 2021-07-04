@@ -11,6 +11,8 @@ import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.events.StartupEvents;
 import com.sammy.malum.core.init.enchantments.MalumEnchantments;
 import com.sammy.malum.core.modcontent.MalumBookCategories;
+import com.sammy.malum.core.modcontent.MalumRites;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
@@ -48,6 +50,7 @@ public class MalumLangProvider extends LanguageProvider
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
         Set<RegistryObject<Effect>> effects = new HashSet<>(MalumEffects.EFFECTS.getEntries());
         ArrayList<BookCategory> bookChapters = MalumBookCategories.CATEGORIES;
+        ArrayList<MalumRiteType> rites = MalumRites.RITES;
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         blocks.forEach(b ->
@@ -95,6 +98,8 @@ public class MalumLangProvider extends LanguageProvider
                 }
             }
         });
+        rites.forEach(r -> add("malum.gui.rite." + r.identifier, MalumHelper.toTitleCase(r.identifier, "_")));
+
         addPage("sacred_spirit", "Sacred spirit is a symbol of the living, it pains wicked beings such as zombies or skeletons. It is a direct opposite of the undead, found only in pure and untainted souls. It yields many curative properties");
         addPage("wicked_spirit", "The enemy of the sacred, this spirit represents the undead. The undead are weird, bizarre beings. Their souls are basically in a state of limbo, stuck in a quickly decaying corpse or an animated pile of bones.");
         addPage("arcane_spirit", "Arcane spirit is the purest, most common form of spirit magics. This rather simple spirit is found within all sorts of creatures, there's 2 criteria. A given soul can either be born from magic, or actively use magic. Think of a skeleton or a witch.");

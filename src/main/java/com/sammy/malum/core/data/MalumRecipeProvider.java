@@ -524,7 +524,6 @@ public class MalumRecipeProvider extends RecipeProvider
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.CLEANSED_ROCK_BRICKS.get()), MalumItems.SMALL_CLEANSED_ROCK_BRICKS.get()).addCriterion("has_cleansed_rock", hasItem(MalumItems.CLEANSED_ROCK.get())).build(consumer, "small_cleansed_rock_bricks_stonecutting_from_bricks");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.CLEANSED_ROCK_TILES.get()), MalumItems.SMALL_CLEANSED_ROCK_BRICKS.get()).addCriterion("has_cleansed_rock", hasItem(MalumItems.CLEANSED_ROCK.get())).build(consumer, "small_cleansed_rock_bricks_stonecutting_from_tiles");
 
-
         shapedRecipe(MalumItems.CLEANSED_ROCK_ITEM_STAND.get(), 2).key('X', MalumItems.CLEANSED_ROCK.get()).key('Y', MalumItems.CLEANSED_ROCK_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_cleansed_rock", hasItem(MalumItems.CLEANSED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.CLEANSED_ROCK_ITEM_PEDESTAL.get()).key('X', MalumItems.CLEANSED_ROCK.get()).key('Y', MalumItems.CLEANSED_ROCK_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_cleansed_rock", hasItem(MalumItems.CLEANSED_ROCK.get())).build(consumer);
 
@@ -622,6 +621,9 @@ public class MalumRecipeProvider extends RecipeProvider
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.ERODED_ROCK_BRICKS.get()), MalumItems.CHISELED_ERODED_ROCK.get()).addCriterion("has_eroded_rock", hasItem(MalumItems.ERODED_ROCK.get())).build(consumer, "chiseled_eroded_rock_bricks_stonecutting_alt");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.ERODED_ROCK_BRICKS.get()), MalumItems.SMALL_ERODED_ROCK_BRICKS.get()).addCriterion("has_eroded_rock", hasItem(MalumItems.ERODED_ROCK.get())).build(consumer, "small_eroded_rock_bricks_stonecutting_from_bricks");
         SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MalumItems.ERODED_ROCK_TILES.get()), MalumItems.SMALL_ERODED_ROCK_BRICKS.get()).addCriterion("has_eroded_rock", hasItem(MalumItems.ERODED_ROCK.get())).build(consumer, "small_eroded_rock_bricks_stonecutting_from_tiles");
+
+        shapedRecipe(MalumItems.ERODED_ROCK_ITEM_STAND.get(), 2).key('X', MalumItems.ERODED_ROCK.get()).key('Y', MalumItems.ERODED_ROCK_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_eroded_rock", hasItem(MalumItems.ERODED_ROCK.get())).build(consumer);
+        shapedRecipe(MalumItems.ERODED_ROCK_ITEM_PEDESTAL.get()).key('X', MalumItems.ERODED_ROCK.get()).key('Y', MalumItems.ERODED_ROCK_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_eroded_rock", hasItem(MalumItems.ERODED_ROCK.get())).build(consumer);
 
         coloredEtherTorch(consumer, MalumItems.ETHER_TORCH.get(), MalumItems.ETHER.get());
         shapedColoredEtherBrazier(consumer, MalumItems.ETHER_BRAZIER.get(), MalumItems.ETHER.get());

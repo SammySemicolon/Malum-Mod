@@ -18,7 +18,7 @@ public class ElixirOfLifeItem extends HoneyBottleItem
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
     {
         entityLiving.heal(6);
-        entityLiving.addPotionEffect(new EffectInstance(Effects.REGENERATION, 200, 0));
+        entityLiving.addPotionEffect(new EffectInstance(Effects.REGENERATION, 200, 1));
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 }
