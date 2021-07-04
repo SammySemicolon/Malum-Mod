@@ -128,13 +128,15 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
     }
     public void etherTorchBlock(RegistryObject<Block> blockRegistryObject)
     {
-        ModelFile torch = models().torch(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/colored_ether_torch"));
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch")).texture("torch", prefix("block/" + name)).texture("colored", prefix("block/" + name + "_overlay"));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
     }
     public void wallEtherTorchBlock(RegistryObject<Block> blockRegistryObject)
     {
-        ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/colored_ether_torch"));
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch_wall")).texture("torch", prefix("block/" + name.substring(5))).texture("colored", prefix("block/" + name.substring(5) + "_overlay"));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.NORTH)

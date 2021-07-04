@@ -4,6 +4,7 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.ether.EtherTileEntity;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalRenderer;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
@@ -36,6 +37,8 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -95,6 +98,18 @@ public class ClientStartupEvents
     {
         BlockColors blockColors = event.getBlockColors();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
+
+        blockColors.register((state, reader, pos, color) -> {
+
+            TileEntity tileEntity = reader.getTileEntity(pos);
+            if (tileEntity instanceof EtherTileEntity)
+            {
+                EtherTileEntity etherTileEntity = (EtherTileEntity) tileEntity;
+                return color == 0 ? etherTileEntity.color : -1;
+            }
+            return -1;
+        }, MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get());
+
         MalumHelper.takeAll(blocks, block -> block.get() instanceof MalumLeavesBlock).forEach(block -> blockColors.register((state, reader, pos, color) -> {
             float i = state.get(MalumLeavesBlock.COLOR);
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) block.get();
