@@ -13,9 +13,31 @@ public class EtherTorchItem extends WallOrFloorItem implements IDyeableArmorItem
         super(floorBlock, wallBlockIn, propertiesIn);
     }
     @Override
+    public boolean hasColor(ItemStack stack)
+    {
+        CompoundNBT compoundnbt = stack.getChildTag("display");
+        return compoundnbt != null && compoundnbt.contains("color", 99);
+    }
+
+    @Override
     public int getColor(ItemStack stack)
     {
         CompoundNBT compoundnbt = stack.getChildTag("display");
         return compoundnbt != null && compoundnbt.contains("color", 99) ? compoundnbt.getInt("color") : 15712278;
+    }
+
+    @Override
+    public void removeColor(ItemStack stack)
+    {
+        CompoundNBT compoundnbt = stack.getChildTag("display");
+        if (compoundnbt != null && compoundnbt.contains("color")) {
+            compoundnbt.remove("color");
+        }
+    }
+
+    @Override
+    public void setColor(ItemStack stack, int color)
+    {
+        stack.getOrCreateChildTag("display").putInt("color", color);
     }
 }

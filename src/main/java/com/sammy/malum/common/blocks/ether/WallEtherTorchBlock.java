@@ -1,11 +1,13 @@
 package com.sammy.malum.common.blocks.ether;
 
 import com.sammy.malum.common.items.EtherTorchItem;
+import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
@@ -17,6 +19,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ColorHelper;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -42,14 +45,21 @@ public class WallEtherTorchBlock extends WallTorchBlock implements IWaterLoggabl
         {
             EtherTileEntity tileEntity = (EtherTileEntity) worldIn.getTileEntity(pos);
             EtherTorchItem item = (EtherTorchItem) stack.getItem();
-            int decimal = item.getColor(stack);
-            int red = ColorHelper.PackedColor.getRed(decimal);
-            int green = ColorHelper.PackedColor.getGreen(decimal);
-            int blue = ColorHelper.PackedColor.getBlue(decimal);
-            Color color = new Color(red, green, blue);
-            tileEntity.color = color;
+            tileEntity.color = item.getColor(stack);
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    }
+    @Override
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player)
+    {
+        ItemStack stack = MalumItems.ETHER_TORCH.get().getDefaultInstance();
+        if (world.getTileEntity(pos) instanceof EtherTileEntity)
+        {
+            EtherTileEntity tileEntity = (EtherTileEntity) world.getTileEntity(pos);
+            EtherTorchItem etherItem = (EtherTorchItem) stack.getItem();
+            etherItem.setColor(stack, tileEntity.color);
+        }
+        return stack;
     }
     @Override
     public boolean hasTileEntity(BlockState state)

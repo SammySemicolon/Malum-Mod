@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:block",
+  "pools":
+  [
+    {
+      "rolls": 1,
+      "entries":
+      [
+        {
+          "type": "minecraft:item",
+          "name": "malum:ether_brazier",
+          "functions":
+          [
+            {
+              "function": "minecraft:copy_name",
+              "source": "block_entity"
+            },
+            {
+              "function": "minecraft:copy_nbt",
+              "source": "block_entity",
+              "ops":
+              [
+                {
+                  "source": "world_key",
+                  "target": "BlockEntityTag.world_key",
+                  "op": "replace"
+                },
+                {
+                  "source": "color",
+                  "target": "display.color",
+                  "op": "replace"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

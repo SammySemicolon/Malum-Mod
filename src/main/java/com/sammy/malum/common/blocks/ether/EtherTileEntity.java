@@ -11,13 +11,14 @@ import net.minecraft.block.WallTorchBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.ColorHelper;
 import net.minecraft.util.Direction;
 
 import java.awt.*;
 
 public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
-    public Color color;
+    public int color;
 
     public EtherTileEntity()
     {
@@ -27,19 +28,14 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
     @Override
     public void readData(CompoundNBT compound)
     {
-        if (color != null)
-        {
-            compound.putInt("red", color.getRed());
-            compound.putInt("green", color.getGreen());
-            compound.putInt("blue", color.getBlue());
-        }
+        color = compound.getInt("color");
         super.readData(compound);
     }
 
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        color = new Color(compound.getInt("red"), compound.getInt("green"), compound.getInt("blue"));
+        compound.putInt("color", color);
         return super.writeData(compound);
     }
 
@@ -54,10 +50,10 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
     {
         if (MalumHelper.areWeOnClient(world))
         {
-            if (color == null)
-            {
-                return;
-            }
+            int red = ColorHelper.PackedColor.getRed(color);
+            int green = ColorHelper.PackedColor.getGreen(color);
+            int blue = ColorHelper.PackedColor.getBlue(color);
+            Color color = new Color(red, green, blue);
             double x = pos.getX() + 0.5;
             double y = pos.getY() + 0.6;
             double z = pos.getZ() + 0.5;
@@ -89,7 +85,8 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                     .setAlpha(0.2f)
                     .setColor(color, color)
                     .spawn(world, x, y, z);
-            if (world.rand.nextFloat() < 0.95f)
+
+            if (world.rand.nextFloat() < 0.98f)
             {
                 ParticleManager.create(MalumParticles.WISP_PARTICLE)
                         .setScale(scale, 0)

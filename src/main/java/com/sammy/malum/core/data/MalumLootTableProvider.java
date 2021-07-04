@@ -68,6 +68,10 @@ public class MalumLootTableProvider extends LootTableProvider
         blocks.remove(MalumBlocks.BLAZING_QUARTZ_ORE);
         blocks.remove(MalumBlocks.TOTEM_POLE);
 
+        blocks.remove(MalumBlocks.ETHER);
+        blocks.remove(MalumBlocks.ETHER_TORCH);
+        blocks.remove(MalumBlocks.ETHER_BRAZIER);
+
         takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);
         takeAll(blocks, b -> b.get() instanceof LeavesBlock);
