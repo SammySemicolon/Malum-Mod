@@ -64,7 +64,8 @@ public class MalumItems
         return new Item.Properties().maxStackSize(1);
     }
 
-    public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = ITEMS.register("encyclopedia_arcana", () -> new EncyclopediaArcanaItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> ENCYCLOPEDIA_ARCANA = ITEMS.register("encyclopedia_arcana", () -> new EncyclopediaArcanaItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> COOLER_ARCANA = ITEMS.register("cooler_arcana", () -> new CoolerArcanaItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
 
     //region tainted rock
     public static final RegistryObject<Item> TAINTED_ROCK = ITEMS.register("tainted_rock", () -> new BlockItem(MalumBlocks.TAINTED_ROCK.get(), BUILDING_PROPERTIES()));

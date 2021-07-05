@@ -146,7 +146,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("twisted_rock", "When making tainted rock, if we are to replace the sacred spirit with a wicked one twisted rock will instead be made. This is a much stronger rock, perhaps evil wicked spirit is naturally stronger than sacred.");
         addPage("twisted_rock_architecture", "Much alike the tainted rock, using a crafting table or the stone cutter, you can make many variants of twisted rock.");
 
-        addPage("ether", "Long gone are the days of nitor, however ether is much the same. It's a partially-translucent magic matter that looks much like fire and shines even brighter. It can be put on a torch or placed in a tainted rock brazier. It can also be colored using most dyes.");
+        addPage("ether", "Long gone are the days of nitor, however ether is much the same. It's a partially-translucent magic matter that looks much like fire and shines even brighter. It can be placed on a torch or a tainted rock blazier. It can also be dyed any combination of colors.");
 
         addPage("sacrificial_dagger", "A scythe is a very efficient tool at cutting through hordes of enemies. However, this perk may often become a detriment in certain situations. The sacrificial dagger will strike only one enemy at a time, allowing for easier, more precise soul shattering.");
 
