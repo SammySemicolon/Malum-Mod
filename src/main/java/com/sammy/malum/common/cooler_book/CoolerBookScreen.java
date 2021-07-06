@@ -27,25 +27,17 @@ public class CoolerBookScreen extends Screen
     public static final ResourceLocation FRAME_TEXTURE = MalumHelper.prefix("textures/gui/book/frame.png");
     public static final ResourceLocation FADE_TEXTURE = MalumHelper.prefix("textures/gui/book/fade.png");
 
-    public static final ResourceLocation SKY_BELOW_TEXTURE = MalumHelper.prefix("textures/gui/book/sky_below.png");
     public static final ResourceLocation SKY_TEXTURE = MalumHelper.prefix("textures/gui/book/sky.png");
-    public static final ResourceLocation SKY_ABOVE_TEXTURE = MalumHelper.prefix("textures/gui/book/sky_above.png");
-
-    public static final ResourceLocation CLOSE_CLOUDS_BELOW_TEXTURE = MalumHelper.prefix("textures/gui/book/close_clouds_below.png");
-    public static final ResourceLocation CLOSE_CLOUDS_TEXTURE = MalumHelper.prefix("textures/gui/book/close_clouds.png");
-
-    public static final ResourceLocation FARAWAY_CLOUDS_BELOW_TEXTURE = MalumHelper.prefix("textures/gui/book/faraway_clouds_below.png");
-    public static final ResourceLocation FARAWAY_CLOUDS_TEXTURE = MalumHelper.prefix("textures/gui/book/faraway_clouds.png");
 
     public int bookWidth = 458;
     public int bookHeight = 250;
     public int bookInsideWidth = 440;
     public int bookInsideHeight = 232;
 
-    public final int render_width = 256;
-    public final int render_height = 128;
     public final int texture_width = 512;
     public final int texture_height = 256;
+    public final int parallax_width = 512;
+    public final int parallax_height = 2560;
     public static CoolerBookScreen screen;
     float xOffset;
     float yOffset;
@@ -70,9 +62,7 @@ public class CoolerBookScreen extends Screen
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
 
-        renderParallax(SKY_BELOW_TEXTURE, SKY_TEXTURE, SKY_ABOVE_TEXTURE, matrixStack, 0.5f, 0.25f, 0, 128);
-        renderParallax(FARAWAY_CLOUDS_BELOW_TEXTURE, FARAWAY_CLOUDS_TEXTURE, null, matrixStack, 0.6f, 0.35f, 32, 32);
-        renderParallax(CLOSE_CLOUDS_BELOW_TEXTURE, CLOSE_CLOUDS_TEXTURE, null, matrixStack, 0.75f, 0.6f, 0, 0);
+        renderParallax(SKY_TEXTURE, matrixStack, 0.6f, 0.45f, 32, 32);
 
         renderEntries(matrixStack, mouseX, mouseY, partialTicks);
 
@@ -83,7 +73,7 @@ public class CoolerBookScreen extends Screen
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta)
     {
-        zoom += delta > 0 ? 0.01f : - 0.01f;
+        yOffset += delta > 0 ? 0.01f : - 0.01f;
         return super.mouseScrolled(mouseX, mouseY, delta);
     }
 
@@ -108,48 +98,30 @@ public class CoolerBookScreen extends Screen
         scissors();
         for (CoolerBookObject object : objects)
         {
-            object.render(minecraft, stack, xOffset * 0.6f, -yOffset * 0.6f, mouseX, mouseY, partialTicks);
+            object.render(minecraft, stack, xOffset * 0.75f, -yOffset * 0.75f, mouseX, mouseY, partialTicks);
         }
         GL11.glDisable(GL_SCISSOR_TEST);
     }
 
-    public void renderParallax(ResourceLocation belowTexture, ResourceLocation texture, ResourceLocation aboveTexture, MatrixStack matrixStack, float xModifier, float yModifier, float extraXOffset, float extraYOffset)
+    public void renderParallax(ResourceLocation texture, MatrixStack matrixStack, float xModifier, float yModifier, float extraXOffset, float extraYOffset)
     {
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         int insideLeft = guiLeft + 8;
         int insideTop = guiTop + 8;
-        int scale = (int) getMinecraft().getMainWindow().getGuiScaleFactor();
         float uOffset = -(xOffset) * xModifier - extraXOffset;
         float vOffset = (yOffset) * yModifier + extraYOffset;
 
-        float percentage = -vOffset / bookInsideHeight;
-        float cutoff = Math.max(0, 1 - percentage);
+        if (vOffset > parallax_height - texture_height)
+        {
+            vOffset = parallax_height - texture_height;
+        }
+        if (vOffset < 0)
+        {
+            vOffset = 0;
+        }
         GL11.glEnable(GL_SCISSOR_TEST);
-        GL11.glScissor(insideLeft * scale, insideTop * scale, bookInsideWidth * scale, MathHelper.ceil(bookInsideHeight * scale * cutoff));
-        renderTexture(texture, matrixStack, insideLeft, insideTop, uOffset, vOffset, texture_width, texture_height, 512, 256);
-        scissors();
-        if (belowTexture != null)
-        {
-            float downwardsProgress = (vOffset) / texture_height;
-            if (MathHelper.ceil(downwardsProgress) >= 1)
-            {
-                float cappedProgress = Math.min(1, downwardsProgress);
-                int up = (int) (texture_height - texture_height * cappedProgress);
-                renderTexture(belowTexture, matrixStack, guiLeft, guiTop + up, uOffset, vOffset + up, texture_width, texture_height, 512, 256);
-            }
-        }
-        if (aboveTexture != null)
-        {
-            float upwardsProgress = (-vOffset+texture_height*0.1f) / texture_height; //probably missing some more proper math here ?
-            if (MathHelper.ceil(upwardsProgress) >= 1)
-            {
-                float cappedProgress = Math.min(1, upwardsProgress);
-                int up = (int) (texture_height - texture_height * cappedProgress);
-                renderTexture(aboveTexture, matrixStack, guiLeft, guiTop - up, uOffset, vOffset - up, texture_width, texture_height, 512, 256);
-            }
-        }
-
+        renderTexture(texture, matrixStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, parallax_width, parallax_height);
         GL11.glDisable(GL_SCISSOR_TEST);
     }
 
@@ -188,8 +160,6 @@ public class CoolerBookScreen extends Screen
     public static void openScreen()
     {
         Minecraft.getInstance().displayGuiScreen(getInstance());
-        screen.xOffset = screen.texture_width * 0.6f;
-        screen.yOffset = -screen.texture_height * 1.1f;
         screen.playSound();
     }
 
