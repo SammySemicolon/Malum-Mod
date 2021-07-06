@@ -18,6 +18,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 
@@ -26,7 +27,7 @@ public class ScytheItem extends ModCombatItem implements ISpiritTool
 {
     public ScytheItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn)
     {
-        super(tier, attackDamageIn+4, attackSpeedIn - 3.2f, builderIn);
+        super(tier, attackDamageIn+4, attackSpeedIn - 3.2f, builderIn.addToolType(ToolType.HOE, 3));
     }
     
     @Nonnull

@@ -4,22 +4,20 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.book.objects.BookObject;
 import com.sammy.malum.common.cooler_book.objects.CoolerBookObject;
 import com.sammy.malum.common.cooler_book.objects.EntryBookObject;
+import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.StringTextComponent;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
+import static com.sammy.malum.common.cooler_book.CoolerBookEntry.Arrow.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class CoolerBookScreen extends Screen
@@ -28,51 +26,115 @@ public class CoolerBookScreen extends Screen
     public static final ResourceLocation FADE_TEXTURE = MalumHelper.prefix("textures/gui/book/fade.png");
 
     public static final ResourceLocation SKY_TEXTURE = MalumHelper.prefix("textures/gui/book/sky.png");
+    public static final ResourceLocation FARAWAY_CLOUDS_TEXTURE = MalumHelper.prefix("textures/gui/book/faraway_clouds.png");
+    public static final ResourceLocation CLOUDS_TEXTURE = MalumHelper.prefix("textures/gui/book/clouds.png");
 
     public int bookWidth = 458;
     public int bookHeight = 250;
-    public int bookInsideWidth = 440;
-    public int bookInsideHeight = 232;
+    public int bookInsideWidth = 424;
+    public int bookInsideHeight = 215;
 
     public final int texture_width = 512;
     public final int texture_height = 256;
+
     public final int parallax_width = 512;
     public final int parallax_height = 2560;
     public static CoolerBookScreen screen;
     float xOffset;
     float yOffset;
-    float zoom = 1;
+    float xMovement;
+    float yMovement;
 
-    public static ArrayList<CoolerBookObject> objects = new ArrayList<>();
+    public static ArrayList<CoolerBookEntry> entries;
+    public static ArrayList<CoolerBookObject> objects;
 
     protected CoolerBookScreen()
     {
         super(ClientHelper.simpleTranslatableComponent("malum.gui.book.title"));
-        for (int i = 0; i < 50; i++)
+        minecraft = Minecraft.getInstance();
+        setupEntries();
+        setupObjects();
+    }
+    public void setupEntries()
+    {
+        entries = new ArrayList<>();
+        entries.add(new CoolerBookEntry("welcome", MalumItems.ENCYCLOPEDIA_ARCANA.get(),0,-1).addArrows(UP));
+        entries.add(new CoolerBookEntry("basics_of_magic", MalumItems.ARCANE_SPIRIT.get(),0,0).addArrows(LEFT_UP, RIGHT_UP));
+        entries.add(new CoolerBookEntry("runewood", MalumItems.RUNEWOOD_SAPLING.get(),1,1).addArrows(LEFT_UP));
+        entries.add(new CoolerBookEntry("soulstone", MalumItems.SOULSTONE.get(),-1,1).addArrows(UP_LEFT, UP_RIGHT));
+        entries.add(new CoolerBookEntry("simple_spirit_harvesting", MalumItems.CRUDE_SCYTHE.get(),-2, 2).addArrows(UP_LEFT));
+        entries.add(new CoolerBookEntry("sacrificial_dagger", MalumItems.SACRIFICIAL_DAGGER.get(),-3, 3));
+        entries.add(new CoolerBookEntry("types_of_spirit", MalumItems.ARCANE_SPIRIT.get(),-3, 2));
+
+        entries.add(new CoolerBookEntry("spirit_infusion", MalumItems.SPIRIT_ALTAR.get(),0, 2).addArrows(RIGHT, UP_LEFT, UP_RIGHT));
+        entries.add(new CoolerBookEntry("ether", MalumItems.ETHER.get(),1, 2));
+        entries.add(new CoolerBookEntry("item_holders", MalumItems.SPIRIT_ALTAR.get(),0, 2).addArrows(UP_LEFT, UP_RIGHT));
+        entries.add(new CoolerBookEntry("arcane_rock", MalumItems.TAINTED_ROCK.get(),-1, 3));
+        entries.add(new CoolerBookEntry("soul_stained_steel", MalumItems.SOUL_STAINED_STEEL_INGOT.get(),-1, 4).addArrows(LEFT, UP_RIGHT));
+        entries.add(new CoolerBookEntry("soul_stained_steel_gear", MalumItems.CREATIVE_SCYTHE.get(),-2, 4).addArrows(UP_RIGHT));
+        entries.add(new CoolerBookEntry("hallowed_gold", MalumItems.HALLOWED_GOLD_INGOT.get(),1, 4).addArrows(UP_LEFT));
+        entries.add(new CoolerBookEntry("spirit_resonators", MalumItems.HALLOWED_SPIRIT_RESONATOR.get(),0, 5));
+        entries.add(new CoolerBookEntry("spirit_jar", MalumItems.SPIRIT_JAR.get(),2, 6));
+
+        entries.add(new CoolerBookEntry("totem_magic", MalumItems.TOTEM_BASE.get(),1, 3).addArrows(RIGHT_UP));
+        entries.add(new CoolerBookEntry("crafting_with_totems", MalumItems.RUNE_TABLE.get(),2, 4));
+        entries.add(new CoolerBookEntry("simple_auras", MalumItems.TOTEM_BASE.get(),2, 5));
+        entries.add(new CoolerBookEntry("complex_rites", MalumItems.TOTEM_BASE.get(),2, 6));
+
+
+    }
+    public void setupObjects()
+    {
+        objects = new ArrayList<>();
+        this.width = minecraft.getMainWindow().getScaledWidth();
+        this.height = minecraft.getMainWindow().getScaledHeight();
+        int guiLeft = (width - bookWidth) / 2;
+        int guiTop = (height - bookHeight) / 2;
+        int coreX = guiLeft + bookInsideWidth;
+        int coreY = guiTop + bookInsideHeight;
+        int one = 64;
+        for (CoolerBookEntry entry : entries)
         {
-            objects.add(new EntryBookObject(MalumMod.RANDOM.nextInt(500), MalumMod.RANDOM.nextInt(500)));
+            objects.add(new EntryBookObject(entry, coreX+entry.xOffset*one, coreY-entry.yOffset*one));
         }
+        faceObject(objects.get(0));
+    }
+    public void faceObject(CoolerBookObject object)
+    {
+        this.width = minecraft.getMainWindow().getScaledWidth();
+        this.height = minecraft.getMainWindow().getScaledHeight();
+        int guiLeft = (width - bookWidth) / 2;
+        int guiTop = (height - bookHeight) / 2;
+        xOffset = -object.posX+guiLeft + bookInsideWidth;
+        yOffset = -object.posY+guiTop + bookInsideHeight;
     }
 
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
     {
+        xOffset += xMovement;
+        yOffset += yMovement;
         renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
 
-        renderParallax(SKY_TEXTURE, matrixStack, 0.6f, 0.45f, 32, 32);
+        GL11.glEnable(GL_SCISSOR_TEST);
+        cut();
+        renderParallax(SKY_TEXTURE, matrixStack, 0.6f, 0.4f, 0, 0);
+        renderParallax(FARAWAY_CLOUDS_TEXTURE, matrixStack, 0.45f, 0.55f, 0, 0);
+        renderParallax(CLOUDS_TEXTURE, matrixStack, 0.3f, 0.7f, 64, 0);
 
         renderEntries(matrixStack, mouseX, mouseY, partialTicks);
+        GL11.glDisable(GL_SCISSOR_TEST);
 
-        renderTransparentTexture(FADE_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
         renderTexture(FRAME_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta)
     {
+        yMovement += delta > 0 ? 1f : -1f;
         yOffset += delta > 0 ? 0.01f : - 0.01f;
         return super.mouseScrolled(mouseX, mouseY, delta);
     }
@@ -81,8 +143,16 @@ public class CoolerBookScreen extends Screen
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY)
     {
         xOffset += dragX;
-        yOffset -= dragY;
+        yOffset += dragY;
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button)
+    {
+        xMovement = 0;
+        yMovement = 0;
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
@@ -93,44 +163,30 @@ public class CoolerBookScreen extends Screen
 
     public void renderEntries(MatrixStack stack, int mouseX, int mouseY, float partialTicks)
     {
-        Minecraft minecraft = Minecraft.getInstance();
-        GL11.glEnable(GL_SCISSOR_TEST);
-        scissors();
         for (CoolerBookObject object : objects)
         {
-            object.render(minecraft, stack, xOffset * 0.75f, -yOffset * 0.75f, mouseX, mouseY, partialTicks);
+            object.render(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
-        GL11.glDisable(GL_SCISSOR_TEST);
     }
 
     public void renderParallax(ResourceLocation texture, MatrixStack matrixStack, float xModifier, float yModifier, float extraXOffset, float extraYOffset)
     {
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
-        int insideLeft = guiLeft + 8;
-        int insideTop = guiTop + 8;
+        int insideLeft = guiLeft + 17;
+        int insideTop = guiTop + 18;
         float uOffset = -(xOffset) * xModifier - extraXOffset;
-        float vOffset = (yOffset) * yModifier + extraYOffset;
+        float vOffset = Math.min(parallax_height-bookInsideHeight,(parallax_height-bookInsideHeight-yOffset*yModifier) + extraYOffset);
 
-        if (vOffset > parallax_height - texture_height)
-        {
-            vOffset = parallax_height - texture_height;
-        }
-        if (vOffset < 0)
-        {
-            vOffset = 0;
-        }
-        GL11.glEnable(GL_SCISSOR_TEST);
-        renderTexture(texture, matrixStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, parallax_width, parallax_height);
-        GL11.glDisable(GL_SCISSOR_TEST);
+        renderTexture(texture, matrixStack, insideLeft, (int) (insideTop-vOffset), uOffset, 0, parallax_width, parallax_height, parallax_width/2, parallax_height/2);
     }
 
-    public void scissors()
+    public void cut()
     {
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
-        int insideLeft = guiLeft + 8;
-        int insideTop = guiTop + 8;
+        int insideLeft = guiLeft + 17;
+        int insideTop = guiTop + 18;
         int scale = (int) getMinecraft().getMainWindow().getGuiScaleFactor();
         GL11.glScissor(insideLeft * scale, insideTop * scale, bookInsideWidth * scale, bookInsideHeight * scale);
     }
@@ -165,10 +221,11 @@ public class CoolerBookScreen extends Screen
 
     public static CoolerBookScreen getInstance()
     {
-        if (screen == null)
+//        if (screen == null)
         {
             screen = new CoolerBookScreen();
         }
+        screen.faceObject(objects.get(0));
         return screen;
     }
 }
