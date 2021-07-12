@@ -16,7 +16,7 @@ Malum is a magic mod centered around souls and spirits
 [[dependencies.malum]]
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[35,)"
     ordering="NONE"
     side="BOTH"
 

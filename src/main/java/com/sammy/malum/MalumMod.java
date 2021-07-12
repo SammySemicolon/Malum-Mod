@@ -26,7 +26,7 @@ import static com.sammy.malum.core.init.particles.MalumParticles.PARTICLES;
 import static com.sammy.malum.core.init.worldgen.MalumFeatures.FEATURES;
 
 @SuppressWarnings("unused")
-@Mod("malum")
+@Mod(MalumMod.MODID)
 public class MalumMod
 {
     public static final Logger LOGGER = LogManager.getLogger();

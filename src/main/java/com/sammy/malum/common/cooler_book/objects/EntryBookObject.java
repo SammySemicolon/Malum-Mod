@@ -1,7 +1,9 @@
 package com.sammy.malum.common.cooler_book.objects;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.common.cooler_book.CoolerBookEntry;
+import com.sammy.malum.common.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
 import net.minecraft.client.Minecraft;
 
 import static com.sammy.malum.common.cooler_book.CoolerBookScreen.*;
@@ -24,71 +26,100 @@ public class EntryBookObject extends CoolerBookObject
         int posY = (int) (guiTop + this.posY + yOffset);
         renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, 1, 252, width, height, 512, 512);
         minecraft.getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 8, posY + 8);
-        for (CoolerBookEntry.Arrow arrow : entry.arrows)
+
+        matrixStack.push();
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
+        for (CoolerBookEntry.EntryLine arrow : entry.arrows)
         {
-            switch (arrow)
+            int arrowPosX = posX + arrow.xOffset*32;
+            int arrowPosY = posY + arrow.yOffset*-32;
+            for (LineEnum arrowEnum : arrow.lines)
             {
-                case UP:
+                switch (arrowEnum)
                 {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX, posY-32, 33, 285, 32, 32, 512, 512);
-                    break;
-                }
-                case DOWN:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX, posY+32, 1, 285, 32, 32, 512, 512);
-                    break;
-                }
-                case LEFT:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX-32, posY, 1, 317, 32, 32, 512, 512);
-                    break;
-                }
-                case RIGHT:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX+32, posY, 33, 317, 32, 32, 512, 512);
-                    break;
-                }
-                case UP_LEFT:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX-32, posY-64, 66, 285, 64, 64, 512, 512);
-                    break;
-                }
-                case UP_RIGHT:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX, posY-64, 131, 285, 64, 64, 512, 512);
-                    break;
-                }
-                case DOWN_LEFT:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX-32, posY+32, 196, 350, 64, 64, 512, 512);
-                    break;
-                }
-                case DOWN_RIGHT:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX, posY+32, 261, 350, 64, 64, 512, 512);
-                    break;
-                }
-                case LEFT_UP:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX-64, posY-32, 66, 350, 64, 64, 512, 512);
-                    break;
-                }
-                case LEFT_DOWN:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX-64, posY, 196, 285, 64, 64, 512, 512);
-                    break;
-                }
-                case RIGHT_UP:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX+32, posY-32, 131, 350, 64, 64, 512, 512);
-                    break;
-                }
-                case RIGHT_DOWN:
-                {
-                    renderTexture(FRAME_TEXTURE, matrixStack, posX+32, posY, 261, 285, 64, 64, 512, 512);
-                    break;
+                    case VERTICAL:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 1, 285);
+                        break;
+                    }
+                    case HORIZONTAL:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 34, 285);
+                        break;
+                    }
+
+                    case BEND_UP_LEFT:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 34, 351);
+                        break;
+                    }
+                    case BEND_UP_RIGHT:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 1, 351);
+                        break;
+                    }
+                    case BEND_DOWN_LEFT:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 34, 318);
+                        break;
+                    }
+                    case BEND_DOWN_RIGHT:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 1, 318);
+                        break;
+                    }
+
+                    case TWO_WAY_BEND_UP:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 67, 351);
+                        break;
+                    }
+                    case TWO_WAY_BEND_DOWN:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 100, 318);
+                        break;
+                    }
+                    case TWO_WAY_BEND_LEFT:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 100, 351);
+                        break;
+                    }
+                    case TWO_WAY_BEND_RIGHT:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 67, 318);
+                        break;
+                    }
+
+                    case CONNECTION_UP:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 34, 384);
+                        break;
+                    }
+                    case CONNECTION_DOWN:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 1, 417);
+                        break;
+                    }
+                    case CONNECTION_LEFT:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 1, 384);
+                        break;
+                    }
+                    case CONNECTION_RIGHT:
+                    {
+                        renderArrow(matrixStack, arrowPosX, arrowPosY, 34, 417);
+                        break;
+                    }
                 }
             }
         }
+        RenderSystem.disableDepthTest();
+        RenderSystem.disableBlend();
+        matrixStack.pop();
+    }
+    public void renderArrow(MatrixStack matrixStack, int arrowPosX, int arrowPosY, int uOffset, int vOffset)
+    {
+        renderTexture(FRAME_TEXTURE, matrixStack, arrowPosX, arrowPosY, uOffset, vOffset, 32, 32, 512, 512);
     }
 }
