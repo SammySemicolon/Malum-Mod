@@ -4,6 +4,7 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.blocks.MalumLeavesBlock;
+import com.sammy.malum.common.blocks.arcaneassembler.ArcaneAssemblerRenderer;
 import com.sammy.malum.common.blocks.ether.EtherTileEntity;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalRenderer;
@@ -68,6 +69,7 @@ public class ClientStartupEvents
     public static void bindTERs(FMLClientSetupEvent event)
     {
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_ASSEMBLER_TILE_ENTITY.get(), ArcaneAssemblerRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), TotemPoleRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.RUNE_TABLE_TILE_ENTITY.get(), RuneTableRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.RUNE_TABLE_BOUNDING_BLOCK_TILE_ENTITY.get(), RuneTableBoundingRenderer::new);

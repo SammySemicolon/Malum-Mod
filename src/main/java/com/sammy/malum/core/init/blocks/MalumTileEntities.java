@@ -1,5 +1,6 @@
 package com.sammy.malum.core.init.blocks;
 
+import com.sammy.malum.common.blocks.arcaneassembler.ArcaneAssemblerTileEntity;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalTileEntity;
 import com.sammy.malum.common.blocks.itemstand.ItemStandTileEntity;
 import com.sammy.malum.common.blocks.ether.EtherTileEntity;
@@ -25,6 +26,7 @@ public class MalumTileEntities
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
 
     public static final RegistryObject<TileEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_altar_tile_entity", () -> TileEntityType.Builder.create(SpiritAltarTileEntity::new, MalumBlocks.SPIRIT_ALTAR.get()).build(null));
+    public static final RegistryObject<TileEntityType<ArcaneAssemblerTileEntity>> ARCANE_ASSEMBLER_TILE_ENTITY = TILE_ENTITIES.register("arcane_assembler_tile_entity", () -> TileEntityType.Builder.create(ArcaneAssemblerTileEntity::new, MalumBlocks.ARCANE_ASSEMBLY_TABLE.get()).build(null));
 
     public static final RegistryObject<TileEntityType<RuneTableTileEntity>> RUNE_TABLE_TILE_ENTITY = TILE_ENTITIES.register("rune_table_tile_entity", () -> TileEntityType.Builder.create(RuneTableTileEntity::new, MalumBlocks.RUNE_TABLE.get()).build(null));
     public static final RegistryObject<TileEntityType<RuneTableBoundingBlockTileEntity>> RUNE_TABLE_BOUNDING_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("rune_table_bounding_block_tile_entity", () -> TileEntityType.Builder.create(RuneTableBoundingBlockTileEntity::new, MalumBlocks.RUNE_TABLE_BOUNDING_BLOCK.get()).build(null));

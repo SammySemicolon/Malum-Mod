@@ -23,13 +23,13 @@ public abstract class ActivatorRite extends MalumRiteType
         for (BlockPos nearbyPos : nearbyBlocks)
         {
             IAssembled assembled = (IAssembled) world.getTileEntity(nearbyPos);
-            assembled.assemble(pos, MalumHelper.toArrayList(MalumSpiritTypes.ELDRITCH_SPIRIT, MalumSpiritTypes.AQUATIC_SPIRIT));
+            assembled.assemble(pos, MalumHelper.toArrayList(MalumSpiritTypes.AQUATIC_SPIRIT, MalumSpiritTypes.ARCANE_SPIRIT));
             MalumHelper.updateAndNotifyState(world, pos);
         }
         super.executeRite(world, pos);
     }
     public interface IAssembled
     {
-        public void assemble(BlockPos pos, ArrayList<MalumSpiritType> spirits);
+        void assemble(BlockPos pos, ArrayList<MalumSpiritType> spirits);
     }
 }

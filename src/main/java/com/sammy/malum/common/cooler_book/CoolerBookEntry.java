@@ -189,6 +189,21 @@ public class CoolerBookEntry
         addLine(-xCount, yCount, CONNECTION_DOWN);
         return this;
     }
+    public CoolerBookEntry leftDown(int xCount, int yCount)
+    {
+        addLine(CONNECTION_LEFT);
+        for (int i =1; i < xCount; i++)
+        {
+            horizontal(-i, 0);
+        }
+        addLine(-xCount, 0, BEND_DOWN_RIGHT);
+        for (int i =1; i < yCount; i++)
+        {
+            vertical(-xCount, -i);
+        }
+        addLine(-xCount, -yCount, CONNECTION_DOWN);
+        return this;
+    }
     public CoolerBookEntry rightUp(int xCount, int yCount)
     {
         addLine(CONNECTION_RIGHT);
@@ -202,6 +217,21 @@ public class CoolerBookEntry
             vertical(xCount, i);
         }
         addLine(xCount, yCount, CONNECTION_DOWN);
+        return this;
+    }
+    public CoolerBookEntry rightDown(int xCount, int yCount)
+    {
+        addLine(CONNECTION_RIGHT);
+        for (int i =1; i < xCount; i++)
+        {
+            horizontal(i, 0);
+        }
+        addLine(xCount, 0, BEND_DOWN_LEFT);
+        for (int i =1; i < yCount; i++)
+        {
+            vertical(xCount, -i);
+        }
+        addLine(xCount, -yCount, CONNECTION_DOWN);
         return this;
     }
 }

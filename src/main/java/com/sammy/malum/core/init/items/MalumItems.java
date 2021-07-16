@@ -424,6 +424,7 @@ public class MalumItems
     public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUNE_TABLE = ITEMS.register("rune_table", () -> new RuneTableBlockItem(MalumBlocks.RUNE_TABLE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ARCANE_ASSEMBLY_TABLE = ITEMS.register("arcane_assembly_table", () -> new BlockItem(MalumBlocks.ARCANE_ASSEMBLY_TABLE.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region materials

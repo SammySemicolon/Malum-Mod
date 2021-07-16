@@ -2,6 +2,7 @@ package com.sammy.malum.core.init.blocks;
 
 import com.sammy.malum.MalumColors;
 import com.sammy.malum.common.blocks.*;
+import com.sammy.malum.common.blocks.arcaneassembler.ArcaneAssemblerBlock;
 import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
 import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
 import com.sammy.malum.common.blocks.ether.EtherBlock;
@@ -478,6 +479,8 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> RUNE_TABLE = BLOCKS.register("rune_table", () -> new RuneTableBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> RUNE_TABLE_BOUNDING_BLOCK = BLOCKS.register("rune_table_bounding_block", () -> new RuneTableBoundingBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
+
+    public static final RegistryObject<Block> ARCANE_ASSEMBLY_TABLE = BLOCKS.register("arcane_assembly_table", () -> new ArcaneAssemblerBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
 
     //endregion
 
