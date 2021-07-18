@@ -134,9 +134,9 @@ public class DiscoveryCategory extends BookCategory
                 .addPage(CraftingPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
                 .addLink(()->spirit_infusion);
 
-        sacrificial_dagger = new BookEntry(SACRIFICIAL_DAGGER.get(), "sacrificial_dagger")
+        sacrificial_dagger = new BookEntry(PITHING_NEEDLE.get(), "sacrificial_dagger")
                 .addPage(new HeadlineTextPage("sacrificial_dagger"))
-                .addPage(new SpiritInfusionPage(SACRIFICIAL_DAGGER.get()))
+                .addPage(new SpiritInfusionPage(PITHING_NEEDLE.get()))
                 .addLink(()->spirit_infusion).addLink(()->spirit_harvesting);
 
         ether = new BookEntry(ETHER.get(), "ether")

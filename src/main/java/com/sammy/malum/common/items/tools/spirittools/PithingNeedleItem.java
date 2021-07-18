@@ -7,9 +7,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 
-public class SacrificialDaggerItem extends ModCombatItem implements ISpiritTool
+public class PithingNeedleItem extends ModCombatItem implements ISpiritTool
 {
-    public SacrificialDaggerItem(IItemTier material, int attackDamage, float attackSpeed, Properties properties)
+    public PithingNeedleItem(IItemTier material, int attackDamage, float attackSpeed, Properties properties)
     {
         super(material, attackDamage+3, attackSpeed-2.4f, properties);
     }

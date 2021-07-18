@@ -38,7 +38,7 @@ public class MalumSpiritAltarRecipes
                 .addExtraItem(new SimpleItemIngredient(MalumItems.BLAZING_QUARTZ.get()));
 
         //sac dag
-        new MalumSpiritAltarRecipe(new ItemIngredient(Items.IRON_SWORD, 1), new ItemIngredient(MalumItems.SACRIFICIAL_DAGGER.get(), 1))
+        new MalumSpiritAltarRecipe(new ItemIngredient(Items.IRON_SWORD, 1), new ItemIngredient(MalumItems.PITHING_NEEDLE.get(), 1))
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.EARTHEN_SPIRIT, 8))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.TAINTED_ROCK.get()))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
