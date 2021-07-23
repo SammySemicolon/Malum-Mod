@@ -2,10 +2,12 @@ package com.sammy.malum.common.cooler_book.objects;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.sammy.malum.ClientHelper;
 import com.sammy.malum.common.cooler_book.CoolerBookEntry;
 import com.sammy.malum.common.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
 import net.minecraft.client.Minecraft;
 
+import static com.sammy.malum.common.book.BookScreen.screen;
 import static com.sammy.malum.common.cooler_book.CoolerBookScreen.*;
 
 public class EntryBookObject extends CoolerBookObject
@@ -20,20 +22,18 @@ public class EntryBookObject extends CoolerBookObject
     @Override
     public void render(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
-        int guiLeft = (width - screen.bookWidth) / 2;
-        int guiTop = (height - screen.bookHeight) / 2;
-        int posX = (int) (guiLeft+ this.posX + xOffset);
-        int posY = (int) (guiTop + this.posY + yOffset);
+        int posX = offsetPosX(xOffset);
+        int posY = offsetPosY(yOffset);
         renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, 1, 252, width, height, 512, 512);
         minecraft.getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 8, posY + 8);
-
-        matrixStack.push();
-        RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
+        if (isHovering)
+        {
+            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey()), mouseX, mouseY);
+        }
         for (CoolerBookEntry.EntryLine arrow : entry.arrows)
         {
-            int arrowPosX = posX + arrow.xOffset*32;
-            int arrowPosY = posY + arrow.yOffset*-32;
+            int arrowPosX = posX + arrow.xOffset * 32;
+            int arrowPosY = posY + arrow.yOffset * -32;
             for (LineEnum arrowEnum : arrow.lines)
             {
                 switch (arrowEnum)
@@ -114,9 +114,6 @@ public class EntryBookObject extends CoolerBookObject
                 }
             }
         }
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-        matrixStack.pop();
     }
     public void renderArrow(MatrixStack matrixStack, int arrowPosX, int arrowPosY, int uOffset, int vOffset)
     {

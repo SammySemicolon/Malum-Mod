@@ -9,8 +9,6 @@ import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.modcontent.MalumArcaneAssemblyRecipes;
 import com.sammy.malum.core.systems.inventory.SimpleInventory;
 import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.recipes.SimpleItemIngredient;
-import com.sammy.malum.core.systems.recipes.SpiritIngredient;
 import com.sammy.malum.core.systems.spirits.MalumSpiritType;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import com.sammy.malum.core.systems.tileentities.SimpleInventoryTileEntity;
@@ -22,31 +20,20 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 
-import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.sammy.malum.common.blocks.arcaneassembler.ArcaneAssemblerTileEntity.StateEnum.*;
 import static net.minecraft.util.math.MathHelper.nextFloat;
 
 public class ArcaneAssemblerTileEntity extends SimpleInventoryTileEntity implements ITickableTileEntity, ActivatorRite.IAssembled
 {
-    public enum StateEnum
-    {
-        IDLE(0), REQUESTING(1), CRAFTING(2);
-        int value;
-        StateEnum(int value)
-        {
-            this.value = value;
-        }
-    }
-    public StateEnum state = IDLE;
-
-    public SimpleInventory extraInventory;
+    public boolean active;
     public int progress;
+    public int finish;
 
     public MalumArcaneAssemblyRecipes.MalumArcaneAssemblerRecipe recipe;
     public ArrayList<MalumSpiritType> spirits = new ArrayList<>();
@@ -65,27 +52,14 @@ public class ArcaneAssemblerTileEntity extends SimpleInventoryTileEntity impleme
                 MalumHelper.updateAndNotifyState(world, pos);
             }
         };
-        extraInventory = new SimpleInventory(8, 64, s-> recipe.isItemAllowed(s), s-> false)
-        {
-            @Override
-            protected void onContentsChanged(int slot)
-            {
-                ArcaneAssemblerTileEntity.this.markDirty();
-                updateContainingBlockInfo();
-                if (recipe.matches(inventory.getStackInSlot(0), stacks()))
-                {
-                    state = CRAFTING;
-                }
-                MalumHelper.updateAndNotifyState(world, pos);
-            }
-        };
     }
 
     @Override
     public void readData(CompoundNBT compound)
     {
-        state = StateEnum.values()[compound.getInt("state")];
+        active = compound.getBoolean("active");
         progress = compound.getInt("progress");
+        finish = compound.getInt("finish");
         int size = compound.getInt("spiritCount");
         spirits = new ArrayList<>();
         for (int i = 0; i < size; i++)
@@ -99,8 +73,9 @@ public class ArcaneAssemblerTileEntity extends SimpleInventoryTileEntity impleme
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        compound.putInt("state", state.value);
+        compound.putBoolean("active", active);
         compound.putInt("progress", progress);
+        compound.putInt("finish", finish);
         compound.putInt("spiritCount", spirits.size());
         for (int i = 0; i < spirits.size(); i++)
         {
@@ -115,87 +90,56 @@ public class ArcaneAssemblerTileEntity extends SimpleInventoryTileEntity impleme
     {
         if (recipe != null)
         {
-            if (recipe.extraIngredients.isEmpty())
-            {
-                state = CRAFTING;
-                progress = 0;
-            }
-            else
-            {
-                state = REQUESTING;
-                progress = 300;
-            }
+            active = true;
             this.spirits = spirits;
             MalumHelper.updateAndNotifyState(world, this.pos);
         }
     }
-    public void setState(StateEnum state)
-    {
-        this.state = state;
-        this.progress = state == REQUESTING ? 300 : 0;
-    }
     @Override
     public void tick()
     {
-        float particleIntensity = 0;
-        if (state.equals(REQUESTING))
+        if (active)
         {
-            particleIntensity = 1;
-            progress--;
-            if (progress == 0)
-            {
-                state = IDLE;
-            }
-        }
-        if (state.equals(CRAFTING))
-        {
-            particleIntensity = 1 + progress / 120f;
             progress++;
-            if (progress >= 60)
+            if (progress > 200)
             {
-                if (MalumHelper.areWeOnServer(world))
+                Vector3d pos = itemPos(this, inventory.getStackInSlot(0).getItem());
+                ItemStack stack = inventory.getStackInSlot(0);
+                int count = stack.getCount();
+                int remainder = count % recipe.inputIngredient.count;
+                int timesCrafted = count / recipe.inputIngredient.count * recipe.outputIngredient.count;
+                do
                 {
-                    ArrayList<ItemStack> stacks = extraInventory.stacks();
-                    for (int i = 0; i < recipe.extraIngredients.size(); i++)
-                    {
-                        stacks.get(i).shrink(1);
-                    }
-                    inventory.getStackInSlot(0).shrink(recipe.primeIngredient.count);
-                    world.addEntity(new ItemEntity(world, getPos().getX() + 0.5f, getPos().getY() + 1.25f, getPos().getZ() + 0.5f, MalumHelper.copyWithNewCount(recipe.outputIngredient.getItem(), recipe.outputIngredient.count)));
-                    if (!recipe.matches(inventory.getStackInSlot(0), stacks))
-                    {
-                        MalumHelper.updateAndNotifyState(world, pos);
-                        state = IDLE;
-                        progress = 0;
-                        world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), MalumSounds.RUNE_TABLE_CRAFT, SoundCategory.BLOCKS,1,1);
-                    }
-                    else
-                    {
-                        MalumHelper.updateState(world, pos);
-                        progress -= 2;
-                    }
+                    int stackCount = Math.min(timesCrafted, 64);
+                    timesCrafted -= stackCount;
+                    world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), MalumHelper.copyWithNewCount(recipe.outputIngredient.getItem(), stackCount)));
                 }
+                while(timesCrafted != 0);
+                progress = 0;
+                active = false;
+                if (remainder == 0)
+                {
+                    inventory.setStackInSlot(0, ItemStack.EMPTY);
+                    return;
+                }
+                inventory.setStackInSlot(0, MalumHelper.copyWithNewCount(inventory.getStackInSlot(0), remainder));
             }
-        }
-        if (MalumHelper.areWeOnClient(world))
-        {
-            if (particleIntensity > 0)
+            if (MalumHelper.areWeOnClient(world))
             {
                 Vector3d pos = itemPos(this, inventory.getStackInSlot(0).getItem());
                 for (int i = 0; i < spirits.size(); i++)
                 {
                     MalumSpiritType type = spirits.get(i);
-                    float alpha = (1f - i / (float)spirits.size()) * (particleIntensity/2f);
-                    float scale = (1f + i * 0.25f) * particleIntensity;
+                    float alpha = (1f - i / (float) spirits.size());
+                    float scale = (1f + i * 0.25f);
                     particles(type.color, alpha, scale, pos.x, pos.y, pos.z);
                 }
-            }
-            if (inventory.getStackInSlot(0).getItem() instanceof SpiritItem)
-            {
-                SpiritItem item = (SpiritItem) inventory.getStackInSlot(0).getItem();
-                Color color = item.type.color;
-                Vector3d pos = itemPos(this, item);
-                SpiritHelper.spiritParticles(world, pos.x, pos.y, pos.z, color);
+                if (inventory.getStackInSlot(0).getItem() instanceof SpiritItem)
+                {
+                    SpiritItem item = (SpiritItem) inventory.getStackInSlot(0).getItem();
+                    Color color = item.type.color;
+                    SpiritHelper.spiritParticles(world, pos.x, pos.y, pos.z, color);
+                }
             }
         }
     }
@@ -227,6 +171,19 @@ public class ArcaneAssemblerTileEntity extends SimpleInventoryTileEntity impleme
                 .enableNoClip()
                 .randomVelocity(0.025f, 0.025f)
                 .repeat(world, x, y, z, 1);
+        Vector3d centerPos = new Vector3d(x,y,z);
+        Vector3d circlePos = MalumHelper.circlePosition(centerPos, 0.5f+rand.nextFloat()*0.25f, rand.nextInt(200),200).add(MathHelper.nextFloat(rand, -0.25f, 0.25f), MathHelper.nextFloat(rand, -0.25f, 0.25f), MathHelper.nextFloat(rand, -0.25f, 0.25f));
+        Vector3d velocity = centerPos.subtract(circlePos).normalize().mul(0.02f,0.02f,0.02f);
+
+        ParticleManager.create(MalumParticles.TWINKLE_PARTICLE)
+                .setAlpha(0f, 0.6f*alpha)
+                .setLifetime(20 + rand.nextInt(5))
+                .setScale(twinkleScale*0.2f, 0)
+                .setColor(color, color.darker())
+                .setSpin(nextFloat(rand, 0.05f, 0.1f))
+                .setVelocity(velocity.x,velocity.y,velocity.z)
+                .enableNoClip()
+                .repeat(world, circlePos.x,circlePos.y,circlePos.z, 1);
     }
     public static Vector3d itemPos(SimpleTileEntity tileEntity, Item item)
     {

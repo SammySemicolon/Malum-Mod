@@ -79,7 +79,7 @@ public class CoolerBookEntry
         addLine(CONNECTION_UP);
         for (int i =0; i < count; i++)
         {
-            vertical(0, i);
+            vertical(0, i+1);
         }
         addLine(0, count+1, CONNECTION_DOWN);
         return this;

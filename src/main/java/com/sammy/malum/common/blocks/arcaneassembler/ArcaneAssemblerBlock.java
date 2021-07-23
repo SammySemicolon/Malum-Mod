@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static com.sammy.malum.common.blocks.arcaneassembler.ArcaneAssemblerTileEntity.StateEnum.*;
-
 public class ArcaneAssemblerBlock extends SimpleInventoryBlock
 {
     public ArcaneAssemblerBlock(Properties properties)
@@ -30,15 +28,8 @@ public class ArcaneAssemblerBlock extends SimpleInventoryBlock
         if (worldIn.getTileEntity(pos) instanceof ArcaneAssemblerTileEntity)
         {
             ArcaneAssemblerTileEntity tileEntity = (ArcaneAssemblerTileEntity) worldIn.getTileEntity(pos);
-            if (tileEntity.state.equals(REQUESTING))
+            if (tileEntity.active)
             {
-                tileEntity.extraInventory.playerHandleItem(worldIn, player, handIn);
-                MalumHelper.updateState(worldIn, pos);
-                return ActionResultType.SUCCESS;
-            }
-            if (!tileEntity.state.equals(IDLE))
-            {
-                MalumHelper.updateState(worldIn, pos);
                 return ActionResultType.FAIL;
             }
         }

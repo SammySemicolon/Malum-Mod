@@ -35,9 +35,6 @@ public class CoolerBookScreen extends Screen
     public int bookInsideWidth = 424;
     public int bookInsideHeight = 215;
 
-    public final int texture_width = 512;
-    public final int texture_height = 256;
-
     public final int parallax_width = 512;
     public final int parallax_height = 2560;
     public static CoolerBookScreen screen;
@@ -59,6 +56,9 @@ public class CoolerBookScreen extends Screen
     public void setupEntries()
     {
         entries = new ArrayList<>();
+
+        //beginning
+
         entries.add(new CoolerBookEntry(
                 "introduction",
                 MalumItems.ENCYCLOPEDIA_ARCANA.get(),0,1)
@@ -82,10 +82,6 @@ public class CoolerBookScreen extends Screen
                 .upRight(2,2));
 
         entries.add(new CoolerBookEntry(
-                "spirit_infusion",
-                MalumItems.SPIRIT_ALTAR.get(),0,2));
-
-        entries.add(new CoolerBookEntry(
                 "simple_spirit_harvesting",
                 MalumItems.CRUDE_SCYTHE.get(),-2,2)
                 .left(1));
@@ -94,28 +90,83 @@ public class CoolerBookScreen extends Screen
                 "spirit_types",
                 MalumItems.ARCANE_SPIRIT.get(),-3,2));
 
-//        entries.add(new CoolerBookEntry("welcome", MalumItems.ENCYCLOPEDIA_ARCANA.get(),0,1));
-//        entries.add(new CoolerBookEntry("basics_of_magic", MalumItems.ARCANE_SPIRIT.get(),0,0));
-//        entries.add(new CoolerBookEntry("runewood", MalumItems.RUNEWOOD_SAPLING.get(),1,1));
-//        entries.add(new CoolerBookEntry("soulstone", MalumItems.SOULSTONE.get(),-1,1));
-//        entries.add(new CoolerBookEntry("simple_spirit_harvesting", MalumItems.CRUDE_SCYTHE.get(),-2, 2));
-//        entries.add(new CoolerBookEntry("sacrificial_dagger", MalumItems.SACRIFICIAL_DAGGER.get(),-3, 3));
-//        entries.add(new CoolerBookEntry("types_of_spirit", MalumItems.ARCANE_SPIRIT.get(),-3, 2));
-//
-//        entries.add(new CoolerBookEntry("spirit_infusion", MalumItems.SPIRIT_ALTAR.get(),0, 2));
-//        entries.add(new CoolerBookEntry("ether", MalumItems.ETHER.get(),1, 2));
-//        entries.add(new CoolerBookEntry("item_holders", MalumItems.SPIRIT_ALTAR.get(),0, 2));
-//        entries.add(new CoolerBookEntry("arcane_rock", MalumItems.TAINTED_ROCK.get(),-1, 3));
-//        entries.add(new CoolerBookEntry("soul_stained_steel", MalumItems.SOUL_STAINED_STEEL_INGOT.get(),-1, 4));
-//        entries.add(new CoolerBookEntry("soul_stained_steel_gear", MalumItems.CREATIVE_SCYTHE.get(),-2, 4));
-//        entries.add(new CoolerBookEntry("hallowed_gold", MalumItems.HALLOWED_GOLD_INGOT.get(),1, 4));
-//        entries.add(new CoolerBookEntry("spirit_resonators", MalumItems.HALLOWED_SPIRIT_RESONATOR.get(),0, 5));
-//        entries.add(new CoolerBookEntry("spirit_jar", MalumItems.SPIRIT_JAR.get(),2, 6));
-//
-//        entries.add(new CoolerBookEntry("totem_magic", MalumItems.TOTEM_BASE.get(),1, 3));
-//        entries.add(new CoolerBookEntry("crafting_with_totems", MalumItems.RUNE_TABLE.get(),2, 4));
+        entries.add(new CoolerBookEntry(
+                "spirit_infusion",
+                MalumItems.SPIRIT_ALTAR.get(),0,2)
+                .upLeft(2,2)
+                .upLeft(2,4)
+                .upRight(2,4));
 
+        //spirit tinkering
 
+        entries.add(new CoolerBookEntry(
+                "arcane_rock",
+                MalumItems.TAINTED_ROCK.get(),-1,3)
+                .left(1));
+
+        entries.add(new CoolerBookEntry(
+                "ether",
+                MalumItems.ETHER.get(),-2,3));
+
+        entries.add(new CoolerBookEntry(
+                "blazing_quartz",
+                MalumItems.BLAZING_QUARTZ.get(),-3,3));
+
+        entries.add(new CoolerBookEntry(
+                "spirit_metallurgy",
+                MalumItems.HALLOWED_GOLD_INGOT.get(),-1,4)
+                .left(1)
+                .upLeft(2,2));
+
+        entries.add(new CoolerBookEntry(
+                "spirit_trinkets",
+                MalumItems.GILDED_RING.get(),-2,4)
+                .leftUp(2,2));
+
+        entries.add(new CoolerBookEntry(
+                "spirit_resonators",
+                MalumItems.HALLOWED_SPIRIT_RESONATOR.get(),-2,5)
+                .left(1));
+
+        entries.add(new CoolerBookEntry(
+                "spirit_spoils",
+                MalumItems.RING_OF_ARCANE_SPOIL.get(),-3,5));
+
+        //dark arts
+
+        entries.add(new CoolerBookEntry(
+                "totem_rites",
+                MalumItems.TOTEM_BASE.get(),1,4)
+                .right(1)
+                .upRight(2,2));
+
+        entries.add(new CoolerBookEntry(
+                "aura_rites",
+                MalumItems.SACRED_SPIRIT.get(),2,4));
+
+        entries.add(new CoolerBookEntry(
+                "assembler_rites",
+                MalumItems.ARCANE_ASSEMBLY_TABLE.get(),2,5)
+                .up(1)
+                .right(1));
+
+        entries.add(new CoolerBookEntry(
+                "voodoo_magic",
+                MalumItems.CURSED_STRAND.get(),3,5));
+
+        entries.add(new CoolerBookEntry(
+                "ectoplasm",
+                MalumItems.ECTOPLASM.get(),2,6)
+                .left(3));
+
+        entries.add(new CoolerBookEntry(
+                "eldritch_magic",
+                MalumItems.ELDRITCH_SPIRIT.get(),0,6)
+                .up(1));
+
+        entries.add(new CoolerBookEntry(
+                "radiant_soulstone",
+                MalumItems.RADIANT_SOULSTONE.get(),0,7));
     }
     public void setupObjects()
     {
@@ -203,10 +254,17 @@ public class CoolerBookScreen extends Screen
         for (int i = objects.size()-1; i >= 0; i--)
         {
             CoolerBookObject object = objects.get(i);
+            boolean isHovering = object.isHovering(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
+            object.isHovering = isHovering;
+            object.hover = isHovering ? Math.min(object.hover++, object.hoverCap()) : Math.max(object.hover--, 0);
             object.render(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }
 
+    public static boolean isHovering(int mouseX, int mouseY, int posX, int posY, int width, int height)
+    {
+        return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
+    }
     public void renderParallax(ResourceLocation texture, MatrixStack matrixStack, float xModifier, float yModifier, float extraXOffset, float extraYOffset)
     {
         int guiLeft = (width - bookWidth) / 2;
