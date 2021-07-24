@@ -36,9 +36,9 @@ public class SpiritHelper
     {
         return new DamageSource("voodoo").setMagicDamage();
     }
-    public static DamageSource voodooDamageSource(Entity entity)
+    public static DamageSource voodooDamageSource(Entity attacker)
     {
-        return new EntityDamageSource("voodoo", entity).setMagicDamage();
+        return new EntityDamageSource("voodoo", attacker).setMagicDamage();
     }
     public static void causeVoodooDamage(LivingEntity attacker, LivingEntity target, float amount)
     {
@@ -119,7 +119,6 @@ public class SpiritHelper
             attacker = target.world.getClosestPlayer(target.getPosX(), target.getPosY(), target.getPosZ(), 8, e -> true);
         }
         float speed = 0.2f + 0.5f / (totalSpirits(target) + 1);
-        target.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SPIRIT_HARVEST, target.getSoundCategory(), 1.0F, 0.9f + target.world.rand.nextFloat() * 0.2f);
         for (ItemStack stack : spirits)
         {
             int count = stack.getCount();
@@ -150,6 +149,7 @@ public class SpiritHelper
                 stack.shrink(1);
             }
         }
+        target.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SPIRIT_HARVEST, target.getSoundCategory(), 1.0F, 0.9f + target.world.rand.nextFloat() * 0.2f);
     }
 
     public static void harvestSpirit(ArrayList<Pair<String, Integer>> spirits, LivingEntity attacker)
@@ -170,14 +170,10 @@ public class SpiritHelper
 
     public static MalumSpiritType figureOutType(String spirit)
     {
-        if (spirit.equals("holy")) //TODO: one day remove this
-        {
-            return MalumSpiritTypes.SACRED_SPIRIT;
-        }
         ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) MalumSpiritTypes.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
         if (type.isEmpty())
         {
-            throw new RuntimeException("Somehow, an invalid spirit identifier was found. 'Why?' is a good question my friend. Incorrect identifier: " + spirit);
+            throw new RuntimeException("An incorrect spirit was found: " + spirit);
         }
         return type.get(0);
     }

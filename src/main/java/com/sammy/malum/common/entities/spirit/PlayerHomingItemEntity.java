@@ -21,11 +21,71 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
     public UUID ownerUUID;
     public LivingEntity owner;
     public float minimumDistance = 3f;
+
     public float acceleration = 0.01f;
     public PlayerHomingItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
     {
         super(type, worldIn);
     }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound)
+    {
+        super.writeAdditional(compound);
+        if (ownerUUID != null)
+        {
+            compound.putUniqueId("ownerUUID", ownerUUID);
+        }
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound)
+    {
+        super.readAdditional(compound);
+        if (compound.contains("ownerUUID"))
+        {
+            setOwnerUUID(compound.getUniqueId("ownerUUID"));
+        }
+    }
+    public float getMinimumDistance()
+    {
+        return world.hasNoCollisions(this) ? minimumDistance : minimumDistance*3f;
+    }
+    @Override
+    public void move()
+    {
+        super.move();
+        float distance = getDistance(owner);
+        float minimumDistance = getMinimumDistance();
+        float velocity = acceleration * Math.min(moving, 40);
+        if (distance < minimumDistance || moving != 0)
+        {
+            moving++;
+            Vector3d desiredMotion = owner.getPositionVec().subtract(getPositionVec()).normalize().mul(velocity, velocity, velocity);
+            float pct = 0.1f;
+            if (moving > 20)
+            {
+                pct = MathHelper.lerp((moving - 20) / 60f, 0.1f, 1f);
+                pct = Math.min(1f, pct);
+            }
+            float xMotion = (float) MathHelper.lerp(pct, getMotion().x, desiredMotion.x);
+            float yMotion = (float) MathHelper.lerp(pct, getMotion().y, desiredMotion.y);
+            float zMotion = (float) MathHelper.lerp(pct, getMotion().z, desiredMotion.z);
+            Vector3d resultingMotion = new Vector3d(xMotion, yMotion, zMotion);
+            setMotion(resultingMotion);
+        }
+
+        if (distance < 0.5f)
+        {
+            if (isAlive())
+            {
+                ItemStack stack = getItem();
+                MalumHelper.giveItemToEntity(stack, owner);
+                remove();
+            }
+        }
+    }
+
     public static PlayerHomingItemEntity makeEntity(World world, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ)
     {
         PlayerHomingItemEntity homingItemEntity = new PlayerHomingItemEntity(MalumEntities.PLAYER_HOMING_ITEM.get(), world);
@@ -46,53 +106,6 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
         {
             minimumDistance *= 3;
             acceleration *= 2;
-        }
-    }
-
-    @Override
-    public void move()
-    {
-        super.move();
-        float distance = getDistance(owner);
-        float velocity = acceleration * moving;
-        if (distance < minimumDistance || moving != 0)
-        {
-            moving++;
-            Vector3d desiredMotion = owner.getPositionVec().subtract(getPositionVec()).normalize().mul(velocity, velocity, velocity);
-            float xMotion = (float) MathHelper.lerp(0.1f, getMotion().x, desiredMotion.x);
-            float yMotion = (float) MathHelper.lerp(0.1f, getMotion().y, desiredMotion.y);
-            float zMotion = (float) MathHelper.lerp(0.1f, getMotion().z, desiredMotion.z);
-            Vector3d resultingMotion = new Vector3d(xMotion, yMotion, zMotion);
-            setMotion(resultingMotion);
-        }
-        if (distance < 0.5f)
-        {
-            if (isAlive())
-            {
-                ItemStack stack = getItem();
-                MalumHelper.giveItemToEntity(stack, owner);
-                remove();
-            }
-        }
-    }
-
-    @Override
-    public void writeAdditional(CompoundNBT compound)
-    {
-        super.writeAdditional(compound);
-        if (ownerUUID != null)
-        {
-            compound.putUniqueId("ownerUUID", ownerUUID);
-        }
-    }
-
-    @Override
-    public void readAdditional(CompoundNBT compound)
-    {
-        super.readAdditional(compound);
-        if (compound.contains("ownerUUID"))
-        {
-            setOwnerUUID(compound.getUniqueId("ownerUUID"));
         }
     }
 }
