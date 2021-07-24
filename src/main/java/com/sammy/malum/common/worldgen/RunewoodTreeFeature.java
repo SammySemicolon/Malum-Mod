@@ -29,18 +29,17 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
         super(field_236558_a_);
     }
 
-    public static int minimumTrunkHeight = 9;
+    public static int minimumTrunkHeight = 6;
     public static int extraTrunkHeight = 3;
-    public static int minimumSideTrunkHeight = 2;
+    public static int minimumSideTrunkHeight = 0;
     public static int extraSideTrunkHeight = 2;
-    public static int minimumSideSideTrunkHeight = 1;
-    public static int extraSideSideTrunkHeight = 1;
 
-    public static int maximumDownwardsBranchOffset = 4;
-    public static int minimumBranchCoreOffset = 3;
+    public static int minimumDownwardsBranchOffset = 1;
+    public static int extraDownwardsBranchOffset = 2;
+    public static int minimumBranchCoreOffset = 2;
     public static int branchCoreOffsetExtra = 1;
-    public static int minimumBranchHeight = 4;
-    public static int branchHeightExtra = 3;
+    public static int minimumBranchHeight = 2;
+    public static int branchHeightExtra = 2;
 
     public static int leavesHeight = 8;
     public static int leavesHeightExtra = 4;
@@ -97,34 +96,11 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                     return false;
                 }
             }
-            int sideSideTrunkHeight = minimumSideSideTrunkHeight + rand.nextInt(extraSideSideTrunkHeight + 1);
-            for (Direction direction2 : directions) //side SIDE trunk placement
-            {
-                if (rand.nextFloat() < 0.4f)
-                {
-                    for (int i = 0; i < sideSideTrunkHeight; i++)
-                    {
-                        if (!direction2.equals(direction.getOpposite()) && !direction2.equals(direction))
-                        {
-                            BlockPos sideSideTrunkPos = pos.offset(direction).offset(direction2).up(i);
-                            if (canPlace(reader, sideSideTrunkPos))
-                            {
-                                treeFiller.entries.add(new BlockStateEntry(defaultLog, sideSideTrunkPos));
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    downwardsTrunk(reader, treeFiller, pos.offset(direction).offset(direction2));
-                }
-            }
             downwardsTrunk(reader, treeFiller, pos.offset(direction));
         }
         for (Direction direction : directions) //tree top placement
         {
-            int branchCoreOffset = rand.nextInt(maximumDownwardsBranchOffset + 1);
+            int branchCoreOffset = minimumDownwardsBranchOffset + rand.nextInt(extraDownwardsBranchOffset + 1);
             int branchOffset = minimumBranchCoreOffset + rand.nextInt(branchCoreOffsetExtra + 1);
             BlockPos branchStartPos = trunkTop.down(branchCoreOffset).offset(direction, branchOffset);
             for (int i = 0; i < branchOffset; i++) //branch connection placement
@@ -140,7 +116,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                 }
             }
             int branchHeight = minimumBranchHeight + rand.nextInt(branchHeightExtra + 1);
-            for (int i = 0; i <= branchHeight; i++) //branch placement
+            for (int i = 0; i < branchHeight; i++) //branch placement
             {
                 BlockPos branchPos = branchStartPos.up(i);
                 if (canPlace(reader, branchPos))
@@ -273,30 +249,30 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
 
     public static void makeLeafBlob(MalumFiller filler, Random rand, BlockPos pos)
     {
-        int randomOffset = leavesStartDownwardsOffset + rand.nextInt(leavesStartDownwardsOffsetExtra + 1);
-        int finalLeavesHeight = leavesHeight + rand.nextInt(leavesHeightExtra + 1);
-
-        int extraSize = rand.nextInt(leavesSizeExtra + 1);
-        int sizeCap = leavesSizeCap + extraSize;
-        int size = leavesSize - 1 + extraSize;
-        for (int i = 0; i < finalLeavesHeight; i++)
-        {
-            BlockPos blobSliceCenter = pos.down(randomOffset).up(i);
-            if (i < leavesShrinkStart && size < sizeCap)
-            {
-                size++;
-            }
-            else
-            {
-                size--;
-            }
-            int color = Math.min(i, 9);
-            if (color == 9 && rand.nextBoolean())
-            {
-                color -= rand.nextInt(3);
-            }
-            makeLeafSlice(filler, blobSliceCenter, size, color);
-        }
+//        int randomOffset = leavesStartDownwardsOffset + rand.nextInt(leavesStartDownwardsOffsetExtra + 1);
+//        int finalLeavesHeight = leavesHeight + rand.nextInt(leavesHeightExtra + 1);
+//
+//        int extraSize = rand.nextInt(leavesSizeExtra + 1);
+//        int sizeCap = leavesSizeCap + extraSize;
+//        int size = leavesSize - 1 + extraSize;
+//        for (int i = 0; i < finalLeavesHeight; i++)
+//        {
+//            BlockPos blobSliceCenter = pos.down(randomOffset).up(i);
+//            if (i < leavesShrinkStart && size < sizeCap)
+//            {
+//                size++;
+//            }
+//            else
+//            {
+//                size--;
+//            }
+//            int color = Math.min(i, 9);
+//            if (color == 9 && rand.nextBoolean())
+//            {
+//                color -= rand.nextInt(3);
+//            }
+//            makeLeafSlice(filler, blobSliceCenter, size, color);
+//        }
     }
 
     public static void makeLeafSlice(MalumFiller filler, BlockPos pos, int leavesSize, int leavesColor)

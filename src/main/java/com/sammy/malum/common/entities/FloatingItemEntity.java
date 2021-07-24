@@ -5,6 +5,7 @@ import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.systems.spirits.ISpiritEntityGlow;
 import com.sammy.malum.core.systems.spirits.SpiritHelper;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -77,7 +78,7 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     }
     public void move()
     {
-        setMotion(getMotion().mul(0.9f, 0.8f, 0.9f));
+        setMotion(getMotion().mul(0.95f, 0.75f, 0.95f));
     }
     public float yOffset(float partialTicks)
     {

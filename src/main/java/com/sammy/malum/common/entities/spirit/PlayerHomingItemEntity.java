@@ -1,4 +1,4 @@
-package com.sammy.malum.common.entities.spirits;
+package com.sammy.malum.common.entities.spirit;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entities.FloatingItemEntity;
@@ -9,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -19,6 +20,8 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
 {
     public UUID ownerUUID;
     public LivingEntity owner;
+    public float minimumDistance = 3f;
+    public float acceleration = 0.01f;
     public PlayerHomingItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
     {
         super(type, worldIn);
@@ -39,6 +42,11 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
         {
             owner = (LivingEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
         }
+        if (MalumHelper.hasCurioEquipped(owner, MalumItems.RING_OF_ARCANE_REACH))
+        {
+            minimumDistance *= 3;
+            acceleration *= 2;
+        }
     }
 
     @Override
@@ -46,30 +54,24 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
     {
         super.move();
         float distance = getDistance(owner);
-        if (age > 10)
+        float velocity = acceleration * moving;
+        if (distance < minimumDistance || moving != 0)
         {
-            float minimumDistance = 3f;
-            float acceleration = 0.01f;
-            if (MalumHelper.hasCurioEquipped(owner, MalumItems.RING_OF_ARCANE_REACH))
+            moving++;
+            Vector3d desiredMotion = owner.getPositionVec().subtract(getPositionVec()).normalize().mul(velocity, velocity, velocity);
+            float xMotion = (float) MathHelper.lerp(0.1f, getMotion().x, desiredMotion.x);
+            float yMotion = (float) MathHelper.lerp(0.1f, getMotion().y, desiredMotion.y);
+            float zMotion = (float) MathHelper.lerp(0.1f, getMotion().z, desiredMotion.z);
+            Vector3d resultingMotion = new Vector3d(xMotion, yMotion, zMotion);
+            setMotion(resultingMotion);
+        }
+        if (distance < 0.5f)
+        {
+            if (isAlive())
             {
-                minimumDistance *= 3;
-                acceleration *= 2;
-            }
-            float velocity = acceleration * moving;
-            if (distance < minimumDistance || moving != 0)
-            {
-                moving++;
-                Vector3d desiredMotion = owner.getPositionVec().subtract(getPositionVec()).normalize().mul(velocity, velocity, velocity);
-                setMotion(desiredMotion);
-            }
-            if (distance < 0.5f)
-            {
-                if (isAlive())
-                {
-                    ItemStack stack = getItem();
-                    MalumHelper.giveItemToEntity(stack, owner);
-                    remove();
-                }
+                ItemStack stack = getItem();
+                MalumHelper.giveItemToEntity(stack, owner);
+                remove();
             }
         }
     }

@@ -26,10 +26,6 @@ public class EntryBookObject extends CoolerBookObject
         int posY = offsetPosY(yOffset);
         renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, 1, 252, width, height, 512, 512);
         minecraft.getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 8, posY + 8);
-        if (isHovering)
-        {
-            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey()), mouseX, mouseY);
-        }
         for (CoolerBookEntry.EntryLine arrow : entry.arrows)
         {
             int arrowPosX = posX + arrow.xOffset * 32;
@@ -113,6 +109,10 @@ public class EntryBookObject extends CoolerBookObject
                     }
                 }
             }
+        }
+        if (isHovering)
+        {
+            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey()), mouseX, mouseY);
         }
     }
     public void renderArrow(MatrixStack matrixStack, int arrowPosX, int arrowPosY, int uOffset, int vOffset)

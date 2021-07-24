@@ -3,7 +3,7 @@ package com.sammy.malum.core.systems.spirits;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entities.spirits.PlayerHomingItemEntity;
+import com.sammy.malum.common.entities.spirit.PlayerHomingItemEntity;
 import com.sammy.malum.common.items.equipment.curios.MalumCurioItem;
 import com.sammy.malum.common.items.tools.spirittools.ISpiritTool;
 import com.sammy.malum.core.init.MalumSounds;
