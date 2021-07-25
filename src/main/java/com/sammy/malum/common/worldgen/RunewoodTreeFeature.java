@@ -120,99 +120,80 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
             }
             makeLeafBlob(leavesFiller, rand, branchStartPos.up(1));
         }
-
-        MalumFiller groundFiller = new MalumFiller();
-        MalumFiller grassFiller = new MalumFiller();
-        makeHallowedGround(reader, groundFiller, grassFiller, rand, pos.down(), 4, 0);
-
-        for (Direction direction : directions) //hallowed ground placement
-        {
-            BlockPos groundPos = pos.down().offset(direction, 2);
-            makeHallowedGround(reader, groundFiller, grassFiller, rand, groundPos, 4, 0.2f);
-        }
-        for (int i = 0; i < 2 + rand.nextInt(3); i++)
-        {
-            int x = MathHelper.nextInt(rand, -5, 5);
-            int z = MathHelper.nextInt(rand, -5, 5);
-            BlockPos groundPos = pos.down().add(x, 0, z);
-            makeHallowedGround(reader, groundFiller, grassFiller, rand, groundPos, 3, 0.5f);
-        }
-        groundFiller.fill(reader, false);
         treeFiller.fill(reader, false);
         leavesFiller.fill(reader, true);
-        grassFiller.fill(reader, true);
         return true;
     }
 
-    public static void makeHallowedGround(ISeedReader reader, MalumFiller groundFiller, MalumFiller grassFiller, Random rand, BlockPos pos, int size, float tallGrassProbability)
-    {
-        for (int x = -size; x <= size; x++)
-        {
-            for (int z = -size; z <= size; z++)
-            {
-                if (Math.abs(x) == size && Math.abs(z) == size)
-                {
-                    continue;
-                }
-                BlockPos grassPos = reader.getHeight(Heightmap.Type.WORLD_SURFACE, pos.add(x, 0, z)).down();
-                do
-                {
-                    if (reader.getBlockState(grassPos).getBlock() instanceof BushBlock)
-                    {
-                        groundFiller.entries.add(new BlockStateEntry(Blocks.AIR.getDefaultState(), grassPos));
-                        grassPos = grassPos.down();
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                while (true);
-                if (reader.getBlockState(grassPos).getBlock() instanceof GrassBlock)
-                {
-                    groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS_BLOCK.get().getDefaultState(), grassPos));
-                    if (rand.nextFloat() < 0.25f)
-                    {
-                        if (rand.nextFloat() < tallGrassProbability)
-                        {
-                            DoublePlantBlock tallGrassBlock;
-                            if (rand.nextBoolean())
-                            {
-                                tallGrassBlock = (DoublePlantBlock) MalumBlocks.TALL_SUN_KISSED_GRASS.get();
-                            }
-                            else
-                            {
-                                tallGrassBlock = (DoublePlantBlock) MalumBlocks.LAVENDER.get();
-                            }
-                            BlockStateEntry tallGrassEntry = new BlockStateEntry(tallGrassBlock.getDefaultState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), grassPos.up())
-                            {
-                                @Override
-                                public boolean canPlace(ISeedReader reader)
-                                {
-                                    return super.canPlace(reader) && super.canPlace(reader, pos.up());
-                                }
-
-                                @Override
-                                public void additionalPlacement(ISeedReader reader)
-                                {
-                                    reader.setBlockState(pos.up(), state.with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 3);
-                                    if (reader instanceof World)
-                                    {
-                                        MalumHelper.updateState((World) reader, pos.up());
-                                    }
-                                }
-                            };
-                            grassFiller.entries.add(tallGrassEntry);
-                        }
-                        else
-                        {
-                            groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS.get().getDefaultState(), grassPos.up()));
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    public static void makeHallowedGround(ISeedReader reader, MalumFiller groundFiller, MalumFiller grassFiller, Random rand, BlockPos pos, int size, float tallGrassProbability)
+//    {
+//        for (int x = -size; x <= size; x++)
+//        {
+//            for (int z = -size; z <= size; z++)
+//            {
+//                if (Math.abs(x) == size && Math.abs(z) == size)
+//                {
+//                    continue;
+//                }
+//                BlockPos grassPos = reader.getHeight(Heightmap.Type.WORLD_SURFACE, pos.add(x, 0, z)).down();
+//                do
+//                {
+//                    if (reader.getBlockState(grassPos).getBlock() instanceof BushBlock)
+//                    {
+//                        groundFiller.entries.add(new BlockStateEntry(Blocks.AIR.getDefaultState(), grassPos));
+//                        grassPos = grassPos.down();
+//                    }
+//                    else
+//                    {
+//                        break;
+//                    }
+//                }
+//                while (true);
+//                if (reader.getBlockState(grassPos).getBlock() instanceof GrassBlock)
+//                {
+//                    groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS_BLOCK.get().getDefaultState(), grassPos));
+//                    if (rand.nextFloat() < 0.25f)
+//                    {
+//                        if (rand.nextFloat() < tallGrassProbability)
+//                        {
+//                            DoublePlantBlock tallGrassBlock;
+//                            if (rand.nextBoolean())
+//                            {
+//                                tallGrassBlock = (DoublePlantBlock) MalumBlocks.TALL_SUN_KISSED_GRASS.get();
+//                            }
+//                            else
+//                            {
+//                                tallGrassBlock = (DoublePlantBlock) MalumBlocks.LAVENDER.get();
+//                            }
+//                            BlockStateEntry tallGrassEntry = new BlockStateEntry(tallGrassBlock.getDefaultState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), grassPos.up())
+//                            {
+//                                @Override
+//                                public boolean canPlace(ISeedReader reader)
+//                                {
+//                                    return super.canPlace(reader) && super.canPlace(reader, pos.up());
+//                                }
+//
+//                                @Override
+//                                public void additionalPlacement(ISeedReader reader)
+//                                {
+//                                    reader.setBlockState(pos.up(), state.with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 3);
+//                                    if (reader instanceof World)
+//                                    {
+//                                        MalumHelper.updateState((World) reader, pos.up());
+//                                    }
+//                                }
+//                            };
+//                            grassFiller.entries.add(tallGrassEntry);
+//                        }
+//                        else
+//                        {
+//                            groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS.get().getDefaultState(), grassPos.up()));
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     public static void downwardsTrunk(ISeedReader reader, MalumFiller filler, BlockPos pos)
     {

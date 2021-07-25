@@ -42,6 +42,7 @@ public class SpiritHelper
     }
     public static void causeVoodooDamage(LivingEntity attacker, LivingEntity target, float amount)
     {
+        target.hurtResistantTime = 0;
         target.attackEntityFrom(voodooDamageSource(attacker), amount);
     }
 

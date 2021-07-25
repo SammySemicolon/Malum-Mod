@@ -472,8 +472,8 @@ public class MalumItems
     public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_BOOTS = ITEMS.register("soul_stained_stronghold_boots", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> PITHING_NEEDLE = ITEMS.register("pithing_needle", () -> new PithingNeedleItem(PITHING_NEEDLE_ITEM, 0, 0.1f, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 10f, 0, -0.1f, ()->MalumSounds.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
-    public static final RegistryObject<Item> AWAKENED_TYRVING = ITEMS.register("awakened_tyrving", () -> new TyrvingItem(TYRVING_ITEM, 5f, 2, 0.1f, ()->MalumSounds.AWAKENED_TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, ()->MalumSounds.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> AWAKENED_TYRVING = ITEMS.register("awakened_tyrving", () -> new TyrvingItem(TYRVING_ITEM, 4f, 2, 0.1f, ()->MalumSounds.AWAKENED_TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));
