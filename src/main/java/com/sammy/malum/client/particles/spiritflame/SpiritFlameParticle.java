@@ -1,20 +1,16 @@
 package com.sammy.malum.client.particles.spiritflame;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.sammy.malum.RenderUtil;
-import com.sammy.malum.core.systems.particles.ParticlePhaseMalumParticle;
-import com.sammy.malum.core.systems.particles.ParticleRendering;
-import com.sammy.malum.core.systems.particles.data.MalumParticleData;
-import com.sammy.malum.core.systems.particles.phases.ParticlePhase;
-import com.sammy.malum.core.systems.particles.rendertypes.SpriteParticleRenderType;
+import com.sammy.malum.client.RenderUtilities;
+import com.sammy.malum.core.systems.particle.ParticlePhaseMalumParticle;
+import com.sammy.malum.core.systems.particle.ParticleRendering;
+import com.sammy.malum.core.systems.particle.data.MalumParticleData;
+import com.sammy.malum.core.systems.particle.phases.ParticlePhase;
+import com.sammy.malum.core.systems.particle.rendertypes.SpriteParticleRenderType;
 import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class SpiritFlameParticle extends ParticlePhaseMalumParticle
 {
@@ -41,7 +37,7 @@ public class SpiritFlameParticle extends ParticlePhaseMalumParticle
     }
     @Override
     public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
-        super.renderParticle(ParticleRendering.getDelayedRender().getBuffer(RenderUtil.GLOWING_PARTICLE), info, pticks);
+        super.renderParticle(ParticleRendering.getDelayedRender().getBuffer(RenderUtilities.GLOWING_PARTICLE), info, pticks);
     }
     @Override
     public IParticleRenderType getRenderType()

@@ -13,7 +13,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
+import static com.sammy.malum.core.mod_content.MalumSpiritTypes.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class RiteOfWarding extends MalumRiteType

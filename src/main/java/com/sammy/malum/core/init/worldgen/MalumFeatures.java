@@ -2,15 +2,13 @@ package com.sammy.malum.core.init.worldgen;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.block.MalumBlocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import static net.minecraft.world.gen.feature.NoFeatureConfig.field_236559_b_;
 

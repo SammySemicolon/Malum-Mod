@@ -1,20 +1,16 @@
 package com.sammy.malum.common.worldgen;
 
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.blocks.MalumLeavesBlock;
-import com.sammy.malum.common.blocks.RunewoodSaplingBlock;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.common.block.MalumLeavesBlock;
+import com.sammy.malum.common.block.RunewoodSaplingBlock;
+import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.systems.worldgen.MalumFiller;
 import com.sammy.malum.core.systems.worldgen.MalumFiller.BlockStateEntry;
 import net.minecraft.block.*;
-import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 

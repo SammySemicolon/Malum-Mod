@@ -1,12 +1,12 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blocks.ether.EtherBlock;
-import com.sammy.malum.common.blocks.ether.EtherBrazierBlock;
-import com.sammy.malum.common.blocks.ether.EtherTorchBlock;
-import com.sammy.malum.common.items.SpiritItem;
-import com.sammy.malum.common.items.tools.ModCombatItem;
-import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
+import com.sammy.malum.common.block.ether.EtherBlock;
+import com.sammy.malum.common.block.ether.EtherBrazierBlock;
+import com.sammy.malum.common.block.ether.EtherTorchBlock;
+import com.sammy.malum.common.item.SpiritItem;
+import com.sammy.malum.common.item.tools.ModCombatItem;
+import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;
@@ -34,9 +34,6 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
     protected void registerModels()
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
-        items.remove(SPIRIT_PIPE);
-        items.remove(AWAKENED_TYRVING);
-        spiritPipeItem(SPIRIT_PIPE);
 
         takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof SpiritItem).forEach(this::spiritSplinterItem);
@@ -70,21 +67,10 @@ public class MalumItemModelProvider extends net.minecraftforge.client.model.gene
         String name = Registry.ITEM.getKey(i.get()).getPath();
         withExistingParent(name, HANDHELD).texture("layer0", prefix("item/" + name));
     }
-    
     private void spiritSplinterItem(RegistryObject<Item> i)
     {
-        if (i.get() instanceof SpiritItem)
-        {
-            SpiritItem spiritItem = (SpiritItem) i.get();
-            String texture = spiritItem.type.isCompound ? "spirit/spirit_cluster_base" : "spirit/spirit_splinter_base";
-            String name = Registry.ITEM.getKey(i.get()).getPath();
-            withExistingParent(name, GENERATED).texture("layer0", prefix(texture));
-        }
-    }
-    private void spiritedToolItem(RegistryObject<Item> i)
-    {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, HANDHELD).texture("layer0", prefix("item/" + name + "_overlay")).texture("layer1", prefix("item/" + name));
+        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));
     }
     private void etherBrazierItem(RegistryObject<Item> i)
     {

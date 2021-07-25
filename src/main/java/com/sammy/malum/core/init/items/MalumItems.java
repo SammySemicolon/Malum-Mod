@@ -1,22 +1,22 @@
 package com.sammy.malum.core.init.items;
 
-import com.sammy.malum.common.blocks.runetable.RuneTableBlockItem;
-import com.sammy.malum.common.items.*;
-import com.sammy.malum.common.items.equipment.armor.SoulStainedSteelArmorItem;
-import com.sammy.malum.common.items.equipment.armor.SoulStainedStrongholdArmorItem;
-import com.sammy.malum.common.items.equipment.curios.*;
-import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
-import com.sammy.malum.common.items.tools.*;
-import com.sammy.malum.common.items.tools.spirittools.PithingNeedleItem;
-import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
-import com.sammy.malum.common.items.tools.spirittools.TyrvingItem;
+import com.sammy.malum.common.block.rune_table.RuneTableBlockItem;
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
+import com.sammy.malum.common.item.equipment.armor.SoulStainedStrongholdArmorItem;
+import com.sammy.malum.common.item.equipment.curios.*;
+import com.sammy.malum.common.item.food.SolarSyrupBottleItem;
+import com.sammy.malum.common.item.tools.*;
+import com.sammy.malum.common.item.tools.spirittools.PithingNeedleItem;
+import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
+import com.sammy.malum.common.item.tools.spirittools.TyrvingItem;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.tabs.MalumBuildingTab;
 import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
 import com.sammy.malum.core.init.items.tabs.MalumNatureTab;
 import com.sammy.malum.core.init.items.tabs.MalumSplinterTab;
-import com.sammy.malum.core.modcontent.MalumSpiritTypes;
+import com.sammy.malum.core.mod_content.MalumSpiritTypes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -420,7 +420,6 @@ public class MalumItems
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUNE_TABLE = ITEMS.register("rune_table", () -> new RuneTableBlockItem(MalumBlocks.RUNE_TABLE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_ASSEMBLY_TABLE = ITEMS.register("arcane_assembly_table", () -> new BlockItem(MalumBlocks.ARCANE_ASSEMBLY_TABLE.get(), DEFAULT_PROPERTIES()));
@@ -473,7 +472,6 @@ public class MalumItems
 
     public static final RegistryObject<Item> PITHING_NEEDLE = ITEMS.register("pithing_needle", () -> new PithingNeedleItem(PITHING_NEEDLE_ITEM, 0, 0.1f, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, ()->MalumSounds.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
-    public static final RegistryObject<Item> AWAKENED_TYRVING = ITEMS.register("awakened_tyrving", () -> new TyrvingItem(TYRVING_ITEM, 4f, 2, 0.1f, ()->MalumSounds.AWAKENED_TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));

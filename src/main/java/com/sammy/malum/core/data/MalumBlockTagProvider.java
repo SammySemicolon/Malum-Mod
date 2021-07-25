@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.block.MalumBlocks;
 import net.minecraft.block.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
 import static net.minecraftforge.common.Tags.Blocks.DIRT;
 

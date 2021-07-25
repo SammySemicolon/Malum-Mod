@@ -1,9 +1,7 @@
 package com.sammy.malum.client.particles.spiritflame;
 
 import com.mojang.serialization.Codec;
-import com.sammy.malum.client.particles.wisp.WispParticle;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.systems.particles.data.MalumParticleData;
+import com.sammy.malum.core.systems.particle.data.MalumParticleData;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;

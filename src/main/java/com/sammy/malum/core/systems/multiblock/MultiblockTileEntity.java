@@ -2,11 +2,8 @@ package com.sammy.malum.core.systems.multiblock;
 
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.client.particle.ParticleManager;
+import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 

@@ -1,9 +1,8 @@
 package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;

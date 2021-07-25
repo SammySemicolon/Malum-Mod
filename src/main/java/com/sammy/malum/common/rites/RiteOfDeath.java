@@ -1,7 +1,7 @@
 package com.sammy.malum.common.rites;
 
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirits.SpiritHelper;
+import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import com.sammy.malum.network.packets.particle.BurstParticlePacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
+import static com.sammy.malum.core.mod_content.MalumSpiritTypes.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class RiteOfDeath extends MalumRiteType

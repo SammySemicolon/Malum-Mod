@@ -1,14 +1,9 @@
 package com.sammy.malum.core.systems.multiblock;
 
-import com.sammy.malum.core.systems.tileentities.SimpleTileEntity;
+import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-
-import javax.annotation.Nonnull;
 
 public abstract class BoundingBlockTileEntity extends SimpleTileEntity
 {

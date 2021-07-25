@@ -3,28 +3,22 @@ package com.sammy.malum.common.integration.jei;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.modcontent.MalumRuneTableRecipes;
-import com.sammy.malum.core.modcontent.MalumRuneTableRecipes.MalumRuneTableRecipe;
-import com.sammy.malum.core.systems.recipes.ItemIngredient;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
+import com.sammy.malum.core.mod_content.MalumRuneTableRecipes.MalumRuneTableRecipe;
+import com.sammy.malum.core.systems.recipe.ItemIngredient;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.common.book.BookScreen.packColor;
 
 public class RuneTableRecipeCategory implements IRecipeCategory<MalumRuneTableRecipe>
 {

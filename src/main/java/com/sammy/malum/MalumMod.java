@@ -2,8 +2,7 @@ package com.sammy.malum;
 
 import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.init.worldgen.MalumFeatures;
-import com.sammy.malum.core.systems.particles.ParticleRendering;
+import com.sammy.malum.core.systems.particle.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -21,13 +20,13 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 import java.util.UUID;
 
-import static com.sammy.malum.common.items.equipment.curios.CurioTokenOfGratitude.sammy_uuid;
+import static com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude.sammy_uuid;
 import static com.sammy.malum.core.init.MalumEffects.EFFECTS;
 import static com.sammy.malum.core.init.MalumEntities.ENTITY_TYPES;
 import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
-import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
-import static com.sammy.malum.core.init.blocks.MalumTileEntities.TILE_ENTITIES;
-import static com.sammy.malum.core.init.enchantments.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.init.block.MalumTileEntities.TILE_ENTITIES;
+import static com.sammy.malum.core.init.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.particles.MalumParticles.PARTICLES;
 

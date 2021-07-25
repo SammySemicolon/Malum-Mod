@@ -3,11 +3,13 @@ package com.sammy.malum.common.cooler_book.objects;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.ClientHelper;
+import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.cooler_book.CoolerBookEntry;
 import com.sammy.malum.common.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
+import com.sammy.malum.common.cooler_book.CoolerBookScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TranslationTextComponent;
 
-import static com.sammy.malum.common.book.BookScreen.screen;
 import static com.sammy.malum.common.cooler_book.CoolerBookScreen.*;
 
 public class EntryBookObject extends CoolerBookObject
@@ -112,7 +114,7 @@ public class EntryBookObject extends CoolerBookObject
         }
         if (isHovering)
         {
-            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(entry.translationKey()), mouseX, mouseY);
+            screen.renderTooltip(matrixStack, new TranslationTextComponent(entry.translationKey()), mouseX, mouseY);
         }
     }
     public void renderArrow(MatrixStack matrixStack, int arrowPosX, int arrowPosY, int uOffset, int vOffset)

@@ -81,7 +81,7 @@ repositories {
 		url = "https://dvs1.progwml6.com/files/maven/"
 	}
     maven {
-        name = "CTM Guy"
+        name = "CTM Person"
         url = "https://maven.tterrag.com/"
     }
 }
