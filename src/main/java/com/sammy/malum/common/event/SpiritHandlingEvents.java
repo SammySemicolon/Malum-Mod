@@ -3,7 +3,7 @@ package com.sammy.malum.common.event;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.spirittools.ISpiritTool;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;

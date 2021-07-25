@@ -12,7 +12,7 @@ import com.sammy.malum.core.init.event.StartupEvents;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.mod_content.MalumBookCategories;
 import com.sammy.malum.core.mod_content.MalumRites;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;

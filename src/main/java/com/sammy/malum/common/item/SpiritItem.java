@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item;
 
-import com.sammy.malum.core.systems.spirit.ISpiritEntityGlow;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.mod_systems.spirit.ISpiritEntityGlow;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import net.minecraft.item.Item;
 
 import java.awt.*;

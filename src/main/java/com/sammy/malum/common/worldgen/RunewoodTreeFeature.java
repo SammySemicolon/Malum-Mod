@@ -3,8 +3,8 @@ package com.sammy.malum.common.worldgen;
 import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.RunewoodSaplingBlock;
 import com.sammy.malum.core.init.block.MalumBlocks;
-import com.sammy.malum.core.systems.worldgen.MalumFiller;
-import com.sammy.malum.core.systems.worldgen.MalumFiller.BlockStateEntry;
+import com.sammy.malum.core.mod_systems.worldgen.MalumFiller;
+import com.sammy.malum.core.mod_systems.worldgen.MalumFiller.BlockStateEntry;
 import net.minecraft.block.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -234,7 +234,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).add(x, 0, z);
-                filler.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 1).with(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
+                filler.entries.add(new BlockStateEntry(MalumBlocks.RUNEWOOD_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 1).with(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
             }
         }
     }

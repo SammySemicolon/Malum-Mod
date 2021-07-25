@@ -1,9 +1,9 @@
 package com.sammy.malum.core.mod_content;
 
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.systems.recipe.ItemIngredient;
-import com.sammy.malum.core.systems.recipe.SimpleItemIngredient;
-import com.sammy.malum.core.systems.recipe.SpiritIngredient;
+import com.sammy.malum.core.mod_systems.recipe.ItemIngredient;
+import com.sammy.malum.core.mod_systems.recipe.SimpleItemIngredient;
+import com.sammy.malum.core.mod_systems.recipe.SpiritIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.Tags;

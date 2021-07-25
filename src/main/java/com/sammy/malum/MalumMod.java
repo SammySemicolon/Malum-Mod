@@ -2,7 +2,7 @@ package com.sammy.malum;
 
 import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.systems.particle.ParticleRendering;
+import com.sammy.malum.core.mod_systems.particle.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.rites;
 
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
+import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import com.sammy.malum.network.packets.particle.BurstParticlePacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.AxisAlignedBB;

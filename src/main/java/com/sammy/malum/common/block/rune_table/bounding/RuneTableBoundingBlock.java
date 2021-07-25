@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.rune_table.bounding;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.tile.RuneTableBoundingBlockTileEntity;
-import com.sammy.malum.core.systems.multiblock.BoundingBlock;
+import com.sammy.malum.core.mod_systems.multiblock.BoundingBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;

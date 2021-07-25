@@ -2,8 +2,8 @@ package com.sammy.malum.common.entity;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.systems.spirit.ISpiritEntityGlow;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.mod_systems.spirit.ISpiritEntityGlow;
+import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;

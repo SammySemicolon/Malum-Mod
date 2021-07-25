@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.rune_table;
 
 import com.sammy.malum.core.init.block.MalumBlocks;
-import com.sammy.malum.core.systems.multiblock.MultiblockStructure;
+import com.sammy.malum.core.mod_systems.multiblock.MultiblockStructure;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;

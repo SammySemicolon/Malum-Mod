@@ -4,6 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.common.item.SpiritItem;
 import com.sammy.malum.core.init.block.MalumBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,17 +17,20 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
-public class RunewoodLogBlock extends RotatedPillarBlock
+import java.util.function.Supplier;
+
+public class RunewoodLogBlock extends MalumLogBlock
 {
-    public RunewoodLogBlock(Properties properties)
+
+    public RunewoodLogBlock(Properties properties, Supplier<Block> stripped)
     {
-        super(properties);
+        super(properties, stripped);
     }
-    
+
     @Override
     public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType)
     {
-        return world.rand.nextFloat() < 0.1f ? MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get().getDefaultState().with(AXIS, state.get(AXIS)) : MalumBlocks.STRIPPED_RUNEWOOD_LOG.get().getDefaultState().with(AXIS, state.get(AXIS));
+        return MalumBlocks.STRIPPED_RUNEWOOD_LOG.get().getDefaultState().with(AXIS, state.get(AXIS));
     }
 
     @Override

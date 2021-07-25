@@ -2,9 +2,9 @@ package com.sammy.malum.network;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.systems.particle.ParticleManager;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.mod_systems.particle.ParticleManager;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;

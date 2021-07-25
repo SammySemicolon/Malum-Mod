@@ -1,7 +1,7 @@
 package com.sammy.malum.core.mod_content;
 
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;

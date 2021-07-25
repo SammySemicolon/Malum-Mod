@@ -4,7 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.mod_systems.particle.ParticleManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.entity.player.PlayerEntity;

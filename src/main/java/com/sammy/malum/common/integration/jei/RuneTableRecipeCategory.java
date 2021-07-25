@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.mod_content.MalumRuneTableRecipes.MalumRuneTableRecipe;
-import com.sammy.malum.core.systems.recipe.ItemIngredient;
+import com.sammy.malum.core.mod_systems.recipe.ItemIngredient;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;

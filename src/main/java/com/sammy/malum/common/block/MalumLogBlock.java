@@ -9,10 +9,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
+import java.util.function.Supplier;
+
 public class MalumLogBlock extends RotatedPillarBlock
 {
-    public final Block stripped;
-    public MalumLogBlock(Properties properties, Block stripped)
+    public final Supplier<Block> stripped;
+    public MalumLogBlock(Properties properties, Supplier<Block> stripped)
     {
         super(properties);
         this.stripped = stripped;
@@ -21,6 +23,6 @@ public class MalumLogBlock extends RotatedPillarBlock
     @Override
     public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType)
     {
-        return stripped.getDefaultState().with(AXIS, state.get(AXIS));
+        return stripped.get().getDefaultState().with(AXIS, state.get(AXIS));
     }
 }

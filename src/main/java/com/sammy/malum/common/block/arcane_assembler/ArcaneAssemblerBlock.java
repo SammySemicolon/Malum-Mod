@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.arcane_assembler;
 
 import com.sammy.malum.common.tile.ArcaneAssemblerTileEntity;
-import com.sammy.malum.core.systems.tile.SimpleInventoryBlock;
+import com.sammy.malum.core.mod_systems.tile.SimpleInventoryBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;

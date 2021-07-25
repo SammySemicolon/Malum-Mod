@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.tools.spirittools;
 
 import com.sammy.malum.common.item.tools.ModSwordItem;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import com.sammy.malum.network.packets.particle.BurstParticlePacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

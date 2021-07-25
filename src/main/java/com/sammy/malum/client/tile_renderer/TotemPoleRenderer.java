@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.core.mod_content.MalumSpiritTypes;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.RenderMaterial;

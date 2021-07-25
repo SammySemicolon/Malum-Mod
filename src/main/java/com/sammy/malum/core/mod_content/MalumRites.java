@@ -1,8 +1,8 @@
 package com.sammy.malum.core.mod_content;
 
 import com.sammy.malum.common.rites.*;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 
 import java.util.ArrayList;
 

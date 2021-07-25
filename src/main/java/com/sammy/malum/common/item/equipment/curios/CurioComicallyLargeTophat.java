@@ -6,7 +6,7 @@ import com.sammy.malum.MalumColors;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.model.ModelComicallyLargeTophat;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.systems.spirit.ISpiritEntityGlow;
+import com.sammy.malum.core.mod_systems.spirit.ISpiritEntityGlow;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
