@@ -115,9 +115,9 @@ public class ClientStartupEvents
         MalumHelper.takeAll(blocks, block -> block.get() instanceof MalumLeavesBlock).forEach(block -> blockColors.register((state, reader, pos, color) -> {
             float i = state.get(MalumLeavesBlock.COLOR);
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) block.get();
-            int r = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
-            int g = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
-            int b = (int) MathHelper.lerp(i / 9f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
+            int r = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
+            int g = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
+            int b = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
             return r << 16 | g << 8 | b;
         }, block.get()));
     }

@@ -29,27 +29,17 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
         super(field_236558_a_);
     }
 
-    public static int minimumTrunkHeight = 6;
-    public static int extraTrunkHeight = 3;
-    public static int minimumSideTrunkHeight = 0;
-    public static int extraSideTrunkHeight = 2;
+    private static final int minimumTrunkHeight = 7;
+    private static final int extraTrunkHeight = 3;
+    private static final int minimumSideTrunkHeight = 0;
+    private static final int extraSideTrunkHeight = 2;
 
-    public static int minimumDownwardsBranchOffset = 1;
-    public static int extraDownwardsBranchOffset = 2;
-    public static int minimumBranchCoreOffset = 2;
-    public static int branchCoreOffsetExtra = 1;
-    public static int minimumBranchHeight = 2;
-    public static int branchHeightExtra = 2;
-
-    public static int leavesHeight = 8;
-    public static int leavesHeightExtra = 4;
-    public static int leavesStartDownwardsOffset = 1;
-    public static int leavesStartDownwardsOffsetExtra = 2;
-    public static int leavesSize = 1;
-    public static int leavesSizeCap = 3;
-    public static int leavesSizeExtra = 1;
-    public static int leavesShrinkStart = 5;
-
+    private static final int minimumDownwardsBranchOffset = 2;
+    private static final int extraDownwardsBranchOffset = 2;
+    private static final int minimumBranchCoreOffset = 2;
+    private static final int branchCoreOffsetExtra = 1;
+    private static final int minimumBranchHeight = 3;
+    private static final int branchHeightExtra = 2;
 
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
@@ -128,7 +118,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                     return false;
                 }
             }
-            makeLeafBlob(leavesFiller, rand, branchStartPos.up(branchHeight - 1));
+            makeLeafBlob(leavesFiller, rand, branchStartPos.up(1));
         }
 
         MalumFiller groundFiller = new MalumFiller();
@@ -185,7 +175,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                     {
                         if (rand.nextFloat() < tallGrassProbability)
                         {
-                            DoublePlantBlock tallGrassBlock = null;
+                            DoublePlantBlock tallGrassBlock;
                             if (rand.nextBoolean())
                             {
                                 tallGrassBlock = (DoublePlantBlock) MalumBlocks.TALL_SUN_KISSED_GRASS.get();
@@ -249,30 +239,11 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
 
     public static void makeLeafBlob(MalumFiller filler, Random rand, BlockPos pos)
     {
-//        int randomOffset = leavesStartDownwardsOffset + rand.nextInt(leavesStartDownwardsOffsetExtra + 1);
-//        int finalLeavesHeight = leavesHeight + rand.nextInt(leavesHeightExtra + 1);
-//
-//        int extraSize = rand.nextInt(leavesSizeExtra + 1);
-//        int sizeCap = leavesSizeCap + extraSize;
-//        int size = leavesSize - 1 + extraSize;
-//        for (int i = 0; i < finalLeavesHeight; i++)
-//        {
-//            BlockPos blobSliceCenter = pos.down(randomOffset).up(i);
-//            if (i < leavesShrinkStart && size < sizeCap)
-//            {
-//                size++;
-//            }
-//            else
-//            {
-//                size--;
-//            }
-//            int color = Math.min(i, 9);
-//            if (color == 9 && rand.nextBoolean())
-//            {
-//                color -= rand.nextInt(3);
-//            }
-//            makeLeafSlice(filler, blobSliceCenter, size, color);
-//        }
+        makeLeafSlice(filler, pos, 1, 0);
+        makeLeafSlice(filler, pos.up(1), 2, 1);
+        makeLeafSlice(filler, pos.up(2), 2, 2);
+        makeLeafSlice(filler, pos.up(3), 2, 3);
+        makeLeafSlice(filler, pos.up(4), 1, 4);
     }
 
     public static void makeLeafSlice(MalumFiller filler, BlockPos pos, int leavesSize, int leavesColor)

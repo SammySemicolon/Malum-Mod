@@ -21,7 +21,7 @@ import java.awt.*;
 
 public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock
 {
-    public static final IntegerProperty COLOR = IntegerProperty.create("color",0,9);
+    public static final IntegerProperty COLOR = IntegerProperty.create("color",0,4);
     public final Color maxColor;
     public final Color minColor;
     
@@ -46,8 +46,7 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock
     {
         if (player.getHeldItem(handIn).getItem().equals(MalumItems.INFERNAL_SPIRIT.get()))
         {
-            worldIn.setBlockState(pos,state.with(COLOR, (state.get(COLOR) + 1) % 9));
-    
+            worldIn.setBlockState(pos,state.with(COLOR, (state.get(COLOR) + 1) % 5));
             player.swingArm(handIn);
             player.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1F, 1.5f + RANDOM.nextFloat() * 0.5f);
             return ActionResultType.SUCCESS;
