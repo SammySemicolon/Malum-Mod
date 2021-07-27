@@ -2,8 +2,8 @@ package com.sammy.malum.core.init;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entities.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.common.entities.spirit.PlayerHomingItemEntity;
+import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.entity.spirit.PlayerHomingItemEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;

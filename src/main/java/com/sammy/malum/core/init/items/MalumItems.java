@@ -1,22 +1,22 @@
 package com.sammy.malum.core.init.items;
 
-import com.sammy.malum.common.blocks.runetable.RuneTableBlockItem;
-import com.sammy.malum.common.items.*;
-import com.sammy.malum.common.items.equipment.armor.SoulStainedSteelArmorItem;
-import com.sammy.malum.common.items.equipment.armor.SoulStainedStrongholdArmorItem;
-import com.sammy.malum.common.items.equipment.curios.*;
-import com.sammy.malum.common.items.food.SolarSyrupBottleItem;
-import com.sammy.malum.common.items.tools.*;
-import com.sammy.malum.common.items.tools.spirittools.PithingNeedleItem;
-import com.sammy.malum.common.items.tools.spirittools.ScytheItem;
-import com.sammy.malum.common.items.tools.spirittools.TyrvingItem;
+import com.sammy.malum.common.block.rune_table.RuneTableBlockItem;
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
+import com.sammy.malum.common.item.equipment.armor.SoulStainedStrongholdArmorItem;
+import com.sammy.malum.common.item.equipment.curios.*;
+import com.sammy.malum.common.item.food.SolarSyrupBottleItem;
+import com.sammy.malum.common.item.tools.*;
+import com.sammy.malum.common.item.tools.spirittools.PithingNeedleItem;
+import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
+import com.sammy.malum.common.item.tools.spirittools.TyrvingItem;
 import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.tabs.MalumBuildingTab;
 import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
 import com.sammy.malum.core.init.items.tabs.MalumNatureTab;
 import com.sammy.malum.core.init.items.tabs.MalumSplinterTab;
-import com.sammy.malum.core.modcontent.MalumSpiritTypes;
+import com.sammy.malum.core.mod_content.MalumSpiritTypes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -331,47 +331,32 @@ public class MalumItems
 
     //endregion
 
-    //region nature
-    public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE)));
-    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
-
-    public static final RegistryObject<Item> SUN_KISSED_GRASS = ITEMS.register("sun_kissed_grass", () -> new BlockItem(MalumBlocks.SUN_KISSED_GRASS.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> TALL_SUN_KISSED_GRASS = ITEMS.register("tall_sun_kissed_grass", () -> new BlockItem(MalumBlocks.TALL_SUN_KISSED_GRASS.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender", () -> new BlockItem(MalumBlocks.LAVENDER.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_GRASS_BLOCK = ITEMS.register("sun_kissed_grass_block", () -> new BlockItem(MalumBlocks.SUN_KISSED_GRASS_BLOCK.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> SUN_KISSED_LEAVES = ITEMS.register("sun_kissed_leaves", () -> new BlockItem(MalumBlocks.SUN_KISSED_LEAVES.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(MalumBlocks.RUNEWOOD_SAPLING.get(), NATURE_PROPERTIES()));
-    //endregion
-
     //region runewood
-    public static final RegistryObject<Item> SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_LOG = ITEMS.register("runewood_log", () -> new BlockItem(MalumBlocks.RUNEWOOD_LOG.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> STRIPPED_RUNEWOOD_LOG = ITEMS.register("stripped_runewood_log", () -> new BlockItem(MalumBlocks.STRIPPED_RUNEWOOD_LOG.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD = ITEMS.register("runewood", () -> new BlockItem(MalumBlocks.RUNEWOOD.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> STRIPPED_RUNEWOOD = ITEMS.register("stripped_runewood", () -> new BlockItem(MalumBlocks.STRIPPED_RUNEWOOD.get(), NATURE_PROPERTIES()));
 
+    public static final RegistryObject<Item> SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("stripped_sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.STRIPPED_SAP_FILLED_RUNEWOOD_LOG.get(), NATURE_PROPERTIES()));
+
     public static final RegistryObject<Item> RUNEWOOD_PLANKS = ITEMS.register("runewood_planks", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS = ITEMS.register("vertical_runewood_planks", () -> new BlockItem(MalumBlocks.VERTICAL_RUNEWOOD_PLANKS.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> BOLTED_RUNEWOOD_PLANKS = ITEMS.register("bolted_runewood_planks", () -> new BlockItem(MalumBlocks.BOLTED_RUNEWOOD_PLANKS.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_PANEL = ITEMS.register("runewood_panel", () -> new BlockItem(MalumBlocks.RUNEWOOD_PANEL.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TILES = ITEMS.register("runewood_tiles", () -> new BlockItem(MalumBlocks.RUNEWOOD_TILES.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> RUNEWOOD_PLANKS_SLAB = ITEMS.register("runewood_planks_slab", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_SLAB.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS_SLAB = ITEMS.register("vertical_runewood_planks_slab", () -> new BlockItem(MalumBlocks.VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> BOLTED_RUNEWOOD_PLANKS_SLAB = ITEMS.register("bolted_runewood_planks_slab", () -> new BlockItem(MalumBlocks.BOLTED_RUNEWOOD_PLANKS_SLAB.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_PANEL_SLAB = ITEMS.register("runewood_panel_slab", () -> new BlockItem(MalumBlocks.RUNEWOOD_PANEL_SLAB.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TILES_SLAB = ITEMS.register("runewood_tiles_slab", () -> new BlockItem(MalumBlocks.RUNEWOOD_TILES_SLAB.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> RUNEWOOD_PLANKS_STAIRS = ITEMS.register("runewood_planks_stairs", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS_STAIRS.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS_STAIRS = ITEMS.register("vertical_runewood_planks_stairs", () -> new BlockItem(MalumBlocks.VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> BOLTED_RUNEWOOD_PLANKS_STAIRS = ITEMS.register("bolted_runewood_planks_stairs", () -> new BlockItem(MalumBlocks.BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_PANEL_STAIRS = ITEMS.register("runewood_panel_stairs", () -> new BlockItem(MalumBlocks.RUNEWOOD_PANEL_STAIRS.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TILES_STAIRS = ITEMS.register("runewood_tiles_stairs", () -> new BlockItem(MalumBlocks.RUNEWOOD_TILES_STAIRS.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> CUT_RUNEWOOD_PLANKS = ITEMS.register("cut_runewood_planks", () -> new BlockItem(MalumBlocks.CUT_RUNEWOOD_PLANKS.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_BEAM = ITEMS.register("runewood_beam", () -> new BlockItem(MalumBlocks.RUNEWOOD_BEAM.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> BOLTED_RUNEWOOD_BEAM = ITEMS.register("bolted_runewood_beam", () -> new BlockItem(MalumBlocks.BOLTED_RUNEWOOD_BEAM.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> RUNEWOOD_DOOR = ITEMS.register("runewood_door", () -> new BlockItem(MalumBlocks.RUNEWOOD_DOOR.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TRAPDOOR = ITEMS.register("runewood_trapdoor", () -> new BlockItem(MalumBlocks.RUNEWOOD_TRAPDOOR.get(), NATURE_PROPERTIES()));
@@ -386,6 +371,13 @@ public class MalumItems
 
     public static final RegistryObject<Item> RUNEWOOD_ITEM_STAND = ITEMS.register("runewood_item_stand", () -> new BlockItem(MalumBlocks.RUNEWOOD_ITEM_STAND.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_ITEM_PEDESTAL = ITEMS.register("runewood_item_pedestal", () -> new BlockItem(MalumBlocks.RUNEWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE)));
+    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+
+    public static final RegistryObject<Item> RUNEWOOD_LEAVES = ITEMS.register("runewood_leaves", () -> new BlockItem(MalumBlocks.RUNEWOOD_LEAVES.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(MalumBlocks.RUNEWOOD_SAPLING.get(), NATURE_PROPERTIES()));
 
     //endregion
 
@@ -420,7 +412,6 @@ public class MalumItems
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRIT_PIPE = ITEMS.register("spirit_pipe", () -> new BlockItem(MalumBlocks.SPIRIT_PIPE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUNE_TABLE = ITEMS.register("rune_table", () -> new RuneTableBlockItem(MalumBlocks.RUNE_TABLE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_ASSEMBLY_TABLE = ITEMS.register("arcane_assembly_table", () -> new BlockItem(MalumBlocks.ARCANE_ASSEMBLY_TABLE.get(), DEFAULT_PROPERTIES()));
@@ -473,7 +464,6 @@ public class MalumItems
 
     public static final RegistryObject<Item> PITHING_NEEDLE = ITEMS.register("pithing_needle", () -> new PithingNeedleItem(PITHING_NEEDLE_ITEM, 0, 0.1f, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, ()->MalumSounds.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
-    public static final RegistryObject<Item> AWAKENED_TYRVING = ITEMS.register("awakened_tyrving", () -> new TyrvingItem(TYRVING_ITEM, 4f, 2, 0.1f, ()->MalumSounds.AWAKENED_TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));

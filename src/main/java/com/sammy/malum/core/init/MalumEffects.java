@@ -1,8 +1,8 @@
 package com.sammy.malum.core.init;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.effects.AuraOfCelerity;
-import com.sammy.malum.common.effects.AuraOfWarding;
+import com.sammy.malum.common.potion_effect.AuraOfCelerity;
+import com.sammy.malum.common.potion_effect.AuraOfWarding;
 import net.minecraft.potion.Effect;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

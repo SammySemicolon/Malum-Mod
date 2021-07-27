@@ -28,6 +28,7 @@ public class CoolerBookObject
     {
         return 20;
     }
+
     public void render(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
 

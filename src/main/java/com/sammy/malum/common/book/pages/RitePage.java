@@ -6,11 +6,8 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.objects.EntryObject;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 
 public class RitePage extends BookPage
 {

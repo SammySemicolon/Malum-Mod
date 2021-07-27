@@ -317,11 +317,11 @@ public class CoolerBookScreen extends Screen
 
     public static CoolerBookScreen getInstance()
     {
-//        if (screen == null)
+        if (screen == null)
         {
             screen = new CoolerBookScreen();
+            screen.faceObject(objects.get(0));
         }
-        screen.faceObject(objects.get(0));
         return screen;
     }
 }

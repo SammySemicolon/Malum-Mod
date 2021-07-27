@@ -44,37 +44,9 @@ public class ClientHelper
         int b = color.getBlue();
         itemColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
     }
-    
-    public static IFormattableTextComponent simpleComponent(String message)
-    {
-        return new StringTextComponent(message).mergeStyle(TextFormatting.WHITE);
-    }
-    
+
     public static IFormattableTextComponent simpleTranslatableComponent(String message)
     {
-        return new TranslationTextComponent(message).mergeStyle(TextFormatting.WHITE);
-    }
-    
-    public static IFormattableTextComponent importantComponent(String message)
-    {
-        return new StringTextComponent(message).mergeStyle(TextFormatting.DARK_PURPLE, TextFormatting.ITALIC);
-    }
-    
-    public static IFormattableTextComponent importantTranslatableComponent(String message)
-    {
-        return new TranslationTextComponent(message).mergeStyle(TextFormatting.DARK_PURPLE, TextFormatting.ITALIC);
-    }
-    
-    public static IFormattableTextComponent combinedComponent(IFormattableTextComponent... components)
-    {
-        IFormattableTextComponent finalComponent = components[0];
-        for (IFormattableTextComponent component : components)
-        {
-            if (!component.equals(finalComponent))
-            {
-                finalComponent.append(component);
-            }
-        }
-        return finalComponent;
+        return new TranslationTextComponent(message);
     }
 }

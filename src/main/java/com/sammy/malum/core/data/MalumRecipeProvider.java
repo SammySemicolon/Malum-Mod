@@ -38,18 +38,16 @@ public class MalumRecipeProvider extends RecipeProvider
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer)
     {
-        shapelessRecipe(Items.PURPLE_DYE,2).addIngredient(MalumItems.LAVENDER.get()).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.ENCYCLOPEDIA_ARCANA.get()).addIngredient(Items.BOOK).addIngredient(MalumItems.SOULSTONE.get()).addCriterion("has_soulstone", hasItem(MalumItems.SOULSTONE.get())).build(consumer);
 
         shapelessRecipe(MalumItems.COAL_FRAGMENT.get(),8).addIngredient(Items.COAL).addCriterion("has_coal", hasItem(Items.COAL)).build(consumer);
         shapelessRecipe(MalumItems.BLAZING_QUARTZ_FRAGMENT.get(),8).addIngredient(MalumItems.BLAZING_QUARTZ.get()).addCriterion("has_blazing_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer);
         shapelessRecipe(MalumItems.ARCANE_CHARCOAL_FRAGMENT.get(),8).addIngredient(MalumItems.ARCANE_CHARCOAL.get()).addCriterion("has_arcane_charcoal", hasItem(MalumItems.ARCANE_CHARCOAL.get())).build(consumer);
 
-        smeltingRecipe(Ingredient.fromTag(MalumItemTags.RUNEWOOD_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_sun_kissed_log", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
+        smeltingRecipe(Ingredient.fromTag(MalumItemTags.RUNEWOOD_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_runewood_planks", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_ALTAR.get()).key('Z', Tags.Items.INGOTS_GOLD).key('Y', MalumItems.SOULSTONE.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine(" Y ").patternLine("ZXZ").patternLine("XXX").addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_JAR.get()).key('Z', MalumItems.HALLOWED_GOLD_INGOT.get()).key('Y', Tags.Items.GLASS_PANES).patternLine("YZY").patternLine("Y Y").patternLine("YYY").addCriterion("has_hallowed_gold", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
-
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.ENCYCLOPEDIA_ARCANA.get()).addIngredient(Items.BONE).addIngredient(Items.BOOK).addCriterion("has_lavender", hasItem(MalumItems.LAVENDER.get())).build(consumer);
 
         smeltingRecipe(Ingredient.fromItems(MalumItems.SOULSTONE_ORE.get()), MalumItems.SOULSTONE.get(),0.25f,200).addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
         blastingRecipe(Ingredient.fromItems(MalumItems.SOULSTONE_ORE.get()), MalumItems.SOULSTONE.get(),0.25f,200).addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer, "grimslate_plating_blasting");
@@ -112,28 +110,23 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedTrapdoor(consumer, MalumItems.RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_PLANKS.get());
         shapelessSolidTrapdoor(consumer, MalumItems.SOLID_RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_TRAPDOOR.get());
 
-        shapedRecipe(MalumItems.BOLTED_RUNEWOOD_PLANKS.get(),8).key('#', MalumItems.RUNEWOOD_PLANKS.get()).key('X', Items.IRON_NUGGET).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
-        shapedSlab(consumer, MalumItems.BOLTED_RUNEWOOD_PLANKS_SLAB.get(), MalumItems.BOLTED_RUNEWOOD_PLANKS.get());
-        shapedStairs(consumer, MalumItems.BOLTED_RUNEWOOD_PLANKS_STAIRS.get(), MalumItems.BOLTED_RUNEWOOD_PLANKS.get());
-
-        shapedRecipe(MalumItems.VERTICAL_RUNEWOOD_PLANKS.get(),3).key('#', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.VERTICAL_RUNEWOOD_PLANKS.get(),3).key('#', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedSlab(consumer, MalumItems.VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), MalumItems.VERTICAL_RUNEWOOD_PLANKS.get());
         shapedStairs(consumer, MalumItems.VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), MalumItems.VERTICAL_RUNEWOOD_PLANKS.get());
 
-        shapedRecipe(MalumItems.RUNEWOOD_PANEL.get(),9).key('#', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.RUNEWOOD_PANEL.get(),4).key('#', MalumItems.RUNEWOOD_PLANKS.get()).patternLine(" # ").patternLine("# #").patternLine(" # ").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedSlab(consumer, MalumItems.RUNEWOOD_PANEL_SLAB.get(), MalumItems.RUNEWOOD_PANEL.get());
         shapedStairs(consumer, MalumItems.RUNEWOOD_PANEL_STAIRS.get(), MalumItems.RUNEWOOD_PANEL.get());
 
-        shapedRecipe(MalumItems.RUNEWOOD_TILES.get(),4).key('#', MalumItems.RUNEWOOD_PANEL.get()).patternLine("##").patternLine("##").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.RUNEWOOD_TILES.get(),4).key('#', MalumItems.RUNEWOOD_PANEL.get()).patternLine(" # ").patternLine("# #").patternLine(" # ").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedSlab(consumer, MalumItems.RUNEWOOD_TILES_SLAB.get(), MalumItems.RUNEWOOD_TILES.get());
         shapedStairs(consumer, MalumItems.RUNEWOOD_TILES_STAIRS.get(), MalumItems.RUNEWOOD_TILES.get());
 
-        shapedRecipe(MalumItems.CUT_RUNEWOOD_PLANKS.get(),4).key('#', MalumItems.RUNEWOOD_PANEL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("##").patternLine("XX").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
-        shapedRecipe(MalumItems.RUNEWOOD_BEAM.get(),3).key('#', MalumItems.VERTICAL_RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
-        shapedRecipe(MalumItems.BOLTED_RUNEWOOD_BEAM.get(),8).key('#', MalumItems.RUNEWOOD_BEAM.get()).key('X', Items.IRON_NUGGET).patternLine("###").patternLine("#X#").patternLine("###").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.CUT_RUNEWOOD_PLANKS.get(),4).key('#', MalumItems.RUNEWOOD_PANEL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("##").patternLine("XX").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.RUNEWOOD_BEAM.get(),3).key('#', MalumItems.VERTICAL_RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
 
-        shapedRecipe(MalumItems.RUNEWOOD_ITEM_STAND.get(), 2).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', MalumItems.RUNEWOOD_PLANKS_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
-        shapedRecipe(MalumItems.RUNEWOOD_ITEM_PEDESTAL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', MalumItems.RUNEWOOD_PLANKS_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_sun_kissed_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.RUNEWOOD_ITEM_STAND.get(), 2).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', MalumItems.RUNEWOOD_PLANKS_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.RUNEWOOD_ITEM_PEDESTAL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', MalumItems.RUNEWOOD_PLANKS_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(MalumItems.TAINTED_ROCK_WALL.get(), 6).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("###").patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.TAINTED_ROCK_SLAB.get(), 6).key('#', MalumItems.TAINTED_ROCK.get()).patternLine("###").addCriterion("has_tainted_rock", hasItem(MalumItems.TAINTED_ROCK.get())).build(consumer);

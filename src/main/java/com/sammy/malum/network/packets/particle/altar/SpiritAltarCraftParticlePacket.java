@@ -1,6 +1,6 @@
 package com.sammy.malum.network.packets.particle.altar;
 
-import com.sammy.malum.core.systems.recipes.SpiritIngredient;
+import com.sammy.malum.core.mod_systems.recipe.SpiritIngredient;
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;

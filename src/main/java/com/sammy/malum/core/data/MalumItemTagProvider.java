@@ -1,7 +1,6 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;

@@ -7,10 +7,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.objects.EntryObject;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.modcontent.MalumRuneTableRecipes;
-import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
+import com.sammy.malum.core.mod_content.MalumRuneTableRecipes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

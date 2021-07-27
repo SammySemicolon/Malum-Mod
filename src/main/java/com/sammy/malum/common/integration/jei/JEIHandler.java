@@ -2,9 +2,9 @@ package com.sammy.malum.common.integration.jei;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.modcontent.MalumRites;
-import com.sammy.malum.core.modcontent.MalumRuneTableRecipes;
-import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
+import com.sammy.malum.core.mod_content.MalumRites;
+import com.sammy.malum.core.mod_content.MalumRuneTableRecipes;
+import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;

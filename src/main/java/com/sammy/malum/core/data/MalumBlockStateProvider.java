@@ -3,16 +3,16 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.blocks.MalumLeavesBlock;
-import com.sammy.malum.common.blocks.itempedestal.ItemPedestalBlock;
-import com.sammy.malum.common.blocks.itemstand.ItemStandBlock;
-import com.sammy.malum.common.blocks.ether.EtherBlock;
-import com.sammy.malum.common.blocks.ether.EtherBrazierBlock;
-import com.sammy.malum.common.blocks.runetable.RuneTableBlock;
-import com.sammy.malum.common.blocks.runetable.bounding.RuneTableBoundingBlock;
-import com.sammy.malum.common.blocks.totem.TotemBaseBlock;
-import com.sammy.malum.common.blocks.totem.pole.TotemPoleBlock;
-import com.sammy.malum.core.init.blocks.MalumBlocks;
+import com.sammy.malum.common.block.MalumLeavesBlock;
+import com.sammy.malum.common.block.item_pedestal.ItemPedestalBlock;
+import com.sammy.malum.common.block.item_stand.ItemStandBlock;
+import com.sammy.malum.common.block.ether.EtherBlock;
+import com.sammy.malum.common.block.ether.EtherBrazierBlock;
+import com.sammy.malum.common.block.rune_table.RuneTableBlock;
+import com.sammy.malum.common.block.rune_table.bounding.RuneTableBoundingBlock;
+import com.sammy.malum.common.block.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.core.init.block.MalumBlocks;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.AttachFace;
@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.core.init.blocks.MalumBlocks.*;
+import static com.sammy.malum.core.init.block.MalumBlocks.*;
 import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
 
@@ -59,8 +59,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
 
         blocks.remove(SPIRIT_ALTAR);
         blocks.remove(SPIRIT_JAR);
-        blocks.remove(SPIRIT_PIPE);
-
 
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
@@ -415,11 +413,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         if (blockRegistryObject.equals(MalumBlocks.RUNEWOOD) || blockRegistryObject.equals(MalumBlocks.STRIPPED_RUNEWOOD))
         {
             woodBlock(blockRegistryObject);
-            return;
-        }
-        if (blockRegistryObject.equals(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG))
-        {
-            sapFilledBlock(blockRegistryObject);
             return;
         }
         logBlock((RotatedPillarBlock) blockRegistryObject.get());

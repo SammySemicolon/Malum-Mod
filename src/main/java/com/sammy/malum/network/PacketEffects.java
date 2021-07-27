@@ -2,21 +2,17 @@ package com.sammy.malum.network;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.systems.particles.ParticleManager;
-import com.sammy.malum.core.systems.spirits.MalumSpiritType;
-import com.sammy.malum.core.systems.spirits.SpiritHelper;
+import com.sammy.malum.core.mod_systems.particle.ParticleManager;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class PacketEffects
 {

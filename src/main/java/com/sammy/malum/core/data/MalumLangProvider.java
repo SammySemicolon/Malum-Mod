@@ -8,11 +8,11 @@ import com.sammy.malum.common.book.entries.BookEntryGrouping;
 import com.sammy.malum.common.book.pages.BookPage;
 import com.sammy.malum.common.book.pages.HeadlineTextPage;
 import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.init.events.StartupEvents;
-import com.sammy.malum.core.init.enchantments.MalumEnchantments;
-import com.sammy.malum.core.modcontent.MalumBookCategories;
-import com.sammy.malum.core.modcontent.MalumRites;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.init.event.StartupEvents;
+import com.sammy.malum.core.init.enchantment.MalumEnchantments;
+import com.sammy.malum.core.mod_content.MalumBookCategories;
+import com.sammy.malum.core.mod_content.MalumRites;
+import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
@@ -30,7 +30,7 @@ import java.util.Set;
 
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
-import static com.sammy.malum.core.init.blocks.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 
 public class MalumLangProvider extends LanguageProvider
 {

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.rites;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import com.sammy.malum.network.packets.particle.UpwardsFromBlockParticlesPacket;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
+import static com.sammy.malum.core.mod_content.MalumSpiritTypes.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class RiteOfGrowth extends MalumRiteType

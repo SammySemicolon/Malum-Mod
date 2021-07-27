@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "malum:runewood_log",
-    "malum:runewood",
-    "malum:sap_filled_runewood_log"
+    "malum:runewood"
   ]
 }

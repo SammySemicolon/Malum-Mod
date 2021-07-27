@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_sun_kissed_planks": {
+    "has_runewood_planks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_sun_kissed_planks",
+      "has_runewood_planks",
       "has_the_recipe"
     ]
   ]

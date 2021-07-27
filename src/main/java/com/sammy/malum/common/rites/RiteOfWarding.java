@@ -1,7 +1,7 @@
 package com.sammy.malum.common.rites;
 
 import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import com.sammy.malum.network.packets.particle.BurstParticlePacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.modcontent.MalumSpiritTypes.*;
+import static com.sammy.malum.core.mod_content.MalumSpiritTypes.*;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class RiteOfWarding extends MalumRiteType

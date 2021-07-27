@@ -1,10 +1,10 @@
 package com.sammy.malum.client.particles.wisp;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.sammy.malum.core.systems.particles.ParticleRendering;
-import com.sammy.malum.RenderUtil;
-import com.sammy.malum.core.systems.particles.GenericMalumParticle;
-import com.sammy.malum.core.systems.particles.data.MalumParticleData;
+import com.sammy.malum.core.mod_systems.particle.ParticleRendering;
+import com.sammy.malum.client.RenderUtilities;
+import com.sammy.malum.core.mod_systems.particle.GenericMalumParticle;
+import com.sammy.malum.core.mod_systems.particle.data.MalumParticleData;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.world.ClientWorld;
 
@@ -21,6 +21,6 @@ public class WispParticle extends GenericMalumParticle
 
     @Override
     public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
-        super.renderParticle(ParticleRendering.getDelayedRender().getBuffer(RenderUtil.GLOWING_PARTICLE), info, pticks);
+        super.renderParticle(ParticleRendering.getDelayedRender().getBuffer(RenderUtilities.GLOWING_PARTICLE), info, pticks);
     }
 }

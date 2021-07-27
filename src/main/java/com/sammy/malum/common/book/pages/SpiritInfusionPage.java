@@ -7,7 +7,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.book.BookScreen;
 import com.sammy.malum.common.book.objects.EntryObject;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.modcontent.MalumSpiritAltarRecipes;
+import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.vector.Vector3d;
