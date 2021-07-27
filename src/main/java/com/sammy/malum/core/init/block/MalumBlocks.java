@@ -399,6 +399,9 @@ public class MalumBlocks
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD = BLOCKS.register("stripped_runewood", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD));
 
+    public static final RegistryObject<Block> STRIPPED_SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("stripped_sap_filled_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES()));
+    public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new RunewoodLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_SAP_FILLED_RUNEWOOD_LOG));
+
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_SLAB = BLOCKS.register("runewood_planks_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_STAIRS = BLOCKS.register("runewood_planks_stairs", () -> new StairsBlock(RUNEWOOD_PLANKS.get().getDefaultState(), RUNEWOOD_PROPERTIES()));

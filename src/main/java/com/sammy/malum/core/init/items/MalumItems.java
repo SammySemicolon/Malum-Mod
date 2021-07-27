@@ -337,6 +337,9 @@ public class MalumItems
     public static final RegistryObject<Item> RUNEWOOD = ITEMS.register("runewood", () -> new BlockItem(MalumBlocks.RUNEWOOD.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> STRIPPED_RUNEWOOD = ITEMS.register("stripped_runewood", () -> new BlockItem(MalumBlocks.STRIPPED_RUNEWOOD.get(), NATURE_PROPERTIES()));
 
+    public static final RegistryObject<Item> SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_SAP_FILLED_RUNEWOOD_LOG = ITEMS.register("stripped_sap_filled_runewood_log", () -> new BlockItem(MalumBlocks.STRIPPED_SAP_FILLED_RUNEWOOD_LOG.get(), NATURE_PROPERTIES()));
+
     public static final RegistryObject<Item> RUNEWOOD_PLANKS = ITEMS.register("runewood_planks", () -> new BlockItem(MalumBlocks.RUNEWOOD_PLANKS.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> VERTICAL_RUNEWOOD_PLANKS = ITEMS.register("vertical_runewood_planks", () -> new BlockItem(MalumBlocks.VERTICAL_RUNEWOOD_PLANKS.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_PANEL = ITEMS.register("runewood_panel", () -> new BlockItem(MalumBlocks.RUNEWOOD_PANEL.get(), NATURE_PROPERTIES()));
