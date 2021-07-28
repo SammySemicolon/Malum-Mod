@@ -132,6 +132,14 @@ public class CoolerBookScreen extends Screen
                 "spirit_spoils",
                 MalumItems.RING_OF_ARCANE_SPOIL.get(),-3,5));
 
+        entries.add(new CoolerBookEntry(
+                "precise_soul_shattering",
+                MalumItems.PITHING_NEEDLE.get(),-4,4));
+
+        entries.add(new CoolerBookEntry(
+                "brilliance",
+                MalumItems.CONFINED_BRILLIANCE.get(),-2,6));
+
         //dark arts
 
         entries.add(new CoolerBookEntry(
@@ -166,7 +174,18 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "radiant_soulstone",
-                MalumItems.RADIANT_SOULSTONE.get(),0,7));
+                MalumItems.RADIANT_SOULSTONE.get(),0,7)
+                .right(1)
+                .upRight(2,2));
+
+        entries.add(new CoolerBookEntry(
+                "tyrving",
+                MalumItems.TYRVING.get(),1,7)
+                .right(1));
+
+        entries.add(new CoolerBookEntry(
+                "stronghold_armor",
+                MalumItems.SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(),2,7));
     }
     public void setupObjects()
     {
@@ -317,7 +336,7 @@ public class CoolerBookScreen extends Screen
 
     public static CoolerBookScreen getInstance()
     {
-        if (screen == null)
+     //   if (screen == null)
         {
             screen = new CoolerBookScreen();
             screen.faceObject(objects.get(0));

@@ -3,12 +3,10 @@ package com.sammy.malum.common.book.categories;
 import com.sammy.malum.common.book.entries.BookEntry;
 import com.sammy.malum.common.book.pages.*;
 import com.sammy.malum.common.rites.*;
-import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
 import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
-import static com.sammy.malum.common.book.categories.SpiritTinkeringCategory.spirit_resonators;
 import static com.sammy.malum.core.init.items.MalumItems.*;
 
 public class DarkArtsCategory extends BookCategory
@@ -18,10 +16,6 @@ public class DarkArtsCategory extends BookCategory
     public static BookEntry rite_of_death;
     public static BookEntry rite_of_warding;
     public static BookEntry rite_of_celerity;
-    public static BookEntry rune_table;
-    public static BookEntry creating_catalysts;
-    public static BookEntry brilliance_confining;
-    public static BookEntry creating_runes;
 
     public DarkArtsCategory()
     {
@@ -55,33 +49,7 @@ public class DarkArtsCategory extends BookCategory
                 .addPage(new RitePage(new RiteOfCelerity()))
                 .addLink(()->totem_magic);
 
-        rune_table = new BookEntry(RUNE_TABLE.get(), "rune_table")
-                .addPage(new HeadlineTextPage("rune_table"))
-                .addPage(new SpiritInfusionPage(RUNE_TABLE.get()))
-                .addPage(new HeadlineTextPage("rite_of_assembly"))
-                .addPage(new RitePage(new RiteOfAssembly()))
-                .addLink(()->totem_magic);
 
-        creating_catalysts = new BookEntry(Items.ENDER_PEARL, "creating_catalysts")
-                .addPage(new HeadlineTextPage("creating_catalysts"))
-                .addPage(new RuneTablePage(Items.BLAZE_POWDER))
-                .addPage(new RuneTablePage(Items.ENDER_PEARL))
-                .addPage(new RuneTablePage(Items.GHAST_TEAR))
-                .addPage(new RuneTablePage(Items.PHANTOM_MEMBRANE))
-                .addLink(()->rune_table);
-
-        brilliance_confining = new BookEntry(CONFINED_BRILLIANCE.get(), "brilliance_confining")
-                .addPage(new HeadlineTextPage("brilliance_confining"))
-                .addPage(new RuneTablePage(CONFINED_BRILLIANCE.get()))
-                .addPage(new RuneTablePage(Items.EXPERIENCE_BOTTLE))
-                .addLink(()->rune_table);
-
-        creating_runes = new BookEntry(TAINTED_ROCK_RUNE.get(), "creating_runes")
-                .addPage(new HeadlineTextPage("creating_runes"))
-                .addPage(new RuneTablePage(TAINTED_ROCK_RUNE.get()))
-                .addPage(new RuneTablePage(TWISTED_ROCK_RUNE.get()))
-                .addLink(()->rune_table);
-
-        addEntries(totem_magic, rite_of_growth, rite_of_death, rite_of_warding, rite_of_celerity, rune_table, creating_catalysts, brilliance_confining, creating_runes);
+        addEntries(totem_magic, rite_of_growth, rite_of_death, rite_of_warding, rite_of_celerity);
     }
 }

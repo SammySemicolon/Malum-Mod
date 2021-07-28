@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.arcane_assembler;
+package com.sammy.malum.common.block;
 
 import com.sammy.malum.common.tile.ArcaneAssemblerTileEntity;
 import com.sammy.malum.core.mod_systems.tile.SimpleInventoryBlock;

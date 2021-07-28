@@ -1,19 +1,17 @@
 package com.sammy.malum.core.init.block;
 
 import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.arcane_assembler.ArcaneAssemblerBlock;
-import com.sammy.malum.common.block.item_pedestal.ItemPedestalBlock;
-import com.sammy.malum.common.block.item_stand.ItemStandBlock;
+import com.sammy.malum.common.block.ArcaneAssemblerBlock;
+import com.sammy.malum.common.block.ItemPedestalBlock;
+import com.sammy.malum.common.block.ItemStandBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
-import com.sammy.malum.common.block.rune_table.RuneTableBlock;
-import com.sammy.malum.common.block.rune_table.bounding.RuneTableBoundingBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
-import com.sammy.malum.common.block.spirit_jar.SpiritJarBlock;
-import com.sammy.malum.common.block.totem.TotemBaseBlock;
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.SpiritJarBlock;
+import com.sammy.malum.common.block.TotemBaseBlock;
+import com.sammy.malum.common.block.TotemPoleBlock;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -400,7 +398,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD));
 
     public static final RegistryObject<Block> STRIPPED_SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("stripped_sap_filled_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES()));
-    public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new RunewoodLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_SAP_FILLED_RUNEWOOD_LOG));
+    public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_SAP_FILLED_RUNEWOOD_LOG));
 
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_SLAB = BLOCKS.register("runewood_planks_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
@@ -459,9 +457,6 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> TOTEM_BASE = BLOCKS.register("totem_base", () -> new TotemBaseBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(MalumBlocks.RUNEWOOD_LOG)));
-
-    public static final RegistryObject<Block> RUNE_TABLE = BLOCKS.register("rune_table", () -> new RuneTableBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> RUNE_TABLE_BOUNDING_BLOCK = BLOCKS.register("rune_table_bounding_block", () -> new RuneTableBoundingBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
 
     public static final RegistryObject<Block> ARCANE_ASSEMBLY_TABLE = BLOCKS.register("arcane_assembly_table", () -> new ArcaneAssemblerBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
 

@@ -28,12 +28,6 @@ public class RunewoodLogBlock extends MalumLogBlock
     }
 
     @Override
-    public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType)
-    {
-        return MalumBlocks.STRIPPED_RUNEWOOD_LOG.get().getDefaultState().with(AXIS, state.get(AXIS));
-    }
-
-    @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
         ItemStack stack = player.getHeldItem(handIn);

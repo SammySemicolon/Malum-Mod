@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:rune_table"
+          "name": "malum:stripped_sap_filled_runewood_log"
         }
       ],
       "conditions": [

@@ -4,14 +4,12 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.MalumLeavesBlock;
-import com.sammy.malum.common.block.item_pedestal.ItemPedestalBlock;
-import com.sammy.malum.common.block.item_stand.ItemStandBlock;
+import com.sammy.malum.common.block.ItemPedestalBlock;
+import com.sammy.malum.common.block.ItemStandBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
-import com.sammy.malum.common.block.rune_table.RuneTableBlock;
-import com.sammy.malum.common.block.rune_table.bounding.RuneTableBoundingBlock;
-import com.sammy.malum.common.block.totem.TotemBaseBlock;
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.TotemBaseBlock;
+import com.sammy.malum.common.block.TotemPoleBlock;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
@@ -62,8 +60,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
 
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof RuneTableBlock).forEach(this::runeTableBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof RuneTableBoundingBlock).forEach(this::runeTableBoundingBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);

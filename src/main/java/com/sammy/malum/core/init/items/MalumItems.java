@@ -1,6 +1,5 @@
 package com.sammy.malum.core.init.items;
 
-import com.sammy.malum.common.block.rune_table.RuneTableBlockItem;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedStrongholdArmorItem;
@@ -382,9 +381,9 @@ public class MalumItems
     //endregion
 
     //region ether
-    public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new EtherItem(MalumBlocks.ETHER.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> ETHER_TORCH = ITEMS.register("ether_torch", () -> new EtherTorchItem(MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> ETHER_BRAZIER = ITEMS.register("ether_brazier", () -> new EtherItem(MalumBlocks.ETHER_BRAZIER.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new EtherItem(MalumBlocks.ETHER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ETHER_TORCH = ITEMS.register("ether_torch", () -> new EtherTorchItem(MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ETHER_BRAZIER = ITEMS.register("ether_brazier", () -> new EtherItem(MalumBlocks.ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region spirits
@@ -413,7 +412,6 @@ public class MalumItems
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> RUNE_TABLE = ITEMS.register("rune_table", () -> new RuneTableBlockItem(MalumBlocks.RUNE_TABLE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ARCANE_ASSEMBLY_TABLE = ITEMS.register("arcane_assembly_table", () -> new BlockItem(MalumBlocks.ARCANE_ASSEMBLY_TABLE.get(), DEFAULT_PROPERTIES()));
     //endregion
 

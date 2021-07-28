@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "side": "malum:block/stripped_sap_filled_runewood_log",
+    "end": "malum:block/stripped_sap_filled_runewood_log_top"
+  }
+}

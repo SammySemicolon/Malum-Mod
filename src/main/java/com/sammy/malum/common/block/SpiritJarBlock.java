@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.spirit_jar;
+package com.sammy.malum.common.block;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.SpiritItem;

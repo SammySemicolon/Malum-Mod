@@ -25,8 +25,6 @@ public class BindRenderers
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_ASSEMBLER_TILE_ENTITY.get(), ArcaneAssemblerRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), TotemPoleRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.RUNE_TABLE_TILE_ENTITY.get(), RuneTableRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.RUNE_TABLE_BOUNDING_BLOCK_TILE_ENTITY.get(), RuneTableBoundingRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), ItemStandRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get(), ItemPedestalRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), SpiritJarRenderer::new);

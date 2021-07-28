@@ -110,7 +110,7 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedTrapdoor(consumer, MalumItems.RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_PLANKS.get());
         shapelessSolidTrapdoor(consumer, MalumItems.SOLID_RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_TRAPDOOR.get());
 
-        shapedRecipe(MalumItems.VERTICAL_RUNEWOOD_PLANKS.get(),3).key('#', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.VERTICAL_RUNEWOOD_PLANKS.get(),2).key('#', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedSlab(consumer, MalumItems.VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), MalumItems.VERTICAL_RUNEWOOD_PLANKS.get());
         shapedStairs(consumer, MalumItems.VERTICAL_RUNEWOOD_PLANKS_STAIRS.get(), MalumItems.VERTICAL_RUNEWOOD_PLANKS.get());
 
@@ -122,8 +122,8 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedSlab(consumer, MalumItems.RUNEWOOD_TILES_SLAB.get(), MalumItems.RUNEWOOD_TILES.get());
         shapedStairs(consumer, MalumItems.RUNEWOOD_TILES_STAIRS.get(), MalumItems.RUNEWOOD_TILES.get());
 
-        shapedRecipe(MalumItems.CUT_RUNEWOOD_PLANKS.get(),4).key('#', MalumItems.RUNEWOOD_PANEL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("##").patternLine("XX").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
-        shapedRecipe(MalumItems.RUNEWOOD_BEAM.get(),3).key('#', MalumItems.VERTICAL_RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").patternLine("#").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.CUT_RUNEWOOD_PLANKS.get(),2).key('#', MalumItems.RUNEWOOD_PANEL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("X").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
+        shapedRecipe(MalumItems.RUNEWOOD_BEAM.get(),2).key('#', MalumItems.VERTICAL_RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
 
         shapedRecipe(MalumItems.RUNEWOOD_ITEM_STAND.get(), 2).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', MalumItems.RUNEWOOD_PLANKS_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedRecipe(MalumItems.RUNEWOOD_ITEM_PEDESTAL.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', MalumItems.RUNEWOOD_PLANKS_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);

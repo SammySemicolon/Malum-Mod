@@ -5,8 +5,6 @@ import com.sammy.malum.common.book.pages.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
-import static com.sammy.malum.common.book.categories.DarkArtsCategory.brilliance_confining;
-import static com.sammy.malum.common.book.categories.DarkArtsCategory.rune_table;
 import static com.sammy.malum.common.book.categories.DiscoveryCategory.*;
 import static com.sammy.malum.core.init.items.MalumItems.*;
 
@@ -30,22 +28,22 @@ public class SpiritTinkeringCategory extends BookCategory
 
         soul_stained_steel = new BookEntry(SOUL_STAINED_STEEL_INGOT.get(), "soul_stained_steel")
                 .addPage(new HeadlineTextPage("soul_stained_steel"))
-                .addPage(new RuneTablePage(SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingPage.blockCraftingPage(SOUL_STAINED_STEEL_BLOCK.get(), SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingPage.nuggetCraftingPage(SOUL_STAINED_STEEL_NUGGET.get(), SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new HeadlineTextPage("soul_stained_steel_gear"))
                 .addPage(new ItemListPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_HOE.get())
                         .addList(SOUL_STAINED_STEEL_HELMET.get(), SOUL_STAINED_STEEL_CHESTPLATE.get(), SOUL_STAINED_STEEL_LEGGINGS.get(), SOUL_STAINED_STEEL_BOOTS.get()))
-                .addLink(()->rune_table);
+                .addLink(()-> spirit_infusion);
 
         hallowed_gold = new BookEntry(HALLOWED_GOLD_INGOT.get(), "hallowed_gold")
                 .addPage(new HeadlineTextPage("hallowed_gold"))
-                .addPage(new RuneTablePage(HALLOWED_GOLD_INGOT.get()))
+                .addPage(new SpiritInfusionPage(HALLOWED_GOLD_INGOT.get()))
                 .addPage(CraftingPage.blockCraftingPage(HALLOWED_GOLD_BLOCK.get(), HALLOWED_GOLD_INGOT.get()))
                 .addPage(CraftingPage.nuggetCraftingPage(HALLOWED_GOLD_NUGGET.get(), HALLOWED_GOLD_INGOT.get()))
                 .addPage(new HeadlineTextPage("spirit_jar"))
                 .addPage(new CraftingPage(SPIRIT_JAR.get(), Items.GLASS_PANE, HALLOWED_GOLD_INGOT.get(), Items.GLASS_PANE, Items.GLASS_PANE, EMPTY, Items.GLASS_PANE, Items.GLASS_PANE, Items.GLASS_PANE, Items.GLASS_PANE))
-                .addLink(()->rune_table);
+                .addLink(()-> spirit_infusion);
 
         curios = new BookEntry(GILDED_RING.get(), "curios")
                 .addPage(new HeadlineTextPage("curios"))
@@ -77,7 +75,7 @@ public class SpiritTinkeringCategory extends BookCategory
         ring_of_prowess = new BookEntry(RING_OF_PROWESS.get(), "ring_of_prowess")
                 .addPage(new HeadlineTextPage("ring_of_prowess"))
                 .addPage(new SpiritInfusionPage(RING_OF_PROWESS.get()))
-                .addLink(()->spirit_infusion).addLink(()->brilliance_confining).addLink(()->soulstone).addLink(()->curios);
+                .addLink(()->spirit_infusion).addLink(()->soulstone).addLink(()->curios);
 
         tyrving = new BookEntry(TYRVING.get(), "tyrving")
                 .addPage(new HeadlineTextPage("tyrving"))
@@ -86,8 +84,8 @@ public class SpiritTinkeringCategory extends BookCategory
 
         radiant_soulstone = new BookEntry(RADIANT_SOULSTONE.get(), "radiant_soulstone")
                 .addPage(new HeadlineTextPage("radiant_soulstone"))
-                .addPage(new RuneTablePage(RADIANT_SOULSTONE.get()))
-                .addLink(()->rune_table).addLink(()->soulstone);
+                .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()))
+                .addLink(()-> spirit_infusion).addLink(()->soulstone);
 
         stronghold_armor = new BookEntry(SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(), "stronghold_armor")
                 .addPage(new HeadlineTextPage("stronghold_armor"))

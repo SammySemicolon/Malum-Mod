@@ -17,7 +17,6 @@ public class StartupEvents
     {
         MalumSpiritAltarRecipes.init();
         MalumArcaneAssemblyRecipes.init();
-        MalumRuneTableRecipes.init();
         MalumRites.init();
     }
     @SubscribeEvent
