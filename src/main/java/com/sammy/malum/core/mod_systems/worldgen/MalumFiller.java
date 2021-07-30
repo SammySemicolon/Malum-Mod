@@ -8,6 +8,7 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 public class MalumFiller
 {
@@ -34,6 +35,10 @@ public class MalumFiller
             }
         }
     }
+    public void replaceAt(int index, BlockStateEntry entry)
+    {
+        entries.set(index, entry);
+    }
 
     public static class BlockStateEntry
     {
@@ -43,7 +48,6 @@ public class MalumFiller
         public BlockStateEntry(BlockState state, BlockPos pos)
         {
             this.state = state;
-
             this.pos = pos;
         }
 

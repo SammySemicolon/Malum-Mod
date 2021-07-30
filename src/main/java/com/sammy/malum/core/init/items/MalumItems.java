@@ -380,12 +380,6 @@ public class MalumItems
 
     //endregion
 
-    //region ether
-    public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new EtherItem(MalumBlocks.ETHER.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ETHER_TORCH = ITEMS.register("ether_torch", () -> new EtherTorchItem(MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ETHER_BRAZIER = ITEMS.register("ether_brazier", () -> new EtherItem(MalumBlocks.ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
-    //endregion
-
     //region spirits
     public static final RegistryObject<Item> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.SACRED_SPIRIT));
     public static final RegistryObject<Item> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new SpiritItem(SPLINTER_PROPERTIES(), MalumSpiritTypes.WICKED_SPIRIT));
@@ -439,6 +433,12 @@ public class MalumItems
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_NUGGET = ITEMS.register("soul_stained_steel_nugget", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_BLOCK = ITEMS.register("soul_stained_steel_block", () -> new BlockItem(MalumBlocks.SOUL_STAINED_STEEL_BLOCK.get(), DEFAULT_PROPERTIES()));
 
+    //endregion
+
+    //region ether
+    public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new EtherItem(MalumBlocks.ETHER.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ETHER_TORCH = ITEMS.register("ether_torch", () -> new EtherTorchItem(MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> ETHER_BRAZIER = ITEMS.register("ether_brazier", () -> new EtherItem(MalumBlocks.ETHER_BRAZIER.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region contents

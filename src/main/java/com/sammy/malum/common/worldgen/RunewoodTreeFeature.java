@@ -1,5 +1,6 @@
 package com.sammy.malum.common.worldgen;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.RunewoodSaplingBlock;
 import com.sammy.malum.core.init.block.MalumBlocks;
@@ -24,6 +25,8 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
     {
         super(field_236558_a_);
     }
+    private static final int minimumSapBlockCount = 2;
+    private static final int extraSapBlockCount = 1;
 
     private static final int minimumTrunkHeight = 7;
     private static final int extraTrunkHeight = 3;
@@ -115,6 +118,14 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                 }
             }
             makeLeafBlob(leavesFiller, rand, branchStartPos.up(1));
+        }
+        int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount+1);
+        int[] sapBlockIndexes = MalumHelper.nextInts(rand, sapBlockCount, treeFiller.entries.size());
+        for (Integer index : sapBlockIndexes)
+        {
+            BlockStateEntry oldEntry = treeFiller.entries.get(index);
+            BlockState newState = MalumHelper.getBlockStateWithExistingProperties(oldEntry.state, MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get().getDefaultState());
+            treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
         }
         treeFiller.fill(reader, false);
         leavesFiller.fill(reader, true);

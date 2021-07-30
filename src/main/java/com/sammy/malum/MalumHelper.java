@@ -179,7 +179,23 @@ public class MalumHelper
         }
         return stringBuilder.toString().trim().replaceAll(regex, " ").substring(0, stringBuilder.length() - 1);
     }
-
+    public static int[] nextInts(Random rand, int count, int range)
+    {
+        int[] ints = new int[count];
+        for (int i =0; i < count; i++)
+        {
+            while (true)
+            {
+                int nextInt = rand.nextInt(range);
+                if (Arrays.stream(ints).noneMatch(j -> j == nextInt))
+                {
+                    ints[i] = nextInt;
+                    break;
+                }
+            }
+        }
+        return ints;
+    }
     public static <T> boolean hasDuplicate(T[] things)
     {
         Set<T> thingSet = new HashSet<>();
@@ -227,10 +243,8 @@ public class MalumHelper
         return ret;
     }
 
-    public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState, int flags)
+    public static BlockState getBlockStateWithExistingProperties(BlockState oldState, BlockState newState)
     {
-        BlockState oldState = world.getBlockState(pos);
-
         BlockState finalState = newState;
         for (Property<?> property : oldState.getProperties())
         {
@@ -239,8 +253,13 @@ public class MalumHelper
                 finalState = newStateWithOldProperty(oldState, finalState, property);
             }
         }
+        return finalState;
+    }
+    public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState, int flags)
+    {
+        BlockState oldState = world.getBlockState(pos);
+        BlockState finalState = getBlockStateWithExistingProperties(oldState, newState);
         world.notifyBlockUpdate(pos, oldState, finalState, flags);
-
         world.setBlockState(pos, finalState, flags);
     }
 
@@ -520,9 +539,7 @@ public class MalumHelper
     public static void applyEnchantments(LivingEntity user, Entity target, ItemStack stack)
     {
         EnchantmentHelper.IEnchantmentVisitor visitor = (enchantment, level) ->
-        {
-            enchantment.onEntityDamaged(user, target, level);
-        };
+                enchantment.onEntityDamaged(user, target, level);
         if (user != null)
         {
             EnchantmentHelper.applyEnchantmentModifierArray(visitor, user.getEquipmentAndArmor());

@@ -1,21 +1,21 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
+import com.sammy.malum.core.mod_content.MalumSpiritTypes;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -41,18 +41,34 @@ public class SapFilledLogBlock extends RotatedPillarBlock
             {
                 MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, MalumBlocks.STRIPPED_RUNEWOOD_LOG.get().getDefaultState(), 3);
             }
-            particles(worldIn,pos,8);
+            if (MalumHelper.areWeOnClient(worldIn))
+            {
+                Color color = MalumSpiritTypes.INFERNAL_SPIRIT_COLOR;
+
+                ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                        .setAlpha(0.03f, 0f)
+                        .setLifetime(20)
+                        .setSpin(0.1f)
+                        .setScale(0.4f, 0.3f)
+                        .setColor(color, color)
+                        .randomOffset(0.1f, 0.1f)
+                        .enableNoClip()
+                        .randomVelocity(0.001f, 0.001f)
+                        .evenlyRepeatEdges(worldIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+
+                ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+                        .setAlpha(0.05f, 0f)
+                        .setLifetime(40)
+                        .setSpin(0.1f)
+                        .setScale(0.5f, 0.2f)
+                        .setColor(color, color)
+                        .randomOffset(0.1f, 0.1f)
+                        .enableNoClip()
+                        .randomVelocity(0.001f, 0.001f)
+                        .evenlyRepeatEdges(worldIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+            }
             return ActionResultType.SUCCESS;
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-    }
-    public void particles(World worldIn, BlockPos pos, int countMultiplier)
-    {
-        if (MalumHelper.areWeOnClient(worldIn))
-        {
-            Color color = new Color(229, 177, 19);
-            ParticleManager.create(MalumParticles.WISP_PARTICLE).setAlpha(0.3f, 0f).setLifetime(40).setScale(0.075f, 0).setColor(color, color.darker()).enableNoClip().evenlyRepeatEdges(worldIn, pos, countMultiplier);
-            ParticleManager.create(MalumParticles.SMOKE_PARTICLE).setAlpha(0.1f, 0f).setLifetime(80).setScale(0.4f, 0).setColor(color, color.darker()).enableNoClip().evenlyRepeatEdges(worldIn, pos, 2 * countMultiplier);
-        }
     }
 }
