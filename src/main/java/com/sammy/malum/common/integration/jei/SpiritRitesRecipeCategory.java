@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.common.book.BookScreen.packColor;
+import static com.sammy.malum.client.screen.old_book.BookScreen.packColor;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class SpiritRitesRecipeCategory implements IRecipeCategory<MalumRiteType>

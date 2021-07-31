@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.common.book.pages.SpiritInfusionPage.itemOffset;
+import static com.sammy.malum.client.screen.old_book.pages.SpiritInfusionPage.itemOffset;
 import static net.minecraft.client.gui.AbstractGui.blit;
 
 public class SpiritAltarRecipeCategory implements IRecipeCategory<MalumSpiritAltarRecipe>

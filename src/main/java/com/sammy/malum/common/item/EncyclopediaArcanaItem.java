@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.book.BookScreen;
+import com.sammy.malum.client.screen.old_book.BookScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

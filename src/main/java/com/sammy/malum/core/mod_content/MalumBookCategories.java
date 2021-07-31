@@ -1,9 +1,9 @@
 package com.sammy.malum.core.mod_content;
 
-import com.sammy.malum.common.book.categories.BookCategory;
-import com.sammy.malum.common.book.categories.DarkArtsCategory;
-import com.sammy.malum.common.book.categories.DiscoveryCategory;
-import com.sammy.malum.common.book.categories.SpiritTinkeringCategory;
+import com.sammy.malum.client.screen.old_book.categories.BookCategory;
+import com.sammy.malum.client.screen.old_book.categories.DarkArtsCategory;
+import com.sammy.malum.client.screen.old_book.categories.DiscoveryCategory;
+import com.sammy.malum.client.screen.old_book.categories.SpiritTinkeringCategory;
 
 import java.util.ArrayList;
 

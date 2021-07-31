@@ -2,11 +2,11 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.book.categories.BookCategory;
-import com.sammy.malum.common.book.entries.BookEntry;
-import com.sammy.malum.common.book.entries.BookEntryGrouping;
-import com.sammy.malum.common.book.pages.BookPage;
-import com.sammy.malum.common.book.pages.HeadlineTextPage;
+import com.sammy.malum.client.screen.old_book.categories.BookCategory;
+import com.sammy.malum.client.screen.old_book.entries.BookEntry;
+import com.sammy.malum.client.screen.old_book.entries.BookEntryGrouping;
+import com.sammy.malum.client.screen.old_book.pages.BookPage;
+import com.sammy.malum.client.screen.old_book.pages.HeadlineTextPage;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.event.StartupEvents;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
