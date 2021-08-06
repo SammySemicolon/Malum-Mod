@@ -2,10 +2,10 @@
   "customEntries": [
     {
       "output": {
-        "item": "malum:soulstone"
+        "item": "malum:runewood_sapling"
       },
       "payment": {
-        "item": "malum_runewood_sapling"
+        "item": "malum:soulstone"
       },
       "category": "saplings"
     }

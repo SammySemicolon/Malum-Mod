@@ -8,6 +8,12 @@ import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.common.block.generic.MalumDirectionalBlock;
+import com.sammy.malum.common.block.generic.MalumLeavesBlock;
+import com.sammy.malum.common.block.generic.MalumLogBlock;
+import com.sammy.malum.common.block.generic.MalumOreBlock;
+import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
+import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
 import com.sammy.malum.common.block.SpiritJarBlock;
 import com.sammy.malum.common.block.TotemBaseBlock;
@@ -431,6 +437,10 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> RUNEWOOD_ITEM_STAND = BLOCKS.register("runewood_item_stand", () -> new ItemStandBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> RUNEWOOD_ITEM_PEDESTAL = BLOCKS.register("runewood_item_pedestal", () -> new ItemPedestalBlock(RUNEWOOD_PROPERTIES().notSolid()));
+
+    public static final RegistryObject<Block> RUNEWOOD_SIGN = BLOCKS.register("runewood_sign", () -> new MalumStandingSignBlock(RUNEWOOD_PROPERTIES().notSolid().doesNotBlockMovement(), MalumWoodTypes.RUNEWOOD));
+    public static final RegistryObject<Block> RUNEWOOD_WALL_SIGN = BLOCKS.register("runewood_wall_sign", () -> new MalumWallSignBlock(RUNEWOOD_PROPERTIES().notSolid().doesNotBlockMovement(), MalumWoodTypes.RUNEWOOD));
+
     //endregion
 
     //region ether
@@ -449,7 +459,6 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> HALLOWED_GOLD_BLOCK = BLOCKS.register("hallowed_gold_block", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
     public static final RegistryObject<Block> SOUL_STAINED_STEEL_BLOCK = BLOCKS.register("soul_stained_steel_block", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
-
 
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().notSolid()));

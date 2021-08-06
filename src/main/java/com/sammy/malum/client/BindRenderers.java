@@ -6,9 +6,8 @@ import com.sammy.malum.client.entity_renderer.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.client.tile_renderer.*;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.block.MalumTileEntities;
-import com.sammy.malum.core.init.event.ClientStartupEvents;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -28,6 +27,8 @@ public class BindRenderers
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), ItemStandRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get(), ItemPedestalRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get(), SpiritJarRenderer::new);
+
+        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SIGN_TILE_ENTITY.get(), SignTileEntityRenderer::new);
     }
     @SubscribeEvent
     public static void bindEntityRenderers(FMLClientSetupEvent event)

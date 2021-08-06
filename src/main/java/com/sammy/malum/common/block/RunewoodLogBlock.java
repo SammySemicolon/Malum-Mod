@@ -1,12 +1,12 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.block.generic.MalumLogBlock;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.common.item.SpiritItem;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -15,7 +15,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
 
 import java.util.function.Supplier;
 

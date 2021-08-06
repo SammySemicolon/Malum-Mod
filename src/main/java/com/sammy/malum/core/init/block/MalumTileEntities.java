@@ -1,13 +1,9 @@
 package com.sammy.malum.core.init.block;
 
-import com.sammy.malum.common.tile.ArcaneAssemblerTileEntity;
-import com.sammy.malum.common.tile.ItemPedestalTileEntity;
-import com.sammy.malum.common.tile.ItemStandTileEntity;
-import com.sammy.malum.common.tile.EtherTileEntity;
-import com.sammy.malum.common.tile.SpiritAltarTileEntity;
-import com.sammy.malum.common.tile.SpiritJarTileEntity;
-import com.sammy.malum.common.tile.TotemBaseTileEntity;
-import com.sammy.malum.common.tile.TotemPoleTileEntity;
+import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
+import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
+import com.sammy.malum.common.tile.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
@@ -22,6 +18,8 @@ public class MalumTileEntities
 {
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
 
+    public static final RegistryObject<TileEntityType<MalumSignTileEntity>> SIGN_TILE_ENTITY = TILE_ENTITIES.register("sign_tile_entity", () -> TileEntityType.Builder.create(MalumSignTileEntity::new, MalumHelper.getModBlocks(MalumWallSignBlock.class, MalumStandingSignBlock.class)).build(null));
+
     public static final RegistryObject<TileEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_altar_tile_entity", () -> TileEntityType.Builder.create(SpiritAltarTileEntity::new, MalumBlocks.SPIRIT_ALTAR.get()).build(null));
     public static final RegistryObject<TileEntityType<ArcaneAssemblerTileEntity>> ARCANE_ASSEMBLER_TILE_ENTITY = TILE_ENTITIES.register("arcane_assembler_tile_entity", () -> TileEntityType.Builder.create(ArcaneAssemblerTileEntity::new, MalumBlocks.ARCANE_ASSEMBLY_TABLE.get()).build(null));
 
@@ -34,4 +32,6 @@ public class MalumTileEntities
 
     public static final RegistryObject<TileEntityType<TotemBaseTileEntity>> TOTEM_BASE_TILE_ENTITY = TILE_ENTITIES.register("totem_base_tile_entity", () -> TileEntityType.Builder.create(TotemBaseTileEntity::new, MalumBlocks.TOTEM_BASE.get()).build(null));
     public static final RegistryObject<TileEntityType<TotemPoleTileEntity>> TOTEM_POLE_TILE_ENTITY = TILE_ENTITIES.register("totem_pole_tile_entity", () -> TileEntityType.Builder.create(TotemPoleTileEntity::new, MalumBlocks.TOTEM_POLE.get()).build(null));
+
+
 }

@@ -2,18 +2,17 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.old_book.categories.BookCategory;
-import com.sammy.malum.client.screen.old_book.entries.BookEntry;
-import com.sammy.malum.client.screen.old_book.entries.BookEntryGrouping;
-import com.sammy.malum.client.screen.old_book.pages.BookPage;
-import com.sammy.malum.client.screen.old_book.pages.HeadlineTextPage;
+import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry;
+import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
 import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.init.event.StartupEvents;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
+import com.sammy.malum.core.init.event.StartupEvents;
 import com.sammy.malum.core.mod_content.MalumBookCategories;
 import com.sammy.malum.core.mod_content.MalumRites;
 import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
+import net.minecraft.block.StandingSignBlock;
+import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
@@ -44,15 +43,17 @@ public class MalumLangProvider extends LanguageProvider
     {
         StartupEvents.registerModContents(null);
         MalumBookCategories.init();
+        CoolerBookScreen.setupEntries();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
         Set<RegistryObject<Effect>> effects = new HashSet<>(MalumEffects.EFFECTS.getEntries());
-        ArrayList<BookCategory> bookChapters = MalumBookCategories.CATEGORIES;
+        ArrayList<CoolerBookEntry> coolerBookEntries = CoolerBookScreen.entries;
         ArrayList<MalumRiteType> rites = MalumRites.RITES;
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
+        MalumHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
         blocks.forEach(b ->
         {
             String name = b.get().getTranslationKey().replaceFirst("block.malum.", "");
@@ -80,23 +81,10 @@ public class MalumLangProvider extends LanguageProvider
             String name = MalumHelper.toTitleCase(e.getId().getPath(), "_");
             add("effect.malum." + e.get().getRegistryName().getPath(), name);
         });
-        bookChapters.forEach(r -> {
-            add(r.translationKey, MalumHelper.toTitleCase(r.translationKey.substring("malum.gui.book.chapter.".length()), "_"));
-            for (BookEntryGrouping grouping : r.groupings)
-            {
-                for (BookEntry entry : grouping.entries)
-                {
-                    add(entry.translationKey, MalumHelper.toTitleCase(entry.translationKey.substring("malum.gui.book.entry.".length()), "_"));
-                    for (BookPage page : entry.pages)
-                    {
-                        if (page instanceof HeadlineTextPage)
-                        {
-                            HeadlineTextPage textPage = (HeadlineTextPage) page;
-                            add(textPage.headline, MalumHelper.toTitleCase(textPage.headline.substring("malum.gui.book.page.headline.".length()), "_"));
-                        }
-                    }
-                }
-            }
+        coolerBookEntries.forEach(b ->
+        {
+            String name = MalumHelper.toTitleCase(b.identifier, "_");
+            add(b.translationKey(), name);
         });
         rites.forEach(r -> add("malum.gui.rite." + r.identifier, MalumHelper.toTitleCase(r.identifier, "_")));
 

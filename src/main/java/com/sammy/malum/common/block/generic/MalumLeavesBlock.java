@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block;
+package com.sammy.malum.common.block.generic;
 
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;

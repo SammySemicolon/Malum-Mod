@@ -3,13 +3,15 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.MalumLeavesBlock;
+import com.sammy.malum.common.block.generic.MalumLeavesBlock;
 import com.sammy.malum.common.block.ItemPedestalBlock;
 import com.sammy.malum.common.block.ItemStandBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.TotemBaseBlock;
 import com.sammy.malum.common.block.TotemPoleBlock;
+import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
+import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
@@ -58,6 +60,8 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         blocks.remove(SPIRIT_ALTAR);
         blocks.remove(SPIRIT_JAR);
 
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumWallSignBlock).forEach(this::signBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumStandingSignBlock).forEach(this::signBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
@@ -95,6 +99,14 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
         simpleBlock(blockRegistryObject.get());
     }
 
+    public void signBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String particleName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_wall", "").replaceFirst("_sign", "") + "_planks";
+
+        ModelFile sign = models().withExistingParent(name, prefix("block/template_sign")).texture("particle", prefix("block/" + particleName));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sign).build());
+    }
     public void glowingBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
@@ -187,27 +199,6 @@ public class MalumBlockStateProvider extends net.minecraftforge.client.model.gen
                 .modelForState().modelFile(stand).rotationX(180).addModel()
                 .partialState().with(BlockStateProperties.FACING, Direction.UP)
                 .modelForState().modelFile(stand).addModel();
-    }
-    public void runeTableBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile table = models().withExistingParent(name, prefix("block/template_rune_table")).texture("table", prefix("block/" + name));
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(table).build());
-    }
-    public void runeTableBoundingBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile table = models().withExistingParent(name, prefix("block/template_rune_table_side")).texture("table", prefix("block/" + name));
-
-        getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.NORTH)
-                .modelForState().modelFile(table).rotationY(270).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.WEST)
-                .modelForState().modelFile(table).rotationY(180).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.SOUTH)
-                .modelForState().modelFile(table).rotationY(90).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.EAST)
-                .modelForState().modelFile(table).addModel();
     }
     public void itemPedestalBlock(RegistryObject<Block> blockRegistryObject)
     {

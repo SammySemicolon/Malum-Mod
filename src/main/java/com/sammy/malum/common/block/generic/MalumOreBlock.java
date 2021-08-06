@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block;
+package com.sammy.malum.common.block.generic;
 
 import net.minecraft.block.OreBlock;
 import net.minecraft.util.math.MathHelper;

@@ -1,6 +1,8 @@
 package com.sammy.malum;
 
 import com.sammy.malum.common.item.equipment.curios.MalumCurioItem;
+import com.sammy.malum.core.init.block.MalumBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -559,10 +561,24 @@ public class MalumHelper
         }
         else
         {
-            ItemEntity entityitem = new ItemEntity(entity.world, entity.getPosX(), entity.getPosY() + 0.5, entity.getPosZ(), item);
-            entityitem.setPickupDelay(40);
-            entityitem.setMotion(entityitem.getMotion().mul(0, 1, 0));
-            entity.world.addEntity(entityitem);
+            ItemEntity itemEntity = new ItemEntity(entity.world, entity.getPosX(), entity.getPosY() + 0.5, entity.getPosZ(), item);
+            itemEntity.setPickupDelay(40);
+            itemEntity.setMotion(itemEntity.getMotion().mul(0, 1, 0));
+            entity.world.addEntity(itemEntity);
         }
+    }
+
+    public static Block[] getModBlocks(Class<?>... blockClasses)
+    {
+        Collection<RegistryObject<Block>> blocks = MalumBlocks.BLOCKS.getEntries();
+        ArrayList<Block> matchingBlocks = new ArrayList<>();
+        for (RegistryObject<Block> registryObject : blocks)
+        {
+            if (Arrays.stream(blockClasses).anyMatch(b -> b.isInstance(registryObject.get())))
+            {
+                matchingBlocks.add(registryObject.get());
+            }
+        }
+        return matchingBlocks.toArray(new Block[0]);
     }
 }

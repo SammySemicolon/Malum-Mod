@@ -1,0 +1,6 @@
+{
+  "parent": "malum:block/template_sign",
+  "textures": {
+    "particle": "malum:block/runewood_planks"
+  }
+}

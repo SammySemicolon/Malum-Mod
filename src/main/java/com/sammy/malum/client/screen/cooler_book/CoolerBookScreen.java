@@ -40,6 +40,8 @@ public class CoolerBookScreen extends Screen
     public static CoolerBookScreen screen;
     float xOffset;
     float yOffset;
+    float cachedXOffset;
+    float cachedYOffset;
     float xMovement;
     float yMovement;
 
@@ -53,7 +55,7 @@ public class CoolerBookScreen extends Screen
         setupEntries();
         setupObjects();
     }
-    public void setupEntries()
+    public static void setupEntries()
     {
         entries = new ArrayList<>();
 
@@ -261,8 +263,20 @@ public class CoolerBookScreen extends Screen
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button)
     {
+        cachedXOffset = xOffset;
+        cachedYOffset = yOffset;
         xMovement = 0;
         yMovement = 0;
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button)
+    {
+        if (xOffset != cachedXOffset || yOffset != cachedYOffset)
+        {
+            return super.mouseReleased(mouseX, mouseY, button);
+        }
         for (CoolerBookObject object : objects)
         {
             if (object.isHovering(xOffset, yOffset, mouseX, mouseY))
@@ -270,7 +284,7 @@ public class CoolerBookScreen extends Screen
                 object.click(xOffset, yOffset, mouseX, mouseY);
             }
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
@@ -285,6 +299,7 @@ public class CoolerBookScreen extends Screen
         if (keyCode == GLFW.GLFW_KEY_E)
         {
             closeScreen();
+            return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
