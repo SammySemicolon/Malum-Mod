@@ -2,6 +2,7 @@ package com.sammy.malum.client.screen.cooler_book;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
+import com.sammy.malum.client.screen.cooler_book.pages.CoolerBookPage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -16,6 +17,7 @@ public class CoolerBookEntry
     public final int xOffset;
     public final int yOffset;
     public ArrayList<EntryLine> arrows = new ArrayList<>();
+    public ArrayList<CoolerBookPage> pages = new ArrayList<>();
     public CoolerBookEntry(String identifier, Item item, int xOffset, int yOffset)
     {
         this.iconStack = item.getDefaultInstance();
@@ -26,6 +28,11 @@ public class CoolerBookEntry
     public String translationKey()
     {
         return "malum.gui.book.entry." + identifier;
+    }
+    public CoolerBookEntry addPage(CoolerBookPage page)
+    {
+        pages.add(page);
+        return this;
     }
     public static class EntryLine
     {

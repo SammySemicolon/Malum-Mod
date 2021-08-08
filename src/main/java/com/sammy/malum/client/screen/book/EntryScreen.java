@@ -5,6 +5,7 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
+import com.sammy.malum.client.screen.cooler_book.pages.CoolerBookPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,6 +26,8 @@ public class EntryScreen extends Screen
     public final int bookWidth = 292;
     public final int bookHeight = 190;
 
+    public int grouping;
+
     public EntryScreen()
     {
         super(ClientHelper.simpleTranslatableComponent("malum.gui.entry.title"));
@@ -39,6 +42,25 @@ public class EntryScreen extends Screen
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         renderTexture(BOOK_TEXTURE,matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
+        if (!openEntry.pages.isEmpty())
+        {
+            int openPages = grouping*2;
+            for (int i = openPages; i <= openPages+2; i++)
+            {
+                if (i < openEntry.pages.size())
+                {
+                    CoolerBookPage page = openEntry.pages.get(i);
+                    if (i % 2 == 0)
+                    {
+                        page.renderLeft(minecraft, matrixStack, CoolerBookScreen.screen.xOffset, CoolerBookScreen.screen.yOffset, mouseX,mouseY,partialTicks);
+                    }
+                    else
+                    {
+                        page.renderRight(minecraft, matrixStack, CoolerBookScreen.screen.xOffset, CoolerBookScreen.screen.yOffset, mouseX,mouseY,partialTicks);
+                    }
+                }
+            }
+        }
     }
 
     @Override

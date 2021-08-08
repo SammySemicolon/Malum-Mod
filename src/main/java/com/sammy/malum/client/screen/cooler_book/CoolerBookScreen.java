@@ -6,18 +6,24 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.objects.CoolerBookObject;
 import com.sammy.malum.client.screen.cooler_book.objects.EntryBookObject;
+import com.sammy.malum.client.screen.cooler_book.pages.HeadlineTextPage;
+import com.sammy.malum.client.screen.cooler_book.pages.TextPage;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
@@ -38,12 +44,12 @@ public class CoolerBookScreen extends Screen
     public final int parallax_width = 512;
     public final int parallax_height = 2560;
     public static CoolerBookScreen screen;
-    float xOffset;
-    float yOffset;
-    float cachedXOffset;
-    float cachedYOffset;
-    float xMovement;
-    float yMovement;
+    public float xOffset;
+    public float yOffset;
+    public float cachedXOffset;
+    public float cachedYOffset;
+    public float xMovement;
+    public float yMovement;
 
     public static ArrayList<CoolerBookEntry> entries;
     public static ArrayList<CoolerBookObject> objects;
@@ -64,7 +70,8 @@ public class CoolerBookScreen extends Screen
         entries.add(new CoolerBookEntry(
                 "introduction",
                 MalumItems.ENCYCLOPEDIA_ARCANA.get(),0,1)
-                .down(1));
+                .down(1)
+                .addPage(new TextPage("t")));
 
         entries.add(new CoolerBookEntry(
                 "spirit_magics",
@@ -357,7 +364,51 @@ public class CoolerBookScreen extends Screen
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
     }
+    public static int packColor(int alpha, int red, int green, int blue)
+    {
+        return alpha << 24 | red << 16 | green << 8 | blue;
+    }
 
+    public static void drawWrappingText(MatrixStack mStack, ITextComponent component, int x, int y, int w)
+    {
+        drawWrappingText(mStack, component.getString(), x, y, w);
+    }
+    public static void drawWrappingText(MatrixStack mStack, String text, int x, int y, int w)
+    {
+        FontRenderer font = Minecraft.getInstance().fontRenderer;
+        List<String> lines = new ArrayList<>();
+        String[] words = text.split(" ");
+        String line = "";
+        for (String s : words)
+        {
+            if (font.getStringWidth(line) + font.getStringWidth(s) > w)
+            {
+                lines.add(line);
+                line = s + " ";
+            }
+            else line += s + " ";
+        }
+        if (!line.isEmpty()) lines.add(line);
+        for (int i = 0; i < lines.size(); i++)
+        {
+            String currentLine = lines.get(i);
+            screen.renderText(mStack, currentLine, x, y + i * (font.FONT_HEIGHT + 1));
+        }
+    }
+
+    public void renderText(MatrixStack stack, ITextComponent component, int x, int y)
+    {
+        renderText(stack, component.getString(), x, y);
+    }
+
+    public void renderText(MatrixStack stack, String text, int x, int y)
+    {
+        font.drawString(stack, text, x - 1, y, packColor(128, 161, 156, 138));
+        font.drawString(stack, text, x + 1, y, packColor(128, 236, 231, 214));
+        font.drawString(stack, text, x, y - 1, packColor(128, 184, 176, 155));
+        font.drawString(stack, text, x, y + 1, packColor(128, 208, 202, 183));
+        font.drawString(stack, text, x, y, packColor(255, 92, 88, 75));
+    }
     public void playSound()
     {
         PlayerEntity playerEntity = Minecraft.getInstance().player;
