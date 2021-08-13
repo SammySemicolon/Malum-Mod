@@ -8,7 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelSoulStainedStrongholdArmor extends ModelArmor
+public class StrongholdArmorModel extends ArmorModel
 {
 	private final ModelRenderer torso;
 	private final ModelRenderer chestplate_slope;
@@ -24,7 +24,7 @@ public class ModelSoulStainedStrongholdArmor extends ModelArmor
 	private final ModelRenderer boot_l;
 	private final ModelRenderer boot_wing_l;
 
-	public ModelSoulStainedStrongholdArmor(EquipmentSlotType slot) {
+	public StrongholdArmorModel(EquipmentSlotType slot) {
 		super(slot, 64, 64);
 		
 		torso = new ModelRenderer(this);

@@ -4,8 +4,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.model.ModelDarkPrincesCrown;
-import com.sammy.malum.client.model.ModelLapisTail;
+import com.sammy.malum.client.model.DarkCrownModel;
+import com.sammy.malum.client.model.FurryTailModel;
 import com.sammy.malum.core.init.MalumSounds;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -54,11 +54,11 @@ public class CurioTokenOfGratitude extends MalumCurioItem
 
     public static final String sammy_uuid = "0ca54301-6170-4c44-b3e0-b8afa6b81ed2";
     public final ResourceLocation sammy_texture = new ResourceLocation(MalumMod.MODID, "textures/other/sammy_texture.png");
-    public ModelLapisTail<LivingEntity> sammy_model;
+    public FurryTailModel<LivingEntity> sammy_model;
 
     public static final String ura_uuid = "fddaefa0-31d2-4acf-9cd2-4711d0e5e5d5";
     public final ResourceLocation ura_texture = MalumHelper.prefix("textures/other/ura_texture.png");
-    public ModelDarkPrincesCrown<LivingEntity> ura_model;
+    public DarkCrownModel<LivingEntity> ura_model;
     @Override
     public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack)
     {
@@ -70,7 +70,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem
                 matrixStack.push();
                 if (ura_model == null)
                 {
-                    ura_model = new ModelDarkPrincesCrown<>();
+                    ura_model = new DarkCrownModel<>();
                 }
                 ICurio.RenderHelper.followHeadRotations(livingEntity, ura_model.crown);
                 IVertexBuilder jtBuilder = ItemRenderer.getBuffer(renderTypeBuffer, ura_model.getRenderType(ura_texture), false, stack.hasEffect());
@@ -82,7 +82,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem
                 matrixStack.push();
                 if (sammy_model == null)
                 {
-                    sammy_model = new ModelLapisTail<>();
+                    sammy_model = new FurryTailModel<>();
                 }
                 double curSpeed = livingEntity.getMotion().length();
                 if (curSpeed != 0.0)

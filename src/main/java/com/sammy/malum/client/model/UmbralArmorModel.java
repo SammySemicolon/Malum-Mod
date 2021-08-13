@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelUmbralArmor extends ModelArmor
+public class UmbralArmorModel extends ArmorModel
 {
     private final ModelRenderer torso;
     private final ModelRenderer chestplate_slope2;
@@ -22,7 +22,7 @@ public class ModelUmbralArmor extends ModelArmor
     private final ModelRenderer boot_l;
     private final ModelRenderer boot_wing_l2;
     
-    public ModelUmbralArmor(EquipmentSlotType slot)
+    public UmbralArmorModel(EquipmentSlotType slot)
     {
         super(slot, 64, 98);
         textureWidth = 64;

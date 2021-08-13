@@ -9,11 +9,11 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 
-public class ModelComicallyLargeTophat<T extends LivingEntity> extends BipedModel<T>
+public class ComicallyLargeTophatModel<T extends LivingEntity> extends BipedModel<T>
 {
 	public final ModelRenderer tophat;
 	
-	public ModelComicallyLargeTophat()
+	public ComicallyLargeTophatModel()
 	{
 		super(1);
 		textureWidth = 64;

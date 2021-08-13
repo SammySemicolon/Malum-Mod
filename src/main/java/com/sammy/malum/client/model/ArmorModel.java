@@ -6,11 +6,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelArmor extends BipedModel<LivingEntity>
+public class ArmorModel extends BipedModel<LivingEntity>
 {
     protected final EquipmentSlotType slot;
     
-    public ModelArmor(EquipmentSlotType slot, int width, int height)
+    public ArmorModel(EquipmentSlotType slot, int width, int height)
     {
         super(1);
         this.slot = slot;

@@ -120,7 +120,9 @@ public class CoolerBookScreen extends Screen
                 .addPage(new TextPage("scythes_b"))
                 .addPage(new TextPage("scythes_c"))
                 .addPage(CraftingBookPage.scythePage(MalumItems.CRUDE_SCYTHE.get(), Items.IRON_INGOT, SOULSTONE.get()))
-                .addPage(new HeadlineTextPage("haunting", "haunting", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.HAUNTED.get(), 0)))));
+                .addPage(new HeadlineTextPage("haunted", "haunted", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.HAUNTED.get(), 0))))
+                .addPage(new HeadlineTextPage("spirit_plunder", "spirit_plunder", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.SPIRIT_PLUNDER.get(), 0))))
+                .addPage(new HeadlineTextPage("rebound", "rebound", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.REBOUND.get(), 0)))));
 
         entries.add(new CoolerBookEntry(
                 "spirit_types",

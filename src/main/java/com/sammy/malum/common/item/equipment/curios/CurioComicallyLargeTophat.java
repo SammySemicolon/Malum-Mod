@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.MalumColors;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.model.ModelComicallyLargeTophat;
+import com.sammy.malum.client.model.ComicallyLargeTophatModel;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.mod_systems.spirit.ISpiritEntityGlow;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -40,7 +40,7 @@ public class CurioComicallyLargeTophat extends MalumCurioItem implements ISpirit
     }
 
     public final ResourceLocation hat_texture = MalumHelper.prefix("textures/other/tophat.png");
-    public ModelComicallyLargeTophat<LivingEntity> hat;
+    public ComicallyLargeTophatModel<LivingEntity> hat;
     @Override
     public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack)
     {
@@ -49,7 +49,7 @@ public class CurioComicallyLargeTophat extends MalumCurioItem implements ISpirit
             matrixStack.push();
             if (hat == null)
             {
-                hat = new ModelComicallyLargeTophat<>();
+                hat = new ComicallyLargeTophatModel<>();
             }
             ICurio.RenderHelper.followHeadRotations(livingEntity, hat.tophat);
             IVertexBuilder jtBuilder = ItemRenderer.getBuffer(renderTypeBuffer, hat.getRenderType(hat_texture), false, stack.hasEffect());

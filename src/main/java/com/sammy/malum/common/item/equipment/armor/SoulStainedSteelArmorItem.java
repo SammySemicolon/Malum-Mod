@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.equipment.armor;
 
-import com.sammy.malum.client.model.ModelSoulStainedSteelArmor;
+import com.sammy.malum.client.model.SoulStainedArmorModel;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -25,7 +25,7 @@ public class SoulStainedSteelArmorItem extends ArmorItem
         super(SOUL_STAINED_STEEL, slot, builder);
         if (FMLEnvironment.dist == Dist.CLIENT)
         {
-            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelSoulStainedSteelArmor(slot)), () -> () -> null);
+            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new SoulStainedArmorModel(slot)), () -> () -> null);
         }
     }
     @Override

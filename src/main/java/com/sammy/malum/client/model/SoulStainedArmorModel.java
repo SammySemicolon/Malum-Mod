@@ -8,7 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelSoulStainedSteelArmor extends ModelArmor
+public class SoulStainedArmorModel extends ArmorModel
 {
 	private final ModelRenderer leg_r;
 	private final ModelRenderer boot_r;
@@ -20,7 +20,7 @@ public class ModelSoulStainedSteelArmor extends ModelArmor
 	private final ModelRenderer head;
 	private final ModelRenderer leggings;
 	
-	public ModelSoulStainedSteelArmor(EquipmentSlotType slot) {
+	public SoulStainedArmorModel(EquipmentSlotType slot) {
 		super(slot, 64, 64);
 		
 		
@@ -72,7 +72,6 @@ public class ModelSoulStainedSteelArmor extends ModelArmor
 	@Override
 	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)
 	{
-		
 		head.showModel = slot == EquipmentSlotType.HEAD;
 		
 		leggings.showModel = slot == EquipmentSlotType.LEGS;

@@ -111,6 +111,6 @@ public class CraftingBookPage extends CoolerBookPage
     {
         ItemStack stick = Items.STICK.getDefaultInstance();
         ItemStack empty = Items.AIR.getDefaultInstance();
-        return new CraftingBookPage(scythe, metal, metal, reagent, empty, stick, empty, stick, empty, empty);
+        return new CraftingBookPage(scythe, metal, metal, reagent, empty, stick, metal, stick, empty, empty);
     }
 }

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.equipment.armor;
 
-import com.sammy.malum.client.model.ModelSoulStainedStrongholdArmor;
+import com.sammy.malum.client.model.StrongholdArmorModel;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -26,7 +26,7 @@ public class SoulStainedStrongholdArmorItem extends ArmorItem
     
         if (FMLEnvironment.dist == Dist.CLIENT)
         {
-            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new ModelSoulStainedStrongholdArmor(slot)), () -> () -> null);
+            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new StrongholdArmorModel(slot)), () -> () -> null);
         }
     }
     

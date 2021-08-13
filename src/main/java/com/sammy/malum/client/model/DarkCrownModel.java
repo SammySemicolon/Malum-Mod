@@ -9,10 +9,10 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 
-public class ModelDarkPrincesCrown<T extends LivingEntity> extends BipedModel<T>
+public class DarkCrownModel<T extends LivingEntity> extends BipedModel<T>
 {
     public final ModelRenderer crown;
-    public ModelDarkPrincesCrown()
+    public DarkCrownModel()
     {
         super(1);
         textureWidth = 32;
