@@ -2,6 +2,7 @@ package com.sammy.malum.client;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.entity_renderer.FloatingItemEntityRenderer;
+import com.sammy.malum.client.entity_renderer.MalumBoatRenderer;
 import com.sammy.malum.client.entity_renderer.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.client.tile_renderer.*;
 import com.sammy.malum.core.init.MalumEntities;
@@ -35,5 +36,6 @@ public class BindRenderers
     {
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.PLAYER_HOMING_ITEM.get(), (manager)-> new FloatingItemEntityRenderer(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SCYTHE_BOOMERANG.get(), (manager)-> new ScytheBoomerangEntityRenderer(manager, Minecraft.getInstance().getItemRenderer()));
+        RenderingRegistry.registerEntityRenderingHandler(MalumEntities.RUNEWOOD_BOAT.get(), (manager)-> new MalumBoatRenderer(manager, "runewood"));
     }
 }

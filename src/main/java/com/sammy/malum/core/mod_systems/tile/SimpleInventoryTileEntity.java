@@ -1,6 +1,5 @@
 package com.sammy.malum.core.mod_systems.tile;
 
-import com.sammy.malum.core.mod_systems.inventory.SimpleInventory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -16,7 +15,7 @@ public abstract class SimpleInventoryTileEntity extends SimpleTileEntity
     {
         super(type);
     }
-    public SimpleInventory inventory;
+    public SimpleTileEntityInventory inventory;
     @Override
     public void readData(CompoundNBT compound)
     {

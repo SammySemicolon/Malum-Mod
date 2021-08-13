@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -99,6 +100,10 @@ public class SpiritHelper
             {
                 int random = attacker.world.rand.nextInt(spirits.size());
                 spirits.get(random).grow(1);
+                if (attacker.world.rand.nextInt(4) == 0)
+                {
+                    harvestStack.damageItem(1, attacker, (e) -> e.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+                }
             }
         }
         Optional<MalumCurioItem> firstModifier = equippedMalumCurios.stream().filter(s -> !s.spiritReplacementStack(ItemStack.EMPTY).equals(ItemStack.EMPTY)).findFirst();

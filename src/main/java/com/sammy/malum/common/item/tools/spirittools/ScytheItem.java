@@ -44,7 +44,7 @@ public class ScytheItem extends ModCombatItem implements ISpiritTool
                 double damage = 1.0F + baseDamage * multiplier;
     
                 int slot = handIn == Hand.OFF_HAND ? playerIn.inventory.getSizeInventory() - 1 : playerIn.inventory.currentItem;
-                ScytheBoomerangEntity entity = new ScytheBoomerangEntity(MalumEntities.SCYTHE_BOOMERANG.get(), worldIn);
+                ScytheBoomerangEntity entity = new ScytheBoomerangEntity(worldIn);
                 entity.setPosition(playerIn.getPositionVec().x, playerIn.getPositionVec().y + playerIn.getHeight() / 2f, playerIn.getPositionVec().z);
     
                 entity.setData((float) damage, playerIn.getUniqueID(), slot, itemstack);

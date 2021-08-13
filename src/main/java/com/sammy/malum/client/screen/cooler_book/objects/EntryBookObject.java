@@ -1,7 +1,7 @@
 package com.sammy.malum.client.screen.cooler_book.objects;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.sammy.malum.client.screen.book.EntryScreen;
+import com.sammy.malum.client.screen.cooler_book.EntryScreen;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
 import net.minecraft.client.Minecraft;

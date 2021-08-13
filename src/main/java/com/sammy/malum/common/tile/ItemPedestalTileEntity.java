@@ -4,7 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.SpiritItem;
 import com.sammy.malum.core.init.block.MalumTileEntities;
-import com.sammy.malum.core.mod_systems.inventory.SimpleInventory;
+import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import com.sammy.malum.core.mod_systems.tile.SimpleInventoryTileEntity;
 import com.sammy.malum.core.mod_systems.tile.SimpleTileEntity;
@@ -18,7 +18,7 @@ public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements
     public ItemPedestalTileEntity()
     {
         super(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get());
-        inventory = new SimpleInventory(1, 64)
+        inventory = new SimpleTileEntityInventory(1, 64)
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -31,7 +31,7 @@ public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements
     }
 
     @Override
-    public SimpleInventory providedInventory()
+    public SimpleTileEntityInventory providedInventory()
     {
         return inventory;
     }

@@ -8,21 +8,30 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.util.ArrayList;
+
 import static net.minecraft.client.renderer.Atlases.SIGN_ATLAS;
 import static net.minecraft.client.renderer.Atlases.SIGN_MATERIALS;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class MalumWoodTypes
 {
+    public static ArrayList<WoodType> WOOD_TYPES = new ArrayList<>();
     public static final WoodType RUNEWOOD = new MalumWoodType("runewood");
 
     @SubscribeEvent
-    public static void setRenderLayers(FMLClientSetupEvent event)
+    public static void addWoodTypes(FMLClientSetupEvent event)
     {
-        event.enqueueWork(() -> addWoodType(RUNEWOOD));
+        event.enqueueWork(() -> {
+            for (WoodType type : WOOD_TYPES)
+            {
+                addWoodType(type);
+            }
+        });
     }
 
     public static void addWoodType(WoodType woodType) {
+
         SIGN_MATERIALS.put(woodType, new RenderMaterial(SIGN_ATLAS, MalumHelper.prefix("entity/signs/" + woodType.getName())));
     }
     static class MalumWoodType extends WoodType
@@ -30,6 +39,7 @@ public class MalumWoodTypes
         public MalumWoodType(String nameIn)
         {
             super(nameIn);
+            WOOD_TYPES.add(this);
         }
     }
 }

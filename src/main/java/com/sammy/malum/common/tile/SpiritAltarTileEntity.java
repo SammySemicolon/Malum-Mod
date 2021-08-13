@@ -8,7 +8,7 @@ import com.sammy.malum.core.init.block.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes;
 import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes.MalumSpiritAltarRecipe;
-import com.sammy.malum.core.mod_systems.inventory.SimpleInventory;
+import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
 import com.sammy.malum.core.mod_systems.recipe.SpiritIngredient;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
@@ -41,7 +41,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     {
         super(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get());
 
-        inventory = new SimpleInventory(1, 64, t-> !(t.getItem() instanceof SpiritItem))
+        inventory = new SimpleTileEntityInventory(1, 64, t-> !(t.getItem() instanceof SpiritItem))
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -52,7 +52,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 recipe = MalumSpiritAltarRecipes.getRecipe(inventory.getStackInSlot(slot), spiritInventory.nonEmptyStacks());
             }
         };
-        extrasInventory = new SimpleInventory(8, 1)
+        extrasInventory = new SimpleTileEntityInventory(8, 1)
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -62,7 +62,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 MalumHelper.updateAndNotifyState(world, pos);
             }
         };
-        spiritInventory = new SimpleInventory(8, 64, t-> t.getItem() instanceof SpiritItem)
+        spiritInventory = new SimpleTileEntityInventory(8, 64, t-> t.getItem() instanceof SpiritItem)
         {
             @Override
             protected void onContentsChanged(int slot)
@@ -80,9 +80,9 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
     public boolean spedUp;
     public int spinUp;
     public float spin;
-    public SimpleInventory inventory;
-    public SimpleInventory extrasInventory;
-    public SimpleInventory spiritInventory;
+    public SimpleTileEntityInventory inventory;
+    public SimpleTileEntityInventory extrasInventory;
+    public SimpleTileEntityInventory spiritInventory;
     public MalumSpiritAltarRecipe recipe;
     
     @Override

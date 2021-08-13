@@ -6,7 +6,7 @@ import com.sammy.malum.common.rites.ActivatorRite;
 import com.sammy.malum.core.init.block.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.mod_content.MalumArcaneAssemblyRecipes;
-import com.sammy.malum.core.mod_systems.inventory.SimpleInventory;
+import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
 import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
@@ -39,7 +39,7 @@ public class ArcaneAssemblerTileEntity extends SimpleInventoryTileEntity impleme
     public ArcaneAssemblerTileEntity()
     {
         super(MalumTileEntities.ARCANE_ASSEMBLER_TILE_ENTITY.get());
-        inventory = new SimpleInventory(1, 64)
+        inventory = new SimpleTileEntityInventory(1, 64)
         {
             @Override
             protected void onContentsChanged(int slot)

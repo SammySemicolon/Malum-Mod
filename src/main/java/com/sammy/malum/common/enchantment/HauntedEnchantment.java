@@ -7,9 +7,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class HauntingEnchantment extends Enchantment
+public class HauntedEnchantment extends Enchantment
 {
-    public HauntingEnchantment()
+    public HauntedEnchantment()
     {
         super(Rarity.UNCOMMON, MalumEnchantments.SCYTHE_OR_DAGGER, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
     }

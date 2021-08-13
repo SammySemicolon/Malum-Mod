@@ -140,7 +140,7 @@ public class MalumHelper
 
     public static boolean areWeOnServer(World world)
     {
-        return !areWeOnClient(world);
+        return !world.isRemote;
     }
 
     public static ResourceLocation prefix(String path)

@@ -9,6 +9,7 @@ import com.sammy.malum.common.item.tools.*;
 import com.sammy.malum.common.item.tools.spirittools.PithingNeedleItem;
 import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
 import com.sammy.malum.common.item.tools.spirittools.TyrvingItem;
+import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.tabs.MalumBuildingTab;
@@ -372,6 +373,7 @@ public class MalumItems
     public static final RegistryObject<Item> RUNEWOOD_ITEM_PEDESTAL = ITEMS.register("runewood_item_pedestal", () -> new BlockItem(MalumBlocks.RUNEWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> RUNEWOOD_SIGN = ITEMS.register("runewood_sign", () -> new SignItem(NATURE_PROPERTIES().maxStackSize(16), MalumBlocks.RUNEWOOD_SIGN.get(), MalumBlocks.RUNEWOOD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> RUNEWOOD_BOAT = ITEMS.register("runewood_boat", () -> new MalumBoatItem(NATURE_PROPERTIES().maxStackSize(1), MalumEntities.RUNEWOOD_BOAT));
 
     public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE)));
     public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(NATURE_PROPERTIES()));

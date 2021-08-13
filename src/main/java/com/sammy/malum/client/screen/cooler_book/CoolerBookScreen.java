@@ -6,13 +6,19 @@ import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.objects.CoolerBookObject;
 import com.sammy.malum.client.screen.cooler_book.objects.EntryBookObject;
+import com.sammy.malum.client.screen.cooler_book.pages.CraftingBookPage;
 import com.sammy.malum.client.screen.cooler_book.pages.HeadlineTextPage;
+import com.sammy.malum.client.screen.cooler_book.pages.SmeltingBookPage;
 import com.sammy.malum.client.screen.cooler_book.pages.TextPage;
+import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.EnchantedBookItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -25,6 +31,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sammy.malum.core.init.items.MalumItems.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class CoolerBookScreen extends Screen
@@ -50,6 +57,7 @@ public class CoolerBookScreen extends Screen
     public float cachedYOffset;
     public float xMovement;
     public float yMovement;
+    public boolean ignoreNextMouseClick;
 
     public static ArrayList<CoolerBookEntry> entries;
     public static ArrayList<CoolerBookObject> objects;
@@ -71,29 +79,48 @@ public class CoolerBookScreen extends Screen
                 "introduction",
                 MalumItems.ENCYCLOPEDIA_ARCANA.get(),0,1)
                 .down(1)
-                .addPage(new TextPage("t")));
+                .addPage(new HeadlineTextPage("introduction","introduction_a", MalumItems.ENCYCLOPEDIA_ARCANA.get()))
+                .addPage(new TextPage("introduction_b"))
+                .addPage(new TextPage("introduction_c")));
 
         entries.add(new CoolerBookEntry(
                 "spirit_magics",
                 Items.SOUL_SAND,0,0)
                 .leftUp(2,2)
-                .rightUp(2,2));
+                .rightUp(2,2)
+                .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a", ARCANE_SPIRIT.get()))
+                .addPage(new TextPage("spirit_magics_b"))
+                .addPage(new TextPage("spirit_magics_c")));
 
         entries.add(new CoolerBookEntry(
                 "runewood",
                 MalumItems.RUNEWOOD_SAPLING.get(),1,1)
-                .upLeft(2,2));
+                .upLeft(2,2)
+                .addPage(new HeadlineTextPage("runewood", "runewood_a", RUNEWOOD_SAPLING.get()))
+                .addPage(new TextPage("runewood_b"))
+                .addPage(new HeadlineTextPage("solar_sap", "solar_sap_a", SOLAR_SAP_BOTTLE.get()))
+                .addPage(new TextPage("solar_sap_b"))
+                .addPage(new SmeltingBookPage(SOLAR_SAP_BOTTLE.get(), SOLAR_SYRUP_BOTTLE.get()))
+                .addPage(new CraftingBookPage(SOLAR_SAPBALL.get(), Items.SLIME_BALL, SOLAR_SAP_BOTTLE.get()))
+                .addModCompatPage(new TextPage("solar_sap_c"), "thermal_expansion"));
 
         entries.add(new CoolerBookEntry(
                 "soulstone",
-                MalumItems.SOULSTONE.get(),-1,1)
+                SOULSTONE.get(),-1,1)
                 .leftUp(2,2)
-                .upRight(2,2));
+                .upRight(2,2)
+                .addPage(new HeadlineTextPage("soulstone", "soulstone_a", SOULSTONE.get()))
+                .addPage(new TextPage("soulstone_b")));
 
         entries.add(new CoolerBookEntry(
-                "simple_spirit_harvesting",
+                "scythes",
                 MalumItems.CRUDE_SCYTHE.get(),-2,2)
-                .left(1));
+                .left(1)
+                .addPage(new HeadlineTextPage("scythes", "scythes_a", MalumItems.CRUDE_SCYTHE.get()))
+                .addPage(new TextPage("scythes_b"))
+                .addPage(new TextPage("scythes_c"))
+                .addPage(CraftingBookPage.scythePage(MalumItems.CRUDE_SCYTHE.get(), Items.IRON_INGOT, SOULSTONE.get()))
+                .addPage(new HeadlineTextPage("haunting", "haunting", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.HAUNTED.get(), 0)))));
 
         entries.add(new CoolerBookEntry(
                 "spirit_types",
@@ -270,6 +297,7 @@ public class CoolerBookScreen extends Screen
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button)
     {
+
         cachedXOffset = xOffset;
         cachedYOffset = yOffset;
         xMovement = 0;
@@ -280,6 +308,11 @@ public class CoolerBookScreen extends Screen
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button)
     {
+        if (ignoreNextMouseClick)
+        {
+            ignoreNextMouseClick = false;
+            return super.mouseReleased(mouseX, mouseY, button);
+        }
         if (xOffset != cachedXOffset || yOffset != cachedYOffset)
         {
             return super.mouseReleased(mouseX, mouseY, button);
@@ -364,18 +397,24 @@ public class CoolerBookScreen extends Screen
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
     }
+    public static void renderItem(MatrixStack matrixStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY)
+    {
+        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(stack, posX, posY);
+        Minecraft.getInstance().getItemRenderer().renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, posX, posY, null);
+        if (isHovering(mouseX, mouseY, posX, posY, 16,16))
+        {
+            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(stack.getTranslationKey()), mouseX, mouseY);
+        }
+    }
     public static int packColor(int alpha, int red, int green, int blue)
     {
         return alpha << 24 | red << 16 | green << 8 | blue;
     }
 
-    public static void drawWrappingText(MatrixStack mStack, ITextComponent component, int x, int y, int w)
-    {
-        drawWrappingText(mStack, component.getString(), x, y, w);
-    }
-    public static void drawWrappingText(MatrixStack mStack, String text, int x, int y, int w)
+    public static void renderWrappingText(MatrixStack mStack, String text, int x, int y, int w)
     {
         FontRenderer font = Minecraft.getInstance().fontRenderer;
+        text = ClientHelper.simpleTranslatableComponent(text).getString();
         List<String> lines = new ArrayList<>();
         String[] words = text.split(" ");
         String line = "";
@@ -392,22 +431,48 @@ public class CoolerBookScreen extends Screen
         for (int i = 0; i < lines.size(); i++)
         {
             String currentLine = lines.get(i);
-            screen.renderText(mStack, currentLine, x, y + i * (font.FONT_HEIGHT + 1));
+            renderRawText(mStack, currentLine, x,y + i * (font.FONT_HEIGHT + 1), glow(i/4f));
         }
     }
 
-    public void renderText(MatrixStack stack, ITextComponent component, int x, int y)
+    public static void renderText(MatrixStack stack, String text, int x, int y)
     {
-        renderText(stack, component.getString(), x, y);
+        renderText(stack, ClientHelper.simpleTranslatableComponent(text), x,y, glow(0));
     }
 
-    public void renderText(MatrixStack stack, String text, int x, int y)
+    public static void renderText(MatrixStack stack, ITextComponent component, int x, int y)
     {
-        font.drawString(stack, text, x - 1, y, packColor(128, 161, 156, 138));
-        font.drawString(stack, text, x + 1, y, packColor(128, 236, 231, 214));
-        font.drawString(stack, text, x, y - 1, packColor(128, 184, 176, 155));
-        font.drawString(stack, text, x, y + 1, packColor(128, 208, 202, 183));
-        font.drawString(stack, text, x, y, packColor(255, 92, 88, 75));
+        String text = component.getString();
+        renderRawText(stack, text, x,y, glow(0));
+    }
+    public static void renderText(MatrixStack stack, String text, int x, int y, float glow)
+    {
+        renderText(stack, ClientHelper.simpleTranslatableComponent(text), x,y, glow);
+    }
+
+    public static void renderText(MatrixStack stack, ITextComponent component, int x, int y, float glow)
+    {
+        String text = component.getString();
+        renderRawText(stack, text, x,y, glow);
+    }
+    private static void renderRawText(MatrixStack stack, String text, int x, int y, float glow)
+    {
+        FontRenderer font = Minecraft.getInstance().fontRenderer;
+        //182, 61, 183   227, 39, 228
+        int r = (int) MathHelper.lerp(glow, 182, 227);
+        int g = (int) MathHelper.lerp(glow, 61, 39);
+        int b = (int) MathHelper.lerp(glow, 183, 228);
+
+        font.drawString(stack, text, x - 1, y, packColor(96, 255, 210, 243));
+        font.drawString(stack, text, x + 1, y, packColor(128, 240, 131, 232));
+        font.drawString(stack, text, x, y - 1, packColor(128, 255, 183, 236));
+        font.drawString(stack, text, x, y + 1, packColor(96, 236, 110, 226));
+
+        font.drawString(stack, text, x, y, packColor(255, r, g, b));
+    }
+    public static float glow(float offset)
+    {
+        return MathHelper.sin(offset+Minecraft.getInstance().player.world.getGameTime() / 40f)/2f + 0.5f;
     }
     public void playSound()
     {
@@ -419,6 +484,7 @@ public class CoolerBookScreen extends Screen
     {
         Minecraft.getInstance().displayGuiScreen(getInstance());
         screen.playSound();
+        screen.ignoreNextMouseClick = true;
     }
 
     public static CoolerBookScreen getInstance()

@@ -1,4 +1,4 @@
-package com.sammy.malum.core.mod_systems.inventory;
+package com.sammy.malum.core.mod_systems.tile;
 
 import com.sammy.malum.MalumHelper;
 import net.minecraft.entity.item.ItemEntity;
@@ -21,26 +21,26 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SimpleInventory extends ItemStackHandler
+public class SimpleTileEntityInventory extends ItemStackHandler
 {
     public int slotCount;
     public int slotSize;
     public Predicate<ItemStack> inputPredicate;
     public Predicate<ItemStack> outputPredicate;
     
-    public SimpleInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate)
+    public SimpleTileEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate)
     {
         this(slotCount, slotSize, inputPredicate);
         this.outputPredicate = outputPredicate;
     }
     
-    public SimpleInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate)
+    public SimpleTileEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate)
     {
         this(slotCount, slotSize);
         this.inputPredicate = inputPredicate;
     }
     
-    public SimpleInventory(int slotCount, int slotSize)
+    public SimpleTileEntityInventory(int slotCount, int slotSize)
     {
         super(slotCount);
         this.slotCount = slotCount;

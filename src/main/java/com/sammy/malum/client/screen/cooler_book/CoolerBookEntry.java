@@ -5,8 +5,11 @@ import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry.EntryLine.LineE
 import com.sammy.malum.client.screen.cooler_book.pages.CoolerBookPage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import static com.sammy.malum.client.screen.cooler_book.CoolerBookEntry.EntryLine.LineEnum.*;
 
@@ -32,6 +35,14 @@ public class CoolerBookEntry
     public CoolerBookEntry addPage(CoolerBookPage page)
     {
         pages.add(page);
+        return this;
+    }
+    public CoolerBookEntry addModCompatPage(CoolerBookPage page, String modId)
+    {
+        if (ModList.get().isLoaded(modId))
+        {
+            pages.add(page);
+        }
         return this;
     }
     public static class EntryLine

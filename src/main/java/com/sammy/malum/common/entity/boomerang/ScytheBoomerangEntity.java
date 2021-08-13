@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity.boomerang;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -47,9 +48,9 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     public int returnAge=8;
     public boolean returning;
     
-    public ScytheBoomerangEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
+    public ScytheBoomerangEntity(World worldIn)
     {
-        super(type, worldIn);
+        super(MalumEntities.SCYTHE_BOOMERANG.get(), worldIn);
         noClip = false;
     }
     public PlayerEntity owner()
@@ -122,7 +123,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                 if (entity instanceof LivingEntity)
                 {
                     LivingEntity livingentity = (LivingEntity) entity;
-                    scythe.damageItem(1, owner(), (e) -> e.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+                    scythe.damageItem(1, owner(), (e) -> remove());
                     MalumHelper.applyEnchantments(owner, livingentity, scythe);
                     int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
                     if (i > 0) {

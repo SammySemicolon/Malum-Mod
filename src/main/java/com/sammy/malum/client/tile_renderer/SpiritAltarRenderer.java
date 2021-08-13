@@ -2,7 +2,7 @@ package com.sammy.malum.client.tile_renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.common.tile.SpiritAltarTileEntity;
-import com.sammy.malum.core.mod_systems.inventory.SimpleInventory;
+import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -28,7 +28,7 @@ public class SpiritAltarRenderer extends TileEntityRenderer<SpiritAltarTileEntit
     {
         World world = Minecraft.getInstance().world;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        SimpleInventory inventory = tileEntityIn.spiritInventory;
+        SimpleTileEntityInventory inventory = tileEntityIn.spiritInventory;
         for (int i = 0; i < inventory.slotCount; i++)
         {
             ItemStack item = inventory.getStackInSlot(i);

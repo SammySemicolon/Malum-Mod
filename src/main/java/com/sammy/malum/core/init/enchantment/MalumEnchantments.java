@@ -1,7 +1,7 @@
 package com.sammy.malum.core.init.enchantment;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.enchantment.HauntingEnchantment;
+import com.sammy.malum.common.enchantment.HauntedEnchantment;
 import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.enchantment.SpiritPlunderEnchantment;
 import com.sammy.malum.common.item.tools.spirittools.PithingNeedleItem;
@@ -20,7 +20,7 @@ public class MalumEnchantments
     public static final EnchantmentType SCYTHE_OR_DAGGER = EnchantmentType.create(MalumMod.MODID + ":scythe_dagger_only", i -> i instanceof ScytheItem || i instanceof PithingNeedleItem);
 
     public static final RegistryObject<Enchantment> REBOUND = ENCHANTMENTS.register("rebound", ReboundEnchantment::new);
-    public static final RegistryObject<Enchantment> HAUNTING = ENCHANTMENTS.register("haunting", HauntingEnchantment::new);
+    public static final RegistryObject<Enchantment> HAUNTED = ENCHANTMENTS.register("haunted", HauntedEnchantment::new);
     public static final RegistryObject<Enchantment> SPIRIT_PLUNDER = ENCHANTMENTS.register("spirit_plunder", SpiritPlunderEnchantment::new);
     
 }

@@ -23,9 +23,13 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
     public float minimumDistance = 3f;
 
     public float acceleration = 0.01f;
-    public PlayerHomingItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
+    public PlayerHomingItemEntity(EntityType<? extends PlayerHomingItemEntity> type, World worldIn)
     {
         super(type, worldIn);
+    }
+    public PlayerHomingItemEntity(World worldIn)
+    {
+        super(MalumEntities.PLAYER_HOMING_ITEM.get(), worldIn);
     }
 
     @Override
@@ -88,7 +92,7 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
 
     public static PlayerHomingItemEntity makeEntity(World world, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ)
     {
-        PlayerHomingItemEntity homingItemEntity = new PlayerHomingItemEntity(MalumEntities.PLAYER_HOMING_ITEM.get(), world);
+        PlayerHomingItemEntity homingItemEntity = new PlayerHomingItemEntity(world);
         homingItemEntity.setOwnerUUID(ownerUUID);
         homingItemEntity.setItem(stack);
         homingItemEntity.setPosition(posX,posY,posZ);
