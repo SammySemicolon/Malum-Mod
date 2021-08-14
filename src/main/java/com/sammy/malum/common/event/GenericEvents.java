@@ -17,7 +17,7 @@ import java.util.UUID;
 import static com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude.sammy_uuid;
 
 @Mod.EventBusSubscriber
-public class Events
+public class GenericEvents
 {
     @SubscribeEvent
     public static void addFeatures(BiomeLoadingEvent event)

@@ -1,47 +1,38 @@
 package com.sammy.malum.common.item.equipment.armor;
 
 import com.sammy.malum.client.model.SpiritHunterArmor;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
 import net.minecraft.util.LazyValue;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
-import javax.annotation.Nullable;
-
-import static com.sammy.malum.core.init.items.MalumArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
 import static com.sammy.malum.core.init.items.MalumArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
+import static com.sammy.malum.core.init.items.MalumItems.*;
 
-public class SpiritHunterArmorItem extends ArmorItem
+@SuppressWarnings("unchecked")
+public class SpiritHunterArmorItem extends MalumArmorItem
 {
-    private LazyValue<Object> model;
+    public static final RegistryObject<Item>[] ARMOR = new RegistryObject[]{SPIRIT_HUNTER_CLOAK, SPIRIT_HUNTER_ROBE, SPIRIT_HUNTER_LEGGINGS, SPIRIT_HUNTER_BOOTS};
     public SpiritHunterArmorItem(EquipmentSlotType slot, Properties builder)
     {
         super(SPIRIT_HUNTER, slot, builder);
         if (FMLEnvironment.dist == Dist.CLIENT)
         {
-            this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new SpiritHunterArmor(slot)), () -> () -> null);
+            model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new SpiritHunterArmor(slot)), () -> () -> null);
         }
     }
+
     @Override
-    @OnlyIn(Dist.CLIENT)
-    @SuppressWarnings("unchecked")
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original)
+    public RegistryObject<Item>[] getArmorList()
     {
-        return (A) model.getValue();
+        return ARMOR;
     }
-    
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    @Nullable
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
+
+    public String texture()
     {
-        return "malum:textures/armor/spirit_hunter_armor.png";
+        return "spirit_hunter_armor";
     }
 }

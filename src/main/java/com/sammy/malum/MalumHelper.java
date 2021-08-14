@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.sammy.malum.common.item.equipment.armor.MalumArmorItem;
 import com.sammy.malum.common.item.equipment.curios.MalumCurioItem;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import net.minecraft.block.Block;
@@ -580,5 +581,15 @@ public class MalumHelper
             }
         }
         return matchingBlocks.toArray(new Block[0]);
+    }
+
+    public static boolean hasArmorSet(LivingEntity livingEntity, Item armorItem)
+    {
+        if (armorItem instanceof MalumArmorItem)
+        {
+            MalumArmorItem malumArmorItem = (MalumArmorItem) armorItem;
+            return malumArmorItem.hasArmorSet(livingEntity, malumArmorItem.getArmorList());
+        }
+        return false;
     }
 }

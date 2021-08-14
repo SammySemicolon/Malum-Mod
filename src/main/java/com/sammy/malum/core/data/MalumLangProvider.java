@@ -113,10 +113,10 @@ public class MalumLangProvider extends LanguageProvider
         addHeadline("scythes", "Scythes!");
         addPage("scythes_a", "A scythe is a weapon of magic origin designed for cutting through hordes of enemies. The axe exchanges attack speed for extra damage, the scythe on the other hand trades it off for crowd control. Any attack done with the scythe will count as a stronger version of a sword's sweep attack.");
         addPage("scythes_b", "The scythe is also the most important tool of a spirit hunter, it's excellence at crowd control combined with it's ability to shatter souls makes it the perfect weapon for hunting spirits.");
-        addPage("scythes_c", "The simplest scythe you can make uses iron for it's blade and a basic soulstone as a reagent. The scythe also accepts many exclusive enchantments! Higher tiers deal even more damage");
+        addPage("scythes_c", "The simplest scythe you can make uses iron for it's blade and a basic soulstone as a reagent. The scythe also accepts many exclusive enchantments!");
 
         addHeadline("haunted", "Haunted");
-        addPage("haunted", "The haunted enchantment utilizes magic created when a soulstone is brought close to a hurt soul to deal extra magic damage to anyone you strike!");
+        addPage("haunted", "The haunted enchantment utilizes magic created when a soulstone is brought close to a hurt soul to deal extra magic damage to anyone you strike! Higher tiers hit with even stronger magic");
 
         addHeadline("spirit_plunder", "Spirit Plunder");
         addPage("spirit_plunder", "The spirit plunder enchantment forces the scythe's soulstone to utilize even more magic, any soul you shatter with this enchanted scythe will yield extra spirits. This may however damage the soulstone, taking extra durability off of your scythe.");

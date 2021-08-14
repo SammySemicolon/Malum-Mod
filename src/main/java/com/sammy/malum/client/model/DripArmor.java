@@ -6,11 +6,10 @@ package com.sammy.malum.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.sammy.malum.client.model.ArmorModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class SpiritHunterArmor extends ArmorModel
+public class DripArmor extends ArmorModel
 {
 	private final ModelRenderer leg_r;
 	private final ModelRenderer boot_r;
@@ -22,50 +21,53 @@ public class SpiritHunterArmor extends ArmorModel
 	private final ModelRenderer head;
 	private final ModelRenderer leggings;
 
-	public SpiritHunterArmor(EquipmentSlotType slot) {
+	public DripArmor(EquipmentSlotType slot) {
 		super(slot, 64, 64);
+
 
 		leg_r = new ModelRenderer(this);
 		leg_r.setRotationPoint(-2.0F, 12.0F, 0.0F);
-		leg_r.setTextureOffset(0, 42).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, false);
+		leg_r.setTextureOffset(0, 43).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, false);
 
 		boot_r = new ModelRenderer(this);
 		boot_r.setRotationPoint(0.0F, 0.0F, 0.0F);
 		leg_r.addChild(boot_r);
-		boot_r.setTextureOffset(0, 56).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9F, false);
+		boot_r.setTextureOffset(16, 53).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9F, false);
 
 		leg_l = new ModelRenderer(this);
 		leg_l.setRotationPoint(2.0F, 12.0F, 0.0F);
-		leg_l.setTextureOffset(0, 42).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, true);
+		leg_l.setTextureOffset(0, 43).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, true);
 
 		boot_l = new ModelRenderer(this);
 		boot_l.setRotationPoint(0.0F, 0.0F, 0.0F);
 		leg_l.addChild(boot_l);
-		boot_l.setTextureOffset(0, 56).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9001F, true);
+		boot_l.setTextureOffset(16, 53).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9001F, true);
 
 		torso = new ModelRenderer(this);
 		torso.setRotationPoint(0.0F, 0.0F, 0.0F);
-		torso.setTextureOffset(40, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.95F, false);
-		torso.setTextureOffset(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.75F, false);
+		torso.setTextureOffset(40, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.95F, false);
+		torso.setTextureOffset(16, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.75F, false);
 
 		arm_r = new ModelRenderer(this);
 		arm_r.setRotationPoint(-6.0F, 2.0F, 0.0F);
-		arm_r.setTextureOffset(0, 29).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, true);
-		arm_r.setTextureOffset(0, 16).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, true);
+		arm_r.setTextureOffset(0, 30).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, true);
+		arm_r.setTextureOffset(0, 17).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, true);
 
 		arm_l = new ModelRenderer(this);
 		arm_l.setRotationPoint(6.0F, 2.0F, 0.0F);
-		arm_l.setTextureOffset(0, 29).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, false);
-		arm_l.setTextureOffset(0, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, false);
+		arm_l.setTextureOffset(0, 30).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, false);
+		arm_l.setTextureOffset(0, 17).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, false);
 
 		head = new ModelRenderer(this);
 		head.setRotationPoint(0.0F, 0.0F, 0.0F);
-		head.setTextureOffset(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.5F, false);
-		head.setTextureOffset(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.7F, false);
+		setRotationAngle(head, -0.0436F, 0.0F, 0.0F);
+		head.setTextureOffset(32, 0).addBox(-4.0F, -19.0F, -4.0F, 8.0F, 9.0F, 8.0F, 0.35F, false);
+		head.setTextureOffset(0, 0).addBox(-4.0F, -18.75F, -4.0F, 8.0F, 9.0F, 8.0F, 0.0F, false);
+		head.setTextureOffset(16, 41).addBox(-4.5F, -9.5F, -4.5F, 9.0F, 3.0F, 9.0F, 0.25F, false);
 
 		leggings = new ModelRenderer(this);
 		leggings.setRotationPoint(0.0F, 0.0F, 0.0F);
-		leggings.setTextureOffset(16, 33).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, 0.5F, false);
+		leggings.setTextureOffset(16, 34).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, 0.5F, false);
 	}
 
 	@Override

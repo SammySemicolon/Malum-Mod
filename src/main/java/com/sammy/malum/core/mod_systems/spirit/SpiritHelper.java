@@ -68,7 +68,16 @@ public class SpiritHelper
             spirits.set(i, Pair.of(spirit, 0));
         }
     }
-    public static void summonSpirits(LivingEntity target, LivingEntity attacker, ItemStack harvestStack)
+
+    public static void createSpiritEntities(LivingEntity target)
+    {
+        ArrayList<ItemStack> spirits = entitySpirits(target);
+        if (!spirits.isEmpty())
+        {
+            createSpiritEntities(spirits, target, null);
+        }
+    }
+    public static void createSpiritEntities(LivingEntity target, LivingEntity attacker, ItemStack harvestStack)
     {
         if (!(harvestStack.getItem() instanceof ISpiritTool))
         {
@@ -91,6 +100,13 @@ public class SpiritHelper
             if (item.spiritYieldBonus() < highestBonus)
             {
                 highestBonus = item.spiritYieldBonus();
+            }
+        }
+        if (MalumHelper.hasArmorSet(attacker, MalumItems.SPIRIT_HUNTER_CLOAK.get().getItem()))
+        {
+            if (highestBonus < 1)
+            {
+                highestBonus++;
             }
         }
         int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack) + tool.spiritBonus(target) + highestBonus;
@@ -116,29 +132,15 @@ public class SpiritHelper
             }
             spirits = newSpirits;
         }
-        if (attacker.world.rand.nextFloat() < 0.002f)
-        {
-            spirits.add(new ItemStack(MalumItems.COMICALLY_LARGE_TOPHAT.get()));
-        }
-        summonSpirits(spirits, target, attacker);
+        createSpiritEntities(spirits, target, attacker);
     }
-
-    public static void summonSpirits(LivingEntity target)
-    {
-        ArrayList<ItemStack> spirits = entitySpirits(target);
-        if (!spirits.isEmpty())
-        {
-            summonSpirits(spirits, target, null);
-        }
-    }
-
-    public static void summonSpirits(ArrayList<ItemStack> spirits, LivingEntity target, LivingEntity attacker)
+    public static void createSpiritEntities(ArrayList<ItemStack> spirits, LivingEntity target, LivingEntity attacker)
     {
         if (attacker == null)
         {
             attacker = target.world.getClosestPlayer(target.getPosX(), target.getPosY(), target.getPosZ(), 8, e -> true);
         }
-        float speed = 0.2f + 0.5f / (totalSpirits(target) + 1);
+        float speed = 0.2f + 0.5f / (spiritCount(target) + 1);
         for (ItemStack stack : spirits)
         {
             int count = stack.getCount();
@@ -182,7 +184,7 @@ public class SpiritHelper
         return type.get(0);
     }
 
-    public static int totalSpirits(LivingEntity entity)
+    public static int spiritCount(LivingEntity entity)
     {
         return entitySpirits(entity).stream().mapToInt(ItemStack::getCount).sum();
     }

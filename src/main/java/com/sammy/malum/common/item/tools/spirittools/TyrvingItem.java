@@ -34,7 +34,7 @@ public class TyrvingItem extends ModSwordItem
     {
         if (attacker.world instanceof ServerWorld)
         {
-            int spiritCount = SpiritHelper.totalSpirits(target);
+            int spiritCount = SpiritHelper.spiritCount(target);
             if (target instanceof PlayerEntity)
             {
                 spiritCount = 2;
