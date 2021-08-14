@@ -17,9 +17,8 @@ import javax.annotation.Nullable;
 
 import static com.sammy.malum.core.init.items.MalumArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
 
-public class SoulStainedSteelArmorItem extends ArmorItem
+public class SoulStainedSteelArmorItem extends MalumArmorItem
 {
-    private LazyValue<Object> model;
     public SoulStainedSteelArmorItem(EquipmentSlotType slot, Properties builder)
     {
         super(SOUL_STAINED_STEEL, slot, builder);
@@ -28,19 +27,9 @@ public class SoulStainedSteelArmorItem extends ArmorItem
             this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new SoulStainedArmorModel(slot)), () -> () -> null);
         }
     }
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    @SuppressWarnings("unchecked")
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original)
+
+    public String texture()
     {
-        return (A) model.getValue();
-    }
-    
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    @Nullable
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
-    {
-        return "malum:textures/armor/soul_stained_steel_armor.png";
+        return "soul_stained_steel_armor";
     }
 }

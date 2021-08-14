@@ -54,7 +54,7 @@ public class ItemEvents
             if (heldItem != null)
             {
                 float extraDamage = 1.0f;
-                if (MalumHelper.hasArmorSet(attacker, MalumItems.SPIRIT_HUNTER_CLOAK.get()))
+                if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get()))
                 {
                     extraDamage += 0.25f;
                 }
@@ -72,7 +72,7 @@ public class ItemEvents
             if (event.getSource().isMagicDamage())
             {
                 float extraDamage = 1.0f;
-                if (MalumHelper.hasArmorSet(attacker, MalumItems.SPIRIT_HUNTER_CLOAK.get()))
+                if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get()))
                 {
                     extraDamage += 0.5f;
                 }

@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.cooler_book;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
 import com.sammy.malum.client.screen.cooler_book.pages.CoolerBookPage;
+import net.minecraft.client.renderer.entity.model.BoatModel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeMod;
@@ -146,6 +147,7 @@ public class CoolerBookEntry
         addLine(-xCount, yCount, CONNECTION_RIGHT);
         return this;
     }
+
     public CoolerBookEntry upRight(int xCount, int yCount)
     {
         addLine(CONNECTION_UP);
@@ -218,7 +220,7 @@ public class CoolerBookEntry
         {
             vertical(-xCount, -i);
         }
-        addLine(-xCount, -yCount, CONNECTION_DOWN);
+        addLine(-xCount, -yCount, CONNECTION_UP);
         return this;
     }
     public CoolerBookEntry rightUp(int xCount, int yCount)
@@ -248,7 +250,7 @@ public class CoolerBookEntry
         {
             vertical(xCount, -i);
         }
-        addLine(xCount, -yCount, CONNECTION_DOWN);
+        addLine(xCount, -yCount, CONNECTION_UP);
         return this;
     }
 }

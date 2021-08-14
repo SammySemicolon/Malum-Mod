@@ -1,25 +1,17 @@
 package com.sammy.malum.common.item.equipment.armor;
 
-import com.sammy.malum.client.model.SpiritHunterArmor;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import javax.annotation.Nullable;
-
-import static com.sammy.malum.core.init.items.MalumArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
 public class MalumArmorItem extends ArmorItem
 {
@@ -28,17 +20,13 @@ public class MalumArmorItem extends ArmorItem
     {
         super(materialIn, slot, builder);
     }
-    public RegistryObject<Item>[] getArmorList()
+    public boolean hasArmorSet(LivingEntity livingEntity)
     {
-        return null;
+        return hasArmorPiece(livingEntity, EquipmentSlotType.HEAD) && hasArmorPiece(livingEntity, EquipmentSlotType.CHEST) && hasArmorPiece(livingEntity, EquipmentSlotType.LEGS) && hasArmorPiece(livingEntity, EquipmentSlotType.FEET);
     }
-    public boolean hasArmorSet(LivingEntity livingEntity, RegistryObject<Item>[] armor)
+    public boolean hasArmorPiece(LivingEntity livingEntity, EquipmentSlotType slot)
     {
-        return hasArmorPiece(livingEntity, armor[0].get(), EquipmentSlotType.HEAD) && hasArmorPiece(livingEntity, armor[1].get(), EquipmentSlotType.CHEST) && hasArmorPiece(livingEntity, armor[2].get(), EquipmentSlotType.LEGS) && hasArmorPiece(livingEntity, armor[3].get(), EquipmentSlotType.FEET);
-    }
-    public boolean hasArmorPiece(LivingEntity livingEntity, Item item, EquipmentSlotType slot)
-    {
-        return livingEntity.getItemStackFromSlot(slot).getItem().equals(item);
+        return this.getClass().isInstance(livingEntity.getItemStackFromSlot(slot).getItem());
     }
 
     public String texture()

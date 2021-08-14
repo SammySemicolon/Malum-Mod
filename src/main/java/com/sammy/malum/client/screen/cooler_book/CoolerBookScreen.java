@@ -73,8 +73,6 @@ public class CoolerBookScreen extends Screen
     {
         entries = new ArrayList<>();
 
-        //beginning
-
         entries.add(new CoolerBookEntry(
                 "introduction",
                 MalumItems.ENCYCLOPEDIA_ARCANA.get(),0,1)
@@ -107,14 +105,14 @@ public class CoolerBookScreen extends Screen
         entries.add(new CoolerBookEntry(
                 "soulstone",
                 SOULSTONE.get(),-1,1)
-                .leftUp(2,2)
+                .left(1)
                 .upRight(2,2)
                 .addPage(new HeadlineTextPage("soulstone", "soulstone_a", SOULSTONE.get()))
                 .addPage(new TextPage("soulstone_b")));
 
         entries.add(new CoolerBookEntry(
                 "scythes",
-                MalumItems.CRUDE_SCYTHE.get(),-2,2)
+                MalumItems.CRUDE_SCYTHE.get(),-2,1)
                 .left(1)
                 .addPage(new HeadlineTextPage("scythes", "scythes_a", MalumItems.CRUDE_SCYTHE.get()))
                 .addPage(new TextPage("scythes_b"))
@@ -126,108 +124,119 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "spirit_types",
-                MalumItems.ARCANE_SPIRIT.get(),-3,2));
+                MalumItems.ARCANE_SPIRIT.get(),-3,1));
 
         entries.add(new CoolerBookEntry(
                 "spirit_infusion",
                 MalumItems.SPIRIT_ALTAR.get(),0,2)
                 .upLeft(2,2)
                 .upLeft(2,4)
+                .upRight(2,2)
                 .upRight(2,4));
 
-        //spirit tinkering
+        entries.add(new CoolerBookEntry(
+                "spirit_pouch",
+                SOUL_HUNTER_CLOAK.get(),1,3)
+                .right(1));
+
+        entries.add(new CoolerBookEntry(
+                "soul_hunter_armor",
+                SOUL_HUNTER_CLOAK.get(),2,3));
 
         entries.add(new CoolerBookEntry(
                 "arcane_rock",
-                MalumItems.TAINTED_ROCK.get(),-1,3)
+                TAINTED_ROCK.get(),-1,3)
                 .left(1));
 
         entries.add(new CoolerBookEntry(
                 "ether",
-                MalumItems.ETHER.get(),-2,3));
+                ETHER.get(),-2,3));
 
         entries.add(new CoolerBookEntry(
                 "blazing_quartz",
-                MalumItems.BLAZING_QUARTZ.get(),-3,3));
+                MalumItems.BLAZING_QUARTZ.get(),-2,2));
 
         entries.add(new CoolerBookEntry(
                 "spirit_metallurgy",
                 MalumItems.HALLOWED_GOLD_INGOT.get(),-1,4)
-                .left(1)
-                .upLeft(2,2));
+                .left(3)
+                .up(1));
 
         entries.add(new CoolerBookEntry(
                 "spirit_trinkets",
-                MalumItems.GILDED_RING.get(),-2,4)
-                .leftUp(2,2));
+                MalumItems.GILDED_RING.get(),-3,4));
 
         entries.add(new CoolerBookEntry(
                 "spirit_resonators",
-                MalumItems.HALLOWED_SPIRIT_RESONATOR.get(),-2,5)
-                .left(1));
+                MalumItems.HALLOWED_SPIRIT_RESONATOR.get(),-1,5)
+                .upRight(2,2));
 
         entries.add(new CoolerBookEntry(
-                "spirit_spoils",
-                MalumItems.RING_OF_ARCANE_SPOIL.get(),-3,5));
+                "ring_of_arcane_spoil",
+                RING_OF_ARCANE_SPOIL.get(),-5,5));
 
         entries.add(new CoolerBookEntry(
-                "precise_soul_shattering",
-                MalumItems.PITHING_NEEDLE.get(),-4,4));
+                "ring_of_prowess",
+                RING_OF_PROWESS.get(),-5,4));
 
         entries.add(new CoolerBookEntry(
-                "brilliance",
-                MalumItems.CONFINED_BRILLIANCE.get(),-2,6));
-
-        //dark arts
+                "ring_of_arcane_reach",
+                RING_OF_ARCANE_SPOIL.get(),-5,3));
 
         entries.add(new CoolerBookEntry(
                 "totem_rites",
                 MalumItems.TOTEM_BASE.get(),1,4)
-                .right(1)
-                .upRight(2,2));
-
-        entries.add(new CoolerBookEntry(
-                "aura_rites",
-                MalumItems.SACRED_SPIRIT.get(),2,4));
-
-        entries.add(new CoolerBookEntry(
-                "assembler_rites",
-                MalumItems.ARCANE_ASSEMBLY_TABLE.get(),2,5)
-                .up(1)
-                .right(1));
-
-        entries.add(new CoolerBookEntry(
-                "voodoo_magic",
-                MalumItems.CURSED_STRAND.get(),3,5));
-
-        entries.add(new CoolerBookEntry(
-                "ectoplasm",
-                MalumItems.ECTOPLASM.get(),2,6)
-                .left(3)
-                .right(1));
-
-        entries.add(new CoolerBookEntry(
-                "rune_magic",
-                MalumItems.TWISTED_ROCK_RUNE.get(),3,6));
-
-        entries.add(new CoolerBookEntry(
-                "eldritch_magic",
-                MalumItems.ELDRITCH_SPIRIT.get(),0,6)
+                .right(3)
                 .up(1));
 
         entries.add(new CoolerBookEntry(
+                "aura_rites",
+                MalumItems.SACRED_SPIRIT.get(),3,4));
+
+        entries.add(new CoolerBookEntry(
+                "rite_of_assembly",
+                MalumItems.ARCANE_ASSEMBLY_TABLE.get(),1,5)
+                .upLeft(2,2));
+
+        entries.add(new CoolerBookEntry(
+                "eldritch_spirits",
+                ELDRITCH_SPIRIT.get(),0,6)
+                .up(3));
+
+        entries.add(new CoolerBookEntry(
                 "radiant_soulstone",
-                MalumItems.RADIANT_SOULSTONE.get(),0,7)
-                .right(1));
+                RADIANT_SOULSTONE.get(),0,8)
+                .left(3)
+                .leftUp(2,2)
+                .leftDown(2,2)
+                .right(3)
+                .rightUp(2,2)
+                .rightDown(2,2));
 
         entries.add(new CoolerBookEntry(
                 "tyrving",
-                MalumItems.TYRVING.get(),1,7)
-                .right(1));
+                TYRVING.get(),-1,9));
 
         entries.add(new CoolerBookEntry(
                 "stronghold_armor",
-                MalumItems.SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(),2,7));
+                SOUL_STAINED_STRONGHOLD_CHESTPLATE.get(),-1,7));
+
+        entries.add(new CoolerBookEntry(
+                "put_some_cool_item_here",
+                SOULSTONE.get(),1,9));
+
+        entries.add(new CoolerBookEntry(
+                "put_another_cool_item_here",
+                SOULSTONE.get(),1,7));
+
+        entries.add(new CoolerBookEntry(
+                "voodoo_magic",
+                SOULSTONE.get(),-2,8));
+
+        entries.add(new CoolerBookEntry(
+                "rune_magic",
+                TWISTED_ROCK_RUNE.get(),2,8));
+
     }
     public void setupObjects()
     {
@@ -299,7 +308,6 @@ public class CoolerBookScreen extends Screen
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button)
     {
-
         cachedXOffset = xOffset;
         cachedYOffset = yOffset;
         xMovement = 0;
@@ -370,7 +378,10 @@ public class CoolerBookScreen extends Screen
         int insideTop = guiTop + 18;
         float uOffset = -(xOffset) * xModifier - extraXOffset;
         float vOffset = Math.min(parallax_height-bookInsideHeight,(parallax_height-bookInsideHeight-yOffset*yModifier) + extraYOffset);
-
+        if (vOffset <= parallax_height/2f+1)
+        {
+            vOffset = parallax_height/2f+1;
+        }
         renderTexture(texture, matrixStack, insideLeft, (int) (insideTop-vOffset), uOffset, 0, parallax_width, parallax_height, parallax_width/2, parallax_height/2);
     }
 

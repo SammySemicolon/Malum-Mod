@@ -1,7 +1,6 @@
 {
   "replace": "false",
   "values": [
-    "malum:token_of_gratitude",
-    "malum:comically_large_tophat"
+    "malum:token_of_gratitude"
   ]
 }

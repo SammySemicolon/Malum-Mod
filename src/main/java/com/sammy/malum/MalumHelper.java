@@ -588,7 +588,7 @@ public class MalumHelper
         if (armorItem instanceof MalumArmorItem)
         {
             MalumArmorItem malumArmorItem = (MalumArmorItem) armorItem;
-            return malumArmorItem.hasArmorSet(livingEntity, malumArmorItem.getArmorList());
+            return malumArmorItem.hasArmorSet(livingEntity);
         }
         return false;
     }

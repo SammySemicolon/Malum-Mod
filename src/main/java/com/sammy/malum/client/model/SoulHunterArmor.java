@@ -10,7 +10,7 @@ import com.sammy.malum.client.model.ArmorModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class SpiritHunterArmor extends ArmorModel
+public class SoulHunterArmor extends ArmorModel
 {
 	private final ModelRenderer leg_r;
 	private final ModelRenderer boot_r;
@@ -22,7 +22,7 @@ public class SpiritHunterArmor extends ArmorModel
 	private final ModelRenderer head;
 	private final ModelRenderer leggings;
 
-	public SpiritHunterArmor(EquipmentSlotType slot) {
+	public SoulHunterArmor(EquipmentSlotType slot) {
 		super(slot, 64, 64);
 
 		leg_r = new ModelRenderer(this);

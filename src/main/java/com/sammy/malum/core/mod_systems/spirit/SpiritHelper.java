@@ -102,7 +102,7 @@ public class SpiritHelper
                 highestBonus = item.spiritYieldBonus();
             }
         }
-        if (MalumHelper.hasArmorSet(attacker, MalumItems.SPIRIT_HUNTER_CLOAK.get().getItem()))
+        if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get().getItem()))
         {
             if (highestBonus < 1)
             {

@@ -3,7 +3,7 @@ package com.sammy.malum.core.init.items;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedStrongholdArmorItem;
-import com.sammy.malum.common.item.equipment.armor.SpiritHunterArmorItem;
+import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.common.item.equipment.armor.vanity.DripArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
 import com.sammy.malum.common.item.food.SolarSyrupBottleItem;
@@ -19,7 +19,6 @@ import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
 import com.sammy.malum.core.init.items.tabs.MalumNatureTab;
 import com.sammy.malum.core.init.items.tabs.MalumSplinterTab;
 import com.sammy.malum.core.mod_content.MalumSpiritTypes;
-import net.minecraft.block.Blocks;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -458,10 +457,10 @@ public class MalumItems
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SHOVEL = ITEMS.register("soul_stained_steel_shovel", () -> new ModShovelItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_HOE = ITEMS.register("soul_stained_steel_hoe", () -> new ModHoeItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> SPIRIT_HUNTER_CLOAK = ITEMS.register("spirit_hunter_cloak", () -> new SpiritHunterArmorItem(EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRIT_HUNTER_ROBE = ITEMS.register("spirit_hunter_robe", () -> new SpiritHunterArmorItem(EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRIT_HUNTER_LEGGINGS = ITEMS.register("spirit_hunter_leggings", () -> new SpiritHunterArmorItem(EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRIT_HUNTER_BOOTS = ITEMS.register("spirit_hunter_boots", () -> new SpiritHunterArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_HUNTER_CLOAK = ITEMS.register("soul_hunter_cloak", () -> new SoulHunterArmorItem(EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_HUNTER_ROBE = ITEMS.register("soul_hunter_robe", () -> new SoulHunterArmorItem(EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_HUNTER_LEGGINGS = ITEMS.register("soul_hunter_leggings", () -> new SoulHunterArmorItem(EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_HUNTER_BOOTS = ITEMS.register("soul_hunter_boots", () -> new SoulHunterArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_HELMET = ITEMS.register("soul_stained_steel_helmet", () -> new SoulStainedSteelArmorItem(EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_CHESTPLATE = ITEMS.register("soul_stained_steel_chestplate", () -> new SoulStainedSteelArmorItem(EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
