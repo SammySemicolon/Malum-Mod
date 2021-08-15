@@ -9,6 +9,7 @@ import com.sammy.malum.client.screen.cooler_book.objects.EntryBookObject;
 import com.sammy.malum.client.screen.cooler_book.pages.*;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -124,15 +125,23 @@ public class CoolerBookScreen extends Screen
                 .upRight(4,2)
                 .addPage(new SpiritTextPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("sacred_spirit_b"))
-                .addPage(new SpiritTextPage("wicked_spirit", "wicked_spirit_a", SACRED_SPIRIT.get()))
+                .addPage(new SpiritTextPage("wicked_spirit", "wicked_spirit_a", WICKED_SPIRIT.get()))
                 .addPage(new TextPage("wicked_spirit_b"))
-                .addPage(new SpiritTextPage("arcane_spirit", "arcane_spirit_a", SACRED_SPIRIT.get()))
+                .addPage(new SpiritTextPage("arcane_spirit", "arcane_spirit_a", ARCANE_SPIRIT.get()))
                 .addPage(new TextPage("arcane_spirit_b"))
                 .addPage(new TextPage("arcane_spirit_c")));
 
         entries.add(new CoolerBookEntry(
                 "spirit_infusion",
-                MalumItems.SPIRIT_ALTAR.get(),1,4));
+                MalumItems.SPIRIT_ALTAR.get(),1,4)
+                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(0)))
+                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(1)))
+                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(2)))
+                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(3)))
+                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(4)))
+                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(5)))
+                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(6)))
+                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(7))));
 
     }
     public void setupObjects()

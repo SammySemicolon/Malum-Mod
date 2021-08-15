@@ -10,10 +10,10 @@ import static com.sammy.malum.client.screen.cooler_book.EntryScreen.screen;
 
 public class CoolerBookPage
 {
-    public final ResourceLocation background;
+    public final ResourceLocation BACKGROUND;
     public CoolerBookPage(ResourceLocation background)
     {
-        this.background = background;
+        this.BACKGROUND = background;
     }
     public boolean hasAttachment()
     {
@@ -35,13 +35,13 @@ public class CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        CoolerBookScreen.renderTexture(background, matrixStack,guiLeft, guiTop,1,1,screen.bookWidth-147, screen.bookHeight,512,512);
+        CoolerBookScreen.renderTexture(BACKGROUND, matrixStack,guiLeft, guiTop,1,1,screen.bookWidth-147, screen.bookHeight,512,512);
     }
     public void renderBackgroundRight(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        CoolerBookScreen.renderTexture(background, matrixStack,guiLeft+147, guiTop,148,1,screen.bookWidth-147, screen.bookHeight,512,512);
+        CoolerBookScreen.renderTexture(BACKGROUND, matrixStack,guiLeft+147, guiTop,148,1,screen.bookWidth-147, screen.bookHeight,512,512);
     }
     public int guiLeft()
     {

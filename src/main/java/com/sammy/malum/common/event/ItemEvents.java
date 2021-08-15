@@ -47,22 +47,32 @@ public class ItemEvents
     @SubscribeEvent
     public static void increaseScytheDamage(LivingHurtEvent event)
     {
+        float extraDamage = 1.0f;
         if (event.getSource().getImmediateSource() instanceof LivingEntity)
         {
             LivingEntity attacker = (LivingEntity) event.getSource().getImmediateSource();
             ItemStack heldItem = MalumHelper.heldItem(attacker, (s)-> s.getItem() instanceof ScytheItem);
             if (heldItem != null)
             {
-                float extraDamage = 1.0f;
                 if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get()))
                 {
                     extraDamage += 0.25f;
                 }
-                event.setAmount(event.getAmount() * extraDamage);
             }
         }
+        if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity)
+        {
+            ScytheBoomerangEntity entity = (ScytheBoomerangEntity) event.getSource().getImmediateSource();
+            if (entity.owner != null)
+            {
+                if (MalumHelper.hasArmorSet(entity.owner, MalumItems.SOUL_HUNTER_CLOAK.get()))
+                {
+                    extraDamage += 0.25f;
+                }
+            }
+        }
+        event.setAmount(event.getAmount() * extraDamage);
     }
-
     @SubscribeEvent
     public static void increaseMagicDamage(LivingHurtEvent event)
     {

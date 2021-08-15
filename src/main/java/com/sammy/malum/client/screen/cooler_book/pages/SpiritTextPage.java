@@ -23,10 +23,7 @@ public class SpiritTextPage extends CoolerBookPage
     }
     public SpiritTextPage(String headlineTranslationKey, String translationKey, Item spirit)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/spirit_page.png"));
-        this.headlineTranslationKey = headlineTranslationKey;
-        this.translationKey = translationKey;
-        this.spiritStack = spirit.getDefaultInstance();
+        this(headlineTranslationKey,translationKey,spirit.getDefaultInstance());
     }
 
     @Override

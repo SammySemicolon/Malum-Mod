@@ -23,10 +23,7 @@ public class HeadlineTextPage extends CoolerBookPage
     }
     public HeadlineTextPage(String headlineTranslationKey, String translationKey, Item attachmentItem)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/headline_page.png"));
-        this.headlineTranslationKey = headlineTranslationKey;
-        this.translationKey = translationKey;
-        this.attachmentStack = attachmentItem.getDefaultInstance();
+        this(headlineTranslationKey,translationKey, attachmentItem.getDefaultInstance());
     }
 
     @Override

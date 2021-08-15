@@ -29,7 +29,7 @@ public class ItemIngredient
             return stacks.get(MalumMod.RANDOM.nextInt(stacks.size()));
         }
     }
-    public ItemStack getItemAlt()
+    public ItemStack getStaticItem()
     {
         if (isSimple())
         {

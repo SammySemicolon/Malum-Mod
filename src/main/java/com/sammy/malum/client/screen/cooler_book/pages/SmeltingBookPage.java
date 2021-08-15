@@ -22,9 +22,7 @@ public class SmeltingBookPage extends CoolerBookPage
     }
     public SmeltingBookPage(Item inputItem, Item outputItem)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/smelting_page.png"));
-        this.inputStack = inputItem.getDefaultInstance();
-        this.outputStack = outputItem.getDefaultInstance();
+        this(inputItem.getDefaultInstance(), outputItem.getDefaultInstance());
     }
 
     @Override

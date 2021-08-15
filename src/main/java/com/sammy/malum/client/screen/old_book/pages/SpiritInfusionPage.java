@@ -23,7 +23,7 @@ public class SpiritInfusionPage extends BookPage
         MalumSpiritAltarRecipes.MalumSpiritAltarRecipe finalRecipe = null;
         for (MalumSpiritAltarRecipes.MalumSpiritAltarRecipe recipe : MalumSpiritAltarRecipes.RECIPES)
         {
-            if (recipe.outputIngredient.getItemAlt().getItem().equals(outputStack))
+            if (recipe.outputIngredient.getStaticItem().getItem().equals(outputStack))
             {
                 finalRecipe = recipe;
                 break;
@@ -64,8 +64,8 @@ public class SpiritInfusionPage extends BookPage
             blit(stack, inputX + (int)itemOffset.x-2, inputY + (int)itemOffset.z-2, 131, 1, 20, 21, 512, 512);
             screen.drawItem(stack, recipe.spiritIngredients.get(i).getItem(), inputX + (int)itemOffset.x, inputY + (int)itemOffset.z, mouseX, mouseY);
         }
-        screen.drawItem(stack, recipe.inputIngredient.getItemAlt(), inputX, inputY, mouseX, mouseY);
-        screen.drawItem(stack, recipe.outputIngredient.getItemAlt(), inputX, posY + 115, mouseX, mouseY);
+        screen.drawItem(stack, recipe.inputIngredient.getStaticItem(), inputX, inputY, mouseX, mouseY);
+        screen.drawItem(stack, recipe.outputIngredient.getStaticItem(), inputX, posY + 115, mouseX, mouseY);
 
         screen.drawItem(stack, MalumItems.SPIRIT_ALTAR.get().getDefaultInstance(), posX + 101, posY + 115, mouseX, mouseY);
     }
