@@ -90,7 +90,7 @@ public class MalumLangProvider extends LanguageProvider
 
         addHeadline("introduction", "Introduction");
         addPage("introduction_a", "Within this world exists an arcane phenomenon, spirits. A spirit is a magical property or element depending on how you look at it that makes up souls. The soul is an arcane image or representation of every sentient being. The body is the opposite, it's a physical vessel for the soul.");
-        addPage("introduction_b", "Soul magic is a quite complex field with a simpler predecessor: spirit magic. Spirit magic is a much simpler and easier way to access most of the arcane phenomenon that derive from the soul. To put it short, soul magic almost entirely derives from the spirits within a soul and by extension spirits alone can be utilized for magic!");
+        addPage("introduction_b", "Soul magic is a quite complex field with a simpler predecessor: spirit magic. Spirit magic is a much easier way to access most of the arcane phenomenon that derive from the soul. To put it short, soul magic almost entirely derives from the spirits within a soul and by extension spirits alone can be utilized for magic!");
         addPage("introduction_c", "Getting your power hungry hands on some magical spirits may not be so simple though. When a body dies it leaves behind various items and precious loot, likewise when a soul is shattered it bursts out into magical spirit. This brutal way of completely eradicating both the body and the soul from existence is the main way of obtaining spirits.");
 
         addHeadline("spirit_magics", "Basics of spirit magic");
@@ -123,6 +123,19 @@ public class MalumLangProvider extends LanguageProvider
 
         addHeadline("rebound", "Rebound");
         addPage("rebound", "The rebound enchantment is by far the strangest one of them all. It grants you the ability to throw the scythe like a boomerang, allowing for a wacky ranged attack. Higher tiers allow you to throw the scythe more frequently.");
+
+        addHeadline("sacred_spirit", "Sacred Spirit");
+        addPage("sacred_spirit_a", "Sacred magic represents two things, the pure and the holy. Sacred magic itself is generally focused on various forms of healing and other positive effects.");
+        addPage("sacred_spirit_b", "When you're in need of a specific spirit you'll need to do some thinking. It'd be boring if the solution was handed out to you right away! Each soul has very specific spirits and their types depend on what kind of soul it is. The sacred spirit for example is found mainly within passive, relaxed souls.");
+
+        addHeadline("wicked_spirit", "Wicked Spirit");
+        addPage("wicked_spirit_a", "Opposite of the sacred, the wicked spirit represents impurity and various dark magics. Even just touching this spirit creates a mild pain. Wicked magics can be really dangerous in the right hands.");
+        addPage("wicked_spirit_b", "Generally when a body dies, the soul peacefully and slowly fades out alongside it. However, if the body is to be brought back to life through necromancy or some other reanimating magic just seconds after death the soul may be brought back! Through this process the soul is implanted with wicked spirit and overtime becomes one with it.");
+
+        addHeadline("arcane_spirit", "Arcane Spirit");
+        addPage("arcane_spirit_a", "As it's name implies, the arcane spirit is magic in it's purest form. Arcane spirit is often needed to fully utilize the potential stored within other spirits, it has little potential alone but can greatly amplify other magic.");
+        addPage("arcane_spirit_b", "Spirits found in a soul aren't always dependant only on the body the soul resided in from when it was created. For example, it is rumored that the very first illagers were villagers who broke their oath and turned evil. If that is the case, their soul would've adapted and became completely wicked.");
+        addPage("arcane_spirit_c", "A similar process most likely happened when a apprentice witch became proficient enough in magics. Souls can develop spirits over a long period of time based on how the body reacts to magic. This is very often the case with arcane spirit due to how pure and frequent it is in the world.");
 
         addPage("sacred_spirit", "Sacred spirit is a symbol of the living, it pains wicked beings such as zombies or skeletons. It is a direct opposite of the undead, found only in pure and untainted souls. It yields many curative properties");
         addPage("wicked_spirit", "The enemy of the sacred, this spirit represents the undead. The undead are weird, bizarre beings. Their souls are basically in a state of limbo, stuck in a quickly decaying corpse or an animated pile of bones.");
