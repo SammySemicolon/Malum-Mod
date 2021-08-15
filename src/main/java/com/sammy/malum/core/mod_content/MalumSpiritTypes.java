@@ -65,8 +65,8 @@ public class MalumSpiritTypes
     public static MalumSpiritType AERIAL_SPIRIT = create("aerial", AERIAL_SPIRIT_COLOR, MalumItems.AERIAL_SPIRIT)
             .addTest(1, "wraith")
             .addTest(1, SpiderEntity.class, true)
-            .addTest(2, IFlyingAnimal.class, BatEntity.class, SilverfishEntity.class, OcelotEntity.class, CatEntity.class, RavagerEntity.class, FoxEntity.class)
-            .addTest(3, AbstractHorseEntity.class, String.class, VexEntity.class, GhastEntity.class);
+            .addTest(2, AbstractHorseEntity.class, IFlyingAnimal.class, BatEntity.class, SilverfishEntity.class, OcelotEntity.class, CatEntity.class, RavagerEntity.class, FoxEntity.class)
+            .addTest(3, VexEntity.class, GhastEntity.class);
 
     public static final Color AQUATIC_SPIRIT_COLOR = new Color(42, 114, 232);
     public static MalumSpiritType AQUATIC_SPIRIT = create("aquatic", AQUATIC_SPIRIT_COLOR, MalumItems.AQUATIC_SPIRIT)
@@ -79,7 +79,7 @@ public class MalumSpiritTypes
     public static final Color INFERNAL_SPIRIT_COLOR = new Color(210, 134, 39);
     public static MalumSpiritType INFERNAL_SPIRIT = create("infernal", INFERNAL_SPIRIT_COLOR, MalumItems.INFERNAL_SPIRIT)
             .addTest(1, WitherSkeletonEntity.class, HuskEntity.class, MagmaCubeEntity.class, AbstractPiglinEntity.class, ZombifiedPiglinEntity.class, HoglinEntity.class, ZoglinEntity.class)
-            .addTest(2, CreeperEntity.class, BlazeEntity.class, GhastEntity.class)
+            .addTest(2, CreeperEntity.class, BlazeEntity.class)
             .addTest(3, GhastEntity.class, StriderEntity.class)
             .addTest(5, WitherEntity.class);
 

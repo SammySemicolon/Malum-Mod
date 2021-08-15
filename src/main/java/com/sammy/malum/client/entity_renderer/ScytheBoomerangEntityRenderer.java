@@ -34,7 +34,7 @@ public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomeran
     
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90F));
         matrixStackIn.scale(2f, 2f, 2f);
-        matrixStackIn.rotate(Vector3f.ZP.rotation((entityIn.age + partialTicks) * 0.8f));
+        matrixStackIn.rotate(Vector3f.ZP.rotation(-(entityIn.age + partialTicks) * 0.9f));
         itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
     
         matrixStackIn.pop();

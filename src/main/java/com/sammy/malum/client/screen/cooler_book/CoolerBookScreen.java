@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sammy.malum.core.init.items.MalumItems.*;
+import static net.minecraft.item.Items.AIR;
+import static net.minecraft.item.Items.GOLD_INGOT;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class CoolerBookScreen extends Screen
@@ -134,14 +136,12 @@ public class CoolerBookScreen extends Screen
         entries.add(new CoolerBookEntry(
                 "spirit_infusion",
                 MalumItems.SPIRIT_ALTAR.get(),1,4)
-                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(0)))
-                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(1)))
-                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(2)))
-                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(3)))
-                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(4)))
-                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(5)))
-                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(6)))
-                .addPage(new SpiritInfusionPage(MalumSpiritAltarRecipes.RECIPES.get(7))));
+                .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a", SPIRIT_ALTAR.get()))
+                .addPage(new TextPage("spirit_infusion_b"))
+                .addPage(new TextPage("spirit_infusion_c"))
+                .addPage(new CraftingBookPage(SPIRIT_ALTAR.get(), AIR, SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD.get(), GOLD_INGOT, RUNEWOOD.get(), RUNEWOOD.get(), RUNEWOOD.get()))
+                .addPage(new HeadlineTextPage("hex_ash", "hex_ash", HEX_ASH.get()))
+                .addPage(new SpiritInfusionPage(HEX_ASH.get())));
 
     }
     public void setupObjects()
