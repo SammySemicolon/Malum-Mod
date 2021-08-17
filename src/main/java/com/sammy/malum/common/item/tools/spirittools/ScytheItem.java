@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 
 public class ScytheItem extends ModCombatItem implements ISpiritTool
 {
-    public ScytheItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn)
+    public ScytheItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn)
     {
         super(tier, attackDamageIn+4, attackSpeedIn - 3.2f, builderIn.addToolType(ToolType.HOE, 3));
     }

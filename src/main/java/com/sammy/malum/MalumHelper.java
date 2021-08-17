@@ -490,7 +490,7 @@ public class MalumHelper
         {
             return livingEntity.getHeldItem(Hand.OFF_HAND);
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     public static boolean hasCurioEquipped(LivingEntity entity, RegistryObject<Item> curio)

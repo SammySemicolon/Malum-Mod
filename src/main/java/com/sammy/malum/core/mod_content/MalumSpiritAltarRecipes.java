@@ -70,6 +70,13 @@ public class MalumSpiritAltarRecipes
                 .addSpirit(new SpiritIngredient(MalumSpiritTypes.SACRED_SPIRIT, 1))
                 .addExtraItem(new SimpleItemIngredient(Items.QUARTZ))
                 .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()));
+
+        new MalumSpiritAltarRecipe(new ItemIngredient(MalumItems.RUNEWOOD_LOG.get(), 1), new ItemIngredient(MalumItems.TOTEM_BASE.get(), 1))
+                .addSpirit(new SpiritIngredient(MalumSpiritTypes.ARCANE_SPIRIT, 5))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.SOULSTONE.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.RUNEWOOD_PLANKS.get()))
+                .addExtraItem(new SimpleItemIngredient(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()));
     }
 
     public static MalumSpiritAltarRecipe getRecipe(ItemStack stack, ArrayList<ItemStack> stacks)

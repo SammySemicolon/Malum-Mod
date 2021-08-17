@@ -30,8 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sammy.malum.core.init.items.MalumItems.*;
-import static net.minecraft.item.Items.AIR;
-import static net.minecraft.item.Items.GOLD_INGOT;
+import static net.minecraft.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class CoolerBookScreen extends Screen
@@ -136,6 +135,7 @@ public class CoolerBookScreen extends Screen
         entries.add(new CoolerBookEntry(
                 "spirit_infusion",
                 MalumItems.SPIRIT_ALTAR.get(),1,4)
+                .upLeft(2,4)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a", SPIRIT_ALTAR.get()))
                 .addPage(new TextPage("spirit_infusion_b"))
                 .addPage(new TextPage("spirit_infusion_c"))
@@ -143,6 +143,24 @@ public class CoolerBookScreen extends Screen
                 .addPage(new HeadlineTextPage("hex_ash", "hex_ash", HEX_ASH.get()))
                 .addPage(new SpiritInfusionPage(HEX_ASH.get())));
 
+        entries.add(new CoolerBookEntry(
+                "spirit_metallurgy",
+                HALLOWED_GOLD_INGOT.get(),0,5)
+                .left(3)
+                .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a", HALLOWED_GOLD_INGOT.get()))
+                .addPage(new TextPage("hallowed_gold_b"))
+                .addPage(new HeadlineTextPage("soul_stained_steel", "soul_stained_steel_a", SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(new TextPage("soul_stained_steel_b"))
+                .addPage(CraftingBookPage.resonatorPage(HALLOWED_SPIRIT_RESONATOR.get(), QUARTZ, HALLOWED_GOLD_INGOT.get(), RUNEWOOD_PLANKS.get()))
+                .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get())));
+
+        entries.add(new CoolerBookEntry(
+                "spirit_rites",
+                TOTEM_BASE.get(),0,6)
+                .addPage(new HeadlineTextPage("spirit_rites", "spirit_rites_a", TOTEM_BASE.get()))
+                .addPage(new TextPage("spirit_rites_b"))
+                .addPage(new TextPage("spirit_rites_c"))
+                .addPage(new SpiritInfusionPage(TOTEM_BASE.get())));
     }
     public void setupObjects()
     {

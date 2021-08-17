@@ -144,6 +144,15 @@ public class MalumLangProvider extends LanguageProvider
         addHeadline("hex_ash", "Hex Ash");
         addPage("hex_ash", "Hex ash is a simple magical powder used in creating various magical items. The ash can animate things, bring them to life in some extreme cases even. It's crated by infusing gunpowder with arcane spirit.");
 
+        addHeadline("hallowed_gold", "Hallowed Gold");
+        addPage("hallowed_gold_a", "Gold is very often used as a basis for various magics, this is also the case with spirit magic. Infusing arcane and sacred spirits into a gold ingot will imbue it with magic and yield a much more desirable magic metal. A few additional reagents are also needed for this process.");
+        addPage("hallowed_gold_b", "Hallowed gold is perfect for interacting with spirits, it can be used for spirit storage, transfer and can even create various magical magic effects from spirit energies.");
+        addHeadline("soul_stained_steel", "Soul Stained Steel");
+        addPage("soul_stained_steel_a", "The holy origins of hallowed gold make it nearly impossible to use for evil. Soul stained steel is nothing like that, it's a metal twisted evil beyond recognition. It excels at harmful things, perfect for various gear and trinkets. When used correctly it can repel or even instantly dissolve spirits.");
+        addPage("soul_stained_steel_b", "Both metals can also be used to create a type of spirit resonator, a more complex crafting component meant for utilizing spirit magics in various ways.");
+
+
+
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rites", "Spirit Rites");
         add("malum.jei.rune_table", "Rune Table");

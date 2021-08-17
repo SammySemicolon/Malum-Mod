@@ -1,0 +1,15 @@
+{
+  "parent": "item/handheld",
+  "loader": "forge:separate-perspective",
+  "base": {
+    "parent": "malum:item/soul_stained_steel_scythe_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "malum:item/soul_stained_steel_scythe_gui"
+    },
+    "fixed": {
+      "parent": "malum:item/soul_stained_steel_scythe_gui"
+    }
+  }
+}
