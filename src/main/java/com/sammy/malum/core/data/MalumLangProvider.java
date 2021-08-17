@@ -143,7 +143,7 @@ public class MalumLangProvider extends LanguageProvider
         addPage("spirit_infusion_c", "Once everything is setup correctly, spirit infusion will begin and one by one each additional ingredient will be absorbed into the prime item alongside needed spirits. Once this lengthy process is done your desired item will be created!");
         addHeadline("hex_ash", "Hex Ash");
         addPage("hex_ash", "Hex ash is a simple magical powder used in creating various magical items. The ash can animate things, bring them to life in some extreme cases even. It's crated by infusing gunpowder with arcane spirit.");
-        
+
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rites", "Spirit Rites");
         add("malum.jei.rune_table", "Rune Table");
