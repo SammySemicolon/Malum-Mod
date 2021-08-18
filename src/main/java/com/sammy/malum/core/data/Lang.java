@@ -7,11 +7,9 @@ import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.event.StartupEvents;
-import com.sammy.malum.core.mod_content.MalumBookCategories;
 import com.sammy.malum.core.mod_content.MalumRites;
 import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
-import net.minecraft.block.StandingSignBlock;
 import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
@@ -31,9 +29,9 @@ import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
 import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 
-public class MalumLangProvider extends LanguageProvider
+public class Lang extends LanguageProvider
 {
-    public MalumLangProvider(DataGenerator gen)
+    public Lang(DataGenerator gen)
     {
         super(gen, MalumMod.MODID, "en_us");
     }
@@ -42,7 +40,6 @@ public class MalumLangProvider extends LanguageProvider
     protected void addTranslations()
     {
         StartupEvents.registerModContents(null);
-        MalumBookCategories.init();
         CoolerBookScreen.setupEntries();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
@@ -151,8 +148,9 @@ public class MalumLangProvider extends LanguageProvider
         addPage("soul_stained_steel_a", "The holy origins of hallowed gold make it nearly impossible to use for evil. Soul stained steel is nothing like that, it's a metal twisted evil beyond recognition. It excels at harmful things, perfect for various gear and trinkets. When used correctly it can repel or even instantly dissolve spirits.");
         addPage("soul_stained_steel_b", "Both metals can also be used to create a type of spirit resonator, a more complex crafting component meant for utilizing spirit magics in various ways.");
 
-
-
+        addHeadline("spirit_trinkets", "Spirit Trinkets");
+        addPage("spirit_trinkets_a", "A trinket is a simple accessory that will provide you with helpful benefits, some know them as baubles or curios. Hallowed gold and soul stained steel both offer two basic trinkets that can be shaped into many more using the spirit altar.");
+        addPage("spirit_trinkets_b", "Gilded trinkets provide boosts to armor while ornate ones grant you armor toughness.");
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rites", "Spirit Rites");
         add("malum.jei.rune_table", "Rune Table");

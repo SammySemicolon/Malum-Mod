@@ -19,9 +19,9 @@ import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
 import static net.minecraftforge.common.Tags.Blocks.DIRT;
 
-public class MalumBlockTagProvider extends BlockTagsProvider
+public class MalumBlockTags extends BlockTagsProvider
 {
-    public MalumBlockTagProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper)
+    public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper)
     {
         super(generatorIn, MalumMod.MODID, existingFileHelper);
     }
@@ -31,12 +31,12 @@ public class MalumBlockTagProvider extends BlockTagsProvider
     {
         getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.SOULSTONE_ORE.get(), MalumBlocks.BLAZING_QUARTZ_ORE.get());
 
-        getOrCreateBuilder(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
-        getOrCreateBuilder(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));
-        getOrCreateBuilder(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
-        getOrCreateBuilder(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
-        getOrCreateBuilder(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
-        getOrCreateBuilder(BlockTags.LEAVES).add(getModBlocks(b -> b instanceof LeavesBlock));
+        getOrCreateBuilder(net.minecraft.tags.BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
+        getOrCreateBuilder(net.minecraft.tags.BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));
+        getOrCreateBuilder(net.minecraft.tags.BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
+        getOrCreateBuilder(net.minecraft.tags.BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
+        getOrCreateBuilder(net.minecraft.tags.BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
+        getOrCreateBuilder(net.minecraft.tags.BlockTags.LEAVES).add(getModBlocks(b -> b instanceof LeavesBlock));
         getOrCreateBuilder(DOORS).add(getModBlocks(b -> b instanceof DoorBlock));
         getOrCreateBuilder(TRAPDOORS).add(getModBlocks(b -> b instanceof TrapDoorBlock));
         getOrCreateBuilder(BUTTONS).add(getModBlocks(b -> b instanceof AbstractButtonBlock));

@@ -36,9 +36,9 @@ import static com.sammy.malum.core.init.block.MalumBlocks.*;
 import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
 
-public class MalumBlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider
+public class BlockStates extends net.minecraftforge.client.model.generators.BlockStateProvider
 {
-    public MalumBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper)
+    public BlockStates(DataGenerator gen, ExistingFileHelper exFileHelper)
     {
         super(gen, MalumMod.MODID, exFileHelper);
     }

@@ -16,6 +16,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnchantedBookItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sammy.malum.core.init.items.MalumItems.*;
+import static net.minecraft.item.ItemStack.EMPTY;
 import static net.minecraft.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
@@ -71,18 +73,16 @@ public class CoolerBookScreen extends Screen
     public static void setupEntries()
     {
         entries = new ArrayList<>();
-
+        Item EMPTY = ItemStack.EMPTY.getItem();
         entries.add(new CoolerBookEntry(
-                "introduction",
-                MalumItems.ENCYCLOPEDIA_ARCANA.get(),0,1)
+                "introduction", ENCYCLOPEDIA_ARCANA.get(),0,1)
                 .down(1)
                 .addPage(new HeadlineTextPage("introduction","introduction_a", MalumItems.ENCYCLOPEDIA_ARCANA.get()))
                 .addPage(new TextPage("introduction_b"))
                 .addPage(new TextPage("introduction_c")));
 
         entries.add(new CoolerBookEntry(
-                "spirit_magics",
-                Items.SOUL_SAND,0,0)
+                "spirit_magics", SOUL_SAND,0,0)
                 .leftUp(2,2)
                 .rightUp(2,2)
                 .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a", ARCANE_SPIRIT.get()))
@@ -90,8 +90,7 @@ public class CoolerBookScreen extends Screen
                 .addPage(new TextPage("spirit_magics_c")));
 
         entries.add(new CoolerBookEntry(
-                "runewood",
-                MalumItems.RUNEWOOD_SAPLING.get(),1,1)
+                "runewood", RUNEWOOD_SAPLING.get(),1,1)
                 .upLeft(2,2)
                 .addPage(new HeadlineTextPage("runewood", "runewood_a", RUNEWOOD_SAPLING.get()))
                 .addPage(new TextPage("runewood_b"))
@@ -102,15 +101,13 @@ public class CoolerBookScreen extends Screen
                 .addModCompatPage(new TextPage("solar_sap_c"), "thermal_expansion"));
 
         entries.add(new CoolerBookEntry(
-                "soulstone",
-                SOULSTONE.get(),-1,1)
+                "soulstone", SOULSTONE.get(),-1,1)
                 .upRight(2,2)
                 .addPage(new HeadlineTextPage("soulstone", "soulstone_a", SOULSTONE.get()))
                 .addPage(new TextPage("soulstone_b")));
 
         entries.add(new CoolerBookEntry(
-                "scythes",
-                MalumItems.CRUDE_SCYTHE.get(),0,2)
+                "scythes", CRUDE_SCYTHE.get(),0,2)
                 .upLeft(2,2)
                 .addPage(new HeadlineTextPage("scythes", "scythes_a", MalumItems.CRUDE_SCYTHE.get()))
                 .addPage(new TextPage("scythes_b"))
@@ -121,8 +118,7 @@ public class CoolerBookScreen extends Screen
                 .addPage(new HeadlineTextPage("rebound", "rebound", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.REBOUND.get(), 0)))));
 
         entries.add(new CoolerBookEntry(
-                "simple_spirit_types",
-                MalumItems.ARCANE_SPIRIT.get(),-1,3)
+                "simple_spirit_types", ARCANE_SPIRIT.get(),-1,3)
                 .upRight(4,2)
                 .addPage(new SpiritTextPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("sacred_spirit_b"))
@@ -133,8 +129,7 @@ public class CoolerBookScreen extends Screen
                 .addPage(new TextPage("arcane_spirit_c")));
 
         entries.add(new CoolerBookEntry(
-                "spirit_infusion",
-                MalumItems.SPIRIT_ALTAR.get(),1,4)
+                "spirit_infusion", SPIRIT_ALTAR.get(),1,4)
                 .upLeft(2,4)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a", SPIRIT_ALTAR.get()))
                 .addPage(new TextPage("spirit_infusion_b"))
@@ -144,8 +139,7 @@ public class CoolerBookScreen extends Screen
                 .addPage(new SpiritInfusionPage(HEX_ASH.get())));
 
         entries.add(new CoolerBookEntry(
-                "spirit_metallurgy",
-                HALLOWED_GOLD_INGOT.get(),0,5)
+                "spirit_metallurgy", HALLOWED_GOLD_INGOT.get(),0,5)
                 .left(3)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a", HALLOWED_GOLD_INGOT.get()))
                 .addPage(new TextPage("hallowed_gold_b"))
@@ -155,8 +149,17 @@ public class CoolerBookScreen extends Screen
                 .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get())));
 
         entries.add(new CoolerBookEntry(
-                "spirit_rites",
-                TOTEM_BASE.get(),0,6)
+                "spirit_trinkets", GILDED_RING.get(), -2, 5)
+                .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a", GILDED_RING.get()))
+                .addPage(new TextPage("spirit_trinkets_b"))
+                .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
+                .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER,HALLOWED_GOLD_INGOT.get()))
+                .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER,SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "spirit_rites", TOTEM_BASE.get(),0,6)
                 .addPage(new HeadlineTextPage("spirit_rites", "spirit_rites_a", TOTEM_BASE.get()))
                 .addPage(new TextPage("spirit_rites_b"))
                 .addPage(new TextPage("spirit_rites_c"))

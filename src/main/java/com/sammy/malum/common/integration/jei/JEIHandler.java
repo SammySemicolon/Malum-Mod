@@ -22,23 +22,23 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry)
     {
-        registry.addRecipeCategories(new SpiritAltarRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new SpiritRitesRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+//        registry.addRecipeCategories(new SpiritAltarRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+//        registry.addRecipeCategories(new SpiritRitesRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
     
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
-        registry.addRecipes(MalumSpiritAltarRecipes.RECIPES, SpiritAltarRecipeCategory.UID);
-        registry.addRecipes(MalumRites.RITES, SpiritRitesRecipeCategory.UID);
+//        registry.addRecipes(MalumSpiritAltarRecipes.RECIPES, SpiritAltarRecipeCategory.UID);
+//        registry.addRecipes(MalumRites.RITES, SpiritRitesRecipeCategory.UID);
     }
     
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
-        //registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), RiteRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_ALTAR.get()), SpiritAltarRecipeCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_BASE.get()), SpiritRitesRecipeCategory.UID);
+//        registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_CORE.get()), RiteRecipeCategory.UID);
+//        registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_ALTAR.get()), SpiritAltarRecipeCategory.UID);
+//        registry.addRecipeCatalyst(new ItemStack(MalumItems.TOTEM_BASE.get()), SpiritRitesRecipeCategory.UID);
     }
     @Nonnull
     @Override

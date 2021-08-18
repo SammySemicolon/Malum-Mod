@@ -122,4 +122,13 @@ public class CraftingBookPage extends CoolerBookPage
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingBookPage(resonator, empty, reagent, empty, metal, gem, metal, empty, reagent, empty);
     }
+    public static CraftingBookPage ringPage(Item ring, Item material, Item reagent)
+    {
+        return ringPage(ring.getDefaultInstance(), material.getDefaultInstance(), reagent.getDefaultInstance());
+    }
+    public static CraftingBookPage ringPage(ItemStack ring, ItemStack material, ItemStack reagent)
+    {
+        ItemStack empty = Items.AIR.getDefaultInstance();
+        return new CraftingBookPage(ring, empty, material, reagent, material, empty, material,empty,material,empty);
+    }
 }

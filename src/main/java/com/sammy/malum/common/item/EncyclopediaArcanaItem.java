@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.old_book.BookScreen;
+import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class EncyclopediaArcanaItem extends Item
     {
         if (MalumHelper.areWeOnClient(worldIn))
         {
-            BookScreen.openScreen(false);
+            CoolerBookScreen.openScreen();
             playerIn.swingArm(handIn);
             return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
         }

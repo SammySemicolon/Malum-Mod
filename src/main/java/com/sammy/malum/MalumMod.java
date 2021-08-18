@@ -60,14 +60,15 @@ public class MalumMod
 
     public void gatherData(GatherDataEvent event)
     {
-        BlockTagsProvider provider = new MalumBlockTagProvider(event.getGenerator(), event.getExistingFileHelper());
-        event.getGenerator().addProvider(new MalumBlockStateProvider(event.getGenerator(), event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new MalumItemModelProvider(event.getGenerator(), event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new MalumLangProvider(event.getGenerator()));
+        BlockTagsProvider provider = new MalumBlockTags(event.getGenerator(), event.getExistingFileHelper());
+        event.getGenerator().addProvider(new BlockStates(event.getGenerator(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new ItemModels(event.getGenerator(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new Lang(event.getGenerator()));
         event.getGenerator().addProvider(provider);
-        event.getGenerator().addProvider(new MalumLootTableProvider(event.getGenerator()));
-        event.getGenerator().addProvider(new MalumItemTagProvider(event.getGenerator(), provider, event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new MalumRecipeProvider(event.getGenerator()));
+        event.getGenerator().addProvider(new LootTables(event.getGenerator()));
+        event.getGenerator().addProvider(new MalumItemTags(event.getGenerator(), provider, event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new Recipes(event.getGenerator()));
+        event.getGenerator().addProvider(new SpiritInfusionRecipes(event.getGenerator()));
     }
 
     public static void showGratitude(EntityJoinWorldEvent event)

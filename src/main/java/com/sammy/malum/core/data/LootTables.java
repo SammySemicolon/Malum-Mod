@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 import static com.sammy.malum.MalumHelper.takeAll;
 import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 
-public class MalumLootTableProvider extends LootTableProvider
+public class LootTables extends LootTableProvider
 {
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> tables = new ArrayList<>();
     private static final Set<Item> IMMUNE_TO_EXPLOSIONS = Stream.of(MalumBlocks.SPIRIT_ALTAR, MalumBlocks.SPIRIT_JAR).map(c -> c.get().asItem()).collect(ImmutableSet.toImmutableSet());
@@ -44,7 +44,7 @@ public class MalumLootTableProvider extends LootTableProvider
     private static final ILootCondition.IBuilder NOT_SILK_TOUCH_OR_SHEARS = SILK_TOUCH_OR_SHEARS.inverted();
     private static final float[] RARE_SAPLING_DROP_RATES = new float[]{0.025F, 0.027777778F, 0.03125F, 0.041666668F, 0.1F};
     
-    public MalumLootTableProvider(DataGenerator dataGeneratorIn)
+    public LootTables(DataGenerator dataGeneratorIn)
     {
         super(dataGeneratorIn);
     }

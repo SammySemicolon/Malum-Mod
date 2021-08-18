@@ -1,5 +1,6 @@
 package com.sammy.malum.core.data;
 
+import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.init.items.MalumItemTags;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.advancements.criterion.*;
@@ -22,9 +23,9 @@ import static net.minecraft.data.CookingRecipeBuilder.smeltingRecipe;
 import static net.minecraft.data.ShapedRecipeBuilder.shapedRecipe;
 import static net.minecraft.data.ShapelessRecipeBuilder.shapelessRecipe;
 
-public class MalumRecipeProvider extends RecipeProvider
+public class Recipes extends RecipeProvider
 {
-    public MalumRecipeProvider(DataGenerator generatorIn)
+    public Recipes(DataGenerator generatorIn)
     {
         super(generatorIn);
     }
@@ -109,6 +110,8 @@ public class MalumRecipeProvider extends RecipeProvider
         shapedStairs(consumer, MalumItems.RUNEWOOD_PLANKS_STAIRS.get(), MalumItems.RUNEWOOD_PLANKS.get());
         shapedTrapdoor(consumer, MalumItems.RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_PLANKS.get());
         shapelessSolidTrapdoor(consumer, MalumItems.SOLID_RUNEWOOD_TRAPDOOR.get(), MalumItems.RUNEWOOD_TRAPDOOR.get());
+        shapedSign(consumer, MalumItems.RUNEWOOD_SIGN.get(), MalumItems.RUNEWOOD_PLANKS.get());
+        shapedRecipe(MalumItems.RUNEWOOD_BOAT.get()).key('#', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("# #").patternLine("###").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
 
         shapedRecipe(MalumItems.VERTICAL_RUNEWOOD_PLANKS.get(),2).key('#', MalumItems.RUNEWOOD_PLANKS.get()).patternLine("#").patternLine("#").addCriterion("has_runewood_planks", hasItem(MalumItems.RUNEWOOD_PLANKS.get())).build(consumer);
         shapedSlab(consumer, MalumItems.VERTICAL_RUNEWOOD_PLANKS_SLAB.get(), MalumItems.VERTICAL_RUNEWOOD_PLANKS.get());

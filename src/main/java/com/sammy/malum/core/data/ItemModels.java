@@ -23,9 +23,9 @@ import static com.sammy.malum.MalumHelper.prefix;
 import static com.sammy.malum.MalumHelper.takeAll;
 import static com.sammy.malum.core.init.items.MalumItems.*;
 
-public class MalumItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider
+public class ItemModels extends net.minecraftforge.client.model.generators.ItemModelProvider
 {
-    public MalumItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper)
+    public ItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper)
     {
         super(generator, MalumMod.MODID, existingFileHelper);
     }

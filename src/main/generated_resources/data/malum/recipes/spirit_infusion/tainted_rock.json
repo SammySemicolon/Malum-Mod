@@ -1,0 +1,13 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "minecraft:cobblestone",
+    "count": 16
+  },
+  "output": {
+    "item": "malum:tainted_rock",
+    "count": 16
+  },
+  "extra_items": [],
+  "spirits": []
+}
