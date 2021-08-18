@@ -7,7 +7,7 @@ import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.event.StartupEvents;
-import com.sammy.malum.core.mod_content.MalumRites;
+import com.sammy.malum.core.init.MalumRites;
 import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallSignBlock;
@@ -39,7 +39,7 @@ public class Lang extends LanguageProvider
     @Override
     protected void addTranslations()
     {
-        StartupEvents.registerModContents(null);
+        MalumRites.init();
         CoolerBookScreen.setupEntries();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());

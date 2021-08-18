@@ -1,18 +1,13 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "minecraft:cobblestone",
-    "count": 16
+    "item": "minecraft:gunpowder"
   },
   "output": {
-    "item": "malum:tainted_rock",
-    "count": 16
+    "item": "malum:hex_ash"
   },
   "extra_items": [],
   "spirits": [
-    {
-      "item": "malum:sacred_spirit"
-    },
     {
       "item": "malum:arcane_spirit"
     }

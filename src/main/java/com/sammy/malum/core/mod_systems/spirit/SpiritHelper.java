@@ -10,7 +10,7 @@ import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.mod_content.MalumSpiritTypes;
+import com.sammy.malum.core.init.MalumSpiritTypes;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;

@@ -6,12 +6,10 @@ import com.sammy.malum.common.item.SpiritItem;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.block.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes;
-import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes.MalumSpiritAltarRecipe;
-import com.sammy.malum.core.mod_content.SpiritInfusionRecipe;
+import com.sammy.malum.core.mod_systems.recipe.ItemCount;
+import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
-import com.sammy.malum.core.mod_systems.recipe.SpiritIngredient;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import com.sammy.malum.core.mod_systems.tile.SimpleTileEntity;
 import com.sammy.malum.network.packets.particle.altar.SpiritAltarConsumeParticlePacket;
@@ -163,41 +161,41 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                             {
                                 IAltarProvider tileEntity = (IAltarProvider) world.getTileEntity(pos);
                                 ItemStack providedStack = tileEntity.providedInventory().getStackInSlot(0);
-                                if (recipe.extraItems.get(extrasInventory.nonEmptyItems()).equals(providedStack.getItem()))
+                                ItemCount requestedItem = recipe.extraItems.get(extrasInventory.nonEmptyItems());
+                                if (requestedItem.matches(providedStack))
                                 {
                                     world.playSound(null, pos, MalumSounds.ALTAR_CONSUME, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
                                     Vector3d providedItemPos = tileEntity.providedItemPos();
-//                                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromIngredients(providedStack, recipe.spiritIngredients, providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
-                                    extrasInventory.playerInsertItem(world, providedStack.split(1));
+                                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.spirits(), providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
+                                    extrasInventory.playerInsertItem(world, providedStack.split(requestedItem.count));
                                     MalumHelper.updateAndNotifyState(world, pos);
                                     MalumHelper.updateAndNotifyState(world, this.pos);
-
                                     break;
                                 }
                             }
                         }
                         return;
                     }
-//                    for (SpiritIngredient ingredient : recipe.spirits)
-//                    {
-//                        for (int i = 0; i < spiritInventory.slotCount; i++)
-//                        {
-//                            ItemStack spiritStack = spiritInventory.getStackInSlot(i);
-//                            if (ingredient.matches(spiritStack))
-//                            {
-//                                spiritStack.shrink(ingredient.count);
-//                                break;
-//                            }
-//                        }
-//                    }
-//                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarCraftParticlePacket.fromIngredients(recipe.spiritIngredients, itemPos.x, itemPos.y, itemPos.z));
+                    for (ItemCount spirit : recipe.spirits)
+                    {
+                        for (int i = 0; i < spiritInventory.slotCount; i++)
+                        {
+                            ItemStack spiritStack = spiritInventory.getStackInSlot(i);
+                            if (spirit.matches(spiritStack))
+                            {
+                                spiritStack.shrink(spirit.count);
+                                break;
+                            }
+                        }
+                    }
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.spirits(), itemPos.x, itemPos.y, itemPos.z));
                     stack.shrink(recipe.inputCount);
                     world.addEntity(new ItemEntity(world, itemPos.x, itemPos.y, itemPos.z, new ItemStack(recipe.output, recipe.outputCount)));
                     progress = 0;
                     extrasInventory.clearItems();
-                    world.playSound(null, pos, MalumSounds.ALTAR_CRAFT, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
                     recipe = SpiritInfusionRecipe.getRecipe(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
                     MalumHelper.updateAndNotifyState(world, pos);
+                    world.playSound(null, pos, MalumSounds.ALTAR_CRAFT, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
                 }
             }
         }

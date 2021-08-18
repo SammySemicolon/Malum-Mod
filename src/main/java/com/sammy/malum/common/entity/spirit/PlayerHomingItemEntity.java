@@ -6,6 +6,7 @@ import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -59,6 +60,12 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
     public void move()
     {
         super.move();
+        if (owner == null)
+        {
+            world.addEntity(new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem()));
+            remove();
+            return;
+        }
         float distance = getDistance(owner);
         float minimumDistance = getMinimumDistance();
         float velocity = acceleration * Math.min(moving, 40);

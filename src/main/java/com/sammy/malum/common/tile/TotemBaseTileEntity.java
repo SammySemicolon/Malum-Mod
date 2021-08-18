@@ -3,7 +3,7 @@ package com.sammy.malum.common.tile;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.block.MalumTileEntities;
-import com.sammy.malum.core.mod_content.MalumRites;
+import com.sammy.malum.core.init.MalumRites;
 import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.rites;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.mod_content.MalumSpiritTypes;
+import com.sammy.malum.core.init.MalumSpiritTypes;
 import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import net.minecraft.util.math.BlockPos;

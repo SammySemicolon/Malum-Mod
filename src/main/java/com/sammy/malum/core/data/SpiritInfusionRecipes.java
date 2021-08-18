@@ -2,26 +2,14 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.mod_content.MalumSpiritTypes;
-import net.minecraft.advancements.criterion.*;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.*;
-import net.minecraft.item.Item;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
-import static net.minecraft.data.CookingRecipeBuilder.blastingRecipe;
-import static net.minecraft.data.CookingRecipeBuilder.smeltingRecipe;
-import static net.minecraft.data.ShapedRecipeBuilder.shapedRecipe;
-import static net.minecraft.data.ShapelessRecipeBuilder.shapelessRecipe;
+import static com.sammy.malum.core.init.MalumSpiritTypes.*;
 
 public class SpiritInfusionRecipes extends RecipeProvider
 {
@@ -39,14 +27,40 @@ public class SpiritInfusionRecipes extends RecipeProvider
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer)
     {
-        new SpiritInfusionRecipeBuilder(Items.COBBLESTONE, 16, MalumItems.TAINTED_ROCK.get(), 16).build(consumer, "tainted_rock");
+        new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, MalumItems.HEX_ASH.get(), 1)
+                .addSpirit(ARCANE_SPIRIT, 1)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.COBBLESTONE, 16, MalumItems.TAINTED_ROCK.get(), 16)
+                .addSpirit(SACRED_SPIRIT, 1)
+                .addSpirit(ARCANE_SPIRIT, 1)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.COBBLESTONE, 16, MalumItems.TWISTED_ROCK.get(), 16)
+                .addSpirit(WICKED_SPIRIT, 1)
+                .addSpirit(ARCANE_SPIRIT, 1)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.GLOWSTONE_DUST, 4, MalumItems.ETHER.get(), 2)
+                .addSpirit(INFERNAL_SPIRIT, 2)
+                .addSpirit(ARCANE_SPIRIT, 1)
+                .addExtraItem(MalumItems.BLAZING_QUARTZ.get(), 2)
+                .addExtraItem(Items.BLAZE_POWDER, 1)
+                .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.GOLD_INGOT, 1, MalumItems.HALLOWED_GOLD_INGOT.get(), 1)
                 .addExtraItem(Items.QUARTZ, 2)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 1)
-                .addSpirit(MalumSpiritTypes.SACRED_SPIRIT, 1)
-                .addSpirit(MalumSpiritTypes.ARCANE_SPIRIT, 2)
-                .build(consumer, "hallowed_gold");
+                .addSpirit(SACRED_SPIRIT, 1)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.IRON_INGOT, 1, MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 1)
+                .addExtraItem(Items.SOUL_SAND, 2)
+                .addExtraItem(MalumItems.SOULSTONE.get(), 1)
+                .addSpirit(WICKED_SPIRIT, 1)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .build(consumer);
 
     }
 }

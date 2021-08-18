@@ -1,6 +1,6 @@
 package com.sammy.malum.network.packets.particle.altar;
 
-import com.sammy.malum.core.mod_systems.recipe.SpiritIngredient;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -15,12 +15,12 @@ public class SpiritAltarCraftParticlePacket
     double posY;
     double posZ;
 
-    public static SpiritAltarCraftParticlePacket fromIngredients(ArrayList<SpiritIngredient> spiritIngredients, double posX, double posY, double posZ)
+    public static SpiritAltarCraftParticlePacket fromSpirits(ArrayList<MalumSpiritType> spiritTypes, double posX, double posY, double posZ)
     {
         ArrayList<String> spirits = new ArrayList<>();
-        for (SpiritIngredient ingredient : spiritIngredients)
+        for (MalumSpiritType type : spiritTypes)
         {
-            spirits.add(ingredient.type.identifier);
+            spirits.add(type.identifier);
         }
         return new SpiritAltarCraftParticlePacket(spirits, posX, posY, posZ);
     }

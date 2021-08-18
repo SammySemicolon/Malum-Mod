@@ -4,8 +4,8 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.MalumHelper.ItemCount;
-import com.sammy.malum.core.mod_content.SpiritInfusionRecipe;
+import com.sammy.malum.core.mod_systems.recipe.ItemCount;
+import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
@@ -48,6 +48,10 @@ public class SpiritInfusionRecipeBuilder
     public void build(Consumer<IFinishedRecipe> consumerIn, String recipeName)
     {
         build(consumerIn, MalumHelper.prefix("spirit_infusion/" + recipeName));
+    }
+    public void build(Consumer<IFinishedRecipe> consumerIn)
+    {
+        build(consumerIn, output.getRegistryName().getPath());
     }
     public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id)
     {

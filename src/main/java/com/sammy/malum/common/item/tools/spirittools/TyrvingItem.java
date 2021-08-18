@@ -14,8 +14,8 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.function.Supplier;
 
-import static com.sammy.malum.core.mod_content.MalumSpiritTypes.ELDRITCH_SPIRIT;
-import static com.sammy.malum.core.mod_content.MalumSpiritTypes.WICKED_SPIRIT;
+import static com.sammy.malum.core.init.MalumSpiritTypes.ELDRITCH_SPIRIT;
+import static com.sammy.malum.core.init.MalumSpiritTypes.WICKED_SPIRIT;
 import static com.sammy.malum.network.NetworkManager.INSTANCE;
 
 public class TyrvingItem extends ModSwordItem

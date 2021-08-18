@@ -1,10 +1,12 @@
-package com.sammy.malum.core.mod_content;
+package com.sammy.malum.core.mod_systems.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.MalumHelper.ItemCount;
-import net.minecraft.inventory.IInventory;
+import com.sammy.malum.common.item.SpiritItem;
+import com.sammy.malum.core.init.MalumSpiritTypes;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
@@ -18,7 +20,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpiritInfusionRecipe implements IRecipe<IInventory>
+public class SpiritInfusionRecipe extends IMalumRecipe
 {
     public static final ResourceLocation NAME = MalumHelper.prefix("spirit_infusion");
     public static final Serializer SERIALIZER = new Serializer();
@@ -74,6 +76,18 @@ public class SpiritInfusionRecipe implements IRecipe<IInventory>
         }
         return null;
     }
+    public static SpiritInfusionRecipe getRecipe(World world, ItemStack stack)
+    {
+        List<SpiritInfusionRecipe> recipes = getRecipes(world);
+        for (SpiritInfusionRecipe recipe : recipes)
+        {
+            if (recipe.doesOutputMatch(stack))
+            {
+                return recipe;
+            }
+        }
+        return null;
+    }
     public static List<SpiritInfusionRecipe> getRecipes(World world)
     {
         return world.getRecipeManager().getRecipesForType(RECIPE_TYPE);
@@ -94,7 +108,16 @@ public class SpiritInfusionRecipe implements IRecipe<IInventory>
         }
         return sortedStacks;
     }
-
+    public ArrayList<MalumSpiritType> spirits()
+    {
+        ArrayList<MalumSpiritType> spirits = new ArrayList<>();
+        for (ItemCount item : this.spirits)
+        {
+            SpiritItem spiritItem = (SpiritItem) item.item;
+            spirits.add(spiritItem.type);
+        }
+        return spirits;
+    }
     public boolean doSpiritsMatch(ArrayList<ItemStack> spirits)
     {
         if (this.spirits.size() == 0)
@@ -120,7 +143,11 @@ public class SpiritInfusionRecipe implements IRecipe<IInventory>
     }
     public boolean doesInputMatch(ItemStack input)
     {
-        return input.getCount() > inputCount && input.getItem().equals(this.input);
+        return input.getCount() >= inputCount && input.getItem().equals(this.input);
+    }
+    public boolean doesOutputMatch(ItemStack output)
+    {
+        return output.getItem().equals(this.output);
     }
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritInfusionRecipe> {
 
@@ -149,7 +176,7 @@ public class SpiritInfusionRecipe implements IRecipe<IInventory>
                 spirits.add(new ItemCount(ShapedRecipe.deserializeItem(spiritObject)));
             }
 
-            return new SpiritInfusionRecipe(recipeId, input.getItem(), input.getCount(), output.getItem(), output.getCount(),extraItems,spirits);
+            return new SpiritInfusionRecipe(recipeId, input.getItem(), input.getCount(), output.getItem(), output.getCount(),spirits,extraItems);
         }
 
         @Nullable
@@ -170,7 +197,7 @@ public class SpiritInfusionRecipe implements IRecipe<IInventory>
             {
                 spirits.add(new ItemCount(buffer.readItemStack()));
             }
-            return new SpiritInfusionRecipe(recipeId, input.getItem(), input.getCount(), output.getItem(), output.getCount(), extraItems, spirits);
+            return new SpiritInfusionRecipe(recipeId, input.getItem(), input.getCount(), output.getItem(), output.getCount(), spirits, extraItems);
         }
 
         @Override
@@ -189,37 +216,5 @@ public class SpiritInfusionRecipe implements IRecipe<IInventory>
                 buffer.writeItemStack(item.stack());
             }
         }
-    }
-    private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T>
-    {
-        @Override
-        public String toString()
-        {
-            return Registry.RECIPE_TYPE.getKey(this).toString();
-        }
-    }
-    @Deprecated
-    @Override
-    public boolean matches(IInventory inv, World worldIn)
-    {
-        return false;
-    }
-
-    @Override
-    public ItemStack getCraftingResult(IInventory inv)
-    {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public boolean canFit(int width, int height)
-    {
-        return false;
-    }
-
-    @Override
-    public ItemStack getRecipeOutput()
-    {
-        return ItemStack.EMPTY;
     }
 }

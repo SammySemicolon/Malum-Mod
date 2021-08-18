@@ -2,12 +2,9 @@ package com.sammy.malum.core.init.event;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
-import com.sammy.malum.core.mod_content.MalumArcaneAssemblyRecipes;
-import com.sammy.malum.core.mod_content.MalumRites;
-import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes;
-import com.sammy.malum.core.mod_content.SpiritInfusionRecipe;
+import com.sammy.malum.core.init.MalumRites;
+import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,12 +18,11 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 public class StartupEvents
 {
     @SubscribeEvent
-    public static void registerModContents(FMLCommonSetupEvent event)
+    public static void registerRites(FMLCommonSetupEvent event)
     {
-        MalumSpiritAltarRecipes.init();
-        MalumArcaneAssemblyRecipes.init();
         MalumRites.init();
     }
+
     @SubscribeEvent
     public static void registerFeatures(FMLCommonSetupEvent event)
     {

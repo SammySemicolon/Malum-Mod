@@ -1,11 +1,10 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.mod_content.MalumSpiritTypes;
+import com.sammy.malum.core.init.MalumSpiritTypes;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
@@ -15,7 +14,6 @@ import net.minecraft.item.Items;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 

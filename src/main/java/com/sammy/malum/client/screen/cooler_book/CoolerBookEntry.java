@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.cooler_book;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
 import com.sammy.malum.client.screen.cooler_book.pages.CoolerBookPage;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.BoatModel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

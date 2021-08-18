@@ -23,7 +23,6 @@ public class BindRenderers
     public static void bindTileEntityRenderers(FMLClientSetupEvent event)
     {
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ARCANE_ASSEMBLER_TILE_ENTITY.get(), ArcaneAssemblerRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get(), TotemPoleRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get(), ItemStandRenderer::new);
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.ITEM_PEDESTAL_TILE_ENTITY.get(), ItemPedestalRenderer::new);

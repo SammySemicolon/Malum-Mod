@@ -18,7 +18,7 @@ import com.sammy.malum.core.init.items.tabs.MalumBuildingTab;
 import com.sammy.malum.core.init.items.tabs.MalumCreativeTab;
 import com.sammy.malum.core.init.items.tabs.MalumNatureTab;
 import com.sammy.malum.core.init.items.tabs.MalumSplinterTab;
-import com.sammy.malum.core.mod_content.MalumSpiritTypes;
+import com.sammy.malum.core.init.MalumSpiritTypes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -410,7 +410,6 @@ public class MalumItems
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ARCANE_ASSEMBLY_TABLE = ITEMS.register("arcane_assembly_table", () -> new BlockItem(MalumBlocks.ARCANE_ASSEMBLY_TABLE.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region materials

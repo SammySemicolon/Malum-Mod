@@ -21,7 +21,6 @@ public class MalumTileEntities
     public static final RegistryObject<TileEntityType<MalumSignTileEntity>> SIGN_TILE_ENTITY = TILE_ENTITIES.register("sign_tile_entity", () -> TileEntityType.Builder.create(MalumSignTileEntity::new, MalumHelper.getModBlocks(MalumWallSignBlock.class, MalumStandingSignBlock.class)).build(null));
 
     public static final RegistryObject<TileEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_altar_tile_entity", () -> TileEntityType.Builder.create(SpiritAltarTileEntity::new, MalumBlocks.SPIRIT_ALTAR.get()).build(null));
-    public static final RegistryObject<TileEntityType<ArcaneAssemblerTileEntity>> ARCANE_ASSEMBLER_TILE_ENTITY = TILE_ENTITIES.register("arcane_assembler_tile_entity", () -> TileEntityType.Builder.create(ArcaneAssemblerTileEntity::new, MalumBlocks.ARCANE_ASSEMBLY_TABLE.get()).build(null));
 
     public static final RegistryObject<TileEntityType<SpiritJarTileEntity>> SPIRIT_JAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_jar_tile_entity", () -> TileEntityType.Builder.create(SpiritJarTileEntity::new, MalumBlocks.SPIRIT_JAR.get()).build(null));
 

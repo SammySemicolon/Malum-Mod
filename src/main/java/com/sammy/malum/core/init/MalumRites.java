@@ -1,4 +1,4 @@
-package com.sammy.malum.core.mod_content;
+package com.sammy.malum.core.init;
 
 import com.sammy.malum.common.rites.*;
 import com.sammy.malum.core.mod_systems.rites.MalumRiteType;

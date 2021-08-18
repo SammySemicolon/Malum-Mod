@@ -3,20 +3,13 @@ package com.sammy.malum.client;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.entity_renderer.FloatingItemEntityRenderer;
-import com.sammy.malum.client.entity_renderer.ScytheBoomerangEntityRenderer;
-import com.sammy.malum.client.tile_renderer.*;
 import com.sammy.malum.common.block.generic.MalumLeavesBlock;
 import com.sammy.malum.common.tile.EtherTileEntity;
-import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.block.MalumBlocks;
-import com.sammy.malum.core.init.block.MalumTileEntities;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
@@ -26,10 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,8 +28,8 @@ import static com.sammy.malum.MalumHelper.brighter;
 import static com.sammy.malum.MalumHelper.darker;
 import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
-import static com.sammy.malum.core.mod_content.MalumSpiritTypes.*;
-import static com.sammy.malum.core.mod_content.MalumSpiritTypes.EARTHEN_SPIRIT_COLOR;
+import static com.sammy.malum.core.init.MalumSpiritTypes.*;
+import static com.sammy.malum.core.init.MalumSpiritTypes.EARTHEN_SPIRIT_COLOR;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class SetBlockItemColors

@@ -1,7 +1,6 @@
 package com.sammy.malum.core.init.block;
 
 import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.ArcaneAssemblerBlock;
 import com.sammy.malum.common.block.ItemPedestalBlock;
 import com.sammy.malum.common.block.ItemStandBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
@@ -466,8 +465,6 @@ public class MalumBlocks
 
     public static final RegistryObject<Block> TOTEM_BASE = BLOCKS.register("totem_base", () -> new TotemBaseBlock(RUNEWOOD_PROPERTIES().notSolid()));
     public static final RegistryObject<Block> TOTEM_POLE = BLOCKS.register("totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(MalumBlocks.RUNEWOOD_LOG)));
-
-    public static final RegistryObject<Block> ARCANE_ASSEMBLY_TABLE = BLOCKS.register("arcane_assembly_table", () -> new ArcaneAssemblerBlock(TWISTED_ROCK_PROPERTIES().notSolid()));
 
     //endregion
 

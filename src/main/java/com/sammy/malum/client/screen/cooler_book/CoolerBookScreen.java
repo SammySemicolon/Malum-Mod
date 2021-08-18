@@ -9,7 +9,6 @@ import com.sammy.malum.client.screen.cooler_book.objects.EntryBookObject;
 import com.sammy.malum.client.screen.cooler_book.pages.*;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sammy.malum.core.init.items.MalumItems.*;
-import static net.minecraft.item.ItemStack.EMPTY;
 import static net.minecraft.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
@@ -143,9 +141,11 @@ public class CoolerBookScreen extends Screen
                 .left(3)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a", HALLOWED_GOLD_INGOT.get()))
                 .addPage(new TextPage("hallowed_gold_b"))
+                .addPage(new SpiritInfusionPage(HALLOWED_GOLD_INGOT.get()))
+                .addPage(CraftingBookPage.resonatorPage(HALLOWED_SPIRIT_RESONATOR.get(), QUARTZ, HALLOWED_GOLD_INGOT.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(new HeadlineTextPage("soul_stained_steel", "soul_stained_steel_a", SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new TextPage("soul_stained_steel_b"))
-                .addPage(CraftingBookPage.resonatorPage(HALLOWED_SPIRIT_RESONATOR.get(), QUARTZ, HALLOWED_GOLD_INGOT.get(), RUNEWOOD_PLANKS.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get())));
 
         entries.add(new CoolerBookEntry(

@@ -1,15 +1,11 @@
 package com.sammy.malum.common.integration.jei;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.mod_content.MalumRites;
-import com.sammy.malum.core.mod_content.MalumSpiritAltarRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
