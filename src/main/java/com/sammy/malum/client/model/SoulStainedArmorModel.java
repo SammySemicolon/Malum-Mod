@@ -22,51 +22,51 @@ public class SoulStainedArmorModel extends ArmorModel
 	
 	public SoulStainedArmorModel(EquipmentSlotType slot) {
 		super(slot, 64, 64);
-		
-		
 		leg_r = new ModelRenderer(this);
 		leg_r.setRotationPoint(-2.0F, 12.0F, 0.0F);
-		leg_r.setTextureOffset(0, 43).addBox(-2.0F, 3.0F, -2.0F, 4.0F, 5.0F, 4.0F, 0.75F, false);
-		leg_r.setTextureOffset(0, 52).addBox(-2.0F, 1.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.5F, false);
-		
+		leg_r.setTextureOffset(0, 33).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 8.0F, 4.0F, 0.5F, false);
+		leg_r.setTextureOffset(0, 45).addBox(-2.0F, 1.0F, -2.0F, 4.0F, 7.0F, 4.0F, 0.75F, false);
+
 		boot_r = new ModelRenderer(this);
 		boot_r.setRotationPoint(0.0F, 0.0F, 0.0F);
 		leg_r.addChild(boot_r);
-		boot_r.setTextureOffset(0, 35).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 1.25F, false);
-		
+		boot_r.setTextureOffset(16, 39).addBox(-2.0F, 9.0F, -2.0F, 4.0F, 3.0F, 4.0F, 0.5F, false);
+		boot_r.setTextureOffset(16, 46).addBox(-2.0F, 9.0F, -2.0F, 4.0F, 3.0F, 4.0F, 0.75F, false);
+
 		leg_l = new ModelRenderer(this);
 		leg_l.setRotationPoint(2.0F, 12.0F, 0.0F);
-		leg_l.setTextureOffset(0, 43).addBox(-2.0F, 3.0F, -2.0F, 4.0F, 5.0F, 4.0F, 0.7501F, true);
-		leg_l.setTextureOffset(0, 52).addBox(-2.0F, 1.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.5F, true);
-		
+		leg_l.setTextureOffset(0, 33).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 8.0F, 4.0F, 0.5001F, true);
+		leg_l.setTextureOffset(0, 45).addBox(-2.0F, 1.0F, -2.0F, 4.0F, 7.0F, 4.0F, 0.7501F, true);
+
 		boot_l = new ModelRenderer(this);
 		boot_l.setRotationPoint(0.0F, 0.0F, 0.0F);
 		leg_l.addChild(boot_l);
-		boot_l.setTextureOffset(0, 35).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 1.2501F, true);
-		
+		boot_l.setTextureOffset(16, 39).addBox(-2.0F, 9.0F, -2.0F, 4.0F, 3.0F, 4.0F, 0.5001F, true);
+		boot_l.setTextureOffset(16, 46).addBox(-2.0F, 9.0F, -2.0F, 4.0F, 3.0F, 4.0F, 0.7501F, true);
+
 		torso = new ModelRenderer(this);
 		torso.setRotationPoint(0.0F, 0.0F, 0.0F);
-		torso.setTextureOffset(40, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 1.25F, false);
-		torso.setTextureOffset(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.75F, false);
-		
+		torso.setTextureOffset(24, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 1.001F, false);
+		torso.setTextureOffset(0, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.501F, false);
+
 		arm_r = new ModelRenderer(this);
 		arm_r.setRotationPoint(-6.0F, 2.0F, 0.0F);
-		arm_r.setTextureOffset(0, 24).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 7.0F, 4.0F, 0.5F, true);
-		arm_r.setTextureOffset(0, 16).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F, 1.0F, true);
-		
+		arm_r.setTextureOffset(48, 17).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, true);
+		arm_r.setTextureOffset(48, 30).addBox(-3.5F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.75F, true);
+
 		arm_l = new ModelRenderer(this);
 		arm_l.setRotationPoint(6.0F, 2.0F, 0.0F);
-		arm_l.setTextureOffset(0, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F, 1.0F, false);
-		arm_l.setTextureOffset(0, 24).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 7.0F, 4.0F, 0.5F, false);
-		
+		arm_l.setTextureOffset(48, 30).addBox(-0.5F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.75F, false);
+		arm_l.setTextureOffset(48, 17).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, false);
+
 		head = new ModelRenderer(this);
 		head.setRotationPoint(0.0F, 0.0F, 0.0F);
-		head.setTextureOffset(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.5F, false);
-		head.setTextureOffset(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 1.0F, false);
-		
+		head.setTextureOffset(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 9.0F, 8.0F, 0.5F, false);
+		head.setTextureOffset(32, 0).addBox(-4.0F, -8.5F, -4.0F, 8.0F, 9.0F, 8.0F, 0.75F, false);
+
 		leggings = new ModelRenderer(this);
 		leggings.setRotationPoint(0.0F, 0.0F, 0.0F);
-		leggings.setTextureOffset(16, 32).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, 0.5F, false);
+		leggings.setTextureOffset(16, 33).addBox(-4.0F, 10.0F, -2.0F, 8.0F, 2.0F, 4.0F, 0.5002F, false);
 	}
 	
 	@Override
