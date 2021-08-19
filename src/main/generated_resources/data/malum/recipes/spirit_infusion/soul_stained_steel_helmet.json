@@ -1,0 +1,35 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "minecraft:iron_helmet"
+  },
+  "output": {
+    "item": "malum:soul_stained_steel_helmet"
+  },
+  "extra_items": [
+    {
+      "item": "malum:soul_stained_steel_ingot",
+      "count": 4
+    },
+    {
+      "item": "malum:hex_ash"
+    },
+    {
+      "item": "malum:soulstone",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:wicked_spirit",
+      "count": 3
+    },
+    {
+      "item": "malum:arcane_spirit"
+    },
+    {
+      "item": "malum:earthen_spirit",
+      "count": 5
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:crude_scythe"
+  },
+  "output": {
+    "item": "malum:soul_stained_steel_scythe"
+  },
+  "extra_items": [
+    {
+      "item": "malum:soul_stained_steel_ingot",
+      "count": 4
+    },
+    {
+      "item": "malum:hex_ash",
+      "count": 2
+    },
+    {
+      "item": "malum:soulstone",
+      "count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:wicked_spirit",
+      "count": 3
+    },
+    {
+      "item": "malum:arcane_spirit"
+    },
+    {
+      "item": "malum:earthen_spirit",
+      "count": 8
+    }
+  ]
+}

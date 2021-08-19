@@ -1,0 +1,28 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "minecraft:leather_chestplate"
+  },
+  "output": {
+    "item": "malum:soul_hunter_robe"
+  },
+  "extra_items": [
+    {
+      "item": "malum:spirit_fabric",
+      "count": 4
+    },
+    {
+      "item": "malum:soulstone"
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:arcane_spirit",
+      "count": 2
+    },
+    {
+      "item": "malum:aerial_spirit",
+      "count": 4
+    }
+  ]
+}

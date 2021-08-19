@@ -24,6 +24,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -138,24 +139,39 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "spirit_metallurgy", HALLOWED_GOLD_INGOT.get(),0,5)
-                .left(3)
+                .left(1)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a", HALLOWED_GOLD_INGOT.get()))
                 .addPage(new TextPage("hallowed_gold_b"))
                 .addPage(new SpiritInfusionPage(HALLOWED_GOLD_INGOT.get()))
                 .addPage(CraftingBookPage.resonatorPage(HALLOWED_SPIRIT_RESONATOR.get(), QUARTZ, HALLOWED_GOLD_INGOT.get(), RUNEWOOD_PLANKS.get()))
+                .addPage(new HeadlineTextPage("spirit_jar", "spirit_jar", SPIRIT_JAR.get()))
+                .addPage(new CraftingBookPage(SPIRIT_JAR.get(), GLASS_PANE, HALLOWED_GOLD_INGOT.get(), GLASS_PANE, GLASS_PANE, EMPTY, GLASS_PANE, GLASS_PANE, GLASS_PANE, GLASS_PANE))
                 .addPage(new HeadlineTextPage("soul_stained_steel", "soul_stained_steel_a", SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new TextPage("soul_stained_steel_b"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_INGOT.get()))
-                .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get())));
+                .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get()))
+        );
 
         entries.add(new CoolerBookEntry(
-                "spirit_trinkets", GILDED_RING.get(), -2, 5)
+                "spirit_trinkets", ORNATE_RING.get(), -2, 5)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a", GILDED_RING.get()))
                 .addPage(new TextPage("spirit_trinkets_b"))
-                .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
                 .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER,HALLOWED_GOLD_INGOT.get()))
+                .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
                 .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER,SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -1, 5)
+                .left(1)
+                .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe", SOUL_STAINED_STEEL_SCYTHE.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
+                .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor", SOUL_STAINED_STEEL_CHESTPLATE.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_HELMET.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_CHESTPLATE.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_LEGGINGS.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_BOOTS.get()))
         );
 
         entries.add(new CoolerBookEntry(
@@ -163,7 +179,8 @@ public class CoolerBookScreen extends Screen
                 .addPage(new HeadlineTextPage("spirit_rites", "spirit_rites_a", TOTEM_BASE.get()))
                 .addPage(new TextPage("spirit_rites_b"))
                 .addPage(new TextPage("spirit_rites_c"))
-                .addPage(new SpiritInfusionPage(TOTEM_BASE.get())));
+                .addPage(new SpiritInfusionPage(TOTEM_BASE.get()))
+        );
     }
     public void setupObjects()
     {

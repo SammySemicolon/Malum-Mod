@@ -2,6 +2,7 @@ package com.sammy.malum.core.mod_systems.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.SpiritItem;
 import com.sammy.malum.core.init.MalumSpiritTypes;
@@ -11,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -175,7 +177,10 @@ public class SpiritInfusionRecipe extends IMalumRecipe
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(new ItemCount(ShapedRecipe.deserializeItem(spiritObject)));
             }
-
+            if (spirits.isEmpty())
+            {
+                throw new JsonSyntaxException("Spirit infusion recipes need at least 1 spirit ingredient, recipe with id: " + recipeId + " is incorrect");
+            }
             return new SpiritInfusionRecipe(recipeId, input.getItem(), input.getCount(), output.getItem(), output.getCount(),spirits,extraItems);
         }
 

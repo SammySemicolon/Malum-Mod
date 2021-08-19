@@ -1,0 +1,26 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "minecraft:white_wool",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:spirit_fabric",
+    "count": 4
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:string",
+      "count": 2
+    },
+    {
+      "item": "malum:hex_ash"
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:wicked_spirit",
+      "count": 2
+    }
+  ]
+}

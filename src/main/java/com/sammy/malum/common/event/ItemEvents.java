@@ -79,6 +79,11 @@ public class ItemEvents
         }
         float extraDamage = 1.0f;
         LivingEntity attacker = null;
+        LivingEntity attacked = event.getEntityLiving();
+        if (attacked == null)
+        {
+            return;
+        }
         ItemStack stack = ItemStack.EMPTY;
         if (event.getSource().getImmediateSource() instanceof LivingEntity)
         {
@@ -101,6 +106,10 @@ public class ItemEvents
             {
                 extraDamage += 0.25f;
             }
+        }
+        if (MalumHelper.hasArmorSet(attacked, MalumItems.SOUL_STAINED_STEEL_HELMET.get()))
+        {
+            extraDamage *= 0.5f;
         }
         event.setAmount(event.getAmount() * extraDamage);
     }

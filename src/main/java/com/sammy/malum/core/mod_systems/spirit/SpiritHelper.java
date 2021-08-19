@@ -94,22 +94,22 @@ public class SpiritHelper
         }
         ISpiritTool tool = (ISpiritTool) harvestStack.getItem();
         ArrayList<MalumCurioItem> equippedMalumCurios = MalumHelper.equippedMalumCurios(attacker);
-        int highestBonus = 0;
+        int itemBonus = 0;
         for (MalumCurioItem item : equippedMalumCurios)
         {
-            if (item.spiritYieldBonus() < highestBonus)
+            if (item.spiritYieldBonus() < itemBonus)
             {
-                highestBonus = item.spiritYieldBonus();
+                itemBonus = item.spiritYieldBonus();
             }
         }
         if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get().getItem()))
         {
-            if (highestBonus < 1)
+            if (itemBonus == 0)
             {
-                highestBonus++;
+                itemBonus++;
             }
         }
-        int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack) + tool.spiritBonus(target) + highestBonus;
+        int plunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack) + tool.spiritBonus(target) + itemBonus;
         if (plunder > 0)
         {
             for (int i = 0; i < plunder; i++)
@@ -177,6 +177,10 @@ public class SpiritHelper
     public static MalumSpiritType figureOutType(String spirit)
     {
         ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) MalumSpiritTypes.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
+        if (spirit.equals("holy"))
+        {
+            return MalumSpiritTypes.SACRED_SPIRIT;
+        }
         if (type.isEmpty())
         {
             throw new RuntimeException("An incorrect spirit was found: " + spirit);

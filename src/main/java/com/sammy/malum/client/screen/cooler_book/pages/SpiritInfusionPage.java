@@ -61,7 +61,7 @@ public class SpiritInfusionPage extends CoolerBookPage
         renderItems(matrixStack, guiLeft+15,guiTop+51, mouseX, mouseY, recipe.spirits);
         if (!recipe.extraItems.isEmpty())
         {
-            renderItems(matrixStack, guiLeft+15,guiTop+105, mouseX, mouseY, recipe.extraItems);
+            renderItems(matrixStack, guiLeft+105,guiTop+51, mouseX, mouseY, recipe.extraItems);
         }
     }
 

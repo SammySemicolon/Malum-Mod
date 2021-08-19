@@ -9,7 +9,6 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import static com.sammy.malum.core.init.items.MalumArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
-@SuppressWarnings("unchecked")
 public class SoulHunterArmorItem extends MalumArmorItem
 {
     public SoulHunterArmorItem(EquipmentSlotType slot, Properties builder)

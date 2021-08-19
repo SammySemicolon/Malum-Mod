@@ -592,5 +592,4 @@ public class MalumHelper
         }
         return false;
     }
-
 }

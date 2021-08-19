@@ -143,14 +143,23 @@ public class Lang extends LanguageProvider
 
         addHeadline("hallowed_gold", "Hallowed Gold");
         addPage("hallowed_gold_a", "Gold is very often used as a basis for various magics, this is also the case with spirit magic. Infusing arcane and sacred spirits into a gold ingot will imbue it with magic and yield a much more desirable magic metal. A few additional reagents are also needed for this process.");
-        addPage("hallowed_gold_b", "Hallowed gold is perfect for interacting with spirits, it can be used for spirit storage, transfer and can even create various magical magic effects from spirit energies.");
+        addPage("hallowed_gold_b", "While not too useful in causing harm or crafting powerful gear, hallowed gold is a metal perfect for spirit manipulation.");
+        addHeadline("spirit_jar", "Spirit Jar");
+        addPage("spirit_jar", "The spirit jar is a simple hallowed gold craft. It's a placeable jar block that can store a really large amount of a single spirit, very convenient to have next to a spirit altar. You can take spirits out by right clicking, sneaking will take out an entire stack.");
         addHeadline("soul_stained_steel", "Soul Stained Steel");
-        addPage("soul_stained_steel_a", "The holy origins of hallowed gold make it nearly impossible to use for evil. Soul stained steel is nothing like that, it's a metal twisted evil beyond recognition. It excels at harmful things, perfect for various gear and trinkets. When used correctly it can repel or even instantly dissolve spirits.");
+        addPage("soul_stained_steel_a", "The holy origins of hallowed gold make it nearly impossible to use for harm. Soul stained steel is nothing like that, it's a metal twisted evil beyond recognition. It excels at harmful things, perfect for various gear and trinkets.");
         addPage("soul_stained_steel_b", "Both metals can also be used to create a type of spirit resonator, a more complex crafting component meant for utilizing spirit magics in various ways.");
+
+        addHeadline("soul_stained_scythe", "Soul Stained Scythe");
+        addPage("soul_stained_scythe", "After some time using the crude scythe you may start wishing for an upgrade or a stronger version, just like the one made from soul stained steel. The soul stained steel scythe is a direct upgrade with slightly increased physical damage and a bonus to magic damage triggered by the scythe.");
+        addHeadline("soul_stained_armor", "Soul Stained Armor");
+        addPage("soul_stained_armor", "Just like how you can upgrade an iron scythe you're able to create soul stained steel armor. In addition to providing near diamond levels of protection the armor also shields you from magic damage. Additionally while wearing the full set collecting spirits will grant you even more defense!");
 
         addHeadline("spirit_trinkets", "Spirit Trinkets");
         addPage("spirit_trinkets_a", "A trinket is a simple accessory that will provide you with helpful benefits, some know them as baubles or curios. Hallowed gold and soul stained steel both offer two basic trinkets that can be shaped into many more using the spirit altar.");
         addPage("spirit_trinkets_b", "Gilded trinkets provide boosts to armor while ornate ones grant you armor toughness.");
+
+
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rites", "Spirit Rites");
         add("malum.jei.rune_table", "Rune Table");
