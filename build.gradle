@@ -81,12 +81,12 @@ repositories {
 		url = "https://dvs1.progwml6.com/files/maven/"
 	}
     maven {
-        name = "CTM Person"
+        name = "CTM Maven"
         url = "https://maven.tterrag.com/"
     }
 }
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.31'
+    minecraft "net.minecraftforge:forge:${project.minecraft}-${project.forge}"
 
     compileOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25")

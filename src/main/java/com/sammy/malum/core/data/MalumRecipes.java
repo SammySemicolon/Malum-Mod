@@ -23,9 +23,9 @@ import static net.minecraft.data.CookingRecipeBuilder.smeltingRecipe;
 import static net.minecraft.data.ShapedRecipeBuilder.shapedRecipe;
 import static net.minecraft.data.ShapelessRecipeBuilder.shapelessRecipe;
 
-public class Recipes extends RecipeProvider
+public class MalumRecipes extends RecipeProvider
 {
-    public Recipes(DataGenerator generatorIn)
+    public MalumRecipes(DataGenerator generatorIn)
     {
         super(generatorIn);
     }

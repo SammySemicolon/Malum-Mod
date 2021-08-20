@@ -11,9 +11,9 @@ import java.util.function.Consumer;
 
 import static com.sammy.malum.core.init.MalumSpiritTypes.*;
 
-public class SpiritInfusionRecipes extends RecipeProvider
+public class MalumSpiritInfusionRecipes extends RecipeProvider
 {
-    public SpiritInfusionRecipes(DataGenerator generatorIn)
+    public MalumSpiritInfusionRecipes(DataGenerator generatorIn)
     {
         super(generatorIn);
     }

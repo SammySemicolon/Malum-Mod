@@ -29,9 +29,9 @@ import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
 import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 
-public class Lang extends LanguageProvider
+public class MalumLang extends LanguageProvider
 {
-    public Lang(DataGenerator gen)
+    public MalumLang(DataGenerator gen)
     {
         super(gen, MalumMod.MODID, "en_us");
     }

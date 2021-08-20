@@ -18,7 +18,6 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -26,7 +25,6 @@ import net.minecraft.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -53,7 +51,7 @@ public class SpiritHelper
 
     public static void summonSpirits(LivingEntity target)
     {
-        ArrayList<ItemStack> spirits = entitySpirits(target);
+        ArrayList<ItemStack> spirits = spiritItemStacks(target);
         if (!spirits.isEmpty())
         {
             summonSpirits(spirits, target, null);
@@ -70,7 +68,7 @@ public class SpiritHelper
         {
             return;
         }
-        ArrayList<ItemStack> spirits = entitySpirits(target);
+        ArrayList<ItemStack> spirits = spiritItemStacks(target);
         if (spirits.isEmpty())
         {
             return;
@@ -124,7 +122,7 @@ public class SpiritHelper
         {
             attacker = target.world.getClosestPlayer(target.getPosX(), target.getPosY(), target.getPosZ(), 8, e -> true);
         }
-        float speed = 0.2f + 0.5f / (totalEntitySpirits(target) + 1);
+        float speed = 0.2f + 0.5f / (totalSpiritCount(target) + 1);
         for (ItemStack stack : spirits)
         {
             int count = stack.getCount();
@@ -178,20 +176,28 @@ public class SpiritHelper
         return type.get(0);
     }
 
-    public static int totalEntitySpirits(LivingEntity entity)
+    public static MalumEntitySpiritDataBundle spiritBundle(LivingEntity entity)
     {
-        return entitySpirits(entity).stream().mapToInt(ItemStack::getCount).sum();
+        return MalumSpiritType.SPIRIT_DATA.get(entity.getType().getRegistryName());
     }
-
-    public static ArrayList<ItemStack> entitySpirits(LivingEntity entity)
+    public static int totalSpiritCount(LivingEntity entity)
+    {
+        MalumEntitySpiritDataBundle bundle = spiritBundle(entity);
+        if (bundle == null)
+        {
+            return 0;
+        }
+        return bundle.totalCount;
+    }
+    public static ArrayList<ItemStack> spiritItemStacks(LivingEntity entity)
     {
         ArrayList<ItemStack> spirits = new ArrayList<>();
-        MalumSpiritType.MalumEntitySpiritDataBundle bundle = MalumSpiritType.SPIRIT_DATA.get(entity.getType().getRegistryName());
+        MalumEntitySpiritDataBundle bundle = spiritBundle(entity);
         if (bundle == null)
         {
             return spirits;
         }
-        for (MalumSpiritType.MalumEntitySpiritData data : bundle.data)
+        for (MalumEntitySpiritDataBundle.MalumEntitySpiritData data : bundle.data)
         {
             spirits.add(new ItemStack(data.type.splinterItem(), data.count));
         }

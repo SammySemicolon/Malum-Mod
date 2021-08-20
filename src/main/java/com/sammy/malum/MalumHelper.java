@@ -330,9 +330,17 @@ public class MalumHelper
         }
         return positions;
     }
+    public static void updateState(World worldIn, BlockPos pos)
+    {
+        updateState(worldIn.getBlockState(pos), worldIn, pos);
+    }
     public static void updateState(BlockState state, World worldIn, BlockPos pos)
     {
         worldIn.notifyBlockUpdate(pos, state, state, 2);
+    }
+    public static void updateAndNotifyState(World worldIn, BlockPos pos)
+    {
+        updateAndNotifyState(worldIn.getBlockState(pos), worldIn, pos);
     }
     public static void updateAndNotifyState(BlockState state, World worldIn, BlockPos pos)
     {
@@ -340,14 +348,6 @@ public class MalumHelper
         state.updateNeighbours(worldIn, pos, 2);
     }
 
-    public static void updateState(World worldIn, BlockPos pos)
-    {
-        updateState(worldIn.getBlockState(pos), worldIn, pos);
-    }
-    public static void updateAndNotifyState(World worldIn, BlockPos pos)
-    {
-        updateAndNotifyState(worldIn.getBlockState(pos), worldIn, pos);
-    }
 
     public static Vector3d circlePosition(Vector3d pos, float distance, float current, float total)
     {

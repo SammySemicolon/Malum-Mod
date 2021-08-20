@@ -56,13 +56,13 @@ public class MalumMod
     public void gatherData(GatherDataEvent event)
     {
         BlockTagsProvider provider = new MalumBlockTags(event.getGenerator(), event.getExistingFileHelper());
-        event.getGenerator().addProvider(new BlockStates(event.getGenerator(), event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new ItemModels(event.getGenerator(), event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new Lang(event.getGenerator()));
+        event.getGenerator().addProvider(new MalumBlockStates(event.getGenerator(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new MalumItemModels(event.getGenerator(), event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new MalumLang(event.getGenerator()));
         event.getGenerator().addProvider(provider);
-        event.getGenerator().addProvider(new LootTables(event.getGenerator()));
+        event.getGenerator().addProvider(new MalumBlockLootTables(event.getGenerator()));
         event.getGenerator().addProvider(new MalumItemTags(event.getGenerator(), provider, event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new Recipes(event.getGenerator()));
-        event.getGenerator().addProvider(new SpiritInfusionRecipes(event.getGenerator()));
+        event.getGenerator().addProvider(new MalumRecipes(event.getGenerator()));
+        event.getGenerator().addProvider(new MalumSpiritInfusionRecipes(event.getGenerator()));
     }
 }

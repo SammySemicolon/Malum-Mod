@@ -18,20 +18,15 @@ public class MalumParticles
 {
     public static DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MalumMod.MODID);
 
-    public static RegistryObject<WispParticleType>
-            WISP_PARTICLE = PARTICLES.register("wisp_particle", WispParticleType::new);
+    public static RegistryObject<WispParticleType> WISP_PARTICLE = PARTICLES.register("wisp_particle", WispParticleType::new);
 
-    public static RegistryObject<WispParticleType>
-            SMOKE_PARTICLE = PARTICLES.register("smoke_particle", WispParticleType::new);
+    public static RegistryObject<WispParticleType> SMOKE_PARTICLE = PARTICLES.register("smoke_particle", WispParticleType::new);
 
-    public static RegistryObject<WispParticleType>
-            SPARKLE_PARTICLE = PARTICLES.register("sparkle_particle", WispParticleType::new);
+    public static RegistryObject<WispParticleType> SPARKLE_PARTICLE = PARTICLES.register("sparkle_particle", WispParticleType::new);
 
-    public static RegistryObject<WispParticleType>
-            TWINKLE_PARTICLE = PARTICLES.register("twinkle_particle", WispParticleType::new);
+    public static RegistryObject<WispParticleType> TWINKLE_PARTICLE = PARTICLES.register("twinkle_particle", WispParticleType::new);
 
-    public static RegistryObject<SpiritFlameParticleType>
-            SPIRIT_FLAME = PARTICLES.register("spirit_flame", SpiritFlameParticleType::new);
+    public static RegistryObject<SpiritFlameParticleType> SPIRIT_FLAME = PARTICLES.register("spirit_flame", SpiritFlameParticleType::new);
     
     @SubscribeEvent
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event)
