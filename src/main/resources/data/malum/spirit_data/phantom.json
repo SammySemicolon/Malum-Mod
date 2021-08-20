@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:phantom",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 2
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

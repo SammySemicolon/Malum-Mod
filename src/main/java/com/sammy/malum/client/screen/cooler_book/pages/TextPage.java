@@ -2,9 +2,9 @@ package com.sammy.malum.client.screen.cooler_book.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.DamageSource;
 
 public class TextPage extends CoolerBookPage
 {

@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:donkey",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

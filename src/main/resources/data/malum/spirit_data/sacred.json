@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:wolf",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}

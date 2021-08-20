@@ -149,6 +149,13 @@ public class MalumHelper
         return new ResourceLocation(MODID, path);
     }
 
+    public static ResourceLocation moddedLocation(String notResourceLocation)
+    {
+        String[] values = notResourceLocation.split(":");
+        String modId = values[0];
+        String path = values[1];
+        return new ResourceLocation(modId, path);
+    }
     public static <T> ArrayList<T> toArrayList(T... items)
     {
         return new ArrayList<>(Arrays.asList(items));

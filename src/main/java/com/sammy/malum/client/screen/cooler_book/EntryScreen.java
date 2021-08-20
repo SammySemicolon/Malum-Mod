@@ -3,7 +3,6 @@ package com.sammy.malum.client.screen.cooler_book;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.pages.CoolerBookPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,8 +11,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import org.lwjgl.glfw.GLFW;
 
-import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.isHovering;
-import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.renderTexture;
+import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.*;
 
 public class EntryScreen extends Screen
 {
@@ -56,20 +54,6 @@ public class EntryScreen extends Screen
                     else
                     {
                         page.renderBackgroundRight(minecraft, matrixStack, CoolerBookScreen.screen.xOffset, CoolerBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
-                    }
-                }
-            }
-            int totalAttachmentPages = (int) openEntry.pages.stream().filter(CoolerBookPage::hasAttachment).count();
-            if (totalAttachmentPages >= 2)
-            {
-                int attachmentPages = 0;
-                for (int i = 0; i < openEntry.pages.size(); i++)
-                {
-                    CoolerBookPage page = openEntry.pages.get(i);
-                    if (page.hasAttachment())
-                    {
-                        renderTexture(BOOK_TEXTURE, matrixStack, guiLeft + bookWidth - 15, guiTop + 10 + 20 * attachmentPages, 30, 193, 28, 18, 512, 512);
-                        attachmentPages++;
                     }
                 }
             }

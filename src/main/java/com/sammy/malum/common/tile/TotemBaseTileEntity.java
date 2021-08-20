@@ -61,7 +61,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         int size = compound.getInt("spiritCount");
         for (int i = 0; i < size; i++)
         {
-            spirits.add(SpiritHelper.figureOutType(compound.getString("spirit_"+i)));
+            spirits.add(SpiritHelper.spiritType(compound.getString("spirit_"+i)));
         }
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");

@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:villager",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}

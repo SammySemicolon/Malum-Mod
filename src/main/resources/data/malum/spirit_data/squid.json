@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:squid",
+  "spirits": [
+    {
+      "spirit": "aquatic",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:zombified_piglin",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+  ]
+}

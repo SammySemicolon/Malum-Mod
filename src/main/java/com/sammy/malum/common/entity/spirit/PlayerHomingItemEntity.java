@@ -4,6 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -92,6 +93,7 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
             {
                 ItemStack stack = getItem();
                 MalumHelper.giveItemToEntity(stack, owner);
+                SpiritHelper.collectSpirit(owner);
                 remove();
             }
         }

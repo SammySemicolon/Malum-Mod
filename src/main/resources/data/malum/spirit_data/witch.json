@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:witch",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    }
+  ]
+}

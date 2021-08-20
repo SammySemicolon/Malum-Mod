@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:pufferfish",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aquatic",
+      "count": 1
+    }
+  ]
+}

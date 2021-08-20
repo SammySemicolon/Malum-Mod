@@ -1,4 +1,4 @@
-package com.sammy.malum.client.screen.cooler_book.pages;
+package com.sammy.malum.client.screen.cooler_book;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
@@ -15,14 +15,7 @@ public class CoolerBookPage
     {
         this.BACKGROUND = background;
     }
-    public boolean hasAttachment()
-    {
-        return false;
-    }
-    public ItemStack attachmentIcon()
-    {
-        return ItemStack.EMPTY;
-    }
+
     public void renderLeft(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
 

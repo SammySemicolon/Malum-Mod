@@ -1,26 +1,20 @@
 package com.sammy.malum;
 
 import com.sammy.malum.core.data.*;
-import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.mod_systems.particle.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.items.ItemHandlerHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
-import java.util.UUID;
 
-import static com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude.sammy_uuid;
 import static com.sammy.malum.core.init.MalumEffects.EFFECTS;
 import static com.sammy.malum.core.init.MalumEntities.ENTITY_TYPES;
 import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
@@ -58,6 +52,7 @@ public class MalumMod
         });
     }
 
+
     public void gatherData(GatherDataEvent event)
     {
         BlockTagsProvider provider = new MalumBlockTags(event.getGenerator(), event.getExistingFileHelper());
@@ -69,23 +64,5 @@ public class MalumMod
         event.getGenerator().addProvider(new MalumItemTags(event.getGenerator(), provider, event.getExistingFileHelper()));
         event.getGenerator().addProvider(new Recipes(event.getGenerator()));
         event.getGenerator().addProvider(new SpiritInfusionRecipes(event.getGenerator()));
-    }
-
-    public static void showGratitude(EntityJoinWorldEvent event)
-    {
-        if (event.getEntity() instanceof PlayerEntity)
-        {
-            PlayerEntity playerEntity = (PlayerEntity) event.getEntity();
-            if (MalumHelper.areWeOnServer(playerEntity.world))
-            {
-                if (playerEntity.getUniqueID().equals(UUID.fromString(sammy_uuid)))
-                {
-                    if (!MalumHelper.findCosmeticCurio(s -> s.getItem().equals(MalumItems.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent())
-                    {
-                        ItemHandlerHelper.giveItemToPlayer(playerEntity, MalumItems.TOKEN_OF_GRATITUDE.get().getDefaultInstance());
-                    }
-                }
-            }
-        }
     }
 }

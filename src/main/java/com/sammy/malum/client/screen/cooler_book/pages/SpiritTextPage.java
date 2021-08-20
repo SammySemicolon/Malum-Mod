@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.cooler_book.pages;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -24,18 +25,6 @@ public class SpiritTextPage extends CoolerBookPage
     public SpiritTextPage(String headlineTranslationKey, String translationKey, Item spirit)
     {
         this(headlineTranslationKey,translationKey,spirit.getDefaultInstance());
-    }
-
-    @Override
-    public boolean hasAttachment()
-    {
-        return true;
-    }
-
-    @Override
-    public ItemStack attachmentIcon()
-    {
-        return spiritStack;
     }
 
     public String headlineTranslationKey()

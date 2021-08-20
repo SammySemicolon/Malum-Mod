@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:vindicator",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    }
+  ]
+}

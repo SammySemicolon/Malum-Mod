@@ -1,0 +1,21 @@
+{
+  "registry_name": "minecraft:ghast",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "infernal",
+      "count": 2
+    },
+    {
+      "spirit": "aquatic",
+      "count": 2
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

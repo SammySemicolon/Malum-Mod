@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:vex",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

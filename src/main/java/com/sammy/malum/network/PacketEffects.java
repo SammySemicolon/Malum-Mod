@@ -22,7 +22,7 @@ public class PacketEffects
         ArrayList<MalumSpiritType> types = new ArrayList<>();
         for (String string : spirits)
         {
-            types.add(SpiritHelper.figureOutType(string));
+            types.add(SpiritHelper.spiritType(string));
         }
         float alpha = 0.1f / types.size();
         for (MalumSpiritType type : types)
@@ -67,7 +67,7 @@ public class PacketEffects
         ArrayList<MalumSpiritType> types = new ArrayList<>();
         for (String string : spirits)
         {
-            types.add(SpiritHelper.figureOutType(string));
+            types.add(SpiritHelper.spiritType(string));
         }
         for (MalumSpiritType type : types)
         {
@@ -107,7 +107,7 @@ public class PacketEffects
     public static void spiritEngrave(String spirit, BlockPos pos)
     {
         World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = MalumHelper.brighter(type.color, 3);
         ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
                 .setAlpha(0.1f, 0f)
@@ -125,7 +125,7 @@ public class PacketEffects
     public static void totemBlockParticles(String spirit, BlockPos pos, boolean success)
     {
         World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = type.color;
         if (!success)
         {
@@ -165,7 +165,7 @@ public class PacketEffects
     public static void upwardsBlockParticles(String spirit, BlockPos pos)
     {
         World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = type.color;
 
         ParticleManager.create(MalumParticles.WISP_PARTICLE)
@@ -203,7 +203,7 @@ public class PacketEffects
     public static void altBurstParticles(String spirit, Vector3d pos, float multiplier)
     {
         World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = type.color;
 
         ParticleManager.create(MalumParticles.WISP_PARTICLE)
@@ -238,7 +238,7 @@ public class PacketEffects
     public static void burstParticles(String spirit, Vector3d pos, float multiplier)
     {
         World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.figureOutType(spirit);
+        MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = type.color;
 
         ParticleManager.create(MalumParticles.WISP_PARTICLE)

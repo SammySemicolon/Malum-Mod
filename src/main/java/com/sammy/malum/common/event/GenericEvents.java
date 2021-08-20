@@ -3,9 +3,11 @@ package com.sammy.malum.common.event;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
+import com.sammy.malum.core.mod_systems.spirit.SpiritReloadListener;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +21,11 @@ import static com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude
 @Mod.EventBusSubscriber
 public class GenericEvents
 {
+    @SubscribeEvent
+    public static void registerListeners(AddReloadListenerEvent event)
+    {
+        event.addListener(new SpiritReloadListener());
+    }
     @SubscribeEvent
     public static void addFeatures(BiomeLoadingEvent event)
     {

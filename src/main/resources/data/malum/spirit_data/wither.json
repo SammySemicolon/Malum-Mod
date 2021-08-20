@@ -1,0 +1,17 @@
+{
+  "registry_name": "minecraft:wither",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 10
+    },
+    {
+      "spirit": "arcane",
+      "count": 5
+    },
+    {
+      "spirit": "infernal",
+      "count": 10
+    }
+  ]
+}

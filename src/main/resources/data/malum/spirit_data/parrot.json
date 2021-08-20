@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:parrot",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

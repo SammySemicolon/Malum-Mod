@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:pillager",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:bat",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

@@ -1,14 +1,12 @@
 package com.sammy.malum.client.screen.cooler_book.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.screen;
 
 public class SmeltingBookPage extends CoolerBookPage
 {
@@ -23,18 +21,6 @@ public class SmeltingBookPage extends CoolerBookPage
     public SmeltingBookPage(Item inputItem, Item outputItem)
     {
         this(inputItem.getDefaultInstance(), outputItem.getDefaultInstance());
-    }
-
-    @Override
-    public boolean hasAttachment()
-    {
-        return true;
-    }
-
-    @Override
-    public ItemStack attachmentIcon()
-    {
-        return outputStack;
     }
 
     @Override

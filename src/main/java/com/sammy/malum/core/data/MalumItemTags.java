@@ -72,6 +72,6 @@ public class MalumItemTags extends ItemTagsProvider
     
         getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.SOLAR_SAPBALL.get());
     
-        getOrCreateBuilder(RUNEWOOD_LOGS).add(MalumItems.RUNEWOOD_LOG.get(), MalumItems.STRIPPED_RUNEWOOD_LOG.get(), MalumItems.RUNEWOOD.get(), MalumItems.STRIPPED_RUNEWOOD.get());
+        getOrCreateBuilder(RUNEWOOD_LOGS).add(MalumItems.RUNEWOOD_LOG.get(), MalumItems.STRIPPED_RUNEWOOD_LOG.get(), MalumItems.RUNEWOOD.get(), MalumItems.STRIPPED_RUNEWOOD.get(), MalumItems.SAP_FILLED_RUNEWOOD_LOG.get(), MalumItems.STRIPPED_SAP_FILLED_RUNEWOOD_LOG.get());
     }
 }

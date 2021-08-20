@@ -138,7 +138,7 @@ public class CoolerBookScreen extends Screen
                 .addPage(new SpiritInfusionPage(HEX_ASH.get())));
 
         entries.add(new CoolerBookEntry(
-                "spirit_metallurgy", HALLOWED_GOLD_INGOT.get(),0,5)
+                "spirit_metallurgy", SOUL_STAINED_STEEL_INGOT.get(),0,5)
                 .left(1)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a", HALLOWED_GOLD_INGOT.get()))
                 .addPage(new TextPage("hallowed_gold_b"))
@@ -150,6 +150,11 @@ public class CoolerBookScreen extends Screen
                 .addPage(new TextPage("soul_stained_steel_b"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get()))
+                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_INGOT.get()))
         );
 
         entries.add(new CoolerBookEntry(

@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:slime",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    }
+  ]
+}

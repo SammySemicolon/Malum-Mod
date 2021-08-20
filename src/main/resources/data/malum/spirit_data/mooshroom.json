@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:mooshroom",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

@@ -39,7 +39,7 @@ public class SpiritJarTileEntity extends SimpleTileEntity implements ITickableTi
     {
         if (compound.contains("spirit"))
         {
-            type = SpiritHelper.figureOutType(compound.getString("spirit"));
+            type = SpiritHelper.spiritType(compound.getString("spirit"));
         }
         count = compound.getInt("count");
         super.readData(compound);

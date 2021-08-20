@@ -2,15 +2,10 @@ package com.sammy.malum.client.screen.cooler_book.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
-import com.sammy.malum.client.screen.cooler_book.EntryScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import net.minecraft.item.*;
 
 public class CraftingBookPage extends CoolerBookPage
 {
@@ -83,18 +78,6 @@ public class CraftingBookPage extends CoolerBookPage
         CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
     }
 
-    @Override
-    public boolean hasAttachment()
-    {
-        return true;
-    }
-
-    @Override
-    public ItemStack attachmentIcon()
-    {
-        return outputStack;
-    }
-
     public static CraftingBookPage fullPage(Item output, Item input)
     {
         return fullPage(output.getDefaultInstance(), input.getDefaultInstance());
@@ -130,5 +113,36 @@ public class CraftingBookPage extends CoolerBookPage
     {
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingBookPage(ring, empty, material, reagent, material, empty, material,empty,material,empty);
+    }
+
+    public static CraftingBookPage toolPage(Item tool, Item metal)
+    {
+        return toolPage(tool.getDefaultInstance(), metal.getDefaultInstance());
+    }
+    public static CraftingBookPage toolPage(ItemStack tool, ItemStack metal)
+    {
+        ItemStack stick = Items.STICK.getDefaultInstance();
+        ItemStack empty = Items.AIR.getDefaultInstance();
+        if (tool.getItem() instanceof SwordItem)
+        {
+            return new CraftingBookPage(tool, empty, metal, empty, empty, metal, empty, empty, stick, empty);
+        }
+        if (tool.getItem() instanceof AxeItem)
+        {
+            return new CraftingBookPage(tool, metal, metal, empty, metal, stick, empty, empty, stick, empty);
+        }
+        if (tool.getItem() instanceof HoeItem)
+        {
+            return new CraftingBookPage(tool, metal, metal, empty, empty, stick, empty, empty, stick, empty);
+        }
+        if (tool.getItem() instanceof ShovelItem)
+        {
+            return new CraftingBookPage(tool, empty, metal, empty, empty, stick, empty, empty, stick, empty);
+        }
+        if (tool.getItem() instanceof PickaxeItem)
+        {
+            return new CraftingBookPage(tool, metal, metal, metal, empty, stick, empty, empty, stick, empty);
+        }
+        return null;
     }
 }

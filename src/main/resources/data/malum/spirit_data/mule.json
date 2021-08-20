@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:mule",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

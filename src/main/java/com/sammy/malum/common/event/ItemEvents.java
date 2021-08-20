@@ -10,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.EventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -40,7 +39,7 @@ public class ItemEvents
                 {
                     return;
                 }
-                SpiritHelper.createSpiritEntities(event.getEntityLiving(), attacker, stack);
+                SpiritHelper.playerSummonSpirits(event.getEntityLiving(), attacker, stack);
             }
         }
     }

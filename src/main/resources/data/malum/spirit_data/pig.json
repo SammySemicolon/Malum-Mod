@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:pig",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

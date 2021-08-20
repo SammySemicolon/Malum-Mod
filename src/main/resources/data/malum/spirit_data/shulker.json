@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:shulker",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

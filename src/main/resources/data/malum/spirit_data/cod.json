@@ -1,0 +1,9 @@
+{
+  "registry_name": "minecraft:cod",
+  "spirits": [
+    {
+      "spirit": "aquatic",
+      "count": 1
+    }
+  ]
+}

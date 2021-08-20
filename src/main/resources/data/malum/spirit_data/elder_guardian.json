@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:elder_guardian",
+  "spirits": [
+    {
+      "spirit": "aquatic",
+      "count": 5
+    },
+    {
+      "spirit": "eldritch",
+      "count": 3
+    }
+  ]
+}

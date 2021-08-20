@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:panda",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}
