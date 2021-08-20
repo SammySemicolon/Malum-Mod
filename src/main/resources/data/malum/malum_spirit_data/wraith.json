@@ -1,8 +1,8 @@
 {
-  "registry_name": "minecraft:spider",
+  "registry_name": "eidolon:wraith",
   "spirits": [
     {
-      "spirit": "wicked",
+      "spirit": "arcane",
       "count": 1
     },
     {
