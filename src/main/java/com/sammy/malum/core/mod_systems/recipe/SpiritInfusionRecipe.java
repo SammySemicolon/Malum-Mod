@@ -66,6 +66,32 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     {
         return id;
     }
+    public ArrayList<ItemStack> sortedStacks(ArrayList<ItemStack> stacks)
+    {
+        ArrayList<ItemStack> sortedStacks = new ArrayList<>();
+        for (ItemCount item : spirits)
+        {
+            for (ItemStack stack : stacks)
+            {
+                if (item.matches(stack))
+                {
+                    sortedStacks.add(stack);
+                    break;
+                }
+            }
+        }
+        return sortedStacks;
+    }
+    public ArrayList<MalumSpiritType> spirits()
+    {
+        ArrayList<MalumSpiritType> spirits = new ArrayList<>();
+        for (ItemCount item : this.spirits)
+        {
+            SpiritItem spiritItem = (SpiritItem) item.item;
+            spirits.add(spiritItem.type);
+        }
+        return spirits;
+    }
     public static SpiritInfusionRecipe getRecipe(World world, ItemStack stack, ArrayList<ItemStack> spirits)
     {
         List<SpiritInfusionRecipe> recipes = getRecipes(world);
@@ -93,32 +119,6 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     public static List<SpiritInfusionRecipe> getRecipes(World world)
     {
         return world.getRecipeManager().getRecipesForType(RECIPE_TYPE);
-    }
-    public ArrayList<ItemStack> sortedStacks(ArrayList<ItemStack> stacks)
-    {
-        ArrayList<ItemStack> sortedStacks = new ArrayList<>();
-        for (ItemCount item : spirits)
-        {
-            for (ItemStack stack : stacks)
-            {
-                if (item.matches(stack))
-                {
-                    sortedStacks.add(stack);
-                    break;
-                }
-            }
-        }
-        return sortedStacks;
-    }
-    public ArrayList<MalumSpiritType> spirits()
-    {
-        ArrayList<MalumSpiritType> spirits = new ArrayList<>();
-        for (ItemCount item : this.spirits)
-        {
-            SpiritItem spiritItem = (SpiritItem) item.item;
-            spirits.add(spiritItem.type);
-        }
-        return spirits;
     }
     public boolean doSpiritsMatch(ArrayList<ItemStack> spirits)
     {

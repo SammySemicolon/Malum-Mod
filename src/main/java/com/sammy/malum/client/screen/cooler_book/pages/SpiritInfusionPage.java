@@ -87,11 +87,11 @@ public class SpiritInfusionPage extends CoolerBookPage
             CoolerBookScreen.renderItem(matrixStack, stack, left+8,top+8+19*i,mouseX,mouseY);
         }
     }
-    public int[] uOffset()
+    public static int[] uOffset()
     {
         return new int[]{360,393,393,360,327,294,294,327};
     }
-    public int[] vOffset()
+    public static int[] vOffset()
     {
         return new int[]{1,1,53,34,1,1,129,110};
     }
