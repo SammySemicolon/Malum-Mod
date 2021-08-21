@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/air",
+  "parent": "malum:block/template_ether_torch",
   "textures": {
-    "particle": "malum:item/colored_ether"
+    "torch": "malum:block/ether_torch",
+    "colored": "malum:block/ether_torch_overlay"
   }
 }

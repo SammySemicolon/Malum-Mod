@@ -1,7 +1,12 @@
 package com.sammy.malum.common.tile;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
+import com.sammy.malum.common.block.ether.EtherTorchBlock;
+import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.common.item.ether.AbstractEtherItem;
+import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.core.init.block.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
@@ -17,27 +22,37 @@ import java.awt.*;
 
 public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
-    public int firstColor;
-    public int secondColor;
+    public Color firstColor;
+    public Color secondColor;
 
     public EtherTileEntity()
     {
         super(MalumTileEntities.ETHER_BLOCK_TILE_ENTITY.get());
     }
 
+
     @Override
     public void readData(CompoundNBT compound)
     {
-        firstColor = compound.getInt("firstColor");
-        secondColor = compound.getInt("secondColor");
+        int packedColor = compound.getInt("firstColor");
+        int red = ColorHelper.PackedColor.getRed(packedColor);
+        int green = ColorHelper.PackedColor.getGreen(packedColor);
+        int blue = ColorHelper.PackedColor.getBlue(packedColor);
+        firstColor = new Color(red, green, blue);
+
+        packedColor = compound.getInt("secondColor");
+        red = ColorHelper.PackedColor.getRed(packedColor);
+        green = ColorHelper.PackedColor.getGreen(packedColor);
+        blue = ColorHelper.PackedColor.getBlue(packedColor);
+        secondColor = new Color(red, green, blue);
         super.readData(compound);
     }
 
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        compound.putInt("firstColor", firstColor);
-        compound.putInt("secondColor", secondColor);
+        compound.putInt("firstColor", firstColor.getRGB());
+        compound.putInt("secondColor", secondColor.getRGB());
         return super.writeData(compound);
     }
 
@@ -52,18 +67,12 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
     {
         if (MalumHelper.areWeOnClient(world))
         {
-            int red = ColorHelper.PackedColor.getRed(firstColor);
-            int green = ColorHelper.PackedColor.getGreen(firstColor);
-            int blue = ColorHelper.PackedColor.getBlue(firstColor);
-            Color firstColor = new Color(red, green, blue);
-
-            red = ColorHelper.PackedColor.getRed(this.secondColor);
-            green = ColorHelper.PackedColor.getGreen(this.secondColor);
-            blue = ColorHelper.PackedColor.getBlue(this.secondColor);
-            Color secondColor = new Color(red, green, blue);
-
-            firstColor = MalumHelper.darker(firstColor, 2);
-            secondColor = MalumHelper.brighter(secondColor, 1);
+            if (firstColor == null || secondColor == null)
+            {
+                return;
+            }
+            Color firstColor = MalumHelper.darker(this.firstColor, 2);
+            Color secondColor = MalumHelper.brighter(this.secondColor, 1);
 
 
             double x = pos.getX() + 0.5;
@@ -72,23 +81,23 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
             int lifeTime = 14 + world.rand.nextInt(4);
             float scale = 0.17f + world.rand.nextFloat() * 0.03f;
             float velocity = 0.04f + world.rand.nextFloat() * 0.02f;
-            if (getBlockState().getBlock() instanceof WallTorchBlock)
+            if (getBlockState().getBlock() instanceof WallEtherTorchBlock)
             {
                 Direction direction = getBlockState().get(WallTorchBlock.HORIZONTAL_FACING);
                 x += direction.getDirectionVec().getX() * -0.28f;
                 y += 0.2f;
                 z += direction.getDirectionVec().getZ() * -0.28f;
-                lifeTime = 8;
+                lifeTime-=6;
             }
 
-            if (getBlockState().getBlock() instanceof TorchBlock)
+            if (getBlockState().getBlock() instanceof EtherTorchBlock)
             {
-                lifeTime = 8 + world.rand.nextInt(2);
+                lifeTime-=4;
             }
             if (getBlockState().getBlock() instanceof EtherBrazierBlock)
             {
                 y -= 0.2f;
-                lifeTime = 12 + world.rand.nextInt(3);
+                lifeTime-=2;
                 scale *= 1.25f;
             }
             ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)

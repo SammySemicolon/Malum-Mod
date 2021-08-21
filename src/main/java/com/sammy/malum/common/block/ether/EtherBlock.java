@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.ether;
 
+import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.tile.EtherTileEntity;
 import com.sammy.malum.core.init.items.MalumItems;
@@ -45,8 +46,8 @@ public class EtherBlock extends Block implements IWaterLoggable
         {
             EtherTileEntity tileEntity = (EtherTileEntity) worldIn.getTileEntity(pos);
             AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
-            tileEntity.firstColor = item.getFirstColor(stack);
-            tileEntity.secondColor = item.getSecondColor(stack);
+            tileEntity.firstColor = ClientHelper.getColor(item.getFirstColor(stack));
+            tileEntity.secondColor = ClientHelper.getColor(item.getSecondColor(stack));
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
@@ -59,8 +60,8 @@ public class EtherBlock extends Block implements IWaterLoggable
         {
             EtherTileEntity tileEntity = (EtherTileEntity) world.getTileEntity(pos);
             AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
-            etherItem.setFirstColor(stack, tileEntity.firstColor);
-            etherItem.setSecondColor(stack, tileEntity.secondColor);
+            etherItem.setFirstColor(stack, tileEntity.firstColor.getRGB());
+            etherItem.setSecondColor(stack, tileEntity.secondColor.getRGB());
         }
         return stack;
     }

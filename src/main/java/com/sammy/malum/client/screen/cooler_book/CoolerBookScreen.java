@@ -2,7 +2,7 @@ package com.sammy.malum.client.screen.cooler_book;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.sammy.malum.ClientHelper;
+import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.objects.CoolerBookObject;
 import com.sammy.malum.client.screen.cooler_book.objects.EntryBookObject;
@@ -24,7 +24,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -40,12 +39,10 @@ public class CoolerBookScreen extends Screen
     public static final ResourceLocation FADE_TEXTURE = MalumHelper.prefix("textures/gui/book/fade.png");
 
     public static final ResourceLocation SKY_TEXTURE = MalumHelper.prefix("textures/gui/book/sky.png");
-    public static final ResourceLocation FARAWAY_CLOUDS_TEXTURE = MalumHelper.prefix("textures/gui/book/faraway_clouds.png");
-    public static final ResourceLocation CLOUDS_TEXTURE = MalumHelper.prefix("textures/gui/book/clouds.png");
 
-    public int bookWidth = 458;
+    public int bookWidth = 378;
     public int bookHeight = 250;
-    public int bookInsideWidth = 424;
+    public int bookInsideWidth = 344;
     public int bookInsideHeight = 215;
 
     public final int parallax_width = 512;
@@ -225,9 +222,7 @@ public class CoolerBookScreen extends Screen
 
         GL11.glEnable(GL_SCISSOR_TEST);
         cut();
-        renderParallax(SKY_TEXTURE, matrixStack, 0.6f, 0.4f, 0, 0);
-        renderParallax(FARAWAY_CLOUDS_TEXTURE, matrixStack, 0.45f, 0.55f, 0, 0);
-        renderParallax(CLOUDS_TEXTURE, matrixStack, 0.3f, 0.7f, 64, 0);
+        renderParallax(SKY_TEXTURE, matrixStack, 0.1f, 0.4f, 48, 0);
 
         renderEntries(matrixStack, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
@@ -451,7 +446,7 @@ public class CoolerBookScreen extends Screen
 
     public static CoolerBookScreen getInstance()
     {
-        if (screen == null)
+        //if (screen == null)
         {
             screen = new CoolerBookScreen();
             screen.faceObject(objects.get(0));

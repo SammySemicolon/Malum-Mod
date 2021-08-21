@@ -6,10 +6,15 @@ import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
+import java.awt.*;
+
 public abstract class AbstractEtherItem extends BlockItem implements IDyeableArmorItem
 {
     public static final String firstColor = "firstColor";
     public static final String secondColor = "secondColor";
+    public static final int defaultFirstColor = 15712278;
+    public static final int defaultSecondColor = 4607909;
+
     private final boolean iridescent;
 
     public AbstractEtherItem(Block blockIn, Properties builder, boolean iridescent)
@@ -22,8 +27,6 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
         return iridescent ? secondColor : firstColor;
     }
 
-
-
     public int getSecondColor(ItemStack stack)
     {
         if (!iridescent)
@@ -31,7 +34,8 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
             return getFirstColor(stack);
         }
         CompoundNBT compoundnbt = stack.getChildTag("display");
-        return compoundnbt != null && compoundnbt.contains(secondColor, 99) ? compoundnbt.getInt(secondColor) : 1459183;
+
+        return compoundnbt != null && compoundnbt.contains(secondColor, 99) ? compoundnbt.getInt(secondColor) : defaultSecondColor;
     }
     public void setSecondColor(ItemStack stack, int color)
     {
@@ -44,7 +48,7 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
     public int getFirstColor(ItemStack stack)
     {
         CompoundNBT compoundnbt = stack.getChildTag("display");
-        return compoundnbt != null && compoundnbt.contains(firstColor, 99) ? compoundnbt.getInt(firstColor) : 15712278;
+        return compoundnbt != null && compoundnbt.contains(firstColor, 99) ? compoundnbt.getInt(firstColor) : defaultFirstColor;
     }
     public void setFirstColor(ItemStack stack, int color)
     {
@@ -56,7 +60,7 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
     public int getColor(ItemStack stack)
     {
         CompoundNBT compoundnbt = stack.getChildTag("display");
-        return compoundnbt != null && compoundnbt.contains(colorLookup(), 99) ? compoundnbt.getInt(colorLookup()) : 15712278;
+        return compoundnbt != null && compoundnbt.contains(colorLookup(), 99) ? compoundnbt.getInt(colorLookup()) : defaultFirstColor;
     }
     @Override
     public boolean hasColor(ItemStack stack)

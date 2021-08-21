@@ -3,7 +3,9 @@ package com.sammy.malum.client;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
+import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.item_storage.ItemStandBlock;
 import com.sammy.malum.common.block.item_storage.SpiritJarBlock;
@@ -31,7 +33,8 @@ public class SetRenderLayers
     public static void setRenderLayers(FMLClientSetupEvent event)
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(SetRenderLayers::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(SetRenderLayers::setCutout);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(SetRenderLayers::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BoundingBlock).forEach(SetRenderLayers::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(SetRenderLayers::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(SetRenderLayers::setCutout);
@@ -39,7 +42,6 @@ public class SetRenderLayers
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(SetRenderLayers::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(SetRenderLayers::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(SetRenderLayers::setCutout);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(SetRenderLayers::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(SetRenderLayers::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(SetRenderLayers::setCutout);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(SetRenderLayers::setCutout);

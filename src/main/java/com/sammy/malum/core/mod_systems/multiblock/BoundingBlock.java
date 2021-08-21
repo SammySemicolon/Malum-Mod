@@ -1,6 +1,6 @@
 package com.sammy.malum.core.mod_systems.multiblock;
 
-import com.sammy.malum.ClientHelper;
+import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

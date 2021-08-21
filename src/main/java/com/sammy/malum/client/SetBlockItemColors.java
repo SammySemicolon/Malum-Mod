@@ -1,6 +1,5 @@
 package com.sammy.malum.client;
 
-import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
@@ -8,8 +7,10 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.block.generic.MalumLeavesBlock;
+import com.sammy.malum.common.item.ether.AbstractEtherItem;
+import com.sammy.malum.common.item.ether.EtherItem;
+import com.sammy.malum.common.item.ether.EtherTorchItem;
 import com.sammy.malum.common.tile.EtherTileEntity;
-import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -41,7 +42,6 @@ public class SetBlockItemColors
     public static void setBlockColors(ColorHandlerEvent.Block event)
     {
         BlockColors blockColors = event.getBlockColors();
-        Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
         blockColors.register((state, reader, pos, color) ->
         {
@@ -49,31 +49,23 @@ public class SetBlockItemColors
             if (tileEntity instanceof EtherTileEntity)
             {
                 EtherTileEntity etherTileEntity = (EtherTileEntity) tileEntity;
-                return color == 0 ? etherTileEntity.firstColor : -1;
+                if (etherTileEntity.firstColor != null)
+                {
+                    return color == 0 ? etherTileEntity.firstColor.getRGB() : -1;
+                }
             }
             return -1;
-        }, getModBlocks(EtherTorchBlock.class, WallEtherTorchBlock.class));
+        }, getModBlocks(EtherBlock.class));
 
         blockColors.register((state, reader, pos, color) ->
-        {
-            TileEntity tileEntity = reader.getTileEntity(pos);
-            if (tileEntity instanceof EtherTileEntity)
-            {
-                EtherTileEntity etherTileEntity = (EtherTileEntity) tileEntity;
-                return etherTileEntity.firstColor;
-            }
-            return -1;
-        }, getModBlocks(EtherBlock.class, EtherBrazierBlock.class));
-
-        MalumHelper.takeAll(blocks, block -> block.get() instanceof MalumLeavesBlock).forEach(block -> blockColors.register((state, reader, pos, color) ->
         {
             float i = state.get(MalumLeavesBlock.COLOR);
-            MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) block.get();
+            MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) state.getBlock();
             int r = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
             int g = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
             int b = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
             return r << 16 | g << 8 | b;
-        }, block.get()));
+        }, getModBlocks(MalumLeavesBlock.class));
     }
 
     @SubscribeEvent
@@ -81,17 +73,16 @@ public class SetBlockItemColors
     {
         ItemColors itemColors = event.getItemColors();
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+
         MalumHelper.takeAll(items, item -> item.get() instanceof BlockItem && ((BlockItem) item.get()).getBlock() instanceof MalumLeavesBlock).forEach(item ->
         {
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
             ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
         });
-        itemColors.register((stack, color) ->
-                        color == 0 ? ((IDyeableArmorItem) stack.getItem()).getColor(stack) : -1,
-                MalumItems.ETHER_TORCH.get(), MalumItems.ETHER_BRAZIER.get());
-        itemColors.register((stack, color) ->
-                        ((IDyeableArmorItem) stack.getItem()).getColor(stack),
-                MalumItems.ETHER.get());
+        itemColors.register((s, c)->{
+            AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+            return c == 0 ? etherItem.getFirstColor(s) : -1;
+        }, MalumHelper.getModItems(AbstractEtherItem.class));
 
         ClientHelper.registerItemColor(itemColors, MalumItems.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
         ClientHelper.registerItemColor(itemColors, MalumItems.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);

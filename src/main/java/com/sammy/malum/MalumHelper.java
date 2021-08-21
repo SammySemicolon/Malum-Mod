@@ -3,6 +3,7 @@ package com.sammy.malum;
 import com.sammy.malum.common.item.equipment.armor.MalumArmorItem;
 import com.sammy.malum.common.item.equipment.curios.MalumCurioItem;
 import com.sammy.malum.core.init.block.MalumBlocks;
+import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -588,6 +589,19 @@ public class MalumHelper
             }
         }
         return matchingBlocks.toArray(new Block[0]);
+    }
+    public static Item[] getModItems(Class<?>... itemClasses)
+    {
+        Collection<RegistryObject<Item>> items = MalumItems.ITEMS.getEntries();
+        ArrayList<Item> matchingItems = new ArrayList<>();
+        for (RegistryObject<Item> registryObject : items)
+        {
+            if (Arrays.stream(itemClasses).anyMatch(i -> i.isInstance(registryObject.get())))
+            {
+                matchingItems.add(registryObject.get());
+            }
+        }
+        return matchingItems.toArray(new Item[0]);
     }
 
     public static boolean hasArmorSet(LivingEntity livingEntity, Item armorItem)

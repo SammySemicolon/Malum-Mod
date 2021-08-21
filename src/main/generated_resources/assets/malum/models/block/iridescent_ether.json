@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/air",
   "textures": {
-    "particle": "malum:item/colored_ether"
+    "particle": "malum:item/ether"
   }
 }

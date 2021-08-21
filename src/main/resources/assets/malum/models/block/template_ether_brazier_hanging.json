@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"brazier": "malum:block/ether_brazier",
-		"particle": "malum:block/ether_brazier"
+		"particle": "malum:item/ether"
 	},
 	"elements": [
 		{

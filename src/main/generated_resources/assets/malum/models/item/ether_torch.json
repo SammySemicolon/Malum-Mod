@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/colored_ether_torch_overlay",
-    "layer1": "malum:item/colored_ether_torch"
+    "layer0": "malum:item/ether_torch_overlay",
+    "layer1": "malum:item/ether_torch"
   }
 }

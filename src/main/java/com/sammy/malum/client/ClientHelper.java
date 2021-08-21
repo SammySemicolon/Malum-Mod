@@ -1,9 +1,10 @@
-package com.sammy.malum;
+package com.sammy.malum.client;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
+import net.minecraft.util.ColorHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
@@ -44,7 +45,13 @@ public class ClientHelper
         int b = color.getBlue();
         itemColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
     }
-
+    public static Color getColor(int decimal)
+    {
+        int red = ColorHelper.PackedColor.getRed(decimal);
+        int green = ColorHelper.PackedColor.getGreen(decimal);
+        int blue = ColorHelper.PackedColor.getBlue(decimal);
+        return new Color(red, green, blue);
+    }
     public static IFormattableTextComponent simpleTranslatableComponent(String message)
     {
         return new TranslationTextComponent(message);

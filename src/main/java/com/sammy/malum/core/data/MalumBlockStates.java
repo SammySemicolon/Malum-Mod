@@ -3,6 +3,8 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.ether.EtherTorchBlock;
+import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.block.generic.MalumLeavesBlock;
 import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.item_storage.ItemStandBlock;
@@ -66,7 +68,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getTranslationKey().endsWith("_cap")).forEach(this::pillarCapBlock);
@@ -82,11 +83,12 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractButtonBlock).forEach(this::buttonBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(this::tallPlantBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof WallTorchBlock).forEach(this::wallEtherTorchBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TorchBlock).forEach(this::etherTorchBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof WallEtherTorchBlock).forEach(this::wallEtherTorchBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(this::etherTorchBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
 
         Collection<RegistryObject<Block>> slabs = MalumHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
         blocks.forEach(this::basicBlock);
@@ -129,20 +131,20 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void etherBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile empty = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", prefix("item/colored_ether"));
+        ModelFile empty = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", prefix("item/ether"));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(empty).build());
     }
     public void etherTorchBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch")).texture("torch", prefix("block/" + name)).texture("colored", prefix("block/" + name + "_overlay"));
+        ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay"));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
     }
     public void wallEtherTorchBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch_wall")).texture("torch", prefix("block/" + name.substring(5))).texture("colored", prefix("block/" + name.substring(5) + "_overlay"));
+        ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch_wall")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay"));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.NORTH)

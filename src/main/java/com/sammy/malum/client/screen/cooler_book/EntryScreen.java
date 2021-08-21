@@ -1,7 +1,7 @@
 package com.sammy.malum.client.screen.cooler_book;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.sammy.malum.ClientHelper;
+import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
