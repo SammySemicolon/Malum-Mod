@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block;
+package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.common.tile.ItemPedestalTileEntity;
 import com.sammy.malum.core.mod_systems.tile.SimpleInventoryBlock;
@@ -28,9 +28,9 @@ public class ItemPedestalBlock extends SimpleInventoryBlock implements IWaterLog
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final VoxelShape SHAPE = Stream.of(
-            Block.makeCuboidShape(4, 2, 4, 12, 10, 12),
-            Block.makeCuboidShape(2, 10, 2, 14, 13, 14),
-            Block.makeCuboidShape(1, 0, 1, 15, 2, 15)
+            Block.makeCuboidShape(4, 0, 4, 12, 4, 12),
+            Block.makeCuboidShape(5, 4, 5, 11, 10, 11),
+            Block.makeCuboidShape(3, 10, 3, 13, 13, 13)
     ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
 
     public ItemPedestalBlock(Properties properties)

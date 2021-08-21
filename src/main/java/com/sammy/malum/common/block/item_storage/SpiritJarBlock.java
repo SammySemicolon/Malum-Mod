@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block;
+package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.SpiritItem;

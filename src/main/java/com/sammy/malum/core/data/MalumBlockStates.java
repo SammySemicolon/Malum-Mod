@@ -4,8 +4,8 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.generic.MalumLeavesBlock;
-import com.sammy.malum.common.block.ItemPedestalBlock;
-import com.sammy.malum.common.block.ItemStandBlock;
+import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
+import com.sammy.malum.common.block.item_storage.ItemStandBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.TotemBaseBlock;
@@ -204,11 +204,13 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String particleName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_item_pedestal", "");
+        String modelLocation = "block/template_rock_item_pedestal";
         if (!particleName.endsWith("_rock"))
         {
             particleName += "_planks";
+            modelLocation = "block/template_wood_item_pedestal";
         }
-        ModelFile pedestal = models().withExistingParent(name, prefix("block/template_item_pedestal")).texture("pedestal", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
+        ModelFile pedestal = models().withExistingParent(name, prefix(modelLocation)).texture("pedestal", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(pedestal).build());
     }
     public void wildFarmlandBlock(RegistryObject<Block> blockRegistryObject)

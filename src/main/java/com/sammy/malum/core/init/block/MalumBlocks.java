@@ -1,8 +1,8 @@
 package com.sammy.malum.core.init.block;
 
 import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.ItemPedestalBlock;
-import com.sammy.malum.common.block.ItemStandBlock;
+import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
+import com.sammy.malum.common.block.item_storage.ItemStandBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
@@ -13,8 +13,9 @@ import com.sammy.malum.common.block.generic.MalumLogBlock;
 import com.sammy.malum.common.block.generic.MalumOreBlock;
 import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
+import com.sammy.malum.common.block.item_storage.WoodItemPedestalBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
-import com.sammy.malum.common.block.SpiritJarBlock;
+import com.sammy.malum.common.block.item_storage.SpiritJarBlock;
 import com.sammy.malum.common.block.TotemBaseBlock;
 import com.sammy.malum.common.block.TotemPoleBlock;
 import com.sammy.malum.core.init.MalumSounds;
@@ -435,7 +436,7 @@ public class MalumBlocks
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_FENCE_GATE = BLOCKS.register("runewood_planks_fence_gate", () -> new FenceGateBlock(RUNEWOOD_PROPERTIES()));
 
     public static final RegistryObject<Block> RUNEWOOD_ITEM_STAND = BLOCKS.register("runewood_item_stand", () -> new ItemStandBlock(RUNEWOOD_PROPERTIES().notSolid()));
-    public static final RegistryObject<Block> RUNEWOOD_ITEM_PEDESTAL = BLOCKS.register("runewood_item_pedestal", () -> new ItemPedestalBlock(RUNEWOOD_PROPERTIES().notSolid()));
+    public static final RegistryObject<Block> RUNEWOOD_ITEM_PEDESTAL = BLOCKS.register("runewood_item_pedestal", () -> new WoodItemPedestalBlock(RUNEWOOD_PROPERTIES().notSolid()));
 
     public static final RegistryObject<Block> RUNEWOOD_SIGN = BLOCKS.register("runewood_sign", () -> new MalumStandingSignBlock(RUNEWOOD_PROPERTIES().notSolid().doesNotBlockMovement(), MalumWoodTypes.RUNEWOOD));
     public static final RegistryObject<Block> RUNEWOOD_WALL_SIGN = BLOCKS.register("runewood_wall_sign", () -> new MalumWallSignBlock(RUNEWOOD_PROPERTIES().notSolid().doesNotBlockMovement(), MalumWoodTypes.RUNEWOOD));

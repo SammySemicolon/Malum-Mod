@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block;
+package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.common.tile.ItemStandTileEntity;
 import com.sammy.malum.core.mod_systems.tile.SimpleInventoryBlock;
