@@ -17,7 +17,8 @@ import java.awt.*;
 
 public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
-    public int color;
+    public int firstColor;
+    public int secondColor;
 
     public EtherTileEntity()
     {
@@ -27,14 +28,16 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
     @Override
     public void readData(CompoundNBT compound)
     {
-        color = compound.getInt("color");
+        firstColor = compound.getInt("firstColor");
+        secondColor = compound.getInt("secondColor");
         super.readData(compound);
     }
 
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        compound.putInt("color", color);
+        compound.putInt("firstColor", firstColor);
+        compound.putInt("secondColor", secondColor);
         return super.writeData(compound);
     }
 
@@ -49,10 +52,20 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
     {
         if (MalumHelper.areWeOnClient(world))
         {
-            int red = ColorHelper.PackedColor.getRed(color);
-            int green = ColorHelper.PackedColor.getGreen(color);
-            int blue = ColorHelper.PackedColor.getBlue(color);
-            Color color = new Color(red, green, blue);
+            int red = ColorHelper.PackedColor.getRed(firstColor);
+            int green = ColorHelper.PackedColor.getGreen(firstColor);
+            int blue = ColorHelper.PackedColor.getBlue(firstColor);
+            Color firstColor = new Color(red, green, blue);
+
+            red = ColorHelper.PackedColor.getRed(this.secondColor);
+            green = ColorHelper.PackedColor.getGreen(this.secondColor);
+            blue = ColorHelper.PackedColor.getBlue(this.secondColor);
+            Color secondColor = new Color(red, green, blue);
+
+            firstColor = MalumHelper.darker(firstColor, 2);
+            secondColor = MalumHelper.brighter(secondColor, 1);
+
+
             double x = pos.getX() + 0.5;
             double y = pos.getY() + 0.6;
             double z = pos.getZ() + 0.5;
@@ -82,7 +95,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                     .setScale(scale * 2, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
-                    .setColor(color, color)
+                    .setColor(firstColor, secondColor)
                     .spawn(world, x, y, z);
 
             if (world.rand.nextFloat() < 0.98f)
@@ -91,7 +104,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                         .setScale(scale, 0)
                         .setLifetime(lifeTime)
                         .setAlpha(0.9f, 0.75f)
-                        .setColor(color, MalumHelper.darker(color, 2))
+                        .setColor(firstColor, secondColor)
                         .addVelocity(0, velocity, 0)
                         .setSpin(world.rand.nextFloat() * 0.5f)
                         .spawn(world, x, y, z);
@@ -100,14 +113,14 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
             {
                 ParticleManager.create(MalumParticles.SPIRIT_FLAME)
                         .setScale(0.75f, 0)
-                        .setColor(color, MalumHelper.darker(color, 1))
+                        .setColor(firstColor, secondColor)
                         .randomOffset(0.2f, 0.3f)
                         .addVelocity(0, 0.02f, 0)
                         .spawn(world, x, y, z);
 
                 ParticleManager.create(MalumParticles.SPIRIT_FLAME)
                         .setScale(0.5f, 0)
-                        .setColor(color, MalumHelper.darker(color, 1))
+                        .setColor(firstColor, secondColor)
                         .randomOffset(0.1f, 0.3f)
                         .addVelocity(0, velocity, 0)
                         .spawn(world, x, y, z);

@@ -1,18 +1,27 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "malum:block/wall_ether_torch",
-      "y": 270
+    "facing=north,waterlogged=false": {
+      "model": "malum:block/wall_ether_torch"
     },
-    "facing=south": {
-      "model": "malum:block/wall_ether_torch",
-      "y": 90
+    "facing=south,waterlogged=false": {
+      "model": "malum:block/wall_ether_torch"
     },
-    "facing=west": {
-      "model": "malum:block/wall_ether_torch",
-      "y": 180
+    "facing=west,waterlogged=false": {
+      "model": "malum:block/wall_ether_torch"
     },
-    "facing=east": {
+    "facing=east,waterlogged=false": {
+      "model": "malum:block/wall_ether_torch"
+    },
+    "facing=north,waterlogged=true": {
+      "model": "malum:block/wall_ether_torch"
+    },
+    "facing=south,waterlogged=true": {
+      "model": "malum:block/wall_ether_torch"
+    },
+    "facing=west,waterlogged=true": {
+      "model": "malum:block/wall_ether_torch"
+    },
+    "facing=east,waterlogged=true": {
       "model": "malum:block/wall_ether_torch"
     }
   }

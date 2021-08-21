@@ -1,28 +1,28 @@
 {
   "variants": {
     "hanging=false,rotated=false,waterlogged=false": {
-      "model": "malum:block/ether_brazier"
+      "model": "malum:block/iridescent_ether_brazier"
     },
     "hanging=true,rotated=false,waterlogged=false": {
-      "model": "malum:block/ether_brazier"
+      "model": "malum:block/iridescent_ether_brazier"
     },
     "hanging=false,rotated=true,waterlogged=false": {
-      "model": "malum:block/ether_brazier"
+      "model": "malum:block/iridescent_ether_brazier"
     },
     "hanging=true,rotated=true,waterlogged=false": {
-      "model": "malum:block/ether_brazier"
+      "model": "malum:block/iridescent_ether_brazier"
     },
     "hanging=false,rotated=false,waterlogged=true": {
-      "model": "malum:block/ether_brazier"
+      "model": "malum:block/iridescent_ether_brazier"
     },
     "hanging=true,rotated=false,waterlogged=true": {
-      "model": "malum:block/ether_brazier"
+      "model": "malum:block/iridescent_ether_brazier"
     },
     "hanging=false,rotated=true,waterlogged=true": {
-      "model": "malum:block/ether_brazier"
+      "model": "malum:block/iridescent_ether_brazier"
     },
     "hanging=true,rotated=true,waterlogged=true": {
-      "model": "malum:block/ether_brazier"
+      "model": "malum:block/iridescent_ether_brazier"
     }
   }
 }

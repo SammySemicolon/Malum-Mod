@@ -1,6 +1,7 @@
 package com.sammy.malum.core.init.block;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
 import com.sammy.malum.common.tile.*;
@@ -24,7 +25,7 @@ public class MalumTileEntities
 
     public static final RegistryObject<TileEntityType<SpiritJarTileEntity>> SPIRIT_JAR_TILE_ENTITY = TILE_ENTITIES.register("spirit_jar_tile_entity", () -> TileEntityType.Builder.create(SpiritJarTileEntity::new, MalumBlocks.SPIRIT_JAR.get()).build(null));
 
-    public static final RegistryObject<TileEntityType<?>> ETHER_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("ether_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) EtherTileEntity::new, MalumBlocks.ETHER.get(), MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get(), MalumBlocks.ETHER_BRAZIER.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> ETHER_BLOCK_TILE_ENTITY = TILE_ENTITIES.register("ether_tile_entity", () -> TileEntityType.Builder.create((Supplier<TileEntity>) EtherTileEntity::new, MalumHelper.getModBlocks(EtherBlock.class)).build(null));
 
     public static final RegistryObject<TileEntityType<ItemStandTileEntity>> ITEM_STAND_TILE_ENTITY = TILE_ENTITIES.register("item_stand_tile_entity", () -> TileEntityType.Builder.create(ItemStandTileEntity::new, MalumBlocks.RUNEWOOD_ITEM_STAND.get(),  MalumBlocks.TAINTED_ROCK_ITEM_STAND.get(), MalumBlocks.TWISTED_ROCK_ITEM_STAND.get(), MalumBlocks.PURIFIED_ROCK_ITEM_STAND.get(), MalumBlocks.CLEANSED_ROCK_ITEM_STAND.get(), MalumBlocks.ERODED_ROCK_ITEM_STAND.get()).build(null));
     public static final RegistryObject<TileEntityType<ItemPedestalTileEntity>> ITEM_PEDESTAL_TILE_ENTITY = TILE_ENTITIES.register("item_pedestal_tile_entity", () -> TileEntityType.Builder.create(ItemPedestalTileEntity::new, MalumBlocks.RUNEWOOD_ITEM_PEDESTAL.get(), MalumBlocks.TAINTED_ROCK_ITEM_PEDESTAL.get(), MalumBlocks.TWISTED_ROCK_ITEM_PEDESTAL.get(), MalumBlocks.PURIFIED_ROCK_ITEM_PEDESTAL.get(), MalumBlocks.CLEANSED_ROCK_ITEM_PEDESTAL.get(), MalumBlocks.ERODED_ROCK_ITEM_PEDESTAL.get()).build(null));

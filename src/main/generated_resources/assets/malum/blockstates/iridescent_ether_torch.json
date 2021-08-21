@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "malum:block/iridescent_ether_torch"
+    },
+    "waterlogged=true": {
+      "model": "malum:block/iridescent_ether_torch"
+    }
+  }
+}

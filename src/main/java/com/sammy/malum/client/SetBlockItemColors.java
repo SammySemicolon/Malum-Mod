@@ -3,6 +3,10 @@ package com.sammy.malum.client;
 import com.sammy.malum.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.ether.EtherBlock;
+import com.sammy.malum.common.block.ether.EtherBrazierBlock;
+import com.sammy.malum.common.block.ether.EtherTorchBlock;
+import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.block.generic.MalumLeavesBlock;
 import com.sammy.malum.common.tile.EtherTileEntity;
 import com.sammy.malum.core.init.block.MalumBlocks;
@@ -24,8 +28,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.MalumHelper.brighter;
-import static com.sammy.malum.MalumHelper.darker;
+import static com.sammy.malum.MalumHelper.*;
 import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.MalumSpiritTypes.*;
@@ -46,10 +49,21 @@ public class SetBlockItemColors
             if (tileEntity instanceof EtherTileEntity)
             {
                 EtherTileEntity etherTileEntity = (EtherTileEntity) tileEntity;
-                return color == 0 ? etherTileEntity.color : -1;
+                return color == 0 ? etherTileEntity.firstColor : -1;
             }
             return -1;
-        }, MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get());
+        }, getModBlocks(EtherTorchBlock.class, WallEtherTorchBlock.class));
+
+        blockColors.register((state, reader, pos, color) ->
+        {
+            TileEntity tileEntity = reader.getTileEntity(pos);
+            if (tileEntity instanceof EtherTileEntity)
+            {
+                EtherTileEntity etherTileEntity = (EtherTileEntity) tileEntity;
+                return etherTileEntity.firstColor;
+            }
+            return -1;
+        }, getModBlocks(EtherBlock.class, EtherBrazierBlock.class));
 
         MalumHelper.takeAll(blocks, block -> block.get() instanceof MalumLeavesBlock).forEach(block -> blockColors.register((state, reader, pos, color) ->
         {

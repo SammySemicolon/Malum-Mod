@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.ether;
 
-import com.sammy.malum.common.item.EtherItem;
+import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.tile.EtherTileEntity;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
@@ -44,8 +44,9 @@ public class EtherBlock extends Block implements IWaterLoggable
         if (worldIn.getTileEntity(pos) instanceof EtherTileEntity)
         {
             EtherTileEntity tileEntity = (EtherTileEntity) worldIn.getTileEntity(pos);
-            EtherItem item = (EtherItem) stack.getItem();
-            tileEntity.color = item.getColor(stack);
+            AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
+            tileEntity.firstColor = item.getFirstColor(stack);
+            tileEntity.secondColor = item.getSecondColor(stack);
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
@@ -53,12 +54,13 @@ public class EtherBlock extends Block implements IWaterLoggable
     @Override
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player)
     {
-        ItemStack stack = MalumItems.ETHER.get().getDefaultInstance();
+        ItemStack stack = asItem().getDefaultInstance();
         if (world.getTileEntity(pos) instanceof EtherTileEntity)
         {
             EtherTileEntity tileEntity = (EtherTileEntity) world.getTileEntity(pos);
-            EtherItem etherItem = (EtherItem) stack.getItem();
-            etherItem.setColor(stack, tileEntity.color);
+            AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
+            etherItem.setFirstColor(stack, tileEntity.firstColor);
+            etherItem.setSecondColor(stack, tileEntity.secondColor);
         }
         return stack;
     }

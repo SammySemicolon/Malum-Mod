@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north,waterlogged=false": {
+      "model": "malum:block/iridescent_wall_ether_torch"
+    },
+    "facing=south,waterlogged=false": {
+      "model": "malum:block/iridescent_wall_ether_torch"
+    },
+    "facing=west,waterlogged=false": {
+      "model": "malum:block/iridescent_wall_ether_torch"
+    },
+    "facing=east,waterlogged=false": {
+      "model": "malum:block/iridescent_wall_ether_torch"
+    },
+    "facing=north,waterlogged=true": {
+      "model": "malum:block/iridescent_wall_ether_torch"
+    },
+    "facing=south,waterlogged=true": {
+      "model": "malum:block/iridescent_wall_ether_torch"
+    },
+    "facing=west,waterlogged=true": {
+      "model": "malum:block/iridescent_wall_ether_torch"
+    },
+    "facing=east,waterlogged=true": {
+      "model": "malum:block/iridescent_wall_ether_torch"
+    }
+  }
+}

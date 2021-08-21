@@ -26,8 +26,13 @@
                   "op": "replace"
                 },
                 {
-                  "source": "color",
-                  "target": "display.color",
+                  "source": "firstColor",
+                  "target": "display.firstColor",
+                  "op": "replace"
+                },
+                {
+                  "source": "secondColor",
+                  "target": "display.secondColor",
                   "op": "replace"
                 }
               ]

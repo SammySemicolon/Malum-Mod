@@ -4,6 +4,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
+import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.core.init.MalumEffects;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.event.StartupEvents;
@@ -50,6 +51,7 @@ public class MalumLang extends LanguageProvider
         ArrayList<MalumRiteType> rites = MalumRites.RITES;
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
+        MalumHelper.takeAll(blocks, i -> i.get() instanceof WallEtherTorchBlock);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
         blocks.forEach(b ->
         {
