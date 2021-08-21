@@ -28,7 +28,7 @@ public class MalumItemTags extends ItemTagsProvider
     @Override
     protected void registerTags()
     {
-        getOrCreateBuilder(Tags.Items.GEMS).add(MalumItems.SOULSTONE_ORE.get(), MalumItems.BLAZING_QUARTZ.get());
+        getOrCreateBuilder(Tags.Items.GEMS).add(MalumItems.SOULSTONE.get(), MalumItems.BLAZING_QUARTZ.get());
 
         this.copy(BlockTags.WOOL, net.minecraft.tags.ItemTags.WOOL);
         this.copy(BlockTags.PLANKS, net.minecraft.tags.ItemTags.PLANKS);
@@ -69,6 +69,7 @@ public class MalumItemTags extends ItemTagsProvider
         this.copy(BlockTags.FLOWERS, net.minecraft.tags.ItemTags.FLOWERS);
         this.copy(BlockTags.GOLD_ORES, net.minecraft.tags.ItemTags.GOLD_ORES);
         this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, net.minecraft.tags.ItemTags.SOUL_FIRE_BASE_BLOCKS);
+        this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
     
         getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.SOLAR_SAPBALL.get());
     

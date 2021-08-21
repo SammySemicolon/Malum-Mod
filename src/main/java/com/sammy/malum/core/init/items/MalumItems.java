@@ -34,7 +34,6 @@ public class MalumItems
 {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-
     public static Item.Properties DEFAULT_PROPERTIES()
     {
         return new Item.Properties().group(MalumCreativeTab.INSTANCE);

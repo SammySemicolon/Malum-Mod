@@ -1,6 +1,5 @@
 package com.sammy.malum.common.item;
 
-import com.sammy.malum.MalumColors;
 import com.sammy.malum.core.mod_systems.spirit.ISpiritEntityGlow;
 import net.minecraft.item.Item;
 
@@ -16,6 +15,6 @@ public class ConfinedBrillianceItem extends Item implements ISpiritEntityGlow
     @Override
     public Color getColor()
     {
-        return MalumColors.GREEN.brighter();
+        return new Color(31, 175, 18);
     }
 }
