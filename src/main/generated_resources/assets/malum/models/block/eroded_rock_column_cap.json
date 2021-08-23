@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "side": "malum:block/eroded_rock_column_cap",
-    "bottom": "malum:block/smooth_eroded_rock",
-    "top": "malum:block/eroded_rock_column_top"
-  }
-}

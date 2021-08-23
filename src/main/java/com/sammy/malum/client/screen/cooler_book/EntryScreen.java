@@ -114,7 +114,7 @@ public class EntryScreen extends Screen
             }
             else
             {
-                closeScreen();
+                CoolerBookScreen.openScreen(false);
             }
             return true;
         }
@@ -140,14 +140,14 @@ public class EntryScreen extends Screen
     {
         if (keyCode == GLFW.GLFW_KEY_E)
         {
-            closeScreen();
+            CoolerBookScreen.openScreen(false);
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override
     public void closeScreen()
     {
-        CoolerBookScreen.openScreen();
+        CoolerBookScreen.openScreen(true);
     }
 
     public void playSound()

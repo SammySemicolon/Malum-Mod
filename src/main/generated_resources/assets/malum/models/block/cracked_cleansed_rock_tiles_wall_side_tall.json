@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_wall_side_tall",
-  "textures": {
-    "wall": "malum:block/cracked_cleansed_rock_tiles"
-  }
-}

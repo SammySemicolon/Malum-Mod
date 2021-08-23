@@ -471,11 +471,11 @@ public class CoolerBookScreen extends Screen
         playerEntity.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
     }
 
-    public static void openScreen()
+    public static void openScreen(boolean ignoreNextMouseClick)
     {
         Minecraft.getInstance().displayGuiScreen(getInstance());
         screen.playSound();
-        screen.ignoreNextMouseClick = true;
+        screen.ignoreNextMouseClick = ignoreNextMouseClick;
     }
 
     public static CoolerBookScreen getInstance()

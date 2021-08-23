@@ -94,7 +94,7 @@ public class MalumLang extends LanguageProvider
 
         addHeadline("spirit_magics", "Basics of spirit magic");
         addPage("spirit_magics_a", "When a spirit is brought out of a soul it takes on a physical form, a crystal of sorts. Due to how spirits react to nearby souls, the spirit crystal will resonate with only your soul and be pulled towards you making it quite easy to collect. No one can steal your precious spirits, they resonate with your soul only.");
-        addPage("spirit_magics_b", "Once in crystal form a spirit's energy can be easily released, it can naturally interact with the world around you, it can be infused into various catalysts and reagents through complex magic processes and more things you'll learn about soon enough. Do note though that if a spirit is left uncollected, it will dissolve into the space around it.");
+        addPage("spirit_magics_b", "Once in crystal form a spirit's energy can be easily released, it can naturally interact with the world around you, it can be infused into various catalysts and reagents through complex magic processes and other magical forms of crafting. Do note that if a spirit is left uncollected, it will dissolve into the space around it.");
         addPage("spirit_magics_c", "Spirits left uncollected can have a very strange impact on the world, there are many curiosities you may have already found that only exist due to some careless spirit hunter. Spirits can easily change the world around you.");
 
         addHeadline("soulstone", "Soulstone");
@@ -110,7 +110,7 @@ public class MalumLang extends LanguageProvider
         addPage("solar_sap_c", "...There's probably some technology out there that would allow you to remove the magic from sapballs and turn them back into slime, best not to worry about that.");
 
         addHeadline("scythes", "Scythes!");
-        addPage("scythes_a", "A scythe is a weapon of magic origin designed for cutting through hordes of enemies. The axe exchanges attack speed for extra damage, the scythe on the other hand trades it off for crowd control. Any attack done with the scythe will count as a stronger version of a sword's sweep attack.");
+        addPage("scythes_a", "A scythe is a weapon of magic origin designed for cutting through hordes of enemies. The axe exchanges attack speed for extra damage, the scythe on the other hand gains crowd control. Any attack done with the scythe will count as a stronger version of a sword's sweep attack.");
         addPage("scythes_b", "The scythe is also the most important tool of a spirit hunter, it's excellence at crowd control combined with it's ability to shatter souls makes it the perfect weapon for hunting spirits.");
         addPage("scythes_c", "The simplest scythe you can make uses iron for it's blade and a basic soulstone as a reagent. The scythe also accepts many exclusive enchantments!");
 
@@ -128,7 +128,7 @@ public class MalumLang extends LanguageProvider
         addPage("sacred_spirit_b", "When you're in need of a specific spirit you'll need to do some thinking. It'd be boring if the solution was handed out to you right away! Each soul has very specific spirits and their types depend on what kind of soul it is. The sacred spirit for example is found mainly within passive, relaxed souls.");
 
         addHeadline("wicked_spirit", "Wicked Spirit");
-        addPage("wicked_spirit_a", "Opposite of the sacred, the wicked spirit represents impurity and various dark magics. Even just touching this spirit creates a mild pain. Wicked magics can be really dangerous in the right hands.");
+        addPage("wicked_spirit_a", "Opposite of the sacred, the wicked spirit represents impurity and various dark and evil magics. Even just touching this spirit creates a mild pain. Wicked magics can be really dangerous in the right hands.");
         addPage("wicked_spirit_b", "Generally when a body dies, the soul peacefully and slowly fades out alongside it. However, if the body is to be brought back to life through necromancy or some other reanimating magic just seconds after death the soul may be brought back! Through this process the soul is implanted with wicked spirit and overtime becomes one with it.");
 
         addHeadline("arcane_spirit", "Arcane Spirit");
@@ -149,7 +149,7 @@ public class MalumLang extends LanguageProvider
         addPage("twisted_rock", "If we are to replace sacred spirit with it's opposite the result will change to a more gloomy stone. Twisted rock is indifferent from it's holy variant apart from looks.");
 
         addHeadline("ether", "Ether");
-        addPage("ether_a", "Nowadays most magics offer you a unique magical source of light for all purpose use, spirit magics are no different. Ether, alternatively known as Nitor is a magical flame that burns and shines bright forever. It can be placed on a torch or an arcane rock brazier which can be placed or hanged on a chain.");
+        addPage("ether_a", "Nowadays most magics offer you a unique magical source of light for all purpose use, spirit magics are no different. Ether, alternatively known as Nitor is a magical flame that burns and shines bright forever. It can be placed on a torch or an arcane rock brazier which can be placed or hanged.");
         addPage("ether_b", "Additionally, the ether flame can be dyed into practically any color. Simply combine the ether item with any combination of dyes and it's color will be altered! For various reasons monochromatic dyes may yield possibly undesirable results without other dyes mixed in.");
 
         addHeadline("iridescent_ether", "Iridescent Ether");

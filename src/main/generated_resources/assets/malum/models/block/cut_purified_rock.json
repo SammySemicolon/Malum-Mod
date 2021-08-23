@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "side": "malum:block/cut_purified_rock",
-    "bottom": "malum:block/smooth_purified_rock",
-    "top": "malum:block/smooth_purified_rock"
-  }
-}

@@ -21,7 +21,7 @@ public class EncyclopediaArcanaItem extends Item
     {
         if (MalumHelper.areWeOnClient(worldIn))
         {
-            CoolerBookScreen.openScreen();
+            CoolerBookScreen.openScreen(true);
             playerIn.swingArm(handIn);
             return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
         }

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "side": "malum:block/polished_purified_rock",
-    "bottom": "malum:block/polished_purified_rock",
-    "top": "malum:block/polished_purified_rock"
-  }
-}

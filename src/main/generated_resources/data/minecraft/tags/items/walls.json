@@ -14,27 +14,6 @@
     "malum:cracked_twisted_rock_bricks_wall",
     "malum:twisted_rock_tiles_wall",
     "malum:cracked_small_twisted_rock_bricks_wall",
-    "malum:cracked_twisted_rock_tiles_wall",
-    "malum:purified_rock_wall",
-    "malum:purified_rock_bricks_wall",
-    "malum:small_purified_rock_bricks_wall",
-    "malum:cracked_purified_rock_bricks_wall",
-    "malum:purified_rock_tiles_wall",
-    "malum:cracked_small_purified_rock_bricks_wall",
-    "malum:cracked_purified_rock_tiles_wall",
-    "malum:cleansed_rock_wall",
-    "malum:cleansed_rock_bricks_wall",
-    "malum:small_cleansed_rock_bricks_wall",
-    "malum:cracked_cleansed_rock_bricks_wall",
-    "malum:cleansed_rock_tiles_wall",
-    "malum:cracked_small_cleansed_rock_bricks_wall",
-    "malum:cracked_cleansed_rock_tiles_wall",
-    "malum:eroded_rock_wall",
-    "malum:eroded_rock_bricks_wall",
-    "malum:small_eroded_rock_bricks_wall",
-    "malum:cracked_eroded_rock_bricks_wall",
-    "malum:eroded_rock_tiles_wall",
-    "malum:cracked_small_eroded_rock_bricks_wall",
-    "malum:cracked_eroded_rock_tiles_wall"
+    "malum:cracked_twisted_rock_tiles_wall"
   ]
 }
