@@ -1,14 +1,7 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "ingredient_list": [
-      {
-        "item": "minecraft:acacia_leaves"
-      },
-      {
-        "item": "minecraft:acacia_boat"
-      }
-    ],
+    "item": "minecraft:leather_helmet",
     "count": 1
   },
   "output": {

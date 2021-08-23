@@ -93,7 +93,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return spirits;
     }
-    public static SpiritInfusionRecipe getRecipe(World world, ItemStack stack, ArrayList<ItemStack> spirits)
+    public static SpiritInfusionRecipe getRecipeForAltar(World world, ItemStack stack, ArrayList<ItemStack> spirits)
     {
         List<SpiritInfusionRecipe> recipes = getRecipes(world);
         for (SpiritInfusionRecipe recipe : recipes)
@@ -105,7 +105,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return null;
     }
-    public static SpiritInfusionRecipe getRecipe(World world, ItemStack stack)
+    public static SpiritInfusionRecipe getRecipeForArcana(World world, ItemStack stack)
     {
         List<SpiritInfusionRecipe> recipes = getRecipes(world);
         for (SpiritInfusionRecipe recipe : recipes)
@@ -149,7 +149,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     }
     public boolean doesOutputMatch(ItemStack output)
     {
-        return output.getItem().equals(this.output);
+        return this.output.item.equals(output.getItem());
     }
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritInfusionRecipe> {
 

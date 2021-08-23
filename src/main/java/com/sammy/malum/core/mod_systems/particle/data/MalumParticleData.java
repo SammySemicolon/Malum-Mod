@@ -17,7 +17,7 @@ public class MalumParticleData implements IParticleData {
     public float spin = 0;
     public boolean gravity = false;
     public boolean noClip = false;
-
+    public float colorCurveMultiplier = 1f;
     public static Codec<MalumParticleData> codecFor(ParticleType<?> type) {
         return RecordCodecBuilder.create(instance -> instance.group(
             Codec.FLOAT.fieldOf("r1").forGetter(d -> d.r1),
@@ -33,9 +33,10 @@ public class MalumParticleData implements IParticleData {
             Codec.INT.fieldOf("lifetime").forGetter(d -> d.lifetime),
             Codec.FLOAT.fieldOf("spin").forGetter(d -> d.spin),
                 Codec.BOOL.fieldOf("gravity").forGetter(d -> d.gravity),
-                Codec.BOOL.fieldOf("noClip").forGetter(d -> d.noClip)
+                Codec.BOOL.fieldOf("noClip").forGetter(d -> d.noClip),
+                Codec.FLOAT.fieldOf("colorCurveMultiplier").forGetter(d -> d.colorCurveMultiplier)
         ).apply(instance, (r1, g1, b1, a1, r2, g2, b2, a2, scale1, scale2,
-                           lifetime, spin, gravity, noClip) -> {
+                           lifetime, spin, gravity, noClip, colorCurveMultiplier) -> {
             MalumParticleData data = new MalumParticleData(type);
             data.r1 = r1; data.g1 = g1; data.b1 = b1; data.a1 = a1;
             data.r2 = r2; data.g2 = g2; data.b2 = b2; data.a2 = a2;
@@ -45,6 +46,7 @@ public class MalumParticleData implements IParticleData {
             data.spin = spin;
             data.gravity = gravity;
             data.noClip = noClip;
+            data.colorCurveMultiplier = colorCurveMultiplier;
             return data;
         }));
     }
@@ -69,6 +71,7 @@ public class MalumParticleData implements IParticleData {
         buffer.writeFloat(spin);
         buffer.writeBoolean(gravity);
         buffer.writeBoolean(noClip);
+        buffer.writeFloat(colorCurveMultiplier);
     }
     public void setColor(float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2)
     {
@@ -118,6 +121,8 @@ public class MalumParticleData implements IParticleData {
             boolean gravity = reader.readBoolean();
             reader.expect(' ');
             boolean noClip = reader.readBoolean();
+            reader.expect(' ');
+            float colorCurveMultiplier = reader.readFloat();
             MalumParticleData data = new MalumParticleData(type);
             data.r1 = r1;
             data.g1 = g1;
@@ -133,6 +138,7 @@ public class MalumParticleData implements IParticleData {
             data.spin = spin;
             data.gravity = gravity;
             data.noClip = noClip;
+            data.colorCurveMultiplier = colorCurveMultiplier;
             return data;
         }
 
@@ -152,6 +158,7 @@ public class MalumParticleData implements IParticleData {
             float spin = buf.readFloat();
             boolean gravity = buf.readBoolean();
             boolean noClip = buf.readBoolean();
+            float colorCurveMultiplier = buf.readFloat();
             MalumParticleData data = new MalumParticleData(type);
             data.r1 = r1;
             data.g1 = g1;
@@ -167,6 +174,7 @@ public class MalumParticleData implements IParticleData {
             data.spin = spin;
             data.gravity = gravity;
             data.noClip = noClip;
+            data.colorCurveMultiplier = colorCurveMultiplier;
             return data;
         }
     };

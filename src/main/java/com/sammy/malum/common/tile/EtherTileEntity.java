@@ -111,6 +111,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
                     .setColor(firstColor, secondColor)
+                    .setColorCurveMultiplier(1.5f)
                     .spawn(world, x, y, z);
 
             ParticleManager.create(MalumParticles.WISP_PARTICLE)
@@ -118,6 +119,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                     .setLifetime(lifeTime)
                     .setAlpha(0.9f, 0.75f)
                     .setColor(firstColor, secondColor)
+                    .setColorCurveMultiplier(2f)
                     .addVelocity(0, velocity, 0)
                     .setSpin(world.rand.nextFloat() * 0.5f)
                     .spawn(world, x, y, z);
@@ -128,6 +130,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                 ParticleManager.create(MalumParticles.SPIRIT_FLAME)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
+                        .setColorCurveMultiplier(3f)
                         .randomOffset(0.15f, 0.25f)
                         .addVelocity(0, 0.02f, 0)
                         .spawn(world, x, y, z);
@@ -135,6 +138,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                 ParticleManager.create(MalumParticles.SPIRIT_FLAME)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
+                        .setColorCurveMultiplier(3f)
                         .randomOffset(0.1f, 0.25f)
                         .addVelocity(0, velocity, 0)
                         .spawn(world, x, y, z);

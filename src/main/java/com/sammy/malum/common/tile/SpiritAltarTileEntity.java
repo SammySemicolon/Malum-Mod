@@ -59,7 +59,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 SpiritAltarTileEntity.this.markDirty();
                 updateContainingBlockInfo();
                 MalumHelper.updateAndNotifyState(world, pos);
-                recipe = SpiritInfusionRecipe.getRecipe(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
+                recipe = SpiritInfusionRecipe.getRecipeForAltar(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
             }
         };
         extrasInventory = new SimpleTileEntityInventory(8, 1)
@@ -80,7 +80,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 SpiritAltarTileEntity.this.markDirty();
                 updateContainingBlockInfo();
                 MalumHelper.updateAndNotifyState(world, pos);
-                recipe = SpiritInfusionRecipe.getRecipe(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
+                recipe = SpiritInfusionRecipe.getRecipeForAltar(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
             }
         };
     }
@@ -119,7 +119,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         inventory.readData(compound);
         spiritInventory.readData(compound, "spiritInventory");
         extrasInventory.readData(compound, "extrasInventory");
-        recipe = SpiritInfusionRecipe.getRecipe(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
+        recipe = SpiritInfusionRecipe.getRecipeForAltar(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
     }
     
     @Override
@@ -143,60 +143,15 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                     world.playSound(null, pos, MalumSounds.ALTAR_LOOP, SoundCategory.BLOCKS, 1, 1f);
                     soundCooldown = 180;
                 }
-                ItemStack stack = inventory.getStackInSlot(0);
                 progress++;
                 int progressCap = spedUp ? 60 : 360;
                 if (progress >= progressCap)
                 {
-                    Vector3d itemPos = itemPos(this);
-                    int extras = extrasInventory.nonEmptyItems();
-                    if (extras != recipe.extraItems.size())
+                    boolean success = consume();
+                    if (success)
                     {
-                        progress *= 0.5f;
-                        int horizontal = 4;
-                        int vertical = 2;
-                        Collection<BlockPos> nearbyBlocks = MalumHelper.getBlocks(pos, horizontal, vertical, horizontal);
-                        for (BlockPos pos : nearbyBlocks)
-                        {
-                            if (world.getTileEntity(pos) instanceof IAltarProvider)
-                            {
-                                IAltarProvider tileEntity = (IAltarProvider) world.getTileEntity(pos);
-                                ItemStack providedStack = tileEntity.providedInventory().getStackInSlot(0);
-                                IngredientWithCount requestedItem = recipe.extraItems.get(extrasInventory.nonEmptyItems());
-                                if (requestedItem.matches(providedStack))
-                                {
-                                    world.playSound(null, pos, MalumSounds.ALTAR_CONSUME, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
-                                    Vector3d providedItemPos = tileEntity.providedItemPos();
-                                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.spirits(), providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
-                                    extrasInventory.playerInsertItem(world, providedStack.split(requestedItem.count));
-                                    MalumHelper.updateAndNotifyState(world, pos);
-                                    MalumHelper.updateAndNotifyState(world, this.pos);
-                                    break;
-                                }
-                            }
-                        }
-                        return;
+                        craft();
                     }
-                    for (ItemWithCount spirit : recipe.spirits)
-                    {
-                        for (int i = 0; i < spiritInventory.slotCount; i++)
-                        {
-                            ItemStack spiritStack = spiritInventory.getStackInSlot(i);
-                            if (spirit.matches(spiritStack))
-                            {
-                                spiritStack.shrink(spirit.count);
-                                break;
-                            }
-                        }
-                    }
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.spirits(), itemPos.x, itemPos.y, itemPos.z));
-                    stack.shrink(recipe.input.count);
-                    world.addEntity(new ItemEntity(world, itemPos.x, itemPos.y, itemPos.z, recipe.output.stack()));
-                    progress = 0;
-                    extrasInventory.clearItems();
-                    recipe = SpiritInfusionRecipe.getRecipe(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());
-                    MalumHelper.updateAndNotifyState(world, pos);
-                    world.playSound(null, pos, MalumSounds.ALTAR_CRAFT, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
                 }
             }
         }
@@ -214,9 +169,13 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             passiveParticles();
         }
     }
-    public static Vector3d itemPos(SimpleTileEntity tileEntity)
+    public static Vector3d itemPos(SpiritAltarTileEntity tileEntity)
     {
-        return MalumHelper.pos(tileEntity.getPos()).add(0.5f,1.15f,0.5f);
+        return MalumHelper.pos(tileEntity.getPos()).add(tileEntity.itemOffset());
+    }
+    public Vector3d itemOffset()
+    {
+        return new Vector3d(0.5f, 1.25f, 0.5f);
     }
     public static Vector3d itemOffset(SpiritAltarTileEntity tileEntity, int slot)
     {
@@ -224,7 +183,72 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         float height = 0.75f + Math.min(0.5f, tileEntity.spinUp / 20f);
         return MalumHelper.rotatedCirclePosition(new Vector3d(0.5f,height,0.5f), distance,slot, tileEntity.spiritInventory.nonEmptyItems(), (long)tileEntity.spin,360);
     }
+    public boolean consume()
+    {
+        Vector3d itemPos = itemPos(this);
+        int extras = extrasInventory.nonEmptyItems();
+        if (extras != recipe.extraItems.size())
+        {
+            progress *= 0.5f;
+            int horizontal = 4;
+            int vertical = 2;
+            Collection<BlockPos> nearbyBlocks = MalumHelper.getBlocks(pos, horizontal, vertical, horizontal);
+            for (BlockPos pos : nearbyBlocks)
+            {
+                if (world.getTileEntity(pos) instanceof IAltarProvider)
+                {
+                    IAltarProvider tileEntity = (IAltarProvider) world.getTileEntity(pos);
+                    ItemStack providedStack = tileEntity.providedInventory().getStackInSlot(0);
+                    IngredientWithCount requestedItem = recipe.extraItems.get(extras);
+                    if (requestedItem.matches(providedStack))
+                    {
+                        world.playSound(null, pos, MalumSounds.ALTAR_CONSUME, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
+                        Vector3d providedItemPos = tileEntity.providedItemPos();
+                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.spirits(), providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
+                        extrasInventory.playerInsertItem(world, providedStack.split(requestedItem.count));
+                        MalumHelper.updateAndNotifyState(world, pos);
+                        MalumHelper.updateAndNotifyState(world, this.pos);
+                        break;
+                    }
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+    public void craft()
+    {
+        ItemStack stack = inventory.getStackInSlot(0);
+        Vector3d itemPos = itemPos(this);
+        ItemStack outputStack = recipe.output.stack();
+        if (inventory.getStackInSlot(0).hasTag())
+        {
+            outputStack.setTag(stack.getTag());
+        }
 
+        stack.shrink(recipe.input.count);
+        for (ItemWithCount spirit : recipe.spirits)
+        {
+            for (int i = 0; i < spiritInventory.slotCount; i++)
+            {
+                ItemStack spiritStack = spiritInventory.getStackInSlot(i);
+                if (spirit.matches(spiritStack))
+                {
+                    spiritStack.shrink(spirit.count);
+                    break;
+                }
+            }
+        }
+
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.spirits(), itemPos.x, itemPos.y, itemPos.z));
+        progress = 0;
+        extrasInventory.clearItems();
+        recipe = SpiritInfusionRecipe.getRecipeForAltar(world, stack, spiritInventory.nonEmptyStacks());
+        world.playSound(null, pos, MalumSounds.ALTAR_CRAFT, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
+        world.addEntity(new ItemEntity(world, itemPos.x, itemPos.y, itemPos.z, outputStack));
+
+        MalumHelper.updateAndNotifyState(world, pos);
+    }
     public void passiveParticles()
     {
         Vector3d itemPos = itemPos(this);

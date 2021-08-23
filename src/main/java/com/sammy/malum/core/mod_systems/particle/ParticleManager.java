@@ -83,7 +83,11 @@ public class ParticleManager
             data.b2 = c2.getBlue()/255f;
             return this;
         }
-    
+        public ParticleBuilder setColorCurveMultiplier(float colorCurveMultiplier)
+        {
+            data.colorCurveMultiplier = colorCurveMultiplier;
+            return this;
+        }
         public ParticleBuilder setAlpha(float a)
         {
             setAlpha(a, a);

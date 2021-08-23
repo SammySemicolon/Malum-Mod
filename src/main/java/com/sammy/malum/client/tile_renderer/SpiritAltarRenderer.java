@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
@@ -47,7 +48,8 @@ public class SpiritAltarRenderer extends TileEntityRenderer<SpiritAltarTileEntit
         if (!stack.isEmpty())
         {
             matrixStackIn.push();
-            matrixStackIn.translate(0.5f,1.15f, 0.5f);
+            Vector3d offset = tileEntityIn.itemOffset();
+            matrixStackIn.translate(offset.x, offset.y,offset.z);
             matrixStackIn.rotate(Vector3f.YP.rotationDegrees((world.getGameTime() % 360)* 3 + partialTicks));
             matrixStackIn.scale(0.4f, 0.4f, 0.4f);
             itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, matrixStackIn, bufferIn);

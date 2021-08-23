@@ -29,7 +29,7 @@ public class SpiritInfusionPage extends CoolerBookPage
             this.recipe = null;
             return;
         }
-        this.recipe = SpiritInfusionRecipe.getRecipe(Minecraft.getInstance().world, outputStack);
+        this.recipe = SpiritInfusionRecipe.getRecipeForArcana(Minecraft.getInstance().world, outputStack);
     }
     public SpiritInfusionPage(Item outputItem)
     {

@@ -32,9 +32,15 @@ public class GenericMalumParticle extends SpriteTexturedParticle {
         return (float)this.age / (float)this.maxAge;
     }
 
+    protected float getColorCoeff() {
+        float increasedAge = Math.min(this.age * data.colorCurveMultiplier, this.maxAge);
+        return increasedAge / (float)this.maxAge;
+    }
+
     protected void updateTraits() {
         float coeff = getCoeff();
         particleScale = MathHelper.lerp(coeff, data.scale1, data.scale2);
+        coeff = getColorCoeff();
         float h = MathHelper.interpolateAngle(coeff, 360 * hsv1[0], 360 * hsv2[0]) / 360;
         float s = MathHelper.lerp(coeff, hsv1[1], hsv2[1]);
         float v = MathHelper.lerp(coeff, hsv1[2], hsv2[2]);
