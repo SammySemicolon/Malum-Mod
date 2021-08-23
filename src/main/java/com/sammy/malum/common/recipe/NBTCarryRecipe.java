@@ -123,7 +123,11 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
         }
         return stack;
     }
-
+    @Override
+    public boolean isDynamic()
+    {
+        return false;
+    }
     @Override
     public String getGroup() {
         return this.group;

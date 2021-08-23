@@ -36,7 +36,7 @@ public class HeadlineTextPage extends CoolerBookPage
         int guiTop = guiTop();
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
         CoolerBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
-        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+31,124);
+        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+31,120);
     }
 
     @Override
@@ -46,6 +46,6 @@ public class HeadlineTextPage extends CoolerBookPage
         int guiTop = guiTop();
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
         CoolerBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
-        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+31,124);
+        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+31,120);
     }
 }

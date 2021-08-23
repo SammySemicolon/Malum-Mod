@@ -24,7 +24,7 @@ public class TextPage extends CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+10,124);
+        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+10,120);
     }
 
     @Override
@@ -32,6 +32,6 @@ public class TextPage extends CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+10,124);
+        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+10,120);
     }
 }
