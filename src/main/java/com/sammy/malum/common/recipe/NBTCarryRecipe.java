@@ -17,11 +17,12 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import java.util.Map;
 import java.util.Set;
 
-public class NBTCarryRecipe extends SpecialRecipe
+public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<CraftingInventory>
 {
     public static final ResourceLocation NAME = MalumHelper.prefix("nbt_carry");
     public static final NBTCarryRecipe.Serializer SERIALIZER = new NBTCarryRecipe.Serializer();
@@ -47,31 +48,12 @@ public class NBTCarryRecipe extends SpecialRecipe
         this.recipeOutput = recipeOutputIn;
     }
 
+    @Override
     public IRecipeSerializer<?> getSerializer()
     {
         return SERIALIZER;
     }
-
-    public String getGroup()
-    {
-        return this.group;
-    }
-
-    public ItemStack getRecipeOutput()
-    {
-        return this.recipeOutput;
-    }
-
-    public NonNullList<Ingredient> getIngredients()
-    {
-        return this.recipeItems;
-    }
-
-    public boolean canFit(int width, int height)
-    {
-        return width >= this.recipeWidth && height >= this.recipeHeight;
-    }
-
+    @Override
     public boolean matches(CraftingInventory inv, World worldIn)
     {
         for (int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i)
@@ -124,6 +106,7 @@ public class NBTCarryRecipe extends SpecialRecipe
         return true;
     }
 
+    @Override
     public ItemStack getCraftingResult(CraftingInventory inv)
     {
         ItemStack stack = recipeOutput.copy();
@@ -139,6 +122,35 @@ public class NBTCarryRecipe extends SpecialRecipe
             }
         }
         return stack;
+    }
+
+    @Override
+    public String getGroup() {
+        return this.group;
+    }
+
+    @Override
+    public ItemStack getRecipeOutput() {
+        return this.recipeOutput;
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return this.recipeItems;
+    }
+    @Override
+    public boolean canFit(int width, int height) {
+        return width >= this.recipeWidth && height >= this.recipeHeight;
+    }
+
+    @Override
+    public int getRecipeWidth() {
+        return this.recipeWidth;
+    }
+
+    @Override
+    public int getRecipeHeight() {
+        return this.recipeHeight;
     }
 
     private static NonNullList<Ingredient> deserializeIngredients(String[] pattern, Map<String, Ingredient> keys, int patternWidth, int patternHeight)
@@ -316,6 +328,7 @@ public class NBTCarryRecipe extends SpecialRecipe
         }
     }
 
+
     public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<NBTCarryRecipe>
     {
         public NBTCarryRecipe read(ResourceLocation recipeId, JsonObject json)
@@ -329,7 +342,7 @@ public class NBTCarryRecipe extends SpecialRecipe
             Ingredient nbtCarry = Ingredient.deserialize(json.get("nbtCarry"));
             ItemStack itemstack = deserializeItem(JSONUtils.getJsonObject(json, "result"));
 
-            return new NBTCarryRecipe(recipeId, s, i, j,nbtCarry, nonnulllist, itemstack);
+            return new NBTCarryRecipe(recipeId, s, i, j, nbtCarry, nonnulllist, itemstack);
         }
 
         public NBTCarryRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
@@ -346,7 +359,7 @@ public class NBTCarryRecipe extends SpecialRecipe
 
             Ingredient nbtCarry = Ingredient.read(buffer);
             ItemStack itemstack = buffer.readItemStack();
-            return new NBTCarryRecipe(recipeId, s, i, j,nbtCarry, nonnulllist, itemstack);
+            return new NBTCarryRecipe(recipeId, s, i, j, nbtCarry, nonnulllist, itemstack);
         }
 
         public void write(PacketBuffer buffer, NBTCarryRecipe recipe)
