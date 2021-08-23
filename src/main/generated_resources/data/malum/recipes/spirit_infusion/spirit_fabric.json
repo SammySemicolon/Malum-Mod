@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "minecraft:white_wool",
+    "tag": "minecraft:wool",
     "count": 1
   },
   "output": {
@@ -14,7 +14,8 @@
       "count": 2
     },
     {
-      "item": "malum:hex_ash"
+      "item": "malum:hex_ash",
+      "count": 1
     }
   ],
   "spirits": [

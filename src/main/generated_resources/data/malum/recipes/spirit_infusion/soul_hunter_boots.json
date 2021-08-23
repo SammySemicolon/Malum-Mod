@@ -1,7 +1,8 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "minecraft:leather_boots"
+    "item": "minecraft:leather_boots",
+    "count": 1
   },
   "output": {
     "item": "malum:soul_hunter_boots"
@@ -12,7 +13,8 @@
       "count": 4
     },
     {
-      "item": "malum:soulstone"
+      "item": "malum:soulstone",
+      "count": 1
     }
   ],
   "spirits": [

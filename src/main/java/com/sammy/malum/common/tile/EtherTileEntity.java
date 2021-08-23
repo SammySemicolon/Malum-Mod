@@ -51,8 +51,14 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
     @Override
     public CompoundNBT writeData(CompoundNBT compound)
     {
-        compound.putInt("firstColor", firstColor.getRGB());
-        compound.putInt("secondColor", secondColor.getRGB());
+        if (firstColor != null)
+        {
+            compound.putInt("firstColor", firstColor.getRGB());
+        }
+        if (secondColor != null)
+        {
+            compound.putInt("secondColor", secondColor.getRGB());
+        }
         return super.writeData(compound);
     }
 
@@ -71,7 +77,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
             {
                 return;
             }
-            Color firstColor = MalumHelper.darker(this.firstColor, 2);
+            Color firstColor = MalumHelper.darker(this.firstColor, 1);
             Color secondColor = MalumHelper.brighter(this.secondColor, 1);
 
 
@@ -87,17 +93,17 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                 x += direction.getDirectionVec().getX() * -0.28f;
                 y += 0.2f;
                 z += direction.getDirectionVec().getZ() * -0.28f;
-                lifeTime-=6;
+                lifeTime -= 6;
             }
 
             if (getBlockState().getBlock() instanceof EtherTorchBlock)
             {
-                lifeTime-=4;
+                lifeTime -= 4;
             }
             if (getBlockState().getBlock() instanceof EtherBrazierBlock)
             {
                 y -= 0.2f;
-                lifeTime-=2;
+                lifeTime -= 2;
                 scale *= 1.25f;
             }
             ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
@@ -107,30 +113,29 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                     .setColor(firstColor, secondColor)
                     .spawn(world, x, y, z);
 
-            if (world.rand.nextFloat() < 0.98f)
+            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                    .setScale(scale, 0)
+                    .setLifetime(lifeTime)
+                    .setAlpha(0.9f, 0.75f)
+                    .setColor(firstColor, secondColor)
+                    .addVelocity(0, velocity, 0)
+                    .setSpin(world.rand.nextFloat() * 0.5f)
+                    .spawn(world, x, y, z);
+
+            if (world.getGameTime() % 2L == 0 && world.rand.nextFloat() < 0.25f)
             {
-                ParticleManager.create(MalumParticles.WISP_PARTICLE)
-                        .setScale(scale, 0)
-                        .setLifetime(lifeTime)
-                        .setAlpha(0.9f, 0.75f)
-                        .setColor(firstColor, secondColor)
-                        .addVelocity(0, velocity, 0)
-                        .setSpin(world.rand.nextFloat() * 0.5f)
-                        .spawn(world, x, y, z);
-            }
-            if (world.getGameTime() % 3L == 0 && world.rand.nextFloat() < 0.5f)
-            {
+                y += 0.05f;
                 ParticleManager.create(MalumParticles.SPIRIT_FLAME)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
-                        .randomOffset(0.2f, 0.3f)
+                        .randomOffset(0.15f, 0.25f)
                         .addVelocity(0, 0.02f, 0)
                         .spawn(world, x, y, z);
 
                 ParticleManager.create(MalumParticles.SPIRIT_FLAME)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
-                        .randomOffset(0.1f, 0.3f)
+                        .randomOffset(0.1f, 0.25f)
                         .addVelocity(0, velocity, 0)
                         .spawn(world, x, y, z);
             }

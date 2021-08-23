@@ -70,11 +70,11 @@ public class MalumBlockLootTables extends LootTableProvider
 
         blocks.remove(MalumBlocks.ETHER);
         blocks.remove(MalumBlocks.ETHER_TORCH);
-        blocks.remove(MalumBlocks.ETHER_BRAZIER);
+        blocks.remove(MalumBlocks.TAINTED_ETHER_BRAZIER);
 
         blocks.remove(MalumBlocks.IRIDESCENT_ETHER);
         blocks.remove(MalumBlocks.IRIDESCENT_ETHER_TORCH);
-        blocks.remove(MalumBlocks.IRIDESCENT_ETHER_BRAZIER);
+        blocks.remove(MalumBlocks.TAINTED_IRIDESCENT_ETHER_BRAZIER);
 
         takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);

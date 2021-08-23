@@ -1,7 +1,8 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "minecraft:iron_helmet"
+    "item": "minecraft:iron_helmet",
+    "count": 1
   },
   "output": {
     "item": "malum:soul_stained_steel_helmet"
@@ -12,7 +13,8 @@
       "count": 4
     },
     {
-      "item": "malum:hex_ash"
+      "item": "malum:hex_ash",
+      "count": 1
     },
     {
       "item": "malum:soulstone",

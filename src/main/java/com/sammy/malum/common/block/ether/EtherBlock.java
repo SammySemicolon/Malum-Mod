@@ -60,8 +60,14 @@ public class EtherBlock extends Block implements IWaterLoggable
         {
             EtherTileEntity tileEntity = (EtherTileEntity) world.getTileEntity(pos);
             AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
-            etherItem.setFirstColor(stack, tileEntity.firstColor.getRGB());
-            etherItem.setSecondColor(stack, tileEntity.secondColor.getRGB());
+            if (tileEntity.firstColor != null)
+            {
+                etherItem.setFirstColor(stack, tileEntity.firstColor.getRGB());
+            }
+            if (tileEntity.secondColor != null)
+            {
+                etherItem.setSecondColor(stack, tileEntity.secondColor.getRGB());
+            }
         }
         return stack;
     }

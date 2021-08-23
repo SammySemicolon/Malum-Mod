@@ -7,14 +7,11 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.objects.CoolerBookObject;
 import com.sammy.malum.client.screen.cooler_book.objects.EntryBookObject;
 import com.sammy.malum.client.screen.cooler_book.pages.*;
-import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -73,45 +70,52 @@ public class CoolerBookScreen extends Screen
         entries.add(new CoolerBookEntry(
                 "introduction", ENCYCLOPEDIA_ARCANA.get(),0,1)
                 .down(1)
-                .addPage(new HeadlineTextPage("introduction","introduction_a", MalumItems.ENCYCLOPEDIA_ARCANA.get()))
+                .addPage(new HeadlineTextPage("introduction","introduction_a"))
                 .addPage(new TextPage("introduction_b"))
-                .addPage(new TextPage("introduction_c")));
+                .addPage(new TextPage("introduction_c"))
+        );
 
         entries.add(new CoolerBookEntry(
                 "spirit_magics", SOUL_SAND,0,0)
                 .leftUp(2,2)
                 .rightUp(2,2)
-                .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a", ARCANE_SPIRIT.get()))
+                .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a"))
                 .addPage(new TextPage("spirit_magics_b"))
-                .addPage(new TextPage("spirit_magics_c")));
+                .addPage(new TextPage("spirit_magics_c"))
+        );
 
         entries.add(new CoolerBookEntry(
                 "runewood", RUNEWOOD_SAPLING.get(),1,1)
                 .upLeft(2,2)
-                .addPage(new HeadlineTextPage("runewood", "runewood_a", RUNEWOOD_SAPLING.get()))
+                .addPage(new HeadlineTextPage("runewood", "runewood_a"))
                 .addPage(new TextPage("runewood_b"))
-                .addPage(new HeadlineTextPage("solar_sap", "solar_sap_a", SOLAR_SAP_BOTTLE.get()))
+                .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
+                .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
+                .addPage(new HeadlineTextPage("solar_sap", "solar_sap_a"))
                 .addPage(new TextPage("solar_sap_b"))
                 .addPage(new SmeltingBookPage(SOLAR_SAP_BOTTLE.get(), SOLAR_SYRUP_BOTTLE.get()))
                 .addPage(new CraftingBookPage(SOLAR_SAPBALL.get(), Items.SLIME_BALL, SOLAR_SAP_BOTTLE.get()))
-                .addModCompatPage(new TextPage("solar_sap_c"), "thermal_expansion"));
+                .addModCompatPage(new TextPage("solar_sap_c"), "thermal_expansion")
+        );
 
         entries.add(new CoolerBookEntry(
                 "soulstone", SOULSTONE.get(),-1,1)
                 .upRight(2,2)
-                .addPage(new HeadlineTextPage("soulstone", "soulstone_a", SOULSTONE.get()))
-                .addPage(new TextPage("soulstone_b")));
+                .addPage(new HeadlineTextPage("soulstone", "soulstone_a"))
+                .addPage(new TextPage("soulstone_b"))
+        );
 
         entries.add(new CoolerBookEntry(
                 "scythes", CRUDE_SCYTHE.get(),0,2)
                 .upLeft(2,2)
-                .addPage(new HeadlineTextPage("scythes", "scythes_a", MalumItems.CRUDE_SCYTHE.get()))
+                .addPage(new HeadlineTextPage("scythes", "scythes_a"))
                 .addPage(new TextPage("scythes_b"))
                 .addPage(new TextPage("scythes_c"))
                 .addPage(CraftingBookPage.scythePage(MalumItems.CRUDE_SCYTHE.get(), Items.IRON_INGOT, SOULSTONE.get()))
-                .addPage(new HeadlineTextPage("haunted", "haunted", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.HAUNTED.get(), 0))))
-                .addPage(new HeadlineTextPage("spirit_plunder", "spirit_plunder", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.SPIRIT_PLUNDER.get(), 0))))
-                .addPage(new HeadlineTextPage("rebound", "rebound", EnchantedBookItem.getEnchantedItemStack(new EnchantmentData(MalumEnchantments.REBOUND.get(), 0)))));
+                .addPage(new HeadlineTextPage("haunted", "haunted"))
+                .addPage(new HeadlineTextPage("spirit_plunder", "spirit_plunder"))
+                .addPage(new HeadlineTextPage("rebound", "rebound"))
+        );
 
         entries.add(new CoolerBookEntry(
                 "simple_spirit_types", ARCANE_SPIRIT.get(),-1,3)
@@ -122,28 +126,58 @@ public class CoolerBookScreen extends Screen
                 .addPage(new TextPage("wicked_spirit_b"))
                 .addPage(new SpiritTextPage("arcane_spirit", "arcane_spirit_a", ARCANE_SPIRIT.get()))
                 .addPage(new TextPage("arcane_spirit_b"))
-                .addPage(new TextPage("arcane_spirit_c")));
+                .addPage(new TextPage("arcane_spirit_c"))
+        );
 
         entries.add(new CoolerBookEntry(
                 "spirit_infusion", SPIRIT_ALTAR.get(),1,4)
                 .upLeft(2,4)
-                .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a", SPIRIT_ALTAR.get()))
+                .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
                 .addPage(new TextPage("spirit_infusion_b"))
                 .addPage(new TextPage("spirit_infusion_c"))
                 .addPage(new CraftingBookPage(SPIRIT_ALTAR.get(), AIR, SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD.get(), GOLD_INGOT, RUNEWOOD.get(), RUNEWOOD.get(), RUNEWOOD.get()))
-                .addPage(new HeadlineTextPage("hex_ash", "hex_ash", HEX_ASH.get()))
-                .addPage(new SpiritInfusionPage(HEX_ASH.get())));
+                .addPage(new HeadlineTextPage("hex_ash", "hex_ash"))
+                .addPage(new SpiritInfusionPage(HEX_ASH.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "arcane_rock", TAINTED_ROCK.get(),2,4)
+                .right(1)
+                .addPage(new HeadlineTextPage("tainted_rock", "tainted_rock"))
+                .addPage(new SpiritInfusionPage(TAINTED_ROCK.get()))
+                .addPage(CraftingBookPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
+                .addPage(CraftingBookPage.itemStandPage(TAINTED_ROCK_ITEM_STAND.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
+                .addPage(new HeadlineTextPage("twisted_rock", "twisted_rock"))
+                .addPage(new SpiritInfusionPage(TWISTED_ROCK.get()))
+                .addPage(CraftingBookPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
+                .addPage(CraftingBookPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
+        );
+        entries.add(new CoolerBookEntry(
+                "ether", ETHER.get(), 3,4)
+                .addPage(new HeadlineTextPage("ether", "ether_a"))
+                .addPage(new TextPage("ether_b"))
+                .addPage(new SpiritInfusionPage(ETHER.get()))
+                .addPage(new CraftingBookPage(ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
+                .addPage(new CraftingBookPage(TAINTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
+                .addPage(new CraftingBookPage(TWISTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
+                .addPage(new HeadlineTextPage("iridescent_ether", "iridescent_ether_a"))
+                .addPage(new TextPage("iridescent_ether_b"))
+                .addPage(new SpiritInfusionPage(IRIDESCENT_ETHER.get()))
+                .addPage(new CraftingBookPage(IRIDESCENT_ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, IRIDESCENT_ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
+                .addPage(new CraftingBookPage(TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), IRIDESCENT_ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
+                .addPage(new CraftingBookPage(TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), IRIDESCENT_ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
+        );
 
         entries.add(new CoolerBookEntry(
                 "spirit_metallurgy", SOUL_STAINED_STEEL_INGOT.get(),0,5)
                 .left(1)
-                .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a", HALLOWED_GOLD_INGOT.get()))
+                .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a"))
                 .addPage(new TextPage("hallowed_gold_b"))
                 .addPage(new SpiritInfusionPage(HALLOWED_GOLD_INGOT.get()))
                 .addPage(CraftingBookPage.resonatorPage(HALLOWED_SPIRIT_RESONATOR.get(), QUARTZ, HALLOWED_GOLD_INGOT.get(), RUNEWOOD_PLANKS.get()))
-                .addPage(new HeadlineTextPage("spirit_jar", "spirit_jar", SPIRIT_JAR.get()))
+                .addPage(new HeadlineTextPage("spirit_jar", "spirit_jar"))
                 .addPage(new CraftingBookPage(SPIRIT_JAR.get(), GLASS_PANE, HALLOWED_GOLD_INGOT.get(), GLASS_PANE, GLASS_PANE, EMPTY, GLASS_PANE, GLASS_PANE, GLASS_PANE, GLASS_PANE))
-                .addPage(new HeadlineTextPage("soul_stained_steel", "soul_stained_steel_a", SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(new HeadlineTextPage("soul_stained_steel", "soul_stained_steel_a"))
                 .addPage(new TextPage("soul_stained_steel_b"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get()))
@@ -156,7 +190,7 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "spirit_trinkets", ORNATE_RING.get(), -2, 5)
-                .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a", GILDED_RING.get()))
+                .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
                 .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER,HALLOWED_GOLD_INGOT.get()))
                 .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
@@ -167,9 +201,9 @@ public class CoolerBookScreen extends Screen
         entries.add(new CoolerBookEntry(
                 "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -1, 5)
                 .left(1)
-                .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe", SOUL_STAINED_STEEL_SCYTHE.get()))
+                .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
-                .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor", SOUL_STAINED_STEEL_CHESTPLATE.get()))
+                .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_HELMET.get()))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_CHESTPLATE.get()))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_LEGGINGS.get()))
@@ -178,7 +212,7 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "spirit_rites", TOTEM_BASE.get(),0,6)
-                .addPage(new HeadlineTextPage("spirit_rites", "spirit_rites_a", TOTEM_BASE.get()))
+                .addPage(new HeadlineTextPage("spirit_rites", "spirit_rites_a"))
                 .addPage(new TextPage("spirit_rites_b"))
                 .addPage(new TextPage("spirit_rites_c"))
                 .addPage(new SpiritInfusionPage(TOTEM_BASE.get()))
@@ -446,7 +480,7 @@ public class CoolerBookScreen extends Screen
 
     public static CoolerBookScreen getInstance()
     {
-        //if (screen == null)
+        if (screen == null)
         {
             screen = new CoolerBookScreen();
             screen.faceObject(objects.get(0));

@@ -114,6 +114,24 @@ public class CraftingBookPage extends CoolerBookPage
         ItemStack empty = Items.AIR.getDefaultInstance();
         return new CraftingBookPage(ring, empty, material, reagent, material, empty, material,empty,material,empty);
     }
+    public static CraftingBookPage itemPedestalPage(Item pedestal, Item fullBlock, Item slab)
+    {
+        return itemPedestalPage(pedestal.getDefaultInstance(), fullBlock.getDefaultInstance(), slab.getDefaultInstance());
+    }
+    public static CraftingBookPage itemPedestalPage(ItemStack pedestal, ItemStack fullBlock, ItemStack slab)
+    {
+        ItemStack empty = Items.AIR.getDefaultInstance();
+        return new CraftingBookPage(pedestal, fullBlock, fullBlock, fullBlock, empty, slab, empty, fullBlock, fullBlock, fullBlock);
+    }
+    public static CraftingBookPage itemStandPage(Item stand, Item fullBlock, Item slab)
+    {
+        return itemStandPage(stand.getDefaultInstance(), fullBlock.getDefaultInstance(), slab.getDefaultInstance());
+    }
+    public static CraftingBookPage itemStandPage(ItemStack stand, ItemStack fullBlock, ItemStack slab)
+    {
+        ItemStack empty = Items.AIR.getDefaultInstance();
+        return new CraftingBookPage(stand, empty,empty,empty,slab,slab,slab,fullBlock,fullBlock,fullBlock);
+    }
 
     public static CraftingBookPage toolPage(Item tool, Item metal)
     {

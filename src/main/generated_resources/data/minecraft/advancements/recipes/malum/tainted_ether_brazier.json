@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:ether_brazier_brazier"
+      "minecraft:tainted_ether_brazier"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:ether_brazier_brazier"
+        "recipe": "minecraft:tainted_ether_brazier"
       }
     }
   },

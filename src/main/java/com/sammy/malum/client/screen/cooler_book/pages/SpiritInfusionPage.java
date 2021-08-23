@@ -4,13 +4,16 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
+import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
 import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
-import com.sammy.malum.core.mod_systems.recipe.ItemCount;
+import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.renderTexture;
 
@@ -43,11 +46,11 @@ public class SpiritInfusionPage extends CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ItemStack inputStack = new ItemStack(recipe.input, recipe.inputCount);
-        ItemStack outputStack = new ItemStack(recipe.output, recipe.outputCount);
+        ItemStack inputStack = recipe.input.stack();
+        ItemStack outputStack = recipe.output.stack();
         if (!recipe.extraItems.isEmpty())
         {
-            renderItems(matrixStack, guiLeft+105,guiTop+51, mouseX, mouseY, recipe.extraItems);
+            renderIngredients(matrixStack, guiLeft+105,guiTop+51, mouseX, mouseY, recipe.extraItems);
         }
         CoolerBookScreen.renderItem(matrixStack, inputStack, guiLeft+67, guiTop+59,mouseX,mouseY);
         CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
@@ -59,17 +62,22 @@ public class SpiritInfusionPage extends CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ItemStack inputStack = new ItemStack(recipe.input, recipe.inputCount);
-        ItemStack outputStack = new ItemStack(recipe.output, recipe.outputCount);
+        ItemStack inputStack = recipe.input.stack();
+        ItemStack outputStack = recipe.output.stack();
         if (!recipe.extraItems.isEmpty())
         {
-            renderItems(matrixStack, guiLeft+247,guiTop+51, mouseX, mouseY, recipe.extraItems);
+            renderIngredients(matrixStack, guiLeft+247,guiTop+51, mouseX, mouseY, recipe.extraItems);
         }
         CoolerBookScreen.renderItem(matrixStack, inputStack, guiLeft+209, guiTop+59,mouseX,mouseY);
         CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
         renderItems(matrixStack, guiLeft+157,guiTop+51, mouseX, mouseY, recipe.spirits);
     }
-    public void renderItems(MatrixStack matrixStack, int left, int top, int mouseX, int mouseY, List<ItemCount> items)
+    public void renderIngredients(MatrixStack matrixStack, int left, int top, int mouseX, int mouseY, List<IngredientWithCount> ingredients)
+    {
+        ArrayList<ItemWithCount> items = (ArrayList<ItemWithCount>) ingredients.stream().map(ItemWithCount::fromIngredient).collect(Collectors.toList());
+        renderItems(matrixStack, left, top, mouseX, mouseY, items);
+    }
+    public void renderItems(MatrixStack matrixStack, int left, int top, int mouseX, int mouseY, List<ItemWithCount> items)
     {
         //14 6, 156 6
         //15 51

@@ -5,9 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.SpiritItem;
-import com.sammy.malum.core.init.MalumSpiritTypes;
 import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
@@ -29,23 +27,26 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     public static final IRecipeType<SpiritInfusionRecipe> RECIPE_TYPE = new RecipeType<>();
     private final ResourceLocation id;
 
-    public final Item input;
-    public final int inputCount;
+    public final IngredientWithCount input;
 
-    public final Item output;
-    public final int outputCount;
+    public final ItemWithCount output;
 
-    public final List<ItemCount> spirits;
-    public final List<ItemCount> extraItems;
+    public final List<ItemWithCount> spirits;
+    public final List<IngredientWithCount> extraItems;
 
-
-    public SpiritInfusionRecipe(ResourceLocation id, Item input, int inputCount, Item output, int outputCount, List<ItemCount> spirits, List<ItemCount> extraItems)
+    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, ItemWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
     {
         this.id = id;
         this.input = input;
-        this.inputCount = inputCount;
         this.output = output;
-        this.outputCount = outputCount;
+        this.spirits = spirits;
+        this.extraItems = extraItems;
+    }
+    public SpiritInfusionRecipe(ResourceLocation id, Ingredient input, int inputCount, Item output, int outputCount, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
+    {
+        this.id = id;
+        this.input = new IngredientWithCount(input, inputCount);
+        this.output = new ItemWithCount(output, outputCount);
         this.spirits = spirits;
         this.extraItems = extraItems;
     }
@@ -69,7 +70,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     public ArrayList<ItemStack> sortedStacks(ArrayList<ItemStack> stacks)
     {
         ArrayList<ItemStack> sortedStacks = new ArrayList<>();
-        for (ItemCount item : spirits)
+        for (ItemWithCount item : spirits)
         {
             for (ItemStack stack : stacks)
             {
@@ -85,7 +86,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     public ArrayList<MalumSpiritType> spirits()
     {
         ArrayList<MalumSpiritType> spirits = new ArrayList<>();
-        for (ItemCount item : this.spirits)
+        for (ItemWithCount item : this.spirits)
         {
             SpiritItem spiritItem = (SpiritItem) item.item;
             spirits.add(spiritItem.type);
@@ -133,11 +134,10 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         for (int i = 0; i < this.spirits.size(); i++)
         {
-            ItemCount item = this.spirits.get(i);
+            ItemWithCount item = this.spirits.get(i);
             ItemStack stack = sortedStacks.get(i);
             if (!item.matches(stack))
             {
-
                 return false;
             }
         }
@@ -145,7 +145,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     }
     public boolean doesInputMatch(ItemStack input)
     {
-        return input.getCount() >= inputCount && input.getItem().equals(this.input);
+        return this.input.matches(input);
     }
     public boolean doesOutputMatch(ItemStack output)
     {
@@ -157,66 +157,66 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         public SpiritInfusionRecipe read(ResourceLocation recipeId, JsonObject json)
         {
             JsonObject inputObject = json.getAsJsonObject("input");
-            ItemStack input = ShapedRecipe.deserializeItem(inputObject);
+            IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
 
             JsonObject outputObject = json.getAsJsonObject("output");
-            ItemStack output = ShapedRecipe.deserializeItem(outputObject);
+            ItemWithCount output = ItemWithCount.deserialize(outputObject);
 
             JsonArray extraItemsArray = json.getAsJsonArray("extra_items");
-            ArrayList<ItemCount> extraItems = new ArrayList<>();
+            ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemsArray.size(); i++)
             {
                 JsonObject extraItemObject = extraItemsArray.get(i).getAsJsonObject();
-                extraItems.add(new ItemCount(ShapedRecipe.deserializeItem(extraItemObject)));
+                extraItems.add(IngredientWithCount.deserialize(extraItemObject));
             }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
-            ArrayList<ItemCount> spirits = new ArrayList<>();
+            ArrayList<ItemWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++)
             {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
-                spirits.add(new ItemCount(ShapedRecipe.deserializeItem(spiritObject)));
+                spirits.add(ItemWithCount.deserialize(spiritObject));
             }
             if (spirits.isEmpty())
             {
                 throw new JsonSyntaxException("Spirit infusion recipes need at least 1 spirit ingredient, recipe with id: " + recipeId + " is incorrect");
             }
-            return new SpiritInfusionRecipe(recipeId, input.getItem(), input.getCount(), output.getItem(), output.getCount(),spirits,extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, output,spirits,extraItems);
         }
 
         @Nullable
         @Override
         public SpiritInfusionRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
         {
-            ItemStack input = buffer.readItemStack();
+            IngredientWithCount input = IngredientWithCount.read(buffer);
             ItemStack output = buffer.readItemStack();
             int extraItemCount = buffer.readInt();
-            ArrayList<ItemCount> extraItems = new ArrayList<>();
+            ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemCount;i++)
             {
-                extraItems.add(new ItemCount(buffer.readItemStack()));
+                extraItems.add(IngredientWithCount.read(buffer));
             }
             int spiritCount = buffer.readInt();
-            ArrayList<ItemCount> spirits = new ArrayList<>();
+            ArrayList<ItemWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount;i++)
             {
-                spirits.add(new ItemCount(buffer.readItemStack()));
+                spirits.add(new ItemWithCount(buffer.readItemStack()));
             }
-            return new SpiritInfusionRecipe(recipeId, input.getItem(), input.getCount(), output.getItem(), output.getCount(), spirits, extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, new ItemWithCount(output), spirits, extraItems);
         }
 
         @Override
         public void write(PacketBuffer buffer, SpiritInfusionRecipe recipe)
         {
-            buffer.writeItemStack(new ItemStack(recipe.input, recipe.inputCount));
-            buffer.writeItemStack(new ItemStack(recipe.output, recipe.outputCount));
+            recipe.input.write(buffer);
+            buffer.writeItemStack(recipe.output.stack());
             buffer.writeInt(recipe.extraItems.size());
-            for (ItemCount item : recipe.extraItems)
+            for (IngredientWithCount item : recipe.extraItems)
             {
-                buffer.writeItemStack(item.stack());
+                item.write(buffer);
             }
             buffer.writeInt(recipe.spirits.size());
-            for (ItemCount item : recipe.spirits)
+            for (ItemWithCount item : recipe.spirits)
             {
                 buffer.writeItemStack(item.stack());
             }

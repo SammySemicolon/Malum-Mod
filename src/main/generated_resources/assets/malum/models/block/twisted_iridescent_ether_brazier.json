@@ -1,0 +1,7 @@
+{
+  "parent": "malum:block/template_ether_brazier",
+  "textures": {
+    "brazier": "malum:block/twisted_ether_brazier",
+    "particle": "malum:block/twisted_rock"
+  }
+}

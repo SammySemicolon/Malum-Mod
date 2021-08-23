@@ -1,7 +1,8 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:crude_scythe"
+    "item": "malum:crude_scythe",
+    "count": 1
   },
   "output": {
     "item": "malum:soul_stained_steel_scythe"

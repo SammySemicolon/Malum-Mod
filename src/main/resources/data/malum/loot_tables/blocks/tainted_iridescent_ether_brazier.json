@@ -8,7 +8,7 @@
       [
         {
           "type": "minecraft:item",
-          "name": "malum:iridescent_ether_brazier",
+          "name": "malum:tainted_iridescent_ether_brazier",
           "functions":
           [
             {

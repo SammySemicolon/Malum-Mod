@@ -1,6 +1,5 @@
 package com.sammy.malum.core.data;
 
-import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.init.items.MalumItemTags;
 import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.advancements.criterion.*;
@@ -617,14 +616,18 @@ public class MalumRecipes extends RecipeProvider
         shapedRecipe(MalumItems.ERODED_ROCK_ITEM_STAND.get(), 2).key('X', MalumItems.ERODED_ROCK.get()).key('Y', MalumItems.ERODED_ROCK_SLAB.get()).patternLine("YYY").patternLine("XXX").addCriterion("has_eroded_rock", hasItem(MalumItems.ERODED_ROCK.get())).build(consumer);
         shapedRecipe(MalumItems.ERODED_ROCK_ITEM_PEDESTAL.get()).key('X', MalumItems.ERODED_ROCK.get()).key('Y', MalumItems.ERODED_ROCK_SLAB.get()).patternLine("YYY").patternLine(" X ").patternLine("YYY").addCriterion("has_eroded_rock", hasItem(MalumItems.ERODED_ROCK.get())).build(consumer);
 
-        coloredEtherTorch(consumer, MalumItems.ETHER_TORCH.get(), MalumItems.ETHER.get());
-        shapedColoredEtherBrazier(consumer, MalumItems.ETHER_BRAZIER.get(), MalumItems.ETHER.get());
+        etherTorch(consumer, MalumItems.ETHER_TORCH.get(), MalumItems.ETHER.get());
+        etherBrazier(consumer, MalumItems.TAINTED_ETHER_BRAZIER.get(), MalumItems.TAINTED_ROCK.get(), MalumItems.ETHER.get());
+        etherBrazier(consumer, MalumItems.TWISTED_ETHER_BRAZIER.get(), MalumItems.TWISTED_ROCK.get(), MalumItems.ETHER.get());
+        etherTorch(consumer, MalumItems.IRIDESCENT_ETHER_TORCH.get(), MalumItems.IRIDESCENT_ETHER.get());
+        etherBrazier(consumer, MalumItems.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), MalumItems.TAINTED_ROCK.get(), MalumItems.IRIDESCENT_ETHER.get());
+        etherBrazier(consumer, MalumItems.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), MalumItems.TWISTED_ROCK.get(), MalumItems.IRIDESCENT_ETHER.get());
     }
-    private static void shapedColoredEtherBrazier(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider ether)
+    private static void etherBrazier(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider rock, IItemProvider ether)
     {
-        ShapedRecipeBuilder.shapedRecipe(output,2).key('#', MalumItems.TAINTED_ROCK.get()).key('S', Items.STICK).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", hasItem(MalumItems.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_brazier");
+        ShapedRecipeBuilder.shapedRecipe(output,2).key('#', rock).key('S', Items.STICK).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", hasItem(MalumItems.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath());
     }
-    private static void coloredEtherTorch(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider ether)
+    private static void etherTorch(Consumer<IFinishedRecipe> recipeConsumer, IItemProvider output, IItemProvider ether)
     {
         ShapedRecipeBuilder.shapedRecipe(output, 4).key('#', Items.STICK).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", hasItem(MalumItems.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
     }

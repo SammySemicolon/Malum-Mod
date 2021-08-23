@@ -8,6 +8,7 @@ import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.block.generic.MalumLeavesBlock;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
+import com.sammy.malum.common.item.ether.EtherBrazierItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.ether.EtherTorchItem;
 import com.sammy.malum.common.tile.EtherTileEntity;
@@ -26,6 +27,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,7 +57,7 @@ public class SetBlockItemColors
                 }
             }
             return -1;
-        }, getModBlocks(EtherBlock.class));
+        }, Arrays.stream(getModBlocks(EtherBlock.class)).filter(b -> !(b instanceof EtherBrazierBlock)).toArray(Block[]::new));
 
         blockColors.register((state, reader, pos, color) ->
         {
@@ -81,8 +83,20 @@ public class SetBlockItemColors
         });
         itemColors.register((s, c)->{
             AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+            if (c == 2)
+            {
+                return etherItem.getSecondColor(s);
+            }
             return c == 0 ? etherItem.getFirstColor(s) : -1;
-        }, MalumHelper.getModItems(AbstractEtherItem.class));
+        }, MalumHelper.getModItems(EtherTorchItem.class, EtherBrazierItem.class));
+        itemColors.register((s, c)->{
+            AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+            if (c == 1)
+            {
+                return etherItem.getSecondColor(s);
+            }
+            return c == 0 ? etherItem.getFirstColor(s) : -1;
+        }, MalumHelper.getModItems(EtherItem.class));
 
         ClientHelper.registerItemColor(itemColors, MalumItems.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
         ClientHelper.registerItemColor(itemColors, MalumItems.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);

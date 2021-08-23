@@ -345,9 +345,12 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     
     public void brazierBlock(RegistryObject<Block> blockRegistryObject)
     {
-        ModelFile brazier = models().getExistingFile(MalumHelper.prefix("block/template_ether_brazier"));
-        ModelFile brazier_hanging = models().getExistingFile(MalumHelper.prefix("block/template_ether_brazier_hanging"));
-        
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        String textureName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_iridescent", "");
+        String particleName = textureName.replaceFirst("_ether_brazier", "") + "_rock";
+        ModelFile brazier = models().withExistingParent(name, prefix("block/template_ether_brazier")).texture("brazier", prefix("block/" + textureName)).texture("particle", prefix("block/" + particleName));
+        ModelFile brazier_hanging = models().withExistingParent(name + "_hanging", prefix("block/template_ether_brazier_hanging")).texture("brazier", prefix("block/" + textureName)).texture("particle", prefix("block/" + particleName));
+
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(EtherBrazierBlock.HANGING, false).modelForState().modelFile(brazier).addModel()
                 .partialState().with(EtherBrazierBlock.HANGING, true).with(EtherBrazierBlock.ROTATED, false).modelForState().modelFile(brazier_hanging).addModel()

@@ -6,7 +6,8 @@ import com.sammy.malum.common.item.SpiritItem;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.block.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.mod_systems.recipe.ItemCount;
+import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
+import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
 import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
@@ -161,7 +162,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                             {
                                 IAltarProvider tileEntity = (IAltarProvider) world.getTileEntity(pos);
                                 ItemStack providedStack = tileEntity.providedInventory().getStackInSlot(0);
-                                ItemCount requestedItem = recipe.extraItems.get(extrasInventory.nonEmptyItems());
+                                IngredientWithCount requestedItem = recipe.extraItems.get(extrasInventory.nonEmptyItems());
                                 if (requestedItem.matches(providedStack))
                                 {
                                     world.playSound(null, pos, MalumSounds.ALTAR_CONSUME, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
@@ -176,7 +177,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                         }
                         return;
                     }
-                    for (ItemCount spirit : recipe.spirits)
+                    for (ItemWithCount spirit : recipe.spirits)
                     {
                         for (int i = 0; i < spiritInventory.slotCount; i++)
                         {
@@ -189,8 +190,8 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                         }
                     }
                     INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.spirits(), itemPos.x, itemPos.y, itemPos.z));
-                    stack.shrink(recipe.inputCount);
-                    world.addEntity(new ItemEntity(world, itemPos.x, itemPos.y, itemPos.z, new ItemStack(recipe.output, recipe.outputCount)));
+                    stack.shrink(recipe.input.count);
+                    world.addEntity(new ItemEntity(world, itemPos.x, itemPos.y, itemPos.z, recipe.output.stack()));
                     progress = 0;
                     extrasInventory.clearItems();
                     recipe = SpiritInfusionRecipe.getRecipe(world, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks());

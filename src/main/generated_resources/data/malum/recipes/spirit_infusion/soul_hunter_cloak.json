@@ -1,7 +1,15 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "minecraft:leather_helmet"
+    "ingredient_list": [
+      {
+        "item": "minecraft:acacia_leaves"
+      },
+      {
+        "item": "minecraft:acacia_boat"
+      }
+    ],
+    "count": 1
   },
   "output": {
     "item": "malum:soul_hunter_cloak"
@@ -12,7 +20,8 @@
       "count": 4
     },
     {
-      "item": "malum:soulstone"
+      "item": "malum:soulstone",
+      "count": 1
     }
   ],
   "spirits": [

@@ -6,6 +6,9 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
+import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
@@ -48,6 +51,10 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(Items.BLAZE_POWDER, 1)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(MalumItems.ETHER.get(), 1, MalumItems.IRIDESCENT_ETHER.get(), 1)
+                .addSpirit(AQUATIC_SPIRIT, 2)
+                .addExtraItem(Items.PRISMARINE_CRYSTALS, 1)
+                .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.GOLD_INGOT, 1, MalumItems.HALLOWED_GOLD_INGOT.get(), 1)
                 .addExtraItem(Items.QUARTZ, 2)
@@ -108,7 +115,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(EARTHEN_SPIRIT, 5)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Items.WHITE_WOOL, 1, MalumItems.SPIRIT_FABRIC.get(), 4)
+        new SpiritInfusionRecipeBuilder(Ingredient.fromTag(ItemTags.WOOL), 1, MalumItems.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(Items.STRING, 2)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
                 .addSpirit(WICKED_SPIRIT, 2)

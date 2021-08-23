@@ -6,6 +6,7 @@ import com.sammy.malum.common.item.equipment.armor.SoulStainedStrongholdArmorIte
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.common.item.equipment.armor.vanity.DripArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
+import com.sammy.malum.common.item.ether.EtherBrazierItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.ether.EtherTorchItem;
 import com.sammy.malum.common.item.food.SolarSyrupBottleItem;
@@ -444,11 +445,13 @@ public class MalumItems
     //region ether
     public static final RegistryObject<Item> ETHER = ITEMS.register("ether", () -> new EtherItem(MalumBlocks.ETHER.get(), DEFAULT_PROPERTIES(), false));
     public static final RegistryObject<Item> ETHER_TORCH = ITEMS.register("ether_torch", () -> new EtherTorchItem(MalumBlocks.ETHER_TORCH.get(), MalumBlocks.WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES(), false));
-    public static final RegistryObject<Item> ETHER_BRAZIER = ITEMS.register("ether_brazier", () -> new EtherItem(MalumBlocks.ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
+    public static final RegistryObject<Item> TAINTED_ETHER_BRAZIER = ITEMS.register("tainted_ether_brazier", () -> new EtherBrazierItem(MalumBlocks.TAINTED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
+    public static final RegistryObject<Item> TWISTED_ETHER_BRAZIER = ITEMS.register("twisted_ether_brazier", () -> new EtherBrazierItem(MalumBlocks.TWISTED_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), false));
 
     public static final RegistryObject<Item> IRIDESCENT_ETHER = ITEMS.register("iridescent_ether", () -> new EtherItem(MalumBlocks.IRIDESCENT_ETHER.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> IRIDESCENT_ETHER_TORCH = ITEMS.register("iridescent_ether_torch", () -> new EtherTorchItem(MalumBlocks.IRIDESCENT_ETHER_TORCH.get(), MalumBlocks.IRIDESCENT_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES(), true));
-    public static final RegistryObject<Item> IRIDESCENT_ETHER_BRAZIER = ITEMS.register("iridescent_ether_brazier", () -> new EtherItem(MalumBlocks.IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
+    public static final RegistryObject<Item> TAINTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierItem(MalumBlocks.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
+    public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierItem(MalumBlocks.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
 
 
     //endregion

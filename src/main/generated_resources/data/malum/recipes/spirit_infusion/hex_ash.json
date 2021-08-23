@@ -1,7 +1,8 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "minecraft:gunpowder"
+    "item": "minecraft:gunpowder",
+    "count": 1
   },
   "output": {
     "item": "malum:hex_ash"

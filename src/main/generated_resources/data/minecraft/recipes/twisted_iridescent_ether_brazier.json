@@ -6,17 +6,17 @@
   ],
   "key": {
     "#": {
-      "item": "malum:tainted_rock"
+      "item": "malum:twisted_rock"
     },
     "S": {
       "item": "minecraft:stick"
     },
     "X": {
-      "item": "malum:ether"
+      "item": "malum:iridescent_ether"
     }
   },
   "result": {
-    "item": "malum:ether_brazier",
+    "item": "malum:twisted_iridescent_ether_brazier",
     "count": 2
   }
 }

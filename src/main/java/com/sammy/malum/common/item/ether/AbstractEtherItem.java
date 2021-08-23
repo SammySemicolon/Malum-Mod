@@ -15,7 +15,7 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
     public static final int defaultFirstColor = 15712278;
     public static final int defaultSecondColor = 4607909;
 
-    private final boolean iridescent;
+    public final boolean iridescent;
 
     public AbstractEtherItem(Block blockIn, Properties builder, boolean iridescent)
     {

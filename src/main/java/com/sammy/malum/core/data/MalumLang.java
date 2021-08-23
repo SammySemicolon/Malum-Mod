@@ -138,10 +138,23 @@ public class MalumLang extends LanguageProvider
 
         addHeadline("spirit_infusion", "Spirit Infusion");
         addPage("spirit_infusion_a", "Spirit infusion is a crafting process that revolves around infusing spirit magic into various items, twisting them to fit your evil desires. Every infusion recipe requires a prime item as well as spirits to infuse the item with. These must all be placed right on the altar.");
-        addPage("spirit_infusion_b", "Some recipes may also ask for additional reagents to be infused into the prime item. These extra items must be placed on nearby item pedestals or item stands, such as ones made from runewood. These can be placed anywhere as long as they're within 4 blocks of the altar.");
+        addPage("spirit_infusion_b", "Some recipes may also ask for additional reagents to be infused into the prime item. These extra items must be placed on nearby item holders, such as ones made from runewood. These can be placed anywhere as long as they're within 4 blocks of the altar.");
         addPage("spirit_infusion_c", "Once everything is setup correctly, spirit infusion will begin and one by one each additional ingredient will be absorbed into the prime item alongside needed spirits. Once this lengthy process is done your desired item will be created!");
         addHeadline("hex_ash", "Hex Ash");
         addPage("hex_ash", "Hex ash is a simple magical powder used in creating various magical items. The ash can animate things, bring them to life in some extreme cases even. It's crated by infusing gunpowder with arcane spirit.");
+
+        addHeadline("tainted_rock", "Tainted Rock");
+        addPage("tainted_rock", "By infusing cobblestone with spirit magics we can create a much more building-friendly arcane rock. Tainted rock is a simple arcane rock with quite a few magical uses, it can also be shaped into item holders.");
+        addHeadline("twisted_rock", "Twisted Rock");
+        addPage("twisted_rock", "If we are to replace sacred spirit with it's opposite the result will change to a more gloomy stone. Twisted rock is indifferent from it's holy variant apart from looks.");
+
+        addHeadline("ether", "Ether");
+        addPage("ether_a", "Nowadays most magics offer you a unique magical source of light for all purpose use, spirit magics are no different. Ether, alternatively known as Nitor is a magical flame that burns and shines bright forever. It can be placed on a torch or an arcane rock brazier which can be placed or hanged on a chain much like a lantern.");
+        addPage("ether_b", "Additionally, the ether flame can be dyed into practically any color. Simply combine the ether item with any combination of dyes and it's color will be altered! For various reasons monochromatic dyes may yield possibly undesirable results without other dyes mixed in.");
+
+        addHeadline("iridescent_ether", "Iridescent Ether");
+        addPage("iridescent_ether_a", "In contrast to most other magical lights aside from pleasing the eye ether has a double flame colored variant, iridescent ether. This pristine form of ether allows you to dye the item once more to alter the ending color of the burn. Much like normal ether it can be placed on a brazier and a torch");
+        addPage("iridescent_ether_b", "Getting just the right coloring for your light may be a bit tricky however. You cannot alter the original color of ether once it's transformed into it's iridescent variant, applying any dye at this stage will only change the second color.");
 
         addHeadline("hallowed_gold", "Hallowed Gold");
         addPage("hallowed_gold_a", "Gold is very often used as a basis for various magics, this is also the case with spirit magic. Infusing arcane and sacred spirits into a gold ingot will imbue it with magic and yield a much more desirable magic metal. A few additional reagents are also needed for this process.");

@@ -5,6 +5,7 @@ import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.SpiritItem;
+import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.tools.ModCombatItem;
 import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
 import net.minecraft.block.*;
@@ -76,7 +77,8 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     private void etherBrazierItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_brazier_overlay")).texture("layer1", prefix("item/ether_brazier"));
+        String textureName = name.substring(0, 8) + "ether_brazier";
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_brazier_overlay")).texture("layer1", prefix("item/" + textureName));
     }
     private void etherTorchItem(RegistryObject<Item> i)
     {
@@ -86,6 +88,12 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     private void etherItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
+        EtherItem etherItem = (EtherItem) i.get();
+        if (etherItem.iridescent)
+        {
+            withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether")).texture("layer1", prefix("item/iridescent_ether_overlay"));
+            return;
+        }
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether"));
     }
     private void generatedItem(RegistryObject<Item> i)
