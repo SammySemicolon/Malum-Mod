@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "malum:eroded_rock"
-  },
-  "result": "malum:polished_eroded_rock",
-  "count": 1
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "malum:cleansed_rock"
-  },
-  "result": "malum:cut_cleansed_rock",
-  "count": 1
-}

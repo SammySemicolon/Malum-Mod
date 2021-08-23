@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "malum:cracked_purified_rock_tiles"
-  },
-  "result": "malum:cracked_purified_rock_tiles_wall",
-  "count": 1
-}

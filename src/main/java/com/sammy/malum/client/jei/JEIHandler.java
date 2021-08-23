@@ -2,7 +2,7 @@ package com.sammy.malum.client.jei;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;

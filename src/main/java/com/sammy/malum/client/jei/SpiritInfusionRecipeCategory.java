@@ -6,7 +6,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
-import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;

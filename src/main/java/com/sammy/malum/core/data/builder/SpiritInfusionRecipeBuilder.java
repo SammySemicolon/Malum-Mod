@@ -6,15 +6,13 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
-import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -22,6 +20,7 @@ import java.util.function.Consumer;
 
 public class SpiritInfusionRecipeBuilder
 {
+
     private final IngredientWithCount input;
 
     private final ItemWithCount output;

@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "malum:nbt_carry",
   "pattern": [
     "X",
     "#"
@@ -11,6 +11,9 @@
     "X": {
       "item": "malum:iridescent_ether"
     }
+  },
+  "nbtCarry": {
+    "item": "malum:iridescent_ether"
   },
   "result": {
     "item": "malum:iridescent_ether_torch",

@@ -8,7 +8,7 @@ import com.sammy.malum.core.init.block.MalumTileEntities;
 import com.sammy.malum.core.init.particles.MalumParticles;
 import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
-import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
 import com.sammy.malum.core.mod_systems.particle.ParticleManager;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;

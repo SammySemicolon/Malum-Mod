@@ -5,7 +5,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
 import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
-import com.sammy.malum.core.mod_systems.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
