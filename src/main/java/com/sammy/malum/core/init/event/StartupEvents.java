@@ -27,7 +27,7 @@ public class StartupEvents
     @SubscribeEvent
     public static void registerFeatures(FMLCommonSetupEvent event)
     {
-        event.enqueueWork(MalumFeatures::new);
+        event.enqueueWork(MalumFeatures::register);
     }
 
     @SubscribeEvent
