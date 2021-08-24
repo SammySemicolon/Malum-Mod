@@ -28,7 +28,7 @@ public class RunewoodSaplingBlock extends SaplingBlock
             {
                 return;
             }
-            MalumFeatures.RUNEWOOD_TREE.generate(world, world.getChunkProvider().generator, rand, pos, null);
+            MalumFeatures.RUNEWOOD_TREE.get().generate(world, world.getChunkProvider().generator, rand, pos, null);
         }
     }
 }

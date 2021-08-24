@@ -23,6 +23,7 @@ import static com.sammy.malum.core.init.block.MalumTileEntities.TILE_ENTITIES;
 import static com.sammy.malum.core.init.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
 import static com.sammy.malum.core.init.particles.MalumParticles.PARTICLES;
+import static com.sammy.malum.core.init.worldgen.MalumFeatures.FEATURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)
@@ -43,6 +44,7 @@ public class MalumMod
         EFFECTS.register(modBus);
         PARTICLES.register(modBus);
         SOUNDS.register(modBus);
+        FEATURES.register(modBus);
         modBus.addListener(this::gatherData);
 
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () ->
