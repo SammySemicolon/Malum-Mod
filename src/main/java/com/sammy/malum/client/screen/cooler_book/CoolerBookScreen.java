@@ -131,13 +131,26 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "spirit_infusion", SPIRIT_ALTAR.get(),1,4)
-                .upLeft(2,4)
+                .up(1)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
                 .addPage(new TextPage("spirit_infusion_b"))
                 .addPage(new TextPage("spirit_infusion_c"))
                 .addPage(new CraftingBookPage(SPIRIT_ALTAR.get(), AIR, SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD.get(), GOLD_INGOT, RUNEWOOD.get(), RUNEWOOD.get(), RUNEWOOD.get()))
                 .addPage(new HeadlineTextPage("hex_ash", "hex_ash"))
                 .addPage(new SpiritInfusionPage(HEX_ASH.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "elemental_spirits", EARTHEN_SPIRIT.get(),1,5)
+                .upLeft(2,2)
+                .addPage(new SpiritTextPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
+                .addPage(new TextPage("earthen_spirit_b"))
+                .addPage(new SpiritTextPage("infernal_spirit", "infernal_spirit_a", INFERNAL_SPIRIT.get()))
+                .addPage(new TextPage("infernal_spirit_b"))
+                .addPage(new SpiritTextPage("aerial_spirit", "aerial_spirit_a", AERIAL_SPIRIT.get()))
+                .addPage(new TextPage("aerial_spirit_b"))
+                .addPage(new SpiritTextPage("aquatic_spirit", "aquatic_spirit_a", AQUATIC_SPIRIT.get()))
+                .addPage(new TextPage("aquatic_spirit_b"))
         );
 
         entries.add(new CoolerBookEntry(
@@ -166,6 +179,19 @@ public class CoolerBookScreen extends Screen
                 .addPage(new CraftingBookPage(IRIDESCENT_ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, IRIDESCENT_ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
                 .addPage(new CraftingBookPage(TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), IRIDESCENT_ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
                 .addPage(new CraftingBookPage(TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), IRIDESCENT_ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "spirit_fabric", SPIRIT_FABRIC.get(),2,5)
+                .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric"))
+                .addPage(new SpiritInfusionPage(SPIRIT_FABRIC.get()))
+                .addPage(new HeadlineTextPage("soul_hunter_armor", "soul_hunter_armor"))
+                .addPage(new SpiritInfusionPage(SOUL_HUNTER_CLOAK.get()))
+                .addPage(new SpiritInfusionPage(SOUL_HUNTER_ROBE.get()))
+                .addPage(new SpiritInfusionPage(SOUL_HUNTER_LEGGINGS.get()))
+                .addPage(new SpiritInfusionPage(SOUL_HUNTER_BOOTS.get()))
+                .addPage(new HeadlineTextPage("spirit_pouch", "spirit_pouch"))
+                .addPage(new CraftingBookPage(CRUDE_SCYTHE.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), ARCANE_SPIRIT.get(), SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
         );
 
         entries.add(new CoolerBookEntry(

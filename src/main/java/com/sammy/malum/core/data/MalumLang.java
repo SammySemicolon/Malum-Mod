@@ -133,7 +133,7 @@ public class MalumLang extends LanguageProvider
 
         addHeadline("arcane_spirit", "Arcane Spirit");
         addPage("arcane_spirit_a", "The arcane spirit is magic in it's purest form. Arcane spirit is often needed to fully utilize the potential stored within other spirits, it has little power alone but can greatly amplify other magic.");
-        addPage("arcane_spirit_b", "Spirits found in a soul aren't always dependant only on the body the soul resided in from when it was created. For example, it is rumored that the very first illagers were villagers who broke their oath and turned evil. If that is the case, their soul would've adapted and became completely wicked.");
+        addPage("arcane_spirit_b", "Spirits found in a soul aren't always set in stone when a vessel is created. For example, it is rumored that the very first illagers were villagers who broke their oath and turned evil. If that is the case, their soul would've adapted and became completely wicked.");
         addPage("arcane_spirit_c", "A similar process most likely happened when a apprentice witch became proficient enough in magics. Souls can develop spirits over a long period of time based on how the body reacts to magic. This is very often the case with arcane spirit due to how pure and frequent it is in the world. Arcane Spirit is found within the supernatural.");
 
         addHeadline("spirit_infusion", "Spirit Infusion");
@@ -144,7 +144,7 @@ public class MalumLang extends LanguageProvider
         addPage("hex_ash", "Hex ash is a simple magical powder used in creating various magical items. The ash can animate things, bring them to life in some extreme cases even. It's crated by infusing gunpowder with arcane spirit.");
 
         addHeadline("tainted_rock", "Tainted Rock");
-        addPage("tainted_rock", "By infusing cobblestone with spirit magics we can create a much more building-friendly arcane rock. Tainted rock is a simple arcane rock with quite a few magical uses, it can also be shaped into item holders.");
+        addPage("tainted_rock", "By infusing cobblestone with spirit magics we can create a much more building-friendly arcane rock. Tainted rock is a simple magical building block with quite a few neat usages, it can also be shaped into item holders.");
         addHeadline("twisted_rock", "Twisted Rock");
         addPage("twisted_rock", "If we are to replace sacred spirit with it's opposite the result will change to a more gloomy stone. Twisted rock is indifferent from it's holy variant apart from looks.");
 
@@ -155,6 +155,26 @@ public class MalumLang extends LanguageProvider
         addHeadline("iridescent_ether", "Iridescent Ether");
         addPage("iridescent_ether_a", "In contrast to most other magical lights aside from pleasing the eye ether has a double flame colored variant, iridescent ether. This pristine form of ether allows you to dye the item once more to alter the ending color of the burn. Much like normal ether it can be placed on a brazier and a torch");
         addPage("iridescent_ether_b", "Getting just the right coloring for your light may be a bit tricky however. You cannot alter the original color of ether once it's transformed into it's iridescent variant, applying any dye at this stage will only change the second color.");
+
+        addHeadline("earthen_spirit", "Earthen Spirit");
+        addHeadline("earthen_spirit_a", "Earthen magic can be seen as two separate things merged into one, nature and strength. The magic is incredibly potent even when used in small amounts!");
+        addHeadline("earthen_spirit_b", "With the power of the earth you can do quite a lot. For one, earthen spirit is perfect for creating strong and durable gear. For two, it's natural properties open up many opportunities in spell crafting. Earthen spirit is found within the strong and the giving.");
+        addHeadline("infernal_spirit", "Infernal Spirit");
+        addHeadline("infernal_spirit_a", "Hellish magic is incredibly dangerous. PLaying with fire is never a good idea especially when spirit magic is involved.");
+        addHeadline("infernal_spirit_b", "The forever on fire hellish nether, it's a surprise that life exists there. Infernal spirit derives almost entirely from the anomaly that is the nether and everything that lives in it. Certain souls found within the overworld also hold infernal spirit due to their explosive nature or a strong fire resistance.");
+        addHeadline("aerial_spirit", "Aerial Spirit");
+        addHeadline("aerial_spirit_a", "");
+        addHeadline("aerial_spirit_b", "");
+        addHeadline("aquatic_spirit", "Aquatic Spirit");
+        addHeadline("aquatic_spirit_a", "");
+        addHeadline("aquatic_spirit_b", "");
+
+        addHeadline("spirit_fabric", "Spirit Fabric");
+        addPage("spirit_fabric", "");
+        addHeadline("soul_hunter_armor", "Soul Hunter Armor");
+        addPage("soul_hunter_armor", "The soul hunter armor is an offensive armor set made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage and grants you an extra spirit per spirit harvest.");
+        addHeadline("spirit_pouch", "Spirit Pouch");
+        addPage("spirit_pouch", "If you've ever wished for a spirit backpack of sorts, the spirit pouch is just that! The item allows you to store a huge amount of spirits within it's internal inventory. All collected spirits are transferred into the pouch if it's in your inventory!");
 
         addHeadline("hallowed_gold", "Hallowed Gold");
         addPage("hallowed_gold_a", "Gold is very often used as a basis for various magics, this is also the case with spirit magic. Infusing arcane and sacred spirits into a gold ingot will imbue it with magic and yield a much more desirable magic metal. A few additional reagents are also needed for this process.");

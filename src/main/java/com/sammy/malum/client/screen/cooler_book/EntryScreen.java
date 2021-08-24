@@ -114,7 +114,7 @@ public class EntryScreen extends Screen
             }
             else
             {
-                CoolerBookScreen.openScreen(false);
+                CoolerBookScreen.openScreen(true);
             }
             return true;
         }
@@ -147,7 +147,7 @@ public class EntryScreen extends Screen
     @Override
     public void closeScreen()
     {
-        CoolerBookScreen.openScreen(true);
+        CoolerBookScreen.openScreen(false);
     }
 
     public void playSound()
