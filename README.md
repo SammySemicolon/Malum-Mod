@@ -1,2 +1,2 @@
-# Malum-Mod
-A minecraft mod about dark magic.
+# Malum Mod
+A minecraft mod about soul magic, and it's derivatives.
