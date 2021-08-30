@@ -192,7 +192,7 @@ public class CoolerBookScreen extends Screen
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_LEGGINGS.get()))
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_BOOTS.get()))
                 .addPage(new HeadlineTextPage("spirit_pouch", "spirit_pouch"))
-                .addPage(new CraftingBookPage(CRUDE_SCYTHE.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), ARCANE_SPIRIT.get(), SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
+                .addPage(new CraftingBookPage(SPIRIT_POUCH.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), ARCANE_SPIRIT.get(), SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
         );
 
         entries.add(new CoolerBookEntry(

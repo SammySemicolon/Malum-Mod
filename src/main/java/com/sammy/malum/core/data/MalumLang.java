@@ -128,7 +128,7 @@ public class MalumLang extends LanguageProvider
         addPage("sacred_spirit_b", "When you're in need of a specific spirit you'll need to do some thinking. It'd be boring if the solution was handed out to you right away! Each soul has very specific spirits and their types depend on what kind of soul it is. The sacred spirit for example is found mainly within passive, relaxed souls.");
 
         addHeadline("wicked_spirit", "Wicked Spirit");
-        addPage("wicked_spirit_a", "Opposite of the sacred, the wicked spirit represents impurity and various dark and evil magics. Even just touching this spirit creates a mild pain. Wicked magics can be really dangerous in the right hands.");
+        addPage("wicked_spirit_a", "Opposite of the sacred, wicked spirit represents various impurities and dark magics. Even just touching this spirit creates a mild pain. Wicked magics can be really dangerous in the right hands.");
         addPage("wicked_spirit_b", "Generally when a body dies, the soul peacefully and slowly fades out alongside it. However, if the body is to be brought back to life through necromancy or some other reanimating magic just seconds after death the soul may be brought back! Through this process the soul is implanted with wicked spirit and overtime becomes one with it.");
 
         addHeadline("arcane_spirit", "Arcane Spirit");
@@ -163,14 +163,14 @@ public class MalumLang extends LanguageProvider
         addHeadline("infernal_spirit_a", "Hellish magic is incredibly dangerous. PLaying with fire is never a good idea especially when spirit magic is involved.");
         addHeadline("infernal_spirit_b", "The forever on fire hellish nether, it's a surprise that life exists there. Infernal spirit derives almost entirely from the anomaly that is the nether and everything that lives in it. Certain souls found within the overworld also hold infernal spirit due to their explosive nature or a strong fire resistance.");
         addHeadline("aerial_spirit", "Aerial Spirit");
-        addHeadline("aerial_spirit_a", "");
-        addHeadline("aerial_spirit_b", "");
+        addHeadline("aerial_spirit_a", "Apart from being convenient, mobility is very important. Aerial magic is all about agility.");
+        addHeadline("aerial_spirit_b", "Aerial magics, light and versatile, weak in effect yet excel in utility. Any nimble body is bound to have or develop aerial spirit within their soul.");
         addHeadline("aquatic_spirit", "Aquatic Spirit");
-        addHeadline("aquatic_spirit_a", "");
-        addHeadline("aquatic_spirit_b", "");
+        addHeadline("aquatic_spirit_a", "Similar to the earthen, aquatic magics are immensely powerful. On top of that, the oceans in this world seem to have lots of spirit unrelated magics already within them!");
+        addHeadline("aquatic_spirit_b", "Aquatic magic derives a lot from various ocean wonders already present in the world. Ideas such as channeling or loyalty are one with the seas and everything within. Aquatic spirit provides similar powers.");
 
         addHeadline("spirit_fabric", "Spirit Fabric");
-        addPage("spirit_fabric", "");
+        addPage("spirit_fabric", "Spirit fabric is a wicked type of weave used for various spirit related crafting processes.");
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
         addPage("soul_hunter_armor", "The soul hunter armor is an offensive armor set made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage and grants you an extra spirit per spirit harvest.");
         addHeadline("spirit_pouch", "Spirit Pouch");
