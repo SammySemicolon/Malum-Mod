@@ -4,13 +4,17 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.entity_renderer.FloatingItemEntityRenderer;
 import com.sammy.malum.client.entity_renderer.MalumBoatRenderer;
 import com.sammy.malum.client.entity_renderer.ScytheBoomerangEntityRenderer;
+import com.sammy.malum.client.screen.container.SpiritPouchContainerScreen;
 import com.sammy.malum.client.tile_renderer.*;
+import com.sammy.malum.core.init.MalumContainers;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.block.MalumTileEntities;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -36,5 +40,12 @@ public class BindRenderers
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.PLAYER_HOMING_ITEM.get(), (manager)-> new FloatingItemEntityRenderer(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SCYTHE_BOOMERANG.get(), (manager)-> new ScytheBoomerangEntityRenderer(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.RUNEWOOD_BOAT.get(), (manager)-> new MalumBoatRenderer(manager, "runewood"));
+    }
+    @SubscribeEvent
+    public static void bindContainerRenderers(FMLClientSetupEvent event) {
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
+        {
+            ScreenManager.registerFactory(MalumContainers.SPIRIT_POUCH.get(), SpiritPouchContainerScreen::new);
+        });
     }
 }

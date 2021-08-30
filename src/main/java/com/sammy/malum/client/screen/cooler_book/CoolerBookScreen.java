@@ -28,6 +28,7 @@ import java.util.List;
 
 import static com.sammy.malum.core.init.items.MalumItems.*;
 import static net.minecraft.item.Items.*;
+import static net.minecraft.util.ColorHelper.PackedColor.packColor;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class CoolerBookScreen extends Screen
@@ -422,10 +423,6 @@ public class CoolerBookScreen extends Screen
         {
             screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(stack.getTranslationKey()), mouseX, mouseY);
         }
-    }
-    public static int packColor(int alpha, int red, int green, int blue)
-    {
-        return alpha << 24 | red << 16 | green << 8 | blue;
     }
 
     public static void renderWrappingText(MatrixStack mStack, String text, int x, int y, int w)

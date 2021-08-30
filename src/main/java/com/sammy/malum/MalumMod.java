@@ -1,6 +1,7 @@
 package com.sammy.malum;
 
 import com.sammy.malum.core.data.*;
+import com.sammy.malum.core.init.MalumContainers;
 import com.sammy.malum.core.mod_systems.particle.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+import static com.sammy.malum.core.init.MalumContainers.CONTAINERS;
 import static com.sammy.malum.core.init.MalumEffects.EFFECTS;
 import static com.sammy.malum.core.init.MalumEntities.ENTITY_TYPES;
 import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
@@ -45,6 +47,7 @@ public class MalumMod
         PARTICLES.register(modBus);
         SOUNDS.register(modBus);
         FEATURES.register(modBus);
+        CONTAINERS.register(modBus);
         modBus.addListener(this::gatherData);
 
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () ->
