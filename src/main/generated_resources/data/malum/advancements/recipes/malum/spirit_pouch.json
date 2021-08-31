@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:grimslate_plating_alt"
+      "malum:spirit_pouch"
     ]
   },
   "criteria": {
-    "has_grimslate": {
+    "has_spirit_fabric": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:soulstone_ore"
+            "item": "malum:spirit_fabric"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:grimslate_plating_alt"
+        "recipe": "malum:spirit_pouch"
       }
     }
   },
   "requirements": [
     [
-      "has_grimslate",
+      "has_spirit_fabric",
       "has_the_recipe"
     ]
   ]

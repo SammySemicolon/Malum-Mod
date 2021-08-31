@@ -2,11 +2,11 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:grimslate_plating_blasting"
+      "minecraft:soulstone_from_block"
     ]
   },
   "criteria": {
-    "has_grimslate": {
+    "has_soulstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:grimslate_plating_blasting"
+        "recipe": "minecraft:soulstone_from_block"
       }
     }
   },
   "requirements": [
     [
-      "has_grimslate",
+      "has_soulstone",
       "has_the_recipe"
     ]
   ]

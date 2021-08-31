@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "YZY",
+    " Y "
+  ],
+  "key": {
+    "X": {
+      "tag": "forge:string"
+    },
+    "Y": {
+      "item": "malum:spirit_fabric"
+    },
+    "Z": {
+      "item": "malum:arcane_spirit"
+    }
+  },
+  "result": {
+    "item": "malum:spirit_pouch"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:gilded_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_arcane_reach"
+  },
+  "extra_items": [
+    {
+      "item": "malum:hallowed_gold_ingot",
+      "count": 2
+    },
+    {
+      "item": "malum:soulstone",
+      "count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:aerial_spirit",
+      "count": 8
+    }
+  ]
+}

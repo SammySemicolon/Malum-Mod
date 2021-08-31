@@ -1,0 +1,34 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:gilded_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_prowess"
+  },
+  "extra_items": [
+    {
+      "tag": "forge:storage_blocks/redstone",
+      "count": 1
+    },
+    {
+      "tag": "forge:gems/diamond",
+      "count": 2
+    },
+    {
+      "tag": "forge:storage_blocks/lapis",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 4
+    },
+    {
+      "item": "malum:aquatic_spirit",
+      "count": 8
+    }
+  ]
+}

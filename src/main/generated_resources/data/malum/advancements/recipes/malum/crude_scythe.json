@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_grimslate": {
+    "has_soulstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_grimslate",
+      "has_soulstone",
       "has_the_recipe"
     ]
   ]

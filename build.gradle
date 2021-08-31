@@ -63,7 +63,7 @@ minecraft {
             args '--mod', 'malum', '--all', '--output', file('src/main/generated_resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                self {
+                malum {
                     sources sourceSets.main
                 }
             }

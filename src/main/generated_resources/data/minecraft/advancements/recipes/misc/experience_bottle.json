@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:soulstone"
+      "minecraft:experience_bottle"
     ]
   },
   "criteria": {
-    "has_soulstone": {
+    "has_confined_brilliance": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:soulstone_ore"
+            "item": "malum:confined_brilliance"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:soulstone"
+        "recipe": "minecraft:experience_bottle"
       }
     }
   },
   "requirements": [
     [
-      "has_soulstone",
+      "has_confined_brilliance",
       "has_the_recipe"
     ]
   ]

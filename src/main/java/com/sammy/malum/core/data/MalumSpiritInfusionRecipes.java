@@ -148,5 +148,25 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_ARCANE_REACH.get(), 1)
+                .addExtraItem(MalumItems.HALLOWED_GOLD_INGOT.get(), 2)
+                .addExtraItem(MalumItems.SOULSTONE.get(), 4)
+                .addSpirit(AERIAL_SPIRIT, 8)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_RING.get(), 1, MalumItems.RING_OF_ARCANE_SPOIL.get(), 1)
+                .addExtraItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 2)
+                .addExtraItem(MalumItems.SOULSTONE.get(), 4)
+                .addSpirit(INFERNAL_SPIRIT, 8)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_PROWESS.get(), 1)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_REDSTONE), 1)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 2)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_LAPIS), 1)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(AQUATIC_SPIRIT, 8)
+                .build(consumer);
     }
 }

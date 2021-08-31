@@ -216,6 +216,18 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
+                "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -1, 5)
+                .left(1)
+                .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
+                .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor"))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_HELMET.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_CHESTPLATE.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_LEGGINGS.get()))
+                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_BOOTS.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
                 "spirit_trinkets", ORNATE_RING.get(), -2, 5)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
@@ -226,15 +238,19 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -1, 5)
-                .left(1)
-                .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
-                .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor"))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_HELMET.get()))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_CHESTPLATE.get()))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_LEGGINGS.get()))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_BOOTS.get()))
+                "soul_hunter_trinkets", RING_OF_ARCANE_REACH.get(), -3, 5)
+                .addPage(new HeadlineTextPage("arcane_reach", "arcane_reach"))
+                .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
+                .addPage(new HeadlineTextPage("arcane_spoils", "arcane_spoils"))
+                .addPage(new SpiritInfusionPage(RING_OF_ARCANE_SPOIL.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "ring_of_prowess", RING_OF_PROWESS.get(), -3, 6)
+                .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
+                .addPage(new TextPage("ring_of_prowess_b"))
+                .addPage(new SpiritInfusionPage(RING_OF_PROWESS.get()))
+                .addPage(new CraftingBookPage(EXPERIENCE_BOTTLE, CONFINED_BRILLIANCE.get(), GLASS_BOTTLE))
         );
 
         entries.add(new CoolerBookEntry(

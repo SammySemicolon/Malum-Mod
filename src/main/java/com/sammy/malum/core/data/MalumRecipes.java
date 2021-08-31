@@ -46,16 +46,16 @@ public class MalumRecipes extends RecipeProvider
 
         smeltingRecipe(Ingredient.fromTag(MalumItemTags.RUNEWOOD_LOGS), MalumItems.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_runewood_planks", hasItem(MalumItemTags.RUNEWOOD_LOGS)).build(consumer);
 
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_ALTAR.get()).key('Z', Tags.Items.INGOTS_GOLD).key('Y', MalumItems.SOULSTONE.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine(" Y ").patternLine("ZXZ").patternLine("XXX").addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_ALTAR.get()).key('Z', Tags.Items.INGOTS_GOLD).key('Y', MalumItems.SOULSTONE.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).patternLine(" Y ").patternLine("ZXZ").patternLine("XXX").addCriterion("has_soulstone", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_JAR.get()).key('Z', MalumItems.HALLOWED_GOLD_INGOT.get()).key('Y', Tags.Items.GLASS_PANES).patternLine("YZY").patternLine("Y Y").patternLine("YYY").addCriterion("has_hallowed_gold", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
 
-        smeltingRecipe(Ingredient.fromItems(MalumItems.SOULSTONE_ORE.get()), MalumItems.SOULSTONE.get(),0.25f,200).addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
-        blastingRecipe(Ingredient.fromItems(MalumItems.SOULSTONE_ORE.get()), MalumItems.SOULSTONE.get(),0.25f,200).addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer, "grimslate_plating_blasting");
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.SOULSTONE_BLOCK.get()).key('#', MalumItems.SOULSTONE.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SOULSTONE.get(), 9).addIngredient(MalumItems.SOULSTONE_BLOCK.get()).addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer, "grimslate_plating_alt");
+        smeltingRecipe(Ingredient.fromItems(MalumItems.SOULSTONE_ORE.get()), MalumItems.SOULSTONE.get(),0.25f,200).addCriterion("has_soulstone", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
+        blastingRecipe(Ingredient.fromItems(MalumItems.SOULSTONE_ORE.get()), MalumItems.SOULSTONE.get(),0.25f,100).addCriterion("has_soulstone", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer, "soulstone_from_blasting");
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SOULSTONE_BLOCK.get()).key('#', MalumItems.SOULSTONE.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_soulstone", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.SOULSTONE.get(), 9).addIngredient(MalumItems.SOULSTONE_BLOCK.get()).addCriterion("has_soulstone", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer, "soulstone_from_block");
 
         smeltingRecipe(Ingredient.fromItems(MalumItems.BLAZING_QUARTZ_ORE.get()), MalumItems.BLAZING_QUARTZ.get(),0.25f,200).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer);
-        blastingRecipe(Ingredient.fromItems(MalumItems.BLAZING_QUARTZ_ORE.get()), MalumItems.BLAZING_QUARTZ.get(),0.25f,200).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer, "blazing_quartz_blasting");
+        blastingRecipe(Ingredient.fromItems(MalumItems.BLAZING_QUARTZ_ORE.get()), MalumItems.BLAZING_QUARTZ.get(),0.25f,100).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer, "blazing_quartz_blasting");
         ShapedRecipeBuilder.shapedRecipe(MalumItems.BLAZING_QUARTZ_BLOCK.get()).key('#', MalumItems.BLAZING_QUARTZ.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.BLAZING_QUARTZ.get(), 9).addIngredient(MalumItems.BLAZING_QUARTZ_BLOCK.get()).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ_ORE.get())).build(consumer, "blaze_quartz_alt");
         ShapedRecipeBuilder.shapedRecipe(Items.NETHERRACK, 2).key('Z', MalumItems.BLAZING_QUARTZ.get()).key('Y', Tags.Items.COBBLESTONE).patternLine("ZY").patternLine("YZ").addCriterion("has_blazing_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer, "blazing_quartz_netherrack");
@@ -73,7 +73,9 @@ public class MalumRecipes extends RecipeProvider
         shapedRecipe(MalumItems.ORNATE_NECKLACE.get()).key('#', MalumItems.SOUL_STAINED_STEEL_INGOT.get()).key('X', Tags.Items.STRING).patternLine(" X ").patternLine("X X").patternLine(" # ").addCriterion("has_soul_stained_steel", hasItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get())).build(consumer);
         shapedRecipe(MalumItems.ORNATE_RING.get()).key('#', MalumItems.SOUL_STAINED_STEEL_INGOT.get()).key('X', Tags.Items.LEATHER).patternLine(" X#").patternLine("X X").patternLine(" X ").addCriterion("has_soul_stained_steel", hasItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get())).build(consumer);
 
-        ShapedRecipeBuilder.shapedRecipe(MalumItems.CRUDE_SCYTHE.get()).key('#', Items.STICK).key('Y', MalumItems.SOULSTONE.get()).key('X', Tags.Items.INGOTS_IRON).patternLine("XXY").patternLine(" #X").patternLine("#  ").addCriterion("has_grimslate", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.SPIRIT_POUCH.get()).key('X', Tags.Items.STRING).key('Y', MalumItems.SPIRIT_FABRIC.get()).key('Z', MalumItems.ARCANE_SPIRIT.get()).patternLine(" X ").patternLine("YZY").patternLine(" Y ").addCriterion("has_spirit_fabric", hasItem(MalumItems.SPIRIT_FABRIC.get())).build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(MalumItems.CRUDE_SCYTHE.get()).key('#', Items.STICK).key('Y', MalumItems.SOULSTONE.get()).key('X', Tags.Items.INGOTS_IRON).patternLine("XXY").patternLine(" #X").patternLine("#  ").addCriterion("has_soulstone", hasItem(MalumItems.SOULSTONE_ORE.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SOUL_STAINED_STEEL_HOE.get()).key('#', Items.STICK).key('X', MalumItems.SOUL_STAINED_STEEL_INGOT.get()).patternLine("XX").patternLine(" #").patternLine(" #").addCriterion("has_soul_stained_steel", hasItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SOUL_STAINED_STEEL_LEGGINGS.get()).key('X', MalumItems.SOUL_STAINED_STEEL_INGOT.get()).patternLine("XXX").patternLine("X X").patternLine("X X").addCriterion("has_soul_stained_steel", hasItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.SOUL_STAINED_STEEL_PICKAXE.get()).key('#', Items.STICK).key('X', MalumItems.SOUL_STAINED_STEEL_INGOT.get()).patternLine("XXX").patternLine(" # ").patternLine(" # ").addCriterion("has_soul_stained_steel", hasItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get())).build(consumer);
@@ -92,6 +94,8 @@ public class MalumRecipes extends RecipeProvider
 
         ShapedRecipeBuilder.shapedRecipe(MalumItems.HALLOWED_SPIRIT_RESONATOR.get()).key('#', MalumItems.HALLOWED_GOLD_INGOT.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', Tags.Items.GEMS_QUARTZ).patternLine(" X ").patternLine("#Y#").patternLine(" X ").addCriterion("has_hallowed_gold", hasItem(MalumItems.HALLOWED_GOLD_INGOT.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(MalumItems.STAINED_SPIRIT_RESONATOR.get()).key('#', MalumItems.SOUL_STAINED_STEEL_INGOT.get()).key('X', MalumItems.RUNEWOOD_PLANKS.get()).key('Y', Tags.Items.GEMS_QUARTZ).patternLine(" X ").patternLine("#Y#").patternLine(" X ").addCriterion("has_soul_stained_steel", hasItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get())).build(consumer);
+
+        ShapelessRecipeBuilder.shapelessRecipe(Items.EXPERIENCE_BOTTLE).addIngredient(MalumItems.CONFINED_BRILLIANCE.get()).addIngredient(Items.GLASS_BOTTLE).addCriterion("has_confined_brilliance", hasItem(MalumItems.CONFINED_BRILLIANCE.get())).build(consumer);
 
         shapelessPlanks(consumer, MalumItems.RUNEWOOD_PLANKS.get(), MalumItemTags.RUNEWOOD_LOGS);
         shapelessWood(consumer, MalumItems.RUNEWOOD.get(), MalumItems.RUNEWOOD_LOG.get());

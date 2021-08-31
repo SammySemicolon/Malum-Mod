@@ -1,0 +1,26 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:ornate_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_arcane_spoil"
+  },
+  "extra_items": [
+    {
+      "item": "malum:soul_stained_steel_ingot",
+      "count": 2
+    },
+    {
+      "item": "malum:soulstone",
+      "count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:infernal_spirit",
+      "count": 8
+    }
+  ]
+}

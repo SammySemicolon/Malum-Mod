@@ -157,17 +157,17 @@ public class MalumLang extends LanguageProvider
         addPage("iridescent_ether_b", "Getting just the right coloring for your light may be a bit tricky however. You cannot alter the original color of ether once it's transformed into it's iridescent variant, applying any dye at this stage will only change the second color.");
 
         addHeadline("earthen_spirit", "Earthen Spirit");
-        addHeadline("earthen_spirit_a", "Earthen magic can be seen as two separate things merged into one, nature and strength. The magic is incredibly potent even when used in small amounts!");
-        addHeadline("earthen_spirit_b", "With the power of the earth you can do quite a lot. For one, earthen spirit is perfect for creating strong and durable gear. For two, it's natural properties open up many opportunities in spell crafting. Earthen spirit is found within the strong and the giving.");
+        addPage("earthen_spirit_a", "Earthen magic can be seen as two separate things merged into one, nature and strength. The magic is incredibly potent even when used in small amounts!");
+        addPage("earthen_spirit_b", "With the power of the earth you can do quite a lot. For one, earthen spirit is perfect for creating strong and durable gear. For two, it's natural properties open up many opportunities in spell crafting. Earthen spirit is found within the strong and the giving.");
         addHeadline("infernal_spirit", "Infernal Spirit");
-        addHeadline("infernal_spirit_a", "Hellish magic is incredibly dangerous. PLaying with fire is never a good idea especially when spirit magic is involved.");
-        addHeadline("infernal_spirit_b", "The forever on fire hellish nether, it's a surprise that life exists there. Infernal spirit derives almost entirely from the anomaly that is the nether and everything that lives in it. Certain souls found within the overworld also hold infernal spirit due to their explosive nature or a strong fire resistance.");
+        addPage("infernal_spirit_a", "Hellish magic is incredibly dangerous. PLaying with fire is never a good idea especially when spirit magic is involved.");
+        addPage("infernal_spirit_b", "The forever on fire hellish nether, it's a surprise that life exists there. Infernal spirit derives almost entirely from the anomaly that is the nether and everything that lives in it. Certain souls found within the overworld also hold infernal spirit due to their explosive nature or a strong fire resistance.");
         addHeadline("aerial_spirit", "Aerial Spirit");
-        addHeadline("aerial_spirit_a", "Apart from being convenient, mobility is very important. Aerial magic is all about agility.");
-        addHeadline("aerial_spirit_b", "Aerial magics, light and versatile, weak in effect yet excel in utility. Any nimble body is bound to have or develop aerial spirit within their soul.");
+        addPage("aerial_spirit_a", "Apart from being convenient, mobility is very important. Aerial magic is all about agility.");
+        addPage("aerial_spirit_b", "Aerial magics, light and versatile, weak in effect yet excel in utility. Any nimble body is bound to have or develop aerial spirit within their soul.");
         addHeadline("aquatic_spirit", "Aquatic Spirit");
-        addHeadline("aquatic_spirit_a", "Similar to the earthen, aquatic magics are immensely powerful. On top of that, the oceans in this world seem to have lots of spirit unrelated magics already within them!");
-        addHeadline("aquatic_spirit_b", "Aquatic magic derives a lot from various ocean wonders already present in the world. Ideas such as channeling or loyalty are one with the seas and everything within. Aquatic spirit provides similar powers.");
+        addPage("aquatic_spirit_a", "Similar to the earthen, aquatic magics are immensely powerful. On top of that, the oceans in this world seem to have lots of spirit unrelated magics already within them!");
+        addPage("aquatic_spirit_b", "Aquatic magic derives a lot from various ocean wonders already present in the world. Ideas such as channeling or loyalty are one with the seas and everything within. Aquatic spirit provides similar powers.");
 
         addHeadline("spirit_fabric", "Spirit Fabric");
         addPage("spirit_fabric", "Spirit fabric is a wicked type of weave used for various spirit related crafting processes.");

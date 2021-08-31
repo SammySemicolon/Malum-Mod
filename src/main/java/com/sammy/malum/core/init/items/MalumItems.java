@@ -265,7 +265,7 @@ public class MalumItems
     public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_ROCK_RUNE = ITEMS.register("tainted_rock_rune", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TWISTED_ROCK_RUNE = ITEMS.register("twisted_rock_rune", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES().food((new Food.Builder()).fastToEat().setAlwaysEdible().build())));
     public static final RegistryObject<Item> CURSED_STRAND = ITEMS.register("cursed_strand", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
