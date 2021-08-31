@@ -30,6 +30,10 @@ public class MalumCurioItem extends Item implements ICurioItem
     {
         return ItemStack.EMPTY;
     }
+    public void consumeSpiritEffect(LivingEntity livingEntity)
+    {
+
+    }
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack)
     {

@@ -78,7 +78,7 @@ public class SpiritHelper
         int itemBonus = 0;
         for (MalumCurioItem item : equippedMalumCurios)
         {
-            if (item.spiritYieldBonus() < itemBonus)
+            if (item.spiritYieldBonus() > itemBonus)
             {
                 itemBonus = item.spiritYieldBonus();
             }
@@ -158,7 +158,12 @@ public class SpiritHelper
     {
         if (MalumHelper.hasArmorSet(collector, MalumItems.SOUL_STAINED_STEEL_HELMET.get().getItem()))
         {
-            MalumHelper.giveStackingEffect(Effects.RESISTANCE, collector, 300, 0);
+            MalumHelper.giveStackingEffect(Effects.RESISTANCE, collector, 100, 0);
+        }
+        ArrayList<MalumCurioItem> equippedMalumCurios = MalumHelper.equippedMalumCurios(collector);
+        for (MalumCurioItem item : equippedMalumCurios)
+        {
+            item.consumeSpiritEffect(collector);
         }
     }
 

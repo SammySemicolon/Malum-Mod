@@ -7,6 +7,7 @@ import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -111,5 +112,18 @@ public class ItemEvents
             extraDamage *= 0.5f;
         }
         event.setAmount(event.getAmount() * extraDamage);
+        if (MalumHelper.hasCurioEquipped(attacker, MalumItems.BATTLE_HARMONY_NECKLACE))
+        {
+            if (attacker instanceof PlayerEntity)
+            {
+                PlayerEntity playerEntity = (PlayerEntity) attacker;
+                if (playerEntity.getCooldownTracker().hasCooldown(MalumItems.BATTLE_HARMONY_NECKLACE.get()))
+                {
+                    return;
+                }
+                playerEntity.getCooldownTracker().setCooldown(MalumItems.BATTLE_HARMONY_NECKLACE.get(), 40);
+            }
+            SpiritHelper.collectSpirit(attacker);
+        }
     }
 }
