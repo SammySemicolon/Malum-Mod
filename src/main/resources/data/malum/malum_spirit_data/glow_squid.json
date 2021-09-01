@@ -1,0 +1,9 @@
+{
+  "registry_name": "upgrade_aquatic:glow_squid",
+  "spirits": [
+    {
+      "spirit": "aquatic",
+      "count": 2
+    }
+  ]
+}

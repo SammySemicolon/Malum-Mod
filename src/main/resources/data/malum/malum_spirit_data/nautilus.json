@@ -1,0 +1,9 @@
+{
+  "registry_name": "upgrade_aquatic:nautilus",
+  "spirits": [
+    {
+      "spirit": "aquatic",
+      "count": 1
+    }
+  ]
+}

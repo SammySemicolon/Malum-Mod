@@ -1,0 +1,13 @@
+{
+  "registry_name": "environmental:slabfish",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "aquatic",
+      "count": 1
+    }
+  ]
+}

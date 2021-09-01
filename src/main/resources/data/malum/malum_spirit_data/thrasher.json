@@ -1,0 +1,13 @@
+{
+  "registry_name": "upgrade_aquatic:thrasher",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aquatic",
+      "count": 2
+    }
+  ]
+}
