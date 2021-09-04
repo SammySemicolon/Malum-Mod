@@ -13,7 +13,7 @@
       "item": "malum:spirit_fabric"
     },
     "Z": {
-      "item": "malum:arcane_spirit"
+      "tag": "minecraft:soul_fire_base_blocks"
     }
   },
   "result": {
