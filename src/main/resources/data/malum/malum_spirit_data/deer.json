@@ -1,0 +1,9 @@
+{
+  "registry_name": "environmental:deer",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

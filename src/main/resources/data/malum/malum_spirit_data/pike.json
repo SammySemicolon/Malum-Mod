@@ -1,0 +1,13 @@
+{
+  "registry_name": "upgrade_aquatic:pike",
+  "spirits": [
+    {
+      "spirit": "aquatic",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

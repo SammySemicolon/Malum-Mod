@@ -1,0 +1,9 @@
+{
+  "registry_name": "environmental:koi",
+  "spirits": [
+    {
+      "spirit": "aquatic",
+      "count": 1
+    }
+  ]
+}
