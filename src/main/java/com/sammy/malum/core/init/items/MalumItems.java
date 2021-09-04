@@ -336,7 +336,7 @@ public class MalumItems
     public static final RegistryObject<Item> RING_OF_PROWESS = ITEMS.register("ring_of_prowess", () -> new CurioRingOfProwess(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = ITEMS.register("ring_of_curative_talent", () -> new CurioCurativeRing(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> BATTLE_HARMONY_NECKLACE = ITEMS.register("battle_harmony_necklace", () -> new CurioBattleHarmonyNecklace(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> BATTLE_HARMONY_NECKLACE = ITEMS.register("necklace_of_battle_harmony", () -> new CurioBattleHarmonyNecklace(GEAR_PROPERTIES()));
 
     //endregion
 

@@ -21,6 +21,5 @@ public class CurioCurativeRing extends MalumCurioItem
     public void consumeSpiritEffect(LivingEntity livingEntity) {
         livingEntity.heal(livingEntity.getMaxHealth()*0.2f);
         MalumHelper.giveStackingEffect(Effects.REGENERATION, livingEntity, 100, 0);
-
     }
 }
