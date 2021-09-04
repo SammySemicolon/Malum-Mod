@@ -73,7 +73,8 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
         if (distance < minimumDistance || moving != 0)
         {
             moving++;
-            Vector3d desiredMotion = owner.getPositionVec().subtract(getPositionVec()).normalize().mul(velocity, velocity, velocity);
+            Vector3d desiredLocation = owner.getPositionVec().add(0, owner.getHeight()/2, 0);
+            Vector3d desiredMotion = desiredLocation.subtract(getPositionVec()).normalize().mul(velocity, velocity, velocity);
             float pct = 0.1f;
             if (moving > 20)
             {
