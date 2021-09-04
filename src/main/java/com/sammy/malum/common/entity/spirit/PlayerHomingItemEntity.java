@@ -92,8 +92,7 @@ public class PlayerHomingItemEntity extends FloatingItemEntity
             if (isAlive())
             {
                 ItemStack stack = getItem();
-                MalumHelper.giveItemToEntity(stack, owner);
-                SpiritHelper.collectSpirit(owner);
+                SpiritHelper.pickupSpirit(stack, owner);
                 remove();
             }
         }

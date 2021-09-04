@@ -65,7 +65,7 @@ public class SpiritPouchItem extends Item implements IDyeableArmorItem {
         }
     }
 
-    public static Inventory getInventory(ItemStack stack) {
+    public static ItemInventory getInventory(ItemStack stack) {
         return new ItemInventory(stack, 27);
     }
 
