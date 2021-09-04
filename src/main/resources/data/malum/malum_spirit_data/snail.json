@@ -1,0 +1,9 @@
+{
+  "registry_name": "autumnity:snail",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "registry_name": "upgrade_aquatic:goose",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}
