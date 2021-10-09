@@ -1,6 +1,7 @@
 package com.sammy.malum.common.event;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.worldgen.MalumFeatures;
 import com.sammy.malum.core.mod_systems.spirit.SpiritReloadListener;
@@ -29,20 +30,28 @@ public class GenericEvents
     @SubscribeEvent
     public static void addFeatures(BiomeLoadingEvent event)
     {
-        if (event.getCategory().equals(Biome.Category.PLAINS) || event.getCategory().equals(Biome.Category.EXTREME_HILLS))
-        {
-            event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.CONFIGURED_RUNEWOOD_TREE);
+        if (event.getCategory().equals(Biome.Category.PLAINS) || event.getCategory().equals(Biome.Category.EXTREME_HILLS)) {
+            if (CommonConfig.GENERATE_RUNEWOOD_TREES.get()) {
+                event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.COMMON_RUNEWOOD_TREE);
+            }
         }
-        if (event.getCategory().equals(Biome.Category.FOREST))
-        {
-            event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.RARE_CONFIGURED_RUNEWOOD_TREE);
+        if (event.getCategory().equals(Biome.Category.FOREST)) {
+            if (CommonConfig.GENERATE_RUNEWOOD_TREES.get()) {
+                event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.RARE_CONFIGURED_RUNEWOOD_TREE);
+            }
         }
-        if (event.getCategory().equals(Biome.Category.NETHER))
-        {
-            event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.BLAZE_QUARTZ_ORE);
+        if (event.getCategory().equals(Biome.Category.NETHER)) {
+            if (CommonConfig.GENERATE_BLAZE_QUARTZ.get()) {
+                event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.BLAZE_QUARTZ_ORE);
+            }
         }
-        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.SOULSTONE_ORE);
-        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.SOULSTONE_ORE_SURFACE);
+        if (CommonConfig.GENERATE_SOULSTONE.get()) {
+            event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.SOULSTONE_ORE);
+        }
+
+        if (CommonConfig.GENERATE_SURFACE_SOULSTONE.get()) {
+            event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.SOULSTONE_ORE_SURFACE);
+        }
     }
     @SubscribeEvent
     public static void showGratitude(EntityJoinWorldEvent event)

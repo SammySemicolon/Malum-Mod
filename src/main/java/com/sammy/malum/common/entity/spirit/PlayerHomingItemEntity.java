@@ -3,17 +3,28 @@ package com.sammy.malum.common.entity.spirit;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.core.init.MalumEntities;
+import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 public class PlayerHomingItemEntity extends FloatingItemEntity {
@@ -100,5 +111,13 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
         homingItemEntity.setPosition(posX, posY, posZ);
         homingItemEntity.setMotion(velX, velY, velZ);
         return homingItemEntity;
+    }
+    @SubscribeEvent
+    public static void registerPOI(RegistryEvent.Register<PointOfInterestType> event) {
+        ResourceLocation beePOILocation = new ResourceLocation("minecraft:bee_nest");
+        PointOfInterestType beePOI = ForgeRegistries.POI_TYPES.getValue(beePOILocation);
+        HashSet<BlockState> newSet = new HashSet<>(beePOI.getBlockStates());
+        newSet.add(MalumBlocks.BLAZING_QUARTZ_BLOCK.get().getDefaultState());
+        event.getRegistry().register(new PointOfInterestType("bee_nest", newSet, beePOI.getValidRange(), beePOI.getMaxFreeTickets()));
     }
 }

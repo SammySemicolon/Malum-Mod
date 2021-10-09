@@ -1,5 +1,7 @@
 package com.sammy.malum;
 
+import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
 import com.sammy.malum.core.init.MalumContainers;
 import com.sammy.malum.core.mod_systems.particle.ParticleRendering;
@@ -8,7 +10,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -37,7 +41,12 @@ public class MalumMod
 
     public MalumMod()
     {
+
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
+
         ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
         ITEMS.register(modBus);

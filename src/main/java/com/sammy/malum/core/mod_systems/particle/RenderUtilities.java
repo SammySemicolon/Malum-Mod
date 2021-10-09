@@ -1,4 +1,4 @@
-package com.sammy.malum.client;
+package com.sammy.malum.core.mod_systems.particle;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -9,8 +9,7 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 
-public class RenderUtilities
-{
+public class RenderUtilities {
     public static final RenderState.TransparencyState ADDITIVE_TRANSPARENCY = new RenderState.TransparencyState("lightning_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
@@ -18,7 +17,7 @@ public class RenderUtilities
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
     });
-    
+
     public static final RenderState.TransparencyState NORMAL_TRANSPARENCY = new RenderState.TransparencyState("lightning_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -26,7 +25,7 @@ public class RenderUtilities
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
     });
-    
+
     public static RenderType GLOWING_SPRITE = RenderType.makeType(
             MalumMod.MODID + ":glowing_sprite",
             DefaultVertexFormats.POSITION_COLOR_TEX,

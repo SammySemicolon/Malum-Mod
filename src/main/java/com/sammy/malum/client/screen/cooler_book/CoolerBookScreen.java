@@ -184,15 +184,20 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "spirit_fabric", SPIRIT_FABRIC.get(),2,5)
+                .right(1)
                 .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric"))
                 .addPage(new SpiritInfusionPage(SPIRIT_FABRIC.get()))
+                .addPage(new HeadlineTextPage("spirit_pouch", "spirit_pouch"))
+                .addPage(new CraftingBookPage(SPIRIT_POUCH.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), SOUL_SAND, SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "soul_hunter_gear", SOUL_HUNTER_CLOAK.get(),3,5)
                 .addPage(new HeadlineTextPage("soul_hunter_armor", "soul_hunter_armor"))
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_CLOAK.get()))
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_ROBE.get()))
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_LEGGINGS.get()))
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_BOOTS.get()))
-                .addPage(new HeadlineTextPage("spirit_pouch", "spirit_pouch"))
-                .addPage(new CraftingBookPage(SPIRIT_POUCH.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), SOUL_SAND, SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
         );
 
         entries.add(new CoolerBookEntry(
@@ -217,7 +222,7 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -1, 5)
-                .left(1)
+                .left(3)
                 .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
                 .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor"))
@@ -228,7 +233,8 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "spirit_trinkets", ORNATE_RING.get(), -2, 5)
+                "spirit_trinkets", ORNATE_RING.get(), -3, 5)
+                .rightUp(1,1)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
                 .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER,HALLOWED_GOLD_INGOT.get()))
@@ -238,7 +244,7 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "soul_hunter_trinkets", RING_OF_ARCANE_REACH.get(), -3, 5)
+                "soul_hunter_trinkets", RING_OF_ARCANE_REACH.get(), -2, 6)
                 .addPage(new HeadlineTextPage("arcane_reach", "arcane_reach"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
                 .addPage(new HeadlineTextPage("arcane_spoils", "arcane_spoils"))

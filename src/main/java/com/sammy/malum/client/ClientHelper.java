@@ -1,7 +1,10 @@
 package com.sammy.malum.client;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
 import net.minecraft.util.ColorHelper;
@@ -21,23 +24,6 @@ public class ClientHelper
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.particles.addBlockDestroyEffects(pos, state);
     }
-    public static void registerItemColorTint(ItemColors itemColors, RegistryObject<Item> item, Color color)
-    {
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
-    
-        itemColors.register((stack, c) -> {
-            if (c == 0)
-            {
-                return r << 16 | g << 8 | b;
-            }
-            else
-            {
-                return 0xFFFFFF;
-            }
-        }, item.get());
-    }
     public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color)
     {
         int r = color.getRed();
@@ -55,5 +41,10 @@ public class ClientHelper
     public static IFormattableTextComponent simpleTranslatableComponent(String message)
     {
         return new TranslationTextComponent(message);
+    }
+
+    public static void setCutout(RegistryObject<Block> b)
+    {
+        RenderTypeLookup.setRenderLayer(b.get(), RenderType.getCutout());
     }
 }

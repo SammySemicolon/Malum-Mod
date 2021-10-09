@@ -1,7 +1,6 @@
 package com.sammy.malum.core.mod_systems.particle;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.sammy.malum.client.RenderUtilities;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -32,20 +31,5 @@ public class ParticleRendering
             DELAYED_RENDER = IRenderTypeBuffer.getImpl(buffers, new BufferBuilder(256));
         }
         return DELAYED_RENDER;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public void onRenderLast(RenderWorldLastEvent event)
-    {
-        RenderSystem.pushMatrix(); // this feels...cheaty
-        RenderSystem.multMatrix(event.getMatrixStack().getLast().getMatrix());
-        getDelayedRender().finish(RenderUtilities.DELAYED_PARTICLE);
-        getDelayedRender().finish(RenderUtilities.GLOWING_PARTICLE);
-        getDelayedRender().finish(RenderUtilities.GLOWING_BLOCK_PARTICLE);
-        RenderSystem.popMatrix();
-    
-        getDelayedRender().finish(RenderUtilities.GLOWING_SPRITE);
-        getDelayedRender().finish(RenderUtilities.GLOWING);
     }
 }

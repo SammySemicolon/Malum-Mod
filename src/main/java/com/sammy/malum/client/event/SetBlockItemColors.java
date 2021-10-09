@@ -1,7 +1,8 @@
-package com.sammy.malum.client;
+package com.sammy.malum.client.event;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
