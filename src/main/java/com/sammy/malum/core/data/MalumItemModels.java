@@ -5,6 +5,7 @@ import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.SpiritItem;
+import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.tools.ModCombatItem;
 import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
@@ -78,17 +79,29 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         String textureName = name.substring(0, 8) + "ether_brazier";
+        AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
+        if (etherItem.iridescent)
+        {
+            withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether_brazier")).texture("layer1", prefix("item/" + textureName)).texture("layer2", prefix("item/iridescent_ether_brazier_overlay"));
+            return;
+        }
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_brazier_overlay")).texture("layer1", prefix("item/" + textureName));
     }
     private void etherTorchItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
+        AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
+        if (etherItem.iridescent)
+        {
+            withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether_torch")).texture("layer1", prefix("item/ether_torch")).texture("layer2", prefix("item/iridescent_ether_torch_overlay"));
+            return;
+        }
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether_torch_overlay")).texture("layer1", prefix("item/ether_torch"));
     }
     private void etherItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        EtherItem etherItem = (EtherItem) i.get();
+        AbstractEtherItem etherItem = (AbstractEtherItem) i.get();
         if (etherItem.iridescent)
         {
             withExistingParent(name, GENERATED).texture("layer0", prefix("item/iridescent_ether")).texture("layer1", prefix("item/iridescent_ether_overlay"));

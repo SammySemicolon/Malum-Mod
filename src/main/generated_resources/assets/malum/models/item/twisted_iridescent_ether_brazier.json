@@ -1,7 +1,8 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/ether_brazier_overlay",
-    "layer1": "malum:item/twisted_ether_brazier"
+    "layer0": "malum:item/iridescent_ether_brazier",
+    "layer1": "malum:item/twisted_ether_brazier",
+    "layer2": "malum:item/iridescent_ether_brazier_overlay"
   }
 }

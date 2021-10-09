@@ -8,8 +8,7 @@ import com.sammy.malum.core.mod_systems.particle.data.MalumParticleData;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.world.ClientWorld;
 
-public class WispParticle extends GenericMalumParticle
-{
+public class WispParticle extends GenericMalumParticle {
     public WispParticle(ClientWorld world, MalumParticleData data, double x, double y, double z, double vx, double vy, double vz) {
         super(world, data, x, y, z, vx, vy, vz);
     }

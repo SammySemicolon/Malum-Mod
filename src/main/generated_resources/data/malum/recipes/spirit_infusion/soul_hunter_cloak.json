@@ -15,11 +15,15 @@
     {
       "item": "malum:soulstone",
       "count": 1
+    },
+    {
+      "tag": "forge:leather",
+      "count": 1
     }
   ],
   "spirits": [
     {
-      "item": "malum:arcane_spirit",
+      "item": "malum:earthen_spirit",
       "count": 2
     },
     {

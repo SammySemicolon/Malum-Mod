@@ -20,16 +20,14 @@ import java.util.UUID;
 import static com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude.sammy_uuid;
 
 @Mod.EventBusSubscriber
-public class GenericEvents
-{
+public class GenericEvents {
     @SubscribeEvent
-    public static void registerListeners(AddReloadListenerEvent event)
-    {
+    public static void registerListeners(AddReloadListenerEvent event) {
         event.addListener(new SpiritReloadListener());
     }
+
     @SubscribeEvent
-    public static void addFeatures(BiomeLoadingEvent event)
-    {
+    public static void addFeatures(BiomeLoadingEvent event) {
         if (event.getCategory().equals(Biome.Category.PLAINS) || event.getCategory().equals(Biome.Category.EXTREME_HILLS)) {
             if (CommonConfig.GENERATE_RUNEWOOD_TREES.get()) {
                 event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> MalumFeatures.COMMON_RUNEWOOD_TREE);
@@ -53,18 +51,14 @@ public class GenericEvents
             event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.SOULSTONE_ORE_SURFACE);
         }
     }
+
     @SubscribeEvent
-    public static void showGratitude(EntityJoinWorldEvent event)
-    {
-        if (event.getEntity() instanceof PlayerEntity)
-        {
+    public static void showGratitude(EntityJoinWorldEvent event) {
+        if (event.getEntity() instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity) event.getEntity();
-            if (MalumHelper.areWeOnServer(playerEntity.world))
-            {
-                if (playerEntity.getUniqueID().equals(UUID.fromString(sammy_uuid)))
-                {
-                    if (!MalumHelper.findCosmeticCurio(s -> s.getItem().equals(MalumItems.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent())
-                    {
+            if (MalumHelper.areWeOnServer(playerEntity.world)) {
+                if (playerEntity.getUniqueID().equals(UUID.fromString(sammy_uuid))) {
+                    if (!MalumHelper.findCosmeticCurio(s -> s.getItem().equals(MalumItems.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, MalumItems.TOKEN_OF_GRATITUDE.get().getDefaultInstance());
                     }
                 }

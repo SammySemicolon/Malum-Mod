@@ -16,28 +16,20 @@ import net.minecraftforge.fml.common.Mod;
 
 @SuppressWarnings("all")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class ItemEvents
-{
+public class ItemEvents {
     @SubscribeEvent
-    public static void onEntityKill(LivingDeathEvent event)
-    {
-        if (event.getSource().getTrueSource() instanceof LivingEntity)
-        {
+    public static void onEntityKill(LivingDeathEvent event) {
+        if (event.getSource().getTrueSource() instanceof LivingEntity) {
             ItemStack stack = ItemStack.EMPTY;
             LivingEntity attacker = (LivingEntity) event.getSource().getTrueSource();
-            if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity)
-            {
+            if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity) {
                 ScytheBoomerangEntity entity = (ScytheBoomerangEntity) event.getSource().getImmediateSource();
                 stack = entity.scythe;
-            }
-            else
-            {
+            } else {
                 stack = MalumHelper.heldItem(attacker, s -> s.getItem() instanceof ISpiritTool);
             }
-            if (stack != null)
-            {
-                if (stack.getItem() instanceof ISpiritTool && event.getSource().isProjectile())
-                {
+            if (stack != null) {
+                if (stack.getItem() instanceof ISpiritTool && event.getSource().isProjectile()) {
                     return;
                 }
                 SpiritHelper.playerSummonSpirits(event.getEntityLiving(), attacker, stack);
@@ -46,79 +38,63 @@ public class ItemEvents
     }
 
     @SubscribeEvent
-    public static void increaseScytheDamage(LivingHurtEvent event)
-    {
+    public static void increaseScytheDamage(LivingHurtEvent event) {
         float extraDamage = 1.0f;
         LivingEntity attacker = null;
         ItemStack stack = ItemStack.EMPTY;
-        if (event.getSource().getImmediateSource() instanceof LivingEntity)
-        {
+        if (event.getSource().getImmediateSource() instanceof LivingEntity) {
             attacker = (LivingEntity) event.getSource().getImmediateSource();
         }
-        if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity)
-        {
+        if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity) {
             ScytheBoomerangEntity entity = (ScytheBoomerangEntity) event.getSource().getImmediateSource();
             attacker = entity.owner();
             stack = entity.scythe;
         }
-        if (attacker != null)
-        {
-            if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get()))
-            {
+        if (attacker != null) {
+            if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get())) {
                 extraDamage += 0.25f;
             }
         }
         event.setAmount(event.getAmount() * extraDamage);
     }
+
     @SubscribeEvent
-    public static void increaseMagicDamage(LivingHurtEvent event)
-    {
-        if (!event.getSource().isMagicDamage())
-        {
+    public static void increaseMagicDamage(LivingHurtEvent event) {
+        if (!event.getSource().isMagicDamage()) {
             return;
         }
         float extraDamage = 1.0f;
         LivingEntity attacker = null;
         LivingEntity attacked = event.getEntityLiving();
-        if (attacked == null)
-        {
+        if (attacked == null) {
             return;
         }
         ItemStack stack = ItemStack.EMPTY;
-        if (event.getSource().getImmediateSource() instanceof LivingEntity)
-        {
+        if (event.getSource().getImmediateSource() instanceof LivingEntity) {
             attacker = (LivingEntity) event.getSource().getImmediateSource();
             stack = MalumHelper.heldItem(attacker, s -> s.getItem() instanceof ScytheItem);
         }
-        if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity)
-        {
+        if (event.getSource().getImmediateSource() instanceof ScytheBoomerangEntity) {
             ScytheBoomerangEntity entity = (ScytheBoomerangEntity) event.getSource().getImmediateSource();
             attacker = entity.owner();
             stack = entity.scythe;
         }
-        if (attacker != null)
-        {
-            if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get()))
-            {
+        if (attacker != null) {
+            if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get())) {
                 extraDamage += 0.25f;
             }
-            if (stack.getItem().equals(MalumItems.SOUL_STAINED_STEEL_SCYTHE.get()))
-            {
+            if (stack.getItem().equals(MalumItems.SOUL_STAINED_STEEL_SCYTHE.get())) {
                 extraDamage += 0.25f;
             }
         }
-        if (MalumHelper.hasArmorSet(attacked, MalumItems.SOUL_STAINED_STEEL_HELMET.get()))
-        {
+        if (MalumHelper.hasArmorSet(attacked, MalumItems.SOUL_STAINED_STEEL_HELMET.get())) {
             extraDamage *= 0.5f;
         }
         event.setAmount(event.getAmount() * extraDamage);
-        if (MalumHelper.hasCurioEquipped(attacker, MalumItems.BATTLE_HARMONY_NECKLACE))
-        {
-            if (attacker instanceof PlayerEntity)
-            {
+        if (MalumHelper.hasCurioEquipped(attacker, MalumItems.BATTLE_HARMONY_NECKLACE)) {
+            if (attacker instanceof PlayerEntity) {
                 PlayerEntity playerEntity = (PlayerEntity) attacker;
-                if (playerEntity.getCooldownTracker().hasCooldown(MalumItems.BATTLE_HARMONY_NECKLACE.get()))
-                {
+                if (playerEntity.getCooldownTracker().hasCooldown(MalumItems.BATTLE_HARMONY_NECKLACE.get())) {
                     return;
                 }
                 playerEntity.getCooldownTracker().setCooldown(MalumItems.BATTLE_HARMONY_NECKLACE.get(), 40);
