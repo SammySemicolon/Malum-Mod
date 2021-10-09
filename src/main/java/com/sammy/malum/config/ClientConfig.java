@@ -9,9 +9,7 @@ public class ClientConfig {
 
     public ClientConfig(ForgeConfigSpec.Builder builder) {
         builder.comment("Graphics settings").push("graphics");
-        BETTER_LAYERING = builder.comment("Enable better particle/effect layering.")
-                .comment("Fixes particles and effects rendering behind clouds and weather.")
-                .comment("NOTE: Does NOT work with fabulous graphics mode.")
+        BETTER_LAYERING = builder.comment("Enable better particle/effect layering. Fixes particles and effects rendering behind clouds and weather. NOTE: Does NOT work with fabulous graphics mode.")
                 .define("betterLayering", true);
         builder.pop();
     }

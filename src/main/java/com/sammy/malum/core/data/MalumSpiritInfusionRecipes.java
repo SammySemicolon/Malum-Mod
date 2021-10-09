@@ -124,28 +124,33 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.LEATHER_HELMET, 1, MalumItems.SOUL_HUNTER_CLOAK.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 1)
-                .addSpirit(ARCANE_SPIRIT, 2)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
+                .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_CHESTPLATE, 1, MalumItems.SOUL_HUNTER_ROBE.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 1)
-                .addSpirit(ARCANE_SPIRIT, 2)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 2)
+                .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_LEGGINGS, 1, MalumItems.SOUL_HUNTER_LEGGINGS.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 1)
-                .addSpirit(ARCANE_SPIRIT, 2)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
+                .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_BOOTS, 1, MalumItems.SOUL_HUNTER_BOOTS.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 1)
-                .addSpirit(ARCANE_SPIRIT, 2)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.FEATHERS), 2)
+                .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
 

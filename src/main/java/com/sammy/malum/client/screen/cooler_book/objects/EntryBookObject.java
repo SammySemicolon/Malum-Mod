@@ -5,7 +5,10 @@ import com.sammy.malum.client.screen.cooler_book.EntryScreen;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry;
 import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.Arrays;
 
 import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.*;
 
@@ -117,7 +120,7 @@ public class EntryBookObject extends CoolerBookObject
         }
         if (isHovering)
         {
-            screen.renderTooltip(matrixStack, new TranslationTextComponent(entry.translationKey()), mouseX, mouseY);
+            screen.renderWrappedToolTip(matrixStack, Arrays.asList(new TranslationTextComponent(entry.translationKey()), new TranslationTextComponent(entry.descriptionTranslationKey()).mergeStyle(TextFormatting.GRAY)), mouseX, mouseY, minecraft.fontRenderer);
         }
     }
     public void renderArrow(MatrixStack matrixStack, int arrowPosX, int arrowPosY, int uOffset, int vOffset)

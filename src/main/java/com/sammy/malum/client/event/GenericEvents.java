@@ -12,9 +12,9 @@ import net.minecraftforge.fml.common.Mod;
 
 import static com.sammy.malum.core.mod_systems.particle.ParticleRendering.getDelayedRender;
 
-@Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.FORGE)
 public class GenericEvents {
-    @OnlyIn(Dist.CLIENT)
+
     @SubscribeEvent
     public static void onRenderLast(RenderWorldLastEvent event) {
         if (ClientConfig.BETTER_LAYERING.get()) {

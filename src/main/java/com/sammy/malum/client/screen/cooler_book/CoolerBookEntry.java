@@ -29,6 +29,10 @@ public class CoolerBookEntry
     {
         return "malum.gui.book.entry." + identifier;
     }
+    public String descriptionTranslationKey()
+    {
+        return "malum.gui.book.entry." + identifier + ".description";
+    }
     public CoolerBookEntry addPage(CoolerBookPage page)
     {
         pages.add(page);

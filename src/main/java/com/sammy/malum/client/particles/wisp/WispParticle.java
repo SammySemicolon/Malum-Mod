@@ -19,8 +19,4 @@ public class WispParticle extends GenericMalumParticle
         return 0xF000F0;
     }
 
-    @Override
-    public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
-        super.renderParticle(ParticleRendering.getDelayedRender().getBuffer(RenderUtilities.GLOWING_PARTICLE), info, pticks);
-    }
 }

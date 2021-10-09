@@ -1,9 +1,12 @@
 package com.sammy.malum.core.mod_systems.particle;
 
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.core.mod_systems.particle.data.MalumParticleData;
 import com.sammy.malum.core.mod_systems.particle.rendertypes.SpriteParticleRenderType;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.ColorHelper;
 import net.minecraft.util.math.MathHelper;
@@ -13,6 +16,7 @@ import java.awt.*;
 public class GenericMalumParticle extends SpriteTexturedParticle {
     MalumParticleData data;
     float[] hsv1 = new float[3], hsv2 = new float[3];
+
     public GenericMalumParticle(ClientWorld world, MalumParticleData data, double x, double y, double z, double vx, double vy, double vz) {
         super(world, x, y, z, vx, vy, vz);
         this.setPosition(x, y, z);
@@ -23,18 +27,18 @@ public class GenericMalumParticle extends SpriteTexturedParticle {
         this.setMaxAge(data.lifetime);
         this.particleGravity = data.gravity ? 1 : 0;
         this.canCollide = !data.noClip;
-        Color.RGBtoHSB((int)(255 * Math.min(1.0f, data.r1)), (int)(255 * Math.min(1.0f, data.g1)), (int)(255 * Math.min(1.0f, data.b1)), hsv1);
-        Color.RGBtoHSB((int)(255 * Math.min(1.0f, data.r2)), (int)(255 * Math.min(1.0f, data.g2)), (int)(255 * Math.min(1.0f, data.b2)), hsv2);
+        Color.RGBtoHSB((int) (255 * Math.min(1.0f, data.r1)), (int) (255 * Math.min(1.0f, data.g1)), (int) (255 * Math.min(1.0f, data.b1)), hsv1);
+        Color.RGBtoHSB((int) (255 * Math.min(1.0f, data.r2)), (int) (255 * Math.min(1.0f, data.g2)), (int) (255 * Math.min(1.0f, data.b2)), hsv2);
         updateTraits();
     }
 
     protected float getCoeff() {
-        return (float)this.age / (float)this.maxAge;
+        return (float) this.age / (float) this.maxAge;
     }
 
     protected float getColorCoeff() {
         float increasedAge = Math.min(this.age * data.colorCurveMultiplier, this.maxAge);
-        return increasedAge / (float)this.maxAge;
+        return increasedAge / (float) this.maxAge;
     }
 
     protected void updateTraits() {
@@ -63,5 +67,10 @@ public class GenericMalumParticle extends SpriteTexturedParticle {
     @Override
     public IParticleRenderType getRenderType() {
         return SpriteParticleRenderType.INSTANCE;
+    }
+
+    @Override
+    public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
+        super.renderParticle(ClientConfig.BETTER_LAYERING.get() ? ParticleRendering.getDelayedRender().getBuffer(RenderUtilities.GLOWING_PARTICLE) : b, info, pticks);
     }
 }

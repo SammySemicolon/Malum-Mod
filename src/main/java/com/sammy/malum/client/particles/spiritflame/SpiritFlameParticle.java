@@ -36,9 +36,10 @@ public class SpiritFlameParticle extends ParticlePhaseMalumParticle
         motionZ *= 0.9f;
     }
     @Override
-    public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
-        super.renderParticle(ParticleRendering.getDelayedRender().getBuffer(RenderUtilities.GLOWING_PARTICLE), info, pticks);
+    protected int getBrightnessForRender(float partialTicks) {
+        return 0xF000F0;
     }
+
     @Override
     public IParticleRenderType getRenderType()
     {
