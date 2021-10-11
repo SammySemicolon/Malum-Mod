@@ -69,8 +69,7 @@ public class ItemEvents {
         if (attacked == null) {
             return;
         }
-        if (event.getSource() == null)
-        {
+        if (event.getSource().getImmediateSource() == null) {
             return;
         }
         ItemStack stack = ItemStack.EMPTY;
