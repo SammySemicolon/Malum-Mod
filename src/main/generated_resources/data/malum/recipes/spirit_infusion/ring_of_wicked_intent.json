@@ -1,0 +1,22 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:ornate_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_wicked_intent"
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:skeleton_skull",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:wicked_spirit",
+      "count": 32
+    }
+  ]
+}

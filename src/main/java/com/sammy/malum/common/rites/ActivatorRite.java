@@ -17,7 +17,7 @@ public abstract class ActivatorRite extends MalumRiteType
     }
 
     @Override
-    public void executeRite(ServerWorld world, BlockPos pos)
+    public void riteEffect(ServerWorld world, BlockPos pos)
     {
         ArrayList<BlockPos> nearbyBlocks = new ArrayList<>(MalumHelper.getBlocks(pos, range(), range(), range(), b -> world.getTileEntity(b) instanceof IAssembled));
         for (BlockPos nearbyPos : nearbyBlocks)
@@ -26,7 +26,7 @@ public abstract class ActivatorRite extends MalumRiteType
             assembled.assemble(pos, MalumHelper.toArrayList(MalumSpiritTypes.AQUATIC_SPIRIT, MalumSpiritTypes.ARCANE_SPIRIT));
             MalumHelper.updateAndNotifyState(world, pos);
         }
-        super.executeRite(world, pos);
+        super.riteEffect(world, pos);
     }
     public interface IAssembled
     {

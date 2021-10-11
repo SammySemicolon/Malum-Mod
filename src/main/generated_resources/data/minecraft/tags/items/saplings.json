@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "malum:runewood_sapling"
+    "malum:runewood_sapling",
+    "malum:soulwood_sapling"
   ]
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "malum:runewood_leaves"
+    "malum:runewood_leaves",
+    "malum:soulwood_leaves"
   ]
 }

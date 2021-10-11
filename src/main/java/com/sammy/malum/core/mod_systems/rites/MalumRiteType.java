@@ -7,35 +7,46 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 
-public class MalumRiteType
-{
+public class MalumRiteType {
     public ArrayList<MalumSpiritType> spirits;
     public String identifier;
     public boolean isInstant;
-    public MalumRiteType(String identifier, boolean isInstant, MalumSpiritType... spirits)
-    {
+
+    public MalumRiteType(String identifier, boolean isInstant, MalumSpiritType... spirits) {
         this.identifier = identifier;
         this.isInstant = isInstant;
         this.spirits = MalumHelper.toArrayList(spirits);
     }
-    public int defaultRange()
-    {
+
+    public int defaultRange() {
         return 8;
     }
-    public int range()
-    {
+
+    public int range() {
         return defaultRange();
     }
-    public int defaultInterval()
-    {
+
+    public int defaultInterval() {
         return 20;
     }
-    public int interval()
-    {
+
+    public int interval() {
         return defaultInterval();
     }
-    public void executeRite(ServerWorld world, BlockPos pos)
-    {
+
+    public void executeRite(ServerWorld world, BlockPos pos, boolean corrupted) {
+        if (corrupted) {
+            corruptedRiteEffect(world, pos);
+        } else {
+            riteEffect(world, pos);
+        }
+    }
+
+    public void riteEffect(ServerWorld world, BlockPos pos) {
+
+    }
+
+    public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
 
     }
 }

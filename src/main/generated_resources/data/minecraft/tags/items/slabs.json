@@ -22,6 +22,10 @@
     "malum:runewood_planks_slab",
     "malum:vertical_runewood_planks_slab",
     "malum:runewood_panel_slab",
-    "malum:runewood_tiles_slab"
+    "malum:runewood_tiles_slab",
+    "malum:soulwood_planks_slab",
+    "malum:vertical_soulwood_planks_slab",
+    "malum:soulwood_panel_slab",
+    "malum:soulwood_tiles_slab"
   ]
 }

@@ -11,6 +11,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static com.sammy.malum.core.init.items.MalumItemTags.RUNEWOOD_LOGS;
+import static com.sammy.malum.core.init.items.MalumItemTags.SOULWOOD_LOGS;
 
 public class MalumItemTags extends ItemTagsProvider
 {
@@ -72,7 +73,8 @@ public class MalumItemTags extends ItemTagsProvider
         this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 
         getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.SOLAR_SAPBALL.get());
-    
+
         getOrCreateBuilder(RUNEWOOD_LOGS).add(MalumItems.RUNEWOOD_LOG.get(), MalumItems.STRIPPED_RUNEWOOD_LOG.get(), MalumItems.RUNEWOOD.get(), MalumItems.STRIPPED_RUNEWOOD.get(), MalumItems.SAP_FILLED_RUNEWOOD_LOG.get(), MalumItems.STRIPPED_SAP_FILLED_RUNEWOOD_LOG.get());
+        getOrCreateBuilder(SOULWOOD_LOGS).add(MalumItems.SOULWOOD_LOG.get(), MalumItems.STRIPPED_SOULWOOD_LOG.get(), MalumItems.SOULWOOD.get(), MalumItems.STRIPPED_SOULWOOD.get(), MalumItems.SAP_FILLED_SOULWOOD_LOG.get(), MalumItems.STRIPPED_SAP_FILLED_SOULWOOD_LOG.get());
     }
 }

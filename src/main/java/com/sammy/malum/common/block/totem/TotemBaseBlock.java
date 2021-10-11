@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block;
+package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.tile.TotemBaseTileEntity;
@@ -20,10 +20,11 @@ import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FAC
 
 public class TotemBaseBlock extends Block
 {
-    public TotemBaseBlock(Properties properties)
+    public final boolean corrupted;
+    public TotemBaseBlock(Properties properties, boolean corrupted)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
+        this.corrupted = corrupted;
     }
     @Override
     public boolean hasTileEntity(BlockState state)
@@ -34,16 +35,6 @@ public class TotemBaseBlock extends Block
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
         return new TotemBaseTileEntity();
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
-    }
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING);
     }
 
     @Override

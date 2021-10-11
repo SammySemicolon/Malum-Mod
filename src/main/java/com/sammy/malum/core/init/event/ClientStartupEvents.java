@@ -1,4 +1,4 @@
-package com.sammy.malum.client.event;
+package com.sammy.malum.core.init.event;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
@@ -8,8 +8,8 @@ import com.sammy.malum.client.entity_renderer.MalumBoatRenderer;
 import com.sammy.malum.client.entity_renderer.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.client.screen.container.SpiritPouchContainerScreen;
 import com.sammy.malum.client.tile_renderer.*;
-import com.sammy.malum.common.block.TotemBaseBlock;
-import com.sammy.malum.common.block.TotemPoleBlock;
+import com.sammy.malum.common.block.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
@@ -43,7 +43,7 @@ import static com.sammy.malum.core.init.MalumSpiritTypes.SPIRITS;
 import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
-public class SetupEvents {
+public class ClientStartupEvents {
     @SubscribeEvent
     public static void bindTileEntityRenderers(FMLClientSetupEvent event) {
         ClientRegistry.bindTileEntityRenderer(MalumTileEntities.SPIRIT_ALTAR_TILE_ENTITY.get(), SpiritAltarRenderer::new);
@@ -79,6 +79,7 @@ public class SetupEvents {
         {
             event.addSprite(MalumHelper.prefix("spirit/" + "overlay_" + s.identifier));
             event.addSprite(MalumHelper.prefix("spirit/" + "cutout_" + s.identifier));
+            event.addSprite(MalumHelper.prefix("spirit/" + "corrupted_cutout_" + s.identifier));
         });
     }
     @SubscribeEvent

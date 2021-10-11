@@ -27,4 +27,8 @@ public class MalumEntities
     public static final RegistryObject<EntityType<MalumBoatEntity>> RUNEWOOD_BOAT = ENTITY_TYPES.register("runewood_boat",
             () -> EntityType.Builder.<MalumBoatEntity>create((t, w)->new MalumBoatEntity(t, w, MalumItems.RUNEWOOD_BOAT, MalumItems.RUNEWOOD_PLANKS), EntityClassification.MISC).size(1.375F, 0.5625F).trackingRange(10)
                     .build(MalumHelper.prefix("runewood_boat").toString()));
+
+    public static final RegistryObject<EntityType<MalumBoatEntity>> SOULWOOD_BOAT = ENTITY_TYPES.register("soulwood_boat",
+            () -> EntityType.Builder.<MalumBoatEntity>create((t, w)->new MalumBoatEntity(t, w, MalumItems.SOULWOOD_BOAT, MalumItems.SOULWOOD_PLANKS), EntityClassification.MISC).size(1.375F, 0.5625F).trackingRange(10)
+                    .build(MalumHelper.prefix("soulwood_boat").toString()));
 }

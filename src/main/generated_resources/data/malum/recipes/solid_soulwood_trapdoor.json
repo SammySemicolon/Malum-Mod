@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:soulwood_trapdoor"
+    }
+  ],
+  "result": {
+    "item": "malum:solid_soulwood_trapdoor"
+  }
+}

@@ -22,7 +22,7 @@ public class RiteOfGrowth extends MalumRiteType
     }
 
     @Override
-    public void executeRite(ServerWorld world, BlockPos pos)
+    public void riteEffect(ServerWorld world, BlockPos pos)
     {
         if (world.rand.nextFloat() < 0.9f)
         {
@@ -50,7 +50,7 @@ public class RiteOfGrowth extends MalumRiteType
         iGrowable.grow(world, world.rand, nearbyPos, state);
         BlockPos packetPos = state.isSolid() ? nearbyPos : nearbyPos.down();
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), UpwardsFromBlockParticlesPacket.fromSpirits(packetPos.getX(),packetPos.getY(), packetPos.getZ(), spirits));
-        super.executeRite(world, pos);
+        super.riteEffect(world, pos);
     }
 
     @Override

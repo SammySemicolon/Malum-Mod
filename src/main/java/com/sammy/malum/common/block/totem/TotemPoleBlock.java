@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block;
+package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
@@ -23,9 +23,11 @@ import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FAC
 
 public class TotemPoleBlock extends Block
 {
-    public TotemPoleBlock(Properties properties)
+    public final boolean corrupted;
+    public TotemPoleBlock(Properties properties, boolean corrupted)
     {
         super(properties);
+        this.corrupted = corrupted;
         this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH));
     }
     @Override
@@ -52,9 +54,9 @@ public class TotemPoleBlock extends Block
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (MalumHelper.areWeOnClient(worldIn))
+        if (MalumHelper.areWeOnClient(worldIn) || handIn == Hand.OFF_HAND)
         {
-            return ActionResultType.SUCCESS;
+            return ActionResultType.FAIL;
         }
         if (worldIn.getTileEntity(pos) instanceof TotemPoleTileEntity)
         {

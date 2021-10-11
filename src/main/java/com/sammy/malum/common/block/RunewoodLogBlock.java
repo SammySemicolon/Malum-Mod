@@ -15,15 +15,17 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.RegistryObject;
 
 import java.util.function.Supplier;
 
 public class RunewoodLogBlock extends MalumLogBlock
 {
-
-    public RunewoodLogBlock(Properties properties, Supplier<Block> stripped)
+    public final Supplier<Block> totemPole;
+    public RunewoodLogBlock(Properties properties, Supplier<Block> stripped, Supplier<Block> totemPole)
     {
         super(properties, stripped);
+        this.totemPole = totemPole;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class RunewoodLogBlock extends MalumLogBlock
         if (stack.getItem() instanceof SpiritItem)
         {
             SpiritItem item = (SpiritItem) stack.getItem();
-            worldIn.setBlockState(pos, MalumBlocks.TOTEM_POLE.get().getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, player.getHorizontalFacing().getOpposite()));
+            worldIn.setBlockState(pos, totemPole.get().getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, hit.getFace()));
             if (worldIn.getTileEntity(pos) instanceof TotemPoleTileEntity)
             {
                 TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) worldIn.getTileEntity(pos);

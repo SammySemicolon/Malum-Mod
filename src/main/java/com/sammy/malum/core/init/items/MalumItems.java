@@ -223,7 +223,57 @@ public class MalumItems
 
     public static final RegistryObject<Item> RUNEWOOD_LEAVES = ITEMS.register("runewood_leaves", () -> new BlockItem(MalumBlocks.RUNEWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(MalumBlocks.RUNEWOOD_SAPLING.get(), NATURE_PROPERTIES()));
+    //endregion
 
+    //region soulwood
+    public static final RegistryObject<Item> SOULWOOD_LOG = ITEMS.register("soulwood_log", () -> new BlockItem(MalumBlocks.SOULWOOD_LOG.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_SOULWOOD_LOG = ITEMS.register("stripped_soulwood_log", () -> new BlockItem(MalumBlocks.STRIPPED_SOULWOOD_LOG.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD = ITEMS.register("soulwood", () -> new BlockItem(MalumBlocks.SOULWOOD.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_SOULWOOD = ITEMS.register("stripped_soulwood", () -> new BlockItem(MalumBlocks.STRIPPED_SOULWOOD.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SAP_FILLED_SOULWOOD_LOG = ITEMS.register("sap_filled_soulwood_log", () -> new BlockItem(MalumBlocks.SAP_FILLED_SOULWOOD_LOG.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> STRIPPED_SAP_FILLED_SOULWOOD_LOG = ITEMS.register("stripped_sap_filled_soulwood_log", () -> new BlockItem(MalumBlocks.STRIPPED_SAP_FILLED_SOULWOOD_LOG.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOULWOOD_PLANKS = ITEMS.register("soulwood_planks", () -> new BlockItem(MalumBlocks.SOULWOOD_PLANKS.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> VERTICAL_SOULWOOD_PLANKS = ITEMS.register("vertical_soulwood_planks", () -> new BlockItem(MalumBlocks.VERTICAL_SOULWOOD_PLANKS.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PANEL = ITEMS.register("soulwood_panel", () -> new BlockItem(MalumBlocks.SOULWOOD_PANEL.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_TILES = ITEMS.register("soulwood_tiles", () -> new BlockItem(MalumBlocks.SOULWOOD_TILES.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_SLAB = ITEMS.register("soulwood_planks_slab", () -> new BlockItem(MalumBlocks.SOULWOOD_PLANKS_SLAB.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> VERTICAL_SOULWOOD_PLANKS_SLAB = ITEMS.register("vertical_soulwood_planks_slab", () -> new BlockItem(MalumBlocks.VERTICAL_SOULWOOD_PLANKS_SLAB.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PANEL_SLAB = ITEMS.register("soulwood_panel_slab", () -> new BlockItem(MalumBlocks.SOULWOOD_PANEL_SLAB.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_TILES_SLAB = ITEMS.register("soulwood_tiles_slab", () -> new BlockItem(MalumBlocks.SOULWOOD_TILES_SLAB.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_STAIRS = ITEMS.register("soulwood_planks_stairs", () -> new BlockItem(MalumBlocks.SOULWOOD_PLANKS_STAIRS.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> VERTICAL_SOULWOOD_PLANKS_STAIRS = ITEMS.register("vertical_soulwood_planks_stairs", () -> new BlockItem(MalumBlocks.VERTICAL_SOULWOOD_PLANKS_STAIRS.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PANEL_STAIRS = ITEMS.register("soulwood_panel_stairs", () -> new BlockItem(MalumBlocks.SOULWOOD_PANEL_STAIRS.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_TILES_STAIRS = ITEMS.register("soulwood_tiles_stairs", () -> new BlockItem(MalumBlocks.SOULWOOD_TILES_STAIRS.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> CUT_SOULWOOD_PLANKS = ITEMS.register("cut_soulwood_planks", () -> new BlockItem(MalumBlocks.CUT_SOULWOOD_PLANKS.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_BEAM = ITEMS.register("soulwood_beam", () -> new BlockItem(MalumBlocks.SOULWOOD_BEAM.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOULWOOD_DOOR = ITEMS.register("soulwood_door", () -> new BlockItem(MalumBlocks.SOULWOOD_DOOR.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_TRAPDOOR = ITEMS.register("soulwood_trapdoor", () -> new BlockItem(MalumBlocks.SOULWOOD_TRAPDOOR.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOLID_SOULWOOD_TRAPDOOR = ITEMS.register("solid_soulwood_trapdoor", () -> new BlockItem(MalumBlocks.SOLID_SOULWOOD_TRAPDOOR.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_BUTTON = ITEMS.register("soulwood_planks_button", () -> new BlockItem(MalumBlocks.SOULWOOD_PLANKS_BUTTON.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("soulwood_planks_pressure_plate", () -> new BlockItem(MalumBlocks.SOULWOOD_PLANKS_PRESSURE_PLATE.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_FENCE = ITEMS.register("soulwood_planks_fence", () -> new BlockItem(MalumBlocks.SOULWOOD_PLANKS_FENCE.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PLANKS_FENCE_GATE = ITEMS.register("soulwood_planks_fence_gate", () -> new BlockItem(MalumBlocks.SOULWOOD_PLANKS_FENCE_GATE.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOULWOOD_ITEM_STAND = ITEMS.register("soulwood_item_stand", () -> new BlockItem(MalumBlocks.SOULWOOD_ITEM_STAND.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_ITEM_PEDESTAL = ITEMS.register("soulwood_item_pedestal", () -> new BlockItem(MalumBlocks.SOULWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
+
+    public static final RegistryObject<Item> SOULWOOD_SIGN = ITEMS.register("soulwood_sign", () -> new SignItem(NATURE_PROPERTIES().maxStackSize(16), MalumBlocks.SOULWOOD_SIGN.get(), MalumBlocks.SOULWOOD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> SOULWOOD_BOAT = ITEMS.register("soulwood_boat", () -> new MalumBoatItem(NATURE_PROPERTIES().maxStackSize(1), MalumEntities.SOULWOOD_BOAT));
+
+    public static final RegistryObject<Item> LUNAR_SAP_BOTTLE = ITEMS.register("lunar_sap_bottle", () -> new Item(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE)));
+    public static final RegistryObject<Item> LUNAR_SAPBALL = ITEMS.register("lunar_sapball", () -> new Item(NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> LUNAR_SYRUP_BOTTLE = ITEMS.register("lunar_syrup_bottle", () -> new SolarSyrupBottleItem(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+
+    public static final RegistryObject<Item> SOULWOOD_LEAVES = ITEMS.register("soulwood_leaves", () -> new BlockItem(MalumBlocks.SOULWOOD_LEAVES.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_SAPLING = ITEMS.register("soulwood_sapling", () -> new BlockItem(MalumBlocks.SOULWOOD_SAPLING.get(), NATURE_PROPERTIES()));
     //endregion
 
     //region spirits
@@ -252,6 +302,7 @@ public class MalumItems
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(MalumBlocks.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(MalumBlocks.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> TOTEM_BASE = ITEMS.register("totem_base", () -> new BlockItem(MalumBlocks.TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CORRUPTED_TOTEM_BASE = ITEMS.register("corrupted_totem_base", () -> new BlockItem(MalumBlocks.CORRUPTED_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region materials
@@ -335,6 +386,7 @@ public class MalumItems
     public static final RegistryObject<Item> RING_OF_ARCANE_SPOIL = ITEMS.register("ring_of_arcane_spoil", () -> new CurioArcaneSpoilRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_PROWESS = ITEMS.register("ring_of_prowess", () -> new CurioRingOfProwess(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = ITEMS.register("ring_of_curative_talent", () -> new CurioCurativeRing(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> RING_OF_WICKED_INTENT = ITEMS.register("ring_of_wicked_intent", () -> new CurioLustyRing(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> BATTLE_HARMONY_NECKLACE = ITEMS.register("necklace_of_battle_harmony", () -> new CurioBattleHarmonyNecklace(GEAR_PROPERTIES()));
 

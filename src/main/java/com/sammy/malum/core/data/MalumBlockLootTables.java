@@ -3,6 +3,7 @@ package com.sammy.malum.core.data;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.ether.EtherBlock;
+import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.mod_systems.multiblock.BoundingBlock;
@@ -67,9 +68,9 @@ public class MalumBlockLootTables extends LootTableProvider
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(MalumBlocks.BLAZING_QUARTZ_ORE);
-        blocks.remove(MalumBlocks.TOTEM_POLE);
 
 
+        takeAll(blocks, b -> b.get() instanceof TotemPoleBlock);
         takeAll(blocks, b -> b.get() instanceof EtherBlock);
         takeAll(blocks, b -> b.get() instanceof WallTorchBlock);
         takeAll(blocks, b -> b.get() instanceof BoundingBlock);

@@ -30,7 +30,7 @@ public class RiteOfWarding extends MalumRiteType
     }
 
     @Override
-    public void executeRite(ServerWorld world, BlockPos pos)
+    public void riteEffect(ServerWorld world, BlockPos pos)
     {
         ArrayList<PlayerEntity> entities = (ArrayList<PlayerEntity>) world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos).grow(range()));
         entities.forEach(e -> {
@@ -42,6 +42,6 @@ public class RiteOfWarding extends MalumRiteType
             }
             e.addPotionEffect(new EffectInstance(MalumEffects.AURA_OF_WARDING.get(), 100, 1));
         });
-        super.executeRite(world, pos);
+        super.riteEffect(world, pos);
     }
 }

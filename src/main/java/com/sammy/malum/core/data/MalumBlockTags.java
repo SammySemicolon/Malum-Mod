@@ -27,8 +27,7 @@ public class MalumBlockTags extends BlockTagsProvider
     }
     
     @Override
-    protected void registerTags()
-    {
+    protected void registerTags() {
         getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.SOULSTONE_ORE.get(), MalumBlocks.BLAZING_QUARTZ_ORE.get());
 
         getOrCreateBuilder(net.minecraft.tags.BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
@@ -42,17 +41,16 @@ public class MalumBlockTags extends BlockTagsProvider
         getOrCreateBuilder(BUTTONS).add(getModBlocks(b -> b instanceof AbstractButtonBlock));
         getOrCreateBuilder(WOODEN_BUTTONS).add(getModBlocks(b -> b instanceof WoodButtonBlock));
         getOrCreateBuilder(PRESSURE_PLATES).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
-        getOrCreateBuilder(LOGS).add(MalumBlocks.RUNEWOOD_LOG.get(), MalumBlocks.RUNEWOOD.get());
+        getOrCreateBuilder(LOGS).add(MalumBlocks.RUNEWOOD_LOG.get(), MalumBlocks.RUNEWOOD.get(), MalumBlocks.SOULWOOD_LOG.get(), MalumBlocks.SOULWOOD.get());
         getOrCreateBuilder(DIRT).add(getModBlocks(b -> b instanceof GrassBlock || b instanceof FarmlandBlock));
         getOrCreateBuilder(SAPLINGS).add(getModBlocks(b -> b instanceof SaplingBlock));
-        getOrCreateBuilder(PLANKS).add(MalumBlocks.RUNEWOOD_PLANKS.get());
-        getOrCreateBuilder(WOODEN_FENCES).add(MalumBlocks.RUNEWOOD_PLANKS_FENCE.get());
-        getOrCreateBuilder(WOODEN_DOORS).add(MalumBlocks.RUNEWOOD_DOOR.get());
-        getOrCreateBuilder(WOODEN_STAIRS).add(MalumBlocks.RUNEWOOD_PLANKS_STAIRS.get());
-        getOrCreateBuilder(WOODEN_SLABS).add(MalumBlocks.RUNEWOOD_PLANKS_SLAB.get());
-        getOrCreateBuilder(WOODEN_TRAPDOORS).add(MalumBlocks.RUNEWOOD_TRAPDOOR.get(),MalumBlocks.SOLID_RUNEWOOD_TRAPDOOR.get());
-        getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(MalumBlocks.RUNEWOOD_PLANKS_PRESSURE_PLATE.get());
-
+        getOrCreateBuilder(PLANKS).add(MalumBlocks.RUNEWOOD_PLANKS.get(), MalumBlocks.SOULWOOD_PLANKS.get());
+        getOrCreateBuilder(WOODEN_FENCES).add(MalumBlocks.RUNEWOOD_PLANKS_FENCE.get(), MalumBlocks.SOULWOOD_PLANKS_FENCE.get());
+        getOrCreateBuilder(WOODEN_DOORS).add(MalumBlocks.RUNEWOOD_DOOR.get(), MalumBlocks.SOULWOOD_DOOR.get());
+        getOrCreateBuilder(WOODEN_STAIRS).add(MalumBlocks.RUNEWOOD_PLANKS_STAIRS.get(), MalumBlocks.SOULWOOD_PLANKS_STAIRS.get());
+        getOrCreateBuilder(WOODEN_SLABS).add(MalumBlocks.RUNEWOOD_PLANKS_SLAB.get(), MalumBlocks.SOULWOOD_PLANKS_SLAB.get());
+        getOrCreateBuilder(WOODEN_TRAPDOORS).add(MalumBlocks.RUNEWOOD_TRAPDOOR.get(), MalumBlocks.SOLID_RUNEWOOD_TRAPDOOR.get(), MalumBlocks.SOULWOOD_TRAPDOOR.get(), MalumBlocks.SOLID_SOULWOOD_TRAPDOOR.get());
+        getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(MalumBlocks.RUNEWOOD_PLANKS_PRESSURE_PLATE.get(), MalumBlocks.SOULWOOD_PLANKS_PRESSURE_PLATE.get());
     }
     
     @Override

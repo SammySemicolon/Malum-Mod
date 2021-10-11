@@ -132,7 +132,7 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "spirit_infusion", SPIRIT_ALTAR.get(),1,4)
-                .up(1)
+                .upLeft(2,4)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
                 .addPage(new TextPage("spirit_infusion_b"))
                 .addPage(new TextPage("spirit_infusion_c"))
@@ -142,8 +142,8 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "elemental_spirits", EARTHEN_SPIRIT.get(),1,5)
-                .upLeft(2,2)
+                "elemental_spirits", EARTHEN_SPIRIT.get(),0,6)
+                .up(1)
                 .addPage(new SpiritTextPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
                 .addPage(new TextPage("earthen_spirit_b"))
                 .addPage(new SpiritTextPage("infernal_spirit", "infernal_spirit_a", INFERNAL_SPIRIT.get()))
@@ -222,7 +222,7 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -1, 5)
-                .left(3)
+                .left(1)
                 .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
                 .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor"))
@@ -233,8 +233,9 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "spirit_trinkets", ORNATE_RING.get(), -3, 5)
-                .rightUp(1,1)
+                "spirit_trinkets", ORNATE_RING.get(), -2, 5)
+                .upLeft(2,2)
+                .left(5)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
                 .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER,HALLOWED_GOLD_INGOT.get()))
@@ -244,7 +245,7 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "soul_hunter_trinkets", RING_OF_ARCANE_REACH.get(), -2, 6)
+                "soul_hunter_trinkets", RING_OF_ARCANE_REACH.get(), -3, 6)
                 .addPage(new HeadlineTextPage("arcane_reach", "arcane_reach"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
                 .addPage(new HeadlineTextPage("arcane_spoils", "arcane_spoils"))
@@ -252,7 +253,7 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "ring_of_prowess", RING_OF_PROWESS.get(), -3, 6)
+                "ring_of_prowess", RING_OF_PROWESS.get(), -4, 6)
                 .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
                 .addPage(new TextPage("ring_of_prowess_b"))
                 .addPage(new SpiritInfusionPage(RING_OF_PROWESS.get()))
@@ -260,11 +261,82 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "spirit_rites", TOTEM_BASE.get(),0,6)
-                .addPage(new HeadlineTextPage("spirit_rites", "spirit_rites_a"))
-                .addPage(new TextPage("spirit_rites_b"))
-                .addPage(new TextPage("spirit_rites_c"))
+                "necklace_of_battle_harmony", BATTLE_HARMONY_NECKLACE.get(), -5, 5)
+                .downRight(2,2)
+                .addPage(new HeadlineTextPage("necklace_of_battle_harmony", "necklace_of_battle_harmony_a"))
+                .addPage(new TextPage("necklace_of_battle_harmony_b"))
+                .addPage(new SpiritInfusionPage(BATTLE_HARMONY_NECKLACE.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "ring_of_curative_talent", RING_OF_CURATIVE_TALENT.get(), -4, 4)
+                .addPage(new HeadlineTextPage("ring_of_curative_talent", "ring_of_curative_talent"))
+                .addPage(new SpiritInfusionPage(RING_OF_CURATIVE_TALENT.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "ring_of_wicked_intent", RING_OF_WICKED_INTENT.get(), -3, 4)
+                .addPage(new HeadlineTextPage("ring_of_wicked_intent", "ring_of_wicked_intent"))
+                .addPage(new SpiritInfusionPage(RING_OF_WICKED_INTENT.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "totem_magic", TOTEM_BASE.get(),0,7)
+                .leftUp(2,2)
+                .up(3)
+                .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
+                .addPage(new TextPage("totem_magics_b"))
+                .addPage(new TextPage("totem_magic_c"))
                 .addPage(new SpiritInfusionPage(TOTEM_BASE.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "simple_spirit_rites", ARCANE_SPIRIT.get(),-1,8) //simple rites almost always turn negative when corrupted
+                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life")) //Heals nearby allies (players and passive mobs). Heals and empowers nearby enemies
+                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death")) //Damages nearby enemies. Damages nearby players with a doubled radius.
+                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth")) //Grants a flat armor bonus to nearby allies. Effect is reversed, allies and enemies are crippled and armor is reduced.
+                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames")) //Grants a bonus to movement and swing speed (Includes mining speed) to nearby allies. Sets allies and enemies alike on fire.
+                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides")) //Provides temporary increased swim speed to nearby allies. Drowns nearby submerged enemies, zombies instantly transform to drowned.
+                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales")) //Speeds up nearby allies. Horizontal momentum is converted to a burst of levitation.
+        );
+
+        entries.add(new CoolerBookEntry(
+                "utilizing_eldritch_magic", ELDRITCH_SPIRIT.get(),0,9)
+                .rightDown(2,2)
+                .addPage(new HeadlineTextPage("utilizing_eldritch_magic", "utilizing_eldritch_magic_a"))
+                .addPage(new TextPage("utilizing_eldritch_magic_b"))
+                .addPage(new HeadlineTextPage("rite_of_corruption", "rite_of_corruption_a"))
+                .addPage(new TextPage("rite_of_corruption_b"))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "complex_spirit_rites", ELDRITCH_SPIRIT.get(),1,8) //complex rites still retain positive effect when corrupted
+                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life")) //Accelerates the growth of nearby plants. Greatly accelerates the growth of nearby animals.
+                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
+                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth")) //Breaks nearby crops, drops are generated as spirit items.
+                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
+                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
+                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "corrupted_spirit_rites_I", WICKED_SPIRIT.get(),1,7)
+                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life"))
+                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
+                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth"))
+                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
+                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
+                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "corrupted_spirit_rites_II", WICKED_SPIRIT.get(),-1,9)
+                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life"))
+                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
+                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth"))
+                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
+                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
+                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
         );
     }
     public void setupObjects()
@@ -520,6 +592,8 @@ public class CoolerBookScreen extends Screen
     {
         Minecraft.getInstance().displayGuiScreen(getInstance());
         screen.playSound();
+        setupEntries();
+        screen.setupObjects();
         screen.ignoreNextMouseClick = ignoreNextMouseClick;
     }
 

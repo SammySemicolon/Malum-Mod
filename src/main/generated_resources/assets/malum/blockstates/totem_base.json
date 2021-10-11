@@ -1,18 +1,6 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "malum:block/totem_base",
-      "y": 270
-    },
-    "facing=south": {
-      "model": "malum:block/totem_base",
-      "y": 90
-    },
-    "facing=west": {
-      "model": "malum:block/totem_base",
-      "y": 180
-    },
-    "facing=east": {
+    "": {
       "model": "malum:block/totem_base"
     }
   }

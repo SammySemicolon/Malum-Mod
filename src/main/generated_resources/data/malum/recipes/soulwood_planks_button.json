@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:soulwood_planks"
+    }
+  ],
+  "result": {
+    "item": "malum:soulwood_planks_button"
+  }
+}

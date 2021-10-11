@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "malum:block/soulwood_item_pedestal"
+    },
+    "waterlogged=true": {
+      "model": "malum:block/soulwood_item_pedestal"
+    }
+  }
+}

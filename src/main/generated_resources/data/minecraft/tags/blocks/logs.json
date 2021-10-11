@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "malum:runewood_log",
-    "malum:runewood"
+    "malum:runewood",
+    "malum:soulwood_log",
+    "malum:soulwood"
   ]
 }

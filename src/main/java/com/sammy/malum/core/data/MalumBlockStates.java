@@ -10,8 +10,8 @@ import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.item_storage.ItemStandBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
-import com.sammy.malum.common.block.TotemBaseBlock;
-import com.sammy.malum.common.block.TotemPoleBlock;
+import com.sammy.malum.common.block.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
 import com.sammy.malum.core.init.block.MalumBlocks;
@@ -254,15 +254,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile base = models().withExistingParent(name, prefix("block/template_totem_base"));
 
-        getVariantBuilder(blockRegistryObject.get()).partialState()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
-                .modelForState().modelFile(base).rotationY(270).addModel()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
-                .modelForState().modelFile(base).rotationY(180).addModel()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
-                .modelForState().modelFile(base).rotationY(90).addModel()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
-                .modelForState().modelFile(base).addModel();
+        simpleBlock(blockRegistryObject.get(), base);
     }
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
     {
@@ -404,7 +396,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     
     public void logBlock(RegistryObject<Block> blockRegistryObject)
     {
-        if (blockRegistryObject.equals(MalumBlocks.RUNEWOOD) || blockRegistryObject.equals(MalumBlocks.STRIPPED_RUNEWOOD))
+        if (blockRegistryObject.equals(RUNEWOOD) || blockRegistryObject.equals(STRIPPED_RUNEWOOD) || blockRegistryObject.equals(SOULWOOD) || blockRegistryObject.equals(STRIPPED_SOULWOOD))
         {
             woodBlock(blockRegistryObject);
             return;

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:vertical_soulwood_planks"
+    }
+  },
+  "result": {
+    "item": "malum:vertical_soulwood_planks_stairs",
+    "count": 4
+  }
+}

@@ -23,7 +23,7 @@ public class RiteOfDeath extends MalumRiteType
     }
 
     @Override
-    public void executeRite(ServerWorld world, BlockPos pos)
+    public void riteEffect(ServerWorld world, BlockPos pos)
     {
         ArrayList<LivingEntity> entities = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(range()));
         if (entities.isEmpty())

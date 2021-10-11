@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "malum:soulwood_planks"
+    }
+  },
+  "result": {
+    "item": "malum:soulwood_planks_fence_gate"
+  }
+}

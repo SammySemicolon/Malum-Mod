@@ -6,6 +6,8 @@ import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
 import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.item_storage.ItemStandBlock;
+import com.sammy.malum.common.block.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.tile.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -32,8 +34,8 @@ public class MalumTileEntities
     public static final RegistryObject<TileEntityType<ItemStandTileEntity>> ITEM_STAND_TILE_ENTITY = TILE_ENTITIES.register("item_stand_tile_entity", () -> TileEntityType.Builder.create(ItemStandTileEntity::new, MalumHelper.getModBlocks(ItemStandBlock.class)).build(null));
     public static final RegistryObject<TileEntityType<ItemPedestalTileEntity>> ITEM_PEDESTAL_TILE_ENTITY = TILE_ENTITIES.register("item_pedestal_tile_entity", () -> TileEntityType.Builder.create(ItemPedestalTileEntity::new, MalumHelper.getModBlocks(ItemPedestalBlock.class)).build(null));
 
-    public static final RegistryObject<TileEntityType<TotemBaseTileEntity>> TOTEM_BASE_TILE_ENTITY = TILE_ENTITIES.register("totem_base_tile_entity", () -> TileEntityType.Builder.create(TotemBaseTileEntity::new, MalumBlocks.TOTEM_BASE.get()).build(null));
-    public static final RegistryObject<TileEntityType<TotemPoleTileEntity>> TOTEM_POLE_TILE_ENTITY = TILE_ENTITIES.register("totem_pole_tile_entity", () -> TileEntityType.Builder.create(TotemPoleTileEntity::new, MalumBlocks.TOTEM_POLE.get()).build(null));
+    public static final RegistryObject<TileEntityType<TotemBaseTileEntity>> TOTEM_BASE_TILE_ENTITY = TILE_ENTITIES.register("totem_base_tile_entity", () -> TileEntityType.Builder.create(TotemBaseTileEntity::new, MalumHelper.getModBlocks(TotemBaseBlock.class)).build(null));
+    public static final RegistryObject<TileEntityType<TotemPoleTileEntity>> TOTEM_POLE_TILE_ENTITY = TILE_ENTITIES.register("totem_pole_tile_entity", () -> TileEntityType.Builder.create(TotemPoleTileEntity::new, MalumHelper.getModBlocks(TotemPoleBlock.class)).build(null));
 
 
 }

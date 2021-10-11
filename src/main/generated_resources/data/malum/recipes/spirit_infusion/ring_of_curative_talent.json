@@ -1,0 +1,22 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:gilded_ring",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ring_of_curative_talent"
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:golden_apple",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:sacred_spirit",
+      "count": 32
+    }
+  ]
+}

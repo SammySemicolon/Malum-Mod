@@ -18,6 +18,7 @@ public class MalumWoodTypes
 {
     public static ArrayList<WoodType> WOOD_TYPES = new ArrayList<>();
     public static final WoodType RUNEWOOD = new MalumWoodType("runewood");
+    public static final WoodType SOULWOOD = new MalumWoodType("soulwood");
 
     @SubscribeEvent
     public static void addWoodTypes(FMLClientSetupEvent event)

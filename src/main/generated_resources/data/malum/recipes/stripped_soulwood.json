@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:stripped_soulwood_log"
+    }
+  },
+  "result": {
+    "item": "malum:stripped_soulwood",
+    "count": 3
+  }
+}

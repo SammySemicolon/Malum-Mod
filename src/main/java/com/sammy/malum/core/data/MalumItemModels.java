@@ -119,10 +119,6 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         String name = Registry.ITEM.getKey(i.get()).getPath();
         withExistingParent(name, GENERATED).texture("layer0", prefix("block/" + name));
     }
-    private void spiritPipeItem(RegistryObject<Item> i)
-    {
-        getBuilder("spirit_pipe").parent(new ModelFile.UncheckedModelFile(prefix("block/" + "spirit_pipe_core")));
-    }
     private void blockItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();

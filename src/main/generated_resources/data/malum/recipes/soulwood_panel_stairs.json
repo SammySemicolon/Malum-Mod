@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:soulwood_panel"
+    }
+  },
+  "result": {
+    "item": "malum:soulwood_panel_stairs",
+    "count": 4
+  }
+}

@@ -173,5 +173,15 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .addSpirit(AQUATIC_SPIRIT, 8)
                 .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_CURATIVE_TALENT.get(), 1)
+                .addExtraItem(Items.GOLDEN_APPLE, 1)
+                .addSpirit(SACRED_SPIRIT, 32)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_RING.get(), 1, MalumItems.RING_OF_WICKED_INTENT.get(), 1)
+                .addExtraItem(Items.SKELETON_SKULL, 1)
+                .addSpirit(WICKED_SPIRIT, 32)
+                .build(consumer);
     }
 }
