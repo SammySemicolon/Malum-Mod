@@ -69,9 +69,6 @@ public class ItemEvents {
         if (attacked == null) {
             return;
         }
-        if (event.getSource().getImmediateSource() == null) {
-            return;
-        }
         ItemStack stack = ItemStack.EMPTY;
         if (event.getSource().getImmediateSource() instanceof LivingEntity) {
             attacker = (LivingEntity) event.getSource().getImmediateSource();
@@ -89,9 +86,10 @@ public class ItemEvents {
             if (stack.getItem().equals(MalumItems.SOUL_STAINED_STEEL_SCYTHE.get())) {
                 extraDamage += 0.25f;
             }
-        }
-        if (MalumHelper.hasArmorSet(attacked, MalumItems.SOUL_STAINED_STEEL_HELMET.get())) {
-            extraDamage *= 0.5f;
+
+            if (MalumHelper.hasArmorSet(attacked, MalumItems.SOUL_STAINED_STEEL_HELMET.get())) {
+                extraDamage *= 0.5f;
+            }
         }
         event.setAmount(event.getAmount() * extraDamage);
         if (MalumHelper.hasCurioEquipped(attacker, MalumItems.BATTLE_HARMONY_NECKLACE)) {
