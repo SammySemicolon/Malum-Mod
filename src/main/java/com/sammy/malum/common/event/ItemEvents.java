@@ -69,6 +69,10 @@ public class ItemEvents {
         if (attacked == null) {
             return;
         }
+        if (event.getSource() == null)
+        {
+            return;
+        }
         ItemStack stack = ItemStack.EMPTY;
         if (event.getSource().getImmediateSource() instanceof LivingEntity) {
             attacker = (LivingEntity) event.getSource().getImmediateSource();
