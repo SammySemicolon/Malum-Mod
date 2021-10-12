@@ -9,6 +9,14 @@
   },
   "extra_items": [
     {
+      "item": "malum:holy_extract",
+      "count": 3
+    },
+    {
+      "item": "malum:hex_ash",
+      "count": 1
+    },
+    {
       "item": "minecraft:golden_apple",
       "count": 1
     }

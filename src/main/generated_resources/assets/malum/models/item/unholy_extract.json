@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/solar_syrup_bottle"
+    "layer0": "malum:item/unholy_extract"
   }
 }

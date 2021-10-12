@@ -1,0 +1,30 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:ornate_necklace",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:sacrificial_necklace"
+  },
+  "extra_items": [
+    {
+      "item": "malum:radiant_soulstone",
+      "count": 1
+    },
+    {
+      "item": "malum:stained_spirit_resonator",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:wicked_spirit",
+      "count": 4
+    },
+    {
+      "item": "malum:eldritch_spirit",
+      "count": 4
+    }
+  ]
+}

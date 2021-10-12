@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "malum:solar_sap_bottle"
+    "item": "malum:holy_extract"
   },
-  "result": "malum:solar_syrup_bottle",
+  "result": "malum:holy_syrup",
   "experience": 0.1,
   "cookingtime": 200
 }

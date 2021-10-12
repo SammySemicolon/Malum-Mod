@@ -1,0 +1,26 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:ornate_necklace",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:necklace_of_battle_harmony"
+  },
+  "extra_items": [
+    {
+      "item": "malum:spirit_fabric",
+      "count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:wicked_spirit",
+      "count": 4
+    },
+    {
+      "item": "malum:eldritch_spirit",
+      "count": 4
+    }
+  ]
+}

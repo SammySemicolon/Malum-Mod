@@ -1,0 +1,29 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:soulstone",
+    "count": 4
+  },
+  "output": {
+    "item": "malum:radiant_soulstone"
+  },
+  "extra_items": [
+    {
+      "item": "malum:holy_extract",
+      "count": 1
+    },
+    {
+      "item": "malum:unholy_extract",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 2
+    },
+    {
+      "item": "malum:eldritch_spirit"
+    }
+  ]
+}

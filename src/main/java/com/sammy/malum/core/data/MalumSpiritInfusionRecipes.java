@@ -132,7 +132,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.LEATHER_CHESTPLATE, 1, MalumItems.SOUL_HUNTER_ROBE.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 2)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
@@ -149,7 +149,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 1)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.FEATHERS), 2)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.FEATHERS), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
@@ -175,13 +175,46 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_CURATIVE_TALENT.get(), 1)
+                .addExtraItem(MalumItems.HOLY_EXTRACT.get(), 3)
+                .addExtraItem(MalumItems.HEX_ASH.get(), 1)
                 .addExtraItem(Items.GOLDEN_APPLE, 1)
                 .addSpirit(SACRED_SPIRIT, 32)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_RING.get(), 1, MalumItems.RING_OF_WICKED_INTENT.get(), 1)
-                .addExtraItem(Items.SKELETON_SKULL, 1)
+                .addExtraItem(MalumItems.UNHOLY_EXTRACT.get(), 3)
+                .addExtraItem(MalumItems.HEX_ASH.get(), 1)
+                .addExtraItem(Items.BONE, 4)
                 .addSpirit(WICKED_SPIRIT, 32)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_NECKLACE.get(), 1, MalumItems.NECKLACE_OF_BATTLE_HARMONY.get(), 1)
+                .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
+                .addSpirit(WICKED_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.SOULSTONE.get(), 4, MalumItems.RADIANT_SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.HOLY_EXTRACT.get(), 1)
+                .addExtraItem(MalumItems.UNHOLY_EXTRACT.get(), 1)
+                .addSpirit(EARTHEN_SPIRIT, 2)
+                .addSpirit(ELDRITCH_SPIRIT, 1)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_NECKLACE.get(), 1, MalumItems.SACRIFICIAL_NECKLACE.get(), 1)
+                .addExtraItem(MalumItems.RADIANT_SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.STAINED_SPIRIT_RESONATOR.get(), 1)
+                .addSpirit(WICKED_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.SOUL_STAINED_STEEL_SWORD.get(), 1, MalumItems.TYRVING.get(), 1)
+                .addExtraItem(MalumItems.RADIANT_SOULSTONE.get(), 1)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.OBSIDIAN), 4)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_COAL), 1)
+                .addExtraItem(MalumItems.UNHOLY_EXTRACT.get(), 3)
+                .addSpirit(WICKED_SPIRIT, 4)
+                .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);
     }
 }

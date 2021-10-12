@@ -8,7 +8,7 @@ public class SpiritPlunderEnchantment extends Enchantment
 {
     public SpiritPlunderEnchantment()
     {
-        super(Rarity.COMMON, MalumEnchantments.SCYTHE_OR_DAGGER, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
+        super(Rarity.COMMON, MalumEnchantments.SCYTHE_ONLY, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
     }
     
     @Override

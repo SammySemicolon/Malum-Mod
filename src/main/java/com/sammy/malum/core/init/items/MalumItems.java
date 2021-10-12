@@ -9,9 +9,9 @@ import com.sammy.malum.common.item.equipment.curios.*;
 import com.sammy.malum.common.item.ether.EtherBrazierItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.ether.EtherTorchItem;
-import com.sammy.malum.common.item.food.SolarSyrupBottleItem;
+import com.sammy.malum.common.item.food.HolySyrupItem;
+import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.tools.*;
-import com.sammy.malum.common.item.tools.spirittools.PithingNeedleItem;
 import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
 import com.sammy.malum.common.item.tools.spirittools.TyrvingItem;
 import com.sammy.malum.core.init.MalumEntities;
@@ -217,10 +217,6 @@ public class MalumItems
     public static final RegistryObject<Item> RUNEWOOD_SIGN = ITEMS.register("runewood_sign", () -> new SignItem(NATURE_PROPERTIES().maxStackSize(16), MalumBlocks.RUNEWOOD_SIGN.get(), MalumBlocks.RUNEWOOD_WALL_SIGN.get()));
     public static final RegistryObject<Item> RUNEWOOD_BOAT = ITEMS.register("runewood_boat", () -> new MalumBoatItem(NATURE_PROPERTIES().maxStackSize(1), MalumEntities.RUNEWOOD_BOAT));
 
-    public static final RegistryObject<Item> SOLAR_SAP_BOTTLE = ITEMS.register("solar_sap_bottle", () -> new Item(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE)));
-    public static final RegistryObject<Item> SOLAR_SAPBALL = ITEMS.register("solar_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> SOLAR_SYRUP_BOTTLE = ITEMS.register("solar_syrup_bottle", () -> new SolarSyrupBottleItem(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
-
     public static final RegistryObject<Item> RUNEWOOD_LEAVES = ITEMS.register("runewood_leaves", () -> new BlockItem(MalumBlocks.RUNEWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(MalumBlocks.RUNEWOOD_SAPLING.get(), NATURE_PROPERTIES()));
     //endregion
@@ -268,10 +264,6 @@ public class MalumItems
     public static final RegistryObject<Item> SOULWOOD_SIGN = ITEMS.register("soulwood_sign", () -> new SignItem(NATURE_PROPERTIES().maxStackSize(16), MalumBlocks.SOULWOOD_SIGN.get(), MalumBlocks.SOULWOOD_WALL_SIGN.get()));
     public static final RegistryObject<Item> SOULWOOD_BOAT = ITEMS.register("soulwood_boat", () -> new MalumBoatItem(NATURE_PROPERTIES().maxStackSize(1), MalumEntities.SOULWOOD_BOAT));
 
-    public static final RegistryObject<Item> LUNAR_SAP_BOTTLE = ITEMS.register("lunar_sap_bottle", () -> new Item(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE)));
-    public static final RegistryObject<Item> LUNAR_SAPBALL = ITEMS.register("lunar_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> LUNAR_SYRUP_BOTTLE = ITEMS.register("lunar_syrup_bottle", () -> new SolarSyrupBottleItem(NATURE_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
-
     public static final RegistryObject<Item> SOULWOOD_LEAVES = ITEMS.register("soulwood_leaves", () -> new BlockItem(MalumBlocks.SOULWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_SAPLING = ITEMS.register("soulwood_sapling", () -> new BlockItem(MalumBlocks.SOULWOOD_SAPLING.get(), NATURE_PROPERTIES()));
     //endregion
@@ -311,15 +303,19 @@ public class MalumItems
     public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 400));
     public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 800));
 
+    public static final RegistryObject<Item> HOLY_EXTRACT = ITEMS.register("holy_extract", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
+    public static final RegistryObject<Item> HOLY_SAPBALL = ITEMS.register("holy_sapball", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+
+    public static final RegistryObject<Item> UNHOLY_EXTRACT = ITEMS.register("unholy_extract", () -> new Item(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE)));
+    public static final RegistryObject<Item> UNHOLY_SAPBALL = ITEMS.register("unholy_sapball", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(DEFAULT_PROPERTIES().containerItem(GLASS_BOTTLE).food((new Food.Builder()).hunger(8).saturation(2F).build())));
+
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new FuelItem(DEFAULT_PROPERTIES(), 6400));
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TAINTED_ROCK_RUNE = ITEMS.register("tainted_rock_rune", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> TWISTED_ROCK_RUNE = ITEMS.register("twisted_rock_rune", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES().food((new Food.Builder()).fastToEat().setAlwaysEdible().build())));
-    public static final RegistryObject<Item> CURSED_STRAND = ITEMS.register("cursed_strand", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -372,7 +368,6 @@ public class MalumItems
     public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_LEGGINGS = ITEMS.register("soul_stained_stronghold_leggings", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_BOOTS = ITEMS.register("soul_stained_stronghold_boots", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> PITHING_NEEDLE = ITEMS.register("pithing_needle", () -> new PithingNeedleItem(PITHING_NEEDLE_ITEM, 0, 0.1f, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, ()->MalumSounds.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
@@ -388,7 +383,8 @@ public class MalumItems
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = ITEMS.register("ring_of_curative_talent", () -> new CurioCurativeRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_WICKED_INTENT = ITEMS.register("ring_of_wicked_intent", () -> new CurioLustyRing(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> BATTLE_HARMONY_NECKLACE = ITEMS.register("necklace_of_battle_harmony", () -> new CurioBattleHarmonyNecklace(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> NECKLACE_OF_BATTLE_HARMONY = ITEMS.register("necklace_of_battle_harmony", () -> new CurioBattleHarmonyNecklace(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SACRIFICIAL_NECKLACE = ITEMS.register("sacrificial_necklace", () -> new CurioSacrificeNecklace(GEAR_PROPERTIES()));
 
     //endregion
 

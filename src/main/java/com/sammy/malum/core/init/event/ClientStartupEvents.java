@@ -60,6 +60,7 @@ public class ClientStartupEvents {
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.PLAYER_HOMING_ITEM.get(), (manager) -> new FloatingItemEntityRenderer(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SCYTHE_BOOMERANG.get(), (manager) -> new ScytheBoomerangEntityRenderer(manager, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(MalumEntities.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood"));
+        RenderingRegistry.registerEntityRenderingHandler(MalumEntities.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood"));
     }
 
     @SubscribeEvent

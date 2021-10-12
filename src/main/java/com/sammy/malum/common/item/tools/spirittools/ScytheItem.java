@@ -6,6 +6,7 @@ import com.sammy.malum.common.item.tools.ModCombatItem;
 import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
+import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -73,21 +74,20 @@ public class ScytheItem extends ModCombatItem implements ISpiritTool
     
     public void cuttingEdge(PlayerEntity playerEntity, LivingEntity target, float amount)
     {
-        float multiplier = 0.4f;
-        float damage = 1.0F + (amount * multiplier) + (amount * EnchantmentHelper.getSweepingDamageRatio(playerEntity));
-        for (LivingEntity livingentity : playerEntity.world.getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(2.0D, 0.25D, 2.0D)))
-        {
-            if (livingentity.isAlive())
-            {
-                if (livingentity != playerEntity && livingentity != target && !playerEntity.isOnSameTeam(livingentity) && (!(livingentity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingentity).hasMarker()) && playerEntity.getDistanceSq(livingentity) < 27.0D)
-                {
-                    livingentity.applyKnockback(0.4F, MathHelper.sin(playerEntity.rotationYaw * ((float) Math.PI / 180F)), (-MathHelper.cos(playerEntity.rotationYaw * ((float) Math.PI / 180F))));
-                    livingentity.attackEntityFrom(DamageSource.causePlayerDamage(playerEntity), damage);
+        if (!MalumHelper.hasCurioEquipped(playerEntity, MalumItems.SACRIFICIAL_NECKLACE)) {
+            float multiplier = 0.4f;
+            float damage = 1.0F + (amount * multiplier) + (amount * EnchantmentHelper.getSweepingDamageRatio(playerEntity));
+            for (LivingEntity livingentity : playerEntity.world.getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(2.0D, 0.25D, 2.0D))) {
+                if (livingentity.isAlive()) {
+                    if (livingentity != playerEntity && livingentity != target && !playerEntity.isOnSameTeam(livingentity) && (!(livingentity instanceof ArmorStandEntity) || !((ArmorStandEntity) livingentity).hasMarker()) && playerEntity.getDistanceSq(livingentity) < 27.0D) {
+                        livingentity.applyKnockback(0.4F, MathHelper.sin(playerEntity.rotationYaw * ((float) Math.PI / 180F)), (-MathHelper.cos(playerEntity.rotationYaw * ((float) Math.PI / 180F))));
+                        livingentity.attackEntityFrom(DamageSource.causePlayerDamage(playerEntity), damage);
+                    }
                 }
             }
+            playerEntity.spawnSweepParticles();
         }
-
         playerEntity.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), MalumSounds.SCYTHE_STRIKE, playerEntity.getSoundCategory(), 1.0F, 0.9f + target.world.rand.nextFloat() * 0.2f);
-        playerEntity.spawnSweepParticles();
+
     }
 }

@@ -94,8 +94,8 @@ public class CoolerBookScreen extends Screen
                 .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(new HeadlineTextPage("solar_sap", "solar_sap_a"))
                 .addPage(new TextPage("solar_sap_b"))
-                .addPage(new SmeltingBookPage(SOLAR_SAP_BOTTLE.get(), SOLAR_SYRUP_BOTTLE.get()))
-                .addPage(new CraftingBookPage(SOLAR_SAPBALL.get(), Items.SLIME_BALL, SOLAR_SAP_BOTTLE.get()))
+                .addPage(new SmeltingBookPage(HOLY_EXTRACT.get(), HOLY_SYRUP.get()))
+                .addPage(new CraftingBookPage(HOLY_SAPBALL.get(), Items.SLIME_BALL, HOLY_EXTRACT.get()))
                 .addModCompatPage(new TextPage("solar_sap_c"), "thermal_expansion")
         );
 
@@ -261,11 +261,11 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "necklace_of_battle_harmony", BATTLE_HARMONY_NECKLACE.get(), -5, 5)
+                "necklace_of_battle_harmony", NECKLACE_OF_BATTLE_HARMONY.get(), -5, 5)
                 .downRight(2,2)
                 .addPage(new HeadlineTextPage("necklace_of_battle_harmony", "necklace_of_battle_harmony_a"))
                 .addPage(new TextPage("necklace_of_battle_harmony_b"))
-                .addPage(new SpiritInfusionPage(BATTLE_HARMONY_NECKLACE.get()))
+                .addPage(new SpiritInfusionPage(NECKLACE_OF_BATTLE_HARMONY.get()))
         );
 
         entries.add(new CoolerBookEntry(
@@ -337,6 +337,27 @@ public class CoolerBookScreen extends Screen
                 .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
                 .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
                 .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
+        );
+
+
+        entries.add(new CoolerBookEntry(
+                "radiant_soulstone", RADIANT_SOULSTONE.get(), 0, 10)
+                .left(1).right(1).up(1)
+                .addPage(new HeadlineTextPage("radiant_soulstone", "radiant_soulstone_a"))
+                .addPage(new TextPage("radiant_soulstone_b"))
+                .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "sacrificial_necklace", SACRIFICIAL_NECKLACE.get(), -1, 10)
+                .addPage(new HeadlineTextPage("sacrificial_necklace", "sacrificial_necklace"))
+                .addPage(new SpiritInfusionPage(SACRIFICIAL_NECKLACE.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "tyrving", TYRVING.get(), 1, 10)
+                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
+                .addPage(new SpiritInfusionPage(TYRVING.get()))
         );
     }
     public void setupObjects()

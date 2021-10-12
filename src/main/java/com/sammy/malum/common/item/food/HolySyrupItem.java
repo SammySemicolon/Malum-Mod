@@ -7,18 +7,17 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
 
-public class ElixirOfLifeItem extends HoneyBottleItem
-{
-    public ElixirOfLifeItem(Properties builder)
-    {
+public class HolySyrupItem extends HoneyBottleItem {
+    public HolySyrupItem(Properties builder) {
         super(builder);
     }
-    
+
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
-    {
-        entityLiving.heal(6);
-        entityLiving.addPotionEffect(new EffectInstance(Effects.REGENERATION, 200, 1));
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+        if (worldIn.isDaytime()) {
+            entityLiving.heal(4);
+            entityLiving.addPotionEffect(new EffectInstance(Effects.REGENERATION, 200, 0));
+        }
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }
 }

@@ -225,7 +225,7 @@ public class MalumLang extends LanguageProvider
     }
     public void addDescription(String identifier, String tooltip)
     {
-        add("malum.gui.book.entry." + identifier + "_description", tooltip);
+        add("malum.gui.book.entry." + identifier + ".description", tooltip);
     }
     public void addHeadline(String identifier, String tooltip)
     {

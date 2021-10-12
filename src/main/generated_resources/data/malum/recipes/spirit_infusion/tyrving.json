@@ -1,0 +1,38 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:soul_stained_steel_sword",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:tyrving"
+  },
+  "extra_items": [
+    {
+      "item": "malum:radiant_soulstone",
+      "count": 1
+    },
+    {
+      "tag": "forge:obsidian",
+      "count": 4
+    },
+    {
+      "tag": "forge:storage_blocks/coal",
+      "count": 1
+    },
+    {
+      "item": "malum:unholy_extract",
+      "count": 3
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:wicked_spirit",
+      "count": 4
+    },
+    {
+      "item": "malum:eldritch_spirit",
+      "count": 4
+    }
+  ]
+}

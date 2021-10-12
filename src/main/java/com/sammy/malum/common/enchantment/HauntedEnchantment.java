@@ -11,7 +11,7 @@ public class HauntedEnchantment extends Enchantment
 {
     public HauntedEnchantment()
     {
-        super(Rarity.UNCOMMON, MalumEnchantments.SCYTHE_OR_DAGGER, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
+        super(Rarity.UNCOMMON, MalumEnchantments.SCYTHE_ONLY, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
     }
     
     @Override

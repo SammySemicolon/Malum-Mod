@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:solar_syrup_bottle"
+      "malum:holy_sapball"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "malum:solar_sap_bottle"
+            "item": "malum:holy_extract"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:solar_syrup_bottle"
+        "recipe": "malum:holy_sapball"
       }
     }
   },

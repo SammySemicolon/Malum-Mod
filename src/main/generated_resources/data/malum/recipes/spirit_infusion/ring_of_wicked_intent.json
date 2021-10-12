@@ -9,8 +9,16 @@
   },
   "extra_items": [
     {
-      "item": "minecraft:skeleton_skull",
+      "item": "malum:unholy_extract",
+      "count": 3
+    },
+    {
+      "item": "malum:hex_ash",
       "count": 1
+    },
+    {
+      "item": "minecraft:bone",
+      "count": 4
     }
   ],
   "spirits": [

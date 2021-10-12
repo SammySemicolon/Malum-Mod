@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:solar_sap_bottle"
+      "item": "malum:holy_extract"
     },
     {
       "item": "minecraft:slime_ball"
     }
   ],
   "result": {
-    "item": "malum:solar_sapball",
+    "item": "malum:holy_sapball",
     "count": 3
   }
 }
