@@ -1,0 +1,13 @@
+{
+  "registry_name": "buzzier_bees:moobloom",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}

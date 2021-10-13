@@ -1,0 +1,13 @@
+{
+  "registry_name": "endergetic:puff_bug",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}
