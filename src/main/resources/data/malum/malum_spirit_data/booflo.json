@@ -1,0 +1,13 @@
+{
+  "registry_name": "endergetic:booflo",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}
