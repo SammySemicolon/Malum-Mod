@@ -24,65 +24,51 @@ import java.awt.*;
 import java.util.HashMap;
 
 
-public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
-{
-    public static boolean setup = false;
+public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity> {
     public static HashMap<MalumSpiritType, RenderMaterial> overlayHashmap = new HashMap<>();
     public static HashMap<MalumSpiritType, RenderMaterial> cutoutHashmap = new HashMap<>();
     public static HashMap<MalumSpiritType, RenderMaterial> corruptedCutoutHashmap = new HashMap<>();
     public static final RenderMaterial RUNEWOOD_LOG = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("block/runewood_log"));
 
-    public TotemPoleRenderer(Object rendererDispatcherIn)
-    {
+    public TotemPoleRenderer(Object rendererDispatcherIn) {
         super((TileEntityRendererDispatcher) rendererDispatcherIn);
+        MalumSpiritTypes.SPIRITS.forEach(s ->
+                {
+                    overlayHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "overlay_" + s.identifier)));
+                    cutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "cutout_" + s.identifier)));
+                    corruptedCutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "corrupted_cutout_" + s.identifier)));
+                }
+        );
     }
 
     @Override
-    public void render(TotemPoleTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)
-    {
+    public void render(TotemPoleTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Direction direction = tileEntityIn.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
-        if (direction.equals(Direction.WEST) || direction.equals(Direction.EAST))
-        {
-            combinedLightIn -= combinedOverlayIn*2;
+        if (direction.equals(Direction.WEST) || direction.equals(Direction.EAST)) {
+            combinedLightIn -= combinedOverlayIn * 2;
         }
-        if (tileEntityIn.type == null)
-        {
-            renderQuad(RUNEWOOD_LOG, new Color(255,255,255), combinedLightIn,direction,matrixStackIn,bufferIn);
+        if (tileEntityIn.type == null) {
+            renderQuad(RUNEWOOD_LOG, new Color(255, 255, 255), combinedLightIn, direction, matrixStackIn, bufferIn);
             return;
         }
-        if (!setup)
-        {
-            MalumSpiritTypes.SPIRITS.forEach(s ->
-                    {
-                        overlayHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "overlay_" + s.identifier)));
-                        cutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "cutout_" + s.identifier)));
-                        corruptedCutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "corrupted_cutout_" + s.identifier)));
-                    }
-            );
-            setup = true;
-        }
-        if (((TotemPoleBlock)tileEntityIn.getBlockState().getBlock()).corrupted) {
+        if (((TotemPoleBlock) tileEntityIn.getBlockState().getBlock()).corrupted) {
             renderQuad(corruptedCutoutHashmap.get(tileEntityIn.type), new Color(255, 255, 255), combinedLightIn, direction, matrixStackIn, bufferIn);
-        }
-        else
-        {
+        } else {
             renderQuad(cutoutHashmap.get(tileEntityIn.type), new Color(255, 255, 255), combinedLightIn, direction, matrixStackIn, bufferIn);
         }
-        renderQuad(overlayHashmap.get(tileEntityIn.type), color(tileEntityIn), combinedLightIn,direction,matrixStackIn,bufferIn);
+        renderQuad(overlayHashmap.get(tileEntityIn.type), color(tileEntityIn), combinedLightIn, direction, matrixStackIn, bufferIn);
     }
 
-    public Color color(TotemPoleTileEntity totemPoleTileEntity)
-    {
+    public Color color(TotemPoleTileEntity totemPoleTileEntity) {
         Color color1 = new Color(12, 8, 7);
         Color color2 = totemPoleTileEntity.type.color;
         int red = (int) MathHelper.lerp(totemPoleTileEntity.currentColor / 20f, color1.getRed(), color2.getRed());
         int green = (int) MathHelper.lerp(totemPoleTileEntity.currentColor / 20f, color1.getGreen(), color2.getGreen());
         int blue = (int) MathHelper.lerp(totemPoleTileEntity.currentColor / 20f, color1.getBlue(), color2.getBlue());
-        return new Color(red,green,blue);
+        return new Color(red, green, blue);
     }
 
-    public void renderQuad(RenderMaterial material, Color color, int light, Direction direction, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn)
-    {
+    public void renderQuad(RenderMaterial material, Color color, int light, Direction direction, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn) {
         matrixStackIn.push();
         TextureAtlasSprite sprite = material.getSprite();
         IVertexBuilder builder = material.getBuffer(bufferIn, r -> RenderType.getCutout());
@@ -96,16 +82,15 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
 
         matrixStackIn.pop();
     }
-    public float rotation(Direction direction)
-    {
-        if (direction == Direction.NORTH || direction == Direction.SOUTH)
-        {
+
+    public float rotation(Direction direction) {
+        if (direction == Direction.NORTH || direction == Direction.SOUTH) {
             direction = direction.getOpposite();
         }
-        return 90+direction.getHorizontalAngle();
+        return 90 + direction.getHorizontalAngle();
     }
-    private void add(IVertexBuilder renderer, MatrixStack stack, Color color, int light, float x, float y, float z, float u, float v)
-    {
+
+    private void add(IVertexBuilder renderer, MatrixStack stack, Color color, int light, float x, float y, float z, float u, float v) {
         renderer.pos(stack.getLast().getMatrix(), x, y, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 1).tex(u, v).lightmap(light & '\uffff', light >> 16 & '\uffff').normal(1, 0, 0).endVertex();
     }
 }
