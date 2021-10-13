@@ -277,12 +277,6 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "ring_of_wicked_intent", RING_OF_WICKED_INTENT.get(), -3, 4)
-                .addPage(new HeadlineTextPage("ring_of_wicked_intent", "ring_of_wicked_intent"))
-                .addPage(new SpiritInfusionPage(RING_OF_WICKED_INTENT.get()))
-        );
-
-        entries.add(new CoolerBookEntry(
                 "totem_magic", RUNEWOOD_TOTEM_BASE.get(),0,7)
                 .leftUp(2,2)
                 .up(3)
@@ -304,7 +298,7 @@ public class CoolerBookScreen extends Screen
 
         entries.add(new CoolerBookEntry(
                 "utilizing_eldritch_magic", ELDRITCH_SPIRIT.get(),0,9)
-                .rightDown(2,2)
+                .rightDown(2,2).upLeft(2,2)
                 .addPage(new HeadlineTextPage("utilizing_eldritch_magic", "utilizing_eldritch_magic_a"))
                 .addPage(new TextPage("utilizing_eldritch_magic_b"))
                 .addPage(new HeadlineTextPage("rite_of_corruption", "rite_of_corruption_a"))
@@ -341,25 +335,36 @@ public class CoolerBookScreen extends Screen
                 .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
         );
 
+        entries.add(new CoolerBookEntry(
+                "soulwood", SOULWOOD_SAPLING.get(),-1,10)
+                .upRight(4,2)
+        );
 
         entries.add(new CoolerBookEntry(
-                "radiant_soulstone", RADIANT_SOULSTONE.get(), 0, 10)
-                .left(1).right(1).up(1)
+                "ring_of_wicked_intent", RING_OF_WICKED_INTENT.get(), 1, 10)
+                .addPage(new HeadlineTextPage("ring_of_wicked_intent", "ring_of_wicked_intent"))
+                .addPage(new SpiritInfusionPage(RING_OF_WICKED_INTENT.get()))
+        );
+
+        entries.add(new CoolerBookEntry(
+                "radiant_soulstone", RADIANT_SOULSTONE.get(), 1, 11)
+                .leftUp(2,2)
                 .addPage(new HeadlineTextPage("radiant_soulstone", "radiant_soulstone_a"))
                 .addPage(new TextPage("radiant_soulstone_b"))
                 .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()))
         );
 
         entries.add(new CoolerBookEntry(
-                "sacrificial_necklace", SACRIFICIAL_NECKLACE.get(), -1, 10)
-                .addPage(new HeadlineTextPage("sacrificial_necklace", "sacrificial_necklace"))
-                .addPage(new SpiritInfusionPage(SACRIFICIAL_NECKLACE.get()))
+                "tyrving", TYRVING.get(), 0, 12)
+                .up(1)
+                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
+                .addPage(new SpiritInfusionPage(TYRVING.get()))
         );
 
         entries.add(new CoolerBookEntry(
-                "tyrving", TYRVING.get(), 1, 10)
-                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
-                .addPage(new SpiritInfusionPage(TYRVING.get()))
+                "sacrificial_necklace", SACRIFICIAL_NECKLACE.get(), 2, 12)
+                .addPage(new HeadlineTextPage("sacrificial_necklace", "sacrificial_necklace"))
+                .addPage(new SpiritInfusionPage(SACRIFICIAL_NECKLACE.get()))
         );
     }
     public void setupObjects()
