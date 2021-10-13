@@ -1,0 +1,17 @@
+{
+  "registry_name": "eidolon:necromancer",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    },
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

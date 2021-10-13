@@ -1,0 +1,17 @@
+{
+  "registry_name": "savageandravage:iceologer",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
+    },
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}
