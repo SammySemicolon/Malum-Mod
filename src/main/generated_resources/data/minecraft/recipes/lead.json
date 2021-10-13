@@ -10,7 +10,7 @@
       "tag": "forge:string"
     },
     "O": {
-      "item": "malum:holy_sapball"
+      "tag": "malum:sapballs"
     }
   },
   "result": {

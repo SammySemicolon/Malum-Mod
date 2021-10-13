@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:sticky_piston_from_sapballs"
+      "malum:unholy_syrup"
     ]
   },
   "criteria": {
-    "has_sapball": {
+    "has_unholy_extract": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "malum:sapballs"
+            "item": "malum:unholy_extract"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:sticky_piston_from_sapballs"
+        "recipe": "malum:unholy_syrup"
       }
     }
   },
   "requirements": [
     [
-      "has_sapball",
+      "has_unholy_extract",
       "has_the_recipe"
     ]
   ]

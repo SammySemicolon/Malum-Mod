@@ -10,13 +10,13 @@
   "extra_items": [
     {
       "item": "malum:spirit_fabric",
-      "count": 4
+      "count": 8
     }
   ],
   "spirits": [
     {
       "item": "malum:wicked_spirit",
-      "count": 4
+      "count": 32
     },
     {
       "item": "malum:eldritch_spirit",

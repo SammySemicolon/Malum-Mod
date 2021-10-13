@@ -71,7 +71,8 @@ public class MalumItemTags extends ItemTagsProvider
         this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, net.minecraft.tags.ItemTags.SOUL_FIRE_BASE_BLOCKS);
         this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 
-        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.HOLY_SAPBALL.get());
+        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.HOLY_SAPBALL.get(), MalumItems.UNHOLY_SAPBALL.get());
+        getOrCreateBuilder(com.sammy.malum.core.init.items.MalumItemTags.SAPBALLS).add(MalumItems.HOLY_SAPBALL.get(), MalumItems.UNHOLY_SAPBALL.get());
 
         getOrCreateBuilder(RUNEWOOD_LOGS).add(MalumItems.RUNEWOOD_LOG.get(), MalumItems.STRIPPED_RUNEWOOD_LOG.get(), MalumItems.RUNEWOOD.get(), MalumItems.STRIPPED_RUNEWOOD.get(), MalumItems.SAP_FILLED_RUNEWOOD_LOG.get(), MalumItems.STRIPPED_SAP_FILLED_RUNEWOOD_LOG.get());
         getOrCreateBuilder(SOULWOOD_LOGS).add(MalumItems.SOULWOOD_LOG.get(), MalumItems.STRIPPED_SOULWOOD_LOG.get(), MalumItems.SOULWOOD.get(), MalumItems.STRIPPED_SOULWOOD.get(), MalumItems.SAP_FILLED_SOULWOOD_LOG.get(), MalumItems.STRIPPED_SAP_FILLED_SOULWOOD_LOG.get());

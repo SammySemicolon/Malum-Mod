@@ -73,7 +73,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.SOULWOOD_LOG.get(), 1, MalumItems.SOULWOOD_TOTEM_BASE.get(), 1)
-                .addExtraItem(MalumItems.RUNEWOOD_PLANKS.get(), 1)
+                .addExtraItem(MalumItems.SOULWOOD_PLANKS.get(), 1)
                 .addExtraItem(MalumItems.STAINED_SPIRIT_RESONATOR.get(), 1)
                 .addSpirit(AERIAL_SPIRIT, 2)
                 .addSpirit(AQUATIC_SPIRIT, 2)
@@ -185,17 +185,15 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_PROWESS.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_REDSTONE), 1)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 2)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_LAPIS), 1)
-                .addSpirit(EARTHEN_SPIRIT, 4)
-                .addSpirit(AQUATIC_SPIRIT, 8)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_LAPIS), 4)
+                .addSpirit(ARCANE_SPIRIT, 32)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_CURATIVE_TALENT.get(), 1)
                 .addExtraItem(MalumItems.HOLY_EXTRACT.get(), 3)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
-                .addExtraItem(Items.GOLDEN_APPLE, 1)
+                .addExtraItem(Items.GHAST_TEAR, 1)
                 .addSpirit(SACRED_SPIRIT, 32)
                 .build(consumer);
 
@@ -203,12 +201,13 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(MalumItems.UNHOLY_EXTRACT.get(), 3)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
                 .addExtraItem(Items.BONE, 4)
+                .addExtraItem(Items.ROTTEN_FLESH, 8)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_NECKLACE.get(), 1, MalumItems.NECKLACE_OF_BATTLE_HARMONY.get(), 1)
-                .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
-                .addSpirit(WICKED_SPIRIT, 4)
+                .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 8)
+                .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);
 

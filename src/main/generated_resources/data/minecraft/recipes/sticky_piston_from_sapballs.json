@@ -9,7 +9,7 @@
       "item": "minecraft:piston"
     },
     "S": {
-      "item": "malum:holy_sapball"
+      "tag": "malum:sapballs"
     }
   },
   "result": {

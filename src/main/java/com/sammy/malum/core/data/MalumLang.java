@@ -88,30 +88,32 @@ public class MalumLang extends LanguageProvider
 
 
         addHeadline("introduction", "Introduction");
-        addDescription("introduction", "Spirit magic");
-        addPage("introduction_a", "Within this world exists an arcane phenomenon, spirits. A spirit is a magical property or element depending on how you look at it that makes up souls. The soul is an arcane image or representation of every sentient being. The body is merely a physical vessel for the soul.");
-        addPage("introduction_b", "Soul magic is a quite complex field with a simpler predecessor: spirit magic. Spirit magic is a much easier way to access most of the arcane phenomenon that derive from the soul. To put it short, soul magic almost entirely derives from the spirits within a soul and by extension spirits alone can be utilized for magic!");
-        addPage("introduction_c", "Getting your power hungry hands on some magical spirits may not be so simple though. When a body dies it leaves behind various items and precious loot, likewise when a soul is shattered it bursts out into magical spirit. This brutal way of completely eradicating both the body and the soul from existence is the main way of obtaining spirits.");
+        addDescription("introduction", "Soul magic awaits");
+        addPage("introduction_a", "Within this world, every living body has a soul. The body is a physical vessel that the soul occupies. The soul is one's consciousness and what animates the body. It is an arcane representation of who you are.");
+        addPage("introduction_b", "The encyclopedia arcana is a book meant to explain everything about the soul and how to potentially utilize various soul magics. Even though a soul is an arcane thing, performing soul magic is not easy.");
+        addPage("introduction_c", "To properly utilize soul magics you're gonna need to separate the desired magic elements from all the other junk found within a soul. These magic elements are known as spirits, magical fragments of potential.");
+        addPage("introduction_d", "The magical presence of a soul derives entirely from the spirits found within it. Each soul is made unique by what spirits it holds, it's safe to assume that the soul is only alive due to them too!");
 
-        addHeadline("spirit_magics", "Basics of spirit magic");
-        addDescription("spirit_magics", "Spirit splinters");
-        addPage("spirit_magics_a", "When a spirit is brought out of a soul it takes on a physical form, a crystal of sorts. Due to how spirits react to nearby souls, the spirit crystal will resonate with only your soul and be pulled towards you making it quite easy to collect. No one can steal your precious spirits, they resonate with your soul only.");
-        addPage("spirit_magics_b", "Once in crystal form a spirit's energy can be easily released, it can naturally interact with the world around you, it can be infused into various catalysts and reagents through complex magic processes and other magical forms of crafting. Do note that if a spirit is left uncollected, it will dissolve into the space around it.");
-        addPage("spirit_magics_c", "Spirits left uncollected can have a very strange impact on the world, there are many curiosities you may have already found that only exist due to some careless spirit hunter. Spirits can easily change the world around you.");
+        addHeadline("spirit_magics", "Spirit Magics");
+        addDescription("spirit_magics", "Soul fragments");
+        addPage("spirit_magics_a", "\"What exactly is a spirit?\" You might ask yourself. Spirits are raw, untainted magic. There are also many spirit types, all with unique uses and abilities. Perfect for your evil needs.");
+        addPage("spirit_magics_b", "Each soul contains a specific set of spirits, different souls contain different combinations of spirits! When hunting for spirits you'll have to carefully think about which souls will have what you need.");
+        addPage("spirit_magics_c", "When hunting spirits it is important to not leave any of them behind. Uncollected spirits will slowly dissolve into the world around and alter it into a new twisted one. Many natural wonders you may find were created this way!");
 
         addHeadline("soulstone", "Soulstone");
-        addDescription("soulstone", "Spirit infused minerals");
-        addPage("soulstone_a", "The soulstone is a strange ore found both on the surface and in the deepest ends of every cave. The ore itself was created from carelessness, when a dissolved spirit merges with ore it'll shape the mineral to be something new. Soulstone is extremely valuable to any spirit hunter.");
-        addPage("soulstone_b", "Soulstone is very precious as it is able to resonate and mangle with souls and spirits in various ways. This unique ability of the soulstone makes it the perfect mineral to create spirit hunting equipment out of. Any weapon made out of soulstone is most certainly sufficient for damaging an opponent's soul.");
+        addDescription("soulstone", "Altered minerals");
+        addPage("soulstone_a", "The soulstone is a strange ore found both on the surface and in the deepest ends of every cave. The ore itself was created from carelessness, when a dissolved spirit merges with ore it'll shape the mineral to be something new. Soulstone is extremely valuable to any soul hunter.");
+        addPage("soulstone_b", "Soulstone is very precious due to it's ability to resonate and mangle with souls and spirits in various ways. This unique ability of the soulstone makes it the perfect mineral to create soul hunting equipment out of. Any weapon made out of soulstone is most certainly sufficient for damaging an opponent's soul.");
 
         addHeadline("runewood", "Runewood");
-        addDescription("runewood", "Spirit infused nature");
-        addPage("runewood_a", "The runewood tree is yet another result of spirits dissolving into nature. When an oak tree is touched by infernal or more rarely arcane spirit it quickly takes on a new appearance, it seems to appear most commonly within open plains and forests. Some call this type of tree arcane oak.");
-        addPage("runewood_b", "Runewood is perfect for a magic conductor or relay of sorts, it works very well for any arcane craft really.");
-        addHeadline("solar_sap", "Solar Sap");
-        addPage("solar_sap_a", "The runewood tree often grows with a special sap in it! The mixture known as solar sap naturally flows through the arcane oak and can easily be harvested. To harvest sap you need to locate some sap filled runewood, strip the bark off with an axe and then use a bottle to store the sap.");
-        addPage("solar_sap_b", "Solar sap has some select uses, mainly solar syrup and solar sapballs. Solar syrup is a delicious mixture you can obtain my heating up solar sap in a furnace. This rejuvenating drink will restore health atop hunger and provide a regenerative effect. Combining solar sap with slimeballs will yield sapballs, an alternative to slime.");
-        addPage("solar_sap_c", "...There's probably some technology out there that would allow you to remove the magic from sapballs and turn them back into slime, best not to worry about that.");
+        addDescription("runewood", "Arcane oak");
+        addPage("runewood_a", "The runewood tree is yet another result of spirits dissolving into nature. These trees can be most frequently found within plains, while also rarely appearing in forests.");
+        addPage("runewood_b", "When infernal and arcane spirits are infused into oak the properties of the wood will be altered and runewood will be created. This volatile process is how runewood trees are created, with the right tools you'll be able to replicate it!");
+        addHeadline("holy_extract", "Holy Sap");
+        addPage("holy_extract_a", "Within the runewood trees a special type of sap is born. To get your hands on this holy extract you'll need to strip away the bark off of exposed logs and then bottle up all the sap you can get!");
+        addPage("holy_extract_b", "Holy extract can be used for quite a few things. Firstly, by combining it with a slimeball you'll obtain sapballs, effectively providing you with three times as much slime!");
+        addPage("holy_extract_c", "Secondly, you can create holy syrup by heating up your holy extract in a furnace. Drinking this rejuvenating drink will replenish plenty of hunger and clear you of certain negative effects. Additionally if you drink it during day time health will also be restored and you'll gain a regenerative effect.");
+        addPage("holy_extract_d", "Try your best to not think about reverting sapballs into slimeballs using a certain expansion mod!");
 
         addHeadline("scythes", "Scythes!");
         addDescription("scythes", "Basic soul shattering");

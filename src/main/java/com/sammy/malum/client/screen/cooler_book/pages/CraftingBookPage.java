@@ -19,8 +19,12 @@ public class CraftingBookPage extends CoolerBookPage
     }
     public CraftingBookPage(Item outputItem, Item... inputItems)
     {
+        this(outputItem.getDefaultInstance(), inputItems);
+    }
+    public CraftingBookPage(ItemStack outputStack, Item... inputItems)
+    {
         super(MalumHelper.prefix("textures/gui/book/pages/crafting_page.png"));
-        this.outputStack = outputItem.getDefaultInstance();
+        this.outputStack = outputStack;
 
         ItemStack[] inputStacks = new ItemStack[inputItems.length];
         for (int i = 0; i < inputItems.length; i++)

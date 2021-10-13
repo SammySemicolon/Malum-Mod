@@ -74,6 +74,7 @@ public class CoolerBookScreen extends Screen
                 .addPage(new HeadlineTextPage("introduction","introduction_a"))
                 .addPage(new TextPage("introduction_b"))
                 .addPage(new TextPage("introduction_c"))
+                .addPage(new TextPage("introduction_d"))
         );
 
         entries.add(new CoolerBookEntry(
@@ -92,11 +93,12 @@ public class CoolerBookScreen extends Screen
                 .addPage(new TextPage("runewood_b"))
                 .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
-                .addPage(new HeadlineTextPage("solar_sap", "solar_sap_a"))
-                .addPage(new TextPage("solar_sap_b"))
+                .addPage(new HeadlineTextPage("holy_extract", "holy_extract_a"))
+                .addPage(new TextPage("holy_extract_b"))
+                .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_EXTRACT.get()))
+                .addPage(new TextPage("holy_extract_c"))
                 .addPage(new SmeltingBookPage(HOLY_EXTRACT.get(), HOLY_SYRUP.get()))
-                .addPage(new CraftingBookPage(HOLY_SAPBALL.get(), Items.SLIME_BALL, HOLY_EXTRACT.get()))
-                .addModCompatPage(new TextPage("solar_sap_c"), "thermal_expansion")
+                .addModCompatPage(new TextPage("holy_extract_d"), "thermal_expansion")
         );
 
         entries.add(new CoolerBookEntry(

@@ -9,26 +9,18 @@
   },
   "extra_items": [
     {
-      "tag": "forge:storage_blocks/redstone",
-      "count": 1
-    },
-    {
       "tag": "forge:gems/diamond",
       "count": 2
     },
     {
-      "tag": "forge:storage_blocks/lapis",
-      "count": 1
+      "tag": "forge:gems/lapis",
+      "count": 4
     }
   ],
   "spirits": [
     {
-      "item": "malum:earthen_spirit",
-      "count": 4
-    },
-    {
-      "item": "malum:aquatic_spirit",
-      "count": 8
+      "item": "malum:arcane_spirit",
+      "count": 32
     }
   ]
 }
