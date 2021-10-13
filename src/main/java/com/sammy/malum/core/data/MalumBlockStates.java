@@ -252,24 +252,23 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void totemBaseBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile base = models().withExistingParent(name, prefix("block/template_totem_base"));
+        String woodName = name.substring(0,8);
+        ResourceLocation side = prefix("block/" + woodName+"_log");
+        ResourceLocation top = prefix("block/" + woodName+"_log_top");
+        ResourceLocation planks = prefix("block/" + woodName+"_planks");
+        ResourceLocation panel = prefix("block/" + woodName+"_panel");
+        ModelFile base = models().withExistingParent(name, prefix("block/template_totem_base")).texture("side", side).texture("top", top).texture("planks", planks).texture("panel", panel);
 
         simpleBlock(blockRegistryObject.get(), base);
     }
     public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile pole = models().withExistingParent(name, prefix("block/template_totem_pole"));
-
-        getVariantBuilder(blockRegistryObject.get()).partialState()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
-                .modelForState().modelFile(pole).rotationY(0).addModel()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
-                .modelForState().modelFile(pole).rotationY(270).addModel()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
-                .modelForState().modelFile(pole).rotationY(180).addModel()
-                .partialState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
-                .modelForState().modelFile(pole).rotationY(90).addModel();
+        String woodName = name.substring(0,8);
+        ResourceLocation side = prefix("block/" + woodName+"_log");
+        ResourceLocation top = prefix("block/" + woodName+"_log_top");
+        ModelFile pole = models().withExistingParent(name, prefix("block/template_totem_pole")).texture("side", side).texture("top", top);
+        horizontalBlock(blockRegistryObject.get(), pole);
     }
     public void malumLeavesBlock(RegistryObject<Block> blockRegistryObject)
     {

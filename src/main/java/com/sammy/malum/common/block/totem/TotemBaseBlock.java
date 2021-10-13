@@ -40,13 +40,14 @@ public class TotemBaseBlock extends Block
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (MalumHelper.areWeOnClient(worldIn) || handIn == Hand.OFF_HAND)
-        {
-            return ActionResultType.FAIL;
-        }
         if (worldIn.getTileEntity(pos) instanceof TotemBaseTileEntity)
         {
             TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) worldIn.getTileEntity(pos);
+
+            if (MalumHelper.areWeOnClient(worldIn) || handIn == Hand.OFF_HAND)
+            {
+                return ActionResultType.SUCCESS;
+            }
             if (totemBaseTileEntity.active && totemBaseTileEntity.rite != null)
             {
                 totemBaseTileEntity.riteEnding();
@@ -56,6 +57,7 @@ public class TotemBaseBlock extends Block
                 totemBaseTileEntity.riteStarting();
             }
             player.swing(Hand.MAIN_HAND, true);
+            return ActionResultType.SUCCESS;
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }

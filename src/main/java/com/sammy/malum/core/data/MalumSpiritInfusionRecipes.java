@@ -63,6 +63,24 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
+        new SpiritInfusionRecipeBuilder(MalumItems.RUNEWOOD_LOG.get(), 1, MalumItems.RUNEWOOD_TOTEM_BASE.get(), 1)
+                .addExtraItem(MalumItems.RUNEWOOD_PLANKS.get(), 1)
+                .addExtraItem(MalumItems.HALLOWED_SPIRIT_RESONATOR.get(), 1)
+                .addSpirit(AERIAL_SPIRIT, 2)
+                .addSpirit(AQUATIC_SPIRIT, 2)
+                .addSpirit(EARTHEN_SPIRIT, 2)
+                .addSpirit(INFERNAL_SPIRIT, 2)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(MalumItems.SOULWOOD_LOG.get(), 1, MalumItems.SOULWOOD_TOTEM_BASE.get(), 1)
+                .addExtraItem(MalumItems.RUNEWOOD_PLANKS.get(), 1)
+                .addExtraItem(MalumItems.STAINED_SPIRIT_RESONATOR.get(), 1)
+                .addSpirit(AERIAL_SPIRIT, 2)
+                .addSpirit(AQUATIC_SPIRIT, 2)
+                .addSpirit(EARTHEN_SPIRIT, 2)
+                .addSpirit(INFERNAL_SPIRIT, 2)
+                .build(consumer);
+
         new SpiritInfusionRecipeBuilder(Items.IRON_INGOT, 1, MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 1)
                 .addExtraItem(Items.SOUL_SAND, 2)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 1)
@@ -155,13 +173,13 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_ARCANE_REACH.get(), 1)
-                .addExtraItem(MalumItems.HALLOWED_GOLD_INGOT.get(), 2)
+                .addExtraItem(MalumItems.HALLOWED_SPIRIT_RESONATOR.get(), 1)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 4)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_RING.get(), 1, MalumItems.RING_OF_ARCANE_SPOIL.get(), 1)
-                .addExtraItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 2)
+                .addExtraItem(MalumItems.STAINED_SPIRIT_RESONATOR.get(), 1)
                 .addExtraItem(MalumItems.SOULSTONE.get(), 4)
                 .addSpirit(INFERNAL_SPIRIT, 8)
                 .build(consumer);

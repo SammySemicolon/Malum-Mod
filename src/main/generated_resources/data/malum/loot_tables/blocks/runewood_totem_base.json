@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:totem_base"
+          "name": "malum:runewood_totem_base"
         }
       ],
       "conditions": [

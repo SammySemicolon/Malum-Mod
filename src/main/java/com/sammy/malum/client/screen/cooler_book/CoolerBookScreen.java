@@ -281,13 +281,13 @@ public class CoolerBookScreen extends Screen
         );
 
         entries.add(new CoolerBookEntry(
-                "totem_magic", TOTEM_BASE.get(),0,7)
+                "totem_magic", RUNEWOOD_TOTEM_BASE.get(),0,7)
                 .leftUp(2,2)
                 .up(3)
                 .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
                 .addPage(new TextPage("totem_magics_b"))
                 .addPage(new TextPage("totem_magic_c"))
-                .addPage(new SpiritInfusionPage(TOTEM_BASE.get()))
+                .addPage(new SpiritInfusionPage(RUNEWOOD_TOTEM_BASE.get()))
         );
 
         entries.add(new CoolerBookEntry(

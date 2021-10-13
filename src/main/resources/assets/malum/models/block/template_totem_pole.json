@@ -2,10 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"ambientocclusion": false,
-	"texture_size": [64, 64],
 	"textures": {
-		"pole": "malum:block/totem",
-		"particle": "malum:block/runewood_log"
+		"particle": "#side"
 	},
 	"elements": [
 		{
@@ -13,11 +11,11 @@
 			"to": [16, 16, 16],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
-				"east": {"uv": [4.5, 4, 8.5, 8], "texture": "#pole"},
-				"south": {"uv": [4.5, 0, 8.5, 4], "texture": "#pole"},
-				"west": {"uv": [8.5, 0, 12.5, 4], "texture": "#pole"},
-				"up": {"uv": [8.5, 4, 12.5, 8], "texture": "#pole"},
-				"down": {"uv": [8.5, 4, 12.5, 8], "texture": "#pole"}
+				"east": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "south"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top", "cullface": "up"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#top", "cullface": "down"}
 			}
 		}
 	]

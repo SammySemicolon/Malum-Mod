@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:corrupted_totem_base"
+          "name": "malum:soulwood_totem_base"
         }
       ],
       "conditions": [

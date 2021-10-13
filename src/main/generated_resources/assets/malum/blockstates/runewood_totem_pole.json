@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "malum:block/runewood_totem_pole"
+    },
+    "facing=south": {
+      "model": "malum:block/runewood_totem_pole",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "malum:block/runewood_totem_pole",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "malum:block/runewood_totem_pole",
+      "y": 90
+    }
+  }
+}
