@@ -18,6 +18,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraftforge.event.world.ExplosionEvent;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -39,9 +40,14 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
     @Override
     public void render(TotemPoleTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
+        Direction direction = tileEntityIn.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
+        if (direction.equals(Direction.WEST) || direction.equals(Direction.EAST))
+        {
+            combinedLightIn -= combinedOverlayIn*2;
+        }
         if (tileEntityIn.type == null)
         {
-            renderQuad(RUNEWOOD_LOG, new Color(255,255,255), combinedLightIn,tileEntityIn,matrixStackIn,bufferIn);
+            renderQuad(RUNEWOOD_LOG, new Color(255,255,255), combinedLightIn,direction,matrixStackIn,bufferIn);
             return;
         }
         if (!setup)
@@ -56,13 +62,13 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
             setup = true;
         }
         if (((TotemPoleBlock)tileEntityIn.getBlockState().getBlock()).corrupted) {
-            renderQuad(corruptedCutoutHashmap.get(tileEntityIn.type), new Color(255, 255, 255), combinedLightIn, tileEntityIn, matrixStackIn, bufferIn);
+            renderQuad(corruptedCutoutHashmap.get(tileEntityIn.type), new Color(255, 255, 255), combinedLightIn, direction, matrixStackIn, bufferIn);
         }
         else
         {
-            renderQuad(cutoutHashmap.get(tileEntityIn.type), new Color(255, 255, 255), combinedLightIn, tileEntityIn, matrixStackIn, bufferIn);
+            renderQuad(cutoutHashmap.get(tileEntityIn.type), new Color(255, 255, 255), combinedLightIn, direction, matrixStackIn, bufferIn);
         }
-        renderQuad(overlayHashmap.get(tileEntityIn.type), color(tileEntityIn), combinedLightIn,tileEntityIn,matrixStackIn,bufferIn);
+        renderQuad(overlayHashmap.get(tileEntityIn.type), color(tileEntityIn), combinedLightIn,direction,matrixStackIn,bufferIn);
     }
 
     public Color color(TotemPoleTileEntity totemPoleTileEntity)
@@ -75,13 +81,13 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
         return new Color(red,green,blue);
     }
 
-    public void renderQuad(RenderMaterial material, Color color, int light, TotemPoleTileEntity totemPoleTileEntity, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn)
+    public void renderQuad(RenderMaterial material, Color color, int light, Direction direction, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn)
     {
         matrixStackIn.push();
         TextureAtlasSprite sprite = material.getSprite();
         IVertexBuilder builder = material.getBuffer(bufferIn, r -> RenderType.getCutout());
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation(totemPoleTileEntity)));
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation(direction)));
         matrixStackIn.translate(-0.5, 0, -0.5);
         add(builder, matrixStackIn, color, light, 1f, 1, 1, sprite.getMinU(), sprite.getMinV());
         add(builder, matrixStackIn, color, light, 1f, 0, 1, sprite.getMinU(), sprite.getMaxV());
@@ -90,9 +96,8 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity>
 
         matrixStackIn.pop();
     }
-    public float rotation(TotemPoleTileEntity totemPoleTileEntity)
+    public float rotation(Direction direction)
     {
-        Direction direction = totemPoleTileEntity.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
         if (direction == Direction.NORTH || direction == Direction.SOUTH)
         {
             direction = direction.getOpposite();
