@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "malum:soulstone",
+    "malum:processed_soulstone",
     "malum:blazing_quartz"
   ]
 }

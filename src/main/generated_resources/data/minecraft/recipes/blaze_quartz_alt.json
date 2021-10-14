@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:blazing_quartz_block"
+      "item": "malum:block_of_blazing_quartz"
     }
   ],
   "result": {

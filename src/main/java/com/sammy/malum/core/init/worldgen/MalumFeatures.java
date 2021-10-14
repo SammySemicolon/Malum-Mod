@@ -27,6 +27,7 @@ public class MalumFeatures
     public static ConfiguredFeature<?, ?> RARE_CONFIGURED_RUNEWOOD_TREE;
 
     public static ConfiguredFeature<?, ?> BLAZE_QUARTZ_ORE;
+    public static ConfiguredFeature<?, ?> BRILLIANT_STONE;
     public static ConfiguredFeature<?, ?> SOULSTONE_ORE;
     public static ConfiguredFeature<?, ?> SOULSTONE_ORE_SURFACE;
 
@@ -36,6 +37,7 @@ public class MalumFeatures
         RARE_CONFIGURED_RUNEWOOD_TREE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "rare_runewood_tree", RUNEWOOD_TREE.get().withConfiguration(field_236559_b_).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, CommonConfig.RARE_RUNEWOOD_CHANCE.get(), 2))));
 
         BLAZE_QUARTZ_ORE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "blaze_quartz_ore", Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, MalumBlocks.BLAZING_QUARTZ_ORE.get().getDefaultState(), CommonConfig.BLAZE_QUARTZ_SIZE.get())).range(128).square().func_242731_b(20));
+        BRILLIANT_STONE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "brilliant_stone", Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, MalumBlocks.BRILLIANT_STONE.get().getDefaultState(), CommonConfig.BRILLIANT_STONE_SIZE.get())).withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(16, 8))).square());
 
         SOULSTONE_ORE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "soulstone_ore", Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, MalumBlocks.SOULSTONE_ORE.get().getDefaultState(), CommonConfig.SURFACE_SOULSTONE_SIZE.get())).withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(16, 16))).square());
         SOULSTONE_ORE_SURFACE = Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "soulstone_ore_surface", Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, MalumBlocks.SOULSTONE_ORE.get().getDefaultState(), CommonConfig.SOULSTONE_SIZE.get())).withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(64, 16))).square());

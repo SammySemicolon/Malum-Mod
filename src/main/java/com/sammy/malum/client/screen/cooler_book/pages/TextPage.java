@@ -2,11 +2,10 @@ package com.sammy.malum.client.screen.cooler_book.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
+import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
 
-public class TextPage extends CoolerBookPage
+public class TextPage extends BookPage
 {
     public final String translationKey;
     public TextPage(String translationKey)
@@ -24,7 +23,7 @@ public class TextPage extends CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+10,120);
+        ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+10,120);
     }
 
     @Override
@@ -32,6 +31,6 @@ public class TextPage extends CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+10,120);
+        ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+10,120);
     }
 }

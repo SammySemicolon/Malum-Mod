@@ -58,6 +58,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(BLAZING_QUARTZ_ORE);
         glowingBlock(BLAZING_QUARTZ_ORE);
+        blocks.remove(BRILLIANT_STONE);
+        glowingBlock(BRILLIANT_STONE);
 
         blocks.remove(SPIRIT_ALTAR);
         blocks.remove(SPIRIT_JAR);

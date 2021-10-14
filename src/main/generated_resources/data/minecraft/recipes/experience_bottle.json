@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:confined_brilliance"
+      "item": "malum:brilliance_chunk"
     },
     {
       "item": "minecraft:glass_bottle"

@@ -19,6 +19,6 @@ public class CurioRingOfProwess extends MalumCurioItem
     @Override
     public ItemStack spiritReplacementStack(ItemStack previousStack)
     {
-        return new ItemStack(MalumItems.CONFINED_BRILLIANCE.get(), previousStack.getCount());
+        return new ItemStack(MalumItems.BRILLIANCE_CHUNK.get(), previousStack.getCount());
     }
 }

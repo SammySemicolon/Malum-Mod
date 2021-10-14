@@ -9,12 +9,16 @@
   },
   "extra_items": [
     {
-      "tag": "forge:gems/diamond",
+      "item": "malum:brilliance_cluster",
       "count": 2
     },
     {
       "tag": "forge:gems/lapis",
       "count": 4
+    },
+    {
+      "tag": "forge:gems/diamond",
+      "count": 2
     }
   ],
   "spirits": [

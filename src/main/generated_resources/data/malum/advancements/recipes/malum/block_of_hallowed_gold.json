@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:block_of_hallowed_gold"
+    ]
+  },
+  "criteria": {
+    "has_hallowed_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:hallowed_gold_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:block_of_hallowed_gold"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_hallowed_gold",
+      "has_the_recipe"
+    ]
+  ]
+}

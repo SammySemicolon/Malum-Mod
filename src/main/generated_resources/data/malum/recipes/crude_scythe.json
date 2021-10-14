@@ -10,7 +10,7 @@
       "item": "minecraft:stick"
     },
     "Y": {
-      "item": "malum:soulstone"
+      "item": "malum:processed_soulstone"
     },
     "X": {
       "tag": "forge:ingots/iron"

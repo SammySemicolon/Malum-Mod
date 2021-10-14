@@ -283,11 +283,17 @@ public class MalumItems
     //region ores
     public static final RegistryObject<Item> BLAZING_QUARTZ_ORE = ITEMS.register("blazing_quartz_ore", () -> new BlockItem(MalumBlocks.BLAZING_QUARTZ_ORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new FuelItem(DEFAULT_PROPERTIES(), 3200));
-    public static final RegistryObject<Item> BLAZING_QUARTZ_BLOCK = ITEMS.register("blazing_quartz_block", () -> new BlockItem(MalumBlocks.BLAZING_QUARTZ_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLOCK_OF_BLAZING_QUARTZ = ITEMS.register("block_of_blazing_quartz", () -> new BlockItem(MalumBlocks.BLOCK_OF_BLAZING_QUARTZ.get(), DEFAULT_PROPERTIES()));
+
+    public static final RegistryObject<Item> BRILLIANT_STONE = ITEMS.register("brilliant_stone", () -> new BlockItem(MalumBlocks.BRILLIANT_STONE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BRILLIANCE_CLUSTER = ITEMS.register("brilliance_cluster", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BRILLIANCE_CHUNK = ITEMS.register("brilliance_chunk", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES().food((new Food.Builder()).fastToEat().setAlwaysEdible().build())));
+    public static final RegistryObject<Item> BLOCK_OF_BRILLIANCE = ITEMS.register("block_of_brilliance", () -> new BlockItem(MalumBlocks.BLOCK_OF_BRILLIANCE.get(), DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> SOULSTONE_ORE = ITEMS.register("soulstone_ore", () -> new BlockItem(MalumBlocks.SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOULSTONE = ITEMS.register("soulstone", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOULSTONE_BLOCK = ITEMS.register("soulstone_block", () -> new BlockItem(MalumBlocks.SOULSTONE_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOULSTONE_CLUSTER = ITEMS.register("soulstone_cluster", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> PROCESSED_SOULSTONE = ITEMS.register("processed_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLOCK_OF_SOULSTONE = ITEMS.register("block_of_soulstone", () -> new BlockItem(MalumBlocks.BLOCK_OF_SOULSTONE.get(), DEFAULT_PROPERTIES()));
     //endregion
 
     //region crafting blocks
@@ -298,7 +304,6 @@ public class MalumItems
     //endregion
 
     //region materials
-
     public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 200));
     public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 400));
     public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new FuelItem(DEFAULT_PROPERTIES(), 800));
@@ -314,17 +319,16 @@ public class MalumItems
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new FuelItem(DEFAULT_PROPERTIES(), 6400));
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> CONFINED_BRILLIANCE = ITEMS.register("confined_brilliance", () -> new ConfinedBrillianceItem(DEFAULT_PROPERTIES().food((new Food.Builder()).fastToEat().setAlwaysEdible().build())));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> HALLOWED_GOLD_BLOCK = ITEMS.register("hallowed_gold_block", () -> new BlockItem(MalumBlocks.HALLOWED_GOLD_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLOCK_OF_HALLOWED_GOLD = ITEMS.register("block_of_hallowed_gold", () -> new BlockItem(MalumBlocks.BLOCK_OF_HALLOWED_GOLD.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_SPIRIT_RESONATOR = ITEMS.register("hallowed_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_INGOT = ITEMS.register("soul_stained_steel_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_NUGGET = ITEMS.register("soul_stained_steel_nugget", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_BLOCK = ITEMS.register("soul_stained_steel_block", () -> new BlockItem(MalumBlocks.SOUL_STAINED_STEEL_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = ITEMS.register("block_of_soul_stained_steel", () -> new BlockItem(MalumBlocks.BLOCK_OF_SOUL_STAINED_STEEL.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
 
     //endregion
@@ -339,11 +343,11 @@ public class MalumItems
     public static final RegistryObject<Item> IRIDESCENT_ETHER_TORCH = ITEMS.register("iridescent_ether_torch", () -> new EtherTorchItem(MalumBlocks.IRIDESCENT_ETHER_TORCH.get(), MalumBlocks.IRIDESCENT_WALL_ETHER_TORCH.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> TAINTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierItem(MalumBlocks.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
     public static final RegistryObject<Item> TWISTED_IRIDESCENT_ETHER_BRAZIER = ITEMS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierItem(MalumBlocks.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), DEFAULT_PROPERTIES(), true));
-
-
     //endregion
 
+
     //region contents
+    public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(ItemTier.IRON, 0, 0.1f, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new ScytheItem(SOUL_STAINED_STEEL_ITEM, 0.5f, 0.1f, GEAR_PROPERTIES()));
 
@@ -363,10 +367,10 @@ public class MalumItems
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_LEGGINGS = ITEMS.register("soul_stained_steel_leggings", () -> new SoulStainedSteelArmorItem(EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_BOOTS = ITEMS.register("soul_stained_steel_boots", () -> new SoulStainedSteelArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_HELMET = ITEMS.register("soul_stained_stronghold_helmet", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.HEAD, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_CHESTPLATE = ITEMS.register("soul_stained_stronghold_chestplate", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.CHEST, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_LEGGINGS = ITEMS.register("soul_stained_stronghold_leggings", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.LEGS, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_BOOTS = ITEMS.register("soul_stained_stronghold_boots", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.FEET, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_HELMET = ITEMS.register("soul_stained_stronghold_helmet", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.HEAD, HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_CHESTPLATE = ITEMS.register("soul_stained_stronghold_chestplate", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.CHEST, HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_LEGGINGS = ITEMS.register("soul_stained_stronghold_leggings", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.LEGS, HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_BOOTS = ITEMS.register("soul_stained_stronghold_boots", () -> new SoulStainedStrongholdArmorItem(EquipmentSlotType.FEET, HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, ()->MalumSounds.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
 
@@ -374,8 +378,6 @@ public class MalumItems
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_NECKLACE = ITEMS.register("ornate_necklace", () -> new CurioOrnateNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> GILDED_BELT = ITEMS.register("gilded_belt", () -> new CurioGildedBelt(GEAR_PROPERTIES()));
-
-    public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> RING_OF_ARCANE_REACH = ITEMS.register("ring_of_arcane_reach", () -> new CurioArcaneReachRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_ARCANE_SPOIL = ITEMS.register("ring_of_arcane_spoil", () -> new CurioArcaneSpoilRing(GEAR_PROPERTIES()));

@@ -28,7 +28,7 @@ public class MalumItemTags extends ItemTagsProvider
     @Override
     protected void registerTags()
     {
-        getOrCreateBuilder(Tags.Items.GEMS).add(MalumItems.SOULSTONE.get(), MalumItems.BLAZING_QUARTZ.get());
+        getOrCreateBuilder(Tags.Items.GEMS).add(MalumItems.PROCESSED_SOULSTONE.get(), MalumItems.BLAZING_QUARTZ.get());
 
         this.copy(BlockTags.WOOL, net.minecraft.tags.ItemTags.WOOL);
         this.copy(BlockTags.PLANKS, net.minecraft.tags.ItemTags.PLANKS);

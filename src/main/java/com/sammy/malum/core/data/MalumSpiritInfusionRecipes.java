@@ -58,7 +58,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(Items.GOLD_INGOT, 1, MalumItems.HALLOWED_GOLD_INGOT.get(), 1)
                 .addExtraItem(Items.QUARTZ, 2)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 1)
                 .addSpirit(SACRED_SPIRIT, 1)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
@@ -83,7 +83,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(Items.IRON_INGOT, 1, MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 1)
                 .addExtraItem(Items.SOUL_SAND, 2)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 1)
                 .addSpirit(WICKED_SPIRIT, 1)
                 .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
@@ -91,7 +91,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(MalumItems.CRUDE_SCYTHE.get(), 1, MalumItems.SOUL_STAINED_STEEL_SCYTHE.get(), 1)
                 .addExtraItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 2)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 4)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 4)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
@@ -100,7 +100,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.IRON_HELMET, 1, MalumItems.SOUL_STAINED_STEEL_HELMET.get(), 1)
                 .addExtraItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 2)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 2)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 5)
@@ -109,7 +109,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.IRON_CHESTPLATE, 1, MalumItems.SOUL_STAINED_STEEL_CHESTPLATE.get(), 1)
                 .addExtraItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 2)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 2)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 5)
@@ -118,7 +118,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.IRON_LEGGINGS, 1, MalumItems.SOUL_STAINED_STEEL_LEGGINGS.get(), 1)
                 .addExtraItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 2)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 2)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 5)
@@ -127,7 +127,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.IRON_BOOTS, 1, MalumItems.SOUL_STAINED_STEEL_BOOTS.get(), 1)
                 .addExtraItem(MalumItems.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 2)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 2)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 5)
@@ -141,7 +141,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_HELMET, 1, MalumItems.SOUL_HUNTER_CLOAK.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 1)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
@@ -149,7 +149,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_CHESTPLATE, 1, MalumItems.SOUL_HUNTER_ROBE.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 1)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
@@ -157,7 +157,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_LEGGINGS, 1, MalumItems.SOUL_HUNTER_LEGGINGS.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 1)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
@@ -165,7 +165,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_BOOTS, 1, MalumItems.SOUL_HUNTER_BOOTS.get(), 1)
                 .addExtraItem(MalumItems.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 1)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.FEATHERS), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
@@ -174,19 +174,20 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_ARCANE_REACH.get(), 1)
                 .addExtraItem(MalumItems.HALLOWED_SPIRIT_RESONATOR.get(), 1)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 4)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 4)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_RING.get(), 1, MalumItems.RING_OF_ARCANE_SPOIL.get(), 1)
                 .addExtraItem(MalumItems.STAINED_SPIRIT_RESONATOR.get(), 1)
-                .addExtraItem(MalumItems.SOULSTONE.get(), 4)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 4)
                 .addSpirit(INFERNAL_SPIRIT, 8)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_PROWESS.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 2)
+                .addExtraItem(MalumItems.BRILLIANCE_CLUSTER.get(), 2)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_LAPIS), 4)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 2)
                 .addSpirit(ARCANE_SPIRIT, 32)
                 .build(consumer);
 
@@ -212,7 +213,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(MalumItems.SOULSTONE.get(), 4, MalumItems.RADIANT_SOULSTONE.get(), 1)
+        new SpiritInfusionRecipeBuilder(MalumItems.PROCESSED_SOULSTONE.get(), 4, MalumItems.RADIANT_SOULSTONE.get(), 1)
                 .addExtraItem(MalumItems.HOLY_EXTRACT.get(), 1)
                 .addExtraItem(MalumItems.UNHOLY_EXTRACT.get(), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)

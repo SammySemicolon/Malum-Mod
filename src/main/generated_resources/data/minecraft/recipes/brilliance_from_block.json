@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:block_of_brilliance"
+    }
+  ],
+  "result": {
+    "item": "malum:brilliance_chunk",
+    "count": 9
+  }
+}

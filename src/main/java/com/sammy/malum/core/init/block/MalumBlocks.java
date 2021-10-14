@@ -120,10 +120,10 @@ public class MalumBlocks
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(HALLOWED_GOLD_PROPERTIES().notSolid()));
 
     public static final RegistryObject<Block> RUNEWOOD_TOTEM_BASE = BLOCKS.register("runewood_totem_base", () -> new TotemBaseBlock(RUNEWOOD_PROPERTIES().notSolid(), false));
-    public static final RegistryObject<Block> RUNEWOOD_TOTEM_POLE = BLOCKS.register("runewood_totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(MalumBlocks.RUNEWOOD_LOG), false));
+    public static final RegistryObject<Block> RUNEWOOD_TOTEM_POLE = BLOCKS.register("runewood_totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid(), MalumBlocks.RUNEWOOD_LOG, false));
 
     public static final RegistryObject<Block> SOULWOOD_TOTEM_BASE = BLOCKS.register("soulwood_totem_base", () -> new TotemBaseBlock(RUNEWOOD_PROPERTIES().notSolid(), true));
-    public static final RegistryObject<Block> SOULWOOD_TOTEM_POLE = BLOCKS.register("soulwood_totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid().lootFrom(MalumBlocks.SOULWOOD_LOG), true));
+    public static final RegistryObject<Block> SOULWOOD_TOTEM_POLE = BLOCKS.register("soulwood_totem_pole", () -> new TotemPoleBlock(RUNEWOOD_PROPERTIES().notSolid(), MalumBlocks.SOULWOOD_LOG, true));
     //endregion
 
     //region tainted rock
@@ -347,13 +347,16 @@ public class MalumBlocks
     //endregion
 
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new MalumOreBlock(BLAZE_QUARTZ_ORE_PROPERTIES(), 4, 12));
-    public static final RegistryObject<Block> BLAZING_QUARTZ_BLOCK = BLOCKS.register("blazing_quartz_block", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
+    public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
+
+    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new MalumOreBlock(AbstractBlock.Properties.from(Blocks.DIAMOND_ORE), 12, 24));
+    public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(AbstractBlock.Properties.from(Blocks.DIAMOND_BLOCK)));
 
     public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES()));
-    public static final RegistryObject<Block> SOULSTONE_BLOCK = BLOCKS.register("soulstone_block", () -> new Block(SOULSTONE_PROPERTIES()));
+    public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
 
-    public static final RegistryObject<Block> HALLOWED_GOLD_BLOCK = BLOCKS.register("hallowed_gold_block", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
-    public static final RegistryObject<Block> SOUL_STAINED_STEEL_BLOCK = BLOCKS.register("soul_stained_steel_block", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
+    public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
+    public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
 
 
     public static int light(BlockState state, int strength)

@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:soulstone_block"
+      "item": "malum:block_of_soulstone"
     }
   ],
   "result": {
-    "item": "malum:soulstone",
+    "item": "malum:processed_soulstone",
     "count": 9
   }
 }

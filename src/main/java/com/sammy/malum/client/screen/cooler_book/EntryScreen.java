@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.cooler_book;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.screen.cooler_book.pages.BookPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,14 +12,14 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import org.lwjgl.glfw.GLFW;
 
-import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.*;
+import static com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen.*;
 
 public class EntryScreen extends Screen
 {
     public static final ResourceLocation BOOK_TEXTURE = MalumHelper.prefix("textures/gui/book/entry.png");
 
     public static EntryScreen screen;
-    public static CoolerBookEntry openEntry;
+    public static BookEntry openEntry;
 
     public final int bookWidth = 292;
     public final int bookHeight = 190;
@@ -46,14 +47,14 @@ public class EntryScreen extends Screen
             {
                 if (i < openEntry.pages.size())
                 {
-                    CoolerBookPage page = openEntry.pages.get(i);
+                    BookPage page = openEntry.pages.get(i);
                     if (i % 2 == 0)
                     {
-                        page.renderBackgroundLeft(minecraft, matrixStack, CoolerBookScreen.screen.xOffset, CoolerBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
+                        page.renderBackgroundLeft(minecraft, matrixStack, ProgressionBookScreen.screen.xOffset, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
                     }
                     else
                     {
-                        page.renderBackgroundRight(minecraft, matrixStack, CoolerBookScreen.screen.xOffset, CoolerBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
+                        page.renderBackgroundRight(minecraft, matrixStack, ProgressionBookScreen.screen.xOffset, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
                     }
                 }
             }
@@ -86,14 +87,14 @@ public class EntryScreen extends Screen
             {
                 if (i < openEntry.pages.size())
                 {
-                    CoolerBookPage page = openEntry.pages.get(i);
+                    BookPage page = openEntry.pages.get(i);
                     if (i % 2 == 0)
                     {
-                        page.renderLeft(minecraft, matrixStack, CoolerBookScreen.screen.xOffset, CoolerBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
+                        page.renderLeft(minecraft, matrixStack, ProgressionBookScreen.screen.xOffset, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
                     }
                     else
                     {
-                        page.renderRight(minecraft, matrixStack, CoolerBookScreen.screen.xOffset, CoolerBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
+                        page.renderRight(minecraft, matrixStack, ProgressionBookScreen.screen.xOffset, ProgressionBookScreen.screen.yOffset, mouseX, mouseY, partialTicks);
                     }
                 }
             }
@@ -114,7 +115,7 @@ public class EntryScreen extends Screen
             }
             else
             {
-                CoolerBookScreen.openScreen(true);
+                ProgressionBookScreen.openScreen(true);
             }
             return true;
         }
@@ -140,14 +141,14 @@ public class EntryScreen extends Screen
     {
         if (keyCode == GLFW.GLFW_KEY_E)
         {
-            CoolerBookScreen.openScreen(false);
+            ProgressionBookScreen.openScreen(false);
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override
     public void closeScreen()
     {
-        CoolerBookScreen.openScreen(false);
+        ProgressionBookScreen.openScreen(false);
     }
 
     public void playSound()
@@ -155,12 +156,12 @@ public class EntryScreen extends Screen
         PlayerEntity playerEntity = Minecraft.getInstance().player;
         playerEntity.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
     }
-    public static void openScreen(CoolerBookEntry newEntry)
+    public static void openScreen(BookEntry newEntry)
     {
         Minecraft.getInstance().displayGuiScreen(getInstance(newEntry));
         screen.playSound();
     }
-    public static EntryScreen getInstance(CoolerBookEntry newEntry)
+    public static EntryScreen getInstance(BookEntry newEntry)
     {
         if (screen == null || !newEntry.equals(openEntry))
         {

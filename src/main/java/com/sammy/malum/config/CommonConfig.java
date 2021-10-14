@@ -12,6 +12,9 @@ public class CommonConfig {
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_BLAZE_QUARTZ;
     public static ForgeConfigSpec.ConfigValue<Integer> BLAZE_QUARTZ_SIZE;
 
+    public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_BRILLIANT_STONE;
+    public static ForgeConfigSpec.ConfigValue<Integer> BRILLIANT_STONE_SIZE;
+
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_SOULSTONE;
     public static ForgeConfigSpec.ConfigValue<Integer> SOULSTONE_SIZE;
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_SURFACE_SOULSTONE;
@@ -36,6 +39,13 @@ public class CommonConfig {
                 .define("blazeQuartzSize", 7);
         builder.pop();
 
+        builder.comment("Brilliant Stone Config").push("brilliant_stone");
+        GENERATE_BRILLIANT_STONE = builder.comment("Should brilliant stone generate?")
+                .define("generateBrilliantStone", true);
+        BRILLIANT_STONE_SIZE = builder.comment("Size of brilliant stone veins.")
+                .define("brilliantStoneSize", 5);
+        builder.pop();
+
         builder.comment("Soulstone Config").push("soulstone");
         GENERATE_SOULSTONE = builder.comment("Should soulstone ore generate underground?")
                 .define("generateSoulstone", true);
@@ -43,9 +53,9 @@ public class CommonConfig {
                 .define("generateSurfaceSoulstone", true);
 
         SOULSTONE_SIZE = builder.comment("Size of soulstone ore veins underground.")
-                .define("soulstoneSize", 8);
+                .define("soulstoneSize", 9);
         SURFACE_SOULSTONE_SIZE = builder.comment("Size of soulstone ore veins on the surface.")
-                .define("surfaceSoulstoneSize", 12);
+                .define("surfaceSoulstoneSize", 6);
         builder.pop();
 
         builder.pop();

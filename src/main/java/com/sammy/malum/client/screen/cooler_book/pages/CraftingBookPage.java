@@ -2,12 +2,11 @@ package com.sammy.malum.client.screen.cooler_book.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
+import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.*;
 
-public class CraftingBookPage extends CoolerBookPage
+public class CraftingBookPage extends BookPage
 {
     private final ItemStack outputStack;
     private final ItemStack[] inputStacks;
@@ -49,12 +48,12 @@ public class CraftingBookPage extends CoolerBookPage
                     ItemStack itemStack = inputStacks[index];
                     int itemPosX = guiLeft + 45 + j*22;
                     int itemPosY = guiTop + 34 + i*22;
-                    CoolerBookScreen.renderItem(matrixStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
+                    ProgressionBookScreen.renderItem(matrixStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }
         }
 
-        CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
 
     }
 
@@ -74,12 +73,12 @@ public class CraftingBookPage extends CoolerBookPage
                     ItemStack itemStack = inputStacks[index];
                     int itemPosX = guiLeft + 187 + j*22;
                     int itemPosY = guiTop + 34 + i*22;
-                    CoolerBookScreen.renderItem(matrixStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
+                    ProgressionBookScreen.renderItem(matrixStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }
         }
 
-        CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
     }
 
     public static CraftingBookPage fullPage(Item output, Item input)

@@ -46,7 +46,9 @@ public class GenericEvents {
         if (CommonConfig.GENERATE_SOULSTONE.get()) {
             event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.SOULSTONE_ORE);
         }
-
+        if (CommonConfig.GENERATE_BRILLIANT_STONE.get()) {
+            event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.BRILLIANT_STONE);
+        }
         if (CommonConfig.GENERATE_SURFACE_SOULSTONE.get()) {
             event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> MalumFeatures.SOULSTONE_ORE_SURFACE);
         }

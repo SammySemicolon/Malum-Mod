@@ -2,20 +2,20 @@ package com.sammy.malum.client.screen.cooler_book.objects;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.client.screen.cooler_book.EntryScreen;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookEntry.EntryLine.LineEnum;
+import com.sammy.malum.client.screen.cooler_book.BookEntry;
+import com.sammy.malum.client.screen.cooler_book.BookEntry.EntryLine.LineEnum;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Arrays;
 
-import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.*;
+import static com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen.*;
 
-public class EntryBookObject extends CoolerBookObject
+public class EntryBookObject extends BookObject
 {
-    public final CoolerBookEntry entry;
-    public EntryBookObject(CoolerBookEntry entry, int posX, int posY)
+    public final BookEntry entry;
+    public EntryBookObject(BookEntry entry, int posX, int posY)
     {
         super(posX, posY, 32, 32);
         this.entry = entry;
@@ -34,7 +34,7 @@ public class EntryBookObject extends CoolerBookObject
         int posY = offsetPosY(yOffset);
         renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, 1, 252, width, height, 512, 512);
         minecraft.getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 8, posY + 8);
-        for (CoolerBookEntry.EntryLine arrow : entry.arrows)
+        for (BookEntry.EntryLine arrow : entry.arrows)
         {
             int arrowPosX = posX + arrow.xOffset * 32;
             int arrowPosY = posY + arrow.yOffset * -32;

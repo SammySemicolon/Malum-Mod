@@ -3,14 +3,11 @@ package com.sammy.malum.client.screen.cooler_book.pages;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
+import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 
-public class HeadlineTextPage extends CoolerBookPage
+public class HeadlineTextPage extends BookPage
 {
     private final String headlineTranslationKey;
     private final String translationKey;
@@ -35,8 +32,8 @@ public class HeadlineTextPage extends CoolerBookPage
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
-        CoolerBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
-        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+31,120);
+        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
+        ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+31,120);
     }
 
     @Override
@@ -45,7 +42,7 @@ public class HeadlineTextPage extends CoolerBookPage
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
-        CoolerBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
-        CoolerBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+31,120);
+        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
+        ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+31,120);
     }
 }

@@ -2,8 +2,7 @@ package com.sammy.malum.client.screen.cooler_book.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
+import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
 import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
@@ -15,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.renderTexture;
+import static com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen.renderTexture;
 
-public class SpiritInfusionPage extends CoolerBookPage
+public class SpiritInfusionPage extends BookPage
 {
     private final SpiritInfusionRecipe recipe;
     @SuppressWarnings("all")
@@ -52,8 +51,8 @@ public class SpiritInfusionPage extends CoolerBookPage
         {
             renderIngredients(matrixStack, guiLeft+105,guiTop+51, mouseX, mouseY, recipe.extraItems);
         }
-        CoolerBookScreen.renderItem(matrixStack, inputStack, guiLeft+67, guiTop+59,mouseX,mouseY);
-        CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, inputStack, guiLeft+67, guiTop+59,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
         renderItems(matrixStack, guiLeft+15,guiTop+51, mouseX, mouseY, recipe.spirits);
     }
 
@@ -68,8 +67,8 @@ public class SpiritInfusionPage extends CoolerBookPage
         {
             renderIngredients(matrixStack, guiLeft+247,guiTop+51, mouseX, mouseY, recipe.extraItems);
         }
-        CoolerBookScreen.renderItem(matrixStack, inputStack, guiLeft+209, guiTop+59,mouseX,mouseY);
-        CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, inputStack, guiLeft+209, guiTop+59,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
         renderItems(matrixStack, guiLeft+157,guiTop+51, mouseX, mouseY, recipe.spirits);
     }
     public void renderIngredients(MatrixStack matrixStack, int left, int top, int mouseX, int mouseY, List<IngredientWithCount> ingredients)
@@ -92,7 +91,7 @@ public class SpiritInfusionPage extends CoolerBookPage
         for (int i = 0; i < items.size(); i++)
         {
             ItemStack stack = items.get(i).stack();
-            CoolerBookScreen.renderItem(matrixStack, stack, left+8,top+8+19*i,mouseX,mouseY);
+            ProgressionBookScreen.renderItem(matrixStack, stack, left+8,top+8+19*i,mouseX,mouseY);
         }
     }
     public static int[] uOffset()

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:processed_soulstone"
+    ]
+  },
+  "criteria": {
+    "has_soulstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "malum:soulstone_cluster"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:processed_soulstone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soulstone",
+      "has_the_recipe"
+    ]
+  ]
+}

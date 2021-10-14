@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.client.screen.cooler_book.CoolerBookScreen.renderTexture;
+import static com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen.renderTexture;
 import static com.sammy.malum.client.screen.cooler_book.pages.SpiritInfusionPage.uOffset;
 import static com.sammy.malum.client.screen.cooler_book.pages.SpiritInfusionPage.vOffset;
 

@@ -2,13 +2,12 @@ package com.sammy.malum.client.screen.cooler_book.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookPage;
-import com.sammy.malum.client.screen.cooler_book.CoolerBookScreen;
+import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class SmeltingBookPage extends CoolerBookPage
+public class SmeltingBookPage extends BookPage
 {
     private final ItemStack inputStack;
     private final ItemStack outputStack;
@@ -28,8 +27,8 @@ public class SmeltingBookPage extends CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        CoolerBookScreen.renderItem(matrixStack, inputStack, guiLeft+67, guiTop+59,mouseX,mouseY);
-        CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, inputStack, guiLeft+67, guiTop+59,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
 
     }
 
@@ -38,7 +37,7 @@ public class SmeltingBookPage extends CoolerBookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        CoolerBookScreen.renderItem(matrixStack, inputStack, guiLeft+209, guiTop+59,mouseX,mouseY);
-        CoolerBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, inputStack, guiLeft+209, guiTop+59,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
     }
 }

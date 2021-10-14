@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:soulstone",
+    "item": "malum:processed_soulstone",
     "count": 4
   },
   "output": {

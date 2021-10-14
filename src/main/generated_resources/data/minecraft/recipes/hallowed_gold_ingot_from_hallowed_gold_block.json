@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:hallowed_gold_block"
+      "item": "malum:block_of_hallowed_gold"
     }
   ],
   "result": {

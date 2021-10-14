@@ -68,6 +68,11 @@ public class MalumBlockLootTables extends LootTableProvider
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         blocks.remove(MalumBlocks.BLAZING_QUARTZ_ORE);
+        registerLootTable(MalumBlocks.BLAZING_QUARTZ_ORE.get(), droppingItemWithFortune(MalumBlocks.BLAZING_QUARTZ_ORE.get(), MalumItems.BLAZING_QUARTZ.get()));
+        blocks.remove(MalumBlocks.SOULSTONE_ORE);
+        registerLootTable(MalumBlocks.SOULSTONE_ORE.get(), droppingItemWithFortune(MalumBlocks.SOULSTONE_ORE.get(), MalumItems.SOULSTONE_CLUSTER.get()));
+        blocks.remove(MalumBlocks.BRILLIANT_STONE);
+        registerLootTable(MalumBlocks.BRILLIANT_STONE.get(), droppingItemWithFortune(MalumBlocks.BRILLIANT_STONE.get(), MalumItems.BRILLIANCE_CLUSTER.get()));
 
 
         takeAll(blocks, b -> b.get() instanceof TotemPoleBlock);
@@ -85,7 +90,6 @@ public class MalumBlockLootTables extends LootTableProvider
     
         takeAll(blocks, b -> true).forEach(b -> registerLootTable(b.get(), dropping(b.get().asItem())));
     
-        registerLootTable(MalumBlocks.BLAZING_QUARTZ_ORE.get(), droppingItemWithFortune(MalumBlocks.BLAZING_QUARTZ_ORE.get(), MalumItems.BLAZING_QUARTZ.get()));
         registerLootTable(MalumBlocks.RUNEWOOD_LEAVES.get(), droppingWithChancesAndSticks(MalumBlocks.RUNEWOOD_LEAVES.get(), MalumBlocks.RUNEWOOD_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         return tables;
     }
