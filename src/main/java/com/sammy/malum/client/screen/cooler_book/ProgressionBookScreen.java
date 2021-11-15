@@ -70,7 +70,6 @@ public class ProgressionBookScreen extends Screen
         Item EMPTY = ItemStack.EMPTY.getItem();
         entries.add(new BookEntry(
                 "introduction", ENCYCLOPEDIA_ARCANA.get(),0,1)
-                .down(1)
                 .addPage(new HeadlineTextPage("introduction","introduction_a"))
                 .addPage(new TextPage("introduction_b"))
                 .addPage(new TextPage("introduction_c"))
@@ -79,8 +78,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "spirit_magics", SOUL_SAND,0,0)
-                .leftUp(2,2)
-                .rightUp(2,2)
                 .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a"))
                 .addPage(new TextPage("spirit_magics_b"))
                 .addPage(new TextPage("spirit_magics_c"))
@@ -88,7 +85,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "runewood", RUNEWOOD_SAPLING.get(),1,1)
-                .upLeft(2,2)
                 .addPage(new HeadlineTextPage("runewood", "runewood_a"))
                 .addPage(new TextPage("runewood_b"))
                 .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
@@ -103,14 +99,12 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "soulstone", PROCESSED_SOULSTONE.get(),-1,1)
-                .upRight(2,2)
                 .addPage(new HeadlineTextPage("soulstone", "soulstone_a"))
                 .addPage(new TextPage("soulstone_b"))
         );
 
         entries.add(new BookEntry(
                 "scythes", CRUDE_SCYTHE.get(),0,2)
-                .upLeft(2,2)
                 .addPage(new HeadlineTextPage("scythes", "scythes_a"))
                 .addPage(new TextPage("scythes_b"))
                 .addPage(new TextPage("scythes_c"))
@@ -122,7 +116,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "simple_spirit_types", ARCANE_SPIRIT.get(),-1,3)
-                .upRight(4,2)
                 .addPage(new SpiritTextPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("sacred_spirit_b"))
                 .addPage(new SpiritTextPage("wicked_spirit", "wicked_spirit_a", WICKED_SPIRIT.get()))
@@ -134,7 +127,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "spirit_infusion", SPIRIT_ALTAR.get(),1,4)
-                .upLeft(2,4)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
                 .addPage(new TextPage("spirit_infusion_b"))
                 .addPage(new TextPage("spirit_infusion_c"))
@@ -145,7 +137,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "elemental_spirits", EARTHEN_SPIRIT.get(),0,6)
-                .up(1)
                 .addPage(new SpiritTextPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
                 .addPage(new TextPage("earthen_spirit_b"))
                 .addPage(new SpiritTextPage("infernal_spirit", "infernal_spirit_a", INFERNAL_SPIRIT.get()))
@@ -158,7 +149,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "arcane_rock", TAINTED_ROCK.get(),2,4)
-                .right(1)
                 .addPage(new HeadlineTextPage("tainted_rock", "tainted_rock"))
                 .addPage(new SpiritInfusionPage(TAINTED_ROCK.get()))
                 .addPage(CraftingBookPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
@@ -186,7 +176,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "spirit_fabric", SPIRIT_FABRIC.get(),2,5)
-                .right(1)
                 .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric"))
                 .addPage(new SpiritInfusionPage(SPIRIT_FABRIC.get()))
                 .addPage(new HeadlineTextPage("spirit_pouch", "spirit_pouch"))
@@ -204,7 +193,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "spirit_metallurgy", SOUL_STAINED_STEEL_INGOT.get(),0,5)
-                .left(1)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a"))
                 .addPage(new TextPage("hallowed_gold_b"))
                 .addPage(new SpiritInfusionPage(HALLOWED_GOLD_INGOT.get()))
@@ -224,7 +212,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -1, 5)
-                .left(1)
                 .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
                 .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor"))
@@ -236,8 +223,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "spirit_trinkets", ORNATE_RING.get(), -2, 5)
-                .upLeft(2,2)
-                .left(5)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
                 .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER,HALLOWED_GOLD_INGOT.get()))
@@ -256,7 +241,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "natural_brilliance", BRILLIANCE_CHUNK.get(), -3, 7)
-                .leftDown(2,2)
                 .addPage(new HeadlineTextPage("natural_brilliance", "natural_brilliance_a"))
                 .addPage(new TextPage("natural_brilliance_b"))
                 .addPage(new CraftingBookPage(EXPERIENCE_BOTTLE, BRILLIANCE_CHUNK.get(), GLASS_BOTTLE))
@@ -271,7 +255,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "necklace_of_battle_harmony", NECKLACE_OF_BATTLE_HARMONY.get(), -5, 5)
-                .downRight(2,2)
                 .addPage(new HeadlineTextPage("necklace_of_battle_harmony", "necklace_of_battle_harmony_a"))
                 .addPage(new TextPage("necklace_of_battle_harmony_b"))
                 .addPage(new SpiritInfusionPage(NECKLACE_OF_BATTLE_HARMONY.get()))
@@ -285,8 +268,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "totem_magic", RUNEWOOD_TOTEM_BASE.get(),0,7)
-                .leftUp(2,2)
-                .up(3)
                 .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
                 .addPage(new TextPage("totem_magics_b"))
                 .addPage(new TextPage("totem_magic_c"))
@@ -305,7 +286,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "utilizing_eldritch_magic", ELDRITCH_SPIRIT.get(),0,9)
-                .rightDown(2,2).upLeft(2,2)
                 .addPage(new HeadlineTextPage("utilizing_eldritch_magic", "utilizing_eldritch_magic_a"))
                 .addPage(new TextPage("utilizing_eldritch_magic_b"))
                 .addPage(new HeadlineTextPage("rite_of_corruption", "rite_of_corruption_a"))
@@ -344,7 +324,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "soulwood", SOULWOOD_SAPLING.get(),-1,10)
-                .upRight(4,2)
         );
 
         entries.add(new BookEntry(
@@ -355,7 +334,6 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "radiant_soulstone", RADIANT_SOULSTONE.get(), 1, 11)
-                .upLeft(2,2).right(1)
                 .addPage(new HeadlineTextPage("radiant_soulstone", "radiant_soulstone_a"))
                 .addPage(new TextPage("radiant_soulstone_b"))
                 .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()))
