@@ -24,6 +24,7 @@ public class RenderUtilities {
     }, () -> {
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
+
     });
 
     public static RenderType GLOWING_SPRITE = RenderType.makeType(

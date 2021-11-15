@@ -41,7 +41,6 @@ public class MalumMod
 
     public MalumMod()
     {
-
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);

@@ -7,16 +7,7 @@
   "output": {
     "item": "malum:radiant_soulstone"
   },
-  "extra_items": [
-    {
-      "item": "malum:holy_extract",
-      "count": 1
-    },
-    {
-      "item": "malum:unholy_extract",
-      "count": 1
-    }
-  ],
+  "extra_items": [],
   "spirits": [
     {
       "item": "malum:earthen_spirit",

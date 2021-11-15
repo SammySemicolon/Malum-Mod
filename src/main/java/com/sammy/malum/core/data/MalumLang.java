@@ -86,26 +86,26 @@ public class MalumLang extends LanguageProvider
 
 
 
-        addHeadline("introduction", "Introduction");
         addDescription("introduction", "Soul magic awaits");
+        addHeadline("introduction", "Introduction");
         addPage("introduction_a", "Within this world, every living body has a soul. The body is a physical vessel that the soul occupies. The soul is one's consciousness and what animates the body. It is an arcane representation of who you are.");
         addPage("introduction_b", "The encyclopedia arcana is a book meant to explain everything about the soul and how to potentially utilize various soul magics. Even though a soul is an arcane thing, performing soul magic is not easy.");
         addPage("introduction_c", "To properly utilize soul magics you're gonna need to separate the desired magic elements from all the other junk found within a soul. These magic elements are known as spirits, magical fragments of potential.");
         addPage("introduction_d", "The magical presence of a soul derives entirely from the spirits found within it. Each soul is made unique by what spirits it holds, it's safe to assume that the soul is only alive due to them too!");
 
-        addHeadline("spirit_magics", "Spirit Magics");
         addDescription("spirit_magics", "Soul fragments");
+        addHeadline("spirit_magics", "Spirit Magics");
         addPage("spirit_magics_a", "\"What exactly is a spirit?\" You might ask yourself. Spirits are raw, untainted magic. There are also many spirit types, all with unique uses and abilities. Perfect for your evil needs.");
         addPage("spirit_magics_b", "Each soul contains a specific set of spirits, different souls contain different combinations of spirits! When hunting for spirits you'll have to carefully think about which souls will have what you need.");
         addPage("spirit_magics_c", "When hunting spirits it is important to not leave any of them behind. Uncollected spirits will slowly dissolve into the world around and alter it into a new twisted one. Many natural wonders you may find were created this way!");
 
-        addHeadline("soulstone", "Soulstone");
         addDescription("soulstone", "Altered minerals");
+        addHeadline("soulstone", "Soulstone");
         addPage("soulstone_a", "The soulstone is a strange ore found both on the surface and in the deepest ends of every cave. The ore itself was created from carelessness, when a dissolved spirit merges with ore it'll shape the mineral to be something new. Soulstone is extremely valuable to any soul hunter.");
         addPage("soulstone_b", "Soulstone is very precious due to it's ability to resonate and mangle with souls and spirits in various ways. This unique ability of the soulstone makes it the perfect mineral to create soul hunting equipment out of. Any weapon made out of soulstone is most certainly sufficient for damaging an opponent's soul.");
 
-        addHeadline("runewood", "Runewood");
         addDescription("runewood", "Arcane oak");
+        addHeadline("runewood", "Runewood");
         addPage("runewood_a", "The runewood tree is yet another result of spirits dissolving into nature. These trees can be most frequently found within plains, while also rarely appearing in forests.");
         addPage("runewood_b", "When infernal and arcane spirits are infused into oak the properties of the wood will be altered and runewood will be created. This volatile process is how runewood trees are created, with the right tools you'll be able to replicate it!");
         addHeadline("holy_extract", "Holy Sap");
@@ -114,14 +114,14 @@ public class MalumLang extends LanguageProvider
         addPage("holy_extract_c", "Secondly, you can create holy syrup by heating up your holy extract in a furnace. Drinking this rejuvenating drink will replenish plenty of hunger and clear you of certain negative effects. Additionally if you drink it during day time health will also be restored and you'll gain a regenerative effect.");
         addPage("holy_extract_d", "Try your best to not think about reverting sapballs into slimeballs using a certain expansion mod!");
 
-        addHeadline("scythes", "Scythes!");
         addDescription("scythes", "Basic soul shattering");
-        addPage("scythes_a", "A scythe is a weapon of magic origin designed for cutting through hordes of enemies. The axe exchanges attack speed for extra damage, the scythe on the other hand gains crowd control. Any attack done with the scythe will count as a stronger version of a sword's sweep attack.");
-        addPage("scythes_b", "The scythe is also the most important tool of a spirit hunter, it's excellence at crowd control combined with it's ability to shatter souls makes it the perfect weapon for hunting spirits.");
-        addPage("scythes_c", "The simplest scythe you can make uses iron for it's blade and a basic soulstone as a reagent. The scythe also accepts many exclusive enchantments!");
+        addHeadline("scythes", "Scythes!");
+        addPage("scythes_a", "The scythe is a very popular tool amongst soul hunters. To start it provides a strong sweeping edge effect, even more powerful than a sword's. Perfect for clearing through hordes of enemies. Additionally it has the ability to shatter souls of your victims.");
+        addPage("scythes_b", "When you damage a living body you destroy the vessel of a soul. However if you damage both the body and the soul you'll be able to completely eradicate your enemy, this way of mercilessly executing your enemy is known as shattering their soul and allows you to obtain your enemies spirits.");
+        addPage("scythes_c", "Most weapons made with a soulstone have the ability to shatter souls! The most primitive scythe available is the crude one, made from iron and a single soulstone.");
 
         addHeadline("haunted", "Haunted");
-        addPage("haunted", "The haunted enchantment utilizes magic created when a soulstone is brought close to a hurt soul to deal extra magic damage to anyone you strike! Higher tiers hit with even stronger magic");
+        addPage("haunted", "When a soulstone is brought close to a soul it generates a little bit of magic. The haunted enchantment converts that magic energy into extra magic damage to anyone you strike! Higher tiers hit with even stronger magic!");
 
         addHeadline("spirit_plunder", "Spirit Plunder");
         addPage("spirit_plunder", "The spirit plunder enchantment forces the scythe's soulstone to utilize even more magic, any soul you shatter with this enchanted scythe will yield extra spirits. This may however damage the soulstone, taking extra durability off of your scythe.");
@@ -129,6 +129,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("rebound", "Rebound");
         addPage("rebound", "The rebound enchantment is by far the strangest one of them all. It grants you the ability to throw the scythe like a boomerang, allowing for a wacky ranged attack. Higher tiers allow you to throw the scythe more frequently.");
 
+        addDescription("simple_spirit_types", "The basics");
         addHeadline("sacred_spirit", "Sacred Spirit");
         addPage("sacred_spirit_a", "Sacred spirit represents two things, the pure and the holy. Magic derived from sacred spirits is generally focused on various forms of healing and other positive effects.");
         addPage("sacred_spirit_b", "When you're in need of a specific spirit you'll need to do some thinking. It'd be boring if the solution was handed out to you right away! Each soul has very specific spirits and their types depend on what kind of soul it is. The sacred spirit for example is found mainly within passive, relaxed souls.");
@@ -142,6 +143,7 @@ public class MalumLang extends LanguageProvider
         addPage("arcane_spirit_b", "Spirits found in a soul aren't always set in stone when a vessel is created. For example, it is rumored that the very first illagers were villagers who broke their oath and turned evil. If that is the case, their soul would've adapted and became completely wicked.");
         addPage("arcane_spirit_c", "A similar process most likely happened when a apprentice witch became proficient enough in magics. Souls can develop spirits over a long period of time based on how the body reacts to magic. This is very often the case with arcane spirit due to how pure and frequent it is in the world. Arcane Spirit is found within the supernatural.");
 
+        addDescription("spirit_infusion", "Creating magical wonders");
         addHeadline("spirit_infusion", "Spirit Infusion");
         addPage("spirit_infusion_a", "Spirit infusion is a crafting process that revolves around infusing spirit magic into various items, twisting them to fit your evil desires. Every infusion recipe requires a prime item as well as spirits to infuse the item with. These must all be placed right on the altar.");
         addPage("spirit_infusion_b", "Some recipes may also ask for additional reagents to be infused into the prime item. These extra items must be placed on nearby item holders, such as ones made from runewood. These can be placed anywhere as long as they're within 4 blocks of the altar.");
@@ -149,11 +151,13 @@ public class MalumLang extends LanguageProvider
         addHeadline("hex_ash", "Hex Ash");
         addPage("hex_ash", "Hex ash is a simple magical powder used in creating various magical items. The ash can animate things, bring them to life in some extreme cases even. It's crated by infusing gunpowder with arcane spirit.");
 
+        addDescription("arcane_rock", "Fancier stone");
         addHeadline("tainted_rock", "Tainted Rock");
         addPage("tainted_rock", "By infusing cobblestone with spirit magics we can create a much more building-friendly arcane rock. Tainted rock is a simple magical building block with quite a few neat usages, it can also be shaped into item holders.");
         addHeadline("twisted_rock", "Twisted Rock");
         addPage("twisted_rock", "If we are to replace sacred spirit with it's opposite the result will change to a more gloomy stone. Twisted rock is indifferent from it's holy variant apart from looks.");
 
+        addDescription("ether", "Even fancier nitor");
         addHeadline("ether", "Ether");
         addPage("ether_a", "Nowadays most magics offer you a unique magical source of light for all purpose use, spirit magics are no different. Ether, alternatively known as Nitor is a magical flame that burns and shines bright forever. It can be placed on a torch or an arcane rock brazier which can be placed or hanged.");
         addPage("ether_b", "Additionally, the ether flame can be dyed into practically any color. Simply combine the ether item with any combination of dyes and it's color will be altered! For various reasons monochromatic dyes may yield possibly undesirable results without other dyes mixed in.");
@@ -162,6 +166,7 @@ public class MalumLang extends LanguageProvider
         addPage("iridescent_ether_a", "In contrast to most other magical lights aside from pleasing the eye ether has a double flame colored variant, iridescent ether. This pristine form of ether allows you to dye the item once more to alter the ending color of the burn. Much like normal ether it can be placed on a brazier and a torch");
         addPage("iridescent_ether_b", "Getting just the right coloring for your light may be a bit tricky however. You cannot alter the original color of ether once it's transformed into it's iridescent variant, applying any dye at this stage will only change the second color.");
 
+        addDescription("elemental_spirits", "Elemental magics");
         addHeadline("earthen_spirit", "Earthen Spirit");
         addPage("earthen_spirit_a", "Earthen magic can be seen as two separate things merged into one, nature and strength. The magic is incredibly potent even when used in small amounts!");
         addPage("earthen_spirit_b", "With the power of the earth you can do quite a lot. For one, earthen spirit is perfect for creating strong and durable gear. For two, it's natural properties open up many opportunities in spell crafting. Earthen spirit is found within the strong and the giving.");
@@ -175,13 +180,17 @@ public class MalumLang extends LanguageProvider
         addPage("aquatic_spirit_a", "Similar to the earthen, aquatic magics are immensely powerful. On top of that, the oceans in this world seem to have lots of spirit unrelated magics already within them!");
         addPage("aquatic_spirit_b", "Aquatic magic derives a lot from various ocean wonders already present in the world. Ideas such as channeling or loyalty are one with the seas and everything within. Aquatic spirit provides similar powers.");
 
+        addDescription("spirit_fabric", "Wicked weaves");
         addHeadline("spirit_fabric", "Spirit Fabric");
         addPage("spirit_fabric", "Spirit fabric is a wicked type of weave used for various spirit related crafting processes.");
-        addHeadline("soul_hunter_armor", "Soul Hunter Armor");
-        addPage("soul_hunter_armor", "The soul hunter armor is an offensive armor set made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage and grants you an extra spirit per spirit harvest.");
         addHeadline("spirit_pouch", "Spirit Pouch");
         addPage("spirit_pouch", "If you've ever wished for a spirit backpack of sorts, the spirit pouch is just that! The item allows you to store a huge amount of spirits within it's internal inventory. All collected spirits are transferred into the pouch if it's in your inventory!");
 
+        addDescription("soul_hunter_armor", "Perfect for hunting");
+        addHeadline("soul_hunter_armor", "Soul Hunter Armor");
+        addPage("soul_hunter_armor", "The soul hunter armor is an offensive armor set made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage and grants you an extra spirit per spirit harvest.");
+
+        addDescription("spirit_metallurgy", "Arcane metals");
         addHeadline("hallowed_gold", "Hallowed Gold");
         addPage("hallowed_gold_a", "Gold is very often used as a basis for various magics, this is also the case with spirit magic. Infusing arcane and sacred spirits into a gold ingot will imbue it with magic and yield a much more desirable magic metal. A few additional reagents are also needed for this process.");
         addPage("hallowed_gold_b", "While not too useful in causing harm or crafting powerful gear, hallowed gold is a metal perfect for spirit manipulation.");

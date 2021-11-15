@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "malum:unholy_extract"
+    "item": "malum:unholy_sap"
   },
   "result": "malum:unholy_syrup",
   "experience": 0.1,

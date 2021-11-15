@@ -115,6 +115,7 @@ public class MalumHelper {
                 cachedDistance = newDistance;
                 resultEntity = entity;
             }
+
         }
         return resultEntity;
     }

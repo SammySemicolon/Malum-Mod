@@ -34,7 +34,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock
         {
             itemstack.shrink(1);
             worldIn.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(MalumItems.HOLY_EXTRACT.get()));
+            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(MalumItems.HOLY_SAP.get()));
             if (worldIn.rand.nextBoolean())
             {
                 MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, MalumBlocks.STRIPPED_RUNEWOOD_LOG.get().getDefaultState(), 3);

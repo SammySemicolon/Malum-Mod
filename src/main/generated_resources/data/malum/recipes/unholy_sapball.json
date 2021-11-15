@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:unholy_extract"
+      "item": "malum:unholy_sap"
     },
     {
       "item": "minecraft:slime_ball"

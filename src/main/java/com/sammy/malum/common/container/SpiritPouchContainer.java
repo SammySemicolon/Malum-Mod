@@ -21,17 +21,14 @@ import java.awt.*;
 
 public class SpiritPouchContainer extends Container {
     private final IInventory inventory;
-    public final Color color;
 
     public SpiritPouchContainer(int windowId, PlayerInventory playerInv, ItemStack backpack) {
-        this(MalumContainers.SPIRIT_POUCH.get(), windowId, playerInv, SpiritPouchItem.getInventory(backpack), backpack);
+        this(MalumContainers.SPIRIT_POUCH.get(), windowId, playerInv, SpiritPouchItem.getInventory(backpack));
     }
 
-    public SpiritPouchContainer(ContainerType<? extends SpiritPouchContainer> containerType, int windowId, PlayerInventory playerInv, IInventory inventory, ItemStack backpack) {
+    public SpiritPouchContainer(ContainerType<? extends SpiritPouchContainer> containerType, int windowId, PlayerInventory playerInv, IInventory inventory) {
         super(containerType, windowId);
-        SpiritPouchItem backpackItem = (SpiritPouchItem) backpack.getItem();
         this.inventory = inventory;
-        this.color = new Color(backpackItem.getColor(backpack));
         inventory.openInventory(playerInv.player);
         for (int i = 0; i < inventory.getSizeInventory() / 9f; ++i) {
             for (int j = 0; j < 9; ++j) {

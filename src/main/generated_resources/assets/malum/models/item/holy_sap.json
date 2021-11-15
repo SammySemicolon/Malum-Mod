@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/holy_extract"
+    "layer0": "malum:item/holy_sap"
   }
 }

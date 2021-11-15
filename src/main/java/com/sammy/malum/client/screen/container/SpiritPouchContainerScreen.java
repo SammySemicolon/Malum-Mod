@@ -17,8 +17,8 @@ import java.awt.*;
 import static net.minecraft.util.ColorHelper.PackedColor.packColor;
 
 public class SpiritPouchContainerScreen extends ContainerScreen<SpiritPouchContainer> {
-    public final ResourceLocation texture = MalumHelper.prefix("textures/gui/spirit_pouch/spirit_pouch.png");
-    public final ResourceLocation overlayTexture = MalumHelper.prefix("textures/gui/spirit_pouch/spirit_pouch_colored.png");
+    public static final ResourceLocation texture = MalumHelper.prefix("textures/gui/spirit_pouch.png");
+    public static final Color textColor = new Color(49,35,41);
 
     public SpiritPouchContainerScreen(SpiritPouchContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
@@ -47,30 +47,25 @@ public class SpiritPouchContainerScreen extends ContainerScreen<SpiritPouchConta
     @Override
     protected void drawGuiContainerForegroundLayer(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY) {
         if (this.minecraft != null && this.minecraft.player != null) {
-            Color color = container.color;
-            Color insideColor = MalumHelper.darker(color, 3);
-            Color outlineColor = MalumHelper.darker(color, 2);
-            String text = title.getString();
-            float x = 89 - font.getStringWidth(text) / 2f;
-            float y = 6;
+//            Color color = textColor;
+//            Color insideColor = MalumHelper.darker(color, 3);
+//            Color outlineColor = MalumHelper.darker(color, 2);
+//            String text = title.getString();
+//            float x = 89 - font.getStringWidth(text) / 2f;
+//            float y = 6;
 
-            font.drawString(matrixStack, text, x, y - 1, packColor(96, outlineColor.getRed(), outlineColor.getGreen(), outlineColor.getBlue()));
-            font.drawString(matrixStack, text, x - 1, y, packColor(96, outlineColor.getRed(), outlineColor.getGreen(), outlineColor.getBlue()));
-            font.drawString(matrixStack, text, x + 1, y, packColor(96, outlineColor.getRed(), outlineColor.getGreen(), outlineColor.getBlue()));
-            font.drawString(matrixStack, text, x, y + 1, packColor(96, outlineColor.getRed(), outlineColor.getGreen(), outlineColor.getBlue()));
-
-            font.drawString(matrixStack, text, x, y, packColor(255, insideColor.getRed(), insideColor.getGreen(), insideColor.getBlue()));
+//            font.drawString(matrixStack, text, x, y - 1, packColor(96, outlineColor.getRed(), outlineColor.getGreen(), outlineColor.getBlue()));
+//            font.drawString(matrixStack, text, x - 1, y, packColor(96, outlineColor.getRed(), outlineColor.getGreen(), outlineColor.getBlue()));
+//            font.drawString(matrixStack, text, x + 1, y, packColor(96, outlineColor.getRed(), outlineColor.getGreen(), outlineColor.getBlue()));
+//            font.drawString(matrixStack, text, x, y + 1, packColor(96, outlineColor.getRed(), outlineColor.getGreen(), outlineColor.getBlue()));
+//
+//            font.drawString(matrixStack, text, x, y, packColor(255, insideColor.getRed(), insideColor.getGreen(), insideColor.getBlue()));
         }
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
         this.minecraft.getTextureManager().bindTexture(texture);
-        blit(matrixStack, guiLeft, guiTop, 0, 0, xSize, ySize);
-
-        Color color = container.color;
-        this.minecraft.getTextureManager().bindTexture(overlayTexture);
-        RenderSystem.color3f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f);
         blit(matrixStack, guiLeft, guiTop, 0, 0, xSize, ySize);
     }
 }

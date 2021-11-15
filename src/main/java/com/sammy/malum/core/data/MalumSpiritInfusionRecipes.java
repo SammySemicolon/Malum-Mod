@@ -192,14 +192,12 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.GILDED_RING.get(), 1, MalumItems.RING_OF_CURATIVE_TALENT.get(), 1)
-                .addExtraItem(MalumItems.HOLY_EXTRACT.get(), 3)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
                 .addExtraItem(Items.GHAST_TEAR, 1)
                 .addSpirit(SACRED_SPIRIT, 32)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.ORNATE_RING.get(), 1, MalumItems.RING_OF_WICKED_INTENT.get(), 1)
-                .addExtraItem(MalumItems.UNHOLY_EXTRACT.get(), 3)
                 .addExtraItem(MalumItems.HEX_ASH.get(), 1)
                 .addExtraItem(Items.BONE, 4)
                 .addExtraItem(Items.ROTTEN_FLESH, 8)
@@ -214,8 +212,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(MalumItems.PROCESSED_SOULSTONE.get(), 4, MalumItems.RADIANT_SOULSTONE.get(), 1)
-                .addExtraItem(MalumItems.HOLY_EXTRACT.get(), 1)
-                .addExtraItem(MalumItems.UNHOLY_EXTRACT.get(), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
                 .build(consumer);
@@ -232,7 +228,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(Ingredient.fromTag(Tags.Items.OBSIDIAN), 4)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_COAL), 1)
                 .addExtraItem(MalumItems.TWISTED_ROCK.get(), 8)
-                .addExtraItem(MalumItems.UNHOLY_EXTRACT.get(), 3)
                 .addSpirit(WICKED_SPIRIT, 4)
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);

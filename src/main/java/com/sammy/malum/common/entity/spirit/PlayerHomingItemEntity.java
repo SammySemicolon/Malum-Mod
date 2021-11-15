@@ -7,6 +7,7 @@ import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.core.init.items.MalumItems;
 import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.entity.layers.SheepWoolLayer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;

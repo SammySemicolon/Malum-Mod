@@ -1,4 +1,6 @@
 Introduction
+
+
 Soul magic awaits
 - explains what soul magic is
 - ends off with telling you what a spirit is
@@ -44,3 +46,11 @@ Basic soul shattering
 - explains the basic abilities of a scythe
 - explains what soul shattering is
 - explains how soulstone allows your scythe to shatter souls
+
+The scythe is a very popular tool amongst soul hunters. To start it provides a strong sweeping edge effect, even more powerful than a sword's. Perfect for clearing through hordes of enemies. Additionally it has the ability to shatter souls of your victims.
+When you damage a living body you destroy the vessel of a soul. However if you damage both the body and the soul you'll be able to completely eradicate your enemy, this way of mercilessly executing your enemy is known as shattering their soul and allows you to obtain your enemies spirits.
+Most weapons made with a soulstone have the ability to shatter souls! The most primitive scythe available is the crude one, made from iron and a single soulstone.
+
+When a soulstone is brought close to a soul it generates a little bit of magic. The haunted enchantment converts that magic energy into extra magic damage to anyone you strike! Higher tiers hit with even stronger magic!
+The spirit plunder enchantment forces the scythe's soulstone to utilize even more magic, any soul you shatter with this enchanted scythe will yield extra spirits. This may however damage the soulstone, taking extra durability off of your scythe.
+The rebound enchantment is by far the strangest one of them all. It grants you the ability to throw the scythe like a boomerang, allowing for a wacky ranged attack. Higher tiers allow you to throw the scythe more frequently.

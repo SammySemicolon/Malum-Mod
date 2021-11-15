@@ -66,11 +66,11 @@ public class MalumRecipes extends RecipeProvider
         ShapelessRecipeBuilder.shapelessRecipe(MalumItems.BLAZING_QUARTZ.get(), 9).addIngredient(MalumItems.BLOCK_OF_BLAZING_QUARTZ.get()).addCriterion("has_blaze_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer, "blaze_quartz_alt");
         ShapedRecipeBuilder.shapedRecipe(Items.NETHERRACK, 2).key('Z', MalumItems.BLAZING_QUARTZ.get()).key('Y', Tags.Items.COBBLESTONE).patternLine("ZY").patternLine("YZ").addCriterion("has_blazing_quartz", hasItem(MalumItems.BLAZING_QUARTZ.get())).build(consumer, "blazing_quartz_netherrack");
 
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.HOLY_SAPBALL.get(), 3).addIngredient(MalumItems.HOLY_EXTRACT.get()).addIngredient(Items.SLIME_BALL).addCriterion("has_holy_extract", hasItem(MalumItems.HOLY_EXTRACT.get())).build(consumer);
-        smeltingRecipe(Ingredient.fromItems(MalumItems.HOLY_EXTRACT.get()), MalumItems.HOLY_SYRUP.get(),0.1f,200).addCriterion("has_holy_extract", hasItem(MalumItems.HOLY_EXTRACT.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.HOLY_SAPBALL.get(), 3).addIngredient(MalumItems.HOLY_SAP.get()).addIngredient(Items.SLIME_BALL).addCriterion("has_holy_extract", hasItem(MalumItems.HOLY_SAP.get())).build(consumer);
+        smeltingRecipe(Ingredient.fromItems(MalumItems.HOLY_SAP.get()), MalumItems.HOLY_SYRUP.get(),0.1f,200).addCriterion("has_holy_extract", hasItem(MalumItems.HOLY_SAP.get())).build(consumer);
 
-        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.UNHOLY_SAPBALL.get(), 3).addIngredient(MalumItems.UNHOLY_EXTRACT.get()).addIngredient(Items.SLIME_BALL).addCriterion("has_unholy_extract", hasItem(MalumItems.UNHOLY_EXTRACT.get())).build(consumer);
-        smeltingRecipe(Ingredient.fromItems(MalumItems.UNHOLY_EXTRACT.get()), MalumItems.UNHOLY_SYRUP.get(),0.1f,200).addCriterion("has_unholy_extract", hasItem(MalumItems.UNHOLY_EXTRACT.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(MalumItems.UNHOLY_SAPBALL.get(), 3).addIngredient(MalumItems.UNHOLY_SAP.get()).addIngredient(Items.SLIME_BALL).addCriterion("has_unholy_extract", hasItem(MalumItems.UNHOLY_SAP.get())).build(consumer);
+        smeltingRecipe(Ingredient.fromItems(MalumItems.UNHOLY_SAP.get()), MalumItems.UNHOLY_SYRUP.get(),0.1f,200).addCriterion("has_unholy_extract", hasItem(MalumItems.UNHOLY_SAP.get())).build(consumer);
 
         ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(MalumItemTags.SAPBALLS).addCriterion("has_sapball", hasItem(MalumItemTags.SAPBALLS)).build(consumer, "magma_cream_from_sapballs");
         ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON).key('P', Blocks.PISTON).key('S', MalumItemTags.SAPBALLS).patternLine("S").patternLine("P").addCriterion("has_sapball", hasItem(MalumItemTags.SAPBALLS)).build(consumer, "sticky_piston_from_sapballs");

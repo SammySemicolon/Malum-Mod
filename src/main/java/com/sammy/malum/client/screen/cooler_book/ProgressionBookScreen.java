@@ -43,7 +43,7 @@ public class ProgressionBookScreen extends Screen
     public int bookInsideWidth = 344;
     public int bookInsideHeight = 215;
 
-    public final int parallax_width = 512;
+    public final int parallax_width = 336;
     public final int parallax_height = 2560;
     public static ProgressionBookScreen screen;
     public float xOffset;
@@ -95,9 +95,9 @@ public class ProgressionBookScreen extends Screen
                 .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(new HeadlineTextPage("holy_extract", "holy_extract_a"))
                 .addPage(new TextPage("holy_extract_b"))
-                .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_EXTRACT.get()))
+                .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_SAP.get()))
                 .addPage(new TextPage("holy_extract_c"))
-                .addPage(new SmeltingBookPage(HOLY_EXTRACT.get(), HOLY_SYRUP.get()))
+                .addPage(new SmeltingBookPage(HOLY_SAP.get(), HOLY_SYRUP.get()))
                 .addModCompatPage(new TextPage("holy_extract_d"), "thermal_expansion")
         );
 
@@ -416,7 +416,6 @@ public class ProgressionBookScreen extends Screen
         renderEntries(matrixStack, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
 
-        renderTransparentTexture(FADE_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
         renderTexture(FRAME_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
     }
 

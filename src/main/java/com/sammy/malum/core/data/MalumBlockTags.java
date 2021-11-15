@@ -30,27 +30,28 @@ public class MalumBlockTags extends BlockTagsProvider
     protected void registerTags() {
         getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.SOULSTONE_ORE.get(), MalumBlocks.BLAZING_QUARTZ_ORE.get());
 
-        getOrCreateBuilder(net.minecraft.tags.BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
-        getOrCreateBuilder(net.minecraft.tags.BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));
-        getOrCreateBuilder(net.minecraft.tags.BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
-        getOrCreateBuilder(net.minecraft.tags.BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
-        getOrCreateBuilder(net.minecraft.tags.BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
-        getOrCreateBuilder(net.minecraft.tags.BlockTags.LEAVES).add(getModBlocks(b -> b instanceof LeavesBlock));
+        getOrCreateBuilder(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
+        getOrCreateBuilder(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));
+        getOrCreateBuilder(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
+        getOrCreateBuilder(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
+        getOrCreateBuilder(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
+        getOrCreateBuilder(BlockTags.LEAVES).add(getModBlocks(b -> b instanceof LeavesBlock));
         getOrCreateBuilder(DOORS).add(getModBlocks(b -> b instanceof DoorBlock));
         getOrCreateBuilder(TRAPDOORS).add(getModBlocks(b -> b instanceof TrapDoorBlock));
         getOrCreateBuilder(BUTTONS).add(getModBlocks(b -> b instanceof AbstractButtonBlock));
         getOrCreateBuilder(WOODEN_BUTTONS).add(getModBlocks(b -> b instanceof WoodButtonBlock));
         getOrCreateBuilder(PRESSURE_PLATES).add(getModBlocks(b -> b instanceof AbstractPressurePlateBlock));
-        getOrCreateBuilder(LOGS).add(MalumBlocks.RUNEWOOD_LOG.get(), MalumBlocks.RUNEWOOD.get(), MalumBlocks.SOULWOOD_LOG.get(), MalumBlocks.SOULWOOD.get());
         getOrCreateBuilder(DIRT).add(getModBlocks(b -> b instanceof GrassBlock || b instanceof FarmlandBlock));
         getOrCreateBuilder(SAPLINGS).add(getModBlocks(b -> b instanceof SaplingBlock));
-        getOrCreateBuilder(PLANKS).add(MalumBlocks.RUNEWOOD_PLANKS.get(), MalumBlocks.SOULWOOD_PLANKS.get());
-        getOrCreateBuilder(WOODEN_FENCES).add(MalumBlocks.RUNEWOOD_PLANKS_FENCE.get(), MalumBlocks.SOULWOOD_PLANKS_FENCE.get());
-        getOrCreateBuilder(WOODEN_DOORS).add(MalumBlocks.RUNEWOOD_DOOR.get(), MalumBlocks.SOULWOOD_DOOR.get());
-        getOrCreateBuilder(WOODEN_STAIRS).add(MalumBlocks.RUNEWOOD_PLANKS_STAIRS.get(), MalumBlocks.SOULWOOD_PLANKS_STAIRS.get());
-        getOrCreateBuilder(WOODEN_SLABS).add(MalumBlocks.RUNEWOOD_PLANKS_SLAB.get(), MalumBlocks.SOULWOOD_PLANKS_SLAB.get());
-        getOrCreateBuilder(WOODEN_TRAPDOORS).add(MalumBlocks.RUNEWOOD_TRAPDOOR.get(), MalumBlocks.SOLID_RUNEWOOD_TRAPDOOR.get(), MalumBlocks.SOULWOOD_TRAPDOOR.get(), MalumBlocks.SOLID_SOULWOOD_TRAPDOOR.get());
-        getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(MalumBlocks.RUNEWOOD_PLANKS_PRESSURE_PLATE.get(), MalumBlocks.SOULWOOD_PLANKS_PRESSURE_PLATE.get());
+
+        getOrCreateBuilder(LOGS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_log") || b.getRegistryName().getPath().endsWith("wood")));
+        getOrCreateBuilder(PLANKS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks")));
+        getOrCreateBuilder(WOODEN_FENCES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_fence")));
+        getOrCreateBuilder(WOODEN_DOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_door")));
+        getOrCreateBuilder(WOODEN_STAIRS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks_stairs")));
+        getOrCreateBuilder(WOODEN_SLABS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks_slab")));
+        getOrCreateBuilder(WOODEN_TRAPDOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_trapdoor")));
+        getOrCreateBuilder(WOODEN_PRESSURE_PLATES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks_pressure_plate")));
     }
     
     @Override
