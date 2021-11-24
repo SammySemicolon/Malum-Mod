@@ -32,7 +32,7 @@ public class EntryBookObject extends BookObject
     {
         int posX = offsetPosX(xOffset);
         int posY = offsetPosY(yOffset);
-        renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, 1, 252, width, height, 512, 512);
+        renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, entry.important ? 34 : 1, 252, width, height, 512, 512);
         minecraft.getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 8, posY + 8);
         if (isHovering)
         {

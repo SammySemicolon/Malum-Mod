@@ -5,9 +5,11 @@ import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
@@ -211,7 +213,16 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(ELDRITCH_SPIRIT, 4)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(MalumItems.PROCESSED_SOULSTONE.get(), 4, MalumItems.RADIANT_SOULSTONE.get(), 1)
+        new SpiritInfusionRecipeBuilder(Items.PHANTOM_MEMBRANE, 2, MalumItems.ECTOPLASM.get(), 2)
+                .addExtraItem(Items.GHAST_TEAR, 1)
+                .addExtraItem(Ingredient.fromTag(Tags.Items.GUNPOWDER), 2)
+                .addSpirit(INFERNAL_SPIRIT, 4)
+                .addSpirit(AQUATIC_SPIRIT, 4)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.DIAMOND, 2, MalumItems.RADIANT_SOULSTONE.get(), 1)
+                .addExtraItem(MalumItems.ECTOPLASM.get(), 1)
+                .addExtraItem(MalumItems.PROCESSED_SOULSTONE.get(), 4)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
                 .build(consumer);

@@ -18,6 +18,7 @@ public class BookEntry
     public final int xOffset;
     public final int yOffset;
     public ArrayList<BookPage> pages = new ArrayList<>();
+    public boolean important;
     public BookEntry(String identifier, Item item, int xOffset, int yOffset)
     {
         this.iconStack = item.getDefaultInstance();
@@ -44,6 +45,11 @@ public class BookEntry
         {
             pages.add(page);
         }
+        return this;
+    }
+    public BookEntry setImportant()
+    {
+        important = true;
         return this;
     }
     public static class EntryLine
