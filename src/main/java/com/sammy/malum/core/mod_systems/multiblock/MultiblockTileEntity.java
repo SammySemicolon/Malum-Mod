@@ -26,7 +26,7 @@ public class MultiblockTileEntity extends SimpleTileEntity
             compound.putInt("partsSize", parts.size());
             for (int i = 0; i < parts.size(); i++)
             {
-                MalumHelper.writeBlockPosExtra(compound,parts.get(i), "part" + i);
+                MalumHelper.writeBlockPos(compound,parts.get(i), "part" + i);
             }
         }
         return super.writeData(compound);
@@ -40,7 +40,7 @@ public class MultiblockTileEntity extends SimpleTileEntity
             parts = new ArrayList<>();
             for (int i = 0; i < compound.getInt("partsSize"); i++)
             {
-                parts.add(MalumHelper.readBlockPosExtra(compound, "part" + i));
+                parts.add(MalumHelper.readBlockPos(compound, "part" + i));
             }
         }
         super.readData(compound);

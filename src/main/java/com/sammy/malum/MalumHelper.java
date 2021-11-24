@@ -261,7 +261,7 @@ public class MalumHelper {
         return compoundNBT;
     }
 
-    public static CompoundNBT writeBlockPosExtra(CompoundNBT compoundNBT, BlockPos pos, String extra) {
+    public static CompoundNBT writeBlockPos(CompoundNBT compoundNBT, BlockPos pos, String extra) {
         compoundNBT.putInt(extra + "X", pos.getX());
         compoundNBT.putInt(extra + "Y", pos.getY());
         compoundNBT.putInt(extra + "Z", pos.getZ());
@@ -272,7 +272,7 @@ public class MalumHelper {
         return new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
     }
 
-    public static BlockPos readBlockPosExtra(CompoundNBT tag, String extra) {
+    public static BlockPos readBlockPos(CompoundNBT tag, String extra) {
         return new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z"));
     }
 
