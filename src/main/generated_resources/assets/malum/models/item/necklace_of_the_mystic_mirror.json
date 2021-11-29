@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/necklace_of_battle_harmony"
+    "layer0": "malum:item/necklace_of_the_mystic_mirror"
   }
 }

@@ -10,6 +10,7 @@ import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.MalumRites;
 import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
+import net.minecraft.block.KelpBlock;
 import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
@@ -84,8 +85,6 @@ public class MalumLang extends LanguageProvider
 
         coolerBookEntries.forEach(b -> add(b.translationKey(), MalumHelper.toTitleCase(b.identifier, "_")));
 
-
-
         addDescription("introduction", "Soul magic awaits");
         addHeadline("introduction", "Introduction");
         addPage("introduction_a", "Within this world, every living body has a soul. The body is a physical vessel that the soul occupies. The soul is one's consciousness and what animates the body. It is an arcane representation of who you are.");
@@ -95,7 +94,7 @@ public class MalumLang extends LanguageProvider
 
         addDescription("spirit_magics", "Soul fragments");
         addHeadline("spirit_magics", "Spirit Magics");
-        addPage("spirit_magics_a", "\"What exactly is a spirit?\" You might ask yourself. Spirits are raw, untainted magic. There are also many spirit types, all with unique uses and abilities. Perfect for your evil needs.");
+        addPage("spirit_magics_a", "\"What exactly is a spirit?\" You might ask yourself. Spirits are raw, untainted magic. There are also many types of spirit, all with unique uses and abilities. Perfect for your evil needs.");
         addPage("spirit_magics_b", "Each soul contains a specific set of spirits, different souls contain different combinations of spirits! When hunting for spirits you'll have to carefully think about which souls will have what you need.");
         addPage("spirit_magics_c", "When hunting spirits it is important to not leave any of them behind. Uncollected spirits will slowly dissolve into the world around and alter it into a new twisted one. Many natural wonders you may find were created this way!");
 
@@ -107,11 +106,11 @@ public class MalumLang extends LanguageProvider
         addDescription("runewood", "Arcane oak");
         addHeadline("runewood", "Runewood");
         addPage("runewood_a", "The runewood tree is yet another result of spirits dissolving into nature. These trees can be most frequently found within plains, while also rarely appearing in forests.");
-        addPage("runewood_b", "When infernal and arcane spirits are infused into oak the properties of the wood will be altered and runewood will be created. This volatile process is how runewood trees are created, with the right tools you'll be able to replicate it!");
+        addPage("runewood_b", "When infernal and arcane spirits are infused into an oak tree the properties of the wood become altered and result in the creation of runewood. This volatile process is how runewood trees came to be, with the right tools you'll be able to replicate it!");
         addHeadline("holy_extract", "Holy Sap");
         addPage("holy_extract_a", "Within the runewood trees a special type of sap is born. To get your hands on this holy extract you'll need to strip away the bark off of exposed logs and then bottle up all the sap you can get!");
         addPage("holy_extract_b", "Holy extract can be used for quite a few things. Firstly, by combining it with a slimeball you'll obtain sapballs, effectively providing you with three times as much slime!");
-        addPage("holy_extract_c", "Secondly, you can create holy syrup by heating up your holy extract in a furnace. Drinking this rejuvenating drink will replenish plenty of hunger and clear you of certain negative effects. Additionally if you drink it during day time health will also be restored and you'll gain a regenerative effect.");
+        addPage("holy_extract_c", "Secondly, you can create holy syrup by heating up your holy extract in a furnace. Drinking this rejuvenating substance will replenish plenty of hunger and even cure you of some negative effects. Additionally if you drink it during day time health will also be restored and you'll gain a regenerative effect.");
         addPage("holy_extract_d", "Try your best to not think about reverting sapballs into slimeballs using a certain expansion mod!");
 
         addDescription("scythes", "Basic soul shattering");
@@ -151,13 +150,13 @@ public class MalumLang extends LanguageProvider
         addHeadline("hex_ash", "Hex Ash");
         addPage("hex_ash", "Hex ash is a simple magical powder used in creating various magical items. The ash can animate things, bring them to life in some extreme cases even. It's crated by infusing gunpowder with arcane spirit.");
 
-        addDescription("arcane_rock", "Fancier stone");
+        addDescription("arcane_rock", "Perfect for building");
         addHeadline("tainted_rock", "Tainted Rock");
         addPage("tainted_rock", "By infusing cobblestone with spirit magics we can create a much more building-friendly arcane rock. Tainted rock is a simple magical building block with quite a few neat usages, it can also be shaped into item holders.");
         addHeadline("twisted_rock", "Twisted Rock");
         addPage("twisted_rock", "If we are to replace sacred spirit with it's opposite the result will change to a more gloomy stone. Twisted rock is indifferent from it's holy variant apart from looks.");
 
-        addDescription("ether", "Even fancier nitor");
+        addDescription("ether", "Modern day nitor");
         addHeadline("ether", "Ether");
         addPage("ether_a", "Nowadays most magics offer you a unique magical source of light for all purpose use, spirit magics are no different. Ether, alternatively known as Nitor is a magical flame that burns and shines bright forever. It can be placed on a torch or an arcane rock brazier which can be placed or hanged.");
         addPage("ether_b", "Additionally, the ether flame can be dyed into practically any color. Simply combine the ether item with any combination of dyes and it's color will be altered! For various reasons monochromatic dyes may yield possibly undesirable results without other dyes mixed in.");

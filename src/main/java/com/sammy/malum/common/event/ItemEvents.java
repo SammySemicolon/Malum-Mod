@@ -54,7 +54,7 @@ public class ItemEvents {
             if (MalumHelper.hasArmorSet(attacker, MalumItems.SOUL_HUNTER_CLOAK.get())) {
                 extraDamage += 0.25f;
             }
-            if (MalumHelper.hasCurioEquipped(attacker, MalumItems.SACRIFICIAL_NECKLACE)) {
+            if (MalumHelper.hasCurioEquipped(attacker, MalumItems.NECKLACE_OF_THE_NARROW_EDGE)) {
                 extraDamage += 0.5f;
             }
         }
@@ -93,13 +93,13 @@ public class ItemEvents {
             if (MalumHelper.hasArmorSet(attacked, MalumItems.SOUL_STAINED_STEEL_HELMET.get())) {
                 extraDamage *= 0.5f;
             }
-            if (MalumHelper.hasCurioEquipped(attacker, MalumItems.NECKLACE_OF_BATTLE_HARMONY)) {
+            if (MalumHelper.hasCurioEquipped(attacker, MalumItems.NECKLACE_OF_THE_MYSTIC_MIRROR)) {
                 if (attacker instanceof PlayerEntity) {
                     PlayerEntity playerEntity = (PlayerEntity) attacker;
-                    if (playerEntity.getCooldownTracker().hasCooldown(MalumItems.NECKLACE_OF_BATTLE_HARMONY.get())) {
+                    if (playerEntity.getCooldownTracker().hasCooldown(MalumItems.NECKLACE_OF_THE_MYSTIC_MIRROR.get())) {
                         return;
                     }
-                    playerEntity.getCooldownTracker().setCooldown(MalumItems.NECKLACE_OF_BATTLE_HARMONY.get(), 40);
+                    playerEntity.getCooldownTracker().setCooldown(MalumItems.NECKLACE_OF_THE_MYSTIC_MIRROR.get(), 40);
                 }
                 SpiritHelper.collectSpirit(attacker);
             }

@@ -3,7 +3,6 @@ package com.sammy.malum.common.item.tools.spirittools;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.ModCombatItem;
-import com.sammy.malum.core.init.MalumEntities;
 import com.sammy.malum.core.init.MalumSounds;
 import com.sammy.malum.core.init.enchantment.MalumEnchantments;
 import com.sammy.malum.core.init.items.MalumItems;
@@ -74,7 +73,7 @@ public class ScytheItem extends ModCombatItem implements ISpiritTool
     
     public void cuttingEdge(PlayerEntity playerEntity, LivingEntity target, float amount)
     {
-        if (!MalumHelper.hasCurioEquipped(playerEntity, MalumItems.SACRIFICIAL_NECKLACE)) {
+        if (!MalumHelper.hasCurioEquipped(playerEntity, MalumItems.NECKLACE_OF_THE_NARROW_EDGE)) {
             float multiplier = 0.4f;
             float damage = 1.0F + (amount * multiplier) + (amount * EnchantmentHelper.getSweepingDamageRatio(playerEntity));
             for (LivingEntity livingentity : playerEntity.world.getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(2.0D, 0.25D, 2.0D))) {

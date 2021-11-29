@@ -320,6 +320,7 @@ public class MalumItems
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
@@ -386,8 +387,8 @@ public class MalumItems
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = ITEMS.register("ring_of_curative_talent", () -> new CurioCurativeRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> RING_OF_WICKED_INTENT = ITEMS.register("ring_of_wicked_intent", () -> new CurioLustyRing(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> NECKLACE_OF_BATTLE_HARMONY = ITEMS.register("necklace_of_battle_harmony", () -> new CurioBattleHarmonyNecklace(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SACRIFICIAL_NECKLACE = ITEMS.register("sacrificial_necklace", () -> new CurioSacrificeNecklace(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> NECKLACE_OF_THE_MYSTIC_MIRROR = ITEMS.register("necklace_of_the_mystic_mirror", () -> new CurioBattleHarmonyNecklace(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> NECKLACE_OF_THE_NARROW_EDGE = ITEMS.register("necklace_of_the_narrow_edge", () -> new CurioSacrificeNecklace(GEAR_PROPERTIES()));
 
     //endregion
 

@@ -5,22 +5,22 @@
     "count": 1
   },
   "output": {
-    "item": "malum:necklace_of_battle_harmony"
+    "item": "malum:necklace_of_the_narrow_edge"
   },
   "extra_items": [
     {
-      "item": "malum:spirit_fabric",
-      "count": 8
+      "item": "malum:radiant_soulstone",
+      "count": 1
+    },
+    {
+      "item": "malum:stained_spirit_resonator",
+      "count": 1
     }
   ],
   "spirits": [
     {
-      "item": "malum:sacred_spirit",
-      "count": 16
-    },
-    {
       "item": "malum:wicked_spirit",
-      "count": 16
+      "count": 32
     },
     {
       "item": "malum:eldritch_spirit",

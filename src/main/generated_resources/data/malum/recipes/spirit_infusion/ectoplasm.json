@@ -1,0 +1,31 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "minecraft:phantom_membrane",
+    "count": 2
+  },
+  "output": {
+    "item": "malum:ectoplasm",
+    "count": 2
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:ghast_tear",
+      "count": 1
+    },
+    {
+      "tag": "forge:gunpowder",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:infernal_spirit",
+      "count": 4
+    },
+    {
+      "item": "malum:aquatic_spirit",
+      "count": 4
+    }
+  ]
+}

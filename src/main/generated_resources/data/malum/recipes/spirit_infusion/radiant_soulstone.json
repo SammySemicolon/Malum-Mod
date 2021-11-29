@@ -1,13 +1,22 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:processed_soulstone",
-    "count": 4
+    "item": "minecraft:diamond",
+    "count": 2
   },
   "output": {
     "item": "malum:radiant_soulstone"
   },
-  "extra_items": [],
+  "extra_items": [
+    {
+      "item": "malum:ectoplasm",
+      "count": 1
+    },
+    {
+      "item": "malum:processed_soulstone",
+      "count": 4
+    }
+  ],
   "spirits": [
     {
       "item": "malum:earthen_spirit",
