@@ -1,35 +1,43 @@
 package com.sammy.malum.common.item.equipment.armor;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.model.SoulStainedArmorModel;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.entity.Entity;
+import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.LazyValue;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
-import javax.annotation.Nullable;
+import java.util.UUID;
 
-import static com.sammy.malum.core.init.items.MalumArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
+import static com.sammy.malum.core.registry.items.ArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
 
-public class SoulStainedSteelArmorItem extends MalumArmorItem
-{
-    public SoulStainedSteelArmorItem(EquipmentSlotType slot, Properties builder)
-    {
+public class SoulStainedSteelArmorItem extends MalumArmorItem {
+    public SoulStainedSteelArmorItem(EquipmentSlotType slot, Properties builder) {
         super(SOUL_STAINED_STEEL, slot, builder);
-        if (FMLEnvironment.dist == Dist.CLIENT)
-        {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
             this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new SoulStainedArmorModel(slot)), () -> () -> null);
         }
     }
 
-    public String texture()
-    {
+    @Override
+    public void putExtraAttributes(ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder, UUID uuid) {
+        attributeBuilder.put(AttributeRegistry.MAGIC_RESISTANCE, new AttributeModifier(uuid, "Magic Resistance", 0.5f, AttributeModifier.Operation.ADDITION));
+    }
+
+    @Override
+    public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
+        MalumHelper.giveStackingEffect(Effects.RESISTANCE, attacker, 25, 0);
+    }
+
+    public String texture() {
         return "soul_stained_steel_armor";
     }
 }

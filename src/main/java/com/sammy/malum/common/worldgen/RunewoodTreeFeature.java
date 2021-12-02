@@ -3,9 +3,9 @@ package com.sammy.malum.common.worldgen;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.generic.MalumLeavesBlock;
 import com.sammy.malum.common.block.RunewoodSaplingBlock;
-import com.sammy.malum.core.init.block.MalumBlocks;
-import com.sammy.malum.core.mod_systems.worldgen.MalumFiller;
-import com.sammy.malum.core.mod_systems.worldgen.MalumFiller.BlockStateEntry;
+import com.sammy.malum.core.registry.block.BlockRegistry;
+import com.sammy.malum.core.systems.worldgen.MalumFiller;
+import com.sammy.malum.core.systems.worldgen.MalumFiller.BlockStateEntry;
 import net.minecraft.block.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -43,11 +43,11 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
     {
-        if (reader.isAirBlock(pos.down()) || !MalumBlocks.RUNEWOOD_SAPLING.get().getDefaultState().isValidPosition(reader, pos))
+        if (reader.isAirBlock(pos.down()) || !BlockRegistry.RUNEWOOD_SAPLING.get().getDefaultState().isValidPosition(reader, pos))
         {
             return false;
         }
-        BlockState defaultLog = MalumBlocks.RUNEWOOD_LOG.get().getDefaultState();
+        BlockState defaultLog = BlockRegistry.RUNEWOOD_LOG.get().getDefaultState();
 
         MalumFiller treeFiller = new MalumFiller();
         MalumFiller leavesFiller = new MalumFiller();
@@ -124,7 +124,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
         for (Integer index : sapBlockIndexes)
         {
             BlockStateEntry oldEntry = treeFiller.entries.get(index);
-            BlockState newState = MalumHelper.getBlockStateWithExistingProperties(oldEntry.state, MalumBlocks.SAP_FILLED_RUNEWOOD_LOG.get().getDefaultState());
+            BlockState newState = MalumHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.SAP_FILLED_RUNEWOOD_LOG.get().getDefaultState());
             treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
         }
         treeFiller.fill(reader, false);
@@ -211,7 +211,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
             BlockPos trunkPos = pos.down(i);
             if (canPlace(reader, trunkPos))
             {
-                filler.entries.add(new BlockStateEntry(MalumBlocks.RUNEWOOD_LOG.get().getDefaultState(), trunkPos));
+                filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LOG.get().getDefaultState(), trunkPos));
             }
             else
             {
@@ -245,7 +245,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).add(x, 0, z);
-                filler.entries.add(new BlockStateEntry(MalumBlocks.RUNEWOOD_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 1).with(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
+                filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 1).with(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
             }
         }
     }

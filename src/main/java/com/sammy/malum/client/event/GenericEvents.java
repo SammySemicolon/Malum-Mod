@@ -3,14 +3,13 @@ package com.sammy.malum.client.event;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.config.ClientConfig;
-import com.sammy.malum.core.mod_systems.particle.RenderUtilities;
+import com.sammy.malum.core.systems.particle.RenderUtilities;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static com.sammy.malum.core.mod_systems.particle.ParticleRendering.getDelayedRender;
+import static com.sammy.malum.core.systems.particle.ParticleRendering.getDelayedRender;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.FORGE)
 public class GenericEvents {

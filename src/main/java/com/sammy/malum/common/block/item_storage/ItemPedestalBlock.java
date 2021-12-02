@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.common.tile.ItemPedestalTileEntity;
-import com.sammy.malum.core.mod_systems.tile.SimpleInventoryBlock;
+import com.sammy.malum.core.systems.tile.SimpleInventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;

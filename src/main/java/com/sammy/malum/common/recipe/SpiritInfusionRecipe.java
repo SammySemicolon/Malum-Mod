@@ -4,13 +4,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.item.SpiritItem;
-import com.sammy.malum.core.mod_systems.recipe.IMalumRecipe;
-import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
-import com.sammy.malum.core.mod_systems.recipe.RecipeType;
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
-import net.minecraft.item.Item;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.core.systems.recipe.IMalumRecipe;
+import com.sammy.malum.core.systems.recipe.IngredientWithCount;
+import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.malum.core.systems.recipe.RecipeType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
@@ -83,7 +82,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         ArrayList<MalumSpiritType> spirits = new ArrayList<>();
         for (ItemWithCount item : this.spirits)
         {
-            SpiritItem spiritItem = (SpiritItem) item.item;
+            MalumSpiritItem spiritItem = (MalumSpiritItem) item.item;
             spirits.add(spiritItem.type);
         }
         return spirits;

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.block.MalumBlocks;
+import com.sammy.malum.core.registry.block.BlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
 import static net.minecraftforge.common.Tags.Blocks.DIRT;
 
@@ -28,7 +28,7 @@ public class MalumBlockTags extends BlockTagsProvider
     
     @Override
     protected void registerTags() {
-        getOrCreateBuilder(Tags.Blocks.ORES).add(MalumBlocks.SOULSTONE_ORE.get(), MalumBlocks.BLAZING_QUARTZ_ORE.get());
+        getOrCreateBuilder(Tags.Blocks.ORES).add(BlockRegistry.SOULSTONE_ORE.get(), BlockRegistry.BLAZING_QUARTZ_ORE.get());
 
         getOrCreateBuilder(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
         getOrCreateBuilder(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));

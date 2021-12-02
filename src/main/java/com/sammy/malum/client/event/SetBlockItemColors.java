@@ -5,20 +5,17 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
-import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.block.generic.MalumLeavesBlock;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.ether.EtherBrazierItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.ether.EtherTorchItem;
 import com.sammy.malum.common.tile.EtherTileEntity;
-import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
@@ -33,10 +30,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.MalumHelper.*;
-import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
-import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
-import static com.sammy.malum.core.init.MalumSpiritTypes.*;
-import static com.sammy.malum.core.init.MalumSpiritTypes.EARTHEN_SPIRIT_COLOR;
+import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.EARTHEN_SPIRIT_COLOR;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class SetBlockItemColors
@@ -99,13 +95,13 @@ public class SetBlockItemColors
             return c == 0 ? etherItem.getFirstColor(s) : -1;
         }, MalumHelper.getModItems(EtherItem.class));
 
-        ClientHelper.registerItemColor(itemColors, MalumItems.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
-        ClientHelper.registerItemColor(itemColors, MalumItems.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.AQUATIC_SPIRIT, brighter(AQUATIC_SPIRIT_COLOR, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR, 1));
-        ClientHelper.registerItemColor(itemColors, MalumItems.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR, 1));
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR, 1));
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR, 1));
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.AQUATIC_SPIRIT, brighter(AQUATIC_SPIRIT_COLOR, 1));
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR, 1));
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR, 1));
     }
 }

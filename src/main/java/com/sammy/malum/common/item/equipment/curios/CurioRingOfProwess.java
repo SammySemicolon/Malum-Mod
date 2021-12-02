@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.equipment.curios;
 
-import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.item.ItemStack;
 
 public class CurioRingOfProwess extends MalumCurioItem
@@ -19,6 +19,6 @@ public class CurioRingOfProwess extends MalumCurioItem
     @Override
     public ItemStack spiritReplacementStack(ItemStack previousStack)
     {
-        return new ItemStack(MalumItems.BRILLIANCE_CHUNK.get(), previousStack.getCount());
+        return new ItemStack(ItemRegistry.BRILLIANCE_CHUNK.get(), previousStack.getCount());
     }
 }

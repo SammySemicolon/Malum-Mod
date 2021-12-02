@@ -2,12 +2,12 @@ package com.sammy.malum.client.particles.spiritflame;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.config.ClientConfig;
-import com.sammy.malum.core.mod_systems.particle.RenderUtilities;
-import com.sammy.malum.core.mod_systems.particle.ParticlePhaseMalumParticle;
-import com.sammy.malum.core.mod_systems.particle.ParticleRendering;
-import com.sammy.malum.core.mod_systems.particle.data.MalumParticleData;
-import com.sammy.malum.core.mod_systems.particle.phases.ParticlePhase;
-import com.sammy.malum.core.mod_systems.particle.rendertypes.SpriteParticleRenderType;
+import com.sammy.malum.core.systems.particle.RenderUtilities;
+import com.sammy.malum.core.systems.particle.ParticlePhaseMalumParticle;
+import com.sammy.malum.core.systems.particle.ParticleRendering;
+import com.sammy.malum.core.systems.particle.data.MalumParticleData;
+import com.sammy.malum.core.systems.particle.phases.ParticlePhase;
+import com.sammy.malum.core.systems.particle.rendertypes.SpriteParticleRenderType;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.renderer.ActiveRenderInfo;

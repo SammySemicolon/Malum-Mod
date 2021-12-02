@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class CurioGildedRing extends MalumCurioItem
 {
-    private static final UUID ARMOR = UUID.fromString("f792e379-4dce-4387-bd3a-099cd49b15f4");
+    private static final UUID ATTRIBUTE_UUID = UUID.fromString("f792e379-4dce-4387-bd3a-099cd49b15f4");
     public CurioGildedRing(Properties builder)
     {
         super(builder);
@@ -22,7 +22,7 @@ public class CurioGildedRing extends MalumCurioItem
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, MalumMod.MODID + ":gilded_ring_armor_boost", 2f, AttributeModifier.Operation.ADDITION));
+        map.put(Attributes.ARMOR, new AttributeModifier(ATTRIBUTE_UUID, "Curio armor boost", 2f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 

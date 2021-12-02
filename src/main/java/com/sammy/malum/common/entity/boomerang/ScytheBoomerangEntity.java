@@ -1,17 +1,15 @@
 package com.sammy.malum.common.entity.boomerang;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumEntities;
-import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.enchantment.MalumEnchantments;
+import com.sammy.malum.core.registry.misc.EntityRegistry;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -50,7 +48,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     
     public ScytheBoomerangEntity(World worldIn)
     {
-        super(MalumEntities.SCYTHE_BOOMERANG.get(), worldIn);
+        super(EntityRegistry.SCYTHE_BOOMERANG.get(), worldIn);
         noClip = false;
     }
     public PlayerEntity owner()
@@ -132,7 +130,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                 }
             }
             returnAge+=4;
-            entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), MalumSounds.SCYTHE_STRIKE, entity.getSoundCategory(), 1.0F, 0.9f + entity.world.rand.nextFloat() * 0.2f);
+            entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundRegistry.SCYTHE_STRIKE, entity.getSoundCategory(), 1.0F, 0.9f + entity.world.rand.nextFloat() * 0.2f);
         }
         super.onEntityHit(p_213868_1_);
     }

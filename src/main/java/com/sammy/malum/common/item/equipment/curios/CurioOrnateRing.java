@@ -22,7 +22,7 @@ public class CurioOrnateRing extends MalumCurioItem
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR, MalumMod.MODID + ":ornate_ring_armor_boost", 2f, AttributeModifier.Operation.ADDITION));
+        map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR, "Curio armor toughness", 2f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 

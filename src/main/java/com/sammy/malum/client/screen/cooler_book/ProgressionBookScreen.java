@@ -7,7 +7,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.cooler_book.objects.BookObject;
 import com.sammy.malum.client.screen.cooler_book.objects.EntryBookObject;
 import com.sammy.malum.client.screen.cooler_book.pages.*;
-import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -26,7 +26,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sammy.malum.core.init.items.MalumItems.*;
+import static com.sammy.malum.core.registry.items.ItemRegistry.*;
 import static net.minecraft.item.Items.*;
 import static net.minecraft.util.ColorHelper.PackedColor.packColor;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
@@ -110,7 +110,7 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new HeadlineTextPage("scythes", "scythes_a"))
                 .addPage(new TextPage("scythes_b"))
                 .addPage(new TextPage("scythes_c"))
-                .addPage(CraftingBookPage.scythePage(MalumItems.CRUDE_SCYTHE.get(), Items.IRON_INGOT, PROCESSED_SOULSTONE.get()))
+                .addPage(CraftingBookPage.scythePage(ItemRegistry.CRUDE_SCYTHE.get(), Items.IRON_INGOT, PROCESSED_SOULSTONE.get()))
                 .addPage(new HeadlineTextPage("haunted", "haunted"))
                 .addPage(new HeadlineTextPage("spirit_plunder", "spirit_plunder"))
                 .addPage(new HeadlineTextPage("rebound", "rebound"))
@@ -249,20 +249,20 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "ring_of_prowess", RING_OF_PROWESS.get(), -7, 5)
+                "ring_of_prowess", RING_OF_PROWESS.get(), -7, 6)
                 .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
                 .addPage(new TextPage("ring_of_prowess_b"))
                 .addPage(new SpiritInfusionPage(RING_OF_PROWESS.get()))
         );
 
         entries.add(new BookEntry(
-                "ring_of_wicked_intent", RING_OF_WICKED_INTENT.get(), -7, 6)
+                "ring_of_wicked_intent", RING_OF_WICKED_INTENT.get(), -7, 8)
                 .addPage(new HeadlineTextPage("ring_of_wicked_intent", "ring_of_wicked_intent"))
                 .addPage(new SpiritInfusionPage(RING_OF_WICKED_INTENT.get()))
         );
 
         entries.add(new BookEntry(
-                "ring_of_curative_talent", RING_OF_CURATIVE_TALENT.get(), -7, 7)
+                "ring_of_curative_talent", RING_OF_CURATIVE_TALENT.get(), -7, 4)
                 .addPage(new HeadlineTextPage("ring_of_curative_talent", "ring_of_curative_talent"))
                 .addPage(new SpiritInfusionPage(RING_OF_CURATIVE_TALENT.get()))
         );
@@ -275,7 +275,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -8, 6)
+                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -6, 7)
                 .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge_a"))
                 .addPage(new TextPage("necklace_of_the_narrow_edge_b"))
                 .addPage(new SpiritInfusionPage(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))

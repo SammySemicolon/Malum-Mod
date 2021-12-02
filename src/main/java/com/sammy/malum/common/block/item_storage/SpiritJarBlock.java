@@ -1,11 +1,11 @@
 package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.item.SpiritItem;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.tile.SpiritJarTileEntity;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.mod_systems.particle.ParticleManager;
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
@@ -78,9 +78,9 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
         if (worldIn.getTileEntity(pos) instanceof SpiritJarTileEntity)
         {
             SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) worldIn.getTileEntity(pos);
-            if (heldItem.getItem() instanceof SpiritItem)
+            if (heldItem.getItem() instanceof MalumSpiritItem)
             {
-                SpiritItem spiritSplinterItem = (SpiritItem) heldItem.getItem();
+                MalumSpiritItem spiritSplinterItem = (MalumSpiritItem) heldItem.getItem();
                 if (tileEntity.type == null)
                 {
                     tileEntity.type = spiritSplinterItem.type;
@@ -118,7 +118,7 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
         if (MalumHelper.areWeOnClient(world))
         {
             Color color = type.color;
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.4f, 0f)
                     .setLifetime(20)
                     .setScale(0.3f, 0)

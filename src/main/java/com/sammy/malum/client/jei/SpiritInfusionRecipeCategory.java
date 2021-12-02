@@ -3,9 +3,9 @@ package com.sammy.malum.client.jei;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.mod_systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.mod_systems.recipe.ItemWithCount;
+import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.systems.recipe.IngredientWithCount;
+import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -42,7 +42,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         background = guiHelper.createBlankDrawable(142, 185);
         localizedName = I18n.format("malum.jei.spirit_infusion");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_infusion_jei.png"), 0, 0, 140, 183);
-        icon = guiHelper.createDrawableIngredient(new ItemStack(MalumItems.SPIRIT_ALTAR.get()));
+        icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()));
     }
 
     @Override

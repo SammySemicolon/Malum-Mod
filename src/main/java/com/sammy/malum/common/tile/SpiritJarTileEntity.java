@@ -1,10 +1,10 @@
 package com.sammy.malum.common.tile;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.block.MalumTileEntities;
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
-import com.sammy.malum.core.mod_systems.tile.SimpleTileEntity;
+import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 
@@ -14,7 +14,7 @@ public class SpiritJarTileEntity extends SimpleTileEntity implements ITickableTi
 {
     public SpiritJarTileEntity()
     {
-        super(MalumTileEntities.SPIRIT_JAR_TILE_ENTITY.get());
+        super(TileEntityRegistry.SPIRIT_JAR_TILE_ENTITY.get());
     }
     
     public MalumSpiritType type;

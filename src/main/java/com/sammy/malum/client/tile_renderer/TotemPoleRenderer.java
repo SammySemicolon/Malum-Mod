@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
-import com.sammy.malum.core.init.MalumSpiritTypes;
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.RenderMaterial;
@@ -18,7 +18,6 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraftforge.event.world.ExplosionEvent;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -32,7 +31,7 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity> {
 
     public TotemPoleRenderer(Object rendererDispatcherIn) {
         super((TileEntityRendererDispatcher) rendererDispatcherIn);
-        MalumSpiritTypes.SPIRITS.forEach(s ->
+        SpiritTypeRegistry.SPIRITS.forEach(s ->
                 {
                     overlayHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "overlay_" + s.identifier)));
                     cutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "cutout_" + s.identifier)));

@@ -1,9 +1,8 @@
 package com.sammy.malum;
 
-import com.sammy.malum.common.item.equipment.armor.MalumArmorItem;
 import com.sammy.malum.common.item.equipment.curios.MalumCurioItem;
-import com.sammy.malum.core.init.block.MalumBlocks;
-import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.registry.block.BlockRegistry;
+import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -503,7 +502,7 @@ public class MalumHelper {
     }
 
     public static Block[] getModBlocks(Class<?>... blockClasses) {
-        Collection<RegistryObject<Block>> blocks = MalumBlocks.BLOCKS.getEntries();
+        Collection<RegistryObject<Block>> blocks = BlockRegistry.BLOCKS.getEntries();
         ArrayList<Block> matchingBlocks = new ArrayList<>();
         for (RegistryObject<Block> registryObject : blocks) {
             if (Arrays.stream(blockClasses).anyMatch(b -> b.isInstance(registryObject.get()))) {
@@ -514,7 +513,7 @@ public class MalumHelper {
     }
 
     public static Item[] getModItems(Class<?>... itemClasses) {
-        Collection<RegistryObject<Item>> items = MalumItems.ITEMS.getEntries();
+        Collection<RegistryObject<Item>> items = ItemRegistry.ITEMS.getEntries();
         ArrayList<Item> matchingItems = new ArrayList<>();
         for (RegistryObject<Item> registryObject : items) {
             if (Arrays.stream(itemClasses).anyMatch(i -> i.isInstance(registryObject.get()))) {
@@ -522,13 +521,5 @@ public class MalumHelper {
             }
         }
         return matchingItems.toArray(new Item[0]);
-    }
-
-    public static boolean hasArmorSet(LivingEntity livingEntity, Item armorItem) {
-        if (armorItem instanceof MalumArmorItem) {
-            MalumArmorItem malumArmorItem = (MalumArmorItem) armorItem;
-            return malumArmorItem.hasArmorSet(livingEntity);
-        }
-        return false;
     }
 }

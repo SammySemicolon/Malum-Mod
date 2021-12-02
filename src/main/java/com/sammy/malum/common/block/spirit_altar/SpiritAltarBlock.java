@@ -1,10 +1,10 @@
 package com.sammy.malum.common.block.spirit_altar;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.item.SpiritItem;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.tile.SpiritAltarTileEntity;
-import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
@@ -80,20 +80,20 @@ public class SpiritAltarBlock extends Block implements IWaterLoggable
             {
                 SpiritAltarTileEntity tileEntity = (SpiritAltarTileEntity) worldIn.getTileEntity(pos);
                 ItemStack heldStack = player.getHeldItemMainhand();
-                if (heldStack.getItem().equals(MalumItems.HEX_ASH.get()) && !tileEntity.inventory.getStackInSlot(0).isEmpty())
+                if (heldStack.getItem().equals(ItemRegistry.HEX_ASH.get()) && !tileEntity.inventory.getStackInSlot(0).isEmpty())
                 {
                     if (!tileEntity.spedUp)
                     {
                         heldStack.shrink(1);
                         tileEntity.progress = 0;
                         tileEntity.spedUp = true;
-                        worldIn.playSound(null, pos, MalumSounds.ALTAR_SPEED_UP, SoundCategory.BLOCKS,1,0.9f + worldIn.rand.nextFloat() * 0.2f);
+                        worldIn.playSound(null, pos, SoundRegistry.ALTAR_SPEED_UP, SoundCategory.BLOCKS,1,0.9f + worldIn.rand.nextFloat() * 0.2f);
                         MalumHelper.updateState(worldIn, pos);
                         return ActionResultType.SUCCESS;
                     }
                     return ActionResultType.PASS;
                 }
-                if (!(heldStack.getItem() instanceof SpiritItem))
+                if (!(heldStack.getItem() instanceof MalumSpiritItem))
                 {
                     boolean success = tileEntity.inventory.playerHandleItem(worldIn, player, handIn);
                     if (success)
@@ -101,7 +101,7 @@ public class SpiritAltarBlock extends Block implements IWaterLoggable
                         return ActionResultType.SUCCESS;
                     }
                 }
-                if (heldStack.getItem() instanceof SpiritItem || heldStack.isEmpty())
+                if (heldStack.getItem() instanceof MalumSpiritItem || heldStack.isEmpty())
                 {
                     boolean success = tileEntity.spiritInventory.playerHandleItem(worldIn, player, handIn);
                     if (success)

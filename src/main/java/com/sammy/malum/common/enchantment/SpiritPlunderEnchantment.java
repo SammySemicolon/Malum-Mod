@@ -1,6 +1,6 @@
 package com.sammy.malum.common.enchantment;
 
-import com.sammy.malum.core.init.enchantment.MalumEnchantments;
+import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 

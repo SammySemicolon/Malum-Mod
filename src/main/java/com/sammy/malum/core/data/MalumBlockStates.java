@@ -14,7 +14,6 @@ import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
-import com.sammy.malum.core.init.block.MalumBlocks;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.AttachFace;
@@ -34,7 +33,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.core.init.block.MalumBlocks.*;
+import static com.sammy.malum.core.registry.block.BlockRegistry.*;
 import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
 

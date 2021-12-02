@@ -1,6 +1,6 @@
 package com.sammy.malum.network.packets.particle.altar;
 
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;

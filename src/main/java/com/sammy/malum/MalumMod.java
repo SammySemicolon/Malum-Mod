@@ -3,8 +3,8 @@ package com.sammy.malum;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
-import com.sammy.malum.core.init.MalumContainers;
-import com.sammy.malum.core.mod_systems.particle.ParticleRendering;
+import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.systems.particle.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,16 +20,17 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
-import static com.sammy.malum.core.init.MalumContainers.CONTAINERS;
-import static com.sammy.malum.core.init.MalumEffects.EFFECTS;
-import static com.sammy.malum.core.init.MalumEntities.ENTITY_TYPES;
-import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
-import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
-import static com.sammy.malum.core.init.block.MalumTileEntities.TILE_ENTITIES;
-import static com.sammy.malum.core.init.enchantment.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
-import static com.sammy.malum.core.init.particles.MalumParticles.PARTICLES;
-import static com.sammy.malum.core.init.worldgen.MalumFeatures.FEATURES;
+import static com.sammy.malum.core.registry.misc.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.registry.misc.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.registry.block.TileEntityRegistry.TILE_ENTITIES;
+import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.registry.particle.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)
@@ -56,6 +57,7 @@ public class MalumMod
         SOUNDS.register(modBus);
         FEATURES.register(modBus);
         CONTAINERS.register(modBus);
+        ATTRIBUTES.register(modBus);
         modBus.addListener(this::gatherData);
 
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () ->

@@ -2,7 +2,6 @@ package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
-import com.sammy.malum.core.init.block.MalumBlocks;
 import com.sammy.malum.network.packets.particle.totem.TotemPoleParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,12 +17,11 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.function.Supplier;
 
-import static com.sammy.malum.network.NetworkManager.INSTANCE;
+import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemPoleBlock extends Block

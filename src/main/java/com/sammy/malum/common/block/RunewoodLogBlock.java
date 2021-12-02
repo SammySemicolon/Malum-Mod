@@ -3,8 +3,7 @@ package com.sammy.malum.common.block;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.generic.MalumLogBlock;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
-import com.sammy.malum.common.item.SpiritItem;
-import com.sammy.malum.core.init.block.MalumBlocks;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,7 +14,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.RegistryObject;
 
 import java.util.function.Supplier;
 
@@ -34,14 +32,14 @@ public class RunewoodLogBlock extends MalumLogBlock
         ItemStack stack = player.getHeldItem(handIn);
         if (MalumHelper.areWeOnClient(worldIn))
         {
-            if (stack.getItem() instanceof SpiritItem)
+            if (stack.getItem() instanceof MalumSpiritItem)
             {
                 return ActionResultType.SUCCESS;
             }
         }
-        if (stack.getItem() instanceof SpiritItem)
+        if (stack.getItem() instanceof MalumSpiritItem)
         {
-            SpiritItem item = (SpiritItem) stack.getItem();
+            MalumSpiritItem item = (MalumSpiritItem) stack.getItem();
             worldIn.setBlockState(pos, totemPole.get().getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, hit.getFace()));
             if (worldIn.getTileEntity(pos) instanceof TotemPoleTileEntity)
             {

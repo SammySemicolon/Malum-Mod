@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.generic;
 
-import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
@@ -43,7 +43,7 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
     {
-        if (player.getHeldItem(handIn).getItem().equals(MalumItems.INFERNAL_SPIRIT.get()))
+        if (player.getHeldItem(handIn).getItem().equals(ItemRegistry.INFERNAL_SPIRIT.get()))
         {
             worldIn.setBlockState(pos,state.with(COLOR, (state.get(COLOR) + 1) % 5));
             player.swingArm(handIn);

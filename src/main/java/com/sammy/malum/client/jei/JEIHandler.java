@@ -1,7 +1,7 @@
 package com.sammy.malum.client.jei;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.registry.items.ItemRegistry;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -34,7 +34,7 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
     {
-        registry.addRecipeCatalyst(new ItemStack(MalumItems.SPIRIT_ALTAR.get()), SpiritInfusionRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()), SpiritInfusionRecipeCategory.UID);
     }
     @Nonnull
     @Override

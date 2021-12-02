@@ -1,9 +1,8 @@
 package com.sammy.malum.common.container;
 
-import com.sammy.malum.common.item.SpiritItem;
-import com.sammy.malum.common.item.SpiritPouchItem;
-import com.sammy.malum.core.init.MalumContainers;
-import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.common.item.equipment.SpiritPouchItem;
+import com.sammy.malum.core.registry.misc.ContainerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -11,19 +10,16 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
 
 public class SpiritPouchContainer extends Container {
     private final IInventory inventory;
 
     public SpiritPouchContainer(int windowId, PlayerInventory playerInv, ItemStack backpack) {
-        this(MalumContainers.SPIRIT_POUCH.get(), windowId, playerInv, SpiritPouchItem.getInventory(backpack));
+        this(ContainerRegistry.SPIRIT_POUCH.get(), windowId, playerInv, SpiritPouchItem.getInventory(backpack));
     }
 
     public SpiritPouchContainer(ContainerType<? extends SpiritPouchContainer> containerType, int windowId, PlayerInventory playerInv, IInventory inventory) {
@@ -36,7 +32,7 @@ public class SpiritPouchContainer extends Container {
                 addSlot(new Slot(inventory, index, 8 + j * 18, 18 + i * 18) {
                     @Override
                     public boolean isItemValid(ItemStack stack) {
-                        return stack.getItem() instanceof SpiritItem;
+                        return stack.getItem() instanceof MalumSpiritItem;
                     }
                 });
             }

@@ -1,9 +1,9 @@
 package com.sammy.malum.common.rites;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumSpiritTypes;
-import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
@@ -23,7 +23,7 @@ public abstract class ActivatorRite extends MalumRiteType
         for (BlockPos nearbyPos : nearbyBlocks)
         {
             IAssembled assembled = (IAssembled) world.getTileEntity(nearbyPos);
-            assembled.assemble(pos, MalumHelper.toArrayList(MalumSpiritTypes.AQUATIC_SPIRIT, MalumSpiritTypes.ARCANE_SPIRIT));
+            assembled.assemble(pos, MalumHelper.toArrayList(SpiritTypeRegistry.AQUATIC_SPIRIT, SpiritTypeRegistry.ARCANE_SPIRIT));
             MalumHelper.updateAndNotifyState(world, pos);
         }
         super.riteEffect(world, pos);

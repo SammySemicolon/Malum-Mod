@@ -1,11 +1,11 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.block.MalumBlocks;
-import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.init.MalumSpiritTypes;
-import com.sammy.malum.core.mod_systems.particle.ParticleManager;
+import com.sammy.malum.core.registry.block.BlockRegistry;
+import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.particle.ParticleManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,16 +34,16 @@ public class SapFilledLogBlock extends RotatedPillarBlock
         {
             itemstack.shrink(1);
             worldIn.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(MalumItems.HOLY_SAP.get()));
+            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ItemRegistry.HOLY_SAP.get()));
             if (worldIn.rand.nextBoolean())
             {
-                MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, MalumBlocks.STRIPPED_RUNEWOOD_LOG.get().getDefaultState(), 3);
+                MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, BlockRegistry.STRIPPED_RUNEWOOD_LOG.get().getDefaultState(), 3);
             }
             if (MalumHelper.areWeOnClient(worldIn))
             {
-                Color color = MalumSpiritTypes.INFERNAL_SPIRIT_COLOR;
+                Color color = SpiritTypeRegistry.INFERNAL_SPIRIT_COLOR;
 
-                ParticleManager.create(MalumParticles.WISP_PARTICLE)
+                ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                         .setAlpha(0.03f, 0f)
                         .setLifetime(20)
                         .setSpin(0.1f)
@@ -54,7 +54,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock
                         .randomVelocity(0.001f, 0.001f)
                         .evenlyRepeatEdges(worldIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-                ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+                ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                         .setAlpha(0.05f, 0f)
                         .setLifetime(40)
                         .setSpin(0.1f)

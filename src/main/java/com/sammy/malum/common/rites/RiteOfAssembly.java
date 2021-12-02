@@ -1,6 +1,6 @@
 package com.sammy.malum.common.rites;
 
-import static com.sammy.malum.core.init.MalumSpiritTypes.*;
+import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 
 public class RiteOfAssembly extends ActivatorRite
 {

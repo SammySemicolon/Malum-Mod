@@ -3,14 +3,13 @@ package com.sammy.malum.common.tile;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.rites.ActivatorRite;
-import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.block.MalumTileEntities;
-import com.sammy.malum.core.init.MalumRites;
-import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
-import com.sammy.malum.core.mod_systems.tile.SimpleTileEntity;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import com.sammy.malum.network.packets.particle.totem.TotemParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -22,12 +21,12 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-import static com.sammy.malum.network.NetworkManager.INSTANCE;
+import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTileEntity {
     public TotemBaseTileEntity() {
-        super(MalumTileEntities.TOTEM_BASE_TILE_ENTITY.get());
+        super(TileEntityRegistry.TOTEM_BASE_TILE_ENTITY.get());
     }
 
     public MalumRiteType rite;
@@ -54,7 +53,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
 
     @Override
     public void readData(CompoundNBT compound) {
-        rite = MalumRites.getRite(compound.getString("rite"));
+        rite = SpiritRiteRegistry.getRite(compound.getString("rite"));
         int size = compound.getInt("spiritCount");
         for (int i = 0; i < size; i++) {
             spirits.add(SpiritHelper.spiritType(compound.getString("spirit_" + i)));
@@ -84,7 +83,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
                     if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity) {
                         addPole(polePos);
                     } else {
-                        MalumRiteType rite = MalumRites.getRite(spirits);
+                        MalumRiteType rite = SpiritRiteRegistry.getRite(spirits);
                         if (rite == null) {
                             riteEnding();
                         } else {
@@ -154,7 +153,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     }
 
     public void riteComplete(MalumRiteType rite) {
-        world.playSound(null, pos, MalumSounds.TOTEM_CHARGED, SoundCategory.BLOCKS, 1, 1);
+        world.playSound(null, pos, SoundRegistry.TOTEM_CHARGED, SoundCategory.BLOCKS, 1, 1);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, true));
         poles().forEach(p -> p.riteComplete(height));
         progress = 0;
@@ -168,7 +167,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     }
 
     public void riteEnding() {
-        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f);
+        world.playSound(null, pos, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, false));
         reset();
     }

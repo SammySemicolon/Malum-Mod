@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.spirit_altar;
 
-import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
+import com.sammy.malum.core.systems.tile.SimpleTileEntityInventory;
 import net.minecraft.util.math.vector.Vector3d;
 
 public interface IAltarProvider

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.malum.core.init.worldgen.MalumFeatures;
+import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +28,7 @@ public class RunewoodSaplingBlock extends SaplingBlock
             {
                 return;
             }
-            MalumFeatures.RUNEWOOD_TREE.get().generate(world, world.getChunkProvider().generator, rand, pos, null);
+            FeatureRegistry.RUNEWOOD_TREE.get().generate(world, world.getChunkProvider().generator, rand, pos, null);
         }
     }
 }

@@ -1,11 +1,7 @@
 package com.sammy.malum.client.particles.wisp;
 
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.sammy.malum.core.mod_systems.particle.ParticleRendering;
-import com.sammy.malum.core.mod_systems.particle.RenderUtilities;
-import com.sammy.malum.core.mod_systems.particle.GenericMalumParticle;
-import com.sammy.malum.core.mod_systems.particle.data.MalumParticleData;
-import net.minecraft.client.renderer.ActiveRenderInfo;
+import com.sammy.malum.core.systems.particle.GenericMalumParticle;
+import com.sammy.malum.core.systems.particle.data.MalumParticleData;
 import net.minecraft.client.world.ClientWorld;
 
 public class WispParticle extends GenericMalumParticle {

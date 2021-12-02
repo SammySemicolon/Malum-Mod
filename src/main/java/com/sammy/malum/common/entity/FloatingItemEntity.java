@@ -1,9 +1,9 @@
 package com.sammy.malum.common.entity;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.mod_systems.spirit.ISpiritEntityGlow;
-import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
+import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.systems.spirit.ISpiritEntityGlow;
+import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
@@ -18,9 +18,11 @@ import java.awt.*;
 
 public abstract class FloatingItemEntity extends ProjectileItemEntity
 {
+    public int maxAge = 2400;
     public int age;
-    public int moving;
-    public float rotation;
+    public int moveTime;
+    public int range;
+    public float windUp;
     public final float hoverStart;
 
     public FloatingItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
@@ -34,7 +36,9 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     {
         super.writeAdditional(compound);
         compound.putInt("age", age);
-        compound.putInt("moving", moving);
+        compound.putInt("moveTime", moveTime);
+        compound.putInt("range", range);
+        compound.putFloat("windUp", windUp);
     }
 
     @Override
@@ -42,7 +46,9 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     {
         super.readAdditional(compound);
         age = compound.getInt("age");
-        moving = compound.getInt("moving");
+        moveTime = compound.getInt("moveTime");
+        range = compound.getInt("range");
+        windUp = compound.getFloat("windUp");
     }
 
     @Override
@@ -50,22 +56,21 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     {
         super.tick();
         age++;
+        if (windUp < 1f)
+        {
+            windUp += 0.02f;
+        }
         if (MalumHelper.areWeOnServer(world))
         {
             move();
-            if (age > 2400)
+            if (age > maxAge)
             {
                 remove();
             }
         }
         else
         {
-            float rotationSpeed = 1.75f;
-            float extraSpeed = 5.25f;
-            float rotationTime = 160;
-            rotation += age > rotationTime ? rotationSpeed : rotationSpeed + ((rotationTime - age) / rotationTime) * extraSpeed;
-
-            double x = getPosX(), y = getPosY() + yOffset(0) + 0.25f, z = getPosZ();
+            double x = getPosX(), y = getPosY() + getYOffset(0) + 0.25f, z = getPosZ();
             ItemStack stack = getItem();
             if (stack.getItem() instanceof ISpiritEntityGlow)
             {
@@ -77,11 +82,14 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     }
     public void move()
     {
-        setMotion(getMotion().mul(0.95f, 0.75f, 0.95f));
     }
-    public float yOffset(float partialTicks)
+    public float getYOffset(float partialTicks)
     {
         return MathHelper.sin(((float) age + partialTicks) / 10.0F + hoverStart) * 0.1F + 0.1F;
+    }
+
+    public float getRotation(float partialTicks) {
+        return ((float)age + partialTicks) / 10.0F + this.hoverStart;
     }
 
     @Override
@@ -105,6 +113,6 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     @Override
     protected Item getDefaultItem()
     {
-        return MalumItems.SACRED_SPIRIT.get();
+        return ItemRegistry.SACRED_SPIRIT.get();
     }
 }

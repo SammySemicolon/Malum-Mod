@@ -6,7 +6,7 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.DarkCrownModel;
 import com.sammy.malum.client.model.FurryTailModel;
-import com.sammy.malum.core.init.MalumSounds;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -35,8 +35,8 @@ public class CurioTokenOfGratitude extends MalumCurioItem
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack)
     {
-        livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.SINISTER_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-        livingEntity.world.playSound(null, livingEntity.getPosition(), MalumSounds.HOLY_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+        livingEntity.world.playSound(null, livingEntity.getPosition(), SoundRegistry.SINISTER_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+        livingEntity.world.playSound(null, livingEntity.getPosition(), SoundRegistry.HOLY_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
     }
 
     @Nonnull

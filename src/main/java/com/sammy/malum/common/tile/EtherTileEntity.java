@@ -1,17 +1,13 @@
 package com.sammy.malum.common.tile;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
-import com.sammy.malum.common.item.ether.AbstractEtherItem;
-import com.sammy.malum.common.item.ether.EtherItem;
-import com.sammy.malum.core.init.block.MalumTileEntities;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.mod_systems.particle.ParticleManager;
-import com.sammy.malum.core.mod_systems.tile.SimpleTileEntity;
-import net.minecraft.block.TorchBlock;
+import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -27,7 +23,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
 
     public EtherTileEntity()
     {
-        super(MalumTileEntities.ETHER_BLOCK_TILE_ENTITY.get());
+        super(TileEntityRegistry.ETHER_BLOCK_TILE_ENTITY.get());
     }
 
 
@@ -106,7 +102,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                 lifeTime -= 2;
                 scale *= 1.25f;
             }
-            ParticleManager.create(MalumParticles.SPARKLE_PARTICLE)
+            ParticleManager.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setScale(scale * 2, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
@@ -114,7 +110,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                     .setColorCurveMultiplier(1.5f)
                     .spawn(world, x, y, z);
 
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.9f, 0.75f)
@@ -127,7 +123,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
             if (world.getGameTime() % 2L == 0 && world.rand.nextFloat() < 0.25f)
             {
                 y += 0.05f;
-                ParticleManager.create(MalumParticles.SPIRIT_FLAME)
+                ParticleManager.create(ParticleRegistry.SPIRIT_FLAME)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
@@ -135,7 +131,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                         .addVelocity(0, 0.02f, 0)
                         .spawn(world, x, y, z);
 
-                ParticleManager.create(MalumParticles.SPIRIT_FLAME)
+                ParticleManager.create(ParticleRegistry.SPIRIT_FLAME)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)

@@ -35,10 +35,10 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     {
         matrixStackIn.push();
         ItemStack itemstack = entityIn.getItem();
-        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, (LivingEntity) null);
-        float f1 = entityIn.yOffset(partialTicks);
+        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, null);
+        float f1 = entityIn.getYOffset(partialTicks);
         float f2 = ibakedmodel.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.getY();
-        float f3 = (entityIn.rotation + partialTicks) / 20.0F + entityIn.hoverStart;
+        float f3 = entityIn.getRotation(partialTicks);
         matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
         matrixStackIn.rotate(Vector3f.YP.rotation(f3));
         this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);

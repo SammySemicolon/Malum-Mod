@@ -4,9 +4,9 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.core.init.items.MalumItems;
-import com.sammy.malum.core.init.block.MalumBlocks;
-import com.sammy.malum.core.mod_systems.multiblock.BoundingBlock;
+import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.block.BlockRegistry;
+import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
@@ -33,12 +33,12 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.sammy.malum.MalumHelper.takeAll;
-import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
 
 public class MalumBlockLootTables extends LootTableProvider
 {
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> tables = new ArrayList<>();
-    private static final Set<Item> IMMUNE_TO_EXPLOSIONS = Stream.of(MalumBlocks.SPIRIT_ALTAR, MalumBlocks.SPIRIT_JAR).map(c -> c.get().asItem()).collect(ImmutableSet.toImmutableSet());
+    private static final Set<Item> IMMUNE_TO_EXPLOSIONS = Stream.of(BlockRegistry.SPIRIT_ALTAR, BlockRegistry.SPIRIT_JAR).map(c -> c.get().asItem()).collect(ImmutableSet.toImmutableSet());
     
     private static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
     private static final ILootCondition.IBuilder SHEARS = MatchTool.builder(ItemPredicate.Builder.create().item(Items.SHEARS));
@@ -67,12 +67,12 @@ public class MalumBlockLootTables extends LootTableProvider
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables()
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        blocks.remove(MalumBlocks.BLAZING_QUARTZ_ORE);
-        registerLootTable(MalumBlocks.BLAZING_QUARTZ_ORE.get(), droppingItemWithFortune(MalumBlocks.BLAZING_QUARTZ_ORE.get(), MalumItems.BLAZING_QUARTZ.get()));
-        blocks.remove(MalumBlocks.SOULSTONE_ORE);
-        registerLootTable(MalumBlocks.SOULSTONE_ORE.get(), droppingItemWithFortune(MalumBlocks.SOULSTONE_ORE.get(), MalumItems.SOULSTONE_CLUSTER.get()));
-        blocks.remove(MalumBlocks.BRILLIANT_STONE);
-        registerLootTable(MalumBlocks.BRILLIANT_STONE.get(), droppingItemWithFortune(MalumBlocks.BRILLIANT_STONE.get(), MalumItems.BRILLIANCE_CLUSTER.get()));
+        blocks.remove(BlockRegistry.BLAZING_QUARTZ_ORE);
+        registerLootTable(BlockRegistry.BLAZING_QUARTZ_ORE.get(), droppingItemWithFortune(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));
+        blocks.remove(BlockRegistry.SOULSTONE_ORE);
+        registerLootTable(BlockRegistry.SOULSTONE_ORE.get(), droppingItemWithFortune(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.SOULSTONE_CLUSTER.get()));
+        blocks.remove(BlockRegistry.BRILLIANT_STONE);
+        registerLootTable(BlockRegistry.BRILLIANT_STONE.get(), droppingItemWithFortune(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.BRILLIANCE_CLUSTER.get()));
 
 
         takeAll(blocks, b -> b.get() instanceof TotemPoleBlock);
@@ -90,7 +90,7 @@ public class MalumBlockLootTables extends LootTableProvider
     
         takeAll(blocks, b -> true).forEach(b -> registerLootTable(b.get(), dropping(b.get().asItem())));
     
-        registerLootTable(MalumBlocks.RUNEWOOD_LEAVES.get(), droppingWithChancesAndSticks(MalumBlocks.RUNEWOOD_LEAVES.get(), MalumBlocks.RUNEWOOD_SAPLING.get(), RARE_SAPLING_DROP_RATES));
+        registerLootTable(BlockRegistry.RUNEWOOD_LEAVES.get(), droppingWithChancesAndSticks(BlockRegistry.RUNEWOOD_LEAVES.get(), BlockRegistry.RUNEWOOD_SAPLING.get(), RARE_SAPLING_DROP_RATES));
         return tables;
     }
     

@@ -1,10 +1,12 @@
 package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 
-public class CurioCurativeRing extends MalumCurioItem
+public class CurioCurativeRing extends MalumCurioItem implements IEventResponderItem
 {
     public CurioCurativeRing(Properties builder)
     {
@@ -18,8 +20,8 @@ public class CurioCurativeRing extends MalumCurioItem
     }
 
     @Override
-    public void consumeSpiritEffect(LivingEntity livingEntity) {
-        livingEntity.heal(livingEntity.getMaxHealth()*0.2f);
-        MalumHelper.giveStackingEffect(Effects.REGENERATION, livingEntity, 100, 0);
+    public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
+        attacker.heal(attacker.getMaxHealth()*0.1f);
+        MalumHelper.giveStackingEffect(Effects.REGENERATION, attacker, 100, 0);
     }
 }

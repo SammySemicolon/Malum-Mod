@@ -2,7 +2,7 @@ package com.sammy.malum.client.tile_renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.common.tile.ItemStandTileEntity;
-import com.sammy.malum.common.item.SpiritItem;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -33,7 +33,7 @@ public class ItemStandRenderer extends TileEntityRenderer<ItemStandTileEntity>
         {
             matrixStackIn.push();
             Vector3f offset = new Vector3f(ItemStandTileEntity.itemOffset(tileEntityIn));
-            if (stack.getItem() instanceof SpiritItem)
+            if (stack.getItem() instanceof MalumSpiritItem)
             {
                 double y = Math.sin(((world.getGameTime() + partialTicks) % 360) / 20f) * 0.05f;
                 matrixStackIn.translate(0, y, 0);

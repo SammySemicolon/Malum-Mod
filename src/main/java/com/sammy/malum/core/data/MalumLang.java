@@ -5,12 +5,11 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.cooler_book.BookEntry;
 import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
-import com.sammy.malum.core.init.MalumEffects;
-import com.sammy.malum.core.init.enchantment.MalumEnchantments;
-import com.sammy.malum.core.init.MalumRites;
-import com.sammy.malum.core.mod_systems.rites.MalumRiteType;
+import com.sammy.malum.core.registry.misc.EffectRegistry;
+import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
+import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
-import net.minecraft.block.KelpBlock;
 import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
@@ -26,9 +25,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.init.items.MalumItems.ITEMS;
-import static com.sammy.malum.core.init.MalumSounds.SOUNDS;
-import static com.sammy.malum.core.init.block.MalumBlocks.BLOCKS;
+import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
 
 public class MalumLang extends LanguageProvider
 {
@@ -40,15 +39,14 @@ public class MalumLang extends LanguageProvider
     @Override
     protected void addTranslations()
     {
-        MalumRites.init();
         ProgressionBookScreen.setupEntries();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
-        Set<RegistryObject<Effect>> effects = new HashSet<>(MalumEffects.EFFECTS.getEntries());
+        Set<RegistryObject<Effect>> effects = new HashSet<>(EffectRegistry.EFFECTS.getEntries());
         ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.entries;
-        ArrayList<MalumRiteType> rites = MalumRites.RITES;
+        ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
         MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallEtherTorchBlock);

@@ -2,12 +2,12 @@ package com.sammy.malum.common.tile;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
-import com.sammy.malum.common.item.SpiritItem;
-import com.sammy.malum.core.init.block.MalumTileEntities;
-import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
-import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
-import com.sammy.malum.core.mod_systems.tile.SimpleInventoryTileEntity;
-import com.sammy.malum.core.mod_systems.tile.SimpleTileEntity;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.systems.tile.SimpleTileEntityInventory;
+import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.systems.tile.SimpleInventoryTileEntity;
+import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3d;
@@ -20,7 +20,7 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IA
 {
     public ItemStandTileEntity()
     {
-        super(MalumTileEntities.ITEM_STAND_TILE_ENTITY.get());
+        super(TileEntityRegistry.ITEM_STAND_TILE_ENTITY.get());
         inventory = new SimpleTileEntityInventory(1, 64)
         {
             @Override
@@ -62,9 +62,9 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IA
         {
             return;
         }
-        if (inventory.getStackInSlot(0).getItem() instanceof SpiritItem)
+        if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem)
         {
-            SpiritItem item = (SpiritItem) inventory.getStackInSlot(0).getItem();
+            MalumSpiritItem item = (MalumSpiritItem) inventory.getStackInSlot(0).getItem();
             Color color = item.type.color;
             Vector3d pos = itemPos(this);
             double x = pos.x;

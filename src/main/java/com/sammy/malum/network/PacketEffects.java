@@ -1,10 +1,10 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.mod_systems.particle.ParticleManager;
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
+import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +28,7 @@ public class PacketEffects
         for (MalumSpiritType type : types)
         {
             Color color = type.color;
-            ParticleManager.create(MalumParticles.TWINKLE_PARTICLE)
+            ParticleManager.create(ParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(alpha*2, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
@@ -38,7 +38,7 @@ public class PacketEffects
                     .enableNoClip()
                     .repeat(world, posX, posY, posZ, 12);
 
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)
@@ -49,7 +49,7 @@ public class PacketEffects
                     .repeat(world, posX, posY, posZ, 8);
 
             Vector3d velocity = new Vector3d(posX, posY, posZ).subtract(altarPosX, altarPosY, altarPosZ).normalize().scale(-0.05f);
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha, 0f)
                     .setLifetime(40)
                     .setScale(0.3f, 0)
@@ -72,7 +72,7 @@ public class PacketEffects
         for (MalumSpiritType type : types)
         {
             Color color = type.color;
-            ParticleManager.create(MalumParticles.TWINKLE_PARTICLE)
+            ParticleManager.create(ParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(0.6f, 0f)
                     .setLifetime(80)
                     .setScale(0.15f, 0)
@@ -83,7 +83,7 @@ public class PacketEffects
                     .enableGravity()
                     .repeat(world, posX, posY, posZ, 24);
 
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.1f, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
@@ -93,7 +93,7 @@ public class PacketEffects
                     .enableNoClip()
                     .repeat(world, posX, posY, posZ, 12);
 
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.05f, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)
@@ -109,7 +109,7 @@ public class PacketEffects
         World world = Minecraft.getInstance().world;
         MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = MalumHelper.brighter(type.color, 3);
-        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(15)
                 .setSpin(0.2f)
@@ -132,7 +132,7 @@ public class PacketEffects
             color = color.darker();
         }
 
-        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.05f, 0f)
                 .setLifetime(20)
                 .setSpin(0.2f)
@@ -143,7 +143,7 @@ public class PacketEffects
                 .randomVelocity(0.001f, 0.001f)
                 .evenlyRepeatEdges(world, pos, 40);
 
-        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.025f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -168,7 +168,7 @@ public class PacketEffects
         MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = type.color;
 
-        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.05f, 0f)
                 .setLifetime(20)
                 .setSpin(0.2f)
@@ -180,7 +180,7 @@ public class PacketEffects
                 .addVelocity(0, 0.02f, 0)
                 .evenlyRepeatEdges(world, pos, 40);
 
-        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.025f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -206,7 +206,7 @@ public class PacketEffects
         MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = type.color;
 
-        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f * multiplier, 0f)
                 .setLifetime(10)
                 .setSpin(0.4f)
@@ -217,7 +217,7 @@ public class PacketEffects
                 .randomVelocity(0.01f, 0.01f)
                 .repeat(world, pos.x,pos.y,pos.z, 12);
 
-        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.05f* multiplier, 0f)
                 .setLifetime(20)
                 .setSpin(0.1f)
@@ -241,7 +241,7 @@ public class PacketEffects
         MalumSpiritType type = SpiritHelper.spiritType(spirit);
         Color color = type.color;
 
-        ParticleManager.create(MalumParticles.WISP_PARTICLE)
+        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f * multiplier, 0f)
                 .setLifetime(10)
                 .setSpin(0.4f)
@@ -252,7 +252,7 @@ public class PacketEffects
                 .randomVelocity(0.01f, 0.01f)
                 .repeat(world, pos.x,pos.y,pos.z, 12);
 
-        ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.05f* multiplier, 0f)
                 .setLifetime(20)
                 .setSpin(0.1f)

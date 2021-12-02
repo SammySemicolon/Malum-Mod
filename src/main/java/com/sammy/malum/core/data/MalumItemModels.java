@@ -4,11 +4,10 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.item.SpiritItem;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
-import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.tools.ModCombatItem;
-import com.sammy.malum.common.item.tools.spirittools.ScytheItem;
+import com.sammy.malum.common.item.tools.ScytheItem;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;
@@ -23,7 +22,7 @@ import java.util.Set;
 
 import static com.sammy.malum.MalumHelper.prefix;
 import static com.sammy.malum.MalumHelper.takeAll;
-import static com.sammy.malum.core.init.items.MalumItems.*;
+import static com.sammy.malum.core.registry.items.ItemRegistry.*;
 
 public class MalumItemModels extends net.minecraftforge.client.model.generators.ItemModelProvider
 {
@@ -38,7 +37,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
         takeAll(items, i -> i.get() instanceof ScytheItem);
-        takeAll(items, i -> i.get() instanceof SpiritItem).forEach(this::spiritSplinterItem);
+        takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);

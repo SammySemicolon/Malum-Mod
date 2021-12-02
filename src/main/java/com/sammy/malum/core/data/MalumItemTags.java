@@ -1,7 +1,8 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.init.items.MalumItems;
+import com.sammy.malum.core.registry.items.ITemTagRegistry;
+import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
@@ -9,8 +10,8 @@ import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static com.sammy.malum.core.init.items.MalumItemTags.RUNEWOOD_LOGS;
-import static com.sammy.malum.core.init.items.MalumItemTags.SOULWOOD_LOGS;
+import static com.sammy.malum.core.registry.items.ITemTagRegistry.RUNEWOOD_LOGS;
+import static com.sammy.malum.core.registry.items.ITemTagRegistry.SOULWOOD_LOGS;
 
 public class MalumItemTags extends ItemTagsProvider
 {
@@ -28,7 +29,7 @@ public class MalumItemTags extends ItemTagsProvider
     @Override
     protected void registerTags()
     {
-        getOrCreateBuilder(Tags.Items.GEMS).add(MalumItems.PROCESSED_SOULSTONE.get(), MalumItems.BLAZING_QUARTZ.get());
+        getOrCreateBuilder(Tags.Items.GEMS).add(ItemRegistry.PROCESSED_SOULSTONE.get(), ItemRegistry.BLAZING_QUARTZ.get());
 
         this.copy(BlockTags.WOOL, net.minecraft.tags.ItemTags.WOOL);
         this.copy(BlockTags.PLANKS, net.minecraft.tags.ItemTags.PLANKS);
@@ -71,10 +72,10 @@ public class MalumItemTags extends ItemTagsProvider
         this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, net.minecraft.tags.ItemTags.SOUL_FIRE_BASE_BLOCKS);
         this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 
-        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(MalumItems.HOLY_SAPBALL.get(), MalumItems.UNHOLY_SAPBALL.get());
-        getOrCreateBuilder(com.sammy.malum.core.init.items.MalumItemTags.SAPBALLS).add(MalumItems.HOLY_SAPBALL.get(), MalumItems.UNHOLY_SAPBALL.get());
+        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
+        getOrCreateBuilder(ITemTagRegistry.SAPBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
 
-        getOrCreateBuilder(RUNEWOOD_LOGS).add(MalumItems.RUNEWOOD_LOG.get(), MalumItems.STRIPPED_RUNEWOOD_LOG.get(), MalumItems.RUNEWOOD.get(), MalumItems.STRIPPED_RUNEWOOD.get(), MalumItems.SAP_FILLED_RUNEWOOD_LOG.get(), MalumItems.STRIPPED_SAP_FILLED_RUNEWOOD_LOG.get());
-        getOrCreateBuilder(SOULWOOD_LOGS).add(MalumItems.SOULWOOD_LOG.get(), MalumItems.STRIPPED_SOULWOOD_LOG.get(), MalumItems.SOULWOOD.get(), MalumItems.STRIPPED_SOULWOOD.get(), MalumItems.SAP_FILLED_SOULWOOD_LOG.get(), MalumItems.STRIPPED_SAP_FILLED_SOULWOOD_LOG.get());
+        getOrCreateBuilder(RUNEWOOD_LOGS).add(ItemRegistry.RUNEWOOD_LOG.get(), ItemRegistry.STRIPPED_RUNEWOOD_LOG.get(), ItemRegistry.RUNEWOOD.get(), ItemRegistry.STRIPPED_RUNEWOOD.get(), ItemRegistry.SAP_FILLED_RUNEWOOD_LOG.get(), ItemRegistry.STRIPPED_SAP_FILLED_RUNEWOOD_LOG.get());
+        getOrCreateBuilder(SOULWOOD_LOGS).add(ItemRegistry.SOULWOOD_LOG.get(), ItemRegistry.STRIPPED_SOULWOOD_LOG.get(), ItemRegistry.SOULWOOD.get(), ItemRegistry.STRIPPED_SOULWOOD.get(), ItemRegistry.SAP_FILLED_SOULWOOD_LOG.get(), ItemRegistry.STRIPPED_SAP_FILLED_SOULWOOD_LOG.get());
     }
 }

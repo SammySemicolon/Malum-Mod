@@ -1,13 +1,13 @@
 package com.sammy.malum.common.tile;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.init.MalumSounds;
-import com.sammy.malum.core.init.block.MalumTileEntities;
-import com.sammy.malum.core.init.particles.MalumParticles;
-import com.sammy.malum.core.mod_systems.particle.ParticleManager;
-import com.sammy.malum.core.mod_systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.mod_systems.spirit.SpiritHelper;
-import com.sammy.malum.core.mod_systems.tile.SimpleTileEntity;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import com.sammy.malum.network.packets.particle.totem.SpiritEngraveParticlePacket;
 import com.sammy.malum.network.packets.particle.totem.TotemPoleParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
@@ -19,13 +19,13 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.awt.*;
 
-import static com.sammy.malum.network.NetworkManager.INSTANCE;
+import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTileEntity
 {
     public TotemPoleTileEntity()
     {
-        super(MalumTileEntities.TOTEM_POLE_TILE_ENTITY.get());
+        super(TileEntityRegistry.TOTEM_POLE_TILE_ENTITY.get());
     }
 
     public MalumSpiritType type;
@@ -79,14 +79,14 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     }
     public void create(MalumSpiritType type)
     {
-        world.playSound(null, pos, MalumSounds.TOTEM_ENGRAVE, SoundCategory.BLOCKS,1,1);
+        world.playSound(null, pos, SoundRegistry.TOTEM_ENGRAVE, SoundCategory.BLOCKS,1,1);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new SpiritEngraveParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ()));
         this.type = type;
         this.currentColor = 10;
     }
     public void riteStarting(int height)
     {
-        world.playSound(null, pos, MalumSounds.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1 + 0.2f * height);
+        world.playSound(null, pos, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1 + 0.2f * height);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new TotemPoleParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ(), false));
         this.desiredColor = 10;
         this.baseLevel = pos.getY() - height;
@@ -128,7 +128,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         for (int i = -1; i <= 1; i++)
         {
             float extraVelocity = 0.03f * i;
-            ParticleManager.create(MalumParticles.WISP_PARTICLE)
+            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.025f, 0f)
                     .setLifetime(20)
                     .setSpin(0.2f)
@@ -140,7 +140,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
                     .randomVelocity(0.001f, 0.001f)
                     .evenlyRepeatEdges(world, pos, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-            ParticleManager.create(MalumParticles.SMOKE_PARTICLE)
+            ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.025f, 0f)
                     .setLifetime(40)
                     .setSpin(0.1f)

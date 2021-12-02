@@ -3,7 +3,6 @@ package com.sammy.malum.common.block.ether;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.tile.EtherTileEntity;
-import com.sammy.malum.core.init.items.MalumItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;

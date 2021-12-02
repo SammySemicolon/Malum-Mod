@@ -2,7 +2,7 @@ package com.sammy.malum.client.tile_renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.common.tile.SpiritAltarTileEntity;
-import com.sammy.malum.core.mod_systems.tile.SimpleTileEntityInventory;
+import com.sammy.malum.core.systems.tile.SimpleTileEntityInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
