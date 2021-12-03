@@ -5,7 +5,8 @@
     "count": 1
   },
   "output": {
-    "item": "malum:runewood_totem_base"
+    "item": "malum:runewood_totem_base",
+    "count": 4
   },
   "extra_items": [
     {

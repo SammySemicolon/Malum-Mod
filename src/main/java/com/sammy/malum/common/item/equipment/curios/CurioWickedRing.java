@@ -14,7 +14,7 @@ public class CurioWickedRing extends MalumCurioItem implements IEventResponderIt
     }
 
     @Override
-    public boolean isGilded()
+    public boolean isOrnate()
     {
         return true;
     }

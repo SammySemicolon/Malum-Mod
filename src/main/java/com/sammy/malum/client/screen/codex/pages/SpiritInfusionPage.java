@@ -1,8 +1,8 @@
-package com.sammy.malum.client.screen.cooler_book.pages;
+package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen.renderTexture;
+import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
 
 public class SpiritInfusionPage extends BookPage
 {

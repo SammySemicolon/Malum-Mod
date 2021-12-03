@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen.renderTexture;
-import static com.sammy.malum.client.screen.cooler_book.pages.SpiritInfusionPage.uOffset;
-import static com.sammy.malum.client.screen.cooler_book.pages.SpiritInfusionPage.vOffset;
+import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
+import static com.sammy.malum.client.screen.codex.pages.SpiritInfusionPage.uOffset;
+import static com.sammy.malum.client.screen.codex.pages.SpiritInfusionPage.vOffset;
 
 public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfusionRecipe>
 {

@@ -3,7 +3,7 @@ package com.sammy.malum.common.tile;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
-import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;

@@ -1,12 +1,12 @@
-package com.sammy.malum.client.screen.cooler_book;
+package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.objects.BookObject;
-import com.sammy.malum.client.screen.cooler_book.objects.EntryBookObject;
-import com.sammy.malum.client.screen.cooler_book.pages.*;
+import com.sammy.malum.client.screen.codex.objects.BookObject;
+import com.sammy.malum.client.screen.codex.objects.EntryBookObject;
+import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -67,6 +67,7 @@ public class ProgressionBookScreen extends Screen
     {
         entries = new ArrayList<>();
         Item EMPTY = ItemStack.EMPTY.getItem();
+
         entries.add(new BookEntry(
                 "introduction", ENCYCLOPEDIA_ARCANA.get(),0,0)
                 .setImportant()
@@ -283,6 +284,11 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new SpiritInfusionPage(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
+        entries.add(new BookEntry(
+                "3000_dollars_for_a_brewing_stand", APPLE,0,-10)
+                .addPage(new HeadlineTextPage("3000_dollars_for_a_brewing_stand","3000_dollars_for_a_brewing_stand"))
+        );
+
 //        entries.add(new BookEntry(
 //                "totem_magic", RUNEWOOD_TOTEM_BASE.get(),0,7)
 //                .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
@@ -397,6 +403,7 @@ public class ProgressionBookScreen extends Screen
 
         renderEntries(matrixStack, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
+        lateEntryRender(matrixStack, mouseX, mouseY, partialTicks);
 
         renderTexture(FRAME_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
     }
@@ -477,6 +484,14 @@ public class ProgressionBookScreen extends Screen
             object.isHovering = isHovering;
             object.hover = isHovering ? Math.min(object.hover++, object.hoverCap()) : Math.max(object.hover--, 0);
             object.render(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
+        }
+    }
+    public void lateEntryRender(MatrixStack stack, int mouseX, int mouseY, float partialTicks)
+    {
+        for (int i = objects.size()-1; i >= 0; i--)
+        {
+            BookObject object = objects.get(i);
+            object.lateRender(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }
 

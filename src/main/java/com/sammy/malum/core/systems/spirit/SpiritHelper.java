@@ -4,11 +4,10 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.PlayerHomingItemEntity;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
-import com.sammy.malum.common.item.equipment.curios.MalumCurioItem;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.container.ItemInventory;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
@@ -26,7 +25,6 @@ import net.minecraft.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -66,15 +64,6 @@ public class SpiritHelper {
             if (attacker.world.rand.nextInt(2) == 0) {
                 harvestStack.damageItem(spiritPlunder, attacker, (e) -> e.sendBreakAnimation(EquipmentSlotType.MAINHAND));
             }
-        }
-        ArrayList<MalumCurioItem> equippedMalumCurios = MalumHelper.equippedMalumCurios(attacker);
-        Optional<MalumCurioItem> firstModifier = equippedMalumCurios.stream().filter(s -> !s.spiritReplacementStack(ItemStack.EMPTY).equals(ItemStack.EMPTY)).findFirst();
-        if (firstModifier.isPresent()) {
-            ArrayList<ItemStack> newSpirits = new ArrayList<>();
-            for (ItemStack stack : spirits) {
-                newSpirits.add(firstModifier.get().spiritReplacementStack(stack));
-            }
-            spirits = newSpirits;
         }
         createSpiritEntities(spirits, target, attacker);
     }

@@ -5,7 +5,7 @@ import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
-import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;

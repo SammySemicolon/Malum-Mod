@@ -5,7 +5,7 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
-import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import net.minecraft.block.WallTorchBlock;
@@ -123,7 +123,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
             if (world.getGameTime() % 2L == 0 && world.rand.nextFloat() < 0.25f)
             {
                 y += 0.05f;
-                ParticleManager.create(ParticleRegistry.SPIRIT_FLAME)
+                ParticleManager.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
@@ -131,7 +131,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                         .addVelocity(0, 0.02f, 0)
                         .spawn(world, x, y, z);
 
-                ParticleManager.create(ParticleRegistry.SPIRIT_FLAME)
+                ParticleManager.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)

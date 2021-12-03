@@ -3,7 +3,7 @@ package com.sammy.malum.common.block.item_storage;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.tile.SpiritJarTileEntity;
-import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.block.Block;

@@ -1,7 +1,7 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;

@@ -2,8 +2,8 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.cooler_book.BookEntry;
-import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
@@ -206,14 +206,48 @@ public class MalumLang extends LanguageProvider
         addPage("soul_stained_steel_a", "The sacred origins of hallowed gold make it nearly impossible to use for harm. Soul stained steel is nothing like that, it's a tough metal twisted evil beyond recognition. It excels at heartless crimes, perfect for various gear and trinkets.");
         addPage("soul_stained_steel_b", "Any piece of gear made from soul stained steel is capable of shattering souls. Both metals can also be used to create a type of magic transmitter. A spirit resonator, a more complex crafting component meant for manipulating in-world spirits.");
 
+        addDescription("soul_stained_gear", "Tinkering");
         addHeadline("soul_stained_scythe", "Soul Stained Scythe");
-        addPage("soul_stained_scythe", "After some time using the crude scythe you may start wishing for an upgrade or a stronger version, just like the one made from soul stained steel. The soul stained steel scythe is a direct upgrade with slightly increased physical damage and a bonus to magic damage triggered by the scythe.");
+        addPage("soul_stained_scythe", "After some time using the crude scythe you may start wishing for an upgrade or a stronger version, just like the one made from soul stained steel. It is a direct upgrade with slightly increased physical damage and a bonus to magic damage triggered by the scythe.");
         addHeadline("soul_stained_armor", "Soul Stained Armor");
         addPage("soul_stained_armor", "Just like with the crude scythe, you're able to reinforce iron armor with soul stained steel. In addition to providing near diamond levels of protection the armor also shields you from magic damage. On top of that collecting spirits while wearing the armor set will reward you with a brief resistance effect.");
 
+        addDescription("spirit_trinkets", "Forging");
         addHeadline("spirit_trinkets", "Spirit Trinkets");
         addPage("spirit_trinkets_a", "A trinket is a simple accessory that will provide you with helpful benefits, some know them as baubles or curios. Hallowed gold and soul stained steel both offer two basic trinkets that all serve as a basic shape for various spirit infusion to build upon.");
         addPage("spirit_trinkets_b", "Gilded trinkets provide boosts to armor while ornate ones grant you armor toughness.");
+
+        addDescription("soul_hunter_trinkets", "Innovation");
+        addHeadline("arcane_reach", "Ring of Arcane Reach");
+        addPage("arcane_reach", "Catching lost spirits may often prove to be tedious or tiresome. By infusing some potent aerial arcana into a gilded ring the resulting trinket yields us a bonus to spirit reach. Nearby spirits will home-in onto you from further out.");
+        addHeadline("arcane_spoil", "Ring of Arcane Spoil");
+        addPage("arcane_spoil", "Your greed can at times be uncontrollable. You want everything, and more. The ring of arcane spoil will yield extra spirits when shattering a soul, it also poses a horrific thought. How is it that we can shatter a soul into more spirits than it holds?");
+
+        addDescription("ring_of_prowess", "Curiosity");
+        addHeadline("ring_of_prowess", "Ring of Prowess");
+        addPage("ring_of_prowess_a", "There is another thing besides spirit arcana that the soul holds, it is known as brilliance, or experience. Unlike spirits, brilliance has strong enough ties to the body and some of it is naturally dispersed from the soul upon the defeat of the vessel.");
+        addPage("ring_of_prowess_b", "As with all things, we can't let the soul keep anything for itself. With some clever use of raw arcana combined with natural brilliance we can leech off some extra experience as spirits leave the dying soul. The ring of prowess does just that.");
+
+
+        addDescription("ring_of_curative_talent", "Vigor from Arcana");
+        addHeadline("ring_of_curative_talent", "Ring of Curative Talent");
+        addPage("ring_of_curative_talent", "Tears of the ghast have some really strong curative properties. Combining one with some sacred arcana and infusing both into a gilded ring will yield us the ring of curative talent. This simple trinket will recover a large portion of your health when collecting spirits.");
+
+        addDescription("ring_of_wicked_intent", "Power from Arcana");
+        addHeadline("ring_of_wicked_intent", "Ring of Wicked Intent");
+        addPage("ring_of_wicked_intent", "The wicked ring is a simple yet practical trinket that will greatly assist you in combat. Taking note from the powerful wither army the ring will react to nearby spirit arcana and reward you with strength and rage when collecting spirits.");
+
+        addDescription("necklace_of_the_mystic_mirror", "");
+        addHeadline("necklace_of_the_mystic_mirror", "");
+        addPage("necklace_of_the_mystic_mirror", "");
+
+        addDescription("necklace_of_the_narrow_edge", "");
+        addHeadline("necklace_of_the_narrow_edge", "");
+        addPage("necklace_of_the_narrow_edge", "");
+
+        addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
+        addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
+        addPage("3000_dollars_for_a_brewing_stand", "hey apple");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rites", "Spirit Rites");

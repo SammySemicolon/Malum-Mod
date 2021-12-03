@@ -1,9 +1,11 @@
-package com.sammy.malum.core.registry.particle;
+package com.sammy.malum.core.registry.misc;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.particles.cut.CutAttackParticle;
 import com.sammy.malum.client.particles.spiritflame.SpiritFlameParticleType;
 import com.sammy.malum.client.particles.wisp.WispParticleType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleType;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,14 +23,19 @@ public class ParticleRegistry {
     public static RegistryObject<WispParticleType> SMOKE_PARTICLE = PARTICLES.register("smoke_particle", WispParticleType::new);
     public static RegistryObject<WispParticleType> SPARKLE_PARTICLE = PARTICLES.register("sparkle_particle", WispParticleType::new);
     public static RegistryObject<WispParticleType> TWINKLE_PARTICLE = PARTICLES.register("twinkle_particle", WispParticleType::new);
-    public static RegistryObject<SpiritFlameParticleType> SPIRIT_FLAME = PARTICLES.register("spirit_flame", SpiritFlameParticleType::new);
 
+    public static RegistryObject<SpiritFlameParticleType> SPIRIT_FLAME_PARTICLE = PARTICLES.register("spirit_flame_particle", SpiritFlameParticleType::new);
+
+
+    public static RegistryObject<BasicParticleType> CUT_ATTACK_PARTICLE = PARTICLES.register("cut_attack_particle", ()->new BasicParticleType(true));
     @SubscribeEvent
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event) {
         Minecraft.getInstance().particles.registerFactory(WISP_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particles.registerFactory(SMOKE_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particles.registerFactory(SPARKLE_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particles.registerFactory(TWINKLE_PARTICLE.get(), WispParticleType.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(SPIRIT_FLAME.get(), SpiritFlameParticleType.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
+
+        Minecraft.getInstance().particles.registerFactory(CUT_ATTACK_PARTICLE.get(), CutAttackParticle.Factory::new);
     }
 }

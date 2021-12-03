@@ -3,7 +3,7 @@ package com.sammy.malum.common.block;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.items.ItemRegistry;
-import com.sammy.malum.core.registry.particle.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import net.minecraft.block.BlockState;

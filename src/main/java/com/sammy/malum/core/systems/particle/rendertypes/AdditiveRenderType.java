@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 
-public class SpriteParticleRenderType implements IParticleRenderType {
-    public static final SpriteParticleRenderType INSTANCE = new SpriteParticleRenderType();
+public class AdditiveRenderType implements IParticleRenderType {
+    public static final AdditiveRenderType INSTANCE = new AdditiveRenderType();
 
     private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
         RenderSystem.depthMask(false);

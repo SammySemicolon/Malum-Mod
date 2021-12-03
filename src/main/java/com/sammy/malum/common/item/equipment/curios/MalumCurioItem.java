@@ -20,10 +20,6 @@ public class MalumCurioItem extends Item implements ICurioItem {
         return false;
     }
 
-    public ItemStack spiritReplacementStack(ItemStack previousStack) {
-        return ItemStack.EMPTY;
-    }
-
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
         if (isGilded()) {

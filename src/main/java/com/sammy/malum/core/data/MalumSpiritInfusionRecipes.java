@@ -64,7 +64,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_LOG.get(), 1, ItemRegistry.RUNEWOOD_TOTEM_BASE.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_LOG.get(), 1, ItemRegistry.RUNEWOOD_TOTEM_BASE.get(), 4)
                 .addExtraItem(ItemRegistry.RUNEWOOD_PLANKS.get(), 1)
                 .addExtraItem(ItemRegistry.HALLOWED_SPIRIT_RESONATOR.get(), 1)
                 .addSpirit(AERIAL_SPIRIT, 2)
@@ -74,7 +74,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(ELDRITCH_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_LOG.get(), 1, ItemRegistry.SOULWOOD_TOTEM_BASE.get(), 1)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_LOG.get(), 1, ItemRegistry.SOULWOOD_TOTEM_BASE.get(), 4)
                 .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 1)
                 .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
                 .addSpirit(AERIAL_SPIRIT, 2)

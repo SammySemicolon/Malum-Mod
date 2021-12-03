@@ -1,8 +1,8 @@
-package com.sammy.malum.client.screen.cooler_book.pages;
+package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.*;
 

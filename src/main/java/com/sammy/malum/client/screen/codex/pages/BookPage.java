@@ -1,11 +1,11 @@
-package com.sammy.malum.client.screen.cooler_book.pages;
+package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
-import static com.sammy.malum.client.screen.cooler_book.EntryScreen.screen;
+import static com.sammy.malum.client.screen.codex.EntryScreen.screen;
 
 public class BookPage
 {

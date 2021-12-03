@@ -445,34 +445,28 @@ public class MalumHelper {
         return CuriosApi.getCuriosHelper().findEquippedCurio(curio.get(), entity).isPresent();
     }
 
-    public static ArrayList<MalumCurioItem> equippedMalumCurios(LivingEntity entity) {
-        IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
-        ArrayList<MalumCurioItem> items = new ArrayList<>();
-        for (int i = 0; i < handler.getSlots(); i++) {
-            Item item = handler.getStackInSlot(i).getItem();
-            if (item instanceof MalumCurioItem) {
-                items.add((MalumCurioItem) item);
-            }
-        }
-        return items;
-    }
-
     public static ArrayList<ItemStack> equippedCurios(LivingEntity entity) {
-        IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
+        Optional<IItemHandlerModifiable> optional = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve();
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < handler.getSlots(); i++) {
-            stacks.add(handler.getStackInSlot(i));
+        if (optional.isPresent()) {
+            IItemHandlerModifiable handler = optional.get();
+            for (int i = 0; i < handler.getSlots(); i++) {
+                stacks.add(handler.getStackInSlot(i));
+            }
         }
         return stacks;
     }
 
     public static ArrayList<ItemStack> equippedCurios(LivingEntity entity, Predicate<ItemStack> predicate) {
-        IItemHandlerModifiable handler = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve().get();
+        Optional<IItemHandlerModifiable> optional = CuriosApi.getCuriosHelper().getEquippedCurios(entity).resolve();
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < handler.getSlots(); i++) {
-            ItemStack stack = handler.getStackInSlot(i);
-            if (predicate.test(stack)) {
-                stacks.add(stack);
+        if (optional.isPresent()) {
+            IItemHandlerModifiable handler = optional.get();
+            for (int i = 0; i < handler.getSlots(); i++) {
+                ItemStack stack = handler.getStackInSlot(i);
+                if (predicate.test(stack)) {
+                    stacks.add(stack);
+                }
             }
         }
         return stacks;

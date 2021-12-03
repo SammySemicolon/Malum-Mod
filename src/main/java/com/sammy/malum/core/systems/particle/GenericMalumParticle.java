@@ -3,7 +3,7 @@ package com.sammy.malum.core.systems.particle;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.core.systems.particle.data.MalumParticleData;
-import com.sammy.malum.core.systems.particle.rendertypes.SpriteParticleRenderType;
+import com.sammy.malum.core.systems.particle.rendertypes.AdditiveRenderType;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -66,7 +66,7 @@ public class GenericMalumParticle extends SpriteTexturedParticle {
 
     @Override
     public IParticleRenderType getRenderType() {
-        return SpriteParticleRenderType.INSTANCE;
+        return AdditiveRenderType.INSTANCE;
     }
 
     @Override

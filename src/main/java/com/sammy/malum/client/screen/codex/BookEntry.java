@@ -1,15 +1,12 @@
-package com.sammy.malum.client.screen.cooler_book;
+package com.sammy.malum.client.screen.codex;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.BookEntry.EntryLine.LineEnum;
-import com.sammy.malum.client.screen.cooler_book.pages.BookPage;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.ModList;
 
 import java.util.ArrayList;
-
-import static com.sammy.malum.client.screen.cooler_book.BookEntry.EntryLine.LineEnum.*;
 
 public class BookEntry
 {

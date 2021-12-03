@@ -7,7 +7,7 @@ import com.sammy.malum.core.systems.particle.ParticlePhaseMalumParticle;
 import com.sammy.malum.core.systems.particle.ParticleRendering;
 import com.sammy.malum.core.systems.particle.data.MalumParticleData;
 import com.sammy.malum.core.systems.particle.phases.ParticlePhase;
-import com.sammy.malum.core.systems.particle.rendertypes.SpriteParticleRenderType;
+import com.sammy.malum.core.systems.particle.rendertypes.AdditiveRenderType;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -44,6 +44,6 @@ public class SpiritFlameParticle extends ParticlePhaseMalumParticle {
 
     @Override
     public IParticleRenderType getRenderType() {
-        return SpriteParticleRenderType.INSTANCE;
+        return AdditiveRenderType.INSTANCE;
     }
 }

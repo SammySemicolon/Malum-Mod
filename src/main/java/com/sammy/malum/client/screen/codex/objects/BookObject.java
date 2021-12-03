@@ -1,10 +1,10 @@
-package com.sammy.malum.client.screen.cooler_book.objects;
+package com.sammy.malum.client.screen.codex.objects;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
 
-import static com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen.screen;
+import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.screen;
 
 public class BookObject
 {
@@ -28,6 +28,10 @@ public class BookObject
     }
 
     public void render(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
+    {
+
+    }
+    public void lateRender(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
 
     }

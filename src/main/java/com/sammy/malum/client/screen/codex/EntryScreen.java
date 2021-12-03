@@ -1,9 +1,9 @@
-package com.sammy.malum.client.screen.cooler_book;
+package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.pages.BookPage;
+import com.sammy.malum.client.screen.codex.pages.BookPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +12,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import org.lwjgl.glfw.GLFW;
 
-import static com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen.*;
+import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
 
 public class EntryScreen extends Screen
 {

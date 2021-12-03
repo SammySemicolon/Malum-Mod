@@ -3,7 +3,6 @@ package com.sammy.malum;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.systems.particle.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,7 +28,7 @@ import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.core.registry.block.TileEntityRegistry.TILE_ENTITIES;
 import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
-import static com.sammy.malum.core.registry.particle.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.core.registry.misc.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURES;
 
 @SuppressWarnings("unused")

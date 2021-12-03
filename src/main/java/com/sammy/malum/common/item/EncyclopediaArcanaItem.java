@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.screen.cooler_book.ProgressionBookScreen;
+import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

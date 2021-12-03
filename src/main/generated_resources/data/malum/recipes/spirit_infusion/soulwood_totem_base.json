@@ -5,7 +5,8 @@
     "count": 1
   },
   "output": {
-    "item": "malum:soulwood_totem_base"
+    "item": "malum:soulwood_totem_base",
+    "count": 4
   },
   "extra_items": [
     {
