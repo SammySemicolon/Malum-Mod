@@ -5,7 +5,7 @@
     "malum:stripped_runewood_log",
     "malum:runewood",
     "malum:stripped_runewood",
-    "malum:sap_filled_runewood_log",
-    "malum:stripped_sap_filled_runewood_log"
+    "malum:exposed_runewood_log",
+    "malum:revealed_runewood_log"
   ]
 }

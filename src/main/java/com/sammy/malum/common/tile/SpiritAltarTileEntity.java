@@ -265,7 +265,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                 double z = getPos().getZ() + offset.getZ();
                 MalumSpiritItem spiritSplinterItem = (MalumSpiritItem) item.getItem();
                 Color color = spiritSplinterItem.type.color;
-                SpiritHelper.spiritParticles(world, x,y,z, color);
+                SpiritHelper.spawnSpiritParticles(world, x,y,z, color);
 
 
                 if (recipe != null)

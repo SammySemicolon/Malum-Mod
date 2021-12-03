@@ -50,7 +50,7 @@ public class SpiritHelper {
         if (target instanceof PlayerEntity) {
             return;
         }
-        ArrayList<ItemStack> spirits = spiritItemStacks(target);
+        ArrayList<ItemStack> spirits = getSpiritItemStacks(target);
         if (spirits.isEmpty()) {
             return;
         }
@@ -80,7 +80,7 @@ public class SpiritHelper {
     }
 
     public static void createSpiritEntities(LivingEntity target) {
-        ArrayList<ItemStack> spirits = spiritItemStacks(target);
+        ArrayList<ItemStack> spirits = getSpiritItemStacks(target);
         if (!spirits.isEmpty()) {
             createSpiritEntities(spirits, target, null);
         }
@@ -154,7 +154,7 @@ public class SpiritHelper {
         MalumHelper.giveItemToEntity(stack, collector);
     }
 
-    public static MalumSpiritType spiritType(String spirit) {
+    public static MalumSpiritType getSpiritType(String spirit) {
         ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) SpiritTypeRegistry.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
         if (type.isEmpty()) {
             return SpiritTypeRegistry.ELDRITCH_SPIRIT;
@@ -174,7 +174,7 @@ public class SpiritHelper {
         return bundle.totalCount;
     }
 
-    public static ArrayList<ItemStack> spiritItemStacks(LivingEntity entity) {
+    public static ArrayList<ItemStack> getSpiritItemStacks(LivingEntity entity) {
         ArrayList<ItemStack> spirits = new ArrayList<>();
         MalumEntitySpiritDataBundle bundle = getEntitySpirits(entity);
         if (bundle == null) {
@@ -186,7 +186,7 @@ public class SpiritHelper {
         return spirits;
     }
 
-    public static void spiritParticles(World world, double x, double y, double z, Color color) {
+    public static void spawnSpiritParticles(World world, double x, double y, double z, Color color) {
         Random rand = world.rand;
         ParticleManager.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.18f, 0f)

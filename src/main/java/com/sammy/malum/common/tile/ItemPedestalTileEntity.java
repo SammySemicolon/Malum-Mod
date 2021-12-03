@@ -64,7 +64,7 @@ public class ItemPedestalTileEntity extends SimpleInventoryTileEntity implements
             double x = pos.x;
             double y = pos.y + Math.sin((world.getGameTime() % 360) / 20f) * 0.1f;
             double z = pos.z;
-            SpiritHelper.spiritParticles(world, x,y,z, color);
+            SpiritHelper.spawnSpiritParticles(world, x,y,z, color);
         }
     }
 }

@@ -20,6 +20,9 @@
   ],
   "spirits": [
     {
+      "item": "malum:earthen_spirit"
+    },
+    {
       "item": "malum:wicked_spirit",
       "count": 2
     }

@@ -23,7 +23,7 @@ public abstract class ActivatorRite extends MalumRiteType
         for (BlockPos nearbyPos : nearbyBlocks)
         {
             IAssembled assembled = (IAssembled) world.getTileEntity(nearbyPos);
-            assembled.assemble(pos, MalumHelper.toArrayList(SpiritTypeRegistry.AQUATIC_SPIRIT, SpiritTypeRegistry.ARCANE_SPIRIT));
+            assembled.assemble(pos, MalumHelper.toArrayList(SpiritTypeRegistry.AQUEOUS_SPIRIT_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT));
             MalumHelper.updateAndNotifyState(world, pos);
         }
         super.riteEffect(world, pos);

@@ -76,7 +76,7 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
             {
                 ISpiritEntityGlow entityGlow = (ISpiritEntityGlow) stack.getItem();
                 Color color = entityGlow.getColor();
-                SpiritHelper.spiritParticles(world, x,y,z, color);
+                SpiritHelper.spawnSpiritParticles(world, x,y,z, color);
             }
         }
     }

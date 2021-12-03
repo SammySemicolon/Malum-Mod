@@ -23,7 +23,7 @@
       "count": 2
     },
     {
-      "item": "malum:aquatic_spirit",
+      "item": "malum:aqueous_spirit",
       "count": 2
     },
     {
@@ -33,6 +33,9 @@
     {
       "item": "malum:infernal_spirit",
       "count": 2
+    },
+    {
+      "item": "malum:eldritch_spirit"
     }
   ]
 }

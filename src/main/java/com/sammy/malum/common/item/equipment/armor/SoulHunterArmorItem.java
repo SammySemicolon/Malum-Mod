@@ -15,15 +15,13 @@ import java.util.UUID;
 
 import static com.sammy.malum.core.registry.items.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
-public class SoulHunterArmorItem extends MalumArmorItem
-{
-    public SoulHunterArmorItem(EquipmentSlotType slot, Properties builder)
-    {
+public class SoulHunterArmorItem extends MalumArmorItem {
+    public SoulHunterArmorItem(EquipmentSlotType slot, Properties builder) {
         super(SPIRIT_HUNTER, slot, builder);
-        if (FMLEnvironment.dist == Dist.CLIENT)
-        {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
             model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new SoulHunterArmor(slot)), () -> () -> null);
         }
+        createAttributes();
     }
 
     @Override
@@ -32,8 +30,7 @@ public class SoulHunterArmorItem extends MalumArmorItem
         attributeBuilder.put(AttributeRegistry.SCYTHE_PROFICIENCY, new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
     }
 
-    public String texture()
-    {
+    public String texture() {
         return "spirit_hunter_armor";
     }
 }

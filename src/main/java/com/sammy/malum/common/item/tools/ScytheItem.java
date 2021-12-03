@@ -1,13 +1,19 @@
 package com.sammy.malum.common.item.tools;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
@@ -15,20 +21,35 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.UUID;
 
 
 public class ScytheItem extends ModCombatItem implements IEventResponderItem
 {
-    public ScytheItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn)
+    private final float magicDamageBoost;
+    public ScytheItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, float magicDamageBoost, Properties builderIn)
     {
-        super(tier, attackDamageIn+4, attackSpeedIn - 3.2f, builderIn.addToolType(ToolType.HOE, 3));
+        super(tier, builderIn.addToolType(ToolType.HOE, 3));
+        this.magicDamageBoost = magicDamageBoost;
+        createAttributes(tier, attackDamageIn+4, attackSpeedIn - 3.2f);
     }
-    
+
+    @Override
+    public void putExtraAttributes(ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder) {
+        if (magicDamageBoost != 0)
+        {
+            attributeBuilder.put(AttributeRegistry.MAGIC_PROFICIENCY, new AttributeModifier(UUID.fromString("d1d17de1-c944-4cdb-971e-f9c4ce260cfe"), "Weapon magic proficiency", magicDamageBoost, AttributeModifier.Operation.ADDITION));
+        }
+    }
+
     @Nonnull
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn)
@@ -80,10 +101,6 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem
             ((PlayerEntity) attacker).spawnSweepParticles();
         }
         attacker.world.playSound(null, attacker.getPosX(), attacker.getPosY(), attacker.getPosZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, attacker.getSoundCategory(), 1,1);
-    }
-
-    @Override
-    public void deathEvent(LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        SpiritHelper.playerSummonSpirits(target, attacker, stack);
+        attacker.world.playSound(null, attacker.getPosX(), attacker.getPosY(), attacker.getPosZ(), SoundRegistry.SCYTHE_STRIKE, attacker.getSoundCategory(), 1,1);
     }
 }

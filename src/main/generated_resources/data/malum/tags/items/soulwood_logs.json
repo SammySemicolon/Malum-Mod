@@ -5,7 +5,7 @@
     "malum:stripped_soulwood_log",
     "malum:soulwood",
     "malum:stripped_soulwood",
-    "malum:sap_filled_soulwood_log",
-    "malum:stripped_sap_filled_soulwood_log"
+    "malum:exposed_soulwood_log",
+    "malum:revealed_soulwood_log"
   ]
 }

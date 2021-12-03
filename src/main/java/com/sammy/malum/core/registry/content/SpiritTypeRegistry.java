@@ -36,8 +36,8 @@ public class SpiritTypeRegistry
     public static final Color AERIAL_SPIRIT_COLOR = new Color(51, 229, 155);
     public static MalumSpiritType AERIAL_SPIRIT = create("aerial", AERIAL_SPIRIT_COLOR, ItemRegistry.AERIAL_SPIRIT);
 
-    public static final Color AQUATIC_SPIRIT_COLOR = new Color(42, 114, 232);
-    public static MalumSpiritType AQUATIC_SPIRIT = create("aquatic", AQUATIC_SPIRIT_COLOR, ItemRegistry.AQUATIC_SPIRIT);
+    public static final Color AQUEOUS_SPIRIT = new Color(42, 114, 232);
+    public static MalumSpiritType AQUEOUS_SPIRIT_COLOR = create("aqueous", AQUEOUS_SPIRIT, ItemRegistry.AQUEOUS_SPIRIT);
 
     public static final Color INFERNAL_SPIRIT_COLOR = new Color(210, 134, 39);
     public static MalumSpiritType INFERNAL_SPIRIT = create("infernal", INFERNAL_SPIRIT_COLOR, ItemRegistry.INFERNAL_SPIRIT);

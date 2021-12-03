@@ -9,14 +9,9 @@ import net.minecraft.world.World;
 
 import java.awt.*;
 
-public class ConfinedBrillianceItem extends Item implements ISpiritEntityGlow {
-    public ConfinedBrillianceItem(Properties properties) {
+public class BrillianceChunkItem extends Item {
+    public BrillianceChunkItem(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public Color getColor() {
-        return new Color(31, 175, 18);
     }
 
     @Override

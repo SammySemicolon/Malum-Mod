@@ -19,6 +19,10 @@
     {
       "item": "malum:processed_soulstone",
       "count": 2
+    },
+    {
+      "tag": "forge:gems/diamond",
+      "count": 1
     }
   ],
   "spirits": [

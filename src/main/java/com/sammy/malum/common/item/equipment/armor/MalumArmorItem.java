@@ -11,7 +11,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,20 +22,27 @@ import java.util.UUID;
 public class MalumArmorItem extends ArmorItem implements IEventResponderItem
 {
     protected LazyValue<Object> model;
-    private final Multimap<Attribute, AttributeModifier> attributes;
+    private Multimap<Attribute, AttributeModifier> attributes;
     public MalumArmorItem(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
     {
         super(materialIn, slot, builder);
+    }
+
+    public void createAttributes()
+    {
         UUID uuid = ARMOR_MODIFIERS[slot.getIndex()];
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
-        attributeBuilder.putAll(field_234656_m_);
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = getAttributeBuilder(uuid);
         putExtraAttributes(attributeBuilder, uuid);
         attributes = attributeBuilder.build();
     }
-
     public void putExtraAttributes(ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder, UUID uuid)
     {
 
+    }
+    public ImmutableMultimap.Builder<Attribute, AttributeModifier> getAttributeBuilder(UUID uuid) {
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
+        attributeBuilder.putAll(field_234656_m_);
+        return attributeBuilder;
     }
     public String texture()
     {

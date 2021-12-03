@@ -45,7 +45,7 @@ public class SpiritReloadListener extends JsonReloadListener
                 JsonObject spiritObject = spiritElement.getAsJsonObject();
                 String spiritName = spiritObject.getAsJsonPrimitive("spirit").getAsString();
                 int count = spiritObject.getAsJsonPrimitive("count").getAsInt();
-                spiritData.add(new MalumEntitySpiritDataBundle.MalumEntitySpiritData(SpiritHelper.spiritType(spiritName), count));
+                spiritData.add(new MalumEntitySpiritDataBundle.MalumEntitySpiritData(SpiritHelper.getSpiritType(spiritName), count));
             }
 
             MalumSpiritType.SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritDataBundle(spiritData));

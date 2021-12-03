@@ -100,7 +100,7 @@ public class SetBlockItemColors
         ClientHelper.registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));
         ClientHelper.registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR, 1));
         ClientHelper.registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR, 1));
-        ClientHelper.registerItemColor(itemColors, ItemRegistry.AQUATIC_SPIRIT, brighter(AQUATIC_SPIRIT_COLOR, 1));
+        ClientHelper.registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(AQUEOUS_SPIRIT, 1));
         ClientHelper.registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR, 1));
         ClientHelper.registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR, 1));
     }

@@ -124,7 +124,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
         for (Integer index : sapBlockIndexes)
         {
             BlockStateEntry oldEntry = treeFiller.entries.get(index);
-            BlockState newState = MalumHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.SAP_FILLED_RUNEWOOD_LOG.get().getDefaultState());
+            BlockState newState = MalumHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().getDefaultState());
             treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
         }
         treeFiller.fill(reader, false);

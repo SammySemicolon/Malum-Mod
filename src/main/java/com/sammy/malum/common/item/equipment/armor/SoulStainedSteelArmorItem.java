@@ -25,11 +25,14 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new SoulStainedArmorModel(slot)), () -> () -> null);
         }
+        createAttributes();
     }
 
     @Override
-    public void putExtraAttributes(ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder, UUID uuid) {
+    public ImmutableMultimap.Builder<Attribute, AttributeModifier> getAttributeBuilder(UUID uuid) {
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = super.getAttributeBuilder(uuid);
         attributeBuilder.put(AttributeRegistry.MAGIC_RESISTANCE, new AttributeModifier(uuid, "Magic Resistance", 0.5f, AttributeModifier.Operation.ADDITION));
+        return attributeBuilder;
     }
 
     @Override

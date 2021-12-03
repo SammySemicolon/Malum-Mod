@@ -124,7 +124,7 @@ public class CraftingBookPage extends BookPage
     public static CraftingBookPage itemPedestalPage(ItemStack pedestal, ItemStack fullBlock, ItemStack slab)
     {
         ItemStack empty = Items.AIR.getDefaultInstance();
-        return new CraftingBookPage(pedestal, fullBlock, fullBlock, fullBlock, empty, slab, empty, fullBlock, fullBlock, fullBlock);
+        return new CraftingBookPage(pedestal, slab, slab, slab, empty, fullBlock, empty, slab, slab, slab);
     }
     public static CraftingBookPage itemStandPage(Item stand, Item fullBlock, Item slab)
     {

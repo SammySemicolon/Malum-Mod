@@ -19,11 +19,11 @@
   ],
   "spirits": [
     {
-      "item": "malum:sacred_spirit"
+      "item": "malum:sacred_spirit",
+      "count": 2
     },
     {
-      "item": "malum:arcane_spirit",
-      "count": 2
+      "item": "malum:arcane_spirit"
     }
   ]
 }

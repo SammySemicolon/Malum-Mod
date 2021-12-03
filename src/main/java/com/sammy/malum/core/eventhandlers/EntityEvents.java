@@ -3,9 +3,11 @@ package com.sammy.malum.core.eventhandlers;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.ScytheItem;
+import com.sammy.malum.core.registry.items.ITemTagRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.items.ItemRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
+import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -38,6 +40,10 @@ public class EntityEvents {
             if (item instanceof IEventResponderItem) {
                 IEventResponderItem eventItem = (IEventResponderItem) item;
                 eventItem.deathEvent(event, attacker, target, stack);
+            }
+            if (ITemTagRegistry.SOUL_HUNTER_WEAPON.getAllElements().contains(item))
+            {
+                SpiritHelper.playerSummonSpirits(target, attacker, stack);
             }
             attacker.getArmorInventoryList().forEach(s ->{
                 if (s.getItem() instanceof IEventResponderItem)

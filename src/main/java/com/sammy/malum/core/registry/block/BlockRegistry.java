@@ -256,8 +256,8 @@ public class BlockRegistry
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD = BLOCKS.register("stripped_runewood", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD));
 
-    public static final RegistryObject<Block> STRIPPED_SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("stripped_sap_filled_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES()));
-    public static final RegistryObject<Block> SAP_FILLED_RUNEWOOD_LOG = BLOCKS.register("sap_filled_runewood_log", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_SAP_FILLED_RUNEWOOD_LOG));
+    public static final RegistryObject<Block> REVEALED_RUNEWOOD_LOG = BLOCKS.register("revealed_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES()));
+    public static final RegistryObject<Block> EXPOSED_RUNEWOOD_LOG = BLOCKS.register("exposed_runewood_log", () -> new MalumLogBlock(RUNEWOOD_PROPERTIES(), REVEALED_RUNEWOOD_LOG));
 
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_PLANKS_SLAB = BLOCKS.register("runewood_planks_slab", () -> new SlabBlock(RUNEWOOD_PROPERTIES()));
@@ -304,8 +304,8 @@ public class BlockRegistry
     public static final RegistryObject<Block> STRIPPED_SOULWOOD = BLOCKS.register("stripped_soulwood", () -> new RotatedPillarBlock(SOULWOOD_PROPERTIES()));
     public static final RegistryObject<Block> SOULWOOD = BLOCKS.register("soulwood", () -> new MalumLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD));
 
-    public static final RegistryObject<Block> STRIPPED_SAP_FILLED_SOULWOOD_LOG = BLOCKS.register("stripped_sap_filled_soulwood_log", () -> new SapFilledLogBlock(SOULWOOD_PROPERTIES()));
-    public static final RegistryObject<Block> SAP_FILLED_SOULWOOD_LOG = BLOCKS.register("sap_filled_soulwood_log", () -> new MalumLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SAP_FILLED_SOULWOOD_LOG));
+    public static final RegistryObject<Block> REVEALED_SOULWOOD_LOG = BLOCKS.register("revealed_soulwood_log", () -> new SapFilledLogBlock(SOULWOOD_PROPERTIES()));
+    public static final RegistryObject<Block> EXPOSED_SOULWOOD_LOG = BLOCKS.register("exposed_soulwood_log", () -> new MalumLogBlock(SOULWOOD_PROPERTIES(), REVEALED_SOULWOOD_LOG));
 
     public static final RegistryObject<Block> SOULWOOD_PLANKS = BLOCKS.register("soulwood_planks", () -> new Block(SOULWOOD_PROPERTIES()));
     public static final RegistryObject<Block> SOULWOOD_PLANKS_SLAB = BLOCKS.register("soulwood_planks_slab", () -> new SlabBlock(SOULWOOD_PROPERTIES()));

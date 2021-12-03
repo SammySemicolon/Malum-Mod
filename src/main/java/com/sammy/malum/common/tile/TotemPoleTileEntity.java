@@ -70,7 +70,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     {
         if (compound.contains("type"))
         {
-            type = SpiritHelper.spiritType(compound.getString("type"));
+            type = SpiritHelper.getSpiritType(compound.getString("type"));
         }
         desiredColor = compound.getInt("desiredColor");
         currentColor = compound.getInt("currentColor");

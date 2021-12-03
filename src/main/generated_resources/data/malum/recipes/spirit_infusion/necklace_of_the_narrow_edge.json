@@ -9,22 +9,22 @@
   },
   "extra_items": [
     {
-      "item": "malum:radiant_soulstone",
+      "item": "malum:stained_spirit_resonator",
       "count": 1
     },
     {
-      "item": "malum:stained_spirit_resonator",
+      "tag": "forge:storage_blocks/iron",
       "count": 1
+    },
+    {
+      "tag": "forge:ingots/iron",
+      "count": 2
     }
   ],
   "spirits": [
     {
       "item": "malum:wicked_spirit",
       "count": 32
-    },
-    {
-      "item": "malum:eldritch_spirit",
-      "count": 4
     }
   ]
 }

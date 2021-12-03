@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:sap_filled_soulwood_log"
+          "name": "malum:exposed_soulwood_log"
         }
       ],
       "conditions": [

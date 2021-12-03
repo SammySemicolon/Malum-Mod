@@ -34,7 +34,6 @@ import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 public class ProgressionBookScreen extends Screen
 {
     public static final ResourceLocation FRAME_TEXTURE = MalumHelper.prefix("textures/gui/book/frame.png");
-    public static final ResourceLocation FADE_TEXTURE = MalumHelper.prefix("textures/gui/book/fade.png");
 
     public static final ResourceLocation SKY_TEXTURE = MalumHelper.prefix("textures/gui/book/background.png");
 
@@ -52,7 +51,7 @@ public class ProgressionBookScreen extends Screen
     public float cachedYOffset;
     public float xMovement;
     public float yMovement;
-    public boolean ignoreNextMouseClick;
+    public boolean ignoreNextMouseInput;
 
     public static ArrayList<BookEntry> entries;
     public static ArrayList<BookObject> objects;
@@ -90,18 +89,19 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new TextPage("runewood_b"))
                 .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
-                .addPage(new HeadlineTextPage("holy_extract", "holy_extract_a"))
-                .addPage(new TextPage("holy_extract_b"))
+                .addPage(new HeadlineTextPage("holy_sap", "holy_sap_a"))
+                .addPage(new TextPage("holy_sap_b"))
                 .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_SAP.get()))
-                .addPage(new TextPage("holy_extract_c"))
+                .addPage(new TextPage("holy_sap_c"))
                 .addPage(new SmeltingBookPage(HOLY_SAP.get(), HOLY_SYRUP.get()))
-                .addModCompatPage(new TextPage("holy_extract_d"), "thermal_expansion")
+                .addModCompatPage(new TextPage("holy_sap_d"), "thermal_expansion")
         );
 
         entries.add(new BookEntry(
                 "soulstone", PROCESSED_SOULSTONE.get(),-1,2)
                 .addPage(new HeadlineTextPage("soulstone", "soulstone_a"))
                 .addPage(new TextPage("soulstone_b"))
+                .addPage(new TextPage("soulstone_c"))
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_SOULSTONE.get(), PROCESSED_SOULSTONE.get()))
         );
 
@@ -123,12 +123,14 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new TextPage("spirit_infusion_b"))
                 .addPage(new TextPage("spirit_infusion_c"))
                 .addPage(new CraftingBookPage(SPIRIT_ALTAR.get(), AIR, PROCESSED_SOULSTONE.get(), AIR, GOLD_INGOT, RUNEWOOD.get(), GOLD_INGOT, RUNEWOOD.get(), RUNEWOOD.get(), RUNEWOOD.get()))
+                .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
+                .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(new HeadlineTextPage("hex_ash", "hex_ash"))
                 .addPage(new SpiritInfusionPage(HEX_ASH.get()))
         );
 
         entries.add(new BookEntry(
-                "simple_spirit_types", ARCANE_SPIRIT.get(),-2,4)
+                "simple_spirits", ARCANE_SPIRIT.get(),-2,4)
                 .addPage(new SpiritTextPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("sacred_spirit_b"))
                 .addPage(new SpiritTextPage("wicked_spirit", "wicked_spirit_a", WICKED_SPIRIT.get()))
@@ -146,8 +148,8 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new TextPage("infernal_spirit_b"))
                 .addPage(new SpiritTextPage("aerial_spirit", "aerial_spirit_a", AERIAL_SPIRIT.get()))
                 .addPage(new TextPage("aerial_spirit_b"))
-                .addPage(new SpiritTextPage("aquatic_spirit", "aquatic_spirit_a", AQUATIC_SPIRIT.get()))
-                .addPage(new TextPage("aquatic_spirit_b"))
+                .addPage(new SpiritTextPage("aqueous_spirit", "aqueous_spirit_a", AQUEOUS_SPIRIT.get()))
+                .addPage(new TextPage("aqueous_spirit_b"))
         );
 
         entries.add(new BookEntry(
@@ -430,9 +432,9 @@ public class ProgressionBookScreen extends Screen
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button)
     {
-        if (ignoreNextMouseClick)
+        if (ignoreNextMouseInput)
         {
-            ignoreNextMouseClick = false;
+            ignoreNextMouseInput = false;
             return super.mouseReleased(mouseX, mouseY, button);
         }
         if (xOffset != cachedXOffset || yOffset != cachedYOffset)
@@ -607,7 +609,7 @@ public class ProgressionBookScreen extends Screen
         screen.playSound();
         setupEntries();
         screen.setupObjects();
-        screen.ignoreNextMouseClick = ignoreNextMouseClick;
+        screen.ignoreNextMouseInput = ignoreNextMouseClick;
     }
 
     public static ProgressionBookScreen getInstance()
