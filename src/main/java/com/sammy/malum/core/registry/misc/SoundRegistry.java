@@ -39,9 +39,7 @@ public class SoundRegistry
     public static final SoundEvent ETHER_PLACE = create(new SoundEvent(MalumHelper.prefix("ether_place")));
     public static final SoundEvent ETHER_BREAK = create(new SoundEvent(MalumHelper.prefix("ether_break")));
 
-    public static final SoundEvent ABSTRUSE_BLOCK_RETURNS = create(new SoundEvent(MalumHelper.prefix("abstruse_block_returns")));
-
-    public static final SoundEvent SCYTHE_STRIKE = create(new SoundEvent(MalumHelper.prefix("scythe_strike")));
+    public static final SoundEvent SCYTHE_CUT    = create(new SoundEvent(MalumHelper.prefix("scythe_cut")));
     public static final SoundEvent SPIRIT_HARVEST = create(new SoundEvent(MalumHelper.prefix("spirit_harvest")));
 
     public static final SoundEvent TOTEM_CHARGE = create(new SoundEvent(MalumHelper.prefix("totem_charge")));
@@ -53,13 +51,10 @@ public class SoundRegistry
     public static final SoundEvent ALTAR_CONSUME = create(new SoundEvent(MalumHelper.prefix("altar_consume")));
     public static final SoundEvent ALTAR_SPEED_UP = create(new SoundEvent(MalumHelper.prefix("altar_speed_up")));
 
-    public static final SoundEvent RUNE_TABLE_CRAFT = create(new SoundEvent(MalumHelper.prefix("rune_table_craft")));
-
     public static final SoundEvent SINISTER_EQUIP = create(new SoundEvent(MalumHelper.prefix("sinister_equip")));
     public static final SoundEvent HOLY_EQUIP = create(new SoundEvent(MalumHelper.prefix("holy_equip")));
 
     public static final SoundEvent TYRVING_CRUSH = create(new SoundEvent(MalumHelper.prefix("tyrving_crush")));
-    public static final SoundEvent AWAKENED_TYRVING_CRUSH = create(new SoundEvent(MalumHelper.prefix("awakened_tyrving_crush")));
 
     public static final SoundType SOULSTONE = new SoundType(1.0F, 1.0F, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, SOULSTONE_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType BLAZING_QUARTZ = new SoundType(1.0F, 1.0F, BLAZING_QUARTZ_BREAK, SoundEvents.BLOCK_NETHER_ORE_STEP, BLAZING_QUARTZ_PLACE, SoundEvents.BLOCK_NETHER_ORE_PLACE, SoundEvents.BLOCK_NETHER_GOLD_ORE_FALL);

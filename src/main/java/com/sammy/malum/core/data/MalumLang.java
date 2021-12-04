@@ -192,7 +192,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("spirit_pouch", "Spirit Pouch");
         addPage("spirit_pouch", "If you've ever wished for a spirit backpack of sorts, the spirit pouch is just that. The item allows you to store a huge amount of spirits within it's internal inventory. On top of that, all collected spirits are automatically transferred into the pouch if it's in your possession.");
 
-        addDescription("soul_hunter_armor", "Scythe Expert");
+        addDescription("soul_hunter_gear", "Scythe Expert");
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
         addPage("soul_hunter_armor", "The soul hunter set is an offense focused piece of equipment made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage dealt by the user.");
 
@@ -228,22 +228,21 @@ public class MalumLang extends LanguageProvider
         addPage("ring_of_prowess_a", "There is another thing besides spirit arcana that the soul holds, it is known as brilliance, or experience. Unlike spirits, brilliance has strong enough ties to the body and some of it is naturally dispersed from the soul upon the defeat of the vessel.");
         addPage("ring_of_prowess_b", "As with all things, we can't let the soul keep anything for itself. With some clever use of raw arcana combined with natural brilliance we can leech off some extra experience as spirits leave the dying soul. The ring of prowess does just that.");
 
-
-        addDescription("ring_of_curative_talent", "Vigor from Arcana");
+        addDescription("ring_of_curative_talent", "Arcane Vigor");
         addHeadline("ring_of_curative_talent", "Ring of Curative Talent");
         addPage("ring_of_curative_talent", "Tears of the ghast have some really strong curative properties. Combining one with some sacred arcana and infusing both into a gilded ring will yield us the ring of curative talent. This simple trinket will recover a large portion of your health when collecting spirits.");
 
-        addDescription("ring_of_wicked_intent", "Power from Arcana");
+        addDescription("ring_of_wicked_intent", "Arcane Rage");
         addHeadline("ring_of_wicked_intent", "Ring of Wicked Intent");
         addPage("ring_of_wicked_intent", "The wicked ring is a simple yet practical trinket that will greatly assist you in combat. Taking note from the powerful wither army the ring will react to nearby spirit arcana and reward you with strength and rage when collecting spirits.");
 
-        addDescription("necklace_of_the_mystic_mirror", "");
-        addHeadline("necklace_of_the_mystic_mirror", "");
-        addPage("necklace_of_the_mystic_mirror", "");
+        addDescription("necklace_of_the_mystic_mirror", "Mirror Magic");
+        addHeadline("necklace_of_the_mystic_mirror", "Mystic Mirror Necklace");
+        addPage("necklace_of_the_mystic_mirror", "A whole lot of gear, trinkets and armor alike grant an effect when collecting spirits. By utilizing primitive mirror magic we can siphon some raw arcana off of your magic attacks and utilize it to trigger those effects. This necklace does just that.");
 
-        addDescription("necklace_of_the_narrow_edge", "");
-        addHeadline("necklace_of_the_narrow_edge", "");
-        addPage("necklace_of_the_narrow_edge", "");
+        addDescription("necklace_of_the_narrow_edge", "Tradeoff");
+        addHeadline("necklace_of_the_narrow_edge", "Narrow Edge Necklace");
+        addPage("necklace_of_the_narrow_edge", "The scythe sweep attack can be extremely useful in clearing through hordes of prey, however in other cases it can be seen as unnecessary or even impractical. This iron necklace will completely remove your scythe's sweep attack in exchange for a strong damage increase.");
 
         addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
         addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");

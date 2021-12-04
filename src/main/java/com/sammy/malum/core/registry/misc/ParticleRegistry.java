@@ -1,7 +1,7 @@
 package com.sammy.malum.core.registry.misc;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.particles.cut.CutAttackParticle;
+import com.sammy.malum.client.particles.cut.ScytheAttackParticle;
 import com.sammy.malum.client.particles.spiritflame.SpiritFlameParticleType;
 import com.sammy.malum.client.particles.wisp.WispParticleType;
 import net.minecraft.client.Minecraft;
@@ -26,8 +26,9 @@ public class ParticleRegistry {
 
     public static RegistryObject<SpiritFlameParticleType> SPIRIT_FLAME_PARTICLE = PARTICLES.register("spirit_flame_particle", SpiritFlameParticleType::new);
 
+    public static RegistryObject<BasicParticleType> SCYTHE_CUT_ATTACK_PARTICLE = PARTICLES.register("scythe_cut_attack_particle", ()->new BasicParticleType(true));
+    public static RegistryObject<BasicParticleType> SCYTHE_SWEEP_ATTACK_PARTICLE = PARTICLES.register("scythe_sweep_attack_particle", ()->new BasicParticleType(true));
 
-    public static RegistryObject<BasicParticleType> CUT_ATTACK_PARTICLE = PARTICLES.register("cut_attack_particle", ()->new BasicParticleType(true));
     @SubscribeEvent
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event) {
         Minecraft.getInstance().particles.registerFactory(WISP_PARTICLE.get(), WispParticleType.Factory::new);
@@ -36,6 +37,7 @@ public class ParticleRegistry {
         Minecraft.getInstance().particles.registerFactory(TWINKLE_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particles.registerFactory(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
 
-        Minecraft.getInstance().particles.registerFactory(CUT_ATTACK_PARTICLE.get(), CutAttackParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(SCYTHE_CUT_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(SCYTHE_SWEEP_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
     }
 }

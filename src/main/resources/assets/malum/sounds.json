@@ -1,45 +1,41 @@
 {
-  "tainted_rock_break": { "sounds":["malum:tainted_rock/break1","malum:tainted_rock/break2","malum:tainted_rock/break3","malum:tainted_rock/break4","malum:tainted_rock/break5"], "subtitle": "malum.subtitle.tainted_rock_break" },
-  "tainted_rock_step": { "sounds":["malum:tainted_rock/step1","malum:tainted_rock/step2","malum:tainted_rock/step3","malum:tainted_rock/step4","malum:tainted_rock/step5","malum:tainted_rock/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.tainted_rock_step" },
-  "tainted_rock_place": { "sounds":["malum:tainted_rock/break1","malum:tainted_rock/break2","malum:tainted_rock/break3","malum:tainted_rock/break4","malum:tainted_rock/break5"], "subtitle": "malum.subtitle.tainted_rock_place" },
-  "tainted_rock_hit": { "sounds":["malum:tainted_rock/step1","malum:tainted_rock/step2","malum:tainted_rock/step3","malum:tainted_rock/step4","malum:tainted_rock/step5","malum:tainted_rock/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.tainted_rock_hit" },
+  "tainted_rock_break": { "sounds":["malum:magic_rock/break1","malum:magic_rock/break2","malum:magic_rock/break3","malum:magic_rock/break4","malum:magic_rock/break5","malum:magic_rock/break6"], "subtitle": "malum.subtitle.tainted_rock_break" },
+  "tainted_rock_step": { "sounds":["malum:magic_rock/hit1","malum:magic_rock/hit2","malum:magic_rock/hit3","malum:magic_rock/hit4","malum:magic_rock/hit5","malum:magic_rock/hit6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.tainted_rock_step" },
+  "tainted_rock_place": { "sounds":["malum:magic_rock/break1","malum:magic_rock/break2","malum:magic_rock/break3","malum:magic_rock/break4","malum:magic_rock/break5","malum:magic_rock/break6"], "subtitle": "malum.subtitle.tainted_rock_place" },
+  "tainted_rock_hit": { "sounds":["malum:magic_rock/hit1","malum:magic_rock/hit2","malum:magic_rock/hit3","malum:magic_rock/hit4","malum:magic_rock/hit5","malum:magic_rock/hit6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.tainted_rock_hit" },
 
-  "blazing_quartz_break": { "sounds":["malum:blazing_quartz/break1","malum:blazing_quartz/break2","malum:blazing_quartz/break3","malum:blazing_quartz/break4"], "subtitle": "malum.subtitle.blazing_quartz_break" },
-  "blazing_quartz_place": { "sounds":["malum:blazing_quartz/break1","malum:blazing_quartz/break2","malum:blazing_quartz/break3","malum:blazing_quartz/break4"], "subtitle": "malum.subtitle.blazing_quartz_place" },
+  "blazing_quartz_break": { "sounds":["malum:nether_ore/break1","malum:nether_ore/break2","malum:nether_ore/break3","malum:nether_ore/break4"], "subtitle": "malum.subtitle.blazing_quartz_break" },
+  "blazing_quartz_place": { "sounds":["malum:nether_ore/break1","malum:nether_ore/break2","malum:nether_ore/break3","malum:nether_ore/break4"], "subtitle": "malum.subtitle.blazing_quartz_place" },
 
-  "soulstone_break": { "sounds":["malum:soulstone/break1","malum:soulstone/break2","malum:soulstone/break3","malum:soulstone/break4","malum:soulstone/break5"], "subtitle": "malum.subtitle.soulstone_break" },
-  "soulstone_step": { "sounds":["malum:soulstone/step1","malum:soulstone/step2","malum:soulstone/step3","malum:soulstone/step4","malum:soulstone/step5","malum:soulstone/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.soulstone_step" },
-  "soulstone_place": { "sounds":["malum:soulstone/break1","malum:soulstone/break2","malum:soulstone/break3","malum:soulstone/break4","malum:soulstone/break5"], "subtitle": "malum.subtitle.soulstone_place" },
-  "soulstone_hit": { "sounds":["malum:soulstone/step1","malum:soulstone/step2","malum:soulstone/step3","malum:soulstone/step4","malum:soulstone/step5","malum:soulstone/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.soulstone_hit" },
+  "soulstone_break": { "sounds":["malum:heavy_ore/break1","malum:heavy_ore/break2","malum:heavy_ore/break3","malum:heavy_ore/break4"], "subtitle": "malum.subtitle.soulstone_break" },
+  "soulstone_step": { "sounds":["malum:heavy_ore/hit1","malum:heavy_ore/hit2","malum:heavy_ore/hit3","malum:heavy_ore/hit4","malum:soulstone/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.soulstone_step" },
+  "soulstone_place": { "sounds":["malum:heavy_ore/break1","malum:heavy_ore/break2","malum:heavy_ore/break3","malum:heavy_ore/break4"], "subtitle": "malum.subtitle.soulstone_place" },
+  "soulstone_hit": { "sounds":["malum:heavy_ore/hit1","malum:heavy_ore/hit2","malum:heavy_ore/hit3","malum:heavy_ore/hit4","malum:soulstone/step6", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.soulstone_hit" },
 
-  "hallowed_gold_break": { "sounds":["malum:hallowed_gold/break1","malum:hallowed_gold/break2","malum:hallowed_gold/break3","malum:hallowed_gold/break4"], "subtitle": "malum.subtitle.hallowed_gold_break" },
-  "hallowed_gold_step": { "sounds":["malum:hallowed_gold/hit1","malum:hallowed_gold/hit2","malum:hallowed_gold/hit3","malum:hallowed_gold/hit4", "malum:hallowed_gold/hit5", "malum:hallowed_gold/hit6"], "subtitle": "malum.subtitle.hallowed_gold_step" },
-  "hallowed_gold_place": { "sounds":["malum:hallowed_gold/break1","malum:hallowed_gold/break2","malum:hallowed_gold/break3","malum:hallowed_gold/break4"], "subtitle": "malum.subtitle.hallowed_gold_place" },
-  "hallowed_gold_hit": { "sounds":["malum:hallowed_gold/hit1","malum:hallowed_gold/hit2","malum:hallowed_gold/hit3","malum:hallowed_gold/hit4", "malum:hallowed_gold/hit5", "malum:hallowed_gold/hit6"], "subtitle": "malum.subtitle.hallowed_gold_hit" },
+  "hallowed_gold_break": { "sounds":["malum:magic_metal/break1","malum:magic_metal/break2","malum:magic_metal/break3","malum:magic_metal/break4"], "subtitle": "malum.subtitle.hallowed_gold_break" },
+  "hallowed_gold_step": { "sounds":["malum:magic_metal/hit1","malum:magic_metal/hit2","malum:magic_metal/hit3","malum:magic_metal/hit4"], "subtitle": "malum.subtitle.hallowed_gold_step" },
+  "hallowed_gold_place": { "sounds":["malum:magic_metal/break1","malum:magic_metal/break2","malum:magic_metal/break3","malum:magic_metal/break4"], "subtitle": "malum.subtitle.hallowed_gold_place" },
+  "hallowed_gold_hit": { "sounds":["malum:magic_metal/hit1","malum:magic_metal/hit2","malum:magic_metal/hit3","malum:magic_metal/hit4"], "subtitle": "malum.subtitle.hallowed_gold_hit" },
 
-  "soul_stained_steel_break": { "sounds":["malum:soul_stained_steel/break1","malum:soul_stained_steel/break2","malum:soul_stained_steel/break3","malum:soul_stained_steel/break4"], "subtitle": "malum.subtitle.soul_stained_steel_break" },
-  "soul_stained_steel_step": { "sounds":["malum:soul_stained_steel/hit1","malum:soul_stained_steel/hit2","malum:soul_stained_steel/hit3","malum:soul_stained_steel/hit4"], "subtitle": "malum.subtitle.soul_stained_steel_step" },
-  "soul_stained_steel_place": { "sounds":["malum:soul_stained_steel/break1","malum:soul_stained_steel/break2","malum:soul_stained_steel/break3","malum:soul_stained_steel/break4"], "subtitle": "malum.subtitle.soul_stained_steel_place" },
-  "soul_stained_steel_hit": { "sounds":["malum:soul_stained_steel/hit1","malum:soul_stained_steel/hit2","malum:soul_stained_steel/hit3","malum:soul_stained_steel/hit4"], "subtitle": "malum.subtitle.soul_stained_steel_hit" },
+  "soul_stained_steel_break": { "sounds":["malum:heavy_metal/break1","malum:heavy_metal/break2","malum:heavy_metal/break3","malum:heavy_metal/break4"], "subtitle": "malum.subtitle.soul_stained_steel_break" },
+  "soul_stained_steel_step": { "sounds":["malum:heavy_metal/hit1","malum:heavy_metal/hit2","malum:heavy_metal/hit3","malum:heavy_metal/hit4"], "subtitle": "malum.subtitle.soul_stained_steel_step" },
+  "soul_stained_steel_place": { "sounds":["malum:heavy_metal/break1","malum:heavy_metal/break2","malum:heavy_metal/break3","malum:heavy_metal/break4"], "subtitle": "malum.subtitle.soul_stained_steel_place" },
+  "soul_stained_steel_hit": { "sounds":["malum:heavy_metal/hit1","malum:heavy_metal/hit2","malum:heavy_metal/hit3","malum:heavy_metal/hit4"], "subtitle": "malum.subtitle.soul_stained_steel_hit" },
 
   "ether_break": { "sounds":["malum:ether/break1","malum:ether/break2","malum:ether/break3","malum:ether/break4"], "subtitle": "malum.subtitle.ether_break" },
   "ether_place": { "sounds":["malum:ether/break1","malum:ether/break2","malum:ether/break3","malum:ether/break4"], "subtitle": "malum.subtitle.ether_place" },
-  
-  "abstruse_block_returns": { "sounds":["malum:abstruse_block/return1","malum:abstruse_block/return2"], "subtitle": "malum.subtitle.abstruse_block_returns" },
-  
-  "scythe_strike": { "sounds":["malum:scythes/strike1","malum:scythes/strike2","malum:scythes/strike3"], "subtitle": "malum.subtitle.scythe_strike" },
-  "spirit_harvest": { "sounds":["malum:spirits/harvest1","malum:spirits/harvest2","malum:spirits/harvest3"], "subtitle": "malum.subtitle.spirit_harvest" },
 
-  "totem_charge": { "sounds":["malum:totems/totem_charge"], "subtitle": "malum.subtitle.totem_charge" },
-  "totem_charged": { "sounds":["malum:totems/totem_charged"], "subtitle": "malum.subtitle.totem_charged" },
-  "totem_engrave": { "sounds":["malum:totems/totem_engrave"], "subtitle": "malum.subtitle.totem_engrave" },
+  "scythe_cut": { "sounds":["malum:scythe/cut1","malum:scythe/cut2","malum:scythe/cut3"], "subtitle": "malum.subtitle.scythe_strike" },
+  "spirit_harvest": { "sounds":["malum:scythe/harvest1","malum:scythe/harvest2","malum:scythe/harvest3"], "subtitle": "malum.subtitle.spirit_harvest" },
+
+  "totem_charge": { "sounds":["malum:totem/totem_charge"], "subtitle": "malum.subtitle.totem_charge" },
+  "totem_charged": { "sounds":["malum:totem/totem_charged"], "subtitle": "malum.subtitle.totem_charged" },
+  "totem_engrave": { "sounds":["malum:totem/totem_engrave"], "subtitle": "malum.subtitle.totem_engrave" },
 
   "altar_craft": { "sounds":["malum:infusion_craft"], "subtitle": "malum.subtitle.altar_craft" },
   "altar_loop": { "sounds":["malum:infusion_loop"], "subtitle": "malum.subtitle.altar_loop" },
   "altar_speed_up": { "sounds":["malum:infusion_speed_up"], "subtitle": "malum.subtitle.altar_speed_up" },
   "altar_consume": { "sounds":["malum:infusion_consume"], "subtitle": "malum.subtitle.altar_consume" },
-
-  "rune_table_craft": { "sounds":["malum:rune_table_craft"], "subtitle": "malum.subtitle.rune_table_craft" },
 
   "tyrving_crush": { "sounds":["malum:tyrving_crush"], "subtitle": "malum.subtitle.tyrving_crush" },
   "awakened_tyrving_crush": { "sounds":["malum:awakened_tyrving_crush"], "subtitle": "malum.subtitle.awakened_tyrving_crush" },

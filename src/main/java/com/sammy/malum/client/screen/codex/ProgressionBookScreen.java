@@ -40,7 +40,7 @@ public class ProgressionBookScreen extends Screen
     public int bookWidth = 378;
     public int bookHeight = 250;
     public int bookInsideWidth = 344;
-    public int bookInsideHeight = 215;
+    public int bookInsideHeight = 218;
 
     public final int parallax_width = 1024;
     public final int parallax_height = 2560;
@@ -272,15 +272,13 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -8, 5)
-                .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror_a"))
-                .addPage(new TextPage("necklace_of_the_mystic_mirror_b"))
+                .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror"))
                 .addPage(new SpiritInfusionPage(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
         entries.add(new BookEntry(
                 "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -6, 7)
-                .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge_a"))
-                .addPage(new TextPage("necklace_of_the_narrow_edge_b"))
+                .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge"))
                 .addPage(new SpiritInfusionPage(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
@@ -504,7 +502,7 @@ public class ProgressionBookScreen extends Screen
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         int insideLeft = guiLeft + 17;
-        int insideTop = guiTop + 17;
+        int insideTop = guiTop + 14;
         float uOffset = -(xOffset) * xModifier - extraXOffset;
         float vOffset = Math.min(parallax_height-bookInsideHeight,(parallax_height-bookInsideHeight-yOffset*yModifier) + extraYOffset);
         if (vOffset <= parallax_height/2f+1)

@@ -130,7 +130,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                 }
             }
             returnAge+=4;
-            entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundRegistry.SCYTHE_STRIKE, entity.getSoundCategory(), 1.0F, 0.9f + entity.world.rand.nextFloat() * 0.2f);
+            entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundRegistry.SCYTHE_CUT, entity.getSoundCategory(), 1.0F, 0.9f + entity.world.rand.nextFloat() * 0.2f);
         }
         super.onEntityHit(p_213868_1_);
     }

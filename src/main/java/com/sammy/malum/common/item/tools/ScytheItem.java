@@ -18,7 +18,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
@@ -80,10 +79,10 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem {
         if (attacker instanceof PlayerEntity) {
             SoundEvent sound;
             if (MalumHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE)) {
-                spawnSweepParticles((PlayerEntity) attacker, ParticleRegistry.CUT_ATTACK_PARTICLE.get());
-                sound = SoundRegistry.SCYTHE_STRIKE;
+                spawnSweepParticles((PlayerEntity) attacker, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
+                sound = SoundRegistry.SCYTHE_CUT;
             } else {
-                spawnSweepParticles((PlayerEntity) attacker, ParticleTypes.SWEEP_ATTACK);
+                spawnSweepParticles((PlayerEntity) attacker, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
                 sound = SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP;
             }
             attacker.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), sound, attacker.getSoundCategory(), 1, 1);
