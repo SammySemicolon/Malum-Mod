@@ -1,5 +1,6 @@
 {
   "type": "malum:spirit_infusion",
+  "retain_prime_item": false,
   "input": {
     "tag": "minecraft:wool",
     "count": 1

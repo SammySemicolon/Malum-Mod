@@ -1,0 +1,31 @@
+{
+  "type": "malum:spirit_infusion",
+  "retain_prime_item": true,
+  "input": {
+    "item": "minecraft:ghast_tear",
+    "count": 1
+  },
+  "output": {
+    "item": "minecraft:ghast_tear",
+    "count": 2
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:phantom_membrane",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:aerial_spirit",
+      "count": 3
+    },
+    {
+      "item": "malum:arcane_spirit",
+      "count": 2
+    },
+    {
+      "item": "malum:wicked_spirit"
+    }
+  ]
+}

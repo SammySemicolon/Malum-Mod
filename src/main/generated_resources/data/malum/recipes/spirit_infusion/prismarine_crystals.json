@@ -1,0 +1,18 @@
+{
+  "type": "malum:spirit_infusion",
+  "retain_prime_item": true,
+  "input": {
+    "item": "minecraft:prismarine_crystals",
+    "count": 1
+  },
+  "output": {
+    "item": "minecraft:prismarine_crystals",
+    "count": 2
+  },
+  "extra_items": [],
+  "spirits": [
+    {
+      "item": "malum:aqueous_spirit"
+    }
+  ]
+}

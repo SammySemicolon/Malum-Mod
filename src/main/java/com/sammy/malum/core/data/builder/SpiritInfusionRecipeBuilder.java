@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public class SpiritInfusionRecipeBuilder
 {
-
+    private boolean retainPrimeItem;
     private final IngredientWithCount input;
 
     private final ItemWithCount output;
@@ -53,6 +53,11 @@ public class SpiritInfusionRecipeBuilder
         spirits.add(new ItemWithCount(type.splinterItem(), count));
         return this;
     }
+    public SpiritInfusionRecipeBuilder retainsPrimeItem()
+    {
+        retainPrimeItem = true;
+        return this;
+    }
     public void build(Consumer<IFinishedRecipe> consumerIn, String recipeName)
     {
         build(consumerIn, MalumHelper.prefix("spirit_infusion/" + recipeName));
@@ -63,13 +68,14 @@ public class SpiritInfusionRecipeBuilder
     }
     public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id)
     {
-        consumerIn.accept(new SpiritInfusionRecipeBuilder.Result(id, input, output, spirits, extraItems));
+        consumerIn.accept(new SpiritInfusionRecipeBuilder.Result(id, retainPrimeItem, input, output, spirits, extraItems));
     }
 
     public static class Result implements IFinishedRecipe
     {
         private final ResourceLocation id;
 
+        private final boolean retainPrimeItem;
         private final IngredientWithCount input;
 
         private final ItemWithCount output;
@@ -78,9 +84,10 @@ public class SpiritInfusionRecipeBuilder
         private final List<IngredientWithCount> extraItems;
 
 
-        public Result(ResourceLocation id, IngredientWithCount input, ItemWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
+        public Result(ResourceLocation id, boolean retainPrimeItem, IngredientWithCount input, ItemWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
         {
             this.id = id;
+            this.retainPrimeItem = retainPrimeItem;
             this.input = input;
             this.output = output;
             this.spirits = spirits;
@@ -88,21 +95,20 @@ public class SpiritInfusionRecipeBuilder
         }
 
         @Override
-        public void serialize(JsonObject json)
-        {
+        public void serialize(JsonObject json) {
             JsonObject inputObject = input.serialize();
 
             JsonObject outputObject = output.serialize();
             JsonArray extraItems = new JsonArray();
-            for (IngredientWithCount extraItem : this.extraItems)
-            {
+            for (IngredientWithCount extraItem : this.extraItems) {
                 extraItems.add(extraItem.serialize());
             }
             JsonArray spirits = new JsonArray();
-            for (ItemWithCount spirit : this.spirits)
-            {
+            for (ItemWithCount spirit : this.spirits) {
                 spirits.add(spirit.serialize());
             }
+            json.addProperty("retain_prime_item", retainPrimeItem);
+
             json.add("input", inputObject);
             json.add("output", outputObject);
             json.add("extra_items", extraItems);

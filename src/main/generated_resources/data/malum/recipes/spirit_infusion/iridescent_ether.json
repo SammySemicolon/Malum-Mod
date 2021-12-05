@@ -1,5 +1,6 @@
 {
   "type": "malum:spirit_infusion",
+  "retain_prime_item": false,
   "input": {
     "item": "malum:ether",
     "count": 1
@@ -11,6 +12,10 @@
     {
       "item": "minecraft:prismarine_crystals",
       "count": 1
+    },
+    {
+      "item": "malum:arcane_charcoal_fragment",
+      "count": 2
     }
   ],
   "spirits": [

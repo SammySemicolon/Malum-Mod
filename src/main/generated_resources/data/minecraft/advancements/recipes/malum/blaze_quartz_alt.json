@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_blaze_quartz": {
+    "has_arcane_charcoal": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "malum:blazing_quartz"
+            "item": "malum:arcane_charcoal"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_blaze_quartz",
+      "has_arcane_charcoal",
       "has_the_recipe"
     ]
   ]

@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.generic;
+package com.sammy.malum.common.block.misc;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

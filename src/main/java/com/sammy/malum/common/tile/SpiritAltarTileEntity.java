@@ -225,8 +225,9 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
         {
             outputStack.setTag(stack.getTag());
         }
-
-        stack.shrink(recipe.input.count);
+        if (!recipe.retainsPrimeItem) {
+            stack.shrink(recipe.input.count);
+        }
         for (ItemWithCount spirit : recipe.spirits)
         {
             for (int i = 0; i < spiritInventory.slotCount; i++)

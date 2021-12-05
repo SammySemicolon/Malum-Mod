@@ -2,6 +2,7 @@ package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
@@ -29,6 +30,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     public static final IRecipeType<SpiritInfusionRecipe> RECIPE_TYPE = new RecipeType<>();
     private final ResourceLocation id;
 
+    public final boolean retainsPrimeItem;
     public final IngredientWithCount input;
 
     public final ItemWithCount output;
@@ -36,9 +38,10 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     public final List<ItemWithCount> spirits;
     public final List<IngredientWithCount> extraItems;
 
-    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, ItemWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
+    public SpiritInfusionRecipe(ResourceLocation id, boolean retainsPrimeItem, IngredientWithCount input, ItemWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
     {
         this.id = id;
+        this.retainsPrimeItem = retainsPrimeItem;
         this.input = input;
         this.output = output;
         this.spirits = spirits;
@@ -150,6 +153,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         @Override
         public SpiritInfusionRecipe read(ResourceLocation recipeId, JsonObject json)
         {
+            boolean retainsPrimeItem = json.getAsJsonPrimitive("retain_prime_item").getAsBoolean();
             JsonObject inputObject = json.getAsJsonObject("input");
             IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
 
@@ -175,13 +179,14 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 throw new JsonSyntaxException("Spirit infusion recipes need at least 1 spirit ingredient, recipe with id: " + recipeId + " is incorrect");
             }
-            return new SpiritInfusionRecipe(recipeId, input, output,spirits,extraItems);
+            return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, output,spirits,extraItems);
         }
 
         @Nullable
         @Override
         public SpiritInfusionRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
         {
+            boolean retainsPrimeItem = buffer.getBoolean(0);
             IngredientWithCount input = IngredientWithCount.read(buffer);
             ItemStack output = buffer.readItemStack();
             int extraItemCount = buffer.readInt();
@@ -196,12 +201,13 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 spirits.add(new ItemWithCount(buffer.readItemStack()));
             }
-            return new SpiritInfusionRecipe(recipeId, input, new ItemWithCount(output), spirits, extraItems);
+            return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, new ItemWithCount(output), spirits, extraItems);
         }
 
         @Override
         public void write(PacketBuffer buffer, SpiritInfusionRecipe recipe)
         {
+            buffer.writeBoolean(recipe.retainsPrimeItem);
             recipe.input.write(buffer);
             buffer.writeItemStack(recipe.output.stack());
             buffer.writeInt(recipe.extraItems.size());

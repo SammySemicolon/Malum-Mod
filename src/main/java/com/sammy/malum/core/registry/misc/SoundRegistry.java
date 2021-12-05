@@ -18,8 +18,18 @@ public class SoundRegistry
     public static final SoundEvent SOULSTONE_STEP = create(new SoundEvent(MalumHelper.prefix("soulstone_step")));
     public static final SoundEvent SOULSTONE_HIT = create(new SoundEvent(MalumHelper.prefix("soulstone_hit")));
 
-    public static final SoundEvent BLAZING_QUARTZ_BREAK = create(new SoundEvent(MalumHelper.prefix("blazing_quartz_break")));
-    public static final SoundEvent BLAZING_QUARTZ_PLACE = create(new SoundEvent(MalumHelper.prefix("blazing_quartz_place")));
+    public static final SoundEvent BLAZING_QUARTZ_ORE_BREAK = create(new SoundEvent(MalumHelper.prefix("blazing_quartz_ore_break")));
+    public static final SoundEvent BLAZING_QUARTZ_ORE_PLACE = create(new SoundEvent(MalumHelper.prefix("blazing_quartz_ore_place")));
+
+    public static final SoundEvent BLAZING_QUARTZ_BLOCK_BREAK = create(new SoundEvent(MalumHelper.prefix("blazing_quartz_block_break")));
+    public static final SoundEvent BLAZING_QUARTZ_BLOCK_PLACE = create(new SoundEvent(MalumHelper.prefix("blazing_quartz_block_place")));
+    public static final SoundEvent BLAZING_QUARTZ_BLOCK_STEP = create(new SoundEvent(MalumHelper.prefix("blazing_quartz_block_step")));
+    public static final SoundEvent BLAZING_QUARTZ_BLOCK_HIT = create(new SoundEvent(MalumHelper.prefix("blazing_quartz_block_hit")));
+
+    public static final SoundEvent ARCANE_CHARCOAL_BLOCK_BREAK = create(new SoundEvent(MalumHelper.prefix("arcane_charcoal_block_break")));
+    public static final SoundEvent ARCANE_CHARCOAL_BLOCK_PLACE = create(new SoundEvent(MalumHelper.prefix("arcane_charcoal_block_place")));
+    public static final SoundEvent ARCANE_CHARCOAL_BLOCK_STEP = create(new SoundEvent(MalumHelper.prefix("arcane_charcoal_block_step")));
+    public static final SoundEvent ARCANE_CHARCOAL_BLOCK_HIT = create(new SoundEvent(MalumHelper.prefix("arcane_charcoal_block_hit")));
 
     public static final SoundEvent TAINTED_ROCK_BREAK = create(new SoundEvent(MalumHelper.prefix("tainted_rock_break")));
     public static final SoundEvent TAINTED_ROCK_PLACE = create(new SoundEvent(MalumHelper.prefix("tainted_rock_place")));
@@ -57,7 +67,9 @@ public class SoundRegistry
     public static final SoundEvent TYRVING_CRUSH = create(new SoundEvent(MalumHelper.prefix("tyrving_crush")));
 
     public static final SoundType SOULSTONE = new SoundType(1.0F, 1.0F, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, SOULSTONE_HIT, SoundEvents.BLOCK_STONE_FALL);
-    public static final SoundType BLAZING_QUARTZ = new SoundType(1.0F, 1.0F, BLAZING_QUARTZ_BREAK, SoundEvents.BLOCK_NETHER_ORE_STEP, BLAZING_QUARTZ_PLACE, SoundEvents.BLOCK_NETHER_ORE_PLACE, SoundEvents.BLOCK_NETHER_GOLD_ORE_FALL);
+    public static final SoundType BLAZING_QUARTZ_ORE = new SoundType(1.0F, 1.0F, BLAZING_QUARTZ_ORE_BREAK, SoundEvents.BLOCK_NETHER_ORE_STEP, BLAZING_QUARTZ_ORE_PLACE, SoundEvents.BLOCK_NETHER_ORE_HIT, SoundEvents.BLOCK_NETHER_GOLD_ORE_FALL);
+    public static final SoundType BLAZING_QUARTZ_BLOCK = new SoundType(1.0F, 1.25f, BLAZING_QUARTZ_BLOCK_BREAK, BLAZING_QUARTZ_BLOCK_STEP, BLAZING_QUARTZ_BLOCK_PLACE, BLAZING_QUARTZ_BLOCK_HIT, SoundEvents.BLOCK_NETHER_GOLD_ORE_FALL);
+    public static final SoundType ARCANE_CHARCOAL_BLOCK = new SoundType(1.0F, 0.9f, ARCANE_CHARCOAL_BLOCK_BREAK, ARCANE_CHARCOAL_BLOCK_STEP, ARCANE_CHARCOAL_BLOCK_PLACE, ARCANE_CHARCOAL_BLOCK_HIT, SoundEvents.BLOCK_NETHER_GOLD_ORE_FALL);
     public static final SoundType TAINTED_ROCK = new SoundType(1.0F, 1.0F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType TWISTED_ROCK = new SoundType(1.0F, 0.75F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, SoundEvents.BLOCK_BASALT_FALL);
     public static final SoundType HALLOWED_GOLD = new SoundType(1.0F, 1.0F, HALLOWED_GOLD_BREAK, HALLOWED_GOLD_STEP, HALLOWED_GOLD_PLACE, HALLOWED_GOLD_HIT, SoundEvents.BLOCK_METAL_FALL);

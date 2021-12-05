@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.block.generic.MalumLogBlock;
+import com.sammy.malum.common.block.misc.MalumLogBlock;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import net.minecraft.block.Block;

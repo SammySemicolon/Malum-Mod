@@ -1,5 +1,6 @@
 {
   "type": "malum:spirit_infusion",
+  "retain_prime_item": false,
   "input": {
     "item": "minecraft:glowstone_dust",
     "count": 4
@@ -10,8 +11,8 @@
   },
   "extra_items": [
     {
-      "item": "malum:blazing_quartz",
-      "count": 2
+      "item": "malum:blazing_quartz_fragment",
+      "count": 4
     },
     {
       "item": "minecraft:blaze_powder",

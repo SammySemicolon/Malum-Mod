@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.generic.sign;
+package com.sammy.malum.common.block.misc.sign;
 
 import com.sammy.malum.common.tile.MalumSignTileEntity;
 import net.minecraft.block.BlockState;

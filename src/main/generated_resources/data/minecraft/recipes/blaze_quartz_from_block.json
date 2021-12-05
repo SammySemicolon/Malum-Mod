@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:block_of_blazing_quartz"
+    }
+  ],
+  "result": {
+    "item": "malum:blazing_quartz",
+    "count": 9
+  }
+}

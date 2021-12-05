@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "malum:arcane_charcoal"
+    }
+  },
+  "result": {
+    "item": "malum:block_of_arcane_charcoal"
+  }
+}

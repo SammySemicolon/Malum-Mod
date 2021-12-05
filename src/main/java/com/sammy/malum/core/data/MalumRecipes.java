@@ -41,7 +41,20 @@ public class MalumRecipes extends RecipeProvider
     {
         ShapelessRecipeBuilder.shapelessRecipe(ItemRegistry.ENCYCLOPEDIA_ARCANA.get()).addIngredient(Items.BOOK).addIngredient(ItemRegistry.PROCESSED_SOULSTONE.get()).addCriterion("has_soulstone", hasItem(ItemRegistry.PROCESSED_SOULSTONE.get())).build(consumer);
         shapelessRecipe(ItemRegistry.COAL_FRAGMENT.get(),8).addIngredient(Items.COAL).addCriterion("has_coal", hasItem(Items.COAL)).build(consumer);
+
+
+        smeltingRecipe(Ingredient.fromItems(ItemRegistry.BLAZING_QUARTZ_ORE.get()), ItemRegistry.BLAZING_QUARTZ.get(),0.25f,200).addCriterion("has_blaze_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer);
+        blastingRecipe(Ingredient.fromItems(ItemRegistry.BLAZING_QUARTZ_ORE.get()), ItemRegistry.BLAZING_QUARTZ.get(),0.25f,100).addCriterion("has_blaze_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer, "blazing_quartz_from_blasting");
+        ShapedRecipeBuilder.shapedRecipe(ItemRegistry.BLOCK_OF_BLAZING_QUARTZ.get()).key('#', ItemRegistry.BLAZING_QUARTZ.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_blaze_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ItemRegistry.BLAZING_QUARTZ.get(), 9).addIngredient(ItemRegistry.BLOCK_OF_BLAZING_QUARTZ.get()).addCriterion("has_blaze_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer, "blaze_quartz_from_block");
+        ShapedRecipeBuilder.shapedRecipe(Items.NETHERRACK, 2).key('Z', ItemRegistry.BLAZING_QUARTZ.get()).key('Y', Tags.Items.COBBLESTONE).patternLine("ZY").patternLine("YZ").addCriterion("has_blazing_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer, "blazing_quartz_netherrack");
+
         shapelessRecipe(ItemRegistry.BLAZING_QUARTZ_FRAGMENT.get(),8).addIngredient(ItemRegistry.BLAZING_QUARTZ.get()).addCriterion("has_blazing_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer);
+        shapelessRecipe(ItemRegistry.CHARCOAL_FRAGMENT.get(),8).addIngredient(Items.CHARCOAL).addCriterion("has_charcoal", hasItem(Items.CHARCOAL)).build(consumer);
+
+
+        ShapedRecipeBuilder.shapedRecipe(ItemRegistry.BLOCK_OF_ARCANE_CHARCOAL.get()).key('#', ItemRegistry.ARCANE_CHARCOAL.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_arcane_charcoal", hasItem(ItemRegistry.ARCANE_CHARCOAL.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ItemRegistry.ARCANE_CHARCOAL.get(), 9).addIngredient(ItemRegistry.BLOCK_OF_ARCANE_CHARCOAL.get()).addCriterion("has_arcane_charcoal", hasItem(ItemRegistry.ARCANE_CHARCOAL.get())).build(consumer, "blaze_quartz_alt");
         shapelessRecipe(ItemRegistry.ARCANE_CHARCOAL_FRAGMENT.get(),8).addIngredient(ItemRegistry.ARCANE_CHARCOAL.get()).addCriterion("has_arcane_charcoal", hasItem(ItemRegistry.ARCANE_CHARCOAL.get())).build(consumer);
 
         smeltingRecipe(Ingredient.fromTag(ITemTagRegistry.RUNEWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(),0.1f,200).addCriterion("has_runewood_planks", hasItem(ITemTagRegistry.RUNEWOOD_LOGS)).build(consumer);
@@ -59,12 +72,6 @@ public class MalumRecipes extends RecipeProvider
         blastingRecipe(Ingredient.fromItems(ItemRegistry.SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(),0.25f,100).addCriterion("has_soulstone", hasItem(ItemRegistry.SOULSTONE_CLUSTER.get())).build(consumer, "soulstone_from_blasting");
         ShapedRecipeBuilder.shapedRecipe(ItemRegistry.BLOCK_OF_SOULSTONE.get()).key('#', ItemRegistry.PROCESSED_SOULSTONE.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_soulstone", hasItem(ItemRegistry.SOULSTONE_CLUSTER.get())).build(consumer);
         ShapelessRecipeBuilder.shapelessRecipe(ItemRegistry.PROCESSED_SOULSTONE.get(), 9).addIngredient(ItemRegistry.BLOCK_OF_SOULSTONE.get()).addCriterion("has_soulstone", hasItem(ItemRegistry.SOULSTONE_CLUSTER.get())).build(consumer, "soulstone_from_block");
-
-        smeltingRecipe(Ingredient.fromItems(ItemRegistry.BLAZING_QUARTZ_ORE.get()), ItemRegistry.BLAZING_QUARTZ.get(),0.25f,200).addCriterion("has_blaze_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer);
-        blastingRecipe(Ingredient.fromItems(ItemRegistry.BLAZING_QUARTZ_ORE.get()), ItemRegistry.BLAZING_QUARTZ.get(),0.25f,100).addCriterion("has_blaze_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer, "blazing_quartz_from_blasting");
-        ShapedRecipeBuilder.shapedRecipe(ItemRegistry.BLOCK_OF_BLAZING_QUARTZ.get()).key('#', ItemRegistry.BLAZING_QUARTZ.get()).patternLine("###").patternLine("###").patternLine("###").addCriterion("has_blaze_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(ItemRegistry.BLAZING_QUARTZ.get(), 9).addIngredient(ItemRegistry.BLOCK_OF_BLAZING_QUARTZ.get()).addCriterion("has_blaze_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer, "blaze_quartz_alt");
-        ShapedRecipeBuilder.shapedRecipe(Items.NETHERRACK, 2).key('Z', ItemRegistry.BLAZING_QUARTZ.get()).key('Y', Tags.Items.COBBLESTONE).patternLine("ZY").patternLine("YZ").addCriterion("has_blazing_quartz", hasItem(ItemRegistry.BLAZING_QUARTZ.get())).build(consumer, "blazing_quartz_netherrack");
 
         ShapelessRecipeBuilder.shapelessRecipe(ItemRegistry.HOLY_SAPBALL.get(), 3).addIngredient(ItemRegistry.HOLY_SAP.get()).addIngredient(Items.SLIME_BALL).addCriterion("has_holy_extract", hasItem(ItemRegistry.HOLY_SAP.get())).build(consumer);
         smeltingRecipe(Ingredient.fromItems(ItemRegistry.HOLY_SAP.get()), ItemRegistry.HOLY_SYRUP.get(),0.1f,200).addCriterion("has_holy_extract", hasItem(ItemRegistry.HOLY_SAP.get())).build(consumer);

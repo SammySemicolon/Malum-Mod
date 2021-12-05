@@ -10,12 +10,12 @@ import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
-import com.sammy.malum.common.block.generic.MalumDirectionalBlock;
-import com.sammy.malum.common.block.generic.MalumLeavesBlock;
-import com.sammy.malum.common.block.generic.MalumLogBlock;
-import com.sammy.malum.common.block.generic.MalumOreBlock;
-import com.sammy.malum.common.block.generic.sign.MalumStandingSignBlock;
-import com.sammy.malum.common.block.generic.sign.MalumWallSignBlock;
+import com.sammy.malum.common.block.misc.MalumDirectionalBlock;
+import com.sammy.malum.common.block.misc.MalumLeavesBlock;
+import com.sammy.malum.common.block.misc.MalumLogBlock;
+import com.sammy.malum.common.block.misc.MalumOreBlock;
+import com.sammy.malum.common.block.misc.sign.MalumStandingSignBlock;
+import com.sammy.malum.common.block.misc.sign.MalumWallSignBlock;
 import com.sammy.malum.common.block.item_storage.WoodItemPedestalBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
 import com.sammy.malum.common.block.item_storage.SpiritJarBlock;
@@ -68,12 +68,17 @@ public class BlockRegistry
 
     public static Properties BLAZE_QUARTZ_ORE_PROPERTIES()
     {
-        return Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).sound(SoundRegistry.BLAZING_QUARTZ);
+        return Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).sound(SoundRegistry.BLAZING_QUARTZ_ORE);
     }
 
     public static Properties BLAZE_QUARTZ_PROPERTIES()
     {
-        return Properties.create(Material.ROCK, MaterialColor.RED).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).sound(SoundType.NETHER_ORE);
+        return Properties.create(Material.ROCK, MaterialColor.RED).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundRegistry.BLAZING_QUARTZ_BLOCK);
+    }
+
+    public static Properties ARCANE_CHARCOAL_PROPERTIES()
+    {
+        return Properties.create(Material.ROCK, MaterialColor.BLACK).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundRegistry.ARCANE_CHARCOAL_BLOCK);
     }
 
     public static Properties RUNEWOOD_PROPERTIES()
@@ -81,7 +86,7 @@ public class BlockRegistry
         return Properties.create(Material.WOOD, MaterialColor.YELLOW).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(1.75F, 4.0F);
     }
 
-    public static Properties RUNEWOOD_PLANTS()
+    public static Properties RUNEWOOD_PLANTS_PROPERTIES()
     {
         return Properties.create(Material.PLANTS, MaterialColor.YELLOW).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).harvestTool(ToolType.HOE).zeroHardnessAndResistance();
     }
@@ -91,7 +96,7 @@ public class BlockRegistry
         return Properties.create(Material.WOOD, MaterialColor.PURPLE).sound(SoundType.WOOD).harvestTool(ToolType.AXE).hardnessAndResistance(1.75F, 4.0F);
     }
 
-    public static Properties SOULWOOD_PLANTS()
+    public static Properties SOULWOOD_PLANTS_PROPERTIES()
     {
         return Properties.create(Material.PLANTS, MaterialColor.PURPLE).doesNotBlockMovement().notSolid().sound(SoundType.PLANT).harvestTool(ToolType.HOE).zeroHardnessAndResistance();
     }
@@ -103,7 +108,7 @@ public class BlockRegistry
 
     public static Properties ETHER_BLOCK_PROPERTIES()
     {
-        return Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundRegistry.ETHER).doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14));
+        return Properties.create(Material.GLASS, MaterialColor.BLUE).sound(SoundRegistry.ETHER).doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> 14);
     }
 
     public static Properties ABSTRUSE_BLOCK_PROPERTIES()
@@ -248,7 +253,7 @@ public class BlockRegistry
     //endregion
 
     //region runewood
-    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new RunewoodSaplingBlock(RUNEWOOD_PLANTS().tickRandomly()));
+    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new RunewoodSaplingBlock(RUNEWOOD_PLANTS_PROPERTIES().tickRandomly()));
     public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(175, 65, 48), new Color(251, 193, 76)));
 
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
@@ -296,7 +301,7 @@ public class BlockRegistry
     //endregion
 
     //region soulwood
-    public static final RegistryObject<Block> SOULWOOD_SAPLING = BLOCKS.register("soulwood_sapling", () -> new RunewoodSaplingBlock(SOULWOOD_PLANTS().tickRandomly()));
+    public static final RegistryObject<Block> SOULWOOD_SAPLING = BLOCKS.register("soulwood_sapling", () -> new RunewoodSaplingBlock(SOULWOOD_PLANTS_PROPERTIES().tickRandomly()));
     public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(164, 18, 79), new Color(224, 30, 214)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(SOULWOOD_PROPERTIES()));
@@ -344,18 +349,20 @@ public class BlockRegistry
     //endregion
 
     //region ether
-    public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14))));
-    public static final RegistryObject<Block> WALL_ETHER_TORCH = BLOCKS.register("wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(ETHER_TORCH)));
+    public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> 14)));
+    public static final RegistryObject<Block> WALL_ETHER_TORCH = BLOCKS.register("wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> 14).lootFrom(ETHER_TORCH)));
     public static final RegistryObject<Block> ETHER = BLOCKS.register("ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_ETHER_BRAZIER = BLOCKS.register("tainted_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)).notSolid()));
-    public static final RegistryObject<Block> TWISTED_ETHER_BRAZIER = BLOCKS.register("twisted_ether_brazier", () -> new EtherBrazierBlock(TWISTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)).notSolid()));
+    public static final RegistryObject<Block> TAINTED_ETHER_BRAZIER = BLOCKS.register("tainted_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> 14).notSolid()));
+    public static final RegistryObject<Block> TWISTED_ETHER_BRAZIER = BLOCKS.register("twisted_ether_brazier", () -> new EtherBrazierBlock(TWISTED_ROCK_PROPERTIES().setLightLevel((b) -> 14).notSolid()));
 
-    public static final RegistryObject<Block> IRIDESCENT_ETHER_TORCH = BLOCKS.register("iridescent_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14))));
-    public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_TORCH = BLOCKS.register("iridescent_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> light(b, 14)).lootFrom(IRIDESCENT_ETHER_TORCH)));
+    public static final RegistryObject<Block> IRIDESCENT_ETHER_TORCH = BLOCKS.register("iridescent_ether_torch", () -> new EtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> 14)));
+    public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_TORCH = BLOCKS.register("iridescent_wall_ether_torch", () -> new WallEtherTorchBlock(RUNEWOOD_PROPERTIES().doesNotBlockMovement().zeroHardnessAndResistance().setLightLevel((b) -> 14).lootFrom(IRIDESCENT_ETHER_TORCH)));
     public static final RegistryObject<Block> IRIDESCENT_ETHER = BLOCKS.register("iridescent_ether", () -> new EtherBlock(ETHER_BLOCK_PROPERTIES()));
-    public static final RegistryObject<Block> TAINTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)).notSolid()));
-    public static final RegistryObject<Block> TWISTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierBlock(TWISTED_ROCK_PROPERTIES().setLightLevel((b) -> light(b, 14)).notSolid()));
+    public static final RegistryObject<Block> TAINTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierBlock(TAINTED_ROCK_PROPERTIES().setLightLevel((b) -> 14).notSolid()));
+    public static final RegistryObject<Block> TWISTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierBlock(TWISTED_ROCK_PROPERTIES().setLightLevel((b) -> 14).notSolid()));
     //endregion
+
+    public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(ARCANE_CHARCOAL_PROPERTIES()));
 
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new MalumOreBlock(BLAZE_QUARTZ_ORE_PROPERTIES(), 4, 12));
     public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
@@ -369,11 +376,6 @@ public class BlockRegistry
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
 
-
-    public static int light(BlockState state, int strength)
-    {
-        return strength;
-    }
 
     @SubscribeEvent
     public static void setRenderLayers(FMLClientSetupEvent event)

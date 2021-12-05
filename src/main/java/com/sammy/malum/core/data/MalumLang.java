@@ -114,6 +114,8 @@ public class MalumLang extends LanguageProvider
         addHeadline("runewood", "Runewood");
         addPage("runewood_a", "Similarly to soulstone, the runewood tree is yet another result of uncontrolled spirit infusion. This time however the result is rather unexpected from soul magics. Apart from being a good conductor for arcana, the tree doesn't pose much of a threat at all. How boring.");
         addPage("runewood_b", "Runewood trees are created with arcane and sacred spirit, hence their tame nature. Unlike the soulstone, this process is rather quick in comparison and can easily be replicated.");
+        addHeadline("arcane_charcoal", "Arcane Charcoal");
+        addPage("arcane_charcoal", "Due to the magic origins of the arcane oak, charcoal created from runewood is extra efficient and can smelt many more items. Additionally, charcoal, coal, blazing quartz and arcane charcoal can be turned into tiny fragments which smelt just one or two items.");
         addHeadline("holy_sap", "Holy Sap");
         addPage("holy_sap_a", "Within the runewood trees a special type of sap is born. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of wood, and then bottle up as much as you can get.");
         addPage("holy_sap_b", "Holy extract can be used for quite a few things. Firstly, by combining it with a slimeball you'll obtain sapballs. Since sapballs are equal to slimeballs the crafting process results in triple the slime.");
@@ -195,6 +197,18 @@ public class MalumLang extends LanguageProvider
         addDescription("soul_hunter_gear", "Scythe Expert");
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
         addPage("soul_hunter_armor", "The soul hunter set is an offense focused piece of equipment made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage dealt by the user.");
+
+        addDescription("spirit_alchemy", "Primitive Witchcraft");
+        addHeadline("spirit_alchemy", "Spirit Alchemy");
+        addPage("spirit_alchemy", "You may often find yourself scavenging for simple physical ingredients while having too much raw arcana to spend. If that is the case, you may come to utilize spirit alchemy. By infusing a simple material with matching spirit arcana the material will be replicated.");
+
+        addDescription("expanded_spirit_alchemy", "Wider Reach");
+        addHeadline("expanded_spirit_alchemy", "Expanded Spirit Alchemy");
+        addPage("expanded_spirit_alchemy", "Material replication with spirits works on more than just simple alchemical powder. You may also replicate simple gemstones and crystals, all be it at a larger cost of spirit arcana.");
+
+        addDescription("focused_spirit_alchemy", "Raw Avarice");
+        addHeadline("focused_spirit_alchemy", "Focused Spirit Alchemy");
+        addPage("focused_spirit_alchemy", "By pushing material replication to it's limits you may manufacture even the most complex materials.");
 
         addDescription("spirit_metallurgy", "Arcane metals");
         addHeadline("hallowed_gold", "Hallowed Gold");

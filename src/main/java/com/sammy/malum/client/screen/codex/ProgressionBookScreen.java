@@ -34,6 +34,7 @@ import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 public class ProgressionBookScreen extends Screen
 {
     public static final ResourceLocation FRAME_TEXTURE = MalumHelper.prefix("textures/gui/book/frame.png");
+    public static final ResourceLocation FADE_TEXTURE = MalumHelper.prefix("textures/gui/book/fade.png");
 
     public static final ResourceLocation SKY_TEXTURE = MalumHelper.prefix("textures/gui/book/background.png");
 
@@ -90,6 +91,9 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new TextPage("runewood_b"))
                 .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
+                .addPage(new HeadlineTextPage("arcane_charcoal", "arcane_charcoal"))
+                .addPage(new SmeltingBookPage(RUNEWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
+                .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
                 .addPage(new HeadlineTextPage("holy_sap", "holy_sap_a"))
                 .addPage(new TextPage("holy_sap_b"))
                 .addPage(new CraftingBookPage(new ItemStack(HOLY_SAPBALL.get(), 3), Items.SLIME_BALL, HOLY_SAP.get()))
@@ -201,6 +205,34 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_ROBE.get()))
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_LEGGINGS.get()))
                 .addPage(new SpiritInfusionPage(SOUL_HUNTER_BOOTS.get()))
+        );
+
+        entries.add(new BookEntry(
+                "spirit_alchemy", GUNPOWDER,7,6)
+                .addPage(new HeadlineTextPage("spirit_alchemy", "spirit_alchemy"))
+                .addPage(new SpiritInfusionPage(GUNPOWDER))
+                .addPage(new SpiritInfusionPage(REDSTONE))
+                .addPage(new SpiritInfusionPage(GLOWSTONE_DUST))
+        );
+
+        entries.add(new BookEntry(
+                "expanded_spirit_alchemy", QUARTZ,6,5)
+                .addPage(new HeadlineTextPage("expanded_spirit_alchemy", "expanded_spirit_alchemy"))
+                .addPage(new SpiritInfusionPage(QUARTZ))
+                .addPage(new SpiritInfusionPage(BLAZING_QUARTZ.get()))
+                .addPage(new SpiritInfusionPage(BLAZE_POWDER))
+                .addPage(new SpiritInfusionPage(PRISMARINE_CRYSTALS))
+                .addPage(new SpiritInfusionPage(PRISMARINE_SHARD))
+                .addPage(new SpiritInfusionPage(BRILLIANCE_CLUSTER.get()))
+        );
+
+        entries.add(new BookEntry(
+                "focused_spirit_alchemy", ENDER_PEARL,8,7)
+                .addPage(new HeadlineTextPage("focused_spirit_alchemy", "focused_spirit_alchemy"))
+                .addPage(new SpiritInfusionPage(ENDER_PEARL))
+                .addPage(new SpiritInfusionPage(PHANTOM_MEMBRANE))
+                .addPage(new SpiritInfusionPage(GHAST_TEAR))
+                .addPage(new SpiritInfusionPage(RABBIT_FOOT))
         );
 
         entries.add(new BookEntry(
@@ -401,9 +433,10 @@ public class ProgressionBookScreen extends Screen
 
         renderEntries(matrixStack, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
-        lateEntryRender(matrixStack, mouseX, mouseY, partialTicks);
 
+        renderTransparentTexture(FADE_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
         renderTexture(FRAME_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
+        lateEntryRender(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     @Override

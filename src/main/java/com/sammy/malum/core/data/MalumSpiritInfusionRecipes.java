@@ -8,7 +8,6 @@ import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
@@ -48,13 +47,14 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.GLOWSTONE_DUST, 4, ItemRegistry.ETHER.get(), 2)
                 .addSpirit(INFERNAL_SPIRIT, 2)
                 .addSpirit(ARCANE_SPIRIT, 1)
-                .addExtraItem(ItemRegistry.BLAZING_QUARTZ.get(), 2)
+                .addExtraItem(ItemRegistry.BLAZING_QUARTZ_FRAGMENT.get(), 4)
                 .addExtraItem(Items.BLAZE_POWDER, 1)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ETHER.get(), 1, ItemRegistry.IRIDESCENT_ETHER.get(), 1)
-                .addSpirit(AQUEOUS_SPIRIT_COLOR, 2)
+                .addSpirit(AQUEOUS_SPIRIT, 2)
                 .addExtraItem(Items.PRISMARINE_CRYSTALS, 1)
+                .addExtraItem(ItemRegistry.ARCANE_CHARCOAL_FRAGMENT.get(), 2)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.GOLD_INGOT, 1, ItemRegistry.HALLOWED_GOLD_INGOT.get(), 1)
@@ -68,7 +68,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(ItemRegistry.RUNEWOOD_PLANKS.get(), 1)
                 .addExtraItem(ItemRegistry.HALLOWED_SPIRIT_RESONATOR.get(), 1)
                 .addSpirit(AERIAL_SPIRIT, 2)
-                .addSpirit(AQUEOUS_SPIRIT_COLOR, 2)
+                .addSpirit(AQUEOUS_SPIRIT, 2)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 2)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
@@ -78,7 +78,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 1)
                 .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
                 .addSpirit(AERIAL_SPIRIT, 2)
-                .addSpirit(AQUEOUS_SPIRIT_COLOR, 2)
+                .addSpirit(AQUEOUS_SPIRIT, 2)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 2)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
@@ -215,7 +215,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(Items.GHAST_TEAR, 1)
                 .addExtraItem(Ingredient.fromTag(Tags.Items.GUNPOWDER), 2)
                 .addSpirit(INFERNAL_SPIRIT, 4)
-                .addSpirit(AQUEOUS_SPIRIT_COLOR, 4)
+                .addSpirit(AQUEOUS_SPIRIT, 4)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(Items.DIAMOND, 2, ItemRegistry.RADIANT_SOULSTONE.get(), 1)
@@ -246,6 +246,83 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
                 .addSpirit(WICKED_SPIRIT, 4)
                 .addSpirit(ELDRITCH_SPIRIT, 4)
+                .build(consumer);
+
+
+
+        new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, Items.GUNPOWDER, 8)
+                .addSpirit(INFERNAL_SPIRIT, 2)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.GLOWSTONE_DUST, 1, Items.GLOWSTONE_DUST, 8)
+                .addSpirit(INFERNAL_SPIRIT, 1)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.REDSTONE, 1, Items.REDSTONE, 8)
+                .addSpirit(ARCANE_SPIRIT, 1)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.QUARTZ, 1, Items.QUARTZ, 8)
+                .addSpirit(EARTHEN_SPIRIT, 2)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.BLAZING_QUARTZ.get(), 1, ItemRegistry.BLAZING_QUARTZ.get(), 8)
+                .addSpirit(INFERNAL_SPIRIT, 2)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.PRISMARINE_CRYSTALS, 1, Items.PRISMARINE_CRYSTALS, 4)
+                .addSpirit(AQUEOUS_SPIRIT, 1)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.PRISMARINE_SHARD, 1, Items.PRISMARINE_SHARD, 4)
+                .addSpirit(AQUEOUS_SPIRIT, 2)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.BRILLIANCE_CLUSTER.get(), 1, ItemRegistry.BRILLIANCE_CLUSTER.get(), 2)
+                .addSpirit(ARCANE_SPIRIT, 4)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.RABBIT_FOOT, 1, Items.RABBIT_FOOT, 1)
+                .addSpirit(EARTHEN_SPIRIT, 3)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .addSpirit(SACRED_SPIRIT, 1)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.PHANTOM_MEMBRANE, 1, Items.PHANTOM_MEMBRANE, 1)
+                .addSpirit(AERIAL_SPIRIT, 3)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .addSpirit(WICKED_SPIRIT, 1)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.GHAST_TEAR, 1, Items.GHAST_TEAR, 1)
+                .addSpirit(AERIAL_SPIRIT, 3)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .addSpirit(WICKED_SPIRIT, 1)
+                .addExtraItem(Items.PHANTOM_MEMBRANE, 1)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.BLAZE_POWDER, 1, Items.BLAZE_POWDER, 1)
+                .addSpirit(INFERNAL_SPIRIT, 3)
+                .retainsPrimeItem()
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.ENDER_PEARL, 1, Items.ENDER_PEARL, 1)
+                .addSpirit(WICKED_SPIRIT, 3)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .addSpirit(ELDRITCH_SPIRIT, 1)
+                .addExtraItem(Items.PHANTOM_MEMBRANE, 1)
+                .retainsPrimeItem()
                 .build(consumer);
     }
 }

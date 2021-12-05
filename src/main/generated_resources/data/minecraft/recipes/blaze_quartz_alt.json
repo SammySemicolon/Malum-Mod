@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "malum:block_of_blazing_quartz"
+      "item": "malum:block_of_arcane_charcoal"
     }
   ],
   "result": {
-    "item": "malum:blazing_quartz",
+    "item": "malum:arcane_charcoal",
     "count": 9
   }
 }
