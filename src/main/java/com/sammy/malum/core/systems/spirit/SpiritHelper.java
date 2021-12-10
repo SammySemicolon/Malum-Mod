@@ -114,7 +114,7 @@ public class SpiritHelper {
                 for (ItemStack item : playerInventory) {
                     if (item.getItem() instanceof SpiritPouchItem) {
                         ItemInventory inventory = SpiritPouchItem.getInventory(item);
-                        ItemStack result = inventory.addItem(item);
+                        ItemStack result = inventory.addItem(stack);
                         if (result.isEmpty()) {
                             World world = playerEntity.world;
                             world.playSound(null, playerEntity.getPosX(), playerEntity.getPosY() + 0.5, playerEntity.getPosZ(),
