@@ -1,5 +1,6 @@
 package com.sammy.malum.core.systems.spirit;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -29,4 +30,16 @@ public class MalumSpiritType
         return (MalumSpiritItem) splinterItem.get();
     }
 
+    public ResourceLocation overlayTexture()
+    {
+        return MalumHelper.prefix("spirit/overlay_" + identifier);
+    }
+    public ResourceLocation runewoodCutoutTexture()
+    {
+        return MalumHelper.prefix("spirit/cutout_" + identifier);
+    }
+    public ResourceLocation soulwoodCutoutTexture()
+    {
+        return MalumHelper.prefix("spirit/corrupted_cutout_" + identifier);
+    }
 }

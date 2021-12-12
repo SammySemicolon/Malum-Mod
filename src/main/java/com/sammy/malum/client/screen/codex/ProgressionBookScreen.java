@@ -5,9 +5,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.objects.BookObject;
-import com.sammy.malum.client.screen.codex.objects.EntryBookObject;
+import com.sammy.malum.client.screen.codex.objects.EntryObject;
+import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
+import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
 import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -36,7 +41,7 @@ public class ProgressionBookScreen extends Screen
     public static final ResourceLocation FRAME_TEXTURE = MalumHelper.prefix("textures/gui/book/frame.png");
     public static final ResourceLocation FADE_TEXTURE = MalumHelper.prefix("textures/gui/book/fade.png");
 
-    public static final ResourceLocation SKY_TEXTURE = MalumHelper.prefix("textures/gui/book/background.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = MalumHelper.prefix("textures/gui/book/background.png");
 
     public int bookWidth = 378;
     public int bookHeight = 250;
@@ -71,7 +76,7 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "introduction", ENCYCLOPEDIA_ARCANA.get(),0,0)
-                .setImportant()
+                .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("introduction","introduction_a"))
                 .addPage(new TextPage("introduction_b"))
                 .addPage(new TextPage("introduction_c"))
@@ -123,7 +128,7 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "spirit_infusion", SPIRIT_ALTAR.get(),0,5)
-                .setImportant()
+                .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
                 .addPage(new TextPage("spirit_infusion_b"))
                 .addPage(new TextPage("spirit_infusion_c"))
@@ -314,8 +319,81 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new SpiritInfusionPage(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
+
+        entries.add(new BookEntry(
+                "totem_magic", RUNEWOOD_TOTEM_BASE.get(), 0, 9)
+                .setObjectSupplier(ImportantEntryObject::new)
+                .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
+        );
+
+        entries.add(new BookEntry(
+                "sacred_rite", SACRED_SPIRIT.get(), -1, 10)
+                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
+                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
+                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
+                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
+                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
+        );
+
+        entries.add(new BookEntry(
+                "wicked_rite", WICKED_SPIRIT.get(), 1, 10)
+        );
+
+        entries.add(new BookEntry(
+                "arcane_rite", ARCANE_SPIRIT.get(), 0, 11)
+        );
+
+        entries.add(new BookEntry(
+                "earthen_rite", EARTHEN_SPIRIT.get(), -3, 11)
+        );
+
+        entries.add(new BookEntry(
+                "infernal_rite", INFERNAL_SPIRIT.get(), -2, 12)
+        );
+
+        entries.add(new BookEntry(
+                "aerial_rite", AERIAL_SPIRIT.get(), 2, 12)
+        );
+
+        entries.add(new BookEntry(
+                "aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 11)
+        );
+
+        entries.add(new BookEntry(
+                "soulwood", SOULWOOD_SAPLING.get(), 0, 12)
+        );
+
+        entries.add(new BookEntry(
+                "corrupted_rites", SOULWOOD_TOTEM_BASE.get(), 0, 13)
+        );
+
+        entries.add(new BookEntry(
+                "corrupted_sacred_rite", SACRED_SPIRIT.get(), -1, 14)
+        );
+
+        entries.add(new BookEntry(
+                "corrupted_wicked_rite", WICKED_SPIRIT.get(), 1, 14)
+        );
+
+        entries.add(new BookEntry(
+                "corrupted_earthen_rite", EARTHEN_SPIRIT.get(), -3, 14)
+        );
+
+        entries.add(new BookEntry(
+                "corrupted_infernal_rite", INFERNAL_SPIRIT.get(), -2, 15)
+        );
+
+        entries.add(new BookEntry(
+                "corrupted_aerial_rite", AERIAL_SPIRIT.get(), 2, 15)
+        );
+
+        entries.add(new BookEntry(
+                "corrupted_aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 14)
+        );
+
         entries.add(new BookEntry(
                 "3000_dollars_for_a_brewing_stand", APPLE,0,-10)
+                .setObjectSupplier(VanishingEntryObject::new)
                 .addPage(new HeadlineTextPage("3000_dollars_for_a_brewing_stand","3000_dollars_for_a_brewing_stand"))
         );
 
@@ -403,7 +481,7 @@ public class ProgressionBookScreen extends Screen
         int height = 48;
         for (BookEntry entry : entries)
         {
-            objects.add(new EntryBookObject(entry, coreX+entry.xOffset*width, coreY-entry.yOffset*height));
+            objects.add(entry.objectSupplier.getBookObject(entry, coreX+entry.xOffset*width, coreY-entry.yOffset*height));
         }
         faceObject(objects.get(0));
     }
@@ -427,9 +505,9 @@ public class ProgressionBookScreen extends Screen
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
 
+        renderBackground(BACKGROUND_TEXTURE, matrixStack, 0.1f, 0.4f);
         GL11.glEnable(GL_SCISSOR_TEST);
         cut();
-        renderParallax(SKY_TEXTURE, matrixStack, 0.1f, 0.4f, parallax_width*0.4f, 0);
 
         renderEntries(matrixStack, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
@@ -479,12 +557,26 @@ public class ProgressionBookScreen extends Screen
         {
             return super.mouseReleased(mouseX, mouseY, button);
         }
+        BookObject heyApple = null;
         for (BookObject object : objects)
         {
             if (object.isHovering(xOffset, yOffset, mouseX, mouseY))
             {
                 object.click(xOffset, yOffset, mouseX, mouseY);
+                if (object instanceof EntryObject)
+                {
+                    EntryObject entryBookObject = ((EntryObject) object);
+                    if (entryBookObject.entry.iconStack.getItem().equals(APPLE))
+                    {
+                        heyApple = entryBookObject;
+                    }
+                }
+                break;
             }
+        }
+        if (heyApple != null)
+        {
+            objects.remove(heyApple);
         }
         return super.mouseReleased(mouseX, mouseY, button);
     }
@@ -530,17 +622,25 @@ public class ProgressionBookScreen extends Screen
     {
         return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
     }
-    public void renderParallax(ResourceLocation texture, MatrixStack matrixStack, float xModifier, float yModifier, float extraXOffset, float extraYOffset)
+    public void renderBackground(ResourceLocation texture, MatrixStack matrixStack, float xModifier, float yModifier)
     {
-        int guiLeft = (width - bookWidth) / 2;
+        int guiLeft = (width - bookWidth) / 2; //TODO: literally just redo this entire garbage method, please
         int guiTop = (height - bookHeight) / 2;
         int insideLeft = guiLeft + 17;
         int insideTop = guiTop + 14;
-        float uOffset = -(xOffset) * xModifier - extraXOffset;
-        float vOffset = Math.min(parallax_height-bookInsideHeight,(parallax_height-bookInsideHeight-yOffset*yModifier) + extraYOffset);
-        if (vOffset <= parallax_height/2f+1)
+        float uOffset = (parallax_width-xOffset) * xModifier;
+        float vOffset = Math.min(parallax_height-bookInsideHeight,(parallax_height-bookInsideHeight-yOffset*yModifier));
+        if (vOffset <= parallax_height/2f)
         {
-            vOffset = parallax_height/2f+1;
+            vOffset = parallax_height/2f;
+        }
+        if (uOffset <= 0)
+        {
+            uOffset = 0;
+        }
+        if (uOffset > (bookInsideWidth-8)/2f)
+        {
+            uOffset = (bookInsideWidth-8)/2f;
         }
         renderTexture(texture, matrixStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, parallax_width/2, parallax_height/2);
     }
@@ -653,8 +753,6 @@ public class ProgressionBookScreen extends Screen
     {
         Minecraft.getInstance().displayGuiScreen(getInstance());
         screen.playSound();
-        setupEntries();
-        screen.setupObjects();
         screen.ignoreNextMouseInput = ignoreNextMouseClick;
     }
 
@@ -665,6 +763,8 @@ public class ProgressionBookScreen extends Screen
             screen = new ProgressionBookScreen();
             screen.faceObject(objects.get(0));
         }
+        screen.setupObjects();
+        screen.faceObject(objects.get(0));
         return screen;
     }
 }

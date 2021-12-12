@@ -58,9 +58,9 @@ public class SpiritTypeRegistry
         }
         SPIRITS.forEach(s ->
         {
-            event.addSprite(MalumHelper.prefix("spirit/" + "overlay_" + s.identifier));
-            event.addSprite(MalumHelper.prefix("spirit/" + "cutout_" + s.identifier));
-            event.addSprite(MalumHelper.prefix("spirit/" + "corrupted_cutout_" + s.identifier));
+            event.addSprite(s.overlayTexture());
+            event.addSprite(s.runewoodCutoutTexture());
+            event.addSprite(s.soulwoodCutoutTexture());
         });
     }
 }

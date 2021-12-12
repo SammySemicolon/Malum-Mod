@@ -2,6 +2,7 @@ package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
@@ -18,6 +19,10 @@ public class MalumRiteType {
         this.spirits = MalumHelper.toArrayList(spirits);
     }
 
+    public String translationIdentifier()
+    {
+        return "malum.gui.rite." + identifier;
+    }
     public int defaultRange() {
         return 8;
     }

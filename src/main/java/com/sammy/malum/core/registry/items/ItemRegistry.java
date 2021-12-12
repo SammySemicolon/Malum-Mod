@@ -283,8 +283,9 @@ public class ItemRegistry
     //endregion
 
     //region ores
-    public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new MalumFuelItem(DEFAULT_PROPERTIES(), 200));
-    public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new MalumFuelItem(DEFAULT_PROPERTIES(), 200));
+    public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new MalumFuelItem(new Item.Properties().group(ItemGroup.MISC), 200));
+    public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new MalumFuelItem(new Item.Properties().group(ItemGroup.MISC), 200));
+
     public static final RegistryObject<Item> BLOCK_OF_ARCANE_CHARCOAL = ITEMS.register("block_of_arcane_charcoal", () -> new MalumFuelBlockItem(BlockRegistry.BLOCK_OF_ARCANE_CHARCOAL.get(), DEFAULT_PROPERTIES(), 28800));
     public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new MalumFuelItem(DEFAULT_PROPERTIES(), 3200));
     public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new MalumFuelItem(DEFAULT_PROPERTIES(), 400));
@@ -398,7 +399,7 @@ public class ItemRegistry
     //endregion
 
     //region hidden items
-    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(ItemTier.IRON, 9993, 9.19f, 1000f, HIDDEN_PROPERTIES().defaultMaxDamage(0)));
+    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(ItemTier.IRON, 9993, 9.2f, 1000f, HIDDEN_PROPERTIES().defaultMaxDamage(0)));
     public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(HIDDEN_PROPERTIES()));
     //endregion
 

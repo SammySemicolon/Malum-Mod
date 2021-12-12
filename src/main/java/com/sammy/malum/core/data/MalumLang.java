@@ -87,7 +87,7 @@ public class MalumLang extends LanguageProvider
             add("attribute.name.malum." + a.get().getRegistryName().getPath(), name);
         });
 
-        rites.forEach(r -> add("malum.gui.rite." + r.identifier, MalumHelper.toTitleCase(r.identifier, "_")));
+        rites.forEach(r -> add(r.translationIdentifier(), MalumHelper.toTitleCase(r.identifier, "_")));
 
         coolerBookEntries.forEach(b -> add(b.translationKey(), MalumHelper.toTitleCase(b.identifier, "_")));
 
@@ -263,7 +263,7 @@ public class MalumLang extends LanguageProvider
         addPage("3000_dollars_for_a_brewing_stand", "hey apple");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
-        add("malum.jei.spirit_rites", "Spirit Rites");
+        add("malum.jei.spirit_rite", "Spirit Rite");
         add("malum.jei.rune_table", "Rune Table");
 
         add("itemGroup.malum", "Malum");

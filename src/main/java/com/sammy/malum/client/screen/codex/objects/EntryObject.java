@@ -11,10 +11,10 @@ import java.util.Arrays;
 
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
 
-public class EntryBookObject extends BookObject
+public class EntryObject extends BookObject
 {
     public final BookEntry entry;
-    public EntryBookObject(BookEntry entry, int posX, int posY)
+    public EntryObject(BookEntry entry, int posX, int posY)
     {
         super(posX, posY, 32, 32);
         this.entry = entry;
@@ -23,7 +23,7 @@ public class EntryBookObject extends BookObject
     @Override
     public void click(float xOffset, float yOffset, double mouseX, double mouseY)
     {
-        EntryScreen.openScreen(entry);
+        EntryScreen.openScreen(this);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class EntryBookObject extends BookObject
     {
         int posX = offsetPosX(xOffset);
         int posY = offsetPosY(yOffset);
-        renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, entry.important ? 34 : 1, 252, width, height, 512, 512);
+        renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, 1, 252, width, height, 512, 512);
         minecraft.getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 8, posY + 8);
     }
 

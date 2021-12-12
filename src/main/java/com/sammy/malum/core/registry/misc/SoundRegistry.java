@@ -66,6 +66,8 @@ public class SoundRegistry
 
     public static final SoundEvent TYRVING_CRUSH = create(new SoundEvent(MalumHelper.prefix("tyrving_crush")));
 
+    public static final SoundEvent SUSPICIOUS_SOUND = create(new SoundEvent(MalumHelper.prefix("suspicious_sound")));
+
     public static final SoundType SOULSTONE = new SoundType(1.0F, 1.0F, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, SOULSTONE_HIT, SoundEvents.BLOCK_STONE_FALL);
     public static final SoundType BLAZING_QUARTZ_ORE = new SoundType(1.0F, 1.0F, BLAZING_QUARTZ_ORE_BREAK, SoundEvents.BLOCK_NETHER_ORE_STEP, BLAZING_QUARTZ_ORE_PLACE, SoundEvents.BLOCK_NETHER_ORE_HIT, SoundEvents.BLOCK_NETHER_GOLD_ORE_FALL);
     public static final SoundType BLAZING_QUARTZ_BLOCK = new SoundType(1.0F, 1.25f, BLAZING_QUARTZ_BLOCK_BREAK, BLAZING_QUARTZ_BLOCK_STEP, BLAZING_QUARTZ_BLOCK_PLACE, BLAZING_QUARTZ_BLOCK_HIT, SoundEvents.BLOCK_NETHER_GOLD_ORE_FALL);

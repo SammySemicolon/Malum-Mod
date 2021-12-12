@@ -39,6 +39,10 @@ public class BookObject
     {
 
     }
+    public void exit()
+    {
+
+    }
     public boolean isHovering(float xOffset, float yOffset, double mouseX, double mouseY)
     {
         return ProgressionBookScreen.isHovering(mouseX,mouseY, offsetPosX(xOffset), offsetPosY(yOffset), width, height);

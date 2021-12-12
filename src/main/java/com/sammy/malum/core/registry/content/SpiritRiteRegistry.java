@@ -13,25 +13,22 @@ public class SpiritRiteRegistry
 {
     public static ArrayList<MalumRiteType> RITES = new ArrayList<>();
 
-    static {
-        addRite(new RiteOfGrowth());
-        addRite(new RiteOfDeath());
-        addRite(new RiteOfWarding());
-        addRite(new RiteOfCelerity());
-        addRite(new RiteOfAssembly());
-    }
+    public static MalumRiteType SACRED_RITE = create(new RiteOfGrowth());
+    public static MalumRiteType WICKED_RITE = create(new RiteOfDeath());
+    public static MalumRiteType EARTHEN_RITE = create(new RiteOfWarding());
+    public static MalumRiteType AERIAL_RITE = create(new RiteOfCelerity());
+    public static MalumRiteType ARCANE_RITE = create(new RiteOfAssembly());
 
-    public static void addRite(MalumRiteType type)
+
+    public static MalumRiteType create(MalumRiteType type)
     {
         RITES.add(type);
+        return type;
     }
 
-    public static MalumRiteType getRite(String identifier)
-    {
-        for (MalumRiteType rite : RITES)
-        {
-            if (rite.identifier.equals(identifier))
-            {
+    public static MalumRiteType getRite(String identifier) {
+        for (MalumRiteType rite : RITES) {
+            if (rite.identifier.equals(identifier)) {
                 return rite;
             }
         }

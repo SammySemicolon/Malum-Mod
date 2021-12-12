@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.codex;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -19,7 +20,7 @@ public class EntryScreen extends Screen
     public static final ResourceLocation BOOK_TEXTURE = MalumHelper.prefix("textures/gui/book/entry.png");
 
     public static EntryScreen screen;
-    public static BookEntry openEntry;
+    public static EntryObject openObject;
 
     public final int bookWidth = 292;
     public final int bookHeight = 190;
@@ -35,6 +36,7 @@ public class EntryScreen extends Screen
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
     {
+        BookEntry openEntry = openObject.entry;
         renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
@@ -121,7 +123,7 @@ public class EntryScreen extends Screen
         }
         if (isHovering(mouseX, mouseY, guiLeft + bookWidth - 15, guiTop + 150, 28, 18))
         {
-            if (grouping < openEntry.pages.size()/2f-1)
+            if (grouping < openObject.entry.pages.size()/2f-1)
             {
                 grouping += 1;
                 screen.playSound();
@@ -141,7 +143,7 @@ public class EntryScreen extends Screen
     {
         if (keyCode == GLFW.GLFW_KEY_E)
         {
-            ProgressionBookScreen.openScreen(false);
+            closeScreen();
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
@@ -149,6 +151,7 @@ public class EntryScreen extends Screen
     public void closeScreen()
     {
         ProgressionBookScreen.openScreen(false);
+        openObject.exit();
     }
 
     public void playSound()
@@ -156,17 +159,17 @@ public class EntryScreen extends Screen
         PlayerEntity playerEntity = Minecraft.getInstance().player;
         playerEntity.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
     }
-    public static void openScreen(BookEntry newEntry)
+    public static void openScreen(EntryObject newObject)
     {
-        Minecraft.getInstance().displayGuiScreen(getInstance(newEntry));
+        Minecraft.getInstance().displayGuiScreen(getInstance(newObject));
         screen.playSound();
     }
-    public static EntryScreen getInstance(BookEntry newEntry)
+    public static EntryScreen getInstance(EntryObject newObject)
     {
-        if (screen == null || !newEntry.equals(openEntry))
+        if (screen == null || !newObject.equals(openObject))
         {
             screen = new EntryScreen();
-            openEntry = newEntry;
+            openObject = newObject;
         }
         return screen;
     }

@@ -33,9 +33,9 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity> {
         super((TileEntityRendererDispatcher) rendererDispatcherIn);
         SpiritTypeRegistry.SPIRITS.forEach(s ->
                 {
-                    overlayHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "overlay_" + s.identifier)));
-                    cutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "cutout_" + s.identifier)));
-                    corruptedCutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, MalumHelper.prefix("spirit/" + "corrupted_cutout_" + s.identifier)));
+                    overlayHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, s.overlayTexture()));
+                    cutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, s.runewoodCutoutTexture()));
+                    corruptedCutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, s.soulwoodCutoutTexture()));
                 }
         );
     }
@@ -47,13 +47,13 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity> {
             combinedLightIn -= combinedOverlayIn * 2;
         }
         if (tileEntityIn.type == null) {
-            renderQuad(RUNEWOOD_LOG, new Color(255, 255, 255), combinedLightIn, direction, matrixStackIn, bufferIn);
+            renderQuad(RUNEWOOD_LOG, Color.WHITE, combinedLightIn, direction, matrixStackIn, bufferIn);
             return;
         }
         if (((TotemPoleBlock) tileEntityIn.getBlockState().getBlock()).corrupted) {
-            renderQuad(corruptedCutoutHashmap.get(tileEntityIn.type), new Color(255, 255, 255), combinedLightIn, direction, matrixStackIn, bufferIn);
+            renderQuad(corruptedCutoutHashmap.get(tileEntityIn.type), Color.WHITE, combinedLightIn, direction, matrixStackIn, bufferIn);
         } else {
-            renderQuad(cutoutHashmap.get(tileEntityIn.type), new Color(255, 255, 255), combinedLightIn, direction, matrixStackIn, bufferIn);
+            renderQuad(cutoutHashmap.get(tileEntityIn.type), Color.WHITE, combinedLightIn, direction, matrixStackIn, bufferIn);
         }
         renderQuad(overlayHashmap.get(tileEntityIn.type), color(tileEntityIn), combinedLightIn, direction, matrixStackIn, bufferIn);
     }

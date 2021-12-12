@@ -50,6 +50,9 @@
   "tyrving_crush": { "sounds":["malum:tyrving_crush"], "subtitle": "malum.subtitle.tyrving_crush" },
   "awakened_tyrving_crush": { "sounds":["malum:awakened_tyrving_crush"], "subtitle": "malum.subtitle.awakened_tyrving_crush" },
   "holy_equip": { "sounds":["malum:equip_holy"], "subtitle": "malum.subtitle.holy_equip" },
-  "sinister_equip": { "sounds":["malum:equip_sinister"], "subtitle": "malum.subtitle.sinister_equip" }
+  "sinister_equip": { "sounds":["malum:equip_sinister"], "subtitle": "malum.subtitle.sinister_equip" },
+
+  "suspicious_sound": { "sounds":["malum:suspicious_sound"], "subtitle": "malum.subtitle.suspicious_sound" }
+
 
 }
