@@ -10,9 +10,7 @@ import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
 import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.items.ItemRegistry;
-import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -327,16 +325,15 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "sacred_rite", SACRED_SPIRIT.get(), -1, 10)
-                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
-                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
-                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
-                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
-                .addPage(new SpiritRitePage(new MalumRiteType("m", false, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT, SpiritTypeRegistry.AQUEOUS_SPIRIT)))
+                "sacred_rite", SACRED_SPIRIT.get(), -2, 11)
+                .addPage(new DoubleHeadlineTextPage("sacred_rite", "sacred_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.SACRED_RITE))
+                .addPage(new DoubleHeadlineTextPage("eldritch_sacred_rite", "eldritch_sacred_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
         entries.add(new BookEntry(
-                "wicked_rite", WICKED_SPIRIT.get(), 1, 10)
+                "wicked_rite", WICKED_SPIRIT.get(), 2, 11)
         );
 
         entries.add(new BookEntry(
@@ -344,51 +341,23 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "earthen_rite", EARTHEN_SPIRIT.get(), -3, 11)
+                "earthen_rite", EARTHEN_SPIRIT.get(), -1, 12)
         );
 
         entries.add(new BookEntry(
-                "infernal_rite", INFERNAL_SPIRIT.get(), -2, 12)
+                "infernal_rite", INFERNAL_SPIRIT.get(), 1, 12)
         );
 
         entries.add(new BookEntry(
-                "aerial_rite", AERIAL_SPIRIT.get(), 2, 12)
+                "aerial_rite", AERIAL_SPIRIT.get(), -1, 10)
         );
 
         entries.add(new BookEntry(
-                "aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 11)
+                "aqueous_rite", AQUEOUS_SPIRIT.get(), 1, 10)
         );
 
         entries.add(new BookEntry(
-                "soulwood", SOULWOOD_SAPLING.get(), 0, 12)
-        );
-
-        entries.add(new BookEntry(
-                "corrupted_rites", SOULWOOD_TOTEM_BASE.get(), 0, 13)
-        );
-
-        entries.add(new BookEntry(
-                "corrupted_sacred_rite", SACRED_SPIRIT.get(), -1, 14)
-        );
-
-        entries.add(new BookEntry(
-                "corrupted_wicked_rite", WICKED_SPIRIT.get(), 1, 14)
-        );
-
-        entries.add(new BookEntry(
-                "corrupted_earthen_rite", EARTHEN_SPIRIT.get(), -3, 14)
-        );
-
-        entries.add(new BookEntry(
-                "corrupted_infernal_rite", INFERNAL_SPIRIT.get(), -2, 15)
-        );
-
-        entries.add(new BookEntry(
-                "corrupted_aerial_rite", AERIAL_SPIRIT.get(), 2, 15)
-        );
-
-        entries.add(new BookEntry(
-                "corrupted_aqueous_rite", AQUEOUS_SPIRIT.get(), 3, 14)
+                "soulwood", SOULWOOD_SAPLING.get(), 0, 13)
         );
 
         entries.add(new BookEntry(
@@ -758,7 +727,7 @@ public class ProgressionBookScreen extends Screen
 
     public static ProgressionBookScreen getInstance()
     {
-        if (screen == null)
+//        if (screen == null)
         {
             screen = new ProgressionBookScreen();
             screen.faceObject(objects.get(0));

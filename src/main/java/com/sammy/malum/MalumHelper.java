@@ -275,6 +275,10 @@ public class MalumHelper {
         return new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z"));
     }
 
+    public static ArrayList<BlockPos> getBlocks(BlockPos pos, int range, Predicate<BlockPos> predicate) {
+        return getBlocks(pos, range, range, range, predicate);
+    }
+
     public static ArrayList<BlockPos> getBlocks(BlockPos pos, int x, int y, int z, Predicate<BlockPos> predicate) {
         ArrayList<BlockPos> blocks = getBlocks(pos, x, y, z);
         blocks.removeIf(b -> !predicate.test(b));

@@ -1,23 +1,24 @@
 package com.sammy.malum.core.registry.content;
 
-import com.sammy.malum.common.rites.*;
+import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.RegistryObject;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class SpiritRiteRegistry
 {
     public static ArrayList<MalumRiteType> RITES = new ArrayList<>();
 
-    public static MalumRiteType SACRED_RITE = create(new RiteOfGrowth());
-    public static MalumRiteType WICKED_RITE = create(new RiteOfDeath());
-    public static MalumRiteType EARTHEN_RITE = create(new RiteOfWarding());
-    public static MalumRiteType AERIAL_RITE = create(new RiteOfCelerity());
-    public static MalumRiteType ARCANE_RITE = create(new RiteOfAssembly());
+    public static MalumRiteType SACRED_RITE = create(new SacredRiteType());
+    public static MalumRiteType ELDRITCH_SACRED_RITE = create(new EldritchSacredRiteType());
+    public static MalumRiteType WICKED_RITE = create(new WickedRiteType());
+    public static MalumRiteType ELDRITCH_WICKED_RITE = create(new EldritchWickedRiteType());
+
+    public static MalumRiteType EARTHEN_RITE = create(new EarthenRiteType());
+    public static MalumRiteType AERIAL_RITE = create(new AerialRiteType());
+
+    public static MalumRiteType ARCANE_RITE = create(new ArcaneRiteType());
 
 
     public static MalumRiteType create(MalumRiteType type)

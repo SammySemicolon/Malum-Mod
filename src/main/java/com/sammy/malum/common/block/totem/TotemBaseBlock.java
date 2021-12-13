@@ -5,18 +5,13 @@ import com.sammy.malum.common.tile.TotemBaseTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemBaseBlock extends Block
 {
@@ -50,11 +45,11 @@ public class TotemBaseBlock extends Block
             }
             if (totemBaseTileEntity.active && totemBaseTileEntity.rite != null)
             {
-                totemBaseTileEntity.riteEnding();
+                totemBaseTileEntity.endRite();
             }
             else
             {
-                totemBaseTileEntity.riteStarting();
+                totemBaseTileEntity.startRite();
             }
             player.swing(Hand.MAIN_HAND, true);
             return ActionResultType.SUCCESS;

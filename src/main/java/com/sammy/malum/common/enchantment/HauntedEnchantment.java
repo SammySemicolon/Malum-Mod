@@ -1,6 +1,7 @@
 package com.sammy.malum.common.enchantment;
 
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
+import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -21,7 +22,7 @@ public class HauntedEnchantment extends Enchantment
         {
             LivingEntity entity = (LivingEntity) target;
             entity.hurtResistantTime = 0;
-            SpiritHelper.causeVoodooDamage(user, entity, level+1);
+            entity.attackEntityFrom(DamageSourceRegistry.causeVoodooDamage(user), level+1);
         }
         super.onEntityDamaged(user, target, level);
     }

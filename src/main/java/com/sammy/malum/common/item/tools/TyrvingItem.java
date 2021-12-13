@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item.tools;
 
+import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import com.sammy.malum.network.packets.particle.BurstParticlePacket;
@@ -43,7 +44,8 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem
             {
                 spiritCount = 2;
             }
-            SpiritHelper.causeVoodooDamage(attacker, target, spiritCount*magicAttackDamage);
+            target.hurtResistantTime = 0;
+            target.attackEntityFrom(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount*magicAttackDamage);
             attacker.world.playSound(null, target.getPosition(), soundEvent.get(), SoundCategory.PLAYERS, 1, 1f + target.world.rand.nextFloat() * 0.25f);
             INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), BurstParticlePacket.fromSpirits(target.getPosX(), target.getPosY() + target.getHeight() / 2, target.getPosZ(), WICKED_SPIRIT, ELDRITCH_SPIRIT));
         }

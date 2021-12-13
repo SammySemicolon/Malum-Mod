@@ -116,7 +116,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
             TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) world.getTileEntity(basePos);
             if (totemBaseTileEntity.active)
             {
-                totemBaseTileEntity.riteEnding();
+                totemBaseTileEntity.endRite();
             }
         }
         super.remove();

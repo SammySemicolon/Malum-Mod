@@ -96,7 +96,7 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem {
         if (MalumHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE)) {
             return;
         }
-        float damage = 1f + event.getAmount() * EnchantmentHelper.getSweepingDamageRatio(attacker);
+        float damage = event.getAmount() * (0.5f+EnchantmentHelper.getSweepingDamageRatio(attacker));
         target.world.getEntitiesWithinAABBExcludingEntity(attacker, target.getBoundingBox().grow(1)).forEach(e ->
         {
             if (e instanceof LivingEntity) {

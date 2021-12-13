@@ -20,6 +20,7 @@ public class CommonConfig {
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_SURFACE_SOULSTONE;
     public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_SIZE;
 
+
     public CommonConfig(ForgeConfigSpec.Builder builder) {
         builder.comment("Worldgen Settings").push("worldgen");
 

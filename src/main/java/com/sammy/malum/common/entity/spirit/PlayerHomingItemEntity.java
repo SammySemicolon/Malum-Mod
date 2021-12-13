@@ -7,6 +7,7 @@ import com.sammy.malum.core.registry.misc.EntityRegistry;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
@@ -50,10 +51,17 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
 
     @Override
     public void move() {
-        setMotion(getMotion().mul(0.95f, 0.75f, 0.95f));
+        setMotion(getMotion().mul(0.95f, 0.95f, 0.95f));
         if (owner == null) {
-            world.addEntity(new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem()));
-            remove();
+            if (world.getGameTime() % 20L == 0)
+            {
+                PlayerEntity playerEntity = world.getClosestPlayer(this, getRange()*3f);
+                if (playerEntity != null)
+                {
+                    setOwner(playerEntity.getUniqueID());
+                }
+            }
+            age++;
             return;
         }
         Vector3d desiredLocation = owner.getPositionVec().add(0, owner.getHeight() / 4, 0);

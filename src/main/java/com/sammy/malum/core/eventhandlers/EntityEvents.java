@@ -6,6 +6,7 @@ import com.sammy.malum.common.item.tools.ScytheItem;
 import com.sammy.malum.core.registry.items.ITemTagRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
@@ -29,6 +30,11 @@ public class EntityEvents {
 
     @SubscribeEvent
     public static void onEntityKill(LivingDeathEvent event) {
+        if (event.getSource().equals(DamageSourceRegistry.FORCED_SHATTER))
+        {
+            SpiritHelper.createSpiritEntities(event.getEntityLiving());
+            return;
+        }
         if (event.getSource().getTrueSource() instanceof LivingEntity) {
             LivingEntity attacker = (LivingEntity) event.getSource().getTrueSource();
             LivingEntity target = event.getEntityLiving();
@@ -37,13 +43,15 @@ public class EntityEvents {
                 stack = ((ScytheBoomerangEntity) event.getSource().getImmediateSource()).scythe;
             }
             Item item = stack.getItem();
-            if (item instanceof IEventResponderItem) {
-                IEventResponderItem eventItem = (IEventResponderItem) item;
-                eventItem.deathEvent(event, attacker, target, stack);
-            }
+
             if (ITemTagRegistry.SOUL_HUNTER_WEAPON.getAllElements().contains(item))
             {
                 SpiritHelper.playerSummonSpirits(target, attacker, stack);
+            }
+
+            if (item instanceof IEventResponderItem) {
+                IEventResponderItem eventItem = (IEventResponderItem) item;
+                eventItem.deathEvent(event, attacker, target, stack);
             }
             attacker.getArmorInventoryList().forEach(s ->{
                 if (s.getItem() instanceof IEventResponderItem)

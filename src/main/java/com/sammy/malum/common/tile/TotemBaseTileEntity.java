@@ -78,46 +78,41 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
                 progress--;
                 if (progress <= 0) {
                     height++;
-                    progress = 20;
                     BlockPos polePos = pos.up(height);
                     if (world.getTileEntity(polePos) instanceof TotemPoleTileEntity) {
                         addPole(polePos);
                     } else {
                         MalumRiteType rite = SpiritRiteRegistry.getRite(spirits);
                         if (rite == null) {
-                            riteEnding();
+                            endRite();
                         } else {
-                            disableOtherRites(rite);
-                            riteComplete(rite);
+                            completeRite(rite);
                         }
                     }
+                    progress = 20;
                 }
             }
         }
     }
-    public void disableOtherRites(MalumRiteType rite)
-    {
+
+    public void disableOtherRites(MalumRiteType rite) {
         int range = rite.range();
-        ArrayList<BlockPos> totemBases = new ArrayList<>(MalumHelper.getBlocks(pos, range,range,range, b -> world.getTileEntity(b) instanceof TotemBaseTileEntity && !b.equals(pos)));
-        for (BlockPos basePos : totemBases)
-        {
+        ArrayList<BlockPos> totemBases = new ArrayList<>(MalumHelper.getBlocks(pos, range, b -> world.getTileEntity(b) instanceof TotemBaseTileEntity && !b.equals(pos)));
+        for (BlockPos basePos : totemBases) {
             TotemBaseTileEntity tileEntity = (TotemBaseTileEntity) world.getTileEntity(basePos);
-            if (rite.equals(tileEntity.rite))
-            {
-                tileEntity.riteEnding();
-            }
-            else
-            {
-                if (pos.withinDistance(basePos, 0.5f+range*0.5f))
-                {
-                    tileEntity.riteEnding();
+            if (rite.equals(tileEntity.rite)) {
+                tileEntity.endRite();
+            } else {
+                if (basePos.withinDistance(pos, 0.5f + range * 0.5f)) {
+                    tileEntity.endRite();
                 }
             }
         }
     }
+
     public void addPole(BlockPos polePos) {
         Direction poleFacing = world.getBlockState(polePos).get(HORIZONTAL_FACING);
-        ArrayList<TotemPoleTileEntity> poles = poles();
+        ArrayList<TotemPoleTileEntity> poles = getPoles();
         if (poles.isEmpty() || poles.stream().allMatch(p -> p.getBlockState().get(HORIZONTAL_FACING).equals(poleFacing) && ((TotemPoleBlock) p.getBlockState().getBlock()).corrupted == ((TotemBaseBlock) getBlockState().getBlock()).corrupted)) {
             TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) world.getTileEntity(polePos);
             if (tileEntity.type != null) {
@@ -127,7 +122,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         }
     }
 
-    public ArrayList<TotemPoleTileEntity> poles() {
+    public ArrayList<TotemPoleTileEntity> getPoles() {
         ArrayList<TotemPoleTileEntity> poles = new ArrayList<>();
         for (int i = 1; i <= height; i++) {
             if (world.getTileEntity(pos.up(i)) instanceof TotemPoleTileEntity) {
@@ -137,38 +132,37 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         return poles;
     }
 
-    public void reset() {
-        poles().forEach(TotemPoleTileEntity::riteEnding);
+    public void startRite() {
+        active = true;
+        MalumHelper.updateAndNotifyState(world, pos);
+    }
+
+    public void completeRite(MalumRiteType rite) {
+        world.playSound(null, pos, SoundRegistry.TOTEM_CHARGED, SoundCategory.BLOCKS, 1, 1);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, true));
+        getPoles().forEach(p -> p.riteComplete(height));
+        progress = 0;
+        if (rite.isInstant) {
+            rite.riteEffect((ServerWorld) world, pos);
+            resetTotem();
+            return;
+        }
+        this.rite = rite;
+        disableOtherRites(rite);
+    }
+
+    public void endRite() {
+        world.playSound(null, pos, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, false));
+        resetTotem();
+    }
+
+    public void resetTotem() {
+        getPoles().forEach(TotemPoleTileEntity::riteEnding);
         height = 0;
         rite = null;
         active = false;
         progress = 0;
         spirits.clear();
-        MalumHelper.updateAndNotifyState(world, pos);
-    }
-
-    public void riteStarting() {
-        active = true;
-        MalumHelper.updateAndNotifyState(world, pos);
-    }
-
-    public void riteComplete(MalumRiteType rite) {
-        world.playSound(null, pos, SoundRegistry.TOTEM_CHARGED, SoundCategory.BLOCKS, 1, 1);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, true));
-        poles().forEach(p -> p.riteComplete(height));
-        progress = 0;
-        if (rite.isInstant) {
-            rite.riteEffect((ServerWorld) world, pos);
-            reset();
-            return;
-        }
-        this.rite = rite;
-        MalumHelper.updateAndNotifyState(world, pos);
-    }
-
-    public void riteEnding() {
-        world.playSound(null, pos, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, false));
-        reset();
     }
 }

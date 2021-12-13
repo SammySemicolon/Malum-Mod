@@ -21,7 +21,7 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     public int maxAge = 2400;
     public int age;
     public int moveTime;
-    public int range;
+    public int range = 3;
     public float windUp;
     public final float hoverStart;
 

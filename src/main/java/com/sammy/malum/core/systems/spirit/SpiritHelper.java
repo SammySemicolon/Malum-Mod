@@ -31,18 +31,6 @@ import java.util.stream.Collectors;
 import static net.minecraft.util.math.MathHelper.nextFloat;
 
 public class SpiritHelper {
-    public static DamageSource voodooDamageSource() {
-        return new DamageSource("voodoo").setMagicDamage();
-    }
-
-    public static DamageSource voodooDamageSource(Entity attacker) {
-        return new EntityDamageSource("voodoo", attacker).setMagicDamage();
-    }
-
-    public static void causeVoodooDamage(LivingEntity attacker, LivingEntity target, float amount) {
-        target.hurtResistantTime = 0;
-        target.attackEntityFrom(voodooDamageSource(attacker), amount);
-    }
 
     public static void playerSummonSpirits(LivingEntity target, LivingEntity attacker, ItemStack harvestStack) {
         if (target instanceof PlayerEntity) {
@@ -85,15 +73,8 @@ public class SpiritHelper {
             if (count == 0) {
                 continue;
             }
-            if (attacker == null) {
-                for (int j = 0; j < count; j++) {
-                    ItemEntity itemEntity = new ItemEntity(target.world, target.getPosXRandom(1), target.getPosYRandom(), target.getPosZRandom(1), MalumHelper.copyWithNewCount(stack, 1));
-                    target.world.addEntity(itemEntity);
-                }
-                continue;
-            }
             for (int j = 0; j < count; j++) {
-                PlayerHomingItemEntity entity = new PlayerHomingItemEntity(target.world, attacker.getUniqueID(), MalumHelper.copyWithNewCount(stack, 1),
+                PlayerHomingItemEntity entity = new PlayerHomingItemEntity(target.world, attacker == null ? null : attacker.getUniqueID(), MalumHelper.copyWithNewCount(stack, 1),
                         target.getPositionVec().x,
                         target.getPositionVec().y + target.getHeight() / 2f,
                         target.getPositionVec().z,

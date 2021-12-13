@@ -1,4 +1,4 @@
-package com.sammy.malum.common.rites;
+package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
-public class RiteOfWarding extends MalumRiteType
+public class EarthenRiteType extends MalumRiteType
 {
-    public RiteOfWarding()
+    public EarthenRiteType()
     {
-        super("rite_of_warding", false, ARCANE_SPIRIT, EARTHEN_SPIRIT, EARTHEN_SPIRIT);
+        super("earthen_rite", false, ARCANE_SPIRIT, EARTHEN_SPIRIT, EARTHEN_SPIRIT);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.sammy.malum.common.rites;
+package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
-public class RiteOfCelerity extends MalumRiteType
+public class AerialRiteType extends MalumRiteType
 {
-    public RiteOfCelerity()
+    public AerialRiteType()
     {
-        super("rite_of_celerity", false, ARCANE_SPIRIT, AERIAL_SPIRIT, AERIAL_SPIRIT);
+        super("aerial_rite", false, ARCANE_SPIRIT, AERIAL_SPIRIT, AERIAL_SPIRIT);
     }
 
     @Override

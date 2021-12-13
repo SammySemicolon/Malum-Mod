@@ -2,7 +2,11 @@ package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import jdk.nashorn.internal.ir.Block;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
@@ -53,5 +57,14 @@ public class MalumRiteType {
 
     public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
 
+    }
+
+    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, ServerWorld world, BlockPos pos)
+    {
+        return (ArrayList<T>) world.getEntitiesWithinAABB(clazz, new AxisAlignedBB(pos).grow(range()));
+    }
+    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, ServerWorld world, BlockPos pos)
+    {
+        return MalumHelper.getBlocks(pos, range(), p -> clazz.isInstance(world.getBlockState(p).getBlock()));
     }
 }
