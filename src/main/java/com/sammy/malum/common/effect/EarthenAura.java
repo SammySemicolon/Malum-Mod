@@ -6,9 +6,9 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 
-public class AuraOfWarding extends Effect
+public class EarthenAura extends Effect
 {
-    public AuraOfWarding()
+    public EarthenAura()
     {
         super(EffectType.BENEFICIAL, 6468648);
         addAttributesModifier(Attributes.ARMOR, "04448cbf-ee2c-4f36-b71f-e641a312834a", 3f, AttributeModifier.Operation.ADDITION);
@@ -16,24 +16,6 @@ public class AuraOfWarding extends Effect
     }
 
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier)
-    {
-        if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth())
-        {
-            entityLivingBaseIn.heal(1.0F);
-        }
-    }
-
-    public boolean isReady(int duration, int amplifier)
-    {
-        int k = 50 >> amplifier;
-        if (k > 0)
-        {
-            return duration % k == 0;
-        }
-        else
-        {
-            return true;
-        }
+    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
     }
 }

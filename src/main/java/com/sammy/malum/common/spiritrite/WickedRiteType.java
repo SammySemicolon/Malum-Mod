@@ -27,7 +27,7 @@ public class WickedRiteType extends MalumRiteType
     @Override
     public void riteEffect(ServerWorld world, BlockPos pos)
     {
-        getNearbyEntities(LivingEntity.class, world, pos).forEach(e ->{
+        getNearbyEntities(LivingEntity.class, world, pos, false ).forEach(e ->{
             if (e.getHealth() > 2.5f)
             {
                 e.attackEntityFrom(DamageSourceRegistry.VOODOO, 2);
@@ -37,7 +37,7 @@ public class WickedRiteType extends MalumRiteType
 
     @Override
     public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
-        getNearbyEntities(LivingEntity.class, world, pos).forEach(e ->{
+        getNearbyEntities(LivingEntity.class, world, pos, true).forEach(e ->{
             if (e.getHealth() <= 2.5f)
             {
                 e.attackEntityFrom(DamageSourceRegistry.FORCED_SHATTER, 10f);

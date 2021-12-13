@@ -7,14 +7,17 @@ import com.sammy.malum.core.registry.items.ITemTagRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.items.ItemRegistry;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
+import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +31,15 @@ import static com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude
 @Mod.EventBusSubscriber
 public class EntityEvents {
 
+    @SubscribeEvent
+    public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+        EffectInstance effectInstance = entity.getActivePotionEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get());
+        if (effectInstance != null)
+        {
+            entity.setMotion(entity.getMotion().add(0, effectInstance.amplifier*0.1f, 0));
+        }
+    }
     @SubscribeEvent
     public static void onEntityKill(LivingDeathEvent event) {
         if (event.getSource().equals(DamageSourceRegistry.FORCED_SHATTER))

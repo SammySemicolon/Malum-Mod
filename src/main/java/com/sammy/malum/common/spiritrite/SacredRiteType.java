@@ -1,5 +1,6 @@
 package com.sammy.malum.common.spiritrite;
 
+import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,12 +19,12 @@ public class SacredRiteType extends MalumRiteType {
 
     @Override
     public void riteEffect(ServerWorld world, BlockPos pos) {
-        getNearbyEntities(PlayerEntity.class, world, pos).forEach(e -> e.addPotionEffect(new EffectInstance(Effects.REGENERATION, 100, 0)));
+        getNearbyEntities(PlayerEntity.class, world, pos, false).forEach(e -> e.addPotionEffect(new EffectInstance(EffectRegistry.SACRED_AURA.get(), 100, 1)));
     }
 
     @Override
     public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
-        getNearbyEntities(AnimalEntity.class, world, pos).forEach(e -> {
+        getNearbyEntities(AnimalEntity.class, world, pos, true).forEach(e -> {
             if (e.getGrowingAge() < 0) {
                 e.addGrowth(2);
             }
@@ -31,7 +32,7 @@ public class SacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public int range() {
-        return 4;
+    public int range(boolean isCorrupted) {
+        return defaultRange()/2;
     }
 }

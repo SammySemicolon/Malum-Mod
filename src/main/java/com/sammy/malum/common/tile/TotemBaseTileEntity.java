@@ -25,15 +25,21 @@ import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTileEntity {
-    public TotemBaseTileEntity() {
-        super(TileEntityRegistry.TOTEM_BASE_TILE_ENTITY.get());
-    }
 
     public MalumRiteType rite;
     public ArrayList<MalumSpiritType> spirits = new ArrayList<>();
     public boolean active;
     public int progress;
     public int height;
+    public boolean isCorrupted;
+
+    public TotemBaseTileEntity() {
+        super(TileEntityRegistry.TOTEM_BASE_TILE_ENTITY.get());
+    }
+    public TotemBaseTileEntity(boolean isCorrupted) {
+        this();
+        this.isCorrupted = isCorrupted;
+    }
 
     @Override
     public CompoundNBT writeData(CompoundNBT compound) {
@@ -48,6 +54,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         compound.putBoolean("active", active);
         compound.putInt("progress", progress);
         compound.putInt("height", height);
+        compound.putBoolean("isCorrupted", isCorrupted);
         return super.writeData(compound);
     }
 
@@ -61,6 +68,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");
         height = compound.getInt("height");
+        isCorrupted = compound.getBoolean("isCorrupted");
         super.readData(compound);
     }
 
@@ -69,9 +77,8 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         if (MalumHelper.areWeOnServer(world)) {
             if (rite != null) {
                 progress++;
-                if (progress >= rite.interval()) {
-                    TotemBaseBlock baseBlock = (TotemBaseBlock) getBlockState().getBlock();
-                    rite.executeRite((ServerWorld) world, pos, baseBlock.corrupted);
+                if (progress >= rite.interval(isCorrupted)) {
+                    rite.executeRite((ServerWorld) world, pos, isCorrupted);
                     progress = 0;
                 }
             } else if (active) {
@@ -96,13 +103,13 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     }
 
     public void disableOtherRites(MalumRiteType rite) {
-        int range = rite.range();
+        int range = rite.range(isCorrupted);
         ArrayList<BlockPos> totemBases = new ArrayList<>(MalumHelper.getBlocks(pos, range, b -> world.getTileEntity(b) instanceof TotemBaseTileEntity && !b.equals(pos)));
         for (BlockPos basePos : totemBases) {
             TotemBaseTileEntity tileEntity = (TotemBaseTileEntity) world.getTileEntity(basePos);
             if (rite.equals(tileEntity.rite)) {
                 tileEntity.endRite();
-            } else {
+            } else if (tileEntity.rite != null) {
                 if (basePos.withinDistance(pos, 0.5f + range * 0.5f)) {
                     tileEntity.endRite();
                 }
@@ -135,6 +142,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     public void startRite() {
         active = true;
         MalumHelper.updateAndNotifyState(world, pos);
+        progress = 0;
     }
 
     public void completeRite(MalumRiteType rite) {

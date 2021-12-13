@@ -24,24 +24,12 @@ public class EarthenRiteType extends MalumRiteType
     }
 
     @Override
-    public int range()
-    {
-        return defaultRange()/2;
+    public void riteEffect(ServerWorld world, BlockPos pos) {
+        getNearbyEntities(PlayerEntity.class, world, pos, false).forEach(e -> e.addPotionEffect(new EffectInstance(EffectRegistry.EARTHEN_AURA.get(), 100, 1)));
     }
 
     @Override
-    public void riteEffect(ServerWorld world, BlockPos pos)
-    {
-        ArrayList<PlayerEntity> entities = (ArrayList<PlayerEntity>) world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos).grow(range()));
-        entities.forEach(e -> {
-            if (e.getActivePotionEffect(EffectRegistry.AURA_OF_WARDING.get()) == null)
-            {
-                Vector3d targetPos = e.getPositionVec().add(0, e.getHeight()/2f,0);
-
-                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), BurstParticlePacket.fromSpirits(targetPos.x,targetPos.y,targetPos.z, EARTHEN_SPIRIT));
-            }
-            e.addPotionEffect(new EffectInstance(EffectRegistry.AURA_OF_WARDING.get(), 100, 1));
-        });
-        super.riteEffect(world, pos);
+    public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
+        getNearbyEntities(PlayerEntity.class, world, pos, false).forEach(e -> e.addPotionEffect(new EffectInstance(EffectRegistry.CORRUPTED_EARTHEN_AURA.get(), 100, 1)));
     }
 }

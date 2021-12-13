@@ -29,7 +29,7 @@ public class TotemBaseBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new TotemBaseTileEntity();
+        return new TotemBaseTileEntity(((TotemBaseBlock)state.getBlock()).corrupted);
     }
 
     @Override

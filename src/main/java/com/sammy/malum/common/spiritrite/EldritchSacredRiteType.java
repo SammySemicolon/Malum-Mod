@@ -22,7 +22,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
 
     @Override
     public void riteEffect(ServerWorld world, BlockPos pos) {
-        getNearbyBlocks(IGrowable.class, world, pos).forEach(p -> {
+        getNearbyBlocks(IGrowable.class, world, pos, false).forEach(p -> {
             if (world.rand.nextFloat() <= 0.02f) {
                 BlockState state = world.getBlockState(p);
                 IGrowable growable = (IGrowable) state.getBlock();
@@ -35,7 +35,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
 
     @Override
     public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
-        ArrayList<AnimalEntity> entities = getNearbyEntities(AnimalEntity.class, world, pos);
+        ArrayList<AnimalEntity> entities = getNearbyEntities(AnimalEntity.class, world, pos, true);
         entities.removeIf(e -> e.getGrowingAge() < 0);
         if (entities.size() > 30)
         {
@@ -51,7 +51,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public int range() {
+    public int range(boolean isCorrupted) {
         return defaultRange()/2;
     }
 }

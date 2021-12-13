@@ -19,7 +19,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
 
     @Override
     public void riteEffect(ServerWorld world, BlockPos pos) {
-        getNearbyEntities(LivingEntity.class, world, pos).forEach(e -> {
+        getNearbyEntities(LivingEntity.class, world, pos, false).forEach(e -> {
             if (!(e instanceof PlayerEntity)) {
                 e.attackEntityFrom(DamageSourceRegistry.VOODOO, 5);
             }
@@ -28,19 +28,19 @@ public class EldritchWickedRiteType extends MalumRiteType {
 
     @Override
     public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
-        ArrayList<AnimalEntity> entities = getNearbyEntities(AnimalEntity.class, world, pos);
+        ArrayList<AnimalEntity> entities = getNearbyEntities(AnimalEntity.class, world, pos, true);
         if (entities.size() < 30) {
             return;
         }
+        int maxKills = entities.size() - 30;
         for (AnimalEntity entity : entities) {
             if (!entity.isInLove() && entity.getGrowingAge() > 0) {
                 entity.attackEntityFrom(DamageSourceRegistry.VOODOO, entity.getMaxHealth());
+                maxKills--;
+            }
+            if (maxKills <= 0) {
+                return;
             }
         }
-    }
-
-    @Override
-    public int range() {
-        return defaultRange() / 2;
     }
 }

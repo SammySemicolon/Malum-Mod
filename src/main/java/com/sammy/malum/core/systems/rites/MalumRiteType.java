@@ -31,7 +31,7 @@ public class MalumRiteType {
         return 8;
     }
 
-    public int range() {
+    public int range(boolean corrupted) {
         return defaultRange();
     }
 
@@ -39,7 +39,7 @@ public class MalumRiteType {
         return 20;
     }
 
-    public int interval() {
+    public int interval(boolean corrupted) {
         return defaultInterval();
     }
 
@@ -59,12 +59,12 @@ public class MalumRiteType {
 
     }
 
-    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, ServerWorld world, BlockPos pos)
+    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, ServerWorld world, BlockPos pos, boolean isCorrupted)
     {
-        return (ArrayList<T>) world.getEntitiesWithinAABB(clazz, new AxisAlignedBB(pos).grow(range()));
+        return (ArrayList<T>) world.getEntitiesWithinAABB(clazz, new AxisAlignedBB(pos).grow(range(isCorrupted)));
     }
-    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, ServerWorld world, BlockPos pos)
+    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, ServerWorld world, BlockPos pos, boolean isCorrupted)
     {
-        return MalumHelper.getBlocks(pos, range(), p -> clazz.isInstance(world.getBlockState(p).getBlock()));
+        return MalumHelper.getBlocks(pos, range(isCorrupted), p -> clazz.isInstance(world.getBlockState(p).getBlock()));
     }
 }
