@@ -1,36 +1,31 @@
-package com.sammy.malum.network.packets.particle;
+package com.sammy.malum.common.packets.particle.altar;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-public class BurstParticlePacket
+public class SpiritAltarCraftParticlePacket
 {
     ArrayList<String> spirits;
     double posX;
     double posY;
     double posZ;
 
-    public static BurstParticlePacket fromSpirits(double posX, double posY, double posZ, MalumSpiritType... spirits)
+    public static SpiritAltarCraftParticlePacket fromSpirits(ArrayList<MalumSpiritType> spiritTypes, double posX, double posY, double posZ)
     {
-        return fromSpirits(posX, posY,posZ, MalumHelper.toArrayList(spirits));
-    }
-    public static BurstParticlePacket fromSpirits(double posX, double posY, double posZ, ArrayList<MalumSpiritType> spirits)
-    {
-        ArrayList<String> strings = new ArrayList<>();
-        for (MalumSpiritType type : spirits)
+        ArrayList<String> spirits = new ArrayList<>();
+        for (MalumSpiritType type : spiritTypes)
         {
-            strings.add(type.identifier);
+            spirits.add(type.identifier);
         }
-        return new BurstParticlePacket(strings, posX, posY, posZ);
+        return new SpiritAltarCraftParticlePacket(spirits, posX, posY, posZ);
     }
-    public BurstParticlePacket(ArrayList<String> spirits, double posX, double posY, double posZ)
+
+    public SpiritAltarCraftParticlePacket(ArrayList<String> spirits, double posX, double posY, double posZ)
     {
         this.spirits = spirits;
         this.posX = posX;
@@ -38,7 +33,7 @@ public class BurstParticlePacket
         this.posZ = posZ;
     }
 
-    public static BurstParticlePacket decode(PacketBuffer buf)
+    public static SpiritAltarCraftParticlePacket decode(PacketBuffer buf)
     {
         int strings = buf.readInt();
         ArrayList<String> spirits = new ArrayList<>();
@@ -49,7 +44,7 @@ public class BurstParticlePacket
         double posX = buf.readDouble();
         double posY = buf.readDouble();
         double posZ = buf.readDouble();
-        return new BurstParticlePacket(spirits, posX, posY, posZ);
+        return new SpiritAltarCraftParticlePacket(spirits, posX, posY, posZ);
     }
 
     public void encode(PacketBuffer buf)
@@ -63,9 +58,10 @@ public class BurstParticlePacket
         buf.writeDouble(posY);
         buf.writeDouble(posZ);
     }
+
     public void whenThisPacketIsReceived(Supplier<NetworkEvent.Context> context)
     {
-        context.get().enqueueWork(() -> PacketEffects.burstParticles(spirits, new Vector3d(posX,posY,posZ)));
+        context.get().enqueueWork(() -> PacketEffects.altarCraftParticles(spirits, posX, posY, posZ));
         context.get().setPacketHandled(true);
     }
 }

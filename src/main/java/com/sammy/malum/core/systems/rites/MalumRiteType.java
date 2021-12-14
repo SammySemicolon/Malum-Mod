@@ -2,13 +2,10 @@ package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import jdk.nashorn.internal.ir.Block;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
@@ -43,7 +40,7 @@ public class MalumRiteType {
         return defaultInterval();
     }
 
-    public void executeRite(ServerWorld world, BlockPos pos, boolean corrupted) {
+    public void executeRite(World world, BlockPos pos, boolean corrupted) {
         if (corrupted) {
             corruptedRiteEffect(world, pos);
         } else {
@@ -51,20 +48,24 @@ public class MalumRiteType {
         }
     }
 
-    public void riteEffect(ServerWorld world, BlockPos pos) {
+    public void riteEffect(World world, BlockPos pos) {
 
     }
 
-    public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
+    public void corruptedRiteEffect(World world, BlockPos pos) {
 
     }
 
-    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, ServerWorld world, BlockPos pos, boolean isCorrupted)
+    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, World world, BlockPos pos, boolean isCorrupted)
     {
         return (ArrayList<T>) world.getEntitiesWithinAABB(clazz, new AxisAlignedBB(pos).grow(range(isCorrupted)));
     }
-    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, ServerWorld world, BlockPos pos, boolean isCorrupted)
+    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, World world, BlockPos pos, boolean isCorrupted)
     {
         return MalumHelper.getBlocks(pos, range(isCorrupted), p -> clazz.isInstance(world.getBlockState(p).getBlock()));
+    }
+    public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, World world, BlockPos pos, boolean isCorrupted)
+    {
+        return MalumHelper.getPlaneOfBlocks(pos.down(), range(isCorrupted), p -> clazz.isInstance(world.getBlockState(p).getBlock()));
     }
 }

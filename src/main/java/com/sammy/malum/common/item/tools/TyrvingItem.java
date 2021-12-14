@@ -1,9 +1,10 @@
 package com.sammy.malum.common.item.tools;
 
+import com.sammy.malum.common.packets.particle.MagicParticlePacket;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import com.sammy.malum.network.packets.particle.BurstParticlePacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
@@ -16,8 +17,6 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.function.Supplier;
 
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.ELDRITCH_SPIRIT;
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.WICKED_SPIRIT;
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class TyrvingItem extends ModSwordItem implements IEventResponderItem
@@ -47,7 +46,7 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem
             target.hurtResistantTime = 0;
             target.attackEntityFrom(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount*magicAttackDamage);
             attacker.world.playSound(null, target.getPosition(), soundEvent.get(), SoundCategory.PLAYERS, 1, 1f + target.world.rand.nextFloat() * 0.25f);
-            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), BurstParticlePacket.fromSpirits(target.getPosX(), target.getPosY() + target.getHeight() / 2, target.getPosZ(), WICKED_SPIRIT, ELDRITCH_SPIRIT));
+            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MagicParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, target.getPosX(), target.getPosY() + target.getHeight() / 2, target.getPosZ()));
         }
     }
 }

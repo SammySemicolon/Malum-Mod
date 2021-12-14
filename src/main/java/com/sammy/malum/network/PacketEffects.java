@@ -1,6 +1,5 @@
 package com.sammy.malum.network;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -104,24 +103,6 @@ public class PacketEffects
                     .repeat(world, posX, posY, posZ, 8);
         }
     }
-    public static void spiritEngrave(String spirit, BlockPos pos)
-    {
-        World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.getSpiritType(spirit);
-        Color color = MalumHelper.brighter(type.color, 3);
-        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.1f, 0f)
-                .setLifetime(15)
-                .setSpin(0.2f)
-                .setScale(0.5f, 0)
-                .setColor(color, color)
-                .enableNoClip()
-                .randomOffset(0.3f, 0.3f)
-                .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(world, pos, 4);
-
-        totemBlockParticles(spirit, pos, true);
-    }
     public static void totemBlockParticles(String spirit, BlockPos pos, boolean success)
     {
         World world = Minecraft.getInstance().world;
@@ -159,115 +140,6 @@ public class PacketEffects
         for (int i = 0; i < spirits.size(); i++)
         {
             totemBlockParticles(spirits.get(i), pos.up(1+i), success);
-        }
-    }
-
-    public static void upwardsBlockParticles(String spirit, BlockPos pos)
-    {
-        World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.getSpiritType(spirit);
-        Color color = type.color;
-
-        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.05f, 0f)
-                .setLifetime(20)
-                .setSpin(0.2f)
-                .setScale(0.2f, 0)
-                .setColor(color, color)
-                .enableNoClip()
-                .randomOffset(0.1f, 0.1f)
-                .randomVelocity(0.001f, 0.001f)
-                .addVelocity(0, 0.02f, 0)
-                .evenlyRepeatEdges(world, pos, 40);
-
-        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.025f, 0f)
-                .setLifetime(40)
-                .setSpin(0.1f)
-                .setScale(0.4f, 0)
-                .setColor(color, color)
-                .randomOffset(0.2f)
-                .enableNoClip()
-                .randomVelocity(0.001f, 0.001f)
-                .addVelocity(0, 0.02f, 0)
-                .evenlyRepeatEdges(world, pos, 60);
-    }
-    public static void upwardsBlockParticles(ArrayList<String> spirits, BlockPos pos)
-    {
-        for (String spirit : spirits)
-        {
-            upwardsBlockParticles(spirit, pos);
-        }
-    }
-
-    public static void altBurstParticles(String spirit, Vector3d pos, float multiplier)
-    {
-        World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.getSpiritType(spirit);
-        Color color = type.color;
-
-        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.1f * multiplier, 0f)
-                .setLifetime(10)
-                .setSpin(0.4f)
-                .setScale(0.3f, 0)
-                .setColor(color, color.darker())
-                .enableNoClip()
-                .randomOffset(0.2f, 0.2f)
-                .randomVelocity(0.01f, 0.01f)
-                .repeat(world, pos.x,pos.y,pos.z, 12);
-
-        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.05f* multiplier, 0f)
-                .setLifetime(20)
-                .setSpin(0.1f)
-                .setScale(0.4f, 0)
-                .setColor(color, color.darker())
-                .randomOffset(0.4f)
-                .enableNoClip()
-                .randomVelocity(0.025f, 0.025f)
-                .repeat(world, pos.x,pos.y,pos.z, 20);
-    }
-    public static void altBurstParticles(ArrayList<String> spirits, Vector3d pos)
-    {
-        for (String spirit : spirits)
-        {
-            altBurstParticles(spirit, pos, 1 / (float)spirits.size());
-        }
-    }
-    public static void burstParticles(String spirit, Vector3d pos, float multiplier)
-    {
-        World world = Minecraft.getInstance().world;
-        MalumSpiritType type = SpiritHelper.getSpiritType(spirit);
-        Color color = type.color;
-
-        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.1f * multiplier, 0f)
-                .setLifetime(10)
-                .setSpin(0.4f)
-                .setScale(0.4f, 0)
-                .setColor(color, color.darker())
-                .enableNoClip()
-                .randomOffset(0.2f, 0.2f)
-                .randomVelocity(0.01f, 0.01f)
-                .repeat(world, pos.x,pos.y,pos.z, 12);
-
-        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.05f* multiplier, 0f)
-                .setLifetime(20)
-                .setSpin(0.1f)
-                .setScale(0.6f, 0)
-                .setColor(color, color.darker())
-                .randomOffset(0.4f)
-                .enableNoClip()
-                .randomVelocity(0.025f, 0.025f)
-                .repeat(world, pos.x,pos.y,pos.z, 20);
-    }
-    public static void burstParticles(ArrayList<String> spirits, Vector3d pos)
-    {
-        for (String spirit : spirits)
-        {
-            burstParticles(spirit, pos, 1 / (float)spirits.size());
         }
     }
 }

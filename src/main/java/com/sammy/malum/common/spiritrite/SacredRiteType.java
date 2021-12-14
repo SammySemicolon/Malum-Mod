@@ -1,16 +1,18 @@
 package com.sammy.malum.common.spiritrite;
 
+import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.PacketDistributor;
 
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.SACRED_SPIRIT;
+import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class SacredRiteType extends MalumRiteType {
     public SacredRiteType() {
@@ -18,21 +20,33 @@ public class SacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(ServerWorld world, BlockPos pos) {
-        getNearbyEntities(PlayerEntity.class, world, pos, false).forEach(e -> e.addPotionEffect(new EffectInstance(EffectRegistry.SACRED_AURA.get(), 100, 1)));
+    public void riteEffect(World world, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(world)) {
+            getNearbyEntities(PlayerEntity.class, world, pos, false).forEach(e -> {
+                if (e.getActivePotionEffect(EffectRegistry.SACRED_AURA.get()) == null) {
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY() + e.getHeight() / 2f, e.getPosition().getZ()));
+                }
+                e.addPotionEffect(new EffectInstance(EffectRegistry.SACRED_AURA.get(), 100, 1));
+            });
+        }
     }
 
     @Override
-    public void corruptedRiteEffect(ServerWorld world, BlockPos pos) {
-        getNearbyEntities(AnimalEntity.class, world, pos, true).forEach(e -> {
-            if (e.getGrowingAge() < 0) {
-                e.addGrowth(2);
-            }
-        });
+    public void corruptedRiteEffect(World world, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(world)) {
+            getNearbyEntities(AnimalEntity.class, world, pos, true).forEach(e -> {
+                if (world.rand.nextFloat() <= 0.04f) {
+                    if (e.getGrowingAge() < 0) {
+                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY() + e.getHeight() / 2f, e.getPosition().getZ()));
+                        e.addGrowth(25);
+                    }
+                }
+            });
+        }
     }
 
     @Override
     public int range(boolean isCorrupted) {
-        return defaultRange()/2;
+        return defaultRange() / 2;
     }
 }

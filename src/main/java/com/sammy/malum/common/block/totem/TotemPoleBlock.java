@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.common.packets.particle.BlockParticlePacket;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
-import com.sammy.malum.network.packets.particle.totem.TotemPoleParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -77,7 +77,7 @@ public class TotemPoleBlock extends Block
                 if (totemPoleTileEntity.type != null)
                 {
                     worldIn.setBlockState(pos, logBlock.get().getDefaultState());
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->worldIn.getChunkAt(pos)), new TotemPoleParticlePacket(totemPoleTileEntity.type.identifier, pos.getX(),pos.getY(),pos.getZ(), false));
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->worldIn.getChunkAt(pos)), new BlockParticlePacket(totemPoleTileEntity.type.color, pos.getX(),pos.getY(),pos.getZ()));
                     worldIn.playSound(null, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS,1,1);
                     return ActionResultType.SUCCESS;
                 }

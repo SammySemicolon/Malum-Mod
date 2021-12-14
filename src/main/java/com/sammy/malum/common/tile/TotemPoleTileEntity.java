@@ -1,15 +1,14 @@
 package com.sammy.malum.common.tile;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.common.packets.particle.BlockParticlePacket;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import com.sammy.malum.core.systems.tile.SimpleTileEntity;
-import com.sammy.malum.network.packets.particle.totem.SpiritEngraveParticlePacket;
-import com.sammy.malum.network.packets.particle.totem.TotemPoleParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
@@ -80,14 +79,15 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     public void create(MalumSpiritType type)
     {
         world.playSound(null, pos, SoundRegistry.TOTEM_ENGRAVE, SoundCategory.BLOCKS,1,1);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new SpiritEngraveParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ()));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new BlockParticlePacket(type.color, pos.getX(),pos.getY(),pos.getZ()));
         this.type = type;
         this.currentColor = 10;
+        MalumHelper.updateAndNotifyState(world,pos);
     }
     public void riteStarting(int height)
     {
         world.playSound(null, pos, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1 + 0.2f * height);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new TotemPoleParticlePacket(type.identifier, pos.getX(),pos.getY(),pos.getZ(), false));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new BlockParticlePacket(type.color, pos.getX(),pos.getY(),pos.getZ()));
         this.desiredColor = 10;
         this.baseLevel = pos.getY() - height;
         MalumHelper.updateAndNotifyState(world,pos);

@@ -1,6 +1,5 @@
 package com.sammy.malum;
 
-import com.sammy.malum.common.item.equipment.curios.MalumCurioItem;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.block.Block;
@@ -296,6 +295,29 @@ public class MalumHelper {
                 for (int z = z1; z <= z2; z++) {
                     positions.add(pos.add(x, y, z));
                 }
+            }
+        }
+        return positions;
+    }
+
+    public static ArrayList<BlockPos> getPlaneOfBlocks(BlockPos pos, int range, Predicate<BlockPos> predicate) {
+        return getPlaneOfBlocks(pos, range, range, predicate);
+    }
+
+    public static ArrayList<BlockPos> getPlaneOfBlocks(BlockPos pos, int x, int z, Predicate<BlockPos> predicate) {
+        ArrayList<BlockPos> blocks = getPlaneOfBlocks(pos, x, z);
+        blocks.removeIf(b -> !predicate.test(b));
+        return blocks;
+    }
+
+    public static ArrayList<BlockPos> getPlaneOfBlocks(BlockPos pos, int x, int z) {
+        return getPlaneOfBlocks(pos, -x, -z, x, z);
+    }
+    public static ArrayList<BlockPos> getPlaneOfBlocks(BlockPos pos, int x1, int z1, int x2, int z2) {
+        ArrayList<BlockPos> positions = new ArrayList<>();
+        for (int x = x1; x <= x2; x++) {
+            for (int z = z1; z <= z2; z++) {
+                positions.add(pos.add(x, pos.getY(), z));
             }
         }
         return positions;

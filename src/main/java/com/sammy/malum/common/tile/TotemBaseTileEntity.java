@@ -3,23 +3,23 @@ package com.sammy.malum.common.tile;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.common.packets.particle.TotemParticlePacket;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import com.sammy.malum.core.systems.tile.SimpleTileEntity;
-import com.sammy.malum.network.packets.particle.totem.TotemParticlePacket;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
@@ -74,14 +74,14 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
 
     @Override
     public void tick() {
-        if (MalumHelper.areWeOnServer(world)) {
-            if (rite != null) {
-                progress++;
-                if (progress >= rite.interval(isCorrupted)) {
-                    rite.executeRite((ServerWorld) world, pos, isCorrupted);
-                    progress = 0;
-                }
-            } else if (active) {
+        if (rite != null) {
+            progress++;
+            if (progress >= rite.interval(isCorrupted)) {
+                rite.executeRite(world, pos, isCorrupted);
+                progress = 0;
+            }
+        } else if (active) {
+            if (MalumHelper.areWeOnServer(world)) {
                 progress--;
                 if (progress <= 0) {
                     height++;
@@ -97,6 +97,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
                         }
                     }
                     progress = 20;
+                    MalumHelper.updateAndNotifyState(world, pos);
                 }
             }
         }
@@ -141,17 +142,17 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
 
     public void startRite() {
         active = true;
-        MalumHelper.updateAndNotifyState(world, pos);
         progress = 0;
+        MalumHelper.updateAndNotifyState(world, pos);
     }
 
     public void completeRite(MalumRiteType rite) {
         world.playSound(null, pos, SoundRegistry.TOTEM_CHARGED, SoundCategory.BLOCKS, 1, 1);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, true));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), pos.getX(), pos.getY()+1, pos.getZ()));
         getPoles().forEach(p -> p.riteComplete(height));
         progress = 0;
         if (rite.isInstant) {
-            rite.riteEffect((ServerWorld) world, pos);
+            rite.riteEffect(world, pos);
             resetTotem();
             return;
         }
@@ -161,7 +162,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
 
     public void endRite() {
         world.playSound(null, pos, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), TotemParticlePacket.fromSpirits(spirits, pos, false));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), pos.getX(), pos.getY()+1, pos.getZ()));
         resetTotem();
     }
 
