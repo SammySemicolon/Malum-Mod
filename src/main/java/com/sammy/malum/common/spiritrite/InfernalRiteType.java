@@ -4,9 +4,9 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -34,13 +34,11 @@ public class InfernalRiteType extends MalumRiteType {
     @Override
     public void corruptedRiteEffect(World world, BlockPos pos) {
         if (MalumHelper.areWeOnServer(world)) {
-            getNearbyEntities(LivingEntity.class, world, pos, true).forEach(e -> {
-                if (!(e instanceof PlayerEntity)) {
-                    if (e.getFireTimer() != 0) {
-                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(INFERNAL_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY() + e.getHeight() / 2f, e.getPosition().getZ()));
-                    }
-                    e.setFire(2);
+            getNearbyEntities(PlayerEntity.class, world, pos, true).forEach(e -> {
+                if (e.getActivePotionEffect(Effects.FIRE_RESISTANCE) == null) {
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(INFERNAL_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY() + e.getHeight() / 2f, e.getPosition().getZ()));
                 }
+                e.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 200, 0));
             });
         }
     }

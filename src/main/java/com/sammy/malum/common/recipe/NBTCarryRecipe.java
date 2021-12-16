@@ -4,12 +4,14 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.systems.recipe.RecipeType;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
@@ -23,9 +25,15 @@ import java.util.Set;
 
 public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<CraftingInventory>
 {
-    public static final ResourceLocation NAME = MalumHelper.prefix("nbt_carry");
-    public static final NBTCarryRecipe.Serializer SERIALIZER = new NBTCarryRecipe.Serializer();
-    public static final IRecipeType<NBTCarryRecipe> RECIPE_TYPE = new RecipeType<>();
+    public static final String NAME = "nbt_carry";
+    public static class Type implements IRecipeType<NBTCarryRecipe> {
+        @Override
+        public String toString () {
+            return MalumMod.MODID + ":" + NAME;
+        }
+
+        public static final NBTCarryRecipe.Type INSTANCE = new NBTCarryRecipe.Type();
+    }
     static int MAX_WIDTH = 3;
     static int MAX_HEIGHT = 3;
 
@@ -50,8 +58,14 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     @Override
     public IRecipeSerializer<?> getSerializer()
     {
-        return SERIALIZER;
+        return RecipeSerializerRegistry.NBT_CARRY_RECIPE_SERIALIZER.get();
     }
+
+    @Override
+    public IRecipeType<?> getType() {
+        return Type.INSTANCE;
+    }
+
     @Override
     public boolean matches(CraftingInventory inv, World worldIn)
     {
@@ -316,10 +330,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     public static ItemStack deserializeItem(JsonObject object)
     {
         String s = JSONUtils.getString(object, "item");
-        Item item = Registry.ITEM.getOptional(new ResourceLocation(s)).orElseThrow(() ->
-        {
-            return new JsonSyntaxException("Unknown item '" + s + "'");
-        });
+        Registry.ITEM.getOptional(new ResourceLocation(s)).orElseThrow(() -> new JsonSyntaxException("Unknown item '" + s + "'"));
         if (object.has("data"))
         {
             throw new JsonParseException("Disallowed data tag found");

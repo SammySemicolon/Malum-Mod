@@ -1,0 +1,5 @@
+{
+  "type": "malum:block_transmutation",
+  "input": "malum:exposed_runewood_log",
+  "output": "malum:exposed_soulwood_log"
+}

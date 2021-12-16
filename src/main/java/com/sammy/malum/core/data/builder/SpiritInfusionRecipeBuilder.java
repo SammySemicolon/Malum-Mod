@@ -4,9 +4,9 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
@@ -124,7 +124,7 @@ public class SpiritInfusionRecipeBuilder
         @Override
         public IRecipeSerializer<?> getSerializer()
         {
-            return SpiritInfusionRecipe.SERIALIZER;
+            return RecipeSerializerRegistry.INFUSION_RECIPE_SERIALIZER.get();
         }
 
         @Nullable

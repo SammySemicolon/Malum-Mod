@@ -1,0 +1,5 @@
+{
+  "type": "malum:block_transmutation",
+  "input": "malum:runewood_panel_stairs",
+  "output": "malum:soulwood_panel_stairs"
+}

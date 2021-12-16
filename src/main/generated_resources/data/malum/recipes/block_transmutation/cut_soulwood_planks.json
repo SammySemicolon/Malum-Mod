@@ -1,0 +1,5 @@
+{
+  "type": "malum:block_transmutation",
+  "input": "malum:cut_runewood_planks",
+  "output": "malum:cut_soulwood_planks"
+}

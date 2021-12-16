@@ -79,6 +79,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
             if (progress >= rite.interval(isCorrupted)) {
                 rite.executeRite(world, pos, isCorrupted);
                 progress = 0;
+                MalumHelper.updateAndNotifyState(world, pos);
             }
         } else if (active) {
             if (MalumHelper.areWeOnServer(world)) {
@@ -158,6 +159,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         }
         this.rite = rite;
         disableOtherRites(rite);
+        MalumHelper.updateAndNotifyState(world, pos);
     }
 
     public void endRite() {
@@ -173,5 +175,6 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         active = false;
         progress = 0;
         spirits.clear();
+        MalumHelper.updateAndNotifyState(world, pos);
     }
 }

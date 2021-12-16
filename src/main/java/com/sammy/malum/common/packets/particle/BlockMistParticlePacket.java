@@ -65,7 +65,7 @@ public class BlockMistParticlePacket
         public static void addParticles(BlockPos pos, Color color) {
             World world = Minecraft.getInstance().world;
             ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(0.08f, 0f)
+                    .setAlpha(0.4f, 0f)
                     .setLifetime(20)
                     .setSpin(0.2f)
                     .setScale(0.3f, 0)
@@ -73,10 +73,10 @@ public class BlockMistParticlePacket
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 20, Direction.UP);
+                    .evenlyRepeatEdges(world, pos, 4, Direction.UP, Direction.DOWN);
 
             ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(0.04f, 0f)
+                    .setAlpha(0.2f, 0f)
                     .setLifetime(40)
                     .setSpin(0.1f)
                     .setScale(0.4f, 0)
@@ -84,7 +84,7 @@ public class BlockMistParticlePacket
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 30, Direction.UP);
+                    .evenlyRepeatEdges(world, pos, 6, Direction.UP, Direction.DOWN);
         }
     }
 }

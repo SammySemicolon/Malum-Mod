@@ -34,4 +34,10 @@ public abstract class IMalumRecipe implements IRecipe<IInventory>
     {
         return ItemStack.EMPTY;
     }
+
+
+    @Override
+    public boolean isDynamic() {
+        return true;
+    }
 }

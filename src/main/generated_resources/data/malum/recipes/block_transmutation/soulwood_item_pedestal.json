@@ -1,0 +1,5 @@
+{
+  "type": "malum:block_transmutation",
+  "input": "malum:runewood_item_pedestal",
+  "output": "malum:soulwood_item_pedestal"
+}

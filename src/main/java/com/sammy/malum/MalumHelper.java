@@ -317,7 +317,7 @@ public class MalumHelper {
         ArrayList<BlockPos> positions = new ArrayList<>();
         for (int x = x1; x <= x2; x++) {
             for (int z = z1; z <= z2; z++) {
-                positions.add(pos.add(x, pos.getY(), z));
+                positions.add(new BlockPos(pos.getX()+x, pos.getY(), pos.getZ()+z));
             }
         }
         return positions;

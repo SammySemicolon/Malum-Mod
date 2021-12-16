@@ -1,0 +1,5 @@
+{
+  "type": "malum:block_transmutation",
+  "input": "malum:runewood_tiles_slab",
+  "output": "malum:soulwood_tiles_slab"
+}

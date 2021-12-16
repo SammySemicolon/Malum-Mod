@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sammy.malum.common.recipe.NBTCarryRecipe;
+import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.ICriterionInstance;
@@ -231,7 +231,7 @@ public class NBTCarryRecipeBuilder
 
         public IRecipeSerializer<?> getSerializer()
         {
-            return NBTCarryRecipe.SERIALIZER;
+            return RecipeSerializerRegistry.NBT_CARRY_RECIPE_SERIALIZER.get();
         }
 
         public ResourceLocation getID()

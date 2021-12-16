@@ -2,7 +2,6 @@ package com.sammy.malum.common.effect;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraftforge.common.ForgeMod;
@@ -18,5 +17,10 @@ public class CorruptedAerialAura extends Effect
     @Override
     public void performEffect(LivingEntity entityLivingBaseIn, int amplifier)
     {
+    }
+
+    @Override
+    public double getAttributeModifierAmount(int amplifier, AttributeModifier modifier) {
+        return super.getAttributeModifierAmount(Math.min(1, amplifier), modifier);
     }
 }

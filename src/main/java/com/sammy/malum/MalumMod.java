@@ -3,12 +3,8 @@ package com.sammy.malum;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
-import com.sammy.malum.core.systems.particle.ParticleRendering;
 import net.minecraft.data.BlockTagsProvider;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -19,16 +15,17 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.registry.block.TileEntityRegistry.TILE_ENTITIES;
+import static com.sammy.malum.core.registry.content.RecipeSerializerRegistry.RECIPE_TYPES;
+import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
 import static com.sammy.malum.core.registry.misc.AttributeRegistry.ATTRIBUTES;
 import static com.sammy.malum.core.registry.misc.ContainerRegistry.CONTAINERS;
 import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.registry.block.TileEntityRegistry.TILE_ENTITIES;
-import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
 import static com.sammy.malum.core.registry.misc.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
 import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURES;
 
 @SuppressWarnings("unused")
@@ -57,13 +54,8 @@ public class MalumMod
         FEATURES.register(modBus);
         CONTAINERS.register(modBus);
         ATTRIBUTES.register(modBus);
+        RECIPE_TYPES.register(modBus);
         modBus.addListener(this::gatherData);
-
-        DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () ->
-        {
-            MinecraftForge.EVENT_BUS.register(new ParticleRendering());
-            return new Object();
-        });
     }
 
 
@@ -78,5 +70,6 @@ public class MalumMod
         event.getGenerator().addProvider(new MalumItemTags(event.getGenerator(), provider, event.getExistingFileHelper()));
         event.getGenerator().addProvider(new MalumRecipes(event.getGenerator()));
         event.getGenerator().addProvider(new MalumSpiritInfusionRecipes(event.getGenerator()));
+        event.getGenerator().addProvider(new MalumBlockTransmutationRecipes(event.getGenerator()));
     }
 }

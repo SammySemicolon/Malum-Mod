@@ -16,9 +16,13 @@ public class SpiritRiteRegistry
     public static MalumRiteType ELDRITCH_WICKED_RITE = create(new EldritchWickedRiteType());
 
     public static MalumRiteType EARTHEN_RITE = create(new EarthenRiteType());
+    public static MalumRiteType ELDRITCH_EARTHEN_RITE = create(new EldritchEarthenRiteType());
     public static MalumRiteType INFERNAL_RITE = create(new InfernalRiteType());
+    public static MalumRiteType ELDRITCH_INFERNAL_RITE = create(new EldritchInfernalRiteType());
     public static MalumRiteType AERIAL_RITE = create(new AerialRiteType());
+    public static MalumRiteType ELDRITCH_AERIAL_RITE = create(new EldritchAerialRiteType());
     public static MalumRiteType AQUEOUS_RITE = create(new AqueousRiteType());
+    public static MalumRiteType ELDRITCH_AQUEOUS_RITE = create(new EldritchAqueousRiteType());
 
     public static MalumRiteType ARCANE_RITE = create(new ArcaneRiteType());
 

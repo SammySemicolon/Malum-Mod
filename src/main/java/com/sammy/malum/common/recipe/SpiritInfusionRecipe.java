@@ -2,20 +2,19 @@ package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
-import com.sammy.malum.core.systems.recipe.RecipeType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -25,9 +24,15 @@ import java.util.List;
 
 public class SpiritInfusionRecipe extends IMalumRecipe
 {
-    public static final ResourceLocation NAME = MalumHelper.prefix("spirit_infusion");
-    public static final Serializer SERIALIZER = new Serializer();
-    public static final IRecipeType<SpiritInfusionRecipe> RECIPE_TYPE = new RecipeType<>();
+    public static final String NAME = "spirit_infusion";
+    public static class Type implements IRecipeType<SpiritInfusionRecipe> {
+        @Override
+        public String toString () {
+            return MalumMod.MODID + ":" + NAME;
+        }
+
+        public static final SpiritInfusionRecipe.Type INSTANCE = new SpiritInfusionRecipe.Type();
+    }
     private final ResourceLocation id;
 
     public final boolean retainsPrimeItem;
@@ -50,13 +55,13 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     @Override
     public IRecipeSerializer<?> getSerializer()
     {
-        return null;
+        return RecipeSerializerRegistry.INFUSION_RECIPE_SERIALIZER.get();
     }
 
     @Override
     public IRecipeType<?> getType()
     {
-        return Registry.RECIPE_TYPE.getOptional(NAME).get();
+        return Type.INSTANCE;
     }
 
     @Override
@@ -64,7 +69,8 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     {
         return id;
     }
-    public ArrayList<ItemStack> sortedStacks(ArrayList<ItemStack> stacks)
+
+    public ArrayList<ItemStack> getSortedStacks(ArrayList<ItemStack> stacks)
     {
         ArrayList<ItemStack> sortedStacks = new ArrayList<>();
         for (ItemWithCount item : spirits)
@@ -80,7 +86,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return sortedStacks;
     }
-    public ArrayList<MalumSpiritType> spirits()
+    public ArrayList<MalumSpiritType> getSpirits()
     {
         ArrayList<MalumSpiritType> spirits = new ArrayList<>();
         for (ItemWithCount item : this.spirits)
@@ -90,6 +96,38 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return spirits;
     }
+    public boolean doSpiritsMatch(ArrayList<ItemStack> spirits)
+    {
+        if (this.spirits.size() == 0)
+        {
+            return true;
+        }
+        ArrayList<ItemStack> sortedStacks = getSortedStacks(spirits);
+        if (sortedStacks.size() < this.spirits.size())
+        {
+            return false;
+        }
+        for (int i = 0; i < this.spirits.size(); i++)
+        {
+            ItemWithCount item = this.spirits.get(i);
+            ItemStack stack = sortedStacks.get(i);
+            if (!item.matches(stack))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean doesInputMatch(ItemStack input)
+    {
+        return this.input.matches(input);
+    }
+
+    public boolean doesOutputMatch(ItemStack output)
+    {
+        return this.output.item.equals(output.getItem());
+    }
+
     public static SpiritInfusionRecipe getRecipeForAltar(World world, ItemStack stack, ArrayList<ItemStack> spirits)
     {
         List<SpiritInfusionRecipe> recipes = getRecipes(world);
@@ -116,37 +154,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     }
     public static List<SpiritInfusionRecipe> getRecipes(World world)
     {
-        return world.getRecipeManager().getRecipesForType(RECIPE_TYPE);
-    }
-    public boolean doSpiritsMatch(ArrayList<ItemStack> spirits)
-    {
-        if (this.spirits.size() == 0)
-        {
-            return true;
-        }
-        ArrayList<ItemStack> sortedStacks = sortedStacks(spirits);
-        if (sortedStacks.size() < this.spirits.size())
-        {
-            return false;
-        }
-        for (int i = 0; i < this.spirits.size(); i++)
-        {
-            ItemWithCount item = this.spirits.get(i);
-            ItemStack stack = sortedStacks.get(i);
-            if (!item.matches(stack))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    public boolean doesInputMatch(ItemStack input)
-    {
-        return this.input.matches(input);
-    }
-    public boolean doesOutputMatch(ItemStack output)
-    {
-        return this.output.item.equals(output.getItem());
+        return world.getRecipeManager().getRecipesForType(Type.INSTANCE);
     }
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritInfusionRecipe> {
 
@@ -186,7 +194,6 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         @Override
         public SpiritInfusionRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
         {
-            boolean retainsPrimeItem = buffer.getBoolean(0);
             IngredientWithCount input = IngredientWithCount.read(buffer);
             ItemStack output = buffer.readItemStack();
             int extraItemCount = buffer.readInt();
@@ -201,13 +208,13 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 spirits.add(new ItemWithCount(buffer.readItemStack()));
             }
+            boolean retainsPrimeItem = buffer.getBoolean(0);
             return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, new ItemWithCount(output), spirits, extraItems);
         }
 
         @Override
         public void write(PacketBuffer buffer, SpiritInfusionRecipe recipe)
         {
-            buffer.writeBoolean(recipe.retainsPrimeItem);
             recipe.input.write(buffer);
             buffer.writeItemStack(recipe.output.stack());
             buffer.writeInt(recipe.extraItems.size());
@@ -220,6 +227,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 buffer.writeItemStack(item.stack());
             }
+            buffer.writeBoolean(recipe.retainsPrimeItem);
         }
     }
 }

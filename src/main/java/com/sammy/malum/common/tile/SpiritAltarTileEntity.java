@@ -204,7 +204,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
                     {
                         world.playSound(null, pos, SoundRegistry.ALTAR_CONSUME, SoundCategory.BLOCKS, 1, 0.9f + world.rand.nextFloat() * 0.2f);
                         Vector3d providedItemPos = tileEntity.providedItemPos();
-                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.spirits(), providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
+                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.getSpirits(), providedItemPos.x,providedItemPos.y,providedItemPos.z, itemPos.x,itemPos.y,itemPos.z));
                         extrasInventory.playerInsertItem(world, providedStack.split(requestedItem.count));
                         MalumHelper.updateAndNotifyState(world, pos);
                         MalumHelper.updateAndNotifyState(world, this.pos);
@@ -241,7 +241,7 @@ public class SpiritAltarTileEntity extends SimpleTileEntity implements ITickable
             }
         }
 
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.spirits(), itemPos.x, itemPos.y, itemPos.z));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
         progress = 0;
         extrasInventory.clearItems();
         recipe = SpiritInfusionRecipe.getRecipeForAltar(world, stack, spiritInventory.nonEmptyStacks());

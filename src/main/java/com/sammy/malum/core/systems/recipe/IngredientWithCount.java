@@ -42,14 +42,14 @@ public class IngredientWithCount
     public static IngredientWithCount read(PacketBuffer buffer)
     {
         Ingredient ingredient = Ingredient.read(buffer);
-        int count = buffer.readInt();
+        int count = buffer.readByte();
         return new IngredientWithCount(ingredient, count);
     }
 
     public void write(PacketBuffer buffer)
     {
         ingredient.write(buffer);
-        buffer.writeInt(count);
+        buffer.writeByte(count);
     }
 
     public static IngredientWithCount deserialize(JsonObject object)
