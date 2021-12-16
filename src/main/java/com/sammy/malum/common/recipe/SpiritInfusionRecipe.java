@@ -208,7 +208,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 spirits.add(new ItemWithCount(buffer.readItemStack()));
             }
-            boolean retainsPrimeItem = buffer.getBoolean(0);
+            boolean retainsPrimeItem = buffer.readBoolean();
             return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, new ItemWithCount(output), spirits, extraItems);
         }
 
