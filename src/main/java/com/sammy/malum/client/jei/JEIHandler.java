@@ -2,7 +2,7 @@ package com.sammy.malum.client.jei;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
-import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -10,8 +10,8 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
 

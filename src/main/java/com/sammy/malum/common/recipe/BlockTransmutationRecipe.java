@@ -4,12 +4,12 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.Level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -41,7 +41,7 @@ public class BlockTransmutationRecipe extends IMalumRecipe
         this.output = output;
     }
     @Override
-    public IRecipeSerializer<?> getSerializer()
+    public RecipeSerializer<?> getSerializer()
     {
         return RecipeSerializerRegistry.BLOCK_TRANSMUTATION_RECIPE_SERIALIZER.get();
     }
@@ -72,7 +72,7 @@ public class BlockTransmutationRecipe extends IMalumRecipe
         return Level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<BlockTransmutationRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<BlockTransmutationRecipe> {
 
         @Override
         public BlockTransmutationRecipe fromJson(ResourceLocation recipeId, JsonObject json)

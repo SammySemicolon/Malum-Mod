@@ -11,7 +11,7 @@ import net.minecraft.block.WallTorchBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ColorHelper;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 import java.awt.*;
 

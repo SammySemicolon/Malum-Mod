@@ -11,13 +11,13 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Item;
+import net.minecraft.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.ItemLike;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 import javax.annotation.Nullable;
@@ -36,19 +36,19 @@ public class NBTCarryRecipeBuilder
     private final Ingredient nbtCarry;
     private String group;
 
-    public NBTCarryRecipeBuilder(IItemProvider resultIn, int countIn, Ingredient nbtCarry)
+    public NBTCarryRecipeBuilder(ItemLike resultIn, int countIn, Ingredient nbtCarry)
     {
         this.result = resultIn.asItem();
         this.count = countIn;
         this.nbtCarry = nbtCarry;
     }
 
-    public static NBTCarryRecipeBuilder shapedRecipe(IItemProvider resultIn, Ingredient nbtCarry)
+    public static NBTCarryRecipeBuilder shapedRecipe(ItemLike resultIn, Ingredient nbtCarry)
     {
         return shapedRecipe(resultIn, 1, nbtCarry);
     }
 
-    public static NBTCarryRecipeBuilder shapedRecipe(IItemProvider resultIn, int countIn, Ingredient nbtCarry)
+    public static NBTCarryRecipeBuilder shapedRecipe(ItemLike resultIn, int countIn, Ingredient nbtCarry)
     {
         return new NBTCarryRecipeBuilder(resultIn, countIn, nbtCarry);
     }
@@ -58,7 +58,7 @@ public class NBTCarryRecipeBuilder
         return this.key(symbol, Ingredient.of(tagIn));
     }
 
-    public NBTCarryRecipeBuilder key(Character symbol, IItemProvider itemIn)
+    public NBTCarryRecipeBuilder key(Character symbol, ItemLike itemIn)
     {
         return this.key(symbol, Ingredient.of(itemIn));
     }
@@ -105,12 +105,12 @@ public class NBTCarryRecipeBuilder
         return this;
     }
 
-    public void build(Consumer<IFinishedRecipe> consumerIn)
+    public void build(Consumer<FinishedRecipe> consumerIn)
     {
         this.build(consumerIn, Registry.ITEM.getKey(this.result));
     }
 
-    public void build(Consumer<IFinishedRecipe> consumerIn, String save)
+    public void build(Consumer<FinishedRecipe> consumerIn, String save)
     {
         ResourceLocation resourcelocation = Registry.ITEM.getKey(this.result);
         if ((new ResourceLocation(save)).equals(resourcelocation))
@@ -123,7 +123,7 @@ public class NBTCarryRecipeBuilder
         }
     }
 
-    public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id)
+    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
     {
         this.validate(id);
         this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(IRequirementsStrategy.OR);
@@ -170,7 +170,7 @@ public class NBTCarryRecipeBuilder
         }
     }
 
-    public static class Result implements IFinishedRecipe
+    public static class Result implements FinishedRecipe
     {
         private final ResourceLocation id;
         private final Ingredient nbtCarry;
@@ -229,7 +229,7 @@ public class NBTCarryRecipeBuilder
             json.add("result", jsonobject1);
         }
 
-        public IRecipeSerializer<?> getType()
+        public RecipeSerializer<?> getType()
         {
             return RecipeSerializerRegistry.NBT_CARRY_RECIPE_SERIALIZER.get();
         }

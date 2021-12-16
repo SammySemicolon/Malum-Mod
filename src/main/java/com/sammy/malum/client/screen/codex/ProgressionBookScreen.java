@@ -10,26 +10,26 @@ import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
 import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
-import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sammy.malum.core.registry.items.ItemRegistry.*;
+import static com.sammy.malum.core.registry.item.ItemRegistry.*;
 import static net.minecraft.item.Items.*;
 import static net.minecraft.util.ColorHelper.PackedColor.packColor;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
@@ -678,7 +678,7 @@ public class ProgressionBookScreen extends Screen
         renderText(stack, ClientHelper.simpleTranslatableComponent(text), x,y, glow(0));
     }
 
-    public static void renderText(MatrixStack stack, ITextComponent component, int x, int y)
+    public static void renderText(MatrixStack stack, Component component, int x, int y)
     {
         String text = component.getString();
         renderRawText(stack, text, x,y, glow(0));
@@ -688,7 +688,7 @@ public class ProgressionBookScreen extends Screen
         renderText(stack, ClientHelper.simpleTranslatableComponent(text), x,y, glow);
     }
 
-    public static void renderText(MatrixStack stack, ITextComponent component, int x, int y, float glow)
+    public static void renderText(MatrixStack stack, Component component, int x, int y, float glow)
     {
         String text = component.getString();
         renderRawText(stack, text, x,y, glow);

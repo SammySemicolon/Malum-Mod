@@ -4,8 +4,8 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.entity.player.Player;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.Level.Level;
@@ -26,7 +26,7 @@ public class AqueousRiteType extends MalumRiteType {
                 if (e.getEffect(EffectRegistry.AQUEOUS_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AQUEOUS_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new EffectInstance(EffectRegistry.AQUEOUS_AURA.get(), 100, 1));
+                e.addEffect(new MobEffectInstance(EffectRegistry.AQUEOUS_AURA.get(), 100, 1));
             });
         }
     }
@@ -38,7 +38,7 @@ public class AqueousRiteType extends MalumRiteType {
                 if (e.getEffect(Effects.WATER_BREATHING) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AQUEOUS_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new EffectInstance(Effects.WATER_BREATHING, 200, 0));
+                e.addEffect(new MobEffectInstance(Effects.WATER_BREATHING, 200, 0));
             });
         }
     }

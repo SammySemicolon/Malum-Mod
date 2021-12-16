@@ -4,27 +4,27 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.core.registry.items.ItemRegistry;
 import com.sammy.malum.core.registry.block.BlockRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.multiblock.BoundingBlock;
 import net.minecraft.advancements.criterion.*;
-import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.LootTableProvider;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.*;
 import net.minecraft.loot.conditions.*;
 import net.minecraft.loot.functions.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.state.Property;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.ItemLike;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -94,17 +94,17 @@ public class MalumBlockLootTables extends LootTableProvider
         return tables;
     }
     
-    protected static <T> T withExplosionDecay(IItemProvider item, ILootFunctionConsumer<T> function)
+    protected static <T> T withExplosionDecay(ItemLike item, ILootFunctionConsumer<T> function)
     {
         return (T) (!IMMUNE_TO_EXPLOSIONS.contains(item.asItem()) ? function.apply(ExplosionDecay.explosionDecay()) : function.unwrap());
     }
     
-    protected static <T> T withSurvivesExplosion(IItemProvider item, ILootConditionConsumer<T> condition)
+    protected static <T> T withSurvivesExplosion(ItemLike item, ILootConditionConsumer<T> condition)
     {
         return (T) (!IMMUNE_TO_EXPLOSIONS.contains(item.asItem()) ? condition.when(SurvivesExplosion.survivesExplosion()) : condition.unwrap());
     }
     
-    protected static LootTable.Builder dropping(IItemProvider item)
+    protected static LootTable.Builder dropping(ItemLike item)
     {
         return LootTable.lootTable().withPool(withSurvivesExplosion(item, LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(item))));
     }
@@ -129,32 +129,32 @@ public class MalumBlockLootTables extends LootTableProvider
         return dropping(block, SILK_TOUCH_OR_SHEARS, alternativeLootEntry);
     }
     
-    protected static LootTable.Builder droppingWithSilkTouch(Block block, IItemProvider noSilkTouch)
+    protected static LootTable.Builder droppingWithSilkTouch(Block block, ItemLike noSilkTouch)
     {
         return droppingWithSilkTouch(block, withSurvivesExplosion(block, ItemLootEntry.lootTableItem(noSilkTouch)));
     }
     
-    protected static LootTable.Builder droppingRandomly(IItemProvider item, IRandomRange range)
+    protected static LootTable.Builder droppingRandomly(ItemLike item, IRandomRange range)
     {
         return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(withExplosionDecay(item, ItemLootEntry.lootTableItem(item).apply(SetCount.setCount(range)))));
     }
     
-    protected static LootTable.Builder droppingWithSilkTouchOrRandomly(Block block, IItemProvider item, IRandomRange range)
+    protected static LootTable.Builder droppingWithSilkTouchOrRandomly(Block block, ItemLike item, IRandomRange range)
     {
         return droppingWithSilkTouch(block, withExplosionDecay(block, ItemLootEntry.lootTableItem(item).apply(SetCount.setCount(range))));
     }
     
-    protected static LootTable.Builder onlyWithSilkTouchOrShears(IItemProvider item)
+    protected static LootTable.Builder onlyWithSilkTouchOrShears(ItemLike item)
     {
         return LootTable.lootTable().withPool(LootPool.lootPool().when(SILK_TOUCH_OR_SHEARS).setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(item)));
     }
     
-    protected static LootTable.Builder onlyWithSilkTouch(IItemProvider item)
+    protected static LootTable.Builder onlyWithSilkTouch(ItemLike item)
     {
         return LootTable.lootTable().withPool(LootPool.lootPool().when(SILK_TOUCH).setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(item)));
     }
     
-    protected static LootTable.Builder droppingAndFlowerPot(IItemProvider flower)
+    protected static LootTable.Builder droppingAndFlowerPot(ItemLike flower)
     {
         return LootTable.lootTable().withPool(withSurvivesExplosion(Blocks.FLOWER_POT, LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(Blocks.FLOWER_POT)))).withPool(withSurvivesExplosion(flower, LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(flower))));
     }
@@ -200,10 +200,10 @@ public class MalumBlockLootTables extends LootTableProvider
     }
     
     /**
-     * Creates a builder that drops the given IItemProvider in amounts between 0 and 2, most often 0. Only used in
+     * Creates a builder that drops the given ItemLike in amounts between 0 and 2, most often 0. Only used in
      * vanilla for huge mushroom blocks.
      */
-    protected static LootTable.Builder droppingItemRarely(Block block, IItemProvider item)
+    protected static LootTable.Builder droppingItemRarely(Block block, ItemLike item)
     {
         return droppingWithSilkTouch(block, withExplosionDecay(block, ItemLootEntry.lootTableItem(item).apply(SetCount.setCount(RandomValueRange.between(-6.0F, 2.0F))).apply(LimitCount.limitCount(IntClamper.lowerBound(0)))));
     }
@@ -214,7 +214,7 @@ public class MalumBlockLootTables extends LootTableProvider
     }
     
     /**
-     * Creates a builder that drops the given IItemProvider in amounts between 0 and 3, based on the AGE property. Only
+     * Creates a builder that drops the given ItemLike in amounts between 0 and 3, based on the AGE property. Only
      * used in vanilla for pumpkin and melon stems.
      */
     protected static LootTable.Builder droppingByAge(Block stemFruit, Item item)
@@ -227,7 +227,7 @@ public class MalumBlockLootTables extends LootTableProvider
         return LootTable.lootTable().withPool(withExplosionDecay(stem, LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(stemSeed).apply(SetCount.setCount(BinomialRange.binomial(3, 0.53333336F))))));
     }
     
-    protected static LootTable.Builder onlyWithShears(IItemProvider item)
+    protected static LootTable.Builder onlyWithShears(ItemLike item)
     {
         return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).when(SHEARS).add(ItemLootEntry.lootTableItem(item)));
     }

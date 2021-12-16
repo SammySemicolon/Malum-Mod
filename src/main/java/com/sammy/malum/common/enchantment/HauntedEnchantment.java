@@ -3,10 +3,10 @@ package com.sammy.malum.common.enchantment;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlot;
 
 import net.minecraft.enchantment.Enchantment.Rarity;
 
@@ -14,7 +14,7 @@ public class HauntedEnchantment extends Enchantment
 {
     public HauntedEnchantment()
     {
-        super(Rarity.UNCOMMON, MalumEnchantments.SCYTHE_ONLY, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
+        super(Rarity.UNCOMMON, MalumEnchantments.SCYTHE_ONLY, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
     
     @Override

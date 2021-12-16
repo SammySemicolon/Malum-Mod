@@ -5,7 +5,7 @@ import com.sammy.malum.client.screen.codex.EntryScreen;
 import com.sammy.malum.client.screen.codex.BookEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.Arrays;
 
@@ -39,7 +39,7 @@ public class EntryObject extends BookObject
     public void lateRender(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         if (isHovering)
         {
-            screen.renderWrappedToolTip(matrixStack, Arrays.asList(new TranslationTextComponent(entry.translationKey()), new TranslationTextComponent(entry.descriptionTranslationKey()).withStyle(TextFormatting.GRAY)), mouseX, mouseY, minecraft.font);
+            screen.renderWrappedToolTip(matrixStack, Arrays.asList(new TranslatableComponent(entry.translationKey()), new TranslatableComponent(entry.descriptionTranslationKey()).withStyle(TextFormatting.GRAY)), mouseX, mouseY, minecraft.font);
         }
     }
 }

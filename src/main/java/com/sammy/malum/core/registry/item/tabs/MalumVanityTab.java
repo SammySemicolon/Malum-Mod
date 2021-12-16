@@ -1,13 +1,13 @@
-package com.sammy.malum.core.registry.items.tabs;
+package com.sammy.malum.core.registry.item.tabs;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.registry.items.ItemRegistry;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import com.sammy.malum.core.registry.item.ItemRegistry;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public class MalumVanityTab extends ItemGroup
+public class MalumVanityTab extends CreativeModeTab
 {
     public static final MalumVanityTab INSTANCE = new MalumVanityTab();
 

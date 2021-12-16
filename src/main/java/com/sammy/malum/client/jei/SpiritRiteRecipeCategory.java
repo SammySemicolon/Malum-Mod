@@ -2,13 +2,9 @@ package com.sammy.malum.client.jei;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
-import com.sammy.malum.core.registry.items.ItemRegistry;
-import com.sammy.malum.core.systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -19,21 +15,15 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumHelper.prefix;
 import static com.sammy.malum.MalumHelper.toArrayList;
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
-import static com.sammy.malum.client.screen.codex.pages.SpiritInfusionPage.uOffset;
-import static com.sammy.malum.client.screen.codex.pages.SpiritInfusionPage.vOffset;
 
 public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
 {
@@ -60,7 +50,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
         GlStateManager._enableBlend();
 
         overlay.draw(matrixStack);
-        ProgressionBookScreen.renderText(matrixStack, new TranslationTextComponent(rite.translationIdentifier()), 105-font.width(rite.translationIdentifier())/2,160);
+        ProgressionBookScreen.renderText(matrixStack, new TranslatableComponent(rite.translationIdentifier()), 105-font.width(rite.translationIdentifier())/2,160);
         GlStateManager._disableBlend();
         GlStateManager._disableAlphaTest();
     }

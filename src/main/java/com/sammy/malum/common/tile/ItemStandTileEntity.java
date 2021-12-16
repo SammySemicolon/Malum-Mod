@@ -8,7 +8,7 @@ import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;

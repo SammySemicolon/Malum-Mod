@@ -8,8 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class SpiritPouchContainerScreen extends ContainerScreen<SpiritPouchConta
     public static final ResourceLocation texture = MalumHelper.prefix("textures/gui/spirit_pouch.png");
     public static final Color textColor = new Color(49,35,41);
 
-    public SpiritPouchContainerScreen(SpiritPouchContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public SpiritPouchContainerScreen(SpiritPouchContainer screenContainer, PlayerInventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
     }
 

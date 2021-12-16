@@ -2,11 +2,11 @@ package com.sammy.malum.core.systems.particle;
 
 import com.sammy.malum.core.systems.particle.data.MalumParticleData;
 import net.minecraft.particles.ParticleType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.Level.Level;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 import java.awt.*;
 import java.util.Random;

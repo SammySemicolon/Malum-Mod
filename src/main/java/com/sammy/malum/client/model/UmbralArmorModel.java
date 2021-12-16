@@ -4,7 +4,7 @@ package com.sammy.malum.client.model;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlot;
 
 public class UmbralArmorModel extends ArmorModel
 {
@@ -22,7 +22,7 @@ public class UmbralArmorModel extends ArmorModel
     private final ModelRenderer boot_l;
     private final ModelRenderer boot_wing_l2;
     
-    public UmbralArmorModel(EquipmentSlotType slot)
+    public UmbralArmorModel(EquipmentSlot slot)
     {
         super(slot, 64, 98);
         texWidth = 64;
@@ -156,24 +156,24 @@ public class UmbralArmorModel extends ArmorModel
     public void renderToBuffer(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)
     {
         
-        head.visible = slot == EquipmentSlotType.HEAD;
+        head.visible = slot == EquipmentSlot.HEAD;
         
-        leg_r.visible = slot == EquipmentSlotType.LEGS;
-        leg_l.visible = slot == EquipmentSlotType.LEGS;
+        leg_r.visible = slot == EquipmentSlot.LEGS;
+        leg_l.visible = slot == EquipmentSlot.LEGS;
         
-        thigh_guard_r2.visible = slot == EquipmentSlotType.LEGS;
-        thigh_guard_l2.visible = slot == EquipmentSlotType.LEGS;
+        thigh_guard_r2.visible = slot == EquipmentSlot.LEGS;
+        thigh_guard_l2.visible = slot == EquipmentSlot.LEGS;
         
-        torso.visible = slot == EquipmentSlotType.CHEST;
-        chestplate_slope2.visible = slot == EquipmentSlotType.CHEST;
-        arm_r.visible = slot == EquipmentSlotType.CHEST;
-        arm_l.visible = slot == EquipmentSlotType.CHEST;
+        torso.visible = slot == EquipmentSlot.CHEST;
+        chestplate_slope2.visible = slot == EquipmentSlot.CHEST;
+        arm_r.visible = slot == EquipmentSlot.CHEST;
+        arm_l.visible = slot == EquipmentSlot.CHEST;
         
-        boot_r.visible = slot == EquipmentSlotType.FEET;
-        boot_l.visible = slot == EquipmentSlotType.FEET;
+        boot_r.visible = slot == EquipmentSlot.FEET;
+        boot_l.visible = slot == EquipmentSlot.FEET;
         
-        boot_wing_r2.visible = slot == EquipmentSlotType.FEET;
-        boot_wing_l2.visible = slot == EquipmentSlotType.FEET;
+        boot_wing_r2.visible = slot == EquipmentSlot.FEET;
+        boot_wing_l2.visible = slot == EquipmentSlot.FEET;
         
         hat.visible = false;
         
@@ -183,7 +183,7 @@ public class UmbralArmorModel extends ArmorModel
         rightArm = arm_r;
         leftArm = arm_l;
         
-        if (slot == EquipmentSlotType.LEGS)
+        if (slot == EquipmentSlot.LEGS)
         {
             rightLeg = leg_r;
             leftLeg = leg_l;

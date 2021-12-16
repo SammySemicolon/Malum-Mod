@@ -8,11 +8,11 @@ import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Item;
+import net.minecraft.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -58,20 +58,20 @@ public class SpiritInfusionRecipeBuilder
         retainPrimeItem = true;
         return this;
     }
-    public void build(Consumer<IFinishedRecipe> consumerIn, String recipeName)
+    public void build(Consumer<FinishedRecipe> consumerIn, String recipeName)
     {
         build(consumerIn, MalumHelper.prefix("spirit_infusion/" + recipeName));
     }
-    public void build(Consumer<IFinishedRecipe> consumerIn)
+    public void build(Consumer<FinishedRecipe> consumerIn)
     {
         build(consumerIn, output.item.getRegistryName().getPath());
     }
-    public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id)
+    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
     {
         consumerIn.accept(new SpiritInfusionRecipeBuilder.Result(id, retainPrimeItem, input, output, spirits, extraItems));
     }
 
-    public static class Result implements IFinishedRecipe
+    public static class Result implements FinishedRecipe
     {
         private final ResourceLocation id;
 
@@ -122,7 +122,7 @@ public class SpiritInfusionRecipeBuilder
         }
 
         @Override
-        public IRecipeSerializer<?> getType()
+        public RecipeSerializer<?> getType()
         {
             return RecipeSerializerRegistry.INFUSION_RECIPE_SERIALIZER.get();
         }

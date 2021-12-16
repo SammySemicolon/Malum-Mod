@@ -1,17 +1,16 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.registry.items.ITemTagRegistry;
-import com.sammy.malum.core.registry.items.ItemRegistry;
-import net.minecraft.data.BlockTagsProvider;
+import com.sammy.malum.core.registry.item.ITemTagRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static com.sammy.malum.core.registry.items.ITemTagRegistry.*;
-import static net.minecraft.tags.BlockTags.WOODEN_FENCES;
+import static com.sammy.malum.core.registry.item.ITemTagRegistry.*;
 
 public class MalumItemTags extends ItemTagsProvider {
     public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {

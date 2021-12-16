@@ -6,7 +6,7 @@ package com.sammy.malum.client.model;// Made with Blockbench 3.7.4
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlot;
 
 public class StrongholdArmorModel extends ArmorModel
 {
@@ -24,7 +24,7 @@ public class StrongholdArmorModel extends ArmorModel
 	private final ModelRenderer boot_l;
 	private final ModelRenderer boot_wing_l;
 
-	public StrongholdArmorModel(EquipmentSlotType slot) {
+	public StrongholdArmorModel(EquipmentSlot slot) {
 		super(slot, 64, 64);
 		
 		torso = new ModelRenderer(this);
@@ -124,23 +124,23 @@ public class StrongholdArmorModel extends ArmorModel
 	public void renderToBuffer(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)
 	{
 		
-		head.visible = slot == EquipmentSlotType.HEAD;
+		head.visible = slot == EquipmentSlot.HEAD;
 		
-		leg_r.visible = slot == EquipmentSlotType.LEGS;
-		leg_l.visible = slot == EquipmentSlotType.LEGS;
-		thigh_guard_r.visible = slot == EquipmentSlotType.LEGS;
-		thigh_guard_l.visible = slot == EquipmentSlotType.LEGS;
+		leg_r.visible = slot == EquipmentSlot.LEGS;
+		leg_l.visible = slot == EquipmentSlot.LEGS;
+		thigh_guard_r.visible = slot == EquipmentSlot.LEGS;
+		thigh_guard_l.visible = slot == EquipmentSlot.LEGS;
 		
-		torso.visible = slot == EquipmentSlotType.CHEST;
-		chestplate_slope.visible = slot == EquipmentSlotType.CHEST;
-		arm_r.visible = slot == EquipmentSlotType.CHEST;
-		arm_l.visible = slot == EquipmentSlotType.CHEST;
+		torso.visible = slot == EquipmentSlot.CHEST;
+		chestplate_slope.visible = slot == EquipmentSlot.CHEST;
+		arm_r.visible = slot == EquipmentSlot.CHEST;
+		arm_l.visible = slot == EquipmentSlot.CHEST;
 		
-		boot_r.visible = slot == EquipmentSlotType.FEET;
-		boot_l.visible = slot == EquipmentSlotType.FEET;
+		boot_r.visible = slot == EquipmentSlot.FEET;
+		boot_l.visible = slot == EquipmentSlot.FEET;
 		
-		boot_wing_r.visible = slot == EquipmentSlotType.FEET;
-		boot_wing_l.visible = slot == EquipmentSlotType.FEET;
+		boot_wing_r.visible = slot == EquipmentSlot.FEET;
+		boot_wing_l.visible = slot == EquipmentSlot.FEET;
 		
 		hat.visible = false;
 		head = head;
@@ -149,7 +149,7 @@ public class StrongholdArmorModel extends ArmorModel
 		rightArm = arm_r;
 		leftArm = arm_l;
 		
-		if (slot == EquipmentSlotType.LEGS)
+		if (slot == EquipmentSlot.LEGS)
 		{
 			rightLeg = leg_r;
 			leftLeg = leg_l;

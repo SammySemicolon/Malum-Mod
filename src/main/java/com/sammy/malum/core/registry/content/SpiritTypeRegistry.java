@@ -1,16 +1,15 @@
 package com.sammy.malum.core.registry.content;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.item.Item;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class SpiritTypeRegistry
     }
     @SubscribeEvent
     public static void stitchTextures(TextureStitchEvent.Pre event) {
-        if (!event.getMap().location().equals(AtlasTexture.LOCATION_BLOCKS)) {
+        if (!event.getMap().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
             return;
         }
         SPIRITS.forEach(s ->

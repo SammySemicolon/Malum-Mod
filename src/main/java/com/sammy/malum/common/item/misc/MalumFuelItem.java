@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.misc;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import net.minecraft.item.Item.Properties;
 

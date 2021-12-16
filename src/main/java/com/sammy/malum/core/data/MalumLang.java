@@ -5,31 +5,31 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
+import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.block.Block;
-import net.minecraft.block.WallSignBlock;
-import net.minecraft.block.WallTorchBlock;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.potion.MobEffect;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.WallSignBlock;
+import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
-import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
 import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
 
 public class MalumLang extends LanguageProvider
 {

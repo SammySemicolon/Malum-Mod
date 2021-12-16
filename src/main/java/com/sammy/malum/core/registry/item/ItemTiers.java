@@ -1,14 +1,14 @@
-package com.sammy.malum.core.registry.items;
+package com.sammy.malum.core.registry.item;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
 public class ItemTiers
 {
-    public enum ItemTierEnum implements IItemTier
+    public enum ItemTierEnum implements Tier
     {
         SOUL_STAINED_STEEL_ITEM(1731, 7.5f, 2.5f, 3, 16, ItemRegistry.SOUL_STAINED_STEEL_INGOT),
         PITHING_NEEDLE_ITEM(511, 6f, 1f, 2, 9, ItemRegistry.TAINTED_ROCK),

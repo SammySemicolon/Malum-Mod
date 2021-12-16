@@ -5,11 +5,11 @@ import com.sammy.malum.common.packets.particle.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.Level.Level;
@@ -59,7 +59,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
                 if (e.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AERIAL_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new EffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 100, 40));
+                e.addEffect(new MobEffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 100, 40));
             });
         }
     }

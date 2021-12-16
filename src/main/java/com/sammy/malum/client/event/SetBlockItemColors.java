@@ -11,18 +11,18 @@ import com.sammy.malum.common.item.ether.EtherBrazierItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.ether.EtherTorchItem;
 import com.sammy.malum.common.tile.EtherTileEntity;
-import com.sammy.malum.core.registry.items.ItemRegistry;
-import net.minecraft.block.Block;
+import com.sammy.malum.core.registry.item.ItemRegistry;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Arrays;
@@ -30,7 +30,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.MalumHelper.*;
-import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.EARTHEN_SPIRIT_COLOR;
 

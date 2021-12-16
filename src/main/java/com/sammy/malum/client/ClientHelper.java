@@ -1,18 +1,18 @@
 package com.sammy.malum.client;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.util.ColorHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 import java.awt.Color;
 
@@ -40,7 +40,7 @@ public class ClientHelper
     }
     public static IFormattableTextComponent simpleTranslatableComponent(String message)
     {
-        return new TranslationTextComponent(message);
+        return new TranslatableComponent(message);
     }
 
     public static void setCutout(RegistryObject<Block> b)

@@ -3,7 +3,7 @@ package com.sammy.malum.client.screen.codex.pages;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 import static com.sammy.malum.client.screen.codex.EntryScreen.screen;
 

@@ -1,10 +1,10 @@
 package com.sammy.malum.common.block.misc;
 
-import com.sammy.malum.core.registry.items.ItemRegistry;
-import net.minecraft.block.Block;
+import com.sammy.malum.core.registry.item.ItemRegistry;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;

@@ -3,28 +3,29 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
-import com.sammy.malum.common.block.misc.MalumLeavesBlock;
-import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
-import com.sammy.malum.common.block.item_storage.ItemStandBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
-import com.sammy.malum.common.block.totem.TotemBaseBlock;
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.ether.EtherTorchBlock;
+import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
+import com.sammy.malum.common.block.item_storage.ItemStandBlock;
+import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.block.misc.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.misc.sign.MalumWallSignBlock;
-import net.minecraft.block.*;
+import com.sammy.malum.common.block.totem.TotemBaseBlock;
+import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.state.properties.AttachFace;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -34,8 +35,8 @@ import java.util.function.Function;
 
 import static com.sammy.malum.MalumHelper.prefix;
 import static com.sammy.malum.core.registry.block.BlockRegistry.*;
-import static net.minecraft.state.properties.DoubleBlockHalf.LOWER;
-import static net.minecraft.state.properties.DoubleBlockHalf.UPPER;
+import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER;
+import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
 
 public class MalumBlockStates extends net.minecraftforge.client.model.generators.BlockStateProvider
 {
@@ -74,7 +75,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof StairsBlock).forEach(this::stairsBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof StairBlock).forEach(this::stairsBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof WallBlock).forEach(this::wallBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof FenceBlock).forEach(this::fenceBlock);
@@ -82,7 +83,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(this::doorBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(this::trapdoorBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof PressurePlateBlock).forEach(this::pressurePlateBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof AbstractButtonBlock).forEach(this::buttonBlock);
+        MalumHelper.takeAll(blocks, b -> b.get() instanceof ButtonBlock).forEach(this::buttonBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(this::tallPlantBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
@@ -323,7 +324,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 7);
-        stairsBlock((StairsBlock) blockRegistryObject.get(), prefix("block/" + baseName));
+        stairsBlock((StairBlock) blockRegistryObject.get(), prefix("block/" + baseName));
     }
     
     public void pressurePlateBlock(RegistryObject<Block> blockRegistryObject)

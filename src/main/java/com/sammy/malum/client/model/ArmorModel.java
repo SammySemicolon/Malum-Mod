@@ -2,15 +2,15 @@ package com.sammy.malum.client.model;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlot;
 
 public class ArmorModel extends BipedModel<LivingEntity>
 {
-    protected final EquipmentSlotType slot;
+    protected final EquipmentSlot slot;
     
-    public ArmorModel(EquipmentSlotType slot, int width, int height)
+    public ArmorModel(EquipmentSlot slot, int width, int height)
     {
         super(1);
         this.slot = slot;

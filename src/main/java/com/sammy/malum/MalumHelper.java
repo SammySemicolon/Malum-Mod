@@ -2,7 +2,7 @@ package com.sammy.malum;
 
 import com.mojang.math.Vector3f;
 import com.sammy.malum.core.registry.block.BlockRegistry;
-import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

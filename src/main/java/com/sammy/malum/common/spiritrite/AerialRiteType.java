@@ -4,8 +4,8 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.entity.player.Player;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.Level.Level;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -25,7 +25,7 @@ public class AerialRiteType extends MalumRiteType {
                 if (e.getEffect(EffectRegistry.AERIAL_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AERIAL_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new EffectInstance(EffectRegistry.AERIAL_AURA.get(), 100, 1));
+                e.addEffect(new MobEffectInstance(EffectRegistry.AERIAL_AURA.get(), 100, 1));
             });
         }
     }
@@ -37,7 +37,7 @@ public class AerialRiteType extends MalumRiteType {
                 if (e.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AERIAL_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new EffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 100, 1));
+                e.addEffect(new MobEffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 100, 1));
             });
         }
     }

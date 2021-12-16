@@ -3,11 +3,11 @@ package com.sammy.malum.common.item.equipment.armor;
 import com.sammy.malum.client.model.UmbralArmorModel;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.LazyValue;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,7 +21,7 @@ import net.minecraft.item.Item.Properties;
 public class UmbralArmor extends ArmorItem
 {
     private LazyValue<Object> model;
-    public UmbralArmor(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder)
+    public UmbralArmor(IArmorMaterial materialIn, EquipmentSlot slot, Properties builder)
     {
         super(materialIn, slot, builder);
     
@@ -34,7 +34,7 @@ public class UmbralArmor extends ArmorItem
     @Override
     @OnlyIn(Dist.CLIENT)
     @SuppressWarnings("unchecked")
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original)
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A original)
     {
         return (A) model.get();
     }
@@ -42,7 +42,7 @@ public class UmbralArmor extends ArmorItem
     @OnlyIn(Dist.CLIENT)
     @Override
     @Nullable
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type)
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type)
     {
         return "malum:textures/armor/umbral_armor.png";
     }

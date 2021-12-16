@@ -4,7 +4,7 @@ import com.sammy.malum.MalumHelper;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.item.BoatEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class MalumBoatRenderer extends BoatRenderer
 {

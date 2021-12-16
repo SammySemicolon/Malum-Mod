@@ -10,11 +10,11 @@ import com.sammy.malum.core.systems.recipe.IMalumRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.Level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -53,7 +53,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         this.extraItems = extraItems;
     }
     @Override
-    public IRecipeSerializer<?> getSerializer()
+    public RecipeSerializer<?> getSerializer()
     {
         return RecipeSerializerRegistry.INFUSION_RECIPE_SERIALIZER.get();
     }
@@ -156,7 +156,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     {
         return Level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritInfusionRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritInfusionRecipe> {
 
         @Override
         public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json)

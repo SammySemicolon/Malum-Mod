@@ -2,8 +2,8 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.potion.Effects;
 
 import net.minecraft.item.Item.Properties;

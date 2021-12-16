@@ -19,14 +19,14 @@ import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.core.registry.block.TileEntityRegistry.TILE_ENTITIES;
 import static com.sammy.malum.core.registry.content.RecipeSerializerRegistry.RECIPE_TYPES;
 import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.registry.items.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.core.registry.misc.AttributeRegistry.ATTRIBUTES;
 import static com.sammy.malum.core.registry.misc.ContainerRegistry.CONTAINERS;
 import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.registry.misc.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.registry.Levelgen.FeatureRegistry.FEATURES;
+import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)

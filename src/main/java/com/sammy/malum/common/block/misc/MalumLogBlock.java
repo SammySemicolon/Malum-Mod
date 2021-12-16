@@ -1,10 +1,10 @@
 package com.sammy.malum.common.block.misc;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.Level.Level;
 import net.minecraftforge.common.ToolType;

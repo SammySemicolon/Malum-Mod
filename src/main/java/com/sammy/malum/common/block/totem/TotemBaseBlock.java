@@ -2,9 +2,9 @@ package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.tile.TotemBaseTileEntity;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;

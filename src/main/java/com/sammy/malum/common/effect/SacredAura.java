@@ -1,8 +1,8 @@
 package com.sammy.malum.common.effect;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.potion.MobEffect;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.potion.EffectType;
 import net.minecraftforge.common.ForgeMod;
 

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.ether;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 
 import net.minecraft.item.Item.Properties;
 

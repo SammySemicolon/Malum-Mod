@@ -3,10 +3,10 @@ package com.sammy.malum.core.data.builder;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.item.crafting.RecipeSerializer;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -21,20 +21,20 @@ public class BlockTransmutationRecipeBuilder
         this.input = input;
         this.output = output;
     }
-    public void build(Consumer<IFinishedRecipe> consumerIn, String recipeName)
+    public void build(Consumer<FinishedRecipe> consumerIn, String recipeName)
     {
         build(consumerIn, MalumHelper.prefix("block_transmutation/" + recipeName));
     }
-    public void build(Consumer<IFinishedRecipe> consumerIn)
+    public void build(Consumer<FinishedRecipe> consumerIn)
     {
         build(consumerIn, output.getRegistryName().getPath());
     }
-    public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id)
+    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
     {
         consumerIn.accept(new BlockTransmutationRecipeBuilder.Result(id, input, output));
     }
 
-    public static class Result implements IFinishedRecipe
+    public static class Result implements FinishedRecipe
     {
         private final ResourceLocation id;
 
@@ -61,7 +61,7 @@ public class BlockTransmutationRecipeBuilder
         }
 
         @Override
-        public IRecipeSerializer<?> getType()
+        public RecipeSerializer<?> getType()
         {
             return RecipeSerializerRegistry.BLOCK_TRANSMUTATION_RECIPE_SERIALIZER.get();
         }

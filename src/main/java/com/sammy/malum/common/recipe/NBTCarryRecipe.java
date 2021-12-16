@@ -7,15 +7,15 @@ import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.Level.Level;
 import net.minecraftforge.common.crafting.IShapedRecipe;
@@ -56,7 +56,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer()
+    public RecipeSerializer<?> getSerializer()
     {
         return RecipeSerializerRegistry.NBT_CARRY_RECIPE_SERIALIZER.get();
     }
@@ -343,7 +343,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     }
 
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<NBTCarryRecipe>
+    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<NBTCarryRecipe>
     {
         public NBTCarryRecipe fromJson(ResourceLocation recipeId, JsonObject json)
         {

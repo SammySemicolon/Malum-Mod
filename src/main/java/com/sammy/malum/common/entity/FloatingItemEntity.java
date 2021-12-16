@@ -1,13 +1,13 @@
 package com.sammy.malum.common.entity;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.core.registry.items.ItemRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.ISpiritEntityGlow;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.math.MathHelper;

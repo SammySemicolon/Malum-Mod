@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.misc;
 
 import com.sammy.malum.core.systems.spirit.ISpiritEntityGlow;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 import java.awt.*;
 

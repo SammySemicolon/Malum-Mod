@@ -3,19 +3,19 @@ package com.sammy.malum.core.eventhandlers;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.ScytheItem;
-import com.sammy.malum.core.registry.items.ITemTagRegistry;
+import com.sammy.malum.core.registry.item.ITemTagRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.items.ItemRegistry;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -34,10 +34,10 @@ public class EntityEvents {
     @SubscribeEvent
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntityLiving();
-        EffectInstance effectInstance = entity.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get());
+        MobEffectInstance effectInstance = entity.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get());
         if (effectInstance != null)
         {
-            entity.setDeltaMovement(entity.getDeltaMovement().add(0, effectInstance.amplifier*0.1f, 0));
+            entity.setDeltaMovement(entity.getDeltaMovement().add(0, effectInstance.getAmplifier()*0.1f, 0));
         }
     }
     @SubscribeEvent
@@ -118,10 +118,10 @@ public class EntityEvents {
     }
 
     @SubscribeEvent
-    public static void showGratitude(EntityJoinLevelEvent event) {
+    public static void showGratitude(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof Player) {
             Player playerEntity = (Player) event.getEntity();
-            if (MalumHelper.areWeOnServer(playerEntity.level)) {
+            if (!playerEntity.level.isClientSide) {
                 if (playerEntity.getUUID().equals(UUID.fromString(sammy_uuid))) {
                     if (!MalumHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, ItemRegistry.TOKEN_OF_GRATITUDE.get().getDefaultInstance());

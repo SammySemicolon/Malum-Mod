@@ -3,9 +3,9 @@ package com.sammy.malum.common.item.equipment.armor;
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SoulHunterArmor;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.util.LazyValue;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
@@ -13,12 +13,12 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.UUID;
 
-import static com.sammy.malum.core.registry.items.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
+import static com.sammy.malum.core.registry.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
 import net.minecraft.item.Item.Properties;
 
 public class SoulHunterArmorItem extends MalumArmorItem {
-    public SoulHunterArmorItem(EquipmentSlotType slot, Properties builder) {
+    public SoulHunterArmorItem(EquipmentSlot slot, Properties builder) {
         super(SPIRIT_HUNTER, slot, builder);
         if (FMLEnvironment.dist == Dist.CLIENT) {
             model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> new SoulHunterArmor(slot)), () -> () -> null);

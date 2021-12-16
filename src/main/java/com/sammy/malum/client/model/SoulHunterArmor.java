@@ -8,7 +8,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.client.model.ArmorModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlot;
 
 public class SoulHunterArmor extends ArmorModel
 {
@@ -22,7 +22,7 @@ public class SoulHunterArmor extends ArmorModel
 	private final ModelRenderer head;
 	private final ModelRenderer leggings;
 
-	public SoulHunterArmor(EquipmentSlotType slot) {
+	public SoulHunterArmor(EquipmentSlot slot) {
 		super(slot, 64, 64);
 
 		leg_r = new ModelRenderer(this);
@@ -71,18 +71,18 @@ public class SoulHunterArmor extends ArmorModel
 	@Override
 	public void renderToBuffer(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)
 	{
-		head.visible = slot == EquipmentSlotType.HEAD;
+		head.visible = slot == EquipmentSlot.HEAD;
 
-		leggings.visible = slot == EquipmentSlotType.LEGS;
-		leg_r.visible = slot == EquipmentSlotType.LEGS;
-		leg_l.visible = slot == EquipmentSlotType.LEGS;
+		leggings.visible = slot == EquipmentSlot.LEGS;
+		leg_r.visible = slot == EquipmentSlot.LEGS;
+		leg_l.visible = slot == EquipmentSlot.LEGS;
 
-		torso.visible = slot == EquipmentSlotType.CHEST;
-		arm_r.visible = slot == EquipmentSlotType.CHEST;
-		arm_l.visible = slot == EquipmentSlotType.CHEST;
+		torso.visible = slot == EquipmentSlot.CHEST;
+		arm_r.visible = slot == EquipmentSlot.CHEST;
+		arm_l.visible = slot == EquipmentSlot.CHEST;
 
-		boot_r.visible = slot == EquipmentSlotType.FEET;
-		boot_l.visible = slot == EquipmentSlotType.FEET;
+		boot_r.visible = slot == EquipmentSlot.FEET;
+		boot_l.visible = slot == EquipmentSlot.FEET;
 
 		hat.visible = false;
 		head = head;
@@ -91,7 +91,7 @@ public class SoulHunterArmor extends ArmorModel
 		rightArm = arm_r;
 		leftArm = arm_l;
 
-		if (slot == EquipmentSlotType.LEGS)
+		if (slot == EquipmentSlot.LEGS)
 		{
 			body = leggings;
 			rightLeg = leg_r;

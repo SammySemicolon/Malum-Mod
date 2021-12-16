@@ -1,9 +1,9 @@
 package com.sammy.malum.core.registry.misc;
 
 import com.sammy.malum.MalumHelper;
-import net.minecraft.block.SoundType;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -80,7 +80,7 @@ public class SoundRegistry
 
     public static SoundEvent create(SoundEvent soundEvent)
     {
-        SOUNDS.register(soundEvent.location.getPath(), ()->soundEvent);
+        SOUNDS.register(soundEvent.getLocation().getPath(), ()->soundEvent);
         return soundEvent;
     }
 }
