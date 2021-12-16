@@ -13,9 +13,15 @@ import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 
@@ -29,10 +35,28 @@ public class TotemPoleTileEntity extends SimpleBlockEntity
     public int currentColor;
     public int baseLevel;
     public boolean corrupted;
+    public Block logBlock;
     public TotemPoleTileEntity(BlockPos pos, BlockState state)
     {
         super(TileEntityRegistry.TOTEM_POLE_TILE_ENTITY.get(), pos, state);
         this.corrupted = ((TotemPoleBlock)state.getBlock()).corrupted;
+        this.logBlock = ((TotemPoleBlock)state.getBlock()).logBlock.get();
+    }
+
+    @Override
+    public InteractionResult onUse(Player player, InteractionHand hand) {
+        if (!player.level.isClientSide) {
+            if (player.getItemInHand(hand).getItem() instanceof AxeItem) {
+                TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) level.getBlockEntity(worldPosition);
+                if (totemPoleTileEntity.type != null) {
+                    level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(totemPoleTileEntity.type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+                    level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        return super.onUse(player, hand);
     }
 
     @Override
@@ -45,7 +69,6 @@ public class TotemPoleTileEntity extends SimpleBlockEntity
         compound.putInt("desiredColor", desiredColor);
         compound.putInt("currentColor", currentColor);
         compound.putInt("baseLevel", baseLevel);
-        compound.putBoolean("corrupted", corrupted);
         return super.save(compound);
     }
 
@@ -59,7 +82,6 @@ public class TotemPoleTileEntity extends SimpleBlockEntity
         desiredColor = compound.getInt("desiredColor");
         currentColor = compound.getInt("currentColor");
         baseLevel = compound.getInt("baseLevel");
-        corrupted = compound.getBoolean("corrupted");
         super.load(compound);
     }
 

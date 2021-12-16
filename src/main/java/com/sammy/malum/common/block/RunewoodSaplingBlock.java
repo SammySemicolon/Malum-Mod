@@ -1,14 +1,14 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.malum.core.registry.Levelgen.FeatureRegistry;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.SaplingBlock;
+import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.Level.server.ServerLevel;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.Random;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class RunewoodSaplingBlock extends SaplingBlock
 {
@@ -18,19 +18,19 @@ public class RunewoodSaplingBlock extends SaplingBlock
     }
 
     @Override
-    public void advanceTree(ServerLevel Level, BlockPos pos, BlockState state, Random rand)
+    public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, Random rand)
     {
         if (state.getValue(STAGE) == 0)
         {
-            Level.setBlock(pos, state.cycle(STAGE), 4);
+            level.setBlock(pos, state.cycle(STAGE), 4);
         }
         else
         {
-            if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(Level, rand, pos))
+            if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(level, rand, pos))
             {
                 return;
             }
-            FeatureRegistry.RUNEWOOD_TREE.get().place(Level, Level.getChunkSource().generator, rand, pos, null);
+            FeatureRegistry.RUNEWOOD_TREE.get().place(new FeaturePlaceContext<NoneFeatureConfiguration>(level,level.getChunkSource().getGenerator(), level.random,pos, NoneFeatureConfiguration.INSTANCE));
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.core.data.builder.NBTCarryRecipeBuilder;
-import com.sammy.malum.core.registry.item.ITemTagRegistry;
+import com.sammy.malum.core.registry.item.ItemTagRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
@@ -59,8 +59,8 @@ public class MalumRecipes extends RecipeProvider
         ShapelessRecipeBuilder.shapeless(ItemRegistry.ARCANE_CHARCOAL.get(), 9).requires(ItemRegistry.BLOCK_OF_ARCANE_CHARCOAL.get()).unlockedBy("has_arcane_charcoal", has(ItemRegistry.ARCANE_CHARCOAL.get())).save(consumer, "blaze_quartz_alt");
         shapeless(ItemRegistry.ARCANE_CHARCOAL_FRAGMENT.get(),8).requires(ItemRegistry.ARCANE_CHARCOAL.get()).unlockedBy("has_arcane_charcoal", has(ItemRegistry.ARCANE_CHARCOAL.get())).save(consumer);
 
-        smelting(Ingredient.of(ITemTagRegistry.RUNEWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(),0.1f,200).unlockedBy("has_runewood_planks", has(ITemTagRegistry.RUNEWOOD_LOGS)).save(consumer);
-        smelting(Ingredient.of(ITemTagRegistry.SOULWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(),0.1f,200).unlockedBy("has_soulwood_planks", has(ITemTagRegistry.SOULWOOD_LOGS)).save(consumer, "arcane_charcoal_from_soulwood");
+        smelting(Ingredient.of(ItemTagRegistry.RUNEWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(),0.1f,200).unlockedBy("has_runewood_planks", has(ItemTagRegistry.RUNEWOOD_LOGS)).save(consumer);
+        smelting(Ingredient.of(ItemTagRegistry.SOULWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(),0.1f,200).unlockedBy("has_soulwood_planks", has(ItemTagRegistry.SOULWOOD_LOGS)).save(consumer, "arcane_charcoal_from_soulwood");
 
         shaped(ItemRegistry.SPIRIT_ALTAR.get()).define('Z', Tags.Items.INGOTS_GOLD).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern(" Y ").pattern("ZXZ").pattern("XXX").unlockedBy("has_soulstone", has(ItemRegistry.SOULSTONE_CLUSTER.get())).save(consumer);
         shaped(ItemRegistry.SPIRIT_JAR.get()).define('Z', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', Tags.Items.GLASS_PANES).pattern("YZY").pattern("Y Y").pattern("YYY").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
@@ -81,9 +81,9 @@ public class MalumRecipes extends RecipeProvider
         ShapelessRecipeBuilder.shapeless(ItemRegistry.UNHOLY_SAPBALL.get(), 3).requires(ItemRegistry.UNHOLY_SAP.get()).requires(Items.SLIME_BALL).unlockedBy("has_unholy_extract", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer);
         smelting(Ingredient.of(ItemRegistry.UNHOLY_SAP.get()), ItemRegistry.UNHOLY_SYRUP.get(),0.1f,200).unlockedBy("has_unholy_extract", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(Items.MAGMA_CREAM).requires(Items.BLAZE_POWDER).requires(ITemTagRegistry.SAPBALLS).unlockedBy("has_sapball", has(ITemTagRegistry.SAPBALLS)).save(consumer, "magma_cream_from_sapballs");
-        shaped(Blocks.STICKY_PISTON).define('P', Blocks.PISTON).define('S', ITemTagRegistry.SAPBALLS).pattern("S").pattern("P").unlockedBy("has_sapball", has(ITemTagRegistry.SAPBALLS)).save(consumer, "sticky_piston_from_sapballs");
-        shaped(Items.LEAD, 2).define('~', Tags.Items.STRING).define('O', ITemTagRegistry.SAPBALLS).pattern("~~ ").pattern("~O ").pattern("  ~").unlockedBy("has_sapball", has(ITemTagRegistry.SAPBALLS)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(Items.MAGMA_CREAM).requires(Items.BLAZE_POWDER).requires(ItemTagRegistry.SAPBALLS).unlockedBy("has_sapball", has(ItemTagRegistry.SAPBALLS)).save(consumer, "magma_cream_from_sapballs");
+        shaped(Blocks.STICKY_PISTON).define('P', Blocks.PISTON).define('S', ItemTagRegistry.SAPBALLS).pattern("S").pattern("P").unlockedBy("has_sapball", has(ItemTagRegistry.SAPBALLS)).save(consumer, "sticky_piston_from_sapballs");
+        shaped(Items.LEAD, 2).define('~', Tags.Items.STRING).define('O', ItemTagRegistry.SAPBALLS).pattern("~~ ").pattern("~O ").pattern("  ~").unlockedBy("has_sapball", has(ItemTagRegistry.SAPBALLS)).save(consumer);
 
         shaped(ItemRegistry.GILDED_BELT.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', Tags.Items.LEATHER).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).pattern("XXX").pattern("#Y#").pattern(" # ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shaped(ItemRegistry.GILDED_RING.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', Tags.Items.LEATHER).pattern(" X#").pattern("X X").pattern(" X ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
@@ -115,7 +115,7 @@ public class MalumRecipes extends RecipeProvider
 
         ShapelessRecipeBuilder.shapeless(Items.EXPERIENCE_BOTTLE).requires(ItemRegistry.BRILLIANCE_CHUNK.get()).requires(Items.GLASS_BOTTLE).unlockedBy("has_confined_brilliance", has(ItemRegistry.BRILLIANCE_CHUNK.get())).save(consumer);
 
-        shapelessPlanks(consumer, ItemRegistry.RUNEWOOD_PLANKS.get(), ITemTagRegistry.RUNEWOOD_LOGS);
+        shapelessPlanks(consumer, ItemRegistry.RUNEWOOD_PLANKS.get(), ItemTagRegistry.RUNEWOOD_LOGS);
         shapelessWood(consumer, ItemRegistry.RUNEWOOD.get(), ItemRegistry.RUNEWOOD_LOG.get());
         shapelessWood(consumer, ItemRegistry.STRIPPED_RUNEWOOD.get(), ItemRegistry.STRIPPED_RUNEWOOD_LOG.get());
         shapelessButton(consumer, ItemRegistry.RUNEWOOD_PLANKS_BUTTON.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
@@ -148,7 +148,7 @@ public class MalumRecipes extends RecipeProvider
         shaped(ItemRegistry.RUNEWOOD_ITEM_STAND.get(), 2).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).define('Y', ItemRegistry.RUNEWOOD_PLANKS_SLAB.get()).pattern("YYY").pattern("XXX").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
         shaped(ItemRegistry.RUNEWOOD_ITEM_PEDESTAL.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).define('Y', ItemRegistry.RUNEWOOD_PLANKS_SLAB.get()).pattern("YYY").pattern(" X ").pattern("YYY").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
 
-        shapelessPlanks(consumer, ItemRegistry.SOULWOOD_PLANKS.get(), ITemTagRegistry.SOULWOOD_LOGS);
+        shapelessPlanks(consumer, ItemRegistry.SOULWOOD_PLANKS.get(), ItemTagRegistry.SOULWOOD_LOGS);
         shapelessWood(consumer, ItemRegistry.SOULWOOD.get(), ItemRegistry.SOULWOOD_LOG.get());
         shapelessWood(consumer, ItemRegistry.STRIPPED_SOULWOOD.get(), ItemRegistry.STRIPPED_SOULWOOD_LOG.get());
         shapelessButton(consumer, ItemRegistry.SOULWOOD_PLANKS_BUTTON.get(), ItemRegistry.SOULWOOD_PLANKS.get());

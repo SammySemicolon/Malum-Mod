@@ -1,10 +1,10 @@
 package com.sammy.malum.client.screen.codex.objects;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.EntryScreen;
 import com.sammy.malum.client.screen.codex.BookEntry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.Arrays;
@@ -27,19 +27,19 @@ public class EntryObject extends BookObject
     }
 
     @Override
-    public void render(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
+    public void render(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
         int posX = offsetPosX(xOffset);
         int posY = offsetPosY(yOffset);
-        renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, 1, 252, width, height, 512, 512);
+        renderTexture(FRAME_TEXTURE, poseStack, posX, posY, 1, 252, width, height, 512, 512);
         minecraft.getItemRenderer().renderAndDecorateItem(entry.iconStack, posX + 8, posY + 8);
     }
 
     @Override
-    public void lateRender(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
+    public void lateRender(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         if (isHovering)
         {
-            screen.renderWrappedToolTip(matrixStack, Arrays.asList(new TranslatableComponent(entry.translationKey()), new TranslatableComponent(entry.descriptionTranslationKey()).withStyle(TextFormatting.GRAY)), mouseX, mouseY, minecraft.font);
+            screen.renderComponentTooltip(poseStack, Arrays.asList(new TranslatableComponent(entry.translationKey()), new TranslatableComponent(entry.descriptionTranslationKey()).withStyle(ChatFormatting.GRAY)), mouseX, mouseY, minecraft.font);
         }
     }
 }

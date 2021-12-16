@@ -1,29 +1,18 @@
 package com.sammy.malum.client;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Item;
-import net.minecraft.util.ColorHelper;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.awt.Color;
+import java.awt.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientHelper
 {
-    public static void spawnBlockParticles(BlockPos pos, BlockState state)
-    {
-        Minecraft minecraft = Minecraft.getInstance();
-        minecraft.particleEngine.destroy(pos, state);
-    }
     public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color)
     {
         int r = color.getRed();
@@ -33,18 +22,14 @@ public class ClientHelper
     }
     public static Color getColor(int decimal)
     {
-        int red = ColorHelper.PackedColor.red(decimal);
-        int green = ColorHelper.PackedColor.green(decimal);
-        int blue = ColorHelper.PackedColor.blue(decimal);
+        int red = FastColor.ARGB32.red(decimal);
+        int green = FastColor.ARGB32.green(decimal);
+        int blue = FastColor.ARGB32.blue(decimal);
         return new Color(red, green, blue);
     }
-    public static IFormattableTextComponent simpleTranslatableComponent(String message)
+    public static TranslatableComponent simpleTranslatableComponent(String message)
     {
         return new TranslatableComponent(message);
     }
 
-    public static void setCutout(RegistryObject<Block> b)
-    {
-        RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout());
-    }
 }

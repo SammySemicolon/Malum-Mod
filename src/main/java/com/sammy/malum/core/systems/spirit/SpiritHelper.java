@@ -98,8 +98,8 @@ public class SpiritHelper {
                         ItemStack result = inventory.addItem(stack);
                         if (result.isEmpty()) {
                             Level level = playerEntity.level;
-                            Level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(),
-                                    SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((Level.random.nextFloat() - Level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                            level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(),
+                                    SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 
                             return;
                         }

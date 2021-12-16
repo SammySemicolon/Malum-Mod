@@ -1,28 +1,28 @@
 package com.sammy.malum.common.container;
 
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.core.registry.misc.ContainerRegistry;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public class SpiritPouchContainer extends Container {
-    private final IInventory inventory;
+public class SpiritPouchContainer extends AbstractContainerMenu {
+    private final Container inventory;
 
-    public SpiritPouchContainer(int windowId, PlayerInventory playerInv, ItemStack backpack) {
+    public SpiritPouchContainer(int windowId, Inventory playerInv, ItemStack backpack) {
         this(ContainerRegistry.SPIRIT_POUCH.get(), windowId, playerInv, SpiritPouchItem.getInventory(backpack));
     }
 
-    public SpiritPouchContainer(ContainerType<? extends SpiritPouchContainer> containerType, int windowId, PlayerInventory playerInv, IInventory inventory) {
+    public SpiritPouchContainer(MenuType<? extends SpiritPouchContainer> containerType, int windowId, Inventory playerInv, Container inventory) {
         super(containerType, windowId);
         this.inventory = inventory;
         inventory.startOpen(playerInv.player);

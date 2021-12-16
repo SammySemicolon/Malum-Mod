@@ -1,8 +1,8 @@
 package com.sammy.malum.client.model;
 //Made with Blockbench, by Daniel Astral (@TrisAstral)
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.world.entity.EquipmentSlot;
 
@@ -153,7 +153,7 @@ public class UmbralArmorModel extends ArmorModel
     }
     
     @Override
-    public void renderToBuffer(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)
+    public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a)
     {
         
         head.visible = slot == EquipmentSlot.HEAD;

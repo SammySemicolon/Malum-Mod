@@ -1,21 +1,19 @@
 package com.sammy.malum.client.particles.spiritflame;
 
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.sammy.malum.config.ClientConfig;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
-import com.sammy.malum.core.systems.particle.ParticlePhaseMalumParticle;
-import com.sammy.malum.core.systems.particle.ParticleRendering;
-import com.sammy.malum.core.systems.particle.data.MalumParticleData;
-import com.sammy.malum.core.systems.particle.phases.ParticlePhase;
-import com.sammy.malum.core.systems.particle.rendertypes.AdditiveRenderType;
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.Level.ClientLevel;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.sammy.malum.core.systems.rendering.particle.GenericAnimatedParticle;
+import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
+import com.sammy.malum.core.systems.rendering.particle.rendertypes.AdditiveParticleRenderType;
+import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
 
-public class SpiritFlameParticle extends ParticlePhaseMalumParticle {
-    protected SpiritFlameParticle(ClientLevel Level, MalumParticleData data, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet) {
-        super(Level, data, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet, new ParticlePhase(0, 37, 1, 0), new ParticlePhase(38, 77, 2, 38));
+public class SpiritFlameParticle extends GenericAnimatedParticle {
+    protected SpiritFlameParticle(ClientLevel level, ParticleOptions data, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, SpriteSet spriteSet) {
+        super(level, data, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet);
+        addFrames(0, 37);
+        addLoop(38, 77, 2);
         setLifetime(118);
         hasPhysics = false;
     }
@@ -33,8 +31,8 @@ public class SpiritFlameParticle extends ParticlePhaseMalumParticle {
     }
 
     @Override
-    public void render(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
-        super.render(ClientConfig.BETTER_LAYERING.get() ? ParticleRendering.getDelayedRender().getBuffer(RenderUtilities.GLOWING_PARTICLE) : b, info, pticks);
+    public void render(VertexConsumer consumer, Camera camera, float partialTicks) {
+        super.render(consumer, camera, partialTicks);
     }
 
     @Override
@@ -43,7 +41,7 @@ public class SpiritFlameParticle extends ParticlePhaseMalumParticle {
     }
 
     @Override
-    public IParticleRenderType getRenderType() {
-        return AdditiveRenderType.INSTANCE;
+    public ParticleRenderType getRenderType() {
+        return AdditiveParticleRenderType.INSTANCE;
     }
 }

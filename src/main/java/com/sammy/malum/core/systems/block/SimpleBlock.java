@@ -45,17 +45,17 @@ public class SimpleBlock extends Block implements EntityBlock {
 
     @Override
     public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        onBlockBroken(state, Level, pos);
-        super.playerWillDestroy(Level, pos, state, player);
+        onBlockBroken(state, level, pos);
+        super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override
     public void onBlockExploded(BlockState state, Level level, BlockPos pos, Explosion explosion) {
-        onBlockBroken(state, Level, pos);
-        super.onBlockExploded(state, Level, pos, explosion);
+        onBlockBroken(state, level, pos);
+        super.onBlockExploded(state, level, pos, explosion);
     }
 
-    public void onBlockBroken(BlockState state, BlockGetter Level, BlockPos pos) {
+    public void onBlockBroken(BlockState state, BlockGetter level, BlockPos pos) {
         if (hasTileEntity(state)) {
             BlockEntity tileEntity = Level.getBlockEntity(pos);
             if (tileEntity instanceof SimpleBlockEntity) {
@@ -68,27 +68,27 @@ public class SimpleBlock extends Block implements EntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
         if (hasTileEntity(state)) {
-            BlockEntity tileEntity = Level.getBlockEntity(pos);
+            BlockEntity tileEntity = level.getBlockEntity(pos);
             if (tileEntity instanceof SimpleBlockEntity) {
                 SimpleBlockEntity simpleTileEntity = (SimpleBlockEntity) tileEntity;
                 return simpleTileEntity.onUse(player, hand);
             }
         }
-        return super.use(state, Level, pos, player, hand, ray);
+        return super.use(state, level, pos, player, hand, ray);
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter Level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return getVisualShape(state, Level, pos, context);
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockGetter Level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return getVisualShape(state, Level, pos, context);
     }
 
     @Override
-    public VoxelShape getVisualShape(BlockState state, BlockGetter Level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return shape != null ? shape : Shapes.block();
     }
 }

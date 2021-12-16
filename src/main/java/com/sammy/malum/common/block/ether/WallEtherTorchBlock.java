@@ -2,28 +2,29 @@ package com.sammy.malum.common.block.ether;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.world.level.block.*;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.Level.IBlockReader;
-import net.minecraft.Level.ILevel;
-import net.minecraft.Level.ILevelReader;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
+public class WallEtherTorchBlock extends EtherBlock
 {
-    public static final DirectionProperty HORIZONTAL_FACING = HorizontalBlock.FACING;
+    public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(5.5D, 3.0D, 11.0D, 10.5D, 13.0D, 16.0D), Direction.SOUTH, Block.box(5.5D, 3.0D, 0.0D, 10.5D, 13.0D, 5.0D), Direction.WEST, Block.box(11.0D, 3.0D, 5.5D, 16.0D, 13.0D, 10.5D), Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D)));
 
 
@@ -39,9 +40,14 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
         return this.asItem().getDescriptionId();
     }
 
+
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context)
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
+        builder.add(WATERLOGGED, HORIZONTAL_FACING);
+    }
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return getShapeForState(state);
     }
 
@@ -51,7 +57,7 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public boolean canSurvive(BlockState state, ILevelReader level, BlockPos pos)
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
         Direction direction = state.getValue(HORIZONTAL_FACING);
         BlockPos blockpos = pos.relative(direction.getOpposite());
@@ -60,10 +66,10 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context)
+    public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         BlockState blockstate = this.defaultBlockState();
-        ILevelReader iLevelreader = context.getLevel();
+        LevelReader iLevelreader = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
         Direction[] adirection = context.getNearestLookingDirections();
 
@@ -84,7 +90,7 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel level, BlockPos currentPos, BlockPos facingPos)
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos)
     {
         return facing.getOpposite() == stateIn.getValue(HORIZONTAL_FACING) && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }
@@ -100,11 +106,5 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
     public BlockState mirror(BlockState state, Mirror mirrorIn)
     {
         return state.rotate(mirrorIn.getRotation(state.getValue(HORIZONTAL_FACING)));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
-    {
-        builder.add(WATERLOGGED, HORIZONTAL_FACING);
     }
 }

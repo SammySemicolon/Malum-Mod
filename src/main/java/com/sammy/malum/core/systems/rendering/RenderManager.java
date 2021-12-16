@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -14,9 +14,9 @@ public class RenderManager {
     public static MultiBufferSource.BufferSource DELAYED_RENDER = MultiBufferSource.immediate(new BufferBuilder(256));
 
     @SubscribeEvent
-    public static void onRenderLast(RenderWorldLastEvent event) {
-        event.getMatrixStack().pushPose();
+    public static void onRenderLast(RenderLevelLastEvent event) {
+        event.getPoseStack().pushPose();
         DELAYED_RENDER.endBatch();
-        event.getMatrixStack().popPose();
+        event.getPoseStack().popPose();
     }
 }

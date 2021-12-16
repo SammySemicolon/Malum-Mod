@@ -1,7 +1,6 @@
 package com.sammy.malum.client.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.core.registry.item.ItemRegistry;
@@ -13,17 +12,17 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 import static com.sammy.malum.MalumHelper.prefix;
-import static com.sammy.malum.MalumHelper.toArrayList;
 
 public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
 {
@@ -32,7 +31,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
     private final String localizedName;
     private final IDrawable overlay;
     private final IDrawable icon;
-    private final FontRenderer font;
+    private final Font font;
 
     public SpiritRiteRecipeCategory(IGuiHelper guiHelper)
     {
@@ -44,15 +43,10 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
     }
 
     @Override
-    public void draw(MalumRiteType rite, MatrixStack matrixStack, double mouseX, double mouseY)
+    public void draw(MalumRiteType rite, PoseStack poseStack, double mouseX, double mouseY)
     {
-        GlStateManager._enableAlphaTest();
-        GlStateManager._enableBlend();
-
-        overlay.draw(matrixStack);
-        ProgressionBookScreen.renderText(matrixStack, new TranslatableComponent(rite.translationIdentifier()), 105-font.width(rite.translationIdentifier())/2,160);
-        GlStateManager._disableBlend();
-        GlStateManager._disableAlphaTest();
+        overlay.draw(poseStack);
+        ProgressionBookScreen.renderText(poseStack, new TranslatableComponent(rite.translationIdentifier()), 105-font.width(rite.translationIdentifier())/2,160);
     }
 
     @Nonnull
@@ -69,11 +63,9 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
         return MalumRiteType.class;
     }
 
-    @Nonnull
     @Override
-    public String getTitle()
-    {
-        return localizedName;
+    public Component getTitle() {
+        return new TranslatableComponent("malum.jei." + UID.getPath());
     }
 
     @Nonnull

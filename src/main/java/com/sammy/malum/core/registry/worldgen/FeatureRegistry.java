@@ -1,58 +1,80 @@
 package com.sammy.malum.core.registry.worldgen;
 
+import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.registry.block.BlockRegistry;
-import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.Features;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
-import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
+import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 import static com.sammy.malum.MalumMod.MODID;
 import static net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.INSTANCE;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, bus= Mod.EventBusSubscriber.Bus.MOD)
-public class FeatureRegistry
-{
+public class FeatureRegistry {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, MODID);
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> RUNEWOOD_TREE = FEATURES.register("runewood_tree", RunewoodTreeFeature::new);
 
+    public static PlacedFeature BLAZING_QUARTZ_FEATURE, BRILLIANT_STONE_FEATURE, SOULSTONE_FEATURE, SURFACE_SOULSTONE_FEATURE, RUNEWOOD_TREE_FEATURE, RARE_RUNEWOOD_TREE_FEATURE;
     public static ConfiguredFeature<?, ?> COMMON_RUNEWOOD_TREE;
     public static ConfiguredFeature<?, ?> RARE_CONFIGURED_RUNEWOOD_TREE;
 
-    public static ConfiguredFeature<?, ?> BLAZE_QUARTZ_ORE;
-    public static ConfiguredFeature<?, ?> BRILLIANT_STONE;
-    public static ConfiguredFeature<?, ?> SOULSTONE_ORE;
-    public static ConfiguredFeature<?, ?> SOULSTONE_ORE_SURFACE;
-
-    public static void register()
-    {
-        COMMON_RUNEWOOD_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "runewood_tree", RUNEWOOD_TREE.get().configured(INSTANCE).decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, CommonConfig.COMMON_RUNEWOOD_CHANCE.get(), 1))));
-        RARE_CONFIGURED_RUNEWOOD_TREE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "rare_runewood_tree", RUNEWOOD_TREE.get().configured(INSTANCE).decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, CommonConfig.RARE_RUNEWOOD_CHANCE.get(), 2))));
-
-        BLAZE_QUARTZ_ORE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "blaze_quartz_ore", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NETHERRACK, BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState(), CommonConfig.BLAZE_QUARTZ_SIZE.get())).range(Features.Decorators.RANGE_10_10).squared().count(20));
-        BRILLIANT_STONE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "brilliant_stone", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, BlockRegistry.BRILLIANT_STONE.get().defaultBlockState(), CommonConfig.BRILLIANT_STONE_SIZE.get())).rangeTriangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)).squared());
-        SOULSTONE_ORE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "soulstone_ore", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState(), CommonConfig.SURFACE_SOULSTONE_SIZE.get())).rangeTriangle(VerticalAnchor.aboveBottom(40), VerticalAnchor.aboveBottom(80)).squared());
-        SOULSTONE_ORE_SURFACE = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, MalumMod.MODID + ":" + "soulstone_ore_surface", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState(), CommonConfig.SOULSTONE_SIZE.get())).rangeTriangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(20)).squared());
-    }
+    public static final RuleTest IN_STONE = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
+    public static final RuleTest IN_DEEPSLATE = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
+    public static final RuleTest IN_NETHERRACK = new TagMatchTest(Tags.Blocks.NETHERRACK);
 
     @SubscribeEvent
-    public static void registerFeatures(FMLCommonSetupEvent event)
-    {
+    public static void registerFeatures(FMLCommonSetupEvent event) {
         event.enqueueWork(FeatureRegistry::register);
+    }
+
+    public static void register() {
+        RUNEWOOD_TREE_FEATURE = registerFeature("common_runewood", RUNEWOOD_TREE.get().configured(INSTANCE),
+                InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, PlacementUtils.countExtra(0, CommonConfig.COMMON_RUNEWOOD_CHANCE.get(),3));
+        RARE_RUNEWOOD_TREE_FEATURE = registerFeature("rare_runewood", RUNEWOOD_TREE.get().configured(INSTANCE),
+                InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, PlacementUtils.countExtra(0, CommonConfig.RARE_RUNEWOOD_CHANCE.get(),2));
+
+        BLAZING_QUARTZ_FEATURE = registerFeature("blazing_quartz", Feature.ORE.configured(
+                        new OreConfiguration(IN_NETHERRACK, BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState(),
+                                CommonConfig.BLAZE_QUARTZ_SIZE.get())),
+                CountPlacement.of(CommonConfig.BLAZE_QUARTZ_AMOUNT.get()), PlacementUtils.RANGE_8_8);
+
+        List<OreConfiguration.TargetBlockState> BRILLIANT_TARGET = List.of(OreConfiguration.target(IN_STONE, BlockRegistry.BRILLIANT_STONE.get().defaultBlockState()), OreConfiguration.target(IN_DEEPSLATE, BlockRegistry.BRILLIANT_STONE.get().defaultBlockState()));
+        BRILLIANT_STONE_FEATURE = registerFeature("brilliant_stone", Feature.ORE.configured(
+                        new OreConfiguration(BRILLIANT_TARGET, CommonConfig.BRILLIANT_STONE_SIZE.get())),
+                CountPlacement.of(CommonConfig.BRILLIANT_STONE_AMOUNT.get()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MIN_Y.get()), VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MAX_Y.get())));
+
+        List<OreConfiguration.TargetBlockState> SOULSTONE_TARGET = List.of(OreConfiguration.target(IN_STONE, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState()), OreConfiguration.target(IN_DEEPSLATE, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState()));
+        SOULSTONE_FEATURE = registerFeature("soulstone_feature", Feature.ORE.configured(
+                        new OreConfiguration(SOULSTONE_TARGET, CommonConfig.SOULSTONE_SIZE.get())),
+                CountPlacement.of(CommonConfig.SOULSTONE_AMOUNT.get()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SOULSTONE_MIN_Y.get()), VerticalAnchor.absolute(CommonConfig.SOULSTONE_MAX_Y.get())));
+        SURFACE_SOULSTONE_FEATURE = registerFeature("surface_soulstone_feature", Feature.ORE.configured(
+                        new OreConfiguration(SOULSTONE_TARGET, CommonConfig.SURFACE_SOULSTONE_SIZE.get())),
+                CountPlacement.of(CommonConfig.SURFACE_SOULSTONE_AMOUNT.get()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SURFACE_SOULSTONE_MIN_Y.get()), VerticalAnchor.absolute(CommonConfig.SURFACE_SOULSTONE_MAX_Y.get())));
+    }
+
+    static <C extends FeatureConfiguration, F extends Feature<C>> PlacedFeature registerFeature(String registryName, ConfiguredFeature<C, F> feature, PlacementModifier... placementModifiers) {
+        return PlacementUtils.register(registryName, BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, MalumHelper.prefix(registryName), feature).placed(placementModifiers));
     }
 }

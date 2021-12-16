@@ -3,8 +3,8 @@ package com.sammy.malum.client.model;// Made with Blockbench 3.6.6
 // Paste this class into your mod and generate all required imports
 
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.world.entity.LivingEntity;
@@ -58,9 +58,9 @@ public class FurryTailModel<T extends LivingEntity> extends BipedModel<T>
     }
     
     @Override
-    public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
     {
-        tail.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        tail.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
     
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z)

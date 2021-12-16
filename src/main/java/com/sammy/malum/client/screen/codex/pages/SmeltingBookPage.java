@@ -1,6 +1,6 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
@@ -23,21 +23,21 @@ public class SmeltingBookPage extends BookPage
     }
 
     @Override
-    public void renderLeft(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderItem(matrixStack, inputStack, guiLeft+67, guiTop+59,mouseX,mouseY);
-        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(poseStack, inputStack, guiLeft+67, guiTop+59,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
 
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ProgressionBookScreen.renderItem(matrixStack, inputStack, guiLeft+209, guiTop+59,mouseX,mouseY);
-        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(poseStack, inputStack, guiLeft+209, guiTop+59,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
     }
 }

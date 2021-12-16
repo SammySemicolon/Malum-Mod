@@ -7,6 +7,7 @@ import com.sammy.malum.common.packets.particle.altar.SpiritAltarConsumeParticleP
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
@@ -19,13 +20,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
@@ -84,7 +88,67 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity
             }
         };
     }
-    
+
+    @Override
+    public void onBreak() {
+        SpiritAltarTileEntity tileEntity = (SpiritAltarTileEntity) level.getBlockEntity(worldPosition);
+        level.addFreshEntity(new ItemEntity(level,worldPosition.getX()+0.5f,worldPosition.getY()+0.5f,worldPosition.getZ()+0.5f,tileEntity.inventory.getStackInSlot(0)));
+        for (ItemStack itemStack : tileEntity.spiritInventory.stacks())
+        {
+            level.addFreshEntity(new ItemEntity(level,worldPosition.getX()+0.5f,worldPosition.getY()+0.5f,worldPosition.getZ()+0.5f,itemStack));
+        }
+        for (ItemStack itemStack : tileEntity.extrasInventory.stacks())
+        {
+            level.addFreshEntity(new ItemEntity(level,worldPosition.getX()+0.5f,worldPosition.getY()+0.5f,worldPosition.getZ()+0.5f,itemStack));
+        }
+    }
+
+    @Override
+    public InteractionResult onUse(Player player, InteractionHand hand) {
+        if (level.isClientSide)
+        {
+            return InteractionResult.SUCCESS;
+        }
+        if (hand.equals(InteractionHand.MAIN_HAND))
+        {
+            if (level.getBlockEntity(worldPosition) instanceof SpiritAltarTileEntity)
+            {
+                SpiritAltarTileEntity tileEntity = (SpiritAltarTileEntity) level.getBlockEntity(worldPosition);
+                ItemStack heldStack = player.getMainHandItem();
+                if (heldStack.getItem().equals(ItemRegistry.HEX_ASH.get()) && !tileEntity.inventory.getStackInSlot(0).isEmpty())
+                {
+                    if (!tileEntity.spedUp)
+                    {
+                        heldStack.shrink(1);
+                        tileEntity.progress = 0;
+                        tileEntity.spedUp = true;
+                        level.playSound(null, worldPosition, SoundRegistry.ALTAR_SPEED_UP, SoundSource.BLOCKS,1,0.9f + level.random.nextFloat() * 0.2f);
+                        MalumHelper.updateState(level, worldPosition);
+                        return InteractionResult.SUCCESS;
+                    }
+                    return InteractionResult.PASS;
+                }
+                if (!(heldStack.getItem() instanceof MalumSpiritItem))
+                {
+                    boolean success = tileEntity.inventory.playerHandleItem(level, player, hand);
+                    if (success)
+                    {
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+                if (heldStack.getItem() instanceof MalumSpiritItem || heldStack.isEmpty())
+                {
+                    boolean success = tileEntity.spiritInventory.playerHandleItem(level, player, hand);
+                    if (success)
+                    {
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+        }
+        return super.onUse(player, hand);
+    }
+
     @Override
     public CompoundTag save(CompoundTag compound)
     {
@@ -170,7 +234,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity
     }
     public static Vec3 itemPos(SpiritAltarTileEntity tileEntity)
     {
-        return MalumHelper.pos(tileEntity.getBlockPos()).add(tileEntity.itemOffset());
+        return MalumHelper.fromBlockPos(tileEntity.getBlockPos()).add(tileEntity.itemOffset());
     }
     public Vec3 itemOffset()
     {

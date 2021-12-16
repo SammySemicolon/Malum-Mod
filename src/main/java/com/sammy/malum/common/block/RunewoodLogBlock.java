@@ -1,23 +1,21 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.misc.MalumLogBlock;
-import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import com.sammy.malum.common.tile.TotemPoleTileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockHitResult;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.property.Properties;
 
 import java.util.function.Supplier;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class RunewoodLogBlock extends MalumLogBlock
 {

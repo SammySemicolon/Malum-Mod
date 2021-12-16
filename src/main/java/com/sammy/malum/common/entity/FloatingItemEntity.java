@@ -11,7 +11,8 @@ import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
 
 import java.awt.*;
 
@@ -94,6 +95,7 @@ public abstract class FloatingItemEntity extends ThrowableItemProjectile
     @Override
     public Packet<?> getAddEntityPacket()
     {
+        NetworkHooks NetworkHooks;
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

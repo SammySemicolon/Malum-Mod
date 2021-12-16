@@ -1,61 +1,60 @@
 package com.sammy.malum.client.tile_renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.awt.*;
 import java.util.HashMap;
 
 
-public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity> {
-    public static HashMap<MalumSpiritType, RenderMaterial> overlayHashmap = new HashMap<>();
-    public static HashMap<MalumSpiritType, RenderMaterial> cutoutHashmap = new HashMap<>();
-    public static HashMap<MalumSpiritType, RenderMaterial> corruptedCutoutHashmap = new HashMap<>();
-    public static final RenderMaterial RUNEWOOD_LOG = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS, MalumHelper.prefix("block/runewood_log"));
+public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
+    public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
+    public static HashMap<MalumSpiritType, Material> cutoutHashmap = new HashMap<>();
+    public static HashMap<MalumSpiritType, Material> corruptedCutoutHashmap = new HashMap<>();
+    public static final Material RUNEWOOD_LOG = new Material(TextureAtlas.LOCATION_BLOCKS, MalumHelper.prefix("block/runewood_log"));
 
-    public TotemPoleRenderer(Object rendererDispatcherIn) {
-        super((TileEntityRendererDispatcher) rendererDispatcherIn);
+    public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
         SpiritTypeRegistry.SPIRITS.forEach(s ->
                 {
-                    overlayHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS, s.overlayTexture()));
-                    cutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS, s.runewoodCutoutTexture()));
-                    corruptedCutoutHashmap.put(s, new RenderMaterial(AtlasTexture.LOCATION_BLOCKS, s.soulwoodCutoutTexture()));
+                    overlayHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.overlayTexture()));
+                    cutoutHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.runewoodCutoutTexture()));
+                    corruptedCutoutHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.soulwoodCutoutTexture()));
                 }
         );
     }
 
     @Override
-    public void render(TotemPoleTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(TotemPoleTileEntity tileEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Direction direction = tileEntityIn.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
         if (direction.equals(Direction.WEST) || direction.equals(Direction.EAST)) {
             combinedLightIn -= combinedOverlayIn * 2;
         }
         if (tileEntityIn.type == null) {
-            renderQuad(RUNEWOOD_LOG, Color.WHITE, combinedLightIn, direction, matrixStackIn, bufferIn);
+            renderQuad(RUNEWOOD_LOG, Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
             return;
         }
         if (((TotemPoleBlock) tileEntityIn.getBlockState().getBlock()).corrupted) {
-            renderQuad(corruptedCutoutHashmap.get(tileEntityIn.type), Color.WHITE, combinedLightIn, direction, matrixStackIn, bufferIn);
+            renderQuad(corruptedCutoutHashmap.get(tileEntityIn.type), Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
         } else {
-            renderQuad(cutoutHashmap.get(tileEntityIn.type), Color.WHITE, combinedLightIn, direction, matrixStackIn, bufferIn);
+            renderQuad(cutoutHashmap.get(tileEntityIn.type), Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
         }
-        renderQuad(overlayHashmap.get(tileEntityIn.type), color(tileEntityIn), combinedLightIn, direction, matrixStackIn, bufferIn);
+        renderQuad(overlayHashmap.get(tileEntityIn.type), color(tileEntityIn), combinedLightIn, direction, poseStack, bufferIn);
     }
 
     public Color color(TotemPoleTileEntity totemPoleTileEntity) {
@@ -67,19 +66,19 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity> {
         return new Color(red, green, blue);
     }
 
-    public void renderQuad(RenderMaterial material, Color color, int light, Direction direction, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn) {
-        matrixStackIn.pushPose();
+    public void renderQuad(Material material, Color color, int light, Direction direction, PoseStack poseStack, MultiBufferSource bufferIn) {
+        poseStack.pushPose();
         TextureAtlasSprite sprite = material.sprite();
-        IVertexBuilder builder = material.buffer(bufferIn, r -> RenderType.cutout());
-        matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(rotation(direction)));
-        matrixStackIn.translate(-0.5, 0, -0.5);
-        add(builder, matrixStackIn, color, light, 1f, 1, 1, sprite.getU0(), sprite.getV0());
-        add(builder, matrixStackIn, color, light, 1f, 0, 1, sprite.getU0(), sprite.getV1());
-        add(builder, matrixStackIn, color, light, 1f, 0, 0, sprite.getU1(), sprite.getV1());
-        add(builder, matrixStackIn, color, light, 1f, 1, 0, sprite.getU1(), sprite.getV0());
+        VertexConsumer builder = material.buffer(bufferIn, r -> RenderType.cutout());
+        poseStack.translate(0.5, 0, 0.5);
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation(direction)));
+        poseStack.translate(-0.5, 0, -0.5);
+        add(builder, poseStack, color, light, 1f, 1, 1, sprite.getU0(), sprite.getV0());
+        add(builder, poseStack, color, light, 1f, 0, 1, sprite.getU0(), sprite.getV1());
+        add(builder, poseStack, color, light, 1f, 0, 0, sprite.getU1(), sprite.getV1());
+        add(builder, poseStack, color, light, 1f, 1, 0, sprite.getU1(), sprite.getV0());
 
-        matrixStackIn.popPose();
+        poseStack.popPose();
     }
 
     public float rotation(Direction direction) {
@@ -89,7 +88,7 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity> {
         return 90 + direction.toYRot();
     }
 
-    private void add(IVertexBuilder renderer, MatrixStack stack, Color color, int light, float x, float y, float z, float u, float v) {
+    private void add(VertexConsumer renderer, PoseStack stack, Color color, int light, float x, float y, float z, float u, float v) {
         renderer.vertex(stack.last().pose(), x, y, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 1).uv(u, v).uv2(light & '\uffff', light >> 16 & '\uffff').normal(1, 0, 0).endVertex();
     }
 }

@@ -32,7 +32,7 @@ public abstract class SimpleInventoryBlockEntity extends SimpleBlockEntity
 
     @Override
     public void onBreak() {
-        super.onBreak();
+        inventory.dumpItems(level, MalumHelper.fromBlockPos(worldPosition).add(0.5f,0.5f,0.5f));
     }
 
     @Override

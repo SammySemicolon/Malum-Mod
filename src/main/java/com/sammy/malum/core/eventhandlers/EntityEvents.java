@@ -3,7 +3,7 @@ package com.sammy.malum.core.eventhandlers;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.ScytheItem;
-import com.sammy.malum.core.registry.item.ITemTagRegistry;
+import com.sammy.malum.core.registry.item.ItemTagRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
@@ -56,7 +56,7 @@ public class EntityEvents {
             }
             Item item = stack.getItem();
 
-            if (ITemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(item))
+            if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(item))
             {
                 SpiritHelper.playerSummonSpirits(target, attacker, stack);
             }

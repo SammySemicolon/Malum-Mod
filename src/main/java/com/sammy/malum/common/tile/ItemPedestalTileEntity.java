@@ -42,7 +42,7 @@ public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implement
     }
     public static Vec3 itemPos(SimpleInventoryBlockEntity tileEntity)
     {
-        return MalumHelper.pos(tileEntity.getBlockPos()).add(itemOffset());
+        return MalumHelper.fromBlockPos(tileEntity.getBlockPos()).add(itemOffset());
     }
     public static Vec3 itemOffset()
     {

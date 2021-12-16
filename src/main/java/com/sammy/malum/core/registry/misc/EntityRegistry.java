@@ -9,16 +9,14 @@ import com.sammy.malum.common.entity.MalumBoatEntity;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.spirit.PlayerHomingItemEntity;
 import com.sammy.malum.core.registry.item.ItemRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityClassification;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.RegistryObject;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -45,11 +43,11 @@ public class EntityRegistry
     @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
         @SubscribeEvent
-        public static void bindEntityRenderers(FMLClientSetupEvent event) {
-            RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.PLAYER_HOMING_ITEM.get(), (manager) -> new FloatingItemEntityRenderer(manager, Minecraft.getInstance().getItemRenderer()));
-            RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCYTHE_BOOMERANG.get(), (manager) -> new ScytheBoomerangEntityRenderer(manager, Minecraft.getInstance().getItemRenderer()));
-            RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood"));
-            RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood"));
+        public static void bindEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+            EntityRenderers.register(EntityRegistry.PLAYER_HOMING_ITEM.get(), FloatingItemEntityRenderer::new);
+            EntityRenderers.register(EntityRegistry.SCYTHE_BOOMERANG.get(), ScytheBoomerangEntityRenderer::new);
+            EntityRenderers.register(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood"));
+            EntityRenderers.register(EntityRegistry.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood"));
         }
     }
 }

@@ -1,11 +1,16 @@
 package com.sammy.malum.core.registry.item;
 
+import com.sammy.malum.MalumHelper;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.ClientHelper;
+import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.vanity.DripArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
+import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.ether.EtherBrazierItem;
 import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.ether.EtherTorchItem;
@@ -21,14 +26,25 @@ import com.sammy.malum.core.registry.item.tabs.MalumNatureTab;
 import com.sammy.malum.core.registry.item.tabs.MalumSplinterTab;
 import com.sammy.malum.core.registry.misc.EntityRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.sammy.malum.MalumHelper.brighter;
+import static com.sammy.malum.MalumHelper.darker;
 import static com.sammy.malum.MalumMod.MODID;
+import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL_ITEM;
 import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.TYRVING_ITEM;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
@@ -355,7 +371,7 @@ public class ItemRegistry
 
     //region contents
     public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(ItemTier.IRON, 0, 0.1f, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(Tiers.IRON, 0, 0.1f, 0, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new ScytheItem(SOUL_STAINED_STEEL_ITEM, 0.5f, 0.1f, 2, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SWORD = ITEMS.register("soul_stained_steel_sword", () -> new ModSwordItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
@@ -373,11 +389,6 @@ public class ItemRegistry
     public static final RegistryObject<Item> SOUL_HUNTER_ROBE = ITEMS.register("soul_hunter_robe", () -> new SoulHunterArmorItem(EquipmentSlot.CHEST, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_HUNTER_LEGGINGS = ITEMS.register("soul_hunter_leggings", () -> new SoulHunterArmorItem(EquipmentSlot.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_HUNTER_BOOTS = ITEMS.register("soul_hunter_boots", () -> new SoulHunterArmorItem(EquipmentSlot.FEET, GEAR_PROPERTIES()));
-
-    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_HELMET = ITEMS.register("soul_stained_stronghold_helmet", () -> new SoulStainedStrongholdArmorItem(EquipmentSlot.HEAD, HIDDEN_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_CHESTPLATE = ITEMS.register("soul_stained_stronghold_chestplate", () -> new SoulStainedStrongholdArmorItem(EquipmentSlot.CHEST, HIDDEN_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_LEGGINGS = ITEMS.register("soul_stained_stronghold_leggings", () -> new SoulStainedStrongholdArmorItem(EquipmentSlot.LEGS, HIDDEN_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STRONGHOLD_BOOTS = ITEMS.register("soul_stained_stronghold_boots", () -> new SoulStainedStrongholdArmorItem(EquipmentSlot.FEET, HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, ()-> SoundRegistry.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
 
@@ -398,7 +409,7 @@ public class ItemRegistry
     //endregion
 
     //region hidden items
-    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(ItemTier.IRON, 9993, 9.2f, 1000f, HIDDEN_PROPERTIES().defaultDurability(0)));
+    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(Tiers.IRON, 9993, 9.2f, 1000f, HIDDEN_PROPERTIES().defaultDurability(0)));
     public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(HIDDEN_PROPERTIES()));
     //endregion
 
@@ -409,4 +420,45 @@ public class ItemRegistry
     public static final RegistryObject<Item> FANCY_BOOTS = ITEMS.register("fancy_boots", () -> new DripArmorItem(EquipmentSlot.FEET, HIDDEN_PROPERTIES()));
 
     //endregion
+
+    @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
+    public static class ClientOnly {
+        @SubscribeEvent
+        public static void setItemColors(ColorHandlerEvent.Item event)
+        {
+            ItemColors itemColors = event.getItemColors();
+            Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+
+            MalumHelper.takeAll(items, item -> item.get() instanceof BlockItem && ((BlockItem) item.get()).getBlock() instanceof MalumLeavesBlock).forEach(item ->
+            {
+                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
+                ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
+            });
+            itemColors.register((s, c)->{
+                AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+                if (c == 2)
+                {
+                    return etherItem.getSecondColor(s);
+                }
+                return c == 0 ? etherItem.getFirstColor(s) : -1;
+            }, MalumHelper.getModItems(EtherTorchItem.class, EtherBrazierItem.class));
+            itemColors.register((s, c)->{
+                AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+                if (c == 1)
+                {
+                    return etherItem.getSecondColor(s);
+                }
+                return c == 0 ? etherItem.getFirstColor(s) : -1;
+            }, MalumHelper.getModItems(EtherItem.class));
+
+            ClientHelper.registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
+            ClientHelper.registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
+            ClientHelper.registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));
+            ClientHelper.registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR, 1));
+            ClientHelper.registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR, 1));
+            ClientHelper.registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(AQUEOUS_SPIRIT_COLOR, 1));
+            ClientHelper.registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR, 1));
+            ClientHelper.registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR, 1));
+        }
+    }
 }

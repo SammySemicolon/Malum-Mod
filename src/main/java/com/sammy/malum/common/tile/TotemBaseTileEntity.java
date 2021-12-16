@@ -14,8 +14,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -35,6 +38,24 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     public TotemBaseTileEntity(BlockPos pos, BlockState state) {
         super(TileEntityRegistry.TOTEM_BASE_TILE_ENTITY.get(), pos, state);
         this.corrupted = ((TotemPoleBlock)state.getBlock()).corrupted;
+    }
+
+    @Override
+    public InteractionResult onUse(Player player, InteractionHand hand) {
+        if (!level.isClientSide) {
+            if (level.getBlockEntity(worldPosition) instanceof TotemBaseTileEntity) {
+                TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) level.getBlockEntity(worldPosition);
+
+                if (totemBaseTileEntity.active && totemBaseTileEntity.rite != null) {
+                    totemBaseTileEntity.endRite();
+                } else {
+                    totemBaseTileEntity.startRite();
+                }
+                player.swing(InteractionHand.MAIN_HAND, true);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return super.onUse(player, hand);
     }
 
     @Override

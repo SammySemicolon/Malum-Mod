@@ -1,9 +1,9 @@
 package com.sammy.malum.client.screen.codex;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.sammy.malum.client.ClientHelper;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.client.screen.codex.objects.BookObject;
 import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
@@ -12,17 +12,18 @@ import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -30,8 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sammy.malum.core.registry.item.ItemRegistry.*;
-import static net.minecraft.item.Items.*;
-import static net.minecraft.util.ColorHelper.PackedColor.packColor;
+import static net.minecraft.util.FastColor.ARGB32.color;
+import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class ProgressionBookScreen extends Screen
@@ -465,25 +466,25 @@ public class ProgressionBookScreen extends Screen
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
     {
         xOffset += xMovement;
         yOffset += yMovement;
-        renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
 
-        renderBackground(BACKGROUND_TEXTURE, matrixStack, 0.1f, 0.4f);
+        renderBackground(BACKGROUND_TEXTURE, poseStack, 0.1f, 0.4f);
         GL11.glEnable(GL_SCISSOR_TEST);
         cut();
 
-        renderEntries(matrixStack, mouseX, mouseY, partialTicks);
+        renderEntries(poseStack, mouseX, mouseY, partialTicks);
         GL11.glDisable(GL_SCISSOR_TEST);
 
-        renderTransparentTexture(FADE_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
-        renderTexture(FRAME_TEXTURE, matrixStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
-        lateEntryRender(matrixStack, mouseX, mouseY, partialTicks);
+        renderTransparentTexture(FADE_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
+        renderTexture(FRAME_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);
+        lateEntryRender(poseStack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -567,7 +568,7 @@ public class ProgressionBookScreen extends Screen
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    public void renderEntries(MatrixStack stack, int mouseX, int mouseY, float partialTicks)
+    public void renderEntries(PoseStack stack, int mouseX, int mouseY, float partialTicks)
     {
         for (int i = objects.size()-1; i >= 0; i--)
         {
@@ -578,7 +579,7 @@ public class ProgressionBookScreen extends Screen
             object.render(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }
-    public void lateEntryRender(MatrixStack stack, int mouseX, int mouseY, float partialTicks)
+    public void lateEntryRender(PoseStack stack, int mouseX, int mouseY, float partialTicks)
     {
         for (int i = objects.size()-1; i >= 0; i--)
         {
@@ -591,7 +592,7 @@ public class ProgressionBookScreen extends Screen
     {
         return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
     }
-    public void renderBackground(ResourceLocation texture, MatrixStack matrixStack, float xModifier, float yModifier)
+    public void renderBackground(ResourceLocation texture, PoseStack poseStack, float xModifier, float yModifier)
     {
         int guiLeft = (width - bookWidth) / 2; //TODO: literally just redo this entire garbage method, please
         int guiTop = (height - bookHeight) / 2;
@@ -611,7 +612,7 @@ public class ProgressionBookScreen extends Screen
         {
             uOffset = (bookInsideWidth-8)/2f;
         }
-        renderTexture(texture, matrixStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, parallax_width/2, parallax_height/2);
+        renderTexture(texture, poseStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, parallax_width/2, parallax_height/2);
     }
 
     public void cut()
@@ -624,34 +625,35 @@ public class ProgressionBookScreen extends Screen
         GL11.glScissor(insideLeft*scale, insideTop*scale, bookInsideWidth * scale, bookInsideHeight * scale);
     }
 
-    public static void renderTexture(ResourceLocation texture, MatrixStack matrixStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)
     {
-        Minecraft mc = Minecraft.getInstance();
-        mc.getTextureManager().bind(texture);
-        blit(matrixStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, texture);
+        blit(poseStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
     }
 
-    public static void renderTransparentTexture(ResourceLocation texture, MatrixStack matrixStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)
+    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)
     {
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
-        renderTexture(texture, matrixStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
+        renderTexture(texture, poseStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
     }
-    public static void renderItem(MatrixStack matrixStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY)
+    public static void renderItem(PoseStack poseStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY)
     {
         Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
         Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (isHovering(mouseX, mouseY, posX, posY, 16,16))
         {
-            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
+            screen.renderTooltip(poseStack, ClientHelper.simpleTranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
         }
     }
 
-    public static void renderWrappingText(MatrixStack mStack, String text, int x, int y, int w)
+    public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w)
     {
-        FontRenderer font = Minecraft.getInstance().font;
+        Font font = Minecraft.getInstance().font;
         text = ClientHelper.simpleTranslatableComponent(text).getString();
         List<String> lines = new ArrayList<>();
         String[] words = text.split(" ");
@@ -673,29 +675,29 @@ public class ProgressionBookScreen extends Screen
         }
     }
 
-    public static void renderText(MatrixStack stack, String text, int x, int y)
+    public static void renderText(PoseStack stack, String text, int x, int y)
     {
         renderText(stack, ClientHelper.simpleTranslatableComponent(text), x,y, glow(0));
     }
 
-    public static void renderText(MatrixStack stack, Component component, int x, int y)
+    public static void renderText(PoseStack stack, Component component, int x, int y)
     {
         String text = component.getString();
         renderRawText(stack, text, x,y, glow(0));
     }
-    public static void renderText(MatrixStack stack, String text, int x, int y, float glow)
+    public static void renderText(PoseStack stack, String text, int x, int y, float glow)
     {
         renderText(stack, ClientHelper.simpleTranslatableComponent(text), x,y, glow);
     }
 
-    public static void renderText(MatrixStack stack, Component component, int x, int y, float glow)
+    public static void renderText(PoseStack stack, Component component, int x, int y, float glow)
     {
         String text = component.getString();
         renderRawText(stack, text, x,y, glow);
     }
-    private static void renderRawText(MatrixStack stack, String text, int x, int y, float glow)
+    private static void renderRawText(PoseStack stack, String text, int x, int y, float glow)
     {
-        FontRenderer font = Minecraft.getInstance().font;
+        Font font = Minecraft.getInstance().font;
         //182, 61, 183   227, 39, 228
         int r = (int) Mth.lerp(glow, 182, 227);
         int g = (int) Mth.lerp(glow, 61, 39);

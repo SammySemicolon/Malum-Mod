@@ -112,7 +112,7 @@ public class SimpleBlockEntityInventory extends ItemStackHandler
         {
             if (!getStackInSlot(i).isEmpty())
             {
-                Level.addFreshEntity(new ItemEntity(Level, pos.x(), pos.y(), pos.z(), getStackInSlot(i)));
+                level.addFreshEntity(new ItemEntity(level, pos.x(), pos.y(), pos.z(), getStackInSlot(i)));
             }
             setStackInSlot(i, ItemStack.EMPTY);
         }

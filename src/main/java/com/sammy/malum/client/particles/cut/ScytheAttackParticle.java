@@ -1,17 +1,17 @@
 package com.sammy.malum.client.particles.cut;
 
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.Level.ClientLevel;
-import net.minecraft.particles.BasicParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ScytheAttackParticle extends SpriteTexturedParticle {
-    private final IAnimatedSprite spriteWithAge;
+public class ScytheAttackParticle extends TextureSheetParticle {
+    private final SpriteSet spriteWithAge;
 
-    private ScytheAttackParticle(ClientLevel Level, double x, double y, double z, double scale, IAnimatedSprite spriteWithAge) {
-        super(Level, x, y, z, 0.0D, 0.0D, 0.0D);
+    private ScytheAttackParticle(ClientLevel level, double x, double y, double z, double scale, SpriteSet spriteWithAge) {
+        super(level, x, y, z, 0.0D, 0.0D, 0.0D);
         this.spriteWithAge = spriteWithAge;
         this.lifetime = 4;
         float f = this.random.nextFloat() * 0.6F + 0.4F;
@@ -37,19 +37,19 @@ public class ScytheAttackParticle extends SpriteTexturedParticle {
         }
     }
 
-    public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_LIT;
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements IParticleFactory<BasicParticleType> {
-        private final IAnimatedSprite spriteSet;
+    public static class Factory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteSet;
 
-        public Factory(IAnimatedSprite spriteSet) {
+        public Factory(SpriteSet spriteSet) {
             this.spriteSet = spriteSet;
         }
 
-        public Particle createParticle(BasicParticleType typeIn, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(SimpleParticleType typeIn, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new ScytheAttackParticle(level, x, y, z, xSpeed, this.spriteSet);
         }
     }

@@ -25,11 +25,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
@@ -118,7 +118,7 @@ public class MalumHelper {
         return resultEntity;
     }
 
-    public static Vec3 pos(BlockPos pos) {
+    public static Vec3 fromBlockPos(BlockPos pos) {
         return new Vec3(pos.getX(), pos.getY(), pos.getZ());
     }
 

@@ -3,7 +3,6 @@ package com.sammy.malum.common.item.equipment.armor.vanity;
 import com.sammy.malum.client.model.DripArmor;
 import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
 import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.util.LazyValue;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;

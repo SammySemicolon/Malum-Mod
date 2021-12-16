@@ -1,24 +1,22 @@
 package com.sammy.malum.common.block.misc;
 
 import com.sammy.malum.core.registry.item.ItemRegistry;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockHitResult;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.extensions.IForgeBlock;
 
 import java.awt.*;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock
 {
@@ -34,11 +32,13 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock
         registerDefaultState(defaultBlockState().setValue(COLOR, 0));
     }
 
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(DISTANCE, PERSISTENT,COLOR);
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(DISTANCE, PERSISTENT, COLOR);
+        super.createBlockStateDefinition(builder);
     }
-    
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return super.getStateForPlacement(context).setValue(COLOR, 0);
     }
     

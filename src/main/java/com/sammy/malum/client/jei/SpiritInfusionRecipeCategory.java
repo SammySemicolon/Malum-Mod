@@ -1,21 +1,21 @@
 package com.sammy.malum.client.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
-import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -33,32 +33,25 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     public static final ResourceLocation BACKGROUND_TEXTURE = prefix("textures/gui/book/pages/spirit_infusion_page.png");
     public static final ResourceLocation UID = prefix("spirit_infusion");
     private final IDrawable background;
-    private final String localizedName;
     private final IDrawable overlay;
     private final IDrawable icon;
 
     public SpiritInfusionRecipeCategory(IGuiHelper guiHelper)
     {
         background = guiHelper.createBlankDrawable(142, 185);
-        localizedName = I18n.get("malum.jei.spirit_infusion");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_infusion_jei.png"), 0, 0, 140, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()));
     }
 
     @Override
-    public void draw(SpiritInfusionRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY)
+    public void draw(SpiritInfusionRecipe recipe, PoseStack poseStack, double mouseX, double mouseY)
     {
-        GlStateManager._enableAlphaTest();
-        GlStateManager._enableBlend();
-
-        overlay.draw(matrixStack);
-        renderItemFrameTexture(matrixStack, 9, 48, recipe.spirits.size());
+        overlay.draw(poseStack);
+        renderItemFrameTexture(poseStack, 9, 48, recipe.spirits.size());
         if (!recipe.extraItems.isEmpty())
         {
-            renderItemFrameTexture(matrixStack, 99, 48, recipe.extraItems.size());
+            renderItemFrameTexture(poseStack, 99, 48, recipe.extraItems.size());
         }
-        GlStateManager._disableBlend();
-        GlStateManager._disableAlphaTest();
     }
 
     @Nonnull
@@ -75,11 +68,9 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         return SpiritInfusionRecipe.class;
     }
 
-    @Nonnull
     @Override
-    public String getTitle()
-    {
-        return localizedName;
+    public Component getTitle() {
+        return new TranslatableComponent("malum.jei." + UID.getPath());
     }
 
     @Nonnull
@@ -124,7 +115,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         iRecipeLayout.getItemStacks().set(index+2, recipe.output.stack());
     }
 
-    public void renderItemFrameTexture(MatrixStack matrixStack, int left, int top, int itemCount)
+    public void renderItemFrameTexture(PoseStack poseStack, int left, int top, int itemCount)
     {
         int index = itemCount - 1;
         int textureHeight = 32 + index * 19;
@@ -132,7 +123,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         top -= offset;
         int uOffset = uOffset()[index];
         int vOffset = vOffset()[index];
-        renderTexture(BACKGROUND_TEXTURE, matrixStack, left, top, uOffset, vOffset, 32, textureHeight, 512, 512);
+        renderTexture(BACKGROUND_TEXTURE, poseStack, left, top, uOffset, vOffset, 32, textureHeight, 512, 512);
     }
     public int addIngredients(IRecipeLayout iRecipeLayout, int left, int top, List<IngredientWithCount> ingredients, int baseIndex)
     {

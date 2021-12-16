@@ -1,26 +1,25 @@
 package com.sammy.malum.common.block.ether;
 
-import net.minecraft.world.level.block.*;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.Level.IBlockReader;
-import net.minecraft.Level.ILevelReader;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
+public class EtherBrazierBlock extends EtherBlock
 {
     public static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
     public static final BooleanProperty ROTATED = BooleanProperty.create("rotated");
@@ -34,13 +33,12 @@ public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context)
-    {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
     
     @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context)
+    public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
     
@@ -59,20 +57,19 @@ public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
         
         return blockstate;
     }
-    
+
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         builder.add(HANGING, WATERLOGGED, ROTATED);
     }
-    
+
     @Override
-    public boolean canSurvive(BlockState state, ILevelReader level, BlockPos pos)
-    {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         Direction direction = getBlockConnected(state).getOpposite();
         return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
     }
-    
+
     protected static Direction getBlockConnected(BlockState state)
     {
         return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
@@ -84,10 +81,8 @@ public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
         return PushReaction.DESTROY;
     }
 
-    
     @Override
-    public boolean isPathfindable(BlockState state, IBlockReader level, BlockPos pos, PathType type)
-    {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
 }

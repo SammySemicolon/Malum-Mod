@@ -11,8 +11,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fmllegacy.RegistryObject;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.network.NetworkHooks;
 
 @SuppressWarnings("all")
 public class MalumBoatEntity extends Boat

@@ -11,14 +11,25 @@ public class CommonConfig {
 
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_BLAZE_QUARTZ;
     public static ForgeConfigSpec.ConfigValue<Integer> BLAZE_QUARTZ_SIZE;
+    public static ForgeConfigSpec.ConfigValue<Integer> BLAZE_QUARTZ_AMOUNT;
 
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_BRILLIANT_STONE;
     public static ForgeConfigSpec.ConfigValue<Integer> BRILLIANT_STONE_SIZE;
+    public static ForgeConfigSpec.ConfigValue<Integer> BRILLIANT_STONE_MIN_Y;
+    public static ForgeConfigSpec.ConfigValue<Integer> BRILLIANT_STONE_MAX_Y;
+    public static ForgeConfigSpec.ConfigValue<Integer> BRILLIANT_STONE_AMOUNT;
 
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_SOULSTONE;
     public static ForgeConfigSpec.ConfigValue<Integer> SOULSTONE_SIZE;
+    public static ForgeConfigSpec.ConfigValue<Integer> SOULSTONE_MIN_Y;
+    public static ForgeConfigSpec.ConfigValue<Integer> SOULSTONE_MAX_Y;
+    public static ForgeConfigSpec.ConfigValue<Integer> SOULSTONE_AMOUNT;
+
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_SURFACE_SOULSTONE;
     public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_SIZE;
+    public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_MIN_Y;
+    public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_MAX_Y;
+    public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_AMOUNT;
 
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
@@ -45,6 +56,12 @@ public class CommonConfig {
                 .define("generateBrilliantStone", true);
         BRILLIANT_STONE_SIZE = builder.comment("Size of brilliant stone veins.")
                 .define("brilliantStoneSize", 5);
+        BRILLIANT_STONE_AMOUNT = builder.comment("Amount of brilliant stone veins.")
+                .define("brilliantStoneAmount", 4);
+        BRILLIANT_STONE_MIN_Y = builder.comment("Minimum height at which brilliant stone can spawn.")
+                .define("brilliantStoneMinY", -80);
+        BRILLIANT_STONE_MAX_Y = builder.comment("Maximum height at which brilliant stone can spawn.")
+                .define("brilliantStoneMaxY", 40);
         builder.pop();
 
         builder.comment("Soulstone Config").push("soulstone");
@@ -55,8 +72,20 @@ public class CommonConfig {
 
         SOULSTONE_SIZE = builder.comment("Size of soulstone ore veins underground.")
                 .define("soulstoneSize", 9);
+        SOULSTONE_AMOUNT = builder.comment("Amount of soulstone ore veins.")
+                .define("soulstoneAmount", 6);
         SURFACE_SOULSTONE_SIZE = builder.comment("Size of soulstone ore veins on the surface.")
                 .define("surfaceSoulstoneSize", 6);
+        SURFACE_SOULSTONE_AMOUNT = builder.comment("Amount of soulstone ore veins on the surface.")
+                .define("surfaceSoulstoneAmount", 4);
+        SOULSTONE_MIN_Y = builder.comment("Minimum height at which soulstone ore can spawn.")
+                .define("soulstoneMinY", -80);
+        SURFACE_SOULSTONE_MIN_Y = builder.comment("Minimum height at which surface soulstone ore can spawn.")
+                .define("surfaceSoulstoneMinY", 60);
+        SOULSTONE_MAX_Y = builder.comment("Maximum height at which soulstone ore can spawn.")
+                .define("soulstoneMaxY", 30);
+        SURFACE_SOULSTONE_MAX_Y = builder.comment("Maximum height at which surface soulstone ore can spawn.")
+                .define("surfaceSoulstoneMaxY", 100);
         builder.pop();
 
         builder.pop();

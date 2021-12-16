@@ -3,7 +3,6 @@ package com.sammy.malum.core.systems.rendering;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
-import com.mojang.math.Vec3;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
 import net.minecraft.client.Minecraft;
@@ -13,7 +12,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
 import java.util.Random;
@@ -483,7 +482,7 @@ public class RenderUtilities {
                     .lightmap(new RenderState.LightmapState(false))
                     .diffuseLighting(new RenderState.DiffuseLightingState(false))
                     .transparency(NORMAL_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(AtlasTexture.LOCATION_PARTICLES_TEXTURE, false, false))
+                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_PARTICLES_TEXTURE, false, false))
                     .build(false)
     ), GLOWING_PARTICLE = RenderType.create(
             EsotericaMod.MOD_ID + ":glowing_particle",
@@ -495,7 +494,7 @@ public class RenderUtilities {
                     .lightmap(new RenderState.LightmapState(false))
                     .diffuseLighting(new RenderState.DiffuseLightingState(false))
                     .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(AtlasTexture.LOCATION_PARTICLES_TEXTURE, false, false))
+                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_PARTICLES_TEXTURE, false, false))
                     .build(false)
     ), GLOWING_BLOCK_PARTICLE = RenderType.create(
             EsotericaMod.MOD_ID + ":glowing_particle",
@@ -507,7 +506,7 @@ public class RenderUtilities {
                     .lightmap(new RenderState.LightmapState(false))
                     .diffuseLighting(new RenderState.DiffuseLightingState(false))
                     .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false))
+                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_BLOCKS_TEXTURE, false, false))
                     .build(false)
     );*/
 }

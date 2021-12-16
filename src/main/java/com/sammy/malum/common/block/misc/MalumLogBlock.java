@@ -1,17 +1,16 @@
 package com.sammy.malum.common.block.misc;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ToolAction;
 
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class MalumLogBlock extends RotatedPillarBlock
 {
@@ -21,10 +20,10 @@ public class MalumLogBlock extends RotatedPillarBlock
         super(properties);
         this.stripped = stripped;
     }
-    
+
+    @Nullable
     @Override
-    public BlockState getToolModifiedState(BlockState state, Level level, BlockPos pos, Player player, ItemStack stack, ToolType toolType)
-    {
+    public BlockState getToolModifiedState(BlockState state, Level world, BlockPos pos, Player player, ItemStack stack, ToolAction toolAction) {
         return stripped.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
     }
 }

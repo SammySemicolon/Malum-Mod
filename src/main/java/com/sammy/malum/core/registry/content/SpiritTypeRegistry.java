@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class SpiritTypeRegistry
     }
     @SubscribeEvent
     public static void stitchTextures(TextureStitchEvent.Pre event) {
-        if (!event.getMap().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
+        if (!event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
             return;
         }
         SPIRITS.forEach(s ->

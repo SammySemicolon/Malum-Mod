@@ -1,12 +1,10 @@
 package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.core.systems.item.IEventResponderItem;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class CurioRingOfProwess extends MalumCurioItem implements IEventResponderItem
 {
@@ -27,9 +25,9 @@ public class CurioRingOfProwess extends MalumCurioItem implements IEventResponde
         int i = 3 + level.random.nextInt(2) + level.random.nextInt(3);
 
         while (i > 0) {
-            int j = ExperienceOrbEntity.getExperienceValue(i);
+            int j = ExperienceOrb.getExperienceValue(i);
             i -= j;
-            level.addFreshEntity(new ExperienceOrbEntity(level, attacker.getX(), attacker.getY(), attacker.getZ(), j));
+            level.addFreshEntity(new ExperienceOrb(level, attacker.getX(), attacker.getY(), attacker.getZ(), j));
         }
     }
 }

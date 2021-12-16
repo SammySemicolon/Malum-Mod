@@ -1,6 +1,6 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
@@ -44,28 +44,28 @@ public class DoubleHeadlineTextPage extends BookPage
         return "malum.gui.book.entry.page.text." + secondTranslationKey;
     }
     @Override
-    public void renderLeft(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         Component component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
-        ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+31,120);
+        ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
+        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+16,guiTop+31,120);
 
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+87);
-        ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+108,120);
+        ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+87);
+        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+16,guiTop+108,120);
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         Component component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
-        ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+31,120);
+        ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
+        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+158,guiTop+31,120);
 
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+87);
-        ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+108,120);
+        ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+87);
+        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+158,guiTop+108,120);
     }
 }

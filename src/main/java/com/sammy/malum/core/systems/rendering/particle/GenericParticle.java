@@ -9,7 +9,7 @@ import net.minecraft.util.Mth;
 import java.awt.*;
 
 public abstract class GenericParticle extends TextureSheetParticle {
-    ParticleOptions data;
+    protected ParticleOptions data;
     float[] hsv1 = new float[3], hsv2 = new float[3];
 
     public GenericParticle(ClientLevel world, ParticleOptions data, double x, double y, double z, double vx, double vy, double vz) {

@@ -3,33 +3,32 @@ package com.sammy.malum.common.block.ether;
 import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.tile.EtherTileEntity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.IWaterLoggable;
+import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.systems.block.SimpleBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.Level.IBlockReader;
-import net.minecraft.Level.ILevel;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class EtherBlock extends Block implements IWaterLoggable
+public class EtherBlock extends SimpleBlock implements SimpleWaterloggedBlock
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final VoxelShape SHAPE =Block.box(6, 6, 6, 10, 10, 10);
@@ -38,6 +37,7 @@ public class EtherBlock extends Block implements IWaterLoggable
     {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
+        setTile(TileEntityRegistry.ETHER_BLOCK_TILE_ENTITY.get());
     }
 
     @Override
@@ -54,12 +54,11 @@ public class EtherBlock extends Block implements IWaterLoggable
     }
 
     @Override
-    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader Level, BlockPos pos, Player player)
-    {
+    public ItemStack getPickBlock(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         ItemStack stack = asItem().getDefaultInstance();
-        if (Level.getBlockEntity(pos) instanceof EtherTileEntity)
+        if (level.getBlockEntity(pos) instanceof EtherTileEntity)
         {
-            EtherTileEntity tileEntity = (EtherTileEntity) Level.getBlockEntity(pos);
+            EtherTileEntity tileEntity = (EtherTileEntity) level.getBlockEntity(pos);
             AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
             if (tileEntity.firstColor != null)
             {
@@ -74,31 +73,19 @@ public class EtherBlock extends Block implements IWaterLoggable
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context)
-    {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
-    }
-    @Override
-    public boolean hasTileEntity(BlockState state)
-    {
-        return true;
-    }
-    
-    @Override
-    public BlockEntity createTileEntity(BlockState state, IBlockReader Level)
-    {
-        return new EtherTileEntity();
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         builder.add(WATERLOGGED);
         super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel level, BlockPos currentPos, BlockPos facingPos)
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos)
     {
         if (stateIn.getValue(WATERLOGGED))
         {
@@ -115,7 +102,7 @@ public class EtherBlock extends Block implements IWaterLoggable
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context)
+    public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
         return defaultBlockState().setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);

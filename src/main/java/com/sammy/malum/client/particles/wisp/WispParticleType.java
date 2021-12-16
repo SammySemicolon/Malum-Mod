@@ -1,33 +1,38 @@
 package com.sammy.malum.client.particles.wisp;
 
 import com.mojang.serialization.Codec;
-import com.sammy.malum.core.systems.particle.data.MalumParticleData;
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
+import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.Level.ClientLevel;
-import net.minecraft.particles.ParticleType;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.particles.ParticleType;
 
-public class WispParticleType extends ParticleType<MalumParticleData> {
+import javax.annotation.Nullable;
+
+public class WispParticleType extends ParticleType<ParticleOptions> {
     public WispParticleType() {
-        super(false, MalumParticleData.DESERIALIZER);
+        super(false, ParticleOptions.DESERIALIZER);
     }
+
 
     @Override
-    public Codec<MalumParticleData> codec() {
-        return MalumParticleData.codecFor(this);
+    public Codec<ParticleOptions> codec() {
+        return ParticleOptions.codecFor(this);
     }
 
-    public static class Factory implements IParticleFactory<MalumParticleData> {
-        private final IAnimatedSprite sprite;
+    public static class Factory implements ParticleProvider<ParticleOptions> {
+        private final SpriteSet sprite;
 
-        public Factory(IAnimatedSprite sprite) {
+        public Factory(SpriteSet sprite) {
             this.sprite = sprite;
         }
 
+
+        @Nullable
         @Override
-        public Particle createParticle(MalumParticleData data, ClientLevel Level, double x, double y, double z, double mx, double my, double mz) {
-            WispParticle ret = new WispParticle(Level, data, x, y, z, mx, my, mz);
+        public Particle createParticle(ParticleOptions data, ClientLevel world, double x, double y, double z, double mx, double my, double mz) {
+            WispParticle ret = new WispParticle(world, data, x, y, z, mx, my, mz);
             ret.pickSprite(sprite);
             return ret;
         }

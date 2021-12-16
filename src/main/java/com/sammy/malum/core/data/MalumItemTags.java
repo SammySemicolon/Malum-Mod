@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.registry.item.ITemTagRegistry;
+import com.sammy.malum.core.registry.item.ItemTagRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -10,7 +10,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static com.sammy.malum.core.registry.item.ITemTagRegistry.*;
+import static com.sammy.malum.core.registry.item.ItemTagRegistry.*;
 
 public class MalumItemTags extends ItemTagsProvider {
     public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
@@ -68,7 +68,7 @@ public class MalumItemTags extends ItemTagsProvider {
         this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 
         tag(Tags.Items.SLIMEBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
-        tag(ITemTagRegistry.SAPBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
+        tag(ItemTagRegistry.SAPBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
 
         tag(RUNEWOOD_LOGS).add(ItemRegistry.RUNEWOOD_LOG.get(), ItemRegistry.STRIPPED_RUNEWOOD_LOG.get(), ItemRegistry.RUNEWOOD.get(), ItemRegistry.STRIPPED_RUNEWOOD.get(), ItemRegistry.EXPOSED_RUNEWOOD_LOG.get(), ItemRegistry.REVEALED_RUNEWOOD_LOG.get());
         tag(SOULWOOD_LOGS).add(ItemRegistry.SOULWOOD_LOG.get(), ItemRegistry.STRIPPED_SOULWOOD_LOG.get(), ItemRegistry.SOULWOOD.get(), ItemRegistry.STRIPPED_SOULWOOD.get(), ItemRegistry.EXPOSED_SOULWOOD_LOG.get(), ItemRegistry.REVEALED_SOULWOOD_LOG.get());

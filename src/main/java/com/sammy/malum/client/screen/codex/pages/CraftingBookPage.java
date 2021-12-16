@@ -1,10 +1,10 @@
 package com.sammy.malum.client.screen.codex.pages;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.*;
+import net.minecraft.world.item.*;
 
 public class CraftingBookPage extends BookPage
 {
@@ -33,7 +33,7 @@ public class CraftingBookPage extends BookPage
         this.inputStacks = inputStacks;
     }
     @Override
-    public void renderLeft(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
+    public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
@@ -48,17 +48,17 @@ public class CraftingBookPage extends BookPage
                     ItemStack itemStack = inputStacks[index];
                     int itemPosX = guiLeft + 45 + j*22;
                     int itemPosY = guiTop + 34 + i*22;
-                    ProgressionBookScreen.renderItem(matrixStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
+                    ProgressionBookScreen.renderItem(poseStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }
         }
 
-        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft+67, guiTop+126,mouseX,mouseY);
 
     }
 
     @Override
-    public void renderRight(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
+    public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
@@ -73,12 +73,12 @@ public class CraftingBookPage extends BookPage
                     ItemStack itemStack = inputStacks[index];
                     int itemPosX = guiLeft + 187 + j*22;
                     int itemPosY = guiTop + 34 + i*22;
-                    ProgressionBookScreen.renderItem(matrixStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
+                    ProgressionBookScreen.renderItem(poseStack, itemStack, itemPosX, itemPosY, mouseX, mouseY);
                 }
             }
         }
 
-        ProgressionBookScreen.renderItem(matrixStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
+        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft+209, guiTop+126,mouseX,mouseY);
     }
 
     public static CraftingBookPage fullPage(Item output, Item input)
