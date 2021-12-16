@@ -2,8 +2,8 @@ package com.sammy.malum.common.packets.particle.altar;
 
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -33,7 +33,7 @@ public class SpiritAltarCraftParticlePacket
         this.posZ = posZ;
     }
 
-    public static SpiritAltarCraftParticlePacket decode(PacketBuffer buf)
+    public static SpiritAltarCraftParticlePacket decode(FriendlyByteBuf buf)
     {
         int strings = buf.readInt();
         ArrayList<String> spirits = new ArrayList<>();
@@ -47,7 +47,7 @@ public class SpiritAltarCraftParticlePacket
         return new SpiritAltarCraftParticlePacket(spirits, posX, posY, posZ);
     }
 
-    public void encode(PacketBuffer buf)
+    public void encode(FriendlyByteBuf buf)
     {
         buf.writeInt(spirits.size());
         for (String string : spirits)

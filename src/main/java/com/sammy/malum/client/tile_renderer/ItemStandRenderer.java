@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.Level.Level;
+import net.minecraft.world.level.Level;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
@@ -26,7 +26,7 @@ public class ItemStandRenderer extends TileEntityRenderer<ItemStandTileEntity>
     @Override
     public void render(ItemStandTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
-        Level Level = Minecraft.getInstance().level;
+        Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ItemStack stack = tileEntityIn.inventory.getStackInSlot(0);
         if (!stack.isEmpty())

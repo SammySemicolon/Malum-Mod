@@ -10,7 +10,7 @@ public abstract class IMalumRecipe implements Recipe<Container>
 {
     @Deprecated
     @Override
-    public boolean matches(Container inv, Level LevelIn)
+    public boolean matches(Container inv, Level level)
     {
         return false;
     }

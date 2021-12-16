@@ -10,12 +10,12 @@ import com.sammy.malum.core.systems.recipe.IMalumRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.RecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.Level.Level;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -25,7 +25,7 @@ import java.util.List;
 public class SpiritInfusionRecipe extends IMalumRecipe
 {
     public static final String NAME = "spirit_infusion";
-    public static class Type implements IRecipeType<SpiritInfusionRecipe> {
+    public static class Type implements RecipeType<SpiritInfusionRecipe> {
         @Override
         public String toString () {
             return MalumMod.MODID + ":" + NAME;
@@ -59,7 +59,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     }
 
     @Override
-    public IRecipeType<?> getType()
+    public RecipeType<?> getType()
     {
         return Type.INSTANCE;
     }
@@ -128,9 +128,9 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         return this.output.item.equals(output.getItem());
     }
 
-    public static SpiritInfusionRecipe getRecipeForAltar(Level Level, ItemStack stack, ArrayList<ItemStack> spirits)
+    public static SpiritInfusionRecipe getRecipeForAltar(Level level, ItemStack stack, ArrayList<ItemStack> spirits)
     {
-        List<SpiritInfusionRecipe> recipes = getRecipes(Level);
+        List<SpiritInfusionRecipe> recipes = getRecipes(level);
         for (SpiritInfusionRecipe recipe : recipes)
         {
             if (recipe.doesInputMatch(stack) && recipe.doSpiritsMatch(spirits))
@@ -140,9 +140,9 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return null;
     }
-    public static SpiritInfusionRecipe getRecipeForArcana(Level Level, ItemStack stack)
+    public static SpiritInfusionRecipe getRecipeForArcana(Level level, ItemStack stack)
     {
-        List<SpiritInfusionRecipe> recipes = getRecipes(Level);
+        List<SpiritInfusionRecipe> recipes = getRecipes(level);
         for (SpiritInfusionRecipe recipe : recipes)
         {
             if (recipe.doesOutputMatch(stack))
@@ -152,9 +152,9 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return null;
     }
-    public static List<SpiritInfusionRecipe> getRecipes(Level Level)
+    public static List<SpiritInfusionRecipe> getRecipes(Level level)
     {
-        return Level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
+        return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritInfusionRecipe> {
 
@@ -192,7 +192,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
 
         @Nullable
         @Override
-        public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer)
+        public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer)
         {
             IngredientWithCount input = IngredientWithCount.read(buffer);
             ItemStack output = buffer.readItem();
@@ -213,7 +213,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, SpiritInfusionRecipe recipe)
+        public void toNetwork(FriendlyByteBuf buffer, SpiritInfusionRecipe recipe)
         {
             recipe.input.write(buffer);
             buffer.writeItem(recipe.output.stack());

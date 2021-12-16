@@ -4,20 +4,20 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.packets.particle.BlockParticlePacket;
 import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.util.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.BlockHitResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.Level.IBlockReader;
-import net.minecraft.Level.Level;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 import java.util.function.Supplier;
 
@@ -50,7 +50,7 @@ public class TotemPoleBlock extends Block
     }
 
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader Level)
+    public BlockEntity createTileEntity(BlockState state, IBlockReader Level)
     {
         return new TotemPoleTileEntity();
     }
@@ -65,26 +65,26 @@ public class TotemPoleBlock extends Block
     }
 
     @Override
-    public ActionResultType use(BlockState state, Level LevelIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit)
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
     {
-        if (MalumHelper.areWeOnClient(LevelIn) || handIn == Hand.OFF_HAND)
+        if (level.isClientSide || handIn == InteractionHand.OFF_HAND)
         {
-            return ActionResultType.FAIL;
+            return InteractionResult.FAIL;
         }
-        if (LevelIn.getBlockEntity(pos) instanceof TotemPoleTileEntity)
+        if (level.getBlockEntity(pos) instanceof TotemPoleTileEntity)
         {
             if (player.getItemInHand(handIn).getItem() instanceof AxeItem)
             {
-                TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) LevelIn.getBlockEntity(pos);
+                TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) level.getBlockEntity(pos);
                 if (totemPoleTileEntity.type != null)
                 {
-                    LevelIn.setBlockAndUpdate(pos, logBlock.get().defaultBlockState());
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->LevelIn.getChunkAt(pos)), new BlockParticlePacket(totemPoleTileEntity.type.color, pos.getX(),pos.getY(),pos.getZ()));
-                    LevelIn.playSound(null, pos, SoundEvents.AXE_STRIP, SoundCategory.BLOCKS,1,1);
-                    return ActionResultType.SUCCESS;
+                    level.setBlockAndUpdate(pos, logBlock.get().defaultBlockState());
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->level.getChunkAt(pos)), new BlockParticlePacket(totemPoleTileEntity.type.color, pos.getX(),pos.getY(),pos.getZ()));
+                    level.playSound(null, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS,1,1);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
-        return super.use(state, LevelIn, pos, player, handIn, hit);
+        return super.use(state, level, pos, player, handIn, hit);
     }
 }

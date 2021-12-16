@@ -22,16 +22,16 @@ public class EtherTorchBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel LevelIn, BlockPos currentPos, BlockPos facingPos) {
-        return facing == Direction.DOWN && !this.canSurvive(stateIn, LevelIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, LevelIn, currentPos, facingPos);
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel level, BlockPos currentPos, BlockPos facingPos) {
+        return facing == Direction.DOWN && !this.canSurvive(stateIn, level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }
 
     @Override
-    public boolean canSurvive(BlockState state, ILevelReader LevelIn, BlockPos pos) {
-        return canSupportCenter(LevelIn, pos.below(), Direction.UP);
+    public boolean canSurvive(BlockState state, ILevelReader level, BlockPos pos) {
+        return canSupportCenter(level, pos.below(), Direction.UP);
     }
 }

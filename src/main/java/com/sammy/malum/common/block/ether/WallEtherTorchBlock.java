@@ -40,7 +40,7 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context)
     {
         return getShapeForState(state);
     }
@@ -51,12 +51,12 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public boolean canSurvive(BlockState state, ILevelReader LevelIn, BlockPos pos)
+    public boolean canSurvive(BlockState state, ILevelReader level, BlockPos pos)
     {
         Direction direction = state.getValue(HORIZONTAL_FACING);
         BlockPos blockpos = pos.relative(direction.getOpposite());
-        BlockState blockstate = LevelIn.getBlockState(blockpos);
-        return blockstate.isFaceSturdy(LevelIn, blockpos, direction);
+        BlockState blockstate = level.getBlockState(blockpos);
+        return blockstate.isFaceSturdy(level, blockpos, direction);
     }
 
     @Nullable
@@ -84,9 +84,9 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel LevelIn, BlockPos currentPos, BlockPos facingPos)
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel level, BlockPos currentPos, BlockPos facingPos)
     {
-        return facing.getOpposite() == stateIn.getValue(HORIZONTAL_FACING) && !stateIn.canSurvive(LevelIn, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
+        return facing.getOpposite() == stateIn.getValue(HORIZONTAL_FACING) && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }
 
 

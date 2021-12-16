@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.common.tile.ItemStandTileEntity;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -10,7 +10,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -42,7 +42,7 @@ public class ItemStandBlock extends SimpleInventoryBlock implements IWaterLoggab
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context)
     {
         switch (state.getValue(FACING))
         {
@@ -71,7 +71,7 @@ public class ItemStandBlock extends SimpleInventoryBlock implements IWaterLoggab
                 return EAST;
             }
         }
-        return super.getShape(state, LevelIn, pos, context);
+        return super.getShape(state, level, pos, context);
     }
     
     @Override
@@ -81,7 +81,7 @@ public class ItemStandBlock extends SimpleInventoryBlock implements IWaterLoggab
     }
     
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader Level)
+    public BlockEntity createTileEntity(BlockState state, IBlockReader Level)
     {
         return new ItemStandTileEntity();
     }
@@ -94,13 +94,13 @@ public class ItemStandBlock extends SimpleInventoryBlock implements IWaterLoggab
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel LevelIn, BlockPos currentPos, BlockPos facingPos)
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel level, BlockPos currentPos, BlockPos facingPos)
     {
         if (stateIn.getValue(WATERLOGGED))
         {
-            LevelIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(LevelIn));
+            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(stateIn, facing, facingState, LevelIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }
 
     @Override

@@ -4,14 +4,14 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.crafting.RecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.Registry;
-import net.minecraft.Level.Level;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -20,7 +20,7 @@ import java.util.List;
 public class BlockTransmutationRecipe extends IMalumRecipe
 {
     public static final String NAME = "block_transmutation";
-    public static class Type implements IRecipeType<BlockTransmutationRecipe> {
+    public static class Type implements RecipeType<BlockTransmutationRecipe> {
         @Override
         public String toString () {
             return MalumMod.MODID + ":" + NAME;
@@ -47,7 +47,7 @@ public class BlockTransmutationRecipe extends IMalumRecipe
     }
 
     @Override
-    public IRecipeType<?> getType()
+    public RecipeType<?> getType()
     {
         return Type.INSTANCE;
     }
@@ -67,9 +67,9 @@ public class BlockTransmutationRecipe extends IMalumRecipe
         return output.equals(this.output);
     }
 
-    public static List<BlockTransmutationRecipe> getRecipes(Level Level)
+    public static List<BlockTransmutationRecipe> getRecipes(Level level)
     {
-        return Level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
+        return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<BlockTransmutationRecipe> {
@@ -85,7 +85,7 @@ public class BlockTransmutationRecipe extends IMalumRecipe
 
         @Nullable
         @Override
-        public BlockTransmutationRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer)
+        public BlockTransmutationRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer)
         {
             BlockState input = Block.stateById(buffer.readVarInt());
             BlockState output = Block.stateById(buffer.readVarInt());
@@ -93,7 +93,7 @@ public class BlockTransmutationRecipe extends IMalumRecipe
         }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, BlockTransmutationRecipe recipe)
+        public void toNetwork(FriendlyByteBuf buffer, BlockTransmutationRecipe recipe)
         {
             buffer.writeVarInt(Block.getId(recipe.input.defaultBlockState()));
             buffer.writeVarInt(Block.getId(recipe.output.defaultBlockState()));

@@ -6,8 +6,6 @@ import net.minecraft.world.item.Item;
 
 import java.awt.*;
 
-import net.minecraft.item.Item.Properties;
-
 public class MalumSpiritItem extends Item implements ISpiritEntityGlow
 {
     public MalumSpiritType type;

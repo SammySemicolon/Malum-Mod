@@ -1,16 +1,16 @@
 package com.sammy.malum.common.packets.particle;
 
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.Level.Level;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 import java.awt.*;
 import java.util.function.Supplier;
@@ -29,7 +29,7 @@ public class BlockMistParticlePacket
         this.posZ = posZ;
     }
 
-    public static BlockMistParticlePacket decode(PacketBuffer buf)
+    public static BlockMistParticlePacket decode(FriendlyByteBuf buf)
     {
         Color color = new Color(buf.readInt(), buf.readInt(), buf.readInt());
         int posX = buf.readInt();
@@ -38,7 +38,7 @@ public class BlockMistParticlePacket
         return new BlockMistParticlePacket(color, posX, posY, posZ);
     }
 
-    public void encode(PacketBuffer buf)
+    public void encode(FriendlyByteBuf buf)
     {
         buf.writeInt(color.getRed());
         buf.writeInt(color.getGreen());
@@ -63,8 +63,8 @@ public class BlockMistParticlePacket
 
     public static class ClientOnly {
         public static void addParticles(BlockPos pos, Color color) {
-            Level Level = Minecraft.getInstance().level;
-            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+            Level level = Minecraft.getInstance().level;
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.4f, 0f)
                     .setLifetime(20)
                     .setSpin(0.2f)
@@ -73,9 +73,9 @@ public class BlockMistParticlePacket
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(Level, pos, 4, Direction.UP, Direction.DOWN);
+                    .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
 
-            ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.2f, 0f)
                     .setLifetime(40)
                     .setSpin(0.1f)
@@ -84,7 +84,7 @@ public class BlockMistParticlePacket
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(Level, pos, 6, Direction.UP, Direction.DOWN);
+                    .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
         }
     }
 }

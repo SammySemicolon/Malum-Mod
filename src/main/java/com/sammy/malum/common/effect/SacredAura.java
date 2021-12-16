@@ -1,16 +1,14 @@
 package com.sammy.malum.common.effect;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.potion.EffectType;
-import net.minecraftforge.common.ForgeMod;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 
 public class SacredAura extends MobEffect
 {
     public SacredAura()
     {
-        super(EffectType.BENEFICIAL, 6468648);
+        super(MobEffectCategory.BENEFICIAL, 6468648);
     }
 
     @Override

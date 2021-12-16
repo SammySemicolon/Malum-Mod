@@ -2,18 +2,18 @@ package com.sammy.malum.common.block.misc;
 
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.Level.Level;
+import net.minecraft.util.math.BlockHitResult;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.extensions.IForgeBlock;
 
 import java.awt.*;
@@ -43,15 +43,15 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock
     }
     
     @Override
-    public ActionResultType use(BlockState state, Level LevelIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit)
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
     {
         if (player.getItemInHand(handIn).getItem().equals(ItemRegistry.INFERNAL_SPIRIT.get()))
         {
-            LevelIn.setBlockAndUpdate(pos,state.setValue(COLOR, (state.getValue(COLOR) + 1) % 5));
+            level.setBlockAndUpdate(pos,state.setValue(COLOR, (state.getValue(COLOR) + 1) % 5));
             player.swing(handIn);
             player.playSound(SoundEvents.BLAZE_SHOOT, 1F, 1.5f + RANDOM.nextFloat() * 0.5f);
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-        return super.use(state, LevelIn, pos, player, handIn, hit);
+        return super.use(state, level, pos, player, handIn, hit);
     }
 }

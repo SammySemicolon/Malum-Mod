@@ -40,32 +40,32 @@ public class MalumRiteType {
         return defaultInterval();
     }
 
-    public void executeRite(Level Level, BlockPos pos, boolean corrupted) {
+    public void executeRite(Level level, BlockPos pos, boolean corrupted) {
         if (corrupted) {
-            corruptedRiteEffect(Level, pos);
+            corruptedRiteEffect(level, pos);
         } else {
-            riteEffect(Level, pos);
+            riteEffect(level, pos);
         }
     }
 
-    public void riteEffect(Level Level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos) {
 
     }
 
-    public void corruptedRiteEffect(Level Level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos) {
 
     }
 
-    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, Level Level, BlockPos pos, boolean isCorrupted)
+    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, Level level, BlockPos pos, boolean corrupted)
     {
-        return (ArrayList<T>) Level.getEntitiesOfClass(clazz, new AABB(pos).inflate(range(isCorrupted)));
+        return (ArrayList<T>) level.getEntitiesOfClass(clazz, new AABB(pos).inflate(range(corrupted)));
     }
-    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level Level, BlockPos pos, boolean isCorrupted)
+    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level level, BlockPos pos, boolean corrupted)
     {
-        return MalumHelper.getBlocks(pos, range(isCorrupted), p -> clazz.isInstance(Level.getBlockState(p).getBlock()));
+        return MalumHelper.getBlocks(pos, range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
     }
-    public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, Level Level, BlockPos pos, boolean isCorrupted)
+    public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, Level level, BlockPos pos, boolean corrupted)
     {
-        return MalumHelper.getPlaneOfBlocks(pos.below(), range(isCorrupted), p -> clazz.isInstance(Level.getBlockState(p).getBlock()));
+        return MalumHelper.getPlaneOfBlocks(pos.below(), range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
     }
 }

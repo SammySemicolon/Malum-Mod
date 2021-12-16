@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.item_storage;
 
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -27,7 +27,7 @@ public class WoodItemPedestalBlock extends ItemPedestalBlock
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context)
     {
         return SHAPE;
     }

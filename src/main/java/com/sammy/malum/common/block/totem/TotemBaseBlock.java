@@ -3,15 +3,15 @@ package com.sammy.malum.common.block.totem;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.tile.TotemBaseTileEntity;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.BlockHitResult;
 import net.minecraft.Level.IBlockReader;
-import net.minecraft.Level.Level;
+import net.minecraft.world.level.Level;
 
 import net.minecraft.block.AbstractBlock.Properties;
 
@@ -29,21 +29,21 @@ public class TotemBaseBlock extends Block
         return true;
     }
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader Level)
+    public BlockEntity createTileEntity(BlockState state, IBlockReader Level)
     {
         return new TotemBaseTileEntity(((TotemBaseBlock)state.getBlock()).corrupted);
     }
 
     @Override
-    public ActionResultType use(BlockState state, Level LevelIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit)
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
     {
-        if (LevelIn.getBlockEntity(pos) instanceof TotemBaseTileEntity)
+        if (level.getBlockEntity(pos) instanceof TotemBaseTileEntity)
         {
-            TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) LevelIn.getBlockEntity(pos);
+            TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) level.getBlockEntity(pos);
 
-            if (MalumHelper.areWeOnClient(LevelIn) || handIn == Hand.OFF_HAND)
+            if (level.isClientSide || handIn == InteractionHand.OFF_HAND)
             {
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
             if (totemBaseTileEntity.active && totemBaseTileEntity.rite != null)
             {
@@ -53,10 +53,10 @@ public class TotemBaseBlock extends Block
             {
                 totemBaseTileEntity.startRite();
             }
-            player.swing(Hand.MAIN_HAND, true);
-            return ActionResultType.SUCCESS;
+            player.swing(InteractionHand.MAIN_HAND, true);
+            return InteractionResult.SUCCESS;
         }
-        return super.use(state, LevelIn, pos, player, handIn, hit);
+        return super.use(state, level, pos, player, handIn, hit);
     }
 
 }

@@ -4,9 +4,9 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.effect.MobEffects;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class CurioWickedRing extends MalumCurioItem implements IEventResponderItem
 {
@@ -23,6 +23,6 @@ public class CurioWickedRing extends MalumCurioItem implements IEventResponderIt
 
     @Override
     public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
-        MalumHelper.giveStackingEffect(Effects.DAMAGE_BOOST, attacker, 100, 0);
+        MalumHelper.giveStackingEffect(MobEffects.DAMAGE_BOOST, attacker, 100, 0);
     }
 }

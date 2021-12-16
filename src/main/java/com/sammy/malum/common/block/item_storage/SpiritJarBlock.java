@@ -4,12 +4,12 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.tile.SpiritJarTileEntity;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.IWaterLoggable;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -18,19 +18,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.BlockHitResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.Level.IBlockReader;
 import net.minecraft.Level.ILevel;
-import net.minecraft.Level.Level;
+import net.minecraft.world.level.Level;
 import net.minecraft.Level.server.ServerLevel;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -50,36 +50,36 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
     @Override
-    public void playerWillDestroy(Level LevelIn, BlockPos pos, BlockState state, Player player)
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player)
     {
-        if (LevelIn instanceof ServerLevel)
+        if (level instanceof ServerLevel)
         {
-            spawnAfterBreak(state, (ServerLevel) LevelIn, pos, player.getUseItem());
+            spawnAfterBreak(state, (ServerLevel) level, pos, player.getUseItem());
         }
-        super.playerWillDestroy(LevelIn, pos, state, player);
+        super.playerWillDestroy(level, pos, state, player);
     }
     @Override
-    public void spawnAfterBreak(BlockState state, ServerLevel LevelIn, BlockPos pos, ItemStack stack)
+    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack)
     {
-        if (LevelIn.getBlockEntity(pos) instanceof SpiritJarTileEntity)
+        if (level.getBlockEntity(pos) instanceof SpiritJarTileEntity)
         {
-            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) LevelIn.getBlockEntity(pos);
+            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) level.getBlockEntity(pos);
             while (tileEntity.count > 0)
             {
                 int stackCount = Math.min(tileEntity.count, 64);
-                LevelIn.addFreshEntity(new ItemEntity(LevelIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,new ItemStack(tileEntity.type.splinterItem(), stackCount)));
+                level.addFreshEntity(new ItemEntity(level,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,new ItemStack(tileEntity.type.splinterItem(), stackCount)));
                 tileEntity.count -= stackCount;
             }
         }
-        super.spawnAfterBreak(state, LevelIn, pos, stack);
+        super.spawnAfterBreak(state, level, pos, stack);
     }
     @Override
-    public ActionResultType use(BlockState state, Level LevelIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit)
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
     {
         ItemStack heldItem = player.getItemInHand(handIn);
-        if (LevelIn.getBlockEntity(pos) instanceof SpiritJarTileEntity)
+        if (level.getBlockEntity(pos) instanceof SpiritJarTileEntity)
         {
-            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) LevelIn.getBlockEntity(pos);
+            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) level.getBlockEntity(pos);
             if (heldItem.getItem() instanceof MalumSpiritItem)
             {
                 MalumSpiritItem spiritSplinterItem = (MalumSpiritItem) heldItem.getItem();
@@ -88,15 +88,15 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
                     tileEntity.type = spiritSplinterItem.type;
                     tileEntity.count = heldItem.getCount();
                     player.setItemInHand(handIn, ItemStack.EMPTY);
-                    particles(LevelIn,hit, tileEntity.type);
-                    return ActionResultType.SUCCESS;
+                    particles(level,hit, tileEntity.type);
+                    return InteractionResult.SUCCESS;
                 }
                 else if (tileEntity.type.equals(spiritSplinterItem.type))
                 {
                     tileEntity.count += heldItem.getCount();
                     player.setItemInHand(handIn, ItemStack.EMPTY);
-                    particles(LevelIn,hit, tileEntity.type);
-                    return ActionResultType.SUCCESS;
+                    particles(level,hit, tileEntity.type);
+                    return InteractionResult.SUCCESS;
                 }
             }
             else if (tileEntity.type != null)
@@ -105,22 +105,22 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
                 int count = Math.min(tileEntity.count, max);
                 ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(tileEntity.type.splinterItem(), count));
                 tileEntity.count -= count;
-                particles(LevelIn,hit, tileEntity.type);
+                particles(level,hit, tileEntity.type);
                 if (tileEntity.count == 0)
                 {
                     tileEntity.type = null;
                 }
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
-        return super.use(state, LevelIn, pos, player, handIn, hit);
+        return super.use(state, level, pos, player, handIn, hit);
     }
-    public void particles(Level Level, BlockRayTraceResult hit, MalumSpiritType type)
+    public void particles(Level level, BlockHitResult hit, MalumSpiritType type)
     {
         if (MalumHelper.areWeOnClient(Level))
         {
             Color color = type.color;
-            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.4f, 0f)
                     .setLifetime(20)
                     .setScale(0.3f, 0)
@@ -132,7 +132,7 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
         }
     }
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context)
     {
         return SHAPE;
     }
@@ -143,7 +143,7 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
     }
     
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader Level)
+    public BlockEntity createTileEntity(BlockState state, IBlockReader Level)
     {
         return new SpiritJarTileEntity();
     }
@@ -155,13 +155,13 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel LevelIn, BlockPos currentPos, BlockPos facingPos)
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel level, BlockPos currentPos, BlockPos facingPos)
     {
         if (stateIn.getValue(WATERLOGGED))
         {
-            LevelIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(LevelIn));
+            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(stateIn, facing, facingState, LevelIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }
 
     @Override

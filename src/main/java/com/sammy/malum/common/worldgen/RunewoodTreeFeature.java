@@ -1,29 +1,28 @@
-package com.sammy.malum.common.Levelgen;
+package com.sammy.malum.common.worldgen;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.block.RunewoodSaplingBlock;
+import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.core.registry.block.BlockRegistry;
-import com.sammy.malum.core.systems.Levelgen.MalumFiller;
-import com.sammy.malum.core.systems.Levelgen.MalumFiller.BlockStateEntry;
-import net.minecraft.world.level.block.*;
-import net.minecraft.core.Direction;
+import com.sammy.malum.core.systems.worldgen.MalumFiller;
+import com.sammy.malum.core.systems.worldgen.MalumFiller.BlockStateEntry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.Level.ISeedReader;
-import net.minecraft.Level.Level;
-import net.minecraft.Level.gen.ChunkGenerator;
-import net.minecraft.Level.gen.feature.Feature;
-import net.minecraft.Level.gen.feature.NoFeatureConfig;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.Random;
 
-import static net.minecraft.Level.gen.feature.NoFeatureConfig.CODEC;
-
-public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
+public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration>
 {
     public RunewoodTreeFeature()
     {
-        super(CODEC);
+        super(NoneFeatureConfiguration.CODEC);
     }
     private static final int minimumSapBlockCount = 2;
     private static final int extraSapBlockCount = 1;
@@ -40,10 +39,13 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
     private static final int minimumBranchHeight = 3;
     private static final int branchHeightExtra = 2;
 
+
     @Override
-    public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config)
-    {
-        if (reader.isEmptyBlock(pos.below()) || !BlockRegistry.RUNEWOOD_SAPLING.get().defaultBlockState().canSurvive(reader, pos))
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        WorldGenLevel level = context.level();
+        BlockPos pos = context.origin();
+        Random rand = context.random();
+        if (level.isEmptyBlock(pos.below()) || !BlockRegistry.RUNEWOOD_SAPLING.get().defaultBlockState().canSurvive(level, pos))
         {
             return false;
         }
@@ -59,7 +61,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
         for (int i = 0; i <= trunkHeight; i++) //trunk placement
         {
             BlockPos trunkPos = pos.above(i);
-            if (canPlace(reader, trunkPos))
+            if (canPlace(level, trunkPos))
             {
                 treeFiller.entries.add(new BlockStateEntry(defaultLog, trunkPos));
             }
@@ -76,7 +78,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
             for (int i = 0; i < sideTrunkHeight; i++)
             {
                 BlockPos sideTrunkPos = pos.relative(direction).above(i);
-                if (canPlace(reader, sideTrunkPos))
+                if (canPlace(level, sideTrunkPos))
                 {
                     treeFiller.entries.add(new BlockStateEntry(defaultLog, sideTrunkPos));
                 }
@@ -85,7 +87,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
                     return false;
                 }
             }
-            downwardsTrunk(reader, treeFiller, pos.relative(direction));
+            downwardsTrunk(level, treeFiller, pos.relative(direction));
         }
         for (Direction direction : directions) //tree top placement
         {
@@ -95,7 +97,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
             for (int i = 0; i < branchOffset; i++) //branch connection placement
             {
                 BlockPos branchConnectionPos = branchStartPos.relative(direction.getOpposite(), i);
-                if (canPlace(reader, branchConnectionPos))
+                if (canPlace(level, branchConnectionPos))
                 {
                     treeFiller.entries.add(new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis()), branchConnectionPos));
                 }
@@ -108,7 +110,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
             for (int i = 0; i < branchHeight; i++) //branch placement
             {
                 BlockPos branchPos = branchStartPos.above(i);
-                if (canPlace(reader, branchPos))
+                if (canPlace(level, branchPos))
                 {
                     treeFiller.entries.add(new BlockStateEntry(defaultLog, branchPos));
                 }
@@ -127,12 +129,12 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
             BlockState newState = MalumHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState());
             treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
         }
-        treeFiller.fill(reader, false);
-        leavesFiller.fill(reader, true);
+        treeFiller.fill(level, false);
+        leavesFiller.fill(level, true);
         return true;
     }
 
-//    public static void makeHallowedGround(ISeedReader reader, MalumFiller groundFiller, MalumFiller grassFiller, Random rand, BlockPos pos, int size, float tallGrassProbability)
+//    public static void makeHallowedGround(WorldGenLevel level, MalumFiller groundFiller, MalumFiller grassFiller, Random rand, BlockPos pos, int size, float tallGrassProbability)
 //    {
 //        for (int x = -size; x <= size; x++)
 //        {
@@ -142,10 +144,10 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
 //                {
 //                    continue;
 //                }
-//                BlockPos grassPos = reader.getHeight(Heightmap.Type.Level_SURFACE, pos.add(x, 0, z)).down();
+//                BlockPos grassPos = level.getHeight(Heightmap.Type.Level_SURFACE, pos.add(x, 0, z)).down();
 //                do
 //                {
-//                    if (reader.getBlockState(grassPos).getBlock() instanceof BushBlock)
+//                    if (level.getBlockState(grassPos).getBlock() instanceof BushBlock)
 //                    {
 //                        groundFiller.entries.add(new BlockStateEntry(Blocks.AIR.getDefaultState(), grassPos));
 //                        grassPos = grassPos.down();
@@ -156,7 +158,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
 //                    }
 //                }
 //                while (true);
-//                if (reader.getBlockState(grassPos).getBlock() instanceof GrassBlock)
+//                if (level.getBlockState(grassPos).getBlock() instanceof GrassBlock)
 //                {
 //                    groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS_BLOCK.get().getDefaultState(), grassPos));
 //                    if (rand.nextFloat() < 0.25f)
@@ -175,18 +177,18 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
 //                            BlockStateEntry tallGrassEntry = new BlockStateEntry(tallGrassBlock.getDefaultState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), grassPos.up())
 //                            {
 //                                @Override
-//                                public boolean canPlace(ISeedReader reader)
+//                                public boolean canPlace(WorldGenLevel level)
 //                                {
-//                                    return super.canPlace(reader) && super.canPlace(reader, pos.up());
+//                                    return super.canPlace(level) && super.canPlace(level, pos.up());
 //                                }
 //
 //                                @Override
-//                                public void additionalPlacement(ISeedReader reader)
+//                                public void additionalPlacement(WorldGenLevel level)
 //                                {
-//                                    reader.setBlockState(pos.up(), state.with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 3);
-//                                    if (reader instanceof Level)
+//                                    level.setBlockState(pos.up(), state.with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 3);
+//                                    if (level instanceof Level)
 //                                    {
-//                                        MalumHelper.updateState((Level) reader, pos.up());
+//                                        MalumHelper.updateState((Level) level, pos.up());
 //                                    }
 //                                }
 //                            };
@@ -202,14 +204,14 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
 //        }
 //    }
 
-    public static void downwardsTrunk(ISeedReader reader, MalumFiller filler, BlockPos pos)
+    public static void downwardsTrunk(WorldGenLevel level, MalumFiller filler, BlockPos pos)
     {
         int i = 0;
         do
         {
             i++;
             BlockPos trunkPos = pos.below(i);
-            if (canPlace(reader, trunkPos))
+            if (canPlace(level, trunkPos))
             {
                 filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LOG.get().defaultBlockState(), trunkPos));
             }
@@ -217,7 +219,7 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
             {
                 break;
             }
-            if (i > reader.getMaxBuildHeight())
+            if (i > level.getMaxBuildHeight())
             {
                 break;
             }
@@ -250,13 +252,13 @@ public class RunewoodTreeFeature extends Feature<NoFeatureConfig>
         }
     }
 
-    public static boolean canPlace(ISeedReader reader, BlockPos pos)
+    public static boolean canPlace(WorldGenLevel level, BlockPos pos)
     {
-        if (Level.isOutsideBuildHeight(pos))
+        if (level.isOutsideBuildHeight(pos))
         {
             return false;
         }
-        BlockState state = reader.getBlockState(pos);
-        return state.getBlock() instanceof RunewoodSaplingBlock || reader.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
+        BlockState state = level.getBlockState(pos);
+        return state.getBlock() instanceof RunewoodSaplingBlock || level.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
     }
 }

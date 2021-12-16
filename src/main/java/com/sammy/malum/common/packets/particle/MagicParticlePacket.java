@@ -1,15 +1,15 @@
 package com.sammy.malum.common.packets.particle;
 
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.Level.Level;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 import java.awt.*;
 import java.util.function.Supplier;
@@ -27,7 +27,7 @@ public class MagicParticlePacket {
         this.posZ = posZ;
     }
 
-    public static MagicParticlePacket decode(PacketBuffer buf) {
+    public static MagicParticlePacket decode(FriendlyByteBuf buf) {
         Color color = new Color(buf.readInt(), buf.readInt(), buf.readInt());
         double posX = buf.readDouble();
         double posY = buf.readDouble();
@@ -35,7 +35,7 @@ public class MagicParticlePacket {
         return new MagicParticlePacket(color, posX, posY, posZ);
     }
 
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(color.getRed());
         buf.writeInt(color.getGreen());
         buf.writeInt(color.getBlue());
@@ -47,7 +47,7 @@ public class MagicParticlePacket {
     public void execute(Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
             if (FMLEnvironment.dist == Dist.CLIENT) {
-                ClientOnly.addParticles(new Vector3d(posX, posY, posZ), color);
+                ClientOnly.addParticles(new Vec3(posX, posY, posZ), color);
             }
         });
         context.get().setPacketHandled(true);
@@ -58,9 +58,9 @@ public class MagicParticlePacket {
     }
 
     public static class ClientOnly {
-        public static void addParticles(Vector3d pos, Color color) {
-            Level Level = Minecraft.getInstance().level;
-            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+        public static void addParticles(Vec3 pos, Color color) {
+            Level level = Minecraft.getInstance().level;
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.1f, 0f)
                     .setLifetime(10)
                     .setSpin(0.4f)
@@ -69,9 +69,9 @@ public class MagicParticlePacket {
                     .enableNoClip()
                     .randomOffset(0.2f, 0.2f)
                     .randomVelocity(0.01f, 0.01f)
-                    .repeat(Level, pos.x, pos.y, pos.z, 12);
+                    .repeat(level, pos.x, pos.y, pos.z, 12);
 
-            ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.05f, 0f)
                     .setLifetime(20)
                     .setSpin(0.1f)
@@ -80,7 +80,7 @@ public class MagicParticlePacket {
                     .randomOffset(0.4f)
                     .enableNoClip()
                     .randomVelocity(0.025f, 0.025f)
-                    .repeat(Level, pos.x, pos.y, pos.z, 20);
+                    .repeat(level, pos.x, pos.y, pos.z, 20);
         }
     }
 }

@@ -49,8 +49,8 @@ public class ScytheAttackParticle extends SpriteTexturedParticle {
             this.spriteSet = spriteSet;
         }
 
-        public Particle createParticle(BasicParticleType typeIn, ClientLevel LevelIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new ScytheAttackParticle(LevelIn, x, y, z, xSpeed, this.spriteSet);
+        public Particle createParticle(BasicParticleType typeIn, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new ScytheAttackParticle(level, x, y, z, xSpeed, this.spriteSet);
         }
     }
 }

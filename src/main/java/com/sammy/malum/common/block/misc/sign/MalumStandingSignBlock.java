@@ -1,10 +1,10 @@
 package com.sammy.malum.common.block.misc.sign;
 
 import com.sammy.malum.common.tile.MalumSignTileEntity;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.StandingSignBlock;
 import net.minecraft.block.WoodType;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.Level.IBlockReader;
 
 import javax.annotation.Nullable;
@@ -26,7 +26,7 @@ public class MalumStandingSignBlock extends StandingSignBlock
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader Level)
+    public BlockEntity createTileEntity(BlockState state, IBlockReader Level)
     {
         return new MalumSignTileEntity();
     }

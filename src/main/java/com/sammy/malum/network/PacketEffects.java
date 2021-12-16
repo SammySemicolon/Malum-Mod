@@ -1,15 +1,13 @@
 package com.sammy.malum.network;
 
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.Level.Level;
-import net.minecraft.Level.item.ItemStack;
-import net.minecraft.Level.level.Level;
-import net.minecraft.Level.phys.Vec3;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ public class PacketEffects
 {
     public static void altarConsumeParticles(ItemStack stack, ArrayList<String> spirits, double posX, double posY, double posZ, double altarPosX, double altarPosY, double altarPosZ)
     {
-        Level Level = Minecraft.getInstance().level;
+        Level level = Minecraft.getInstance().level;
         ArrayList<MalumSpiritType> types = new ArrayList<>();
         for (String string : spirits)
         {
@@ -28,7 +26,7 @@ public class PacketEffects
         for (MalumSpiritType type : types)
         {
             Color color = type.color;
-            ParticleManager.create(ParticleRegistry.TWINKLE_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(alpha*2, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
@@ -38,7 +36,7 @@ public class PacketEffects
                     .enableNoClip()
                     .repeat(level, posX, posY, posZ, 12);
 
-            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)
@@ -49,7 +47,7 @@ public class PacketEffects
                     .repeat(level, posX, posY, posZ, 8);
 
             Vec3 velocity = new Vec3(posX, posY, posZ).subtract(altarPosX, altarPosY, altarPosZ).normalize().scale(-0.05f);
-            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha, 0f)
                     .setLifetime(40)
                     .setScale(0.3f, 0)
@@ -63,7 +61,7 @@ public class PacketEffects
     }
     public static void altarCraftParticles(ArrayList<String> spirits, double posX, double posY, double posZ)
     {
-        Level Level = Minecraft.getInstance().level;
+        Level level = Minecraft.getInstance().level;
         ArrayList<MalumSpiritType> types = new ArrayList<>();
         for (String string : spirits)
         {
@@ -72,7 +70,7 @@ public class PacketEffects
         for (MalumSpiritType type : types)
         {
             Color color = type.color;
-            ParticleManager.create(ParticleRegistry.TWINKLE_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(0.6f, 0f)
                     .setLifetime(80)
                     .setScale(0.15f, 0)
@@ -83,7 +81,7 @@ public class PacketEffects
                     .enableGravity()
                     .repeat(level, posX, posY, posZ, 24);
 
-            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.1f, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
@@ -93,7 +91,7 @@ public class PacketEffects
                     .enableNoClip()
                     .repeat(level, posX, posY, posZ, 12);
 
-            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.05f, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)

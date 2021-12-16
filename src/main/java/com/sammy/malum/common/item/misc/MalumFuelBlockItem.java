@@ -1,11 +1,11 @@
 package com.sammy.malum.common.item.misc;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Block;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
 
 public class MalumFuelBlockItem extends BlockItem
 {
@@ -15,10 +15,10 @@ public class MalumFuelBlockItem extends BlockItem
         super(block, properties);
         this.fuel = fuel;
     }
-    
+
     @Override
-    public int getBurnTime(ItemStack itemStack)
-    {
+    public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
         return fuel;
     }
+
 }

@@ -17,8 +17,8 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,9 +42,9 @@ public class SetBlockItemColors
     {
         BlockColors blockColors = event.getBlockColors();
 
-        blockColors.register((state, reader, pos, color) ->
+        blockColors.register((state, level, pos, color) ->
         {
-            TileEntity tileEntity = reader.getBlockEntity(pos);
+            BlockEntity tileEntity = level.getBlockEntity(pos);
             if (tileEntity instanceof EtherTileEntity)
             {
                 EtherTileEntity etherTileEntity = (EtherTileEntity) tileEntity;
@@ -56,13 +56,13 @@ public class SetBlockItemColors
             return -1;
         }, Arrays.stream(getModBlocks(EtherBlock.class)).filter(b -> !(b instanceof EtherBrazierBlock)).toArray(Block[]::new));
 
-        blockColors.register((state, reader, pos, color) ->
+        blockColors.register((state, level, pos, color) ->
         {
             float i = state.getValue(MalumLeavesBlock.COLOR);
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) state.getBlock();
-            int r = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
-            int g = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
-            int b = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
+            int r = (int) Mth.lerp(i / 5f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
+            int g = (int) Mth.lerp(i / 5f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
+            int b = (int) Mth.lerp(i / 5f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
             return r << 16 | g << 8 | b;
         }, getModBlocks(MalumLeavesBlock.class));
     }

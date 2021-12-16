@@ -19,9 +19,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -697,9 +697,9 @@ public class ProgressionBookScreen extends Screen
     {
         FontRenderer font = Minecraft.getInstance().font;
         //182, 61, 183   227, 39, 228
-        int r = (int) MathHelper.lerp(glow, 182, 227);
-        int g = (int) MathHelper.lerp(glow, 61, 39);
-        int b = (int) MathHelper.lerp(glow, 183, 228);
+        int r = (int) Mth.lerp(glow, 182, 227);
+        int g = (int) Mth.lerp(glow, 61, 39);
+        int b = (int) Mth.lerp(glow, 183, 228);
 
         font.draw(stack, text, x - 1, y, color(96, 255, 210, 243));
         font.draw(stack, text, x + 1, y, color(128, 240, 131, 232));
@@ -710,12 +710,12 @@ public class ProgressionBookScreen extends Screen
     }
     public static float glow(float offset)
     {
-        return MathHelper.sin(offset+Minecraft.getInstance().player.level.getGameTime() / 40f)/2f + 0.5f;
+        return Mth.sin(offset+Minecraft.getInstance().player.level.getGameTime() / 40f)/2f + 0.5f;
     }
     public void playSound()
     {
         Player playerEntity = Minecraft.getInstance().player;
-        playerEntity.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        playerEntity.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0f, 1.0f);
     }
 
     public static void openScreen(boolean ignoreNextMouseClick)

@@ -1,22 +1,24 @@
 package com.sammy.malum.common.item.equipment;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.core.systems.container.ItemInventory;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.*;
-import net.minecraft.Level.Level;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -24,9 +26,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.item.Item.Properties;
-
-public class SpiritPouchItem extends Item implements IDyeableArmorItem {
+public class SpiritPouchItem extends Item {
 
     public SpiritPouchItem(Properties properties) {
         super(properties);
@@ -34,21 +34,21 @@ public class SpiritPouchItem extends Item implements IDyeableArmorItem {
 
     @Nullable
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
         return new InventoryCapability(stack);
     }
 
     @Override
-    public ActionResult<ItemStack> use(Level LevelIn, Player playerIn, Hand handIn) {
-        if (MalumHelper.areWeOnServer(LevelIn))
+    public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
+        if (!level.isClientSide)
         {
             ItemStack stack = playerIn.getItemInHand(handIn);
-            INamedContainerProvider container =
-                    new SimpleNamedContainerProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
+            MenuProvider container =
+                    new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
             NetworkHooks.openGui((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
-            playerIn.level.playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 1, 1);
+            playerIn.level.playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
         }
-        return ActionResult.success(playerIn.getItemInHand(handIn));
+        return InteractionResultHolder.success(playerIn.getItemInHand(handIn));
     }
 
     private static class InventoryCapability implements ICapabilityProvider {
@@ -67,11 +67,5 @@ public class SpiritPouchItem extends Item implements IDyeableArmorItem {
 
     public static ItemInventory getInventory(ItemStack stack) {
         return new ItemInventory(stack, 27);
-    }
-
-    @Override
-    public int getColor(ItemStack stack) {
-        CompoundNBT compoundnbt = stack.getTagElement("display");
-        return compoundnbt != null && compoundnbt.contains("color", 99) ? compoundnbt.getInt("color") : 11943351;
     }
 }

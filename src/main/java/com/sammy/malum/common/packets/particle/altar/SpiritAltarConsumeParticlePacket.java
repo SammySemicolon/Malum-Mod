@@ -3,8 +3,8 @@ package com.sammy.malum.common.packets.particle.altar;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.network.PacketEffects;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -42,7 +42,7 @@ public class SpiritAltarConsumeParticlePacket
         this.altarPosZ = altarPosZ;
     }
 
-    public static SpiritAltarConsumeParticlePacket decode(PacketBuffer buf)
+    public static SpiritAltarConsumeParticlePacket decode(FriendlyByteBuf buf)
     {
         ItemStack stack = buf.readItem();
         int strings = buf.readInt();
@@ -60,7 +60,7 @@ public class SpiritAltarConsumeParticlePacket
         return new SpiritAltarConsumeParticlePacket(stack, spirits, posX, posY, posZ,altarPosX, altarPosY,altarPosZ);
     }
 
-    public void encode(PacketBuffer buf)
+    public void encode(FriendlyByteBuf buf)
     {
         buf.writeItem(stack);
         buf.writeInt(spirits.size());

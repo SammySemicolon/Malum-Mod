@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 import net.minecraft.util.math.vector.Vector3f;
 
 import java.awt.*;
@@ -61,9 +61,9 @@ public class TotemPoleRenderer extends TileEntityRenderer<TotemPoleTileEntity> {
     public Color color(TotemPoleTileEntity totemPoleTileEntity) {
         Color color1 = new Color(12, 8, 7);
         Color color2 = totemPoleTileEntity.type.color;
-        int red = (int) MathHelper.lerp(totemPoleTileEntity.currentColor / 20f, color1.getRed(), color2.getRed());
-        int green = (int) MathHelper.lerp(totemPoleTileEntity.currentColor / 20f, color1.getGreen(), color2.getGreen());
-        int blue = (int) MathHelper.lerp(totemPoleTileEntity.currentColor / 20f, color1.getBlue(), color2.getBlue());
+        int red = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getRed(), color2.getRed());
+        int green = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getGreen(), color2.getGreen());
+        int blue = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getBlue(), color2.getBlue());
         return new Color(red, green, blue);
     }
 

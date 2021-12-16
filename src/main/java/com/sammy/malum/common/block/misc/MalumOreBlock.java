@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.misc;
 
 import net.minecraft.block.OreBlock;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 
 import java.util.Random;
 
@@ -22,6 +22,6 @@ public class MalumOreBlock extends OreBlock
     @Override
     protected int xpOnDrop(Random rand)
     {
-        return MathHelper.nextInt(rand, minExperience, maxExperience);
+        return Mth.nextInt(rand, minExperience, maxExperience);
     }
 }

@@ -1,16 +1,12 @@
 package com.sammy.malum.common.item.ether;
 
-import net.minecraft.world.level.block.Block;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.item.IDyeableArmorItem;
+import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.level.block.Block;
 
-import java.awt.*;
-
-import net.minecraft.item.Item.Properties;
-
-public abstract class AbstractEtherItem extends BlockItem implements IDyeableArmorItem
+public abstract class AbstractEtherItem extends BlockItem implements DyeableLeatherItem
 {
     public static final String firstColor = "firstColor";
     public static final String secondColor = "secondColor";
@@ -35,7 +31,7 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
         {
             return getFirstColor(stack);
         }
-        CompoundNBT compoundnbt = stack.getTagElement("display");
+        CompoundTag compoundnbt = stack.getTagElement("display");
 
         return compoundnbt != null && compoundnbt.contains(secondColor, 99) ? compoundnbt.getInt(secondColor) : defaultSecondColor;
     }
@@ -49,7 +45,7 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
 
     public int getFirstColor(ItemStack stack)
     {
-        CompoundNBT compoundnbt = stack.getTagElement("display");
+        CompoundTag compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains(firstColor, 99) ? compoundnbt.getInt(firstColor) : defaultFirstColor;
     }
     public void setFirstColor(ItemStack stack, int color)
@@ -61,19 +57,19 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
     @Override
     public int getColor(ItemStack stack)
     {
-        CompoundNBT compoundnbt = stack.getTagElement("display");
+        CompoundTag compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains(colorLookup(), 99) ? compoundnbt.getInt(colorLookup()) : defaultFirstColor;
     }
     @Override
     public boolean hasCustomColor(ItemStack stack)
     {
-        CompoundNBT compoundnbt = stack.getTagElement("display");
+        CompoundTag compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains(colorLookup(), 99);
     }
     @Override
     public void clearColor(ItemStack stack)
     {
-        CompoundNBT compoundnbt = stack.getTagElement("display");
+        CompoundTag compoundnbt = stack.getTagElement("display");
         if (compoundnbt != null && compoundnbt.contains(colorLookup()))
         {
             compoundnbt.remove(colorLookup());

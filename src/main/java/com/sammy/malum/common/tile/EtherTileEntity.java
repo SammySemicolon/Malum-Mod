@@ -6,46 +6,45 @@ import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
-import net.minecraft.block.WallTorchBlock;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.ColorHelper;
+import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
 
-public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEntity
+public class EtherTileEntity extends SimpleBlockEntity
 {
     public Color firstColor;
     public Color secondColor;
 
-    public EtherTileEntity()
-    {
-        super(TileEntityRegistry.ETHER_BLOCK_TILE_ENTITY.get());
+    public EtherTileEntity(BlockPos pos, BlockState state) {
+        super(TileEntityRegistry.ETHER_BLOCK_TILE_ENTITY.get(), pos, state);
     }
 
-
     @Override
-    public void readData(CompoundNBT compound)
-    {
+    public void load(CompoundTag compound) {
+
         int packedColor = compound.getInt("firstColor");
-        int red = ColorHelper.PackedColor.red(packedColor);
-        int green = ColorHelper.PackedColor.green(packedColor);
-        int blue = ColorHelper.PackedColor.blue(packedColor);
+        int red = FastColor.ARGB32.red(packedColor);
+        int green = FastColor.ARGB32.green(packedColor);
+        int blue = FastColor.ARGB32.blue(packedColor);
         firstColor = new Color(red, green, blue);
 
         packedColor = compound.getInt("secondColor");
-        red = ColorHelper.PackedColor.red(packedColor);
-        green = ColorHelper.PackedColor.green(packedColor);
-        blue = ColorHelper.PackedColor.blue(packedColor);
+        red = FastColor.ARGB32.red(packedColor);
+        green = FastColor.ARGB32.green(packedColor);
+        blue = FastColor.ARGB32.blue(packedColor);
         secondColor = new Color(red, green, blue);
-        super.readData(compound);
+        super.load(compound);
     }
 
     @Override
-    public CompoundNBT writeData(CompoundNBT compound)
-    {
+    public CompoundTag save(CompoundTag compound) {
         if (firstColor != null)
         {
             compound.putInt("firstColor", firstColor.getRGB());
@@ -54,7 +53,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
         {
             compound.putInt("secondColor", secondColor.getRGB());
         }
-        return super.writeData(compound);
+        return super.save(compound);
     }
 
     @Override
@@ -63,10 +62,9 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
         super.setRemoved();
     }
 
-    @Override
     public void tick()
     {
-        if (MalumHelper.areWeOnClient(level))
+        if (level.isClientSide)
         {
             if (firstColor == null || secondColor == null)
             {
@@ -76,9 +74,9 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
             Color secondColor = MalumHelper.brighter(this.secondColor, 1);
 
 
-            double x = LevelPosition.getX() + 0.5;
-            double y = LevelPosition.getY() + 0.6;
-            double z = LevelPosition.getZ() + 0.5;
+            double x = worldPosition.getX() + 0.5;
+            double y = worldPosition.getY() + 0.6;
+            double z = worldPosition.getZ() + 0.5;
             int lifeTime = 14 + level.random.nextInt(4);
             float scale = 0.17f + level.random.nextFloat() * 0.03f;
             float velocity = 0.04f + level.random.nextFloat() * 0.02f;
@@ -101,7 +99,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                 lifeTime -= 2;
                 scale *= 1.25f;
             }
-            ParticleManager.create(ParticleRegistry.SPARKLE_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setScale(scale * 2, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
@@ -109,7 +107,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                     .setColorCurveMultiplier(1.5f)
                     .spawn(level, x, y, z);
 
-            ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.9f, 0.75f)
@@ -122,7 +120,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
             if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f)
             {
                 y += 0.05f;
-                ParticleManager.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
@@ -130,7 +128,7 @@ public class EtherTileEntity extends SimpleTileEntity implements ITickableTileEn
                         .addVelocity(0, 0.02f, 0)
                         .spawn(level, x, y, z);
 
-                ParticleManager.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)

@@ -1,11 +1,11 @@
 package com.sammy.malum.common.packets.particle;
 
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class TotemParticlePacket {
         this.posZ = posZ;
     }
 
-    public static TotemParticlePacket decode(PacketBuffer buf) {
+    public static TotemParticlePacket decode(FriendlyByteBuf buf) {
         ArrayList<Color> colors = new ArrayList<>();
         int colorCount = buf.readInt();
         for (int i = 0; i < colorCount; i++) {
@@ -37,7 +37,7 @@ public class TotemParticlePacket {
         return new TotemParticlePacket(colors, posX, posY, posZ);
     }
 
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(colors.size());
         for (Color color : colors) {
             buf.writeInt(color.getRed());

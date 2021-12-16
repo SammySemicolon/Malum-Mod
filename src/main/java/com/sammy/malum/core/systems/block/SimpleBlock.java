@@ -44,13 +44,13 @@ public class SimpleBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level Level, BlockPos pos, BlockState state, Player player) {
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         onBlockBroken(state, Level, pos);
         super.playerWillDestroy(Level, pos, state, player);
     }
 
     @Override
-    public void onBlockExploded(BlockState state, Level Level, BlockPos pos, Explosion explosion) {
+    public void onBlockExploded(BlockState state, Level level, BlockPos pos, Explosion explosion) {
         onBlockBroken(state, Level, pos);
         super.onBlockExploded(state, Level, pos, explosion);
     }
@@ -66,7 +66,7 @@ public class SimpleBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level Level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
         if (hasTileEntity(state)) {
             BlockEntity tileEntity = Level.getBlockEntity(pos);
             if (tileEntity instanceof SimpleBlockEntity) {

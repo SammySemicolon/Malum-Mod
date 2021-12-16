@@ -1,15 +1,10 @@
 package com.sammy.malum.common.item.misc;
 
-import com.sammy.malum.core.systems.spirit.ISpiritEntityGlow;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.Level.Level;
-
-import java.awt.*;
-
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.level.Level;
 
 public class BrillianceChunkItem extends Item {
     public BrillianceChunkItem(Properties properties) {
@@ -17,14 +12,14 @@ public class BrillianceChunkItem extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level LevelIn, LivingEntity entityLiving) {
-        int i = 3 + LevelIn.random.nextInt(5) + LevelIn.random.nextInt(5);
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
+        int i = 3 + level.random.nextInt(5) + level.random.nextInt(5);
 
         while (i > 0) {
-            int j = ExperienceOrbEntity.getExperienceValue(i);
+            int j = ExperienceOrb.getExperienceValue(i);
             i -= j;
-            LevelIn.addFreshEntity(new ExperienceOrbEntity(LevelIn, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), j));
+            level.addFreshEntity(new ExperienceOrb(level, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), j));
         }
-        return super.finishUsingItem(stack, LevelIn, entityLiving);
+        return super.finishUsingItem(stack, level, entityLiving);
     }
 }

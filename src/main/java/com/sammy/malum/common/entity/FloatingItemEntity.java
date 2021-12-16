@@ -1,22 +1,21 @@
 package com.sammy.malum.common.entity;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.ISpiritEntityGlow;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.Level.Level;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import java.awt.*;
 
-public abstract class FloatingItemEntity extends ProjectileItemEntity
+public abstract class FloatingItemEntity extends ThrowableItemProjectile
 {
     public int maxAge = 2400;
     public int age;
@@ -25,14 +24,14 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     public float windUp;
     public final float hoverStart;
 
-    public FloatingItemEntity(EntityType<? extends ProjectileItemEntity> type, Level LevelIn)
+    public FloatingItemEntity(EntityType<? extends ThrowableItemProjectile> type, Level level)
     {
-        super(type, LevelIn);
+        super(type, level);
         noPhysics = false;
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound)
+    public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
         compound.putInt("age", age);
@@ -42,7 +41,7 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound)
+    public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
         age = compound.getInt("age");
@@ -60,12 +59,12 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
         {
             windUp += 0.02f;
         }
-        if (MalumHelper.areWeOnServer(level))
+        if (!level.isClientSide)
         {
             move();
             if (age > maxAge)
             {
-                remove();
+                remove(RemovalReason.DISCARDED);
             }
         }
         else
@@ -85,7 +84,7 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     }
     public float getYOffset(float partialTicks)
     {
-        return MathHelper.sin(((float) age + partialTicks) / 10.0F + hoverStart) * 0.1F + 0.1F;
+        return Mth.sin(((float) age + partialTicks) / 10.0F + hoverStart) * 0.1F + 0.1F;
     }
 
     public float getRotation(float partialTicks) {
@@ -93,7 +92,7 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket()
+    public Packet<?> getAddEntityPacket()
     {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

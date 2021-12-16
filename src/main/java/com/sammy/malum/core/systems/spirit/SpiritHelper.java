@@ -11,7 +11,7 @@ import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.container.ItemInventory;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -97,7 +97,7 @@ public class SpiritHelper {
                         ItemInventory inventory = SpiritPouchItem.getInventory(item);
                         ItemStack result = inventory.addItem(stack);
                         if (result.isEmpty()) {
-                            Level Level = playerEntity.level;
+                            Level level = playerEntity.level;
                             Level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(),
                                     SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((Level.random.nextFloat() - Level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 
@@ -158,7 +158,7 @@ public class SpiritHelper {
 
     public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color) {
         Random rand = level.getRandom();
-        ParticleManager.create(ParticleRegistry.TWINKLE_PARTICLE)
+        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.18f, 0f)
                 .setLifetime(10 + rand.nextInt(4))
                 .setScale(0.3f + rand.nextFloat() * 0.1f, 0)
@@ -168,7 +168,7 @@ public class SpiritHelper {
                 .randomVelocity(0.02f, 0.02f)
                 .repeat(level, x, y, z, 1);
 
-        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(20 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
@@ -179,7 +179,7 @@ public class SpiritHelper {
                 .randomVelocity(0.02f, 0.02f)
                 .repeat(level, x, y, z, 1);
 
-        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
                 .setLifetime(10 + rand.nextInt(2))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))

@@ -14,8 +14,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.util.math.vector.Vector3f;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import static top.theillusivec4.curios.api.type.capability.ICurio.DropRule.ALWAYS_KEEP;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class CurioTokenOfGratitude extends MalumCurioItem
 {
@@ -37,8 +37,8 @@ public class CurioTokenOfGratitude extends MalumCurioItem
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack)
     {
-        livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SINISTER_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-        livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HOLY_EQUIP, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+        livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SINISTER_EQUIP, SoundSource.NEUTRAL, 1.0f, 1.0f);
+        livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HOLY_EQUIP, SoundSource.NEUTRAL, 1.0f, 1.0f);
     }
 
     @Nonnull
@@ -89,11 +89,11 @@ public class CurioTokenOfGratitude extends MalumCurioItem
                 double curSpeed = livingEntity.getDeltaMovement().length();
                 if (curSpeed != 0.0)
                 {
-                    Vector3d A = new Vector3d(livingEntity.getDeltaMovement().x, 0.0, livingEntity.getDeltaMovement().z);
-                    Vector3d yawLook = Vector3d.directionFromRotation(0.0f, livingEntity.yRot);
-                    Vector3d look = new Vector3d(yawLook.x, 0.0, yawLook.z);
-                    Vector3d desiredDirection = look.yRot((float) Math.toRadians(90)).normalize();
-                    Vector3d sidewaysVelocity = desiredDirection.scale(A.dot(desiredDirection));
+                    Vec3 A = new Vec3(livingEntity.getDeltaMovement().x, 0.0, livingEntity.getDeltaMovement().z);
+                    Vec3 yawLook = Vec3.directionFromRotation(0.0f, livingEntity.yRot);
+                    Vec3 look = new Vec3(yawLook.x, 0.0, yawLook.z);
+                    Vec3 desiredDirection = look.yRot((float) Math.toRadians(90)).normalize();
+                    Vec3 sidewaysVelocity = desiredDirection.scale(A.dot(desiredDirection));
                     double speedAndDirection = (sidewaysVelocity.length() * -Math.signum(desiredDirection.dot(sidewaysVelocity))) / curSpeed;
                     double rotation = speedAndDirection * 55;
                     matrixStack.mulPose(Vector3f.YP.rotationDegrees((float) rotation));

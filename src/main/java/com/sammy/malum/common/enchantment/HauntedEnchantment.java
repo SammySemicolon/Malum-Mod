@@ -2,13 +2,10 @@ package com.sammy.malum.common.enchantment;
 
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlot;
-
-import net.minecraft.enchantment.Enchantment.Rarity;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 public class HauntedEnchantment extends Enchantment
 {

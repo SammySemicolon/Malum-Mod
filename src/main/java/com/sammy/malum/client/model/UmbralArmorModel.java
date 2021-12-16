@@ -4,7 +4,7 @@ package com.sammy.malum.client.model;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.inventory.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot;
 
 public class UmbralArmorModel extends ArmorModel
 {

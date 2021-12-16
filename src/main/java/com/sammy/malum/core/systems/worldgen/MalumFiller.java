@@ -18,19 +18,19 @@ public class MalumFiller
 
     }
 
-    public void fill(WorldGenLevel reader, boolean safetyCheck)
+    public void fill(WorldGenLevel level, boolean safetyCheck)
     {
         for (BlockStateEntry entry : entries)
         {
-            if (safetyCheck && !entry.canPlace(reader))
+            if (safetyCheck && !entry.canPlace(level))
             {
                 continue;
             }
-            reader.setBlock(entry.pos, entry.state, 3);
-            entry.additionalPlacement(reader);
-            if (reader instanceof Level)
+            level.setBlock(entry.pos, entry.state, 3);
+            entry.additionalPlacement(level);
+            if (level instanceof Level)
             {
-                MalumHelper.updateState((Level) reader, entry.pos);
+                MalumHelper.updateState((Level) level, entry.pos);
             }
         }
     }

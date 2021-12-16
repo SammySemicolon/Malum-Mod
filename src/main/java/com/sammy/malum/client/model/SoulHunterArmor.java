@@ -8,7 +8,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.client.model.ArmorModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.inventory.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot;
 
 public class SoulHunterArmor extends ArmorModel
 {

@@ -7,8 +7,8 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -16,7 +16,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class CurioMirrorNecklace extends MalumCurioItem implements IEventResponderItem
 {

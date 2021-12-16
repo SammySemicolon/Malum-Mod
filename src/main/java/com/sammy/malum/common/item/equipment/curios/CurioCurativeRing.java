@@ -4,9 +4,9 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.effect.MobEffects;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class CurioCurativeRing extends MalumCurioItem implements IEventResponderItem
 {
@@ -24,6 +24,6 @@ public class CurioCurativeRing extends MalumCurioItem implements IEventResponder
     @Override
     public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
         attacker.heal(attacker.getMaxHealth()*0.1f);
-        MalumHelper.giveStackingEffect(Effects.REGENERATION, attacker, 100, 0);
+        MalumHelper.giveStackingEffect(MobEffects.REGENERATION, attacker, 100, 0);
     }
 }

@@ -2,7 +2,7 @@ package com.sammy.malum.client.particles.spiritflame;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sammy.malum.config.ClientConfig;
-import com.sammy.malum.core.systems.particle.RenderUtilities;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.particle.ParticlePhaseMalumParticle;
 import com.sammy.malum.core.systems.particle.ParticleRendering;
 import com.sammy.malum.core.systems.particle.data.MalumParticleData;

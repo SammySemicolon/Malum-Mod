@@ -226,11 +226,11 @@ public class MalumHelper {
         return finalState;
     }
 
-    public static void setBlockStateWithExistingProperties(Level Level, BlockPos pos, BlockState newState, int flags) {
-        BlockState oldState = Level.getBlockState(pos);
+    public static void setBlockStateWithExistingProperties(Level level, BlockPos pos, BlockState newState, int flags) {
+        BlockState oldState = level.getBlockState(pos);
         BlockState finalState = getBlockStateWithExistingProperties(oldState, newState);
-        Level.sendBlockUpdated(pos, oldState, finalState, flags);
-        Level.setBlock(pos, finalState, flags);
+        level.sendBlockUpdated(pos, oldState, finalState, flags);
+        level.setBlock(pos, finalState, flags);
     }
 
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, Property<T> property) {
@@ -308,21 +308,21 @@ public class MalumHelper {
         return positions;
     }
 
-    public static void updateState(Level LevelIn, BlockPos pos) {
-        updateState(LevelIn.getBlockState(pos), LevelIn, pos);
+    public static void updateState(Level level, BlockPos pos) {
+        updateState(level.getBlockState(pos), level, pos);
     }
 
-    public static void updateState(BlockState state, Level LevelIn, BlockPos pos) {
-        LevelIn.sendBlockUpdated(pos, state, state, 2);
+    public static void updateState(BlockState state, Level level, BlockPos pos) {
+        level.sendBlockUpdated(pos, state, state, 2);
     }
 
-    public static void updateAndNotifyState(Level LevelIn, BlockPos pos) {
-        updateAndNotifyState(LevelIn.getBlockState(pos), LevelIn, pos);
+    public static void updateAndNotifyState(Level level, BlockPos pos) {
+        updateAndNotifyState(level.getBlockState(pos), level, pos);
     }
 
-    public static void updateAndNotifyState(BlockState state, Level LevelIn, BlockPos pos) {
-        LevelIn.sendBlockUpdated(pos, state, state, 2);
-        state.updateNeighbourShapes(LevelIn, pos, 2);
+    public static void updateAndNotifyState(BlockState state, Level level, BlockPos pos) {
+        level.sendBlockUpdated(pos, state, state, 2);
+        state.updateNeighbourShapes(level, pos, 2);
     }
 
 
@@ -353,13 +353,13 @@ public class MalumHelper {
         return pos.add(x, 0, z);
     }
 
-    public static ArrayList<Vec3> blockOutlinePositions(Level Level, BlockPos pos) {
+    public static ArrayList<Vec3> blockOutlinePositions(Level level, BlockPos pos) {
         ArrayList<Vec3> arrayList = new ArrayList<>();
         double d0 = 0.5625D;
-        Random random = Level.random;
+        Random random = level.random;
         for (Direction direction : Direction.values()) {
             BlockPos blockpos = pos.relative(direction);
-            if (!Level.getBlockState(blockpos).isSolidRender(Level, blockpos)) {
+            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
                 Direction.Axis direction$axis = direction.getAxis();
                 double d1 = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getStepX() : (double) random.nextFloat();
                 double d2 = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getStepY() : (double) random.nextFloat();
@@ -389,16 +389,16 @@ public class MalumHelper {
     public static void quietlyGiveItemToPlayer(Player player, @Nonnull ItemStack stack) {
         if (stack.isEmpty()) return;
         IItemHandler inventory = new PlayerMainInvWrapper(player.getInventory());
-        Level Level = player.level;
+        Level level = player.level;
         ItemStack remainder = stack;
         if (!remainder.isEmpty()) {
             remainder = ItemHandlerHelper.insertItemStacked(inventory, remainder, false);
         }
-        if (!remainder.isEmpty() && !Level.isClientSide) {
-            ItemEntity entityitem = new ItemEntity(Level, player.getX(), player.getY() + 0.5, player.getZ(), remainder);
+        if (!remainder.isEmpty() && !level.isClientSide) {
+            ItemEntity entityitem = new ItemEntity(level, player.getX(), player.getY() + 0.5, player.getZ(), remainder);
             entityitem.setPickUpDelay(40);
             entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
-            Level.addFreshEntity(entityitem);
+            level.addFreshEntity(entityitem);
         }
     }
 

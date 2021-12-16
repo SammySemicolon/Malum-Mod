@@ -1,20 +1,19 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraft.Level.Level;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,30 +27,30 @@ public class EldritchInfernalRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level Level, BlockPos pos) {
-        BlockState filter = Level.getBlockState(pos.below());
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
+    public void riteEffect(Level level, BlockPos pos) {
+        BlockState filter = level.getBlockState(pos.below());
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p -> {
             if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
                 return true;
             }
-            BlockState state = Level.getBlockState(p);
-            return !filter.isAir(Level, pos) && !filter.is(state.getBlock());
+            BlockState state = level.getBlockState(p);
+            return !filter.isAir() && !filter.is(state.getBlock());
         });
         positions.forEach(p -> {
-            BlockState state = Level.getBlockState(p);
-            Optional<FurnaceRecipe> optional = Level.getRecipeManager().getRecipeFor(IRecipeType.SMELTING, new Inventory(new ItemStack(state.getBlock().asItem(), 1)), Level);
+            BlockState state = level.getBlockState(p);
+            Optional<SmeltingRecipe> optional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(state.getBlock().asItem(), 1)), level);
             if (optional.isPresent()) {
-                FurnaceRecipe recipe = optional.get();
+                SmeltingRecipe recipe = optional.get();
                 ItemStack output = recipe.getResultItem();
                 if (output.getItem() instanceof BlockItem) {
-                    if (MalumHelper.areWeOnServer(Level)) {
+                    if (!level.isClientSide) {
                         Block block = ((BlockItem) output.getItem()).getBlock();
                         BlockState newState = block.defaultBlockState();
-                        Level.setBlockAndUpdate(p, newState);
-                        Level.levelEvent(2001, p, Block.getId(newState));
+                        level.setBlockAndUpdate(p, newState);
+                        level.levelEvent(2001, p, Block.getId(newState));
                     } else {
-                        particles(Level, p);
+                        particles(level, p);
                     }
                 }
             }
@@ -59,16 +58,16 @@ public class EldritchInfernalRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level Level, BlockPos pos) {
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
-        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !Level.getBlockState(p).is(Blocks.STONE));
+    public void corruptedRiteEffect(Level level, BlockPos pos) {
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
+        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !level.getBlockState(p).is(Blocks.STONE));
         positions.forEach(p -> {
             BlockState netherrack = Blocks.NETHERRACK.defaultBlockState();
-            if (MalumHelper.areWeOnServer(Level)) {
-                Level.setBlockAndUpdate(p, netherrack);
-                Level.levelEvent(2001, p, Block.getId(netherrack));
+            if (!level.isClientSide) {
+                level.setBlockAndUpdate(p, netherrack);
+                level.levelEvent(2001, p, Block.getId(netherrack));
             } else {
-                particles(Level, p);
+                particles(level, p);
             }
         });
     }
@@ -83,9 +82,9 @@ public class EldritchInfernalRiteType extends MalumRiteType {
         return defaultRange() / 2;
     }
 
-    public void particles(Level Level, BlockPos pos) {
+    public void particles(Level level, BlockPos pos) {
         Color color = INFERNAL_SPIRIT_COLOR;
-        ParticleManager.create(ParticleRegistry.TWINKLE_PARTICLE)
+        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.4f, 0f)
                 .setLifetime(20)
                 .setSpin(0.3f)
@@ -94,8 +93,8 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(Level, pos, 4, Direction.UP, Direction.DOWN);
-        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+                .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
+        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -104,6 +103,6 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 .randomOffset(0.2f)
                 .enableNoClip()
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(Level, pos, 6, Direction.UP, Direction.DOWN);
+                .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
     }
 }

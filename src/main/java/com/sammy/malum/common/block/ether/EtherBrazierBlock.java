@@ -34,7 +34,7 @@ public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader level, BlockPos pos, ISelectionContext context)
     {
         return SHAPE;
     }
@@ -67,10 +67,10 @@ public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
     }
     
     @Override
-    public boolean canSurvive(BlockState state, ILevelReader LevelIn, BlockPos pos)
+    public boolean canSurvive(BlockState state, ILevelReader level, BlockPos pos)
     {
         Direction direction = getBlockConnected(state).getOpposite();
-        return Block.canSupportCenter(LevelIn, pos.relative(direction), direction.getOpposite());
+        return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
     }
     
     protected static Direction getBlockConnected(BlockState state)
@@ -86,7 +86,7 @@ public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
 
     
     @Override
-    public boolean isPathfindable(BlockState state, IBlockReader LevelIn, BlockPos pos, PathType type)
+    public boolean isPathfindable(BlockState state, IBlockReader level, BlockPos pos, PathType type)
     {
         return false;
     }

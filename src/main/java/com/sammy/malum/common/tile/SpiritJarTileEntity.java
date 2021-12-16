@@ -1,26 +1,27 @@
 package com.sammy.malum.common.tile;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
 
-public class SpiritJarTileEntity extends SimpleTileEntity implements ITickableTileEntity
+public class SpiritJarTileEntity extends SimpleBlockEntity
 {
-    public SpiritJarTileEntity()
+    public SpiritJarTileEntity(BlockPos pos, BlockState state)
     {
-        super(TileEntityRegistry.SPIRIT_JAR_TILE_ENTITY.get());
+        super(TileEntityRegistry.SPIRIT_JAR_TILE_ENTITY.get(), pos, state);
     }
     
     public MalumSpiritType type;
     public int count;
     
     @Override
-    public CompoundNBT writeData(CompoundNBT compound)
+    public CompoundTag save(CompoundTag compound)
     {
         if (type != null)
         {
@@ -30,24 +31,23 @@ public class SpiritJarTileEntity extends SimpleTileEntity implements ITickableTi
         {
             compound.putInt("count", count);
         }
-        return super.writeData(compound);
+        return super.save(compound);
     }
     
     @Override
-    public void readData(CompoundNBT compound)
+    public void load(CompoundTag compound)
     {
         if (compound.contains("spirit"))
         {
             type = SpiritHelper.getSpiritType(compound.getString("spirit"));
         }
         count = compound.getInt("count");
-        super.readData(compound);
+        super.load(compound);
     }
-    
-    @Override
+
     public void tick()
     {
-        if (MalumHelper.areWeOnClient(level))
+        if (level.isClientSide)
         {
             if (type != null)
             {

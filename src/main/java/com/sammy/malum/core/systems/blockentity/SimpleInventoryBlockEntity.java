@@ -15,7 +15,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class SimpleInventoryBlockEntity extends SimpleBlockEntity
+public abstract class SimpleInventoryBlockEntity extends SimpleBlockEntity
 {
     public SimpleBlockEntityInventory inventory;
 
@@ -32,7 +32,6 @@ public class SimpleInventoryBlockEntity extends SimpleBlockEntity
 
     @Override
     public void onBreak() {
-
         super.onBreak();
     }
 

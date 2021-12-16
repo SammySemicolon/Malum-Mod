@@ -10,9 +10,9 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.Level.Level;
+import net.minecraft.world.level.Level;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
@@ -27,7 +27,7 @@ public class SpiritAltarRenderer extends TileEntityRenderer<SpiritAltarTileEntit
     @Override
     public void render(SpiritAltarTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
-        Level Level = Minecraft.getInstance().level;
+        Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         SimpleBlockEntityInventory inventory = tileEntityIn.spiritInventory;
         for (int i = 0; i < inventory.slotCount; i++)
@@ -48,7 +48,7 @@ public class SpiritAltarRenderer extends TileEntityRenderer<SpiritAltarTileEntit
         if (!stack.isEmpty())
         {
             matrixStackIn.pushPose();
-            Vector3d offset = tileEntityIn.itemOffset();
+            Vec3 offset = tileEntityIn.itemOffset();
             matrixStackIn.translate(offset.x, offset.y,offset.z);
             matrixStackIn.mulPose(Vector3f.YP.rotationDegrees((Level.getGameTime() % 360)* 3 + partialTicks));
             matrixStackIn.scale(0.4f, 0.4f, 0.4f);

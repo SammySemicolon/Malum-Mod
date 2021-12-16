@@ -1,47 +1,44 @@
 package com.sammy.malum.common.tile;
 
 import com.sammy.malum.MalumHelper;
-import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.packets.particle.TotemParticlePacket;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.core.Direction;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.core.BlockPos;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
-import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTileEntity {
+public class TotemBaseTileEntity extends SimpleBlockEntity {
 
     public MalumRiteType rite;
     public ArrayList<MalumSpiritType> spirits = new ArrayList<>();
     public boolean active;
     public int progress;
     public int height;
-    public boolean isCorrupted;
+    public boolean corrupted;
 
-    public TotemBaseTileEntity() {
-        super(TileEntityRegistry.TOTEM_BASE_TILE_ENTITY.get());
-    }
-    public TotemBaseTileEntity(boolean isCorrupted) {
-        this();
-        this.isCorrupted = isCorrupted;
+    public TotemBaseTileEntity(BlockPos pos, BlockState state) {
+        super(TileEntityRegistry.TOTEM_BASE_TILE_ENTITY.get(), pos, state);
+        this.corrupted = ((TotemPoleBlock)state.getBlock()).corrupted;
     }
 
     @Override
-    public CompoundNBT writeData(CompoundNBT compound) {
+    public CompoundTag save(CompoundTag compound) {
         if (rite != null) {
             compound.putString("rite", rite.identifier);
         }
@@ -53,12 +50,12 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         compound.putBoolean("active", active);
         compound.putInt("progress", progress);
         compound.putInt("height", height);
-        compound.putBoolean("isCorrupted", isCorrupted);
-        return super.writeData(compound);
+        compound.putBoolean("corrupted", corrupted);
+        return super.save(compound);
     }
 
     @Override
-    public void readData(CompoundNBT compound) {
+    public void load(CompoundTag compound) {
         rite = SpiritRiteRegistry.getRite(compound.getString("rite"));
         int size = compound.getInt("spiritCount");
         for (int i = 0; i < size; i++) {
@@ -67,25 +64,24 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");
         height = compound.getInt("height");
-        isCorrupted = compound.getBoolean("isCorrupted");
-        super.readData(compound);
+        corrupted = compound.getBoolean("corrupted");
+        super.load(compound);
     }
 
-    @Override
     public void tick() {
         if (rite != null) {
             progress++;
-            if (progress >= rite.interval(isCorrupted)) {
-                rite.executeRite(level, LevelPosition, isCorrupted);
+            if (progress >= rite.interval(corrupted)) {
+                rite.executeRite(level, worldPosition, corrupted);
                 progress = 0;
-                MalumHelper.updateAndNotifyState(level, LevelPosition);
+                MalumHelper.updateAndNotifyState(level, worldPosition);
             }
         } else if (active) {
-            if (MalumHelper.areWeOnServer(level)) {
+            if (level.isClientSide) {
                 progress--;
                 if (progress <= 0) {
                     height++;
-                    BlockPos polePos = LevelPosition.above(height);
+                    BlockPos polePos = worldPosition.above(height);
                     if (level.getBlockEntity(polePos) instanceof TotemPoleTileEntity) {
                         addPole(polePos);
                     } else {
@@ -97,21 +93,21 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
                         }
                     }
                     progress = 20;
-                    MalumHelper.updateAndNotifyState(level, LevelPosition);
+                    MalumHelper.updateAndNotifyState(level, worldPosition);
                 }
             }
         }
     }
 
     public void disableOtherRites(MalumRiteType rite) {
-        int range = rite.range(isCorrupted);
-        ArrayList<BlockPos> totemBases = new ArrayList<>(MalumHelper.getBlocks(LevelPosition, range, b -> level.getBlockEntity(b) instanceof TotemBaseTileEntity && !b.equals(LevelPosition)));
+        int range = rite.range(corrupted);
+        ArrayList<BlockPos> totemBases = new ArrayList<>(MalumHelper.getBlocks(worldPosition, range, b -> level.getBlockEntity(b) instanceof TotemBaseTileEntity && !b.equals(worldPosition)));
         for (BlockPos basePos : totemBases) {
             TotemBaseTileEntity tileEntity = (TotemBaseTileEntity) level.getBlockEntity(basePos);
             if (rite.equals(tileEntity.rite)) {
                 tileEntity.endRite();
             } else if (tileEntity.rite != null) {
-                if (basePos.closerThan(LevelPosition, 0.5f + range * 0.5f)) {
+                if (basePos.closerThan(worldPosition, 0.5f + range * 0.5f)) {
                     tileEntity.endRite();
                 }
             }
@@ -121,7 +117,7 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     public void addPole(BlockPos polePos) {
         Direction poleFacing = level.getBlockState(polePos).getValue(HORIZONTAL_FACING);
         ArrayList<TotemPoleTileEntity> poles = getPoles();
-        if (poles.isEmpty() || poles.stream().allMatch(p -> p.getBlockState().getValue(HORIZONTAL_FACING).equals(poleFacing) && ((TotemPoleBlock) p.getBlockState().getBlock()).corrupted == ((TotemBaseBlock) getBlockState().getBlock()).corrupted)) {
+        if (poles.isEmpty() || poles.stream().allMatch(p -> p.getBlockState().getValue(HORIZONTAL_FACING).equals(poleFacing) && p.corrupted == corrupted)) {
             TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) level.getBlockEntity(polePos);
             if (tileEntity.type != null) {
                 spirits.add(tileEntity.type);
@@ -133,8 +129,8 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     public ArrayList<TotemPoleTileEntity> getPoles() {
         ArrayList<TotemPoleTileEntity> poles = new ArrayList<>();
         for (int i = 1; i <= height; i++) {
-            if (level.getBlockEntity(LevelPosition.above(i)) instanceof TotemPoleTileEntity) {
-                poles.add((TotemPoleTileEntity) level.getBlockEntity(LevelPosition.above(i)));
+            if (level.getBlockEntity(worldPosition.above(i)) instanceof TotemPoleTileEntity) {
+                poles.add((TotemPoleTileEntity) level.getBlockEntity(worldPosition.above(i)));
             }
         }
         return poles;
@@ -143,27 +139,27 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
     public void startRite() {
         active = true;
         progress = 0;
-        MalumHelper.updateAndNotifyState(level, LevelPosition);
+        MalumHelper.updateAndNotifyState(level, worldPosition);
     }
 
     public void completeRite(MalumRiteType rite) {
-        level.playSound(null, LevelPosition, SoundRegistry.TOTEM_CHARGED, SoundCategory.BLOCKS, 1, 1);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(LevelPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), LevelPosition.getX(), LevelPosition.getY()+1, LevelPosition.getZ()));
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGED, SoundSource.BLOCKS, 1, 1);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY()+1, worldPosition.getZ()));
         getPoles().forEach(p -> p.riteComplete(height));
         progress = 0;
         if (rite.isInstant) {
-            rite.riteEffect(level, LevelPosition);
+            rite.riteEffect(level, worldPosition);
             resetTotem();
             return;
         }
         this.rite = rite;
         disableOtherRites(rite);
-        MalumHelper.updateAndNotifyState(level, LevelPosition);
+        MalumHelper.updateAndNotifyState(level, worldPosition);
     }
 
     public void endRite() {
-        level.playSound(null, LevelPosition, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS, 1, 0.5f);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(LevelPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), LevelPosition.getX(), LevelPosition.getY()+1, LevelPosition.getZ()));
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY()+1, worldPosition.getZ()));
         resetTotem();
     }
 
@@ -174,6 +170,6 @@ public class TotemBaseTileEntity extends SimpleTileEntity implements ITickableTi
         active = false;
         progress = 0;
         spirits.clear();
-        MalumHelper.updateAndNotifyState(level, LevelPosition);
+        MalumHelper.updateAndNotifyState(level, worldPosition);
     }
 }

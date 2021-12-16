@@ -1,15 +1,14 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.BlockPos;
-import net.minecraft.Level.Level;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 import java.util.ArrayList;
 
@@ -22,9 +21,9 @@ public class EldritchWickedRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level Level, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(Level)) {
-            getNearbyEntities(LivingEntity.class, Level, pos, false).forEach(e -> {
+    public void riteEffect(Level level, BlockPos pos) {
+        if (!level.isClientSide) {
+            getNearbyEntities(LivingEntity.class, level, pos, false).forEach(e -> {
                 if (!(e instanceof Player)) {
                     e.hurt(DamageSourceRegistry.VOODOO, 5);
                 }
@@ -33,14 +32,14 @@ public class EldritchWickedRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level Level, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(Level)) {
-            ArrayList<AnimalEntity> entities = getNearbyEntities(AnimalEntity.class, Level, pos, true);
+    public void corruptedRiteEffect(Level level, BlockPos pos) {
+        if (!level.isClientSide) {
+            ArrayList<Animal> entities = getNearbyEntities(Animal.class, level, pos, true);
             if (entities.size() < 30) {
                 return;
             }
             int maxKills = entities.size() - 30;
-            for (AnimalEntity entity : entities) {
+            for (Animal entity : entities) {
                 if (!entity.isInLove() && entity.getAge() > 0) {
                     entity.hurt(DamageSourceRegistry.VOODOO, entity.getMaxHealth());
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MagicParticlePacket(WICKED_SPIRIT_COLOR, entity.blockPosition().getX(), entity.blockPosition().getY() + entity.getBbHeight() / 2f, entity.blockPosition().getZ()));

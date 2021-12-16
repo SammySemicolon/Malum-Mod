@@ -1,15 +1,14 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.Level.Level;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,41 +21,41 @@ public class EldritchEarthenRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level Level, BlockPos pos) {
-        BlockState filter = Level.getBlockState(pos.below());
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
+    public void riteEffect(Level level, BlockPos pos) {
+        BlockState filter = level.getBlockState(pos.below());
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p ->{
             if (p.getX() == pos.getX() && p.getZ() == pos.getZ())
             {
                 return true;
             }
-            BlockState state = Level.getBlockState(p);
-            if (state.isAir(Level, p))
+            BlockState state = level.getBlockState(p);
+            if (state.isAir())
             {
                 return true;
             }
-            return !filter.isAir(Level, pos) && !filter.is(state.getBlock());
+            return !filter.isAir() && !filter.is(state.getBlock());
         });
         positions.forEach(p -> {
-            if (MalumHelper.areWeOnServer(Level)) {
-                Level.destroyBlock(p, true);
+            if (!level.isClientSide) {
+                level.destroyBlock(p, true);
             } else {
-                particles(Level, p);
+                particles(level, p);
             }
         });
     }
 
     @Override
-    public void corruptedRiteEffect(Level Level, BlockPos pos) {
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
-        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !Level.getBlockState(p).isAir(Level, p));
+    public void corruptedRiteEffect(Level level, BlockPos pos) {
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
+        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !level.getBlockState(p).isAir());
         positions.forEach(p -> {
             BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
-            if (MalumHelper.areWeOnServer(Level)) {
-                Level.setBlockAndUpdate(p, cobblestone);
-                Level.levelEvent(2001, p, Block.getId(cobblestone));
+            if (!level.isClientSide) {
+                level.setBlockAndUpdate(p, cobblestone);
+                level.levelEvent(2001, p, Block.getId(cobblestone));
             } else {
-                particles(Level, p);
+                particles(level, p);
             }
         });
     }
@@ -71,9 +70,9 @@ public class EldritchEarthenRiteType extends MalumRiteType {
         return defaultRange() / 2;
     }
 
-    public void particles(Level Level, BlockPos pos) {
+    public void particles(Level level, BlockPos pos) {
         Color color = EARTHEN_SPIRIT_COLOR;
-        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
                 .setLifetime(20)
                 .setSpin(0.2f)
@@ -82,8 +81,8 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(Level, pos, 4, Direction.UP, Direction.DOWN);
-        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
+                .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
+        RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -92,6 +91,6 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                 .randomOffset(0.2f)
                 .enableNoClip()
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(Level, pos, 6, Direction.UP, Direction.DOWN);
+                .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
     }
 }

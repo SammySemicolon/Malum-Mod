@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.SoundEvents;
 import org.lwjgl.glfw.GLFW;
 
@@ -157,7 +157,7 @@ public class EntryScreen extends Screen
     public void playSound()
     {
         Player playerEntity = Minecraft.getInstance().player;
-        playerEntity.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        playerEntity.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0f, 1.0f);
     }
     public static void openScreen(EntryObject newObject)
     {

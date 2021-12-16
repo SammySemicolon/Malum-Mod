@@ -106,7 +106,7 @@ public class SimpleBlockEntityInventory extends ItemStackHandler
         }
         return stacks;
     }
-    public void dumpItems(Level Level, Vec3 pos)
+    public void dumpItems(Level level, Vec3 pos)
     {
         for (int i = 0; i < slotCount; i++)
         {
@@ -157,21 +157,21 @@ public class SimpleBlockEntityInventory extends ItemStackHandler
         return super.extractItem(slot, amount, simulate);
     }
     
-    public boolean playerHandleItem(Level LevelIn, Player player, InteractionHand handIn)
+    public boolean playerHandleItem(Level level, Player player, InteractionHand handIn)
     {
         player.swing(handIn, true);
         if (player.isShiftKeyDown() || player.getItemInHand(handIn).isEmpty())
         {
-            return playerExtractItem(LevelIn, player);
+            return playerExtractItem(level, player);
         }
         else
         {
-            return playerInsertItem(LevelIn, player.getItemInHand(handIn));
+            return playerInsertItem(level, player.getItemInHand(handIn));
         }
     }
-    public boolean playerExtractItem(Level LevelIn, Player player)
+    public boolean playerExtractItem(Level level, Player player)
     {
-        if (!LevelIn.isClientSide)
+        if (!level.isClientSide)
         {
             List<ItemStack> nonEmptyStacks = stacks.stream().filter(i -> !i.isEmpty()).collect(Collectors.toList());
             if (nonEmptyStacks.isEmpty())
@@ -189,9 +189,9 @@ public class SimpleBlockEntityInventory extends ItemStackHandler
         }
         return false;
     }
-    public boolean playerInsertItem(Level LevelIn, ItemStack stack)
+    public boolean playerInsertItem(Level level, ItemStack stack)
     {
-        if (!LevelIn.isClientSide)
+        if (!level.isClientSide)
         {
             if (!stack.isEmpty())
             {

@@ -1,15 +1,14 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.core.BlockPos;
-import net.minecraft.Level.Level;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
@@ -20,9 +19,9 @@ public class SacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level Level, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(Level)) {
-            getNearbyEntities(Player.class, Level, pos, false).forEach(e -> {
+    public void riteEffect(Level level, BlockPos pos) {
+        if (!level.isClientSide) {
+            getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.SACRED_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
@@ -32,10 +31,10 @@ public class SacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level Level, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(Level)) {
-            getNearbyEntities(AnimalEntity.class, Level, pos, true).forEach(e -> {
-                if (Level.random.nextFloat() <= 0.04f) {
+    public void corruptedRiteEffect(Level level, BlockPos pos) {
+        if (!level.isClientSide) {
+            getNearbyEntities(Animal.class, level, pos, true).forEach(e -> {
+                if (level.random.nextFloat() <= 0.04f) {
                     if (e.getAge() < 0) {
                         INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                         e.ageUp(25);
@@ -46,7 +45,7 @@ public class SacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public int range(boolean isCorrupted) {
+    public int range(boolean corrupted) {
         return defaultRange() / 2;
     }
 }

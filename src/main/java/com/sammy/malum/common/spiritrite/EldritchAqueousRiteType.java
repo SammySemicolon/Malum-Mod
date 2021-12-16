@@ -1,15 +1,14 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.Level.Level;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,21 +21,21 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level Level, BlockPos pos) {
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
-        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !Level.getBlockState(p).isAir(Level, p));
+    public void riteEffect(Level level, BlockPos pos) {
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
+        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !level.getBlockState(p).isAir());
         positions.forEach(p -> {
             BlockState water = Blocks.WATER.defaultBlockState();
-            if (MalumHelper.areWeOnServer(Level)) {
-                Level.setBlockAndUpdate(p, water);
+            if (!level.isClientSide) {
+                level.setBlockAndUpdate(p, water);
             } else {
-                particles(Level, p);
+                particles(level, p);
             }
         });
     }
 
     @Override
-    public void corruptedRiteEffect(Level Level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos) {
     }
 
     @Override
@@ -49,9 +48,9 @@ public class EldritchAqueousRiteType extends MalumRiteType {
         return defaultRange() / 2;
     }
 
-    public void particles(Level Level, BlockPos pos) {
+    public void particles(Level level, BlockPos pos) {
         Color color = AQUEOUS_SPIRIT_COLOR;
-        ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
                 .setLifetime(20)
                 .setSpin(0.2f)
@@ -60,8 +59,8 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(Level, pos, 6, Direction.UP);
-        ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
+                .evenlyRepeatEdges(level, pos, 6, Direction.UP);
+        RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -70,6 +69,6 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                 .randomOffset(0.2f)
                 .enableNoClip()
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(Level, pos, 8, Direction.UP);
+                .evenlyRepeatEdges(level, pos, 8, Direction.UP);
     }
 }

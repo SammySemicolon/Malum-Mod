@@ -5,15 +5,15 @@ import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.particle.ParticleManager;
-import net.minecraft.block.BlockState;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.Level.Level;
+import net.minecraft.util.math.BlockHitResult;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.awt.*;
@@ -28,23 +28,23 @@ public class SapFilledLogBlock extends RotatedPillarBlock
     }
 
     @Override
-    public ActionResultType use(BlockState state, Level LevelIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit)
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
     {
         ItemStack itemstack = player.getItemInHand(handIn);
         if (itemstack.getItem() == Items.GLASS_BOTTLE)
         {
             itemstack.shrink(1);
-            LevelIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
             ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ItemRegistry.HOLY_SAP.get()));
-            if (LevelIn.random.nextBoolean())
+            if (level.random.nextBoolean())
             {
-                MalumHelper.setBlockStateWithExistingProperties(LevelIn, pos, BlockRegistry.STRIPPED_RUNEWOOD_LOG.get().defaultBlockState(), 3);
+                MalumHelper.setBlockStateWithExistingProperties(level, pos, BlockRegistry.STRIPPED_RUNEWOOD_LOG.get().defaultBlockState(), 3);
             }
-            if (MalumHelper.areWeOnClient(LevelIn))
+            if (level.isClientSide)
             {
                 Color color = SpiritTypeRegistry.INFERNAL_SPIRIT_COLOR;
 
-                ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
+                RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                         .setAlpha(0.03f, 0f)
                         .setLifetime(20)
                         .setSpin(0.1f)
@@ -53,9 +53,9 @@ public class SapFilledLogBlock extends RotatedPillarBlock
                         .randomOffset(0.1f, 0.1f)
                         .enableNoClip()
                         .randomVelocity(0.001f, 0.001f)
-                        .evenlyRepeatEdges(LevelIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                        .evenlyRepeatEdges(level, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-                ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
+                RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
                         .setAlpha(0.05f, 0f)
                         .setLifetime(40)
                         .setSpin(0.1f)
@@ -64,10 +64,10 @@ public class SapFilledLogBlock extends RotatedPillarBlock
                         .randomOffset(0.1f, 0.1f)
                         .enableNoClip()
                         .randomVelocity(0.001f, 0.001f)
-                        .evenlyRepeatEdges(LevelIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                        .evenlyRepeatEdges(level, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-        return super.use(state, LevelIn, pos, player, handIn, hit);
+        return super.use(state, level, pos, player, handIn, hit);
     }
 }

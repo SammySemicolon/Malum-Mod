@@ -6,27 +6,27 @@ import com.google.common.collect.Sets;
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.RecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
-import net.minecraft.Level.Level;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import java.util.Map;
 import java.util.Set;
 
-public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<CraftingInventory>
+public class NBTCarryRecipe extends CustomRecipe implements IShapedRecipe<CraftingContainer>
 {
     public static final String NAME = "nbt_carry";
-    public static class Type implements IRecipeType<NBTCarryRecipe> {
+    public static class Type implements RecipeType<NBTCarryRecipe> {
         @Override
         public String toString () {
             return MalumMod.MODID + ":" + NAME;
@@ -62,12 +62,12 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return Type.INSTANCE;
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, Level LevelIn)
+    public boolean matches(CraftingContainer inv, Level level)
     {
         for (int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i)
         {
@@ -88,7 +88,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
         return false;
     }
 
-    private boolean checkMatch(CraftingInventory craftingInventory, int width, int height, boolean p_77573_4_)
+    private boolean checkMatch(CraftingContainer craftingInventory, int width, int height, boolean p_77573_4_)
     {
         for (int i = 0; i < craftingInventory.getWidth(); ++i)
         {
@@ -120,7 +120,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     }
 
     @Override
-    public ItemStack assemble(CraftingInventory inv)
+    public ItemStack assemble(CraftingContainer inv)
     {
         ItemStack stack = recipeOutput.copy();
         for (int i = 0; i < inv.getContainerSize(); i++)
@@ -283,7 +283,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
         {
             for (int i = 0; i < astring.length; ++i)
             {
-                String s = JSONUtils.convertToString(jsonArr.get(i), "pattern[" + i + "]");
+                String s = GsonHelper.convertToString(jsonArr.get(i), "pattern[" + i + "]");
                 if (s.length() > MAX_WIDTH)
                 {
                     throw new JsonSyntaxException("Invalid pattern: too many columns, " + MAX_WIDTH + " is maximum");
@@ -329,7 +329,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
 
     public static ItemStack deserializeItem(JsonObject object)
     {
-        String s = JSONUtils.getAsString(object, "item");
+        String s = GsonHelper.getAsString(object, "item");
         Registry.ITEM.getOptional(new ResourceLocation(s)).orElseThrow(() -> new JsonSyntaxException("Unknown item '" + s + "'"));
         if (object.has("data"))
         {
@@ -337,7 +337,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
         }
         else
         {
-            int i = JSONUtils.getAsInt(object, "count", 1);
+            int i = GsonHelper.getAsInt(object, "count", 1);
             return net.minecraftforge.common.crafting.CraftingHelper.getItemStack(object, true);
         }
     }
@@ -347,19 +347,19 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     {
         public NBTCarryRecipe fromJson(ResourceLocation recipeId, JsonObject json)
         {
-            String s = JSONUtils.getAsString(json, "group", "");
-            Map<String, Ingredient> map = deserializeKey(JSONUtils.getAsJsonObject(json, "key"));
-            String[] astring = shrink(patternFromJson(JSONUtils.getAsJsonArray(json, "pattern")));
+            String s = GsonHelper.getAsString(json, "group", "");
+            Map<String, Ingredient> map = deserializeKey(GsonHelper.getAsJsonObject(json, "key"));
+            String[] astring = shrink(patternFromJson(GsonHelper.getAsJsonArray(json, "pattern")));
             int i = astring[0].length();
             int j = astring.length;
             NonNullList<Ingredient> nonnulllist = deserializeIngredients(astring, map, i, j);
             Ingredient nbtCarry = Ingredient.fromJson(json.get("nbtCarry"));
-            ItemStack itemstack = deserializeItem(JSONUtils.getAsJsonObject(json, "result"));
+            ItemStack itemstack = deserializeItem(GsonHelper.getAsJsonObject(json, "result"));
 
             return new NBTCarryRecipe(recipeId, s, i, j, nbtCarry, nonnulllist, itemstack);
         }
 
-        public NBTCarryRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer)
+        public NBTCarryRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer)
         {
             int i = buffer.readVarInt();
             int j = buffer.readVarInt();
@@ -376,7 +376,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
             return new NBTCarryRecipe(recipeId, s, i, j, nbtCarry, nonnulllist, itemstack);
         }
 
-        public void toNetwork(PacketBuffer buffer, NBTCarryRecipe recipe)
+        public void toNetwork(FriendlyByteBuf buffer, NBTCarryRecipe recipe)
         {
             buffer.writeVarInt(recipe.recipeWidth);
             buffer.writeVarInt(recipe.recipeHeight);

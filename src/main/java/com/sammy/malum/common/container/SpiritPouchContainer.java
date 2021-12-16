@@ -10,7 +10,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.SoundEvents;
 
 import javax.annotation.Nonnull;
@@ -51,7 +51,7 @@ public class SpiritPouchContainer extends Container {
 
     @Override
     public void removed(Player playerIn) {
-        playerIn.level.playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 1, 1);
+        playerIn.level.playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
         super.removed(playerIn);
         this.inventory.stopOpen(playerIn);
     }

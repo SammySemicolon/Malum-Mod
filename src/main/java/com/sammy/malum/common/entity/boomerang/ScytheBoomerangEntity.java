@@ -1,40 +1,40 @@
 package com.sammy.malum.common.entity.boomerang;
 
 import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.misc.EntityRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.Level.Level;
-import net.minecraft.Level.server.ServerLevel;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.UUID;
 
-public class ScytheBoomerangEntity extends ProjectileItemEntity
+public class ScytheBoomerangEntity extends ThrowableItemProjectile
 {
-    public static final DataParameter<ItemStack> SCYTHE = EntityDataManager.defineId(ScytheBoomerangEntity.class, DataSerializers.ITEM_STACK);
+    public static final EntityDataAccessor<ItemStack> SCYTHE = SynchedEntityData.defineId(ScytheBoomerangEntity.class, EntityDataSerializers.ITEM_STACK);
     
     public ItemStack scythe;
     public UUID ownerUUID;
@@ -46,16 +46,16 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     public int returnAge=8;
     public boolean returning;
     
-    public ScytheBoomerangEntity(Level LevelIn)
+    public ScytheBoomerangEntity(Level level)
     {
-        super(EntityRegistry.SCYTHE_BOOMERANG.get(), LevelIn);
+        super(EntityRegistry.SCYTHE_BOOMERANG.get(), level);
         noPhysics = false;
     }
     public Player owner()
     {
         if (owner == null)
         {
-            if (MalumHelper.areWeOnServer(level))
+            if (!level.isClientSide)
             {
                 owner = (Player) ((ServerLevel) level).getEntity(ownerUUID);
             }
@@ -70,41 +70,29 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
         this.slot = slot;
         this.scythe = scythe;
     }
-    
-    public void shoot(Entity playerEntity, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy)
+    public void shootFromRotation(Entity shooter, float rotationPitch, float rotationYaw, float pitchOffset, float velocity, float innacuracy)
     {
-        float f = -MathHelper.sin(rotationYawIn * ((float) Math.PI / 180F)) * MathHelper.cos(rotationPitchIn * ((float) Math.PI / 180F));
-        float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * ((float) Math.PI / 180F));
-        float f2 = MathHelper.cos(rotationYawIn * ((float) Math.PI / 180F)) * MathHelper.cos(rotationPitchIn * ((float) Math.PI / 180F));
-        this.shoot(f, f1, f2, velocity, inaccuracy);
-        Vector3d Vector3d = playerEntity.getDeltaMovement();
-        this.setDeltaMovement(this.getDeltaMovement().add(Vector3d.x, playerEntity.isOnGround() ? 0.0D : Vector3d.y, Vector3d.z));
-    }
-    @Override
-    public void shoot(double x, double y, double z, float velocity, float inaccuracy)
-    {
-        Vector3d motion = (new Vector3d(x, y, z)).normalize().add(this.random.nextGaussian() * 0.0075F * inaccuracy, this.random.nextGaussian() * 0.0075F * inaccuracy, this.random.nextGaussian() * 0.0075F * inaccuracy).scale(velocity).multiply(1,1,1);
-        this.setDeltaMovement(motion);
-        float f = MathHelper.sqrt(getHorizontalDistanceSqr(motion));
-        this.yRot = (float) (MathHelper.atan2(motion.x, motion.z) * (180F / (float) Math.PI));
-        this.xRot = (float) (MathHelper.atan2(motion.y, f) * (180F / (float) Math.PI));
-        this.yRotO = this.yRot;
-        this.xRotO = this.xRot;
+        float f = -Mth.sin(rotationYaw * ((float)Math.PI / 180F)) * Mth.cos(rotationPitch * ((float)Math.PI / 180F));
+        float f1 = -Mth.sin((rotationPitch + pitchOffset) * ((float)Math.PI / 180F));
+        float f2 = Mth.cos(rotationYaw * ((float)Math.PI / 180F)) * Mth.cos(rotationPitch * ((float)Math.PI / 180F));
+        this.shoot(f, f1, f2, velocity, innacuracy);
+        Vec3 vec3 = shooter.getDeltaMovement();
+        this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, shooter.isOnGround() ? 0.0D : vec3.y, vec3.z));
     }
     
     @Override
-    protected void onHitBlock(BlockRayTraceResult result)
+    protected void onHitBlock(BlockHitResult result)
     {
         super.onHitBlock(result);
         returning = true;
     }
     
     @Override
-    protected void onHitEntity(EntityRayTraceResult p_213868_1_)
+    protected void onHitEntity(EntityHitResult p_213868_1_)
     {
         DamageSource source = DamageSource.indirectMobAttack(this, owner());
         Entity entity = p_213868_1_.getEntity();
-        if (MalumHelper.areWeOnClient(level))
+        if (level.isClientSide)
         {
             return;
         }
@@ -116,12 +104,12 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
         boolean success = entity.hurt(source, damage);
         if (success)
         {
-            if (MalumHelper.areWeOnServer(level))
+            if (!level.isClientSide)
             {
                 if (entity instanceof LivingEntity)
                 {
                     LivingEntity livingentity = (LivingEntity) entity;
-                    scythe.hurtAndBreak(1, owner(), (e) -> remove());
+                    scythe.hurtAndBreak(1, owner(), (e) -> remove(RemovalReason.KILLED));
                     MalumHelper.applyEnchantments(owner, livingentity, scythe);
                     int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
                     if (i > 0) {
@@ -140,7 +128,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     {
         super.tick();
         age++;
-        if (MalumHelper.areWeOnClient(level))
+        if (level.isClientSide)
         {
             if (!isInWater())
             {
@@ -151,7 +139,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
             }
         }
 
-        if (MalumHelper.areWeOnServer(level))
+        if (!level.isClientSide)
         {
             Player playerEntity = owner();
             if (playerEntity == null)
@@ -160,16 +148,17 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
             }
             if (age % 3 == 0)
             {
-                level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1, 1.25f);
+                level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 1, 1.25f);
             }
             if (this.xRotO == 0.0F && this.yRotO == 0.0F)
             {
-                Vector3d vector3d = getDeltaMovement();
-                float f = MathHelper.sqrt(getHorizontalDistanceSqr(vector3d));
-                yRot = (float) (MathHelper.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI));
-                xRot = (float) (MathHelper.atan2(vector3d.y, f) * (double) (180F / (float) Math.PI));
-                yRotO = yRot;
-                xRotO = xRot;
+                Vec3 vector3d = getDeltaMovement();
+                float f = 0;
+//                float f = Mth.sqrt(horizontalMag(vector3d));
+                setYRot((float) (Mth.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI)));
+                setXRot((float) (Mth.atan2(vector3d.y, f) * (double) (180F / (float) Math.PI)));
+                yRotO = getYRot();
+                xRotO = getXRot();
             }
             if (age > returnAge)
             {
@@ -178,8 +167,8 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
             if (returning)
             {
                 noPhysics = true;
-                Vector3d ownerPos = playerEntity.position().add(0, 1, 0);
-                Vector3d motion = ownerPos.subtract(position());
+                Vec3 ownerPos = playerEntity.position().add(0, 1, 0);
+                Vec3 motion = ownerPos.subtract(position());
                 setDeltaMovement(motion.normalize().scale(0.75f));
             }
             float distance = distanceTo(playerEntity);
@@ -190,12 +179,12 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                     if (isAlive())
                     {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
-                        if (!playerEntity.abilities.instabuild)
+                        if (!playerEntity.getAbilities().instabuild)
                         {
                             int cooldown = 100 - 80 * (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
                             playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);
                         }
-                        remove();
+                        remove(RemovalReason.DISCARDED);
                     }
                 }
             }
@@ -203,7 +192,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     }
     
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound)
+    public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
         compound.put("scythe", scythe.serializeNBT());
@@ -219,7 +208,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     }
     
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound)
+    public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
     
@@ -242,7 +231,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     }
     
     @Override
-    public IPacket<?> getAddEntityPacket()
+    public Packet<?> getAddEntityPacket()
     {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
