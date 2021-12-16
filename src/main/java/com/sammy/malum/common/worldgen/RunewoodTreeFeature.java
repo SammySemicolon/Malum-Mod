@@ -8,7 +8,7 @@ import com.sammy.malum.core.systems.Levelgen.MalumFiller;
 import com.sammy.malum.core.systems.Levelgen.MalumFiller.BlockStateEntry;
 import net.minecraft.world.level.block.*;
 import net.minecraft.core.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.Level.ISeedReader;
 import net.minecraft.Level.Level;
 import net.minecraft.Level.gen.ChunkGenerator;

@@ -10,7 +10,7 @@ import net.minecraft.item.crafting.RecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
 import net.minecraft.Level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 

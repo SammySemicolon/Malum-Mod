@@ -11,7 +11,7 @@ import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.Level.Level;
 import net.minecraftforge.fml.network.PacketDistributor;
 

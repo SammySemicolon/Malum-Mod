@@ -7,7 +7,7 @@ import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.Level.Level;
 import net.minecraft.Level.server.ServerLevel;
 import net.minecraftforge.fml.network.PacketDistributor;

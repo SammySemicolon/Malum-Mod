@@ -6,7 +6,7 @@ import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.Level.Level;
 import net.minecraftforge.fml.network.PacketDistributor;
 

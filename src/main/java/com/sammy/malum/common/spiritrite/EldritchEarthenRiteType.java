@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.Level.Level;
 
 import java.awt.*;

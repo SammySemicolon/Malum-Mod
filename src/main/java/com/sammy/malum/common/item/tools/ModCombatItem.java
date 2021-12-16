@@ -19,7 +19,7 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.TieredItem;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;

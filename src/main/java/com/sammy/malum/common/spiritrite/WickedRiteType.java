@@ -5,7 +5,7 @@ import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.Level.Level;
 import net.minecraftforge.fml.network.PacketDistributor;
 

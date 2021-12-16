@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.ether;
 
 import net.minecraft.world.level.block.*;
 import net.minecraft.core.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.Level.IBlockReader;

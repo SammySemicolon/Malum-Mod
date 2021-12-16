@@ -3,7 +3,7 @@ package com.sammy.malum.common.block;
 import com.sammy.malum.core.registry.Levelgen.FeatureRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SaplingBlock;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.Level.server.ServerLevel;
 
 import java.util.Random;

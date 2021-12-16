@@ -3,10 +3,10 @@ package com.sammy.malum.core.data.builder;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.item.crafting.RecipeSerializer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;

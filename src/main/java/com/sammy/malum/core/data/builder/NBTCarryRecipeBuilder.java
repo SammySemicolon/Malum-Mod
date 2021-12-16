@@ -8,17 +8,17 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.IRequirementsStrategy;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.advancements.CriterionTriggerInstance;
+import net.minecraft.advancements.RequirementsStrategy;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.world.item.Item;
-import net.minecraft.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ItemLike;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -53,7 +53,7 @@ public class NBTCarryRecipeBuilder
         return new NBTCarryRecipeBuilder(resultIn, countIn, nbtCarry);
     }
 
-    public NBTCarryRecipeBuilder key(Character symbol, ITag<Item> tagIn)
+    public NBTCarryRecipeBuilder key(Character symbol, Tag<Item> tagIn)
     {
         return this.key(symbol, Ingredient.of(tagIn));
     }
@@ -93,7 +93,7 @@ public class NBTCarryRecipeBuilder
         }
     }
 
-    public NBTCarryRecipeBuilder addCriterion(String name, ICriterionInstance criterionIn)
+    public NBTCarryRecipeBuilder addCriterion(String name, CriterionTriggerInstance criterionIn)
     {
         this.advancementBuilder.addCriterion(name, criterionIn);
         return this;
@@ -126,7 +126,7 @@ public class NBTCarryRecipeBuilder
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
     {
         this.validate(id);
-        this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(IRequirementsStrategy.OR);
+        this.advancementBuilder.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
         consumerIn.accept(new Result(id, nbtCarry, this.result, this.count, this.group == null ? "" : this.group, this.pattern, this.key, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + id.getPath())));
     }
 
