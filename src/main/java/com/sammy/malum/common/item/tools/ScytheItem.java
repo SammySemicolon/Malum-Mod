@@ -14,21 +14,23 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.Level.Level;
+import net.minecraft.Level.server.ServerLevel;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
 
+
+import net.minecraft.item.Item.Properties;
 
 public class ScytheItem extends ModCombatItem implements IEventResponderItem {
     private final float magicDamageBoost;
@@ -48,47 +50,47 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem {
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.REBOUND.get(), itemstack) > 0) {
-            if (MalumHelper.areWeOnServer(worldIn)) {
-                playerIn.setHeldItem(handIn, ItemStack.EMPTY);
-                double baseDamage = playerIn.getAttributeManager().getAttributeValue(Attributes.ATTACK_DAMAGE);
+    public ActionResult<ItemStack> use(Level LevelIn, Player playerIn, @Nonnull Hand handIn) {
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
+        if (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(), itemstack) > 0) {
+            if (MalumHelper.areWeOnServer(LevelIn)) {
+                playerIn.setItemInHand(handIn, ItemStack.EMPTY);
+                double baseDamage = playerIn.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
                 float multiplier = 1.2f;
                 double damage = 1.0F + baseDamage * multiplier;
 
-                int slot = handIn == Hand.OFF_HAND ? playerIn.inventory.getSizeInventory() - 1 : playerIn.inventory.currentItem;
-                ScytheBoomerangEntity entity = new ScytheBoomerangEntity(worldIn);
-                entity.setPosition(playerIn.getPositionVec().x, playerIn.getPositionVec().y + playerIn.getHeight() / 2f, playerIn.getPositionVec().z);
+                int slot = handIn == Hand.OFF_HAND ? playerIn.inventory.getContainerSize() - 1 : playerIn.inventory.selected;
+                ScytheBoomerangEntity entity = new ScytheBoomerangEntity(LevelIn);
+                entity.setPos(playerIn.position().x, playerIn.position().y + playerIn.getBbHeight() / 2f, playerIn.position().z);
 
-                entity.setData((float) damage, playerIn.getUniqueID(), slot, itemstack);
-                entity.getDataManager().set(ScytheBoomerangEntity.SCYTHE, itemstack);
+                entity.setData((float) damage, playerIn.getUUID(), slot, itemstack);
+                entity.getEntityData().set(ScytheBoomerangEntity.SCYTHE, itemstack);
 
-                entity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 0F);
-                worldIn.addEntity(entity);
+                entity.shoot(playerIn, playerIn.xRot, playerIn.yRot, 0.0F, 1.5F, 0F);
+                LevelIn.addFreshEntity(entity);
             }
-            playerIn.addStat(Stats.ITEM_USED.get(this));
+            playerIn.awardStat(Stats.ITEM_USED.get(this));
 
             return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(LevelIn, playerIn, handIn);
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity) {
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (attacker instanceof Player) {
             SoundEvent sound;
             if (MalumHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE)) {
-                spawnSweepParticles((PlayerEntity) attacker, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
+                spawnSweepParticles((Player) attacker, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
                 sound = SoundRegistry.SCYTHE_CUT;
             } else {
-                spawnSweepParticles((PlayerEntity) attacker, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
-                sound = SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP;
+                spawnSweepParticles((Player) attacker, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
+                sound = SoundEvents.PLAYER_ATTACK_SWEEP;
             }
-            attacker.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), sound, attacker.getSoundCategory(), 1, 1);
+            attacker.level.playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
 
-        return super.hitEntity(stack, target, attacker);
+        return super.hurtEnemy(stack, target, attacker);
     }
 
     @Override
@@ -97,20 +99,20 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem {
             return;
         }
         float damage = event.getAmount() * (0.5f+EnchantmentHelper.getSweepingDamageRatio(attacker));
-        target.world.getEntitiesWithinAABBExcludingEntity(attacker, target.getBoundingBox().grow(1)).forEach(e ->
+        target.level.getEntities(attacker, target.getBoundingBox().inflate(1)).forEach(e ->
         {
             if (e instanceof LivingEntity) {
-                e.attackEntityFrom(DamageSource.causeMobDamage(attacker), damage);
-                ((LivingEntity) e).applyKnockback(0.4F, MathHelper.sin(attacker.rotationYaw * ((float) Math.PI / 180F)), (-MathHelper.cos(attacker.rotationYaw * ((float) Math.PI / 180F))));
+                e.hurt(DamageSource.mobAttack(attacker), damage);
+                ((LivingEntity) e).knockback(0.4F, MathHelper.sin(attacker.yRot * ((float) Math.PI / 180F)), (-MathHelper.cos(attacker.yRot * ((float) Math.PI / 180F))));
             }
         });
     }
 
-    public void spawnSweepParticles(PlayerEntity player, BasicParticleType type) {
-        double d0 = (-MathHelper.sin(player.rotationYaw * ((float) Math.PI / 180F)));
-        double d1 = MathHelper.cos(player.rotationYaw * ((float) Math.PI / 180F));
-        if (player.world instanceof ServerWorld) {
-            ((ServerWorld) player.world).spawnParticle(type, player.getPosX() + d0, player.getPosYHeight(0.5D), player.getPosZ() + d1, 0, d0, 0.0D, d1, 0.0D);
+    public void spawnSweepParticles(Player player, BasicParticleType type) {
+        double d0 = (-MathHelper.sin(player.yRot * ((float) Math.PI / 180F)));
+        double d1 = MathHelper.cos(player.yRot * ((float) Math.PI / 180F));
+        if (player.level instanceof ServerLevel) {
+            ((ServerLevel) player.level).sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
         }
     }
 }

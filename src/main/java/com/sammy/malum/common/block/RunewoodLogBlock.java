@@ -6,16 +6,18 @@ import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 
 import java.util.function.Supplier;
+
+import net.minecraft.block.AbstractBlock.Properties;
 
 public class RunewoodLogBlock extends MalumLogBlock
 {
@@ -27,10 +29,10 @@ public class RunewoodLogBlock extends MalumLogBlock
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    public ActionResultType use(BlockState state, Level LevelIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit)
     {
-        ItemStack stack = player.getHeldItem(handIn);
-        if (MalumHelper.areWeOnClient(worldIn))
+        ItemStack stack = player.getItemInHand(handIn);
+        if (MalumHelper.areWeOnClient(LevelIn))
         {
             if (stack.getItem() instanceof MalumSpiritItem)
             {
@@ -40,10 +42,10 @@ public class RunewoodLogBlock extends MalumLogBlock
         if (stack.getItem() instanceof MalumSpiritItem)
         {
             MalumSpiritItem item = (MalumSpiritItem) stack.getItem();
-            worldIn.setBlockState(pos, totemPole.get().getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, hit.getFace()));
-            if (worldIn.getTileEntity(pos) instanceof TotemPoleTileEntity)
+            LevelIn.setBlockAndUpdate(pos, totemPole.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()));
+            if (LevelIn.getBlockEntity(pos) instanceof TotemPoleTileEntity)
             {
-                TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) worldIn.getTileEntity(pos);
+                TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) LevelIn.getBlockEntity(pos);
                 tileEntity.create(item.type);
             }
             if (!player.isCreative())
@@ -52,6 +54,6 @@ public class RunewoodLogBlock extends MalumLogBlock
             }
             player.swing(handIn, true);
         }
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        return super.use(state, LevelIn, pos, player, handIn, hit);
     }
 }

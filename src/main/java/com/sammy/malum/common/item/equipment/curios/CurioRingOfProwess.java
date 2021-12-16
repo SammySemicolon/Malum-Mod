@@ -5,7 +5,9 @@ import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
+
+import net.minecraft.item.Item.Properties;
 
 public class CurioRingOfProwess extends MalumCurioItem implements IEventResponderItem
 {
@@ -22,13 +24,13 @@ public class CurioRingOfProwess extends MalumCurioItem implements IEventResponde
 
     @Override
     public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
-        World worldIn = attacker.world;
-        int i = 3 + worldIn.rand.nextInt(2) + worldIn.rand.nextInt(3);
+        Level LevelIn = attacker.level;
+        int i = 3 + LevelIn.random.nextInt(2) + LevelIn.random.nextInt(3);
 
         while (i > 0) {
-            int j = ExperienceOrbEntity.getXPSplit(i);
+            int j = ExperienceOrbEntity.getExperienceValue(i);
             i -= j;
-            worldIn.addEntity(new ExperienceOrbEntity(worldIn, attacker.getPosX(), attacker.getPosY(), attacker.getPosZ(), j));
+            LevelIn.addFreshEntity(new ExperienceOrbEntity(LevelIn, attacker.getX(), attacker.getY(), attacker.getZ(), j));
         }
     }
 }

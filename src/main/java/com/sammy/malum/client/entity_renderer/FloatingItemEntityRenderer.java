@@ -25,30 +25,30 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     {
         super(renderManager);
         this.itemRenderer = itemRendererIn;
-        this.shadowSize = 0;
-        this.shadowOpaque = 0;
+        this.shadowRadius = 0;
+        this.shadowStrength = 0;
     }
     
     
     @Override
     public void render(FloatingItemEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
     {
-        matrixStackIn.push();
+        matrixStackIn.pushPose();
         ItemStack itemstack = entityIn.getItem();
-        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, null);
+        IBakedModel ibakedmodel = this.itemRenderer.getModel(itemstack, entityIn.level, null);
         float f1 = entityIn.getYOffset(partialTicks);
-        float f2 = ibakedmodel.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.getY();
+        float f2 = ibakedmodel.getTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y();
         float f3 = entityIn.getRotation(partialTicks);
         matrixStackIn.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
-        matrixStackIn.rotate(Vector3f.YP.rotation(f3));
-        this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
-        matrixStackIn.pop();
+        matrixStackIn.mulPose(Vector3f.YP.rotation(f3));
+        this.itemRenderer.render(itemstack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
+        matrixStackIn.popPose();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(FloatingItemEntity entity)
+    public ResourceLocation getTextureLocation(FloatingItemEntity entity)
     {
-        return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+        return AtlasTexture.LOCATION_BLOCKS;
     }
 }

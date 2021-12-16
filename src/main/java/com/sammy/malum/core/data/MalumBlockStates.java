@@ -65,7 +65,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
-        MalumHelper.takeAll(blocks, b -> b.get().getTranslationKey().endsWith("_cap")).forEach(this::pillarCapBlock);
+        MalumHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
 
         MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumWallSignBlock).forEach(this::signBlock);
         MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumStandingSignBlock).forEach(this::signBlock);
@@ -149,13 +149,13 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch_wall")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay"));
 
         getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
                 .modelForState().modelFile(torch).rotationY(270).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.WEST)
+                .partialState().with(WallTorchBlock.FACING, Direction.WEST)
                 .modelForState().modelFile(torch).rotationY(180).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .partialState().with(WallTorchBlock.FACING, Direction.SOUTH)
                 .modelForState().modelFile(torch).rotationY(90).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.EAST)
+                .partialState().with(WallTorchBlock.FACING, Direction.EAST)
                 .modelForState().modelFile(torch).addModel();
     }
     public void torchBlock(RegistryObject<Block> blockRegistryObject)
@@ -171,13 +171,13 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         ModelFile torch = models().torchWall(blockRegistryObject.get().getRegistryName().getPath(), prefix("block/" + name.substring(5)));
     
         getVariantBuilder(blockRegistryObject.get())
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.NORTH)
+                .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
                 .modelForState().modelFile(torch).rotationY(270).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.WEST)
+                .partialState().with(WallTorchBlock.FACING, Direction.WEST)
                 .modelForState().modelFile(torch).rotationY(180).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.SOUTH)
+                .partialState().with(WallTorchBlock.FACING, Direction.SOUTH)
                 .modelForState().modelFile(torch).rotationY(90).addModel()
-                .partialState().with(WallTorchBlock.HORIZONTAL_FACING, Direction.EAST)
+                .partialState().with(WallTorchBlock.FACING, Direction.EAST)
                 .modelForState().modelFile(torch).addModel();
     }
     public void itemStandBlock(RegistryObject<Block> blockRegistryObject)
@@ -366,7 +366,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         ModelFile buttonPressed = models().withExistingParent(name + "_pressed", new ResourceLocation("block/button_pressed")).texture("texture", prefix("block/" + baseName));
         Function<BlockState, ModelFile> modelFunc = $ -> buttom;
         Function<BlockState, ModelFile> pressedModelFunc = $ -> buttonPressed;
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.get(BlockStateProperties.POWERED) ? pressedModelFunc.apply(s) : modelFunc.apply(s)).uvLock(s.get(BlockStateProperties.FACE).equals(AttachFace.WALL)).rotationX(s.get(BlockStateProperties.FACE).ordinal() * 90).rotationY((((int) s.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalAngle() + 180) + (s.get(BlockStateProperties.FACE) == AttachFace.CEILING ? 180 : 0)) % 360).build());
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(BlockStateProperties.POWERED) ? pressedModelFunc.apply(s) : modelFunc.apply(s)).uvLock(s.getValue(BlockStateProperties.ATTACH_FACE).equals(AttachFace.WALL)).rotationX(s.getValue(BlockStateProperties.ATTACH_FACE).ordinal() * 90).rotationY((((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) + (s.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.CEILING ? 180 : 0)) % 360).build());
         models().withExistingParent(name + "_inventory", new ResourceLocation("block/button_inventory")).texture("texture", prefix("block/" + baseName));
     
     }

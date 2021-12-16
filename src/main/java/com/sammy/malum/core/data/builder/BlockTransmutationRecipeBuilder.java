@@ -49,33 +49,33 @@ public class BlockTransmutationRecipeBuilder
         }
 
         @Override
-        public void serialize(JsonObject json) {
+        public void serializeRecipeData(JsonObject json) {
             json.addProperty("input", input.getRegistryName().toString());
             json.addProperty("output", output.getRegistryName().toString());
         }
 
         @Override
-        public ResourceLocation getID()
+        public ResourceLocation getId()
         {
             return id;
         }
 
         @Override
-        public IRecipeSerializer<?> getSerializer()
+        public IRecipeSerializer<?> getType()
         {
             return RecipeSerializerRegistry.BLOCK_TRANSMUTATION_RECIPE_SERIALIZER.get();
         }
 
         @Nullable
         @Override
-        public JsonObject getAdvancementJson()
+        public JsonObject serializeAdvancement()
         {
             return null;
         }
 
         @Nullable
         @Override
-        public ResourceLocation getAdvancementID()
+        public ResourceLocation getAdvancementId()
         {
             return null;
         }

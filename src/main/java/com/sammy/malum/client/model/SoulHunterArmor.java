@@ -26,88 +26,88 @@ public class SoulHunterArmor extends ArmorModel
 		super(slot, 64, 64);
 
 		leg_r = new ModelRenderer(this);
-		leg_r.setRotationPoint(-2.0F, 12.0F, 0.0F);
-		leg_r.setTextureOffset(0, 42).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, false);
+		leg_r.setPos(-2.0F, 12.0F, 0.0F);
+		leg_r.texOffs(0, 42).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, false);
 
 		boot_r = new ModelRenderer(this);
-		boot_r.setRotationPoint(0.0F, 0.0F, 0.0F);
+		boot_r.setPos(0.0F, 0.0F, 0.0F);
 		leg_r.addChild(boot_r);
-		boot_r.setTextureOffset(0, 56).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9F, false);
+		boot_r.texOffs(0, 56).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9F, false);
 
 		leg_l = new ModelRenderer(this);
-		leg_l.setRotationPoint(2.0F, 12.0F, 0.0F);
-		leg_l.setTextureOffset(0, 42).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, true);
+		leg_l.setPos(2.0F, 12.0F, 0.0F);
+		leg_l.texOffs(0, 42).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, true);
 
 		boot_l = new ModelRenderer(this);
-		boot_l.setRotationPoint(0.0F, 0.0F, 0.0F);
+		boot_l.setPos(0.0F, 0.0F, 0.0F);
 		leg_l.addChild(boot_l);
-		boot_l.setTextureOffset(0, 56).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9001F, true);
+		boot_l.texOffs(0, 56).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9001F, true);
 
 		torso = new ModelRenderer(this);
-		torso.setRotationPoint(0.0F, 0.0F, 0.0F);
-		torso.setTextureOffset(40, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.95F, false);
-		torso.setTextureOffset(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.75F, false);
+		torso.setPos(0.0F, 0.0F, 0.0F);
+		torso.texOffs(40, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.95F, false);
+		torso.texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.75F, false);
 
 		arm_r = new ModelRenderer(this);
-		arm_r.setRotationPoint(-6.0F, 2.0F, 0.0F);
-		arm_r.setTextureOffset(0, 29).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, true);
-		arm_r.setTextureOffset(0, 16).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, true);
+		arm_r.setPos(-6.0F, 2.0F, 0.0F);
+		arm_r.texOffs(0, 29).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, true);
+		arm_r.texOffs(0, 16).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, true);
 
 		arm_l = new ModelRenderer(this);
-		arm_l.setRotationPoint(6.0F, 2.0F, 0.0F);
-		arm_l.setTextureOffset(0, 29).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, false);
-		arm_l.setTextureOffset(0, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, false);
+		arm_l.setPos(6.0F, 2.0F, 0.0F);
+		arm_l.texOffs(0, 29).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, false);
+		arm_l.texOffs(0, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, false);
 
 		head = new ModelRenderer(this);
-		head.setRotationPoint(0.0F, 0.0F, 0.0F);
-		head.setTextureOffset(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.5F, false);
-		head.setTextureOffset(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.7F, false);
+		head.setPos(0.0F, 0.0F, 0.0F);
+		head.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.5F, false);
+		head.texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.7F, false);
 
 		leggings = new ModelRenderer(this);
-		leggings.setRotationPoint(0.0F, 0.0F, 0.0F);
-		leggings.setTextureOffset(16, 33).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, 0.5F, false);
+		leggings.setPos(0.0F, 0.0F, 0.0F);
+		leggings.texOffs(16, 33).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, 0.5F, false);
 	}
 
 	@Override
-	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)
+	public void renderToBuffer(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a)
 	{
-		head.showModel = slot == EquipmentSlotType.HEAD;
+		head.visible = slot == EquipmentSlotType.HEAD;
 
-		leggings.showModel = slot == EquipmentSlotType.LEGS;
-		leg_r.showModel = slot == EquipmentSlotType.LEGS;
-		leg_l.showModel = slot == EquipmentSlotType.LEGS;
+		leggings.visible = slot == EquipmentSlotType.LEGS;
+		leg_r.visible = slot == EquipmentSlotType.LEGS;
+		leg_l.visible = slot == EquipmentSlotType.LEGS;
 
-		torso.showModel = slot == EquipmentSlotType.CHEST;
-		arm_r.showModel = slot == EquipmentSlotType.CHEST;
-		arm_l.showModel = slot == EquipmentSlotType.CHEST;
+		torso.visible = slot == EquipmentSlotType.CHEST;
+		arm_r.visible = slot == EquipmentSlotType.CHEST;
+		arm_l.visible = slot == EquipmentSlotType.CHEST;
 
-		boot_r.showModel = slot == EquipmentSlotType.FEET;
-		boot_l.showModel = slot == EquipmentSlotType.FEET;
+		boot_r.visible = slot == EquipmentSlotType.FEET;
+		boot_l.visible = slot == EquipmentSlotType.FEET;
 
-		bipedHeadwear.showModel = false;
-		bipedHead = head;
+		hat.visible = false;
+		head = head;
 
-		bipedBody = torso;
-		bipedRightArm = arm_r;
-		bipedLeftArm = arm_l;
+		body = torso;
+		rightArm = arm_r;
+		leftArm = arm_l;
 
 		if (slot == EquipmentSlotType.LEGS)
 		{
-			bipedBody = leggings;
-			bipedRightLeg = leg_r;
-			bipedLeftLeg = leg_l;
+			body = leggings;
+			rightLeg = leg_r;
+			leftLeg = leg_l;
 		}
 		else
 		{
-			bipedRightLeg = boot_r;
-			bipedLeftLeg = boot_l;
+			rightLeg = boot_r;
+			leftLeg = boot_l;
 		}
-		super.render(ms, buffer, light, overlay, r, g, b, a);
+		super.renderToBuffer(ms, buffer, light, overlay, r, g, b, a);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
+		modelRenderer.xRot = x;
+		modelRenderer.yRot = y;
+		modelRenderer.zRot = z;
 	}
 }

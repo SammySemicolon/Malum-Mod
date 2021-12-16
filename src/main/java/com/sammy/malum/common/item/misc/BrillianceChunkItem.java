@@ -5,9 +5,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 
 import java.awt.*;
+
+import net.minecraft.item.Item.Properties;
 
 public class BrillianceChunkItem extends Item {
     public BrillianceChunkItem(Properties properties) {
@@ -15,14 +17,14 @@ public class BrillianceChunkItem extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-        int i = 3 + worldIn.rand.nextInt(5) + worldIn.rand.nextInt(5);
+    public ItemStack finishUsingItem(ItemStack stack, Level LevelIn, LivingEntity entityLiving) {
+        int i = 3 + LevelIn.random.nextInt(5) + LevelIn.random.nextInt(5);
 
         while (i > 0) {
-            int j = ExperienceOrbEntity.getXPSplit(i);
+            int j = ExperienceOrbEntity.getExperienceValue(i);
             i -= j;
-            worldIn.addEntity(new ExperienceOrbEntity(worldIn, entityLiving.getPosX(), entityLiving.getPosY(), entityLiving.getPosZ(), j));
+            LevelIn.addFreshEntity(new ExperienceOrbEntity(LevelIn, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(), j));
         }
-        return super.onItemUseFinish(stack, worldIn, entityLiving);
+        return super.finishUsingItem(stack, LevelIn, entityLiving);
     }
 }

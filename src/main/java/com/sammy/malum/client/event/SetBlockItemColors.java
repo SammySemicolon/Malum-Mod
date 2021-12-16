@@ -44,7 +44,7 @@ public class SetBlockItemColors
 
         blockColors.register((state, reader, pos, color) ->
         {
-            TileEntity tileEntity = reader.getTileEntity(pos);
+            TileEntity tileEntity = reader.getBlockEntity(pos);
             if (tileEntity instanceof EtherTileEntity)
             {
                 EtherTileEntity etherTileEntity = (EtherTileEntity) tileEntity;
@@ -58,7 +58,7 @@ public class SetBlockItemColors
 
         blockColors.register((state, reader, pos, color) ->
         {
-            float i = state.get(MalumLeavesBlock.COLOR);
+            float i = state.getValue(MalumLeavesBlock.COLOR);
             MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) state.getBlock();
             int r = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
             int g = (int) MathHelper.lerp(i / 5f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());

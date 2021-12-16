@@ -18,7 +18,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.potion.Effect;
+import net.minecraft.potion.MobEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fml.RegistryObject;
@@ -46,7 +46,7 @@ public class MalumLang extends LanguageProvider
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
         Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
-        Set<RegistryObject<Effect>> effects = new HashSet<>(EffectRegistry.EFFECTS.getEntries());
+        Set<RegistryObject<MobEffect>> effects = new HashSet<>(EffectRegistry.EFFECTS.getEntries());
         Set<RegistryObject<Attribute>> attributes = new HashSet<>(AttributeRegistry.ATTRIBUTES.getEntries());
         ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.entries;
         ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
@@ -56,16 +56,16 @@ public class MalumLang extends LanguageProvider
         MalumHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
         blocks.forEach(b ->
         {
-            String name = b.get().getTranslationKey().replaceFirst("block.malum.", "");
+            String name = b.get().getDescriptionId().replaceFirst("block.malum.", "");
             name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
-            add(b.get().getTranslationKey(), name);
+            add(b.get().getDescriptionId(), name);
         });
 
         items.forEach(i ->
         {
-            String name = i.get().getTranslationKey().replaceFirst("item.malum.", "");
+            String name = i.get().getDescriptionId().replaceFirst("item.malum.", "");
             name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
-            add(i.get().getTranslationKey(), name);
+            add(i.get().getDescriptionId(), name);
         });
 
         sounds.forEach(s -> {
@@ -74,7 +74,7 @@ public class MalumLang extends LanguageProvider
         });
         enchantments.forEach(e -> {
             String name = MalumHelper.toTitleCase(e.getId().getPath(), "_");
-            add(e.get().getName(), name);
+            add(e.get().getDescriptionId(), name);
         });
 
         effects.forEach(e -> {
@@ -93,8 +93,8 @@ public class MalumLang extends LanguageProvider
 
         addDescription("introduction", "Welcome to evil");
         addHeadline("introduction", "Introduction");
-        addPage("introduction_a", "Within this world, every living body has a soul. The body is a physical vessel that the soul occupies. The soul is one's consciousness and what animates the body. Both represent who you are, one physically, the other magically.");
-        addPage("introduction_b", "The encyclopedia arcana is a book that documents all that is known about arcane presence within this world. It focuses on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
+        addPage("introduction_a", "Within this Level, every living body has a soul. The body is a physical vessel that the soul occupies. The soul is one's consciousness and what animates the body. Both represent who you are, one physically, the other magically.");
+        addPage("introduction_b", "The encyclopedia arcana is a book that documents all that is known about arcane presence within this Level. It focuses on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
         addPage("introduction_c", "In order to properly harness the unspoken power of soul magics, you'll have to the very center of it. At the very core of every soul rests untapped potential in form of what's known as a spirit - a fragment of potential.");
         addPage("introduction_d", "The magical presence of a soul derives almost entirely from the spirits found within it. They may be dormant, but they are there. Each different soul is one and only, made up of different quantities of different spirits.");
 
@@ -106,8 +106,8 @@ public class MalumLang extends LanguageProvider
 
         addDescription("soulstone", "Altered Minerals");
         addHeadline("soulstone", "Soulstone");
-        addPage("soulstone_a", "The soulstone is a strange ore found both on the surface and in the deepslate layer of your world. The ore itself is created when wicked spirit is infused into carbon based minerals such as coal or diamond.");
-        addPage("soulstone_b", "Sadly this process takes an unbelievably long time, it's nearly impossible to replicate. At the end of it, a soul-reactive material was brought into this world. Due to it's origins, soulstone is a great catalyst for soul magics and other diabolical fields.");
+        addPage("soulstone_a", "The soulstone is a strange ore found both on the surface and in the deepslate layer of your Level. The ore itself is created when wicked spirit is infused into carbon based minerals such as coal or diamond.");
+        addPage("soulstone_b", "Sadly this process takes an unbelievably long time, it's nearly impossible to replicate. At the end of it, a soul-reactive material was brought into this Level. Due to it's origins, soulstone is a great catalyst for soul magics and other diabolical fields.");
         addPage("soulstone_c", "To be more specific, wicked spirit found within the soulstone is so concentrated  that when brought close to an arcane presence it can be easily damaged. Furthermore, any piece of gear made from soulstone will be able to damage souls.");
 
         addDescription("runewood", "Arcane oak");
@@ -162,7 +162,7 @@ public class MalumLang extends LanguageProvider
         addDescription("elemental_spirits", "Focused Arcana");
         addHeadline("earthen_spirit", "Earthen Spirit");
         addPage("earthen_spirit_a", "Earthen arcana stands for three things, power, earth and nature. The sorcery is incredibly potent even when used in small amounts.");
-        addPage("earthen_spirit_b", "With the strength of the world you can do quite a lot. For one, infusing earthen arcana into items is bound to make them more resistant than most. For two, earthen magic can be used to bring forth basic life. This potent wizardry is rather uncommon, only found within certain passive and sturdy souls.");
+        addPage("earthen_spirit_b", "With the strength of the Level you can do quite a lot. For one, infusing earthen arcana into items is bound to make them more resistant than most. For two, earthen magic can be used to bring forth basic life. This potent wizardry is rather uncommon, only found within certain passive and sturdy souls.");
         addHeadline("infernal_spirit", "Infernal Spirit");
         addPage("infernal_spirit_a", "Hellish magic is incredibly dangerous, and by far the most diabolical. PLaying with fire is usually not a good idea, unless you're a soul hunter.");
         addPage("infernal_spirit_b", "Infernal arcana is great at many things: light, explosions, fire, the list goes on. The magic isn't more potent than a mere flame however it is overly present in certain places. You definitely know where to hunt.");
@@ -171,7 +171,7 @@ public class MalumLang extends LanguageProvider
         addPage("aerial_spirit_b", "Everyone would love to fly, it's very convenient. When studying the nimble phantom soul you may derive two things. For one, immense uncontrollable anger. For two, aerial magic can easily be used to aid your movement. Any swift soul is bound to contain aerial spirits within for you to steal.");
         addHeadline("aqueous_spirit", "Aqueous Spirit");
         addPage("aqueous_spirit_a", "Similar to the earthen arcana, aqueous magics are immensely powerful.");
-        addPage("aqueous_spirit_b", "For uncertain reasons, aqueous magic is unbelievably abundant within the world. The seas are filled with plenty of strange things, robot-like guardians, the drowned, various ruins and monuments, there's too much to count. While aqueous sorcery isn't too potent, it makes up for it with lots of use cases.");
+        addPage("aqueous_spirit_b", "For uncertain reasons, aqueous magic is unbelievably abundant within the Level. The seas are filled with plenty of strange things, robot-like guardians, the drowned, various ruins and monuments, there's too much to count. While aqueous sorcery isn't too potent, it makes up for it with lots of use cases.");
 
         addDescription("arcane_rock", "Perfect for an Evil Lair");
         addHeadline("tainted_rock", "Tainted Rock");
@@ -218,7 +218,7 @@ public class MalumLang extends LanguageProvider
         addPage("spirit_jar", "The spirit jar is a simple craft. It's a placeable jar block that can store a really really large amount of a single spirit, very convenient to have next to a spirit altar. You can input and output spirits by right clicking, sneaking will take out an entire stack.");
         addHeadline("soul_stained_steel", "Soul Stained Steel");
         addPage("soul_stained_steel_a", "The sacred origins of hallowed gold make it nearly impossible to use for harm. Soul stained steel is nothing like that, it's a tough metal twisted evil beyond recognition. It excels at heartless crimes, perfect for various gear and trinkets.");
-        addPage("soul_stained_steel_b", "Any piece of gear made from soul stained steel is capable of shattering souls. Both metals can also be used to create a type of magic transmitter. A spirit resonator, a more complex crafting component meant for manipulating in-world spirits.");
+        addPage("soul_stained_steel_b", "Any piece of gear made from soul stained steel is capable of shattering souls. Both metals can also be used to create a type of magic transmitter. A spirit resonator, a more complex crafting component meant for manipulating in-Level spirits.");
 
         addDescription("soul_stained_gear", "Tinkering");
         addHeadline("soul_stained_scythe", "Soul Stained Scythe");

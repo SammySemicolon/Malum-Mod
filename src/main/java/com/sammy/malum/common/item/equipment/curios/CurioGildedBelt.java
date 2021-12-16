@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioGildedBelt extends MalumCurioItem
 {
     private static final UUID ATTRIBUTE_UUID = UUID.fromString("0baf5041-f36d-4b33-b45f-b7d340a8fa6c");

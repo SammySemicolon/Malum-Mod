@@ -7,10 +7,12 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.Level.ILevelReader;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+
+import net.minecraft.item.Item.Properties;
 
 public class EtherTorchItem extends AbstractEtherItem
 {
@@ -23,19 +25,19 @@ public class EtherTorchItem extends AbstractEtherItem
     }
 
     @Nullable
-    protected BlockState getStateForPlacement(BlockItemUseContext context)
+    protected BlockState getPlacementState(BlockItemUseContext context)
     {
         BlockState blockstate = this.wallBlock.getStateForPlacement(context);
         BlockState blockstate1 = null;
-        IWorldReader iworldreader = context.getWorld();
-        BlockPos blockpos = context.getPos();
+        ILevelReader iLevelreader = context.getLevel();
+        BlockPos blockpos = context.getClickedPos();
 
         for (Direction direction : context.getNearestLookingDirections())
         {
             if (direction != Direction.UP)
             {
                 BlockState blockstate2 = direction == Direction.DOWN ? this.getBlock().getStateForPlacement(context) : blockstate;
-                if (blockstate2 != null && blockstate2.isValidPosition(iworldreader, blockpos))
+                if (blockstate2 != null && blockstate2.canSurvive(iLevelreader, blockpos))
                 {
                     blockstate1 = blockstate2;
                     break;
@@ -43,12 +45,12 @@ public class EtherTorchItem extends AbstractEtherItem
             }
         }
 
-        return blockstate1 != null && iworldreader.placedBlockCollides(blockstate1, blockpos, ISelectionContext.dummy()) ? blockstate1 : null;
+        return blockstate1 != null && iLevelreader.isUnobstructed(blockstate1, blockpos, ISelectionContext.empty()) ? blockstate1 : null;
     }
 
-    public void addToBlockToItemMap(Map<Block, Item> blockToItemMap, Item itemIn)
+    public void registerBlocks(Map<Block, Item> blockToItemMap, Item itemIn)
     {
-        super.addToBlockToItemMap(blockToItemMap, itemIn);
+        super.registerBlocks(blockToItemMap, itemIn);
         blockToItemMap.put(this.wallBlock, itemIn);
     }
 

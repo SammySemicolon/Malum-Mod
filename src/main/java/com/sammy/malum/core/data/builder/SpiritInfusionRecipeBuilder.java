@@ -35,7 +35,7 @@ public class SpiritInfusionRecipeBuilder
     }
     public SpiritInfusionRecipeBuilder(Item input, int inputCount, Item output, int outputCount)
     {
-        this.input = new IngredientWithCount(Ingredient.fromItems(input), inputCount);
+        this.input = new IngredientWithCount(Ingredient.of(input), inputCount);
         this.output = new ItemWithCount(output, outputCount);
     }
     public SpiritInfusionRecipeBuilder addExtraItem(Ingredient ingredient, int count)
@@ -45,7 +45,7 @@ public class SpiritInfusionRecipeBuilder
     }
     public SpiritInfusionRecipeBuilder addExtraItem(Item input, int count)
     {
-        extraItems.add(new IngredientWithCount(Ingredient.fromItems(input), count));
+        extraItems.add(new IngredientWithCount(Ingredient.of(input), count));
         return this;
     }
     public SpiritInfusionRecipeBuilder addSpirit(MalumSpiritType type, int count)
@@ -95,7 +95,7 @@ public class SpiritInfusionRecipeBuilder
         }
 
         @Override
-        public void serialize(JsonObject json) {
+        public void serializeRecipeData(JsonObject json) {
             JsonObject inputObject = input.serialize();
 
             JsonObject outputObject = output.serialize();
@@ -116,27 +116,27 @@ public class SpiritInfusionRecipeBuilder
         }
 
         @Override
-        public ResourceLocation getID()
+        public ResourceLocation getId()
         {
             return id;
         }
 
         @Override
-        public IRecipeSerializer<?> getSerializer()
+        public IRecipeSerializer<?> getType()
         {
             return RecipeSerializerRegistry.INFUSION_RECIPE_SERIALIZER.get();
         }
 
         @Nullable
         @Override
-        public JsonObject getAdvancementJson()
+        public JsonObject serializeAdvancement()
         {
             return null;
         }
 
         @Nullable
         @Override
-        public ResourceLocation getAdvancementID()
+        public ResourceLocation getAdvancementId()
         {
             return null;
         }

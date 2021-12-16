@@ -1,18 +1,17 @@
 package com.sammy.malum.core.systems.spirit;
 
 import com.google.gson.*;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SpiritReloadListener extends JsonReloadListener
+public class SpiritReloadListener extends SimpleJsonResourceReloadListener
 {
     private static final Gson GSON = (new GsonBuilder()).create();
 
@@ -22,7 +21,7 @@ public class SpiritReloadListener extends JsonReloadListener
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn)
+    protected void apply(Map<ResourceLocation, JsonElement> objectIn, ResourceManager resourceManagerIn, ProfilerFiller profilerIn)
     {
         MalumSpiritType.SPIRIT_DATA = new HashMap<>();
         for (int i = 0; i < objectIn.size(); i++)
@@ -30,7 +29,7 @@ public class SpiritReloadListener extends JsonReloadListener
             ResourceLocation location = (ResourceLocation) objectIn.keySet().toArray()[i];
             JsonObject object = objectIn.get(location).getAsJsonObject();
             String name = object.getAsJsonPrimitive("registry_name").getAsString();
-            ResourceLocation resourceLocation = MalumHelper.moddedLocation(name);
+            ResourceLocation resourceLocation = new ResourceLocation(name);
             if (MalumSpiritType.SPIRIT_DATA.containsKey(resourceLocation))
             {
                 MalumMod.LOGGER.info("entity with " + name + " already has spirit data associated with it. Skipping file");

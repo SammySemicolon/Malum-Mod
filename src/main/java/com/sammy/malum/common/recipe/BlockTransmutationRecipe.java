@@ -11,7 +11,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -67,36 +67,36 @@ public class BlockTransmutationRecipe extends IMalumRecipe
         return output.equals(this.output);
     }
 
-    public static List<BlockTransmutationRecipe> getRecipes(World world)
+    public static List<BlockTransmutationRecipe> getRecipes(Level Level)
     {
-        return world.getRecipeManager().getRecipesForType(Type.INSTANCE);
+        return Level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<BlockTransmutationRecipe> {
 
         @Override
-        public BlockTransmutationRecipe read(ResourceLocation recipeId, JsonObject json)
+        public BlockTransmutationRecipe fromJson(ResourceLocation recipeId, JsonObject json)
         {
             String input = json.getAsJsonPrimitive("input").getAsString();
             String output = json.getAsJsonPrimitive("output").getAsString();
 
-            return new BlockTransmutationRecipe(recipeId, Registry.BLOCK.getOrDefault(new ResourceLocation(input)), Registry.BLOCK.getOrDefault(new ResourceLocation(output)));
+            return new BlockTransmutationRecipe(recipeId, Registry.BLOCK.get(new ResourceLocation(input)), Registry.BLOCK.get(new ResourceLocation(output)));
         }
 
         @Nullable
         @Override
-        public BlockTransmutationRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
+        public BlockTransmutationRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer)
         {
-            BlockState input = Block.getStateById(buffer.readVarInt());
-            BlockState output = Block.getStateById(buffer.readVarInt());
+            BlockState input = Block.stateById(buffer.readVarInt());
+            BlockState output = Block.stateById(buffer.readVarInt());
             return new BlockTransmutationRecipe(recipeId, input.getBlock(), output.getBlock());
         }
 
         @Override
-        public void write(PacketBuffer buffer, BlockTransmutationRecipe recipe)
+        public void toNetwork(PacketBuffer buffer, BlockTransmutationRecipe recipe)
         {
-            buffer.writeVarInt(Block.getStateId(recipe.input.getDefaultState()));
-            buffer.writeVarInt(Block.getStateId(recipe.output.getDefaultState()));
+            buffer.writeVarInt(Block.getId(recipe.input.defaultBlockState()));
+            buffer.writeVarInt(Block.getId(recipe.output.defaultBlockState()));
         }
     }
 }

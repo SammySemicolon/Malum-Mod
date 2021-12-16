@@ -40,7 +40,7 @@ public class SpiritTextPage extends BookPage
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
+        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+79,125);
         ProgressionBookScreen.renderItem(matrixStack, spiritStack, guiLeft+67, guiTop+44,mouseX,mouseY);
     }
@@ -51,7 +51,7 @@ public class SpiritTextPage extends BookPage
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
+        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+79,125);
         ProgressionBookScreen.renderItem(matrixStack, spiritStack, guiLeft+209, guiTop+44,mouseX,mouseY);
     }

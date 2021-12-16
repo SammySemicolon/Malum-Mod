@@ -7,7 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
@@ -21,43 +21,45 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.Level.IBlockReader;
+import net.minecraft.Level.ILevel;
+import net.minecraft.Level.Level;
 
 import javax.annotation.Nullable;
+
+import net.minecraft.block.AbstractBlock.Properties;
 
 public class EtherBlock extends Block implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final VoxelShape SHAPE =Block.makeCuboidShape(6, 6, 6, 10, 10, 10);
+    public static final VoxelShape SHAPE =Block.box(6, 6, 6, 10, 10, 10);
 
     public EtherBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+    public void setPlacedBy(Level LevelIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
     {
-        if (worldIn.getTileEntity(pos) instanceof EtherTileEntity)
+        if (LevelIn.getBlockEntity(pos) instanceof EtherTileEntity)
         {
-            EtherTileEntity tileEntity = (EtherTileEntity) worldIn.getTileEntity(pos);
+            EtherTileEntity tileEntity = (EtherTileEntity) LevelIn.getBlockEntity(pos);
             AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
             tileEntity.firstColor = ClientHelper.getColor(item.getFirstColor(stack));
             tileEntity.secondColor = ClientHelper.getColor(item.getSecondColor(stack));
         }
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        super.setPlacedBy(LevelIn, pos, state, placer, stack);
     }
 
     @Override
-    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player)
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader Level, BlockPos pos, Player player)
     {
         ItemStack stack = asItem().getDefaultInstance();
-        if (world.getTileEntity(pos) instanceof EtherTileEntity)
+        if (Level.getBlockEntity(pos) instanceof EtherTileEntity)
         {
-            EtherTileEntity tileEntity = (EtherTileEntity) world.getTileEntity(pos);
+            EtherTileEntity tileEntity = (EtherTileEntity) Level.getBlockEntity(pos);
             AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
             if (tileEntity.firstColor != null)
             {
@@ -72,7 +74,7 @@ public class EtherBlock extends Block implements IWaterLoggable
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
     {
         return SHAPE;
     }
@@ -83,39 +85,39 @@ public class EtherBlock extends Block implements IWaterLoggable
     }
     
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    public TileEntity createTileEntity(BlockState state, IBlockReader Level)
     {
         return new EtherTileEntity();
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(WATERLOGGED);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel LevelIn, BlockPos currentPos, BlockPos facingPos)
     {
-        if (stateIn.get(WATERLOGGED))
+        if (stateIn.getValue(WATERLOGGED))
         {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+            LevelIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(LevelIn));
         }
-        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, LevelIn, currentPos, facingPos);
     }
 
     @Override
     public FluidState getFluidState(BlockState state)
     {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
-        return getDefaultState().with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
+        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
+        return defaultBlockState().setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
     }
 }

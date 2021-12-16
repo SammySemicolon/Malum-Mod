@@ -1,11 +1,11 @@
 package com.sammy.malum.core.systems.worldgen;
 
 import com.sammy.malum.MalumHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class MalumFiller
 
     }
 
-    public void fill(ISeedReader reader, boolean safetyCheck)
+    public void fill(WorldGenLevel reader, boolean safetyCheck)
     {
         for (BlockStateEntry entry : entries)
         {
@@ -26,11 +26,11 @@ public class MalumFiller
             {
                 continue;
             }
-            reader.setBlockState(entry.pos, entry.state, 3);
+            reader.setBlock(entry.pos, entry.state, 3);
             entry.additionalPlacement(reader);
-            if (reader instanceof World)
+            if (reader instanceof Level)
             {
-                MalumHelper.updateState((World) reader, entry.pos);
+                MalumHelper.updateState((Level) reader, entry.pos);
             }
         }
     }
@@ -50,32 +50,32 @@ public class MalumFiller
             this.pos = pos;
         }
 
-        public boolean canPlace(ISeedReader reader)
+        public boolean canPlace(WorldGenLevel level)
         {
-            return canPlace(reader, pos);
+            return canPlace(level, pos);
         }
 
-        public boolean canPlace(ISeedReader reader, BlockPos pos)
+        public boolean canPlace(WorldGenLevel level, BlockPos pos)
         {
-            if (World.isOutsideBuildHeight(pos))
+            if (level.isOutsideBuildHeight(pos))
             {
                 return false;
             }
-            BlockState state = reader.getBlockState(pos);
-            return reader.isAirBlock(pos) || state.getMaterial().isReplaceable();
+            BlockState state = level.getBlockState(pos);
+            return level.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
         }
 
-        public boolean canPlace(ISeedReader reader, BlockPos pos, Block block)
+        public boolean canPlace(WorldGenLevel level, BlockPos pos, Block block)
         {
-            if (World.isOutsideBuildHeight(pos))
+            if (level.isOutsideBuildHeight(pos))
             {
                 return false;
             }
-            BlockState state = reader.getBlockState(pos);
-            return state.getBlock().equals(block) || reader.isAirBlock(pos) || state.getMaterial().isReplaceable();
+            BlockState state = level.getBlockState(pos);
+            return state.getBlock().equals(block) || level.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
         }
 
-        public void additionalPlacement(ISeedReader reader)
+        public void additionalPlacement(WorldGenLevel level)
         {
 
         }

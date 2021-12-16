@@ -7,7 +7,7 @@ import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -143,12 +143,12 @@ public class EntryScreen extends Screen
     {
         if (keyCode == GLFW.GLFW_KEY_E)
         {
-            closeScreen();
+            onClose();
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override
-    public void closeScreen()
+    public void onClose()
     {
         ProgressionBookScreen.openScreen(false);
         openObject.exit();
@@ -156,12 +156,12 @@ public class EntryScreen extends Screen
 
     public void playSound()
     {
-        PlayerEntity playerEntity = Minecraft.getInstance().player;
-        playerEntity.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        Player playerEntity = Minecraft.getInstance().player;
+        playerEntity.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
     }
     public static void openScreen(EntryObject newObject)
     {
-        Minecraft.getInstance().displayGuiScreen(getInstance(newObject));
+        Minecraft.getInstance().setScreen(getInstance(newObject));
         screen.playSound();
     }
     public static EntryScreen getInstance(EntryObject newObject)

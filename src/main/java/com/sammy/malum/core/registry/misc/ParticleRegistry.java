@@ -31,13 +31,13 @@ public class ParticleRegistry {
 
     @SubscribeEvent
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particles.registerFactory(WISP_PARTICLE.get(), WispParticleType.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(SMOKE_PARTICLE.get(), WispParticleType.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(SPARKLE_PARTICLE.get(), WispParticleType.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(TWINKLE_PARTICLE.get(), WispParticleType.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(WISP_PARTICLE.get(), WispParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SMOKE_PARTICLE.get(), WispParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SPARKLE_PARTICLE.get(), WispParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(TWINKLE_PARTICLE.get(), WispParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
 
-        Minecraft.getInstance().particles.registerFactory(SCYTHE_CUT_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(SCYTHE_SWEEP_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SCYTHE_CUT_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(SCYTHE_SWEEP_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
     }
 }

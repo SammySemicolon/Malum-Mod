@@ -9,7 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,21 +22,21 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(World world, BlockPos pos) {
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, world, pos, false);
-        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !world.getBlockState(p).isAir(world, p));
+    public void riteEffect(Level Level, BlockPos pos) {
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
+        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !Level.getBlockState(p).isAir(Level, p));
         positions.forEach(p -> {
-            BlockState water = Blocks.WATER.getDefaultState();
-            if (MalumHelper.areWeOnServer(world)) {
-                world.setBlockState(p, water);
+            BlockState water = Blocks.WATER.defaultBlockState();
+            if (MalumHelper.areWeOnServer(Level)) {
+                Level.setBlockAndUpdate(p, water);
             } else {
-                particles(world, p);
+                particles(Level, p);
             }
         });
     }
 
     @Override
-    public void corruptedRiteEffect(World world, BlockPos pos) {
+    public void corruptedRiteEffect(Level Level, BlockPos pos) {
     }
 
     @Override
@@ -49,7 +49,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
         return defaultRange() / 2;
     }
 
-    public void particles(World world, BlockPos pos) {
+    public void particles(Level Level, BlockPos pos) {
         Color color = AQUEOUS_SPIRIT_COLOR;
         ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
@@ -60,7 +60,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(world, pos, 6, Direction.UP);
+                .evenlyRepeatEdges(Level, pos, 6, Direction.UP);
         ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
@@ -70,6 +70,6 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                 .randomOffset(0.2f)
                 .enableNoClip()
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(world, pos, 8, Direction.UP);
+                .evenlyRepeatEdges(Level, pos, 8, Direction.UP);
     }
 }

@@ -1,9 +1,9 @@
 package com.sammy.malum.core.systems.recipe;
 
 import com.google.gson.JsonObject;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemWithCount
@@ -34,7 +34,7 @@ public class ItemWithCount
 
     public static ItemWithCount deserialize(JsonObject inputObject)
     {
-        ItemStack input = ShapedRecipe.deserializeItem(inputObject);
+        ItemStack input = ShapedRecipe.itemStackFromJson(inputObject);
         return new ItemWithCount(input);
     }
     public JsonObject serialize()

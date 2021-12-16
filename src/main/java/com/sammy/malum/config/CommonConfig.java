@@ -22,7 +22,7 @@ public class CommonConfig {
 
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
-        builder.comment("Worldgen Settings").push("worldgen");
+        builder.comment("Levelgen Settings").push("Levelgen");
 
         builder.comment("Runewood Config").push("runewood");
         GENERATE_RUNEWOOD_TREES = builder.comment("Should runewood trees naturally generate?")

@@ -2,12 +2,14 @@ package com.sammy.malum.common.item;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
+
+import net.minecraft.item.Item.Properties;
 
 public class EncyclopediaArcanaItem extends Item
 {
@@ -17,14 +19,14 @@ public class EncyclopediaArcanaItem extends Item
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
+    public ActionResult<ItemStack> use(Level LevelIn, Player playerIn, Hand handIn)
     {
-        if (MalumHelper.areWeOnClient(worldIn))
+        if (MalumHelper.areWeOnClient(LevelIn))
         {
             ProgressionBookScreen.openScreen(true);
-            playerIn.swingArm(handIn);
-            return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
+            playerIn.swing(handIn);
+            return ActionResult.success(playerIn.getItemInHand(handIn));
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(LevelIn, playerIn, handIn);
     }
 }

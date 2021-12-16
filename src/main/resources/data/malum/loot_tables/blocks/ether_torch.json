@@ -21,8 +21,8 @@
               "ops":
               [
                 {
-                  "source": "world_key",
-                  "target": "BlockEntityTag.world_key",
+                  "source": "Level_key",
+                  "target": "BlockEntityTag.Level_key",
                   "op": "replace"
                 },
                 {

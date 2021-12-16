@@ -3,13 +3,13 @@ package com.sammy.malum;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
-import net.minecraft.data.BlockTagsProvider;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +26,7 @@ import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.registry.misc.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURES;
+import static com.sammy.malum.core.registry.Levelgen.FeatureRegistry.FEATURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)

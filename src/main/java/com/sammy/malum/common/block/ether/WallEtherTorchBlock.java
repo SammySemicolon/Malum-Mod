@@ -12,57 +12,59 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.Level.IBlockReader;
+import net.minecraft.Level.ILevel;
+import net.minecraft.Level.ILevelReader;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
 {
-    public static final DirectionProperty HORIZONTAL_FACING = HorizontalBlock.HORIZONTAL_FACING;
-    private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.makeCuboidShape(5.5D, 3.0D, 11.0D, 10.5D, 13.0D, 16.0D), Direction.SOUTH, Block.makeCuboidShape(5.5D, 3.0D, 0.0D, 10.5D, 13.0D, 5.0D), Direction.WEST, Block.makeCuboidShape(11.0D, 3.0D, 5.5D, 16.0D, 13.0D, 10.5D), Direction.EAST, Block.makeCuboidShape(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D)));
+    public static final DirectionProperty HORIZONTAL_FACING = HorizontalBlock.FACING;
+    private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(5.5D, 3.0D, 11.0D, 10.5D, 13.0D, 16.0D), Direction.SOUTH, Block.box(5.5D, 3.0D, 0.0D, 10.5D, 13.0D, 5.0D), Direction.WEST, Block.box(11.0D, 3.0D, 5.5D, 16.0D, 13.0D, 10.5D), Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D)));
 
 
     public WallEtherTorchBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false).with(HORIZONTAL_FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(HORIZONTAL_FACING, Direction.NORTH));
     }
 
     @Override
-    public String getTranslationKey()
+    public String getDescriptionId()
     {
-        return this.asItem().getTranslationKey();
+        return this.asItem().getDescriptionId();
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
     {
         return getShapeForState(state);
     }
 
     public static VoxelShape getShapeForState(BlockState state)
     {
-        return SHAPES.get(state.get(HORIZONTAL_FACING));
+        return SHAPES.get(state.getValue(HORIZONTAL_FACING));
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
+    public boolean canSurvive(BlockState state, ILevelReader LevelIn, BlockPos pos)
     {
-        Direction direction = state.get(HORIZONTAL_FACING);
-        BlockPos blockpos = pos.offset(direction.getOpposite());
-        BlockState blockstate = worldIn.getBlockState(blockpos);
-        return blockstate.isSolidSide(worldIn, blockpos, direction);
+        Direction direction = state.getValue(HORIZONTAL_FACING);
+        BlockPos blockpos = pos.relative(direction.getOpposite());
+        BlockState blockstate = LevelIn.getBlockState(blockpos);
+        return blockstate.isFaceSturdy(LevelIn, blockpos, direction);
     }
 
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        BlockState blockstate = this.getDefaultState();
-        IWorldReader iworldreader = context.getWorld();
-        BlockPos blockpos = context.getPos();
+        BlockState blockstate = this.defaultBlockState();
+        ILevelReader iLevelreader = context.getLevel();
+        BlockPos blockpos = context.getClickedPos();
         Direction[] adirection = context.getNearestLookingDirections();
 
         for (Direction direction : adirection)
@@ -70,8 +72,8 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
             if (direction.getAxis().isHorizontal())
             {
                 Direction direction1 = direction.getOpposite();
-                blockstate = blockstate.with(HORIZONTAL_FACING, direction1);
-                if (blockstate.isValidPosition(iworldreader, blockpos))
+                blockstate = blockstate.setValue(HORIZONTAL_FACING, direction1);
+                if (blockstate.canSurvive(iLevelreader, blockpos))
                 {
                     return blockstate;
                 }
@@ -82,26 +84,26 @@ public class WallEtherTorchBlock extends EtherBlock implements IWaterLoggable
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel LevelIn, BlockPos currentPos, BlockPos facingPos)
     {
-        return facing.getOpposite() == stateIn.get(HORIZONTAL_FACING) && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : stateIn;
+        return facing.getOpposite() == stateIn.getValue(HORIZONTAL_FACING) && !stateIn.canSurvive(LevelIn, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }
 
 
     @Override
     public BlockState rotate(BlockState state, Rotation rot)
     {
-        return state.with(HORIZONTAL_FACING, rot.rotate(state.get(HORIZONTAL_FACING)));
+        return state.setValue(HORIZONTAL_FACING, rot.rotate(state.getValue(HORIZONTAL_FACING)));
     }
 
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn)
     {
-        return state.rotate(mirrorIn.toRotation(state.get(HORIZONTAL_FACING)));
+        return state.rotate(mirrorIn.getRotation(state.getValue(HORIZONTAL_FACING)));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(WATERLOGGED, HORIZONTAL_FACING);
     }

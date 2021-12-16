@@ -17,6 +17,8 @@ import javax.annotation.Nullable;
 
 import static com.sammy.malum.core.registry.items.ArmorTiers.ArmorTierEnum.SOUL_STAINED_STRONGHOLD;
 
+import net.minecraft.item.Item.Properties;
+
 public class SoulStainedStrongholdArmorItem extends ArmorItem
 {
     private LazyValue<Object> model;
@@ -35,7 +37,7 @@ public class SoulStainedStrongholdArmorItem extends ArmorItem
     @SuppressWarnings("unchecked")
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original)
     {
-        return (A) model.getValue();
+        return (A) model.get();
     }
     
     @OnlyIn(Dist.CLIENT)

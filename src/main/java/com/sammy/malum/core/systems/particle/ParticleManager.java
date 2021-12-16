@@ -5,7 +5,7 @@ import net.minecraft.particles.ParticleType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.awt.*;
@@ -205,7 +205,7 @@ public class ParticleManager
             return this;
         }
     
-        public ParticleBuilder spawnCircle(World world, double x, double y, double z,double distance, double currentCount, double totalCount)
+        public ParticleBuilder spawnCircle(Level Level, double x, double y, double z,double distance, double currentCount, double totalCount)
         {
             double xSpeed = random.nextFloat() * maxXSpeed, ySpeed = random.nextFloat() * maxYSpeed, zSpeed = random.nextFloat() * maxZSpeed;
             double theta = (Math.PI * 2) / totalCount;
@@ -221,10 +221,10 @@ public class ParticleManager
             this.dx = Math.sin(yaw2) * Math.cos(pitch2) * xDist;
             this.dy = Math.sin(pitch2) * yDist;
             this.dz = Math.cos(yaw2) * Math.cos(pitch2) * zDist;
-            world.addParticle(data, x + dx + dx2, y + dy, z + dz + dz2, vx, ySpeed, vz);
+            Level.addParticle(data, x + dx + dx2, y + dy, z + dz + dz2, vx, ySpeed, vz);
             return this;
         }
-        public ParticleBuilder spawn(World world, double x, double y, double z)
+        public ParticleBuilder spawn(Level Level, double x, double y, double z)
         {
             double yaw = random.nextFloat() * Math.PI * 2, pitch = random.nextFloat() * Math.PI - Math.PI / 2, xSpeed = random.nextFloat() * maxXSpeed, ySpeed = random.nextFloat() * maxYSpeed, zSpeed = random.nextFloat() * maxZSpeed;
             this.vx += Math.sin(yaw) * Math.cos(pitch) * xSpeed;
@@ -235,11 +235,11 @@ public class ParticleManager
             this.dy = Math.sin(pitch2) * yDist;
             this.dz = Math.cos(yaw2) * Math.cos(pitch2) * zDist;
         
-            world.addParticle(data, x + dx, y + dy, z + dz, vx, vy, vz);
+            Level.addParticle(data, x + dx, y + dy, z + dz, vx, vy, vz);
             return this;
         }
 
-        public ParticleBuilder evenlySpawnAtEdges(World world, BlockPos pos, Direction... directions)
+        public ParticleBuilder evenlySpawnAtEdges(Level Level, BlockPos pos, Direction... directions)
         {
             for (Direction direction : directions)
             {
@@ -250,17 +250,17 @@ public class ParticleManager
 
                 Direction.Axis direction$axis = direction.getAxis();
                 double d0 = 0.5625D;
-                this.dx = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getXOffset() : (double) random.nextFloat();
-                this.dy = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getYOffset() : (double) random.nextFloat();
-                this.dz = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getZOffset() : (double) random.nextFloat();
+                this.dx = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getStepX() : (double) random.nextFloat();
+                this.dy = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getStepY() : (double) random.nextFloat();
+                this.dz = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getStepZ() : (double) random.nextFloat();
 
-                world.addParticle(data, pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz, vx, vy, vz);
+                Level.addParticle(data, pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz, vx, vy, vz);
 
             }return this;
         }
-        public ParticleBuilder spawnAtEdges(World world, BlockPos pos)
+        public ParticleBuilder spawnAtEdges(Level Level, BlockPos pos)
         {
-            Direction direction = Direction.values()[world.rand.nextInt(Direction.values().length)];
+            Direction direction = Direction.values()[Level.random.nextInt(Direction.values().length)];
             double yaw = random.nextFloat() * Math.PI * 2, pitch = random.nextFloat() * Math.PI - Math.PI / 2, xSpeed = random.nextFloat() * maxXSpeed, ySpeed = random.nextFloat() * maxYSpeed, zSpeed = random.nextFloat() * maxZSpeed;
             this.vx += Math.sin(yaw) * Math.cos(pitch) * xSpeed;
             this.vy += Math.sin(pitch) * ySpeed;
@@ -268,37 +268,37 @@ public class ParticleManager
         
             Direction.Axis direction$axis = direction.getAxis();
             double d0 = 0.5625D;
-            this.dx = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getXOffset() : (double) random.nextFloat();
-            this.dy = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getYOffset() : (double) random.nextFloat();
-            this.dz = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getZOffset() : (double) random.nextFloat();
+            this.dx = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getStepX() : (double) random.nextFloat();
+            this.dy = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getStepY() : (double) random.nextFloat();
+            this.dz = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getStepZ() : (double) random.nextFloat();
             
-            world.addParticle(data, pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz, vx, vy, vz);
+            Level.addParticle(data, pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz, vx, vy, vz);
             return this;
         }
     
-        public ParticleBuilder repeat(World world, double x, double y, double z, int n)
+        public ParticleBuilder repeat(Level Level, double x, double y, double z, int n)
         {
-            for (int i = 0; i < n; i++) spawn(world, x, y, z);
+            for (int i = 0; i < n; i++) spawn(Level, x, y, z);
             return this;
         }
-        public ParticleBuilder repeatEdges(World world, BlockPos pos, int n)
+        public ParticleBuilder repeatEdges(Level Level, BlockPos pos, int n)
         {
-            for (int i = 0; i < n; i++) spawnAtEdges(world, pos);
+            for (int i = 0; i < n; i++) spawnAtEdges(Level, pos);
             return this;
         }
-        public ParticleBuilder evenlyRepeatEdges(World world, BlockPos pos, int n)
+        public ParticleBuilder evenlyRepeatEdges(Level Level, BlockPos pos, int n)
         {
-            for (int i = 0; i < n; i++) evenlySpawnAtEdges(world, pos, Direction.values());
+            for (int i = 0; i < n; i++) evenlySpawnAtEdges(Level, pos, Direction.values());
             return this;
         }
-        public ParticleBuilder evenlyRepeatEdges(World world, BlockPos pos, int n, Direction... directions)
+        public ParticleBuilder evenlyRepeatEdges(Level Level, BlockPos pos, int n, Direction... directions)
         {
-            for (int i = 0; i < n; i++) evenlySpawnAtEdges(world, pos, directions);
+            for (int i = 0; i < n; i++) evenlySpawnAtEdges(Level, pos, directions);
             return this;
         }
-        public ParticleBuilder repeatCircle(World world, double x, double y, double z, double distance, int times)
+        public ParticleBuilder repeatCircle(Level Level, double x, double y, double z, double distance, int times)
         {
-            for (int i = 0; i < times; i++) spawnCircle(world, x, y, z, distance,i, times);
+            for (int i = 0; i < times; i++) spawnCircle(Level, x, y, z, distance,i, times);
             return this;
         }
     }

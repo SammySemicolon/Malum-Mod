@@ -15,6 +15,8 @@ import java.util.UUID;
 
 import static com.sammy.malum.core.registry.items.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
+import net.minecraft.item.Item.Properties;
+
 public class SoulHunterArmorItem extends MalumArmorItem {
     public SoulHunterArmorItem(EquipmentSlotType slot, Properties builder) {
         super(SPIRIT_HUNTER, slot, builder);

@@ -28,7 +28,7 @@ public class SpiritInfusionPage extends BookPage
             this.recipe = null;
             return;
         }
-        this.recipe = SpiritInfusionRecipe.getRecipeForArcana(Minecraft.getInstance().world, outputStack);
+        this.recipe = SpiritInfusionRecipe.getRecipeForArcana(Minecraft.getInstance().level, outputStack);
     }
     public SpiritInfusionPage(Item outputItem)
     {

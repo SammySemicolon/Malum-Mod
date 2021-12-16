@@ -15,7 +15,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -128,9 +128,9 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         return this.output.item.equals(output.getItem());
     }
 
-    public static SpiritInfusionRecipe getRecipeForAltar(World world, ItemStack stack, ArrayList<ItemStack> spirits)
+    public static SpiritInfusionRecipe getRecipeForAltar(Level Level, ItemStack stack, ArrayList<ItemStack> spirits)
     {
-        List<SpiritInfusionRecipe> recipes = getRecipes(world);
+        List<SpiritInfusionRecipe> recipes = getRecipes(Level);
         for (SpiritInfusionRecipe recipe : recipes)
         {
             if (recipe.doesInputMatch(stack) && recipe.doSpiritsMatch(spirits))
@@ -140,9 +140,9 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return null;
     }
-    public static SpiritInfusionRecipe getRecipeForArcana(World world, ItemStack stack)
+    public static SpiritInfusionRecipe getRecipeForArcana(Level Level, ItemStack stack)
     {
-        List<SpiritInfusionRecipe> recipes = getRecipes(world);
+        List<SpiritInfusionRecipe> recipes = getRecipes(Level);
         for (SpiritInfusionRecipe recipe : recipes)
         {
             if (recipe.doesOutputMatch(stack))
@@ -152,14 +152,14 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return null;
     }
-    public static List<SpiritInfusionRecipe> getRecipes(World world)
+    public static List<SpiritInfusionRecipe> getRecipes(Level Level)
     {
-        return world.getRecipeManager().getRecipesForType(Type.INSTANCE);
+        return Level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritInfusionRecipe> {
 
         @Override
-        public SpiritInfusionRecipe read(ResourceLocation recipeId, JsonObject json)
+        public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json)
         {
             boolean retainsPrimeItem = json.getAsJsonPrimitive("retain_prime_item").getAsBoolean();
             JsonObject inputObject = json.getAsJsonObject("input");
@@ -192,10 +192,10 @@ public class SpiritInfusionRecipe extends IMalumRecipe
 
         @Nullable
         @Override
-        public SpiritInfusionRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
+        public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer)
         {
             IngredientWithCount input = IngredientWithCount.read(buffer);
-            ItemStack output = buffer.readItemStack();
+            ItemStack output = buffer.readItem();
             int extraItemCount = buffer.readInt();
             ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemCount;i++)
@@ -206,17 +206,17 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             ArrayList<ItemWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount;i++)
             {
-                spirits.add(new ItemWithCount(buffer.readItemStack()));
+                spirits.add(new ItemWithCount(buffer.readItem()));
             }
             boolean retainsPrimeItem = buffer.readBoolean();
             return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, new ItemWithCount(output), spirits, extraItems);
         }
 
         @Override
-        public void write(PacketBuffer buffer, SpiritInfusionRecipe recipe)
+        public void toNetwork(PacketBuffer buffer, SpiritInfusionRecipe recipe)
         {
             recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.output.stack());
+            buffer.writeItem(recipe.output.stack());
             buffer.writeInt(recipe.extraItems.size());
             for (IngredientWithCount item : recipe.extraItems)
             {
@@ -225,7 +225,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             buffer.writeInt(recipe.spirits.size());
             for (ItemWithCount item : recipe.spirits)
             {
-                buffer.writeItemStack(item.stack());
+                buffer.writeItem(item.stack());
             }
             buffer.writeBoolean(recipe.retainsPrimeItem);
         }

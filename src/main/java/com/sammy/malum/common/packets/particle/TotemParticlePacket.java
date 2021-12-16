@@ -65,7 +65,7 @@ public class TotemParticlePacket {
     public static class ClientOnly {
         public static void addParticles(BlockPos pos, ArrayList<Color> colors) {
             for (int i = 0; i < colors.size(); i++) {
-                BlockParticlePacket.ClientOnly.addParticles(pos.up(i), colors.get(i));
+                BlockParticlePacket.ClientOnly.addParticles(pos.above(i), colors.get(i));
             }
         }
     }

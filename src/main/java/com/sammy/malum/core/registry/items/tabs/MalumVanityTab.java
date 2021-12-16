@@ -17,7 +17,7 @@ public class MalumVanityTab extends ItemGroup
     
     @Nonnull
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(ItemRegistry.FANCY_TOPHAT.get());
     }
 }

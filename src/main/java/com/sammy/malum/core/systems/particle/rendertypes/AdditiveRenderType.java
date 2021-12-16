@@ -19,25 +19,25 @@ public class AdditiveRenderType implements IParticleRenderType {
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderSystem.alphaFunc(GL11.GL_GEQUAL, 0.00390625f);
 
-        textureManager.bindTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
-        bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
+        textureManager.bind(AtlasTexture.LOCATION_PARTICLES);
+        bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE);
     }
 
     private static void endRenderCommon() {
-        Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE).restoreLastBlurMipmap();
+        Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES).restoreLastBlurMipmap();
         RenderSystem.enableAlphaTest();
         RenderSystem.defaultAlphaFunc();
         RenderSystem.depthMask(true);
     }
 
     @Override
-    public void beginRender(BufferBuilder b, TextureManager tex) {
+    public void begin(BufferBuilder b, TextureManager tex) {
         beginRenderCommon(b, tex);
     }
 
     @Override
-    public void finishRender(Tessellator t) {
-        t.draw();
+    public void end(Tessellator t) {
+        t.end();
         RenderSystem.enableDepthTest();
         endRenderCommon();
     }

@@ -28,7 +28,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
     }
 
     @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumer)
+    protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer)
     {
         new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, ItemRegistry.HEX_ASH.get(), 1)
                 .addSpirit(ARCANE_SPIRIT, 1)
@@ -104,7 +104,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 5)
@@ -114,7 +114,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 5)
@@ -124,7 +124,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 5)
@@ -134,13 +134,13 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addExtraItem(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), 4)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1)
                 .addSpirit(WICKED_SPIRIT, 3)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .addSpirit(EARTHEN_SPIRIT, 5)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(Ingredient.fromTag(ItemTags.WOOL), 1, ItemRegistry.SPIRIT_FABRIC.get(), 4)
+        new SpiritInfusionRecipeBuilder(Ingredient.of(ItemTags.WOOL), 1, ItemRegistry.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(Items.STRING, 2)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
                 .addSpirit(EARTHEN_SPIRIT, 1)
@@ -150,7 +150,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.LEATHER_HELMET, 1, ItemRegistry.SOUL_HUNTER_CLOAK.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
@@ -158,7 +158,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.LEATHER_CHESTPLATE, 1, ItemRegistry.SOUL_HUNTER_ROBE.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
@@ -166,7 +166,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.LEATHER_LEGGINGS, 1, ItemRegistry.SOUL_HUNTER_LEGGINGS.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
@@ -174,8 +174,8 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(Items.LEATHER_BOOTS, 1, ItemRegistry.SOUL_HUNTER_BOOTS.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
                 .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.LEATHER), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.FEATHERS), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.FEATHERS), 1)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(AERIAL_SPIRIT, 4)
                 .build(consumer);
@@ -194,8 +194,8 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_RING.get(), 1, ItemRegistry.RING_OF_PROWESS.get(), 1)
                 .addExtraItem(ItemRegistry.BRILLIANCE_CLUSTER.get(), 2)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_LAPIS), 4)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.GEMS_EMERALD), 2)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_LAPIS), 4)
+                .addExtraItem(Ingredient.of(Tags.Items.GEMS_EMERALD), 2)
                 .addSpirit(ARCANE_SPIRIT, 32)
                 .build(consumer);
 
@@ -213,7 +213,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(Items.PHANTOM_MEMBRANE, 2, ItemRegistry.ECTOPLASM.get(), 2)
                 .addExtraItem(Items.GHAST_TEAR, 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.GUNPOWDER), 2)
+                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 2)
                 .addSpirit(INFERNAL_SPIRIT, 4)
                 .addSpirit(AQUEOUS_SPIRIT, 4)
                 .build(consumer);
@@ -227,8 +227,8 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ORNATE_NECKLACE.get(), 1, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1)
                 .addExtraItem(ItemRegistry.STAINED_SPIRIT_RESONATOR.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_IRON), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.INGOTS_IRON), 2)
+                .addExtraItem(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 2)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .build(consumer);
 
@@ -241,8 +241,8 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), 1, ItemRegistry.TYRVING.get(), 1)
                 .addExtraItem(ItemRegistry.RADIANT_SOULSTONE.get(), 1)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.OBSIDIAN), 4)
-                .addExtraItem(Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_COAL), 1)
+                .addExtraItem(Ingredient.of(Tags.Items.OBSIDIAN), 4)
+                .addExtraItem(Ingredient.of(Tags.Items.STORAGE_BLOCKS_COAL), 1)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
                 .addSpirit(WICKED_SPIRIT, 4)
                 .addSpirit(ELDRITCH_SPIRIT, 4)

@@ -17,7 +17,7 @@ public class MalumBuildingTab extends ItemGroup
     
     @Nonnull
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(ItemRegistry.TAINTED_ROCK.get());
     }
 }

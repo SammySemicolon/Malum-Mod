@@ -33,7 +33,7 @@ public class WoodTypeRegistry
 
     public static void addWoodType(WoodType woodType) {
 
-        SIGN_MATERIALS.put(woodType, new RenderMaterial(SIGN_ATLAS, MalumHelper.prefix("entity/signs/" + woodType.getName())));
+        SIGN_MATERIALS.put(woodType, new RenderMaterial(SIGN_SHEET, MalumHelper.prefix("entity/signs/" + woodType.name())));
     }
     static class MalumWoodType extends WoodType
     {

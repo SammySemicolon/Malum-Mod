@@ -9,30 +9,32 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class MalumDirectionalBlock extends DirectionalBlock
 {
     public MalumDirectionalBlock(Properties builder)
     {
         super(builder);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        if (context.getPlayer().isSneaking())
+        if (context.getPlayer().isShiftKeyDown())
         {
-            return this.getDefaultState().with(FACING, context.getNearestLookingDirection());
+            return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection());
         }
-        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
     public BlockState rotate(BlockState state, Rotation rot) {
-        return state.with(FACING, rot.rotate(state.get(FACING)));
+        return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
-        return state.with(FACING, mirrorIn.mirror(state.get(FACING)));
+        return state.setValue(FACING, mirrorIn.mirror(state.getValue(FACING)));
     }
 }

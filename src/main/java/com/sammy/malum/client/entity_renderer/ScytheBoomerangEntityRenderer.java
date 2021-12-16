@@ -21,30 +21,30 @@ public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomeran
     {
         super(renderManager);
         this.itemRenderer = itemRendererIn;
-        this.shadowSize = 2F;
-        this.shadowOpaque = 0.5F;
+        this.shadowRadius = 2F;
+        this.shadowStrength = 0.5F;
     }
     
     @Override
     public void render(ScytheBoomerangEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
     {
-        matrixStackIn.push();
+        matrixStackIn.pushPose();
         ItemStack itemstack = entityIn.getItem();
-        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entityIn.world, null);
+        IBakedModel ibakedmodel = this.itemRenderer.getModel(itemstack, entityIn.level, null);
     
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90F));
+        matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90F));
         matrixStackIn.scale(2f, 2f, 2f);
-        matrixStackIn.rotate(Vector3f.ZP.rotation(-(entityIn.age + partialTicks) * 0.9f));
-        itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
+        matrixStackIn.mulPose(Vector3f.ZP.rotation(-(entityIn.age + partialTicks) * 0.9f));
+        itemRenderer.render(itemstack, ItemCameraTransforms.TransformType.FIXED, false, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
     
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
     
     @Override
-    public ResourceLocation getEntityTexture(ScytheBoomerangEntity entity)
+    public ResourceLocation getTextureLocation(ScytheBoomerangEntity entity)
     {
-        return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+        return AtlasTexture.LOCATION_BLOCKS;
     }
 }

@@ -40,7 +40,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     public SpiritInfusionRecipeCategory(IGuiHelper guiHelper)
     {
         background = guiHelper.createBlankDrawable(142, 185);
-        localizedName = I18n.format("malum.jei.spirit_infusion");
+        localizedName = I18n.get("malum.jei.spirit_infusion");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_infusion_jei.png"), 0, 0, 140, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()));
     }
@@ -48,8 +48,8 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     @Override
     public void draw(SpiritInfusionRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY)
     {
-        GlStateManager.enableAlphaTest();
-        GlStateManager.enableBlend();
+        GlStateManager._enableAlphaTest();
+        GlStateManager._enableBlend();
 
         overlay.draw(matrixStack);
         renderItemFrameTexture(matrixStack, 9, 48, recipe.spirits.size());
@@ -57,8 +57,8 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         {
             renderItemFrameTexture(matrixStack, 99, 48, recipe.extraItems.size());
         }
-        GlStateManager.disableBlend();
-        GlStateManager.disableAlphaTest();
+        GlStateManager._disableBlend();
+        GlStateManager._disableAlphaTest();
     }
 
     @Nonnull
@@ -99,7 +99,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     @Override
     public void setIngredients(SpiritInfusionRecipe recipe, IIngredients iIngredients)
     {
-        ArrayList<ItemStack> items = new ArrayList<>(Arrays.asList(recipe.input.ingredient.getMatchingStacks()));
+        ArrayList<ItemStack> items = new ArrayList<>(Arrays.asList(recipe.input.ingredient.getItems()));
 
         recipe.extraItems.forEach(ingredient -> items.addAll(ingredient.asStackList()));
         recipe.spirits.forEach(ingredient -> items.add(ingredient.stack()));

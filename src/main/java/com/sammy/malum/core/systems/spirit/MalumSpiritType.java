@@ -2,9 +2,9 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 import java.awt.*;
 import java.util.HashMap;

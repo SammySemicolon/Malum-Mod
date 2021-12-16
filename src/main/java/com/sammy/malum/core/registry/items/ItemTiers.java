@@ -31,39 +31,39 @@ public class ItemTiers
         }
         
         @Override
-        public int getMaxUses()
+        public int getUses()
         {
             return maxUses;
         }
         
         @Override
-        public float getEfficiency()
+        public float getSpeed()
         {
             return efficiency;
         }
         
         @Override
-        public float getAttackDamage()
+        public float getAttackDamageBonus()
         {
             return attackDamage;
         }
         
         @Override
-        public int getHarvestLevel()
+        public int getLevel()
         {
             return harvestLevel;
         }
         
         @Override
-        public int getEnchantability()
+        public int getEnchantmentValue()
         {
             return enchantability;
         }
         
         @Override
-        public Ingredient getRepairMaterial()
+        public Ingredient getRepairIngredient()
         {
-            return Ingredient.fromItems(repairItem.get());
+            return Ingredient.of(repairItem.get());
         }
     }
 }

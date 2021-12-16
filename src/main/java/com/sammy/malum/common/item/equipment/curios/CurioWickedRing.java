@@ -6,6 +6,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioWickedRing extends MalumCurioItem implements IEventResponderItem
 {
     public CurioWickedRing(Properties builder)
@@ -21,6 +23,6 @@ public class CurioWickedRing extends MalumCurioItem implements IEventResponderIt
 
     @Override
     public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
-        MalumHelper.giveStackingEffect(Effects.STRENGTH, attacker, 100, 0);
+        MalumHelper.giveStackingEffect(Effects.DAMAGE_BOOST, attacker, 100, 0);
     }
 }

@@ -6,18 +6,20 @@ import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.Level.server.ServerLevel;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.function.Supplier;
 
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
+
+import net.minecraft.item.Item.Properties;
 
 public class TyrvingItem extends ModSwordItem implements IEventResponderItem
 {
@@ -32,21 +34,21 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        if (event.getSource().isMagicDamage())
+        if (event.getSource().isMagic())
         {
             return;
         }
-        if (attacker.world instanceof ServerWorld)
+        if (attacker.level instanceof ServerLevel)
         {
             int spiritCount = SpiritHelper.getEntitySpiritCount(target);
-            if (target instanceof PlayerEntity)
+            if (target instanceof Player)
             {
                 spiritCount = 2;
             }
-            target.hurtResistantTime = 0;
-            target.attackEntityFrom(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount*magicAttackDamage);
-            attacker.world.playSound(null, target.getPosition(), soundEvent.get(), SoundCategory.PLAYERS, 1, 1f + target.world.rand.nextFloat() * 0.25f);
-            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MagicParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, target.getPosX(), target.getPosY() + target.getHeight() / 2, target.getPosZ()));
+            target.invulnerableTime = 0;
+            target.hurt(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount*magicAttackDamage);
+            attacker.level.playSound(null, target.blockPosition(), soundEvent.get(), SoundCategory.PLAYERS, 1, 1f + target.level.random.nextFloat() * 0.25f);
+            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MagicParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
         }
     }
 }

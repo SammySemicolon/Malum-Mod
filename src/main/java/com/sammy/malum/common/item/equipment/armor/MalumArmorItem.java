@@ -19,6 +19,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 public class MalumArmorItem extends ArmorItem implements IEventResponderItem
 {
     protected LazyValue<Object> model;
@@ -30,7 +32,7 @@ public class MalumArmorItem extends ArmorItem implements IEventResponderItem
 
     public void createAttributes()
     {
-        UUID uuid = ARMOR_MODIFIERS[slot.getIndex()];
+        UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = getAttributeBuilder(uuid);
         putExtraAttributes(attributeBuilder, uuid);
         attributes = attributeBuilder.build();
@@ -41,7 +43,7 @@ public class MalumArmorItem extends ArmorItem implements IEventResponderItem
     }
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> getAttributeBuilder(UUID uuid) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = ImmutableMultimap.builder();
-        attributeBuilder.putAll(field_234656_m_);
+        attributeBuilder.putAll(defaultModifiers);
         return attributeBuilder;
     }
     public String texture()
@@ -50,7 +52,7 @@ public class MalumArmorItem extends ArmorItem implements IEventResponderItem
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlotType equipmentSlot) {
         return equipmentSlot == this.slot ? this.attributes : ImmutableMultimap.of();
     }
     @OnlyIn(Dist.CLIENT)
@@ -65,6 +67,6 @@ public class MalumArmorItem extends ArmorItem implements IEventResponderItem
     @SuppressWarnings("unchecked")
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original)
     {
-        return (A) model.getValue();
+        return (A) model.get();
     }
 }

@@ -19,6 +19,8 @@ import java.util.UUID;
 
 import static com.sammy.malum.core.registry.items.ArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
 
+import net.minecraft.item.Item.Properties;
+
 public class SoulStainedSteelArmorItem extends MalumArmorItem {
     public SoulStainedSteelArmorItem(EquipmentSlotType slot, Properties builder) {
         super(SOUL_STAINED_STEEL, slot, builder);
@@ -37,7 +39,7 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
 
     @Override
     public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
-        MalumHelper.giveStackingEffect(Effects.RESISTANCE, attacker, 25, 0);
+        MalumHelper.giveStackingEffect(Effects.DAMAGE_RESISTANCE, attacker, 25, 0);
     }
 
     public String texture() {

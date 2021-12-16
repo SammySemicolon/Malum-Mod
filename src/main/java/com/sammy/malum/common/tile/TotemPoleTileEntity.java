@@ -8,7 +8,6 @@ import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
@@ -42,7 +41,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
         {
             currentColor++;
         }
-        if (MalumHelper.areWeOnClient(world))
+        if (MalumHelper.areWeOnClient(level))
         {
             if (type != null && desiredColor != 0)
             {
@@ -78,48 +77,48 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
     }
     public void create(MalumSpiritType type)
     {
-        world.playSound(null, pos, SoundRegistry.TOTEM_ENGRAVE, SoundCategory.BLOCKS,1,1);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new BlockParticlePacket(type.color, pos.getX(),pos.getY(),pos.getZ()));
+        level.playSound(null, LevelPosition, SoundRegistry.TOTEM_ENGRAVE, SoundCategory.BLOCKS,1,1);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->level.getChunkAt(LevelPosition)), new BlockParticlePacket(type.color, LevelPosition.getX(),LevelPosition.getY(),LevelPosition.getZ()));
         this.type = type;
         this.currentColor = 10;
-        MalumHelper.updateAndNotifyState(world,pos);
+        MalumHelper.updateAndNotifyState(level,LevelPosition);
     }
     public void riteStarting(int height)
     {
-        world.playSound(null, pos, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1 + 0.2f * height);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->world.getChunkAt(pos)), new BlockParticlePacket(type.color, pos.getX(),pos.getY(),pos.getZ()));
+        level.playSound(null, LevelPosition, SoundRegistry.TOTEM_CHARGE, SoundCategory.BLOCKS,1,1 + 0.2f * height);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->level.getChunkAt(LevelPosition)), new BlockParticlePacket(type.color, LevelPosition.getX(),LevelPosition.getY(),LevelPosition.getZ()));
         this.desiredColor = 10;
-        this.baseLevel = pos.getY() - height;
-        MalumHelper.updateAndNotifyState(world,pos);
+        this.baseLevel = LevelPosition.getY() - height;
+        MalumHelper.updateAndNotifyState(level,LevelPosition);
     }
     public void riteComplete(int height)
     {
         this.desiredColor = 20;
-        MalumHelper.updateAndNotifyState(world,pos);
+        MalumHelper.updateAndNotifyState(level,LevelPosition);
     }
     public void riteEnding()
     {
         this.desiredColor = 0;
-        MalumHelper.updateAndNotifyState(world,pos);
+        MalumHelper.updateAndNotifyState(level,LevelPosition);
     }
 
     @Override
-    public void remove()
+    public void setRemoved()
     {
-        if (MalumHelper.areWeOnClient(world))
+        if (MalumHelper.areWeOnClient(level))
         {
             return;
         }
-        BlockPos basePos = new BlockPos(pos.getX(), baseLevel, pos.getZ());
-        if (world.getTileEntity(basePos) instanceof TotemBaseTileEntity)
+        BlockPos basePos = new BlockPos(LevelPosition.getX(), baseLevel, LevelPosition.getZ());
+        if (level.getBlockEntity(basePos) instanceof TotemBaseTileEntity)
         {
-            TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) world.getTileEntity(basePos);
+            TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) level.getBlockEntity(basePos);
             if (totemBaseTileEntity.active)
             {
                 totemBaseTileEntity.endRite();
             }
         }
-        super.remove();
+        super.setRemoved();
     }
 
     public void passiveParticles()
@@ -138,7 +137,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                    .evenlyRepeatEdges(level, LevelPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
             ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.025f, 0f)
@@ -150,7 +149,7 @@ public class TotemPoleTileEntity extends SimpleTileEntity implements ITickableTi
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                    .evenlyRepeatEdges(level, LevelPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
         }
     }
 }

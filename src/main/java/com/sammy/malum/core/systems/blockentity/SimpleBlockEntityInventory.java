@@ -1,14 +1,13 @@
-package com.sammy.malum.core.systems.tile;
+package com.sammy.malum.core.systems.blockentity;
 
-import com.sammy.malum.MalumHelper;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -21,26 +20,26 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SimpleTileEntityInventory extends ItemStackHandler
+public class SimpleBlockEntityInventory extends ItemStackHandler
 {
     public int slotCount;
     public int slotSize;
     public Predicate<ItemStack> inputPredicate;
     public Predicate<ItemStack> outputPredicate;
     
-    public SimpleTileEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate)
+    public SimpleBlockEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate)
     {
         this(slotCount, slotSize, inputPredicate);
         this.outputPredicate = outputPredicate;
     }
     
-    public SimpleTileEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate)
+    public SimpleBlockEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate)
     {
         this(slotCount, slotSize);
         this.inputPredicate = inputPredicate;
     }
     
-    public SimpleTileEntityInventory(int slotCount, int slotSize)
+    public SimpleBlockEntityInventory(int slotCount, int slotSize)
     {
         super(slotCount);
         this.slotCount = slotCount;
@@ -107,13 +106,13 @@ public class SimpleTileEntityInventory extends ItemStackHandler
         }
         return stacks;
     }
-    public void dumpItems(World world, Vector3d pos)
+    public void dumpItems(Level Level, Vec3 pos)
     {
         for (int i = 0; i < slotCount; i++)
         {
             if (!getStackInSlot(i).isEmpty())
             {
-                world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), getStackInSlot(i)));
+                Level.addFreshEntity(new ItemEntity(Level, pos.x(), pos.y(), pos.z(), getStackInSlot(i)));
             }
             setStackInSlot(i, ItemStack.EMPTY);
         }
@@ -158,21 +157,21 @@ public class SimpleTileEntityInventory extends ItemStackHandler
         return super.extractItem(slot, amount, simulate);
     }
     
-    public boolean playerHandleItem(World worldIn, PlayerEntity player, Hand handIn)
+    public boolean playerHandleItem(Level LevelIn, Player player, InteractionHand handIn)
     {
         player.swing(handIn, true);
-        if (player.isSneaking() || player.getHeldItem(handIn).isEmpty())
+        if (player.isShiftKeyDown() || player.getItemInHand(handIn).isEmpty())
         {
-            return playerExtractItem(worldIn, player);
+            return playerExtractItem(LevelIn, player);
         }
         else
         {
-            return playerInsertItem(worldIn, player.getHeldItem(handIn));
+            return playerInsertItem(LevelIn, player.getItemInHand(handIn));
         }
     }
-    public boolean playerExtractItem(World worldIn, PlayerEntity player)
+    public boolean playerExtractItem(Level LevelIn, Player player)
     {
-        if (MalumHelper.areWeOnServer(worldIn))
+        if (!LevelIn.isClientSide)
         {
             List<ItemStack> nonEmptyStacks = stacks.stream().filter(i -> !i.isEmpty()).collect(Collectors.toList());
             if (nonEmptyStacks.isEmpty())
@@ -190,9 +189,9 @@ public class SimpleTileEntityInventory extends ItemStackHandler
         }
         return false;
     }
-    public boolean playerInsertItem(World worldIn, ItemStack stack)
+    public boolean playerInsertItem(Level LevelIn, ItemStack stack)
     {
-        if (MalumHelper.areWeOnServer(worldIn))
+        if (!LevelIn.isClientSide)
         {
             if (!stack.isEmpty())
             {
@@ -219,27 +218,27 @@ public class SimpleTileEntityInventory extends ItemStackHandler
         insertItem(slot, stack.split(count), false);
     }
     
-    public void extractItem(PlayerEntity playerEntity, ItemStack stack, int slot)
+    public void extractItem(Player playerEntity, ItemStack stack, int slot)
     {
-        ItemHandlerHelper.giveItemToPlayer(playerEntity, stack, playerEntity.inventory.currentItem);
+        ItemHandlerHelper.giveItemToPlayer(playerEntity, stack, playerEntity.getInventory().selected);
         setStackInSlot(slot, ItemStack.EMPTY);
     }
-    public void readData(CompoundNBT compound)
+    public void load(CompoundTag compound)
     {
-        readData(compound,"inventory");
+        load(compound,"inventory");
     }
-    
-    public CompoundNBT writeData(CompoundNBT compound)
+
+    public void load(CompoundTag compound, String name)
     {
-        writeData(compound, "inventory");
+        deserializeNBT((CompoundTag) Objects.requireNonNull(compound.get(name)));
+    }
+
+    public CompoundTag save(CompoundTag compound)
+    {
+        save(compound, "inventory");
         return compound;
     }
-    public void readData(CompoundNBT compound, String name)
-    {
-        deserializeNBT((CompoundNBT) Objects.requireNonNull(compound.get(name)));
-    }
-    
-    public CompoundNBT writeData(CompoundNBT compound, String name)
+    public CompoundTag save(CompoundTag compound, String name)
     {
         compound.put(name, serializeNBT());
         return compound;

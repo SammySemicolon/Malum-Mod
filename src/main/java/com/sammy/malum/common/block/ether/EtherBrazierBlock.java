@@ -13,26 +13,28 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.Level.IBlockReader;
+import net.minecraft.Level.ILevelReader;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
 {
-    public static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 8, 12);
+    public static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
     public static final BooleanProperty ROTATED = BooleanProperty.create("rotated");
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
     public EtherBrazierBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HANGING, false).with(WATERLOGGED, false).with(ROTATED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(ROTATED, false));
     
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
     {
         return SHAPE;
     }
@@ -40,17 +42,17 @@ public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
+        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
     
-        BlockState blockstate = this.getDefaultState();
+        BlockState blockstate = this.defaultBlockState();
         for (Direction direction : context.getNearestLookingDirections())
         {
             if (direction.getAxis() == Direction.Axis.Y)
             {
-                blockstate = this.getDefaultState().with(HANGING, direction == Direction.UP).with(ROTATED, context.getPlacementHorizontalFacing() == Direction.NORTH || context.getPlacementHorizontalFacing() == Direction.SOUTH);
-                if (blockstate.isValidPosition(context.getWorld(), context.getPos()))
+                blockstate = this.defaultBlockState().setValue(HANGING, direction == Direction.UP).setValue(ROTATED, context.getHorizontalDirection() == Direction.NORTH || context.getHorizontalDirection() == Direction.SOUTH);
+                if (blockstate.canSurvive(context.getLevel(), context.getClickedPos()))
                 {
-                    return blockstate.with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
+                    return blockstate.setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
                 }
             }
         }
@@ -59,32 +61,32 @@ public class EtherBrazierBlock extends EtherBlock implements IWaterLoggable
     }
     
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(HANGING, WATERLOGGED, ROTATED);
     }
     
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
+    public boolean canSurvive(BlockState state, ILevelReader LevelIn, BlockPos pos)
     {
         Direction direction = getBlockConnected(state).getOpposite();
-        return Block.hasEnoughSolidSide(worldIn, pos.offset(direction), direction.getOpposite());
+        return Block.canSupportCenter(LevelIn, pos.relative(direction), direction.getOpposite());
     }
     
     protected static Direction getBlockConnected(BlockState state)
     {
-        return state.get(HANGING) ? Direction.DOWN : Direction.UP;
+        return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
     }
     
     @Override
-    public PushReaction getPushReaction(BlockState state)
+    public PushReaction getPistonPushReaction(BlockState state)
     {
         return PushReaction.DESTROY;
     }
 
     
     @Override
-    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type)
+    public boolean isPathfindable(BlockState state, IBlockReader LevelIn, BlockPos pos, PathType type)
     {
         return false;
     }

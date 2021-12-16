@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioOrnateRing extends MalumCurioItem
 {
     private static final UUID ARMOR = UUID.fromString("335abd8a-0e66-4b11-aa33-4aee88f0f614");

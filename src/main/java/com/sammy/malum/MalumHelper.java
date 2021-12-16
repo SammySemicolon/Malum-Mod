@@ -1,31 +1,31 @@
 package com.sammy.malum;
 
+import com.mojang.math.Vector3f;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.items.ItemRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.state.Property;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -83,18 +83,18 @@ public class MalumHelper {
     }
 
     public static <T extends LivingEntity> boolean damageItem(ItemStack stack, int amount, T entityIn, Consumer<T> onBroken) {
-        if (!entityIn.world.isRemote && (!(entityIn instanceof PlayerEntity) || !((PlayerEntity) entityIn).abilities.isCreativeMode)) {
-            if (stack.isDamageable()) {
+        if (!entityIn.level.isClientSide && (!(entityIn instanceof Player) || !((Player) entityIn).getAbilities().instabuild)) {
+            if (stack.isDamageableItem()) {
                 amount = stack.getItem().damageItem(stack, amount, entityIn, onBroken);
-                if (stack.attemptDamageItem(amount, entityIn.getRNG(), entityIn instanceof ServerPlayerEntity ? (ServerPlayerEntity) entityIn : null)) {
+                if (stack.hurt(amount, entityIn.getRandom(), entityIn instanceof ServerPlayer ? (ServerPlayer) entityIn : null)) {
                     onBroken.accept(entityIn);
                     Item item = stack.getItem();
                     stack.shrink(1);
-                    if (entityIn instanceof PlayerEntity) {
-                        ((PlayerEntity) entityIn).addStat(Stats.ITEM_BROKEN.get(item));
+                    if (entityIn instanceof Player) {
+                        ((Player) entityIn).awardStat(Stats.ITEM_BROKEN.get(item));
                     }
 
-                    stack.setDamage(0);
+                    stack.setDamageValue(0);
                     return true;
                 }
 
@@ -103,12 +103,12 @@ public class MalumHelper {
         return false;
     }
 
-    public static <T extends Entity> Entity getClosestEntity(List<T> entities, Vector3d pos) {
+    public static <T extends Entity> Entity getClosestEntity(List<T> entities, Vec3 pos) {
         double cachedDistance = -1.0D;
         Entity resultEntity = null;
 
         for (T entity : entities) {
-            double newDistance = entity.getDistanceSq(pos.x, pos.y, pos.z);
+            double newDistance = entity.distanceToSqr(pos.x, pos.y, pos.z);
             if (cachedDistance == -1.0D || newDistance < cachedDistance) {
                 cachedDistance = newDistance;
                 resultEntity = entity;
@@ -118,38 +118,23 @@ public class MalumHelper {
         return resultEntity;
     }
 
-    public static Vector3d pos(BlockPos pos) {
-        return new Vector3d(pos.getX(), pos.getY(), pos.getZ());
+    public static Vec3 pos(BlockPos pos) {
+        return new Vec3(pos.getX(), pos.getY(), pos.getZ());
     }
 
     public static Vector3f fPos(BlockPos pos) {
         return new Vector3f(pos.getX(), pos.getY(), pos.getZ());
     }
 
-    public static Vector3d randPos(BlockPos pos, Random rand, double min, double max) {
-        double x = MathHelper.nextDouble(rand, min, max) + pos.getX();
-        double y = MathHelper.nextDouble(rand, min, max) + pos.getY();
-        double z = MathHelper.nextDouble(rand, min, max) + pos.getZ();
-        return new Vector3d(x, y, z);
-    }
-
-    public static boolean areWeOnClient(World world) {
-        return world.isRemote;
-    }
-
-    public static boolean areWeOnServer(World world) {
-        return !world.isRemote;
+    public static Vec3 randPos(BlockPos pos, Random rand, double min, double max) {
+        double x = Mth.nextDouble(rand, min, max) + pos.getX();
+        double y = Mth.nextDouble(rand, min, max) + pos.getY();
+        double z = Mth.nextDouble(rand, min, max) + pos.getZ();
+        return new Vec3(x, y, z);
     }
 
     public static ResourceLocation prefix(String path) {
         return new ResourceLocation(MODID, path);
-    }
-
-    public static ResourceLocation moddedLocation(String notResourceLocation) {
-        String[] values = notResourceLocation.split(":");
-        String modId = values[0];
-        String path = values[1];
-        return new ResourceLocation(modId, path);
     }
 
     public static <T> ArrayList<T> toArrayList(T... items) {
@@ -241,36 +226,36 @@ public class MalumHelper {
         return finalState;
     }
 
-    public static void setBlockStateWithExistingProperties(World world, BlockPos pos, BlockState newState, int flags) {
-        BlockState oldState = world.getBlockState(pos);
+    public static void setBlockStateWithExistingProperties(Level Level, BlockPos pos, BlockState newState, int flags) {
+        BlockState oldState = Level.getBlockState(pos);
         BlockState finalState = getBlockStateWithExistingProperties(oldState, newState);
-        world.notifyBlockUpdate(pos, oldState, finalState, flags);
-        world.setBlockState(pos, finalState, flags);
+        Level.sendBlockUpdated(pos, oldState, finalState, flags);
+        Level.setBlock(pos, finalState, flags);
     }
 
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, Property<T> property) {
-        return newState.with(property, oldState.get(property));
+        return newState.setValue(property, oldState.getValue(property));
     }
 
-    public static CompoundNBT writeBlockPos(CompoundNBT compoundNBT, BlockPos pos) {
+    public static CompoundTag writeBlockPos(CompoundTag compoundNBT, BlockPos pos) {
         compoundNBT.putInt("X", pos.getX());
         compoundNBT.putInt("Y", pos.getY());
         compoundNBT.putInt("Z", pos.getZ());
         return compoundNBT;
     }
 
-    public static CompoundNBT writeBlockPos(CompoundNBT compoundNBT, BlockPos pos, String extra) {
+    public static CompoundTag writeBlockPos(CompoundTag compoundNBT, BlockPos pos, String extra) {
         compoundNBT.putInt(extra + "X", pos.getX());
         compoundNBT.putInt(extra + "Y", pos.getY());
         compoundNBT.putInt(extra + "Z", pos.getZ());
         return compoundNBT;
     }
 
-    public static BlockPos readBlockPos(CompoundNBT tag) {
+    public static BlockPos readBlockPos(CompoundTag tag) {
         return new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
     }
 
-    public static BlockPos readBlockPos(CompoundNBT tag, String extra) {
+    public static BlockPos readBlockPos(CompoundTag tag, String extra) {
         return new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z"));
     }
 
@@ -293,7 +278,7 @@ public class MalumHelper {
         for (int x = x1; x <= x2; x++) {
             for (int y = y1; y <= y2; y++) {
                 for (int z = z1; z <= z2; z++) {
-                    positions.add(pos.add(x, y, z));
+                    positions.add(pos.offset(x, y, z));
                 }
             }
         }
@@ -323,97 +308,97 @@ public class MalumHelper {
         return positions;
     }
 
-    public static void updateState(World worldIn, BlockPos pos) {
-        updateState(worldIn.getBlockState(pos), worldIn, pos);
+    public static void updateState(Level LevelIn, BlockPos pos) {
+        updateState(LevelIn.getBlockState(pos), LevelIn, pos);
     }
 
-    public static void updateState(BlockState state, World worldIn, BlockPos pos) {
-        worldIn.notifyBlockUpdate(pos, state, state, 2);
+    public static void updateState(BlockState state, Level LevelIn, BlockPos pos) {
+        LevelIn.sendBlockUpdated(pos, state, state, 2);
     }
 
-    public static void updateAndNotifyState(World worldIn, BlockPos pos) {
-        updateAndNotifyState(worldIn.getBlockState(pos), worldIn, pos);
+    public static void updateAndNotifyState(Level LevelIn, BlockPos pos) {
+        updateAndNotifyState(LevelIn.getBlockState(pos), LevelIn, pos);
     }
 
-    public static void updateAndNotifyState(BlockState state, World worldIn, BlockPos pos) {
-        worldIn.notifyBlockUpdate(pos, state, state, 2);
-        state.updateNeighbours(worldIn, pos, 2);
+    public static void updateAndNotifyState(BlockState state, Level LevelIn, BlockPos pos) {
+        LevelIn.sendBlockUpdated(pos, state, state, 2);
+        state.updateNeighbourShapes(LevelIn, pos, 2);
     }
 
 
-    public static Vector3d circlePosition(Vector3d pos, float distance, float current, float total) {
+    public static Vec3 circlePosition(Vec3 pos, float distance, float current, float total) {
         double angle = current / total * (Math.PI * 2);
         double dx2 = (distance * Math.cos(angle));
         double dz2 = (distance * Math.sin(angle));
 
-        Vector3d vector2f = new Vector3d(dx2, 0, dz2);
-        double x = vector2f.x * distance;
-        double z = vector2f.z * distance;
-        return pos.add(x, 0, z);
+        Vec3 vector = new Vec3(dx2, 0, dz2);
+        double x = vector.x * distance;
+        double z = vector.z * distance;
+        return pos.add(new Vec3(x, 0, z));
     }
 
-    public static Vector3d rotatedCirclePosition(Vector3d pos, float distance, float current, float total, long gameTime, float time) {
+    public static Vec3 rotatedCirclePosition(Vec3 pos, float distance, float current, float total, long gameTime, float time) {
         return rotatedCirclePosition(pos, distance, distance, current, total, gameTime, time);
     }
 
-    public static Vector3d rotatedCirclePosition(Vector3d pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time) {
+    public static Vec3 rotatedCirclePosition(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time) {
         double angle = current / total * (Math.PI * 2);
         angle += ((gameTime % time) / time) * (Math.PI * 2);
         double dx2 = (distanceX * Math.cos(angle));
         double dz2 = (distanceZ * Math.sin(angle));
 
-        Vector3d vector2f = new Vector3d(dx2, 0, dz2);
+        Vec3 vector2f = new Vec3(dx2, 0, dz2);
         double x = vector2f.x * distanceX;
         double z = vector2f.z * distanceZ;
         return pos.add(x, 0, z);
     }
 
-    public static ArrayList<Vector3d> blockOutlinePositions(World world, BlockPos pos) {
-        ArrayList<Vector3d> arrayList = new ArrayList<>();
+    public static ArrayList<Vec3> blockOutlinePositions(Level Level, BlockPos pos) {
+        ArrayList<Vec3> arrayList = new ArrayList<>();
         double d0 = 0.5625D;
-        Random random = world.rand;
+        Random random = Level.random;
         for (Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.offset(direction);
-            if (!world.getBlockState(blockpos).isOpaqueCube(world, blockpos)) {
+            BlockPos blockpos = pos.relative(direction);
+            if (!Level.getBlockState(blockpos).isSolidRender(Level, blockpos)) {
                 Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getXOffset() : (double) random.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getYOffset() : (double) random.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getZOffset() : (double) random.nextFloat();
-                arrayList.add(new Vector3d((double) pos.getX() + d1, (double) pos.getY() + d2, (double) pos.getZ() + d3));
+                double d1 = direction$axis == Direction.Axis.X ? 0.5D + d0 * (double) direction.getStepX() : (double) random.nextFloat();
+                double d2 = direction$axis == Direction.Axis.Y ? 0.5D + d0 * (double) direction.getStepY() : (double) random.nextFloat();
+                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + d0 * (double) direction.getStepZ() : (double) random.nextFloat();
+                arrayList.add(new Vec3((double) pos.getX() + d1, (double) pos.getY() + d2, (double) pos.getZ() + d3));
             }
         }
         return arrayList;
     }
 
-    public static void giveAmplifyingEffect(Effect effect, LivingEntity target, int duration, int amplifier, int cap) {
-        EffectInstance instance = target.getActivePotionEffect(effect);
+    public static void giveAmplifyingEffect(MobEffect effect, LivingEntity target, int duration, int amplifier, int cap) {
+        MobEffectInstance instance = target.getEffect(effect);
         if (instance != null) {
-            amplifier += instance.amplifier + 1;
+            amplifier += instance.getAmplifier() + 1;
         }
-        target.addPotionEffect(new EffectInstance(effect, duration, Math.min(amplifier, cap)));
+        target.addEffect(new MobEffectInstance(effect, duration, Math.min(amplifier, cap)));
     }
 
-    public static void giveStackingEffect(Effect effect, LivingEntity target, int duration, int amplifier) {
-        EffectInstance instance = target.getActivePotionEffect(effect);
+    public static void giveStackingEffect(MobEffect effect, LivingEntity target, int duration, int amplifier) {
+        MobEffectInstance instance = target.getEffect(effect);
         if (instance != null) {
-            duration += instance.duration;
+            duration += instance.getDuration();
         }
-        target.addPotionEffect(new EffectInstance(effect, duration, amplifier));
+        target.addEffect(new MobEffectInstance(effect, duration, amplifier));
     }
 
-    public static void giveItemToPlayerNoSound(PlayerEntity player, @Nonnull ItemStack stack) {
+    public static void quietlyGiveItemToPlayer(Player player, @Nonnull ItemStack stack) {
         if (stack.isEmpty()) return;
-        IItemHandler inventory = new PlayerMainInvWrapper(player.inventory);
-        World world = player.world;
+        IItemHandler inventory = new PlayerMainInvWrapper(player.getInventory());
+        Level Level = player.level;
         ItemStack remainder = stack;
         if (!remainder.isEmpty()) {
             remainder = ItemHandlerHelper.insertItemStacked(inventory, remainder, false);
         }
-        if (!remainder.isEmpty() && !world.isRemote) {
-            ItemEntity entityitem = new ItemEntity(world, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), remainder);
-            entityitem.setPickupDelay(40);
-            entityitem.setMotion(entityitem.getMotion().mul(0, 1, 0));
-            world.addEntity(entityitem);
+        if (!remainder.isEmpty() && !Level.isClientSide) {
+            ItemEntity entityitem = new ItemEntity(Level, player.getX(), player.getY() + 0.5, player.getZ(), remainder);
+            entityitem.setPickUpDelay(40);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+            Level.addFreshEntity(entityitem);
         }
     }
 
@@ -449,20 +434,20 @@ public class MalumHelper {
         return result.getLeft().isEmpty() ? Optional.empty() : Optional.of(result);
     }
 
-    public static ItemStack heldItem(LivingEntity livingEntity, Predicate<ItemStack> stackPredicate) {
-        if (livingEntity.swingingHand != null) {
-            if (stackPredicate.test(livingEntity.getHeldItem(livingEntity.swingingHand))) {
-                return livingEntity.getHeldItem(livingEntity.swingingHand);
+    public static ItemStack getHeldItem(LivingEntity livingEntity, Predicate<ItemStack> stackPredicate) {
+        if (livingEntity.swingingArm != null) {
+            if (stackPredicate.test(livingEntity.getItemInHand(livingEntity.swingingArm))) {
+                return livingEntity.getItemInHand(livingEntity.swingingArm);
             }
         }
-        if (stackPredicate.test(livingEntity.getHeldItem(livingEntity.getActiveHand()))) {
-            return livingEntity.getHeldItem(livingEntity.getActiveHand());
+        if (stackPredicate.test(livingEntity.getItemInHand(livingEntity.getUsedItemHand()))) {
+            return livingEntity.getItemInHand(livingEntity.getUsedItemHand());
         }
-        if (stackPredicate.test(livingEntity.getHeldItem(Hand.MAIN_HAND))) {
-            return livingEntity.getHeldItem(Hand.MAIN_HAND);
+        if (stackPredicate.test(livingEntity.getItemInHand(InteractionHand.MAIN_HAND))) {
+            return livingEntity.getItemInHand(InteractionHand.MAIN_HAND);
         }
-        if (stackPredicate.test(livingEntity.getHeldItem(Hand.OFF_HAND))) {
-            return livingEntity.getHeldItem(Hand.OFF_HAND);
+        if (stackPredicate.test(livingEntity.getItemInHand(InteractionHand.OFF_HAND))) {
+            return livingEntity.getItemInHand(InteractionHand.OFF_HAND);
         }
         return ItemStack.EMPTY;
     }
@@ -499,25 +484,25 @@ public class MalumHelper {
     }
 
     public static void applyEnchantments(LivingEntity user, Entity target, ItemStack stack) {
-        EnchantmentHelper.IEnchantmentVisitor visitor = (enchantment, level) ->
-                enchantment.onEntityDamaged(user, target, level);
+        EnchantmentHelper.EnchantmentVisitor visitor = (enchantment, level) ->
+                enchantment.doPostAttack(user, target, level);
         if (user != null) {
-            EnchantmentHelper.applyEnchantmentModifierArray(visitor, user.getEquipmentAndArmor());
+            EnchantmentHelper.runIterationOnInventory(visitor, user.getAllSlots());
         }
 
-        if (user instanceof PlayerEntity) {
-            EnchantmentHelper.applyEnchantmentModifier(visitor, stack);
+        if (user instanceof Player) {
+            EnchantmentHelper.runIterationOnItem(visitor, stack);
         }
     }
 
     public static void giveItemToEntity(ItemStack item, LivingEntity entity) {
-        if (entity instanceof PlayerEntity) {
-            ItemHandlerHelper.giveItemToPlayer((PlayerEntity) entity, item);
+        if (entity instanceof Player) {
+            ItemHandlerHelper.giveItemToPlayer((Player) entity, item);
         } else {
-            ItemEntity itemEntity = new ItemEntity(entity.world, entity.getPosX(), entity.getPosY() + 0.5, entity.getPosZ(), item);
-            itemEntity.setPickupDelay(40);
-            itemEntity.setMotion(itemEntity.getMotion().mul(0, 1, 0));
-            entity.world.addEntity(itemEntity);
+            ItemEntity itemEntity = new ItemEntity(entity.level, entity.getX(), entity.getY() + 0.5, entity.getZ(), item);
+            itemEntity.setPickUpDelay(40);
+            itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().multiply(0, 1, 0));
+            entity.level.addFreshEntity(itemEntity);
         }
     }
 

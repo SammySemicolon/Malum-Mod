@@ -1,12 +1,14 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
+import com.sammy.malum.core.registry.Levelgen.FeatureRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.Level.server.ServerLevel;
 
 import java.util.Random;
+
+import net.minecraft.block.AbstractBlock.Properties;
 
 public class RunewoodSaplingBlock extends SaplingBlock
 {
@@ -16,19 +18,19 @@ public class RunewoodSaplingBlock extends SaplingBlock
     }
 
     @Override
-    public void placeTree(ServerWorld world, BlockPos pos, BlockState state, Random rand)
+    public void advanceTree(ServerLevel Level, BlockPos pos, BlockState state, Random rand)
     {
-        if (state.get(STAGE) == 0)
+        if (state.getValue(STAGE) == 0)
         {
-            world.setBlockState(pos, state.func_235896_a_(STAGE), 4);
+            Level.setBlock(pos, state.cycle(STAGE), 4);
         }
         else
         {
-            if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(world, rand, pos))
+            if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(Level, rand, pos))
             {
                 return;
             }
-            FeatureRegistry.RUNEWOOD_TREE.get().generate(world, world.getChunkProvider().generator, rand, pos, null);
+            FeatureRegistry.RUNEWOOD_TREE.get().place(Level, Level.getChunkSource().generator, rand, pos, null);
         }
     }
 }

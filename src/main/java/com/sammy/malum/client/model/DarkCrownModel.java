@@ -15,32 +15,32 @@ public class DarkCrownModel<T extends LivingEntity> extends BipedModel<T>
     public DarkCrownModel()
     {
         super(1);
-        textureWidth = 32;
-        textureHeight = 32;
+        texWidth = 32;
+        texHeight = 32;
 
         crown = new ModelRenderer(this);
-        crown.setRotationPoint(0.0F, 0.0F, 0.0F);
+        crown.setPos(0.0F, 0.0F, 0.0F);
         setRotationAngle(crown, -0.0873F, 0.0F, 0.0F);
-        crown.setTextureOffset(0, 0).addBox(-4.0F, -12.5F, -4.0F, 8.0F, 6.0F, 8.0F, 0.33F, false);
-        crown.setTextureOffset(0, 18).addBox(-4.0F, -12.5F, -4.0F, 8.0F, 6.0F, 8.0F, 0.58F, false);
+        crown.texOffs(0, 0).addBox(-4.0F, -12.5F, -4.0F, 8.0F, 6.0F, 8.0F, 0.33F, false);
+        crown.texOffs(0, 18).addBox(-4.0F, -12.5F, -4.0F, 8.0F, 6.0F, 8.0F, 0.58F, false);
     }
     
     @Override
-    public void setRotationAngles(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
+    public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
     
     }
     
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+    public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
     {
         crown.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
     
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z)
     {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

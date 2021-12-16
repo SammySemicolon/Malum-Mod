@@ -14,9 +14,9 @@ public class ArmorTiers
 {
     public enum ArmorTierEnum implements IArmorMaterial
     {
-        SPIRIT_HUNTER("malum:spirit_hunter", 16, new int[]{2, 5, 6, 2}, 15, () -> SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemRegistry.SPIRIT_FABRIC, 0),
-        SOUL_STAINED_STEEL("malum:soul_stained_steel", 22, new int[]{2, 6, 7, 3}, 11, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_INGOT, 2),
-        SOUL_STAINED_STRONGHOLD("malum:soul_stained_stronghold", 36, new int[]{4, 7, 9, 5}, 13, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_INGOT, 5);
+        SPIRIT_HUNTER("malum:spirit_hunter", 16, new int[]{2, 5, 6, 2}, 15, () -> SoundEvents.ARMOR_EQUIP_LEATHER, ItemRegistry.SPIRIT_FABRIC, 0),
+        SOUL_STAINED_STEEL("malum:soul_stained_steel", 22, new int[]{2, 6, 7, 3}, 11, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_INGOT, 2),
+        SOUL_STAINED_STRONGHOLD("malum:soul_stained_stronghold", 36, new int[]{4, 7, 9, 5}, 13, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_INGOT, 5);
         private final String name;
         private final int durabilityMultiplier;
         private final int[] damageReduction;
@@ -38,35 +38,35 @@ public class ArmorTiers
         }
         
         @Override
-        public int getDurability(EquipmentSlotType slot)
+        public int getDurabilityForSlot(EquipmentSlotType slot)
         {
             return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getIndex()];
         }
         
         @Override
-        public int getDamageReductionAmount(EquipmentSlotType slot)
+        public int getDefenseForSlot(EquipmentSlotType slot)
         {
             return damageReduction[slot.getIndex()];
         }
         
         @Override
-        public int getEnchantability()
+        public int getEnchantmentValue()
         {
             return enchantability;
         }
         
         @Nonnull
         @Override
-        public SoundEvent getSoundEvent()
+        public SoundEvent getEquipSound()
         {
             return equipSound.get();
         }
         
         @Nonnull
         @Override
-        public Ingredient getRepairMaterial()
+        public Ingredient getRepairIngredient()
         {
-            return Ingredient.fromItems(repairItem.get());
+            return Ingredient.of(repairItem.get());
         }
         
         @Nonnull

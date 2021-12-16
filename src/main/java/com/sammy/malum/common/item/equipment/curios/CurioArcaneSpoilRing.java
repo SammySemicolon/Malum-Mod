@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioArcaneSpoilRing extends MalumCurioItem {
     private static final UUID ATTRIBUTE_UUID = UUID.fromString("d214b8f2-d908-4435-9845-61656adff7d1");
     public CurioArcaneSpoilRing(Properties builder) {

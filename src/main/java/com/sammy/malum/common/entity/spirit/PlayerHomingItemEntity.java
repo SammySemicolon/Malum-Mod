@@ -7,13 +7,13 @@ import com.sammy.malum.core.registry.misc.EntityRegistry;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.Level.Level;
+import net.minecraft.Level.server.ServerLevel;
 
 import java.util.UUID;
 
@@ -21,27 +21,27 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
     public UUID ownerUUID;
     public LivingEntity owner;
 
-    public PlayerHomingItemEntity(World worldIn) {
-        super(EntityRegistry.PLAYER_HOMING_ITEM.get(), worldIn);
+    public PlayerHomingItemEntity(Level LevelIn) {
+        super(EntityRegistry.PLAYER_HOMING_ITEM.get(), LevelIn);
     }
 
-    public PlayerHomingItemEntity(World worldIn, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
-        super(EntityRegistry.PLAYER_HOMING_ITEM.get(), worldIn);
+    public PlayerHomingItemEntity(Level LevelIn, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+        super(EntityRegistry.PLAYER_HOMING_ITEM.get(), LevelIn);
         setOwner(ownerUUID);
         setItem(stack);
-        setPosition(posX, posY, posZ);
-        setMotion(velX, velY, velZ);
+        setPos(posX, posY, posZ);
+        setDeltaMovement(velX, velY, velZ);
 
     }
 
     public float getRange() {
-        return world.hasNoCollisions(this) ? range : range * 3f;
+        return level.noCollision(this) ? range : range * 3f;
     }
 
     public void setOwner(UUID ownerUUID) {
         this.ownerUUID = ownerUUID;
-        if (MalumHelper.areWeOnServer(world)) {
-            owner = (LivingEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
+        if (MalumHelper.areWeOnServer(level)) {
+            owner = (LivingEntity) ((ServerLevel) level).getEntity(ownerUUID);
             if (owner != null)
             {
                 range = (int) owner.getAttributeValue(AttributeRegistry.SPIRIT_REACH);
@@ -51,32 +51,32 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
 
     @Override
     public void move() {
-        setMotion(getMotion().mul(0.95f, 0.95f, 0.95f));
+        setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.95f, 0.95f));
         if (owner == null) {
-            if (world.getGameTime() % 20L == 0)
+            if (level.getGameTime() % 20L == 0)
             {
-                PlayerEntity playerEntity = world.getClosestPlayer(this, getRange()*3f);
+                Player playerEntity = level.getNearestPlayer(this, getRange()*3f);
                 if (playerEntity != null)
                 {
-                    setOwner(playerEntity.getUniqueID());
+                    setOwner(playerEntity.getUUID());
                 }
             }
             age++;
             return;
         }
-        Vector3d desiredLocation = owner.getPositionVec().add(0, owner.getHeight() / 4, 0);
-        float distance = (float) getDistanceSq(desiredLocation);
+        Vector3d desiredLocation = owner.position().add(0, owner.getBbHeight() / 4, 0);
+        float distance = (float) distanceToSqr(desiredLocation);
         float range = getRange();
         float velocity = MathHelper.lerp(Math.min(moveTime, 40)/40f, 0.1f, 0.3f+(range*0.1f));
         if (moveTime != 0 || distance < range) {
             moveTime++;
-            Vector3d desiredMotion = desiredLocation.subtract(getPositionVec()).normalize().mul(velocity, velocity, velocity);
+            Vector3d desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
             float easing = 0.02f;
-            float xMotion = (float) MathHelper.lerp(easing, getMotion().x, desiredMotion.x);
-            float yMotion = (float) MathHelper.lerp(easing, getMotion().y, desiredMotion.y);
-            float zMotion = (float) MathHelper.lerp(easing, getMotion().z, desiredMotion.z);
+            float xMotion = (float) MathHelper.lerp(easing, getDeltaMovement().x, desiredMotion.x);
+            float yMotion = (float) MathHelper.lerp(easing, getDeltaMovement().y, desiredMotion.y);
+            float zMotion = (float) MathHelper.lerp(easing, getDeltaMovement().z, desiredMotion.z);
             Vector3d resultingMotion = new Vector3d(xMotion, yMotion, zMotion);
-            setMotion(resultingMotion);
+            setDeltaMovement(resultingMotion);
         }
 
         if (distance < 0.25f) {
@@ -89,18 +89,18 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         if (ownerUUID != null) {
-            compound.putUniqueId("ownerUUID", ownerUUID);
+            compound.putUUID("ownerUUID", ownerUUID);
         }
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         if (compound.contains("ownerUUID")) {
-            setOwner(compound.getUniqueId("ownerUUID"));
+            setOwner(compound.getUUID("ownerUUID"));
         }
     }
 }

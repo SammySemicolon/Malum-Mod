@@ -10,7 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
@@ -28,56 +28,58 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.Level.IBlockReader;
+import net.minecraft.Level.ILevel;
+import net.minecraft.Level.Level;
+import net.minecraft.Level.server.ServerLevel;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.stream.Stream;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SpiritJarBlock extends Block implements IWaterLoggable
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final VoxelShape SHAPE = Stream.of(Block.makeCuboidShape(2.5, 0.5, 2.5, 13.5, 13.5, 13.5), Block.makeCuboidShape(3.5, 14.5, 3.5, 12.5, 16.5, 12.5), Block.makeCuboidShape(4.5, 13.5, 4.5, 11.5, 14.5, 11.5), Block.makeCuboidShape(5.5, 0, 5.5, 10.5, 1, 10.5)).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
+    public static final VoxelShape SHAPE = Stream.of(Block.box(2.5, 0.5, 2.5, 13.5, 13.5, 13.5), Block.box(3.5, 14.5, 3.5, 12.5, 16.5, 12.5), Block.box(4.5, 13.5, 4.5, 11.5, 14.5, 11.5), Block.box(5.5, 0, 5.5, 10.5, 1, 10.5)).reduce((v1, v2) -> VoxelShapes.join(v1, v2, IBooleanFunction.OR)).get();
     public SpiritJarBlock(Properties properties)
     {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
     @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+    public void playerWillDestroy(Level LevelIn, BlockPos pos, BlockState state, Player player)
     {
-        if (worldIn instanceof ServerWorld)
+        if (LevelIn instanceof ServerLevel)
         {
-            spawnAdditionalDrops(state, (ServerWorld) worldIn, pos, player.getActiveItemStack());
+            spawnAfterBreak(state, (ServerLevel) LevelIn, pos, player.getUseItem());
         }
-        super.onBlockHarvested(worldIn, pos, state, player);
+        super.playerWillDestroy(LevelIn, pos, state, player);
     }
     @Override
-    public void spawnAdditionalDrops(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack)
+    public void spawnAfterBreak(BlockState state, ServerLevel LevelIn, BlockPos pos, ItemStack stack)
     {
-        if (worldIn.getTileEntity(pos) instanceof SpiritJarTileEntity)
+        if (LevelIn.getBlockEntity(pos) instanceof SpiritJarTileEntity)
         {
-            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) worldIn.getTileEntity(pos);
+            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) LevelIn.getBlockEntity(pos);
             while (tileEntity.count > 0)
             {
                 int stackCount = Math.min(tileEntity.count, 64);
-                worldIn.addEntity(new ItemEntity(worldIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,new ItemStack(tileEntity.type.splinterItem(), stackCount)));
+                LevelIn.addFreshEntity(new ItemEntity(LevelIn,pos.getX()+0.5f,pos.getY()+0.5f,pos.getZ()+0.5f,new ItemStack(tileEntity.type.splinterItem(), stackCount)));
                 tileEntity.count -= stackCount;
             }
         }
-        super.spawnAdditionalDrops(state, worldIn, pos, stack);
+        super.spawnAfterBreak(state, LevelIn, pos, stack);
     }
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    public ActionResultType use(BlockState state, Level LevelIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit)
     {
-        ItemStack heldItem = player.getHeldItem(handIn);
-        if (worldIn.getTileEntity(pos) instanceof SpiritJarTileEntity)
+        ItemStack heldItem = player.getItemInHand(handIn);
+        if (LevelIn.getBlockEntity(pos) instanceof SpiritJarTileEntity)
         {
-            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) worldIn.getTileEntity(pos);
+            SpiritJarTileEntity tileEntity = (SpiritJarTileEntity) LevelIn.getBlockEntity(pos);
             if (heldItem.getItem() instanceof MalumSpiritItem)
             {
                 MalumSpiritItem spiritSplinterItem = (MalumSpiritItem) heldItem.getItem();
@@ -85,25 +87,25 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
                 {
                     tileEntity.type = spiritSplinterItem.type;
                     tileEntity.count = heldItem.getCount();
-                    player.setHeldItem(handIn, ItemStack.EMPTY);
-                    particles(worldIn,hit, tileEntity.type);
+                    player.setItemInHand(handIn, ItemStack.EMPTY);
+                    particles(LevelIn,hit, tileEntity.type);
                     return ActionResultType.SUCCESS;
                 }
                 else if (tileEntity.type.equals(spiritSplinterItem.type))
                 {
                     tileEntity.count += heldItem.getCount();
-                    player.setHeldItem(handIn, ItemStack.EMPTY);
-                    particles(worldIn,hit, tileEntity.type);
+                    player.setItemInHand(handIn, ItemStack.EMPTY);
+                    particles(LevelIn,hit, tileEntity.type);
                     return ActionResultType.SUCCESS;
                 }
             }
             else if (tileEntity.type != null)
             {
-                int max = player.isSneaking() ? 64 : 1;
+                int max = player.isShiftKeyDown() ? 64 : 1;
                 int count = Math.min(tileEntity.count, max);
                 ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(tileEntity.type.splinterItem(), count));
                 tileEntity.count -= count;
-                particles(worldIn,hit, tileEntity.type);
+                particles(LevelIn,hit, tileEntity.type);
                 if (tileEntity.count == 0)
                 {
                     tileEntity.type = null;
@@ -111,11 +113,11 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
                 return ActionResultType.SUCCESS;
             }
         }
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        return super.use(state, LevelIn, pos, player, handIn, hit);
     }
-    public void particles(World world, BlockRayTraceResult hit, MalumSpiritType type)
+    public void particles(Level Level, BlockRayTraceResult hit, MalumSpiritType type)
     {
-        if (MalumHelper.areWeOnClient(world))
+        if (MalumHelper.areWeOnClient(Level))
         {
             Color color = type.color;
             ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
@@ -126,11 +128,11 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
                     .randomOffset(0.1f, 0.1f)
                     .setColor(color, color.darker())
                     .enableNoClip()
-                    .repeat(world, hit.getHitVec().getX(), hit.getHitVec().y, hit.getHitVec().z, 10);
+                    .repeat(Level, hit.getLocation().x(), hit.getLocation().y, hit.getLocation().z, 10);
         }
     }
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
+    public VoxelShape getShape(BlockState state, IBlockReader LevelIn, BlockPos pos, ISelectionContext context)
     {
         return SHAPE;
     }
@@ -141,38 +143,38 @@ public class SpiritJarBlock extends Block implements IWaterLoggable
     }
     
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    public TileEntity createTileEntity(BlockState state, IBlockReader Level)
     {
         return new SpiritJarTileEntity();
     }
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(WATERLOGGED);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, ILevel LevelIn, BlockPos currentPos, BlockPos facingPos)
     {
-        if (stateIn.get(WATERLOGGED))
+        if (stateIn.getValue(WATERLOGGED))
         {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+            LevelIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(LevelIn));
         }
-        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, LevelIn, currentPos, facingPos);
     }
 
     @Override
     public FluidState getFluidState(BlockState state)
     {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context)
     {
-        FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
-        return getDefaultState().with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
+        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
+        return defaultBlockState().setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
     }
 }

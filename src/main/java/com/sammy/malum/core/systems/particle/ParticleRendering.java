@@ -23,9 +23,9 @@ public class ParticleRendering
             Map<RenderType, BufferBuilder> buffers = new HashMap<>();
             for (RenderType type : new RenderType[]{RenderUtilities.DELAYED_PARTICLE, RenderUtilities.GLOWING_PARTICLE, RenderUtilities.GLOWING_BLOCK_PARTICLE, RenderUtilities.GLOWING, RenderUtilities.GLOWING_SPRITE})
             {
-                buffers.put(type, new BufferBuilder(type.getBufferSize()));
+                buffers.put(type, new BufferBuilder(type.bufferSize()));
             }
-            DELAYED_RENDER = IRenderTypeBuffer.getImpl(buffers, new BufferBuilder(256));
+            DELAYED_RENDER = IRenderTypeBuffer.immediateWithBuffers(buffers, new BufferBuilder(256));
         }
         return DELAYED_RENDER;
     }

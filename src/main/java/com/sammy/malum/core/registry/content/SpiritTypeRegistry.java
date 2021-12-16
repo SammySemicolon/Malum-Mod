@@ -53,7 +53,7 @@ public class SpiritTypeRegistry
     }
     @SubscribeEvent
     public static void stitchTextures(TextureStitchEvent.Pre event) {
-        if (!event.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
+        if (!event.getMap().location().equals(AtlasTexture.LOCATION_BLOCKS)) {
             return;
         }
         SPIRITS.forEach(s ->

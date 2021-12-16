@@ -44,12 +44,12 @@ public class SpiritAltarConsumeParticlePacket
 
     public static SpiritAltarConsumeParticlePacket decode(PacketBuffer buf)
     {
-        ItemStack stack = buf.readItemStack();
+        ItemStack stack = buf.readItem();
         int strings = buf.readInt();
         ArrayList<String> spirits = new ArrayList<>();
         for (int i = 0; i < strings; i++)
         {
-            spirits.add(buf.readString());
+            spirits.add(buf.readUtf());
         }
         double posX = buf.readDouble();
         double posY = buf.readDouble();
@@ -62,11 +62,11 @@ public class SpiritAltarConsumeParticlePacket
 
     public void encode(PacketBuffer buf)
     {
-        buf.writeItemStack(stack);
+        buf.writeItem(stack);
         buf.writeInt(spirits.size());
         for (String string : spirits)
         {
-            buf.writeString(string);
+            buf.writeUtf(string);
         }
         buf.writeDouble(posX);
         buf.writeDouble(posY);

@@ -8,6 +8,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
+import net.minecraft.item.Item.Properties;
+
 public class DripArmorItem extends SoulHunterArmorItem
 {
     public DripArmorItem(EquipmentSlotType slot, Properties builder)

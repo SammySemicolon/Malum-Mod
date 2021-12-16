@@ -17,7 +17,7 @@ public class MalumCreativeTab extends ItemGroup
     
     @Nonnull
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(ItemRegistry.SPIRIT_ALTAR.get());
     }
 }

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.entity.player.ClientPlayer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -28,24 +28,24 @@ public class SpiritPouchContainerScreen extends ContainerScreen<SpiritPouchConta
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
-    protected void renderHoveredTooltip(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY) {
+    protected void renderTooltip(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY) {
         Minecraft mc = this.minecraft;
         if (mc != null) {
-            ClientPlayerEntity clientPlayer = mc.player;
-            if (clientPlayer != null && clientPlayer.inventory.getItemStack().isEmpty()) {
-                if (this.hoveredSlot != null && this.hoveredSlot.getHasStack()) {
-                    this.renderTooltip(matrixStack, this.hoveredSlot.getStack(), mouseX, mouseY);
+            ClientPlayer clientPlayer = mc.player;
+            if (clientPlayer != null && clientPlayer.inventory.getCarried().isEmpty()) {
+                if (this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
+                    this.renderTooltip(matrixStack, this.hoveredSlot.getItem(), mouseX, mouseY);
                 }
             }
         }
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY) {
+    protected void renderLabels(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY) {
         if (this.minecraft != null && this.minecraft.player != null) {
 //            Color color = textColor;
 //            Color insideColor = MalumHelper.darker(color, 3);
@@ -64,8 +64,8 @@ public class SpiritPouchContainerScreen extends ContainerScreen<SpiritPouchConta
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
-        this.minecraft.getTextureManager().bindTexture(texture);
-        blit(matrixStack, guiLeft, guiTop, 0, 0, xSize, ySize);
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int x, int y) {
+        this.minecraft.getTextureManager().bind(texture);
+        blit(matrixStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 }

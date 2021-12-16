@@ -49,10 +49,10 @@ public class DoubleHeadlineTextPage extends BookPage
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
+        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+31,120);
 
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+87);
+        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+87);
         ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+16,guiTop+108,120);
     }
 
@@ -62,10 +62,10 @@ public class DoubleHeadlineTextPage extends BookPage
         int guiLeft = guiLeft();
         int guiTop = guiTop();
         ITextComponent component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+10);
+        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+31,120);
 
-        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.fontRenderer.getStringWidth(component.getString())/2,guiTop+87);
+        ProgressionBookScreen.renderText(matrixStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+87);
         ProgressionBookScreen.renderWrappingText(matrixStack, translationKey(), guiLeft+158,guiTop+108,120);
     }
 }

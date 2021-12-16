@@ -5,7 +5,7 @@ import com.sammy.malum.core.systems.particle.ParticleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -59,7 +59,7 @@ public class MagicParticlePacket {
 
     public static class ClientOnly {
         public static void addParticles(Vector3d pos, Color color) {
-            World world = Minecraft.getInstance().world;
+            Level Level = Minecraft.getInstance().level;
             ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.1f, 0f)
                     .setLifetime(10)
@@ -69,7 +69,7 @@ public class MagicParticlePacket {
                     .enableNoClip()
                     .randomOffset(0.2f, 0.2f)
                     .randomVelocity(0.01f, 0.01f)
-                    .repeat(world, pos.x, pos.y, pos.z, 12);
+                    .repeat(Level, pos.x, pos.y, pos.z, 12);
 
             ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.05f, 0f)
@@ -80,7 +80,7 @@ public class MagicParticlePacket {
                     .randomOffset(0.4f)
                     .enableNoClip()
                     .randomVelocity(0.025f, 0.025f)
-                    .repeat(world, pos.x, pos.y, pos.z, 20);
+                    .repeat(Level, pos.x, pos.y, pos.z, 20);
         }
     }
 }

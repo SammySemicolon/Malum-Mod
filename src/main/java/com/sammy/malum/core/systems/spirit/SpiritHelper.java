@@ -4,36 +4,37 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.PlayerHomingItemEntity;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
+import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.container.ItemInventory;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.particle.ParticleManager;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static net.minecraft.util.math.MathHelper.nextFloat;
+import static net.minecraft.util.Mth.nextFloat;
+import static net.minecraft.world.entity.EquipmentSlot.MAINHAND;
+
 
 public class SpiritHelper {
 
     public static void playerSummonSpirits(LivingEntity target, LivingEntity attacker, ItemStack harvestStack) {
-        if (target instanceof PlayerEntity) {
+        if (target instanceof Player) {
             return;
         }
         ArrayList<ItemStack> spirits = getSpiritItemStacks(target);
@@ -41,16 +42,16 @@ public class SpiritHelper {
             return;
         }
         int spiritSpoils = (int) attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS);
-        int spiritPlunder = EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
+        int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
 
         for (int i = 0; i < spiritSpoils+spiritPlunder; i++) {
-            int random = attacker.world.rand.nextInt(spirits.size());
+            int random = attacker.level.random.nextInt(spirits.size());
             spirits.get(random).grow(1);
         }
         if (spiritPlunder > 0)
         {
-            if (attacker.world.rand.nextInt(2) == 0) {
-                harvestStack.damageItem(spiritPlunder, attacker, (e) -> e.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+            if (attacker.level.random.nextInt(2) == 0) {
+                harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
             }
         }
         createSpiritEntities(spirits, target, attacker);
@@ -65,7 +66,7 @@ public class SpiritHelper {
 
     public static void createSpiritEntities(ArrayList<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
         if (attacker == null) {
-            attacker = target.world.getClosestPlayer(target.getPosX(), target.getPosY(), target.getPosZ(), 8, e -> true);
+            attacker = target.level.getNearestPlayer(target.getX(), target.getY(), target.getZ(), 8, e -> true);
         }
         float speed = 0.2f + 0.5f / (getEntitySpiritCount(target) + 1);
         for (ItemStack stack : spirits) {
@@ -74,32 +75,31 @@ public class SpiritHelper {
                 continue;
             }
             for (int j = 0; j < count; j++) {
-                PlayerHomingItemEntity entity = new PlayerHomingItemEntity(target.world, attacker == null ? null : attacker.getUniqueID(), MalumHelper.copyWithNewCount(stack, 1),
-                        target.getPositionVec().x,
-                        target.getPositionVec().y + target.getHeight() / 2f,
-                        target.getPositionVec().z,
+                PlayerHomingItemEntity entity = new PlayerHomingItemEntity(target.level, attacker == null ? null : attacker.getUUID(), MalumHelper.copyWithNewCount(stack, 1),
+                        target.position().x,
+                        target.position().y + target.getBbHeight() / 2f,
+                        target.position().z,
                         nextFloat(MalumMod.RANDOM, -speed, speed),
                         nextFloat(MalumMod.RANDOM, 0.05f, 0.05f),
                         nextFloat(MalumMod.RANDOM, -speed, speed));
-                target.world.addEntity(entity);
+                target.level.addFreshEntity(entity);
             }
         }
-        target.world.playSound(null, target.getPosX(), target.getPosY(), target.getPosZ(), SoundRegistry.SPIRIT_HARVEST, target.getSoundCategory(), 1.0F, 0.9f + target.world.rand.nextFloat() * 0.2f);
+        target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SPIRIT_HARVEST, target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
     }
 
 
     public static void pickupSpirit(ItemStack stack, LivingEntity collector) {
-        if (collector instanceof PlayerEntity) {
-            PlayerEntity playerEntity = (PlayerEntity) collector;
-            for (NonNullList<ItemStack> playerInventory : playerEntity.inventory.allInventories) {
+        if (collector instanceof Player playerEntity) {
+            for (NonNullList<ItemStack> playerInventory : playerEntity.getInventory().compartments) {
                 for (ItemStack item : playerInventory) {
                     if (item.getItem() instanceof SpiritPouchItem) {
                         ItemInventory inventory = SpiritPouchItem.getInventory(item);
                         ItemStack result = inventory.addItem(stack);
                         if (result.isEmpty()) {
-                            World world = playerEntity.world;
-                            world.playSound(null, playerEntity.getPosX(), playerEntity.getPosY() + 0.5, playerEntity.getPosZ(),
-                                    SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                            Level Level = playerEntity.level;
+                            Level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(),
+                                    SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((Level.random.nextFloat() - Level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 
                             return;
                         }
@@ -111,7 +111,7 @@ public class SpiritHelper {
                 IEventResponderItem eventItem = (IEventResponderItem) item;
                 eventItem.pickupSpirit(collector, stack);
             }
-            collector.getArmorInventoryList().forEach(s ->{
+            collector.getArmorSlots().forEach(s ->{
                 if (s.getItem() instanceof IEventResponderItem)
                 {
                     IEventResponderItem eventItem = (IEventResponderItem) s.getItem();
@@ -156,8 +156,8 @@ public class SpiritHelper {
         return spirits;
     }
 
-    public static void spawnSpiritParticles(World world, double x, double y, double z, Color color) {
-        Random rand = world.rand;
+    public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color) {
+        Random rand = level.getRandom();
         ParticleManager.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.18f, 0f)
                 .setLifetime(10 + rand.nextInt(4))
@@ -166,7 +166,7 @@ public class SpiritHelper {
                 .randomOffset(0.05f)
                 .enableNoClip()
                 .randomVelocity(0.02f, 0.02f)
-                .repeat(world, x, y, z, 1);
+                .repeat(level, x, y, z, 1);
 
         ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
@@ -177,7 +177,7 @@ public class SpiritHelper {
                 .randomOffset(0.1f)
                 .enableNoClip()
                 .randomVelocity(0.02f, 0.02f)
-                .repeat(world, x, y, z, 1);
+                .repeat(level, x, y, z, 1);
 
         ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
@@ -187,6 +187,6 @@ public class SpiritHelper {
                 .setColor(color, color.darker())
                 .enableNoClip()
                 .randomVelocity(0.01f, 0.01f)
-                .repeat(world, x, y, z, 1);
+                .repeat(level, x, y, z, 1);
     }
 }

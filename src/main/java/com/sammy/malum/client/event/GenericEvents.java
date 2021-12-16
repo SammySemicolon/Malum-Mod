@@ -5,7 +5,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.core.systems.particle.RenderUtilities;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -15,17 +15,17 @@ import static com.sammy.malum.core.systems.particle.ParticleRendering.getDelayed
 public class GenericEvents {
 
     @SubscribeEvent
-    public static void onRenderLast(RenderWorldLastEvent event) {
+    public static void onRenderLast(RenderLevelLastEvent event) {
         if (ClientConfig.BETTER_LAYERING.get()) {
             RenderSystem.pushMatrix(); // eidolon stuff once again
-            RenderSystem.multMatrix(event.getMatrixStack().getLast().getMatrix());
-            getDelayedRender().finish(RenderUtilities.DELAYED_PARTICLE);
-            getDelayedRender().finish(RenderUtilities.GLOWING_PARTICLE);
-            getDelayedRender().finish(RenderUtilities.GLOWING_BLOCK_PARTICLE);
+            RenderSystem.multMatrix(event.getMatrixStack().last().pose());
+            getDelayedRender().endBatch(RenderUtilities.DELAYED_PARTICLE);
+            getDelayedRender().endBatch(RenderUtilities.GLOWING_PARTICLE);
+            getDelayedRender().endBatch(RenderUtilities.GLOWING_BLOCK_PARTICLE);
             RenderSystem.popMatrix();
 
-            getDelayedRender().finish(RenderUtilities.GLOWING_SPRITE);
-            getDelayedRender().finish(RenderUtilities.GLOWING);
+            getDelayedRender().endBatch(RenderUtilities.GLOWING_SPRITE);
+            getDelayedRender().endBatch(RenderUtilities.GLOWING);
         }
     }
 }

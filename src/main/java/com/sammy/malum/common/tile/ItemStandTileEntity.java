@@ -4,10 +4,9 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
-import com.sammy.malum.core.systems.tile.SimpleTileEntityInventory;
+import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import com.sammy.malum.core.systems.tile.SimpleInventoryTileEntity;
-import com.sammy.malum.core.systems.tile.SimpleTileEntity;
+import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3d;
@@ -16,25 +15,25 @@ import java.awt.*;
 
 import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
-public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IAltarProvider, ITickableTileEntity
+public class ItemStandTileEntity extends SimpleInventoryBlockEntity implements IAltarProvider, ITickableTileEntity
 {
     public ItemStandTileEntity()
     {
         super(TileEntityRegistry.ITEM_STAND_TILE_ENTITY.get());
-        inventory = new SimpleTileEntityInventory(1, 64)
+        inventory = new SimpleBlockEntityInventory(1, 64)
         {
             @Override
             protected void onContentsChanged(int slot)
             {
-                ItemStandTileEntity.this.markDirty();
-                updateContainingBlockInfo();
-                MalumHelper.updateAndNotifyState(world, pos);
+                ItemStandTileEntity.this.setChanged();
+                clearCache();
+                MalumHelper.updateAndNotifyState(level, LevelPosition);
             }
         };
     }
 
     @Override
-    public SimpleTileEntityInventory providedInventory()
+    public SimpleBlockEntityInventory providedInventory()
     {
         return inventory;
     }
@@ -46,19 +45,19 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IA
 
     public static Vector3d itemPos(SimpleTileEntity tileEntity)
     {
-        return MalumHelper.pos(tileEntity.getPos()).add(itemOffset(tileEntity));
+        return MalumHelper.pos(tileEntity.getBlockPos()).add(itemOffset(tileEntity));
     }
     public static Vector3d itemOffset(SimpleTileEntity tileEntity)
     {
-        Direction direction = tileEntity.getBlockState().get(FACING);
-        Vector3d directionVector = new Vector3d(direction.getXOffset(), 0.5f, direction.getZOffset());
-        return new Vector3d(0.5f - directionVector.getX() * 0.25f, directionVector.getY(), 0.5f - directionVector.getZ() * 0.25f);
+        Direction direction = tileEntity.getBlockState().getValue(FACING);
+        Vector3d directionVector = new Vector3d(direction.getStepX(), 0.5f, direction.getStepZ());
+        return new Vector3d(0.5f - directionVector.x() * 0.25f, directionVector.y(), 0.5f - directionVector.z() * 0.25f);
     }
 
     @Override
     public void tick()
     {
-        if (MalumHelper.areWeOnServer(world))
+        if (MalumHelper.areWeOnServer(level))
         {
             return;
         }
@@ -68,9 +67,9 @@ public class ItemStandTileEntity extends SimpleInventoryTileEntity implements IA
             Color color = item.type.color;
             Vector3d pos = itemPos(this);
             double x = pos.x;
-            double y = pos.y + Math.sin((world.getGameTime() % 360) / 20f) * 0.05f;
+            double y = pos.y + Math.sin((level.getGameTime() % 360) / 20f) * 0.05f;
             double z = pos.z;
-            SpiritHelper.spawnSpiritParticles(world, x,y,z, color);
+            SpiritHelper.spawnSpiritParticles(level, x,y,z, color);
         }
     }
 }

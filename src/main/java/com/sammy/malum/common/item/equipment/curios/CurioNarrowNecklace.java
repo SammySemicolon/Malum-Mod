@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioNarrowNecklace extends MalumCurioItem
 {
     private static final UUID ATTRIBUTE_UUID = UUID.fromString("2b21fa84-f9f2-4fa0-a225-0997206ee54b");

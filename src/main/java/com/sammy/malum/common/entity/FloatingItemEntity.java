@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.awt.*;
@@ -25,16 +25,16 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     public float windUp;
     public final float hoverStart;
 
-    public FloatingItemEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn)
+    public FloatingItemEntity(EntityType<? extends ProjectileItemEntity> type, Level LevelIn)
     {
-        super(type, worldIn);
-        noClip = false;
+        super(type, LevelIn);
+        noPhysics = false;
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
     @Override
-    public void writeAdditional(CompoundNBT compound)
+    public void addAdditionalSaveData(CompoundNBT compound)
     {
-        super.writeAdditional(compound);
+        super.addAdditionalSaveData(compound);
         compound.putInt("age", age);
         compound.putInt("moveTime", moveTime);
         compound.putInt("range", range);
@@ -42,9 +42,9 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound)
+    public void readAdditionalSaveData(CompoundNBT compound)
     {
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         age = compound.getInt("age");
         moveTime = compound.getInt("moveTime");
         range = compound.getInt("range");
@@ -60,7 +60,7 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
         {
             windUp += 0.02f;
         }
-        if (MalumHelper.areWeOnServer(world))
+        if (MalumHelper.areWeOnServer(level))
         {
             move();
             if (age > maxAge)
@@ -70,13 +70,13 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
         }
         else
         {
-            double x = getPosX(), y = getPosY() + getYOffset(0) + 0.25f, z = getPosZ();
+            double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
             ItemStack stack = getItem();
             if (stack.getItem() instanceof ISpiritEntityGlow)
             {
                 ISpiritEntityGlow entityGlow = (ISpiritEntityGlow) stack.getItem();
                 Color color = entityGlow.getColor();
-                SpiritHelper.spawnSpiritParticles(world, x,y,z, color);
+                SpiritHelper.spawnSpiritParticles(level, x,y,z, color);
             }
         }
     }
@@ -93,19 +93,19 @@ public abstract class FloatingItemEntity extends ProjectileItemEntity
     }
 
     @Override
-    public IPacket<?> createSpawnPacket()
+    public IPacket<?> getAddEntityPacket()
     {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
-    public boolean hasNoGravity()
+    public boolean isNoGravity()
     {
         return true;
     }
 
     @Override
-    public float getCollisionBorderSize()
+    public float getPickRadius()
     {
         return 4f;
     }

@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
+import net.minecraft.item.Item.Properties;
+
 public class MalumCurioItem extends Item implements ICurioItem {
     public MalumCurioItem(Properties properties) {
         super(properties);
@@ -23,10 +25,10 @@ public class MalumCurioItem extends Item implements ICurioItem {
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
         if (isGilded()) {
-            livingEntity.world.playSound(null, livingEntity.getPosition(), SoundRegistry.HOLY_EQUIP, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HOLY_EQUIP, SoundCategory.PLAYERS, 1.0f, 1.0f);
         }
         if (isOrnate()) {
-            livingEntity.world.playSound(null, livingEntity.getPosition(), SoundRegistry.SINISTER_EQUIP, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SINISTER_EQUIP, SoundCategory.PLAYERS, 1.0f, 1.0f);
         }
     }
 

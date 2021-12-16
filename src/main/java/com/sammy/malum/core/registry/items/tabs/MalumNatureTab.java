@@ -17,7 +17,7 @@ public class MalumNatureTab extends ItemGroup
 
     @Nonnull
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(ItemRegistry.RUNEWOOD_SAPLING.get());
     }
 }

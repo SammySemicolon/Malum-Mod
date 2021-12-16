@@ -24,8 +24,8 @@ public class MalumItemTags extends ItemTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
-        getOrCreateBuilder(Tags.Items.GEMS).add(ItemRegistry.PROCESSED_SOULSTONE.get(), ItemRegistry.BLAZING_QUARTZ.get());
+    protected void addTags() {
+        tag(Tags.Items.GEMS).add(ItemRegistry.PROCESSED_SOULSTONE.get(), ItemRegistry.BLAZING_QUARTZ.get());
 
         this.copy(BlockTags.WOOL, net.minecraft.tags.ItemTags.WOOL);
         this.copy(BlockTags.PLANKS, net.minecraft.tags.ItemTags.PLANKS);
@@ -68,15 +68,15 @@ public class MalumItemTags extends ItemTagsProvider {
         this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, net.minecraft.tags.ItemTags.SOUL_FIRE_BASE_BLOCKS);
         this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 
-        getOrCreateBuilder(Tags.Items.SLIMEBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
-        getOrCreateBuilder(ITemTagRegistry.SAPBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
+        tag(Tags.Items.SLIMEBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
+        tag(ITemTagRegistry.SAPBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
 
-        getOrCreateBuilder(RUNEWOOD_LOGS).add(ItemRegistry.RUNEWOOD_LOG.get(), ItemRegistry.STRIPPED_RUNEWOOD_LOG.get(), ItemRegistry.RUNEWOOD.get(), ItemRegistry.STRIPPED_RUNEWOOD.get(), ItemRegistry.EXPOSED_RUNEWOOD_LOG.get(), ItemRegistry.REVEALED_RUNEWOOD_LOG.get());
-        getOrCreateBuilder(SOULWOOD_LOGS).add(ItemRegistry.SOULWOOD_LOG.get(), ItemRegistry.STRIPPED_SOULWOOD_LOG.get(), ItemRegistry.SOULWOOD.get(), ItemRegistry.STRIPPED_SOULWOOD.get(), ItemRegistry.EXPOSED_SOULWOOD_LOG.get(), ItemRegistry.REVEALED_SOULWOOD_LOG.get());
+        tag(RUNEWOOD_LOGS).add(ItemRegistry.RUNEWOOD_LOG.get(), ItemRegistry.STRIPPED_RUNEWOOD_LOG.get(), ItemRegistry.RUNEWOOD.get(), ItemRegistry.STRIPPED_RUNEWOOD.get(), ItemRegistry.EXPOSED_RUNEWOOD_LOG.get(), ItemRegistry.REVEALED_RUNEWOOD_LOG.get());
+        tag(SOULWOOD_LOGS).add(ItemRegistry.SOULWOOD_LOG.get(), ItemRegistry.STRIPPED_SOULWOOD_LOG.get(), ItemRegistry.SOULWOOD.get(), ItemRegistry.STRIPPED_SOULWOOD.get(), ItemRegistry.EXPOSED_SOULWOOD_LOG.get(), ItemRegistry.REVEALED_SOULWOOD_LOG.get());
 
-        getOrCreateBuilder(SOUL_HUNTER_WEAPON).add(ItemRegistry.CRUDE_SCYTHE.get(), ItemRegistry.SOUL_STAINED_STEEL_SCYTHE.get(), ItemRegistry.CREATIVE_SCYTHE.get());
-        getOrCreateBuilder(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_AXE.get(), ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get(), ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get(), ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), ItemRegistry.SOUL_STAINED_STEEL_HOE.get());
-        getOrCreateBuilder(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get());
+        tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.CRUDE_SCYTHE.get(), ItemRegistry.SOUL_STAINED_STEEL_SCYTHE.get(), ItemRegistry.CREATIVE_SCYTHE.get());
+        tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_AXE.get(), ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get(), ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get(), ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), ItemRegistry.SOUL_STAINED_STEEL_HOE.get());
+        tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get());
 
     }
 }

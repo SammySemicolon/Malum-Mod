@@ -1,16 +1,15 @@
 package com.sammy.malum.core.registry.misc;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.entity.Entity;
 
 public class DamageSourceRegistry {
 
-    public static final DamageSource VOODOO = new DamageSource("voodoo").setMagicDamage();
-    public static final DamageSource FORCED_SHATTER = new DamageSource("forced_shatter").setMagicDamage().setDamageBypassesArmor().setDamageIsAbsolute();
+    public static final DamageSource VOODOO = new DamageSource("voodoo").setMagic();
+    public static final DamageSource FORCED_SHATTER = new DamageSource("forced_shatter").setMagic().bypassArmor().bypassMagic();
 
     public static DamageSource causeVoodooDamage(Entity attacker) {
-        return new EntityDamageSource("voodoo", attacker).setMagicDamage();
+        return new EntityDamageSource("voodoo", attacker).setMagic();
     }
 }

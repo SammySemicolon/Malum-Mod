@@ -2,10 +2,10 @@ package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 
@@ -40,32 +40,32 @@ public class MalumRiteType {
         return defaultInterval();
     }
 
-    public void executeRite(World world, BlockPos pos, boolean corrupted) {
+    public void executeRite(Level Level, BlockPos pos, boolean corrupted) {
         if (corrupted) {
-            corruptedRiteEffect(world, pos);
+            corruptedRiteEffect(Level, pos);
         } else {
-            riteEffect(world, pos);
+            riteEffect(Level, pos);
         }
     }
 
-    public void riteEffect(World world, BlockPos pos) {
+    public void riteEffect(Level Level, BlockPos pos) {
 
     }
 
-    public void corruptedRiteEffect(World world, BlockPos pos) {
+    public void corruptedRiteEffect(Level Level, BlockPos pos) {
 
     }
 
-    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, World world, BlockPos pos, boolean isCorrupted)
+    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, Level Level, BlockPos pos, boolean isCorrupted)
     {
-        return (ArrayList<T>) world.getEntitiesWithinAABB(clazz, new AxisAlignedBB(pos).grow(range(isCorrupted)));
+        return (ArrayList<T>) Level.getEntitiesOfClass(clazz, new AABB(pos).inflate(range(isCorrupted)));
     }
-    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, World world, BlockPos pos, boolean isCorrupted)
+    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level Level, BlockPos pos, boolean isCorrupted)
     {
-        return MalumHelper.getBlocks(pos, range(isCorrupted), p -> clazz.isInstance(world.getBlockState(p).getBlock()));
+        return MalumHelper.getBlocks(pos, range(isCorrupted), p -> clazz.isInstance(Level.getBlockState(p).getBlock()));
     }
-    public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, World world, BlockPos pos, boolean isCorrupted)
+    public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, Level Level, BlockPos pos, boolean isCorrupted)
     {
-        return MalumHelper.getPlaneOfBlocks(pos.down(), range(isCorrupted), p -> clazz.isInstance(world.getBlockState(p).getBlock()));
+        return MalumHelper.getPlaneOfBlocks(pos.below(), range(isCorrupted), p -> clazz.isInstance(Level.getBlockState(p).getBlock()));
     }
 }

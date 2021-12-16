@@ -17,7 +17,7 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import java.util.Map;
@@ -67,7 +67,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, World worldIn)
+    public boolean matches(CraftingInventory inv, Level LevelIn)
     {
         for (int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i)
         {
@@ -109,7 +109,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
                     }
                 }
 
-                if (!ingredient.test(craftingInventory.getStackInSlot(i + j * craftingInventory.getWidth())))
+                if (!ingredient.test(craftingInventory.getItem(i + j * craftingInventory.getWidth())))
                 {
                     return false;
                 }
@@ -120,12 +120,12 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     }
 
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inv)
+    public ItemStack assemble(CraftingInventory inv)
     {
         ItemStack stack = recipeOutput.copy();
-        for (int i = 0; i < inv.getSizeInventory(); i++)
+        for (int i = 0; i < inv.getContainerSize(); i++)
         {
-            ItemStack oldStack = inv.getStackInSlot(i);
+            ItemStack oldStack = inv.getItem(i);
             if (nbtCarry.test(oldStack))
             {
                 if (oldStack.hasTag())
@@ -137,7 +137,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
         return stack;
     }
     @Override
-    public boolean isDynamic()
+    public boolean isSpecial()
     {
         return false;
     }
@@ -147,7 +147,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.recipeOutput;
     }
 
@@ -156,7 +156,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
         return this.recipeItems;
     }
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width >= this.recipeWidth && height >= this.recipeHeight;
     }
 
@@ -283,7 +283,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
         {
             for (int i = 0; i < astring.length; ++i)
             {
-                String s = JSONUtils.getString(jsonArr.get(i), "pattern[" + i + "]");
+                String s = JSONUtils.convertToString(jsonArr.get(i), "pattern[" + i + "]");
                 if (s.length() > MAX_WIDTH)
                 {
                     throw new JsonSyntaxException("Invalid pattern: too many columns, " + MAX_WIDTH + " is maximum");
@@ -320,7 +320,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
                 throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
             }
 
-            map.put(entry.getKey(), Ingredient.deserialize(entry.getValue()));
+            map.put(entry.getKey(), Ingredient.fromJson(entry.getValue()));
         }
 
         map.put(" ", Ingredient.EMPTY);
@@ -329,7 +329,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
 
     public static ItemStack deserializeItem(JsonObject object)
     {
-        String s = JSONUtils.getString(object, "item");
+        String s = JSONUtils.getAsString(object, "item");
         Registry.ITEM.getOptional(new ResourceLocation(s)).orElseThrow(() -> new JsonSyntaxException("Unknown item '" + s + "'"));
         if (object.has("data"))
         {
@@ -337,7 +337,7 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
         }
         else
         {
-            int i = JSONUtils.getInt(object, "count", 1);
+            int i = JSONUtils.getAsInt(object, "count", 1);
             return net.minecraftforge.common.crafting.CraftingHelper.getItemStack(object, true);
         }
     }
@@ -345,49 +345,49 @@ public class NBTCarryRecipe extends SpecialRecipe implements IShapedRecipe<Craft
 
     public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<NBTCarryRecipe>
     {
-        public NBTCarryRecipe read(ResourceLocation recipeId, JsonObject json)
+        public NBTCarryRecipe fromJson(ResourceLocation recipeId, JsonObject json)
         {
-            String s = JSONUtils.getString(json, "group", "");
-            Map<String, Ingredient> map = deserializeKey(JSONUtils.getJsonObject(json, "key"));
-            String[] astring = shrink(patternFromJson(JSONUtils.getJsonArray(json, "pattern")));
+            String s = JSONUtils.getAsString(json, "group", "");
+            Map<String, Ingredient> map = deserializeKey(JSONUtils.getAsJsonObject(json, "key"));
+            String[] astring = shrink(patternFromJson(JSONUtils.getAsJsonArray(json, "pattern")));
             int i = astring[0].length();
             int j = astring.length;
             NonNullList<Ingredient> nonnulllist = deserializeIngredients(astring, map, i, j);
-            Ingredient nbtCarry = Ingredient.deserialize(json.get("nbtCarry"));
-            ItemStack itemstack = deserializeItem(JSONUtils.getJsonObject(json, "result"));
+            Ingredient nbtCarry = Ingredient.fromJson(json.get("nbtCarry"));
+            ItemStack itemstack = deserializeItem(JSONUtils.getAsJsonObject(json, "result"));
 
             return new NBTCarryRecipe(recipeId, s, i, j, nbtCarry, nonnulllist, itemstack);
         }
 
-        public NBTCarryRecipe read(ResourceLocation recipeId, PacketBuffer buffer)
+        public NBTCarryRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer)
         {
             int i = buffer.readVarInt();
             int j = buffer.readVarInt();
-            String s = buffer.readString(32767);
+            String s = buffer.readUtf(32767);
             NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i * j, Ingredient.EMPTY);
 
             for (int k = 0; k < nonnulllist.size(); ++k)
             {
-                nonnulllist.set(k, Ingredient.read(buffer));
+                nonnulllist.set(k, Ingredient.fromNetwork(buffer));
             }
 
-            Ingredient nbtCarry = Ingredient.read(buffer);
-            ItemStack itemstack = buffer.readItemStack();
+            Ingredient nbtCarry = Ingredient.fromNetwork(buffer);
+            ItemStack itemstack = buffer.readItem();
             return new NBTCarryRecipe(recipeId, s, i, j, nbtCarry, nonnulllist, itemstack);
         }
 
-        public void write(PacketBuffer buffer, NBTCarryRecipe recipe)
+        public void toNetwork(PacketBuffer buffer, NBTCarryRecipe recipe)
         {
             buffer.writeVarInt(recipe.recipeWidth);
             buffer.writeVarInt(recipe.recipeHeight);
-            buffer.writeString(recipe.group);
+            buffer.writeUtf(recipe.group);
 
             for (Ingredient ingredient : recipe.recipeItems)
             {
-                ingredient.write(buffer);
+                ingredient.toNetwork(buffer);
             }
-            recipe.nbtCarry.write(buffer);
-            buffer.writeItemStack(recipe.recipeOutput);
+            recipe.nbtCarry.toNetwork(buffer);
+            buffer.writeItem(recipe.recipeOutput);
         }
     }
 }

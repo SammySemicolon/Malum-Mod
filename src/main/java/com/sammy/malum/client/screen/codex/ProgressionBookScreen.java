@@ -14,7 +14,7 @@ import com.sammy.malum.core.registry.items.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -378,7 +378,7 @@ public class ProgressionBookScreen extends Screen
 //                "simple_spirit_rites", ARCANE_SPIRIT.get(),-1,8) //simple rites almost always turn negative when corrupted
 //                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life")) //Heals nearby allies (players and passive mobs). Heals and empowers nearby enemies
 //                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death")) //Damages nearby enemies. Damages nearby players with a doubled radius.
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth")) //Grants a flat armor bonus to nearby allies. Effect is reversed, allies and enemies are crippled and armor is reduced.
+//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth")) //Grants a flat armor bonus to nearby allies. MobEffect is reversed, allies and enemies are crippled and armor is reduced.
 //                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames")) //Grants a bonus to movement and swing speed (Includes mining speed) to nearby allies. Sets allies and enemies alike on fire.
 //                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides")) //Provides temporary increased swim speed to nearby allies. Drowns nearby submerged enemies, zombies instantly transform to drowned.
 //                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales")) //Speeds up nearby allies. Horizontal momentum is converted to a burst of levitation.
@@ -440,8 +440,8 @@ public class ProgressionBookScreen extends Screen
     public void setupObjects()
     {
         objects = new ArrayList<>();
-        this.width = minecraft.getMainWindow().getScaledWidth();
-        this.height = minecraft.getMainWindow().getScaledHeight();
+        this.width = minecraft.getWindow().getGuiScaledWidth();
+        this.height = minecraft.getWindow().getGuiScaledHeight();
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         int coreX = guiLeft + bookInsideWidth;
@@ -456,8 +456,8 @@ public class ProgressionBookScreen extends Screen
     }
     public void faceObject(BookObject object)
     {
-        this.width = minecraft.getMainWindow().getScaledWidth();
-        this.height = minecraft.getMainWindow().getScaledHeight();
+        this.width = minecraft.getWindow().getGuiScaledWidth();
+        this.height = minecraft.getWindow().getGuiScaledHeight();
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         xOffset = -object.posX+guiLeft + bookInsideWidth;
@@ -561,7 +561,7 @@ public class ProgressionBookScreen extends Screen
     {
         if (keyCode == GLFW.GLFW_KEY_E)
         {
-            closeScreen();
+            onClose();
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -616,7 +616,7 @@ public class ProgressionBookScreen extends Screen
 
     public void cut()
     {
-        int scale = (int) getMinecraft().getMainWindow().getGuiScaleFactor();
+        int scale = (int) getMinecraft().getWindow().getGuiScale();
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         int insideLeft = guiLeft + 17;
@@ -627,7 +627,7 @@ public class ProgressionBookScreen extends Screen
     public static void renderTexture(ResourceLocation texture, MatrixStack matrixStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)
     {
         Minecraft mc = Minecraft.getInstance();
-        mc.getTextureManager().bindTexture(texture);
+        mc.getTextureManager().bind(texture);
         blit(matrixStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
     }
 
@@ -641,24 +641,24 @@ public class ProgressionBookScreen extends Screen
     }
     public static void renderItem(MatrixStack matrixStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY)
     {
-        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(stack, posX, posY);
-        Minecraft.getInstance().getItemRenderer().renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, posX, posY, null);
+        Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
+        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (isHovering(mouseX, mouseY, posX, posY, 16,16))
         {
-            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(stack.getTranslationKey()), mouseX, mouseY);
+            screen.renderTooltip(matrixStack, ClientHelper.simpleTranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
         }
     }
 
     public static void renderWrappingText(MatrixStack mStack, String text, int x, int y, int w)
     {
-        FontRenderer font = Minecraft.getInstance().fontRenderer;
+        FontRenderer font = Minecraft.getInstance().font;
         text = ClientHelper.simpleTranslatableComponent(text).getString();
         List<String> lines = new ArrayList<>();
         String[] words = text.split(" ");
         String line = "";
         for (String s : words)
         {
-            if (font.getStringWidth(line) + font.getStringWidth(s) > w)
+            if (font.width(line) + font.width(s) > w)
             {
                 lines.add(line);
                 line = s + " ";
@@ -669,7 +669,7 @@ public class ProgressionBookScreen extends Screen
         for (int i = 0; i < lines.size(); i++)
         {
             String currentLine = lines.get(i);
-            renderRawText(mStack, currentLine, x,y + i * (font.FONT_HEIGHT + 1), glow(i/4f));
+            renderRawText(mStack, currentLine, x,y + i * (font.lineHeight + 1), glow(i/4f));
         }
     }
 
@@ -695,32 +695,32 @@ public class ProgressionBookScreen extends Screen
     }
     private static void renderRawText(MatrixStack stack, String text, int x, int y, float glow)
     {
-        FontRenderer font = Minecraft.getInstance().fontRenderer;
+        FontRenderer font = Minecraft.getInstance().font;
         //182, 61, 183   227, 39, 228
         int r = (int) MathHelper.lerp(glow, 182, 227);
         int g = (int) MathHelper.lerp(glow, 61, 39);
         int b = (int) MathHelper.lerp(glow, 183, 228);
 
-        font.drawString(stack, text, x - 1, y, packColor(96, 255, 210, 243));
-        font.drawString(stack, text, x + 1, y, packColor(128, 240, 131, 232));
-        font.drawString(stack, text, x, y - 1, packColor(128, 255, 183, 236));
-        font.drawString(stack, text, x, y + 1, packColor(96, 236, 110, 226));
+        font.draw(stack, text, x - 1, y, color(96, 255, 210, 243));
+        font.draw(stack, text, x + 1, y, color(128, 240, 131, 232));
+        font.draw(stack, text, x, y - 1, color(128, 255, 183, 236));
+        font.draw(stack, text, x, y + 1, color(96, 236, 110, 226));
 
-        font.drawString(stack, text, x, y, packColor(255, r, g, b));
+        font.draw(stack, text, x, y, color(255, r, g, b));
     }
     public static float glow(float offset)
     {
-        return MathHelper.sin(offset+Minecraft.getInstance().player.world.getGameTime() / 40f)/2f + 0.5f;
+        return MathHelper.sin(offset+Minecraft.getInstance().player.level.getGameTime() / 40f)/2f + 0.5f;
     }
     public void playSound()
     {
-        PlayerEntity playerEntity = Minecraft.getInstance().player;
-        playerEntity.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        Player playerEntity = Minecraft.getInstance().player;
+        playerEntity.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0f, 1.0f);
     }
 
     public static void openScreen(boolean ignoreNextMouseClick)
     {
-        Minecraft.getInstance().displayGuiScreen(getInstance());
+        Minecraft.getInstance().setScreen(getInstance());
         screen.playSound();
         screen.ignoreNextMouseInput = ignoreNextMouseClick;
     }

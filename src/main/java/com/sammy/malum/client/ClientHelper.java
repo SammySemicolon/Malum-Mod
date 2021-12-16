@@ -22,7 +22,7 @@ public class ClientHelper
     public static void spawnBlockParticles(BlockPos pos, BlockState state)
     {
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.particles.addBlockDestroyEffects(pos, state);
+        minecraft.particleEngine.destroy(pos, state);
     }
     public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color)
     {
@@ -33,9 +33,9 @@ public class ClientHelper
     }
     public static Color getColor(int decimal)
     {
-        int red = ColorHelper.PackedColor.getRed(decimal);
-        int green = ColorHelper.PackedColor.getGreen(decimal);
-        int blue = ColorHelper.PackedColor.getBlue(decimal);
+        int red = ColorHelper.PackedColor.red(decimal);
+        int green = ColorHelper.PackedColor.green(decimal);
+        int blue = ColorHelper.PackedColor.blue(decimal);
         return new Color(red, green, blue);
     }
     public static IFormattableTextComponent simpleTranslatableComponent(String message)
@@ -45,6 +45,6 @@ public class ClientHelper
 
     public static void setCutout(RegistryObject<Block> b)
     {
-        RenderTypeLookup.setRenderLayer(b.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout());
     }
 }

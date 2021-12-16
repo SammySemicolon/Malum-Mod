@@ -8,6 +8,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
+import net.minecraft.enchantment.Enchantment.Rarity;
+
 public class HauntedEnchantment extends Enchantment
 {
     public HauntedEnchantment()
@@ -16,15 +18,15 @@ public class HauntedEnchantment extends Enchantment
     }
     
     @Override
-    public void onEntityDamaged(LivingEntity user, Entity target, int level)
+    public void doPostAttack(LivingEntity user, Entity target, int level)
     {
         if (target instanceof LivingEntity)
         {
             LivingEntity entity = (LivingEntity) target;
-            entity.hurtResistantTime = 0;
-            entity.attackEntityFrom(DamageSourceRegistry.causeVoodooDamage(user), level+1);
+            entity.invulnerableTime = 0;
+            entity.hurt(DamageSourceRegistry.causeVoodooDamage(user), level+1);
         }
-        super.onEntityDamaged(user, target, level);
+        super.doPostAttack(user, target, level);
     }
 
     @Override

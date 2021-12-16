@@ -1,12 +1,12 @@
 package com.sammy.malum.core.systems.container;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
-public class ItemInventory extends Inventory
+public class ItemInventory extends SimpleContainer
 {
     private final ItemStack stack;
 
@@ -15,28 +15,28 @@ public class ItemInventory extends Inventory
         super(expectedSize);
         this.stack = stack;
 
-        ListNBT list = stack.getOrCreateTag().getList("items", 10);
+        ListTag list = stack.getOrCreateTag().getList("items", 10);
         int i = 0;
         for (; i < expectedSize && i < list.size(); i++)
         {
-            setInventorySlotContents(i, ItemStack.read(list.getCompound(i)));
+            setItem(i, ItemStack.of(list.getCompound(i)));
         }
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player)
+    public boolean stillValid(Player player)
     {
         return !stack.isEmpty();
     }
 
     @Override
-    public void markDirty()
+    public void setChanged()
     {
-        super.markDirty();
-        ListNBT list = new ListNBT();
-        for (int i = 0; i < getSizeInventory(); i++)
+        super.setChanged();
+        ListTag list = new ListTag();
+        for (int i = 0; i < getContainerSize(); i++)
         {
-            list.add(getStackInSlot(i).write(new CompoundNBT()));
+            list.add(getItem(i).save(new CompoundTag()));
         }
         stack.getOrCreateTag().put("items", list);
     }

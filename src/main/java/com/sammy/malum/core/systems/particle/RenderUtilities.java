@@ -27,64 +27,64 @@ public class RenderUtilities {
 
     });
 
-    public static RenderType GLOWING_SPRITE = RenderType.makeType(
+    public static RenderType GLOWING_SPRITE = RenderType.create(
             MalumMod.MODID + ":glowing_sprite",
             DefaultVertexFormats.POSITION_COLOR_TEX,
             GL11.GL_QUADS, 256,
-            RenderType.State.getBuilder()
-                    .shadeModel(new RenderState.ShadeModelState(false))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false))
-                    .build(false)
-    ), GLOWING = RenderType.makeType(
+            RenderType.State.builder()
+                    .setShadeModelState(new RenderState.ShadeModelState(false))
+                    .setWriteMaskState(new RenderState.WriteMaskState(true, false))
+                    .setLightmapState(new RenderState.LightmapState(false))
+                    .setDiffuseLightingState(new RenderState.DiffuseLightingState(false))
+                    .setTransparencyState(ADDITIVE_TRANSPARENCY)
+                    .setTextureState(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS, false, false))
+                    .createCompositeState(false)
+    ), GLOWING = RenderType.create(
             MalumMod.MODID + ":glowing",
             DefaultVertexFormats.POSITION_COLOR,
             GL11.GL_QUADS, 256,
-            RenderType.State.getBuilder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .build(false)
-    ), DELAYED_PARTICLE = RenderType.makeType(
+            RenderType.State.builder()
+                    .setShadeModelState(new RenderState.ShadeModelState(true))
+                    .setWriteMaskState(new RenderState.WriteMaskState(true, false))
+                    .setLightmapState(new RenderState.LightmapState(false))
+                    .setDiffuseLightingState(new RenderState.DiffuseLightingState(false))
+                    .setTransparencyState(ADDITIVE_TRANSPARENCY)
+                    .createCompositeState(false)
+    ), DELAYED_PARTICLE = RenderType.create(
             MalumMod.MODID + ":delayed_particle",
-            DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP,
+            DefaultVertexFormats.PARTICLE,
             GL11.GL_QUADS, 256,
-            RenderType.State.getBuilder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(NORMAL_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(AtlasTexture.LOCATION_PARTICLES_TEXTURE, false, false))
-                    .build(false)
-    ), GLOWING_PARTICLE = RenderType.makeType(
+            RenderType.State.builder()
+                    .setShadeModelState(new RenderState.ShadeModelState(true))
+                    .setWriteMaskState(new RenderState.WriteMaskState(true, false))
+                    .setLightmapState(new RenderState.LightmapState(false))
+                    .setDiffuseLightingState(new RenderState.DiffuseLightingState(false))
+                    .setTransparencyState(NORMAL_TRANSPARENCY)
+                    .setTextureState(new RenderState.TextureState(AtlasTexture.LOCATION_PARTICLES, false, false))
+                    .createCompositeState(false)
+    ), GLOWING_PARTICLE = RenderType.create(
             MalumMod.MODID + ":glowing_particle",
-            DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP,
+            DefaultVertexFormats.PARTICLE,
             GL11.GL_QUADS, 256,
-            RenderType.State.getBuilder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(AtlasTexture.LOCATION_PARTICLES_TEXTURE, false, false))
-                    .build(false)
-    ), GLOWING_BLOCK_PARTICLE = RenderType.makeType(
+            RenderType.State.builder()
+                    .setShadeModelState(new RenderState.ShadeModelState(true))
+                    .setWriteMaskState(new RenderState.WriteMaskState(true, false))
+                    .setLightmapState(new RenderState.LightmapState(false))
+                    .setDiffuseLightingState(new RenderState.DiffuseLightingState(false))
+                    .setTransparencyState(ADDITIVE_TRANSPARENCY)
+                    .setTextureState(new RenderState.TextureState(AtlasTexture.LOCATION_PARTICLES, false, false))
+                    .createCompositeState(false)
+    ), GLOWING_BLOCK_PARTICLE = RenderType.create(
             MalumMod.MODID + ":glowing_particle",
-            DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP,
+            DefaultVertexFormats.PARTICLE,
             GL11.GL_QUADS, 256,
-            RenderType.State.getBuilder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false))
-                    .build(false)
+            RenderType.State.builder()
+                    .setShadeModelState(new RenderState.ShadeModelState(true))
+                    .setWriteMaskState(new RenderState.WriteMaskState(true, false))
+                    .setLightmapState(new RenderState.LightmapState(false))
+                    .setDiffuseLightingState(new RenderState.DiffuseLightingState(false))
+                    .setTransparencyState(ADDITIVE_TRANSPARENCY)
+                    .setTextureState(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS, false, false))
+                    .createCompositeState(false)
     );
 }

@@ -3,10 +3,10 @@ package com.sammy.malum.core.registry.misc;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.container.SpiritPouchContainerScreen;
 import com.sammy.malum.common.container.SpiritPouchContainer;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,16 +22,16 @@ import static com.sammy.malum.MalumMod.MODID;
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class ContainerRegistry {
 
-    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, MODID);
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, MODID);
 
-    public static final RegistryObject<ContainerType<SpiritPouchContainer>> SPIRIT_POUCH = CONTAINERS.register("spirit_pouch", () -> IForgeContainerType.create((int id, PlayerInventory inv, PacketBuffer extraData) -> new SpiritPouchContainer(id, inv, extraData.readItemStack())));
+    public static final RegistryObject<MenuType<SpiritPouchContainer>> SPIRIT_POUCH = CONTAINERS.register("spirit_pouch", () -> IForgeContainerType.create((int id, Inventory inv, FriendlyByteBuf extraData) -> new SpiritPouchContainer(id, inv, extraData.readItem())));
 
 
     @SubscribeEvent
     public static void bindContainerRenderers(FMLClientSetupEvent event) {
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
         {
-            ScreenManager.registerFactory(ContainerRegistry.SPIRIT_POUCH.get(), SpiritPouchContainerScreen::new);
+            MenuScreens.register(ContainerRegistry.SPIRIT_POUCH.get(), SpiritPouchContainerScreen::new);
         });
     }
 }

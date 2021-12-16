@@ -3,8 +3,8 @@ package com.sammy.malum.common.item.equipment;
 import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.core.systems.container.ItemInventory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.IDyeableArmorItem;
@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -23,6 +23,8 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import net.minecraft.item.Item.Properties;
 
 public class SpiritPouchItem extends Item implements IDyeableArmorItem {
 
@@ -37,16 +39,16 @@ public class SpiritPouchItem extends Item implements IDyeableArmorItem {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (MalumHelper.areWeOnServer(worldIn))
+    public ActionResult<ItemStack> use(Level LevelIn, Player playerIn, Hand handIn) {
+        if (MalumHelper.areWeOnServer(LevelIn))
         {
-            ItemStack stack = playerIn.getHeldItem(handIn);
+            ItemStack stack = playerIn.getItemInHand(handIn);
             INamedContainerProvider container =
-                    new SimpleNamedContainerProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getDisplayName());
-            NetworkHooks.openGui((ServerPlayerEntity) playerIn, container, b -> b.writeItemStack(stack));
-            playerIn.world.playSound(null, playerIn.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 1, 1);
+                    new SimpleNamedContainerProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
+            NetworkHooks.openGui((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
+            playerIn.level.playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 1, 1);
         }
-        return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
+        return ActionResult.success(playerIn.getItemInHand(handIn));
     }
 
     private static class InventoryCapability implements ICapabilityProvider {
@@ -69,7 +71,7 @@ public class SpiritPouchItem extends Item implements IDyeableArmorItem {
 
     @Override
     public int getColor(ItemStack stack) {
-        CompoundNBT compoundnbt = stack.getChildTag("display");
+        CompoundNBT compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains("color", 99) ? compoundnbt.getInt("color") : 11943351;
     }
 }

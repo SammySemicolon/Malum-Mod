@@ -5,6 +5,8 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class MalumOreBlock extends OreBlock
 {
     public final int minExperience;
@@ -18,7 +20,7 @@ public class MalumOreBlock extends OreBlock
     }
 
     @Override
-    protected int getExperience(Random rand)
+    protected int xpOnDrop(Random rand)
     {
         return MathHelper.nextInt(rand, minExperience, maxExperience);
     }

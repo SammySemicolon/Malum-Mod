@@ -34,9 +34,9 @@ public class ItemEvents {
                         TranslationTextComponent textComponent = (TranslationTextComponent) component;
                         String rawText = textComponent.getString();
                         if (rawText.contains("+") || rawText.contains("-")) {
-                            String amount = textComponent.children.get(1).getString();
-                            String text = textComponent.children.get(3).getString();
-                            component = new StringTextComponent(" " + amount + " " + text).mergeStyle(TextFormatting.DARK_GREEN);
+                            String amount = textComponent.decomposedParts.get(1).getString();
+                            String text = textComponent.decomposedParts.get(3).getString();
+                            component = new StringTextComponent(" " + amount + " " + text).withStyle(TextFormatting.DARK_GREEN);
                             tooltip.set(i, component);
                         }
                     }

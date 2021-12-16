@@ -6,7 +6,7 @@ import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
@@ -20,24 +20,24 @@ public class WickedRiteType extends MalumRiteType
     }
 
     @Override
-    public void riteEffect(World world, BlockPos pos)
+    public void riteEffect(Level Level, BlockPos pos)
     {
-        if (MalumHelper.areWeOnServer(world)) {
-            getNearbyEntities(LivingEntity.class, world, pos, false).forEach(e -> {
+        if (MalumHelper.areWeOnServer(Level)) {
+            getNearbyEntities(LivingEntity.class, Level, pos, false).forEach(e -> {
                 if (e.getHealth() > 2.5f) {
-                    e.attackEntityFrom(DamageSourceRegistry.VOODOO, 2);
+                    e.hurt(DamageSourceRegistry.VOODOO, 2);
                 }
             });
         }
     }
 
     @Override
-    public void corruptedRiteEffect(World world, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(world)) {
-            getNearbyEntities(LivingEntity.class, world, pos, true).forEach(e -> {
+    public void corruptedRiteEffect(Level Level, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(Level)) {
+            getNearbyEntities(LivingEntity.class, Level, pos, true).forEach(e -> {
                 if (e.getHealth() <= 2.5f) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(WICKED_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY() + e.getHeight() / 2f, e.getPosition().getZ()));
-                    e.attackEntityFrom(DamageSourceRegistry.FORCED_SHATTER, 10f);
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(WICKED_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
+                    e.hurt(DamageSourceRegistry.FORCED_SHATTER, 10f);
                 }
             });
         }

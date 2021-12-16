@@ -5,9 +5,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WoodType;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.Level.IBlockReader;
 
 import javax.annotation.Nullable;
+
+import net.minecraft.block.AbstractBlock.Properties;
 
 public class MalumWallSignBlock extends WallSignBlock
 {
@@ -24,7 +26,7 @@ public class MalumWallSignBlock extends WallSignBlock
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    public TileEntity createTileEntity(BlockState state, IBlockReader Level)
     {
         return new MalumSignTileEntity();
     }

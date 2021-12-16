@@ -3,7 +3,7 @@ package com.sammy.malum.common.container;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
 import com.sammy.malum.core.registry.misc.ContainerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
@@ -25,13 +25,13 @@ public class SpiritPouchContainer extends Container {
     public SpiritPouchContainer(ContainerType<? extends SpiritPouchContainer> containerType, int windowId, PlayerInventory playerInv, IInventory inventory) {
         super(containerType, windowId);
         this.inventory = inventory;
-        inventory.openInventory(playerInv.player);
-        for (int i = 0; i < inventory.getSizeInventory() / 9f; ++i) {
+        inventory.startOpen(playerInv.player);
+        for (int i = 0; i < inventory.getContainerSize() / 9f; ++i) {
             for (int j = 0; j < 9; ++j) {
                 int index = i * 9 + j;
                 addSlot(new Slot(inventory, index, 8 + j * 18, 18 + i * 18) {
                     @Override
-                    public boolean isItemValid(ItemStack stack) {
+                    public boolean mayPlace(ItemStack stack) {
                         return stack.getItem() instanceof MalumSpiritItem;
                     }
                 });
@@ -50,10 +50,10 @@ public class SpiritPouchContainer extends Container {
     }
 
     @Override
-    public void onContainerClosed(PlayerEntity playerIn) {
-        playerIn.world.playSound(null, playerIn.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 1, 1);
-        super.onContainerClosed(playerIn);
-        this.inventory.closeInventory(playerIn);
+    public void removed(Player playerIn) {
+        playerIn.level.playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundCategory.PLAYERS, 1, 1);
+        super.removed(playerIn);
+        this.inventory.stopOpen(playerIn);
     }
 
     public int offset() {
@@ -61,30 +61,30 @@ public class SpiritPouchContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
-        return this.inventory.isUsableByPlayer(playerIn);
+    public boolean stillValid(Player playerIn) {
+        return this.inventory.stillValid(playerIn);
     }
 
     @Nonnull
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            if (index < this.inventory.getSizeInventory()) {
-                if (!this.mergeItemStack(itemstack1, this.inventory.getSizeInventory(), this.inventorySlots.size(), true)) {
+            if (index < this.inventory.getContainerSize()) {
+                if (!this.moveItemStackTo(itemstack1, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 0, this.inventory.getSizeInventory(), false)) {
+            } else if (!this.moveItemStackTo(itemstack1, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
 

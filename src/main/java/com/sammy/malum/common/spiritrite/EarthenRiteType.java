@@ -4,10 +4,10 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
@@ -21,25 +21,25 @@ public class EarthenRiteType extends MalumRiteType
     }
 
     @Override
-    public void riteEffect(World world, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(world)) {
-            getNearbyEntities(PlayerEntity.class, world, pos, false).forEach(e -> {
-                if (e.getActivePotionEffect(EffectRegistry.EARTHEN_AURA.get()) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(EARTHEN_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY() + e.getHeight() / 2f, e.getPosition().getZ()));
+    public void riteEffect(Level Level, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(Level)) {
+            getNearbyEntities(Player.class, Level, pos, false).forEach(e -> {
+                if (e.getEffect(EffectRegistry.EARTHEN_AURA.get()) == null) {
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(EARTHEN_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addPotionEffect(new EffectInstance(EffectRegistry.EARTHEN_AURA.get(), 100, 1));
+                e.addEffect(new EffectInstance(EffectRegistry.EARTHEN_AURA.get(), 100, 1));
             });
         }
     }
 
     @Override
-    public void corruptedRiteEffect(World world, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(world)) {
-            getNearbyEntities(PlayerEntity.class, world, pos, false).forEach(e -> {
-                if (e.getActivePotionEffect(EffectRegistry.CORRUPTED_EARTHEN_AURA.get()) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(EARTHEN_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY() + e.getHeight() / 2f, e.getPosition().getZ()));
+    public void corruptedRiteEffect(Level Level, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(Level)) {
+            getNearbyEntities(Player.class, Level, pos, false).forEach(e -> {
+                if (e.getEffect(EffectRegistry.CORRUPTED_EARTHEN_AURA.get()) == null) {
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(EARTHEN_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addPotionEffect(new EffectInstance(EffectRegistry.CORRUPTED_EARTHEN_AURA.get(), 100, 1));
+                e.addEffect(new EffectInstance(EffectRegistry.CORRUPTED_EARTHEN_AURA.get(), 100, 1));
             });
         }
     }

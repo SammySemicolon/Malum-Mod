@@ -5,6 +5,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.item.Item.Properties;
+
 public class MalumFuelBlockItem extends BlockItem
 {
     public final int fuel;

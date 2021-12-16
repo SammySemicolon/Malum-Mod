@@ -39,7 +39,7 @@ public class SpiritAltarCraftParticlePacket
         ArrayList<String> spirits = new ArrayList<>();
         for (int i = 0; i < strings; i++)
         {
-            spirits.add(buf.readString());
+            spirits.add(buf.readUtf());
         }
         double posX = buf.readDouble();
         double posY = buf.readDouble();
@@ -52,7 +52,7 @@ public class SpiritAltarCraftParticlePacket
         buf.writeInt(spirits.size());
         for (String string : spirits)
         {
-            buf.writeString(string);
+            buf.writeUtf(string);
         }
         buf.writeDouble(posX);
         buf.writeDouble(posY);

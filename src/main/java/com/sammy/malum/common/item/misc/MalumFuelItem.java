@@ -3,6 +3,8 @@ package com.sammy.malum.common.item.misc;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.item.Item.Properties;
+
 public class MalumFuelItem extends Item
 {
     public final int fuel;

@@ -32,14 +32,14 @@ public class EntryObject extends BookObject
         int posX = offsetPosX(xOffset);
         int posY = offsetPosY(yOffset);
         renderTexture(FRAME_TEXTURE, matrixStack, posX, posY, 1, 252, width, height, 512, 512);
-        minecraft.getItemRenderer().renderItemAndEffectIntoGUI(entry.iconStack, posX + 8, posY + 8);
+        minecraft.getItemRenderer().renderAndDecorateItem(entry.iconStack, posX + 8, posY + 8);
     }
 
     @Override
     public void lateRender(Minecraft minecraft, MatrixStack matrixStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         if (isHovering)
         {
-            screen.renderWrappedToolTip(matrixStack, Arrays.asList(new TranslationTextComponent(entry.translationKey()), new TranslationTextComponent(entry.descriptionTranslationKey()).mergeStyle(TextFormatting.GRAY)), mouseX, mouseY, minecraft.fontRenderer);
+            screen.renderWrappedToolTip(matrixStack, Arrays.asList(new TranslationTextComponent(entry.translationKey()), new TranslationTextComponent(entry.descriptionTranslationKey()).withStyle(TextFormatting.GRAY)), mouseX, mouseY, minecraft.font);
         }
     }
 }

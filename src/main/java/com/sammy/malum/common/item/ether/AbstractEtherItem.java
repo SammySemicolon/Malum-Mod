@@ -8,6 +8,8 @@ import net.minecraft.nbt.CompoundNBT;
 
 import java.awt.*;
 
+import net.minecraft.item.Item.Properties;
+
 public abstract class AbstractEtherItem extends BlockItem implements IDyeableArmorItem
 {
     public static final String firstColor = "firstColor";
@@ -33,7 +35,7 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
         {
             return getFirstColor(stack);
         }
-        CompoundNBT compoundnbt = stack.getChildTag("display");
+        CompoundNBT compoundnbt = stack.getTagElement("display");
 
         return compoundnbt != null && compoundnbt.contains(secondColor, 99) ? compoundnbt.getInt(secondColor) : defaultSecondColor;
     }
@@ -41,37 +43,37 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
     {
         if (iridescent)
         {
-            stack.getOrCreateChildTag("display").putInt(secondColor, color);
+            stack.getOrCreateTagElement("display").putInt(secondColor, color);
         }
     }
 
     public int getFirstColor(ItemStack stack)
     {
-        CompoundNBT compoundnbt = stack.getChildTag("display");
+        CompoundNBT compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains(firstColor, 99) ? compoundnbt.getInt(firstColor) : defaultFirstColor;
     }
     public void setFirstColor(ItemStack stack, int color)
     {
-        stack.getOrCreateChildTag("display").putInt(firstColor, color);
+        stack.getOrCreateTagElement("display").putInt(firstColor, color);
     }
 
 
     @Override
     public int getColor(ItemStack stack)
     {
-        CompoundNBT compoundnbt = stack.getChildTag("display");
+        CompoundNBT compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains(colorLookup(), 99) ? compoundnbt.getInt(colorLookup()) : defaultFirstColor;
     }
     @Override
-    public boolean hasColor(ItemStack stack)
+    public boolean hasCustomColor(ItemStack stack)
     {
-        CompoundNBT compoundnbt = stack.getChildTag("display");
+        CompoundNBT compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains(colorLookup(), 99);
     }
     @Override
-    public void removeColor(ItemStack stack)
+    public void clearColor(ItemStack stack)
     {
-        CompoundNBT compoundnbt = stack.getChildTag("display");
+        CompoundNBT compoundnbt = stack.getTagElement("display");
         if (compoundnbt != null && compoundnbt.contains(colorLookup()))
         {
             compoundnbt.remove(colorLookup());
@@ -81,6 +83,6 @@ public abstract class AbstractEtherItem extends BlockItem implements IDyeableArm
     @Override
     public void setColor(ItemStack stack, int color)
     {
-        stack.getOrCreateChildTag("display").putInt(colorLookup(), color);
+        stack.getOrCreateTagElement("display").putInt(colorLookup(), color);
     }
 }

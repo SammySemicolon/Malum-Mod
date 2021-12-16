@@ -30,7 +30,7 @@ public class JEIHandler implements IModPlugin
     @Override
     public void registerRecipes(@Nonnull IRecipeRegistration registry)
     {
-        registry.addRecipes(SpiritInfusionRecipe.getRecipes(Minecraft.getInstance().world), SpiritInfusionRecipeCategory.UID);
+        registry.addRecipes(SpiritInfusionRecipe.getRecipes(Minecraft.getInstance().level), SpiritInfusionRecipeCategory.UID);
         registry.addRecipes(SpiritRiteRegistry.RITES, SpiritRiteRecipeCategory.UID);
     }
     

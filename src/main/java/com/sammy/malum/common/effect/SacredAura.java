@@ -2,11 +2,11 @@ package com.sammy.malum.common.effect;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.potion.Effect;
+import net.minecraft.potion.MobEffect;
 import net.minecraft.potion.EffectType;
 import net.minecraftforge.common.ForgeMod;
 
-public class SacredAura extends Effect
+public class SacredAura extends MobEffect
 {
     public SacredAura()
     {
@@ -14,7 +14,7 @@ public class SacredAura extends Effect
     }
 
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier)
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier)
     {
         if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth())
         {
@@ -22,7 +22,7 @@ public class SacredAura extends Effect
         }
     }
 
-    public boolean isReady(int duration, int amplifier)
+    public boolean isDurationEffectTick(int duration, int amplifier)
     {
         int k = 50 >> amplifier;
         if (k > 0)

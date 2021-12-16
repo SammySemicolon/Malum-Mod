@@ -8,8 +8,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.Level.Level;
+import net.minecraft.Level.server.ServerLevel;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -23,17 +23,17 @@ public class EldritchSacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(World world, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(world)) {
-            getNearbyBlocks(IGrowable.class, world, pos, false).forEach(p -> {
-                if (world.rand.nextFloat() <= 0.02f) {
-                    BlockState state = world.getBlockState(p);
+    public void riteEffect(Level Level, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(Level)) {
+            getNearbyBlocks(IGrowable.class, Level, pos, false).forEach(p -> {
+                if (Level.random.nextFloat() <= 0.02f) {
+                    BlockState state = Level.getBlockState(p);
                     IGrowable growable = (IGrowable) state.getBlock();
-                    ServerWorld serverWorld = (ServerWorld) world;
-                    if (growable.canGrow(serverWorld, p, state, false)) {
-                        growable.grow(serverWorld, world.rand, p, state);
-                        BlockPos particlePos = state.isSolid() ? p : p.down();
-                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), new BlockMistParticlePacket(SACRED_SPIRIT_COLOR, particlePos.getX(), particlePos.getY(), particlePos.getZ()));
+                    ServerLevel serverLevel = (ServerLevel) Level;
+                    if (growable.isValidBonemealTarget(serverLevel, p, state, false)) {
+                        growable.performBonemeal(serverLevel, Level.random, p, state);
+                        BlockPos particlePos = state.canOcclude() ? p : p.below();
+                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> Level.getChunkAt(pos)), new BlockMistParticlePacket(SACRED_SPIRIT_COLOR, particlePos.getX(), particlePos.getY(), particlePos.getZ()));
                     }
                 }
             });
@@ -41,18 +41,18 @@ public class EldritchSacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(World world, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(world)) {
-            ArrayList<AnimalEntity> entities = getNearbyEntities(AnimalEntity.class, world, pos, true);
-            entities.removeIf(e -> e.getGrowingAge() < 0);
+    public void corruptedRiteEffect(Level Level, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(Level)) {
+            ArrayList<AnimalEntity> entities = getNearbyEntities(AnimalEntity.class, Level, pos, true);
+            entities.removeIf(e -> e.getAge() < 0);
             if (entities.size() > 30) {
                 return;
             }
             entities.forEach(e -> {
-                if (e.canFallInLove() && e.getGrowingAge() == 0) {
-                    if (world.rand.nextFloat() <= 0.05f) {
-                        e.setInLove(600);
-                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY()+e.getHeight()/2f, e.getPosition().getZ()));
+                if (e.canFallInLove() && e.getAge() == 0) {
+                    if (Level.random.nextFloat() <= 0.05f) {
+                        e.setInLoveTime(600);
+                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY()+e.getBbHeight()/2f, e.blockPosition().getZ()));
                     }
                 }
             });

@@ -11,34 +11,34 @@ import com.sammy.malum.core.systems.particle.rendertypes.AdditiveRenderType;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.Level.ClientLevel;
 
 public class SpiritFlameParticle extends ParticlePhaseMalumParticle {
-    protected SpiritFlameParticle(ClientWorld world, MalumParticleData data, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet) {
-        super(world, data, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet, new ParticlePhase(0, 37, 1, 0), new ParticlePhase(38, 77, 2, 38));
-        setMaxAge(118);
-        canCollide = false;
+    protected SpiritFlameParticle(ClientLevel Level, MalumParticleData data, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, IAnimatedSprite spriteSet) {
+        super(Level, data, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet, new ParticlePhase(0, 37, 1, 0), new ParticlePhase(38, 77, 2, 38));
+        setLifetime(118);
+        hasPhysics = false;
     }
 
     @Override
     public void tick() {
         super.tick();
-        motionX *= 0.9f;
+        xd *= 0.9f;
         if (data.gravity && age < 5) {
-            motionY += 0.005f;
+            yd += 0.005f;
         } else {
-            motionY *= 0.9f;
+            yd *= 0.9f;
         }
-        motionZ *= 0.9f;
+        zd *= 0.9f;
     }
 
     @Override
-    public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
-        super.renderParticle(ClientConfig.BETTER_LAYERING.get() ? ParticleRendering.getDelayedRender().getBuffer(RenderUtilities.GLOWING_PARTICLE) : b, info, pticks);
+    public void render(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
+        super.render(ClientConfig.BETTER_LAYERING.get() ? ParticleRendering.getDelayedRender().getBuffer(RenderUtilities.GLOWING_PARTICLE) : b, info, pticks);
     }
 
     @Override
-    protected int getBrightnessForRender(float partialTicks) {
+    protected int getLightColor(float partialTicks) {
         return 0xF000F0;
     }
 

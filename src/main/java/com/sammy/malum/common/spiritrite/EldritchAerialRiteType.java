@@ -8,11 +8,11 @@ import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -26,40 +26,40 @@ public class EldritchAerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(World world, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(world)) {
-            BlockState filter = world.getBlockState(pos.down());
-            ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, world, pos, false);
+    public void riteEffect(Level Level, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(Level)) {
+            BlockState filter = Level.getBlockState(pos.below());
+            ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
             positions.removeIf(p -> {
                 if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
                     return true;
                 }
-                BlockState state = world.getBlockState(p);
-                if (state.isAir(world, p)) {
+                BlockState state = Level.getBlockState(p);
+                if (state.isAir(Level, p)) {
                     return true;
                 }
-                return !filter.isAir(world, pos) && !filter.isIn(state.getBlock());
+                return !filter.isAir(Level, pos) && !filter.is(state.getBlock());
             });
             positions.forEach(p -> {
-                BlockState stateBelow = world.getBlockState(p.down());
-                if (!stateBelow.isSolid() || stateBelow.isIn(BlockTags.SLABS)) {
-                    BlockState state = world.getBlockState(p);
-                    FallingBlockEntity fallingblockentity = new FallingBlockEntity(world, (double) p.getX() + 0.5D, p.getY(), (double) p.getZ() + 0.5D, state);
-                    world.addEntity(fallingblockentity);
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), new BlockSparkleParticlePacket(AERIAL_SPIRIT_COLOR, p.getX(), p.getY(), p.getZ()));
+                BlockState stateBelow = Level.getBlockState(p.below());
+                if (!stateBelow.canOcclude() || stateBelow.is(BlockTags.SLABS)) {
+                    BlockState state = Level.getBlockState(p);
+                    FallingBlockEntity fallingblockentity = new FallingBlockEntity(Level, (double) p.getX() + 0.5D, p.getY(), (double) p.getZ() + 0.5D, state);
+                    Level.addFreshEntity(fallingblockentity);
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> Level.getChunkAt(pos)), new BlockSparkleParticlePacket(AERIAL_SPIRIT_COLOR, p.getX(), p.getY(), p.getZ()));
                 }
             });
         }
     }
 
     @Override
-    public void corruptedRiteEffect(World world, BlockPos pos) {
-        if (MalumHelper.areWeOnServer(world)) {
-            getNearbyEntities(PlayerEntity.class, world, pos, false).forEach(e -> {
-                if (e.getActivePotionEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AERIAL_SPIRIT_COLOR, e.getPosition().getX(), e.getPosition().getY() + e.getHeight() / 2f, e.getPosition().getZ()));
+    public void corruptedRiteEffect(Level Level, BlockPos pos) {
+        if (MalumHelper.areWeOnServer(Level)) {
+            getNearbyEntities(Player.class, Level, pos, false).forEach(e -> {
+                if (e.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AERIAL_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addPotionEffect(new EffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 100, 40));
+                e.addEffect(new EffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 100, 40));
             });
         }
     }

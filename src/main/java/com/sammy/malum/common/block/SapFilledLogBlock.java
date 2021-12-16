@@ -8,16 +8,18 @@ import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.particle.ParticleManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.awt.*;
+
+import net.minecraft.block.AbstractBlock.Properties;
 
 public class SapFilledLogBlock extends RotatedPillarBlock
 {
@@ -27,19 +29,19 @@ public class SapFilledLogBlock extends RotatedPillarBlock
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+    public ActionResultType use(BlockState state, Level LevelIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit)
     {
-        ItemStack itemstack = player.getHeldItem(handIn);
+        ItemStack itemstack = player.getItemInHand(handIn);
         if (itemstack.getItem() == Items.GLASS_BOTTLE)
         {
             itemstack.shrink(1);
-            worldIn.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            LevelIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ItemRegistry.HOLY_SAP.get()));
-            if (worldIn.rand.nextBoolean())
+            if (LevelIn.random.nextBoolean())
             {
-                MalumHelper.setBlockStateWithExistingProperties(worldIn, pos, BlockRegistry.STRIPPED_RUNEWOOD_LOG.get().getDefaultState(), 3);
+                MalumHelper.setBlockStateWithExistingProperties(LevelIn, pos, BlockRegistry.STRIPPED_RUNEWOOD_LOG.get().defaultBlockState(), 3);
             }
-            if (MalumHelper.areWeOnClient(worldIn))
+            if (MalumHelper.areWeOnClient(LevelIn))
             {
                 Color color = SpiritTypeRegistry.INFERNAL_SPIRIT_COLOR;
 
@@ -52,7 +54,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock
                         .randomOffset(0.1f, 0.1f)
                         .enableNoClip()
                         .randomVelocity(0.001f, 0.001f)
-                        .evenlyRepeatEdges(worldIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                        .evenlyRepeatEdges(LevelIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
                 ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                         .setAlpha(0.05f, 0f)
@@ -63,10 +65,10 @@ public class SapFilledLogBlock extends RotatedPillarBlock
                         .randomOffset(0.1f, 0.1f)
                         .enableNoClip()
                         .randomVelocity(0.001f, 0.001f)
-                        .evenlyRepeatEdges(worldIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+                        .evenlyRepeatEdges(LevelIn, pos, 18, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
             }
             return ActionResultType.SUCCESS;
         }
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        return super.use(state, LevelIn, pos, player, handIn, hit);
     }
 }

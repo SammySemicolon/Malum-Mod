@@ -9,7 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,41 +22,41 @@ public class EldritchEarthenRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(World world, BlockPos pos) {
-        BlockState filter = world.getBlockState(pos.down());
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, world, pos, false);
+    public void riteEffect(Level Level, BlockPos pos) {
+        BlockState filter = Level.getBlockState(pos.below());
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
         positions.removeIf(p ->{
             if (p.getX() == pos.getX() && p.getZ() == pos.getZ())
             {
                 return true;
             }
-            BlockState state = world.getBlockState(p);
-            if (state.isAir(world, p))
+            BlockState state = Level.getBlockState(p);
+            if (state.isAir(Level, p))
             {
                 return true;
             }
-            return !filter.isAir(world, pos) && !filter.isIn(state.getBlock());
+            return !filter.isAir(Level, pos) && !filter.is(state.getBlock());
         });
         positions.forEach(p -> {
-            if (MalumHelper.areWeOnServer(world)) {
-                world.destroyBlock(p, true);
+            if (MalumHelper.areWeOnServer(Level)) {
+                Level.destroyBlock(p, true);
             } else {
-                particles(world, p);
+                particles(Level, p);
             }
         });
     }
 
     @Override
-    public void corruptedRiteEffect(World world, BlockPos pos) {
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, world, pos, false);
-        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !world.getBlockState(p).isAir(world, p));
+    public void corruptedRiteEffect(Level Level, BlockPos pos) {
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, Level, pos, false);
+        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !Level.getBlockState(p).isAir(Level, p));
         positions.forEach(p -> {
-            BlockState cobblestone = Blocks.COBBLESTONE.getDefaultState();
-            if (MalumHelper.areWeOnServer(world)) {
-                world.setBlockState(p, cobblestone);
-                world.playEvent(2001, p, Block.getStateId(cobblestone));
+            BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
+            if (MalumHelper.areWeOnServer(Level)) {
+                Level.setBlockAndUpdate(p, cobblestone);
+                Level.levelEvent(2001, p, Block.getId(cobblestone));
             } else {
-                particles(world, p);
+                particles(Level, p);
             }
         });
     }
@@ -71,7 +71,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
         return defaultRange() / 2;
     }
 
-    public void particles(World world, BlockPos pos) {
+    public void particles(Level Level, BlockPos pos) {
         Color color = EARTHEN_SPIRIT_COLOR;
         ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
@@ -82,7 +82,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(world, pos, 4, Direction.UP, Direction.DOWN);
+                .evenlyRepeatEdges(Level, pos, 4, Direction.UP, Direction.DOWN);
         ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
@@ -92,6 +92,6 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                 .randomOffset(0.2f)
                 .enableNoClip()
                 .randomVelocity(0.001f, 0.001f)
-                .evenlyRepeatEdges(world, pos, 6, Direction.UP, Direction.DOWN);
+                .evenlyRepeatEdges(Level, pos, 6, Direction.UP, Direction.DOWN);
     }
 }

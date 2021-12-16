@@ -1,43 +1,44 @@
 package com.sammy.malum.core.systems.recipe;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.world.World;
 
-public abstract class IMalumRecipe implements IRecipe<IInventory>
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
+
+public abstract class IMalumRecipe implements Recipe<Container>
 {
     @Deprecated
     @Override
-    public boolean matches(IInventory inv, World worldIn)
+    public boolean matches(Container inv, Level LevelIn)
     {
         return false;
     }
 
     @Deprecated
     @Override
-    public ItemStack getCraftingResult(IInventory inv)
+    public ItemStack assemble(Container inv)
     {
         return ItemStack.EMPTY;
     }
 
     @Deprecated
     @Override
-    public boolean canFit(int width, int height)
+    public boolean canCraftInDimensions(int width, int height)
     {
         return false;
     }
 
     @Deprecated
     @Override
-    public ItemStack getRecipeOutput()
+    public ItemStack getResultItem()
     {
         return ItemStack.EMPTY;
     }
 
 
     @Override
-    public boolean isDynamic() {
+    public boolean isSpecial() {
         return true;
     }
 }

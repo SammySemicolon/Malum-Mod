@@ -6,6 +6,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioCurativeRing extends MalumCurioItem implements IEventResponderItem
 {
     public CurioCurativeRing(Properties builder)

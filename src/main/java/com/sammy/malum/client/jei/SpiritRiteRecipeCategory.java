@@ -47,22 +47,22 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
     public SpiritRiteRecipeCategory(IGuiHelper guiHelper)
     {
         background = guiHelper.createBlankDrawable(142, 185);
-        localizedName = I18n.format("malum.jei.spirit_rite");
+        localizedName = I18n.get("malum.jei.spirit_rite");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_rite_jei.png"), 0, 0, 140, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()));
-        font = Minecraft.getInstance().fontRenderer;
+        font = Minecraft.getInstance().font;
     }
 
     @Override
     public void draw(MalumRiteType rite, MatrixStack matrixStack, double mouseX, double mouseY)
     {
-        GlStateManager.enableAlphaTest();
-        GlStateManager.enableBlend();
+        GlStateManager._enableAlphaTest();
+        GlStateManager._enableBlend();
 
         overlay.draw(matrixStack);
-        ProgressionBookScreen.renderText(matrixStack, new TranslationTextComponent(rite.translationIdentifier()), 105-font.getStringWidth(rite.translationIdentifier())/2,160);
-        GlStateManager.disableBlend();
-        GlStateManager.disableAlphaTest();
+        ProgressionBookScreen.renderText(matrixStack, new TranslationTextComponent(rite.translationIdentifier()), 105-font.width(rite.translationIdentifier())/2,160);
+        GlStateManager._disableBlend();
+        GlStateManager._disableAlphaTest();
     }
 
     @Nonnull

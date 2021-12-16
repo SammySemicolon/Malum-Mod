@@ -4,7 +4,6 @@ import com.sammy.malum.MalumHelper;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
-import com.sammy.malum.core.systems.tile.SimpleTileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 
@@ -48,15 +47,15 @@ public class SpiritJarTileEntity extends SimpleTileEntity implements ITickableTi
     @Override
     public void tick()
     {
-        if (MalumHelper.areWeOnClient(world))
+        if (MalumHelper.areWeOnClient(level))
         {
             if (type != null)
             {
-                double x = getPos().getX() + 0.5f;
-                double y = getPos().getY() + 0.5f + Math.sin(world.getGameTime() / 20f) * 0.2f;
-                double z = getPos().getZ() + 0.5f;
+                double x = getBlockPos().getX() + 0.5f;
+                double y = getBlockPos().getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f;
+                double z = getBlockPos().getZ() + 0.5f;
                 Color color = type.color;
-                SpiritHelper.spawnSpiritParticles(world, x,y,z, color);
+                SpiritHelper.spawnSpiritParticles(level, x,y,z, color);
             }
         }
     }

@@ -8,7 +8,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,8 +25,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.Level.Level;
+import net.minecraft.Level.server.ServerLevel;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -34,11 +34,11 @@ import java.util.UUID;
 
 public class ScytheBoomerangEntity extends ProjectileItemEntity
 {
-    public static final DataParameter<ItemStack> SCYTHE = EntityDataManager.createKey(ScytheBoomerangEntity.class, DataSerializers.ITEMSTACK);
+    public static final DataParameter<ItemStack> SCYTHE = EntityDataManager.defineId(ScytheBoomerangEntity.class, DataSerializers.ITEM_STACK);
     
     public ItemStack scythe;
     public UUID ownerUUID;
-    public PlayerEntity owner;
+    public Player owner;
     
     public int slot;
     public float damage;
@@ -46,18 +46,18 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     public int returnAge=8;
     public boolean returning;
     
-    public ScytheBoomerangEntity(World worldIn)
+    public ScytheBoomerangEntity(Level LevelIn)
     {
-        super(EntityRegistry.SCYTHE_BOOMERANG.get(), worldIn);
-        noClip = false;
+        super(EntityRegistry.SCYTHE_BOOMERANG.get(), LevelIn);
+        noPhysics = false;
     }
-    public PlayerEntity owner()
+    public Player owner()
     {
         if (owner == null)
         {
-            if (MalumHelper.areWeOnServer(world))
+            if (MalumHelper.areWeOnServer(level))
             {
-                owner = (PlayerEntity) ((ServerWorld) world).getEntityByUuid(ownerUUID);
+                owner = (Player) ((ServerLevel) level).getEntity(ownerUUID);
             }
         }
         return owner;
@@ -77,62 +77,62 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
         float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * ((float) Math.PI / 180F));
         float f2 = MathHelper.cos(rotationYawIn * ((float) Math.PI / 180F)) * MathHelper.cos(rotationPitchIn * ((float) Math.PI / 180F));
         this.shoot(f, f1, f2, velocity, inaccuracy);
-        Vector3d Vector3d = playerEntity.getMotion();
-        this.setMotion(this.getMotion().add(Vector3d.x, playerEntity.isOnGround() ? 0.0D : Vector3d.y, Vector3d.z));
+        Vector3d Vector3d = playerEntity.getDeltaMovement();
+        this.setDeltaMovement(this.getDeltaMovement().add(Vector3d.x, playerEntity.isOnGround() ? 0.0D : Vector3d.y, Vector3d.z));
     }
     @Override
     public void shoot(double x, double y, double z, float velocity, float inaccuracy)
     {
-        Vector3d motion = (new Vector3d(x, y, z)).normalize().add(this.rand.nextGaussian() * 0.0075F * inaccuracy, this.rand.nextGaussian() * 0.0075F * inaccuracy, this.rand.nextGaussian() * 0.0075F * inaccuracy).scale(velocity).mul(1,1,1);
-        this.setMotion(motion);
-        float f = MathHelper.sqrt(horizontalMag(motion));
-        this.rotationYaw = (float) (MathHelper.atan2(motion.x, motion.z) * (180F / (float) Math.PI));
-        this.rotationPitch = (float) (MathHelper.atan2(motion.y, f) * (180F / (float) Math.PI));
-        this.prevRotationYaw = this.rotationYaw;
-        this.prevRotationPitch = this.rotationPitch;
+        Vector3d motion = (new Vector3d(x, y, z)).normalize().add(this.random.nextGaussian() * 0.0075F * inaccuracy, this.random.nextGaussian() * 0.0075F * inaccuracy, this.random.nextGaussian() * 0.0075F * inaccuracy).scale(velocity).multiply(1,1,1);
+        this.setDeltaMovement(motion);
+        float f = MathHelper.sqrt(getHorizontalDistanceSqr(motion));
+        this.yRot = (float) (MathHelper.atan2(motion.x, motion.z) * (180F / (float) Math.PI));
+        this.xRot = (float) (MathHelper.atan2(motion.y, f) * (180F / (float) Math.PI));
+        this.yRotO = this.yRot;
+        this.xRotO = this.xRot;
     }
     
     @Override
-    protected void func_230299_a_(BlockRayTraceResult result)
+    protected void onHitBlock(BlockRayTraceResult result)
     {
-        super.func_230299_a_(result);
+        super.onHitBlock(result);
         returning = true;
     }
     
     @Override
-    protected void onEntityHit(EntityRayTraceResult p_213868_1_)
+    protected void onHitEntity(EntityRayTraceResult p_213868_1_)
     {
-        DamageSource source = DamageSource.causeIndirectDamage(this, owner());
+        DamageSource source = DamageSource.indirectMobAttack(this, owner());
         Entity entity = p_213868_1_.getEntity();
-        if (MalumHelper.areWeOnClient(world))
+        if (MalumHelper.areWeOnClient(level))
         {
             return;
         }
         if (entity.equals(owner))
         {
-            super.onEntityHit(p_213868_1_);
+            super.onHitEntity(p_213868_1_);
             return;
         }
-        boolean success = entity.attackEntityFrom(source, damage);
+        boolean success = entity.hurt(source, damage);
         if (success)
         {
-            if (MalumHelper.areWeOnServer(world))
+            if (MalumHelper.areWeOnServer(level))
             {
                 if (entity instanceof LivingEntity)
                 {
                     LivingEntity livingentity = (LivingEntity) entity;
-                    scythe.damageItem(1, owner(), (e) -> remove());
+                    scythe.hurtAndBreak(1, owner(), (e) -> remove());
                     MalumHelper.applyEnchantments(owner, livingentity, scythe);
-                    int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
+                    int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
                     if (i > 0) {
-                        livingentity.setFire(i * 4);
+                        livingentity.setSecondsOnFire(i * 4);
                     }
                 }
             }
             returnAge+=4;
-            entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundRegistry.SCYTHE_CUT, entity.getSoundCategory(), 1.0F, 0.9f + entity.world.rand.nextFloat() * 0.2f);
+            entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundRegistry.SCYTHE_CUT, entity.getSoundSource(), 1.0F, 0.9f + entity.level.random.nextFloat() * 0.2f);
         }
-        super.onEntityHit(p_213868_1_);
+        super.onHitEntity(p_213868_1_);
     }
 
     @Override
@@ -140,36 +140,36 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     {
         super.tick();
         age++;
-        if (MalumHelper.areWeOnClient(world))
+        if (MalumHelper.areWeOnClient(level))
         {
             if (!isInWater())
             {
-                if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0)
+                if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0)
                 {
-                    world.addParticle(ParticleTypes.FLAME, getPosXRandom(1), getPosYRandom(), getPosZRandom(1), 0, 0, 0);
+                    level.addParticle(ParticleTypes.FLAME, getRandomX(1), getRandomY(), getRandomZ(1), 0, 0, 0);
                 }
             }
         }
 
-        if (MalumHelper.areWeOnServer(world))
+        if (MalumHelper.areWeOnServer(level))
         {
-            PlayerEntity playerEntity = owner();
+            Player playerEntity = owner();
             if (playerEntity == null)
             {
                 return;
             }
             if (age % 3 == 0)
             {
-                world.playSound(null, getPosition(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1, 1.25f);
+                level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1, 1.25f);
             }
-            if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
+            if (this.xRotO == 0.0F && this.yRotO == 0.0F)
             {
-                Vector3d vector3d = getMotion();
-                float f = MathHelper.sqrt(horizontalMag(vector3d));
-                rotationYaw = (float) (MathHelper.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI));
-                rotationPitch = (float) (MathHelper.atan2(vector3d.y, f) * (double) (180F / (float) Math.PI));
-                prevRotationYaw = rotationYaw;
-                prevRotationPitch = rotationPitch;
+                Vector3d vector3d = getDeltaMovement();
+                float f = MathHelper.sqrt(getHorizontalDistanceSqr(vector3d));
+                yRot = (float) (MathHelper.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI));
+                xRot = (float) (MathHelper.atan2(vector3d.y, f) * (double) (180F / (float) Math.PI));
+                yRotO = yRot;
+                xRotO = xRot;
             }
             if (age > returnAge)
             {
@@ -177,12 +177,12 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
             }
             if (returning)
             {
-                noClip = true;
-                Vector3d ownerPos = playerEntity.getPositionVec().add(0, 1, 0);
-                Vector3d motion = ownerPos.subtract(getPositionVec());
-                setMotion(motion.normalize().scale(0.75f));
+                noPhysics = true;
+                Vector3d ownerPos = playerEntity.position().add(0, 1, 0);
+                Vector3d motion = ownerPos.subtract(position());
+                setDeltaMovement(motion.normalize().scale(0.75f));
             }
-            float distance = getDistance(playerEntity);
+            float distance = distanceTo(playerEntity);
             if (age > 8)
             {
                 if (distance < 3f)
@@ -190,10 +190,10 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
                     if (isAlive())
                     {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
-                        if (!playerEntity.abilities.isCreativeMode)
+                        if (!playerEntity.abilities.instabuild)
                         {
-                            int cooldown = 100 - 80 * (EnchantmentHelper.getEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
-                            playerEntity.getCooldownTracker().setCooldown(scythe.getItem(), cooldown);
+                            int cooldown = 100 - 80 * (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
+                            playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);
                         }
                         remove();
                     }
@@ -203,13 +203,13 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     }
     
     @Override
-    public void writeAdditional(CompoundNBT compound)
+    public void addAdditionalSaveData(CompoundNBT compound)
     {
-        super.writeAdditional(compound);
+        super.addAdditionalSaveData(compound);
         compound.put("scythe", scythe.serializeNBT());
         if (ownerUUID != null)
         {
-            compound.putUniqueId("ownerUUID", ownerUUID);
+            compound.putUUID("ownerUUID", ownerUUID);
         }
         compound.putInt("slot", slot);
         compound.putFloat("damage", damage);
@@ -219,19 +219,19 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     }
     
     @Override
-    public void readAdditional(CompoundNBT compound)
+    public void readAdditionalSaveData(CompoundNBT compound)
     {
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
     
         if (compound.contains("scythe"))
         {
-            scythe = ItemStack.read(compound.getCompound("scythe"));
+            scythe = ItemStack.of(compound.getCompound("scythe"));
         }
-        dataManager.set(SCYTHE, scythe);
+        entityData.set(SCYTHE, scythe);
         
         if (compound.contains("ownerUUID"))
         {
-            ownerUUID = compound.getUniqueId("ownerUUID");
+            ownerUUID = compound.getUUID("ownerUUID");
             owner = owner();
         }
         slot = compound.getInt("slot");
@@ -242,27 +242,27 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     }
     
     @Override
-    public IPacket<?> createSpawnPacket()
+    public IPacket<?> getAddEntityPacket()
     {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
     
     @Override
-    public boolean hasNoGravity()
+    public boolean isNoGravity()
     {
         return true;
     }
     @Override
-    public float getCollisionBorderSize()
+    public float getPickRadius()
     {
         return 4f;
     }
     
     @Override
-    protected void registerData()
+    protected void defineSynchedData()
     {
-        super.registerData();
-        dataManager.register(SCYTHE, ItemStack.EMPTY);
+        super.defineSynchedData();
+        entityData.define(SCYTHE, ItemStack.EMPTY);
     }
     
     @Override
@@ -270,7 +270,7 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     {
         if (scythe == null)
         {
-            scythe = dataManager.get(SCYTHE);
+            scythe = entityData.get(SCYTHE);
         }
         return scythe.getItem();
     }
@@ -280,19 +280,19 @@ public class ScytheBoomerangEntity extends ProjectileItemEntity
     {
         if (scythe == null)
         {
-            scythe = dataManager.get(SCYTHE);
+            scythe = entityData.get(SCYTHE);
         }
         return scythe;
     }
     
     @Override
-    public boolean isImmuneToFire()
+    public boolean fireImmune()
     {
         return true;
     }
     
     @Override
-    public boolean isImmuneToExplosions()
+    public boolean ignoreExplosion()
     {
         return true;
     }

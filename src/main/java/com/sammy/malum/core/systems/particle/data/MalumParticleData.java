@@ -10,6 +10,8 @@ import net.minecraft.particles.ParticleType;
 
 import java.awt.*;
 
+import net.minecraft.particles.IParticleData.IDeserializer;
+
 public class MalumParticleData implements IParticleData {
     public float r1 = 1, g1 = 1, b1 = 1, a1 = 1, r2 = 1, g2 = 1, b2 = 1, a2 = 0;
     public float scale1 = 1, scale2 = 0;
@@ -63,7 +65,7 @@ public class MalumParticleData implements IParticleData {
     }
 
     @Override
-    public void write(PacketBuffer buffer) {
+    public void writeToNetwork(PacketBuffer buffer) {
         buffer.writeFloat(r1).writeFloat(g1).writeFloat(b1).writeFloat(a1);
         buffer.writeFloat(r2).writeFloat(g2).writeFloat(b2).writeFloat(a2);
         buffer.writeFloat(scale1).writeFloat(scale2);
@@ -86,13 +88,13 @@ public class MalumParticleData implements IParticleData {
         this.r1 = color1.getRed()/255f; this.g1 = color1.getBlue()/255f; this.b1 = color1.getBlue()/255f; this.r2 = color2.getRed()/255f; this.g2 = color2.getBlue()/255f; this.b2 = color2.getBlue()/255f;
     }
     @Override
-    public String getParameters() {
+    public String writeToString() {
         return getClass().getSimpleName() + ":internal";
     }
 
     public static final IDeserializer<MalumParticleData> DESERIALIZER = new IDeserializer<MalumParticleData>() {
         @Override
-        public MalumParticleData deserialize(ParticleType<MalumParticleData> type, StringReader reader) throws CommandSyntaxException {
+        public MalumParticleData fromCommand(ParticleType<MalumParticleData> type, StringReader reader) throws CommandSyntaxException {
             reader.expect(' ');
             float r1 = reader.readFloat();
             reader.expect(' ');
@@ -143,7 +145,7 @@ public class MalumParticleData implements IParticleData {
         }
 
         @Override
-        public MalumParticleData read(ParticleType<MalumParticleData> type, PacketBuffer buf) {
+        public MalumParticleData fromNetwork(ParticleType<MalumParticleData> type, PacketBuffer buf) {
             float r1 = buf.readFloat();
             float g1 = buf.readFloat();
             float b1 = buf.readFloat();

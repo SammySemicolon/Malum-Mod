@@ -16,6 +16,8 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.item.Item.Properties;
+
 public class UmbralArmor extends ArmorItem
 {
     private LazyValue<Object> model;
@@ -34,7 +36,7 @@ public class UmbralArmor extends ArmorItem
     @SuppressWarnings("unchecked")
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original)
     {
-        return (A) model.getValue();
+        return (A) model.get();
     }
     
     @OnlyIn(Dist.CLIENT)

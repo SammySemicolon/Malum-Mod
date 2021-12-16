@@ -3,10 +3,10 @@ package com.sammy.malum.core.systems.recipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,13 +24,13 @@ public class IngredientWithCount
 
     public ItemStack stack()
     {
-        return MalumHelper.copyWithNewCount(ingredient.getMatchingStacks()[0], count);
+        return MalumHelper.copyWithNewCount(ingredient.getItems()[0], count);
     }
 
     public ArrayList<ItemStack> asStackList()
     {
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        Arrays.stream(ingredient.getMatchingStacks()).forEach(stack ->  stacks.add(MalumHelper.copyWithNewCount(stack, count)));
+        Arrays.stream(ingredient.getItems()).forEach(stack ->  stacks.add(MalumHelper.copyWithNewCount(stack, count)));
         return stacks;
     }
 
@@ -39,37 +39,37 @@ public class IngredientWithCount
         return ingredient.test(stack) && stack.getCount() >= count;
     }
 
-    public static IngredientWithCount read(PacketBuffer buffer)
+    public static IngredientWithCount read(FriendlyByteBuf buffer)
     {
-        Ingredient ingredient = Ingredient.read(buffer);
+        Ingredient ingredient = Ingredient.fromNetwork(buffer);
         int count = buffer.readByte();
         return new IngredientWithCount(ingredient, count);
     }
 
-    public void write(PacketBuffer buffer)
+    public void write(FriendlyByteBuf buffer)
     {
-        ingredient.write(buffer);
+        ingredient.toNetwork(buffer);
         buffer.writeByte(count);
     }
 
     public static IngredientWithCount deserialize(JsonObject object)
     {
-        Ingredient input = object.has("ingredient_list") ? Ingredient.deserialize(object.get("ingredient_list")) : Ingredient.deserialize(object);
-        int count = JSONUtils.getInt(object, "count", 1);
+        Ingredient input = object.has("ingredient_list") ? Ingredient.fromJson(object.get("ingredient_list")) : Ingredient.fromJson(object);
+        int count = GsonHelper.getAsInt(object, "count", 1);
         return new IngredientWithCount(input, count);
     }
 
     public JsonObject serialize()
     {
         JsonObject object = new JsonObject();
-        JsonElement serialize = ingredient.serialize();
+        JsonElement serialize = ingredient.toJson();
         if (serialize.isJsonObject())
         {
             object = serialize.getAsJsonObject();
         }
         else
         {
-            object.add("ingredient_list", ingredient.serialize());
+            object.add("ingredient_list", ingredient.toJson());
         }
         object.addProperty("count", count);
         return object;

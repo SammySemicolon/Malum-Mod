@@ -16,6 +16,8 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioMirrorNecklace extends MalumCurioItem implements IEventResponderItem
 {
     public CurioMirrorNecklace(Properties builder)
@@ -31,7 +33,7 @@ public class CurioMirrorNecklace extends MalumCurioItem implements IEventRespond
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        if (event.getSource().isMagicDamage())
+        if (event.getSource().isMagic())
         {
 
             Item item = stack.getItem();
@@ -39,7 +41,7 @@ public class CurioMirrorNecklace extends MalumCurioItem implements IEventRespond
                 IEventResponderItem eventItem = (IEventResponderItem) item;
                 eventItem.pickupSpirit(attacker, stack);
             }
-            attacker.getArmorInventoryList().forEach(s ->{
+            attacker.getArmorSlots().forEach(s ->{
                 if (s.getItem() instanceof IEventResponderItem)
                 {
                     IEventResponderItem eventItem = (IEventResponderItem) s.getItem();

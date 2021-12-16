@@ -5,7 +5,7 @@ import com.sammy.malum.core.systems.particle.ParticleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.Level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -62,7 +62,7 @@ public class BlockParticlePacket
 
     public static class ClientOnly {
         public static void addParticles(BlockPos pos, Color color) {
-            World world = Minecraft.getInstance().world;
+            Level Level = Minecraft.getInstance().level;
             ParticleManager.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.08f, 0f)
                     .setLifetime(20)
@@ -72,7 +72,7 @@ public class BlockParticlePacket
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 20);
+                    .evenlyRepeatEdges(Level, pos, 20);
 
             ParticleManager.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.04f, 0f)
@@ -83,7 +83,7 @@ public class BlockParticlePacket
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(world, pos, 30);
+                    .evenlyRepeatEdges(Level, pos, 30);
         }
     }
 }
