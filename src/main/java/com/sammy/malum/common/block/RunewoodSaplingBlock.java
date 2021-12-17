@@ -5,7 +5,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class RunewoodSaplingBlock extends SaplingBlock
@@ -28,7 +31,7 @@ public class RunewoodSaplingBlock extends SaplingBlock
             {
                 return;
             }
-            FeatureRegistry.RUNEWOOD_TREE_FEATURE.place(level, level.getChunkSource().getGenerator(), rand,pos);
+            FeatureRegistry.RUNEWOOD_TREE.get().place(new FeaturePlaceContext(Optional.empty(), level, level.getChunkSource().getGenerator(), rand,pos, NoneFeatureConfiguration.INSTANCE));
         }
     }
 }

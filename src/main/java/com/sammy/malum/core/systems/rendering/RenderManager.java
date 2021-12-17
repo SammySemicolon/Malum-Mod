@@ -16,6 +16,8 @@ public class RenderManager {
     @SubscribeEvent
     public static void onRenderLast(RenderLevelLastEvent event) {
         event.getPoseStack().pushPose();
+        DELAYED_RENDER.endBatch(RenderTypes.ADDITIVE_PARTICLE);
+        DELAYED_RENDER.endBatch(RenderTypes.ADDITIVE_BLOCK_PARTICLE);
         DELAYED_RENDER.endBatch();
         event.getPoseStack().popPose();
     }

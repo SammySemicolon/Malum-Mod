@@ -26,6 +26,7 @@ import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.registry.misc.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)
@@ -53,6 +54,7 @@ public class MalumMod
         CONTAINERS.register(modBus);
         ATTRIBUTES.register(modBus);
         RECIPE_TYPES.register(modBus);
+        FEATURE_TYPES.register(modBus);
         modBus.addListener(this::gatherData);
     }
 

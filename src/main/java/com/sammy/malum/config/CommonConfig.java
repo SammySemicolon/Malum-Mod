@@ -49,13 +49,17 @@ public class CommonConfig {
                 .define("generateBlazeQuartz", true);
         BLAZE_QUARTZ_SIZE = builder.comment("Size of blaze quartz ore veins.")
                 .define("blazeQuartzSize", 7);
+        BLAZE_QUARTZ_AMOUNT = builder.comment("Amount of blaze quartz ore veins.")
+                .define("blazeQuartzSize", 14);
         builder.pop();
 
         builder.comment("Brilliant Stone Config").push("brilliant_stone");
         GENERATE_BRILLIANT_STONE = builder.comment("Should brilliant stone generate?")
                 .define("generateBrilliantStone", true);
         BRILLIANT_STONE_SIZE = builder.comment("Size of brilliant stone veins.")
-                .define("brilliantStoneSize", 5);
+                .define("brilliantStoneSize", 2);
+        BRILLIANT_STONE_AMOUNT = builder.comment("Amount of brilliant stone veins.")
+                .define("brilliantStoneSize", 4);
         BRILLIANT_STONE_AMOUNT = builder.comment("Amount of brilliant stone veins.")
                 .define("brilliantStoneAmount", 4);
         BRILLIANT_STONE_MIN_Y = builder.comment("Minimum height at which brilliant stone can spawn.")
