@@ -3,7 +3,6 @@ package com.sammy.malum;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
-import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -54,9 +53,6 @@ public class MalumMod
         CONTAINERS.register(modBus);
         ATTRIBUTES.register(modBus);
         RECIPE_TYPES.register(modBus);
-
-        FeatureRegistry.register();
-
         modBus.addListener(this::gatherData);
     }
 
