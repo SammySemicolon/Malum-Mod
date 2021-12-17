@@ -4,8 +4,8 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "esoterica:additive_particle",
-  "fragment": "esoterica:additive_particle",
+  "vertex": "malum:additive_particle",
+  "fragment": "malum:additive_particle",
   "attributes": [
     "Position",
     "UV0",

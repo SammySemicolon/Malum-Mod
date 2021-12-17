@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.totem;
 
+import com.sammy.malum.common.tile.TotemPoleTileEntity;
 import com.sammy.malum.core.registry.block.TileEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
@@ -17,7 +18,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class TotemPoleBlock extends SimpleBlock
+public class TotemPoleBlock extends SimpleBlock<TotemPoleTileEntity>
 {
     public final Supplier<? extends Block> logBlock;
     public final boolean corrupted;
@@ -27,13 +28,14 @@ public class TotemPoleBlock extends SimpleBlock
         this.logBlock = logBlock;
         this.corrupted = corrupted;
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
-        setTile(TileEntityRegistry.TOTEM_POLE_TILE_ENTITY.get());
+        setTile(TileEntityRegistry.TOTEM_POLE_TILE_ENTITY);
     }
 
     @Override
-    public ItemStack getPickBlock(BlockState state, HitResult target, BlockGetter getter, BlockPos pos, Player player) {
-        return logBlock.get().getCloneItemStack(getter, pos, state);
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+        return logBlock.get().getCloneItemStack(world, pos, state);
     }
+
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)

@@ -35,7 +35,6 @@ public class MalumLeavesBlock extends LeavesBlock implements IForgeBlock
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(DISTANCE, PERSISTENT, COLOR);
-        super.createBlockStateDefinition(builder);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {

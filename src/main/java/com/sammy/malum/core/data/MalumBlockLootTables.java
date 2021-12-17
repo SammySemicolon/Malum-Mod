@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.*;
-import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.*;
@@ -159,10 +158,6 @@ public class MalumBlockLootTables extends LootTableProvider {
 
     protected static LootTable.Builder createNameableBlockEntityTable(Block p_218481_0_) {
         return LootTable.lootTable().withPool(applyExplosionCondition(p_218481_0_, LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(p_218481_0_).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)))));
-    }
-
-    protected static LootTable.Builder createShulkerBoxDrop(Block p_218544_0_) {
-        return LootTable.lootTable().withPool(applyExplosionCondition(p_218544_0_, LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(p_218544_0_).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Lock", "BlockEntityTag.Lock").copy("LootTable", "BlockEntityTag.LootTable").copy("LootTableSeed", "BlockEntityTag.LootTableSeed")).apply(SetContainerContents.setContents().withEntry(DynamicLoot.dynamicEntry(ShulkerBoxBlock.CONTENTS))))));
     }
 
     protected static LootTable.Builder createBannerDrop(Block p_218559_0_) {

@@ -19,16 +19,17 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
-public class SimpleBlock extends Block implements EntityBlock {
+public class SimpleBlock <T extends BlockEntity> extends Block implements EntityBlock {
     protected VoxelShape shape = null;
-    protected BlockEntityType<? extends BlockEntity> tileEntityType = null;
+    protected Supplier<BlockEntityType<T>> tileEntityType = null;
 
     public SimpleBlock(Properties properties) {
         super(properties);
     }
 
-    public SimpleBlock setTile(BlockEntityType<? extends BlockEntity> type) {
+    public SimpleBlock<T> setTile(Supplier<BlockEntityType<T>> type) {
         this.tileEntityType = type;
         return this;
     }
@@ -36,7 +37,7 @@ public class SimpleBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return hasTileEntity(state) ? tileEntityType.create(pos, state) : null;
+        return hasTileEntity(state) ? tileEntityType.get().create(pos, state) : null;
     }
 
     public boolean hasTileEntity(BlockState state) {
@@ -57,7 +58,7 @@ public class SimpleBlock extends Block implements EntityBlock {
 
     public void onBlockBroken(BlockState state, BlockGetter level, BlockPos pos) {
         if (hasTileEntity(state)) {
-            BlockEntity tileEntity = Level.getBlockEntity(pos);
+            BlockEntity tileEntity = level.getBlockEntity(pos);
             if (tileEntity instanceof SimpleBlockEntity) {
                 SimpleBlockEntity simpleTileEntity = (SimpleBlockEntity) tileEntity;
                 simpleTileEntity.onBreak();
@@ -79,12 +80,12 @@ public class SimpleBlock extends Block implements EntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return getVisualShape(state, Level, pos, context);
+        return getVisualShape(state, level, pos, context);
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return getVisualShape(state, Level, pos, context);
+        return getVisualShape(state, level, pos, context);
     }
 
     @Override

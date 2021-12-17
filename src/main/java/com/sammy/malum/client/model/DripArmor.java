@@ -4,112 +4,44 @@ package com.sammy.malum.client.model;
 // Paste this class into your mod and generate all required imports
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
 
-public class DripArmor extends ArmorModel
-{
-	private final ModelRenderer leg_r;
-	private final ModelRenderer boot_r;
-	private final ModelRenderer leg_l;
-	private final ModelRenderer boot_l;
-	private final ModelRenderer torso;
-	private final ModelRenderer arm_r;
-	private final ModelRenderer arm_l;
-	private final ModelRenderer head;
-	private final ModelRenderer leggings;
-
-	public DripArmor(EquipmentSlot slot) {
-		super(slot, 64, 64);
-
-
-		leg_r = new ModelRenderer(this);
-		leg_r.setPos(-2.0F, 12.0F, 0.0F);
-		leg_r.texOffs(0, 43).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, false);
-
-		boot_r = new ModelRenderer(this);
-		boot_r.setPos(0.0F, 0.0F, 0.0F);
-		leg_r.addChild(boot_r);
-		boot_r.texOffs(16, 53).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9F, false);
-
-		leg_l = new ModelRenderer(this);
-		leg_l.setPos(2.0F, 12.0F, 0.0F);
-		leg_l.texOffs(0, 43).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, 0.45F, true);
-
-		boot_l = new ModelRenderer(this);
-		boot_l.setPos(0.0F, 0.0F, 0.0F);
-		leg_l.addChild(boot_l);
-		boot_l.texOffs(16, 53).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.9001F, true);
-
-		torso = new ModelRenderer(this);
-		torso.setPos(0.0F, 0.0F, 0.0F);
-		torso.texOffs(40, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.95F, false);
-		torso.texOffs(16, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, 0.75F, false);
-
-		arm_r = new ModelRenderer(this);
-		arm_r.setPos(-6.0F, 2.0F, 0.0F);
-		arm_r.texOffs(0, 30).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, true);
-		arm_r.texOffs(0, 17).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, true);
-
-		arm_l = new ModelRenderer(this);
-		arm_l.setPos(6.0F, 2.0F, 0.0F);
-		arm_l.texOffs(0, 30).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.5F, false);
-		arm_l.texOffs(0, 17).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, 0.7F, false);
-
-		head = new ModelRenderer(this);
-		head.setPos(0.0F, 0.0F, 0.0F);
-		setRotationAngle(head, -0.0436F, 0.0F, 0.0F);
-		head.texOffs(32, 0).addBox(-4.0F, -19.0F, -4.0F, 8.0F, 9.0F, 8.0F, 0.35F, false);
-		head.texOffs(0, 0).addBox(-4.0F, -18.75F, -4.0F, 8.0F, 9.0F, 8.0F, 0.0F, false);
-		head.texOffs(16, 41).addBox(-4.5F, -9.5F, -4.5F, 9.0F, 3.0F, 9.0F, 0.25F, false);
-
-		leggings = new ModelRenderer(this);
-		leggings.setPos(0.0F, 0.0F, 0.0F);
-		leggings.texOffs(16, 34).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, 0.5F, false);
+public class DripArmor extends ArmorModel {
+	public DripArmor(ModelPart root) {
+		super(root);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a)
-	{
-		head.visible = slot == EquipmentSlot.HEAD;
+	public static LayerDefinition createBodyLayer() {
+		MeshDefinition mesh = new MeshDefinition();
+		PartDefinition root = mesh.getRoot();
 
-		leggings.visible = slot == EquipmentSlot.LEGS;
-		leg_r.visible = slot == EquipmentSlot.LEGS;
-		leg_l.visible = slot == EquipmentSlot.LEGS;
+		PartDefinition body = root.getChild("body");
+		PartDefinition chest = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(40, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, new CubeDeformation(0.95F)).texOffs(16, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, new CubeDeformation(0.75F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		torso.visible = slot == EquipmentSlot.CHEST;
-		arm_r.visible = slot == EquipmentSlot.CHEST;
-		arm_l.visible = slot == EquipmentSlot.CHEST;
+		PartDefinition pelvis = root.getChild("pelvis");
+		PartDefinition codpiece = pelvis.addOrReplaceChild("codpiece", CubeListBuilder.create().texOffs(16, 34).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		boot_r.visible = slot == EquipmentSlot.FEET;
-		boot_l.visible = slot == EquipmentSlot.FEET;
+		PartDefinition right_legging = root.getChild("right_legging");
+		PartDefinition right_leg = right_legging.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 43).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, new CubeDeformation(0.45F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
+		PartDefinition right_foot = root.getChild("right_foot");
+		PartDefinition right_boot = right_foot.addOrReplaceChild("right_boot", CubeListBuilder.create().texOffs(16, 53).addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.9F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		hat.visible = false;
-		head = head;
+		PartDefinition right_arm = root.getChild("right_arm");
+		PartDefinition right_shoulder = right_arm.addOrReplaceChild("right_shoulder", CubeListBuilder.create().texOffs(0, 30).mirror().addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.5F)).mirror(false).texOffs(0, 17).mirror().addBox(-3.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.7F)).mirror(false), PartPose.offset(-6.0F, 2.0F, 0.0F));
 
-		body = torso;
-		rightArm = arm_r;
-		leftArm = arm_l;
+		PartDefinition left_legging = root.getChild("left_legging");
+		PartDefinition left_leg = left_legging.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 43).mirror().addBox(-2.0F, -1.0F, -2.0F, 4.0F, 10.0F, 4.0F, new CubeDeformation(0.45F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.0F));
+		PartDefinition left_foot = root.getChild("left_foot");
+		PartDefinition left_boot = left_foot.addOrReplaceChild("left_boot", CubeListBuilder.create().texOffs(16, 53).mirror().addBox(-2.0F, 8.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.9001F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		if (slot == EquipmentSlot.LEGS)
-		{
-			body = leggings;
-			rightLeg = leg_r;
-			leftLeg = leg_l;
-		}
-		else
-		{
-			rightLeg = boot_r;
-			leftLeg = boot_l;
-		}
-		super.renderToBuffer(ms, buffer, light, overlay, r, g, b, a);
-	}
+		PartDefinition left_arm = root.getChild("left_arm");
+		PartDefinition left_shoulder = left_arm.addOrReplaceChild("left_shoulder", CubeListBuilder.create().texOffs(0, 30).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.5F)).texOffs(0, 17).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.7F)), PartPose.offset(6.0F, 2.0F, 0.0F));
 
-	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.xRot = x;
-		modelRenderer.yRot = y;
-		modelRenderer.zRot = z;
+		PartDefinition head = root.getChild("head");
+		PartDefinition helmet = head.addOrReplaceChild("helmet", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -19.0F, -4.0F, 8.0F, 9.0F, 8.0F, new CubeDeformation(0.35F)).texOffs(0, 0).addBox(-4.0F, -18.75F, -4.0F, 8.0F, 9.0F, 8.0F, new CubeDeformation(0.0F)).texOffs(16, 41).addBox(-4.5F, -9.5F, -4.5F, 9.0F, 3.0F, 9.0F, new CubeDeformation(0.25F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.0436F, 0.0F, 0.0F));
+
+		return LayerDefinition.create(mesh, 64, 64);
 	}
 }

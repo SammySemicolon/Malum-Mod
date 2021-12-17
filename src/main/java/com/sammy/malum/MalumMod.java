@@ -3,6 +3,7 @@ package com.sammy.malum;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
+import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -26,7 +27,6 @@ import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.registry.misc.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)
@@ -45,16 +45,18 @@ public class MalumMod
 
         ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
-        ITEMS.register(modBus);
         TILE_ENTITIES.register(modBus);
+        ITEMS.register(modBus);
         ENTITY_TYPES.register(modBus);
         EFFECTS.register(modBus);
         PARTICLES.register(modBus);
         SOUNDS.register(modBus);
-        FEATURES.register(modBus);
         CONTAINERS.register(modBus);
         ATTRIBUTES.register(modBus);
         RECIPE_TYPES.register(modBus);
+
+        FeatureRegistry.register();
+
         modBus.addListener(this::gatherData);
     }
 

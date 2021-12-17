@@ -21,27 +21,27 @@ public class WorldgenEvents {
     public static void addFeatures(BiomeLoadingEvent event) {
         if (event.getCategory().equals(Biome.BiomeCategory.PLAINS) || event.getCategory().equals(Biome.BiomeCategory.EXTREME_HILLS)) {
             if (CommonConfig.GENERATE_RUNEWOOD_TREES.get()) {
-                event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(() -> FeatureRegistry.COMMON_RUNEWOOD_TREE);
+                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeatureRegistry.RUNEWOOD_TREE_FEATURE);
             }
         }
         if (event.getCategory().equals(Biome.BiomeCategory.FOREST)) {
             if (CommonConfig.GENERATE_RUNEWOOD_TREES.get()) {
-                event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(() -> FeatureRegistry.RARE_CONFIGURED_RUNEWOOD_TREE);
+                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeatureRegistry.RARE_RUNEWOOD_TREE_FEATURE);
             }
         }
         if (event.getCategory().equals(Biome.BiomeCategory.NETHER)) {
             if (CommonConfig.GENERATE_BLAZE_QUARTZ.get()) {
-                event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(() -> FeatureRegistry.BLAZE_QUARTZ_ORE);
+                event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FeatureRegistry.BLAZING_QUARTZ_FEATURE);
             }
         }
         if (CommonConfig.GENERATE_SOULSTONE.get()) {
-            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(() -> FeatureRegistry.SOULSTONE_ORE);
-        }
-        if (CommonConfig.GENERATE_BRILLIANT_STONE.get()) {
-            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(() -> FeatureRegistry.BRILLIANT_STONE);
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FeatureRegistry.SOULSTONE_FEATURE);
         }
         if (CommonConfig.GENERATE_SURFACE_SOULSTONE.get()) {
-            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(() -> FeatureRegistry.SOULSTONE_ORE_SURFACE);
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FeatureRegistry.SURFACE_SOULSTONE_FEATURE);
+        }
+        if (CommonConfig.GENERATE_BRILLIANT_STONE.get()) {
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FeatureRegistry.BRILLIANT_STONE_FEATURE);
         }
     }
 }

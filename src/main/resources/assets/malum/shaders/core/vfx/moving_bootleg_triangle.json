@@ -4,8 +4,8 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "esoterica:generic",
-  "fragment": "esoterica:vfx/moving_bootleg_triangle",
+  "vertex": "malum:generic",
+  "fragment": "malum:vfx/moving_bootleg_triangle",
   "attributes": [
     "Position",
     "Color",

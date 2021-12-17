@@ -11,13 +11,12 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 version = "${project.minecraft}-${project.modVersion}"
 group = 'com.sammy.malum'
 archivesBaseName = project.modId
-
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
 sourceSets {
     main.resources.srcDirs += 'src/main/generated_resources'
 }
@@ -27,28 +26,32 @@ minecraft {
 
     runs {
         client {
+//            properties 'mixin.env.remapRefMap': 'true'
+//            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
+//            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                malum {
+                self {
                     source sourceSets.main
                 }
             }
         }
 
         server {
+//            properties 'mixin.env.remapRefMap': 'true'
+//            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
+//            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                malum {
+                self {
                     source sourceSets.main
                 }
             }
@@ -56,16 +59,14 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', ''
-
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'malum', '--all', '--output', file('src/main/generated_resources/'), '--existing', file('src/main/resources/')
+            args '--mod', "${project.modId}", '--all', '--output', file('src/main/generated_resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                malum {
-                    sources sourceSets.main
+                self {
+                    source sourceSets.main
                 }
             }
         }

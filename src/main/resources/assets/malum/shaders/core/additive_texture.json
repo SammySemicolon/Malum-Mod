@@ -4,8 +4,8 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "esoterica:generic",
-  "fragment": "esoterica:additive_texture",
+  "vertex": "malum:generic",
+  "fragment": "malum:additive_texture",
   "attributes": [
     "Position",
     "Color",

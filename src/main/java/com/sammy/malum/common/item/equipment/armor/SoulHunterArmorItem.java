@@ -1,15 +1,10 @@
 package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
-import com.sammy.malum.client.model.SoulHunterArmor;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.UUID;
 
@@ -18,9 +13,6 @@ import static com.sammy.malum.core.registry.item.ArmorTiers.ArmorTierEnum.SPIRIT
 public class SoulHunterArmorItem extends MalumArmorItem {
     public SoulHunterArmorItem(EquipmentSlot slot, Properties builder) {
         super(SPIRIT_HUNTER, slot, builder, createExtraAttributes(slot));
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            model = DistExecutor.runForDist(() -> () -> new LazyLoadedValue<>(() -> new SoulHunterArmor(slot)), () -> () -> null);
-        }
     }
     public static ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();

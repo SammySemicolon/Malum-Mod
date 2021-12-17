@@ -28,23 +28,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class EtherBlock extends SimpleBlock implements SimpleWaterloggedBlock
-{
+public class EtherBlock extends SimpleBlock<EtherTileEntity> implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final VoxelShape SHAPE =Block.box(6, 6, 6, 10, 10, 10);
+    public static final VoxelShape SHAPE = Block.box(6, 6, 6, 10, 10, 10);
 
-    public EtherBlock(Properties properties)
-    {
+    public EtherBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(TileEntityRegistry.ETHER_BLOCK_TILE_ENTITY.get());
+        setTile(TileEntityRegistry.ETHER_BLOCK_TILE_ENTITY);
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
-    {
-        if (level.getBlockEntity(pos) instanceof EtherTileEntity)
-        {
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if (level.getBlockEntity(pos) instanceof EtherTileEntity) {
             EtherTileEntity tileEntity = (EtherTileEntity) level.getBlockEntity(pos);
             AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
             tileEntity.firstColor = ClientHelper.getColor(item.getFirstColor(stack));
@@ -54,18 +50,15 @@ public class EtherBlock extends SimpleBlock implements SimpleWaterloggedBlock
     }
 
     @Override
-    public ItemStack getPickBlock(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         ItemStack stack = asItem().getDefaultInstance();
-        if (level.getBlockEntity(pos) instanceof EtherTileEntity)
-        {
+        if (level.getBlockEntity(pos) instanceof EtherTileEntity) {
             EtherTileEntity tileEntity = (EtherTileEntity) level.getBlockEntity(pos);
             AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
-            if (tileEntity.firstColor != null)
-            {
+            if (tileEntity.firstColor != null) {
                 etherItem.setFirstColor(stack, tileEntity.firstColor.getRGB());
             }
-            if (tileEntity.secondColor != null)
-            {
+            if (tileEntity.secondColor != null) {
                 etherItem.setSecondColor(stack, tileEntity.secondColor.getRGB());
             }
         }
@@ -78,33 +71,28 @@ public class EtherBlock extends SimpleBlock implements SimpleWaterloggedBlock
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
-    {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
         super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos)
-    {
-        if (stateIn.getValue(WATERLOGGED))
-        {
-            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+    public BlockState getStateForPlacement(BlockPlaceContext p_152803_) {
+        FluidState fluidstate = p_152803_.getLevel().getFluidState(p_152803_.getClickedPos());
+        boolean flag = fluidstate.getType() == Fluids.WATER;
+        return super.getStateForPlacement(p_152803_).setValue(WATERLOGGED, flag);
+    }
+
+    @Override
+    public BlockState updateShape(BlockState p_152833_, Direction p_152834_, BlockState p_152835_, LevelAccessor p_152836_, BlockPos p_152837_, BlockPos p_152838_) {
+        if (p_152833_.getValue(WATERLOGGED)) {
+            p_152836_.scheduleTick(p_152837_, Fluids.WATER, Fluids.WATER.getTickDelay(p_152836_));
         }
-        return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
+        return super.updateShape(p_152833_, p_152834_, p_152835_, p_152836_, p_152837_, p_152838_);
     }
 
     @Override
-    public FluidState getFluidState(BlockState state)
-    {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-        return defaultBlockState().setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
+    public FluidState getFluidState(BlockState p_152844_) {
+        return p_152844_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_152844_);
     }
 }
