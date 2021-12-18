@@ -6,7 +6,7 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.common.item.tools.ModCombatItem;
+import com.sammy.malum.core.systems.item.ModCombatItem;
 import com.sammy.malum.common.item.tools.ScytheItem;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;

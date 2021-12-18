@@ -1,5 +1,8 @@
 package com.sammy.malum.core.systems.blockentity;
 
+import com.sammy.malum.core.helper.DataHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -16,56 +19,82 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SimpleBlockEntityInventory extends ItemStackHandler
-{
-    public int slotCount;
-    public int slotSize;
+public class SimpleBlockEntityInventory extends ItemStackHandler {
+    public final int slotCount;
+    public final int slotSize;
     public Predicate<ItemStack> inputPredicate;
     public Predicate<ItemStack> outputPredicate;
     public final LazyOptional<IItemHandler> inventoryOptional = LazyOptional.of(() -> this);
 
-    public SimpleBlockEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate)
-    {
+    public ArrayList<Item> items = new ArrayList<>();
+    public ArrayList<ItemStack> nonEmptyStacks = new ArrayList<>();
+    public int emptyItemAmount;
+    public int nonEmptyItemAmount;
+    public int firstEmptyItemIndex;
+
+    public SimpleBlockEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate, Predicate<ItemStack> outputPredicate) {
         this(slotCount, slotSize, inputPredicate);
         this.outputPredicate = outputPredicate;
     }
-    
-    public SimpleBlockEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate)
-    {
+
+    public SimpleBlockEntityInventory(int slotCount, int slotSize, Predicate<ItemStack> inputPredicate) {
         this(slotCount, slotSize);
         this.inputPredicate = inputPredicate;
     }
-    
-    public SimpleBlockEntityInventory(int slotCount, int slotSize)
-    {
+
+    public SimpleBlockEntityInventory(int slotCount, int slotSize) {
         super(slotCount);
         this.slotCount = slotCount;
         this.slotSize = slotSize;
     }
 
     @Override
-    public int getSlots()
-    {
+    protected void onContentsChanged(int slot) {
+        updateData();
+    }
+
+    public void updateData() {
+        items = getItems();
+        nonEmptyStacks = getNonEmptyItemStacks();
+        emptyItemAmount = getEmptyItemCount();
+        nonEmptyItemAmount = getNonEmptyItemCount();
+        firstEmptyItemIndex = getFirstEmptyItemIndex();
+    }
+
+    public void load(CompoundTag compound) {
+        load(compound, "inventory");
+    }
+
+    public void load(CompoundTag compound, String name) {
+        deserializeNBT(compound.getCompound(name));
+        updateData();
+    }
+
+    public void save(CompoundTag compound) {
+        save(compound, "inventory");
+    }
+
+    public void save(CompoundTag compound, String name) {
+        compound.put(name, serializeNBT());
+    }
+
+    @Override
+    public int getSlots() {
         return slotCount;
     }
 
     @Override
-    public int getSlotLimit(int slot)
-    {
+    public int getSlotLimit(int slot) {
         return slotSize;
     }
 
     @Override
-    public boolean isItemValid(int slot, @Nonnull ItemStack stack)
-    {
-        if (inputPredicate != null)
-        {
-            if (!inputPredicate.test(stack))
-            {
+    public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+        if (inputPredicate != null) {
+            if (!inputPredicate.test(stack)) {
                 return false;
             }
         }
@@ -74,143 +103,89 @@ public class SimpleBlockEntityInventory extends ItemStackHandler
 
     @Nonnull
     @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate)
-    {
-        if (outputPredicate != null)
-        {
-            if (!outputPredicate.test(super.extractItem(slot, amount, true)))
-            {
+    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+        if (outputPredicate != null) {
+            if (!outputPredicate.test(super.extractItem(slot, amount, true))) {
                 return ItemStack.EMPTY;
             }
         }
         return super.extractItem(slot, amount, simulate);
     }
 
-    public void load(CompoundTag compound)
-    {
-        load(compound,"inventory");
-    }
-
-    public void load(CompoundTag compound, String name)
-    {
-        deserializeNBT((CompoundTag) Objects.requireNonNull(compound.get(name)));
-    }
-
-    public CompoundTag save(CompoundTag compound)
-    {
-        save(compound, "inventory");
-        return compound;
-    }
-    public CompoundTag save(CompoundTag compound, String name)
-    {
-        compound.put(name, serializeNBT());
-        return compound;
-    }
-
-    public int firstEmptyItem()
-    {
-        for (int i = 0; i < slotCount; i++)
-        {
-            if (getStackInSlot(i).isEmpty())
-            {
+    public int getFirstEmptyItemIndex() {
+        for (int i = 0; i < slotCount; i++) {
+            if (getStackInSlot(i).isEmpty()) {
                 return i;
             }
         }
         return -1;
     }
-    public int nonEmptyItems()
-    {
-        int itemCount = 0;
-        for (int i = 0; i < slotCount; i++)
-        {
-            ItemStack item = getStackInSlot(i);
-            if (!item.isEmpty())
-            {
-                itemCount++;
-            }
-        }
-        return itemCount;
-    }
-    public void clearItems()
-    {
-        for (int i = 0; i < slotCount; i++)
-        {
-            setStackInSlot(i, ItemStack.EMPTY);
-        }
-    }
-    public ArrayList<Item> items()
-    {
-        ArrayList<Item> items = new ArrayList<>();
-        for (int i = 0; i < slotCount; i++)
-        {
-            items.add(getStackInSlot(i).getItem());
-        }
-        return items;
-    }
-    public ArrayList<ItemStack> stacks()
-    {
-        ArrayList<ItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < slotCount; i++)
-        {
-            stacks.add(getStackInSlot(i));
-        }
+
+    public NonNullList<ItemStack> getStacks() {
         return stacks;
     }
-    public ArrayList<ItemStack> nonEmptyStacks()
-    {
-        ArrayList<ItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < slotCount; i++)
-        {
-            if (!getStackInSlot(i).isEmpty())
-            {
-                stacks.add(getStackInSlot(i));
-            }
-        }
-        return stacks;
+
+    public int getNonEmptyItemCount() {
+        return (int) getStacks().stream().filter(s -> !s.isEmpty()).count();
     }
-    public void dumpItems(Level level, Vec3 pos)
-    {
-        for (int i = 0; i < slotCount; i++)
-        {
-            if (!getStackInSlot(i).isEmpty())
-            {
+
+    public int getEmptyItemCount() {
+        return (int) getStacks().stream().filter(ItemStack::isEmpty).count();
+    }
+
+    public ArrayList<ItemStack> getNonEmptyItemStacks() {
+        return getStacks().stream().filter(s -> !s.isEmpty()).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Item> getItems() {
+        return getStacks().stream().map(ItemStack::getItem).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Item> getNonEmptyItemAmount() {
+        return getNonEmptyItemStacks().stream().map(ItemStack::getItem).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void clear() {
+        getStacks().clear();
+    }
+
+    public void dumpItems(Level level, BlockPos pos) {
+        dumpItems(level, DataHelper.fromBlockPos(pos).add(0.5, 0.5, 0.5));
+    }
+
+    public void dumpItems(Level level, Vec3 pos) {
+        for (int i = 0; i < slotCount; i++) {
+            if (!getStackInSlot(i).isEmpty()) {
                 level.addFreshEntity(new ItemEntity(level, pos.x(), pos.y(), pos.z(), getStackInSlot(i)));
             }
             setStackInSlot(i, ItemStack.EMPTY);
         }
     }
-    
+
     public boolean interact(Level level, Player player, InteractionHand handIn) {
         ItemStack held = player.getItemInHand(handIn);
         player.swing(handIn, true);
-        if (held.isEmpty() || firstEmptyItem()==-1)
-        {
+        if (held.isEmpty() || firstEmptyItemIndex== -1) {
             int extractSlot = extractItem(level, player);
             boolean success = extractSlot != -1;
-            if (extractSlot == slotCount-1 && !held.isEmpty())
-            {
+            if (extractSlot == slotCount - 1 && !held.isEmpty()) {
                 success = insertItem(level, held);
             }
             return success;
-        }
-        else
-        {
+        } else {
             return insertItem(level, held);
         }
     }
-    public int extractItem(Level level, Player player)
-    {
-        if (!level.isClientSide)
-        {
+
+    public int extractItem(Level level, Player player) {
+        if (!level.isClientSide) {
             List<ItemStack> nonEmptyStacks = stacks.stream().filter(i -> !i.isEmpty()).collect(Collectors.toList());
-            if (nonEmptyStacks.isEmpty())
-            {
+            if (nonEmptyStacks.isEmpty()) {
                 return -1;
             }
             ItemStack takeOutStack = nonEmptyStacks.get(nonEmptyStacks.size() - 1);
             int slot = stacks.indexOf(takeOutStack);
-            if (extractItem(slot, takeOutStack.getCount(), true).equals(ItemStack.EMPTY))
-            {
+            if (extractItem(slot, takeOutStack.getCount(), true).equals(ItemStack.EMPTY)) {
                 return -1;
             }
             extractItem(player, takeOutStack, stacks.indexOf(takeOutStack));
@@ -218,32 +193,31 @@ public class SimpleBlockEntityInventory extends ItemStackHandler
         }
         return -1;
     }
-    public boolean insertItem(Level level, ItemStack stack)
-    {
-        if (!level.isClientSide)
-        {
-            if (!stack.isEmpty())
-            {
-                ItemStack simulate = ItemHandlerHelper.insertItem(this, stack, true);
-                if (simulate.equals(stack))
-                {
+
+    public void extractItem(Player playerEntity, ItemStack stack, int slot) {
+        ItemHandlerHelper.giveItemToPlayer(playerEntity, stack, playerEntity.getInventory().selected);
+        setStackInSlot(slot, ItemStack.EMPTY);
+    }
+
+    public boolean insertItem(Level level, ItemStack stack) {
+        if (!level.isClientSide) {
+            if (!stack.isEmpty()) {
+                ItemStack simulate = insertItem(stack, true);
+                if (simulate.equals(stack)) {
                     return false;
                 }
                 int count = stack.getCount() - simulate.getCount();
-                if (count > slotSize)
-                {
+                if (count > slotSize) {
                     count = slotSize;
                 }
-                ItemHandlerHelper.insertItem(this, stack.split(count), false);
+                insertItem(stack.split(count), false);
                 return true;
             }
         }
         return false;
     }
-    public void extractItem(Player playerEntity, ItemStack stack, int slot)
-    {
-        ItemHandlerHelper.giveItemToPlayer(playerEntity, stack, playerEntity.getInventory().selected);
-        setStackInSlot(slot, ItemStack.EMPTY);
-        onContentsChanged(slot);
+
+    public ItemStack insertItem(ItemStack stack, boolean simulate) {
+        return ItemHandlerHelper.insertItem(this, stack, simulate);
     }
 }

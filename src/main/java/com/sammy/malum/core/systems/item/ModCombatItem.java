@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.tools;
+package com.sammy.malum.core.systems.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

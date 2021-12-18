@@ -90,7 +90,7 @@ public class EtherTileEntity extends SimpleBlockEntity {
             RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
-                    .setAlpha(0.9f, 0.75f)
+                    .setAlpha(0.9f, 0.5f)
                     .setColor(firstColor, secondColor)
                     .setColorCurveMultiplier(2f)
                     .addVelocity(0, velocity, 0)

@@ -74,7 +74,7 @@ public class ItemStandBlock extends SimpleBlock<ItemStandTileEntity> implements 
     public BlockState getStateForPlacement(BlockPlaceContext p_152803_) {
         FluidState fluidstate = p_152803_.getLevel().getFluidState(p_152803_.getClickedPos());
         boolean flag = fluidstate.getType() == Fluids.WATER;
-        return super.getStateForPlacement(p_152803_).setValue(WATERLOGGED, flag);
+        return super.getStateForPlacement(p_152803_).setValue(WATERLOGGED, flag).setValue(FACING, p_152803_.getClickedFace());
     }
 
     @Override

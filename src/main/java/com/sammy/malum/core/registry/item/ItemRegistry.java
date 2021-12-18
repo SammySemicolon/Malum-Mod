@@ -1,7 +1,7 @@
 package com.sammy.malum.core.registry.item;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.helper.ClientHelper;
+import com.sammy.malum.client.model.DripArmorModel;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
@@ -17,6 +17,7 @@ import com.sammy.malum.common.item.food.HolySyrupItem;
 import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.misc.*;
 import com.sammy.malum.common.item.tools.*;
+import com.sammy.malum.core.helper.ClientHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
@@ -32,55 +33,49 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.sammy.malum.MalumMod.MODID;
 import static com.sammy.malum.core.helper.ClientHelper.brighter;
 import static com.sammy.malum.core.helper.ClientHelper.darker;
-import static com.sammy.malum.MalumMod.MODID;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL_ITEM;
 import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.TYRVING_ITEM;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
-public class ItemRegistry
-{
+public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    public static Item.Properties DEFAULT_PROPERTIES()
-    {
+    public static Item.Properties DEFAULT_PROPERTIES() {
         return new Item.Properties().tab(MalumCreativeTab.INSTANCE);
     }
 
-    public static Item.Properties SPLINTER_PROPERTIES()
-    {
+    public static Item.Properties SPLINTER_PROPERTIES() {
         return new Item.Properties().tab(MalumSplinterTab.INSTANCE);
     }
 
-    public static Item.Properties BUILDING_PROPERTIES()
-    {
+    public static Item.Properties BUILDING_PROPERTIES() {
         return new Item.Properties().tab(MalumBuildingTab.INSTANCE);
     }
 
-    public static Item.Properties NATURE_PROPERTIES()
-    {
+    public static Item.Properties NATURE_PROPERTIES() {
         return new Item.Properties().tab(MalumNatureTab.INSTANCE);
     }
 
-    public static Item.Properties GEAR_PROPERTIES()
-    {
+    public static Item.Properties GEAR_PROPERTIES() {
         return new Item.Properties().tab(MalumCreativeTab.INSTANCE).stacksTo(1);
     }
 
-    public static Item.Properties HIDDEN_PROPERTIES()
-    {
+    public static Item.Properties HIDDEN_PROPERTIES() {
         return new Item.Properties().stacksTo(1);
     }
 
@@ -390,7 +385,7 @@ public class ItemRegistry
     public static final RegistryObject<Item> SOUL_HUNTER_LEGGINGS = ITEMS.register("soul_hunter_leggings", () -> new SoulHunterArmorItem(EquipmentSlot.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_HUNTER_BOOTS = ITEMS.register("soul_hunter_boots", () -> new SoulHunterArmorItem(EquipmentSlot.FEET, GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, ()-> SoundRegistry.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, () -> SoundRegistry.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));
@@ -421,11 +416,23 @@ public class ItemRegistry
 
     //endregion
 
-    @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MalumMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
+
+        public static DripArmorModel DRIP_ARMOR;
+
         @SubscribeEvent
-        public static void setItemColors(ColorHandlerEvent.Item event)
-        {
+        public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            event.registerLayerDefinition(DripArmorModel.LAYER, DripArmorModel::createBodyLayer);
+        }
+
+        @SubscribeEvent
+        public static void onRegisterLayers(EntityRenderersEvent.AddLayers event) {
+            DRIP_ARMOR = new DripArmorModel(event.getEntityModels().bakeLayer(DripArmorModel.LAYER));
+        }
+
+        @SubscribeEvent
+        public static void setItemColors(ColorHandlerEvent.Item event) {
             ItemColors itemColors = event.getItemColors();
             Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
@@ -438,8 +445,7 @@ public class ItemRegistry
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> {
                 itemColors.register((s, c) -> {
                     AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
-                    if (c == 2)
-                    {
+                    if (c == 2) {
                         return etherItem.getSecondColor(s);
                     }
                     return c == 0 ? etherItem.getFirstColor(s) : -1;
@@ -448,8 +454,7 @@ public class ItemRegistry
             DataHelper.takeAll(items, i -> i.get() instanceof EtherItem).forEach(i -> {
                 itemColors.register((s, c) -> {
                     AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
-                    if (c == 1)
-                    {
+                    if (c == 1) {
                         return etherItem.getSecondColor(s);
                     }
                     return c == 0 ? etherItem.getFirstColor(s) : -1;

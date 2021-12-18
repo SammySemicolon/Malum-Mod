@@ -15,15 +15,11 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class SimpleBlock <T extends BlockEntity> extends Block implements EntityBlock {
-    protected VoxelShape shape = null;
     protected Supplier<BlockEntityType<T>> blockEntityType = null;
     protected BlockEntityTicker<T> ticker = null;
     public SimpleBlock(Properties properties) {
@@ -85,20 +81,5 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
             }
         }
         return super.use(state, level, pos, player, hand, ray);
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return getVisualShape(state, level, pos, context);
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return getVisualShape(state, level, pos, context);
-    }
-
-    @Override
-    public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return shape != null ? shape : Shapes.block();
     }
 }

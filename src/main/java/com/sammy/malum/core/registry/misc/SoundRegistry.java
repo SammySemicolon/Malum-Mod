@@ -49,7 +49,7 @@ public class SoundRegistry
     public static final SoundEvent ETHER_PLACE = create(new SoundEvent(DataHelper.prefix("ether_place")));
     public static final SoundEvent ETHER_BREAK = create(new SoundEvent(DataHelper.prefix("ether_break")));
 
-    public static final SoundEvent SCYTHE_CUT    = create(new SoundEvent(DataHelper.prefix("scythe_cut")));
+    public static final SoundEvent SCYTHE_CUT = create(new SoundEvent(DataHelper.prefix("scythe_cut")));
     public static final SoundEvent SPIRIT_HARVEST = create(new SoundEvent(DataHelper.prefix("spirit_harvest")));
 
     public static final SoundEvent TOTEM_CHARGE = create(new SoundEvent(DataHelper.prefix("totem_charge")));

@@ -9,6 +9,7 @@ import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
+import com.sammy.malum.core.systems.item.ModCombatItem;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -34,11 +35,9 @@ import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class ScytheItem extends ModCombatItem implements IEventResponderItem {
-    private final float magicDamageBoost;
 
     public ScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, float magicDamageBoost, Properties builderIn) {
-        super(tier, attackDamageIn, attackSpeedIn, builderIn, createExtraAttributes(magicDamageBoost));
-        this.magicDamageBoost = magicDamageBoost;
+        super(tier, attackDamageIn+3, attackSpeedIn-2.4f, builderIn, createExtraAttributes(magicDamageBoost));
     }
 
     public static ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(float magicDamageBoost) {

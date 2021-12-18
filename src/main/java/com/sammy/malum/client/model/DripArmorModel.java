@@ -4,18 +4,23 @@ package com.sammy.malum.client.model;
 // Paste this class into your mod and generate all required imports
 
 
+import com.sammy.malum.core.helper.DataHelper;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class DripArmor extends ArmorModel {
-	public DripArmor(ModelPart root) {
+public class DripArmorModel extends ArmorModel {
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(DataHelper.prefix("textures/armor/drip_armor"), "main");
+
+	public DripArmorModel(ModelPart root) {
 		super(root);
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		MeshDefinition mesh = new MeshDefinition();
-		PartDefinition root = mesh.getRoot();
+		MeshDefinition mesh = HumanoidModel.createMesh(new CubeDeformation(0), 0);
+		PartDefinition root = createHumanoidAlias(mesh);
 
 		PartDefinition body = root.getChild("body");
 		PartDefinition chest = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(40, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, new CubeDeformation(0.95F)).texOffs(16, 17).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, new CubeDeformation(0.75F)), PartPose.offset(0.0F, 0.0F, 0.0F));

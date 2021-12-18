@@ -49,7 +49,7 @@ public class ItemStandTileEntity extends SimpleInventoryBlockEntity implements I
     }
     public static Vec3 itemOffset(SimpleInventoryBlockEntity blockEntity)
     {
-        Direction direction = blockEntity.getBlockState().getValue(BlockStateProperties.FACING_HOPPER);
+        Direction direction = blockEntity.getBlockState().getValue(BlockStateProperties.FACING);
         Vec3 directionVector = new Vec3(direction.getStepX(), 0.5f, direction.getStepZ());
         return new Vec3(0.5f - directionVector.x() * 0.25f, directionVector.y(), 0.5f - directionVector.z() * 0.25f);
     }

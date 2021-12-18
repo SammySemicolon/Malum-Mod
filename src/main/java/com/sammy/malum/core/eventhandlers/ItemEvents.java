@@ -1,7 +1,7 @@
 package com.sammy.malum.core.eventhandlers;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.tools.ModCombatItem;
+import com.sammy.malum.core.systems.item.ModCombatItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -14,7 +14,6 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
