@@ -1,8 +1,8 @@
 package com.sammy.malum.core.registry.client;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.renderer.RenderStateShard.ShaderStateShard;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,12 +26,12 @@ public class ShaderRegistry {
     @SubscribeEvent
     public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
 
-        event.registerShader(new ShaderInstance(event.getResourceManager(), MalumHelper.prefix("additive_texture"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> additiveTexture.setInstance(shaderInstance));
-        event.registerShader(new ShaderInstance(event.getResourceManager(), MalumHelper.prefix("additive_particle"), DefaultVertexFormat.PARTICLE), shaderInstance -> additiveParticle.setInstance(shaderInstance));
-        event.registerShader(new ShaderInstance(event.getResourceManager(), MalumHelper.prefix("noise/metallic"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> metallicNoise.setInstance(shaderInstance));
-        event.registerShader(new ShaderInstance(event.getResourceManager(), MalumHelper.prefix("vfx/moving_trail"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> movingTrail.setInstance(shaderInstance));
-        event.registerShader(new ShaderInstance(event.getResourceManager(), MalumHelper.prefix("vfx/bootleg_triangle"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> bootlegTriangle.setInstance(shaderInstance));
-        event.registerShader(new ShaderInstance(event.getResourceManager(), MalumHelper.prefix("vfx/moving_bootleg_triangle"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> movingBootlegTriangle.setInstance(shaderInstance));
+        event.registerShader(new ShaderInstance(event.getResourceManager(), DataHelper.prefix("additive_texture"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> additiveTexture.setInstance(shaderInstance));
+        event.registerShader(new ShaderInstance(event.getResourceManager(), DataHelper.prefix("additive_particle"), DefaultVertexFormat.PARTICLE), shaderInstance -> additiveParticle.setInstance(shaderInstance));
+        event.registerShader(new ShaderInstance(event.getResourceManager(), DataHelper.prefix("noise/metallic"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> metallicNoise.setInstance(shaderInstance));
+        event.registerShader(new ShaderInstance(event.getResourceManager(), DataHelper.prefix("vfx/moving_trail"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> movingTrail.setInstance(shaderInstance));
+        event.registerShader(new ShaderInstance(event.getResourceManager(), DataHelper.prefix("vfx/bootleg_triangle"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> bootlegTriangle.setInstance(shaderInstance));
+        event.registerShader(new ShaderInstance(event.getResourceManager(), DataHelper.prefix("vfx/moving_bootleg_triangle"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shaderInstance -> movingBootlegTriangle.setInstance(shaderInstance));
     }
 
     public static class ExtendedShaderInstance {

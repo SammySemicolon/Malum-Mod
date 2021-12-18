@@ -1,9 +1,10 @@
-package com.sammy.malum.common.tile;
+package com.sammy.malum.common.blockentity;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
@@ -13,44 +14,37 @@ import net.minecraft.world.phys.Vec3;
 
 import java.awt.*;
 
-public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implements IAltarProvider
-{
-    public ItemPedestalTileEntity(BlockPos pos, BlockState state)
-    {
-        super(TileEntityRegistry.ITEM_PEDESTAL_TILE_ENTITY.get(), pos, state);
-        inventory = new SimpleBlockEntityInventory(1, 64)
-        {
+public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
+    public ItemPedestalTileEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistry.ITEM_PEDESTAL_BLOCK_ENTITY.get(), pos, state);
+        inventory = new SimpleBlockEntityInventory(1, 64) {
             @Override
-            protected void onContentsChanged(int slot)
-            {
-                ItemPedestalTileEntity.this.setChanged();
-                setChanged();
-                MalumHelper.updateAndNotifyState(level, worldPosition);
+            protected void onContentsChanged(int slot) {
+                BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
     }
 
     @Override
-    public SimpleBlockEntityInventory providedInventory()
-    {
+    public SimpleBlockEntityInventory providedInventory() {
         return inventory;
     }
+
     @Override
-    public Vec3 providedItemPos()
-    {
+    public Vec3 providedItemPos() {
         return itemPos(this);
     }
-    public static Vec3 itemPos(SimpleInventoryBlockEntity tileEntity)
-    {
-        return MalumHelper.fromBlockPos(tileEntity.getBlockPos()).add(itemOffset());
+
+    public static Vec3 itemPos(SimpleInventoryBlockEntity blockEntity) {
+        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(itemOffset());
     }
-    public static Vec3 itemOffset()
-    {
+
+    public static Vec3 itemOffset() {
         return new Vec3(0.5f, 1.1f, 0.5f);
     }
 
-    public void tick()
-    {
+    @Override
+    public void tick() {
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem) {
                 MalumSpiritItem item = (MalumSpiritItem) inventory.getStackInSlot(0).getItem();

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.registry.block;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -29,7 +29,7 @@ public class WoodTypeRegistry {
     }
 
     public static void addWoodType(WoodType woodType) {
-        Sheets.SIGN_MATERIALS.put(woodType, new Material(SIGN_SHEET, MalumHelper.prefix("entity/signs/" + woodType.name())));
+        Sheets.SIGN_MATERIALS.put(woodType, new Material(SIGN_SHEET, DataHelper.prefix("entity/signs/" + woodType.name())));
     }
 
     static class MalumWoodType extends WoodType {

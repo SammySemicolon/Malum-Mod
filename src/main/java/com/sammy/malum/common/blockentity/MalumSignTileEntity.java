@@ -1,6 +1,6 @@
-package com.sammy.malum.common.tile;
+package com.sammy.malum.common.blockentity;
 
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
@@ -15,6 +15,6 @@ public class MalumSignTileEntity extends SignBlockEntity
     @Override
     public BlockEntityType<?> getType()
     {
-        return TileEntityRegistry.SIGN_TILE_ENTITY.get();
+        return BlockEntityRegistry.SIGN_BLOCK_ENTITY.get();
     }
 }

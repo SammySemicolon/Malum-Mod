@@ -1,6 +1,7 @@
 package com.sammy.malum.core.systems.rites;
 
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +18,7 @@ public class MalumRiteType {
     public MalumRiteType(String identifier, boolean isInstant, MalumSpiritType... spirits) {
         this.identifier = identifier;
         this.isInstant = isInstant;
-        this.spirits = MalumHelper.toArrayList(spirits);
+        this.spirits = DataHelper.toArrayList(spirits);
     }
 
     public String translationIdentifier()
@@ -62,10 +63,10 @@ public class MalumRiteType {
     }
     public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level level, BlockPos pos, boolean corrupted)
     {
-        return MalumHelper.getBlocks(pos, range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
+        return BlockHelper.getBlocks(pos, range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
     }
     public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, Level level, BlockPos pos, boolean corrupted)
     {
-        return MalumHelper.getPlaneOfBlocks(pos.below(), range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
+        return BlockHelper.getPlaneOfBlocks(pos.below(), range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
     }
 }

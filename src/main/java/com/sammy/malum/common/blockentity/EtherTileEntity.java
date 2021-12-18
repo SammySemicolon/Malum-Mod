@@ -1,77 +1,60 @@
-package com.sammy.malum.common.tile;
+package com.sammy.malum.common.blockentity;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.helper.ClientHelper;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.FastColor;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
 
-public class EtherTileEntity extends SimpleBlockEntity
-{
+public class EtherTileEntity extends SimpleBlockEntity {
     public Color firstColor;
     public Color secondColor;
 
     public EtherTileEntity(BlockPos pos, BlockState state) {
-        super(TileEntityRegistry.ETHER_BLOCK_TILE_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.ETHER_BLOCK_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override
     public void load(CompoundTag compound) {
-
-        int packedColor = compound.getInt("firstColor");
-        int red = FastColor.ARGB32.red(packedColor);
-        int green = FastColor.ARGB32.green(packedColor);
-        int blue = FastColor.ARGB32.blue(packedColor);
-        firstColor = new Color(red, green, blue);
-
-        packedColor = compound.getInt("secondColor");
-        red = FastColor.ARGB32.red(packedColor);
-        green = FastColor.ARGB32.green(packedColor);
-        blue = FastColor.ARGB32.blue(packedColor);
-        secondColor = new Color(red, green, blue);
+        firstColor = ClientHelper.getColor(compound.getInt("firstColor"));
+        secondColor = ClientHelper.getColor(compound.getInt("secondColor"));
         super.load(compound);
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
-        if (firstColor != null)
-        {
+    protected void saveAdditional(CompoundTag compound) {
+        if (firstColor != null) {
             compound.putInt("firstColor", firstColor.getRGB());
         }
-        if (secondColor != null)
-        {
+        if (secondColor != null) {
             compound.putInt("secondColor", secondColor.getRGB());
         }
-        return super.save(compound);
+        super.saveAdditional(compound);
     }
 
     @Override
-    public void setRemoved()
-    {
+    public void setRemoved() {
         super.setRemoved();
     }
 
-    public void tick()
-    {
-        if (level.isClientSide)
-        {
-            if (firstColor == null || secondColor == null)
-            {
+    @Override
+    public void tick() {
+        if (level.isClientSide) {
+            if (firstColor == null || secondColor == null) {
                 return;
             }
-            Color firstColor = MalumHelper.darker(this.firstColor, 1);
-            Color secondColor = MalumHelper.brighter(this.secondColor, 1);
+            Color firstColor = ClientHelper.darker(this.firstColor, 1);
+            Color secondColor = ClientHelper.brighter(this.secondColor, 1);
 
 
             double x = worldPosition.getX() + 0.5;
@@ -80,8 +63,7 @@ public class EtherTileEntity extends SimpleBlockEntity
             int lifeTime = 14 + level.random.nextInt(4);
             float scale = 0.17f + level.random.nextFloat() * 0.03f;
             float velocity = 0.04f + level.random.nextFloat() * 0.02f;
-            if (getBlockState().getBlock() instanceof WallEtherTorchBlock)
-            {
+            if (getBlockState().getBlock() instanceof WallEtherTorchBlock) {
                 Direction direction = getBlockState().getValue(WallTorchBlock.FACING);
                 x += direction.getNormal().getX() * -0.28f;
                 y += 0.2f;
@@ -89,12 +71,10 @@ public class EtherTileEntity extends SimpleBlockEntity
                 lifeTime -= 6;
             }
 
-            if (getBlockState().getBlock() instanceof EtherTorchBlock)
-            {
+            if (getBlockState().getBlock() instanceof EtherTorchBlock) {
                 lifeTime -= 4;
             }
-            if (getBlockState().getBlock() instanceof EtherBrazierBlock)
-            {
+            if (getBlockState().getBlock() instanceof EtherBrazierBlock) {
                 y -= 0.2f;
                 lifeTime -= 2;
                 scale *= 1.25f;
@@ -117,8 +97,7 @@ public class EtherTileEntity extends SimpleBlockEntity
                     .setSpin(level.random.nextFloat() * 0.5f)
                     .spawn(level, x, y, z);
 
-            if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f)
-            {
+            if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f) {
                 y += 0.05f;
                 RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.75f, 0)

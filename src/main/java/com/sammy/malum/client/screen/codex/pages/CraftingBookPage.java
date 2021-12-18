@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.*;
 
@@ -12,7 +12,7 @@ public class CraftingBookPage extends BookPage
     private final ItemStack[] inputStacks;
     public CraftingBookPage(ItemStack outputStack, ItemStack... inputStacks)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/crafting_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/crafting_page.png"));
         this.outputStack = outputStack;
         this.inputStacks = inputStacks;
     }
@@ -22,7 +22,7 @@ public class CraftingBookPage extends BookPage
     }
     public CraftingBookPage(ItemStack outputStack, Item... inputItems)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/crafting_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/crafting_page.png"));
         this.outputStack = outputStack;
 
         ItemStack[] inputStacks = new ItemStack[inputItems.length];

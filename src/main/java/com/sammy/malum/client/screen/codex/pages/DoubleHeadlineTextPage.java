@@ -1,11 +1,11 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class DoubleHeadlineTextPage extends BookPage
 {
@@ -15,7 +15,7 @@ public class DoubleHeadlineTextPage extends BookPage
     private final String secondTranslationKey;
     public DoubleHeadlineTextPage(String headlineTranslationKey, String translationKey, String secondHeadlineTranslationKey, String secondTranslationKey)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/spirit_rite_text_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/spirit_rite_text_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
         this.secondHeadlineTranslationKey = secondHeadlineTranslationKey;
@@ -26,20 +26,20 @@ public class DoubleHeadlineTextPage extends BookPage
         this(headlineTranslationKey, translationKey, "corrupted_"+headlineTranslationKey, "corrupted_"+translationKey);
     }
 
-    public String headlineTranslationKey()
+    public String getHeadlineTranslationKey()
     {
         return "malum.gui.book.entry.page.headline." + headlineTranslationKey;
     }
-    public String translationKey()
+    public String getTranslationKey()
     {
         return "malum.gui.book.entry.page.text." + translationKey;
     }
 
-    public String corruptedHeadlineTranslationKey()
+    public String getSecondHeadlineTranslationKey()
     {
         return "malum.gui.book.entry.page.headline." + secondHeadlineTranslationKey;
     }
-    public String corruptedTranslationKey()
+    public String getCorruptedTranslationKey()
     {
         return "malum.gui.book.entry.page.text." + secondTranslationKey;
     }
@@ -48,12 +48,12 @@ public class DoubleHeadlineTextPage extends BookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
+        Component component = new TranslatableComponent(getHeadlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+16,guiTop+31,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, getTranslationKey(), guiLeft+16,guiTop+31,120);
 
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+87);
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+16,guiTop+108,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, getTranslationKey(), guiLeft+16,guiTop+108,120);
     }
 
     @Override
@@ -61,11 +61,11 @@ public class DoubleHeadlineTextPage extends BookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
+        Component component = new TranslatableComponent(getHeadlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+158,guiTop+31,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, getTranslationKey(), guiLeft+158,guiTop+31,120);
 
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+87);
-        ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+158,guiTop+108,120);
+        ProgressionBookScreen.renderWrappingText(poseStack, getTranslationKey(), guiLeft+158,guiTop+108,120);
     }
 }

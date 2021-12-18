@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.item_storage;
 
-import com.sammy.malum.common.tile.ItemStandTileEntity;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.common.blockentity.ItemStandTileEntity;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,7 +34,7 @@ public class ItemStandBlock extends SimpleBlock<ItemStandTileEntity> implements 
     public ItemStandBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
-        setTile(TileEntityRegistry.ITEM_STAND_TILE_ENTITY);
+        setTile(BlockEntityRegistry.ITEM_STAND_BLOCK_ENTITY);
     }
 
     @Override

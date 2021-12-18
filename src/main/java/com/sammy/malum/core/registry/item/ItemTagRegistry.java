@@ -1,6 +1,6 @@
 package com.sammy.malum.core.registry.item;
 
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
@@ -14,6 +14,6 @@ public class ItemTagRegistry
 
     public static Tag.Named<Item> create(String id)
     {
-        return ItemTags.createOptional(MalumHelper.prefix(id));
+        return ItemTags.createOptional(DataHelper.prefix(id));
     }
 }

@@ -39,9 +39,9 @@ public class CommonConfig {
         GENERATE_RUNEWOOD_TREES = builder.comment("Should runewood trees naturally generate?")
                 .define("generateRunewood", true);
         COMMON_RUNEWOOD_CHANCE = builder.comment("Chance for runewood trees to generate in open biomes such as plains.")
-                .define("runewoodCommonChance", 0.04f);
+                .define("runewoodCommonChance", 0.02f);
         RARE_RUNEWOOD_CHANCE = builder.comment("Chance for runewood trees to generate in forest biomes.")
-                .define("runewoodRareChance", 0.02f);
+                .define("runewoodRareChance", 0.01f);
         builder.pop();
 
         builder.comment("Blaze Quartz Config").push("blaze_quartz");

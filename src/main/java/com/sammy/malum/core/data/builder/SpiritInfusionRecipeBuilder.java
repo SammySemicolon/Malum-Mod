@@ -3,7 +3,7 @@ package com.sammy.malum.core.data.builder;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
@@ -60,7 +60,7 @@ public class SpiritInfusionRecipeBuilder
     }
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName)
     {
-        build(consumerIn, MalumHelper.prefix("spirit_infusion/" + recipeName));
+        build(consumerIn, DataHelper.prefix("spirit_infusion/" + recipeName));
     }
     public void build(Consumer<FinishedRecipe> consumerIn)
     {

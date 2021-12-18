@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.item_storage;
 
-import com.sammy.malum.common.tile.ItemPedestalTileEntity;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.common.blockentity.ItemPedestalTileEntity;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,7 +36,7 @@ public class ItemPedestalBlock extends SimpleBlock<ItemPedestalTileEntity> imple
     {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(TileEntityRegistry.ITEM_PEDESTAL_TILE_ENTITY);
+        setTile(BlockEntityRegistry.ITEM_PEDESTAL_BLOCK_ENTITY);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ModCombatItem extends TieredItem {
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
         builder.putAll(extraAttributes.build());
-        this.attributes = extraAttributes.build();
+        this.attributes = builder.build();
     }
 
     public float getDamage() {

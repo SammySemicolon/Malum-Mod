@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.RegistryObject;
@@ -32,14 +32,14 @@ public class MalumSpiritType
 
     public ResourceLocation overlayTexture()
     {
-        return MalumHelper.prefix("spirit/overlay_" + identifier);
+        return DataHelper.prefix("spirit/overlay_" + identifier);
     }
     public ResourceLocation runewoodCutoutTexture()
     {
-        return MalumHelper.prefix("spirit/cutout_" + identifier);
+        return DataHelper.prefix("spirit/cutout_" + identifier);
     }
     public ResourceLocation soulwoodCutoutTexture()
     {
-        return MalumHelper.prefix("spirit/corrupted_cutout_" + identifier);
+        return DataHelper.prefix("spirit/corrupted_cutout_" + identifier);
     }
 }

@@ -1,9 +1,9 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.PlayerHomingItemEntity;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
+import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
@@ -75,7 +75,7 @@ public class SpiritHelper {
                 continue;
             }
             for (int j = 0; j < count; j++) {
-                PlayerHomingItemEntity entity = new PlayerHomingItemEntity(target.level, attacker == null ? null : attacker.getUUID(), MalumHelper.copyWithNewCount(stack, 1),
+                PlayerHomingItemEntity entity = new PlayerHomingItemEntity(target.level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
                         target.position().x,
                         target.position().y + target.getBbHeight() / 2f,
                         target.position().z,
@@ -118,10 +118,10 @@ public class SpiritHelper {
                     eventItem.pickupSpirit(collector, stack);
                 }
             });
-            ArrayList<ItemStack> curios = MalumHelper.equippedCurios(collector, p -> p.getItem() instanceof IEventResponderItem);
+            ArrayList<ItemStack> curios = ItemHelper.equippedCurios(collector, p -> p.getItem() instanceof IEventResponderItem);
             curios.forEach(s -> ((IEventResponderItem)s.getItem()).pickupSpirit(collector, s));
         }
-        MalumHelper.giveItemToEntity(stack, collector);
+        ItemHelper.giveItemToEntity(stack, collector);
     }
 
     public static MalumSpiritType getSpiritType(String spirit) {

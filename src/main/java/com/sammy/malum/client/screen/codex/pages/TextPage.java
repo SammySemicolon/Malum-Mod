@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 
 public class TextPage extends BookPage
@@ -10,7 +10,7 @@ public class TextPage extends BookPage
     public final String translationKey;
     public TextPage(String translationKey)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/blank_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/blank_page.png"));
         this.translationKey = translationKey;
     }
 

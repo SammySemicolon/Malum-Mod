@@ -3,9 +3,8 @@ package com.sammy.malum.client.tile_renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.tile.TotemPoleTileEntity;
+import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -27,7 +26,6 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
     public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
     public static HashMap<MalumSpiritType, Material> cutoutHashmap = new HashMap<>();
     public static HashMap<MalumSpiritType, Material> corruptedCutoutHashmap = new HashMap<>();
-    public static final Material RUNEWOOD_LOG = new Material(TextureAtlas.LOCATION_BLOCKS, MalumHelper.prefix("block/runewood_log"));
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
         SpiritTypeRegistry.SPIRITS.forEach(s ->
@@ -40,21 +38,20 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
     }
 
     @Override
-    public void render(TotemPoleTileEntity tileEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        Direction direction = tileEntityIn.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
+    public void render(TotemPoleTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+        Direction direction = blockEntityIn.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
         if (direction.equals(Direction.WEST) || direction.equals(Direction.EAST)) {
             combinedLightIn -= combinedOverlayIn * 2;
         }
-        if (tileEntityIn.type == null) {
-            renderQuad(RUNEWOOD_LOG, Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
+        if (blockEntityIn.type == null) {
             return;
         }
-        if (((TotemPoleBlock) tileEntityIn.getBlockState().getBlock()).corrupted) {
-            renderQuad(corruptedCutoutHashmap.get(tileEntityIn.type), Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
+        if (((TotemPoleBlock) blockEntityIn.getBlockState().getBlock()).corrupted) {
+            renderQuad(corruptedCutoutHashmap.get(blockEntityIn.type), Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
         } else {
-            renderQuad(cutoutHashmap.get(tileEntityIn.type), Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
+            renderQuad(cutoutHashmap.get(blockEntityIn.type), Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
         }
-        renderQuad(overlayHashmap.get(tileEntityIn.type), color(tileEntityIn), combinedLightIn, direction, poseStack, bufferIn);
+        renderQuad(overlayHashmap.get(blockEntityIn.type), color(blockEntityIn), combinedLightIn, direction, poseStack, bufferIn);
     }
 
     public Color color(TotemPoleTileEntity totemPoleTileEntity) {

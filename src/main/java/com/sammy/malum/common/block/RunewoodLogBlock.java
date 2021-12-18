@@ -2,7 +2,7 @@ package com.sammy.malum.common.block;
 
 import com.sammy.malum.common.block.misc.MalumLogBlock;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.common.tile.TotemPoleTileEntity;
+import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.property.Properties;
 
 import java.util.function.Supplier;
 
@@ -43,14 +42,15 @@ public class RunewoodLogBlock extends MalumLogBlock
             level.setBlockAndUpdate(pos, totemPole.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()));
             if (level.getBlockEntity(pos) instanceof TotemPoleTileEntity)
             {
-                TotemPoleTileEntity tileEntity = (TotemPoleTileEntity) level.getBlockEntity(pos);
-                tileEntity.create(item.type);
+                TotemPoleTileEntity blockEntity = (TotemPoleTileEntity) level.getBlockEntity(pos);
+                blockEntity.create(item.type);
             }
             if (!player.isCreative())
             {
                 stack.shrink(1);
             }
             player.swing(handIn, true);
+            return InteractionResult.SUCCESS;
         }
         return super.use(state, level, pos, player, handIn, hit);
     }

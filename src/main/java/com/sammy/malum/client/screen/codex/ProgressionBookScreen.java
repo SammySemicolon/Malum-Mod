@@ -2,13 +2,12 @@ package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.client.screen.codex.objects.BookObject;
 import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
 import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
 import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
@@ -16,6 +15,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -37,10 +37,10 @@ import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class ProgressionBookScreen extends Screen
 {
-    public static final ResourceLocation FRAME_TEXTURE = MalumHelper.prefix("textures/gui/book/frame.png");
-    public static final ResourceLocation FADE_TEXTURE = MalumHelper.prefix("textures/gui/book/fade.png");
+    public static final ResourceLocation FRAME_TEXTURE = DataHelper.prefix("textures/gui/book/frame.png");
+    public static final ResourceLocation FADE_TEXTURE = DataHelper.prefix("textures/gui/book/fade.png");
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = MalumHelper.prefix("textures/gui/book/background.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = DataHelper.prefix("textures/gui/book/background.png");
 
     public int bookWidth = 378;
     public int bookHeight = 250;
@@ -63,7 +63,7 @@ public class ProgressionBookScreen extends Screen
 
     protected ProgressionBookScreen()
     {
-        super(ClientHelper.simpleTranslatableComponent("malum.gui.book.title"));
+        super(new TranslatableComponent("malum.gui.book.title"));
         minecraft = Minecraft.getInstance();
         setupEntries();
         setupObjects();
@@ -647,14 +647,14 @@ public class ProgressionBookScreen extends Screen
         Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
         if (isHovering(mouseX, mouseY, posX, posY, 16,16))
         {
-            screen.renderTooltip(poseStack, ClientHelper.simpleTranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
+            screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
         }
     }
 
     public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w)
     {
         Font font = Minecraft.getInstance().font;
-        text = ClientHelper.simpleTranslatableComponent(text).getString();
+        text = new TranslatableComponent(text).getString();
         List<String> lines = new ArrayList<>();
         String[] words = text.split(" ");
         String line = "";
@@ -677,7 +677,7 @@ public class ProgressionBookScreen extends Screen
 
     public static void renderText(PoseStack stack, String text, int x, int y)
     {
-        renderText(stack, ClientHelper.simpleTranslatableComponent(text), x,y, glow(0));
+        renderText(stack, new TranslatableComponent(text), x,y, glow(0));
     }
 
     public static void renderText(PoseStack stack, Component component, int x, int y)
@@ -687,7 +687,7 @@ public class ProgressionBookScreen extends Screen
     }
     public static void renderText(PoseStack stack, String text, int x, int y, float glow)
     {
-        renderText(stack, ClientHelper.simpleTranslatableComponent(text), x,y, glow);
+        renderText(stack, new TranslatableComponent(text), x,y, glow);
     }
 
     public static void renderText(PoseStack stack, Component component, int x, int y, float glow)

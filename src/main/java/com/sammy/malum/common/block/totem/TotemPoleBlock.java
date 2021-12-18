@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.totem;
 
-import com.sammy.malum.common.tile.TotemPoleTileEntity;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,7 +28,7 @@ public class TotemPoleBlock extends SimpleBlock<TotemPoleTileEntity>
         this.logBlock = logBlock;
         this.corrupted = corrupted;
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
-        setTile(TileEntityRegistry.TOTEM_POLE_TILE_ENTITY);
+        setTile(BlockEntityRegistry.TOTEM_POLE_BLOCK_ENTITY);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.item_storage;
 
-import com.sammy.malum.common.tile.SpiritJarTileEntity;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.common.blockentity.SpiritJarTileEntity;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +31,7 @@ public class SpiritJarBlock extends SimpleBlock<SpiritJarTileEntity> implements 
     {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(TileEntityRegistry.SPIRIT_JAR_TILE_ENTITY);
+        setTile(BlockEntityRegistry.SPIRIT_JAR_BLOCK_ENTITY);
     }
 
     @Override

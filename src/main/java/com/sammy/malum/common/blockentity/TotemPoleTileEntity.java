@@ -1,9 +1,9 @@
-package com.sammy.malum.common.tile;
+package com.sammy.malum.common.blockentity;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.packets.particle.BlockParticlePacket;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
@@ -27,8 +27,7 @@ import java.awt.*;
 
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
-public class TotemPoleTileEntity extends SimpleBlockEntity
-{
+public class TotemPoleTileEntity extends SimpleBlockEntity {
 
     public MalumSpiritType type;
     public int desiredColor;
@@ -36,11 +35,11 @@ public class TotemPoleTileEntity extends SimpleBlockEntity
     public int baseLevel;
     public boolean corrupted;
     public Block logBlock;
-    public TotemPoleTileEntity(BlockPos pos, BlockState state)
-    {
-        super(TileEntityRegistry.TOTEM_POLE_TILE_ENTITY.get(), pos, state);
-        this.corrupted = ((TotemPoleBlock)state.getBlock()).corrupted;
-        this.logBlock = ((TotemPoleBlock)state.getBlock()).logBlock.get();
+
+    public TotemPoleTileEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistry.TOTEM_POLE_BLOCK_ENTITY.get(), pos, state);
+        this.corrupted = ((TotemPoleBlock) state.getBlock()).corrupted;
+        this.logBlock = ((TotemPoleBlock) state.getBlock()).logBlock.get();
     }
 
     @Override
@@ -60,100 +59,88 @@ public class TotemPoleTileEntity extends SimpleBlockEntity
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound)
-    {
-        if (type != null)
-        {
+    protected void saveAdditional(CompoundTag compound) {
+        if (type != null) {
             compound.putString("type", type.identifier);
         }
         compound.putInt("desiredColor", desiredColor);
         compound.putInt("currentColor", currentColor);
         compound.putInt("baseLevel", baseLevel);
-        return super.save(compound);
+        compound.putBoolean("corrupted", corrupted);
+        super.saveAdditional(compound);
     }
 
     @Override
-    public void load(CompoundTag compound)
-    {
-        if (compound.contains("type"))
-        {
+    public void load(CompoundTag compound) {
+        if (compound.contains("type")) {
             type = SpiritHelper.getSpiritType(compound.getString("type"));
         }
         desiredColor = compound.getInt("desiredColor");
         currentColor = compound.getInt("currentColor");
         baseLevel = compound.getInt("baseLevel");
+        corrupted = compound.getBoolean("corrupted");
         super.load(compound);
     }
 
-    public void tick()
-    {
-        if (currentColor > desiredColor)
-        {
+    @Override
+    public void tick() {
+        if (currentColor > desiredColor) {
             currentColor--;
         }
-        if (currentColor < desiredColor)
-        {
+        if (currentColor < desiredColor) {
             currentColor++;
         }
-        if (level.isClientSide)
-        {
-            if (type != null && desiredColor != 0)
-            {
+        if (level.isClientSide) {
+            if (type != null && desiredColor != 0) {
                 passiveParticles();
             }
         }
     }
-    public void create(MalumSpiritType type)
-    {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE, SoundSource.BLOCKS,1,1);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(),worldPosition.getY(),worldPosition.getZ()));
+
+    public void create(MalumSpiritType type) {
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE, SoundSource.BLOCKS, 1, 1);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.type = type;
         this.currentColor = 10;
-        MalumHelper.updateAndNotifyState(level,worldPosition);
+        BlockHelper.updateAndNotifyState(level, worldPosition);
     }
-    public void riteStarting(int height)
-    {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS,1,1 + 0.2f * height);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(()->level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(),worldPosition.getY(),worldPosition.getZ()));
+
+    public void riteStarting(int height) {
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 1 + 0.2f * height);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.desiredColor = 10;
         this.baseLevel = worldPosition.getY() - height;
-        MalumHelper.updateAndNotifyState(level,worldPosition);
+        BlockHelper.updateState(level, worldPosition);
     }
-    public void riteComplete(int height)
-    {
+
+    public void riteComplete(int height) {
         this.desiredColor = 20;
-        MalumHelper.updateAndNotifyState(level,worldPosition);
+        BlockHelper.updateAndNotifyState(level, worldPosition);
     }
-    public void riteEnding()
-    {
+
+    public void riteEnding() {
         this.desiredColor = 0;
-        MalumHelper.updateAndNotifyState(level,worldPosition);
+        BlockHelper.updateState(level, worldPosition);
     }
 
     @Override
-    public void setRemoved()
-    {
-        if (level.isClientSide)
-        {
+    public void setRemoved() {
+        if (level.isClientSide) {
             return;
         }
         BlockPos basePos = new BlockPos(worldPosition.getX(), baseLevel, worldPosition.getZ());
-        if (level.getBlockEntity(basePos) instanceof TotemBaseTileEntity)
-        {
+        if (level.getBlockEntity(basePos) instanceof TotemBaseTileEntity) {
             TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) level.getBlockEntity(basePos);
-            if (totemBaseTileEntity.active)
-            {
+            if (totemBaseTileEntity.active) {
                 totemBaseTileEntity.endRite();
             }
         }
         super.setRemoved();
     }
 
-    public void passiveParticles()
-    {
+    public void passiveParticles() {
         Color color = type.color;
-        for (int i = -1; i <= 1; i++)
-        {
+        for (int i = -1; i <= 1; i++) {
             float extraVelocity = 0.03f * i;
             RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.025f, 0f)
@@ -161,7 +148,7 @@ public class TotemPoleTileEntity extends SimpleBlockEntity
                     .setSpin(0.2f)
                     .setScale(0.25f, 0)
                     .setColor(color, color)
-                    .addVelocity(0, extraVelocity,0)
+                    .addVelocity(0, extraVelocity, 0)
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomVelocity(0.001f, 0.001f)
@@ -173,7 +160,7 @@ public class TotemPoleTileEntity extends SimpleBlockEntity
                     .setSpin(0.1f)
                     .setScale(0.35f, 0)
                     .setColor(color, color)
-                    .addVelocity(0, extraVelocity,0)
+                    .addVelocity(0, extraVelocity, 0)
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomVelocity(0.001f, 0.001f)

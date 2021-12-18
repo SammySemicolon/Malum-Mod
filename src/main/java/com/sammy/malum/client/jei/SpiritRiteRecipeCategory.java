@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
-import static com.sammy.malum.MalumHelper.prefix;
+import static com.sammy.malum.core.helper.DataHelper.prefix;
 
 public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
 {

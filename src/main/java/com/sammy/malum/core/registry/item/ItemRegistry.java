@@ -1,8 +1,7 @@
 package com.sammy.malum.core.registry.item;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.ClientHelper;
+import com.sammy.malum.core.helper.ClientHelper;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
@@ -18,6 +17,7 @@ import com.sammy.malum.common.item.food.HolySyrupItem;
 import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.misc.*;
 import com.sammy.malum.common.item.tools.*;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.item.tabs.MalumBuildingTab;
@@ -41,8 +41,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.MalumHelper.brighter;
-import static com.sammy.malum.MalumHelper.darker;
+import static com.sammy.malum.core.helper.ClientHelper.brighter;
+import static com.sammy.malum.core.helper.ClientHelper.darker;
 import static com.sammy.malum.MalumMod.MODID;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL_ITEM;
@@ -429,28 +429,32 @@ public class ItemRegistry
             ItemColors itemColors = event.getItemColors();
             Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-            MalumHelper.takeAll(items, item -> item.get() instanceof BlockItem && ((BlockItem) item.get()).getBlock() instanceof MalumLeavesBlock).forEach(item ->
+            DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof MalumLeavesBlock).forEach(item ->
             {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
+                itemColors.register((s, c) -> ClientHelper.getColor(malumLeavesBlock.minColor), item.get());
                 ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
             });
-            itemColors.register((s, c)->{
-                AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
-                if (c == 2)
-                {
-                    return etherItem.getSecondColor(s);
-                }
-                return c == 0 ? etherItem.getFirstColor(s) : -1;
-            }, MalumHelper.getModItems(EtherTorchItem.class, EtherBrazierItem.class));
-            itemColors.register((s, c)->{
-                AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
-                if (c == 1)
-                {
-                    return etherItem.getSecondColor(s);
-                }
-                return c == 0 ? etherItem.getFirstColor(s) : -1;
-            }, MalumHelper.getModItems(EtherItem.class));
-
+            DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> {
+                itemColors.register((s, c) -> {
+                    AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+                    if (c == 2)
+                    {
+                        return etherItem.getSecondColor(s);
+                    }
+                    return c == 0 ? etherItem.getFirstColor(s) : -1;
+                }, i.get());
+            });
+            DataHelper.takeAll(items, i -> i.get() instanceof EtherItem).forEach(i -> {
+                itemColors.register((s, c) -> {
+                    AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+                    if (c == 1)
+                    {
+                        return etherItem.getSecondColor(s);
+                    }
+                    return c == 0 ? etherItem.getFirstColor(s) : -1;
+                }, i.get());
+            });
             ClientHelper.registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
             ClientHelper.registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
             ClientHelper.registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));

@@ -1,6 +1,5 @@
 package com.sammy.malum.core.registry.block;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.RunewoodLogBlock;
 import com.sammy.malum.common.block.RunewoodSaplingBlock;
@@ -21,7 +20,8 @@ import com.sammy.malum.common.block.misc.sign.MalumWallSignBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.tile.EtherTileEntity;
+import com.sammy.malum.common.blockentity.EtherTileEntity;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -38,16 +38,14 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.MalumHelper.getModBlocks;
 import static com.sammy.malum.MalumMod.MODID;
 import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.EVERYTHING;
 import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.MOBS;
@@ -372,47 +370,46 @@ public class BlockRegistry {
         @SubscribeEvent
         public static void setBlockColors(ColorHandlerEvent.Block event) {
             BlockColors blockColors = event.getBlockColors();
+            Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-            blockColors.register((state, level, pos, color) ->
-            {
-                BlockEntity tileEntity = level.getBlockEntity(pos);
-                if (tileEntity instanceof EtherTileEntity) {
-                    EtherTileEntity etherTileEntity = (EtherTileEntity) tileEntity;
+            DataHelper.getAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
+                BlockEntity blockEntity = l.getBlockEntity(p);
+                if (blockEntity instanceof EtherTileEntity) {
+                    EtherTileEntity etherTileEntity = (EtherTileEntity) blockEntity;
                     if (etherTileEntity.firstColor != null) {
-                        return color == 0 ? etherTileEntity.firstColor.getRGB() : -1;
+                        return c == 0 ? etherTileEntity.firstColor.getRGB() : -1;
                     }
                 }
                 return -1;
-            }, Arrays.stream(getModBlocks(EtherBlock.class)).filter(b -> !(b instanceof EtherBrazierBlock)).toArray(Block[]::new));
+            }, b.get()));
 
-            blockColors.register((state, level, pos, color) ->
-            {
-                float i = state.getValue(MalumLeavesBlock.COLOR);
-                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) state.getBlock();
-                int r = (int) Mth.lerp(i / 5f, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
-                int g = (int) Mth.lerp(i / 5f, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
-                int b = (int) Mth.lerp(i / 5f, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
-                return r << 16 | g << 8 | b;
-            }, getModBlocks(MalumLeavesBlock.class));
+            DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
+                float i = s.getValue(MalumLeavesBlock.COLOR);
+                float max = MalumLeavesBlock.COLOR.getPossibleValues().size();
+                MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) s.getBlock();
+                int red = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getRed(), malumLeavesBlock.maxColor.getRed());
+                int green = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getGreen(), malumLeavesBlock.maxColor.getGreen());
+                int blue = (int) Mth.lerp(i / max, malumLeavesBlock.minColor.getBlue(), malumLeavesBlock.maxColor.getBlue());
+                return red << 16 | green << 8 | blue;
+            }, b.get()));
         }
 
         @SubscribeEvent
         public static void setRenderLayers(FMLClientSetupEvent event) {
             Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock).forEach(ClientOnly::setCutout);
-            MalumHelper.takeAll(blocks, b -> b.get() instanceof SpiritAltarBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritAltarBlock).forEach(ClientOnly::setCutout);
             setCutout(BlockRegistry.BLAZING_QUARTZ_ORE);
         }
 

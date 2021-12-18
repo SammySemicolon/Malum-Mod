@@ -1,9 +1,9 @@
 package com.sammy.malum.core.registry.worldgen;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
 import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -77,6 +77,6 @@ public class FeatureRegistry {
     }
 
     static <C extends FeatureConfiguration, F extends Feature<C>> ConfiguredFeature<C, F> registerConfiguredFeature(String registryName, ConfiguredFeature<C, F> feature) {
-        return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, MalumHelper.prefix(registryName), feature);
+        return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, DataHelper.prefix(registryName), feature);
     }
 }

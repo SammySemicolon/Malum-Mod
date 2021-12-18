@@ -14,7 +14,7 @@ public class SpiritFlameParticle extends GenericAnimatedParticle {
         super(level, data, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet);
         addFrames(0, 37);
         addLoop(38, 77, 2);
-        setLifetime(118);
+        setLifetime(ageToFrame.size());
         hasPhysics = false;
     }
 

@@ -1,7 +1,8 @@
-package com.sammy.malum.common.tile;
+package com.sammy.malum.common.blockentity;
 
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
@@ -22,7 +23,7 @@ import java.awt.*;
 
 public class SpiritJarTileEntity extends SimpleBlockEntity {
     public SpiritJarTileEntity(BlockPos pos, BlockState state) {
-        super(TileEntityRegistry.SPIRIT_JAR_TILE_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.SPIRIT_JAR_BLOCK_ENTITY.get(), pos, state);
     }
 
     public MalumSpiritType type;
@@ -31,29 +32,26 @@ public class SpiritJarTileEntity extends SimpleBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
-        if (heldItem.getItem() instanceof MalumSpiritItem) {
-            MalumSpiritItem spiritSplinterItem = (MalumSpiritItem) heldItem.getItem();
-            if (type == null) {
+        if (heldItem.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
+            if (type == null || type.equals(spiritSplinterItem.type))
+            {
                 type = spiritSplinterItem.type;
-                count = heldItem.getCount();
-                player.setItemInHand(hand, ItemStack.EMPTY);
-                useParticles(level, worldPosition, type);
-                return InteractionResult.SUCCESS;
-            } else if (type.equals(spiritSplinterItem.type)) {
                 count += heldItem.getCount();
                 player.setItemInHand(hand, ItemStack.EMPTY);
-                useParticles(level, worldPosition, type);
+                spawnUseParticles(level, worldPosition, type);
+                BlockHelper.updateAndNotifyState(level, worldPosition);
                 return InteractionResult.SUCCESS;
             }
         } else if (type != null) {
             int max = player.isShiftKeyDown() ? 64 : 1;
             int count = Math.min(this.count, max);
-            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(type.splinterItem(), count));
             this.count -= count;
-            useParticles(level, worldPosition, type);
+            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(type.splinterItem(), count));
+            spawnUseParticles(level, worldPosition, type);
             if (this.count == 0) {
                 type = null;
             }
+            BlockHelper.updateAndNotifyState(level, worldPosition);
             return InteractionResult.SUCCESS;
         }
         return super.onUse(player, hand);
@@ -70,14 +68,14 @@ public class SpiritJarTileEntity extends SimpleBlockEntity {
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound) {
         if (type != null) {
             compound.putString("spirit", type.identifier);
         }
         if (count != 0) {
             compound.putInt("count", count);
         }
-        return super.save(compound);
+        super.saveAdditional(compound);
     }
 
     @Override
@@ -89,6 +87,7 @@ public class SpiritJarTileEntity extends SimpleBlockEntity {
         super.load(compound);
     }
 
+    @Override
     public void tick() {
         if (level.isClientSide) {
             if (type != null) {
@@ -101,7 +100,7 @@ public class SpiritJarTileEntity extends SimpleBlockEntity {
         }
     }
 
-    public void useParticles(Level level, BlockPos pos, MalumSpiritType type) {
+    public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
         Color color = type.color;
         RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.4f, 0f)

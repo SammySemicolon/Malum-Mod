@@ -3,7 +3,7 @@ package com.sammy.malum.client.tile_renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.common.tile.ItemPedestalTileEntity;
+import com.sammy.malum.common.blockentity.ItemPedestalTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -23,11 +23,11 @@ public class  ItemPedestalRenderer implements BlockEntityRenderer<ItemPedestalTi
     }
 
     @Override
-    public void render(ItemPedestalTileEntity tileEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
+    public void render(ItemPedestalTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        ItemStack stack = tileEntityIn.inventory.getStackInSlot(0);
+        ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);
         if (!stack.isEmpty())
         {
             poseStack.pushPose();
@@ -40,7 +40,7 @@ public class  ItemPedestalRenderer implements BlockEntityRenderer<ItemPedestalTi
             poseStack.translate(offset.x(), offset.y(), offset.z());
             poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() % 360)* 3 + partialTicks));
             poseStack.scale(0.6f, 0.6f, 0.6f);
-            itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, stack.getCount());
+            itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();
         }
     }

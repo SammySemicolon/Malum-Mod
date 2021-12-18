@@ -2,6 +2,8 @@ package com.sammy.malum.core.systems.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,18 +24,31 @@ public class SimpleBlockEntity extends BlockEntity {
         return InteractionResult.PASS;
     }
 
+
     @Override
     public CompoundTag getUpdateTag() {
-        return save(new CompoundTag());
+        return this.saveWithoutMetadata();
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
-        return super.save(compound);
+    public void handleUpdateTag(CompoundTag tag) {
+        super.handleUpdateTag(tag);
+        load(tag);
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this); // (this.worldPosition, 3, this.getUpdateTag());
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        super.onDataPacket(net, pkt);
+        handleUpdateTag(getUpdatePacket().getTag());
+    }
+
+    public void tick()
+    {
+
     }
 }

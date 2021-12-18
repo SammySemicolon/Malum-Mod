@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.spirit_altar;
 
-import com.sammy.malum.common.tile.SpiritAltarTileEntity;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.common.blockentity.SpiritAltarTileEntity;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,7 +23,7 @@ public class SpiritAltarBlock extends SimpleBlock<SpiritAltarTileEntity> impleme
     {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(TileEntityRegistry.SPIRIT_ALTAR_TILE_ENTITY);
+        setTile(BlockEntityRegistry.SPIRIT_ALTAR_BLOCK_ENTITY);
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 
 import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.registry.block.TileEntityRegistry.TILE_ENTITIES;
+import static com.sammy.malum.core.registry.block.BlockEntityRegistry.TILE_ENTITIES;
 import static com.sammy.malum.core.registry.content.RecipeSerializerRegistry.RECIPE_TYPES;
 import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;

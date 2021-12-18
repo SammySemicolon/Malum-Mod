@@ -1,9 +1,10 @@
-package com.sammy.malum.common.tile;
+package com.sammy.malum.common.blockentity;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
@@ -20,15 +21,13 @@ public class ItemStandTileEntity extends SimpleInventoryBlockEntity implements I
 {
     public ItemStandTileEntity(BlockPos pos, BlockState state)
     {
-        super(TileEntityRegistry.ITEM_STAND_TILE_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.ITEM_STAND_BLOCK_ENTITY.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64)
         {
             @Override
             protected void onContentsChanged(int slot)
             {
-                ItemStandTileEntity.this.setChanged();
-                setChanged();
-                MalumHelper.updateAndNotifyState(level, worldPosition);
+                BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
     }
@@ -44,18 +43,19 @@ public class ItemStandTileEntity extends SimpleInventoryBlockEntity implements I
         return itemPos(this);
     }
 
-    public static Vec3 itemPos(SimpleInventoryBlockEntity tileEntity)
+    public static Vec3 itemPos(SimpleInventoryBlockEntity blockEntity)
     {
-        return MalumHelper.fromBlockPos(tileEntity.getBlockPos()).add(itemOffset(tileEntity));
+        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(itemOffset(blockEntity));
     }
-    public static Vec3 itemOffset(SimpleInventoryBlockEntity tileEntity)
+    public static Vec3 itemOffset(SimpleInventoryBlockEntity blockEntity)
     {
-        Direction direction = tileEntity.getBlockState().getValue(BlockStateProperties.FACING_HOPPER);
+        Direction direction = blockEntity.getBlockState().getValue(BlockStateProperties.FACING_HOPPER);
         Vec3 directionVector = new Vec3(direction.getStepX(), 0.5f, direction.getStepZ());
         return new Vec3(0.5f - directionVector.x() * 0.25f, directionVector.y(), 0.5f - directionVector.z() * 0.25f);
     }
 
 
+    @Override
     public void tick()
     {
         if (level.isClientSide) {

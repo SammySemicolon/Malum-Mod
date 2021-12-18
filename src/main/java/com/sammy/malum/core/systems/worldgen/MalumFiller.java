@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.worldgen;
 
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
@@ -30,7 +30,7 @@ public class MalumFiller
             entry.additionalPlacement(level);
             if (level instanceof Level)
             {
-                MalumHelper.updateState((Level) level, entry.pos);
+                BlockHelper.updateState((Level) level, entry.pos);
             }
         }
     }

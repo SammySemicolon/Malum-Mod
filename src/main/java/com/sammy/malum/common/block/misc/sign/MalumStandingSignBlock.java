@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.misc.sign;
 
-import com.sammy.malum.common.tile.MalumSignTileEntity;
+import com.sammy.malum.common.blockentity.MalumSignTileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.StandingSignBlock;

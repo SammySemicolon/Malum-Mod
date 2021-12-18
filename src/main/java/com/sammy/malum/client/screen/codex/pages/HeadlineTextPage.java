@@ -1,11 +1,11 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.ClientHelper;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class HeadlineTextPage extends BookPage
 {
@@ -13,7 +13,7 @@ public class HeadlineTextPage extends BookPage
     private final String translationKey;
     public HeadlineTextPage(String headlineTranslationKey, String translationKey)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/headline_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/headline_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
     }
@@ -31,7 +31,7 @@ public class HeadlineTextPage extends BookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
+        Component component = new TranslatableComponent(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+16,guiTop+31,120);
     }
@@ -41,7 +41,7 @@ public class HeadlineTextPage extends BookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
+        Component component = new TranslatableComponent(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+158,guiTop+31,120);
     }

@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ public class SpiritRitePage extends BookPage
     private final MalumRiteType riteType;
     public SpiritRitePage(MalumRiteType riteType)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/spirit_rite_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/spirit_rite_page.png"));
         this.riteType = riteType;
     }
 

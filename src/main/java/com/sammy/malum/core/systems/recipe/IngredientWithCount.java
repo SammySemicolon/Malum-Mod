@@ -2,7 +2,7 @@ package com.sammy.malum.core.systems.recipe;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.ItemHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -24,13 +24,13 @@ public class IngredientWithCount
 
     public ItemStack stack()
     {
-        return MalumHelper.copyWithNewCount(ingredient.getItems()[0], count);
+        return ItemHelper.copyWithNewCount(ingredient.getItems()[0], count);
     }
 
     public ArrayList<ItemStack> asStackList()
     {
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        Arrays.stream(ingredient.getItems()).forEach(stack ->  stacks.add(MalumHelper.copyWithNewCount(stack, count)));
+        Arrays.stream(ingredient.getItems()).forEach(stack ->  stacks.add(ItemHelper.copyWithNewCount(stack, count)));
         return stacks;
     }
 

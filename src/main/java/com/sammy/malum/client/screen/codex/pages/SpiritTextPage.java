@@ -1,13 +1,13 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.ClientHelper;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.chat.Component;
 
 public class SpiritTextPage extends BookPage
 {
@@ -16,7 +16,7 @@ public class SpiritTextPage extends BookPage
     private final ItemStack spiritStack;
     public SpiritTextPage(String headlineTranslationKey, String translationKey, ItemStack spiritStack)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/spirit_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/spirit_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
         this.spiritStack = spiritStack;
@@ -39,7 +39,7 @@ public class SpiritTextPage extends BookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
+        Component component = new TranslatableComponent(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+75 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+16,guiTop+79,125);
         ProgressionBookScreen.renderItem(poseStack, spiritStack, guiLeft+67, guiTop+44,mouseX,mouseY);
@@ -50,7 +50,7 @@ public class SpiritTextPage extends BookPage
     {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        Component component = ClientHelper.simpleTranslatableComponent(headlineTranslationKey());
+        Component component = new TranslatableComponent(headlineTranslationKey());
         ProgressionBookScreen.renderText(poseStack, component, guiLeft+218 - minecraft.font.width(component.getString())/2,guiTop+10);
         ProgressionBookScreen.renderWrappingText(poseStack, translationKey(), guiLeft+158,guiTop+79,125);
         ProgressionBookScreen.renderItem(poseStack, spiritStack, guiLeft+209, guiTop+44,mouseX,mouseY);

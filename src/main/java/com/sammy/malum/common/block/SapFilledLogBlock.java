@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
@@ -41,7 +41,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock
             ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ItemRegistry.HOLY_SAP.get()));
             if (level.random.nextBoolean())
             {
-                MalumHelper.setBlockStateWithExistingProperties(level, pos, BlockRegistry.STRIPPED_RUNEWOOD_LOG.get().defaultBlockState(), 3);
+                BlockHelper.setBlockStateWithExistingProperties(level, pos, BlockRegistry.STRIPPED_RUNEWOOD_LOG.get().defaultBlockState(), 3);
             }
             if (level.isClientSide)
             {

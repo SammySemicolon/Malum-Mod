@@ -2,6 +2,7 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.block.BlockRegistry;
+import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.world.level.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -52,6 +53,17 @@ public class MalumBlockTags extends BlockTagsProvider
         tag(WOODEN_SLABS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks_slab")));
         tag(WOODEN_TRAPDOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_trapdoor")));
         tag(WOODEN_PRESSURE_PLATES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks_pressure_plate")));
+
+        getModBlocks(b -> b.properties instanceof SimpleBlockProperties);
+        tag(MINEABLE_WITH_PICKAXE);
+        tag(MINEABLE_WITH_SHOVEL);
+        tag(MINEABLE_WITH_AXE);
+        tag(MINEABLE_WITH_HOE);
+
+        tag(NEEDS_STONE_TOOL);
+        tag(NEEDS_IRON_TOOL);
+        tag(NEEDS_DIAMOND_TOOL);
+
     }
     
     @Override
@@ -59,7 +71,7 @@ public class MalumBlockTags extends BlockTagsProvider
     {
         return "Malum Block Tags";
     }
-    
+
     @Nonnull
     private Block[] getModBlocks(Predicate<Block> predicate)
     {

@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
@@ -22,7 +22,7 @@ public class SpiritInfusionPage extends BookPage
     @SuppressWarnings("all")
     public SpiritInfusionPage(ItemStack outputStack)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/spirit_infusion_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/spirit_infusion_page.png"));
         if (Minecraft.getInstance() == null) //this is null during datagen
         {
             this.recipe = null;
@@ -36,7 +36,7 @@ public class SpiritInfusionPage extends BookPage
     }
     public SpiritInfusionPage(SpiritInfusionRecipe recipe)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/spirit_infusion_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/spirit_infusion_page.png"));
         this.recipe = recipe;
     }
 

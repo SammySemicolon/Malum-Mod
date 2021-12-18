@@ -31,10 +31,11 @@ public abstract class GenericAnimatedParticle extends GenericParticle
     }
     
     @Override
-    public void tick()
-    {
-        setSprite(ageToFrame.get(age));
+    public void tick() {
         super.tick();
+        if (age < ageToFrame.size()) {
+            setSprite(ageToFrame.get(age));
+        }
     }
 
     protected void addLoop(int min, int max, int times)

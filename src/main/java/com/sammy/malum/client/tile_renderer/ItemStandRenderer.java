@@ -3,7 +3,7 @@ package com.sammy.malum.client.tile_renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.common.tile.ItemStandTileEntity;
+import com.sammy.malum.common.blockentity.ItemStandTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -23,15 +23,15 @@ public class ItemStandRenderer implements BlockEntityRenderer<ItemStandTileEntit
     }
 
     @Override
-    public void render(ItemStandTileEntity tileEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
+    public void render(ItemStandTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        ItemStack stack = tileEntityIn.inventory.getStackInSlot(0);
+        ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);
         if (!stack.isEmpty())
         {
             poseStack.pushPose();
-            Vector3f offset = new Vector3f(ItemStandTileEntity.itemOffset(tileEntityIn));
+            Vector3f offset = new Vector3f(ItemStandTileEntity.itemOffset(blockEntityIn));
             if (stack.getItem() instanceof MalumSpiritItem)
             {
                 double y = Math.sin(((level.getGameTime() + partialTicks) % 360) / 20f) * 0.05f;
@@ -40,7 +40,7 @@ public class ItemStandRenderer implements BlockEntityRenderer<ItemStandTileEntit
             poseStack.translate(offset.x(), offset.y(), offset.z());
             poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() % 360)* 3 + partialTicks));
             poseStack.scale(0.6f, 0.6f, 0.6f);
-            itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, stack.getCount());
+            itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();
         }
     }

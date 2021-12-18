@@ -1,7 +1,6 @@
 package com.sammy.malum.core.data;
 
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
@@ -14,6 +13,7 @@ import com.sammy.malum.common.block.misc.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.misc.sign.MalumWallSignBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -33,7 +33,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 
-import static com.sammy.malum.MalumHelper.prefix;
+import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.registry.block.BlockRegistry.*;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
@@ -64,36 +64,36 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         blocks.remove(SPIRIT_ALTAR);
         blocks.remove(SPIRIT_JAR);
 
-        MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
-        MalumHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
-        MalumHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
+        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
+        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
+        DataHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
 
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumWallSignBlock).forEach(this::signBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumStandingSignBlock).forEach(this::signBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof StairBlock).forEach(this::stairsBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof WallBlock).forEach(this::wallBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof FenceBlock).forEach(this::fenceBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof FenceGateBlock).forEach(this::fenceGateBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(this::doorBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(this::trapdoorBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof PressurePlateBlock).forEach(this::pressurePlateBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof ButtonBlock).forEach(this::buttonBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(this::tallPlantBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof WallEtherTorchBlock).forEach(this::wallEtherTorchBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(this::etherTorchBlock);
-        MalumHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumWallSignBlock).forEach(this::signBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumStandingSignBlock).forEach(this::signBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(this::itemStandBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof GrassBlock).forEach(this::grassBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof StairBlock).forEach(this::stairsBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof RotatedPillarBlock).forEach(this::logBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof WallBlock).forEach(this::wallBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof FenceBlock).forEach(this::fenceBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof FenceGateBlock).forEach(this::fenceGateBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(this::doorBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(this::trapdoorBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof PressurePlateBlock).forEach(this::pressurePlateBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof ButtonBlock).forEach(this::buttonBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(this::tallPlantBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(this::plantBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof WallEtherTorchBlock).forEach(this::wallEtherTorchBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(this::etherTorchBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
 
-        Collection<RegistryObject<Block>> slabs = MalumHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
+        Collection<RegistryObject<Block>> slabs = DataHelper.takeAll(blocks, b -> b.get() instanceof SlabBlock);
         blocks.forEach(this::basicBlock);
         slabs.forEach(this::slabBlock);
 

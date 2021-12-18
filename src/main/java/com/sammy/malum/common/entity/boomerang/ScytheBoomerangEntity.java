@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity.boomerang;
 
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.misc.EntityRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
@@ -110,7 +110,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile
                 {
                     LivingEntity livingentity = (LivingEntity) entity;
                     scythe.hurtAndBreak(1, owner(), (e) -> remove(RemovalReason.KILLED));
-                    MalumHelper.applyEnchantments(owner, livingentity, scythe);
+                    ItemHelper.applyEnchantments(owner, livingentity, scythe);
                     int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
                     if (i > 0) {
                         livingentity.setSecondsOnFire(i * 4);

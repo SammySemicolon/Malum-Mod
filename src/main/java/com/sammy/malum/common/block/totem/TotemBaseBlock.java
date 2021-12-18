@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.totem;
 
-import com.sammy.malum.common.tile.TotemBaseTileEntity;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.common.blockentity.TotemBaseTileEntity;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 
 public class TotemBaseBlock extends SimpleBlock<TotemBaseTileEntity>
@@ -11,6 +11,6 @@ public class TotemBaseBlock extends SimpleBlock<TotemBaseTileEntity>
     {
         super(properties);
         this.corrupted = corrupted;
-        setTile(TileEntityRegistry.TOTEM_BASE_TILE_ENTITY);
+        setTile(BlockEntityRegistry.TOTEM_BASE_BLOCK_ENTITY);
     }
 }

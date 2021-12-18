@@ -1,8 +1,8 @@
 package com.sammy.malum.core.eventhandlers;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.ScytheItem;
+import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.item.ItemTagRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
@@ -72,7 +72,7 @@ public class EntityEvents {
                     eventItem.deathEvent(event, attacker, target, s);
                 }
             });
-            ArrayList<ItemStack> curios = MalumHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
+            ArrayList<ItemStack> curios = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
             curios.forEach(c -> ((IEventResponderItem)c.getItem()).deathEvent(event, attacker, target, c));
         }
     }
@@ -98,7 +98,7 @@ public class EntityEvents {
                     eventItem.hurtEvent(event, attacker, target, s);
                 }
             });
-            ArrayList<ItemStack> curios = MalumHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
+            ArrayList<ItemStack> curios = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
             curios.forEach(c -> ((IEventResponderItem)c.getItem()).hurtEvent(event, attacker, target, c));
 
             if (event.getSource().isMagic()) {
@@ -123,7 +123,7 @@ public class EntityEvents {
             Player playerEntity = (Player) event.getEntity();
             if (!playerEntity.level.isClientSide) {
                 if (playerEntity.getUUID().equals(UUID.fromString(sammy_uuid))) {
-                    if (!MalumHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent()) {
+                    if (!ItemHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, ItemRegistry.TOKEN_OF_GRATITUDE.get().getDefaultInstance());
                     }
                 }

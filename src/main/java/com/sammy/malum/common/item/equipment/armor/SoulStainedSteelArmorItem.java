@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -28,7 +28,7 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
 
     @Override
     public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
-        MalumHelper.giveStackingEffect(MobEffects.DAMAGE_RESISTANCE, attacker, 25, 0);
+        ItemHelper.giveStackingEffect(MobEffects.DAMAGE_RESISTANCE, attacker, 25, 0);
     }
 
     public String getTexture() {

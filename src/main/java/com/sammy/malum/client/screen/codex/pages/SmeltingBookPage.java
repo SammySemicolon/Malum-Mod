@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +13,7 @@ public class SmeltingBookPage extends BookPage
     private final ItemStack outputStack;
     public SmeltingBookPage(ItemStack inputStack, ItemStack outputStack)
     {
-        super(MalumHelper.prefix("textures/gui/book/pages/smelting_page.png"));
+        super(DataHelper.prefix("textures/gui/book/pages/smelting_page.png"));
         this.inputStack = inputStack;
         this.outputStack = outputStack;
     }

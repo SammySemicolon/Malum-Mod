@@ -39,7 +39,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static com.sammy.malum.MalumHelper.takeAll;
+import static com.sammy.malum.core.helper.DataHelper.takeAll;
 import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
 
 public class MalumBlockLootTables extends LootTableProvider {

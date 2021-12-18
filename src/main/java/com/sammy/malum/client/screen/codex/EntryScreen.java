@@ -1,12 +1,12 @@
 package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.MalumHelper;
-import com.sammy.malum.client.ClientHelper;
 import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -18,7 +18,7 @@ import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTe
 
 public class EntryScreen extends Screen
 {
-    public static final ResourceLocation BOOK_TEXTURE = MalumHelper.prefix("textures/gui/book/entry.png");
+    public static final ResourceLocation BOOK_TEXTURE = DataHelper.prefix("textures/gui/book/entry.png");
 
     public static EntryScreen screen;
     public static EntryObject openObject;
@@ -30,7 +30,7 @@ public class EntryScreen extends Screen
 
     public EntryScreen()
     {
-        super(ClientHelper.simpleTranslatableComponent("malum.gui.entry.title"));
+        super(new TranslatableComponent("malum.gui.entry.title"));
     }
 
 

@@ -1,10 +1,10 @@
 package com.sammy.malum.core.data;
 
-import com.sammy.malum.MalumHelper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
@@ -50,46 +50,46 @@ public class MalumLang extends LanguageProvider
         Set<RegistryObject<Attribute>> attributes = new HashSet<>(AttributeRegistry.ATTRIBUTES.getEntries());
         ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.entries;
         ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
-        MalumHelper.takeAll(items, i -> i.get() instanceof BlockItem);
-        MalumHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
-        MalumHelper.takeAll(blocks, i -> i.get() instanceof WallEtherTorchBlock);
-        MalumHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
+        DataHelper.takeAll(items, i -> i.get() instanceof BlockItem);
+        DataHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
+        DataHelper.takeAll(blocks, i -> i.get() instanceof WallEtherTorchBlock);
+        DataHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
         blocks.forEach(b ->
         {
             String name = b.get().getDescriptionId().replaceFirst("block.malum.", "");
-            name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
+            name = DataHelper.toTitleCase(specialBlockNameChanges(name), "_");
             add(b.get().getDescriptionId(), name);
         });
 
         items.forEach(i ->
         {
             String name = i.get().getDescriptionId().replaceFirst("item.malum.", "");
-            name = MalumHelper.toTitleCase(specialBlockNameChanges(name), "_");
+            name = DataHelper.toTitleCase(specialBlockNameChanges(name), "_");
             add(i.get().getDescriptionId(), name);
         });
 
         sounds.forEach(s -> {
-            String name = MalumHelper.toTitleCase(s.getId().getPath(), "_");
+            String name = DataHelper.toTitleCase(s.getId().getPath(), "_");
             add("malum.subtitle." + s.getId().getPath(), name);
         });
         enchantments.forEach(e -> {
-            String name = MalumHelper.toTitleCase(e.getId().getPath(), "_");
+            String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
             add(e.get().getDescriptionId(), name);
         });
 
         effects.forEach(e -> {
-            String name = MalumHelper.toTitleCase(e.getId().getPath(), "_");
+            String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
             add("effect.malum." + e.get().getRegistryName().getPath(), name);
         });
 
         attributes.forEach(a -> {
-            String name = MalumHelper.toTitleCase(a.getId().getPath(), "_");
+            String name = DataHelper.toTitleCase(a.getId().getPath(), "_");
             add("attribute.name.malum." + a.get().getRegistryName().getPath(), name);
         });
 
-        rites.forEach(r -> add(r.translationIdentifier(), MalumHelper.toTitleCase(r.identifier, "_")));
+        rites.forEach(r -> add(r.translationIdentifier(), DataHelper.toTitleCase(r.identifier, "_")));
 
-        coolerBookEntries.forEach(b -> add(b.translationKey(), MalumHelper.toTitleCase(b.identifier, "_")));
+        coolerBookEntries.forEach(b -> add(b.translationKey(), DataHelper.toTitleCase(b.identifier, "_")));
 
         addDescription("introduction", "Welcome to evil");
         addHeadline("introduction", "Introduction");

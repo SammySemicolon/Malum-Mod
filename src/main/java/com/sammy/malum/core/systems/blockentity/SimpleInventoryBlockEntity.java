@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.blockentity;
 
-import com.sammy.malum.MalumHelper;
+import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -25,20 +25,19 @@ public abstract class SimpleInventoryBlockEntity extends SimpleBlockEntity
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        inventory.playerHandleItem(player.level, player, hand);
-        MalumHelper.updateAndNotifyState(getBlockState(), player.level, getBlockPos());
+        inventory.interact(player.level, player, hand);
         return InteractionResult.SUCCESS;
     }
 
     @Override
     public void onBreak() {
-        inventory.dumpItems(level, MalumHelper.fromBlockPos(worldPosition).add(0.5f,0.5f,0.5f));
+        inventory.dumpItems(level, DataHelper.fromBlockPos(worldPosition).add(0.5f,0.5f,0.5f));
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound) {
         inventory.save(compound);
-        return super.save(compound);
+        super.saveAdditional(compound);
     }
 
     @Override

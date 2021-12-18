@@ -1,9 +1,9 @@
 package com.sammy.malum.common.block.ether;
 
-import com.sammy.malum.client.ClientHelper;
+import com.sammy.malum.core.helper.ClientHelper;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
-import com.sammy.malum.common.tile.EtherTileEntity;
-import com.sammy.malum.core.registry.block.TileEntityRegistry;
+import com.sammy.malum.common.blockentity.EtherTileEntity;
+import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,16 +35,17 @@ public class EtherBlock extends SimpleBlock<EtherTileEntity> implements SimpleWa
     public EtherBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(TileEntityRegistry.ETHER_BLOCK_TILE_ENTITY);
+        setTile(BlockEntityRegistry.ETHER_BLOCK_BLOCK_ENTITY);
     }
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (level.getBlockEntity(pos) instanceof EtherTileEntity) {
-            EtherTileEntity tileEntity = (EtherTileEntity) level.getBlockEntity(pos);
+            EtherTileEntity blockEntity = (EtherTileEntity) level.getBlockEntity(pos);
             AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
-            tileEntity.firstColor = ClientHelper.getColor(item.getFirstColor(stack));
-            tileEntity.secondColor = ClientHelper.getColor(item.getSecondColor(stack));
+            blockEntity.firstColor = ClientHelper.getColor(item.getFirstColor(stack));
+            blockEntity.secondColor = ClientHelper.getColor(item.getSecondColor(stack));
+            blockEntity.setChanged();
         }
         super.setPlacedBy(level, pos, state, placer, stack);
     }
@@ -53,14 +54,15 @@ public class EtherBlock extends SimpleBlock<EtherTileEntity> implements SimpleWa
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         ItemStack stack = asItem().getDefaultInstance();
         if (level.getBlockEntity(pos) instanceof EtherTileEntity) {
-            EtherTileEntity tileEntity = (EtherTileEntity) level.getBlockEntity(pos);
+            EtherTileEntity blockEntity = (EtherTileEntity) level.getBlockEntity(pos);
             AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
-            if (tileEntity.firstColor != null) {
-                etherItem.setFirstColor(stack, tileEntity.firstColor.getRGB());
+            if (blockEntity.firstColor != null) {
+                etherItem.setFirstColor(stack, blockEntity.firstColor.getRGB());
             }
-            if (tileEntity.secondColor != null) {
-                etherItem.setSecondColor(stack, tileEntity.secondColor.getRGB());
+            if (blockEntity.secondColor != null) {
+                etherItem.setSecondColor(stack, blockEntity.secondColor.getRGB());
             }
+            blockEntity.setChanged();
         }
         return stack;
     }
