@@ -52,7 +52,7 @@ public class SimpleBlockEntityInventory extends ItemStackHandler {
     }
 
     @Override
-    protected void onContentsChanged(int slot) {
+    public void onContentsChanged(int slot) {
         updateData();
     }
 
@@ -165,23 +165,23 @@ public class SimpleBlockEntityInventory extends ItemStackHandler {
         }
     }
 
-    public boolean interact(Level level, Player player, InteractionHand handIn) {
+    public ItemStack interact(Level level, Player player, InteractionHand handIn) {
         ItemStack held = player.getItemInHand(handIn);
         player.swing(handIn, true);
-        if (held.isEmpty() || firstEmptyItemIndex == -1) {
-            ItemStack takeOutStack = nonEmptyStacks.get(nonEmptyStacks.size() - 1);
-            if (takeOutStack.getItem().equals(held.getItem()))
-            {
-                return !insertItem(level, held).isEmpty();
+        int size = nonEmptyStacks.size() - 1;
+        if ((held.isEmpty() || firstEmptyItemIndex == -1) && size != -1) {
+            ItemStack takeOutStack = nonEmptyStacks.get(size);
+            if (takeOutStack.getItem().equals(held.getItem())) {
+                    return insertItem(level, held);
             }
             ItemStack extractedStack = extractItem(level, held, player);
             boolean success = !extractedStack.isEmpty();
             if (success) {
-                success = !insertItem(level, held).isEmpty();
+                insertItem(level, held);
             }
-            return success;
+            return extractedStack;
         } else {
-            return !insertItem(level, held).isEmpty();
+            return insertItem(level, held);
         }
     }
 
@@ -189,12 +189,12 @@ public class SimpleBlockEntityInventory extends ItemStackHandler {
         if (!level.isClientSide) {
             List<ItemStack> nonEmptyStacks = this.nonEmptyStacks;
             if (nonEmptyStacks.isEmpty()) {
-                return ItemStack.EMPTY;
+                return heldStack;
             }
             ItemStack takeOutStack = nonEmptyStacks.get(nonEmptyStacks.size() - 1);
             int slot = stacks.indexOf(takeOutStack);
             if (extractItem(slot, takeOutStack.getCount(), true).equals(ItemStack.EMPTY)) {
-                return ItemStack.EMPTY;
+                return heldStack;
             }
             extractItem(player, takeOutStack, slot);
             return takeOutStack;
@@ -218,7 +218,9 @@ public class SimpleBlockEntityInventory extends ItemStackHandler {
                 if (count > slotSize) {
                     count = slotSize;
                 }
-                return insertItem(stack.split(count), false);
+                ItemStack input = stack.split(count);
+                insertItem(input, false);
+                return input;
             }
         }
         return ItemStack.EMPTY;

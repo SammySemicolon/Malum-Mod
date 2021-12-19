@@ -13,6 +13,7 @@ import net.minecraft.client.model.geom.builders.*;
 
 public class SpiritHunterArmorModel extends ArmorModel {
 	public static ModelLayerLocation LAYER = new ModelLayerLocation(DataHelper.prefix("textures/armor/spirit_hunter"), "main");
+	public static ModelLayerLocation GILDED_LAYER = new ModelLayerLocation(DataHelper.prefix("textures/armor/gilded"), "main");
 
 	public SpiritHunterArmorModel(ModelPart root) {
 		super(root);

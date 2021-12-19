@@ -12,7 +12,7 @@ public class MalumVanityTab extends CreativeModeTab
     public static final MalumVanityTab INSTANCE = new MalumVanityTab();
 
     public MalumVanityTab() {
-        super(MalumMod.MODID);
+        super(MalumMod.MODID + "_vanity");
     }
     
     @Nonnull

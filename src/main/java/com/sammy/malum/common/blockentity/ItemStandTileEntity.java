@@ -25,8 +25,9 @@ public class ItemStandTileEntity extends SimpleInventoryBlockEntity implements I
         inventory = new SimpleBlockEntityInventory(1, 64)
         {
             @Override
-            protected void onContentsChanged(int slot)
+            public void onContentsChanged(int slot)
             {
+                super.onContentsChanged(slot);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };

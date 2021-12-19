@@ -60,7 +60,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
 
         inventory = new SimpleBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
-            protected void onContentsChanged(int slot) {
+            public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 recipe = SpiritInfusionRecipe.getRecipeForAltar(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
@@ -68,14 +68,14 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         };
         extrasInventory = new SimpleBlockEntityInventory(8, 1) {
             @Override
-            protected void onContentsChanged(int slot) {
+            public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
         spiritInventory = new SimpleBlockEntityInventory(8, 64, t -> t.getItem() instanceof MalumSpiritItem) {
             @Override
-            protected void onContentsChanged(int slot) {
+            public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 recipe = SpiritInfusionRecipe.getRecipeForAltar(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount+1));
@@ -111,18 +111,16 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 return InteractionResult.PASS;
             }
             if (!(heldStack.getItem() instanceof MalumSpiritItem)) {
-                boolean success = inventory.interact(level, player, hand);
-                if (success) {
+                ItemStack stack = inventory.interact(level, player, hand);
+                if (!stack.isEmpty())
+                {
                     return InteractionResult.SUCCESS;
                 }
             }
-            if (heldStack.getItem() instanceof MalumSpiritItem || heldStack.isEmpty()) {
-                boolean success = spiritInventory.interact(level, player, hand);
-                if (success) {
-                    return InteractionResult.SUCCESS;
-                }
+            spiritInventory.interact(level, player, hand);
+            if (heldStack.isEmpty()) {
+                return InteractionResult.SUCCESS;
             }
-
         }
         return super.onUse(player, hand);
     }

@@ -267,9 +267,10 @@ public class MalumLang extends LanguageProvider
         add("malum.jei.rune_table", "Rune Table");
 
         add("itemGroup.malum", "Malum");
-        add("itemGroup.malum_shaped_stones", "Malum Shaped Stones");
+        add("itemGroup.malum_shaped_stones", "Malum Arcane Rocks");
         add("itemGroup.malum_spirits", "Malum Spirits");
         add("itemGroup.malum_natural_wonders", "Malum Natural Wonders");
+        add("itemGroup.malum_vanity", "Malum Drip");
 
         add("enchantment.malum.haunting.desc", "Attacking enemies deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the scythe to be thrown much like a boomerang, cooldown decreases with tier.");

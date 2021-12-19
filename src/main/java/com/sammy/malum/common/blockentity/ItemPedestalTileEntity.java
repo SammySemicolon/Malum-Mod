@@ -19,7 +19,8 @@ public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implement
         super(BlockEntityRegistry.ITEM_PEDESTAL_BLOCK_ENTITY.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64) {
             @Override
-            protected void onContentsChanged(int slot) {
+            public void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
