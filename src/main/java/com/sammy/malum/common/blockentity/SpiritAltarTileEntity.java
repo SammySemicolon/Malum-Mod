@@ -164,15 +164,13 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-        if (level.isClientSide) {
+        if (recipe != null) {
             if (soundCooldown > 0) {
                 soundCooldown--;
             } else {
                 level.playSound(null, worldPosition, SoundRegistry.ALTAR_LOOP, SoundSource.BLOCKS, 1, 1f);
                 soundCooldown = 180;
             }
-        }
-        if (recipe != null) {
             int spinCap = spedUp ? 30 : 10;
             if (spinUp < spinCap) {
                 spinUp++;

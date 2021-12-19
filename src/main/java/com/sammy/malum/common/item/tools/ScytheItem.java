@@ -37,7 +37,7 @@ import java.util.UUID;
 public class ScytheItem extends ModCombatItem implements IEventResponderItem {
 
     public ScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, float magicDamageBoost, Properties builderIn) {
-        super(tier, attackDamageIn+3, attackSpeedIn-2.4f, builderIn, createExtraAttributes(magicDamageBoost));
+        super(tier, attackDamageIn+3, attackSpeedIn-3.2f, builderIn, createExtraAttributes(magicDamageBoost));
     }
 
     public static ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(float magicDamageBoost) {

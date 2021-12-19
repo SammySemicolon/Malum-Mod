@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.equipment.armor.vanity;
 
 import com.sammy.malum.client.model.DripArmorModel;
-import com.sammy.malum.common.item.equipment.armor.SoulHunterArmorItem;
+import com.sammy.malum.common.item.equipment.armor.SpiritHunterArmorItem;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
 
-public class DripArmorItem extends SoulHunterArmorItem
+public class DripArmorItem extends SpiritHunterArmorItem
 {
     public DripArmorItem(EquipmentSlot slot, Properties builder)
     {
@@ -23,7 +23,7 @@ public class DripArmorItem extends SoulHunterArmorItem
     @Override
     public String getTexture()
     {
-        return "drip_armor";
+        return "drip";
     }
 
     @OnlyIn(Dist.CLIENT)

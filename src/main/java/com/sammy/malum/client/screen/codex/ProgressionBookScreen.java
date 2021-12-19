@@ -729,13 +729,10 @@ public class ProgressionBookScreen extends Screen
 
     public static ProgressionBookScreen getInstance()
     {
-//        if (screen == null)
+        if (screen == null)
         {
             screen = new ProgressionBookScreen();
-            screen.faceObject(objects.get(0));
         }
-        screen.setupObjects();
-        screen.faceObject(objects.get(0));
         return screen;
     }
 }
