@@ -15,12 +15,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
@@ -35,11 +37,13 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     public int baseLevel;
     public boolean corrupted;
     public Block logBlock;
+    public Direction direction;
 
     public TotemPoleTileEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.TOTEM_POLE_BLOCK_ENTITY.get(), pos, state);
         this.corrupted = ((TotemPoleBlock) state.getBlock()).corrupted;
         this.logBlock = ((TotemPoleBlock) state.getBlock()).logBlock.get();
+        this.direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
     }
 
     @Override
@@ -102,7 +106,7 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.type = type;
         this.currentColor = 10;
-        BlockHelper.updateAndNotifyState(level, worldPosition);
+        BlockHelper.updateState(level, worldPosition);
     }
 
     public void riteStarting(int height) {
@@ -113,9 +117,9 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
         BlockHelper.updateState(level, worldPosition);
     }
 
-    public void riteComplete(int height) {
+    public void riteComplete() {
         this.desiredColor = 20;
-        BlockHelper.updateAndNotifyState(level, worldPosition);
+        BlockHelper.updateState(level, worldPosition);
     }
 
     public void riteEnding() {
@@ -124,47 +128,42 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     }
 
     @Override
-    public void setRemoved() {
+    public void onBreak() {
         if (level.isClientSide) {
             return;
         }
         BlockPos basePos = new BlockPos(worldPosition.getX(), baseLevel, worldPosition.getZ());
-        if (level.getBlockEntity(basePos) instanceof TotemBaseTileEntity) {
-            TotemBaseTileEntity totemBaseTileEntity = (TotemBaseTileEntity) level.getBlockEntity(basePos);
-            if (totemBaseTileEntity.active) {
-                totemBaseTileEntity.endRite();
+        if (level.getBlockEntity(basePos) instanceof TotemBaseTileEntity base) {
+            if (base.active) {
+                base.endRite();
             }
         }
-        super.setRemoved();
     }
 
     public void passiveParticles() {
         Color color = type.color;
-        for (int i = -1; i <= 1; i++) {
-            float extraVelocity = 0.03f * i;
-            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(0.025f, 0f)
-                    .setLifetime(20)
-                    .setSpin(0.2f)
-                    .setScale(0.25f, 0)
-                    .setColor(color, color)
-                    .addVelocity(0, extraVelocity, 0)
-                    .enableNoClip()
-                    .randomOffset(0.1f, 0.1f)
-                    .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+                .setAlpha(0.04f, 0f)
+                .setLifetime(5)
+                .setSpin(0.2f)
+                .setScale(0.4f, 0)
+                .setColor(color, color)
+                .addVelocity(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
+                .enableNoClip()
+                .randomOffset(0.1f, 0.1f)
+                .randomVelocity(0.01f, 0.01f)
+                .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-            RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(0.025f, 0f)
-                    .setLifetime(40)
-                    .setSpin(0.1f)
-                    .setScale(0.35f, 0)
-                    .setColor(color, color)
-                    .addVelocity(0, extraVelocity, 0)
-                    .randomOffset(0.2f)
-                    .enableNoClip()
-                    .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
-        }
+        RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
+                .setAlpha(0.04f, 0f)
+                .setLifetime(10)
+                .setSpin(0.1f)
+                .setScale(0.6f, 0)
+                .setColor(color, color)
+                .addVelocity(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
+                .randomOffset(0.2f)
+                .enableNoClip()
+                .randomVelocity(0.01f, 0.01f)
+                .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
     }
 }

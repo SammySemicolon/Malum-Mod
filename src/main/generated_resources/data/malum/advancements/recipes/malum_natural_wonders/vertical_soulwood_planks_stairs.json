@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "malum:vertical_soulwood_planks"
+            "items": [
+              "malum:vertical_soulwood_planks"
+            ]
           }
         ]
       }

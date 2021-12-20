@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:unholy_syrup"
+    ]
+  },
+  "criteria": {
+    "has_unholy_extract": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:unholy_sap"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:unholy_syrup"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_unholy_extract",
+      "has_the_recipe"
+    ]
+  ]
+}

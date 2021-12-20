@@ -1,0 +1,28 @@
+{
+  "type": "malum:spirit_infusion",
+  "retain_prime_item": false,
+  "input": {
+    "item": "minecraft:glass_pane",
+    "count": 4
+  },
+  "output": {
+    "item": "malum:spectral_lens",
+    "count": 4
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:ender_pearl",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:arcane_spirit",
+      "count": 2
+    },
+    {
+      "item": "malum:aqueous_spirit",
+      "count": 2
+    }
+  ]
+}

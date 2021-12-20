@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "malum:processed_soulstone"
+            "items": [
+              "malum:processed_soulstone"
+            ]
           }
         ]
       }

@@ -23,6 +23,7 @@ import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.EtherTileEntity;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -56,67 +57,63 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
     public static Properties TAINTED_ROCK_PROPERTIES() {
-        return Properties.of(Material.STONE, MaterialColor.STONE).sound(SoundRegistry.TAINTED_ROCK).requiresCorrectToolForDrops().strength(1.25F, 9.0F);
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().sound(SoundRegistry.TAINTED_ROCK).requiresCorrectToolForDrops().strength(1.25F, 9.0F);
     }
 
     public static Properties TWISTED_ROCK_PROPERTIES() {
-        return Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops().sound(SoundRegistry.TWISTED_ROCK).strength(1.25F, 9.0F);
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().sound(SoundRegistry.TWISTED_ROCK).strength(1.25F, 9.0F);
     }
 
     public static Properties SOULSTONE_PROPERTIES() {
-        return Properties.of(Material.STONE, MaterialColor.NETHER).requiresCorrectToolForDrops().strength(5.0F, 3.0F).sound(SoundRegistry.SOULSTONE);
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 3.0F).sound(SoundRegistry.SOULSTONE);
     }
 
     public static Properties BLAZE_QUARTZ_ORE_PROPERTIES() {
-        return Properties.of(Material.STONE, MaterialColor.NETHER).requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundRegistry.BLAZING_QUARTZ_ORE);
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundRegistry.BLAZING_QUARTZ_ORE);
     }
 
     public static Properties BLAZE_QUARTZ_PROPERTIES() {
-        return Properties.of(Material.STONE, MaterialColor.COLOR_RED).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundRegistry.BLAZING_QUARTZ_BLOCK);
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.COLOR_RED).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundRegistry.BLAZING_QUARTZ_BLOCK);
     }
 
     public static Properties ARCANE_CHARCOAL_PROPERTIES() {
-        return Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundRegistry.ARCANE_CHARCOAL_BLOCK);
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.COLOR_BLACK).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundRegistry.ARCANE_CHARCOAL_BLOCK);
     }
 
     public static Properties RUNEWOOD_PROPERTIES() {
-        return Properties.of(Material.WOOD, MaterialColor.COLOR_YELLOW).sound(SoundType.WOOD).strength(1.75F, 4.0F);
+        return new SimpleBlockProperties(Material.WOOD, MaterialColor.COLOR_YELLOW).needsAxe().sound(SoundType.WOOD).strength(1.75F, 4.0F);
     }
 
     public static Properties RUNEWOOD_PLANTS_PROPERTIES() {
-        return Properties.of(Material.PLANT, MaterialColor.COLOR_YELLOW).noCollission().noOcclusion().sound(SoundType.GRASS).instabreak();
+        return new SimpleBlockProperties(Material.PLANT, MaterialColor.COLOR_YELLOW).noCollission().noOcclusion().sound(SoundType.GRASS).instabreak();
     }
 
     public static Properties SOULWOOD_PROPERTIES() {
-        return Properties.of(Material.WOOD, MaterialColor.COLOR_PURPLE).sound(SoundType.WOOD).strength(1.75F, 4.0F);
+        return new SimpleBlockProperties(Material.WOOD, MaterialColor.COLOR_PURPLE).needsAxe().sound(SoundType.WOOD).strength(1.75F, 4.0F);
     }
 
     public static Properties SOULWOOD_PLANTS_PROPERTIES() {
-        return Properties.of(Material.PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundType.GRASS).instabreak();
+        return new SimpleBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundType.GRASS).instabreak();
     }
 
     public static Properties LEAVES_PROPERTIES() {
-        return Properties.copy(Blocks.OAK_LEAVES);
+        return new SimpleBlockProperties(Material.LEAVES, MaterialColor.COLOR_YELLOW).needsHoe().strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
     }
 
     public static Properties ETHER_BLOCK_PROPERTIES() {
-        return Properties.of(Material.GLASS, MaterialColor.COLOR_BLUE).sound(SoundRegistry.ETHER).noCollission().instabreak().lightLevel((b) -> 14);
-    }
-
-    public static Properties ABSTRUSE_BLOCK_PROPERTIES() {
-        return Properties.of(Material.GLASS, MaterialColor.COLOR_BLUE).sound(SoundType.WOOL).instabreak().noDrops().noOcclusion();
+        return new SimpleBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).sound(SoundRegistry.ETHER).noCollission().instabreak().lightLevel((b) -> 14);
     }
 
     public static Properties HALLOWED_GOLD_PROPERTIES() {
-        return Properties.of(Material.METAL, MaterialColor.COLOR_YELLOW).sound(SoundRegistry.HALLOWED_GOLD).noOcclusion().strength(2F, 16.0F);
+        return new SimpleBlockProperties(Material.METAL, MaterialColor.COLOR_YELLOW).needsPickaxe().sound(SoundRegistry.HALLOWED_GOLD).noOcclusion().strength(2F, 16.0F);
     }
 
     public static Properties SOUL_STAINED_STEEL_BLOCK_PROPERTIES() {
-        return Properties.of(Material.METAL, MaterialColor.COLOR_BLUE).sound(SoundRegistry.SOUL_STAINED_STEEL).strength(5f, 3600f);
+        return new SimpleBlockProperties(Material.METAL, MaterialColor.COLOR_BLUE).needsPickaxe().sound(SoundRegistry.SOUL_STAINED_STEEL).strength(5f, 3600f);
     }
 
     public static Properties SPIRIT_JAR_PROPERTIES() {
-        return Properties.of(Material.GLASS, MaterialColor.COLOR_BLUE).sound(SoundRegistry.HALLOWED_GOLD).noOcclusion();
+        return new SimpleBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).needsPickaxe().sound(SoundRegistry.HALLOWED_GOLD).noOcclusion();
     }
 
     //region useful blocks

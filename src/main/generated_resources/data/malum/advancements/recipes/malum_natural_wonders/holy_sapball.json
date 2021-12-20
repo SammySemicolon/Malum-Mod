@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:holy_sapball"
+    ]
+  },
+  "criteria": {
+    "has_holy_extract": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:holy_sap"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:holy_sapball"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_holy_extract",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -318,23 +318,43 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new SpiritInfusionPage(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
+        entries.add(new BookEntry(
+                "mirror_magic", SPECTRAL_LENS.get(), -6, 10)
+                .setObjectSupplier(ImportantEntryObject::new)
+                .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic"))
+                .addPage(new SpiritInfusionPage(SPECTRAL_LENS.get()))
+        );
+
+        entries.add(new BookEntry(
+                "voodoo_magic", SPECTRAL_LENS.get(), 6, 10)
+                .setObjectSupplier(ImportantEntryObject::new)
+                .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic"))
+                .addPage(new SpiritInfusionPage(SPECTRAL_LENS.get()))
+        );
 
         entries.add(new BookEntry(
                 "totem_magic", RUNEWOOD_TOTEM_BASE.get(), 0, 9)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
+                .addPage(new TextPage("totem_magic_b"))
+                .addPage(new TextPage("totem_magic_c"))
+                .addPage(new SpiritInfusionPage(RUNEWOOD_TOTEM_BASE.get()))
         );
 
         entries.add(new BookEntry(
                 "sacred_rite", SACRED_SPIRIT.get(), -2, 11)
-                .addPage(new DoubleHeadlineTextPage("sacred_rite", "sacred_rite"))
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "sacred_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.SACRED_RITE))
-                .addPage(new DoubleHeadlineTextPage("eldritch_sacred_rite", "eldritch_sacred_rite"))
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_sacred_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
         entries.add(new BookEntry(
                 "wicked_rite", WICKED_SPIRIT.get(), 2, 11)
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "wicked_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.WICKED_RITE))
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_wicked_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
         entries.add(new BookEntry(
@@ -343,18 +363,34 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "earthen_rite", EARTHEN_SPIRIT.get(), -1, 12)
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "earthen_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.EARTHEN_RITE))
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_earthen_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
         entries.add(new BookEntry(
                 "infernal_rite", INFERNAL_SPIRIT.get(), 1, 12)
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "infernal_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.INFERNAL_RITE))
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_infernal_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
         entries.add(new BookEntry(
                 "aerial_rite", AERIAL_SPIRIT.get(), -1, 10)
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "aerial_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.AERIAL_RITE))
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_aerial_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
         entries.add(new BookEntry(
                 "aqueous_rite", AQUEOUS_SPIRIT.get(), 1, 10)
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "aqueous_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.AQUEOUS_RITE))
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_aqueous_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 
         entries.add(new BookEntry(

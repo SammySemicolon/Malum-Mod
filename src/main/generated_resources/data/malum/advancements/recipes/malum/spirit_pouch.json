@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "malum:spirit_fabric"
+            "items": [
+              "malum:spirit_fabric"
+            ]
           }
         ]
       }

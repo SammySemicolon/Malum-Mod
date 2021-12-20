@@ -20,11 +20,12 @@ public class BlockHelper {
         return finalState;
     }
 
-    public static void setBlockStateWithExistingProperties(Level level, BlockPos pos, BlockState newState, int flags) {
+    public static BlockState setBlockStateWithExistingProperties(Level level, BlockPos pos, BlockState newState, int flags) {
         BlockState oldState = level.getBlockState(pos);
         BlockState finalState = getBlockStateWithExistingProperties(oldState, newState);
         level.sendBlockUpdated(pos, oldState, finalState, flags);
         level.setBlock(pos, finalState, flags);
+        return finalState;
     }
 
     public static <T extends Comparable<T>> BlockState newStateWithOldProperty(BlockState oldState, BlockState newState, Property<T> property) {

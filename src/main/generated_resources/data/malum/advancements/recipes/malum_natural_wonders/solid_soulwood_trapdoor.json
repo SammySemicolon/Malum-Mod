@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "malum:soulwood_trapdoor"
+            "items": [
+              "malum:soulwood_trapdoor"
+            ]
           }
         ]
       }

@@ -4,6 +4,7 @@ import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -64,7 +65,7 @@ public class BlockParticlePacket
         public static void addParticles(BlockPos pos, Color color) {
             Level level = Minecraft.getInstance().level;
             RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(0.08f, 0f)
+                    .setAlpha(0.16f, 0f)
                     .setLifetime(20)
                     .setSpin(0.2f)
                     .setScale(0.2f, 0)
@@ -72,10 +73,10 @@ public class BlockParticlePacket
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(level, pos, 20);
+                    .evenlyRepeatEdges(level, pos, 8, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
             RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(0.04f, 0f)
+                    .setAlpha(0.08f, 0f)
                     .setLifetime(40)
                     .setSpin(0.1f)
                     .setScale(0.4f, 0)
@@ -83,7 +84,7 @@ public class BlockParticlePacket
                     .randomOffset(0.2f)
                     .enableNoClip()
                     .randomVelocity(0.001f, 0.001f)
-                    .evenlyRepeatEdges(level, pos, 30);
+                    .evenlyRepeatEdges(level, pos, 12, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
         }
     }
 }

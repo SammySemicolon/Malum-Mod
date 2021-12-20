@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:blazing_quartz_fragment"
+    ]
+  },
+  "criteria": {
+    "has_blazing_quartz": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:blazing_quartz"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:blazing_quartz_fragment"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blazing_quartz",
+      "has_the_recipe"
+    ]
+  ]
+}

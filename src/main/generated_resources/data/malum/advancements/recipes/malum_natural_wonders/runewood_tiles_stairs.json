@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "malum:runewood_tiles"
+            "items": [
+              "malum:runewood_tiles"
+            ]
           }
         ]
       }

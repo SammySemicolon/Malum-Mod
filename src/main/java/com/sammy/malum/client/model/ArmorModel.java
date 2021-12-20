@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class ArmorModel extends HumanoidModel<LivingEntity> {
     public EquipmentSlot slot;
-    ModelPart root, head, body, leftArm, rightArm, pelvis, leftLegging, rightLegging, leftFoot, rightFoot;
+    ModelPart root, head, body, leftArm, rightArm, leggings, leftLegging, rightLegging, leftFoot, rightFoot;
 
 //	public ModelPart copyWithoutBoxes(ModelPart box) {
 //		ModelPart newbox = new ModelPart(this);
@@ -30,7 +30,7 @@ public class ArmorModel extends HumanoidModel<LivingEntity> {
         this.root = root;
         this.head = root.getChild("head");
         this.body = root.getChild("body");
-        this.pelvis = root.getChild("pelvis");
+        this.leggings = root.getChild("leggings");
         this.leftArm = root.getChild("left_arm");
         this.rightArm = root.getChild("right_arm");
         this.leftLegging = root.getChild("left_legging");
@@ -42,7 +42,7 @@ public class ArmorModel extends HumanoidModel<LivingEntity> {
     public static PartDefinition createHumanoidAlias(MeshDefinition mesh) {
         PartDefinition root = mesh.getRoot();
         root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
-        root.addOrReplaceChild("pelvis", new CubeListBuilder(), PartPose.ZERO);
+        root.addOrReplaceChild("leggings", new CubeListBuilder(), PartPose.ZERO);
         root.addOrReplaceChild("head", new CubeListBuilder(), PartPose.ZERO);
         root.addOrReplaceChild("left_legging", new CubeListBuilder(), PartPose.ZERO);
         root.addOrReplaceChild("left_foot", new CubeListBuilder(), PartPose.ZERO);
@@ -64,7 +64,7 @@ public class ArmorModel extends HumanoidModel<LivingEntity> {
         if (slot == EquipmentSlot.CHEST) {
             return ImmutableList.of(body, leftArm, rightArm);
         } else if (slot == EquipmentSlot.LEGS) {
-            return ImmutableList.of(leftLegging, rightLegging, pelvis);
+            return ImmutableList.of(leftLegging, rightLegging, leggings);
         } else if (slot == EquipmentSlot.FEET) {
             return ImmutableList.of(leftFoot, rightFoot);
         } else return ImmutableList.of();
@@ -72,12 +72,17 @@ public class ArmorModel extends HumanoidModel<LivingEntity> {
 
     @Override
     public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        if (slot == EquipmentSlot.LEGS) {  //I don't know why this is needed, but it is.
+            this.leggings.copyFrom(this.body);
+            this.leftLegging.copyFrom(this.leftLeg);
+            this.rightLegging.copyFrom(this.rightLeg);
+        }
         super.renderToBuffer(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     public void copyFromDefault(HumanoidModel model) {
+        leggings.copyFrom(model.body);
         body.copyFrom(model.body);
-        pelvis.copyFrom(model.body);
         head.copyFrom(model.head);
         leftArm.copyFrom(model.leftArm);
         rightArm.copyFrom(model.rightArm);
@@ -85,11 +90,5 @@ public class ArmorModel extends HumanoidModel<LivingEntity> {
         rightLegging.copyFrom(rightLeg);
         leftFoot.copyFrom(leftLeg);
         rightFoot.copyFrom(rightLeg);
-    }
-
-    public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
     }
 }

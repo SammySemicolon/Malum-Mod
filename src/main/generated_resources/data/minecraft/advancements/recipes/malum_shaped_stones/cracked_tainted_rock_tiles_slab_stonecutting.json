@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "malum:cracked_tainted_rock_tiles"
+            "items": [
+              "malum:cracked_tainted_rock_tiles"
+            ]
           }
         ]
       }

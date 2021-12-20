@@ -6,12 +6,8 @@ import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 
@@ -22,16 +18,6 @@ public class EldritchAqueousRiteType extends MalumRiteType {
 
     @Override
     public void riteEffect(Level level, BlockPos pos) {
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
-        positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !level.getBlockState(p).isAir());
-        positions.forEach(p -> {
-            BlockState water = Blocks.WATER.defaultBlockState();
-            if (!level.isClientSide) {
-                level.setBlockAndUpdate(p, water);
-            } else {
-                particles(level, p);
-            }
-        });
     }
 
     @Override

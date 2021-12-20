@@ -2,6 +2,7 @@ package com.sammy.malum.core.registry.item;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.DripArmorModel;
+import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.client.model.SpiritHunterArmorModel;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
@@ -9,7 +10,6 @@ import com.sammy.malum.common.item.equipment.SpiritPouchItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SpiritHunterArmorItem;
 import com.sammy.malum.common.item.equipment.armor.vanity.DripArmorItem;
-import com.sammy.malum.common.item.equipment.armor.vanity.GildedArmorItem;
 import com.sammy.malum.common.item.equipment.curios.*;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.ether.EtherBrazierItem;
@@ -23,9 +23,11 @@ import com.sammy.malum.core.helper.ClientHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
-import com.sammy.malum.core.registry.item.tabs.*;
+import com.sammy.malum.core.registry.item.tabs.MalumBuildingTab;
+import com.sammy.malum.core.registry.item.tabs.MalumCreativeTab;
+import com.sammy.malum.core.registry.item.tabs.MalumNatureTab;
+import com.sammy.malum.core.registry.item.tabs.MalumSplinterTab;
 import com.sammy.malum.core.registry.misc.EntityRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
@@ -47,7 +49,6 @@ import static com.sammy.malum.core.helper.ClientHelper.brighter;
 import static com.sammy.malum.core.helper.ClientHelper.darker;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL_ITEM;
-import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.TYRVING_ITEM;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -72,10 +73,6 @@ public class ItemRegistry {
 
     public static Item.Properties GEAR_PROPERTIES() {
         return new Item.Properties().tab(MalumCreativeTab.INSTANCE).stacksTo(1);
-    }
-
-    public static Item.Properties VANITY_PROPERTIES() {
-        return new Item.Properties().tab(MalumVanityTab.INSTANCE).stacksTo(1);
     }
 
     public static Item.Properties HIDDEN_PROPERTIES() {
@@ -338,9 +335,7 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> HEX_ASH = ITEMS.register("hex_ash", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_FABRIC = ITEMS.register("spirit_fabric", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPECTRAL_LENS = ITEMS.register("spectral_lens", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> RADIANT_SOULSTONE = ITEMS.register("radiant_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
 
     public static final RegistryObject<Item> HALLOWED_GOLD_INGOT = ITEMS.register("hallowed_gold_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_GOLD_NUGGET = ITEMS.register("hallowed_gold_nugget", () -> new Item(DEFAULT_PROPERTIES()));
@@ -395,7 +390,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_HUNTER_LEGGINGS = ITEMS.register("soul_hunter_leggings", () -> new SpiritHunterArmorItem(EquipmentSlot.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_HUNTER_BOOTS = ITEMS.register("soul_hunter_boots", () -> new SpiritHunterArmorItem(EquipmentSlot.FEET, GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, () -> SoundRegistry.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
+//    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, () -> SoundRegistry.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));
@@ -419,36 +414,31 @@ public class ItemRegistry {
     //endregion
 
     //region vanity
-    public static final RegistryObject<Item> FANCY_TOPHAT = ITEMS.register("fancy_tophat", () -> new DripArmorItem(EquipmentSlot.HEAD, VANITY_PROPERTIES()));
-    public static final RegistryObject<Item> FANCY_JACKET = ITEMS.register("fancy_jacket", () -> new DripArmorItem(EquipmentSlot.CHEST, VANITY_PROPERTIES()));
-    public static final RegistryObject<Item> FANCY_LEGGINGS = ITEMS.register("fancy_leggings", () -> new DripArmorItem(EquipmentSlot.LEGS, VANITY_PROPERTIES()));
-    public static final RegistryObject<Item> FANCY_BOOTS = ITEMS.register("fancy_boots", () -> new DripArmorItem(EquipmentSlot.FEET, VANITY_PROPERTIES()));
-
-    public static final RegistryObject<Item> GILDED_CLOAK = ITEMS.register("gilded_cloak", () -> new GildedArmorItem(EquipmentSlot.HEAD, VANITY_PROPERTIES()));
-    public static final RegistryObject<Item> GILDED_ROBE = ITEMS.register("gilded_robe", () -> new GildedArmorItem(EquipmentSlot.CHEST, VANITY_PROPERTIES()));
-    public static final RegistryObject<Item> GILDED_LEGGINGS = ITEMS.register("gilded_leggings", () -> new GildedArmorItem(EquipmentSlot.LEGS, VANITY_PROPERTIES()));
-    public static final RegistryObject<Item> GILDED_BOOTS = ITEMS.register("gilded_boots", () -> new GildedArmorItem(EquipmentSlot.FEET, VANITY_PROPERTIES()));
-
+    public static final RegistryObject<Item> FANCY_TOPHAT = ITEMS.register("fancy_tophat", () -> new DripArmorItem(EquipmentSlot.HEAD, HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> FANCY_JACKET = ITEMS.register("fancy_jacket", () -> new DripArmorItem(EquipmentSlot.CHEST, HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> FANCY_LEGGINGS = ITEMS.register("fancy_leggings", () -> new DripArmorItem(EquipmentSlot.LEGS, HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> FANCY_BOOTS = ITEMS.register("fancy_boots", () -> new DripArmorItem(EquipmentSlot.FEET, HIDDEN_PROPERTIES()));
     //endregion
 
     @Mod.EventBusSubscriber(modid = MalumMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
 
         public static DripArmorModel DRIP_ARMOR;
-        public static SpiritHunterArmorModel SPIRIT_HUNTER_ARMOR, GILDED_ARMOR;
+        public static SpiritHunterArmorModel SPIRIT_HUNTER_ARMOR;
+        public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
 
         @SubscribeEvent
         public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
             event.registerLayerDefinition(DripArmorModel.LAYER, DripArmorModel::createBodyLayer);
             event.registerLayerDefinition(SpiritHunterArmorModel.LAYER, SpiritHunterArmorModel::createBodyLayer);
-            event.registerLayerDefinition(SpiritHunterArmorModel.GILDED_LAYER, SpiritHunterArmorModel::createBodyLayer);
+            event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
         }
 
         @SubscribeEvent
         public static void onRegisterLayers(EntityRenderersEvent.AddLayers event) {
             DRIP_ARMOR = new DripArmorModel(event.getEntityModels().bakeLayer(DripArmorModel.LAYER));
             SPIRIT_HUNTER_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.LAYER));
-            GILDED_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.GILDED_LAYER));
+            SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
         }
 
         @SubscribeEvent

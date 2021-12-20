@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:arcane_charcoal_fragment"
+    ]
+  },
+  "criteria": {
+    "has_arcane_charcoal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:arcane_charcoal"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:arcane_charcoal_fragment"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_arcane_charcoal",
+      "has_the_recipe"
+    ]
+  ]
+}

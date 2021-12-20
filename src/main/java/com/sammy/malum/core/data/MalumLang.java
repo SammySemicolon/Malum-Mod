@@ -224,7 +224,8 @@ public class MalumLang extends LanguageProvider
         addHeadline("soul_stained_scythe", "Soul Stained Scythe");
         addPage("soul_stained_scythe", "After some time using the crude scythe you may start wishing for an upgrade or a stronger version, just like the one made from soul stained steel. It is a direct upgrade with slightly increased physical damage and a bonus to magic damage triggered by the scythe.");
         addHeadline("soul_stained_armor", "Soul Stained Armor");
-        addPage("soul_stained_armor", "Just like with the crude scythe, you're able to reinforce iron armor with soul stained steel. In addition to providing near diamond levels of protection the armor also shields you from magic damage. On top of that collecting spirits while wearing the armor set will reward you with a brief resistance effect.");
+        addPage("soul_stained_armor_a", "Just like with the crude scythe, you're able to reinforce iron armor with soul stained steel. In addition to providing near diamond levels of protection the armor also shields you from magic damage. On top of that collecting spirits while wearing the armor set will reward you with a brief resistance effect.");
+        addPage("soul_stained_armor_b", "Wearing an armor set made out of soul stained steel could be compared to wearing one made out of active uranium, you would most certainly die a slow death. To prevent this unfortunate scenario, the armor is built with a protective twisted rock layer underneath the dangerous steel.");
 
         addDescription("spirit_trinkets", "Forging");
         addHeadline("spirit_trinkets", "Spirit Trinkets");
@@ -250,13 +251,67 @@ public class MalumLang extends LanguageProvider
         addHeadline("ring_of_wicked_intent", "Ring of Wicked Intent");
         addPage("ring_of_wicked_intent", "The wicked ring is a simple yet practical trinket that will greatly assist you in combat. Taking note from the powerful wither army the ring will react to nearby spirit arcana and reward you with strength and rage when collecting spirits.");
 
-        addDescription("necklace_of_the_mystic_mirror", "Mirror Magic");
+        addDescription("necklace_of_the_mystic_mirror", "Reflection");
         addHeadline("necklace_of_the_mystic_mirror", "Mystic Mirror Necklace");
         addPage("necklace_of_the_mystic_mirror", "A whole lot of gear, trinkets and armor alike grant an effect when collecting spirits. By utilizing primitive mirror magic we can siphon some raw arcana off of your magic attacks and utilize it to trigger those effects. This necklace does just that.");
 
         addDescription("necklace_of_the_narrow_edge", "Tradeoff");
         addHeadline("necklace_of_the_narrow_edge", "Narrow Edge Necklace");
         addPage("necklace_of_the_narrow_edge", "The scythe sweep attack can be extremely useful in clearing through hordes of prey, however in other cases it can be seen as unnecessary or even impractical. This iron necklace will completely remove your scythe's sweep attack in exchange for a strong damage increase.");
+
+        addDescription("mirror_magic", "Quick and Easy Transmission");
+        addHeadline("mirror_magic", "Mirror magic");
+        addPage("mirror_magic", "Coming soon!");
+
+        addDescription("voodoo_magic", "Forbidden Arts");
+        addHeadline("voodoo_magic", "Voodoo magic");
+        addPage("voodoo_magic", "Coming soon!");
+
+        addDescription("totem_magic", "Spirit Rites");
+        addHeadline("totem_magic", "Totem Magic");
+        addPage("totem_magic_a", "The primary use of spirits tends to be selfish power, however spirit arcana isn't limited to just greed. By engraving spirits onto runewood above a totem base in a specific order you may create a spirit rite, a dark ritual that mangles with the nearby area.");
+        addPage("totem_magic_b", "Each spirit rite starts at the totem base, above which you'll need to stack runewood logs. Once that is done, engrave the needed spirits onto the wood by simply right clicking it. Spirits can be scraped off by using an axe. When you lay out your rite correctly, activate the totem base.");
+        addPage("totem_magic_c", "Individual spirit rites may not be within the range of another rite, however if the rite has a different spirit combination it may be brought closer.");
+
+        addHeadline("rite_effect", "Rite Effect:");
+        addHeadline("corrupted_rite_effect", "Corrupted Rite Effect:");
+
+        addDescription("sacred_rite", "Primitive Healing");
+        addPage("sacred_rite", "The sacred rite is the simplest rite there is. It'll provide a weak healing effect to all nearby players.");
+        addPage("corrupted_sacred_rite", "When laid on soulwood, healing becomes maturation. Nearby animals experience rapid aging until they're adult sized.");
+        addPage("eldritch_sacred_rite", "When combined with eldritch magic, healing turns into growth. Nearby crops become more lively.");
+        addPage("corrupted_eldritch_sacred_rite", "A soulwood totem will redirect sacred arcana into a relaxing effect, nearby animals will automatically breed.");
+
+        addDescription("wicked_rite", "Automated Murder");
+        addPage("wicked_rite", "The wicked rite is a harmful one. Nearby hostiles will slowly receive non-lethal magic damage.");
+        addPage("corrupted_wicked_rite", "As if in perfect parity with it's natural counterpart, the corrupted wicked rite will shatter souls of almost-dead creatures.");
+        addPage("eldritch_wicked_rite", "Adding in eldritch magic enhances the already dangerous rite and allows it to kill.");
+        addPage("corrupted_eldritch_wicked_rite", "A very cruel rite. Nearby animals will be instantly and completely annihilated upon mating when there are too many.");
+
+        addDescription("earthen_rite", "Rock and Stone!");
+        addPage("earthen_rite", "The earthen rite provides one of many auras. Nearby players will receive increased armor.");
+        addPage("corrupted_earthen_rite", "Fortitude turns to strength, nearby players will deal extra damage.");
+        addPage("eldritch_earthen_rite", "This complex earthen rite will break nearby blocks matching the block below the totem base.");
+        addPage("corrupted_eldritch_earthen_rite", "Destruction turns into creation, the earth shifts and cobblestone is created beneath the rite.");
+
+        addDescription("infernal_rite", "Fire and Flames!");
+        addPage("infernal_rite", "The infernal rite provides one of many auras. Nearby players will receive haste.");
+        addPage("corrupted_infernal_rite", "Simple yet convenient, nearby players are granted immunity to fire.");
+        addPage("eldritch_infernal_rite", "The impossible heat produced by infernal arcana is brought into motion, smelting nearby blocks.");
+        addPage("corrupted_eldritch_infernal_rite", "Bringing forth the nether, nearby stone turns into netherrack.");
+
+        addDescription("aerial_rite", "Light Arcana");
+        addPage("aerial_rite", "The aerial rite provides one of many auras. Nearby players will receive a boost to movement speed.");
+        addPage("corrupted_aerial_rite", "The effect of the rite is altered, horizontal mobility turns into vertical agility.");
+        addPage("eldritch_aerial_rite", "The rite is twisted into something greater, nearby blocks will start to experience gravity.");
+        addPage("corrupted_eldritch_aerial_rite", "Have you wondered what the clouds taste like?");
+
+        addDescription("aqueous_rite", "Loyalty");
+        addPage("aqueous_rite", "The aquatic rite provides one of many auras. Nearby players will receive a boost to reach.");
+        addPage("corrupted_aqueous_rite", "Simple yet useful, nearby players are granted water breathing.");
+        addPage("eldritch_aqueous_rite", "Effect unimplemented. Suggestions are welcome!");
+        addPage("corrupted_eldritch_aqueous_rite", "Effect unimplemented. Suggestions are welcome!");
+
 
         addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
         addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");

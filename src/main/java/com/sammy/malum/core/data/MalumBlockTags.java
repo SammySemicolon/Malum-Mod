@@ -54,16 +54,30 @@ public class MalumBlockTags extends BlockTagsProvider
         tag(WOODEN_TRAPDOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_trapdoor")));
         tag(WOODEN_PRESSURE_PLATES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_planks_pressure_plate")));
 
-        getModBlocks(b -> b.properties instanceof SimpleBlockProperties);
-        tag(MINEABLE_WITH_PICKAXE);
-        tag(MINEABLE_WITH_SHOVEL);
-        tag(MINEABLE_WITH_AXE);
-        tag(MINEABLE_WITH_HOE);
-
-        tag(NEEDS_STONE_TOOL);
-        tag(NEEDS_IRON_TOOL);
-        tag(NEEDS_DIAMOND_TOOL);
-
+        for (Block block : getModBlocks(b -> b.properties instanceof SimpleBlockProperties)) {
+            SimpleBlockProperties properties = (SimpleBlockProperties) block.properties;
+            if (properties.needsPickaxe) {
+                tag(MINEABLE_WITH_PICKAXE).add(block);
+            }
+            if (properties.needsShovel) {
+                tag(MINEABLE_WITH_SHOVEL).add(block);
+            }
+            if (properties.needsAxe) {
+                tag(MINEABLE_WITH_AXE).add(block);
+            }
+            if (properties.needsHoe) {
+                tag(MINEABLE_WITH_HOE).add(block);
+            }
+            if (properties.needsStone) {
+                tag(NEEDS_STONE_TOOL).add(block);
+            }
+            if (properties.needsIron) {
+                tag(NEEDS_IRON_TOOL).add(block);
+            }
+            if (properties.needsDiamond) {
+                tag(NEEDS_DIAMOND_TOOL).add(block);
+            }
+        }
     }
     
     @Override
