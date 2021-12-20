@@ -14,6 +14,8 @@ import com.sammy.malum.common.block.misc.sign.MalumWallSignBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -264,14 +266,18 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
         simpleBlock(blockRegistryObject.get(), base);
     }
-    public void totemPoleBlock(RegistryObject<Block> blockRegistryObject)
-    {
+    public void totemPoleBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String woodName = name.substring(0,8);
-        ResourceLocation side = prefix("block/" + woodName+"_log");
-        ResourceLocation top = prefix("block/" + woodName+"_log_top");
-        ModelFile pole = models().withExistingParent(name, prefix("block/template_totem_pole")).texture("side", side).texture("top", top);
-        horizontalBlock(blockRegistryObject.get(), pole);
+        String woodName = name.substring(0, 8);
+        ResourceLocation side = prefix("block/" + woodName + "_log");
+        ResourceLocation top = prefix("block/" + woodName + "_log_top");
+
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> {
+            int type = s.getValue(TotemPoleBlock.SPIRIT_TYPE);
+            MalumSpiritType spiritType = SpiritTypeRegistry.SPIRITS.get(type);
+            ModelFile pole = models().withExistingParent(name + "_" + spiritType.identifier, prefix("block/template_totem_pole")).texture("side", side).texture("top", top).texture("front", prefix("block/totem/" + spiritType.identifier + "_" + woodName + "_cutout"));
+            return ConfiguredModel.builder().modelFile(pole).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();
+        });
     }
     public void malumLeavesBlock(RegistryObject<Block> blockRegistryObject)
     {

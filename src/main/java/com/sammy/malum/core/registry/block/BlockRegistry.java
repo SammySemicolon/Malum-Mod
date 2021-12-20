@@ -371,8 +371,7 @@ public class BlockRegistry {
 
             DataHelper.getAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
                 BlockEntity blockEntity = l.getBlockEntity(p);
-                if (blockEntity instanceof EtherTileEntity) {
-                    EtherTileEntity etherTileEntity = (EtherTileEntity) blockEntity;
+                if (blockEntity instanceof EtherTileEntity etherTileEntity) {
                     if (etherTileEntity.firstColor != null) {
                         return c == 0 ? etherTileEntity.firstColor.getRGB() : -1;
                     }

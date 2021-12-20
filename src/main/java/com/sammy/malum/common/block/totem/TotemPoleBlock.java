@@ -2,6 +2,7 @@ package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.HitResult;
 
 import java.util.function.Supplier;
@@ -20,6 +22,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class TotemPoleBlock extends SimpleBlock<TotemPoleTileEntity>
 {
+    public static IntegerProperty SPIRIT_TYPE = IntegerProperty.create("spirit_type", 0, SpiritTypeRegistry.SPIRITS.size()-1);
     public final Supplier<? extends Block> logBlock;
     public final boolean corrupted;
     public TotemPoleBlock(Properties properties, Supplier<? extends Block> logBlock, boolean corrupted)
@@ -45,6 +48,6 @@ public class TotemPoleBlock extends SimpleBlock<TotemPoleTileEntity>
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING);
+        builder.add(HORIZONTAL_FACING, SPIRIT_TYPE);
     }
 }

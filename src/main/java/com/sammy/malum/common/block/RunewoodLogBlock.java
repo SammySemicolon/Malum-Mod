@@ -1,8 +1,10 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.common.block.misc.MalumLogBlock;
+import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -36,10 +38,9 @@ public class RunewoodLogBlock extends MalumLogBlock
                 return InteractionResult.SUCCESS;
             }
         }
-        if (stack.getItem() instanceof MalumSpiritItem)
+        if (stack.getItem() instanceof MalumSpiritItem item)
         {
-            MalumSpiritItem item = (MalumSpiritItem) stack.getItem();
-            level.setBlockAndUpdate(pos, totemPole.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()));
+            level.setBlockAndUpdate(pos, totemPole.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(TotemPoleBlock.SPIRIT_TYPE, SpiritTypeRegistry.SPIRITS.indexOf(item.type)));
             if (level.getBlockEntity(pos) instanceof TotemPoleTileEntity)
             {
                 TotemPoleTileEntity blockEntity = (TotemPoleTileEntity) level.getBlockEntity(pos);

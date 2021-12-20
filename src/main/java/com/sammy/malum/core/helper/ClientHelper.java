@@ -28,7 +28,7 @@ public class ClientHelper
     }
     public static int getColor(Color color)
     {
-        return FastColor.ARGB32.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        return FastColor.ARGB32.color(color.getAlpha(), color.getRed(), color.getGreen(), color.getBlue());
     }
 
     public static Color darker(Color color, int times) {

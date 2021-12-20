@@ -3,7 +3,6 @@ package com.sammy.malum.client.tile_renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -24,32 +23,18 @@ import java.util.HashMap;
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
     public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
-    public static HashMap<MalumSpiritType, Material> cutoutHashmap = new HashMap<>();
-    public static HashMap<MalumSpiritType, Material> corruptedCutoutHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
         SpiritTypeRegistry.SPIRITS.forEach(s ->
-                {
-                    overlayHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.overlayTexture()));
-                    cutoutHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.runewoodCutoutTexture()));
-                    corruptedCutoutHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.soulwoodCutoutTexture()));
-                }
+                overlayHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.overlayTexture()))
         );
     }
 
     @Override
     public void render(TotemPoleTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Direction direction = blockEntityIn.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
-        if (direction.equals(Direction.WEST) || direction.equals(Direction.EAST)) {
-            combinedLightIn -= combinedOverlayIn * 2;
-        }
         if (blockEntityIn.type == null) {
             return;
-        }
-        if (((TotemPoleBlock) blockEntityIn.getBlockState().getBlock()).corrupted) {
-            renderQuad(corruptedCutoutHashmap.get(blockEntityIn.type), Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
-        } else {
-            renderQuad(cutoutHashmap.get(blockEntityIn.type), Color.WHITE, combinedLightIn, direction, poseStack, bufferIn);
         }
         renderQuad(overlayHashmap.get(blockEntityIn.type), color(blockEntityIn), combinedLightIn, direction, poseStack, bufferIn);
     }

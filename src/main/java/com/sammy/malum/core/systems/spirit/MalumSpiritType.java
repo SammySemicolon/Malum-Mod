@@ -32,14 +32,14 @@ public class MalumSpiritType
 
     public ResourceLocation overlayTexture()
     {
-        return DataHelper.prefix("spirit/overlay_" + identifier);
+        return DataHelper.prefix("block/totem/" + identifier + "_glow");
     }
     public ResourceLocation runewoodCutoutTexture()
     {
-        return DataHelper.prefix("spirit/cutout_" + identifier);
+        return DataHelper.prefix("block/totem/" + identifier + "_runewood_cutout");
     }
     public ResourceLocation soulwoodCutoutTexture()
     {
-        return DataHelper.prefix("spirit/corrupted_cutout_" + identifier);
+        return DataHelper.prefix("block/totem/" + identifier + "_soulwood_cutout");
     }
 }
