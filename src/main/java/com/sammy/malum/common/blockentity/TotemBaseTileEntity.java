@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
@@ -40,7 +41,6 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     public TotemBaseTileEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.TOTEM_BASE_BLOCK_ENTITY.get(), pos, state);
         this.corrupted = ((TotemBaseBlock) state.getBlock()).corrupted;
-        this.direction = state.getValue(HORIZONTAL_FACING);
     }
 
     @Override
@@ -145,7 +145,12 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     }
 
     public void addPole(TotemPoleTileEntity pole) {
-        if (pole.corrupted == corrupted && pole.getBlockState().getValue(HORIZONTAL_FACING).equals(direction)) {
+        Direction direction = pole.getBlockState().getValue(HORIZONTAL_FACING);
+        if (poles.isEmpty())
+        {
+            this.direction = direction;
+        }
+        if (pole.corrupted == corrupted && direction.equals(this.direction)) {
             if (pole.type != null) {
                 spirits.add(pole.type);
                 poles.add(pole.getBlockPos());
@@ -154,25 +159,15 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
         }
     }
 
-    public ArrayList<BlockPos> getPoles() {
-        ArrayList<BlockPos> poles = new ArrayList<>();
-        for (int i = 1; i <= height; i++) {
-            if (level.getBlockEntity(worldPosition.above(i)) instanceof TotemPoleTileEntity) {
-                poles.add(worldPosition.above(i));
-            }
-        }
-        return poles;
-    }
-
     public void disableOtherRites(MalumRiteType rite) {
         int range = rite.range(corrupted);
-        ArrayList<BlockPos> totemBases = new ArrayList<>(BlockHelper.getBlocks(worldPosition, range, b -> level.getBlockEntity(b) instanceof TotemBaseTileEntity && !b.equals(worldPosition)));
-        for (BlockPos basePos : totemBases) {
-            TotemBaseTileEntity blockEntity = (TotemBaseTileEntity) level.getBlockEntity(basePos);
+        List<TotemBaseTileEntity> totemBases = BlockHelper.getBlocks(worldPosition, range, b -> level.getBlockEntity(b) instanceof TotemBaseTileEntity && !b.equals(worldPosition)).stream().map(b -> (TotemBaseTileEntity) level.getBlockEntity(b)).collect(Collectors.toCollection(ArrayList::new));
+        for (TotemBaseTileEntity blockEntity : totemBases) {
             if (rite.equals(blockEntity.rite)) {
                 blockEntity.endRite();
             } else if (blockEntity.rite != null) {
-                if (basePos.closerThan(worldPosition, 0.5f + range * 0.5f)) {
+                int otherRange = blockEntity.rite.range(blockEntity.corrupted);
+                if (blockEntity.worldPosition.distSqr(worldPosition, false) <= (range * range) / 2f || worldPosition.distSqr(blockEntity.worldPosition, false) <= (otherRange * otherRange) / 2f) {
                     blockEntity.endRite();
                 }
             }

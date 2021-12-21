@@ -56,12 +56,12 @@ public class FeatureRegistry {
                                     CommonConfig.BLAZE_QUARTZ_SIZE.get())),
                     CountPlacement.of(CommonConfig.BLAZE_QUARTZ_AMOUNT.get()), PlacementUtils.RANGE_8_8);
 
-            List<OreConfiguration.TargetBlockState> BRILLIANT_TARGET = List.of(OreConfiguration.target(IN_STONE, BlockRegistry.BRILLIANT_STONE.get().defaultBlockState()), OreConfiguration.target(IN_DEEPSLATE, BlockRegistry.BRILLIANT_STONE.get().defaultBlockState()));
+            List<OreConfiguration.TargetBlockState> BRILLIANT_TARGET = List.of(OreConfiguration.target(IN_STONE, BlockRegistry.BRILLIANT_STONE.get().defaultBlockState()), OreConfiguration.target(IN_DEEPSLATE, BlockRegistry.BRILLIANT_DEEPSLATE.get().defaultBlockState()));
             BRILLIANT_STONE_FEATURE = registerPlacedFeature("brilliant_stone", Feature.ORE.configured(
                             new OreConfiguration(BRILLIANT_TARGET, CommonConfig.BRILLIANT_STONE_SIZE.get())),
                     CountPlacement.of(CommonConfig.BRILLIANT_STONE_AMOUNT.get()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MIN_Y.get()), VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MAX_Y.get())));
 
-            List<OreConfiguration.TargetBlockState> SOULSTONE_TARGET = List.of(OreConfiguration.target(IN_STONE, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState()), OreConfiguration.target(IN_DEEPSLATE, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState()));
+            List<OreConfiguration.TargetBlockState> SOULSTONE_TARGET = List.of(OreConfiguration.target(IN_STONE, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState()), OreConfiguration.target(IN_DEEPSLATE, BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get().defaultBlockState()));
             SOULSTONE_FEATURE = registerPlacedFeature("soulstone_feature", Feature.ORE.configured(
                             new OreConfiguration(SOULSTONE_TARGET, CommonConfig.SOULSTONE_SIZE.get())),
                     CountPlacement.of(CommonConfig.SOULSTONE_AMOUNT.get()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SOULSTONE_MIN_Y.get()), VerticalAnchor.absolute(CommonConfig.SOULSTONE_MAX_Y.get())));

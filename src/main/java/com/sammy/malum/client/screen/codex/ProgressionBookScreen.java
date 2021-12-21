@@ -342,6 +342,14 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
+                "arcane_rite", ARCANE_SPIRIT.get(), 0, 11)
+                .addPage(new HeadlineTextPage("totem_corruption", "totem_corruption_a"))
+                .addPage(new TextPage("totem_corruption_b"))
+                .addPage(new DoubleHeadlineTextPage("rite_effect", "arcane_rite"))
+                .addPage(new SpiritRitePage(SpiritRiteRegistry.ARCANE_RITE))
+        );
+
+        entries.add(new BookEntry(
                 "sacred_rite", SACRED_SPIRIT.get(), -2, 11)
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "sacred_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.SACRED_RITE))
@@ -355,10 +363,6 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.WICKED_RITE))
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "eldritch_wicked_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
-        );
-
-        entries.add(new BookEntry(
-                "arcane_rite", ARCANE_SPIRIT.get(), 0, 11)
         );
 
         entries.add(new BookEntry(

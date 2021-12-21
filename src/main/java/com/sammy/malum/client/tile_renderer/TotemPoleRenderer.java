@@ -2,9 +2,11 @@ package com.sammy.malum.client.tile_renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -55,10 +57,11 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         poseStack.translate(0.5, 0, 0.5);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation(direction)));
         poseStack.translate(-0.5, 0, -0.5);
-        add(builder, poseStack, color, light, 1f, 1, 1, sprite.getU0(), sprite.getV0());
-        add(builder, poseStack, color, light, 1f, 0, 1, sprite.getU0(), sprite.getV1());
-        add(builder, poseStack, color, light, 1f, 0, 0, sprite.getU1(), sprite.getV1());
-        add(builder, poseStack, color, light, 1f, 1, 0, sprite.getU1(), sprite.getV0());
+        Matrix4f last = poseStack.last().pose();
+        RenderUtilities.vertex(builder, last, 1.0001f, 1, 1,color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha(),sprite.getU0(), sprite.getV0(), 15728880, 1, 0,0);
+        RenderUtilities.vertex(builder, last, 1.0001f, 0, 1,color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha(),sprite.getU0(), sprite.getV1(), 15728880, 1, 0,0);
+        RenderUtilities.vertex(builder, last, 1.0001f, 0, 0,color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha(),sprite.getU1(), sprite.getV1(), 15728880, 1, 0,0);
+        RenderUtilities.vertex(builder, last, 1.0001f, 1, 0,color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha(),sprite.getU1(), sprite.getV0(), 15728880, 1, 0,0);
 
         poseStack.popPose();
     }
@@ -68,9 +71,5 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
             direction = direction.getOpposite();
         }
         return 90 + direction.toYRot();
-    }
-
-    private void add(VertexConsumer renderer, PoseStack stack, Color color, int light, float x, float y, float z, float u, float v) {
-        renderer.vertex(stack.last().pose(), x, y, z).color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 1).uv(u, v).uv2(light & '\uffff', light >> 16 & '\uffff').normal(1, 0, 0).endVertex();
     }
 }

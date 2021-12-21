@@ -62,12 +62,21 @@ public class RenderUtilities {
         renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880);
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, int light) {
+        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, light, 0, 0, 1, 1, 0,0,0);
+    }
+    public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, float u0, float v0, float u1, float v1) {
+        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880, u0, v0, u1, v1,0,0,0);
+    }
+    public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, float u0, float v0, float u1, float v1, float normalX, float normalY, float normalZ) {
+        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880, u0, v0, u1, v1, normalX, normalY, normalZ);
+    }
+    public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, int light, float u0, float v0, float u1, float v1, float normalX, float normalY, float normalZ) {
         Matrix4f last = stack.last().pose();
 
-        vertex(vertexConsumer, last, -width, -height, 0, r,g,b,a, 0, 1, light);
-        vertex(vertexConsumer, last, width, -height, 0, r,g,b,a, 1, 1, light);
-        vertex(vertexConsumer, last, width, height, 0, r,g,b,a, 1, 0, light);
-        vertex(vertexConsumer, last, -width, height, 0, r,g,b,a, 0, 0, light);
+        vertex(vertexConsumer, last, -width, -height, 0, r,g,b,a, u0, v1, light, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, width, -height, 0, r,g,b,a, u1, v1, light, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, width, height, 0, r,g,b,a, u1, v0, light, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, -width, height, 0, r,g,b,a, u0, v0, light, normalX, normalY, normalZ);
     }
 
     public static void renderSphere(VertexConsumer vertexConsumer, PoseStack stack, float radius, int longs, int lats)
@@ -134,8 +143,16 @@ public class RenderUtilities {
         vertexConsumer.vertex(last, x, y, z).color(r, g, b, a).uv(u, v).endVertex();
     }
 
+    public static void vertex(VertexConsumer vertexConsumer, Matrix4f last, float x, float y, float z, int r, int g, int b, int a, float u, float v, float normalX, float normalY, float normalZ) {
+        vertexConsumer.vertex(last, x, y, z).color(r, g, b, a).uv(u, v).normal(normalX, normalY, normalZ).endVertex();
+    }
+
     public static void vertex(VertexConsumer vertexConsumer, Matrix4f last, float x, float y, float z, int r, int g, int b, int a, float u, float v, int light) {
         vertexConsumer.vertex(last, x, y, z).color(r, g, b, a).uv(u, v).uv2(light).endVertex();
+    }
+
+    public static void vertex(VertexConsumer vertexConsumer, Matrix4f last, float x, float y, float z, int r, int g, int b, int a, float u, float v, int light, float normalX, float normalY, float normalZ) {
+        vertexConsumer.vertex(last, x, y, z).color(r, g, b, a).uv(u, v).uv2(light).normal(normalX, normalY, normalZ).endVertex();
     }
 
     public static Vector3f parametricSphere(float u, float v, float r) {

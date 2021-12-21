@@ -353,9 +353,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
 
     public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(Properties.copy(Blocks.DIAMOND_ORE), UniformInt.of(2, 5)));
+    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(Properties.copy(Blocks.DEEPSLATE_DIAMOND_ORE), UniformInt.of(3, 7)));
     public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(Properties.copy(Blocks.DIAMOND_BLOCK)));
 
     public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES()));
+    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES().strength(6f, 4f)));
     public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
 
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
@@ -407,10 +409,11 @@ public class BlockRegistry {
             DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock).forEach(ClientOnly::setCutout);
             DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritAltarBlock).forEach(ClientOnly::setCutout);
             setCutout(BlockRegistry.BLAZING_QUARTZ_ORE);
+            setCutout(BlockRegistry.BRILLIANT_STONE);
         }
 
         public static void setCutout(RegistryObject<Block> b) {
-            ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutoutMipped());
         }
     }
 }
