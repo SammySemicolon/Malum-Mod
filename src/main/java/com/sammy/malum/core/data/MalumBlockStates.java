@@ -375,7 +375,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         Function<BlockState, ModelFile> pressedModelFunc = $ -> buttonPressed;
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(BlockStateProperties.POWERED) ? pressedModelFunc.apply(s) : modelFunc.apply(s)).uvLock(s.getValue(BlockStateProperties.ATTACH_FACE).equals(AttachFace.WALL)).rotationX(s.getValue(BlockStateProperties.ATTACH_FACE).ordinal() * 90).rotationY((((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) + (s.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.CEILING ? 180 : 0)) % 360).build());
         models().withExistingParent(name + "_inventory", new ResourceLocation("block/button_inventory")).texture("texture", prefix("block/" + baseName));
-    
     }
     
     public void tallPlantBlock(RegistryObject<Block> blockRegistryObject)
@@ -411,11 +410,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         }
         logBlock((RotatedPillarBlock) blockRegistryObject.get());
     }
-    
-    public void sapFilledBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        axisBlock((RotatedPillarBlock) blockRegistryObject.get(), prefix("block/sap_filled_runewood_log"), prefix("block/stripped_runewood_log_top"));
-    }
+
     public void woodBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
