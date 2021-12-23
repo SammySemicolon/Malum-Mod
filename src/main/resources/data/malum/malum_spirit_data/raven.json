@@ -1,0 +1,13 @@
+{
+  "registry_name": "eidolon:raven",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

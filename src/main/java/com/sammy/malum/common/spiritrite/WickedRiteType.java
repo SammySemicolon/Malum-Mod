@@ -15,7 +15,7 @@ public class WickedRiteType extends MalumRiteType
 {
     public WickedRiteType()
     {
-        super("wicked_rite", false, ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
+        super("wicked_rite", ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
     }
 
     @Override

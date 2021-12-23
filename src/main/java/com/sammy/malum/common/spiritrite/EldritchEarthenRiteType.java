@@ -17,7 +17,7 @@ import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 
 public class EldritchEarthenRiteType extends MalumRiteType {
     public EldritchEarthenRiteType() {
-        super("eldritch_earthen_rite", false, ELDRITCH_SPIRIT, ARCANE_SPIRIT, EARTHEN_SPIRIT, EARTHEN_SPIRIT);
+        super("eldritch_earthen_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, EARTHEN_SPIRIT, EARTHEN_SPIRIT);
     }
 
     @Override

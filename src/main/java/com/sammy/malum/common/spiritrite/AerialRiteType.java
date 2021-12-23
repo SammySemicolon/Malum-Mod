@@ -14,7 +14,7 @@ import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class AerialRiteType extends MalumRiteType {
     public AerialRiteType() {
-        super("aerial_rite", false, ARCANE_SPIRIT, AERIAL_SPIRIT, AERIAL_SPIRIT);
+        super("aerial_rite", ARCANE_SPIRIT, AERIAL_SPIRIT, AERIAL_SPIRIT);
     }
 
     @Override

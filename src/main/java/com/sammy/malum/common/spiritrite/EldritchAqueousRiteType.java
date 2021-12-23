@@ -13,7 +13,7 @@ import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 
 public class EldritchAqueousRiteType extends MalumRiteType {
     public EldritchAqueousRiteType() {
-        super("eldritch_aqueous_rite", false, ELDRITCH_SPIRIT, ARCANE_SPIRIT, AQUEOUS_SPIRIT, AQUEOUS_SPIRIT);
+        super("eldritch_aqueous_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, AQUEOUS_SPIRIT, AQUEOUS_SPIRIT);
     }
 
     @Override

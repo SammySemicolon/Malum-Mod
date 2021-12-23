@@ -13,17 +13,18 @@ import java.util.ArrayList;
 public class MalumRiteType {
     public ArrayList<MalumSpiritType> spirits;
     public String identifier;
-    public boolean isInstant;
 
-    public MalumRiteType(String identifier, boolean isInstant, MalumSpiritType... spirits) {
+    public MalumRiteType(String identifier, MalumSpiritType... spirits) {
         this.identifier = identifier;
-        this.isInstant = isInstant;
         this.spirits = DataHelper.toArrayList(spirits);
     }
 
     public String translationIdentifier()
     {
         return "malum.gui.rite." + identifier;
+    }
+    public boolean isInstant(boolean corrupted) {
+        return false;
     }
     public int defaultRange() {
         return 8;

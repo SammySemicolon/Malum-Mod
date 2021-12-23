@@ -324,14 +324,13 @@ public class MalumLang extends LanguageProvider
         addPage("eldritch_aqueous_rite", "Effect unimplemented. Suggestions are welcome!");
         addPage("corrupted_eldritch_aqueous_rite", "Effect unimplemented. Suggestions are welcome!");
 
-
         addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
         addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
         addPage("3000_dollars_for_a_brewing_stand", "hey apple");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rite", "Spirit Rite");
-        add("malum.jei.rune_table", "Rune Table");
+        add("malum.jei.block_transmutation", "Block Transmutation");
 
         add("itemGroup.malum", "Malum");
         add("itemGroup.malum_shaped_stones", "Malum Arcane Rocks");

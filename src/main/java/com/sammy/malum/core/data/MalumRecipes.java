@@ -67,14 +67,14 @@ public class MalumRecipes extends RecipeProvider
 
         smelting(Ingredient.of(ItemRegistry.BRILLIANT_STONE.get()), ItemRegistry.BRILLIANCE_CHUNK.get(),0.25f,200).unlockedBy("has_brilliance", has(ItemRegistry.BRILLIANCE_CLUSTER.get())).save(consumer);
         blasting(Ingredient.of(ItemRegistry.BRILLIANT_STONE.get()), ItemRegistry.BRILLIANCE_CHUNK.get(),0.25f,100).unlockedBy("has_brilliance", has(ItemRegistry.BRILLIANCE_CLUSTER.get())).save(consumer, "brilliance_from_blasting");
-        smelting(Ingredient.of(ItemRegistry.BRILLIANT_DEEPSLATE.get()), ItemRegistry.BRILLIANCE_CHUNK.get(),0.25f,200).unlockedBy("has_brilliance", has(ItemRegistry.BRILLIANCE_CLUSTER.get())).save(consumer);
+        smelting(Ingredient.of(ItemRegistry.BRILLIANT_DEEPSLATE.get()), ItemRegistry.BRILLIANCE_CHUNK.get(),0.25f,200).unlockedBy("has_brilliance", has(ItemRegistry.BRILLIANCE_CLUSTER.get())).save(consumer, "brilliance_from_deepslate");
         blasting(Ingredient.of(ItemRegistry.BRILLIANT_DEEPSLATE.get()), ItemRegistry.BRILLIANCE_CHUNK.get(),0.25f,100).unlockedBy("has_brilliance", has(ItemRegistry.BRILLIANCE_CLUSTER.get())).save(consumer, "brilliance_from_deepslate_blasting");
         shaped(ItemRegistry.BLOCK_OF_BRILLIANCE.get()).define('#', ItemRegistry.BRILLIANCE_CHUNK.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_brilliance", has(ItemRegistry.BRILLIANCE_CLUSTER.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ItemRegistry.BRILLIANCE_CHUNK.get(), 9).requires(ItemRegistry.BLOCK_OF_BRILLIANCE.get()).unlockedBy("has_brilliance", has(ItemRegistry.BRILLIANCE_CLUSTER.get())).save(consumer, "brilliance_from_block");
 
         smelting(Ingredient.of(ItemRegistry.SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(),0.25f,200).unlockedBy("has_soulstone", has(ItemRegistry.SOULSTONE_CLUSTER.get())).save(consumer);
         blasting(Ingredient.of(ItemRegistry.SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(),0.25f,100).unlockedBy("has_soulstone", has(ItemRegistry.SOULSTONE_CLUSTER.get())).save(consumer, "soulstone_from_blasting");
-        smelting(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(),0.25f,200).unlockedBy("has_soulstone", has(ItemRegistry.SOULSTONE_CLUSTER.get())).save(consumer);
+        smelting(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(),0.25f,200).unlockedBy("has_soulstone", has(ItemRegistry.SOULSTONE_CLUSTER.get())).save(consumer, "soulstone_from_deepslate");
         blasting(Ingredient.of(ItemRegistry.DEEPSLATE_SOULSTONE_ORE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(),0.25f,100).unlockedBy("has_soulstone", has(ItemRegistry.SOULSTONE_CLUSTER.get())).save(consumer, "soulstone_from_deepslate_blasting");
         shaped(ItemRegistry.BLOCK_OF_SOULSTONE.get()).define('#', ItemRegistry.PROCESSED_SOULSTONE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_soulstone", has(ItemRegistry.SOULSTONE_CLUSTER.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ItemRegistry.PROCESSED_SOULSTONE.get(), 9).requires(ItemRegistry.BLOCK_OF_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.SOULSTONE_CLUSTER.get())).save(consumer, "soulstone_from_block");

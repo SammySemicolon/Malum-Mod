@@ -17,7 +17,7 @@ import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class EldritchWickedRiteType extends MalumRiteType {
     public EldritchWickedRiteType() {
-        super("eldritch_wicked_rite", false, ELDRITCH_SPIRIT, ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
+        super("eldritch_wicked_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
     }
 
     @Override

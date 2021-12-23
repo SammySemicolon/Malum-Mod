@@ -1,6 +1,7 @@
 package com.sammy.malum.client.jei;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
@@ -25,6 +26,7 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipeCategories(new SpiritInfusionRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new SpiritRiteRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new BlockTransmutationRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
     
     @Override
@@ -32,6 +34,7 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipes(SpiritInfusionRecipe.getRecipes(Minecraft.getInstance().level), SpiritInfusionRecipeCategory.UID);
         registry.addRecipes(SpiritRiteRegistry.RITES, SpiritRiteRecipeCategory.UID);
+        registry.addRecipes(BlockTransmutationRecipe.getRecipes(Minecraft.getInstance().level), BlockTransmutationRecipeCategory.UID);
     }
     
     @Override
@@ -39,6 +42,7 @@ public class JEIHandler implements IModPlugin
     {
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()), SpiritInfusionRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()), SpiritRiteRecipeCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), BlockTransmutationRecipeCategory.UID);
     }
     @Nonnull
     @Override

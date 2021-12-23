@@ -15,7 +15,7 @@ import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class SacredRiteType extends MalumRiteType {
     public SacredRiteType() {
-        super("sacred_rite", false, ARCANE_SPIRIT, SACRED_SPIRIT, SACRED_SPIRIT);
+        super("sacred_rite", ARCANE_SPIRIT, SACRED_SPIRIT, SACRED_SPIRIT);
     }
 
     @Override

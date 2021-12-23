@@ -67,6 +67,18 @@ public class BlockTransmutationRecipe extends IMalumRecipe
         return output.equals(this.output);
     }
 
+    public static BlockTransmutationRecipe getRecipe(Level level, Block block)
+    {
+        List<BlockTransmutationRecipe> recipes = getRecipes(level);
+        for (BlockTransmutationRecipe recipe : recipes)
+        {
+            if (recipe.doesInputMatch(block))
+            {
+                return recipe;
+            }
+        }
+        return null;
+    }
     public static List<BlockTransmutationRecipe> getRecipes(Level level)
     {
         return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);

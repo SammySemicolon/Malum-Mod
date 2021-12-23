@@ -15,7 +15,7 @@ import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class InfernalRiteType extends MalumRiteType {
     public InfernalRiteType() {
-        super("infernal_rite", false, ARCANE_SPIRIT, INFERNAL_SPIRIT, INFERNAL_SPIRIT);
+        super("infernal_rite", ARCANE_SPIRIT, INFERNAL_SPIRIT, INFERNAL_SPIRIT);
     }
 
     @Override

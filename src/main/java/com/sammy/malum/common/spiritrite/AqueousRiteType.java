@@ -15,7 +15,7 @@ import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class AqueousRiteType extends MalumRiteType {
     public AqueousRiteType() {
-        super("aqueous_rite", false, ARCANE_SPIRIT, AQUEOUS_SPIRIT, AQUEOUS_SPIRIT);
+        super("aqueous_rite", ARCANE_SPIRIT, AQUEOUS_SPIRIT, AQUEOUS_SPIRIT);
     }
 
     @Override

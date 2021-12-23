@@ -16,7 +16,7 @@ public class EarthenRiteType extends MalumRiteType
 {
     public EarthenRiteType()
     {
-        super("earthen_rite", false, ARCANE_SPIRIT, EARTHEN_SPIRIT, EARTHEN_SPIRIT);
+        super("earthen_rite", ARCANE_SPIRIT, EARTHEN_SPIRIT, EARTHEN_SPIRIT);
     }
 
     @Override

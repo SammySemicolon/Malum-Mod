@@ -21,7 +21,7 @@ import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class EldritchAerialRiteType extends MalumRiteType {
     public EldritchAerialRiteType() {
-        super("eldritch_aerial_rite", false, ELDRITCH_SPIRIT, ARCANE_SPIRIT, AERIAL_SPIRIT, AERIAL_SPIRIT);
+        super("eldritch_aerial_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, AERIAL_SPIRIT, AERIAL_SPIRIT);
     }
 
     @Override

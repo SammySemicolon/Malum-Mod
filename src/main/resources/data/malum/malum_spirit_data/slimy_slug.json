@@ -1,0 +1,9 @@
+{
+  "registry_name": "eidolon:slimy_slug",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    }
+  ]
+}

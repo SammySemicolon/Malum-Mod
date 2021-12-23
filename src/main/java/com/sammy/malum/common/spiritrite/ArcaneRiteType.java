@@ -2,6 +2,7 @@ package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.blockentity.TotemBaseTileEntity;
 import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
+import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
@@ -11,9 +12,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static com.sammy.malum.core.registry.block.BlockRegistry.SOULWOOD_TOTEM_BASE;
 import static com.sammy.malum.core.registry.block.BlockRegistry.SOULWOOD_TOTEM_POLE;
@@ -24,9 +28,23 @@ public class ArcaneRiteType extends MalumRiteType
 {
     public ArcaneRiteType()
     {
-        super("arcane_rite", true, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
+        super("arcane_rite", ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
     }
 
+    @Override
+    public boolean isInstant(boolean corrupted) {
+        return !corrupted;
+    }
+
+    @Override
+    public int interval(boolean corrupted) {
+        return defaultInterval() * 5;
+    }
+
+    @Override
+    public int range(boolean corrupted) {
+        return defaultRange() / 2;
+    }
     @Override
     public void riteEffect(Level level, BlockPos pos) {
         if (level.isClientSide)
@@ -54,9 +72,44 @@ public class ArcaneRiteType extends MalumRiteType
 
     @Override
     public void corruptedRiteEffect(Level level, BlockPos pos) {
+        BlockState filter = level.getBlockState(pos.below());
+        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
+        positions.removeIf(p -> {
+            if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
+                return true;
+            }
+            BlockState state = level.getBlockState(p);
+            return !filter.isAir() && !filter.is(state.getBlock());
+        });
+
+        positions.forEach(p -> {
+            BlockState state = level.getBlockState(p);
+            BlockTransmutationRecipe recipe = BlockTransmutationRecipe.getRecipe(level, state.getBlock());
+            if (recipe != null)
+            {
+                if (!level.isClientSide) {
+                    Block block = recipe.output;
+                    BlockEntity entity = level.getBlockEntity(p);
+                    BlockState newState = BlockHelper.setBlockStateWithExistingProperties(level, p, block.defaultBlockState(), 3);
+                    level.levelEvent(2001, p, Block.getId(newState));
+                    if (block instanceof EntityBlock entityBlock) {
+                        if (entity != null) {
+                            BlockEntity newEntity = entityBlock.newBlockEntity(pos, newState);
+                            if (newEntity != null) {
+                                if (newEntity.getClass().equals(entity.getClass())) {
+                                    level.setBlockEntity(entity);
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    particles(level, p);
+                }
+            }
+        });
     }
-
-
 
     public void particles(Level level, BlockPos pos) {
         Color color = ARCANE_SPIRIT_COLOR;

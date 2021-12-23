@@ -86,8 +86,10 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
                     pole.riteEnding();
                 }
             });
-            level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
-            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
+            if (height > 0) {
+                level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
+                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
+            }
         }
     }
 
@@ -98,11 +100,11 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
         }
         if (!level.isClientSide) {
             if (active) {
-                resetRite();
+                endRite();
             } else {
                 startRite();
-                BlockHelper.updateState(level, worldPosition);
             }
+            BlockHelper.updateState(level, worldPosition);
         }
         player.swing(InteractionHand.MAIN_HAND, true);
         return InteractionResult.SUCCESS;
@@ -146,8 +148,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
 
     public void addPole(TotemPoleTileEntity pole) {
         Direction direction = pole.getBlockState().getValue(HORIZONTAL_FACING);
-        if (poles.isEmpty())
-        {
+        if (poles.isEmpty()) {
             this.direction = direction;
         }
         if (pole.corrupted == corrupted && direction.equals(this.direction)) {
@@ -183,8 +184,8 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
             }
         });
         progress = 0;
-        if (rite.isInstant) {
-            rite.riteEffect(level, worldPosition);
+        if (rite.isInstant(corrupted)) {
+            rite.executeRite(level, worldPosition, corrupted);
             resetRite();
             return;
         }
@@ -198,8 +199,10 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     }
 
     public void endRite() {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
+        if (height > 0) {
+            level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
+            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
+        }
         resetRite();
     }
 

@@ -23,7 +23,17 @@ import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 
 public class EldritchInfernalRiteType extends MalumRiteType {
     public EldritchInfernalRiteType() {
-        super("eldritch_infernal_rite", false, ELDRITCH_SPIRIT, ARCANE_SPIRIT, INFERNAL_SPIRIT, INFERNAL_SPIRIT);
+        super("eldritch_infernal_rite", ELDRITCH_SPIRIT, ARCANE_SPIRIT, INFERNAL_SPIRIT, INFERNAL_SPIRIT);
+    }
+
+    @Override
+    public int interval(boolean corrupted) {
+        return defaultInterval() * 5;
+    }
+
+    @Override
+    public int range(boolean corrupted) {
+        return defaultRange() / 2;
     }
 
     @Override
@@ -70,16 +80,6 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 particles(level, p);
             }
         });
-    }
-
-    @Override
-    public int interval(boolean corrupted) {
-        return defaultInterval() * 5;
-    }
-
-    @Override
-    public int range(boolean corrupted) {
-        return defaultRange() / 2;
     }
 
     public void particles(Level level, BlockPos pos) {

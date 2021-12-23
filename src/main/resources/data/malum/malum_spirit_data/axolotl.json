@@ -1,0 +1,13 @@
+{
+  "registry_name": "upgrade_aquatic:axolotl",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 2
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}
