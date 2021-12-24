@@ -21,6 +21,7 @@ import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.misc.*;
 import com.sammy.malum.common.item.tools.*;
 import com.sammy.malum.core.helper.ClientHelper;
+import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
@@ -456,7 +457,7 @@ public class ItemRegistry {
             DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof MalumLeavesBlock).forEach(item ->
             {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-                itemColors.register((s, c) -> ClientHelper.getColor(malumLeavesBlock.minColor), item.get());
+                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
                 ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> {

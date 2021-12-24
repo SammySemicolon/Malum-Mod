@@ -4,6 +4,7 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.core.helper.ClientHelper;
+import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
@@ -26,8 +27,8 @@ public class EtherTileEntity extends SimpleBlockEntity {
 
     @Override
     public void load(CompoundTag compound) {
-        firstColor = ClientHelper.getColor(compound.getInt("firstColor"));
-        secondColor = ClientHelper.getColor(compound.getInt("secondColor"));
+        firstColor = ColorHelper.getColor(compound.getInt("firstColor"));
+        secondColor = ColorHelper.getColor(compound.getInt("secondColor"));
         super.load(compound);
     }
 
