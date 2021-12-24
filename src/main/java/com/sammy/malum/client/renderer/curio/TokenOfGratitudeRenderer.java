@@ -3,14 +3,16 @@ package com.sammy.malum.client.renderer.curio;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.client.model.TailModel;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,9 +23,9 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 import java.util.UUID;
 
 public class TokenOfGratitudeRenderer implements ICurioRenderer {
+    private static final ResourceLocation TEXTURE = DataHelper.prefix("textures/other/sammy_texture.png");
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack poseStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-
         if (slotContext.entity() instanceof Player playerEntity)
         {
             if (playerEntity.getUUID().equals(UUID.fromString(CurioTokenOfGratitude.SAMMY)))
@@ -46,13 +48,12 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
                     double xRotation = Math.sin(playerEntity.level.getGameTime() / 18f) * 6;
                     poseStack.mulPose(Vector3f.XP.rotationDegrees((float) xRotation));
                 }
-                VertexConsumer vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, ItemRegistry.ClientOnly.TAIL_MODEL.renderType(TailModel.LAYER.getModel()), false, false);
-
+                VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(TEXTURE), false, stack.hasFoil());
                 ItemRegistry.ClientOnly.TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
                 ItemRegistry.ClientOnly.TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
                 ICurioRenderer.translateIfSneaking(poseStack, playerEntity);
                 ICurioRenderer.rotateIfSneaking(poseStack, playerEntity);
-                ItemRegistry.ClientOnly.TAIL_MODEL.renderToBuffer(poseStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+                ItemRegistry.ClientOnly.TAIL_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
                 poseStack.popPose();
             }
         }
