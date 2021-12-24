@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -119,7 +120,7 @@ public class NBTCarryRecipeBuilder
         }
         else
         {
-            this.build(consumerIn, new ResourceLocation(save));
+            this.build(consumerIn, DataHelper.prefix(save));
         }
     }
 

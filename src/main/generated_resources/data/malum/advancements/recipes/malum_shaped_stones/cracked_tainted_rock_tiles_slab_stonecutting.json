@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:cracked_tainted_rock_tiles_slab_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_cracked_tainted_rock_tiles": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:cracked_tainted_rock_tiles"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:cracked_tainted_rock_tiles_slab_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cracked_tainted_rock_tiles",
+      "has_the_recipe"
+    ]
+  ]
+}

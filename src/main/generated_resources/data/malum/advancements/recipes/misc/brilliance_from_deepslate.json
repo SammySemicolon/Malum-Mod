@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:brilliance_from_deepslate"
+    ]
+  },
+  "criteria": {
+    "has_brilliance": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:brilliance_cluster"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:brilliance_from_deepslate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_brilliance",
+      "has_the_recipe"
+    ]
+  ]
+}

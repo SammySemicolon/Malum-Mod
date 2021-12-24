@@ -20,7 +20,6 @@ import com.sammy.malum.common.item.food.HolySyrupItem;
 import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.misc.*;
 import com.sammy.malum.common.item.tools.*;
-import com.sammy.malum.core.helper.ClientHelper;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
@@ -43,12 +42,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.MalumMod.MODID;
-import static com.sammy.malum.core.helper.ClientHelper.brighter;
-import static com.sammy.malum.core.helper.ClientHelper.darker;
+import static com.sammy.malum.core.helper.ColorHelper.brighter;
+import static com.sammy.malum.core.helper.ColorHelper.darker;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL_ITEM;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
@@ -458,7 +458,7 @@ public class ItemRegistry {
             {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
                 itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
-                ClientHelper.registerItemColor(itemColors, item, malumLeavesBlock.minColor);
+                registerItemColor(itemColors, item, malumLeavesBlock.minColor);
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> {
                 itemColors.register((s, c) -> {
@@ -478,14 +478,22 @@ public class ItemRegistry {
                     return c == 0 ? etherItem.getFirstColor(s) : -1;
                 }, i.get());
             });
-            ClientHelper.registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
-            ClientHelper.registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
-            ClientHelper.registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));
-            ClientHelper.registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR, 1));
-            ClientHelper.registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR, 1));
-            ClientHelper.registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(AQUEOUS_SPIRIT_COLOR, 1));
-            ClientHelper.registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR, 1));
-            ClientHelper.registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
+            registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(AQUEOUS_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR, 1));
+        }
+
+        public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color)
+        {
+            int r = color.getRed();
+            int g = color.getGreen();
+            int b = color.getBlue();
+            itemColors.register((stack, i) -> r << 16 | g << 8 | b, item.get());
         }
     }
 }

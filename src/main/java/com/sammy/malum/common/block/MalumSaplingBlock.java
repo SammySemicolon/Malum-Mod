@@ -37,4 +37,5 @@ public class MalumSaplingBlock extends SaplingBlock
             tree.get().place(new FeaturePlaceContext(Optional.empty(), level, level.getChunkSource().getGenerator(), rand,pos, NoneFeatureConfiguration.INSTANCE));
         }
     }
+    
 }

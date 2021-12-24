@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:small_twisted_rock_bricks_stonecutting_from_tiles"
+    ]
+  },
+  "criteria": {
+    "has_twisted_rock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:twisted_rock"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:small_twisted_rock_bricks_stonecutting_from_tiles"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_twisted_rock",
+      "has_the_recipe"
+    ]
+  ]
+}

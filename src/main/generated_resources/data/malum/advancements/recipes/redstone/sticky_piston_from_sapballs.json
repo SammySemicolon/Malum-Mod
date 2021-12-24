@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:sticky_piston_from_sapballs"
+    ]
+  },
+  "criteria": {
+    "has_sapball": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "malum:sapballs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:sticky_piston_from_sapballs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sapball",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:soulstone_from_blasting"
+    ]
+  },
+  "criteria": {
+    "has_soulstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:soulstone_cluster"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:soulstone_from_blasting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soulstone",
+      "has_the_recipe"
+    ]
+  ]
+}

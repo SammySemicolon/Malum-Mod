@@ -3,7 +3,6 @@ package com.sammy.malum.common.blockentity;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
-import com.sammy.malum.core.helper.ClientHelper;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
@@ -54,8 +53,8 @@ public class EtherTileEntity extends SimpleBlockEntity {
             if (firstColor == null || secondColor == null) {
                 return;
             }
-            Color firstColor = ClientHelper.darker(this.firstColor, 1);
-            Color secondColor = ClientHelper.brighter(this.secondColor, 1);
+            Color firstColor = ColorHelper.darker(this.firstColor, 1);
+            Color secondColor = ColorHelper.brighter(this.secondColor, 1);
 
 
             double x = worldPosition.getX() + 0.5;

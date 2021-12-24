@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -15,7 +14,6 @@ apply plugin: 'maven-publish'
 version = "${project.minecraftVersion}-${project.modVersion}"
 group = 'com.sammy.malum'
 archivesBaseName = project.modId
-
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 sourceSets {
@@ -106,11 +104,11 @@ jar {
     manifest {
         attributes([
             "Specification-Title": "malum",
-            "Specification-Vendor": "malumsareus",
+            "Specification-Vendor": "sammy",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"malumsareus",
+            "Implementation-Vendor" :"sammy",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

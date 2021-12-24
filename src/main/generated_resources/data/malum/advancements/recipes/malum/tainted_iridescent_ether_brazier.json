@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:tainted_iridescent_ether_brazier"
+    ]
+  },
+  "criteria": {
+    "has_ether": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:ether"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:tainted_iridescent_ether_brazier"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ether",
+      "has_the_recipe"
+    ]
+  ]
+}

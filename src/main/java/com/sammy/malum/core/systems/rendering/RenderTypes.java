@@ -1,5 +1,6 @@
 package com.sammy.malum.core.systems.rendering;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.client.ShaderRegistry;
@@ -35,7 +36,7 @@ public class RenderTypes extends RenderStateShard{
     }
 
     public static RenderType createGenericRenderType(String name, VertexFormat format, VertexFormat.Mode mode, ShaderStateShard shader, TransparencyStateShard transparency, ResourceLocation texture) {
-        return RenderType.create(
+        RenderType type = RenderType.create(
                 MalumMod.MODID + ":" + name, format, mode, 256, false, false,
                 RenderType.CompositeState.builder()
                         .setShaderState(shader)
@@ -46,5 +47,7 @@ public class RenderTypes extends RenderStateShard{
                         .setCullState(new CullStateShard(true))
                         .createCompositeState(true)
         );
+        RenderManager.BUFFERS.put(type, new BufferBuilder(type.bufferSize()));
+        return type;
     }
 }

@@ -119,6 +119,13 @@ public class BlockRegistry {
         return new SimpleBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).needsPickaxe().sound(SoundRegistry.HALLOWED_GOLD).noOcclusion();
     }
 
+    public static Properties STONE_PROPERTIES() {
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.STONE).needsPickaxe().requiresCorrectToolForDrops().strength(3f, 3f);
+    }
+
+    public static Properties DEEPSLATE_PROPERTIES() {
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.DEEPSLATE).needsPickaxe().requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
+    }
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().noOcclusion()));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(HALLOWED_GOLD_PROPERTIES().noOcclusion()));
@@ -355,9 +362,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(BLAZE_QUARTZ_ORE_PROPERTIES(), UniformInt.of(1, 2)));
     public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
 
-    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(Properties.copy(Blocks.DIAMOND_ORE), UniformInt.of(2, 5)));
-    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(Properties.copy(Blocks.DEEPSLATE_DIAMOND_ORE), UniformInt.of(3, 7)));
-    public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(Properties.copy(Blocks.DIAMOND_BLOCK)));
+    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(STONE_PROPERTIES(), UniformInt.of(2, 5)));
+    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_PROPERTIES(), UniformInt.of(3, 7)));
+    public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(STONE_PROPERTIES()));
 
     public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES()));
     public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES().strength(6f, 4f)));

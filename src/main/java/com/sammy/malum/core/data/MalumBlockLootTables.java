@@ -68,9 +68,13 @@ public class MalumBlockLootTables extends LootTableProvider {
         blocks.remove(BlockRegistry.BLAZING_QUARTZ_ORE);
         registerLootTable(BlockRegistry.BLAZING_QUARTZ_ORE.get(), createOreDrop(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));
         blocks.remove(BlockRegistry.SOULSTONE_ORE);
+        blocks.remove(BlockRegistry.DEEPSLATE_SOULSTONE_ORE);
         registerLootTable(BlockRegistry.SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.SOULSTONE_CLUSTER.get()));
+        registerLootTable(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), ItemRegistry.SOULSTONE_CLUSTER.get()));
         blocks.remove(BlockRegistry.BRILLIANT_STONE);
+        blocks.remove(BlockRegistry.BRILLIANT_DEEPSLATE);
         registerLootTable(BlockRegistry.BRILLIANT_STONE.get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.BRILLIANCE_CLUSTER.get()));
+        registerLootTable(BlockRegistry.BRILLIANT_DEEPSLATE.get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.BRILLIANCE_CLUSTER.get()));
 
 
         takeAll(blocks, b -> b.get() instanceof TotemPoleBlock);
