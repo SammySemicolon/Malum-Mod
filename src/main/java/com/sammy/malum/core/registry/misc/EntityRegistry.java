@@ -1,9 +1,9 @@
 package com.sammy.malum.core.registry.misc;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.entity_renderer.FloatingItemEntityRenderer;
-import com.sammy.malum.client.entity_renderer.MalumBoatRenderer;
-import com.sammy.malum.client.entity_renderer.ScytheBoomerangEntityRenderer;
+import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
+import com.sammy.malum.client.renderer.entity.MalumBoatRenderer;
+import com.sammy.malum.client.renderer.entity.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.common.entity.MalumBoatEntity;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.spirit.PlayerHomingItemEntity;

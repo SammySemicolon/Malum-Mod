@@ -17,7 +17,7 @@ import java.util.Random;
 
 import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.core.registry.block.BlockEntityRegistry.TILE_ENTITIES;
-import static com.sammy.malum.core.registry.content.RecipeSerializerRegistry.RECIPE_TYPES;
+import static com.sammy.malum.core.registry.content.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
 import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.core.registry.misc.AttributeRegistry.ATTRIBUTES;
@@ -53,7 +53,7 @@ public class MalumMod
         SOUNDS.register(modBus);
         CONTAINERS.register(modBus);
         ATTRIBUTES.register(modBus);
-        RECIPE_TYPES.register(modBus);
+        RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
         modBus.addListener(this::gatherData);
     }

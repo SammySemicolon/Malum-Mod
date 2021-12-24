@@ -1,4 +1,4 @@
-package com.sammy.malum.client.entity_renderer;
+package com.sammy.malum.client.renderer.entity;
 
 import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.renderer.entity.BoatRenderer;

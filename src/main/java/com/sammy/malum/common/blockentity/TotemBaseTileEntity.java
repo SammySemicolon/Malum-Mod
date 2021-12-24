@@ -51,7 +51,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
                 rite.executeRite(level, worldPosition, corrupted);
                 progress = 0;
                 if (!level.isClientSide) {
-                    BlockHelper.updateState(level, worldPosition);
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
             }
         } else if (active) {
@@ -86,12 +86,13 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
                     pole.riteEnding();
                 }
             });
-            if (height > 0) {
+            if (height > 1) {
                 level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
                 INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
             }
         }
     }
+
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
@@ -184,8 +185,8 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
             }
         });
         progress = 0;
+        rite.executeRite(level, worldPosition, corrupted);
         if (rite.isInstant(corrupted)) {
-            rite.executeRite(level, worldPosition, corrupted);
             resetRite();
             return;
         }
@@ -199,7 +200,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     }
 
     public void endRite() {
-        if (height > 0) {
+        if (height > 1) {
             level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
             INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
         }

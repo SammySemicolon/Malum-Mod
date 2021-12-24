@@ -1,7 +1,7 @@
 package com.sammy.malum.core.registry.block;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.tile_renderer.*;
+import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.item_storage.ItemStandBlock;

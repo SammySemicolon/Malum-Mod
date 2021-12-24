@@ -1,10 +1,11 @@
 package com.sammy.malum.core.eventhandlers;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.item.tools.ScytheItem;
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.registry.item.ItemTagRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
+import com.sammy.malum.core.registry.item.ItemTagRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
@@ -25,8 +26,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
-import static com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude.sammy_uuid;
 
 @Mod.EventBusSubscriber
 public class EntityEvents {
@@ -122,7 +121,7 @@ public class EntityEvents {
         if (event.getEntity() instanceof Player) {
             Player playerEntity = (Player) event.getEntity();
             if (!playerEntity.level.isClientSide) {
-                if (playerEntity.getUUID().equals(UUID.fromString(sammy_uuid))) {
+                if (playerEntity.getUUID().equals(UUID.fromString(CurioTokenOfGratitude.SAMMY))) {
                     if (!ItemHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, ItemRegistry.TOKEN_OF_GRATITUDE.get().getDefaultInstance());
                     }

@@ -326,10 +326,10 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "voodoo_magic", SPECTRAL_LENS.get(), 6, 10)
+                "voodoo_magic", POPPET.get(), 6, 10)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic"))
-                .addPage(new SpiritInfusionPage(SPECTRAL_LENS.get()))
+                .addPage(new SpiritInfusionPage(POPPET.get()))
         );
 
         entries.add(new BookEntry(
@@ -347,6 +347,8 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new TextPage("totem_corruption_b"))
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "arcane_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ARCANE_RITE))
+                .addPage(new TextPage("totem_corruption_c"))
+                .addPage(new SpiritInfusionPage(SOULWOOD_TOTEM_BASE.get()))
         );
 
         entries.add(new BookEntry(
@@ -399,6 +401,14 @@ public class ProgressionBookScreen extends Screen
 
         entries.add(new BookEntry(
                 "soulwood", SOULWOOD_SAPLING.get(), 0, 13)
+                .addPage(new HeadlineTextPage("soulwood", "soulwood_a"))
+                .addPage(new TextPage("soulwood_b"))
+                .addPage(CraftingBookPage.itemPedestalPage(SOULWOOD_ITEM_PEDESTAL.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
+                .addPage(CraftingBookPage.itemStandPage(SOULWOOD_ITEM_STAND.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))
+                .addPage(new SmeltingBookPage(SOULWOOD_LOG.get(), ARCANE_CHARCOAL.get()))
+                .addPage(CraftingBookPage.fullPage(BLOCK_OF_ARCANE_CHARCOAL.get(), ARCANE_CHARCOAL.get()))
+                .addPage(new CraftingBookPage(new ItemStack(UNHOLY_SAPBALL.get(), 3), Items.SLIME_BALL, UNHOLY_SAP.get()))
+                .addPage(new SmeltingBookPage(UNHOLY_SAP.get(), UNHOLY_SYRUP.get()))
         );
 
         entries.add(new BookEntry(

@@ -48,9 +48,9 @@ public class CommonConfig {
         GENERATE_BLAZE_QUARTZ = builder.comment("Should blaze quartz ore generate?")
                 .define("generateBlazeQuartz", true);
         BLAZE_QUARTZ_SIZE = builder.comment("Size of blaze quartz ore veins.")
-                .define("blazeQuartzSize", 7);
-        BLAZE_QUARTZ_AMOUNT = builder.comment("Amount of blaze quartz ore veins.")
                 .define("blazeQuartzSize", 14);
+        BLAZE_QUARTZ_AMOUNT = builder.comment("Amount of blaze quartz ore veins.")
+                .define("blazeQuartzSize", 16);
         builder.pop();
 
         builder.comment("Brilliant Stone Config").push("brilliant_stone");

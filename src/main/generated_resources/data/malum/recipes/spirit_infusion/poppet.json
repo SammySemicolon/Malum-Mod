@@ -1,0 +1,32 @@
+{
+  "type": "malum:spirit_infusion",
+  "retain_prime_item": false,
+  "input": {
+    "item": "minecraft:hay_block",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:poppet",
+    "count": 2
+  },
+  "extra_items": [
+    {
+      "item": "minecraft:wheat",
+      "count": 2
+    },
+    {
+      "item": "malum:hex_ash",
+      "count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:wicked_spirit",
+      "count": 4
+    },
+    {
+      "item": "malum:earthen_spirit",
+      "count": 4
+    }
+  ]
+}

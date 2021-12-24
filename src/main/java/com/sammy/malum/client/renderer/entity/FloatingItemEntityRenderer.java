@@ -1,4 +1,4 @@
-package com.sammy.malum.client.entity_renderer;
+package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;

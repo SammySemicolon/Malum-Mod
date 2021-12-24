@@ -1,4 +1,4 @@
-package com.sammy.malum.client.tile_renderer;
+package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;

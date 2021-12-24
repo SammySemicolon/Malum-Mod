@@ -17,7 +17,7 @@ public class VanishingEntryObject extends EntryObject
     @Override
     public void exit() {
         Player playerEntity = Minecraft.getInstance().player;
-        playerEntity.playNotifySound(SoundRegistry.SUSPICIOUS_SOUND, SoundSource.PLAYERS, 1.0f, 1.0f);
+        playerEntity.level.playSound(playerEntity, playerEntity.blockPosition(), SoundRegistry.SUSPICIOUS_SOUND, SoundSource.PLAYERS, 1.0f, 1.0f);
         objects.remove(this);
     }
 }

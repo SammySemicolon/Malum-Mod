@@ -63,7 +63,7 @@ public class NBTCarryRecipe extends CustomRecipe implements IShapedRecipe<Crafti
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return RecipeType.CRAFTING;
     }
 
     @Override

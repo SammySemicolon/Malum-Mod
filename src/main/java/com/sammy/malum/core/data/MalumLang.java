@@ -285,8 +285,9 @@ public class MalumLang extends LanguageProvider
         addHeadline("totem_corruption", "Totem Corruption");
         addPage("totem_corruption_a", "Raw arcana is often used to amplify other magics, it is usually used on within a spirit rite as a starting point of sorts. Now what if, we execute a rite made out of entirely arcane spirit, where would the built up magics go? The answer is corruption.");
         addPage("totem_corruption_b", "The uncontrolled and volatile result of arcane spirit channels all the built up power and spontaneously corrupts the totem, twisting the simple and organized runewood into a much grimmer new purple look. Any spirit rite performed on a soulwood totem will yield different effects.");
-        addPage("arcane_rite", "The arcane rite is the purest volatile result of uncontrolled spirit arcana, quickly engulfing the totem.");
-        addPage("corrupted_arcane_rite", "With the totem pole already altered, the volatile arcane energies distribute into the nearby area instead.");
+        addPage("arcane_rite", "The arcane rite yields the volatile result of uncontrolled spirit arcana, quickly engulfing the totem.");
+        addPage("corrupted_arcane_rite", "With the totem pole already altered, the volatile arcane energies distribute into the area beneath instead.");
+        addPage("totem_corruption_c", "You may also craft a corrupted totem base directly by changing the ingredients.");
 
         addDescription("sacred_rite", "Primitive Healing");
         addPage("sacred_rite", "The sacred rite is the simplest rite there is. It'll provide a weak healing effect to all nearby players.");
@@ -303,14 +304,14 @@ public class MalumLang extends LanguageProvider
         addDescription("earthen_rite", "Rock and Stone!");
         addPage("earthen_rite", "The earthen rite provides one of many auras. Nearby players will receive increased armor.");
         addPage("corrupted_earthen_rite", "Fortitude turns to strength, nearby players will deal extra damage.");
-        addPage("eldritch_earthen_rite", "This complex earthen rite will break nearby blocks matching the block below the totem base.");
-        addPage("corrupted_eldritch_earthen_rite", "Destruction turns into creation, the earth shifts and cobblestone is created beneath the rite.");
+        addPage("eldritch_earthen_rite", "This complex earthen rite will break nearby blocks blow that match the block directly below the totem base.");
+        addPage("corrupted_eldritch_earthen_rite", "Destruction turns into creation, the earth shifts and cobblestone is created under the rite.");
 
         addDescription("infernal_rite", "Fire and Flames!");
         addPage("infernal_rite", "The infernal rite provides one of many auras. Nearby players will receive haste.");
         addPage("corrupted_infernal_rite", "Simple yet convenient, nearby players are granted immunity to fire.");
-        addPage("eldritch_infernal_rite", "The impossible heat produced by infernal arcana is brought into motion, smelting nearby blocks.");
-        addPage("corrupted_eldritch_infernal_rite", "Bringing forth the nether, nearby stone turns into netherrack.");
+        addPage("eldritch_infernal_rite", "The impossible heat produced by infernal arcana is brought into motion, smelting blocks below the rite.");
+        addPage("corrupted_eldritch_infernal_rite", "Bringing forth the nether, stone beneath turns into netherrack.");
 
         addDescription("aerial_rite", "Light Arcana");
         addPage("aerial_rite", "The aerial rite provides one of many auras. Nearby players will receive a boost to movement speed.");
@@ -327,6 +328,11 @@ public class MalumLang extends LanguageProvider
         addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
         addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
         addPage("3000_dollars_for_a_brewing_stand", "hey apple");
+
+        addDescription("soulwood", "Twisted Roots");
+        addHeadline("soulwood", "Soulwood");
+        addPage("soulwood_a", "Spirit magics focus on turning everything good in the world to evil. Sometimes, by pure coincidence a great thing is created instead, as is the case with runewood. It is important to realize this mistake and correct it.");
+        addPage("soulwood_b", "By utilizing the dangerous arcane spirit rite we can easily create soulwood, any nearby runewood block is a valid target for this transmutation. Much like it's name implies, soulwood has a strong connection to more direct soul magics. It'll be sure to come in use.");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rite", "Spirit Rite");

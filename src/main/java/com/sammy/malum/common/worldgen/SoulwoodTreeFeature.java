@@ -19,9 +19,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 
 import java.util.Random;
 
-public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration>
+public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
 {
-    public RunewoodTreeFeature()
+    public SoulwoodTreeFeature()
     {
         super(NoneFeatureConfiguration.CODEC);
     }
@@ -41,16 +41,17 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration>
     private static final int branchHeightExtra = 2;
 
 
+    //TODO: this feature is a temporary reskin, make it actually cool soon lol
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
         Random rand = context.random();
-        if (level.isEmptyBlock(pos.below()) || !BlockRegistry.RUNEWOOD_SAPLING.get().defaultBlockState().canSurvive(level, pos))
+        if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_SAPLING.get().defaultBlockState().canSurvive(level, pos))
         {
             return false;
         }
-        BlockState defaultLog = BlockRegistry.RUNEWOOD_LOG.get().defaultBlockState();
+        BlockState defaultLog = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
 
         MalumFiller treeFiller = new MalumFiller();
         MalumFiller leavesFiller = new MalumFiller();
@@ -127,7 +128,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration>
         for (Integer index : sapBlockIndexes)
         {
             BlockStateEntry oldEntry = treeFiller.entries.get(index);
-            BlockState newState = BlockHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState());
+            BlockState newState = BlockHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState());
             treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
         }
         treeFiller.fill(level, false);
@@ -214,7 +215,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration>
             BlockPos trunkPos = pos.below(i);
             if (canPlace(level, trunkPos))
             {
-                filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LOG.get().defaultBlockState(), trunkPos));
+                filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_LOG.get().defaultBlockState(), trunkPos));
             }
             else
             {
@@ -248,7 +249,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration>
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).offset(x, 0, z);
-                filler.entries.add(new BlockStateEntry(BlockRegistry.RUNEWOOD_LEAVES.get().defaultBlockState().setValue(LeavesBlock.DISTANCE, 1).setValue(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
+                filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_LEAVES.get().defaultBlockState().setValue(LeavesBlock.DISTANCE, 1).setValue(MalumLeavesBlock.COLOR, leavesColor), leavesPos));
             }
         }
     }

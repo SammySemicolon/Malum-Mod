@@ -1,5 +1,7 @@
 package com.sammy.malum.common.effect;
 
+import com.sammy.malum.core.helper.ClientHelper;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,7 +10,7 @@ public class SacredAura extends MobEffect
 {
     public SacredAura()
     {
-        super(MobEffectCategory.BENEFICIAL, 6468648);
+        super(MobEffectCategory.BENEFICIAL, ClientHelper.getColor(SpiritTypeRegistry.SACRED_SPIRIT_COLOR));
     }
 
     @Override

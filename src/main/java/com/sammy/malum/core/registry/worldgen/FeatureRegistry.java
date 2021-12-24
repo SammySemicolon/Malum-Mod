@@ -2,6 +2,7 @@ package com.sammy.malum.core.registry.worldgen;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.worldgen.RunewoodTreeFeature;
+import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
@@ -36,6 +37,7 @@ public class FeatureRegistry {
     public static final DeferredRegister<Feature<?>> FEATURE_TYPES = DeferredRegister.create(ForgeRegistries.FEATURES, MODID);
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> RUNEWOOD_TREE = FEATURE_TYPES.register("runewood_tree", RunewoodTreeFeature::new);
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> SOULWOOD_TREE = FEATURE_TYPES.register("soulwood_tree", SoulwoodTreeFeature::new);
     public static PlacedFeature BLAZING_QUARTZ_FEATURE, BRILLIANT_STONE_FEATURE, SOULSTONE_FEATURE, SURFACE_SOULSTONE_FEATURE, RUNEWOOD_TREE_FEATURE, RARE_RUNEWOOD_TREE_FEATURE;
 
     public static final RuleTest IN_STONE = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);

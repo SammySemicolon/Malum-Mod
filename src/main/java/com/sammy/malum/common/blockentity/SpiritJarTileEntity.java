@@ -110,6 +110,6 @@ public class SpiritJarTileEntity extends SimpleBlockEntity {
                 .randomOffset(0.1f, 0.1f)
                 .setColor(color, color.darker())
                 .enableNoClip()
-                .repeat(level, pos.getX(), pos.getY(), pos.getZ(), 10);
+                .repeat(level, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, 10);
     }
 }

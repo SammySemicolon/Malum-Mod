@@ -309,5 +309,12 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(AQUEOUS_SPIRIT, 2)
                 .addExtraItem(Items.ENDER_PEARL, 1)
                 .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(Items.HAY_BLOCK, 1, ItemRegistry.POPPET.get(), 2)
+                .addSpirit(WICKED_SPIRIT, 4)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addExtraItem(Items.WHEAT, 2)
+                .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
+                .build(consumer);
     }
 }

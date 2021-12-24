@@ -11,9 +11,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class RecipeSerializerRegistry {
 
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MalumMod.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MalumMod.MODID);
 
-    public static final RegistryObject<RecipeSerializer<SpiritInfusionRecipe>> INFUSION_RECIPE_SERIALIZER = RECIPE_TYPES.register(SpiritInfusionRecipe.NAME, SpiritInfusionRecipe.Serializer::new);
-    public static final RegistryObject<RecipeSerializer<NBTCarryRecipe>> NBT_CARRY_RECIPE_SERIALIZER = RECIPE_TYPES.register(NBTCarryRecipe.NAME, NBTCarryRecipe.Serializer::new);
-    public static final RegistryObject<RecipeSerializer<BlockTransmutationRecipe>> BLOCK_TRANSMUTATION_RECIPE_SERIALIZER = RECIPE_TYPES.register(BlockTransmutationRecipe.NAME, BlockTransmutationRecipe.Serializer::new);
+    public static final RegistryObject<RecipeSerializer<SpiritInfusionRecipe>> INFUSION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritInfusionRecipe.NAME, SpiritInfusionRecipe.Serializer::new);
+    public static final RegistryObject<RecipeSerializer<NBTCarryRecipe>> NBT_CARRY_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(NBTCarryRecipe.NAME, NBTCarryRecipe.Serializer::new);
+    public static final RegistryObject<RecipeSerializer<BlockTransmutationRecipe>> BLOCK_TRANSMUTATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(BlockTransmutationRecipe.NAME, BlockTransmutationRecipe.Serializer::new);
 }

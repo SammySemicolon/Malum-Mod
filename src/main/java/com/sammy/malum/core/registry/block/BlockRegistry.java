@@ -2,7 +2,7 @@ package com.sammy.malum.core.registry.block;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.RunewoodLogBlock;
-import com.sammy.malum.common.block.RunewoodSaplingBlock;
+import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.common.block.SapFilledLogBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
@@ -25,6 +25,7 @@ import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -240,7 +241,7 @@ public class BlockRegistry {
     //endregion
 
     //region runewood
-    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new RunewoodSaplingBlock(RUNEWOOD_PLANTS_PROPERTIES().randomTicks()));
+    public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new MalumSaplingBlock(RUNEWOOD_PLANTS_PROPERTIES().randomTicks(), FeatureRegistry.RUNEWOOD_TREE));
     public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(175, 65, 48), new Color(251, 193, 76)));
 
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
@@ -288,8 +289,8 @@ public class BlockRegistry {
     //endregion
 
     //region soulwood
-    public static final RegistryObject<Block> SOULWOOD_SAPLING = BLOCKS.register("soulwood_sapling", () -> new RunewoodSaplingBlock(SOULWOOD_PLANTS_PROPERTIES().randomTicks()));
-    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(164, 18, 79), new Color(224, 30, 214)));
+    public static final RegistryObject<Block> SOULWOOD_SAPLING = BLOCKS.register("soulwood_sapling", () -> new MalumSaplingBlock(SOULWOOD_PLANTS_PROPERTIES().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
+    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES(), new Color(152, 6, 45), new Color(224, 30, 214)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(SOULWOOD_PROPERTIES()));
     public static final RegistryObject<Block> SOULWOOD_LOG = BLOCKS.register("soulwood_log", () -> new RunewoodLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD_LOG, SOULWOOD_TOTEM_POLE));

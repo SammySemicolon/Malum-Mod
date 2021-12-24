@@ -102,6 +102,10 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         {
             return true;
         }
+        if (this.spirits.size() != spirits.size())
+        {
+            return false;
+        }
         ArrayList<ItemStack> sortedStacks = getSortedStacks(spirits);
         if (sortedStacks.size() < this.spirits.size())
         {
