@@ -1,6 +1,6 @@
 package com.sammy.malum.common.effect;
 
-import com.sammy.malum.core.helper.ClientHelper;
+import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -12,7 +12,7 @@ public class CorruptedEarthenAura extends MobEffect
 {
     public CorruptedEarthenAura()
     {
-        super(MobEffectCategory.BENEFICIAL, ClientHelper.getColor(SpiritTypeRegistry.EARTHEN_SPIRIT_COLOR));
+        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.EARTHEN_SPIRIT_COLOR));
         addAttributeModifier(Attributes.ATTACK_DAMAGE, "e2a25284-a8b1-41a5-9472-90cc83793d44", 2, AttributeModifier.Operation.ADDITION);
     }
 

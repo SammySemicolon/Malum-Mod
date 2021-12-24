@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block.ether;
 
-import com.sammy.malum.core.helper.ClientHelper;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.blockentity.EtherTileEntity;
+import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
@@ -40,11 +40,10 @@ public class EtherBlock extends SimpleBlock<EtherTileEntity> implements SimpleWa
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if (level.getBlockEntity(pos) instanceof EtherTileEntity) {
-            EtherTileEntity blockEntity = (EtherTileEntity) level.getBlockEntity(pos);
+        if (level.getBlockEntity(pos) instanceof EtherTileEntity blockEntity) {
             AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
-            blockEntity.firstColor = ClientHelper.getColor(item.getFirstColor(stack));
-            blockEntity.secondColor = ClientHelper.getColor(item.getSecondColor(stack));
+            blockEntity.firstColor = ColorHelper.getColor(item.getFirstColor(stack));
+            blockEntity.secondColor = ColorHelper.getColor(item.getSecondColor(stack));
             blockEntity.setChanged();
         }
         super.setPlacedBy(level, pos, state, placer, stack);
@@ -53,8 +52,7 @@ public class EtherBlock extends SimpleBlock<EtherTileEntity> implements SimpleWa
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         ItemStack stack = asItem().getDefaultInstance();
-        if (level.getBlockEntity(pos) instanceof EtherTileEntity) {
-            EtherTileEntity blockEntity = (EtherTileEntity) level.getBlockEntity(pos);
+        if (level.getBlockEntity(pos) instanceof EtherTileEntity blockEntity) {
             AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
             if (blockEntity.firstColor != null) {
                 etherItem.setFirstColor(stack, blockEntity.firstColor.getRGB());
