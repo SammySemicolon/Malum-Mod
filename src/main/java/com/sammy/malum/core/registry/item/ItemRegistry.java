@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.DripArmorModel;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.client.model.SpiritHunterArmorModel;
+import com.sammy.malum.client.model.TailModel;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
@@ -429,12 +430,14 @@ public class ItemRegistry {
         public static DripArmorModel DRIP_ARMOR;
         public static SpiritHunterArmorModel SPIRIT_HUNTER_ARMOR;
         public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
+        public static TailModel TAIL_MODEL;
 
         @SubscribeEvent
         public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
             event.registerLayerDefinition(DripArmorModel.LAYER, DripArmorModel::createBodyLayer);
             event.registerLayerDefinition(SpiritHunterArmorModel.LAYER, SpiritHunterArmorModel::createBodyLayer);
             event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
+            event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -442,6 +445,7 @@ public class ItemRegistry {
             DRIP_ARMOR = new DripArmorModel(event.getEntityModels().bakeLayer(DripArmorModel.LAYER));
             SPIRIT_HUNTER_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.LAYER));
             SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
+            TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
         }
 
         @SubscribeEvent

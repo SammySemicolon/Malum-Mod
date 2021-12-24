@@ -1,6 +1,8 @@
 package com.sammy.malum.core.registry.misc;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.client.renderer.curio.TokenOfGratitudeRenderer;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -8,6 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class CurioRegistry
@@ -26,7 +29,7 @@ public class CurioRegistry
         @SubscribeEvent
         public static void registerCurioRenderers(FMLClientSetupEvent event)
         {
-//            CuriosRendererRegistry.register(ItemRegistry.TOKEN_OF_GRATITUDE.get(), TokenOfGratitudeRenderer::new);
+            CuriosRendererRegistry.register(ItemRegistry.TOKEN_OF_GRATITUDE.get(), TokenOfGratitudeRenderer::new);
         }
     }
 }

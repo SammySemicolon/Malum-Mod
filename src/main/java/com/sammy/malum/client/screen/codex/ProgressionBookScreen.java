@@ -262,7 +262,8 @@ public class ProgressionBookScreen extends Screen
                 "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -4, 5)
                 .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
-                .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor"))
+                .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor_a"))
+                .addPage(new TextPage("soul_stained_armor_b"))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_HELMET.get()))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_CHESTPLATE.get()))
                 .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_LEGGINGS.get()))
@@ -283,7 +284,7 @@ public class ProgressionBookScreen extends Screen
                 "soul_hunter_trinkets", RING_OF_ARCANE_REACH.get(), -5, 6)
                 .addPage(new HeadlineTextPage("arcane_reach", "arcane_reach"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
-                .addPage(new HeadlineTextPage("arcane_spoils", "arcane_spoils"))
+                .addPage(new HeadlineTextPage("arcane_spoil", "arcane_spoil"))
                 .addPage(new SpiritInfusionPage(RING_OF_ARCANE_SPOIL.get()))
         );
 
