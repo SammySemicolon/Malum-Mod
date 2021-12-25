@@ -26,8 +26,12 @@ public class EtherTileEntity extends SimpleBlockEntity {
 
     @Override
     public void load(CompoundTag compound) {
-        firstColor = ColorHelper.getColor(compound.getInt("firstColor"));
-        secondColor = ColorHelper.getColor(compound.getInt("secondColor"));
+        if (compound.contains("firstColor")) {
+            firstColor = ColorHelper.getColor(compound.getInt("firstColor"));
+        }
+        if (compound.contains("secondColor")) {
+            secondColor = ColorHelper.getColor(compound.getInt("secondColor"));
+        }
         super.load(compound);
     }
 
