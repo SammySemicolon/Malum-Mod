@@ -24,7 +24,6 @@ public class SimpleBlockEntity extends BlockEntity {
         return InteractionResult.PASS;
     }
 
-
     @Override
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();

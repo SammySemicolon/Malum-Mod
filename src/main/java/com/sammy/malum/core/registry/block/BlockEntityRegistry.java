@@ -13,7 +13,7 @@ import com.sammy.malum.common.blockentity.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.StandingSignBlock;
+import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -34,7 +34,7 @@ public class BlockEntityRegistry
 {
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
 
-    public static final RegistryObject<BlockEntityType<MalumSignTileEntity>> SIGN_BLOCK_ENTITY = TILE_ENTITIES.register("sign_tile_entity", () -> BlockEntityType.Builder.of(MalumSignTileEntity::new, getBlocks(StandingSignBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<MalumSignTileEntity>> SIGN_BLOCK_ENTITY = TILE_ENTITIES.register("sign_tile_entity", () -> BlockEntityType.Builder.of(MalumSignTileEntity::new, getBlocks(SignBlock.class)).build(null));
 
 
     public static final RegistryObject<BlockEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR_BLOCK_ENTITY = TILE_ENTITIES.register("spirit_altar_tile_entity", () -> BlockEntityType.Builder.of(SpiritAltarTileEntity::new, getBlocks(SpiritAltarBlock.class)).build(null));
