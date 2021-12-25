@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"texture_size": [48, 32],
 	"parent": "block/block",
 	"elements": [
 		{
@@ -8,12 +7,12 @@
 			"to": [12, 4, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
-				"north": {"uv": [4.5, 3, 6.5, 4], "texture": "#pedestal"},
-				"east": {"uv": [3, 5.5, 5, 6.5], "texture": "#pedestal"},
-				"south": {"uv": [5.5, 4, 7.5, 5], "texture": "#pedestal"},
-				"west": {"uv": [5, 5.5, 7, 6.5], "texture": "#pedestal"},
-				"up": {"uv": [4.5, 2, 2.5, 0], "texture": "#pedestal"},
-				"down": {"uv": [4.5, 2, 2.5, 4], "texture": "#pedestal", "cullface": "down"}
+				"north": {"uv": [10, 6, 14, 14], "rotation": 90, "texture": "#pedestal"},
+				"east": {"uv": [10, 6, 14, 14], "rotation": 90, "texture": "#pedestal"},
+				"south": {"uv": [10, 6, 14, 14], "rotation": 90, "texture": "#pedestal"},
+				"west": {"uv": [10, 6, 14, 14], "rotation": 90, "texture": "#pedestal"},
+				"up": {"uv": [9, 9, 1, 1], "texture": "#pedestal"},
+				"down": {"uv": [9, 1, 1, 9], "texture": "#pedestal", "cullface": "down"}
 			}
 		},
 		{
@@ -21,12 +20,12 @@
 			"to": [11, 10, 11],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
-				"north": {"uv": [2.5, 4, 4, 5.5], "texture": "#pedestal"},
-				"east": {"uv": [4, 4, 5.5, 5.5], "texture": "#pedestal"},
-				"south": {"uv": [4.5, 0, 6, 1.5], "texture": "#pedestal"},
-				"west": {"uv": [4.5, 1.5, 6, 3], "texture": "#pedestal"},
-				"up": {"uv": [1.5, 6.5, 0, 5], "texture": "#pedestal"},
-				"down": {"uv": [3, 5.5, 1.5, 7], "texture": "#pedestal"}
+				"north": {"uv": [10, 0, 16, 6], "texture": "#pedestal"},
+				"east": {"uv": [10, 0, 16, 6], "texture": "#pedestal"},
+				"south": {"uv": [10, 0, 16, 6], "texture": "#pedestal"},
+				"west": {"uv": [10, 0, 16, 6], "texture": "#pedestal"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#pedestal"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#pedestal"}
 			}
 		},
 		{
@@ -34,12 +33,12 @@
 			"to": [13, 13, 13],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
-				"north": {"uv": [6, 0, 8.5, 0.75], "texture": "#pedestal"},
-				"east": {"uv": [6, 0.75, 8.5, 1.5], "texture": "#pedestal"},
-				"south": {"uv": [6, 1.5, 8.5, 2.25], "texture": "#pedestal"},
-				"west": {"uv": [6, 2.25, 8.5, 3], "texture": "#pedestal"},
-				"up": {"uv": [2.5, 2.5, 0, 0], "texture": "#pedestal"},
-				"down": {"uv": [2.5, 2.5, 0, 5], "texture": "#pedestal"}
+				"north": {"uv": [0, 10, 10, 13], "texture": "#pedestal"},
+				"east": {"uv": [0, 10, 10, 13], "texture": "#pedestal"},
+				"south": {"uv": [0, 10, 10, 13], "texture": "#pedestal"},
+				"west": {"uv": [0, 10, 10, 13], "texture": "#pedestal"},
+				"up": {"uv": [0, 10, 10, 0], "texture": "#pedestal"},
+				"down": {"uv": [0, 0, 10, 10], "texture": "#pedestal"}
 			}
 		}
 	]

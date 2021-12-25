@@ -1591,7 +1591,7 @@ db470b95141d7b70c5251d28caea9054ff6fd687 data/malum/recipes/vertical_runewood_pl
 aa95dbfa14350ca1c5868221663ac9a5481f35be data/malum/recipes/vertical_soulwood_planks_stairs.json
 3afb0862d66b4628b9773712566384838c236c38 data/malum/tags/items/runewood_logs.json
 2956c7ab14fca69e8efefa4ef85e2bb49eb29956 data/malum/tags/items/sapballs.json
-21c8bfcd8dd7ae732b45a45a4be23ff7d022463b data/malum/tags/items/soul_hunter_weapon.json
+7902f5c5a42421b910d720ea5f85eaa44143d0df data/malum/tags/items/soul_hunter_weapon.json
 4da422d8727a02da9b2d0b8b057ea742a01de19b data/malum/tags/items/soulwood_logs.json
 64bf824998c5fe50c436dc31b353a607b42523d5 data/minecraft/tags/blocks/beacon_base_blocks.json
 f5ebfd0e8d818c36fe3d95be3ab47c974c74be11 data/minecraft/tags/blocks/buttons.json

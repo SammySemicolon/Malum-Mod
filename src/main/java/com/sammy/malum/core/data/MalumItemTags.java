@@ -76,6 +76,7 @@ public class MalumItemTags extends ItemTagsProvider {
         tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.CRUDE_SCYTHE.get(), ItemRegistry.SOUL_STAINED_STEEL_SCYTHE.get(), ItemRegistry.CREATIVE_SCYTHE.get());
         tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_AXE.get(), ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get(), ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get(), ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), ItemRegistry.SOUL_STAINED_STEEL_HOE.get());
         tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get());
+        tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), ItemRegistry.SOUL_STAINED_STEEL_NUGGET.get(), ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), ItemRegistry.STAINED_SPIRIT_RESONATOR.get());
 
     }
 }

@@ -1,7 +1,6 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"particle": "malum:item/ether",
 		"brazier": "malum:block/ether_brazier"
 	},
 	"elements": [
@@ -30,8 +29,8 @@
 			}
 		},
 		{
-			"from": [4.4, 3.9, 4.4],
-			"to": [11.6, 7.1, 4.6],
+			"from": [4.39, 3.89, 4.39],
+			"to": [11.61, 7.11, 4.61],
 			"faces": {
 				"north": {"uv": [0, 0, 7, 3], "texture": "#brazier"},
 				"east": {"uv": [0, 0, 7, 3], "texture": "#brazier"},
@@ -60,8 +59,8 @@
 			}
 		},
 		{
-			"from": [4.4, 3.9, 11.4],
-			"to": [11.6, 7.1, 11.6],
+			"from": [4.39, 3.89, 11.39],
+			"to": [11.61, 7.11, 11.61],
 			"faces": {
 				"north": {"uv": [0, 0, 7, 3], "texture": "#brazier"},
 				"east": {"uv": [0, 0, 7, 3], "texture": "#brazier"},
