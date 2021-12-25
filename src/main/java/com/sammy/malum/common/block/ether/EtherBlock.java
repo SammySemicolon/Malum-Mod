@@ -35,7 +35,7 @@ public class EtherBlock extends SimpleBlock<EtherTileEntity> implements SimpleWa
     public EtherBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(BlockEntityRegistry.ETHER_BLOCK_BLOCK_ENTITY);
+        setTile(BlockEntityRegistry.ETHER);
     }
 
     @Override

@@ -11,6 +11,6 @@ public class TotemBaseBlock extends SimpleBlock<TotemBaseTileEntity>
     {
         super(properties);
         this.corrupted = corrupted;
-        setTile(BlockEntityRegistry.TOTEM_BASE_BLOCK_ENTITY);
+        setTile(BlockEntityRegistry.TOTEM_BASE);
     }
 }

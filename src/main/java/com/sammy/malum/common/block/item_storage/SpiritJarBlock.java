@@ -31,7 +31,7 @@ public class SpiritJarBlock extends SimpleBlock<SpiritJarTileEntity> implements 
     {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(BlockEntityRegistry.SPIRIT_JAR_BLOCK_ENTITY);
+        setTile(BlockEntityRegistry.SPIRIT_JAR);
     }
 
     @Override

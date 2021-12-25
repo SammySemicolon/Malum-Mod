@@ -1,8 +1,8 @@
 package com.sammy.malum.core.registry.block;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.RunewoodLogBlock;
 import com.sammy.malum.common.block.MalumSaplingBlock;
+import com.sammy.malum.common.block.RunewoodLogBlock;
 import com.sammy.malum.common.block.SapFilledLogBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
@@ -18,6 +18,7 @@ import com.sammy.malum.common.block.misc.MalumLogBlock;
 import com.sammy.malum.common.block.misc.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.misc.sign.MalumWallSignBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
+import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.EtherTileEntity;
@@ -27,6 +28,7 @@ import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
+import com.sammy.malum.core.systems.multiblock.ComponentBlock;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -128,6 +130,10 @@ public class BlockRegistry {
     }
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().noOcclusion()));
+
+    public static final RegistryObject<Block> SPIRIT_CRUCIBLE_CORE = BLOCKS.register("spirit_crucible_core", () -> new SpiritCrucibleCoreBlock(TAINTED_ROCK_PROPERTIES().noOcclusion()));
+    public static final RegistryObject<Block> SPIRIT_CRUCIBLE_COMPONENT = BLOCKS.register("spirit_crucible_component", () -> new ComponentBlock(TAINTED_ROCK_PROPERTIES().noOcclusion()));
+
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(HALLOWED_GOLD_PROPERTIES().noOcclusion()));
 
     public static final RegistryObject<Block> RUNEWOOD_TOTEM_BASE = BLOCKS.register("runewood_totem_base", () -> new TotemBaseBlock(RUNEWOOD_PROPERTIES().noOcclusion(), false));

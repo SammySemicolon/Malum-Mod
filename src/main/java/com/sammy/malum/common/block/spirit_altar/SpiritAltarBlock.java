@@ -23,7 +23,7 @@ public class SpiritAltarBlock extends SimpleBlock<SpiritAltarTileEntity> impleme
     {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(BlockEntityRegistry.SPIRIT_ALTAR_BLOCK_ENTITY);
+        setTile(BlockEntityRegistry.SPIRIT_ALTAR);
     }
 
     @Override

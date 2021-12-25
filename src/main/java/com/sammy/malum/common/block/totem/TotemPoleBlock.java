@@ -31,7 +31,7 @@ public class TotemPoleBlock extends SimpleBlock<TotemPoleTileEntity>
         this.logBlock = logBlock;
         this.corrupted = corrupted;
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
-        setTile(BlockEntityRegistry.TOTEM_POLE_BLOCK_ENTITY);
+        setTile(BlockEntityRegistry.TOTEM_POLE);
     }
 
     @Override

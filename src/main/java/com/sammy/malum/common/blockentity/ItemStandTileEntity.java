@@ -21,7 +21,7 @@ public class ItemStandTileEntity extends SimpleInventoryBlockEntity implements I
 {
     public ItemStandTileEntity(BlockPos pos, BlockState state)
     {
-        super(BlockEntityRegistry.ITEM_STAND_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.ITEM_STAND.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64)
         {
             @Override

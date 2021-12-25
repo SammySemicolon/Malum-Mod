@@ -16,7 +16,7 @@ import java.awt.*;
 
 public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
     public ItemPedestalTileEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.ITEM_PEDESTAL_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.ITEM_PEDESTAL.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64) {
             @Override
             public void onContentsChanged(int slot) {

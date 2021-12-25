@@ -71,10 +71,9 @@ public abstract class FloatingItemEntity extends ThrowableItemProjectile
         {
             double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
             ItemStack stack = getItem();
-            if (stack.getItem() instanceof ISpiritEntityGlow)
+            if (stack.getItem() instanceof ISpiritEntityGlow glow)
             {
-                ISpiritEntityGlow entityGlow = (ISpiritEntityGlow) stack.getItem();
-                Color color = entityGlow.getColor();
+                Color color = glow.getColor();
                 SpiritHelper.spawnSpiritParticles(level, x,y,z, color);
             }
         }

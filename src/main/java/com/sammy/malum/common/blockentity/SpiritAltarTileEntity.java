@@ -56,7 +56,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public SpiritInfusionRecipe recipe;
 
     public SpiritAltarTileEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.SPIRIT_ALTAR_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.SPIRIT_ALTAR.get(), pos, state);
 
         inventory = new SimpleBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override

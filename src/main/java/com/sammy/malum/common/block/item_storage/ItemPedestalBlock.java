@@ -36,7 +36,7 @@ public class ItemPedestalBlock extends SimpleBlock<ItemPedestalTileEntity> imple
     {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-        setTile(BlockEntityRegistry.ITEM_PEDESTAL_BLOCK_ENTITY);
+        setTile(BlockEntityRegistry.ITEM_PEDESTAL);
     }
 
     @Override

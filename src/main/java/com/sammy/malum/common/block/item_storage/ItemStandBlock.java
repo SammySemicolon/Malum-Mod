@@ -34,7 +34,7 @@ public class ItemStandBlock extends SimpleBlock<ItemStandTileEntity> implements 
     public ItemStandBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
-        setTile(BlockEntityRegistry.ITEM_STAND_BLOCK_ENTITY);
+        setTile(BlockEntityRegistry.ITEM_STAND);
     }
 
     @Override
