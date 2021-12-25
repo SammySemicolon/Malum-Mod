@@ -34,7 +34,7 @@ public class MultiBlockComponentEntity extends SimpleBlockEntity {
     public void onBreak() {
         if (level.getBlockEntity(corePos) instanceof MultiBlockCoreEntity core)
         {
-            core.onBreak();
+            level.destroyBlock(corePos, false);
         }
         super.onBreak();
     }
