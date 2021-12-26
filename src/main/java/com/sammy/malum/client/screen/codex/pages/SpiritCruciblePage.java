@@ -2,7 +2,7 @@ package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.common.recipe.SpiritCrucibleRecipe;
+import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import net.minecraft.client.Minecraft;
@@ -17,8 +17,8 @@ import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTe
 @SuppressWarnings("all")
 public class SpiritCruciblePage extends BookPage
 {
-    private final SpiritCrucibleRecipe recipe;
-    public SpiritCruciblePage(Predicate<SpiritCrucibleRecipe> predicate)
+    private final SpiritFocusingRecipe recipe;
+    public SpiritCruciblePage(Predicate<SpiritFocusingRecipe> predicate)
     {
         super(DataHelper.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
         if (Minecraft.getInstance() == null) //this is null during datagen
@@ -26,9 +26,9 @@ public class SpiritCruciblePage extends BookPage
             this.recipe = null;
             return;
         }
-        this.recipe = SpiritCrucibleRecipe.getRecipe(Minecraft.getInstance().level, predicate);
+        this.recipe = SpiritFocusingRecipe.getRecipe(Minecraft.getInstance().level, predicate);
     }
-    public SpiritCruciblePage(SpiritCrucibleRecipe recipe)
+    public SpiritCruciblePage(SpiritFocusingRecipe recipe)
     {
         super(DataHelper.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
         this.recipe = recipe;

@@ -154,25 +154,13 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     }
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritInfusionRecipe> {
         public boolean isValid(ResourceLocation recipeId, Ingredient ingredient) {
-            if (Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).anyMatch(s -> s.equals(Items.BARRIER))) {
-                MalumMod.LOGGER.info("Found an unpopulated tag, or a non existing item, skipping spirit infusion recipe with id: " + recipeId);
-                return false;
-            }
-            return true;
+            return Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).noneMatch(s -> s.equals(Items.BARRIER));
         }
         public boolean isValid(ResourceLocation recipeId, Stream<Item> item) {
-            if (item.anyMatch(i -> i.equals(Items.BARRIER))) {
-                MalumMod.LOGGER.info("Found an unpopulated tag, or a non existing item, skipping spirit infusion recipe with id: " + recipeId);
-                return false;
-            }
-            return true;
+            return item.noneMatch(i -> i.equals(Items.BARRIER));
         }
         public boolean isValid(ResourceLocation recipeId, Item item) {
-            if (item.equals(Items.BARRIER)) {
-                MalumMod.LOGGER.info("Found an unpopulated tag, or a non existing item, skipping spirit infusion recipe with id: " + recipeId);
-                return false;
-            }
-            return true;
+            return !item.equals(Items.BARRIER);
         }
         @Override
         public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json)

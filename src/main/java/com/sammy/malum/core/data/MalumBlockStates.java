@@ -64,7 +64,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
         blocks.remove(SPIRIT_ALTAR);
         blocks.remove(SPIRIT_JAR);
-        blocks.remove(SPIRIT_CRUCIBLE_CORE);
+        blocks.remove(SPIRIT_CRUCIBLE);
 
 
         DataHelper.takeAll(blocks, b -> b.get() instanceof ComponentBlock);

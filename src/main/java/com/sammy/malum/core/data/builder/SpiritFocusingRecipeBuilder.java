@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class SpiritCrucibleRecipeBuilder
+public class SpiritFocusingRecipeBuilder
 {
     private final int time;
     private final int durabilityCost;
@@ -25,14 +25,14 @@ public class SpiritCrucibleRecipeBuilder
     private final IngredientWithCount output;
     private final List<ItemWithCount> spirits = Lists.newArrayList();
 
-    public SpiritCrucibleRecipeBuilder(int time, int durabilityCost, Ingredient input, Ingredient output, int outputCount)
+    public SpiritFocusingRecipeBuilder(int time, int durabilityCost, Ingredient input, Ingredient output, int outputCount)
     {
         this.time = time;
         this.durabilityCost = durabilityCost;
         this.input = input;
         this.output = new IngredientWithCount(output, outputCount);
     }
-    public SpiritCrucibleRecipeBuilder addSpirit(MalumSpiritType type, int count)
+    public SpiritFocusingRecipeBuilder addSpirit(MalumSpiritType type, int count)
     {
         spirits.add(new ItemWithCount(type.splinterItem(), count));
         return this;
@@ -47,7 +47,7 @@ public class SpiritCrucibleRecipeBuilder
     }
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
     {
-        consumerIn.accept(new SpiritCrucibleRecipeBuilder.Result(id, time, durabilityCost, input, output, spirits));
+        consumerIn.accept(new SpiritFocusingRecipeBuilder.Result(id, time, durabilityCost, input, output, spirits));
     }
 
     public static class Result implements FinishedRecipe
@@ -98,7 +98,7 @@ public class SpiritCrucibleRecipeBuilder
         @Override
         public RecipeSerializer<?> getType()
         {
-            return RecipeSerializerRegistry.CRUCIBLE_RECIPE_SERIALIZER.get();
+            return RecipeSerializerRegistry.FOCUSING_RECIPE_SERIALIZER.get();
         }
 
         @Nullable

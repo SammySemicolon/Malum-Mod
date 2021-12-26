@@ -50,6 +50,8 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public float spiritAmount;
     public float spiritSpin;
 
+    public boolean updateRecipe;
+
     public SimpleBlockEntityInventory inventory;
     public SimpleBlockEntityInventory extrasInventory;
     public SimpleBlockEntityInventory spiritInventory;
@@ -62,7 +64,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
+                updateRecipe = true;
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
@@ -77,12 +79,46 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
+                updateRecipe = true;
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount+1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
     }
+
+    @Override
+    protected void saveAdditional(CompoundTag compound) {
+        if (progress != 0) {
+            compound.putInt("progress", progress);
+        }
+        if (spinUp != 0) {
+            compound.putInt("spinUp", spinUp);
+        }
+        if (spedUp) {
+            compound.putBoolean("spedUp", true);
+        }
+        if (spiritAmount != 0) {
+            compound.putFloat("spiritAmount", spiritAmount);
+        }
+        compound.putBoolean("updateRecipe", updateRecipe);
+        inventory.save(compound);
+        spiritInventory.save(compound, "spiritInventory");
+        extrasInventory.save(compound, "extrasInventory");
+    }
+
+    @Override
+    public void load(CompoundTag compound) {
+        progress = compound.getInt("progress");
+        spinUp = compound.getInt("spinUp");
+        spedUp = compound.getBoolean("spedUp");
+        spiritAmount = compound.getFloat("spiritAmount");
+        updateRecipe = compound.getBoolean("updateRecipe");
+        inventory.load(compound);
+        spiritInventory.load(compound, "spiritInventory");
+        extrasInventory.load(compound, "extrasInventory");
+        super.load(compound);
+    }
+
 
     @Override
     public void onBreak() {
@@ -126,42 +162,13 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
-        if (progress != 0) {
-            compound.putInt("progress", progress);
-        }
-        if (spinUp != 0) {
-            compound.putInt("spinUp", spinUp);
-        }
-        if (spedUp) {
-            compound.putBoolean("spedUp", true);
-        }
-        if (spiritAmount != 0) {
-            compound.putFloat("spiritAmount", spiritAmount);
-        }
-        inventory.save(compound);
-        spiritInventory.save(compound, "spiritInventory");
-        extrasInventory.save(compound, "extrasInventory");
-        super.saveAdditional(compound);
-    }
-
-    @Override
-    public void load(CompoundTag compound) {
-        progress = compound.getInt("progress");
-        spinUp = compound.getInt("spinUp");
-        spedUp = compound.getBoolean("spedUp");
-        spiritAmount = compound.getFloat("spiritAmount");
-        inventory.load(compound);
-        spiritInventory.load(compound, "spiritInventory");
-        extrasInventory.load(compound, "extrasInventory");
-        if (level != null) {
-            recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
-        }
-    }
-
-    @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
+        if (updateRecipe)
+        {
+            recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
+            updateRecipe = false;
+        }
         if (recipe != null) {
             if (soundCooldown > 0) {
                 soundCooldown--;
@@ -191,6 +198,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             spedUp = false;
         }
         if (level.isClientSide) {
+            spiritSpin += 1 + spinUp / 5f;
             passiveParticles();
         }
     }
@@ -203,7 +211,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         return new Vec3(0.5f, 1.25f, 0.5f);
     }
 
-    public static Vec3 itemOffset(SpiritAltarTileEntity blockEntity, int slot) {
+    public static Vec3 spiritOffset(SpiritAltarTileEntity blockEntity, int slot) {
         float distance = 1 - Math.min(0.25f, blockEntity.spinUp / 40f) + (float) Math.sin(blockEntity.spiritSpin / 20f) * 0.025f;
         float height = 0.75f + Math.min(0.5f, blockEntity.spinUp / 20f);
         return DataHelper.rotatedCirclePosition(new Vec3(0.5f, height, 0.5f), distance, slot, blockEntity.spiritAmount, (long) blockEntity.spiritSpin, 360);
@@ -218,8 +226,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             int vertical = 2;
             Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, horizontal, vertical, horizontal);
             for (BlockPos pos : nearbyBlocks) {
-                if (level.getBlockEntity(pos) instanceof IAltarProvider) {
-                    IAltarProvider blockEntity = (IAltarProvider) level.getBlockEntity(pos);
+                if (level.getBlockEntity(pos) instanceof IAltarProvider blockEntity) {
                     ItemStack providedStack = blockEntity.providedInventory().getStackInSlot(0);
                     IngredientWithCount requestedItem = recipe.extraItems.get(extras);
                     if (requestedItem.matches(providedStack)) {
@@ -267,16 +274,14 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
 
     public void passiveParticles() {
         Vec3 itemPos = itemPos(this);
-        spiritSpin += 1 + spinUp / 5f;
         for (int i = 0; i < spiritInventory.slotCount; i++) {
             ItemStack item = spiritInventory.getStackInSlot(i);
-            if (item.getItem() instanceof MalumSpiritItem) {
-                Vec3 offset = itemOffset(this, i);
+            if (item.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
+                Vec3 offset = spiritOffset(this, i);
+                Color color = spiritSplinterItem.type.color;
                 double x = getBlockPos().getX() + offset.x();
                 double y = getBlockPos().getY() + offset.y();
                 double z = getBlockPos().getZ() + offset.z();
-                MalumSpiritItem spiritSplinterItem = (MalumSpiritItem) item.getItem();
-                Color color = spiritSplinterItem.type.color;
                 SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
                 if (recipe != null) {
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(-0.03f);

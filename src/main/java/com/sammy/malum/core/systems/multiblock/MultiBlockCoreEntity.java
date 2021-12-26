@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public abstract class MultiBlockCoreEntity extends SimpleBlockEntity {
 
     ArrayList<BlockPos> componentPositions = new ArrayList<>();
+
     public MultiBlockCoreEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         getStructure().structurePieces.forEach(p -> {
@@ -18,15 +19,21 @@ public abstract class MultiBlockCoreEntity extends SimpleBlockEntity {
             componentPositions.add(pos.offset(offset));
         });
     }
-    public MultiBlockStructure getStructure()
-    {
+
+    public MultiBlockStructure getStructure() {
         return null;
     }
 
     @Override
     public void onBreak() {
-        if (!level.isClientSide) {
-            componentPositions.forEach(p -> level.destroyBlock(p, false));
+        componentPositions.forEach(p -> {
+            if (level.getBlockEntity(p) instanceof MultiBlockComponentEntity) {
+                level.destroyBlock(p, false);
+            }
+        });
+        if (level.getBlockEntity(worldPosition) instanceof MultiBlockCoreEntity)
+        {
+            level.destroyBlock(worldPosition, false);
         }
     }
 }

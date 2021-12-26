@@ -27,16 +27,16 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class SpiritCrucibleRecipe extends IMalumRecipe {
-    public static final String NAME = "spirit_crucible";
+public class SpiritFocusingRecipe extends IMalumRecipe {
+    public static final String NAME = "spirit_focusing";
 
-    public static class Type implements RecipeType<SpiritCrucibleRecipe> {
+    public static class Type implements RecipeType<SpiritFocusingRecipe> {
         @Override
         public String toString() {
             return MalumMod.MODID + ":" + NAME;
         }
 
-        public static final SpiritCrucibleRecipe.Type INSTANCE = new SpiritCrucibleRecipe.Type();
+        public static final SpiritFocusingRecipe.Type INSTANCE = new SpiritFocusingRecipe.Type();
     }
 
     private final ResourceLocation id;
@@ -48,7 +48,7 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
     public final IngredientWithCount output;
     public final List<ItemWithCount> spirits;
 
-    public SpiritCrucibleRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, List<ItemWithCount> spirits) {
+    public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, List<ItemWithCount> spirits) {
         this.id = id;
         this.time = time;
         this.durabilityCost = durabilityCost;
@@ -59,7 +59,7 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.CRUCIBLE_RECIPE_SERIALIZER.get();
+        return RecipeSerializerRegistry.FOCUSING_RECIPE_SERIALIZER.get();
     }
 
     @Override
@@ -123,13 +123,13 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
         return this.output.ingredient.test(output);
     }
 
-    public static SpiritCrucibleRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
+    public static SpiritFocusingRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
         return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
     }
 
-    public static SpiritCrucibleRecipe getRecipe(Level level, Predicate<SpiritCrucibleRecipe> predicate) {
-        List<SpiritCrucibleRecipe> recipes = getRecipes(level);
-        for (SpiritCrucibleRecipe recipe : recipes) {
+    public static SpiritFocusingRecipe getRecipe(Level level, Predicate<SpiritFocusingRecipe> predicate) {
+        List<SpiritFocusingRecipe> recipes = getRecipes(level);
+        for (SpiritFocusingRecipe recipe : recipes) {
             if (predicate.test(recipe)) {
                 return recipe;
             }
@@ -137,11 +137,11 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
         return null;
     }
 
-    public static List<SpiritCrucibleRecipe> getRecipes(Level level) {
+    public static List<SpiritFocusingRecipe> getRecipes(Level level) {
         return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritCrucibleRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritFocusingRecipe> {
         public boolean isValid(Ingredient ingredient) {
             return Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).noneMatch(s -> s.equals(Items.BARRIER));
         }
@@ -152,7 +152,7 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
             return !item.equals(Items.BARRIER);
         }
         @Override
-        public SpiritCrucibleRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        public SpiritFocusingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             int time = json.getAsJsonPrimitive("time").getAsInt();
             int durabilityCost = json.getAsJsonPrimitive("durabilityCost").getAsInt();
 
@@ -184,12 +184,12 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
             {
                 return null;
             }
-            return new SpiritCrucibleRecipe(recipeId, time, durabilityCost, input, output, spirits);
+            return new SpiritFocusingRecipe(recipeId, time, durabilityCost, input, output, spirits);
         }
 
         @Nullable
         @Override
-        public SpiritCrucibleRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public SpiritFocusingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int time = buffer.readInt();
             int durabilityCost = buffer.readInt();
             Ingredient input = Ingredient.fromNetwork(buffer);
@@ -199,11 +199,11 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
             for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new ItemWithCount(buffer.readItem()));
             }
-            return new SpiritCrucibleRecipe(recipeId, time, durabilityCost, input, output, spirits);
+            return new SpiritFocusingRecipe(recipeId, time, durabilityCost, input, output, spirits);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, SpiritCrucibleRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, SpiritFocusingRecipe recipe) {
             buffer.writeInt(recipe.time);
             buffer.writeInt(recipe.durabilityCost);
             recipe.input.toNetwork(buffer);

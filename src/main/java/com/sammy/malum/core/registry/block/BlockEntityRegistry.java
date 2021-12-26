@@ -11,10 +11,8 @@ import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.*;
-import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.core.systems.multiblock.ComponentBlock;
 import com.sammy.malum.core.systems.multiblock.MultiBlockComponentEntity;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StandingSignBlock;
@@ -23,7 +21,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -82,20 +79,12 @@ public class BlockEntityRegistry
         @SubscribeEvent
         public static void registerRenderer(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
+            event.registerBlockEntityRenderer(SPIRIT_CRUCIBLE.get(), SpiritCrucibleRenderer::new);
             event.registerBlockEntityRenderer(TOTEM_POLE.get(), TotemPoleRenderer::new);
             event.registerBlockEntityRenderer(ITEM_STAND.get(), ItemStandRenderer::new);
             event.registerBlockEntityRenderer(ITEM_PEDESTAL.get(), ItemPedestalRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_JAR.get(), SpiritJarRenderer::new);
             event.registerBlockEntityRenderer(SIGN_BLOCK_ENTITY.get(), SignRenderer::new);
-        }
-        @SubscribeEvent
-        public static void bindBlockEntityRenderers(FMLClientSetupEvent event) {
-            BlockEntityRenderers.register(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
-            BlockEntityRenderers.register(TOTEM_POLE.get(), TotemPoleRenderer::new);
-            BlockEntityRenderers.register(ITEM_STAND.get(), ItemStandRenderer::new);
-            BlockEntityRenderers.register(ITEM_PEDESTAL.get(), ItemPedestalRenderer::new);
-            BlockEntityRenderers.register(SPIRIT_JAR.get(), SpiritJarRenderer::new);
-            BlockEntityRenderers.register(SIGN_BLOCK_ENTITY.get(), SignRenderer::new);
         }
     }
 }
