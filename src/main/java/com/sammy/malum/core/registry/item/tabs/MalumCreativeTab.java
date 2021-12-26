@@ -20,4 +20,6 @@ public class MalumCreativeTab extends CreativeModeTab
     public ItemStack makeIcon() {
         return new ItemStack(ItemRegistry.SPIRIT_ALTAR.get());
     }
+
+
 }

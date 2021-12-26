@@ -10,7 +10,7 @@
   },
   "extra_items": [
     {
-      "item": "minecraft:string",
+      "tag": "forge:string",
       "count": 2
     },
     {

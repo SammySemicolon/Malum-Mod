@@ -36,6 +36,12 @@ public class SpiritInfusionPage extends BookPage
         super(DataHelper.prefix("textures/gui/book/pages/spirit_infusion_page.png"));
         this.recipe = recipe;
     }
+
+    @Override
+    public boolean isValid() {
+        return recipe != null;
+    }
+
     public static SpiritInfusionPage fromInput(Item inputItem)
     {
         return new SpiritInfusionPage(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
@@ -99,7 +105,7 @@ public class SpiritInfusionPage extends BookPage
 
         for (int i = 0; i < items.size(); i++)
         {
-            ItemStack stack = items.get(i).stack();
+            ItemStack stack = items.get(i).getStack();
             ProgressionBookScreen.renderItem(poseStack, stack, left+8,top+8+19*i,mouseX,mouseY);
         }
     }

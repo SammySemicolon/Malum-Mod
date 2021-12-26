@@ -2,7 +2,6 @@ package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
@@ -12,7 +11,9 @@ import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -21,8 +22,10 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class SpiritCrucibleRecipe extends IMalumRecipe {
     public static final String NAME = "spirit_crucible";
@@ -38,13 +41,17 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
 
     private final ResourceLocation id;
 
+    public final int time;
+    public final int durabilityCost;
+
     public final Ingredient input;
     public final IngredientWithCount output;
-
     public final List<ItemWithCount> spirits;
 
-    public SpiritCrucibleRecipe(ResourceLocation id, Ingredient input, IngredientWithCount output, List<ItemWithCount> spirits) {
+    public SpiritCrucibleRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, List<ItemWithCount> spirits) {
         this.id = id;
+        this.time = time;
+        this.durabilityCost = durabilityCost;
         this.input = input;
         this.output = output;
         this.spirits = spirits;
@@ -135,14 +142,33 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritCrucibleRecipe> {
-
+        public boolean isValid(Ingredient ingredient) {
+            return Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).noneMatch(s -> s.equals(Items.BARRIER));
+        }
+        public boolean isValid(Stream<Item> item) {
+            return item.noneMatch(i -> i.equals(Items.BARRIER));
+        }
+        public boolean isValid(Item item) {
+            return !item.equals(Items.BARRIER);
+        }
         @Override
         public SpiritCrucibleRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            int time = json.getAsJsonPrimitive("time").getAsInt();
+            int durabilityCost = json.getAsJsonPrimitive("durabilityCost").getAsInt();
+
             JsonObject inputObject = json.getAsJsonObject("input");
             Ingredient input = Ingredient.fromJson(inputObject);
+            if (!isValid(input))
+            {
+                return null;
+            }
 
             JsonObject outputObject = json.getAsJsonObject("output");
             IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
+            if (!isValid(output.ingredient))
+            {
+                return null;
+            }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
             ArrayList<ItemWithCount> spirits = new ArrayList<>();
@@ -150,15 +176,22 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(ItemWithCount.deserialize(spiritObject));
             }
-            if (spirits.isEmpty()) {
-                throw new JsonSyntaxException("Spirit crucible recipes need at least 1 spirit ingredient, recipe with id: " + recipeId + " is incorrect");
+            if (!isValid(spirits.stream().map(ItemWithCount::getItem)))
+            {
+                return null;
             }
-            return new SpiritCrucibleRecipe(recipeId, input, output, spirits);
+            if (spirits.isEmpty())
+            {
+                return null;
+            }
+            return new SpiritCrucibleRecipe(recipeId, time, durabilityCost, input, output, spirits);
         }
 
         @Nullable
         @Override
         public SpiritCrucibleRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            int time = buffer.readInt();
+            int durabilityCost = buffer.readInt();
             Ingredient input = Ingredient.fromNetwork(buffer);
             IngredientWithCount output = IngredientWithCount.read(buffer);
             int spiritCount = buffer.readInt();
@@ -166,16 +199,18 @@ public class SpiritCrucibleRecipe extends IMalumRecipe {
             for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new ItemWithCount(buffer.readItem()));
             }
-            return new SpiritCrucibleRecipe(recipeId, input, output, spirits);
+            return new SpiritCrucibleRecipe(recipeId, time, durabilityCost, input, output, spirits);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, SpiritCrucibleRecipe recipe) {
+            buffer.writeInt(recipe.time);
+            buffer.writeInt(recipe.durabilityCost);
             recipe.input.toNetwork(buffer);
             recipe.output.write(buffer);
             buffer.writeInt(recipe.spirits.size());
             for (ItemWithCount item : recipe.spirits) {
-                buffer.writeItem(item.stack());
+                buffer.writeItem(item.getStack());
             }
         }
     }

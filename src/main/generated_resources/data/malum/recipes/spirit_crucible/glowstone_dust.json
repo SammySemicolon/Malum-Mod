@@ -1,5 +1,7 @@
 {
   "type": "malum:spirit_crucible",
+  "time": 400,
+  "durabilityCost": 1,
   "input": {
     "item": "malum:alchemical_impetus"
   },

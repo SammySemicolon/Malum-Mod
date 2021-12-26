@@ -33,6 +33,12 @@ public class SpiritCruciblePage extends BookPage
         super(DataHelper.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
         this.recipe = recipe;
     }
+
+    @Override
+    public boolean isValid() {
+        return recipe != null;
+    }
+
     public static SpiritCruciblePage fromInput(Item inputItem)
     {
         return new SpiritCruciblePage(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
@@ -77,7 +83,7 @@ public class SpiritCruciblePage extends BookPage
 
         for (int i = 0; i < items.size(); i++)
         {
-            ItemStack stack = items.get(i).stack();
+            ItemStack stack = items.get(i).getStack();
             ProgressionBookScreen.renderItem(poseStack, stack, left+8+19*i,top+8,mouseX,mouseY);
         }
     }

@@ -34,12 +34,12 @@ public class ItemTagRegistry
     {
         return forgeTag(name, null);
     }
-    private static Tags.IOptionalNamedTag<Item> tag(String name, @Nullable Set<Supplier<Item>> defaults)
+    private static Tag.Named<Item> tag(String name, @Nullable Set<Supplier<Item>> defaults)
     {
         return ItemTags.createOptional(DataHelper.prefix(name), defaults);
     }
 
-    private static Tags.IOptionalNamedTag<Item> tag(String name)
+    private static Tag.Named<Item> tag(String name)
     {
         return tag(name, null);
     }

@@ -93,7 +93,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         ArrayList<ItemStack> items = new ArrayList<>(Arrays.asList(recipe.input.ingredient.getItems()));
 
         recipe.extraItems.forEach(ingredient -> items.addAll(ingredient.asStackList()));
-        recipe.spirits.forEach(ingredient -> items.add(ingredient.stack()));
+        recipe.spirits.forEach(ingredient -> items.add(ingredient.getStack()));
         iIngredients.setInputs(VanillaTypes.ITEM, items);
         iIngredients.setOutput(VanillaTypes.ITEM, recipe.output.stack());
     }
@@ -139,7 +139,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         {
             ItemWithCount item = items.get(i);
             iRecipeLayout.getItemStacks().init(baseIndex+i, true, left+7,top+7+19*i);
-            iRecipeLayout.getItemStacks().set(baseIndex+i, item.stack());
+            iRecipeLayout.getItemStacks().set(baseIndex+i, item.getStack());
         }
         return baseIndex+items.size()+1;
     }

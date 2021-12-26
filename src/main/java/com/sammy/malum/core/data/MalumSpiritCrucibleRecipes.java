@@ -31,36 +31,38 @@ public class MalumSpiritCrucibleRecipes extends RecipeProvider
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer)
     {
-        new SpiritCrucibleRecipeBuilder(Ingredient.of(ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GUNPOWDER), 6)
+        int longDuration = 1200;
+        int shortDuration = 400;
+        new SpiritCrucibleRecipeBuilder(longDuration, 2, Ingredient.of(ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GUNPOWDER), 6)
                 .addSpirit(EARTHEN_SPIRIT, 1)
                 .addSpirit(INFERNAL_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritCrucibleRecipeBuilder(Ingredient.of(ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GLOWSTONE_DUST), 8)
+        new SpiritCrucibleRecipeBuilder(shortDuration, 1, Ingredient.of(ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GLOWSTONE_DUST), 8)
                 .addSpirit(INFERNAL_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritCrucibleRecipeBuilder(Ingredient.of(ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.REDSTONE), 8)
+        new SpiritCrucibleRecipeBuilder(shortDuration, 1, Ingredient.of(ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.REDSTONE), 8)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritCrucibleRecipeBuilder(Ingredient.of(IRON_IMPETUS.get()), Ingredient.of(Items.IRON_NUGGET), 6)
+        new SpiritCrucibleRecipeBuilder(longDuration, 3, Ingredient.of(IRON_IMPETUS.get()), Ingredient.of(Items.IRON_NUGGET), 6)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer, "iron_from_impetus");
 
-        new SpiritCrucibleRecipeBuilder(Ingredient.of(GOLD_IMPETUS.get()), Ingredient.of(Items.GOLD_NUGGET), 6)
+        new SpiritCrucibleRecipeBuilder(longDuration, 3, Ingredient.of(GOLD_IMPETUS.get()), Ingredient.of(Items.GOLD_NUGGET), 6)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer, "gold_from_impetus");
 
-        new SpiritCrucibleRecipeBuilder(Ingredient.of(COPPER_IMPETUS.get()), Ingredient.of(ItemTagRegistry.NUGGETS_COPPER), 6)
+        new SpiritCrucibleRecipeBuilder(longDuration, 3, Ingredient.of(COPPER_IMPETUS.get()), Ingredient.of(ItemTagRegistry.NUGGETS_COPPER), 6)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer, "copper_from_impetus");
 
-        new SpiritCrucibleRecipeBuilder(Ingredient.of(LEAD_IMPETUS.get()), Ingredient.of(ItemTagRegistry.NUGGETS_LEAD), 6)
+        new SpiritCrucibleRecipeBuilder(longDuration, 3, Ingredient.of(LEAD_IMPETUS.get()), Ingredient.of(ItemTagRegistry.NUGGETS_LEAD), 6)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer, "lead_from_impetus");
 
-        new SpiritCrucibleRecipeBuilder(Ingredient.of(SILVER_IMPETUS.get()), Ingredient.of(ItemTagRegistry.NUGGETS_SILVER), 6)
+        new SpiritCrucibleRecipeBuilder(longDuration, 3, Ingredient.of(SILVER_IMPETUS.get()), Ingredient.of(ItemTagRegistry.NUGGETS_SILVER), 6)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer, "silver_from_impetus");
 

@@ -216,7 +216,7 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new HeadlineTextPage("spirit_alchemy", "spirit_alchemy_a"))
                 .addPage(new TextPage("spirit_alchemy_b"))
                 .addPage(new TextPage("spirit_alchemy_c"))
-                .addPage(SpiritInfusionPage.fromOutput(ALCHEMICAL_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromImpetus(ALCHEMICAL_IMPETUS.get(), CRACKED_ALCHEMICAL_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(

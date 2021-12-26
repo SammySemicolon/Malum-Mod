@@ -310,7 +310,6 @@ public class ItemRegistry {
     //region ores
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-
     public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new MalumFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
     public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new MalumFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
 
@@ -371,15 +370,15 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CRACKED_ALCHEMICAL_IMPETUS = ITEMS.register("cracked_alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> IRON_IMPETUS = ITEMS.register("iron_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)));
-    public static final RegistryObject<Item> CRACKED_IRON_IMPETUS = ITEMS.register("cracked_iron_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_IRON_IMPETUS = ITEMS.register("cracked_iron_impetus", () -> new Item(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> COPPER_IMPETUS = ITEMS.register("copper_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)));
-    public static final RegistryObject<Item> CRACKED_COPPER_IMPETUS = ITEMS.register("cracked_copper_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_COPPER_IMPETUS = ITEMS.register("cracked_copper_impetus", () -> new Item(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> GOLD_IMPETUS = ITEMS.register("gold_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)));
-    public static final RegistryObject<Item> CRACKED_GOLD_IMPETUS = ITEMS.register("cracked_gold_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> LEAD_IMPETUS = ITEMS.register("lead_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)));
-    public static final RegistryObject<Item> CRACKED_LEAD_IMPETUS = ITEMS.register("cracked_lead_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SILVER_IMPETUS = ITEMS.register("silver_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)));
-    public static final RegistryObject<Item> CRACKED_SILVER_IMPETUS = ITEMS.register("cracked_silver_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_GOLD_IMPETUS = ITEMS.register("cracked_gold_impetus", () -> new Item(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> LEAD_IMPETUS = ITEMS.register("lead_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256), ItemTagRegistry.INGOTS_LEAD));
+    public static final RegistryObject<Item> CRACKED_LEAD_IMPETUS = ITEMS.register("cracked_lead_impetus", () -> new ImpetusItem(GEAR_PROPERTIES(), ItemTagRegistry.INGOTS_LEAD));
+    public static final RegistryObject<Item> SILVER_IMPETUS = ITEMS.register("silver_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256), ItemTagRegistry.INGOTS_SILVER));
+    public static final RegistryObject<Item> CRACKED_SILVER_IMPETUS = ITEMS.register("cracked_silver_impetus", () -> new ImpetusItem(GEAR_PROPERTIES(), ItemTagRegistry.INGOTS_SILVER));
 
     //endregion
 

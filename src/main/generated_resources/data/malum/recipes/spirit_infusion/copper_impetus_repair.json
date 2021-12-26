@@ -8,12 +8,7 @@
     "item": "malum:copper_impetus",
     "count": 1
   },
-  "extra_items": [
-    {
-      "item": "minecraft:copper_ingot",
-      "count": 2
-    }
-  ],
+  "extra_items": [],
   "spirits": [
     {
       "item": "malum:infernal_spirit",

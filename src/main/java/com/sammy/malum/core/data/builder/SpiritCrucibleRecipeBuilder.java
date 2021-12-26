@@ -19,14 +19,16 @@ import java.util.function.Consumer;
 
 public class SpiritCrucibleRecipeBuilder
 {
+    private final int time;
+    private final int durabilityCost;
     private final Ingredient input;
-
     private final IngredientWithCount output;
-
     private final List<ItemWithCount> spirits = Lists.newArrayList();
 
-    public SpiritCrucibleRecipeBuilder(Ingredient input, Ingredient output, int outputCount)
+    public SpiritCrucibleRecipeBuilder(int time, int durabilityCost, Ingredient input, Ingredient output, int outputCount)
     {
+        this.time = time;
+        this.durabilityCost = durabilityCost;
         this.input = input;
         this.output = new IngredientWithCount(output, outputCount);
     }
@@ -45,23 +47,26 @@ public class SpiritCrucibleRecipeBuilder
     }
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
     {
-        consumerIn.accept(new SpiritCrucibleRecipeBuilder.Result(id, input, output, spirits));
+        consumerIn.accept(new SpiritCrucibleRecipeBuilder.Result(id, time, durabilityCost, input, output, spirits));
     }
 
     public static class Result implements FinishedRecipe
     {
         private final ResourceLocation id;
 
+        private final int time;
+        private final int durabilityCost;
+
         private final Ingredient input;
-
         private final IngredientWithCount output;
-
         private final List<ItemWithCount> spirits;
 
 
-        public Result(ResourceLocation id, Ingredient input, IngredientWithCount output, List<ItemWithCount> spirits)
+        public Result(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, List<ItemWithCount> spirits)
         {
             this.id = id;
+            this.time = time;
+            this.durabilityCost = durabilityCost;
             this.input = input;
             this.output = output;
             this.spirits = spirits;
@@ -77,6 +82,8 @@ public class SpiritCrucibleRecipeBuilder
                 spirits.add(spirit.serialize());
             }
 
+            json.addProperty("time", time);
+            json.addProperty("durabilityCost", durabilityCost);
             json.add("input", inputObject);
             json.add("output", outputObject);
             json.add("spirits", spirits);
