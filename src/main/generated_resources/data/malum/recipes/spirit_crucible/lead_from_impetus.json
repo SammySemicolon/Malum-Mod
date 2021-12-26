@@ -1,0 +1,16 @@
+{
+  "type": "malum:spirit_crucible",
+  "input": {
+    "item": "malum:lead_impetus"
+  },
+  "output": {
+    "tag": "forge:nuggets/lead",
+    "count": 6
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 2
+    }
+  ]
+}

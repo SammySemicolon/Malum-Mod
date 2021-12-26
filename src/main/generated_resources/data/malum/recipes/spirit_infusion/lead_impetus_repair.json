@@ -1,0 +1,23 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:cracked_lead_impetus",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:lead_impetus",
+    "count": 1
+  },
+  "extra_items": [
+    {
+      "tag": "forge:ingots/lead",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:infernal_spirit",
+      "count": 2
+    }
+  ]
+}

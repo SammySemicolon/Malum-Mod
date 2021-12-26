@@ -1,0 +1,16 @@
+{
+  "type": "malum:spirit_crucible",
+  "input": {
+    "item": "malum:silver_impetus"
+  },
+  "output": {
+    "tag": "forge:nuggets/silver",
+    "count": 6
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 2
+    }
+  ]
+}

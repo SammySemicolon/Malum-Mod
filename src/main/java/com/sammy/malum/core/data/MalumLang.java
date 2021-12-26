@@ -203,17 +203,6 @@ public class MalumLang extends LanguageProvider
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
         addPage("soul_hunter_armor", "The soul hunter set is an offense focused piece of equipment made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage dealt by the user.");
 
-        addDescription("spirit_alchemy", "Primitive Witchcraft");
-        addHeadline("spirit_alchemy", "Spirit Alchemy");
-        addPage("spirit_alchemy", "You may often find yourself scavenging for simple physical ingredients while having too much raw arcana to spend. If that is the case, you may come to utilize spirit alchemy. By infusing a simple material with matching spirit arcana the material will be replicated.");
-
-        addDescription("expanded_spirit_alchemy", "Wider Reach");
-        addHeadline("expanded_spirit_alchemy", "Expanded Spirit Alchemy");
-        addPage("expanded_spirit_alchemy", "Material replication with spirits works on more than just simple alchemical powder. You may also replicate simple gemstones and crystals, all be it at a larger cost of spirit arcana.");
-
-        addDescription("focused_spirit_alchemy", "Raw Avarice");
-        addHeadline("focused_spirit_alchemy", "Focused Spirit Alchemy");
-        addPage("focused_spirit_alchemy", "By pushing material replication to it's limits you may manufacture even the most complex materials.");
 
         addDescription("spirit_metallurgy", "Arcane metals");
         addHeadline("hallowed_gold", "Hallowed Gold");

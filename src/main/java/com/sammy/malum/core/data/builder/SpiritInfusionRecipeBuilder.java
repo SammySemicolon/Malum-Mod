@@ -20,23 +20,32 @@ import java.util.function.Consumer;
 
 public class SpiritInfusionRecipeBuilder
 {
-    private boolean retainPrimeItem;
     private final IngredientWithCount input;
 
-    private final ItemWithCount output;
+    private final IngredientWithCount output;
 
     private final List<ItemWithCount> spirits = Lists.newArrayList();
     private final List<IngredientWithCount> extraItems = Lists.newArrayList();
 
+    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, Ingredient output, int outputCount)
+    {
+        this.input = new IngredientWithCount(input, inputCount);
+        this.output = new IngredientWithCount(output, outputCount);
+    }
     public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, Item output, int outputCount)
     {
         this.input = new IngredientWithCount(input, inputCount);
-        this.output = new ItemWithCount(output, outputCount);
+        this.output = new IngredientWithCount(Ingredient.of(output), outputCount);
+    }
+    public SpiritInfusionRecipeBuilder(Item input, int inputCount, Ingredient output, int outputCount)
+    {
+        this.input = new IngredientWithCount(Ingredient.of(input), inputCount);
+        this.output = new IngredientWithCount(output, outputCount);
     }
     public SpiritInfusionRecipeBuilder(Item input, int inputCount, Item output, int outputCount)
     {
         this.input = new IngredientWithCount(Ingredient.of(input), inputCount);
-        this.output = new ItemWithCount(output, outputCount);
+        this.output = new IngredientWithCount(Ingredient.of(output), outputCount);
     }
     public SpiritInfusionRecipeBuilder addExtraItem(Ingredient ingredient, int count)
     {
@@ -53,41 +62,34 @@ public class SpiritInfusionRecipeBuilder
         spirits.add(new ItemWithCount(type.splinterItem(), count));
         return this;
     }
-    public SpiritInfusionRecipeBuilder retainsPrimeItem()
-    {
-        retainPrimeItem = true;
-        return this;
-    }
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName)
     {
         build(consumerIn, DataHelper.prefix("spirit_infusion/" + recipeName));
     }
     public void build(Consumer<FinishedRecipe> consumerIn)
     {
-        build(consumerIn, output.item.getRegistryName().getPath());
+        build(consumerIn, output.stack().getItem().getRegistryName().getPath());
     }
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
     {
-        consumerIn.accept(new SpiritInfusionRecipeBuilder.Result(id, retainPrimeItem, input, output, spirits, extraItems));
+        consumerIn.accept(new SpiritInfusionRecipeBuilder.Result(id, input, output, spirits, extraItems));
     }
 
     public static class Result implements FinishedRecipe
     {
         private final ResourceLocation id;
 
-        private final boolean retainPrimeItem;
         private final IngredientWithCount input;
 
-        private final ItemWithCount output;
+        private final IngredientWithCount output;
 
         private final List<ItemWithCount> spirits;
         private final List<IngredientWithCount> extraItems;
 
 
-        public Result(ResourceLocation id, boolean retainPrimeItem, IngredientWithCount input, ItemWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
+        public Result(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
         {
             this.id = id;
-            this.retainPrimeItem = retainPrimeItem;
             this.input = input;
             this.output = output;
             this.spirits = spirits;
@@ -97,7 +99,6 @@ public class SpiritInfusionRecipeBuilder
         @Override
         public void serializeRecipeData(JsonObject json) {
             JsonObject inputObject = input.serialize();
-
             JsonObject outputObject = output.serialize();
             JsonArray extraItems = new JsonArray();
             for (IngredientWithCount extraItem : this.extraItems) {
@@ -107,8 +108,6 @@ public class SpiritInfusionRecipeBuilder
             for (ItemWithCount spirit : this.spirits) {
                 spirits.add(spirit.serialize());
             }
-            json.addProperty("retain_prime_item", retainPrimeItem);
-
             json.add("input", inputObject);
             json.add("output", outputObject);
             json.add("extra_items", extraItems);

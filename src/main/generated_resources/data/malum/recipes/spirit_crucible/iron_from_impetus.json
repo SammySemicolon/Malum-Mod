@@ -1,0 +1,16 @@
+{
+  "type": "malum:spirit_crucible",
+  "input": {
+    "item": "malum:iron_impetus"
+  },
+  "output": {
+    "item": "minecraft:iron_nugget",
+    "count": 6
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 2
+    }
+  ]
+}

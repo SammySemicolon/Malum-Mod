@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_infusion",
-  "retain_prime_item": false,
   "input": {
     "item": "minecraft:iron_helmet",
     "count": 1
   },
   "output": {
-    "item": "malum:soul_stained_steel_helmet"
+    "item": "malum:soul_stained_steel_helmet",
+    "count": 1
   },
   "extra_items": [
     {

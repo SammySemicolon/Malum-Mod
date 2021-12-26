@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -59,7 +58,7 @@ public class MalumBoatItem extends Item
 
             if (raytraceresult.getType() == HitResult.Type.BLOCK)
             {
-                Boat boatEntity = boat.get().create(level);
+                MalumBoatEntity boatEntity = boat.get().create(level);
                 boatEntity.setPos(raytraceresult.getLocation().x, raytraceresult.getLocation().y, raytraceresult.getLocation().z);
                 boatEntity.setYRot(playerIn.getYRot());
                 if (!level.noCollision(boatEntity, boatEntity.getBoundingBox().inflate(-0.1D)))

@@ -1,15 +1,12 @@
 {
-  "type": "malum:spirit_infusion",
-  "retain_prime_item": true,
+  "type": "malum:spirit_crucible",
   "input": {
-    "item": "minecraft:glowstone_dust",
-    "count": 1
+    "item": "malum:alchemical_impetus"
   },
   "output": {
     "item": "minecraft:glowstone_dust",
     "count": 8
   },
-  "extra_items": [],
   "spirits": [
     {
       "item": "malum:infernal_spirit"

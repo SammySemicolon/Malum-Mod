@@ -1,0 +1,18 @@
+{
+  "type": "malum:spirit_crucible",
+  "input": {
+    "item": "malum:alchemical_impetus"
+  },
+  "output": {
+    "item": "minecraft:gunpowder",
+    "count": 6
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit"
+    },
+    {
+      "item": "malum:infernal_spirit"
+    }
+  ]
+}

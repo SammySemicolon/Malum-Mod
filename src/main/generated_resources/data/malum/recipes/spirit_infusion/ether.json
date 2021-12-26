@@ -1,6 +1,5 @@
 {
   "type": "malum:spirit_infusion",
-  "retain_prime_item": false,
   "input": {
     "item": "minecraft:glowstone_dust",
     "count": 4

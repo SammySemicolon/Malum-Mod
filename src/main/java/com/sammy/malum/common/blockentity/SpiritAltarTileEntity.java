@@ -62,7 +62,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                recipe = SpiritInfusionRecipe.getRecipeForAltar(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
+                recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
@@ -77,7 +77,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                recipe = SpiritInfusionRecipe.getRecipeForAltar(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
+                recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
                 spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount+1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
@@ -155,7 +155,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         spiritInventory.load(compound, "spiritInventory");
         extrasInventory.load(compound, "extrasInventory");
         if (level != null) {
-            recipe = SpiritInfusionRecipe.getRecipeForAltar(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
+            recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
         }
     }
 
@@ -244,9 +244,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         if (inventory.getStackInSlot(0).hasTag()) {
             outputStack.setTag(stack.getTag());
         }
-        if (!recipe.retainsPrimeItem) {
-            stack.shrink(recipe.input.count);
-        }
+        stack.shrink(recipe.input.count);
         for (ItemWithCount spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
@@ -260,7 +258,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
         progress = 0;
         extrasInventory.clear();
-        recipe = SpiritInfusionRecipe.getRecipeForAltar(level, stack, spiritInventory.getNonEmptyItemStacks());
+        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT, SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
 

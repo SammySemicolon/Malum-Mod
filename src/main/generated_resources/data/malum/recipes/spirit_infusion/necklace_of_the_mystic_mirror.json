@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_infusion",
-  "retain_prime_item": false,
   "input": {
     "item": "malum:ornate_necklace",
     "count": 1
   },
   "output": {
-    "item": "malum:necklace_of_the_mystic_mirror"
+    "item": "malum:necklace_of_the_mystic_mirror",
+    "count": 1
   },
   "extra_items": [
     {

@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_infusion",
-  "retain_prime_item": false,
   "input": {
     "item": "minecraft:gold_ingot",
     "count": 1
   },
   "output": {
-    "item": "malum:hallowed_gold_ingot"
+    "item": "malum:hallowed_gold_ingot",
+    "count": 1
   },
   "extra_items": [
     {

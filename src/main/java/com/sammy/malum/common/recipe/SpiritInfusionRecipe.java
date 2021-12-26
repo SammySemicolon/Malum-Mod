@@ -21,6 +21,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SpiritInfusionRecipe extends IMalumRecipe
 {
@@ -35,18 +36,16 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     }
     private final ResourceLocation id;
 
-    public final boolean retainsPrimeItem;
     public final IngredientWithCount input;
 
-    public final ItemWithCount output;
+    public final IngredientWithCount output;
 
     public final List<ItemWithCount> spirits;
     public final List<IngredientWithCount> extraItems;
 
-    public SpiritInfusionRecipe(ResourceLocation id, boolean retainsPrimeItem, IngredientWithCount input, ItemWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
+    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
     {
         this.id = id;
-        this.retainsPrimeItem = retainsPrimeItem;
         this.input = input;
         this.output = output;
         this.spirits = spirits;
@@ -129,28 +128,17 @@ public class SpiritInfusionRecipe extends IMalumRecipe
 
     public boolean doesOutputMatch(ItemStack output)
     {
-        return this.output.item.equals(output.getItem());
+        return this.output.matches(output);
     }
 
-    public static SpiritInfusionRecipe getRecipeForAltar(Level level, ItemStack stack, ArrayList<ItemStack> spirits)
-    {
-        List<SpiritInfusionRecipe> recipes = getRecipes(level);
-        for (SpiritInfusionRecipe recipe : recipes)
-        {
-            if (recipe.doesInputMatch(stack) && recipe.doSpiritsMatch(spirits))
-            {
-                return recipe;
-            }
-        }
-        return null;
+    public static SpiritInfusionRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
+        return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
     }
-    public static SpiritInfusionRecipe getRecipeForArcana(Level level, ItemStack stack)
-    {
+
+    public static SpiritInfusionRecipe getRecipe(Level level, Predicate<SpiritInfusionRecipe> predicate) {
         List<SpiritInfusionRecipe> recipes = getRecipes(level);
-        for (SpiritInfusionRecipe recipe : recipes)
-        {
-            if (recipe.doesOutputMatch(stack))
-            {
+        for (SpiritInfusionRecipe recipe : recipes) {
+            if (predicate.test(recipe)) {
                 return recipe;
             }
         }
@@ -165,12 +153,11 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         @Override
         public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json)
         {
-            boolean retainsPrimeItem = json.getAsJsonPrimitive("retain_prime_item").getAsBoolean();
             JsonObject inputObject = json.getAsJsonObject("input");
             IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
 
             JsonObject outputObject = json.getAsJsonObject("output");
-            ItemWithCount output = ItemWithCount.deserialize(outputObject);
+            IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
 
             JsonArray extraItemsArray = json.getAsJsonArray("extra_items");
             ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
@@ -191,7 +178,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 throw new JsonSyntaxException("Spirit infusion recipes need at least 1 spirit ingredient, recipe with id: " + recipeId + " is incorrect");
             }
-            return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, output,spirits,extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, output,spirits,extraItems);
         }
 
         @Nullable
@@ -199,7 +186,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer)
         {
             IngredientWithCount input = IngredientWithCount.read(buffer);
-            ItemStack output = buffer.readItem();
+            IngredientWithCount output = IngredientWithCount.read(buffer);
             int extraItemCount = buffer.readInt();
             ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemCount;i++)
@@ -212,15 +199,14 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 spirits.add(new ItemWithCount(buffer.readItem()));
             }
-            boolean retainsPrimeItem = buffer.readBoolean();
-            return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, new ItemWithCount(output), spirits, extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, output, spirits, extraItems);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, SpiritInfusionRecipe recipe)
         {
             recipe.input.write(buffer);
-            buffer.writeItem(recipe.output.stack());
+            recipe.output.write(buffer);
             buffer.writeInt(recipe.extraItems.size());
             for (IngredientWithCount item : recipe.extraItems)
             {
@@ -231,7 +217,6 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 buffer.writeItem(item.stack());
             }
-            buffer.writeBoolean(recipe.retainsPrimeItem);
         }
     }
 }
