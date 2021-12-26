@@ -1,9 +1,13 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.multiblock.ComponentBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -14,6 +18,11 @@ public class SpiritCrucibleComponentBlock extends ComponentBlock {
     public static final VoxelShape RENDER_SHAPE = makeRenderShape();
     public SpiritCrucibleComponentBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+        return ItemRegistry.SPIRIT_CRUCIBLE.get().getDefaultInstance();
     }
 
     @Override

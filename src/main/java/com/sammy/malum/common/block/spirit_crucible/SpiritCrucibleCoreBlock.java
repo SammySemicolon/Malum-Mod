@@ -2,12 +2,9 @@ package com.sammy.malum.common.block.spirit_crucible;
 
 import com.sammy.malum.common.blockentity.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
-import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -19,11 +16,6 @@ public class SpiritCrucibleCoreBlock extends WaterLoggedBlock<SpiritCrucibleCore
     public SpiritCrucibleCoreBlock(Properties properties) {
         super(properties);
         setTile(BlockEntityRegistry.SPIRIT_CRUCIBLE);
-    }
-
-    @Override
-    public ItemStack pickupBlock(LevelAccessor p_154560_, BlockPos p_154561_, BlockState p_154562_) {
-        return ItemRegistry.SPIRIT_CRUCIBLE.get().getDefaultInstance();
     }
 
     @Override
