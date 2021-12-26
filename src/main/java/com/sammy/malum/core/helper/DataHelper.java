@@ -10,8 +10,8 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.sammy.malum.MalumMod.MODID;
 
@@ -35,12 +35,14 @@ public class DataHelper {
         return new ResourceLocation(MODID, path);
     }
 
-    public static <T> ArrayList<T> toArrayList(T... items) {
-        return new ArrayList<>(Arrays.asList(items));
-    }
-
-    public static <T> ArrayList<T> toArrayList(Stream<T> items) {
-        return items.collect(Collectors.toCollection(ArrayList::new));
+    public static <T, K extends Collection<T>> K reverseOrder(Supplier<K> reversed, Collection<T> items) {
+        ArrayList<T> original = new ArrayList<>(items);
+        K newCollection = reversed.get();
+        for (int i = items.size()-1; i >= 0 ; i--)
+        {
+            newCollection.add(original.get(i));
+        }
+        return newCollection;
     }
 
     public static String toTitleCase(String givenString, String regex) {

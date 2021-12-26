@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.misc;
+package com.sammy.malum.common.item;
 
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;

@@ -4,10 +4,12 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
+import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.core.systems.item.ModCombatItem;
 import com.sammy.malum.common.item.tools.ScytheItem;
+import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.systems.item.ModCombatItem;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +19,8 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,6 +42,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
 
         takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
+        takeAll(items, i -> i.get() instanceof ImpetusItem).forEach(this::impetusItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);
@@ -63,16 +68,19 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     
     private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
     private static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
-    
-    private void handheldItem(RegistryObject<Item> i)
+
+    private void impetusItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, HANDHELD).texture("layer0", prefix("item/" + name));
+        ArrayList<String> split = DataHelper.reverseOrder(ArrayList::new, Arrays.asList(name.split("_")));
+        String alteredName = String.join("_", split);
+
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/" + alteredName));
     }
     private void spiritSplinterItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("spirit/spirit_splinter_base"));
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/spirit_splinter_base"));
     }
     private void etherBrazierItem(RegistryObject<Item> i)
     {
@@ -107,6 +115,11 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
             return;
         }
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/ether"));
+    }
+    private void handheldItem(RegistryObject<Item> i)
+    {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        withExistingParent(name, HANDHELD).texture("layer0", prefix("item/" + name));
     }
     private void generatedItem(RegistryObject<Item> i)
     {
