@@ -11,11 +11,11 @@
   "extra_items": [
     {
       "item": "malum:soulwood_planks",
-      "count": 1
+      "count": 6
     },
     {
-      "item": "malum:stained_spirit_resonator",
-      "count": 1
+      "item": "malum:hex_ash",
+      "count": 2
     }
   ],
   "spirits": [

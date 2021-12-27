@@ -22,7 +22,7 @@ public class CurioRingOfProwess extends MalumCurioItem implements IEventResponde
     @Override
     public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
         Level level = attacker.level;
-        int i = 3 + level.random.nextInt(2) + level.random.nextInt(3);
+        int i = 1 + level.random.nextInt(1) + level.random.nextInt(2);
 
         while (i > 0) {
             int j = ExperienceOrb.getExperienceValue(i);

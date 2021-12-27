@@ -73,7 +73,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
         if (progress != 0) {
             compound.putFloat("progress", progress);
         }
-        compound.putBoolean("updateRecipe", updateRecipe);
         inventory.save(compound);
         spiritInventory.save(compound, "spiritInventory");
     }
@@ -82,7 +81,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
     public void load(CompoundTag compound) {
         spiritAmount = compound.getFloat("spiritAmount");
         progress = compound.getFloat("progress");
-        updateRecipe = compound.getBoolean("updateRecipe");
+        updateRecipe = true;
         inventory.load(compound);
         spiritInventory.load(compound, "spiritInventory");
         super.load(compound);
@@ -169,7 +168,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         progress = 0;
         recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
-
+        inventory.updateData();
+        spiritInventory.updateData();
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
     public static Vec3 itemPos(SpiritCrucibleCoreBlockEntity blockEntity) {

@@ -10,6 +10,7 @@ import com.sammy.malum.common.blockentity.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.item.BrillianceChunkItem;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.ImpetusItem;
+import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SpiritHunterArmorItem;
@@ -367,18 +368,21 @@ public class ItemRegistry {
 
     //endregion
     public static final RegistryObject<Item> CRACKED_ALCHEMICAL_IMPETUS = ITEMS.register("cracked_alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> ALCHEMICAL_IMPETUS = ITEMS.register("alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)).setCrackedVariant(CRACKED_ALCHEMICAL_IMPETUS));
+    public static final RegistryObject<Item> ALCHEMICAL_IMPETUS = ITEMS.register("alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALCHEMICAL_IMPETUS));
+
+    public static final RegistryObject<Item> CRACKED_VITRIC_IMPETUS = ITEMS.register("cracked_vitric_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> VITRIC_IMPETUS = ITEMS.register("vitric_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_VITRIC_IMPETUS));
 
     public static final RegistryObject<Item> CRACKED_IRON_IMPETUS = ITEMS.register("cracked_iron_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> IRON_IMPETUS = ITEMS.register("iron_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)).setCrackedVariant(CRACKED_IRON_IMPETUS));
+    public static final RegistryObject<Item> IRON_IMPETUS = ITEMS.register("iron_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_IRON_IMPETUS));
     public static final RegistryObject<Item> CRACKED_COPPER_IMPETUS = ITEMS.register("cracked_copper_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> COPPER_IMPETUS = ITEMS.register("copper_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)).setCrackedVariant(CRACKED_COPPER_IMPETUS));
+    public static final RegistryObject<Item> COPPER_IMPETUS = ITEMS.register("copper_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_COPPER_IMPETUS));
     public static final RegistryObject<Item> CRACKED_GOLD_IMPETUS = ITEMS.register("cracked_gold_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> GOLD_IMPETUS = ITEMS.register("gold_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256)).setCrackedVariant(CRACKED_GOLD_IMPETUS));
+    public static final RegistryObject<Item> GOLD_IMPETUS = ITEMS.register("gold_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_GOLD_IMPETUS));
     public static final RegistryObject<Item> CRACKED_LEAD_IMPETUS = ITEMS.register("cracked_lead_impetus", () -> new ImpetusItem(GEAR_PROPERTIES(), ItemTagRegistry.INGOTS_LEAD));
-    public static final RegistryObject<Item> LEAD_IMPETUS = ITEMS.register("lead_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256), ItemTagRegistry.INGOTS_LEAD).setCrackedVariant(CRACKED_LEAD_IMPETUS));
+    public static final RegistryObject<Item> LEAD_IMPETUS = ITEMS.register("lead_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100), ItemTagRegistry.INGOTS_LEAD).setCrackedVariant(CRACKED_LEAD_IMPETUS));
     public static final RegistryObject<Item> CRACKED_SILVER_IMPETUS = ITEMS.register("cracked_silver_impetus", () -> new ImpetusItem(GEAR_PROPERTIES(), ItemTagRegistry.INGOTS_SILVER));
-    public static final RegistryObject<Item> SILVER_IMPETUS = ITEMS.register("silver_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(256), ItemTagRegistry.INGOTS_SILVER).setCrackedVariant(CRACKED_SILVER_IMPETUS));
+    public static final RegistryObject<Item> SILVER_IMPETUS = ITEMS.register("silver_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100), ItemTagRegistry.INGOTS_SILVER).setCrackedVariant(CRACKED_SILVER_IMPETUS));
 
     //endregion
 
@@ -397,7 +401,7 @@ public class ItemRegistry {
 
     //region contents
     public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(Tiers.IRON, 0, 0.1f, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(Tiers.IRON, 0, 0.1f, 0, GEAR_PROPERTIES().durability(350)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new ScytheItem(SOUL_STAINED_STEEL_ITEM, 0.5f, 0.1f, 2, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SWORD = ITEMS.register("soul_stained_steel_sword", () -> new ModSwordItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
@@ -431,6 +435,12 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> NECKLACE_OF_THE_MYSTIC_MIRROR = ITEMS.register("necklace_of_the_mystic_mirror", () -> new CurioMirrorNecklace(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> NECKLACE_OF_THE_NARROW_EDGE = ITEMS.register("necklace_of_the_narrow_edge", () -> new CurioNarrowNecklace(GEAR_PROPERTIES()));
+
+    public static final RegistryObject<Item> WARDED_BELT = ITEMS.register("warded_belt", () -> new CurioWardedBelt(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> MAGEBANE_BELT = ITEMS.register("magebane_belt", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
+
+    public static final RegistryObject<Item> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().durability(3)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS));
 
     //endregion
 

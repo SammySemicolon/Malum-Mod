@@ -48,11 +48,8 @@ public class SpiritHelper {
             int random = attacker.level.random.nextInt(spirits.size());
             spirits.get(random).grow(1);
         }
-        if (spiritPlunder > 0)
-        {
-            if (attacker.level.random.nextInt(2) == 0) {
-                harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
-            }
+        if (spiritPlunder > 0) {
+            harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
         }
         createSpiritEntities(spirits, target, attacker);
     }
@@ -68,7 +65,7 @@ public class SpiritHelper {
         if (attacker == null) {
             attacker = target.level.getNearestPlayer(target.getX(), target.getY(), target.getZ(), 8, e -> true);
         }
-        float speed = 0.2f + 0.5f / (getEntitySpiritCount(target) + 1);
+        float speed = 0.125f + 0.4f / (getEntitySpiritCount(target) + 1);
         for (ItemStack stack : spirits) {
             int count = stack.getCount();
             if (count == 0) {

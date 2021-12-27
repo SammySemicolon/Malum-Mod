@@ -1,0 +1,18 @@
+{
+  "type": "malum:spirit_focusing",
+  "time": 400,
+  "durabilityCost": 10,
+  "input": {
+    "item": "malum:alchemical_impetus"
+  },
+  "output": {
+    "item": "minecraft:ender_pearl",
+    "count": 1
+  },
+  "spirits": [
+    {
+      "item": "malum:eldritch_spirit",
+      "count": 3
+    }
+  ]
+}

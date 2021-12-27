@@ -1,0 +1,22 @@
+{
+  "type": "malum:spirit_focusing",
+  "time": 400,
+  "durabilityCost": 10,
+  "input": {
+    "item": "malum:alchemical_impetus"
+  },
+  "output": {
+    "item": "minecraft:rabbit_foot",
+    "count": 1
+  },
+  "spirits": [
+    {
+      "item": "malum:arcane_spirit",
+      "count": 8
+    },
+    {
+      "item": "malum:sacred_spirit",
+      "count": 4
+    }
+  ]
+}

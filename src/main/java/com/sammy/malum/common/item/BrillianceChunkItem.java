@@ -22,4 +22,9 @@ public class BrillianceChunkItem extends Item {
         }
         return super.finishUsingItem(stack, level, entityLiving);
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_41453_) {
+        return true;
+    }
 }

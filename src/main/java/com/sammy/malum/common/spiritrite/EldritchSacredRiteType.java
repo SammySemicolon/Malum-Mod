@@ -22,6 +22,11 @@ public class EldritchSacredRiteType extends MalumRiteType {
     }
 
     @Override
+    public int range(boolean corrupted) {
+        return defaultRange()/2;
+    }
+
+    @Override
     public void riteEffect(Level level, BlockPos pos) {
         if (!level.isClientSide) {
             getNearbyBlocks(BonemealableBlock.class, level, pos, false).forEach(p -> {
@@ -56,10 +61,5 @@ public class EldritchSacredRiteType extends MalumRiteType {
                 }
             });
         }
-    }
-
-    @Override
-    public int range(boolean corrupted) {
-        return defaultRange()/2;
     }
 }

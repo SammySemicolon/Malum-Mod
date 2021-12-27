@@ -17,21 +17,21 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     }
 
     @Override
+    public int interval(boolean corrupted) {
+        return corrupted ? defaultInterval() : defaultInterval() * 5;
+    }
+
+    @Override
+    public int range(boolean corrupted) {
+        return defaultRange() / 4;
+    }
+
+    @Override
     public void riteEffect(Level level, BlockPos pos) {
     }
 
     @Override
     public void corruptedRiteEffect(Level level, BlockPos pos) {
-    }
-
-    @Override
-    public int interval(boolean corrupted) {
-        return defaultInterval() * 5;
-    }
-
-    @Override
-    public int range(boolean corrupted) {
-        return defaultRange() / 2;
     }
 
     public void particles(Level level, BlockPos pos) {

@@ -1,5 +1,7 @@
 {
   "replace": "false",
   "values": [
-    "malum:gilded_belt"]
+    "malum:gilded_belt",
+    "malum:warded_belt",
+    "malum:magebane_belt"]
 }

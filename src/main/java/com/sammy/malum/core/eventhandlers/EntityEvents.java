@@ -11,6 +11,7 @@ import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
 import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +21,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -46,83 +48,95 @@ public class EntityEvents {
             SpiritHelper.createSpiritEntities(event.getEntityLiving());
             return;
         }
-        if (event.getSource().getEntity() instanceof LivingEntity) {
-            LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
+        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             LivingEntity target = event.getEntityLiving();
             ItemStack stack = attacker.getMainHandItem();
-            if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity) {
-                stack = ((ScytheBoomerangEntity) event.getSource().getDirectEntity()).scythe;
+            DamageSource source = event.getSource();
+            if (source.getDirectEntity() instanceof ScytheBoomerangEntity scytheBoomerang) {
+                stack = scytheBoomerang.scythe;
             }
             Item item = stack.getItem();
 
-            if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(item))
-            {
+            if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(item)) {
                 SpiritHelper.playerSummonSpirits(target, attacker, stack);
             }
 
-            if (item instanceof IEventResponderItem) {
-                IEventResponderItem eventItem = (IEventResponderItem) item;
-                eventItem.deathEvent(event, attacker, target, stack);
+            if (item instanceof IEventResponderItem eventItem) {
+                eventItem.killEvent(event, attacker, target, stack);
             }
             attacker.getArmorSlots().forEach(s ->{
-                if (s.getItem() instanceof IEventResponderItem)
+                if (s.getItem() instanceof IEventResponderItem eventItem)
                 {
-                    IEventResponderItem eventItem = (IEventResponderItem) s.getItem();
-                    eventItem.deathEvent(event, attacker, target, s);
+                    eventItem.killEvent(event, attacker, target, s);
                 }
             });
             ArrayList<ItemStack> curios = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
-            curios.forEach(c -> ((IEventResponderItem)c.getItem()).deathEvent(event, attacker, target, c));
+            curios.forEach(c -> ((IEventResponderItem)c.getItem()).killEvent(event, attacker, target, c));
         }
     }
-    @SubscribeEvent
-    public static void triggerOnHurtEvents(LivingHurtEvent event) {
-        if (event.getSource().getEntity() instanceof LivingEntity) {
-            LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void processOnHurtAttributes(LivingHurtEvent event) {
+        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             LivingEntity target = event.getEntityLiving();
             ItemStack stack = attacker.getMainHandItem();
             if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity)
             {
                 stack = ((ScytheBoomerangEntity) event.getSource().getDirectEntity()).scythe;
             }
-            Item item = stack.getItem();
-            if (item instanceof IEventResponderItem) {
-                IEventResponderItem eventItem = (IEventResponderItem) item;
-                eventItem.hurtEvent(event, attacker, target, stack);
-            }
-            attacker.getArmorSlots().forEach(s ->{
-                if (s.getItem() instanceof IEventResponderItem)
-                {
-                    IEventResponderItem eventItem = (IEventResponderItem) s.getItem();
-                    eventItem.hurtEvent(event, attacker, target, s);
-                }
-            });
-            ArrayList<ItemStack> curios = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
-            curios.forEach(c -> ((IEventResponderItem)c.getItem()).hurtEvent(event, attacker, target, c));
 
             if (event.getSource().isMagic()) {
                 float resistance = (float) target.getAttributeValue(AttributeRegistry.MAGIC_RESISTANCE);
                 float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.MAGIC_PROFICIENCY);
-                float amount = event.getAmount() + proficiency;
-                float multiplier = 1 - (resistance * 0.125f);
+
+                float amount = event.getAmount();
+                float multiplier = (float) (1 * Math.exp(-0.15f*resistance) * Math.exp(0.075f*proficiency));
                 event.setAmount(amount*multiplier);
             }
             if (stack.getItem() instanceof ScytheItem)
             {
                 float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY);
-                float amount = event.getAmount() + proficiency;
+                float amount = event.getAmount() + proficiency*0.5f;
                 event.setAmount(amount);
             }
         }
     }
+    @SubscribeEvent
+    public static void triggerEventResponses(LivingHurtEvent event) {
+        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+            LivingEntity attacked = event.getEntityLiving();
+            ItemStack stack = attacker.getMainHandItem();
+            Item item = stack.getItem();
+            if (item instanceof IEventResponderItem eventItem) {
+                eventItem.hurtEvent(event, attacker, attacked, stack);
+            }
+            attacker.getArmorSlots().forEach(s -> {
+                if (s.getItem() instanceof IEventResponderItem eventItem) {
+                    eventItem.hurtEvent(event, attacker, attacked, s);
+                }
+            });
+            ArrayList<ItemStack> curios = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
+            curios.forEach(c -> ((IEventResponderItem) c.getItem()).hurtEvent(event, attacker, attacked, c));
 
+            stack = attacked.getMainHandItem();
+            item = stack.getItem();
+            if (item instanceof IEventResponderItem eventItem) {
+                eventItem.takeDamageEvent(event, attacker, attacked, stack);
+            }
+            attacked.getArmorSlots().forEach(s -> {
+                if (s.getItem() instanceof IEventResponderItem eventItem) {
+                    eventItem.takeDamageEvent(event, attacker, attacked, s);
+                }
+            });
+            curios = ItemHelper.equippedCurios(attacked, p -> p.getItem() instanceof IEventResponderItem);
+            curios.forEach(c -> ((IEventResponderItem) c.getItem()).takeDamageEvent(event, attacker, attacked, c));
+        }
+    }
     @SubscribeEvent
     public static void showGratitude(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof Player) {
-            Player playerEntity = (Player) event.getEntity();
+        if (event.getEntity() instanceof Player playerEntity) {
             if (!playerEntity.level.isClientSide) {
                 if (playerEntity.getUUID().equals(UUID.fromString(CurioTokenOfGratitude.SAMMY))) {
-                    if (!ItemHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isPresent()) {
+                    if (ItemHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isEmpty()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, ItemRegistry.TOKEN_OF_GRATITUDE.get().getDefaultInstance());
                     }
                 }

@@ -67,7 +67,7 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem {
                 entity.setData((float) damage, playerIn.getUUID(), slot, itemstack);
                 entity.getEntityData().set(ScytheBoomerangEntity.SCYTHE, itemstack);
 
-                entity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 1.5F, 0F);
+                entity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, (float) (1.5F + playerIn.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY)*0.125f), 0F);
                 level.addFreshEntity(entity);
             }
             playerIn.awardStat(Stats.ITEM_USED.get(this));
@@ -102,9 +102,11 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem {
         float damage = event.getAmount() * (0.5f+EnchantmentHelper.getSweepingDamageRatio(attacker));
         target.level.getEntities(attacker, target.getBoundingBox().inflate(1)).forEach(e ->
         {
-            if (e instanceof LivingEntity) {
-                e.hurt(DamageSource.mobAttack(attacker), damage);
-                ((LivingEntity) e).knockback(0.4F, Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)), (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
+            if (e instanceof LivingEntity livingEntity) {
+                if (livingEntity.isAlive()) {
+                    livingEntity.hurt(DamageSource.mobAttack(attacker), damage);
+                    livingEntity.knockback(0.4F, Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)), (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
+                }
             }
         });
     }

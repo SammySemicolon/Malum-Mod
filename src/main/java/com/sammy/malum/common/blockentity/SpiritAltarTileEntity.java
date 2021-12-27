@@ -100,7 +100,6 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         if (spiritAmount != 0) {
             compound.putFloat("spiritAmount", spiritAmount);
         }
-        compound.putBoolean("updateRecipe", updateRecipe);
         inventory.save(compound);
         spiritInventory.save(compound, "spiritInventory");
         extrasInventory.save(compound, "extrasInventory");
@@ -112,7 +111,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         spinUp = compound.getInt("spinUp");
         spedUp = compound.getBoolean("spedUp");
         spiritAmount = compound.getFloat("spiritAmount");
-        updateRecipe = compound.getBoolean("updateRecipe");
+        updateRecipe = true;
         inventory.load(compound);
         spiritInventory.load(compound, "spiritInventory");
         extrasInventory.load(compound, "extrasInventory");
@@ -219,8 +218,13 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
 
     public boolean consume() {
         Vec3 itemPos = itemPos(this);
+        if (recipe.extraItems.isEmpty())
+        {
+            return true;
+        }
+        extrasInventory.updateData();
         int extras = extrasInventory.nonEmptyItemAmount;
-        if (extras != recipe.extraItems.size()) {
+        if (extras < recipe.extraItems.size()) {
             progress *= 0.5f;
             int horizontal = 4;
             int vertical = 2;
@@ -265,10 +269,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
         progress = 0;
         extrasInventory.clear();
-        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
+        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyStacks);
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT, SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
-
+        inventory.updateData();
+        spiritInventory.updateData();
+        extrasInventory.updateData();
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 

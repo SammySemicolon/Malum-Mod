@@ -21,6 +21,11 @@ public class EldritchWickedRiteType extends MalumRiteType {
     }
 
     @Override
+    public int range(boolean corrupted) {
+        return defaultRange()/2;
+    }
+
+    @Override
     public void riteEffect(Level level, BlockPos pos) {
         if (!level.isClientSide) {
             getNearbyEntities(LivingEntity.class, level, pos, false).forEach(e -> {

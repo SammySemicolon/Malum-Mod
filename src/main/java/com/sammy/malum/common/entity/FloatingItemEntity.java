@@ -17,7 +17,7 @@ import java.awt.*;
 
 public abstract class FloatingItemEntity extends ThrowableItemProjectile
 {
-    public int maxAge = 2400;
+    public int maxAge = 800;
     public int age;
     public int moveTime;
     public int range = 3;
@@ -51,30 +51,23 @@ public abstract class FloatingItemEntity extends ThrowableItemProjectile
     }
 
     @Override
-    public void tick()
-    {
+    public void tick() {
         super.tick();
         age++;
-        if (windUp < 1f)
-        {
+        if (windUp < 1f) {
             windUp += 0.02f;
         }
-        if (!level.isClientSide)
-        {
-            move();
-            if (age > maxAge)
-            {
-                remove(RemovalReason.DISCARDED);
-            }
+        move();
+        if (age > maxAge) {
+            remove(RemovalReason.DISCARDED);
         }
-        else
-        {
+
+        if (level.isClientSide) {
             double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
             ItemStack stack = getItem();
-            if (stack.getItem() instanceof ISpiritEntityGlow glow)
-            {
+            if (stack.getItem() instanceof ISpiritEntityGlow glow) {
                 Color color = glow.getColor();
-                SpiritHelper.spawnSpiritParticles(level, x,y,z, color);
+                SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
             }
         }
     }
@@ -83,11 +76,11 @@ public abstract class FloatingItemEntity extends ThrowableItemProjectile
     }
     public float getYOffset(float partialTicks)
     {
-        return Mth.sin(((float) age + partialTicks) / 10.0F + hoverStart) * 0.1F + 0.1F;
+        return Mth.sin(((float) age + partialTicks) / 20.0F + hoverStart) * 0.1F + 0.1F;
     }
 
     public float getRotation(float partialTicks) {
-        return ((float)age + partialTicks) / 10.0F + this.hoverStart;
+        return ((float)age + partialTicks) / 20.0F + this.hoverStart;
     }
 
     @Override

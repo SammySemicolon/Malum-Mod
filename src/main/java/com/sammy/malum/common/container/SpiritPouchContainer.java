@@ -34,6 +34,7 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
                     public boolean mayPlace(ItemStack stack) {
                         return stack.getItem() instanceof MalumSpiritItem;
                     }
+
                 });
             }
         }

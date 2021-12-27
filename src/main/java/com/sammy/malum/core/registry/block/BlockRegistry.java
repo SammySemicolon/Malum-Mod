@@ -368,8 +368,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(BLAZE_QUARTZ_ORE_PROPERTIES(), UniformInt.of(1, 2)));
     public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
 
-    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(STONE_PROPERTIES(), UniformInt.of(2, 5)));
-    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_PROPERTIES(), UniformInt.of(3, 7)));
+    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(STONE_PROPERTIES(), UniformInt.of(5, 8)));
+    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_PROPERTIES(), UniformInt.of(6, 11)));
     public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(STONE_PROPERTIES()));
 
     public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES()));

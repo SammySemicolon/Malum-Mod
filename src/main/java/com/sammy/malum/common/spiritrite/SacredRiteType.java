@@ -25,7 +25,7 @@ public class SacredRiteType extends MalumRiteType {
                 if (e.getEffect(EffectRegistry.SACRED_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new MobEffectInstance(EffectRegistry.SACRED_AURA.get(), 100, 1));
+                e.addEffect(new MobEffectInstance(EffectRegistry.SACRED_AURA.get(), 200, 1));
             });
         }
     }

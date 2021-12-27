@@ -24,6 +24,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.Event;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -66,6 +68,7 @@ public class ProgressionBookScreen extends Screen
         super(new TranslatableComponent("malum.gui.book.title"));
         minecraft = Minecraft.getInstance();
         setupEntries();
+        MinecraftForge.EVENT_BUS.post(new SetupMalumCodexEntriesEvent());
         setupObjects();
     }
     public static void setupEntries()
@@ -215,13 +218,14 @@ public class ProgressionBookScreen extends Screen
                 "spirit_alchemy", ALCHEMICAL_IMPETUS.get(),7,6)
                 .addPage(new HeadlineTextPage("spirit_alchemy", "spirit_alchemy_a"))
                 .addPage(new TextPage("spirit_alchemy_b"))
-                .addPage(new TextPage("spirit_alchemy_c"))
+                .addPage(SpiritCruciblePage.fromOutput(SPIRIT_CRUCIBLE.get()))
                 .addPage(SpiritInfusionPage.fromImpetus(ALCHEMICAL_IMPETUS.get(), CRACKED_ALCHEMICAL_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(
-                "primitive_spirit_focusing", GUNPOWDER,8,7)
-                .addPage(new HeadlineTextPage("primitive_spirit_focusing", "primitive_spirit_focusing"))
+                "ashen_spirit_focusing", GUNPOWDER,8,7)
+                .addPage(new HeadlineTextPage("ashen_spirit_focusing", "ashen_spirit_focusing"))
                 .addPage(SpiritCruciblePage.fromOutput(GUNPOWDER))
                 .addPage(SpiritCruciblePage.fromOutput(GLOWSTONE_DUST))
                 .addPage(SpiritCruciblePage.fromOutput(REDSTONE))
@@ -241,6 +245,35 @@ public class ProgressionBookScreen extends Screen
                 .addPage(SpiritCruciblePage.fromInput(LEAD_IMPETUS.get()))
                 .addPage(SpiritInfusionPage.fromImpetus(SILVER_IMPETUS.get(), CRACKED_SILVER_IMPETUS.get()))
                 .addPage(SpiritCruciblePage.fromInput(SILVER_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_IRON_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_GOLD_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_COPPER_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_LEAD_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_SILVER_IMPETUS.get()))
+        );
+
+        entries.add(new BookEntry(
+                "crystalline_spirit_focusing", QUARTZ,6,5)
+                .addPage(new HeadlineTextPage("crystalline_spirit_focusing", "crystalline_spirit_focusing"))
+                .addPage(SpiritCruciblePage.fromOutput(QUARTZ))
+                .addPage(SpiritCruciblePage.fromOutput(BLAZING_QUARTZ.get()))
+                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_SHARD))
+                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_CRYSTALS))
+        );
+
+        entries.add(new BookEntry(
+                "complexities_with_spirits", ENDER_PEARL,7,4)
+                .addPage(new HeadlineTextPage("complexities_with_spirits", "complexities_with_spirits"))
+                .addPage(SpiritCruciblePage.fromOutput(ENDER_PEARL))
+                .addPage(SpiritCruciblePage.fromOutput(GHAST_TEAR))
+                .addPage(SpiritCruciblePage.fromOutput(RABBIT_FOOT))
+        );
+
+        entries.add(new BookEntry(
+                "ceaseless_impetus", CEASELESS_IMPETUS.get(),9,5)
+                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus"))
+                .addPage(SpiritInfusionPage.fromImpetus(CEASELESS_IMPETUS.get(), CRACKED_CEASELESS_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(
@@ -312,15 +345,21 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -8, 5)
+                "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -6, 5)
                 .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror"))
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
         entries.add(new BookEntry(
-                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -6, 7)
+                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -8, 7)
                 .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge"))
-                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
+                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
+        );
+
+        entries.add(new BookEntry(
+                "warded_belt", WARDED_BELT.get(), -9, 5)
+                .addPage(new HeadlineTextPage("warded_belt", "warded_belt"))
+                .addPage(SpiritInfusionPage.fromOutput(WARDED_BELT.get()))
         );
 
         entries.add(new BookEntry(
@@ -421,77 +460,6 @@ public class ProgressionBookScreen extends Screen
                 .setObjectSupplier(VanishingEntryObject::new)
                 .addPage(new HeadlineTextPage("3000_dollars_for_a_brewing_stand","3000_dollars_for_a_brewing_stand"))
         );
-
-//        entries.add(new BookEntry(
-//                "totem_magic", RUNEWOOD_TOTEM_BASE.get(),0,7)
-//                .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
-//                .addPage(new TextPage("totem_magics_b"))
-//                .addPage(new TextPage("totem_magic_c"))
-//                .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_TOTEM_BASE.get()))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "simple_spirit_rites", ARCANE_SPIRIT.get(),-1,8) //simple rites almost always turn negative when corrupted
-//                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life")) //Heals nearby allies (players and passive mobs). Heals and empowers nearby enemies
-//                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death")) //Damages nearby enemies. Damages nearby players with a doubled radius.
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth")) //Grants a flat armor bonus to nearby allies. MobEffect is reversed, allies and enemies are crippled and armor is reduced.
-//                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames")) //Grants a bonus to movement and swing speed (Includes mining speed) to nearby allies. Sets allies and enemies alike on fire.
-//                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides")) //Provides temporary increased swim speed to nearby allies. Drowns nearby submerged enemies, zombies instantly transform to drowned.
-//                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales")) //Speeds up nearby allies. Horizontal momentum is converted to a burst of levitation.
-//        );
-//
-//        entries.add(new BookEntry(
-//                "complex_spirit_rites", ELDRITCH_SPIRIT.get(),1,8) //complex rites still retain positive effect when corrupted
-//                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life")) //Accelerates the growth of nearby plants. Greatly accelerates the growth of nearby animals.
-//                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth")) //Breaks nearby crops, drops are generated as spirit items.
-//                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
-//                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
-//                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "corrupted_spirit_rites_I", WICKED_SPIRIT.get(),1,7)
-//                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life"))
-//                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth"))
-//                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
-//                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
-//                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "corrupted_spirit_rites_II", WICKED_SPIRIT.get(),-1,9)
-//                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life"))
-//                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth"))
-//                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
-//                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
-//                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "soulwood", SOULWOOD_SAPLING.get(),-1,10)
-//        );
-//
-//        entries.add(new BookEntry(
-//                "radiant_soulstone", RADIANT_SOULSTONE.get(), 1, 11)
-//                .addPage(new HeadlineTextPage("radiant_soulstone", "radiant_soulstone_a"))
-//                .addPage(new TextPage("radiant_soulstone_b"))
-//                .addPage(SpiritInfusionPage.fromOutput(RADIANT_SOULSTONE.get()))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "tyrving", TYRVING.get(), 0, 12)
-//                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
-//                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "sacrificial_necklace", SACRIFICIAL_NECKLACE.get(), 2, 11)
-//                .addPage(new HeadlineTextPage("sacrificial_necklace", "sacrificial_necklace"))
-//                .addPage(SpiritInfusionPage.fromOutput(SACRIFICIAL_NECKLACE.get()))
-//        );
     }
     public void setupObjects()
     {
@@ -789,5 +757,15 @@ public class ProgressionBookScreen extends Screen
             screen = new ProgressionBookScreen();
         }
         return screen;
+    }
+    public static class SetupMalumCodexEntriesEvent extends Event
+    {
+        public SetupMalumCodexEntriesEvent() {
+        }
+
+        @Override
+        public boolean isCancelable() {
+            return false;
+        }
     }
 }

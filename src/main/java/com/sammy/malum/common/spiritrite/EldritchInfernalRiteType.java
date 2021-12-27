@@ -28,24 +28,25 @@ public class EldritchInfernalRiteType extends MalumRiteType {
 
     @Override
     public int interval(boolean corrupted) {
-        return defaultInterval() * 5;
+        return corrupted ? defaultInterval() : defaultInterval() * 5;
     }
 
     @Override
     public int range(boolean corrupted) {
-        return defaultRange() / 2;
+        return defaultRange() / 4;
     }
 
     @Override
     public void riteEffect(Level level, BlockPos pos) {
         BlockState filter = level.getBlockState(pos.below());
+        Optional<SmeltingRecipe> fillerOptional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(filter.getBlock().asItem(), 1)), level);
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p -> {
             if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
                 return true;
             }
             BlockState state = level.getBlockState(p);
-            return !filter.isAir() && !filter.is(state.getBlock());
+            return fillerOptional.isPresent() && !filter.isAir() && !filter.is(state.getBlock());
         });
         positions.forEach(p -> {
             BlockState state = level.getBlockState(p);
