@@ -30,7 +30,7 @@ public interface IEventResponderItem {
     {
 
     }
-    public default void pickupSpirit(LivingEntity attacker, ItemStack stack)
+    public default void pickupSpirit(LivingEntity attacker, ItemStack stack, boolean isNatural)
     {
 
     }

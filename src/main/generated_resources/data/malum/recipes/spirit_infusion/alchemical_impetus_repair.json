@@ -1,27 +1,23 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "malum:ornate_ring",
+    "item": "malum:cracked_alchemical_impetus",
     "count": 1
   },
   "output": {
-    "item": "malum:ring_of_wicked_intent",
+    "item": "malum:alchemical_impetus",
     "count": 1
   },
   "extra_items": [
     {
       "item": "malum:hex_ash",
       "count": 1
-    },
-    {
-      "item": "minecraft:wither_skeleton_skull",
-      "count": 1
     }
   ],
   "spirits": [
     {
-      "item": "malum:wicked_spirit",
-      "count": 24
+      "item": "malum:arcane_spirit",
+      "count": 2
     }
   ]
 }

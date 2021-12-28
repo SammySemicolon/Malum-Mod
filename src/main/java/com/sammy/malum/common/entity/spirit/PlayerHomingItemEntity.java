@@ -33,7 +33,7 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
     }
 
     public float getRange() {
-        return level.noCollision(this) ? range : range * 3f;
+        return level.noCollision(this) ? range : range * 5f;
     }
 
     public void setOwner(UUID ownerUUID) {
@@ -56,7 +56,7 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
         if (owner == null || !owner.isAlive()) {
             if (level.getGameTime() % 40L == 0)
             {
-                Player playerEntity = level.getNearestPlayer(this, getRange()*3f);
+                Player playerEntity = level.getNearestPlayer(this, getRange()*5f);
                 if (playerEntity != null)
                 {
                     setOwner(playerEntity.getUUID());

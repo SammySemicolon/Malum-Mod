@@ -106,17 +106,17 @@ public class SpiritHelper {
             Item item = stack.getItem();
             if (item instanceof IEventResponderItem) {
                 IEventResponderItem eventItem = (IEventResponderItem) item;
-                eventItem.pickupSpirit(collector, stack);
+                eventItem.pickupSpirit(collector, stack, true);
             }
             collector.getArmorSlots().forEach(s ->{
                 if (s.getItem() instanceof IEventResponderItem)
                 {
                     IEventResponderItem eventItem = (IEventResponderItem) s.getItem();
-                    eventItem.pickupSpirit(collector, stack);
+                    eventItem.pickupSpirit(collector, stack, true);
                 }
             });
             ArrayList<ItemStack> curios = ItemHelper.equippedCurios(collector, p -> p.getItem() instanceof IEventResponderItem);
-            curios.forEach(s -> ((IEventResponderItem)s.getItem()).pickupSpirit(collector, s));
+            curios.forEach(s -> ((IEventResponderItem)s.getItem()).pickupSpirit(collector, s, true));
         }
         ItemHelper.giveItemToEntity(stack, collector);
     }

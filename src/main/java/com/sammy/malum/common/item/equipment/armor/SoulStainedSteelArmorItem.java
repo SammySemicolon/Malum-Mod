@@ -35,7 +35,7 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
     }
 
     @Override
-    public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
+    public void pickupSpirit(LivingEntity attacker, ItemStack stack, boolean isNatural) {
         ItemHelper.giveStackingEffect(MobEffects.DAMAGE_RESISTANCE, attacker, 50, 0);
     }
 

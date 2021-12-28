@@ -55,7 +55,7 @@ import static com.sammy.malum.MalumMod.MODID;
 import static com.sammy.malum.core.helper.ColorHelper.brighter;
 import static com.sammy.malum.core.helper.ColorHelper.darker;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL_ITEM;
+import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
@@ -402,13 +402,13 @@ public class ItemRegistry {
     //region contents
     public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(Tiers.IRON, 0, 0.1f, 0, GEAR_PROPERTIES().durability(350)));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new ScytheItem(SOUL_STAINED_STEEL_ITEM, 0.5f, 0.1f, 2, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new ScytheItem(SOUL_STAINED_STEEL, 0.5f, 0.1f, 2, GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_SWORD = ITEMS.register("soul_stained_steel_sword", () -> new ModSwordItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_PICKAXE = ITEMS.register("soul_stained_steel_pickaxe", () -> new ModPickaxeItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_AXE = ITEMS.register("soul_stained_steel_axe", () -> new ModAxeItem(SOUL_STAINED_STEEL_ITEM, 0.5f, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_SHOVEL = ITEMS.register("soul_stained_steel_shovel", () -> new ModShovelItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_HOE = ITEMS.register("soul_stained_steel_hoe", () -> new ModHoeItem(SOUL_STAINED_STEEL_ITEM, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_SWORD = ITEMS.register("soul_stained_steel_sword", () -> new ModSwordItem(SOUL_STAINED_STEEL, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_PICKAXE = ITEMS.register("soul_stained_steel_pickaxe", () -> new ModPickaxeItem(SOUL_STAINED_STEEL, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_AXE = ITEMS.register("soul_stained_steel_axe", () -> new ModAxeItem(SOUL_STAINED_STEEL, 0.5f, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_SHOVEL = ITEMS.register("soul_stained_steel_shovel", () -> new ModShovelItem(SOUL_STAINED_STEEL, 0, 0, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_HOE = ITEMS.register("soul_stained_steel_hoe", () -> new ModHoeItem(SOUL_STAINED_STEEL, 0, 0, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_HELMET = ITEMS.register("soul_stained_steel_helmet", () -> new SoulStainedSteelArmorItem(EquipmentSlot.HEAD, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_CHESTPLATE = ITEMS.register("soul_stained_steel_chestplate", () -> new SoulStainedSteelArmorItem(EquipmentSlot.CHEST, GEAR_PROPERTIES()));
@@ -420,7 +420,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_HUNTER_LEGGINGS = ITEMS.register("soul_hunter_leggings", () -> new SpiritHunterArmorItem(EquipmentSlot.LEGS, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_HUNTER_BOOTS = ITEMS.register("soul_hunter_boots", () -> new SpiritHunterArmorItem(EquipmentSlot.FEET, GEAR_PROPERTIES()));
 
-//    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(TYRVING_ITEM, 2f, 0, -0.1f, () -> SoundRegistry.TYRVING_CRUSH, GEAR_PROPERTIES().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> TYRVING = ITEMS.register("tyrving", () -> new TyrvingItem(ItemTiers.ItemTierEnum.TYRVING, 0, -0.3f, GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> GILDED_RING = ITEMS.register("gilded_ring", () -> new CurioGildedRing(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ORNATE_RING = ITEMS.register("ornate_ring", () -> new CurioOrnateRing(GEAR_PROPERTIES()));
@@ -439,8 +439,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> WARDED_BELT = ITEMS.register("warded_belt", () -> new CurioWardedBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> MAGEBANE_BELT = ITEMS.register("magebane_belt", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().durability(3)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS));
+    public static final RegistryObject<Item> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON).durability(3)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS));
 
     //endregion
 

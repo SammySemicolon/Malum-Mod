@@ -2,12 +2,14 @@ package com.sammy.malum.common.blockentity;
 
 import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
@@ -17,6 +19,7 @@ import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,10 +31,13 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.function.Supplier;
+
+import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
     public static final Supplier<MultiBlockStructure> STRUCTURE = ()->(MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SPIRIT_CRUCIBLE_COMPONENT.get().defaultBlockState())));
@@ -42,6 +48,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
     public boolean updateRecipe;
     public float spiritAmount;
     public float spiritSpin;
+    public int soundCooldown;
     public float progress;
 
     public SpiritCrucibleCoreBlockEntity(BlockPos pos, BlockState state) {
@@ -127,13 +134,19 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
             updateRecipe = false;
         }
         if (level.isClientSide) {
-            spiritSpin += 1;
+            spiritSpin += 1+Math.cos(Math.sin(level.getGameTime()*0.05f));
             passiveParticles();
         }
         else
         {
             if (recipe != null)
             {
+                if (soundCooldown > 0) {
+                    soundCooldown--;
+                } else {
+                    level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_LOOP, SoundSource.BLOCKS, 1, 1f);
+                    soundCooldown = 220;
+                }
                 progress++;
                 if (progress >= recipe.time)
                 {
@@ -151,9 +164,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
             boolean success = stack.hurt(recipe.durabilityCost, level.random, null);
             if (success && stack.getItem() instanceof ImpetusItem impetusItem)
             {
-                if (impetusItem.cracked != null) {
-                    level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, impetusItem.cracked.get().getDefaultInstance()));
-                }
+                inventory.setStackInSlot(0, impetusItem.cracked.get().getDefaultInstance());
+                updateRecipe = true;
             }
         }
         for (ItemWithCount spirit : recipe.spirits) {
@@ -165,6 +177,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
                 }
             }
         }
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
+        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT, SoundSource.BLOCKS, 1, 1f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         progress = 0;
         recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());

@@ -56,8 +56,6 @@ public class ProgressionBookScreen extends Screen
     public float yOffset;
     public float cachedXOffset;
     public float cachedYOffset;
-    public float xMovement;
-    public float yMovement;
     public boolean ignoreNextMouseInput;
 
     public static ArrayList<BookEntry> entries;
@@ -218,7 +216,7 @@ public class ProgressionBookScreen extends Screen
                 "spirit_alchemy", ALCHEMICAL_IMPETUS.get(),7,6)
                 .addPage(new HeadlineTextPage("spirit_alchemy", "spirit_alchemy_a"))
                 .addPage(new TextPage("spirit_alchemy_b"))
-                .addPage(SpiritCruciblePage.fromOutput(SPIRIT_CRUCIBLE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CRUCIBLE.get()))
                 .addPage(SpiritInfusionPage.fromImpetus(ALCHEMICAL_IMPETUS.get(), CRACKED_ALCHEMICAL_IMPETUS.get()))
                 .addPage(SpiritInfusionPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
         );
@@ -245,11 +243,6 @@ public class ProgressionBookScreen extends Screen
                 .addPage(SpiritCruciblePage.fromInput(LEAD_IMPETUS.get()))
                 .addPage(SpiritInfusionPage.fromImpetus(SILVER_IMPETUS.get(), CRACKED_SILVER_IMPETUS.get()))
                 .addPage(SpiritCruciblePage.fromInput(SILVER_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromInput(CRACKED_IRON_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromInput(CRACKED_GOLD_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromInput(CRACKED_COPPER_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromInput(CRACKED_LEAD_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromInput(CRACKED_SILVER_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(
@@ -456,6 +449,18 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
+                "magebane_belt", MAGEBANE_BELT.get(), 1, 15)
+                .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
+                .addPage(SpiritInfusionPage.fromOutput(MAGEBANE_BELT.get()))
+        );
+
+        entries.add(new BookEntry(
+                "tyrving", TYRVING.get(), -1, 15)
+                .addPage(new HeadlineTextPage("tyrving", "tyrving"))
+                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
+        );
+
+        entries.add(new BookEntry(
                 "3000_dollars_for_a_brewing_stand", APPLE,0,-10)
                 .setObjectSupplier(VanishingEntryObject::new)
                 .addPage(new HeadlineTextPage("3000_dollars_for_a_brewing_stand","3000_dollars_for_a_brewing_stand"))
@@ -491,8 +496,6 @@ public class ProgressionBookScreen extends Screen
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
     {
-        xOffset += xMovement;
-        yOffset += yMovement;
         renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
@@ -510,21 +513,12 @@ public class ProgressionBookScreen extends Screen
         lateEntryRender(poseStack, mouseX, mouseY, partialTicks);
     }
 
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta)
-    {
-        yMovement += delta > 0 ? 1f : -1f;
-        yOffset += delta > 0 ? 0.01f : - 0.01f;
-        return super.mouseScrolled(mouseX, mouseY, delta);
-    }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY)
     {
         xOffset += dragX;
         yOffset += dragY;
-        xMovement = 0;
-        yMovement = 0;
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 
@@ -533,8 +527,6 @@ public class ProgressionBookScreen extends Screen
     {
         cachedXOffset = xOffset;
         cachedYOffset = yOffset;
-        xMovement = 0;
-        yMovement = 0;
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
@@ -593,8 +585,7 @@ public class ProgressionBookScreen extends Screen
 
     public void renderEntries(PoseStack stack, int mouseX, int mouseY, float partialTicks)
     {
-        for (int i = objects.size()-1; i >= 0; i--)
-        {
+        for (int i = objects.size()-1; i >= 0; i--) {
             BookObject object = objects.get(i);
             boolean isHovering = object.isHovering(xOffset, yOffset, mouseX, mouseY);
             object.isHovering = isHovering;
@@ -613,7 +604,17 @@ public class ProgressionBookScreen extends Screen
 
     public static boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height)
     {
+        if (!isInView(mouseX, mouseY))
+        {
+            return false;
+        }
         return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
+    }
+    public static boolean isInView(double mouseX, double mouseY)
+    {
+        int guiLeft = (screen.width - screen.bookWidth) / 2;
+        int guiTop = (screen.height - screen.bookHeight) / 2;
+        return !(mouseX < guiLeft + 17) && !(mouseY < guiTop + 14) && !(mouseX > guiLeft + (screen.bookWidth - 17)) && !(mouseY > (guiTop + screen.bookHeight - 14));
     }
     public void renderBackground(ResourceLocation texture, PoseStack poseStack, float xModifier, float yModifier)
     {
@@ -645,7 +646,7 @@ public class ProgressionBookScreen extends Screen
         int guiTop = (height - bookHeight) / 2;
         int insideLeft = guiLeft + 17;
         int insideTop = guiTop + 18;
-        GL11.glScissor(insideLeft*scale, insideTop*scale, bookInsideWidth * scale, bookInsideHeight * scale);
+        GL11.glScissor(insideLeft*scale, insideTop*scale, bookInsideWidth * scale, (bookInsideHeight+1) * scale); // do not ask why the 1 is needed please
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)

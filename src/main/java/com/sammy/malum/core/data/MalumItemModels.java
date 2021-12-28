@@ -10,6 +10,7 @@ import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.item.tools.ScytheItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.item.ModCombatItem;
+import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -43,6 +44,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         takeAll(items, i -> i.get() instanceof ScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof ImpetusItem).forEach(this::impetusItem);
+        takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof DoorBlock).forEach(this::generatedItem);
@@ -69,6 +71,11 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
     private static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
 
+    private void multiBlockItem(RegistryObject<Item> i)
+    {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));
+    }
     private void impetusItem(RegistryObject<Item> i)
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
