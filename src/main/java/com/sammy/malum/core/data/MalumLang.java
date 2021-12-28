@@ -205,29 +205,29 @@ public class MalumLang extends LanguageProvider
 
         addDescription("spirit_alchemy", "Focusing with Spirits");
         addHeadline("spirit_alchemy", "Spirit Alchemy");
-        addPage("spirit_alchemy_a", "");
-        addPage("spirit_alchemy_b", "");
+        addPage("spirit_alchemy_a", "You take the spirit crucible shove item and spirit into it and bam new item. Item isn't consumed. An impetus is a little magic catalyst that can be easily shaped into other things using spirits. This is called spirit focusing");
+        addPage("spirit_alchemy_b", "There is no second page, take off your clothes.");
 
         addDescription("crystalline_spirit_focusing", "");
         addHeadline("crystalline_spirit_focusing", "Crystalline Spirit Focusing");
-        addPage("crystalline_spirit_focusing", "");
+        addPage("crystalline_spirit_focusing", "meth");
 
         addDescription("complexities_with_spirits", "");
         addHeadline("complexities_with_spirits", "Complexities with Spirits");
-        addPage("complexities_with_spirits", "");
+        addPage("complexities_with_spirits", "Rabbit feet I hate rabbit feet so much here u go you can now make rabbit feet");
 
         addDescription("ashen_spirit_focusing", "");
         addHeadline("ashen_spirit_focusing", "Ashen Spirit Focusing");
-        addPage("ashen_spirit_focusing", "");
+        addPage("ashen_spirit_focusing", "Gunpwoder");
 
         addDescription("metallurgy_with_spirits", "");
         addHeadline("metallurgy_with_spirits", "Metallurgy with Spirits");
-        addPage("metallurgy_with_spirits_a", "");
-        addPage("metallurgy_with_spirits_b", "");
+        addPage("metallurgy_with_spirits_a", "You grow metals.");
+        addPage("metallurgy_with_spirits_b", "You grow metals 2.");
 
         addDescription("ceaseless_impetus", "Rebirth");
         addHeadline("ceaseless_impetus", "Ceaseless Impetus");
-        addPage("ceaseless_impetus", "");
+        addPage("ceaseless_impetus", "Reusable totem of undying, needs repair");
 
         addDescription("spirit_metallurgy", "Arcane metals");
         addHeadline("hallowed_gold", "Hallowed Gold");
@@ -262,9 +262,9 @@ public class MalumLang extends LanguageProvider
         addPage("ring_of_prowess_a", "There is another thing besides spirit arcana that the soul holds, it is known as brilliance, or experience. Unlike spirits, brilliance has strong enough ties to the body and some of it is naturally dispersed from the soul upon the defeat of the vessel.");
         addPage("ring_of_prowess_b", "As with all things, we can't let the soul keep anything for itself. With some clever use of raw arcana combined with natural brilliance we can leech off some extra experience as spirits leave the dying soul. The ring of prowess does just that.");
 
-        addDescription("warded_belt", "");
+        addDescription("warded_belt", "Immovable");
         addHeadline("warded_belt", "Warded Belt");
-        addPage("warded_belt", "");
+        addPage("warded_belt", "Just armor like that's all it does really it's just a lot of defense");
 
         addDescription("ring_of_curative_talent", "Arcane Vigor");
         addHeadline("ring_of_curative_talent", "Ring of Curative Talent");
@@ -352,13 +352,13 @@ public class MalumLang extends LanguageProvider
         addPage("soulwood_a", "Spirit magics focus on turning everything good in the world to evil. Sometimes, by pure coincidence a great thing is created instead, as is the case with runewood. It is important to realize this mistake and correct it.");
         addPage("soulwood_b", "By utilizing the dangerous arcane spirit rite we can easily create soulwood, any nearby runewood block is a valid target for this transmutation. Much like it's name implies, soulwood has a strong connection to more direct soul magics. It'll be sure to come in use.");
 
-        addDescription("tyrving", "");
+        addDescription("tyrving", "Funny embers");
         addHeadline("tyrving", "Tyrving");
-        addPage("tyrving", "");
+        addPage("tyrving", "Deals magic damage based on how many spirits the target has");
 
-        addDescription("magebane_belt", "");
+        addDescription("magebane_belt", "Magic thorns");
         addHeadline("magebane_belt", "Magebane Belt");
-        addPage("magebane_belt", "");
+        addPage("magebane_belt", "Take magic damage retaliate with magic damage");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rite", "Spirit Rite");
