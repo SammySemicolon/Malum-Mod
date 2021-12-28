@@ -20,7 +20,7 @@ public class CurioWickedRing extends MalumCurioItem implements IEventResponderIt
     }
 
     @Override
-    public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
+    public void pickupSpirit(LivingEntity attacker, ItemStack stack, boolean isNatural) {
         ItemHelper.giveStackingEffect(MobEffects.DAMAGE_BOOST, attacker, 100, 0);
     }
 }

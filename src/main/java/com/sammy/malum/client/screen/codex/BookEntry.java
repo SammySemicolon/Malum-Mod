@@ -31,7 +31,9 @@ public class BookEntry {
     }
 
     public BookEntry addPage(BookPage page) {
-        pages.add(page);
+        if (page.isValid()) {
+            pages.add(page);
+        }
         return this;
     }
 

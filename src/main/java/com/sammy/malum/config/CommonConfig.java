@@ -75,13 +75,13 @@ public class CommonConfig {
                 .define("generateSurfaceSoulstone", true);
 
         SOULSTONE_SIZE = builder.comment("Size of soulstone ore veins underground.")
-                .define("soulstoneSize", 9);
+                .define("soulstoneSize", 12);
         SOULSTONE_AMOUNT = builder.comment("Amount of soulstone ore veins.")
-                .define("soulstoneAmount", 6);
+                .define("soulstoneAmount", 8);
         SURFACE_SOULSTONE_SIZE = builder.comment("Size of soulstone ore veins on the surface.")
                 .define("surfaceSoulstoneSize", 6);
         SURFACE_SOULSTONE_AMOUNT = builder.comment("Amount of soulstone ore veins on the surface.")
-                .define("surfaceSoulstoneAmount", 4);
+                .define("surfaceSoulstoneAmount", 5);
         SOULSTONE_MIN_Y = builder.comment("Minimum height at which soulstone ore can spawn.")
                 .define("soulstoneMinY", -80);
         SURFACE_SOULSTONE_MIN_Y = builder.comment("Minimum height at which surface soulstone ore can spawn.")

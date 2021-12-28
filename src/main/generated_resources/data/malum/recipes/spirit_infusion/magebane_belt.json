@@ -1,0 +1,35 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:warded_belt",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:magebane_belt",
+    "count": 1
+  },
+  "extra_items": [
+    {
+      "item": "malum:twisted_rock",
+      "count": 16
+    },
+    {
+      "item": "malum:soulwood_planks",
+      "count": 8
+    },
+    {
+      "item": "malum:soul_stained_steel_ingot",
+      "count": 6
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:eldritch_spirit",
+      "count": 4
+    },
+    {
+      "item": "malum:wicked_spirit",
+      "count": 16
+    }
+  ]
+}

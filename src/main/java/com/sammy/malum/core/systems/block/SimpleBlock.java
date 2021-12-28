@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class SimpleBlock <T extends BlockEntity> extends Block implements EntityBlock {
@@ -32,7 +31,6 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
         return this;
     }
 
-    @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return hasTileEntity(state) ? blockEntityType.get().create(pos, state) : null;
@@ -43,7 +41,6 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
     }
 
     @SuppressWarnings("all")
-    @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return (BlockEntityTicker<T>) ticker;
@@ -64,9 +61,8 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
     public void onBlockBroken(BlockState state, BlockGetter level, BlockPos pos) {
         if (hasTileEntity(state)) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof SimpleBlockEntity) {
-                SimpleBlockEntity simpleTileEntity = (SimpleBlockEntity) blockEntity;
-                simpleTileEntity.onBreak();
+            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+                simpleBlockEntity.onBreak();
             }
         }
     }
@@ -75,9 +71,8 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
         if (hasTileEntity(state)) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof SimpleBlockEntity) {
-                SimpleBlockEntity simpleTileEntity = (SimpleBlockEntity) blockEntity;
-                return simpleTileEntity.onUse(player, hand);
+            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+                return simpleBlockEntity.onUse(player, hand);
             }
         }
         return super.use(state, level, pos, player, hand, ray);

@@ -20,7 +20,7 @@ public class CurioCurativeRing extends MalumCurioItem implements IEventResponder
     }
 
     @Override
-    public void pickupSpirit(LivingEntity attacker, ItemStack stack) {
+    public void pickupSpirit(LivingEntity attacker, ItemStack stack, boolean isNatural) {
         attacker.heal(attacker.getMaxHealth()*0.1f);
         ItemHelper.giveStackingEffect(MobEffects.REGENERATION, attacker, 100, 0);
     }

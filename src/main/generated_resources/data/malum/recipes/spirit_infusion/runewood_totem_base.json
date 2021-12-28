@@ -1,6 +1,5 @@
 {
   "type": "malum:spirit_infusion",
-  "retain_prime_item": false,
   "input": {
     "item": "malum:runewood_log",
     "count": 1
@@ -12,11 +11,11 @@
   "extra_items": [
     {
       "item": "malum:runewood_planks",
-      "count": 1
+      "count": 6
     },
     {
-      "item": "malum:hallowed_spirit_resonator",
-      "count": 1
+      "item": "malum:hex_ash",
+      "count": 2
     }
   ],
   "spirits": [

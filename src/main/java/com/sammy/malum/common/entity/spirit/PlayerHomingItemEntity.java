@@ -33,11 +33,15 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
     }
 
     public float getRange() {
-        return level.noCollision(this) ? range : range * 3f;
+        return level.noCollision(this) ? range : range * 5f;
     }
 
     public void setOwner(UUID ownerUUID) {
         this.ownerUUID = ownerUUID;
+        updateOwner();
+    }
+    public void updateOwner()
+    {
         if (!level.isClientSide) {
             owner = (LivingEntity) ((ServerLevel) level).getEntity(ownerUUID);
             if (owner != null)
@@ -46,27 +50,24 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
             }
         }
     }
-
     @Override
     public void move() {
         setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.95f, 0.95f));
-        if (owner == null) {
-            if (level.getGameTime() % 20L == 0)
+        if (owner == null || !owner.isAlive()) {
+            if (level.getGameTime() % 40L == 0)
             {
-                Player playerEntity = level.getNearestPlayer(this, getRange()*3f);
+                Player playerEntity = level.getNearestPlayer(this, getRange()*5f);
                 if (playerEntity != null)
                 {
                     setOwner(playerEntity.getUUID());
                 }
             }
-            age++;
             return;
         }
         Vec3 desiredLocation = owner.position().add(0, owner.getBbHeight() / 4, 0);
         float distance = (float) distanceToSqr(desiredLocation);
-        float range = getRange();
-        float velocity = Mth.lerp(Math.min(moveTime, 40)/40f, 0.1f, 0.3f+(range*0.1f));
-        if (moveTime != 0 || distance < range) {
+        float velocity = Mth.lerp(Math.min(moveTime, 20)/20f, 0.1f, 0.2f+(range*0.2f));
+        if (moveTime != 0 || distance < getRange()) {
             moveTime++;
             Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
             float easing = 0.02f;
@@ -77,7 +78,7 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
             setDeltaMovement(resultingMotion);
         }
 
-        if (distance < 0.25f) {
+        if (distance < 0.4f) {
             if (isAlive()) {
                 ItemStack stack = getItem();
                 SpiritHelper.pickupSpirit(stack, owner);

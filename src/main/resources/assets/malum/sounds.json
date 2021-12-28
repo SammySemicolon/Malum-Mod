@@ -42,12 +42,15 @@
   "totem_charged": { "sounds":["malum:totem/totem_charged"], "subtitle": "malum.subtitle.totem_charged" },
   "totem_engrave": { "sounds":["malum:totem/totem_engrave"], "subtitle": "malum.subtitle.totem_engrave" },
 
-  "altar_craft": { "sounds":["malum:infusion_craft"], "subtitle": "malum.subtitle.altar_craft" },
-  "altar_loop": { "sounds":["malum:infusion_loop"], "subtitle": "malum.subtitle.altar_loop" },
-  "altar_speed_up": { "sounds":["malum:infusion_speed_up"], "subtitle": "malum.subtitle.altar_speed_up" },
-  "altar_consume": { "sounds":["malum:infusion_consume"], "subtitle": "malum.subtitle.altar_consume" },
+  "altar_craft": { "sounds":["malum:altar/craft1","malum:altar/craft2"], "subtitle": "malum.subtitle.altar_craft" },
+  "altar_loop": { "sounds":["malum:altar/loop"], "subtitle": "malum.subtitle.altar_loop" },
+  "altar_speed_up": { "sounds":["malum:altar/speed_up"], "subtitle": "malum.subtitle.altar_speed_up" },
+  "altar_consume": { "sounds":["malum:altar/consume"], "subtitle": "malum.subtitle.altar_consume" },
 
-  "tyrving_crush": { "sounds":["malum:tyrving_crush"], "subtitle": "malum.subtitle.tyrving_crush" },
+  "crucible_craft": { "sounds":["malum:crucible/craft1", "malum:crucible/craft2"], "subtitle": "malum.subtitle.crucible_craft" },
+  "crucible_loop": { "sounds":["malum:crucible/loop"], "subtitle": "malum.subtitle.crucible_loop" },
+
+  "void_slash": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash" },
 
   "holy_equip": { "sounds":["malum:equip_holy"], "subtitle": "malum.subtitle.holy_equip" },
   "sinister_equip": { "sounds":["malum:equip_sinister"], "subtitle": "malum.subtitle.sinister_equip" },

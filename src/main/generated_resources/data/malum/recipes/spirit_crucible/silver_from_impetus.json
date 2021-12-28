@@ -1,0 +1,18 @@
+{
+  "type": "malum:spirit_focusing",
+  "time": 1200,
+  "durabilityCost": 3,
+  "input": {
+    "item": "malum:silver_impetus"
+  },
+  "output": {
+    "tag": "forge:nuggets/silver",
+    "count": 6
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 2
+    }
+  ]
+}

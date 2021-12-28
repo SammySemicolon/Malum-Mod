@@ -76,13 +76,13 @@ public class PacketEffects
                     .setScale(0.15f, 0)
                     .setColor(color, color.darker())
                     .randomOffset(0.1f)
-                    .addVelocity(0, 0.13f, 0)
-                    .randomVelocity(0.03f, 0.08f)
+                    .addVelocity(0, 0.21f, 0)
+                    .randomVelocity(0.03f, 0.04f)
                     .enableGravity()
                     .repeat(level, posX, posY, posZ, 24);
 
             RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(0.1f, 0f)
+                    .setAlpha(0.2f, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
                     .setColor(color, color.darker())
@@ -91,13 +91,13 @@ public class PacketEffects
                     .enableNoClip()
                     .repeat(level, posX, posY, posZ, 12);
 
-            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setAlpha(0.05f, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)
                     .setColor(color, color.darker())
                     .randomOffset(0.05f, 0.05f)
-                    .randomVelocity(0.002f, 0.002f)
+                    .randomVelocity(0.02f, 0.02f)
                     .enableNoClip()
                     .repeat(level, posX, posY, posZ, 8);
         }

@@ -2,14 +2,15 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.item.ItemTagRegistry;
-import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import static com.sammy.malum.core.registry.item.ItemRegistry.*;
 import static com.sammy.malum.core.registry.item.ItemTagRegistry.*;
 
 public class MalumItemTags extends ItemTagsProvider {
@@ -24,7 +25,7 @@ public class MalumItemTags extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        tag(Tags.Items.GEMS).add(ItemRegistry.PROCESSED_SOULSTONE.get(), ItemRegistry.BLAZING_QUARTZ.get());
+        tag(Tags.Items.GEMS).add(PROCESSED_SOULSTONE.get(), BLAZING_QUARTZ.get());
 
         this.copy(BlockTags.WOOL, net.minecraft.tags.ItemTags.WOOL);
         this.copy(BlockTags.PLANKS, net.minecraft.tags.ItemTags.PLANKS);
@@ -67,16 +68,23 @@ public class MalumItemTags extends ItemTagsProvider {
         this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, net.minecraft.tags.ItemTags.SOUL_FIRE_BASE_BLOCKS);
         this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 
-        tag(Tags.Items.SLIMEBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
-        tag(ItemTagRegistry.SAPBALLS).add(ItemRegistry.HOLY_SAPBALL.get(), ItemRegistry.UNHOLY_SAPBALL.get());
+        tag(Tags.Items.SLIMEBALLS).add(HOLY_SAPBALL.get(), UNHOLY_SAPBALL.get());
+        tag(ItemTagRegistry.SAPBALLS).add(HOLY_SAPBALL.get(), UNHOLY_SAPBALL.get());
 
-        tag(RUNEWOOD_LOGS).add(ItemRegistry.RUNEWOOD_LOG.get(), ItemRegistry.STRIPPED_RUNEWOOD_LOG.get(), ItemRegistry.RUNEWOOD.get(), ItemRegistry.STRIPPED_RUNEWOOD.get(), ItemRegistry.EXPOSED_RUNEWOOD_LOG.get(), ItemRegistry.REVEALED_RUNEWOOD_LOG.get());
-        tag(SOULWOOD_LOGS).add(ItemRegistry.SOULWOOD_LOG.get(), ItemRegistry.STRIPPED_SOULWOOD_LOG.get(), ItemRegistry.SOULWOOD.get(), ItemRegistry.STRIPPED_SOULWOOD.get(), ItemRegistry.EXPOSED_SOULWOOD_LOG.get(), ItemRegistry.REVEALED_SOULWOOD_LOG.get());
+        tag(RUNEWOOD_LOGS).add(RUNEWOOD_LOG.get(), STRIPPED_RUNEWOOD_LOG.get(), RUNEWOOD.get(), STRIPPED_RUNEWOOD.get(), EXPOSED_RUNEWOOD_LOG.get(), REVEALED_RUNEWOOD_LOG.get());
+        tag(SOULWOOD_LOGS).add(SOULWOOD_LOG.get(), STRIPPED_SOULWOOD_LOG.get(), SOULWOOD.get(), STRIPPED_SOULWOOD.get(), EXPOSED_SOULWOOD_LOG.get(), REVEALED_SOULWOOD_LOG.get());
 
-        tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.CRUDE_SCYTHE.get(), ItemRegistry.SOUL_STAINED_STEEL_SCYTHE.get(), ItemRegistry.CREATIVE_SCYTHE.get());
-        tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_AXE.get(), ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get(), ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get(), ItemRegistry.SOUL_STAINED_STEEL_SWORD.get(), ItemRegistry.SOUL_STAINED_STEEL_HOE.get());
-        tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_HELMET.get(), ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get(), ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get(), ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get());
-        tag(SOUL_HUNTER_WEAPON).add(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get(), ItemRegistry.SOUL_STAINED_STEEL_NUGGET.get(), ItemRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), ItemRegistry.STAINED_SPIRIT_RESONATOR.get());
+        tag(SOUL_HUNTER_WEAPON).add(TYRVING.get(), CRUDE_SCYTHE.get(), SOUL_STAINED_STEEL_SCYTHE.get(), CREATIVE_SCYTHE.get());
+        tag(SOUL_HUNTER_WEAPON).add(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_HOE.get());
+        tag(SOUL_HUNTER_WEAPON).add(SOUL_STAINED_STEEL_HELMET.get(), SOUL_STAINED_STEEL_CHESTPLATE.get(), SOUL_STAINED_STEEL_LEGGINGS.get(), SOUL_STAINED_STEEL_BOOTS.get());
 
+        tag(Tags.Items.NUGGETS).add(COPPER_NUGGET.get(), HALLOWED_GOLD_NUGGET.get(), SOUL_STAINED_STEEL_NUGGET.get());
+
+        tag(NUGGETS_COPPER).add(COPPER_NUGGET.get());
+        tag(INGOTS_COPPER).add(Items.COPPER_INGOT);
+        tag(NUGGETS_SILVER);
+        tag(INGOTS_SILVER);
+        tag(NUGGETS_LEAD);
+        tag(INGOTS_LEAD);
     }
 }

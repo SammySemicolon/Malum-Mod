@@ -21,12 +21,11 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
 import static com.sammy.malum.client.screen.codex.pages.SpiritInfusionPage.uOffset;
 import static com.sammy.malum.client.screen.codex.pages.SpiritInfusionPage.vOffset;
+import static com.sammy.malum.core.helper.DataHelper.prefix;
 
 public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfusionRecipe>
 {
@@ -93,7 +92,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         ArrayList<ItemStack> items = new ArrayList<>(Arrays.asList(recipe.input.ingredient.getItems()));
 
         recipe.extraItems.forEach(ingredient -> items.addAll(ingredient.asStackList()));
-        recipe.spirits.forEach(ingredient -> items.add(ingredient.stack()));
+        recipe.spirits.forEach(ingredient -> items.add(ingredient.getStack()));
         iIngredients.setInputs(VanillaTypes.ITEM, items);
         iIngredients.setOutput(VanillaTypes.ITEM, recipe.output.stack());
     }
@@ -127,8 +126,16 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     }
     public int addIngredients(IRecipeLayout iRecipeLayout, int left, int top, List<IngredientWithCount> ingredients, int baseIndex)
     {
-        ArrayList<ItemWithCount> items = (ArrayList<ItemWithCount>) ingredients.stream().map(ItemWithCount::fromIngredient).collect(Collectors.toList());
-        return addItems(iRecipeLayout, left, top, items, baseIndex);
+        int index = ingredients.size()-1;
+        int offset = (int) (6.5f * index);
+        top -= offset;
+        for (int i = 0; i < ingredients.size(); i++)
+        {
+            IngredientWithCount item = ingredients.get(i);
+            iRecipeLayout.getItemStacks().init(baseIndex+i, true, left+7,top+7+19*i);
+            iRecipeLayout.getItemStacks().set(baseIndex+i, item.asStackList());
+        }
+        return baseIndex+ingredients.size()+1;
     }
     public int addItems(IRecipeLayout iRecipeLayout, int left, int top, List<ItemWithCount> items, int baseIndex)
     {
@@ -139,7 +146,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
         {
             ItemWithCount item = items.get(i);
             iRecipeLayout.getItemStacks().init(baseIndex+i, true, left+7,top+7+19*i);
-            iRecipeLayout.getItemStacks().set(baseIndex+i, item.stack());
+            iRecipeLayout.getItemStacks().set(baseIndex+i, item.getStack());
         }
         return baseIndex+items.size()+1;
     }

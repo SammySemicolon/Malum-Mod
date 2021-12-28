@@ -178,7 +178,7 @@ public class MalumLang extends LanguageProvider
         addPage("eldritch_spirit_a", "While raw arcana functions as an amplifier, eldritch arcana works much like a catalyst. It is much more potent but incredibly rare.");
         addPage("eldritch_spirit_b", "There are many otherworldly things within this realm, for uncertain reasons powerful enough souls born in these alternate twisted dimensions are granted eldritch spirit within them. ");
 
-        addDescription("arcane_rock", "Perfect for an Evil Lair");
+        addDescription("arcane_rock", "Perfect for a Wizard Tower");
         addHeadline("tainted_rock", "Tainted Rock");
         addPage("tainted_rock", "By infusing cobblestone with sacred and raw arcana a new stone with plenty of building options is created. Tainted rock is a simple magical building block with quite a few neat usages, it can also be shaped into item pedestals and stands.");
         addHeadline("twisted_rock", "Twisted Rock");
@@ -203,17 +203,31 @@ public class MalumLang extends LanguageProvider
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
         addPage("soul_hunter_armor", "The soul hunter set is an offense focused piece of equipment made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage dealt by the user.");
 
-        addDescription("spirit_alchemy", "Primitive Witchcraft");
+        addDescription("spirit_alchemy", "Focusing with Spirits");
         addHeadline("spirit_alchemy", "Spirit Alchemy");
-        addPage("spirit_alchemy", "You may often find yourself scavenging for simple physical ingredients while having too much raw arcana to spend. If that is the case, you may come to utilize spirit alchemy. By infusing a simple material with matching spirit arcana the material will be replicated.");
+        addPage("spirit_alchemy_a", "");
+        addPage("spirit_alchemy_b", "");
 
-        addDescription("expanded_spirit_alchemy", "Wider Reach");
-        addHeadline("expanded_spirit_alchemy", "Expanded Spirit Alchemy");
-        addPage("expanded_spirit_alchemy", "Material replication with spirits works on more than just simple alchemical powder. You may also replicate simple gemstones and crystals, all be it at a larger cost of spirit arcana.");
+        addDescription("crystalline_spirit_focusing", "");
+        addHeadline("crystalline_spirit_focusing", "Crystalline Spirit Focusing");
+        addPage("crystalline_spirit_focusing", "");
 
-        addDescription("focused_spirit_alchemy", "Raw Avarice");
-        addHeadline("focused_spirit_alchemy", "Focused Spirit Alchemy");
-        addPage("focused_spirit_alchemy", "By pushing material replication to it's limits you may manufacture even the most complex materials.");
+        addDescription("complexities_with_spirits", "");
+        addHeadline("complexities_with_spirits", "Complexities with Spirits");
+        addPage("complexities_with_spirits", "");
+
+        addDescription("ashen_spirit_focusing", "");
+        addHeadline("ashen_spirit_focusing", "Ashen Spirit Focusing");
+        addPage("ashen_spirit_focusing", "");
+
+        addDescription("metallurgy_with_spirits", "");
+        addHeadline("metallurgy_with_spirits", "Metallurgy with Spirits");
+        addPage("metallurgy_with_spirits_a", "");
+        addPage("metallurgy_with_spirits_b", "");
+
+        addDescription("ceaseless_impetus", "Rebirth");
+        addHeadline("ceaseless_impetus", "Ceaseless Impetus");
+        addPage("ceaseless_impetus", "");
 
         addDescription("spirit_metallurgy", "Arcane metals");
         addHeadline("hallowed_gold", "Hallowed Gold");
@@ -247,6 +261,10 @@ public class MalumLang extends LanguageProvider
         addHeadline("ring_of_prowess", "Ring of Prowess");
         addPage("ring_of_prowess_a", "There is another thing besides spirit arcana that the soul holds, it is known as brilliance, or experience. Unlike spirits, brilliance has strong enough ties to the body and some of it is naturally dispersed from the soul upon the defeat of the vessel.");
         addPage("ring_of_prowess_b", "As with all things, we can't let the soul keep anything for itself. With some clever use of raw arcana combined with natural brilliance we can leech off some extra experience as spirits leave the dying soul. The ring of prowess does just that.");
+
+        addDescription("warded_belt", "");
+        addHeadline("warded_belt", "Warded Belt");
+        addPage("warded_belt", "");
 
         addDescription("ring_of_curative_talent", "Arcane Vigor");
         addHeadline("ring_of_curative_talent", "Ring of Curative Talent");
@@ -304,10 +322,10 @@ public class MalumLang extends LanguageProvider
         addDescription("earthen_rite", "Rock and Stone!");
         addPage("earthen_rite", "The earthen rite provides one of many auras. Nearby players will receive increased armor.");
         addPage("corrupted_earthen_rite", "Fortitude turns to strength, nearby players will deal extra damage.");
-        addPage("eldritch_earthen_rite", "This complex earthen rite will break nearby blocks blow that match the block directly below the totem base.");
-        addPage("corrupted_eldritch_earthen_rite", "Destruction turns into creation, the earth shifts and cobblestone is created under the rite.");
+        addPage("eldritch_earthen_rite", "This complex earthen rite will break nearby blocks below that match the block directly below the totem base.");
+        addPage("corrupted_eldritch_earthen_rite", "Destruction turns into creation, the earth shifts and cobblestone is fabricated under the rite.");
 
-        addDescription("infernal_rite", "Fire and Flames!");
+        addDescription("infernal_rite", "Immense warmth");
         addPage("infernal_rite", "The infernal rite provides one of many auras. Nearby players will receive haste.");
         addPage("corrupted_infernal_rite", "Simple yet convenient, nearby players are granted immunity to fire.");
         addPage("eldritch_infernal_rite", "The impossible heat produced by infernal arcana is brought into motion, smelting blocks below the rite.");
@@ -317,13 +335,13 @@ public class MalumLang extends LanguageProvider
         addPage("aerial_rite", "The aerial rite provides one of many auras. Nearby players will receive a boost to movement speed.");
         addPage("corrupted_aerial_rite", "The effect of the rite is altered, horizontal mobility turns into vertical agility.");
         addPage("eldritch_aerial_rite", "The rite is twisted into something greater, nearby blocks will start to experience gravity.");
-        addPage("corrupted_eldritch_aerial_rite", "Have you wondered what the clouds taste like?");
+        addPage("corrupted_eldritch_aerial_rite", "Have you ever wondered what the clouds feel like?");
 
         addDescription("aqueous_rite", "Loyalty");
         addPage("aqueous_rite", "The aquatic rite provides one of many auras. Nearby players will receive a boost to reach.");
         addPage("corrupted_aqueous_rite", "Simple yet useful, nearby players are granted water breathing.");
-        addPage("eldritch_aqueous_rite", "Effect unimplemented. Suggestions are welcome!");
-        addPage("corrupted_eldritch_aqueous_rite", "Effect unimplemented. Suggestions are welcome!");
+        addPage("eldritch_aqueous_rite", "The advanced aqueous rite will motivate nearby pointed dripstone blocks and bring them into work, yielding even more liquid.");
+        addPage("corrupted_eldritch_aqueous_rite", "The energizing effect is reversed, freezing over nearby water or lava instead.");
 
         addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
         addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
@@ -333,6 +351,14 @@ public class MalumLang extends LanguageProvider
         addHeadline("soulwood", "Soulwood");
         addPage("soulwood_a", "Spirit magics focus on turning everything good in the world to evil. Sometimes, by pure coincidence a great thing is created instead, as is the case with runewood. It is important to realize this mistake and correct it.");
         addPage("soulwood_b", "By utilizing the dangerous arcane spirit rite we can easily create soulwood, any nearby runewood block is a valid target for this transmutation. Much like it's name implies, soulwood has a strong connection to more direct soul magics. It'll be sure to come in use.");
+
+        addDescription("tyrving", "");
+        addHeadline("tyrving", "Tyrving");
+        addPage("tyrving", "");
+
+        addDescription("magebane_belt", "");
+        addHeadline("magebane_belt", "Magebane Belt");
+        addPage("magebane_belt", "");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rite", "Spirit Rite");

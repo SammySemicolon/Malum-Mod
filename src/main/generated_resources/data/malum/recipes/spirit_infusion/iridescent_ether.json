@@ -1,12 +1,12 @@
 {
   "type": "malum:spirit_infusion",
-  "retain_prime_item": false,
   "input": {
     "item": "malum:ether",
     "count": 1
   },
   "output": {
-    "item": "malum:iridescent_ether"
+    "item": "malum:iridescent_ether",
+    "count": 1
   },
   "extra_items": [
     {

@@ -9,12 +9,11 @@ import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.item_storage.ItemStandBlock;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
-import com.sammy.malum.common.block.misc.sign.MalumStandingSignBlock;
-import com.sammy.malum.common.block.misc.sign.MalumWallSignBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.multiblock.ComponentBlock;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -65,13 +64,16 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
         blocks.remove(SPIRIT_ALTAR);
         blocks.remove(SPIRIT_JAR);
+        blocks.remove(SPIRIT_CRUCIBLE);
+
+
+        DataHelper.takeAll(blocks, b -> b.get() instanceof ComponentBlock);
 
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         DataHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
 
-        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumWallSignBlock).forEach(this::signBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof MalumStandingSignBlock).forEach(this::signBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof SignBlock).forEach(this::signBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(this::itemPedestalBlock);

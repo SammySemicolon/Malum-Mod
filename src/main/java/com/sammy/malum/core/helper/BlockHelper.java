@@ -32,25 +32,23 @@ public class BlockHelper {
         return newState.setValue(property, oldState.getValue(property));
     }
 
-    public static CompoundTag writeBlockPos(CompoundTag compoundNBT, BlockPos pos) {
+    public static void saveBlockPos(CompoundTag compoundNBT, BlockPos pos) {
         compoundNBT.putInt("X", pos.getX());
         compoundNBT.putInt("Y", pos.getY());
         compoundNBT.putInt("Z", pos.getZ());
-        return compoundNBT;
     }
 
-    public static CompoundTag writeBlockPos(CompoundTag compoundNBT, BlockPos pos, String extra) {
+    public static void saveBlockPos(CompoundTag compoundNBT, BlockPos pos, String extra) {
         compoundNBT.putInt(extra + "X", pos.getX());
         compoundNBT.putInt(extra + "Y", pos.getY());
         compoundNBT.putInt(extra + "Z", pos.getZ());
-        return compoundNBT;
     }
 
-    public static BlockPos readBlockPos(CompoundTag tag) {
+    public static BlockPos loadBlockPos(CompoundTag tag) {
         return new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
     }
 
-    public static BlockPos readBlockPos(CompoundTag tag, String extra) {
+    public static BlockPos loadBlockPos(CompoundTag tag, String extra) {
         return new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z"));
     }
 

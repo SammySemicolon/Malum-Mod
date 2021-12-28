@@ -15,6 +15,10 @@ public class BookPage
         this.BACKGROUND = background;
     }
 
+    public boolean isValid()
+    {
+        return true;
+    }
     public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks)
     {
 

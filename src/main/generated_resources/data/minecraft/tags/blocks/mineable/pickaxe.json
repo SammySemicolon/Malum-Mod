@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "malum:spirit_crucible",
+    "malum:spirit_crucible_component",
     "malum:spirit_jar",
     "malum:tainted_rock",
     "malum:smooth_tainted_rock",

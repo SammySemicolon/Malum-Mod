@@ -61,10 +61,13 @@ public class SoundRegistry
     public static final SoundEvent ALTAR_CONSUME = create(new SoundEvent(DataHelper.prefix("altar_consume")));
     public static final SoundEvent ALTAR_SPEED_UP = create(new SoundEvent(DataHelper.prefix("altar_speed_up")));
 
+    public static final SoundEvent CRUCIBLE_CRAFT = create(new SoundEvent(DataHelper.prefix("crucible_craft")));
+    public static final SoundEvent CRUCIBLE_LOOP = create(new SoundEvent(DataHelper.prefix("crucible_loop")));
+
     public static final SoundEvent SINISTER_EQUIP = create(new SoundEvent(DataHelper.prefix("sinister_equip")));
     public static final SoundEvent HOLY_EQUIP = create(new SoundEvent(DataHelper.prefix("holy_equip")));
 
-    public static final SoundEvent TYRVING_CRUSH = create(new SoundEvent(DataHelper.prefix("tyrving_crush")));
+    public static final SoundEvent VOID_SLASH = create(new SoundEvent(DataHelper.prefix("void_slash")));
 
     public static final SoundEvent SUSPICIOUS_SOUND = create(new SoundEvent(DataHelper.prefix("suspicious_sound")));
 

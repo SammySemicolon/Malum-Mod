@@ -17,6 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
@@ -77,7 +78,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile
         float f2 = Mth.cos(rotationYaw * ((float)Math.PI / 180F)) * Mth.cos(rotationPitch * ((float)Math.PI / 180F));
         this.shoot(f, f1, f2, velocity, innacuracy);
         Vec3 vec3 = shooter.getDeltaMovement();
-        this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, shooter.isOnGround() ? 0.0D : vec3.y, vec3.z));
+        this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, 0, vec3.z));
     }
     
     @Override
@@ -98,7 +99,6 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile
         }
         if (entity.equals(owner))
         {
-            super.onHitEntity(p_213868_1_);
             return;
         }
         boolean success = entity.hurt(source, damage);
@@ -106,9 +106,8 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile
         {
             if (!level.isClientSide)
             {
-                if (entity instanceof LivingEntity)
+                if (entity instanceof LivingEntity livingentity)
                 {
-                    LivingEntity livingentity = (LivingEntity) entity;
                     scythe.hurtAndBreak(1, owner(), (e) -> remove(RemovalReason.KILLED));
                     ItemHelper.applyEnchantments(owner, livingentity, scythe);
                     int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
@@ -142,8 +141,13 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile
         if (!level.isClientSide)
         {
             Player playerEntity = owner();
-            if (playerEntity == null)
+            if (playerEntity == null || !playerEntity.isAlive())
             {
+                ItemEntity entityitem = new ItemEntity(level, getX(), getY() + 0.5, getZ(), scythe);
+                entityitem.setPickUpDelay(40);
+                entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+                level.addFreshEntity(entityitem);
+                remove(RemovalReason.DISCARDED);
                 return;
             }
             if (age % 3 == 0)
@@ -153,10 +157,9 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile
             if (this.xRotO == 0.0F && this.yRotO == 0.0F)
             {
                 Vec3 vector3d = getDeltaMovement();
-                float f = 0;
 //                float f = Mth.sqrt(horizontalMag(vector3d));
                 setYRot((float) (Mth.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI)));
-                setXRot((float) (Mth.atan2(vector3d.y, f) * (double) (180F / (float) Math.PI)));
+//                setXRot((float) (Mth.atan2(vector3d.y, f) * (double) (180F / (float) Math.PI)));
                 yRotO = getYRot();
                 xRotO = getXRot();
             }
@@ -181,7 +184,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
                         if (!playerEntity.getAbilities().instabuild)
                         {
-                            int cooldown = 100 - 80 * (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
+                            int cooldown = 300 - 75 * (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
                             playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);
                         }
                         remove(RemovalReason.DISCARDED);

@@ -48,11 +48,8 @@ public class SpiritHelper {
             int random = attacker.level.random.nextInt(spirits.size());
             spirits.get(random).grow(1);
         }
-        if (spiritPlunder > 0)
-        {
-            if (attacker.level.random.nextInt(2) == 0) {
-                harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
-            }
+        if (spiritPlunder > 0) {
+            harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
         }
         createSpiritEntities(spirits, target, attacker);
     }
@@ -68,7 +65,7 @@ public class SpiritHelper {
         if (attacker == null) {
             attacker = target.level.getNearestPlayer(target.getX(), target.getY(), target.getZ(), 8, e -> true);
         }
-        float speed = 0.2f + 0.5f / (getEntitySpiritCount(target) + 1);
+        float speed = 0.125f + 0.4f / (getEntitySpiritCount(target) + 1);
         for (ItemStack stack : spirits) {
             int count = stack.getCount();
             if (count == 0) {
@@ -109,17 +106,17 @@ public class SpiritHelper {
             Item item = stack.getItem();
             if (item instanceof IEventResponderItem) {
                 IEventResponderItem eventItem = (IEventResponderItem) item;
-                eventItem.pickupSpirit(collector, stack);
+                eventItem.pickupSpirit(collector, stack, true);
             }
             collector.getArmorSlots().forEach(s ->{
                 if (s.getItem() instanceof IEventResponderItem)
                 {
                     IEventResponderItem eventItem = (IEventResponderItem) s.getItem();
-                    eventItem.pickupSpirit(collector, stack);
+                    eventItem.pickupSpirit(collector, stack, true);
                 }
             });
             ArrayList<ItemStack> curios = ItemHelper.equippedCurios(collector, p -> p.getItem() instanceof IEventResponderItem);
-            curios.forEach(s -> ((IEventResponderItem)s.getItem()).pickupSpirit(collector, s));
+            curios.forEach(s -> ((IEventResponderItem)s.getItem()).pickupSpirit(collector, s, true));
         }
         ItemHelper.giveItemToEntity(stack, collector);
     }

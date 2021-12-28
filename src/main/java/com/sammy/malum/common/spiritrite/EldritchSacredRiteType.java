@@ -22,10 +22,20 @@ public class EldritchSacredRiteType extends MalumRiteType {
     }
 
     @Override
+    public int range(boolean corrupted) {
+        return defaultRange()/2;
+    }
+
+    @Override
+    public int interval(boolean corrupted) {
+        return defaultInterval()*3;
+    }
+
+    @Override
     public void riteEffect(Level level, BlockPos pos) {
         if (!level.isClientSide) {
             getNearbyBlocks(BonemealableBlock.class, level, pos, false).forEach(p -> {
-                if (level.random.nextFloat() <= 0.02f) {
+                if (level.random.nextFloat() <= 0.01f) {
                     BlockState state = level.getBlockState(p);
                     BonemealableBlock growable = (BonemealableBlock) state.getBlock();
                     ServerLevel serverLevel = (ServerLevel) level;
@@ -56,10 +66,5 @@ public class EldritchSacredRiteType extends MalumRiteType {
                 }
             });
         }
-    }
-
-    @Override
-    public int range(boolean corrupted) {
-        return defaultRange()/2;
     }
 }

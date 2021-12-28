@@ -1,0 +1,20 @@
+{
+  "type": "malum:spirit_focusing",
+  "time": 400,
+  "durabilityCost": 2,
+  "input": {
+    "item": "malum:vitric_impetus"
+  },
+  "output": {
+    "item": "malum:blazing_quartz",
+    "count": 4
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit"
+    },
+    {
+      "item": "malum:infernal_spirit"
+    }
+  ]
+}

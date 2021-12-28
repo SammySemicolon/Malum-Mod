@@ -25,10 +25,7 @@ minecraft {
 
     runs {
         client {
-//            properties 'mixin.env.remapRefMap': 'true'
-//            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
-//            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -41,10 +38,7 @@ minecraft {
         }
 
         server {
-//            properties 'mixin.env.remapRefMap': 'true'
-//            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
-//            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'

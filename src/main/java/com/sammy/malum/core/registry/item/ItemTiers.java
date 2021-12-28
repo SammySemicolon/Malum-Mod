@@ -10,9 +10,8 @@ public class ItemTiers
 {
     public enum ItemTierEnum implements Tier
     {
-        SOUL_STAINED_STEEL_ITEM(1731, 7.5f, 2.5f, 3, 16, ItemRegistry.SOUL_STAINED_STEEL_INGOT),
-        PITHING_NEEDLE_ITEM(511, 6f, 1f, 2, 9, ItemRegistry.TAINTED_ROCK),
-        TYRVING_ITEM(1022, 8f, 3f, 3, 12, ItemRegistry.TWISTED_ROCK);
+        SOUL_STAINED_STEEL(1731, 7.5f, 2.5f, 3, 16, ItemRegistry.SOUL_STAINED_STEEL_INGOT),
+        TYRVING(1022, 8f, 1f, 3, 12, ItemRegistry.TWISTED_ROCK);
         private final int maxUses;
         private final float efficiency;
         private final float attackDamage;

@@ -24,6 +24,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.Event;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -54,8 +56,6 @@ public class ProgressionBookScreen extends Screen
     public float yOffset;
     public float cachedXOffset;
     public float cachedYOffset;
-    public float xMovement;
-    public float yMovement;
     public boolean ignoreNextMouseInput;
 
     public static ArrayList<BookEntry> entries;
@@ -66,6 +66,7 @@ public class ProgressionBookScreen extends Screen
         super(new TranslatableComponent("malum.gui.book.title"));
         minecraft = Minecraft.getInstance();
         setupEntries();
+        MinecraftForge.EVENT_BUS.post(new SetupMalumCodexEntriesEvent());
         setupObjects();
     }
     public static void setupEntries()
@@ -135,7 +136,7 @@ public class ProgressionBookScreen extends Screen
                 .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(new HeadlineTextPage("hex_ash", "hex_ash"))
-                .addPage(new SpiritInfusionPage(HEX_ASH.get()))
+                .addPage(SpiritInfusionPage.fromOutput(HEX_ASH.get()))
         );
 
         entries.add(new BookEntry(
@@ -170,11 +171,11 @@ public class ProgressionBookScreen extends Screen
         entries.add(new BookEntry(
                 "arcane_rock", TAINTED_ROCK.get(),3,6)
                 .addPage(new HeadlineTextPage("tainted_rock", "tainted_rock"))
-                .addPage(new SpiritInfusionPage(TAINTED_ROCK.get()))
+                .addPage(SpiritInfusionPage.fromOutput(TAINTED_ROCK.get()))
                 .addPage(CraftingBookPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(TAINTED_ROCK_ITEM_STAND.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
                 .addPage(new HeadlineTextPage("twisted_rock", "twisted_rock"))
-                .addPage(new SpiritInfusionPage(TWISTED_ROCK.get()))
+                .addPage(SpiritInfusionPage.fromOutput(TWISTED_ROCK.get()))
                 .addPage(CraftingBookPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
         );
@@ -182,13 +183,13 @@ public class ProgressionBookScreen extends Screen
                 "ether", ETHER.get(), 5,6)
                 .addPage(new HeadlineTextPage("ether", "ether_a"))
                 .addPage(new TextPage("ether_b"))
-                .addPage(new SpiritInfusionPage(ETHER.get()))
+                .addPage(SpiritInfusionPage.fromOutput(ETHER.get()))
                 .addPage(new CraftingBookPage(ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
                 .addPage(new CraftingBookPage(TAINTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
                 .addPage(new CraftingBookPage(TWISTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
                 .addPage(new HeadlineTextPage("iridescent_ether", "iridescent_ether_a"))
                 .addPage(new TextPage("iridescent_ether_b"))
-                .addPage(new SpiritInfusionPage(IRIDESCENT_ETHER.get()))
+                .addPage(SpiritInfusionPage.fromOutput(IRIDESCENT_ETHER.get()))
                 .addPage(new CraftingBookPage(IRIDESCENT_ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, IRIDESCENT_ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
                 .addPage(new CraftingBookPage(TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), IRIDESCENT_ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
                 .addPage(new CraftingBookPage(TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), IRIDESCENT_ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
@@ -197,7 +198,7 @@ public class ProgressionBookScreen extends Screen
         entries.add(new BookEntry(
                 "spirit_fabric", SPIRIT_FABRIC.get(),4,5)
                 .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric"))
-                .addPage(new SpiritInfusionPage(SPIRIT_FABRIC.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SPIRIT_FABRIC.get()))
                 .addPage(new HeadlineTextPage("spirit_pouch", "spirit_pouch"))
                 .addPage(new CraftingBookPage(SPIRIT_POUCH.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), SOUL_SAND, SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
         );
@@ -205,51 +206,80 @@ public class ProgressionBookScreen extends Screen
         entries.add(new BookEntry(
                 "soul_hunter_gear", SOUL_HUNTER_CLOAK.get(),4,7)
                 .addPage(new HeadlineTextPage("soul_hunter_armor", "soul_hunter_armor"))
-                .addPage(new SpiritInfusionPage(SOUL_HUNTER_CLOAK.get()))
-                .addPage(new SpiritInfusionPage(SOUL_HUNTER_ROBE.get()))
-                .addPage(new SpiritInfusionPage(SOUL_HUNTER_LEGGINGS.get()))
-                .addPage(new SpiritInfusionPage(SOUL_HUNTER_BOOTS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_ROBE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_LEGGINGS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_BOOTS.get()))
         );
 
         entries.add(new BookEntry(
-                "spirit_alchemy", GUNPOWDER,7,6)
-                .addPage(new HeadlineTextPage("spirit_alchemy", "spirit_alchemy"))
-                .addPage(new SpiritInfusionPage(GUNPOWDER))
-                .addPage(new SpiritInfusionPage(REDSTONE))
-                .addPage(new SpiritInfusionPage(GLOWSTONE_DUST))
+                "spirit_alchemy", ALCHEMICAL_IMPETUS.get(),7,6)
+                .addPage(new HeadlineTextPage("spirit_alchemy", "spirit_alchemy_a"))
+                .addPage(new TextPage("spirit_alchemy_b"))
+                .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CRUCIBLE.get()))
+                .addPage(SpiritInfusionPage.fromImpetus(ALCHEMICAL_IMPETUS.get(), CRACKED_ALCHEMICAL_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(
-                "expanded_spirit_alchemy", QUARTZ,6,5)
-                .addPage(new HeadlineTextPage("expanded_spirit_alchemy", "expanded_spirit_alchemy"))
-                .addPage(new SpiritInfusionPage(QUARTZ))
-                .addPage(new SpiritInfusionPage(BLAZING_QUARTZ.get()))
-                .addPage(new SpiritInfusionPage(BLAZE_POWDER))
-                .addPage(new SpiritInfusionPage(PRISMARINE_CRYSTALS))
-                .addPage(new SpiritInfusionPage(PRISMARINE_SHARD))
-                .addPage(new SpiritInfusionPage(BRILLIANCE_CLUSTER.get()))
+                "ashen_spirit_focusing", GUNPOWDER,8,7)
+                .addPage(new HeadlineTextPage("ashen_spirit_focusing", "ashen_spirit_focusing"))
+                .addPage(SpiritCruciblePage.fromOutput(GUNPOWDER))
+                .addPage(SpiritCruciblePage.fromOutput(GLOWSTONE_DUST))
+                .addPage(SpiritCruciblePage.fromOutput(REDSTONE))
         );
 
         entries.add(new BookEntry(
-                "focused_spirit_alchemy", ENDER_PEARL,8,7)
-                .addPage(new HeadlineTextPage("focused_spirit_alchemy", "focused_spirit_alchemy"))
-                .addPage(new SpiritInfusionPage(ENDER_PEARL))
-                .addPage(new SpiritInfusionPage(PHANTOM_MEMBRANE))
-                .addPage(new SpiritInfusionPage(GHAST_TEAR))
-                .addPage(new SpiritInfusionPage(RABBIT_FOOT))
+                "metallurgy_with_spirits", IRON_INGOT,7,8)
+                .addPage(new HeadlineTextPage("metallurgy_with_spirits", "metallurgy_with_spirits_a"))
+                .addPage(new TextPage("metallurgy_with_spirits_b"))
+                .addPage(SpiritInfusionPage.fromImpetus(IRON_IMPETUS.get(), CRACKED_IRON_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromInput(IRON_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromImpetus(GOLD_IMPETUS.get(), CRACKED_GOLD_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromInput(GOLD_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromImpetus(COPPER_IMPETUS.get(), CRACKED_COPPER_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromInput(COPPER_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromImpetus(LEAD_IMPETUS.get(), CRACKED_LEAD_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromInput(LEAD_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromImpetus(SILVER_IMPETUS.get(), CRACKED_SILVER_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromInput(SILVER_IMPETUS.get()))
+        );
+
+        entries.add(new BookEntry(
+                "crystalline_spirit_focusing", QUARTZ,6,5)
+                .addPage(new HeadlineTextPage("crystalline_spirit_focusing", "crystalline_spirit_focusing"))
+                .addPage(SpiritCruciblePage.fromOutput(QUARTZ))
+                .addPage(SpiritCruciblePage.fromOutput(BLAZING_QUARTZ.get()))
+                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_SHARD))
+                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_CRYSTALS))
+        );
+
+        entries.add(new BookEntry(
+                "complexities_with_spirits", ENDER_PEARL,7,4)
+                .addPage(new HeadlineTextPage("complexities_with_spirits", "complexities_with_spirits"))
+                .addPage(SpiritCruciblePage.fromOutput(ENDER_PEARL))
+                .addPage(SpiritCruciblePage.fromOutput(GHAST_TEAR))
+                .addPage(SpiritCruciblePage.fromOutput(RABBIT_FOOT))
+        );
+
+        entries.add(new BookEntry(
+                "ceaseless_impetus", CEASELESS_IMPETUS.get(),9,5)
+                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus"))
+                .addPage(SpiritInfusionPage.fromImpetus(CEASELESS_IMPETUS.get(), CRACKED_CEASELESS_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(
                 "spirit_metallurgy", SOUL_STAINED_STEEL_INGOT.get(),-3,6)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a"))
                 .addPage(new TextPage("hallowed_gold_b"))
-                .addPage(new SpiritInfusionPage(HALLOWED_GOLD_INGOT.get()))
+                .addPage(SpiritInfusionPage.fromOutput(HALLOWED_GOLD_INGOT.get()))
                 .addPage(CraftingBookPage.resonatorPage(HALLOWED_SPIRIT_RESONATOR.get(), QUARTZ, HALLOWED_GOLD_INGOT.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(new HeadlineTextPage("spirit_jar", "spirit_jar"))
                 .addPage(new CraftingBookPage(SPIRIT_JAR.get(), GLASS_PANE, HALLOWED_GOLD_INGOT.get(), GLASS_PANE, GLASS_PANE, EMPTY, GLASS_PANE, GLASS_PANE, GLASS_PANE, GLASS_PANE))
                 .addPage(new HeadlineTextPage("soul_stained_steel", "soul_stained_steel_a"))
                 .addPage(new TextPage("soul_stained_steel_b"))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingBookPage.resonatorPage(STAINED_SPIRIT_RESONATOR.get(), QUARTZ, SOUL_STAINED_STEEL_INGOT.get(), RUNEWOOD_PLANKS.get()))
                 .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(CraftingBookPage.toolPage(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_INGOT.get()))
@@ -261,13 +291,13 @@ public class ProgressionBookScreen extends Screen
         entries.add(new BookEntry(
                 "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -4, 5)
                 .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_SCYTHE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_SCYTHE.get()))
                 .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor_a"))
                 .addPage(new TextPage("soul_stained_armor_b"))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_HELMET.get()))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_CHESTPLATE.get()))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_LEGGINGS.get()))
-                .addPage(new SpiritInfusionPage(SOUL_STAINED_STEEL_BOOTS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_HELMET.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_CHESTPLATE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_LEGGINGS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_BOOTS.get()))
         );
 
         entries.add(new BookEntry(
@@ -283,54 +313,60 @@ public class ProgressionBookScreen extends Screen
         entries.add(new BookEntry(
                 "soul_hunter_trinkets", RING_OF_ARCANE_REACH.get(), -5, 6)
                 .addPage(new HeadlineTextPage("arcane_reach", "arcane_reach"))
-                .addPage(new SpiritInfusionPage(RING_OF_ARCANE_REACH.get()))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_REACH.get()))
                 .addPage(new HeadlineTextPage("arcane_spoil", "arcane_spoil"))
-                .addPage(new SpiritInfusionPage(RING_OF_ARCANE_SPOIL.get()))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_SPOIL.get()))
         );
 
         entries.add(new BookEntry(
                 "ring_of_prowess", RING_OF_PROWESS.get(), -7, 6)
                 .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
                 .addPage(new TextPage("ring_of_prowess_b"))
-                .addPage(new SpiritInfusionPage(RING_OF_PROWESS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_PROWESS.get()))
         );
 
         entries.add(new BookEntry(
                 "ring_of_wicked_intent", RING_OF_WICKED_INTENT.get(), -7, 8)
                 .addPage(new HeadlineTextPage("ring_of_wicked_intent", "ring_of_wicked_intent"))
-                .addPage(new SpiritInfusionPage(RING_OF_WICKED_INTENT.get()))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_WICKED_INTENT.get()))
         );
 
         entries.add(new BookEntry(
                 "ring_of_curative_talent", RING_OF_CURATIVE_TALENT.get(), -7, 4)
                 .addPage(new HeadlineTextPage("ring_of_curative_talent", "ring_of_curative_talent"))
-                .addPage(new SpiritInfusionPage(RING_OF_CURATIVE_TALENT.get()))
+                .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
         );
 
         entries.add(new BookEntry(
-                "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -8, 5)
+                "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -6, 5)
                 .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror"))
-                .addPage(new SpiritInfusionPage(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
+                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
         entries.add(new BookEntry(
-                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -6, 7)
+                "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -8, 7)
                 .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge"))
-                .addPage(new SpiritInfusionPage(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
+                .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
+        );
+
+        entries.add(new BookEntry(
+                "warded_belt", WARDED_BELT.get(), -9, 5)
+                .addPage(new HeadlineTextPage("warded_belt", "warded_belt"))
+                .addPage(SpiritInfusionPage.fromOutput(WARDED_BELT.get()))
         );
 
         entries.add(new BookEntry(
                 "mirror_magic", SPECTRAL_LENS.get(), -6, 10)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic"))
-                .addPage(new SpiritInfusionPage(SPECTRAL_LENS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SPECTRAL_LENS.get()))
         );
 
         entries.add(new BookEntry(
                 "voodoo_magic", POPPET.get(), 6, 10)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic"))
-                .addPage(new SpiritInfusionPage(POPPET.get()))
+                .addPage(SpiritInfusionPage.fromOutput(POPPET.get()))
         );
 
         entries.add(new BookEntry(
@@ -339,7 +375,7 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
                 .addPage(new TextPage("totem_magic_b"))
                 .addPage(new TextPage("totem_magic_c"))
-                .addPage(new SpiritInfusionPage(RUNEWOOD_TOTEM_BASE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_TOTEM_BASE.get()))
         );
 
         entries.add(new BookEntry(
@@ -349,7 +385,7 @@ public class ProgressionBookScreen extends Screen
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "arcane_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ARCANE_RITE))
                 .addPage(new TextPage("totem_corruption_c"))
-                .addPage(new SpiritInfusionPage(SOULWOOD_TOTEM_BASE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 
         entries.add(new BookEntry(
@@ -413,81 +449,22 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
+                "magebane_belt", MAGEBANE_BELT.get(), 1, 15)
+                .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
+                .addPage(SpiritInfusionPage.fromOutput(MAGEBANE_BELT.get()))
+        );
+
+        entries.add(new BookEntry(
+                "tyrving", TYRVING.get(), -1, 15)
+                .addPage(new HeadlineTextPage("tyrving", "tyrving"))
+                .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
+        );
+
+        entries.add(new BookEntry(
                 "3000_dollars_for_a_brewing_stand", APPLE,0,-10)
                 .setObjectSupplier(VanishingEntryObject::new)
                 .addPage(new HeadlineTextPage("3000_dollars_for_a_brewing_stand","3000_dollars_for_a_brewing_stand"))
         );
-
-//        entries.add(new BookEntry(
-//                "totem_magic", RUNEWOOD_TOTEM_BASE.get(),0,7)
-//                .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
-//                .addPage(new TextPage("totem_magics_b"))
-//                .addPage(new TextPage("totem_magic_c"))
-//                .addPage(new SpiritInfusionPage(RUNEWOOD_TOTEM_BASE.get()))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "simple_spirit_rites", ARCANE_SPIRIT.get(),-1,8) //simple rites almost always turn negative when corrupted
-//                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life")) //Heals nearby allies (players and passive mobs). Heals and empowers nearby enemies
-//                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death")) //Damages nearby enemies. Damages nearby players with a doubled radius.
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth")) //Grants a flat armor bonus to nearby allies. MobEffect is reversed, allies and enemies are crippled and armor is reduced.
-//                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames")) //Grants a bonus to movement and swing speed (Includes mining speed) to nearby allies. Sets allies and enemies alike on fire.
-//                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides")) //Provides temporary increased swim speed to nearby allies. Drowns nearby submerged enemies, zombies instantly transform to drowned.
-//                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales")) //Speeds up nearby allies. Horizontal momentum is converted to a burst of levitation.
-//        );
-//
-//        entries.add(new BookEntry(
-//                "complex_spirit_rites", ELDRITCH_SPIRIT.get(),1,8) //complex rites still retain positive effect when corrupted
-//                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life")) //Accelerates the growth of nearby plants. Greatly accelerates the growth of nearby animals.
-//                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth")) //Breaks nearby crops, drops are generated as spirit items.
-//                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
-//                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
-//                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "corrupted_spirit_rites_I", WICKED_SPIRIT.get(),1,7)
-//                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life"))
-//                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth"))
-//                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
-//                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
-//                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "corrupted_spirit_rites_II", WICKED_SPIRIT.get(),-1,9)
-//                .addPage(new HeadlineTextPage("rite_of_life", "rite_of_life"))
-//                .addPage(new HeadlineTextPage("rite_of_death", "rite_of_death"))
-//                .addPage(new HeadlineTextPage("rite_of_earth", "rite_of_earth"))
-//                .addPage(new HeadlineTextPage("rite_of_flames", "rite_of_flames"))
-//                .addPage(new HeadlineTextPage("rite_of_tides", "rite_of_tides"))
-//                .addPage(new HeadlineTextPage("rite_of_gales", "rite_of_gales"))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "soulwood", SOULWOOD_SAPLING.get(),-1,10)
-//        );
-//
-//        entries.add(new BookEntry(
-//                "radiant_soulstone", RADIANT_SOULSTONE.get(), 1, 11)
-//                .addPage(new HeadlineTextPage("radiant_soulstone", "radiant_soulstone_a"))
-//                .addPage(new TextPage("radiant_soulstone_b"))
-//                .addPage(new SpiritInfusionPage(RADIANT_SOULSTONE.get()))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "tyrving", TYRVING.get(), 0, 12)
-//                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
-//                .addPage(new SpiritInfusionPage(TYRVING.get()))
-//        );
-//
-//        entries.add(new BookEntry(
-//                "sacrificial_necklace", SACRIFICIAL_NECKLACE.get(), 2, 11)
-//                .addPage(new HeadlineTextPage("sacrificial_necklace", "sacrificial_necklace"))
-//                .addPage(new SpiritInfusionPage(SACRIFICIAL_NECKLACE.get()))
-//        );
     }
     public void setupObjects()
     {
@@ -519,8 +496,6 @@ public class ProgressionBookScreen extends Screen
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
     {
-        xOffset += xMovement;
-        yOffset += yMovement;
         renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
@@ -538,21 +513,12 @@ public class ProgressionBookScreen extends Screen
         lateEntryRender(poseStack, mouseX, mouseY, partialTicks);
     }
 
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta)
-    {
-        yMovement += delta > 0 ? 1f : -1f;
-        yOffset += delta > 0 ? 0.01f : - 0.01f;
-        return super.mouseScrolled(mouseX, mouseY, delta);
-    }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY)
     {
         xOffset += dragX;
         yOffset += dragY;
-        xMovement = 0;
-        yMovement = 0;
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 
@@ -561,8 +527,6 @@ public class ProgressionBookScreen extends Screen
     {
         cachedXOffset = xOffset;
         cachedYOffset = yOffset;
-        xMovement = 0;
-        yMovement = 0;
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
@@ -621,8 +585,7 @@ public class ProgressionBookScreen extends Screen
 
     public void renderEntries(PoseStack stack, int mouseX, int mouseY, float partialTicks)
     {
-        for (int i = objects.size()-1; i >= 0; i--)
-        {
+        for (int i = objects.size()-1; i >= 0; i--) {
             BookObject object = objects.get(i);
             boolean isHovering = object.isHovering(xOffset, yOffset, mouseX, mouseY);
             object.isHovering = isHovering;
@@ -641,7 +604,17 @@ public class ProgressionBookScreen extends Screen
 
     public static boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height)
     {
+        if (!isInView(mouseX, mouseY))
+        {
+            return false;
+        }
         return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
+    }
+    public static boolean isInView(double mouseX, double mouseY)
+    {
+        int guiLeft = (screen.width - screen.bookWidth) / 2;
+        int guiTop = (screen.height - screen.bookHeight) / 2;
+        return !(mouseX < guiLeft + 17) && !(mouseY < guiTop + 14) && !(mouseX > guiLeft + (screen.bookWidth - 17)) && !(mouseY > (guiTop + screen.bookHeight - 14));
     }
     public void renderBackground(ResourceLocation texture, PoseStack poseStack, float xModifier, float yModifier)
     {
@@ -673,7 +646,7 @@ public class ProgressionBookScreen extends Screen
         int guiTop = (height - bookHeight) / 2;
         int insideLeft = guiLeft + 17;
         int insideTop = guiTop + 18;
-        GL11.glScissor(insideLeft*scale, insideTop*scale, bookInsideWidth * scale, bookInsideHeight * scale);
+        GL11.glScissor(insideLeft*scale, insideTop*scale, bookInsideWidth * scale, (bookInsideHeight+1) * scale); // do not ask why the 1 is needed please
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)
@@ -785,5 +758,15 @@ public class ProgressionBookScreen extends Screen
             screen = new ProgressionBookScreen();
         }
         return screen;
+    }
+    public static class SetupMalumCodexEntriesEvent extends Event
+    {
+        public SetupMalumCodexEntriesEvent() {
+        }
+
+        @Override
+        public boolean isCancelable() {
+            return false;
+        }
     }
 }

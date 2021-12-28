@@ -22,9 +22,13 @@ public class ItemWithCount
         this(stack.getItem(), stack.getCount());
     }
 
-    public ItemStack stack()
+    public ItemStack getStack()
     {
         return new ItemStack(item, count);
+    }
+    public Item getItem()
+    {
+        return item;
     }
 
     public boolean matches(ItemStack stack)

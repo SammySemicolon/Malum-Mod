@@ -1,0 +1,17 @@
+{
+  "type": "malum:spirit_focusing",
+  "time": 400,
+  "durabilityCost": 1,
+  "input": {
+    "item": "malum:alchemical_impetus"
+  },
+  "output": {
+    "item": "minecraft:glowstone_dust",
+    "count": 8
+  },
+  "spirits": [
+    {
+      "item": "malum:infernal_spirit"
+    }
+  ]
+}

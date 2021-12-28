@@ -2,25 +2,26 @@ package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
+import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
 
+@SuppressWarnings("all")
 public class SpiritInfusionPage extends BookPage
 {
     private final SpiritInfusionRecipe recipe;
-    @SuppressWarnings("all")
-    public SpiritInfusionPage(ItemStack outputStack)
+    public SpiritInfusionPage(Predicate<SpiritInfusionRecipe> predicate)
     {
         super(DataHelper.prefix("textures/gui/book/pages/spirit_infusion_page.png"));
         if (Minecraft.getInstance() == null) //this is null during datagen
@@ -28,16 +29,30 @@ public class SpiritInfusionPage extends BookPage
             this.recipe = null;
             return;
         }
-        this.recipe = SpiritInfusionRecipe.getRecipeForArcana(Minecraft.getInstance().level, outputStack);
-    }
-    public SpiritInfusionPage(Item outputItem)
-    {
-        this(outputItem.getDefaultInstance());
+        this.recipe = SpiritInfusionRecipe.getRecipe(Minecraft.getInstance().level, predicate);
     }
     public SpiritInfusionPage(SpiritInfusionRecipe recipe)
     {
         super(DataHelper.prefix("textures/gui/book/pages/spirit_infusion_page.png"));
         this.recipe = recipe;
+    }
+
+    @Override
+    public boolean isValid() {
+        return recipe != null;
+    }
+
+    public static SpiritInfusionPage fromInput(Item inputItem)
+    {
+        return new SpiritInfusionPage(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
+    }
+    public static SpiritInfusionPage fromOutput(Item outputItem)
+    {
+        return new SpiritInfusionPage(s -> s.doesOutputMatch(outputItem.getDefaultInstance()));
+    }
+    public static SpiritInfusionPage fromImpetus(Item impetus, Item crackedImpetus)
+    {
+        return new SpiritInfusionPage(s -> s.doesOutputMatch(impetus.getDefaultInstance()) && !s.doesInputMatch(crackedImpetus.getDefaultInstance()));
     }
 
     @Override
@@ -90,7 +105,7 @@ public class SpiritInfusionPage extends BookPage
 
         for (int i = 0; i < items.size(); i++)
         {
-            ItemStack stack = items.get(i).stack();
+            ItemStack stack = items.get(i).getStack();
             ProgressionBookScreen.renderItem(poseStack, stack, left+8,top+8+19*i,mouseX,mouseY);
         }
     }

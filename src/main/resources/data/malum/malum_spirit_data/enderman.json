@@ -4,6 +4,10 @@
     {
       "spirit": "eldritch",
       "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 2
     }
   ]
 }

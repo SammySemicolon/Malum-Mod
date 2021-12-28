@@ -1,0 +1,23 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:alchemical_impetus",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:vitric_impetus",
+    "count": 1
+  },
+  "extra_items": [
+    {
+      "tag": "forge:gems/diamond",
+      "count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:arcane_spirit",
+      "count": 8
+    }
+  ]
+}

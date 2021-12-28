@@ -1,6 +1,7 @@
 package com.sammy.malum.core.registry.misc;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.packets.TotemOfUndyingEffectPacket;
 import com.sammy.malum.common.packets.particle.*;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
@@ -31,6 +32,7 @@ public class PacketRegistry
         BlockMistParticlePacket.register(INSTANCE, index++);
         BlockSparkleParticlePacket.register(INSTANCE, index++);
         TotemParticlePacket.register(INSTANCE, index++);
+        TotemOfUndyingEffectPacket.register(INSTANCE, index++);
 
     }
 }

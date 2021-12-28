@@ -1,7 +1,6 @@
 package com.sammy.malum.core.systems.rites;
 
 import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,6 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MalumRiteType {
     public ArrayList<MalumSpiritType> spirits;
@@ -16,7 +16,7 @@ public class MalumRiteType {
 
     public MalumRiteType(String identifier, MalumSpiritType... spirits) {
         this.identifier = identifier;
-        this.spirits = DataHelper.toArrayList(spirits);
+        this.spirits = new ArrayList<>(Arrays.asList(spirits));
     }
 
     public String translationIdentifier()

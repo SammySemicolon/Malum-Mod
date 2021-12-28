@@ -25,6 +25,16 @@ public class EldritchAerialRiteType extends MalumRiteType {
     }
 
     @Override
+    public int interval(boolean corrupted) {
+        return corrupted ? defaultInterval() : defaultInterval() * 5;
+    }
+
+    @Override
+    public int range(boolean corrupted) {
+        return defaultRange() / 4;
+    }
+
+    @Override
     public void riteEffect(Level level, BlockPos pos) {
         if (!level.isClientSide) {
             BlockState filter = level.getBlockState(pos.below());
@@ -61,15 +71,5 @@ public class EldritchAerialRiteType extends MalumRiteType {
                 e.addEffect(new MobEffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 100, 40));
             });
         }
-    }
-
-    @Override
-    public int interval(boolean corrupted) {
-        return corrupted ? defaultInterval() : defaultInterval() * 5;
-    }
-
-    @Override
-    public int range(boolean corrupted) {
-        return defaultRange() / 2;
     }
 }

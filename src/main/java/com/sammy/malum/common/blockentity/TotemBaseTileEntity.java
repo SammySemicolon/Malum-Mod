@@ -39,7 +39,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     public Direction direction;
 
     public TotemBaseTileEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.TOTEM_BASE_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.TOTEM_BASE.get(), pos, state);
         this.corrupted = ((TotemBaseBlock) state.getBlock()).corrupted;
     }
 

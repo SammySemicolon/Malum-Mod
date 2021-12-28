@@ -24,7 +24,7 @@ public class AerialRiteType extends MalumRiteType {
                 if (e.getEffect(EffectRegistry.AERIAL_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AERIAL_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new MobEffectInstance(EffectRegistry.AERIAL_AURA.get(), 100, 1));
+                e.addEffect(new MobEffectInstance(EffectRegistry.AERIAL_AURA.get(), 200, 1));
             });
         }
     }
@@ -36,7 +36,7 @@ public class AerialRiteType extends MalumRiteType {
                 if (e.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AERIAL_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new MobEffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 100, 1));
+                e.addEffect(new MobEffectInstance(EffectRegistry.CORRUPTED_AERIAL_AURA.get(), 200, 1));
             });
         }
     }

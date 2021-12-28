@@ -31,8 +31,9 @@ public class SimpleBlockEntity extends BlockEntity {
 
     @Override
     public void handleUpdateTag(CompoundTag tag) {
-        super.handleUpdateTag(tag);
-        load(tag);
+        if (tag != null) {
+            super.handleUpdateTag(tag);
+        }
     }
 
     @Override

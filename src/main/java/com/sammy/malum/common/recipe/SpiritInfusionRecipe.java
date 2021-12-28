@@ -2,7 +2,6 @@ package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
@@ -12,7 +11,10 @@ import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -20,7 +22,10 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class SpiritInfusionRecipe extends IMalumRecipe
 {
@@ -35,18 +40,16 @@ public class SpiritInfusionRecipe extends IMalumRecipe
     }
     private final ResourceLocation id;
 
-    public final boolean retainsPrimeItem;
     public final IngredientWithCount input;
 
-    public final ItemWithCount output;
+    public final IngredientWithCount output;
 
     public final List<ItemWithCount> spirits;
     public final List<IngredientWithCount> extraItems;
 
-    public SpiritInfusionRecipe(ResourceLocation id, boolean retainsPrimeItem, IngredientWithCount input, ItemWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
+    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
     {
         this.id = id;
-        this.retainsPrimeItem = retainsPrimeItem;
         this.input = input;
         this.output = output;
         this.spirits = spirits;
@@ -129,28 +132,17 @@ public class SpiritInfusionRecipe extends IMalumRecipe
 
     public boolean doesOutputMatch(ItemStack output)
     {
-        return this.output.item.equals(output.getItem());
+        return this.output.matches(output);
     }
 
-    public static SpiritInfusionRecipe getRecipeForAltar(Level level, ItemStack stack, ArrayList<ItemStack> spirits)
-    {
-        List<SpiritInfusionRecipe> recipes = getRecipes(level);
-        for (SpiritInfusionRecipe recipe : recipes)
-        {
-            if (recipe.doesInputMatch(stack) && recipe.doSpiritsMatch(spirits))
-            {
-                return recipe;
-            }
-        }
-        return null;
+    public static SpiritInfusionRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
+        return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
     }
-    public static SpiritInfusionRecipe getRecipeForArcana(Level level, ItemStack stack)
-    {
+
+    public static SpiritInfusionRecipe getRecipe(Level level, Predicate<SpiritInfusionRecipe> predicate) {
         List<SpiritInfusionRecipe> recipes = getRecipes(level);
-        for (SpiritInfusionRecipe recipe : recipes)
-        {
-            if (recipe.doesOutputMatch(stack))
-            {
+        for (SpiritInfusionRecipe recipe : recipes) {
+            if (predicate.test(recipe)) {
                 return recipe;
             }
         }
@@ -161,23 +153,43 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritInfusionRecipe> {
-
+        public boolean isValid(ResourceLocation recipeId, Ingredient ingredient) {
+            return Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).noneMatch(s -> s.equals(Items.BARRIER));
+        }
+        public boolean isValid(ResourceLocation recipeId, Stream<Item> item) {
+            return item.noneMatch(i -> i.equals(Items.BARRIER));
+        }
+        public boolean isValid(ResourceLocation recipeId, Item item) {
+            return !item.equals(Items.BARRIER);
+        }
         @Override
         public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json)
         {
-            boolean retainsPrimeItem = json.getAsJsonPrimitive("retain_prime_item").getAsBoolean();
             JsonObject inputObject = json.getAsJsonObject("input");
             IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
+            if (!isValid(recipeId, input.ingredient))
+            {
+                return null;
+            }
 
             JsonObject outputObject = json.getAsJsonObject("output");
-            ItemWithCount output = ItemWithCount.deserialize(outputObject);
-
+            IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
+            if (!isValid(recipeId, output.ingredient))
+            {
+                return null;
+            }
             JsonArray extraItemsArray = json.getAsJsonArray("extra_items");
             ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemsArray.size(); i++)
             {
                 JsonObject extraItemObject = extraItemsArray.get(i).getAsJsonObject();
                 extraItems.add(IngredientWithCount.deserialize(extraItemObject));
+            }
+            for (IngredientWithCount extraItem : extraItems) {
+                if (!isValid(recipeId, extraItem.ingredient))
+                {
+                    return null;
+                }
             }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
@@ -187,11 +199,16 @@ public class SpiritInfusionRecipe extends IMalumRecipe
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(ItemWithCount.deserialize(spiritObject));
             }
+            if (!isValid(recipeId, spirits.stream().map(ItemWithCount::getItem)))
+            {
+                return null;
+            }
             if (spirits.isEmpty())
             {
-                throw new JsonSyntaxException("Spirit infusion recipes need at least 1 spirit ingredient, recipe with id: " + recipeId + " is incorrect");
+                MalumMod.LOGGER.info("Found a recipe with no spirits, skipping spirit infusion recipe with id: " + recipeId);
+                return null;
             }
-            return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, output,spirits,extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, output,spirits,extraItems);
         }
 
         @Nullable
@@ -199,7 +216,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer)
         {
             IngredientWithCount input = IngredientWithCount.read(buffer);
-            ItemStack output = buffer.readItem();
+            IngredientWithCount output = IngredientWithCount.read(buffer);
             int extraItemCount = buffer.readInt();
             ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemCount;i++)
@@ -212,15 +229,14 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             {
                 spirits.add(new ItemWithCount(buffer.readItem()));
             }
-            boolean retainsPrimeItem = buffer.readBoolean();
-            return new SpiritInfusionRecipe(recipeId, retainsPrimeItem, input, new ItemWithCount(output), spirits, extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, output, spirits, extraItems);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, SpiritInfusionRecipe recipe)
         {
             recipe.input.write(buffer);
-            buffer.writeItem(recipe.output.stack());
+            recipe.output.write(buffer);
             buffer.writeInt(recipe.extraItems.size());
             for (IngredientWithCount item : recipe.extraItems)
             {
@@ -229,9 +245,8 @@ public class SpiritInfusionRecipe extends IMalumRecipe
             buffer.writeInt(recipe.spirits.size());
             for (ItemWithCount item : recipe.spirits)
             {
-                buffer.writeItem(item.stack());
+                buffer.writeItem(item.getStack());
             }
-            buffer.writeBoolean(recipe.retainsPrimeItem);
         }
     }
 }

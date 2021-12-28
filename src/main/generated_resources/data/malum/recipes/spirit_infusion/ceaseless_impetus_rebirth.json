@@ -1,0 +1,43 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:cracked_ceaseless_impetus",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:ceaseless_impetus",
+    "count": 1
+  },
+  "extra_items": [
+    {
+      "item": "malum:hallowed_gold_ingot",
+      "count": 6
+    },
+    {
+      "item": "malum:hallowed_spirit_resonator",
+      "count": 1
+    },
+    {
+      "tag": "forge:gems/diamond",
+      "count": 2
+    },
+    {
+      "tag": "forge:gems/emerald",
+      "count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:sacred_spirit",
+      "count": 24
+    },
+    {
+      "item": "malum:arcane_spirit",
+      "count": 12
+    },
+    {
+      "item": "malum:eldritch_spirit",
+      "count": 3
+    }
+  ]
+}

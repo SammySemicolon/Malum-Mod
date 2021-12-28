@@ -26,21 +26,18 @@ public class CurioMirrorNecklace extends MalumCurioItem implements IEventRespond
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (event.getSource().isMagic())
         {
-
             Item item = stack.getItem();
-            if (item instanceof IEventResponderItem) {
-                IEventResponderItem eventItem = (IEventResponderItem) item;
-                eventItem.pickupSpirit(attacker, stack);
+            if (item instanceof IEventResponderItem eventItem) {
+                eventItem.pickupSpirit(attacker, stack, false);
             }
             attacker.getArmorSlots().forEach(s ->{
-                if (s.getItem() instanceof IEventResponderItem)
+                if (s.getItem() instanceof IEventResponderItem eventItem)
                 {
-                    IEventResponderItem eventItem = (IEventResponderItem) s.getItem();
-                    eventItem.pickupSpirit(attacker, stack);
+                    eventItem.pickupSpirit(attacker, stack, false);
                 }
             });
             ArrayList<ItemStack> curios = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
-            curios.forEach(s -> ((IEventResponderItem)s.getItem()).pickupSpirit(attacker, s));
+            curios.forEach(s -> ((IEventResponderItem)s.getItem()).pickupSpirit(attacker, s, false));
         }
     }
 }

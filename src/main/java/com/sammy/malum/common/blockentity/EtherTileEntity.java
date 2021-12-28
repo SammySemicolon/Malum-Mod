@@ -21,7 +21,7 @@ public class EtherTileEntity extends SimpleBlockEntity {
     public Color secondColor;
 
     public EtherTileEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.ETHER_BLOCK_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.ETHER.get(), pos, state);
     }
 
     @Override

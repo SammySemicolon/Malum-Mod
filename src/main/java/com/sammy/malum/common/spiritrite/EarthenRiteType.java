@@ -26,7 +26,7 @@ public class EarthenRiteType extends MalumRiteType
                 if (e.getEffect(EffectRegistry.EARTHEN_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(EARTHEN_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new MobEffectInstance(EffectRegistry.EARTHEN_AURA.get(), 100, 1));
+                e.addEffect(new MobEffectInstance(EffectRegistry.EARTHEN_AURA.get(), 200, 1));
             });
         }
     }
@@ -38,7 +38,7 @@ public class EarthenRiteType extends MalumRiteType
                 if (e.getEffect(EffectRegistry.CORRUPTED_EARTHEN_AURA.get()) == null) {
                     INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(EARTHEN_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
-                e.addEffect(new MobEffectInstance(EffectRegistry.CORRUPTED_EARTHEN_AURA.get(), 100, 1));
+                e.addEffect(new MobEffectInstance(EffectRegistry.CORRUPTED_EARTHEN_AURA.get(), 200, 1));
             });
         }
     }
