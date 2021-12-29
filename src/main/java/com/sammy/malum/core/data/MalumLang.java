@@ -205,29 +205,30 @@ public class MalumLang extends LanguageProvider
 
         addDescription("spirit_alchemy", "Focusing with Spirits");
         addHeadline("spirit_alchemy", "Spirit Alchemy");
-        addPage("spirit_alchemy_a", "You take the spirit crucible shove item and spirit into it and bam new item. Item isn't consumed. An impetus is a little magic catalyst that can be easily shaped into other things using spirits. This is called spirit focusing");
-        addPage("spirit_alchemy_b", "There is no second page, take off your clothes.");
+        addPage("spirit_alchemy_a", "The spirit crucible is a wondrous device shaped specifically for an alchemical process named spirit focusing. It revolves around a single key catalyst and it's interaction with spirits. One of the more common catalysts found in this interaction are alchemical impetus'.");
+        addPage("spirit_alchemy_b", "An impetus is a clay-made reagent specifically tuned to spirit focusing, it is ever changing. By utilizing spirits in the crucible you may shape some of the impetus' mass into something greater. This however takes a toll on the impetus, eventually requiring repair.");
 
-        addDescription("crystalline_spirit_focusing", "");
+        addDescription("crystalline_spirit_focusing", "Crystal Expertise");
         addHeadline("crystalline_spirit_focusing", "Crystalline Spirit Focusing");
-        addPage("crystalline_spirit_focusing", "meth");
+        addPage("crystalline_spirit_focusing", "One of the more common things you may focus an impetus into are gems, lots of em. To do this you will require a vitric impetus, it is limiting in it's possibilities but it excels at everything it's got available.");
 
-        addDescription("complexities_with_spirits", "");
+        addDescription("complexities_with_spirits", "Advanced Conjuration");
         addHeadline("complexities_with_spirits", "Complexities with Spirits");
-        addPage("complexities_with_spirits", "Rabbit feet I hate rabbit feet so much here u go you can now make rabbit feet");
+        addPage("complexities_with_spirits", "Taking a heavy toll on your impetus with a heavy spirit cost, you may focus the catalyst into some rather exquisite rare materials.");
 
-        addDescription("ashen_spirit_focusing", "");
+        addDescription("ashen_spirit_focusing", "Spirits to ashes, ashes to soot");
         addHeadline("ashen_spirit_focusing", "Ashen Spirit Focusing");
-        addPage("ashen_spirit_focusing", "Gunpwoder");
+        addPage("ashen_spirit_focusing", "With primitive spirit focusing you may successfully create simple powders often needed in all sorts of studies of arcana.");
 
-        addDescription("metallurgy_with_spirits", "");
+        addDescription("metallurgy_with_spirits", "Focusing into hardware");
         addHeadline("metallurgy_with_spirits", "Metallurgy with Spirits");
-        addPage("metallurgy_with_spirits_a", "You grow metals.");
-        addPage("metallurgy_with_spirits_b", "You grow metals 2.");
+        addPage("metallurgy_with_spirits_a", "With some clever tricks you may imbue your impetus with a metallic shell, when fed spirits it'll shape a few nuggets of the desired metal into the world. This takes a large toll on the impetus however, needing frequent repair.");
+        addPage("metallurgy_with_spirits_b", "It is speculated that these catalysts were previously used as some sort of ashen aspectus, used in a infernal arcana focused infusion system. It might be difficult to replicate that without more advanced studies on infernal arcana.");
 
         addDescription("ceaseless_impetus", "Rebirth");
         addHeadline("ceaseless_impetus", "Ceaseless Impetus");
-        addPage("ceaseless_impetus", "Reusable totem of undying, needs repair");
+        addPage("ceaseless_impetus_a", "The totem of undying is a very interesting artifact sought out by many, it seems to be an effigy for some sort of greater god, an opposition to an undocumented evil it seems. By utilizing advanced sacred spirit arcana we can feed into this wonder and alter it's effect.");
+        addPage("ceaseless_impetus_b", "In addition to a more sturdy design made out of hallowed gold, the ceaseless impetus allows for two uses before needing repair. This however results in the phoenix blessing effect being generally weaker, needing activations in quick succession to match it's former glory.");
 
         addDescription("spirit_metallurgy", "Arcane metals");
         addHeadline("hallowed_gold", "Hallowed Gold");
@@ -264,7 +265,7 @@ public class MalumLang extends LanguageProvider
 
         addDescription("warded_belt", "Immovable");
         addHeadline("warded_belt", "Warded Belt");
-        addPage("warded_belt", "Just armor like that's all it does really it's just a lot of defense");
+        addPage("warded_belt", "By taking the already armored design of a gilded belt and imbuing it with earthen arcana and a tained rock reinforcement we can create a powerful belt which serves as a great defense.");
 
         addDescription("ring_of_curative_talent", "Arcane Vigor");
         addHeadline("ring_of_curative_talent", "Ring of Curative Talent");
@@ -343,22 +344,22 @@ public class MalumLang extends LanguageProvider
         addPage("eldritch_aqueous_rite", "The advanced aqueous rite will motivate nearby pointed dripstone blocks and bring them into work, yielding even more liquid.");
         addPage("corrupted_eldritch_aqueous_rite", "The energizing effect is reversed, freezing over nearby water or lava instead.");
 
-        addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
-        addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
-        addPage("3000_dollars_for_a_brewing_stand", "hey apple");
-
         addDescription("soulwood", "Twisted Roots");
         addHeadline("soulwood", "Soulwood");
         addPage("soulwood_a", "Spirit magics focus on turning everything good in the world to evil. Sometimes, by pure coincidence a great thing is created instead, as is the case with runewood. It is important to realize this mistake and correct it.");
         addPage("soulwood_b", "By utilizing the dangerous arcane spirit rite we can easily create soulwood, any nearby runewood block is a valid target for this transmutation. Much like it's name implies, soulwood has a strong connection to more direct soul magics. It'll be sure to come in use.");
 
-        addDescription("tyrving", "Funny embers");
+        addDescription("tyrving", "Ancient Relic");
         addHeadline("tyrving", "Tyrving");
-        addPage("tyrving", "Deals magic damage based on how many spirits the target has");
+        addPage("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon, not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.");
 
-        addDescription("magebane_belt", "Magic thorns");
+        addDescription("magebane_belt", "Retaliation");
         addHeadline("magebane_belt", "Magebane Belt");
-        addPage("magebane_belt", "Take magic damage retaliate with magic damage");
+        addPage("magebane_belt", "By twisting a warded belt into it's rather sinister alter ego we may create the magebane belt. This alteration exchanges defense for offense, providing greater magic resistance. Additionally, any incoming magic damage will be redirected at the inflicter.");
+
+        addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
+        addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
+        addPage("3000_dollars_for_a_brewing_stand", "hey apple");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_rite", "Spirit Rite");

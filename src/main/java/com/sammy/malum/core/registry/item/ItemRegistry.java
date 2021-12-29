@@ -440,12 +440,12 @@ public class ItemRegistry {
     public static final RegistryObject<Item> MAGEBANE_BELT = ITEMS.register("magebane_belt", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON).durability(3)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS));
+    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON).durability(2)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS));
 
     //endregion
 
     //region hidden items
-    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(Tiers.IRON, 9993, 9.2f, 1000f, HIDDEN_PROPERTIES().defaultDurability(0)));
+    public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new ScytheItem(Tiers.IRON, 9993, 9.1f, 999f, HIDDEN_PROPERTIES().defaultDurability(0)));
     public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(HIDDEN_PROPERTIES()));
     //endregion
 

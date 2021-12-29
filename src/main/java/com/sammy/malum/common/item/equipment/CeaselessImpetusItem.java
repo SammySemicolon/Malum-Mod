@@ -57,7 +57,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IEventResponder
                         player.removeEffect(activeEffect.getEffect());
                     }
                 }
-                ItemHelper.giveAmplifyingEffect(MobEffects.REGENERATION, player, 400, 1, 4);
+                ItemHelper.giveAmplifyingEffect(MobEffects.REGENERATION, player, 400, 0, 3);
                 player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400, 0));
 
