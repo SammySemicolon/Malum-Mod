@@ -362,6 +362,7 @@ public class MalumLang extends LanguageProvider
         addPage("3000_dollars_for_a_brewing_stand", "hey apple");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
+        add("malum.jei.spirit_focusing", "Spirit Focusing");
         add("malum.jei.spirit_rite", "Spirit Rite");
         add("malum.jei.block_transmutation", "Block Transmutation");
 
