@@ -1,9 +1,7 @@
 package com.sammy.malum.common.item.tools;
 
 import com.google.common.collect.ImmutableMultimap;
-import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
@@ -14,24 +12,17 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
-import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class ScytheItem extends ModCombatItem implements IEventResponderItem {
@@ -46,35 +37,6 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem {
             builder.put(AttributeRegistry.MAGIC_PROFICIENCY, new AttributeModifier(UUID.fromString("d1d17de1-c944-4cdb-971e-f9c4ce260cfe"), "Weapon magic proficiency", magicDamageBoost, AttributeModifier.Operation.ADDITION));
         }
         return builder;
-    }
-
-
-    @Nonnull
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, @Nonnull InteractionHand handIn) {
-        ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(), itemstack) > 0) {
-            if (!level.isClientSide) {
-                playerIn.setItemInHand(handIn, ItemStack.EMPTY);
-                double baseDamage = playerIn.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
-                float multiplier = 1.2f;
-                double damage = 1.0F + baseDamage * multiplier;
-
-                int slot = handIn == InteractionHand.OFF_HAND ? playerIn.getInventory().getContainerSize() - 1 : playerIn.getInventory().selected;
-                ScytheBoomerangEntity entity = new ScytheBoomerangEntity(level);
-                entity.setPos(playerIn.position().x, playerIn.position().y + playerIn.getBbHeight() / 2f, playerIn.position().z);
-
-                entity.setData((float) damage, playerIn.getUUID(), slot, itemstack);
-                entity.getEntityData().set(ScytheBoomerangEntity.SCYTHE, itemstack);
-
-                entity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, (float) (1.5F + playerIn.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY)*0.125f), 0F);
-                level.addFreshEntity(entity);
-            }
-            playerIn.awardStat(Stats.ITEM_USED.get(this));
-
-            return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
-        }
-        return super.use(level, playerIn, handIn);
     }
 
     @Override

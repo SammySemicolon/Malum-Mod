@@ -8,7 +8,7 @@ public class ReboundEnchantment extends Enchantment
 {
     public ReboundEnchantment()
     {
-        super(Rarity.UNCOMMON, MalumEnchantments.SCYTHE_ONLY, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
+        super(Rarity.UNCOMMON, MalumEnchantments.REBOUND_SCYTHE, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
     
     @Override

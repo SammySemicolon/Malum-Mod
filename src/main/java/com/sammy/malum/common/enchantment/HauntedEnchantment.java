@@ -11,17 +11,18 @@ public class HauntedEnchantment extends Enchantment
 {
     public HauntedEnchantment()
     {
-        super(Rarity.UNCOMMON, MalumEnchantments.SCYTHE_ONLY, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
+        super(Rarity.UNCOMMON, MalumEnchantments.SCYTHE, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
     
     @Override
     public void doPostAttack(LivingEntity user, Entity target, int level)
     {
-        if (target instanceof LivingEntity)
+        if (target instanceof LivingEntity entity)
         {
-            LivingEntity entity = (LivingEntity) target;
-            entity.invulnerableTime = 0;
-            entity.hurt(DamageSourceRegistry.causeVoodooDamage(user), level+1);
+            if (entity.isAlive()) {
+                entity.invulnerableTime = 0;
+                entity.hurt(DamageSourceRegistry.causeNoShatterVoodooDamage(user), level + 1);
+            }
         }
         super.doPostAttack(user, target, level);
     }

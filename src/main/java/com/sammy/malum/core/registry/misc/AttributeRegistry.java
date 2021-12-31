@@ -18,7 +18,7 @@ public class AttributeRegistry {
     public static final Attribute MAGIC_PROFICIENCY = register("magic_proficiency", new RangedAttribute("attribute.name.malum.magic_proficiency", 0.0D, 0.0D, 2048.0D));
     public static final Attribute SCYTHE_PROFICIENCY = register("scythe_proficiency", new RangedAttribute("attribute.name.malum.scythe_proficiency", 0.0D, 0.0D, 2048.0D));
     public static final Attribute SPIRIT_SPOILS = register("spirit_spoils", new RangedAttribute("attribute.name.malum.spirit_spoils", 0.0D, 0.0D, 2048.0D));
-    public static final Attribute SPIRIT_REACH = register("spirit_reach", new RangedAttribute("attribute.name.malum.spirit_reach", 4D, 0.0D, 2048.0D));
+    public static final Attribute SPIRIT_REACH = register("spirit_reach", new RangedAttribute("attribute.name.malum.spirit_reach", 5D, 0.0D, 2048.0D));
 
     public static Attribute register(String name, Attribute attribute) {
         ATTRIBUTES.register(name, () -> attribute);

@@ -31,9 +31,11 @@ public class CommonConfig {
     public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_MAX_Y;
     public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_AMOUNT;
 
+    public static ForgeConfigSpec.ConfigValue<Boolean> ULTIMATE_REBOUND;
+
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
-        builder.comment("Levelgen Settings").push("Levelgen");
+        builder.comment("Worldgen Settings").push("worldgen");
 
         builder.comment("Runewood Config").push("runewood");
         GENERATE_RUNEWOOD_TREES = builder.comment("Should runewood trees naturally generate?")
@@ -90,6 +92,15 @@ public class CommonConfig {
                 .define("soulstoneMaxY", 30);
         SURFACE_SOULSTONE_MAX_Y = builder.comment("Maximum height at which surface soulstone ore can spawn.")
                 .define("surfaceSoulstoneMaxY", 100);
+        builder.pop();
+
+        builder.pop();
+
+        builder.comment("Item Settings").push("item");
+
+        builder.comment("Scythe Settings").push("scythe");
+        ULTIMATE_REBOUND = builder.comment("If set to true, you may put rebound on any weapon in the game.")
+                .define("enableUltimateRebound", false);
         builder.pop();
 
         builder.pop();

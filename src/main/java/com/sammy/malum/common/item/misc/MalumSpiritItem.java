@@ -6,18 +6,16 @@ import net.minecraft.world.item.Item;
 
 import java.awt.*;
 
-public class MalumSpiritItem extends Item implements ISpiritEntityGlow
-{
+public class MalumSpiritItem extends Item implements ISpiritEntityGlow {
     public MalumSpiritType type;
-    public MalumSpiritItem(Properties properties, MalumSpiritType type)
-    {
+
+    public MalumSpiritItem(Properties properties, MalumSpiritType type) {
         super(properties);
         this.type = type;
     }
 
     @Override
-    public Color getColor()
-    {
+    public Color getColor() {
         return type.color;
     }
 }

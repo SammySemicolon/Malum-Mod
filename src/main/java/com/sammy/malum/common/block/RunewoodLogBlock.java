@@ -1,10 +1,8 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.common.block.misc.MalumLogBlock;
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,18 +11,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.function.Supplier;
 
 public class RunewoodLogBlock extends MalumLogBlock
 {
-    public final Supplier<Block> totemPole;
-    public RunewoodLogBlock(Properties properties, Supplier<Block> stripped, Supplier<Block> totemPole)
+    private final boolean isCorrupt;
+    public RunewoodLogBlock(Properties properties, Supplier<Block> stripped, boolean isCorrupt)
     {
         super(properties, stripped);
-        this.totemPole = totemPole;
+        this.isCorrupt = isCorrupt;
     }
 
     @Override
@@ -40,10 +37,9 @@ public class RunewoodLogBlock extends MalumLogBlock
         }
         if (stack.getItem() instanceof MalumSpiritItem item)
         {
-            level.setBlockAndUpdate(pos, totemPole.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(TotemPoleBlock.SPIRIT_TYPE, SpiritTypeRegistry.SPIRITS.indexOf(item.type)));
-            if (level.getBlockEntity(pos) instanceof TotemPoleTileEntity)
+            level.setBlockAndUpdate(pos, item.type.getBlockState(isCorrupt, hit));
+            if (level.getBlockEntity(pos) instanceof TotemPoleTileEntity blockEntity)
             {
-                TotemPoleTileEntity blockEntity = (TotemPoleTileEntity) level.getBlockEntity(pos);
                 blockEntity.create(item.type);
             }
             if (!player.isCreative())

@@ -148,7 +148,7 @@ public class SpiritHelper {
             return spirits;
         }
         for (MalumEntitySpiritDataBundle.MalumEntitySpiritData data : bundle.data) {
-            spirits.add(new ItemStack(data.type.splinterItem(), data.count));
+            spirits.add(new ItemStack(data.type.getSplinterItem(), data.count));
         }
         return spirits;
     }

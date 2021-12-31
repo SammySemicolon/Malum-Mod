@@ -53,10 +53,11 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
     @Override
     public void move() {
         setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.95f, 0.95f));
+        float range = getRange();
         if (owner == null || !owner.isAlive()) {
             if (level.getGameTime() % 40L == 0)
             {
-                Player playerEntity = level.getNearestPlayer(this, getRange()*5f);
+                Player playerEntity = level.getNearestPlayer(this, range*5f);
                 if (playerEntity != null)
                 {
                     setOwner(playerEntity.getUUID());
@@ -67,7 +68,7 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
         Vec3 desiredLocation = owner.position().add(0, owner.getBbHeight() / 4, 0);
         float distance = (float) distanceToSqr(desiredLocation);
         float velocity = Mth.lerp(Math.min(moveTime, 20)/20f, 0.1f, 0.2f+(range*0.2f));
-        if (moveTime != 0 || distance < getRange()) {
+        if (moveTime != 0 || distance < range) {
             moveTime++;
             Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
             float easing = 0.02f;

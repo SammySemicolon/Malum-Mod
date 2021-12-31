@@ -1,9 +1,16 @@
 package com.sammy.malum.core.systems.spirit;
 
+import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.registry.block.BlockRegistry;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
@@ -25,21 +32,18 @@ public class MalumSpiritType
         this.splinterItem = splinterItem;
     }
 
-    public MalumSpiritItem splinterItem()
+    public MalumSpiritItem getSplinterItem()
     {
         return (MalumSpiritItem) splinterItem.get();
     }
 
-    public ResourceLocation overlayTexture()
+    public ResourceLocation getOverlayTexture()
     {
         return DataHelper.prefix("block/totem/" + identifier + "_glow");
     }
-    public ResourceLocation runewoodCutoutTexture()
-    {
-        return DataHelper.prefix("block/totem/" + identifier + "_runewood_cutout");
-    }
-    public ResourceLocation soulwoodCutoutTexture()
-    {
-        return DataHelper.prefix("block/totem/" + identifier + "_soulwood_cutout");
+
+    public BlockState getBlockState(boolean isCorrupt, BlockHitResult hit) {
+        Block base = isCorrupt ? BlockRegistry.SOULWOOD_TOTEM_POLE.get() : BlockRegistry.RUNEWOOD_TOTEM_POLE.get();
+        return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(TotemPoleBlock.SPIRIT_TYPE, SpiritTypeRegistry.SPIRITS.indexOf(this));
     }
 }

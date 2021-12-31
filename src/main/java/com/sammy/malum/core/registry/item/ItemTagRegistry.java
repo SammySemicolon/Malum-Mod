@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 public class ItemTagRegistry
 {
     public static Tag.Named<Item> SOUL_HUNTER_WEAPON = tag("soul_hunter_weapon");
+    public static Tag.Named<Item> SCYTHE = tag("scythe");
     public static Tag.Named<Item> RUNEWOOD_LOGS = tag("runewood_logs");
     public static Tag.Named<Item> SOULWOOD_LOGS = tag("soulwood_logs");
     public static Tag.Named<Item> SAPBALLS = tag("sapballs");
