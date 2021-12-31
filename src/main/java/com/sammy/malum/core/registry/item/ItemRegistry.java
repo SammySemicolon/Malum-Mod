@@ -440,7 +440,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> MAGEBANE_BELT = ITEMS.register("magebane_belt", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
 
     public static final RegistryObject<Item> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON).durability(2)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS));
+    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().durability(2).rarity(Rarity.UNCOMMON)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS));
 
     //endregion
 

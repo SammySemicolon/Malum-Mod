@@ -10,6 +10,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +20,8 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+
+import java.util.ArrayList;
 
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
@@ -51,12 +55,14 @@ public class CeaselessImpetusItem extends ImpetusItem implements IEventResponder
                 }
 
                 player.setHealth(2.0F);
+                ArrayList<MobEffect> toRemove = new ArrayList<>();
                 for (MobEffectInstance activeEffect : player.getActiveEffects()) {
-                    if (!activeEffect.getEffect().isBeneficial())
+                    if (activeEffect.getEffect().getCategory().equals(MobEffectCategory.HARMFUL))
                     {
-                        player.removeEffect(activeEffect.getEffect());
+                        toRemove.add(activeEffect.getEffect());
                     }
                 }
+                toRemove.forEach(player::removeEffect);
                 ItemHelper.giveAmplifyingEffect(MobEffects.REGENERATION, player, 400, 0, 3);
                 player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400, 0));
@@ -68,7 +74,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IEventResponder
         }
     }
     @Mod.EventBusSubscriber(modid = MalumMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-    static class DeathEvent
+    public static class DeathEvent
     {
         @SubscribeEvent
         public static void triggerCeaselessImpetus(LivingDeathEvent event)
