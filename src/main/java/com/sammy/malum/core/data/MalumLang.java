@@ -370,11 +370,10 @@ public class MalumLang extends LanguageProvider
         add("itemGroup.malum_shaped_stones", "Malum Arcane Rocks");
         add("itemGroup.malum_spirits", "Malum Spirits");
         add("itemGroup.malum_natural_wonders", "Malum Natural Wonders");
-        add("itemGroup.malum_vanity", "Malum Drip");
 
-        add("enchantment.malum.haunting.desc", "Attacking enemies deals extra magic damage.");
-        add("enchantment.malum.rebound.desc", "Allows the scythe to be thrown much like a boomerang, cooldown decreases with tier.");
-        add("enchantment.malum.spirit_plunder.desc", "Increases spirit yields from each successful spirit harvest.");
+        add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
+        add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
+        add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits dropped from shattering souls.");
     }
 
     @Override

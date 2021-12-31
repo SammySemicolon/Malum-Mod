@@ -35,7 +35,7 @@
   "ether_break": { "sounds":["malum:ether/break1","malum:ether/break2","malum:ether/break3","malum:ether/break4"], "subtitle": "malum.subtitle.ether_break" },
   "ether_place": { "sounds":["malum:ether/break1","malum:ether/break2","malum:ether/break3","malum:ether/break4"], "subtitle": "malum.subtitle.ether_place" },
 
-  "scythe_cut": { "sounds":["malum:scythe/cut1","malum:scythe/cut2","malum:scythe/cut3"], "subtitle": "malum.subtitle.scythe_strike" },
+  "scythe_cut": { "sounds":["malum:scythe/cut1","malum:scythe/cut2","malum:scythe/cut3"], "subtitle": "malum.subtitle.scythe_cut" },
   "spirit_harvest": { "sounds":["malum:scythe/harvest1","malum:scythe/harvest2","malum:scythe/harvest3"], "subtitle": "malum.subtitle.spirit_harvest" },
 
   "totem_charge": { "sounds":["malum:totem/totem_charge"], "subtitle": "malum.subtitle.totem_charge" },
