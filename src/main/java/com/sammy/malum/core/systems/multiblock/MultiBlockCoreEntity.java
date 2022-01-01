@@ -33,7 +33,7 @@ public abstract class MultiBlockCoreEntity extends SimpleBlockEntity {
         });
         if (level.getBlockEntity(worldPosition) instanceof MultiBlockCoreEntity)
         {
-            level.destroyBlock(worldPosition, false);
+            level.destroyBlock(worldPosition, true);
         }
     }
 }
