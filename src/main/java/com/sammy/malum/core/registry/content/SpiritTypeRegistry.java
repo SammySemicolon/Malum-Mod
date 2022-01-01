@@ -2,8 +2,11 @@ package com.sammy.malum.core.registry.content;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.item.ItemRegistry;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritDataBundle;
+import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -13,12 +16,16 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry
 {
+    public static Map<ResourceLocation, MalumEntitySpiritDataBundle> SPIRIT_DATA = new HashMap<>();
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
+    public static ArrayList<MalumSpiritAffinity> AFFINITIES = new ArrayList<>();
 
     public static final Color SACRED_SPIRIT_COLOR = new Color(234, 73, 95);
     public static MalumSpiritType SACRED_SPIRIT = create("sacred", SACRED_SPIRIT_COLOR, ItemRegistry.SACRED_SPIRIT);

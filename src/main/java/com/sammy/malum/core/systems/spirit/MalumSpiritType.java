@@ -13,9 +13,9 @@ import java.util.function.Supplier;
 
 public class MalumSpiritType
 {
-    public static Map<ResourceLocation, MalumEntitySpiritDataBundle> SPIRIT_DATA = new HashMap<>();
     public final Color color;
     public final String identifier;
+    public MalumSpiritAffinity affinity;
     protected Supplier<Item> splinterItem;
 
     public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem)
@@ -24,6 +24,7 @@ public class MalumSpiritType
         this.color = color;
         this.splinterItem = splinterItem;
     }
+    public
 
     public MalumSpiritItem splinterItem()
     {

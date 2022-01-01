@@ -130,7 +130,7 @@ public class SpiritHelper {
     }
 
     public static MalumEntitySpiritDataBundle getEntitySpirits(LivingEntity entity) {
-        return MalumSpiritType.SPIRIT_DATA.get(entity.getType().getRegistryName());
+        return SpiritTypeRegistry.SPIRIT_DATA.get(entity.getType().getRegistryName());
     }
 
     public static int getEntitySpiritCount(LivingEntity entity) {
