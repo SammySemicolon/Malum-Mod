@@ -1,0 +1,47 @@
+{
+  "targets":
+  [
+    "swap"
+  ],
+  "passes":
+  [
+    {
+      "name": "malum:glow",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "auxtargets":
+      [
+        {
+          "name": "DiffuseDepthSampler",
+          "id": "minecraft:main:depth"
+        }
+      ],
+      "uniforms":
+      [
+        {
+          "name": "BlurDir",
+          "values": [ 1.0, 0.0 ]
+        }
+      ]
+    },
+    {
+      "name": "malum:glow",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "auxtargets":
+      [
+        {
+          "name": "DiffuseDepthSampler",
+          "id": "swap:depth"
+        }
+      ],
+      "uniforms":
+      [
+        {
+          "name": "BlurDir",
+          "values": [ 0.0, 1.0 ]
+        }
+      ]
+    }
+  ]
+}

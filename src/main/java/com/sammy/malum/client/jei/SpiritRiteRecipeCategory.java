@@ -86,7 +86,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
     public void setIngredients(MalumRiteType rite, IIngredients iIngredients)
     {
         ArrayList<ItemStack> items = new ArrayList<>();
-        rite.spirits.forEach(spirit -> items.add(spirit.splinterItem().getDefaultInstance()));
+        rite.spirits.forEach(spirit -> items.add(spirit.getSplinterItem().getDefaultInstance()));
         iIngredients.setInputs(VanillaTypes.ITEM, items);
     }
 
@@ -96,7 +96,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
         for (int i = 0; i < rite.spirits.size(); i++)
         {
             iRecipeLayout.getItemStacks().init(i, true, 61,120-19*i);
-            iRecipeLayout.getItemStacks().set(i, rite.spirits.get(i).splinterItem().getDefaultInstance());
+            iRecipeLayout.getItemStacks().set(i, rite.spirits.get(i).getSplinterItem().getDefaultInstance());
         }
     }
 }

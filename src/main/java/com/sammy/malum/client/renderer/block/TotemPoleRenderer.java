@@ -28,7 +28,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
         SpiritTypeRegistry.SPIRITS.forEach(s ->
-                overlayHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.overlayTexture()))
+                overlayHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.getOverlayTexture()))
         );
     }
 

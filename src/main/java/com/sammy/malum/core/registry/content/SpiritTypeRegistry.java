@@ -62,6 +62,6 @@ public class SpiritTypeRegistry
         if (!event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
             return;
         }
-        SPIRITS.forEach(s -> event.addSprite(s.overlayTexture()));
+        SPIRITS.forEach(s -> event.addSprite(s.getOverlayTexture()));
     }
 }

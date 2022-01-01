@@ -32,7 +32,7 @@ public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarTileEntit
             poseStack.translate(0.5f,y,0.5f);
             poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() % 360) + partialTicks) * 3));
             poseStack.scale(0.6f, 0.6f, 0.6f);
-            itemRenderer.renderStatic(blockEntityIn.type.splinterItem().getDefaultInstance(), ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
+            itemRenderer.renderStatic(blockEntityIn.type.getSplinterItem().getDefaultInstance(), ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();
         }
     }

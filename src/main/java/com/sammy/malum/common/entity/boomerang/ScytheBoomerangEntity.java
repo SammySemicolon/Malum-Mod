@@ -184,7 +184,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
                         if (!playerEntity.getAbilities().instabuild)
                         {
-                            int cooldown = 300 - 75 * (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
+                            int cooldown = 100 - 25 * (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(),scythe) - 1);
                             playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);
                         }
                         remove(RemovalReason.DISCARDED);

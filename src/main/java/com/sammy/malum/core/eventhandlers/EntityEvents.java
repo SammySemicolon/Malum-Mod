@@ -43,7 +43,11 @@ public class EntityEvents {
     }
     @SubscribeEvent
     public static void onEntityKill(LivingDeathEvent event) {
-        if (event.getSource().equals(DamageSourceRegistry.FORCED_SHATTER))
+        if (event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId()))
+        {
+            return;
+        }
+        if (event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER.getMsgId()))
         {
             SpiritHelper.createSpiritEntities(event.getEntityLiving());
             return;

@@ -46,7 +46,7 @@ public class SpiritJarTileEntity extends SimpleBlockEntity {
             int max = player.isShiftKeyDown() ? 64 : 1;
             int count = Math.min(this.count, max);
             this.count -= count;
-            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(type.splinterItem(), count));
+            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(type.getSplinterItem(), count));
             spawnUseParticles(level, worldPosition, type);
             if (this.count == 0) {
                 type = null;
@@ -62,7 +62,7 @@ public class SpiritJarTileEntity extends SimpleBlockEntity {
         while (count > 0)
         {
             int stackCount = Math.min(count, 64);
-            level.addFreshEntity(new ItemEntity(level,worldPosition.getX()+0.5f,worldPosition.getY()+0.5f,worldPosition.getZ()+0.5f,new ItemStack(type.splinterItem(), stackCount)));
+            level.addFreshEntity(new ItemEntity(level,worldPosition.getX()+0.5f,worldPosition.getY()+0.5f,worldPosition.getZ()+0.5f,new ItemStack(type.getSplinterItem(), stackCount)));
             count -= stackCount;
         }
     }

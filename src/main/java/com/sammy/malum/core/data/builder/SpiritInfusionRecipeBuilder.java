@@ -59,7 +59,7 @@ public class SpiritInfusionRecipeBuilder
     }
     public SpiritInfusionRecipeBuilder addSpirit(MalumSpiritType type, int count)
     {
-        spirits.add(new ItemWithCount(type.splinterItem(), count));
+        spirits.add(new ItemWithCount(type.getSplinterItem(), count));
         return this;
     }
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName)

@@ -38,7 +38,7 @@ public class SpiritRitePage extends BookPage
     {
         for (int i = 0; i < spirits.size(); i++)
         {
-            ItemStack stack = spirits.get(i).splinterItem().getDefaultInstance();
+            ItemStack stack = spirits.get(i).getSplinterItem().getDefaultInstance();
             ProgressionBookScreen.renderItem(poseStack, stack, left,top-19*i,mouseX,mouseY);
         }
     }

@@ -11,7 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.HashMap;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RenderManager {
     public static HashMap<RenderType, BufferBuilder> BUFFERS = new HashMap<>();
     public static MultiBufferSource.BufferSource DELAYED_RENDER;
@@ -26,6 +26,7 @@ public class RenderManager {
         for (RenderType type : BUFFERS.keySet()) {
             DELAYED_RENDER.endBatch(type);
         }
+        DELAYED_RENDER.endBatch();
         event.getPoseStack().popPose();
     }
 }
