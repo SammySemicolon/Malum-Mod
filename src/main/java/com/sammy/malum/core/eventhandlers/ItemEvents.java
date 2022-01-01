@@ -69,14 +69,15 @@ public class ItemEvents {
 
                 for (int i = 0; i < clone.size(); i++) {
                     Component component = clone.get(i);
-                    if (component instanceof TranslatableComponent) {
-                        TranslatableComponent textComponent = (TranslatableComponent) component;
+                    if (component instanceof TranslatableComponent textComponent) {
                         String rawText = textComponent.getString();
                         if (rawText.contains("+") || rawText.contains("-")) {
-                            String amount = textComponent.decomposedParts.get(1).getString();
-                            String text = textComponent.decomposedParts.get(3).getString();
-                            component = new TextComponent(" " + amount + " " + text).withStyle(ChatFormatting.DARK_GREEN);
-                            tooltip.set(i, component);
+                            if (textComponent.decomposedParts.size() > 2) { //TODO: make this not shit, probably with mixins
+                                String amount = textComponent.decomposedParts.get(1).getString();
+                                String text = textComponent.decomposedParts.get(3).getString();
+                                component = new TextComponent(" " + amount + " " + text).withStyle(ChatFormatting.DARK_GREEN);
+                                tooltip.set(i, component);
+                            }
                         }
                     }
                 }
