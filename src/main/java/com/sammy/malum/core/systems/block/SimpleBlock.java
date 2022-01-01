@@ -19,7 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import java.util.function.Supplier;
 
 public class SimpleBlock <T extends BlockEntity> extends Block implements EntityBlock {
-    public Supplier<BlockEntityType<T>> blockEntityType = null;
+    protected Supplier<BlockEntityType<T>> blockEntityType = null;
     protected BlockEntityTicker<T> ticker = null;
     public SimpleBlock(Properties properties) {
         super(properties);

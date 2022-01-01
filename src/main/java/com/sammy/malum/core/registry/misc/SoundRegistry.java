@@ -18,6 +18,11 @@ public class SoundRegistry
     public static final SoundEvent SOULSTONE_STEP = create(new SoundEvent(DataHelper.prefix("soulstone_step")));
     public static final SoundEvent SOULSTONE_HIT = create(new SoundEvent(DataHelper.prefix("soulstone_hit")));
 
+    public static final SoundEvent DEEPSLATE_SOULSTONE_BREAK = create(new SoundEvent(DataHelper.prefix("deepslate_soulstone_break")));
+    public static final SoundEvent DEEPSLATE_SOULSTONE_PLACE = create(new SoundEvent(DataHelper.prefix("deepslate_soulstone_place")));
+    public static final SoundEvent DEEPSLATE_SOULSTONE_STEP = create(new SoundEvent(DataHelper.prefix("deepslate_soulstone_step")));
+    public static final SoundEvent DEEPSLATE_SOULSTONE_HIT = create(new SoundEvent(DataHelper.prefix("deepslate_soulstone_hit")));
+
     public static final SoundEvent BLAZING_QUARTZ_ORE_BREAK = create(new SoundEvent(DataHelper.prefix("blazing_quartz_ore_break")));
     public static final SoundEvent BLAZING_QUARTZ_ORE_PLACE = create(new SoundEvent(DataHelper.prefix("blazing_quartz_ore_place")));
 
@@ -72,6 +77,7 @@ public class SoundRegistry
     public static final SoundEvent SUSPICIOUS_SOUND = create(new SoundEvent(DataHelper.prefix("suspicious_sound")));
 
     public static final SoundType SOULSTONE = new SoundType(1.0F, 1.0F, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, SOULSTONE_HIT, SoundEvents.STONE_FALL);
+    public static final SoundType DEEPSLATE_SOULSTONE = new SoundType(1.0F, 1.0F, DEEPSLATE_SOULSTONE_BREAK, DEEPSLATE_SOULSTONE_STEP, DEEPSLATE_SOULSTONE_PLACE, DEEPSLATE_SOULSTONE_HIT, SoundEvents.DEEPSLATE_FALL);
     public static final SoundType BLAZING_QUARTZ_ORE = new SoundType(1.0F, 1.0F, BLAZING_QUARTZ_ORE_BREAK, SoundEvents.NETHER_ORE_STEP, BLAZING_QUARTZ_ORE_PLACE, SoundEvents.NETHER_ORE_HIT, SoundEvents.NETHER_GOLD_ORE_FALL);
     public static final SoundType BLAZING_QUARTZ_BLOCK = new SoundType(1.0F, 1.25f, BLAZING_QUARTZ_BLOCK_BREAK, BLAZING_QUARTZ_BLOCK_STEP, BLAZING_QUARTZ_BLOCK_PLACE, BLAZING_QUARTZ_BLOCK_HIT, SoundEvents.NETHER_GOLD_ORE_FALL);
     public static final SoundType ARCANE_CHARCOAL_BLOCK = new SoundType(1.0F, 0.9f, ARCANE_CHARCOAL_BLOCK_BREAK, ARCANE_CHARCOAL_BLOCK_STEP, ARCANE_CHARCOAL_BLOCK_PLACE, ARCANE_CHARCOAL_BLOCK_HIT, SoundEvents.NETHER_GOLD_ORE_FALL);

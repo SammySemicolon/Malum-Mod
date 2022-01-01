@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL11;
 public class AdditiveParticleRenderType implements ParticleRenderType {
     public static final AdditiveParticleRenderType INSTANCE = new AdditiveParticleRenderType();
 
+    @Override
     public void begin(BufferBuilder builder, TextureManager manager) {
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
@@ -23,6 +24,7 @@ public class AdditiveParticleRenderType implements ParticleRenderType {
         builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
     }
 
+    @Override
     public void end(Tesselator p_107458_) {
         p_107458_.end();
         RenderSystem.depthMask(true);

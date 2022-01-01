@@ -196,7 +196,7 @@ public class ItemRegistry {
     //region runewood
     public static final RegistryObject<Item> HOLY_SAP = ITEMS.register("holy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> HOLY_SAPBALL = ITEMS.register("holy_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(8).saturationMod(2F).build())));
+    public static final RegistryObject<Item> HOLY_SYRUP = ITEMS.register("holy_syrup", () -> new HolySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(8).saturationMod(0.4F).build())));
 
     public static final RegistryObject<Item> RUNEWOOD_LEAVES = ITEMS.register("runewood_leaves", () -> new BlockItem(BlockRegistry.RUNEWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_SAPLING = ITEMS.register("runewood_sapling", () -> new BlockItem(BlockRegistry.RUNEWOOD_SAPLING.get(), NATURE_PROPERTIES()));
@@ -247,7 +247,7 @@ public class ItemRegistry {
     //region soulwood
     public static final RegistryObject<Item> UNHOLY_SAP = ITEMS.register("unholy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> UNHOLY_SAPBALL = ITEMS.register("unholy_sapball", () -> new Item(NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(8).saturationMod(2F).build())));
+    public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(8).saturationMod(0.4F).build())));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = ITEMS.register("soulwood_leaves", () -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_SAPLING = ITEMS.register("soulwood_sapling", () -> new BlockItem(BlockRegistry.SOULWOOD_SAPLING.get(), NATURE_PROPERTIES()));

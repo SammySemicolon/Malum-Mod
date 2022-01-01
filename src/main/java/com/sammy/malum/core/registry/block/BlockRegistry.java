@@ -72,6 +72,10 @@ public class BlockRegistry {
         return new SimpleBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(5.0F, 3.0F).sound(SoundRegistry.SOULSTONE);
     }
 
+    public static SimpleBlockProperties DEEPSLATE_SOULSTONE_PROPERTIES() {
+        return new SimpleBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(7.0F, 6.0F).sound(SoundRegistry.DEEPSLATE_SOULSTONE);
+    }
+
     public static SimpleBlockProperties BLAZE_QUARTZ_ORE_PROPERTIES() {
         return new SimpleBlockProperties(Material.STONE, MaterialColor.NETHER).needsPickaxe().requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundRegistry.BLAZING_QUARTZ_ORE);
     }
@@ -372,7 +376,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(STONE_PROPERTIES()));
 
     public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES().ignoreDataGen()));
-    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES().ignoreDataGen().strength(6f, 4f)));
+    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new Block(DEEPSLATE_SOULSTONE_PROPERTIES().ignoreDataGen().strength(6f, 4f)));
     public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
 
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
