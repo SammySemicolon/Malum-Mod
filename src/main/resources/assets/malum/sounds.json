@@ -19,7 +19,7 @@
 
   "blazing_quartz_block_break": { "sounds":["malum:gemstone/break1","malum:gemstone/break2","malum:gemstone/break3","malum:gemstone/break4"], "subtitle": "malum.subtitle.blazing_quartz_block_break" },
   "blazing_quartz_block_step": { "sounds":["malum:gemstone/hit1","malum:gemstone/hit2","malum:gemstone/hit3","malum:gemstone/hit4", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.blazing_quartz_block_step" },
-  "blazing_quartz_block_place": { "sounds":["malum:gemstone/place1","malum:gemstone/place2","malum:gemstone/place3","malum:gemstone/place4","malum:gemstone/place5","malum:gemstone/place6"], "subtitle": "malum.subtitle.blazing_quartz_block_place" },
+  "blazing_quartz_block_place": { "sounds":["malum:gemstone/break1","malum:gemstone/break2","malum:gemstone/break3","malum:gemstone/break4"], "subtitle": "malum.subtitle.blazing_quartz_block_place" },
   "blazing_quartz_block_hit": { "sounds":["malum:gemstone/hit1","malum:gemstone/hit2","malum:gemstone/hit3","malum:gemstone/hit4", "block/basalt/step1","block/basalt/step2","block/basalt/step3","block/basalt/step4","block/basalt/step5","block/basalt/step6"], "subtitle": "malum.subtitle.blazing_quartz_block_hit" },
 
   "arcane_charcoal_block_break": { "sounds":["malum:gemstone/break1","malum:gemstone/break2","malum:gemstone/break3","malum:gemstone/break4"], "subtitle": "malum.subtitle.arcane_charcoal_block_break" },

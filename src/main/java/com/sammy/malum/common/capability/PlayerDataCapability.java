@@ -1,6 +1,8 @@
 package com.sammy.malum.common.capability;
 
+import com.sammy.malum.core.registry.content.SpiritAffinityRegistry;
 import com.sammy.malum.core.systems.capability.SimpleCapability;
+import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
@@ -16,9 +18,12 @@ public class PlayerDataCapability implements SimpleCapability {
     });
 
     public boolean firstTimeJoin = false;
-    public float soulWard;
+
+    public MalumSpiritAffinity affinity;
+
+    public int soulWard;
     public float soulWardCap;
-    public float soulWardCooldown;
+    public float soulWardAcceleration;
 
 
     public PlayerDataCapability() {
@@ -27,12 +32,26 @@ public class PlayerDataCapability implements SimpleCapability {
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
+
+        if (affinity != null) {
+            tag.putString("affinity", affinity.identifier);
+        }
+        tag.putInt("soulWard", soulWard);
+        tag.putFloat("soulWardCap", soulWardCap);
+        tag.putFloat("soulWardAcceleration", soulWardAcceleration);
+
         tag.putBoolean("firstTimeJoin", firstTimeJoin);
         return tag;
     }
 
     @Override
     public void deserializeNBT(CompoundTag tag) {
+        affinity = SpiritAffinityRegistry.AFFINITIES.get(tag.getString("affinity"));
+
+        soulWard = tag.getInt("soulWard");
+        soulWardCap = tag.getFloat("soulWardCap");
+        soulWardAcceleration = tag.getFloat("soulWardAcceleration");
+
         firstTimeJoin = tag.getBoolean("firstTimeJoin");
 
     }

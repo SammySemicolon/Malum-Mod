@@ -14,15 +14,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class MalumSpiritType
 {
     public final Color color;
     public final String identifier;
-    public MalumSpiritAffinity affinity;
     protected Supplier<Item> splinterItem;
 
     public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem)
@@ -31,7 +28,6 @@ public class MalumSpiritType
         this.color = color;
         this.splinterItem = splinterItem;
     }
-    public
 
     public MalumSpiritItem getSplinterItem()
     {

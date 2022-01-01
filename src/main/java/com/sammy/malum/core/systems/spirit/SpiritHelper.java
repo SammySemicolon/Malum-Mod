@@ -24,8 +24,8 @@ import net.minecraft.world.level.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import static net.minecraft.util.Mth.nextFloat;
 import static net.minecraft.world.entity.EquipmentSlot.MAINHAND;
@@ -122,11 +122,11 @@ public class SpiritHelper {
     }
 
     public static MalumSpiritType getSpiritType(String spirit) {
-        ArrayList<MalumSpiritType> type = (ArrayList<MalumSpiritType>) SpiritTypeRegistry.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).collect(Collectors.toList());
+        Optional<MalumSpiritType> type = SpiritTypeRegistry.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).findFirst();
         if (type.isEmpty()) {
             return SpiritTypeRegistry.ELDRITCH_SPIRIT;
         }
-        return type.get(0);
+        return type.get();
     }
 
     public static MalumEntitySpiritDataBundle getEntitySpirits(LivingEntity entity) {
