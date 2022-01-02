@@ -1,9 +1,10 @@
 package com.sammy.malum.core.systems.rendering;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import com.sammy.malum.core.registry.client.ShaderRegistry;
 import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -18,6 +19,20 @@ import java.awt.*;
 import java.util.Random;
 
 public class RenderUtilities {
+
+    public static void blit(PoseStack poseStack, ShaderRegistry.ExtendedShaderInstance shader, double x, double y, double w, double h, float u, float v, float uw, float vh) {
+        Matrix4f last = poseStack.last().pose();
+
+        RenderSystem.setShader(shader.getInstance());
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+        bufferbuilder.vertex(last, (float)x, (float)y + (float)h, 0).color(1,1,1,1).uv(u, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float)x + (float)w, (float)y + (float)h, 0).color(1,1,1,1).uv(u + uw, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float)x + (float)w, (float)y, 0).color(1,1,1,1).uv(u + uw, v).endVertex();
+        bufferbuilder.vertex(last, (float)x, (float)y, 0).color(1,1,1,1).uv(u, v).endVertex();
+        bufferbuilder.end();
+        BufferUploader.end(bufferbuilder);
+    }
 
     public static void renderTriangle(VertexConsumer vertexConsumer, PoseStack stack, float width, float height) {
         renderTriangle(vertexConsumer, stack, width, height, 255,255,255,255);
@@ -477,53 +492,4 @@ public class RenderUtilities {
             return this;
         }
     }
-
-    /*GLOWING = RenderType.create(
-            EsotericaMod.MOD_ID + ":glowing",
-            DefaultVertexFormat.POSITION_COLOR,
-            GL11.GL_QUADS, 256,
-            RenderType.CompositeState.builder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .build(false)
-    ), DELAYED_PARTICLE = RenderType.create(
-            EsotericaMod.MOD_ID + ":delayed_particle",
-            DefaultVertexFormat.PARTICLE,
-            GL11.GL_QUADS, 256,
-            RenderType.CompositeState.builder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(NORMAL_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_PARTICLES_TEXTURE, false, false))
-                    .build(false)
-    ), GLOWING_PARTICLE = RenderType.create(
-            EsotericaMod.MOD_ID + ":glowing_particle",
-            DefaultVertexFormat.PARTICLE,
-            GL11.GL_QUADS, 256,
-            RenderType.CompositeState.builder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_PARTICLES_TEXTURE, false, false))
-                    .build(false)
-    ), GLOWING_BLOCK_PARTICLE = RenderType.create(
-            EsotericaMod.MOD_ID + ":glowing_particle",
-            DefaultVertexFormat.PARTICLE,
-            GL11.GL_QUADS, 256,
-            RenderType.CompositeState.builder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_BLOCKS_TEXTURE, false, false))
-                    .build(false)
-    );*/
 }

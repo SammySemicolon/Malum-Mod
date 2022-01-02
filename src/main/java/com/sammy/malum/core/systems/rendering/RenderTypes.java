@@ -9,8 +9,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.mojang.blaze3d.vertex.DefaultVertexFormat.PARTICLE;
-import static com.mojang.blaze3d.vertex.DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP;
+import static com.mojang.blaze3d.vertex.DefaultVertexFormat.*;
 
 public class RenderTypes extends RenderStateShard{
     public RenderTypes(String p_110161_, Runnable p_110162_, Runnable p_110163_) {
@@ -33,6 +32,10 @@ public class RenderTypes extends RenderStateShard{
 
     public static RenderType createMovingBootlegTriangleRenderType(TransparencyStateShard transparencyStateShard, ResourceLocation resourceLocation) {
         return createGenericRenderType("moving_bootleg_triangle", POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, ShaderRegistry.movingBootlegTriangle.shard, transparencyStateShard, resourceLocation);
+    }
+
+    public static RenderType createDistortedBlitRenderType(ResourceLocation resourceLocation) {
+        return createGenericRenderType("distorted_blit", POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, ShaderRegistry.distortedTexture.shard, StateShards.NORMAL_TRANSPARENCY, resourceLocation);
     }
 
     public static RenderType createGenericRenderType(String name, VertexFormat format, VertexFormat.Mode mode, ShaderStateShard shader, TransparencyStateShard transparency, ResourceLocation texture) {

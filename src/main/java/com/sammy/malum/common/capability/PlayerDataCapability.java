@@ -12,19 +12,19 @@ import net.minecraftforge.common.util.LazyOptional;
 
 public class PlayerDataCapability implements SimpleCapability {
 
-    //shove all player data here, use PlayerDataCapability.getCapability(player) to access data.
-
     public static Capability<PlayerDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
-    public boolean firstTimeJoin = false;
-
     public MalumSpiritAffinity affinity;
 
+    public boolean firstTimeJoin = false;
+
     public int soulWard;
-    public float soulWardCap;
+    public int soulWardCap;
     public float soulWardAcceleration;
 
+    public int heartOfStone=6;
+    public int heartOfStoneCap;
 
     public PlayerDataCapability() {
     }
@@ -37,8 +37,11 @@ public class PlayerDataCapability implements SimpleCapability {
             tag.putString("affinity", affinity.identifier);
         }
         tag.putInt("soulWard", soulWard);
-        tag.putFloat("soulWardCap", soulWardCap);
+        tag.putInt("soulWardCap", soulWardCap);
         tag.putFloat("soulWardAcceleration", soulWardAcceleration);
+
+        tag.putInt("heartOfStone", heartOfStone);
+        tag.putFloat("heartOfStoneCap", heartOfStoneCap);
 
         tag.putBoolean("firstTimeJoin", firstTimeJoin);
         return tag;
@@ -49,11 +52,13 @@ public class PlayerDataCapability implements SimpleCapability {
         affinity = SpiritAffinityRegistry.AFFINITIES.get(tag.getString("affinity"));
 
         soulWard = tag.getInt("soulWard");
-        soulWardCap = tag.getFloat("soulWardCap");
+        soulWardCap = tag.getInt("soulWardCap");
         soulWardAcceleration = tag.getFloat("soulWardAcceleration");
 
-        firstTimeJoin = tag.getBoolean("firstTimeJoin");
+        heartOfStone = tag.getInt("heartOfStone");
+        heartOfStoneCap = tag.getInt("heartOfStoneCap");
 
+        firstTimeJoin = tag.getBoolean("firstTimeJoin");
     }
 
     public static LazyOptional<PlayerDataCapability> getCapability(Player player) {
