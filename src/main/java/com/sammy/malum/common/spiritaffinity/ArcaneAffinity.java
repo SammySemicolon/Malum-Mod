@@ -3,38 +3,83 @@ package com.sammy.malum.common.spiritaffinity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.capability.PlayerDataCapability;
+import com.sammy.malum.common.packets.SyncPlayerCapabilityDataPacket;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.client.ShaderRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.network.PacketDistributor;
+
+import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class ArcaneAffinity extends MalumSpiritAffinity {
     public ArcaneAffinity() {
         super(SpiritTypeRegistry.ARCANE_SPIRIT);
     }
 
-    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MalumMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    public static void recoverSoulWard(TickEvent.PlayerTickEvent event)
+    {
+        Player player = event.player;
+        PlayerDataCapability.getCapability(player).ifPresent(c -> {
+            double cap = player.getAttributeValue(AttributeRegistry.SOUL_WARD_CAP);
+            if (c.soulWard < cap && c.soulWardProgress <= 0) {
+                c.soulWard++;
+                if (player.level.isClientSide && !player.isCreative()) {
+                    player.playSound(c.soulWard >= cap ? SoundRegistry.SOUL_WARD_CHARGE : SoundRegistry.SOUL_WARD_GROW, 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
+                }
+                c.soulWardProgress = getSoulWardCooldown(player);
+            }
+            else
+            {
+                c.soulWardProgress--;
+            }
+        });
+    }
+    public static void consumeSoulWard(LivingHurtEvent event)
+    {
+        if (event.getEntityLiving() instanceof Player player)
+        {
+            PlayerDataCapability.getCapability(player).ifPresent(c -> {
+                if (c.soulWard >= 0)
+                {
+                    float multiplier = event.getSource().isMagic() ? CommonConfig.SOUL_WARD_MAGIC_DAMAGE_REDUCTION.get() : CommonConfig.SOUL_WARD_PHYSICAL_DAMAGE_REDUCTION.get();
+                    float result = event.getAmount() * multiplier;
+                    float absorbed = event.getAmount() - result;
+                    c.soulWard -= absorbed/player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH);
+                    c.soulWardProgress = (float) (getSoulWardCooldown(player)*(c.soulWard <= 0 ? player.getAttributeValue(AttributeRegistry.SOUL_WARD_SHATTER_PENALTY) : 2));
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new SyncPlayerCapabilityDataPacket(c.serializeNBT()));
+                    }
+                    player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT, SoundSource.PLAYERS,1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                    event.setAmount(result);
+                }
+            });
+        }
+    }
+    public static int getSoulWardCooldown(Player player)
+    {
+        return (int) (CommonConfig.SOUL_WARD_BASE_RECOVERY_RATE.get() * Math.exp(-0.15*player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED)));
+    }
     public static class ClientOnly {
         private static final ResourceLocation ICONS_TEXTURE = DataHelper.prefix("textures/gui/icons.png");
-
-        @OnlyIn(Dist.CLIENT)
-        @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void renderSoulWard(RenderGameOverlayEvent.Post event) {
             Minecraft minecraft = Minecraft.getInstance();
             LocalPlayer player = minecraft.player;
@@ -68,7 +113,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                     for (int i = 0; i < Math.ceil(c.soulWard/3f); i++) {
                         int x = left + i % 10 * 8;
                         int y = top + rowHeight * 2 - 15;
-                        int progress = Math.min(3, c.soulWard-i*3);
+                        int progress = Math.min(3, (int)c.soulWard-i*3);
                         int xTextureOffset = 1 + (3-progress)*15;
 
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset/256f, (xTextureOffset+12)/256f, 16/256f, 28/256f));

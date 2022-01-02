@@ -74,6 +74,13 @@ public class SoundRegistry
 
     public static final SoundEvent VOID_SLASH = create(new SoundEvent(DataHelper.prefix("void_slash")));
 
+    public static final SoundEvent SOUL_WARD_HIT = create(new SoundEvent(DataHelper.prefix("soul_ward_hit")));
+    public static final SoundEvent SOUL_WARD_GROW = create(new SoundEvent(DataHelper.prefix("soul_ward_grow")));
+    public static final SoundEvent SOUL_WARD_CHARGE = create(new SoundEvent(DataHelper.prefix("soul_ward_charge")));
+
+    public static final SoundEvent HEART_OF_STONE_HIT = create(new SoundEvent(DataHelper.prefix("heart_of_stone_hit")));
+    public static final SoundEvent HEART_OF_STONE_GROW = create(new SoundEvent(DataHelper.prefix("heart_of_stone_grow")));
+
     public static final SoundEvent SUSPICIOUS_SOUND = create(new SoundEvent(DataHelper.prefix("suspicious_sound")));
 
     public static final SoundType SOULSTONE = new SoundType(1.0F, 1.0F, SOULSTONE_BREAK, SOULSTONE_STEP, SOULSTONE_PLACE, SOULSTONE_HIT, SoundEvents.STONE_FALL);

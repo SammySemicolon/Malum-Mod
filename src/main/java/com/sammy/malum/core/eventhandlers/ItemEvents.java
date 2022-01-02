@@ -2,6 +2,7 @@ package com.sammy.malum.core.eventhandlers;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.systems.item.ModCombatItem;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,8 +32,16 @@ import java.util.List;
 public class ItemEvents {
 
     @SubscribeEvent
-    public static void rightClick(PlayerInteractEvent.RightClickItem event)
-    {
+    public static void triggerCeaselessImpetus(LivingDeathEvent event) {
+        if (event.getEntityLiving() instanceof Player player) {
+            if (CeaselessImpetusItem.checkTotemDeathProtection(player, event.getSource())) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void throwScythe(PlayerInteractEvent.RightClickItem event) {
         if (event.getEntityLiving() instanceof Player player) {
             ItemStack stack = event.getItemStack();
             int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(), stack);
@@ -57,7 +67,8 @@ public class ItemEvents {
             }
         }
     }
-    @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.FORGE)
+
+    @Mod.EventBusSubscriber(modid = MalumMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class ClientOnly {
         @SubscribeEvent
         public static void fixItemTooltip(ItemTooltipEvent event) {

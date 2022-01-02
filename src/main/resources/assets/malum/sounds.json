@@ -60,6 +60,13 @@
   "holy_equip": { "sounds":["malum:equip_holy"], "subtitle": "malum.subtitle.holy_equip" },
   "sinister_equip": { "sounds":["malum:equip_sinister"], "subtitle": "malum.subtitle.sinister_equip" },
 
+  "soul_ward_grow": { "sounds":["malum:affinity/soul_ward/grow1","malum:affinity/soul_ward/grow2","malum:affinity/soul_ward/grow3","malum:affinity/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_grow" },
+  "soul_ward_hit": { "sounds":["malum:affinity/soul_ward/grow1","malum:affinity/soul_ward/grow2","malum:affinity/soul_ward/grow3","malum:affinity/soul_ward/grow4"], "subtitle": "malum.subtitle.soul_ward_hit" },
+  "soul_ward_charge": { "sounds":["malum:affinity/soul_ward/charge1","malum:affinity/soul_ward/charge2"], "subtitle": "malum.subtitle.soul_ward_charge" },
+
+  "heart_of_stone_grow": { "sounds":["malum:affinity/heart_of_stone/grow1","malum:affinity/heart_of_stone/grow2","malum:affinity/heart_of_stone/grow3","malum:affinity/heart_of_stone/grow4"], "subtitle": "malum.subtitle.heart_of_stone_grow" },
+  "heart_of_stone_hit": { "sounds":["malum:affinity/heart_of_stone/hit1","malum:affinity/heart_of_stone/hit2","malum:affinity/heart_of_stone/hit3","malum:affinity/heart_of_stone/hit4"], "subtitle": "malum.subtitle.heart_of_stone_hit" },
+
   "suspicious_sound": { "sounds":["malum:suspicious_sound"], "subtitle": "malum.subtitle.suspicious_sound" }
 
 

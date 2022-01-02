@@ -34,7 +34,7 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IEventResponder
                     return;
                 }
             }
-            attacker.hurt(DamageSourceRegistry.causeVoodooDamage(attacked), 2);
+            attacker.hurt(DamageSourceRegistry.causeMagebaneDamage(attacked), 2);
         }
     }
 

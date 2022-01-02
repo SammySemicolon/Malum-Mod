@@ -1,8 +1,8 @@
 package com.sammy.malum.core.helper;
 
+import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -149,26 +149,23 @@ public class ItemHelper {
         return result.getLeft().isEmpty() ? Optional.empty() : Optional.of(result);
     }
 
-    public static ItemStack getHeldItem(LivingEntity livingEntity, Predicate<ItemStack> stackPredicate) {
-        if (livingEntity.swingingArm != null) {
-            if (stackPredicate.test(livingEntity.getItemInHand(livingEntity.swingingArm))) {
-                return livingEntity.getItemInHand(livingEntity.swingingArm);
-            }
-        }
-        if (stackPredicate.test(livingEntity.getItemInHand(livingEntity.getUsedItemHand()))) {
-            return livingEntity.getItemInHand(livingEntity.getUsedItemHand());
-        }
-        if (stackPredicate.test(livingEntity.getItemInHand(InteractionHand.MAIN_HAND))) {
-            return livingEntity.getItemInHand(InteractionHand.MAIN_HAND);
-        }
-        if (stackPredicate.test(livingEntity.getItemInHand(InteractionHand.OFF_HAND))) {
-            return livingEntity.getItemInHand(InteractionHand.OFF_HAND);
-        }
-        return ItemStack.EMPTY;
-    }
-
     public static boolean hasCurioEquipped(LivingEntity entity, RegistryObject<Item> curio) {
         return CuriosApi.getCuriosHelper().findEquippedCurio(curio.get(), entity).isPresent();
+    }
+
+    public static ArrayList<ItemStack> eventResponders(LivingEntity attacker, LivingEntity attacked)
+    {
+        ArrayList<ItemStack> itemStacks = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
+        ItemStack stack = attacker.getMainHandItem();
+        if (stack.getItem() instanceof IEventResponderItem) {
+            itemStacks.add(stack);
+        }
+        attacker.getArmorSlots().forEach(s -> {
+            if (s.getItem() instanceof IEventResponderItem) {
+                itemStacks.add(s);
+            }
+        });
+        return itemStacks;
     }
 
     public static ArrayList<ItemStack> equippedCurios(LivingEntity entity) {

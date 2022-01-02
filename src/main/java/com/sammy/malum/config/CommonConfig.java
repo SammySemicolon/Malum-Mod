@@ -5,6 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class CommonConfig {
 
+    //worldgen
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_RUNEWOOD_TREES;
     public static ForgeConfigSpec.ConfigValue<Float> COMMON_RUNEWOOD_CHANCE;
     public static ForgeConfigSpec.ConfigValue<Float> RARE_RUNEWOOD_CHANCE;
@@ -31,7 +32,17 @@ public class CommonConfig {
     public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_MAX_Y;
     public static ForgeConfigSpec.ConfigValue<Integer> SURFACE_SOULSTONE_AMOUNT;
 
+    //item
     public static ForgeConfigSpec.ConfigValue<Boolean> ULTIMATE_REBOUND;
+
+    //affinity
+    public static ForgeConfigSpec.ConfigValue<Float> SOUL_WARD_PHYSICAL_DAMAGE_REDUCTION;
+    public static ForgeConfigSpec.ConfigValue<Float> SOUL_WARD_MAGIC_DAMAGE_REDUCTION;
+    public static ForgeConfigSpec.ConfigValue<Integer> SOUL_WARD_BASE_RECOVERY_RATE;
+
+    public static ForgeConfigSpec.ConfigValue<Float> HEART_OF_STONE_SATURATION_COST;
+    public static ForgeConfigSpec.ConfigValue<Float> HEART_OF_STONE_BASE_RECOVERY_RATE;
+
 
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
@@ -103,6 +114,15 @@ public class CommonConfig {
                 .define("enableUltimateRebound", false);
         builder.pop();
 
+        builder.comment("Spirit Affinity Settings").push("spirit_affinity");
+        SOUL_WARD_PHYSICAL_DAMAGE_REDUCTION = builder.comment("Multiplier for physical damage taken while soul ward is active.")
+                .define("soulWardPhysical", 0.7f);
+
+        SOUL_WARD_MAGIC_DAMAGE_REDUCTION = builder.comment("Multiplier for magic damage taken while soul ward is active.")
+                .define("soulWardMagic", 0.1f);
+
+        SOUL_WARD_BASE_RECOVERY_RATE = builder.comment("Base time in ticks it takes for one point of soul ward to recover.")
+                .define("soulWardRate", 60);
         builder.pop();
     }
 
