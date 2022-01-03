@@ -25,11 +25,10 @@ public class PlayerDataCapability implements SimpleCapability {
     public boolean firstTimeJoin;
 
     public float soulWard;
-    public int soulWardCap;
     public float soulWardProgress;
 
-    public int heartOfStone;
-    public int heartOfStoneCap;
+    public float heartOfStone;
+    public float heartOfStoneProgress;
 
     public PlayerDataCapability() {
     }
@@ -55,11 +54,10 @@ public class PlayerDataCapability implements SimpleCapability {
             tag.putString("affinity", affinity.identifier);
         }
         tag.putFloat("soulWard", soulWard);
-        tag.putInt("soulWardCap", soulWardCap);
         tag.putFloat("soulWardProgress", soulWardProgress);
 
-        tag.putInt("heartOfStone", heartOfStone);
-        tag.putFloat("heartOfStoneCap", heartOfStoneCap);
+        tag.putFloat("heartOfStone", heartOfStone);
+        tag.putFloat("heartOfStoneProgress", heartOfStoneProgress);
 
         tag.putBoolean("firstTimeJoin", firstTimeJoin);
         return tag;
@@ -70,11 +68,10 @@ public class PlayerDataCapability implements SimpleCapability {
         affinity = SpiritAffinityRegistry.AFFINITIES.get(tag.getString("affinity"));
 
         soulWard = tag.getFloat("soulWard");
-        soulWardCap = tag.getInt("soulWardCap");
         soulWardProgress = tag.getFloat("soulWardProgress");
 
-        heartOfStone = tag.getInt("heartOfStone");
-        heartOfStoneCap = tag.getInt("heartOfStoneCap");
+        heartOfStone = tag.getFloat("heartOfStone");
+        heartOfStoneProgress = tag.getInt("heartOfStoneProgress");
 
         firstTimeJoin = tag.getBoolean("firstTimeJoin");
     }

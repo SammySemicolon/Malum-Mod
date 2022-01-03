@@ -36,12 +36,12 @@ public class CommonConfig {
     public static ForgeConfigSpec.ConfigValue<Boolean> ULTIMATE_REBOUND;
 
     //affinity
-    public static ForgeConfigSpec.ConfigValue<Float> SOUL_WARD_PHYSICAL_DAMAGE_REDUCTION;
-    public static ForgeConfigSpec.ConfigValue<Float> SOUL_WARD_MAGIC_DAMAGE_REDUCTION;
-    public static ForgeConfigSpec.ConfigValue<Integer> SOUL_WARD_BASE_RECOVERY_RATE;
+    public static ForgeConfigSpec.ConfigValue<Float> SOUL_WARD_PHYSICAL;
+    public static ForgeConfigSpec.ConfigValue<Float> SOUL_WARD_MAGIC;
+    public static ForgeConfigSpec.ConfigValue<Integer> SOUL_WARD_RATE;
 
-    public static ForgeConfigSpec.ConfigValue<Float> HEART_OF_STONE_SATURATION_COST;
-    public static ForgeConfigSpec.ConfigValue<Float> HEART_OF_STONE_BASE_RECOVERY_RATE;
+    public static ForgeConfigSpec.ConfigValue<Float> HEART_OF_STONE_COST;
+    public static ForgeConfigSpec.ConfigValue<Float> HEART_OF_STONE_RATE;
 
 
 
@@ -115,14 +115,26 @@ public class CommonConfig {
         builder.pop();
 
         builder.comment("Spirit Affinity Settings").push("spirit_affinity");
-        SOUL_WARD_PHYSICAL_DAMAGE_REDUCTION = builder.comment("Multiplier for physical damage taken while soul ward is active.")
+
+        builder.comment("Soul Ward").push("soul_ward");
+        SOUL_WARD_PHYSICAL = builder.comment("Multiplier for physical damage taken while soul ward is active.")
                 .define("soulWardPhysical", 0.7f);
 
-        SOUL_WARD_MAGIC_DAMAGE_REDUCTION = builder.comment("Multiplier for magic damage taken while soul ward is active.")
+        SOUL_WARD_MAGIC = builder.comment("Multiplier for magic damage taken while soul ward is active.")
                 .define("soulWardMagic", 0.1f);
 
-        SOUL_WARD_BASE_RECOVERY_RATE = builder.comment("Base time in ticks it takes for one point of soul ward to recover.")
+        SOUL_WARD_RATE = builder.comment("Base time in ticks it takes for one point of soul ward to recover.")
                 .define("soulWardRate", 60);
+        builder.pop();
+
+        builder.comment("Heart of Stone").push("heart_of_stone");
+        HEART_OF_STONE_COST = builder.comment("Amount of hunger consumed when recovering a point of heart of stone. Do note that this will only matter if the player has the earthen affinity.")
+                .define("heartOfStoneCost", 0.2f);
+
+        HEART_OF_STONE_RATE = builder.comment("Base time in ticks it takes for one point of heart of stone to recover.")
+                .define("heartOfStoneRate", 40f);
+        builder.pop();
+
         builder.pop();
     }
 

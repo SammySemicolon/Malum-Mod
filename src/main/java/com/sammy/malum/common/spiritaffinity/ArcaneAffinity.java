@@ -51,6 +51,10 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
             {
                 c.soulWardProgress--;
             }
+            if (c.soulWard > cap)
+            {
+                c.soulWard = (float) cap;
+            }
         });
     }
     public static void consumeSoulWard(LivingHurtEvent event)
@@ -58,13 +62,16 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
         if (event.getEntityLiving() instanceof Player player)
         {
             PlayerDataCapability.getCapability(player).ifPresent(c -> {
-                if (c.soulWard >= 0)
+                if (c.soulWard > 0)
                 {
-                    float multiplier = event.getSource().isMagic() ? CommonConfig.SOUL_WARD_MAGIC_DAMAGE_REDUCTION.get() : CommonConfig.SOUL_WARD_PHYSICAL_DAMAGE_REDUCTION.get();
+                    float multiplier = event.getSource().isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get() : CommonConfig.SOUL_WARD_PHYSICAL.get();
                     float result = event.getAmount() * multiplier;
                     float absorbed = event.getAmount() - result;
-                    c.soulWard -= absorbed/player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH);
-                    c.soulWardProgress = (float) (getSoulWardCooldown(player)*(c.soulWard <= 0 ? player.getAttributeValue(AttributeRegistry.SOUL_WARD_SHATTER_PENALTY) : 2));
+                    double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH);
+                    if (strength != 0) {
+                        c.soulWard -= absorbed / strength;
+                    }
+                    c.soulWardProgress = (float) (getSoulWardCooldown(player)*player.getAttributeValue(AttributeRegistry.SOUL_WARD_DAMAGE_PENALTY));
                     if (player instanceof ServerPlayer serverPlayer) {
                         INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new SyncPlayerCapabilityDataPacket(c.serializeNBT()));
                     }
@@ -76,7 +83,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     }
     public static int getSoulWardCooldown(Player player)
     {
-        return (int) (CommonConfig.SOUL_WARD_BASE_RECOVERY_RATE.get() * Math.exp(-0.15*player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED)));
+        return (int) (CommonConfig.SOUL_WARD_RATE.get() * Math.exp(-0.15*player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED)));
     }
     public static class ClientOnly {
         private static final ResourceLocation ICONS_TEXTURE = DataHelper.prefix("textures/gui/icons.png");
@@ -108,16 +115,17 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                     ShaderInstance shaderInstance = ShaderRegistry.distortedTexture.getInstance().get();
                     shaderInstance.safeGetUniform("YFrequency").set(15f);
                     shaderInstance.safeGetUniform("XFrequency").set(15f);
-                    shaderInstance.safeGetUniform("Speed").set(400f);
+                    shaderInstance.safeGetUniform("Speed").set(550f);
                     shaderInstance.safeGetUniform("Intensity").set(600f);
                     for (int i = 0; i < Math.ceil(c.soulWard/3f); i++) {
+                        int row = (int) (Math.ceil(i) / 10f);
                         int x = left + i % 10 * 8;
-                        int y = top + rowHeight * 2 - 15;
+                        int y = top - row*4 + rowHeight * 2 - 15;
                         int progress = Math.min(3, (int)c.soulWard-i*3);
                         int xTextureOffset = 1 + (3-progress)*15;
 
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset/256f, (xTextureOffset+12)/256f, 16/256f, 28/256f));
-                        shaderInstance.safeGetUniform("TimeOffset").set(i*50f);
+                        shaderInstance.safeGetUniform("TimeOffset").set(i*150f);
 
                         RenderUtilities.blit(poseStack, ShaderRegistry.distortedTexture, x-2, y-2, 13, 13,xTextureOffset/256f, 16/256f, 13/256f, 13/256f);
                     }

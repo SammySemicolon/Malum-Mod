@@ -18,13 +18,13 @@ in vec2 texCoord2;
 out vec4 fragColor;
 
 void main() {
-    float time = (GameTime+TimeOffset) * Speed;
+    float time = GameTime * Speed + TimeOffset;
     vec2 uv = texCoord0;
     vec2 uCap = vec2(UVCoordinates.x, UVCoordinates.y);
     vec2 vCap = vec2(UVCoordinates.z, UVCoordinates.w);
 
-    uv.x += cos(uv.y*XFrequency+time*1.4)/Intensity;
-    uv.y += sin(uv.x*YFrequency+time*1.4)/Intensity;
+    uv.x += cos(uv.y*XFrequency+time)/Intensity;
+    uv.y += sin(uv.x*YFrequency+time)/Intensity;
 
     uv.x = clamp(uv.x, uCap.x, uCap.y);
     uv.y = clamp(uv.y, vCap.x, vCap.y);

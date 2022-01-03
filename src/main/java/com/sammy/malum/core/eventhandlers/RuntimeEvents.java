@@ -45,12 +45,12 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         ArcaneAffinity.recoverSoulWard(event);
-        EarthenAffinity.playerTick(event);
+        EarthenAffinity.recoverHeartOfStone(event);
     }
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
         ArcaneAffinity.consumeSoulWard(event);
-        EarthenAffinity.playerHurt(event);
+        EarthenAffinity.consumeHeartOfStone(event);
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             LivingEntity target = event.getEntityLiving();
 
