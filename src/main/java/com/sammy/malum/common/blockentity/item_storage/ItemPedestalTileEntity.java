@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blockentity;
+package com.sammy.malum.common.blockentity.item_storage;
 
 import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
@@ -9,9 +9,14 @@ import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 
 public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
@@ -47,8 +52,7 @@ public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implement
     @Override
     public void tick() {
         if (level.isClientSide) {
-            if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem) {
-                MalumSpiritItem item = (MalumSpiritItem) inventory.getStackInSlot(0).getItem();
+            if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem item) {
                 Color color = item.type.color;
                 Vec3 pos = itemPos(this);
                 double x = pos.x;
@@ -57,5 +61,23 @@ public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implement
                 SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
             }
         }
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return inventory.inventoryOptional.cast();
+        }
+        return super.getCapability(cap);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return inventory.inventoryOptional.cast();
+        }
+        return super.getCapability(cap, side);
     }
 }

@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blockentity;
+package com.sammy.malum.common.blockentity.totem;
 
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.packets.particle.TotemParticlePacket;

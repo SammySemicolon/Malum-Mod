@@ -1,5 +1,5 @@
 {
-  "parent": "malum:block/template_rock_item_pedestal",
+  "parent": "malum:block/templates/template_rock_item_pedestal",
   "textures": {
     "pedestal": "malum:block/tainted_rock_item_pedestal",
     "particle": "malum:block/tainted_rock"

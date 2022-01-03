@@ -1,5 +1,5 @@
 {
-  "parent": "malum:block/template_glowing_block",
+  "parent": "malum:block/templates/template_glowing_block",
   "textures": {
     "all": "malum:block/brilliant_stone",
     "particle": "malum:block/brilliant_stone",

@@ -6,6 +6,9 @@ import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.client.model.SpiritHunterArmorModel;
 import com.sammy.malum.client.model.TailModel;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
+import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
+import com.sammy.malum.common.blockentity.ObeliskCoreBlockEntity;
+import com.sammy.malum.common.blockentity.item_storage.PlinthCoreBlockEntity;
 import com.sammy.malum.common.blockentity.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.item.BrillianceChunkItem;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
@@ -338,9 +341,13 @@ public class ItemRegistry {
 
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(BlockRegistry.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> RUNEWOOD_OBELISK = ITEMS.register("runewood_obelisk", () -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), DEFAULT_PROPERTIES(), ObeliskCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = ITEMS.register("spirit_crucible", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), DEFAULT_PROPERTIES(), SpiritCrucibleCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_TOTEM_BASE = ITEMS.register("soulwood_totem_base", () -> new BlockItem(BlockRegistry.SOULWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_PLINTH = ITEMS.register("soulwood_plinth", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_PLINTH.get(), DEFAULT_PROPERTIES(), PlinthCoreBlockEntity.STRUCTURE));
+    public static final RegistryObject<Item> SOULWOOD_FUSION_PLATE = ITEMS.register("soulwood_fusion_plate", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_FUSION_PLATE.get(), DEFAULT_PROPERTIES(), FusionPlateBlockEntity.STRUCTURE));
     //endregion
 
     //region materials
@@ -355,18 +362,11 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_HALLOWED_GOLD = ITEMS.register("block_of_hallowed_gold", () -> new BlockItem(BlockRegistry.BLOCK_OF_HALLOWED_GOLD.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> HALLOWED_SPIRIT_RESONATOR = ITEMS.register("hallowed_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
 
-    //region hallowed contraptions
-    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(BlockRegistry.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
-
-    //endregion
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_INGOT = ITEMS.register("soul_stained_steel_ingot", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_NUGGET = ITEMS.register("soul_stained_steel_nugget", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = ITEMS.register("block_of_soul_stained_steel", () -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
 
-    //region soul stained contraptions
-
-    //endregion
     public static final RegistryObject<Item> CRACKED_ALCHEMICAL_IMPETUS = ITEMS.register("cracked_alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> ALCHEMICAL_IMPETUS = ITEMS.register("alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALCHEMICAL_IMPETUS));
 

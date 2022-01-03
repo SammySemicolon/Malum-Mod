@@ -3,8 +3,7 @@
 	"parent": "block/block",
 	"texture_size": [32, 32],
 	"textures": {
-		"crucible": "malum:block/spirit_crucible",
-		"particle": "malum:block/tainted_rock"
+		"crucible": "malum:block/spirit_crucible"
 	},
 	"elements": [
 		{

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.blockentity.TotemBaseTileEntity;
-import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
+import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
+import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;

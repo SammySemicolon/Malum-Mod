@@ -72,7 +72,7 @@ public class MalumBlockLootTables extends LootTableProvider {
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).ignoreDataGen);
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).ignoreLootDatagen);
 
         takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
         takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));
