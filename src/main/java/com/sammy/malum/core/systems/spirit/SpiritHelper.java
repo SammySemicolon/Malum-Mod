@@ -155,11 +155,14 @@ public class SpiritHelper {
 
     public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color) {
         Random rand = level.getRandom();
+        //rgb
+        //gbr
+        Color endColor = new Color(color.getGreen(), color.getBlue(), color.getRed());
         RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.18f, 0f)
                 .setLifetime(10 + rand.nextInt(4))
                 .setScale(0.3f + rand.nextFloat() * 0.1f, 0)
-                .setColor(color, color.darker())
+                .setColor(color, endColor)
                 .randomOffset(0.05f)
                 .enableNoClip()
                 .randomVelocity(0.02f, 0.02f)
@@ -170,7 +173,7 @@ public class SpiritHelper {
                 .setLifetime(20 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.2f + rand.nextFloat() * 0.05f, 0)
-                .setColor(color, color.darker())
+                .setColor(color, endColor)
                 .randomOffset(0.1f)
                 .enableNoClip()
                 .randomVelocity(0.02f, 0.02f)
@@ -181,7 +184,7 @@ public class SpiritHelper {
                 .setLifetime(10 + rand.nextInt(2))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
-                .setColor(color, color.darker())
+                .setColor(color, endColor)
                 .enableNoClip()
                 .randomVelocity(0.01f, 0.01f)
                 .repeat(level, x, y, z, 1);

@@ -1,5 +1,6 @@
 package com.sammy.malum.common.blockentity;
 
+import com.sammy.malum.common.block.spirit_altar.IAltarAccelerator;
 import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarConsumeParticlePacket;
@@ -8,7 +9,6 @@ import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
-import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.registry.misc.ParticleRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
@@ -37,14 +37,18 @@ import net.minecraftforge.network.PacketDistributor;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.Collection;
+import java.util.HashMap;
 
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
 public class SpiritAltarTileEntity extends SimpleBlockEntity {
-    public int soundCooldown;
-    public int progress;
 
-    public boolean spedUp;
+    private static final int HORIZONTAL_RANGE = 4;
+    private static final int VERTICAL_RANGE = 2;
+
+    public int soundCooldown;
+    public float speed;
+    public int progress;
     public int spinUp;
 
     public float spiritAmount;
@@ -94,8 +98,8 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         if (spinUp != 0) {
             compound.putInt("spinUp", spinUp);
         }
-        if (spedUp) {
-            compound.putBoolean("spedUp", true);
+        if (speed != 0) {
+            compound.putFloat("speed", speed);
         }
         if (spiritAmount != 0) {
             compound.putFloat("spiritAmount", spiritAmount);
@@ -109,7 +113,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public void load(CompoundTag compound) {
         progress = compound.getInt("progress");
         spinUp = compound.getInt("spinUp");
-        spedUp = compound.getBoolean("spedUp");
+        speed = compound.getFloat("speed");
         spiritAmount = compound.getFloat("spiritAmount");
         updateRecipe = true;
         inventory.load(compound);
@@ -133,18 +137,8 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
-            if (heldStack.getItem().equals(ItemRegistry.HEX_ASH.get()) && !inventory.getStackInSlot(0).isEmpty()) {
-                if (!spedUp) {
-                    heldStack.shrink(1);
-                    progress = 0;
-                    spedUp = true;
-                    level.playSound(null, worldPosition, SoundRegistry.ALTAR_SPEED_UP, SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    BlockHelper.updateState(level, worldPosition);
+            recalibrateSpeed();
 
-                    return InteractionResult.SUCCESS;
-                }
-                return InteractionResult.PASS;
-            }
             if (!(heldStack.getItem() instanceof MalumSpiritItem)) {
                 ItemStack stack = inventory.interact(level, player, hand);
                 if (!stack.isEmpty())
@@ -175,13 +169,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 level.playSound(null, worldPosition, SoundRegistry.ALTAR_LOOP, SoundSource.BLOCKS, 1, 1f);
                 soundCooldown = 180;
             }
-            int spinCap = spedUp ? 30 : 10;
-            if (spinUp < spinCap) {
+            if (spinUp < 10) {
                 spinUp++;
             }
             if (!level.isClientSide) {
                 progress++;
-                int progressCap = spedUp ? 60 : 360;
+                int progressCap = (int) (300*Math.exp(-0.15*speed));
                 if (progress >= progressCap) {
                     boolean success = consume();
                     if (success) {
@@ -194,7 +187,6 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             if (spinUp > 0) {
                 spinUp--;
             }
-            spedUp = false;
         }
         if (level.isClientSide) {
             spiritSpin += 1 + spinUp / 5f;
@@ -226,9 +218,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < recipe.extraItems.size()) {
             progress *= 0.5f;
-            int horizontal = 4;
-            int vertical = 2;
-            Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, horizontal, vertical, horizontal);
+            Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (BlockPos pos : nearbyBlocks) {
                 if (level.getBlockEntity(pos) instanceof IAltarProvider blockEntity) {
                     ItemStack providedStack = blockEntity.providedInventory().getStackInSlot(0);
@@ -275,9 +265,27 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         inventory.updateData();
         spiritInventory.updateData();
         extrasInventory.updateData();
+        recalibrateSpeed();
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 
+    public void recalibrateSpeed() {
+            speed = 0f;
+
+        Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+        HashMap<IAltarAccelerator, Integer> entries = new HashMap<>();
+        for (BlockPos pos : nearbyBlocks) {
+            BlockState state = level.getBlockState(pos);
+            if (state.getBlock() instanceof IAltarAccelerator accelerator) {
+                int max = accelerator.getType().maximumEntries;
+                int amount = entries.computeIfAbsent(accelerator, (a)->0);
+                if (amount != max) {
+                    speed += accelerator.getAcceleration(level, pos, state);
+                    entries.replace(accelerator, amount + 1);
+                }
+            }
+        }
+    }
     public void passiveParticles() {
         Vec3 itemPos = itemPos(this);
         for (int i = 0; i < spiritInventory.slotCount; i++) {
@@ -290,30 +298,33 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 double z = getBlockPos().getZ() + offset.z();
                 SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
                 if (recipe != null) {
+                    Color endColor = new Color(color.getGreen(), color.getBlue(), color.getRed());
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
                     RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                            .setAlpha(0.15f, 0f)
-                            .setLifetime(40)
+                            .setAlpha(0.125f, 0f)
+                            .setLifetime(45)
                             .setScale(0.2f, 0)
                             .randomOffset(0.02f)
                             .randomVelocity(0.01f, 0.01f)
-                            .setColor(color, color.darker())
+                            .setColor(color, endColor)
+                            .setColorCurveMultiplier(0.5f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .addVelocity(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
-                            .repeat(level, x, y, z, spedUp ? 4 : 2);
+                            .repeat(level, x, y, z, 2);
 
-                    float alpha = 0.08f / spiritInventory.nonEmptyItemAmount;
+                    float alpha = 0.07f / spiritInventory.nonEmptyItemAmount;
                     RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
                             .setAlpha(alpha, 0f)
-                            .setLifetime(20)
+                            .setLifetime(25)
                             .setScale(0.5f, 0)
                             .randomOffset(0.1, 0.1)
                             .randomVelocity(0.02f, 0.02f)
-                            .setColor(color, color.darker())
+                            .setColor(color, endColor)
+                            .setColorCurveMultiplier(0.75f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .enableNoClip()
-                            .repeat(level, itemPos.x, itemPos.y, itemPos.z, spedUp ? 4 : 2);
+                            .repeat(level, itemPos.x, itemPos.y, itemPos.z, 2);
                 }
             }
         }
