@@ -4,7 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "malum:block/soulwood_fusion_plate",
-		"particle": "malum:block/soulwood_fusion_plate"
+		"particle": "malum:block/tainted_rock"
 	},
 	"elements": [
 		{
@@ -20,7 +20,7 @@
 			"to": [16, 2, 16],
 			"faces": {
 				"north": {"uv": [0, 9.75, 4, 10.25], "texture": "#0"},
-				"east": {"uv": [0, 9.75, 3.75, 10.25], "texture": "#0"},
+				"east": {"uv": [3.75, 9.75, 0, 10.25], "texture": "#0"},
 				"west": {"uv": [0, 9.75, 3.75, 10.25], "texture": "#0"},
 				"up": {"uv": [0, 6, 4, 9.75], "texture": "#0"},
 				"down": {"uv": [0, 10.25, 4, 14], "texture": "#0"}

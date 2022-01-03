@@ -4,7 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "malum:block/soulwood_fusion_plate",
-		"particle": "malum:block/soulwood_fusion_plate"
+		"particle": "malum:block/twisted_rock"
 	},
 	"elements": [
 		{

@@ -8,10 +8,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.Supplier;
 
 public class ObeliskComponentBlock extends ComponentBlock {
+    public static final VoxelShape SHAPE = makeShape();
     private final Supplier<Item> cloneStack;
     public ObeliskComponentBlock(Properties properties, Supplier<Item> cloneStack) {
         super(properties);
@@ -19,7 +24,19 @@ public class ObeliskComponentBlock extends ComponentBlock {
     }
 
     @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return SHAPE;
+    }
+
+    @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         return cloneStack.get().getDefaultInstance();
+    }
+
+    public static VoxelShape makeShape(){
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5625, 0.8125), BooleanOp.OR);
+
+        return shape;
     }
 }
