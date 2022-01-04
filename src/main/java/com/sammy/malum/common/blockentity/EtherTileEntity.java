@@ -102,20 +102,20 @@ public class EtherTileEntity extends SimpleBlockEntity {
                     .spawn(level, x, y, z);
 
             if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f) {
-                y += 0.05f;
+                y += 0.15f;
                 RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
-                        .randomOffset(0.15f, 0.25f)
-                        .addVelocity(0, 0.02f, 0)
+                        .randomOffset(0.1f, 0.15f)
+                        .addVelocity(0, 0.03f, 0)
                         .spawn(level, x, y, z);
 
                 RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
-                        .randomOffset(0.1f, 0.25f)
+                        .randomOffset(0.1f, 0.15f)
                         .addVelocity(0, velocity, 0)
                         .spawn(level, x, y, z);
             }

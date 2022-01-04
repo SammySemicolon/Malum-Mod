@@ -36,8 +36,10 @@ import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
 
@@ -51,6 +53,9 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public int progress;
     public int spinUp;
 
+    public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
+    public boolean updateAccelerators;
+    public ArrayList<IAltarAccelerator> accelerators = new ArrayList<>();
     public float spiritAmount;
     public float spiritSpin;
 
@@ -101,6 +106,14 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         if (speed != 0) {
             compound.putFloat("speed", speed);
         }
+        if (!acceleratorPositions.isEmpty())
+        {
+            compound.putInt("acceleratorAmount", acceleratorPositions.size());
+            for (int i = 0; i < acceleratorPositions.size(); i++)
+            {
+                BlockHelper.saveBlockPos(compound, acceleratorPositions.get(i), "" + i);
+            }
+        }
         if (spiritAmount != 0) {
             compound.putFloat("spiritAmount", spiritAmount);
         }
@@ -114,6 +127,14 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         progress = compound.getInt("progress");
         spinUp = compound.getInt("spinUp");
         speed = compound.getFloat("speed");
+
+        acceleratorPositions.clear();
+        int amount = compound.getInt("acceleratorAmount");
+        for (int i = 0; i < amount; i++) {
+            acceleratorPositions.add(BlockHelper.loadBlockPos(compound, "" + i));
+        }
+        updateAccelerators = true;
+
         spiritAmount = compound.getFloat("spiritAmount");
         updateRecipe = true;
         inventory.load(compound);
@@ -157,6 +178,11 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
+        if (updateAccelerators && level.isClientSide)
+        {
+            accelerators.clear();
+            accelerators.addAll(acceleratorPositions.stream().map(p -> (IAltarAccelerator)level.getBlockEntity(p)).collect(Collectors.toList()));
+        }
         if (updateRecipe)
         {
             recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
@@ -270,17 +296,17 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     }
 
     public void recalibrateSpeed() {
-            speed = 0f;
-
+        speed = 0f;
+        acceleratorPositions.clear();
         Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
         HashMap<IAltarAccelerator, Integer> entries = new HashMap<>();
         for (BlockPos pos : nearbyBlocks) {
-            BlockState state = level.getBlockState(pos);
-            if (state.getBlock() instanceof IAltarAccelerator accelerator) {
-                int max = accelerator.getType().maximumEntries;
-                int amount = entries.computeIfAbsent(accelerator, (a)->0);
+            if (level.getBlockEntity(pos) instanceof IAltarAccelerator accelerator) {
+                int max = accelerator.getAcceleratorType().maximumEntries;
+                int amount = entries.computeIfAbsent(accelerator, (a) -> 0);
                 if (amount != max) {
-                    speed += accelerator.getAcceleration(level, pos, state);
+                    acceleratorPositions.add(pos);
+                    speed += accelerator.getAcceleration();
                     entries.replace(accelerator, amount + 1);
                 }
             }
@@ -300,6 +326,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 if (recipe != null) {
                     Color endColor = new Color(color.getGreen(), color.getBlue(), color.getRed());
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
+                    float alpha = 0.07f / spiritInventory.nonEmptyItemAmount;
+                    for (IAltarAccelerator accelerator : accelerators) {
+                        if (accelerator != null) {
+                            accelerator.addParticles(color, alpha, worldPosition, itemPos);
+                        }
+                    }
                     RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.125f, 0f)
                             .setLifetime(45)
@@ -308,12 +340,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             .randomVelocity(0.01f, 0.01f)
                             .setColor(color, endColor)
                             .setColorCurveMultiplier(0.5f)
+                            .setSpin(0.1f + level.random.nextFloat()*0.1f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .addVelocity(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
                             .repeat(level, x, y, z, 2);
 
-                    float alpha = 0.07f / spiritInventory.nonEmptyItemAmount;
                     RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
                             .setAlpha(alpha, 0f)
                             .setLifetime(25)

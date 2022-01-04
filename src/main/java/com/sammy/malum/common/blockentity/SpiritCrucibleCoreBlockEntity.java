@@ -212,6 +212,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
                 double z = getBlockPos().getZ() + offset.z();
                 SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
                 if (recipe != null) {
+                    Color endColor = new Color(color.getGreen(), color.getBlue(), color.getRed());
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
                     RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.15f, 0f)
@@ -219,7 +220,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
                             .setScale(0.2f, 0)
                             .randomOffset(0.02f)
                             .randomVelocity(0.01f, 0.01f)
-                            .setColor(color, color.darker())
+                            .setColor(color, endColor)
+                            .setColorCurveMultiplier(0.75f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .addVelocity(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
@@ -232,7 +234,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
                             .setScale(0.5f, 0)
                             .randomOffset(0.1, 0.1)
                             .randomVelocity(0.02f, 0.02f)
-                            .setColor(color, color.darker())
+                            .setColor(color, endColor)
+                            .setColorCurveMultiplier(0.75f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .enableNoClip()
                             .repeat(level, itemPos.x, itemPos.y, itemPos.z, 2);

@@ -35,15 +35,13 @@ public class EldritchSacredRiteType extends MalumRiteType {
     public void riteEffect(Level level, BlockPos pos) {
         if (!level.isClientSide) {
             getNearbyBlocks(BonemealableBlock.class, level, pos, false).forEach(p -> {
-                if (level.random.nextFloat() <= 0.01f) {
+                if (level.random.nextFloat() <= 0.06f) {
                     BlockState state = level.getBlockState(p);
-                    BonemealableBlock growable = (BonemealableBlock) state.getBlock();
-                    ServerLevel serverLevel = (ServerLevel) level;
-                    if (growable.isValidBonemealTarget(serverLevel, p, state, false)) {
-                        growable.performBonemeal(serverLevel, level.random, p, state);
-                        BlockPos particlePos = state.canOcclude() ? p : p.below();
-                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockMistParticlePacket(SACRED_SPIRIT_COLOR, particlePos.getX(), particlePos.getY(), particlePos.getZ()));
+                    for (int i = 0; i < 5+level.random.nextInt(3); i++) {
+                        state.randomTick((ServerLevel) level, p, level.random);
                     }
+                    BlockPos particlePos = state.canOcclude() ? p : p.below();
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockMistParticlePacket(SACRED_SPIRIT_COLOR, particlePos.getX(), particlePos.getY(), particlePos.getZ()));
                 }
             });
         }
