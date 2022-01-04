@@ -83,7 +83,10 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider
                 .build(consumer);
 
         new SpiritFocusingRecipeBuilder(shortDuration, 10, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.ENDER_PEARL), 1)
-                .addSpirit(ELDRITCH_SPIRIT, 3)
+                .addSpirit(ELDRITCH_SPIRIT, 1)
+                .addSpirit(AQUEOUS_SPIRIT, 2)
+                .addSpirit(INFERNAL_SPIRIT, 3)
+                .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
         new SpiritFocusingRecipeBuilder(shortDuration, 10, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GHAST_TEAR), 1)
@@ -93,6 +96,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider
 
         new SpiritFocusingRecipeBuilder(shortDuration, 10, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.RABBIT_FOOT), 1)
                 .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(SACRED_SPIRIT, 4)
                 .build(consumer);
 

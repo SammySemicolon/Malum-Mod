@@ -10,6 +10,7 @@ import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.item.tools.ScytheItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.item.ModCombatItem;
+import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -71,10 +72,14 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
     private static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
 
-    private void multiBlockItem(RegistryObject<Item> i)
-    {
+    private void multiBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));
+        IMultiBlockCore multiBlockCore = ((IMultiBlockCore) ((BlockItem)i.get()).getBlock());
+        if (multiBlockCore.isComplex()) {
+            cubeAll(name, prefix("item/" + name));
+        } else {
+            getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));
+        }
     }
     private void impetusItem(RegistryObject<Item> i)
     {

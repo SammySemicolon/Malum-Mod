@@ -8,8 +8,8 @@ import com.sammy.malum.client.model.TailModel;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.ObeliskCoreBlockEntity;
-import com.sammy.malum.common.blockentity.item_storage.PlinthCoreBlockEntity;
 import com.sammy.malum.common.blockentity.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.blockentity.item_storage.PlinthCoreBlockEntity;
 import com.sammy.malum.common.item.BrillianceChunkItem;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.ImpetusItem;
@@ -25,7 +25,10 @@ import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.ether.EtherTorchItem;
 import com.sammy.malum.common.item.food.HolySyrupItem;
 import com.sammy.malum.common.item.food.UnholySyrupItem;
-import com.sammy.malum.common.item.misc.*;
+import com.sammy.malum.common.item.misc.MalumBoatItem;
+import com.sammy.malum.common.item.misc.MalumFuelBlockItem;
+import com.sammy.malum.common.item.misc.MalumFuelItem;
+import com.sammy.malum.common.item.misc.MalumSpiritItem;
 import com.sammy.malum.common.item.tools.*;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
@@ -41,11 +44,13 @@ import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -456,6 +461,20 @@ public class ItemRegistry {
     public static final RegistryObject<Item> FANCY_BOOTS = ITEMS.register("fancy_boots", () -> new DripArmorItem(EquipmentSlot.FEET, HIDDEN_PROPERTIES()));
     //endregion
 
+    @Mod.EventBusSubscriber(modid = MalumMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class Common {
+        @SubscribeEvent
+        public static void registerCompost(FMLCommonSetupEvent event) {
+            registerCompostable(RUNEWOOD_LEAVES, 0.3f);
+            registerCompostable(SOULWOOD_LEAVES, 0.3f);
+            registerCompostable(RUNEWOOD_SAPLING, 0.3f);
+            registerCompostable(SOULWOOD_SAPLING, 0.3f);
+        }
+
+        public static void registerCompostable(RegistryObject<Item> item, float chance) {
+            ComposterBlock.COMPOSTABLES.put(item.get(), chance);
+        }
+    }
     @Mod.EventBusSubscriber(modid = MalumMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
 
@@ -465,7 +484,7 @@ public class ItemRegistry {
         public static TailModel TAIL_MODEL;
 
         @SubscribeEvent
-        public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
             event.registerLayerDefinition(DripArmorModel.LAYER, DripArmorModel::createBodyLayer);
             event.registerLayerDefinition(SpiritHunterArmorModel.LAYER, SpiritHunterArmorModel::createBodyLayer);
             event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
@@ -473,7 +492,7 @@ public class ItemRegistry {
         }
 
         @SubscribeEvent
-        public static void onRegisterLayers(EntityRenderersEvent.AddLayers event) {
+        public static void registerLayers(EntityRenderersEvent.AddLayers event) {
             DRIP_ARMOR = new DripArmorModel(event.getEntityModels().bakeLayer(DripArmorModel.LAYER));
             SPIRIT_HUNTER_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.LAYER));
             SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));

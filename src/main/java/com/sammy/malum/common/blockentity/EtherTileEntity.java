@@ -60,7 +60,6 @@ public class EtherTileEntity extends SimpleBlockEntity {
             Color firstColor = ColorHelper.darker(this.firstColor, 1);
             Color secondColor = ColorHelper.brighter(this.secondColor, 1);
 
-
             double x = worldPosition.getX() + 0.5;
             double y = worldPosition.getY() + 0.6;
             double z = worldPosition.getZ() + 0.5;

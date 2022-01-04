@@ -11,8 +11,19 @@
   },
   "spirits": [
     {
-      "item": "malum:eldritch_spirit",
+      "item": "malum:eldritch_spirit"
+    },
+    {
+      "item": "malum:aqueous_spirit",
+      "count": 2
+    },
+    {
+      "item": "malum:infernal_spirit",
       "count": 3
+    },
+    {
+      "item": "malum:arcane_spirit",
+      "count": 2
     }
   ]
 }
