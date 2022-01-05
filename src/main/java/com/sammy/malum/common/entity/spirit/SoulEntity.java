@@ -109,14 +109,17 @@ public class SoulEntity extends FloatingEntity {
             Vec3 resultingMotion = new Vec3(xMotion, yMotion, zMotion);
             setDeltaMovement(resultingMotion);
         }
-        else
-        {
-            if (level.noCollision(getBoundingBox().move(0, -2.5f, 0)))
-            {
-                setDeltaMovement(getDeltaMovement().add(0, -0.002f, 0));
+        else {
+            boolean above = !level.noCollision(getBoundingBox().move(0, 1.5f, 0));
+            boolean below = !level.noCollision(getBoundingBox().move(0, -2.5f, 0));
+            if (above && below) {
+                setDeltaMovement(getDeltaMovement().add(0, 0.002f, 0));
+                return;
             }
-            else if (!level.noCollision(getBoundingBox().move(0, 1.5f, 0)))
-            {
+            if (below) {
+                setDeltaMovement(getDeltaMovement().add(0, 0.002f, 0));
+            }
+            if (above) {
                 setDeltaMovement(getDeltaMovement().add(0, -0.002f, 0));
             }
         }
