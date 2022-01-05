@@ -227,7 +227,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void cutBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String baseName = "smooth_" + name.substring(4);
+        String baseName = "polished_" + name.substring(4);
         simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + baseName), prefix("block/" + baseName)));
     }
     
