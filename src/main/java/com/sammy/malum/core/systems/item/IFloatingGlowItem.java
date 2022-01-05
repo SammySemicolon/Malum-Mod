@@ -1,8 +1,8 @@
-package com.sammy.malum.core.systems.spirit;
+package com.sammy.malum.core.systems.item;
 
 import java.awt.*;
 
-public interface ISpiritEntityGlow
+public interface IFloatingGlowItem
 {
     public Color getColor();
 

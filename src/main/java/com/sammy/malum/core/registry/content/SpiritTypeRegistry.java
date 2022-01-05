@@ -2,7 +2,7 @@ package com.sammy.malum.core.registry.content;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.registry.item.ItemRegistry;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritDataBundle;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +22,7 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry
 {
-    public static Map<ResourceLocation, MalumEntitySpiritDataBundle> SPIRIT_DATA = new HashMap<>();
+    public static Map<ResourceLocation, MalumEntitySpiritData> SPIRIT_DATA = new HashMap<>();
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
 
     public static final Color SACRED_SPIRIT_COLOR = new Color(234, 73, 95);

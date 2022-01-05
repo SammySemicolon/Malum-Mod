@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.entity.FloatingEntity;
+import com.sammy.malum.common.entity.FloatingItemEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -14,7 +14,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class FloatingItemEntityRenderer extends EntityRenderer<FloatingEntity>
+public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity>
 {
     public final ItemRenderer itemRenderer;
 
@@ -28,7 +28,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingEntity>
     
     
     @Override
-    public void render(FloatingEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn)
+    public void render(FloatingItemEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn)
     {
         poseStack.pushPose();
         ItemStack itemstack = entityIn.getItem();
@@ -44,7 +44,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingEntity>
     }
 
     @Override
-    public ResourceLocation getTextureLocation(FloatingEntity entity)
+    public ResourceLocation getTextureLocation(FloatingItemEntity entity)
     {
         return TextureAtlas.LOCATION_BLOCKS;
     }

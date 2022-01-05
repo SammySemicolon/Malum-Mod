@@ -1,5 +1,6 @@
 package com.sammy.malum.common.entity;
 
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,8 +18,8 @@ public abstract class FloatingEntity extends Projectile
 {
     protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
-    public Color color = Color.WHITE;
-    public Color endColor = Color.BLACK;
+    public Color color = SpiritTypeRegistry.SACRED_SPIRIT_COLOR;
+    public Color endColor = SpiritTypeRegistry.SACRED_SPIRIT.endColor;
     public int maxAge;
     public int age;
     public int moveTime;
@@ -35,8 +36,8 @@ public abstract class FloatingEntity extends Projectile
 
     @Override
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_COLOR, Color.WHITE.getRGB());
-        this.getEntityData().define(DATA_END_COLOR, Color.BLACK.getRGB());
+        this.getEntityData().define(DATA_COLOR, SpiritTypeRegistry.SACRED_SPIRIT_COLOR.getRGB());
+        this.getEntityData().define(DATA_END_COLOR, SpiritTypeRegistry.SACRED_SPIRIT.endColor.getRGB());
     }
 
     @Override

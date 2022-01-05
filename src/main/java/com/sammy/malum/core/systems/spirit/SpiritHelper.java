@@ -129,12 +129,12 @@ public class SpiritHelper {
         return type.get();
     }
 
-    public static MalumEntitySpiritDataBundle getEntitySpirits(LivingEntity entity) {
+    public static MalumEntitySpiritData getEntitySpirits(LivingEntity entity) {
         return SpiritTypeRegistry.SPIRIT_DATA.get(entity.getType().getRegistryName());
     }
 
     public static int getEntitySpiritCount(LivingEntity entity) {
-        MalumEntitySpiritDataBundle bundle = getEntitySpirits(entity);
+        MalumEntitySpiritData bundle = getEntitySpirits(entity);
         if (bundle == null) {
             return 0;
         }
@@ -143,11 +143,11 @@ public class SpiritHelper {
 
     public static ArrayList<ItemStack> getSpiritItemStacks(LivingEntity entity) {
         ArrayList<ItemStack> spirits = new ArrayList<>();
-        MalumEntitySpiritDataBundle bundle = getEntitySpirits(entity);
+        MalumEntitySpiritData bundle = getEntitySpirits(entity);
         if (bundle == null) {
             return spirits;
         }
-        for (MalumEntitySpiritDataBundle.MalumEntitySpiritData data : bundle.data) {
+        for (MalumEntitySpiritData.DataEntry data : bundle.data) {
             spirits.add(new ItemStack(data.type.getSplinterItem(), data.count));
         }
         return spirits;

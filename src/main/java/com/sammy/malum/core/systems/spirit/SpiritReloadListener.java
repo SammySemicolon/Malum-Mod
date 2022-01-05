@@ -39,16 +39,16 @@ public class SpiritReloadListener extends SimpleJsonResourceReloadListener
 
             JsonArray array = object.getAsJsonArray("spirits");
 
-            ArrayList<MalumEntitySpiritDataBundle.MalumEntitySpiritData> spiritData = new ArrayList<>();
+            ArrayList<MalumEntitySpiritData.DataEntry> spiritData = new ArrayList<>();
             for (JsonElement spiritElement : array)
             {
                 JsonObject spiritObject = spiritElement.getAsJsonObject();
                 String spiritName = spiritObject.getAsJsonPrimitive("spirit").getAsString();
                 int count = spiritObject.getAsJsonPrimitive("count").getAsInt();
-                spiritData.add(new MalumEntitySpiritDataBundle.MalumEntitySpiritData(SpiritHelper.getSpiritType(spiritName), count));
+                spiritData.add(new MalumEntitySpiritData.DataEntry(SpiritHelper.getSpiritType(spiritName), count));
             }
 
-            SpiritTypeRegistry.SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritDataBundle(spiritData));
+            SpiritTypeRegistry.SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(spiritData));
         }
     }
 }
