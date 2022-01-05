@@ -82,12 +82,12 @@ public class SoulItemEntityRenderer extends EntityRenderer<SoulEntity>
         VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(SOUL_NOISE_TYPE);
         VertexConsumer secondarySoulNoise = DELAYED_RENDER.getBuffer(SECONDARY_SOUL_NOISE_TYPE);
         VertexConsumer trinarySoulNoise = DELAYED_RENDER.getBuffer(TRINARY_SOUL_NOISE_TYPE);
-        float scale = 0.65f;
+        float scale = 0.75f;
         renderQuad(soulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 220, 0,0, 1, 1);
         color = color.brighter();
         scale = 0.85f;
         renderQuad(secondarySoulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 180, 0,0, 1, 1);
-        scale = 0.95f;
+        scale = 1.15f;
         renderQuad(trinarySoulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 140, 0,0, 1, 1);
     }
 }

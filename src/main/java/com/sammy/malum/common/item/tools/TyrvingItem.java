@@ -5,7 +5,7 @@ import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.DamageSourceRegistry;
 import com.sammy.malum.core.registry.SoundRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;

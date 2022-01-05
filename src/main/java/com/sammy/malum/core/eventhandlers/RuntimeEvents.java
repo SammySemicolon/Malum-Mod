@@ -12,7 +12,7 @@ import com.sammy.malum.core.registry.item.ItemTagRegistry;
 import com.sammy.malum.core.registry.AttributeRegistry;
 import com.sammy.malum.core.registry.DamageSourceRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -55,8 +55,8 @@ public class RuntimeEvents {
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             LivingEntity target = event.getEntityLiving();
 
-            ItemHelper.eventResponders(attacker, target).forEach(s -> ((IEventResponderItem)s.getItem()).hurtEvent(event, attacker, target, s));
-            ItemHelper.eventResponders(target, attacker).forEach(s -> ((IEventResponderItem)s.getItem()).takeDamageEvent(event, target, attacker, s));
+            ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem)s.getItem()).hurtEvent(event, attacker, target, s));
+            ItemHelper.eventResponders(target).forEach(s -> ((IEventResponderItem)s.getItem()).takeDamageEvent(event, target, attacker, s));
 
             ItemStack stack = attacker.getMainHandItem();
             if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity)
@@ -101,7 +101,7 @@ public class RuntimeEvents {
             if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(item)) {
                 SpiritHelper.playerSummonSpirits(target, attacker, stack);
             }
-            ItemHelper.eventResponders(attacker, target).forEach(s -> ((IEventResponderItem)s.getItem()).killEvent(event, attacker, target, s));
+            ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem)s.getItem()).killEvent(event, attacker, target, s));
         }
     }
 }

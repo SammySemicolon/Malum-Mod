@@ -1,27 +1,29 @@
-package com.sammy.malum.core.systems.spirit;
+package com.sammy.malum.core.helper;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
-import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.registry.AttributeRegistry;
 import com.sammy.malum.core.registry.ParticleRegistry;
 import com.sammy.malum.core.registry.SoundRegistry;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
 import com.sammy.malum.core.systems.container.ItemInventory;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -62,27 +64,35 @@ public class SpiritHelper {
     }
 
     public static void createSpiritEntities(ArrayList<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
+        createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight()/2f, 0), attacker);
+   }
+
+    public static void createSpiritEntities(MalumEntitySpiritData data, Level level, Vec3 position, LivingEntity attacker) {
+        createSpiritEntities(getSpiritItemStacks(data), data.totalCount, level, position, attacker);
+    }
+
+    public static void createSpiritEntities(ArrayList<ItemStack> spirits, float totalCount, Level level, Vec3 position, @Nullable LivingEntity attacker) {
         if (attacker == null) {
-            attacker = target.level.getNearestPlayer(target.getX(), target.getY(), target.getZ(), 8, e -> true);
+            attacker = level.getNearestPlayer(position.x, position.y, position.z, 8, e -> true);
         }
-        float speed = 0.125f + 0.4f / (getEntitySpiritCount(target) + 1);
+        float speed = 0.125f + 0.4f / (totalCount + 1);
         for (ItemStack stack : spirits) {
             int count = stack.getCount();
             if (count == 0) {
                 continue;
             }
             for (int j = 0; j < count; j++) {
-                SpiritItemEntity entity = new SpiritItemEntity(target.level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
-                        target.position().x,
-                        target.position().y + target.getBbHeight() / 2f,
-                        target.position().z,
+                SpiritItemEntity entity = new SpiritItemEntity(level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
+                        position.x,
+                        position.y,
+                        position.z,
                         nextFloat(MalumMod.RANDOM, -speed, speed),
                         nextFloat(MalumMod.RANDOM, 0.05f, 0.05f),
                         nextFloat(MalumMod.RANDOM, -speed, speed));
-                target.level.addFreshEntity(entity);
+                level.addFreshEntity(entity);
             }
         }
-        target.level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.SPIRIT_HARVEST, target.getSoundSource(), 1.0F, 0.9f + target.level.random.nextFloat() * 0.2f);
+        level.playSound(null, position.x, position.y, position.z, SoundRegistry.SPIRIT_HARVEST, SoundSource.PLAYERS, 1.0F, 0.7f + level.random.nextFloat() * 0.4f);
     }
 
 
@@ -100,20 +110,12 @@ public class SpiritHelper {
                     }
                 }
             }
-            Item item = stack.getItem();
-            if (item instanceof IEventResponderItem) {
-                IEventResponderItem eventItem = (IEventResponderItem) item;
-                eventItem.pickupSpirit(collector, stack, true);
-            }
-            collector.getArmorSlots().forEach(s ->{
-                if (s.getItem() instanceof IEventResponderItem)
+            ItemHelper.eventResponders(collector).forEach(s -> {
+                if (s.getItem() instanceof IEventResponderItem eventItem)
                 {
-                    IEventResponderItem eventItem = (IEventResponderItem) s.getItem();
                     eventItem.pickupSpirit(collector, stack, true);
                 }
             });
-            ArrayList<ItemStack> curios = ItemHelper.equippedCurios(collector, p -> p.getItem() instanceof IEventResponderItem);
-            curios.forEach(s -> ((IEventResponderItem)s.getItem()).pickupSpirit(collector, s, true));
         }
         ItemHelper.giveItemToEntity(stack, collector);
     }
@@ -139,8 +141,10 @@ public class SpiritHelper {
     }
 
     public static ArrayList<ItemStack> getSpiritItemStacks(LivingEntity entity) {
+        return getSpiritItemStacks(getEntitySpirits(entity));
+    }
+    public static ArrayList<ItemStack> getSpiritItemStacks(MalumEntitySpiritData bundle) {
         ArrayList<ItemStack> spirits = new ArrayList<>();
-        MalumEntitySpiritData bundle = getEntitySpirits(entity);
         if (bundle == null) {
             return spirits;
         }

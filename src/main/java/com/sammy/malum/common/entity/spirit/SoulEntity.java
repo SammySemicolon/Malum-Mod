@@ -5,7 +5,7 @@ import com.sammy.malum.core.registry.AttributeRegistry;
 import com.sammy.malum.core.registry.EntityRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -29,11 +29,13 @@ public class SoulEntity extends FloatingEntity {
     public SoulEntity(Level level) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         maxAge = 2000;
+        range = 8;
     }
 
     public SoulEntity(Level level, MalumEntitySpiritData spiritData, UUID ownerUUID, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         this.spiritData = spiritData;
+        range = 8;
         setThief(ownerUUID);
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
@@ -51,7 +53,7 @@ public class SoulEntity extends FloatingEntity {
             thief = (LivingEntity) ((ServerLevel) level).getEntity(thiefUUID);
             if (thief != null)
             {
-                range = (int) (5*Math.exp(-0.1*thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH)));
+                range = (int) (7*Math.exp(-0.1*(thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH)-5)));
             }
         }
     }
@@ -72,6 +74,15 @@ public class SoulEntity extends FloatingEntity {
     }
 
     @Override
+    public void remove(RemovalReason pReason) {
+        if (pReason.equals(RemovalReason.KILLED))
+        {
+            SpiritHelper.createSpiritEntities(spiritData, level, position(), thief);
+        }
+        super.remove(pReason);
+    }
+
+    @Override
     public void move() {
         setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.97f, 0.95f));
         if (thief == null || !thief.isAlive()) {
@@ -85,21 +96,29 @@ public class SoulEntity extends FloatingEntity {
             }
             return;
         }
-        if (thief == null || !thief.isAlive()) {
-            return;
-        }
         Vec3 desiredLocation = thief.position().add(0, thief.getBbHeight() / 4, 0);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.1f, 0.05f + (range * 0.1f));
+        float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.1f, 0.025f + (range * 0.05f));
         if (distance < range) {
             moveTime++;
-            Vec3 desiredMotion = position().subtract(desiredLocation).normalize().multiply(velocity, velocity, velocity).add(0, 0.2f, 0);
-            float easing = 0.03f;
+            Vec3 desiredMotion = position().subtract(desiredLocation).normalize().multiply(velocity, velocity, velocity).add(0, 0.075f, 0);
+            float easing = 0.08f;
             float xMotion = (float) Mth.lerp(easing, getDeltaMovement().x, desiredMotion.x);
             float yMotion = (float) Mth.lerp(easing, getDeltaMovement().y, desiredMotion.y);
             float zMotion = (float) Mth.lerp(easing, getDeltaMovement().z, desiredMotion.z);
             Vec3 resultingMotion = new Vec3(xMotion, yMotion, zMotion);
             setDeltaMovement(resultingMotion);
+        }
+        else
+        {
+            if (level.noCollision(getBoundingBox().move(0, -2.5f, 0)))
+            {
+                setDeltaMovement(getDeltaMovement().add(0, -0.002f, 0));
+            }
+            else if (!level.noCollision(getBoundingBox().move(0, 1.5f, 0)))
+            {
+                setDeltaMovement(getDeltaMovement().add(0, -0.002f, 0));
+            }
         }
     }
 

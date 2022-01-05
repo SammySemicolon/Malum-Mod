@@ -2,6 +2,7 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;

@@ -3,7 +3,7 @@ package com.sammy.malum.common.entity.spirit;
 import com.sammy.malum.common.entity.FloatingItemEntity;
 import com.sammy.malum.core.registry.AttributeRegistry;
 import com.sammy.malum.core.registry.EntityRegistry;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;

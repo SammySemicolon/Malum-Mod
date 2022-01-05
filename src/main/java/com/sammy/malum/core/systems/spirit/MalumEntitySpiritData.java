@@ -1,5 +1,6 @@
 package com.sammy.malum.core.systems.spirit;
 
+import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.nbt.CompoundTag;
 
 import java.util.ArrayList;

@@ -93,9 +93,8 @@ public abstract class FloatingEntity extends ThrowableProjectile
             windUp += 0.02f;
         }
         if (age > maxAge) {
-            remove(RemovalReason.DISCARDED);
+            remove(RemovalReason.KILLED);
         }
-
         if (level.isClientSide) {
             double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
             spawnParticles(x, y, z);
