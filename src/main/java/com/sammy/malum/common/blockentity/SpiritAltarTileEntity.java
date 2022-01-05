@@ -319,12 +319,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             if (item.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
                 Vec3 offset = spiritOffset(this, i);
                 Color color = spiritSplinterItem.type.color;
+                Color endColor = spiritSplinterItem.type.endColor;
                 double x = getBlockPos().getX() + offset.x();
                 double y = getBlockPos().getY() + offset.y();
                 double z = getBlockPos().getZ() + offset.z();
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
+                SpiritHelper.spawnSpiritParticles(level, x, y, z, color, endColor);
                 if (recipe != null) {
-                    Color endColor = new Color(color.getGreen(), color.getBlue(), color.getRed());
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
                     float alpha = 0.07f / spiritInventory.nonEmptyItemAmount;
                     for (IAltarAccelerator accelerator : accelerators) {

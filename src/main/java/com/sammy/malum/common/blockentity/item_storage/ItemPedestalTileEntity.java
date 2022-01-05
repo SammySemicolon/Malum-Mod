@@ -17,7 +17,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 
 public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
     public ItemPedestalTileEntity(BlockPos pos, BlockState state) {
@@ -53,12 +52,11 @@ public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implement
     public void tick() {
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem item) {
-                Color color = item.type.color;
                 Vec3 pos = itemPos(this);
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime() % 360) / 20f) * 0.1f;
                 double z = pos.z;
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
+                SpiritHelper.spawnSpiritParticles(level, x, y, z, item.type.color, item.type.endColor);
             }
         }
     }

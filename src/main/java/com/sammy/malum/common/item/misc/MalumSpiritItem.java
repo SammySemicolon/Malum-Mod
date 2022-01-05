@@ -18,4 +18,10 @@ public class MalumSpiritItem extends Item implements ISpiritEntityGlow {
     public Color getColor() {
         return type.color;
     }
+
+    @Override
+    public Color getEndColor() {
+        return type.endColor;
+    }
+
 }

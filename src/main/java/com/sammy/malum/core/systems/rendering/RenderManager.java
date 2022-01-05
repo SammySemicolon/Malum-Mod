@@ -14,6 +14,7 @@ import java.util.HashMap;
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RenderManager {
     public static HashMap<RenderType, BufferBuilder> BUFFERS = new HashMap<>();
+    public static HashMap<RenderType, RenderTypeShaderHandler> HANDLERS = new HashMap<>();
     public static MultiBufferSource.BufferSource DELAYED_RENDER;
 
     public static void onClientSetup(FMLClientSetupEvent event) {
@@ -24,6 +25,11 @@ public class RenderManager {
     public static void onRenderLast(RenderLevelLastEvent event) {
         event.getPoseStack().pushPose();
         for (RenderType type : BUFFERS.keySet()) {
+            if (HANDLERS.containsKey(type))
+            {
+                RenderTypeShaderHandler handler = HANDLERS.get(type);
+                handler.updateShaderData();
+            }
             DELAYED_RENDER.endBatch(type);
         }
         DELAYED_RENDER.endBatch();

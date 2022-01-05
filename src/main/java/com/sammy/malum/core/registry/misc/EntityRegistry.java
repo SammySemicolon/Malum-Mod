@@ -4,9 +4,11 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
 import com.sammy.malum.client.renderer.entity.MalumBoatRenderer;
 import com.sammy.malum.client.renderer.entity.ScytheBoomerangEntityRenderer;
+import com.sammy.malum.client.renderer.entity.SoulItemEntityRenderer;
 import com.sammy.malum.common.entity.MalumBoatEntity;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.common.entity.spirit.PlayerHomingItemEntity;
+import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.item.ItemRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -23,10 +25,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class EntityRegistry
 {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MalumMod.MODID);
-    
-    public static final RegistryObject<EntityType<PlayerHomingItemEntity>> PLAYER_HOMING_ITEM = ENTITY_TYPES.register("player_homing_item",
-            () -> EntityType.Builder.<PlayerHomingItemEntity>of((e,w)->new PlayerHomingItemEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
-                    .build(DataHelper.prefix("spirit_essence").toString()));
+
+    public static final RegistryObject<EntityType<SpiritItemEntity>> NATURAL_SPIRIT = ENTITY_TYPES.register("natural_spirit",
+            () -> EntityType.Builder.<SpiritItemEntity>of((e, w)->new SpiritItemEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
+                    .build(DataHelper.prefix("natural_spirit").toString()));
+
+    public static final RegistryObject<EntityType<SoulEntity>> NATURAL_SOUL = ENTITY_TYPES.register("natural_soul",
+            () -> EntityType.Builder.<SoulEntity>of((e, w)->new SoulEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
+                    .build(DataHelper.prefix("natural_soul").toString()));
     
     public static final RegistryObject<EntityType<ScytheBoomerangEntity>> SCYTHE_BOOMERANG = ENTITY_TYPES.register("scythe_boomerang",
             () -> EntityType.Builder.<ScytheBoomerangEntity>of((e,w)->new ScytheBoomerangEntity(w), MobCategory.MISC).sized(2.5F, 0.75F).clientTrackingRange(10)
@@ -44,7 +50,8 @@ public class EntityRegistry
     public static class ClientOnly {
         @SubscribeEvent
         public static void bindEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            EntityRenderers.register(EntityRegistry.PLAYER_HOMING_ITEM.get(), FloatingItemEntityRenderer::new);
+            EntityRenderers.register(EntityRegistry.NATURAL_SPIRIT.get(), FloatingItemEntityRenderer::new);
+            EntityRenderers.register(EntityRegistry.NATURAL_SOUL.get(), SoulItemEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.SCYTHE_BOOMERANG.get(), ScytheBoomerangEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood"));
             EntityRenderers.register(EntityRegistry.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood"));

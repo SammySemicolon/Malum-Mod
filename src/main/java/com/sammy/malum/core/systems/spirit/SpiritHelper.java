@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.entity.spirit.PlayerHomingItemEntity;
+import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.common.item.equipment.SpiritPouchItem;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
@@ -72,7 +72,7 @@ public class SpiritHelper {
                 continue;
             }
             for (int j = 0; j < count; j++) {
-                PlayerHomingItemEntity entity = new PlayerHomingItemEntity(target.level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
+                SpiritItemEntity entity = new SpiritItemEntity(target.level, attacker == null ? null : attacker.getUUID(), ItemHelper.copyWithNewCount(stack, 1),
                         target.position().x,
                         target.position().y + target.getBbHeight() / 2f,
                         target.position().z,
@@ -153,11 +153,8 @@ public class SpiritHelper {
         return spirits;
     }
 
-    public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color) {
+    public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color, Color endColor) {
         Random rand = level.getRandom();
-        //rgb
-        //gbr
-        Color endColor = new Color(color.getGreen(), color.getBlue(), color.getRed());
         RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.18f, 0f)
                 .setLifetime(10 + rand.nextInt(4))
@@ -187,6 +184,40 @@ public class SpiritHelper {
                 .setColor(color, endColor)
                 .enableNoClip()
                 .randomVelocity(0.01f, 0.01f)
+                .repeat(level, x, y, z, 1);
+    }
+
+    public static void spawnSoulParticles(Level level, double x, double y, double z, Color color, Color endColor) {
+        Random rand = level.getRandom();
+        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+                .setAlpha(0.13f, 0.04f)
+                .setLifetime(10 + rand.nextInt(5))
+                .setScale(0.3f + rand.nextFloat() * 0.2f, 1)
+                .setColor(color, endColor)
+                .randomOffset(0.05f)
+                .enableNoClip()
+                .randomVelocity(0.01f, 0.01f)
+                .repeat(level, x, y, z, 1);
+
+        RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
+                .setAlpha(0.1f, 0f)
+                .setLifetime(20 + rand.nextInt(10))
+                .setSpin(nextFloat(rand, 0.05f, 0.4f))
+                .setScale(0.2f + rand.nextFloat() * 0.1f, 0.1f)
+                .setColor(color, endColor)
+                .randomOffset(0.1f)
+                .enableNoClip()
+                .randomVelocity(0.04f, 0.04f)
+                .repeat(level, x, y, z, 1);
+
+        RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
+                .setAlpha(0.19f, 0f)
+                .setLifetime(10 + rand.nextInt(5))
+                .setSpin(nextFloat(rand, 0.05f, 0.4f))
+                .setScale(0.15f + rand.nextFloat() * 0.1f, 0.1f)
+                .setColor(color, endColor)
+                .enableNoClip()
+                .randomVelocity(0.03f, 0.03f)
                 .repeat(level, x, y, z, 1);
     }
 }

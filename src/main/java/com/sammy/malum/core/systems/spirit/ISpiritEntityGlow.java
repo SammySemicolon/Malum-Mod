@@ -5,4 +5,6 @@ import java.awt.*;
 public interface ISpiritEntityGlow
 {
     public Color getColor();
+
+    public Color getEndColor();
 }

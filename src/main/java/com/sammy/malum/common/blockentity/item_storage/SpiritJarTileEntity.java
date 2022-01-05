@@ -94,8 +94,7 @@ public class SpiritJarTileEntity extends SimpleBlockEntity {
                 double x = getBlockPos().getX() + 0.5f;
                 double y = getBlockPos().getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;
-                Color color = type.color;
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
+                SpiritHelper.spawnSpiritParticles(level, x, y, z, type.color, type.endColor);
             }
         }
     }

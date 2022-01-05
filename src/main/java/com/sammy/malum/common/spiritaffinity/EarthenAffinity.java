@@ -7,7 +7,7 @@ import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.packets.SyncPlayerCapabilityDataPacket;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.client.ShaderRegistry;
+import com.sammy.malum.core.systems.rendering.Shaders;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.misc.AttributeRegistry;
 import com.sammy.malum.core.registry.misc.SoundRegistry;
@@ -112,7 +112,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                     poseStack.pushPose();
                     RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                     RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                    ShaderInstance shaderInstance = ShaderRegistry.distortedTexture.getInstance().get();
+                    ShaderInstance shaderInstance = Shaders.distortedTexture.getInstance().get();
                     shaderInstance.safeGetUniform("YFrequency").set(35f);
                     shaderInstance.safeGetUniform("XFrequency").set(25f);
                     shaderInstance.safeGetUniform("Speed").set(1000f);
@@ -127,7 +127,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset/256f, (xTextureOffset+12)/256f, 1/256f, 12/256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i*250f);
 
-                        RenderUtilities.blit(poseStack, ShaderRegistry.distortedTexture, x-2, y-2, 13, 13,xTextureOffset/256f, 1/256f, 13/256f, 13/256f);
+                        RenderUtilities.blit(poseStack, Shaders.distortedTexture, x-2, y-2, 13, 13,xTextureOffset/256f, 1/256f, 13/256f, 13/256f);
                     }
                     poseStack.popPose();
                 });

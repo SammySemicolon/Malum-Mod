@@ -15,21 +15,22 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
 
-public class PlayerHomingItemEntity extends FloatingItemEntity {
+public class SpiritItemEntity extends FloatingItemEntity {
     public UUID ownerUUID;
     public LivingEntity owner;
 
-    public PlayerHomingItemEntity(Level level) {
-        super(EntityRegistry.PLAYER_HOMING_ITEM.get(), level);
+    public SpiritItemEntity(Level level) {
+        super(EntityRegistry.NATURAL_SPIRIT.get(), level);
+        maxAge = 4000;
     }
 
-    public PlayerHomingItemEntity(Level level, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
-        super(EntityRegistry.PLAYER_HOMING_ITEM.get(), level);
+    public SpiritItemEntity(Level level, UUID ownerUUID, ItemStack stack, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+        super(EntityRegistry.NATURAL_SPIRIT.get(), level);
         setOwner(ownerUUID);
         setItem(stack);
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
-
+        maxAge = 800;
     }
 
     public float getRange() {
@@ -50,6 +51,12 @@ public class PlayerHomingItemEntity extends FloatingItemEntity {
             }
         }
     }
+
+    @Override
+    public void spawnParticles(double x, double y, double z) {
+        SpiritHelper.spawnSpiritParticles(level, x, y, z, color, endColor);
+    }
+
     @Override
     public void move() {
         setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.95f, 0.95f));

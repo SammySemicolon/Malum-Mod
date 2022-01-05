@@ -142,12 +142,14 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
 
     public void passiveParticles() {
         Color color = type.color;
+        Color endColor = type.endColor;
         RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.04f, 0f)
                 .setLifetime(5)
                 .setSpin(0.2f)
                 .setScale(0.4f, 0)
-                .setColor(color, color)
+                .setColor(color, endColor)
+                .setColorCurveMultiplier(0.5f)
                 .addVelocity(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
@@ -159,7 +161,8 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
                 .setLifetime(10)
                 .setSpin(0.1f)
                 .setScale(0.6f, 0)
-                .setColor(color, color)
+                .setColor(color, endColor)
+                .setColorCurveMultiplier(0.5f)
                 .addVelocity(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
                 .randomOffset(0.2f)
                 .enableNoClip()

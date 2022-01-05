@@ -438,6 +438,7 @@ public class BlockRegistry {
             DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritAltarBlock).forEach(ClientOnly::setCutout);
             setCutout(BlockRegistry.BLAZING_QUARTZ_ORE);
             setCutout(BlockRegistry.BRILLIANT_STONE);
+            setCutout(BlockRegistry.BRILLIANT_DEEPSLATE);
         }
 
         public static void setCutout(RegistryObject<Block> b) {

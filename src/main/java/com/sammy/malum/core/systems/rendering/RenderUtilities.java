@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.core.registry.client.ShaderRegistry;
 import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -20,7 +19,7 @@ import java.util.Random;
 
 public class RenderUtilities {
 
-    public static void blit(PoseStack poseStack, ShaderRegistry.ExtendedShaderInstance shader, double x, double y, double w, double h, float u, float v, float uw, float vh) {
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, double x, double y, double w, double h, float u, float v, float uw, float vh) {
         Matrix4f last = poseStack.last().pose();
 
         RenderSystem.setShader(shader.getInstance());
@@ -71,19 +70,37 @@ public class RenderUtilities {
     }
 
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height) {
-        renderQuad(vertexConsumer, stack, width, height, 255,255,255,255);
+        Matrix4f last = stack.last().pose();
+
+        vertex(vertexConsumer, last, -width, -height, 0);
+        vertex(vertexConsumer, last, width, -height, 0);
+        vertex(vertexConsumer, last, width, height, 0);
+        vertex(vertexConsumer, last, -width, height, 0);
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a) {
-        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880);
-    }
-    public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, int light) {
-        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, light, 0, 0, 1, 1, 0,0,0);
+        Matrix4f last = stack.last().pose();
+
+        vertex(vertexConsumer, last, -width, -height, 0, r,g,b,a);
+        vertex(vertexConsumer, last, width, -height, 0, r,g,b,a);
+        vertex(vertexConsumer, last, width, height, 0, r,g,b,a);
+        vertex(vertexConsumer, last, -width, height, 0, r,g,b,a);
+
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, float u0, float v0, float u1, float v1) {
-        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880, u0, v0, u1, v1,0,0,0);
+        Matrix4f last = stack.last().pose();
+
+        vertex(vertexConsumer, last, -width, -height, 0, r,g,b,a, u0, v1);
+        vertex(vertexConsumer, last, width, -height, 0, r,g,b,a, u1, v1);
+        vertex(vertexConsumer, last, width, height, 0, r,g,b,a, u1, v0);
+        vertex(vertexConsumer, last, -width, height, 0, r,g,b,a, u0, v0);
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, float u0, float v0, float u1, float v1, float normalX, float normalY, float normalZ) {
-        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880, u0, v0, u1, v1, normalX, normalY, normalZ);
+        Matrix4f last = stack.last().pose();
+
+        vertex(vertexConsumer, last, -width, -height, 0, r,g,b,a, u0, v1, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, width, -height, 0, r,g,b,a, u1, v1, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, width, height, 0, r,g,b,a, u1, v0, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, -width, height, 0, r,g,b,a, u0, v0, normalX, normalY, normalZ);
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, int light, float u0, float v0, float u1, float v1, float normalX, float normalY, float normalZ) {
         Matrix4f last = stack.last().pose();

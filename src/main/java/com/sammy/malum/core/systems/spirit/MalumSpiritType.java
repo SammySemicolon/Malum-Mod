@@ -19,6 +19,8 @@ import java.util.function.Supplier;
 public class MalumSpiritType
 {
     public final Color color;
+    public final Color endColor;
+
     public final String identifier;
     protected Supplier<Item> splinterItem;
 
@@ -26,7 +28,12 @@ public class MalumSpiritType
     {
         this.identifier = identifier;
         this.color = color;
+        this.endColor = createEndColor(color);
         this.splinterItem = splinterItem;
+    }
+
+    public Color createEndColor(Color color) {
+        return new Color(color.getGreen(), color.getBlue(), color.getRed());
     }
 
     public MalumSpiritItem getSplinterItem()

@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.malum.common.entity.FloatingEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -14,12 +14,9 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Random;
-
-public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity>
+public class FloatingItemEntityRenderer extends EntityRenderer<FloatingEntity>
 {
     public final ItemRenderer itemRenderer;
-    public final Random random = new Random();
 
     public FloatingItemEntityRenderer(EntityRendererProvider.Context context)
     {
@@ -31,7 +28,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     
     
     @Override
-    public void render(FloatingItemEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn)
+    public void render(FloatingEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn)
     {
         poseStack.pushPose();
         ItemStack itemstack = entityIn.getItem();
@@ -47,7 +44,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     }
 
     @Override
-    public ResourceLocation getTextureLocation(FloatingItemEntity entity)
+    public ResourceLocation getTextureLocation(FloatingEntity entity)
     {
         return TextureAtlas.LOCATION_BLOCKS;
     }
