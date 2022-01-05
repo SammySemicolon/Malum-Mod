@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import com.sammy.malum.core.systems.rendering.RenderManager;
 import com.sammy.malum.core.systems.rendering.Shaders;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -21,12 +22,13 @@ public class AdditiveParticleRenderType implements ParticleRenderType {
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         RenderSystem.setShader(Shaders.additiveParticle.getInstance());
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
+        RenderManager.PARTICLE_MATRIX = RenderSystem.getModelViewMatrix();
         builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
     }
 
     @Override
-    public void end(Tesselator p_107458_) {
-        p_107458_.end();
+    public void end(Tesselator tesselator) {
+        tesselator.end();
         RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
     }
