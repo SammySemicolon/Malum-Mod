@@ -217,12 +217,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         ModelFile pedestal = models().withExistingParent(name, prefix(modelLocation)).texture("pedestal", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(pedestal).build());
     }
-    public void wildFarmlandBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile farmland = models().withExistingParent(name, prefix("block/templates/template_farmland")).texture("side", prefix("block/sun_kissed_grass_block_side")).texture("top", prefix("block/wild_farmland")).texture("dirt", new ResourceLocation("block/dirt"));
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(farmland).build());
-    }
     
     public void cutBlock(RegistryObject<Block> blockRegistryObject)
     {

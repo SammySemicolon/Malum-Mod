@@ -6,13 +6,11 @@ import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.misc.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -28,7 +26,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.registry.misc.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
 
 public class MalumLang extends LanguageProvider
@@ -45,9 +47,10 @@ public class MalumLang extends LanguageProvider
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
-        Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
-        Set<RegistryObject<MobEffect>> effects = new HashSet<>(EffectRegistry.EFFECTS.getEntries());
-        Set<RegistryObject<Attribute>> attributes = new HashSet<>(AttributeRegistry.ATTRIBUTES.getEntries());
+        Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(ENCHANTMENTS.getEntries());
+        Set<RegistryObject<MobEffect>> effects = new HashSet<>(EFFECTS.getEntries());
+        Set<RegistryObject<Attribute>> attributes = new HashSet<>(ATTRIBUTES.getEntries());
+        Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
         ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.entries;
         ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
         DataHelper.takeAll(items, i -> i.get() instanceof BlockItem);
@@ -85,6 +88,11 @@ public class MalumLang extends LanguageProvider
         attributes.forEach(a -> {
             String name = DataHelper.toTitleCase(a.getId().getPath(), "_");
             add("attribute.name.malum." + a.get().getRegistryName().getPath(), name);
+        });
+
+        entities.forEach(e -> {
+            String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
+            add("entity.malum." + e.get().getRegistryName().getPath(), name);
         });
 
         rites.forEach(r -> add(r.translationIdentifier(), DataHelper.toTitleCase(r.identifier, "_")));
