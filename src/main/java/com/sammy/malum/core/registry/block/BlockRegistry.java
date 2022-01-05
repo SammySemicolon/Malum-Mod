@@ -27,7 +27,7 @@ import com.sammy.malum.common.blockentity.EtherTileEntity;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.SoundRegistry;
 import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.client.color.block.BlockColors;

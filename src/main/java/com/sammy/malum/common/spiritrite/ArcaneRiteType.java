@@ -4,7 +4,7 @@ import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.registry.ParticleRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;

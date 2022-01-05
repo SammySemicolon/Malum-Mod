@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.equipment;
+package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.core.systems.container.ItemInventory;

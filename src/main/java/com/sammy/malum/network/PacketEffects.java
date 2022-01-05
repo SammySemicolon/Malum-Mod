@@ -1,6 +1,6 @@
 package com.sammy.malum.network;
 
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.registry.ParticleRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;

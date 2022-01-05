@@ -2,15 +2,15 @@ package com.sammy.malum.common.blockentity;
 
 import com.sammy.malum.common.block.spirit_altar.IAltarAccelerator;
 import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.ParticleRegistry;
+import com.sammy.malum.core.registry.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
@@ -41,7 +41,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.registry.PacketRegistry.INSTANCE;
 
 public class SpiritAltarTileEntity extends SimpleBlockEntity {
 

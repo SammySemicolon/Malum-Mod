@@ -6,7 +6,7 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.tools.ScytheItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.item.ModCombatItem;

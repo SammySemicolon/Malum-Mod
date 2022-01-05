@@ -2,8 +2,8 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
+import com.sammy.malum.core.registry.DamageSourceRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.LivingEntity;

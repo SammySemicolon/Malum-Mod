@@ -24,6 +24,9 @@ import java.util.HashMap;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
+    public static final Color SOULWOOD = new Color(15, 7, 17);
+    public static final Color RUNEWOOD = new Color(12, 8, 7);
+
     public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
@@ -42,7 +45,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
     }
 
     public Color color(TotemPoleTileEntity totemPoleTileEntity) {
-        Color color1 = new Color(12, 8, 7);
+        Color color1 = totemPoleTileEntity.corrupted ? SOULWOOD : RUNEWOOD;
         Color color2 = totemPoleTileEntity.type.color;
         int red = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getRed(), color2.getRed());
         int green = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getGreen(), color2.getGreen());

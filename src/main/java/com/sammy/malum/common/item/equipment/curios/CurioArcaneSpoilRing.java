@@ -2,15 +2,12 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class CurioArcaneSpoilRing extends MalumCurioItem {
     private static final UUID ATTRIBUTE_UUID = UUID.fromString("d214b8f2-d908-4435-9845-61656adff7d1");

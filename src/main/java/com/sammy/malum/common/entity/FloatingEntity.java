@@ -8,13 +8,13 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 
 import java.awt.*;
 
-public abstract class FloatingEntity extends Projectile
+public abstract class FloatingEntity extends ThrowableProjectile
 {
     protected static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DATA_END_COLOR = SynchedEntityData.defineId(FloatingEntity.class, EntityDataSerializers.INT);
@@ -62,7 +62,11 @@ public abstract class FloatingEntity extends Projectile
         super.readAdditionalSaveData(compound);
         age = compound.getInt("age");
         moveTime = compound.getInt("moveTime");
-        range = compound.getInt("range");
+        int range = compound.getInt("range");
+        if (range > 0)
+        {
+            this.range = range;
+        }
         windUp = compound.getFloat("windUp");
         color = new Color(compound.getInt("red"),compound.getInt("green"),compound.getInt("blue"));
         endColor = new Color(compound.getInt("endRed"),compound.getInt("endGreen"),compound.getInt("endBlue"));
@@ -88,7 +92,6 @@ public abstract class FloatingEntity extends Projectile
         if (windUp < 1f) {
             windUp += 0.02f;
         }
-        move();
         if (age > maxAge) {
             remove(RemovalReason.DISCARDED);
         }
@@ -96,6 +99,10 @@ public abstract class FloatingEntity extends Projectile
         if (level.isClientSide) {
             double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
             spawnParticles(x, y, z);
+        }
+        else
+        {
+            move();
         }
     }
     public void spawnParticles(double x, double y, double z)

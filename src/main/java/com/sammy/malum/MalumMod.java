@@ -20,12 +20,12 @@ import static com.sammy.malum.core.registry.block.BlockEntityRegistry.TILE_ENTIT
 import static com.sammy.malum.core.registry.content.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
 import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.core.registry.misc.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.core.registry.misc.ContainerRegistry.CONTAINERS;
-import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
-import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.core.registry.misc.ParticleRegistry.PARTICLES;
-import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.registry.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.registry.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.core.registry.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.registry.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.core.registry.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.core.registry.SoundRegistry.SOUNDS;
 import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")

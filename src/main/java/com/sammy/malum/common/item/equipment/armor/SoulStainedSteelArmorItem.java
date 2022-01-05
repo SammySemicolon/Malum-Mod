@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.item.ItemRegistry;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;

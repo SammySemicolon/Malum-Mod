@@ -1,6 +1,6 @@
 package com.sammy.malum.common.packets.particle;
 
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.registry.ParticleRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;

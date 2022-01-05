@@ -9,8 +9,8 @@ import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.item.ItemTagRegistry;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
+import com.sammy.malum.core.registry.DamageSourceRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
 import net.minecraft.world.damagesource.DamageSource;
@@ -33,6 +33,7 @@ public class RuntimeEvents {
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         PlayerDataCapability.attachPlayerCapability(event);
     }
+
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinWorldEvent event) {
         PlayerDataCapability.playerJoin(event);

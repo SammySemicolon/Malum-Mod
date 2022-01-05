@@ -5,7 +5,7 @@ import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.registry.ParticleRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import net.minecraft.core.BlockPos;

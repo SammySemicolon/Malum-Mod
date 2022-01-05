@@ -9,8 +9,8 @@ import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.rendering.Shaders;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
+import com.sammy.malum.core.registry.SoundRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
@@ -28,7 +28,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.network.PacketDistributor;
 
-import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.registry.PacketRegistry.INSTANCE;
 
 public class ArcaneAffinity extends MalumSpiritAffinity {
     public ArcaneAffinity() {

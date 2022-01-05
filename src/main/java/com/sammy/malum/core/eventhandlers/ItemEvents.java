@@ -4,7 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
 import com.sammy.malum.core.systems.item.ModCombatItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

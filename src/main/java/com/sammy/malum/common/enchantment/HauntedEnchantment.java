@@ -1,7 +1,7 @@
 package com.sammy.malum.common.enchantment;
 
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
+import com.sammy.malum.core.registry.DamageSourceRegistry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;

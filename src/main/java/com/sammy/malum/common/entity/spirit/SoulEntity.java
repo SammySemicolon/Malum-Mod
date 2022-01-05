@@ -1,8 +1,8 @@
 package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingEntity;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.misc.EntityRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
+import com.sammy.malum.core.registry.EntityRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.SpiritHelper;
@@ -19,9 +19,11 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
 
+import static com.sammy.malum.core.systems.spirit.MalumEntitySpiritData.EMPTY;
+
 public class SoulEntity extends FloatingEntity {
     public UUID thiefUUID;
-    public MalumEntitySpiritData spiritData = MalumEntitySpiritData.EMPTY;
+    public MalumEntitySpiritData spiritData = EMPTY;
     public LivingEntity thief;
 
     public SoulEntity(Level level) {
@@ -49,7 +51,7 @@ public class SoulEntity extends FloatingEntity {
             thief = (LivingEntity) ((ServerLevel) level).getEntity(thiefUUID);
             if (thief != null)
             {
-                range = (int) (3+thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH)*0.5f);
+                range = (int) (5*Math.exp(-0.1*thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH)));
             }
         }
     }
@@ -59,7 +61,7 @@ public class SoulEntity extends FloatingEntity {
         ItemStack stack = pPlayer.getItemInHand(pHand);
         if (stack.getItem() instanceof ISoulContainerItem containerItem)
         {
-            containerItem.interactWithSoul(pPlayer, pHand, this);
+            return containerItem.interactWithSoul(pPlayer, pHand, this);
         }
         return super.interact(pPlayer, pHand);
     }
@@ -71,7 +73,18 @@ public class SoulEntity extends FloatingEntity {
 
     @Override
     public void move() {
-        setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.95f, 0.95f));
+        setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.97f, 0.95f));
+        if (thief == null || !thief.isAlive()) {
+            if (level.getGameTime() % 40L == 0)
+            {
+                Player playerEntity = level.getNearestPlayer(this, range*5f);
+                if (playerEntity != null)
+                {
+                    setThief(playerEntity.getUUID());
+                }
+            }
+            return;
+        }
         if (thief == null || !thief.isAlive()) {
             return;
         }
@@ -80,7 +93,7 @@ public class SoulEntity extends FloatingEntity {
         float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.1f, 0.05f + (range * 0.1f));
         if (distance < range) {
             moveTime++;
-            Vec3 desiredMotion = desiredLocation.add(position()).normalize().multiply(velocity, velocity, velocity);
+            Vec3 desiredMotion = position().subtract(desiredLocation).normalize().multiply(velocity, velocity, velocity).add(0, 0.2f, 0);
             float easing = 0.03f;
             float xMotion = (float) Mth.lerp(easing, getDeltaMovement().x, desiredMotion.x);
             float yMotion = (float) Mth.lerp(easing, getDeltaMovement().y, desiredMotion.y);
@@ -93,6 +106,10 @@ public class SoulEntity extends FloatingEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        if (!spiritData.equals(EMPTY))
+        {
+            spiritData.saveTo(compound);
+        }
         if (thiefUUID != null) {
             compound.putUUID("thiefUUID", thiefUUID);
         }
@@ -101,6 +118,7 @@ public class SoulEntity extends FloatingEntity {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        spiritData = MalumEntitySpiritData.load(compound);
         if (compound.contains("thiefUUID")) {
             setThief(compound.getUUID("thiefUUID"));
         }

@@ -28,10 +28,10 @@ import java.util.Set;
 import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.core.registry.misc.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
-import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.registry.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.registry.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.registry.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.core.registry.SoundRegistry.SOUNDS;
 
 public class MalumLang extends LanguageProvider
 {

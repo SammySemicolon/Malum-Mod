@@ -2,13 +2,13 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
-import com.sammy.malum.common.item.equipment.SpiritPouchItem;
+import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
+import com.sammy.malum.core.registry.ParticleRegistry;
+import com.sammy.malum.core.registry.SoundRegistry;
 import com.sammy.malum.core.systems.container.ItemInventory;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
@@ -95,10 +95,7 @@ public class SpiritHelper {
                         ItemStack result = inventory.addItem(stack);
                         if (result.isEmpty()) {
                             Level level = playerEntity.level;
-                            level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(),
-                                    SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-
-                            return;
+                            level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                         }
                     }
                 }

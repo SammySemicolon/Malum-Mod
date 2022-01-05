@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;

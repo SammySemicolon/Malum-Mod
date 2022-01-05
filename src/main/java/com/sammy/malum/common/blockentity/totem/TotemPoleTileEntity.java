@@ -3,9 +3,9 @@ package com.sammy.malum.common.blockentity.totem;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.packets.particle.BlockParticlePacket;
 import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.malum.core.registry.ParticleRegistry;
+import com.sammy.malum.core.registry.SoundRegistry;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -21,13 +21,14 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 
-import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.registry.PacketRegistry.INSTANCE;
 
 public class TotemPoleTileEntity extends SimpleBlockEntity {
 
@@ -39,11 +40,14 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     public Block logBlock;
     public Direction direction;
 
-    public TotemPoleTileEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.TOTEM_POLE.get(), pos, state);
+    public TotemPoleTileEntity(BlockEntityType<TotemPoleTileEntity> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
         this.corrupted = ((TotemPoleBlock) state.getBlock()).corrupted;
         this.logBlock = ((TotemPoleBlock) state.getBlock()).logBlock.get();
         this.direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+    }
+    public TotemPoleTileEntity(BlockPos pos, BlockState state) {
+        this(BlockEntityRegistry.TOTEM_POLE.get(), pos, state);
     }
 
     @Override

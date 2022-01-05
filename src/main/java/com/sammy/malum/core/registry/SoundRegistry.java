@@ -1,4 +1,4 @@
-package com.sammy.malum.core.registry.misc;
+package com.sammy.malum.core.registry;
 
 import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.sounds.SoundEvent;

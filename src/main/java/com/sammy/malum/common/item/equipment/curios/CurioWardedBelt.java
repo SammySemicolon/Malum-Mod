@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.registry.AttributeRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;

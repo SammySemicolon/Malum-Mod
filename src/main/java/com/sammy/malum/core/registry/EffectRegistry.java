@@ -1,4 +1,4 @@
-package com.sammy.malum.core.registry.misc;
+package com.sammy.malum.core.registry;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.effect.*;

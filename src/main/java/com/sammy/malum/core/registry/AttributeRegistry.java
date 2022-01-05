@@ -1,4 +1,4 @@
-package com.sammy.malum.core.registry.misc;
+package com.sammy.malum.core.registry;
 
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
