@@ -155,69 +155,81 @@ public class SpiritHelper {
     }
 
     public static void spawnSpiritParticles(Level level, double x, double y, double z, Color color, Color endColor) {
+        spawnSpiritParticles(level, x, y,z, 1, Vec3.ZERO, color, endColor);
+    }
+    public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
         RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
-                .setAlpha(0.18f, 0f)
+                .setAlpha(0.18f*alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(4))
                 .setScale(0.3f + rand.nextFloat() * 0.1f, 0)
                 .setColor(color, endColor)
                 .randomOffset(0.05f)
                 .enableNoClip()
+                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
                 .randomVelocity(0.02f, 0.02f)
                 .repeat(level, x, y, z, 1);
 
         RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.1f, 0f)
+                .setAlpha(0.1f*alphaMultiplier, 0f)
                 .setLifetime(20 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.2f + rand.nextFloat() * 0.05f, 0)
                 .setColor(color, endColor)
                 .randomOffset(0.1f)
                 .enableNoClip()
+                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
                 .randomVelocity(0.02f, 0.02f)
                 .repeat(level, x, y, z, 1);
 
         RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.2f, 0f)
+                .setAlpha(0.2f*alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(2))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
                 .setColor(color, endColor)
                 .enableNoClip()
+                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
                 .randomVelocity(0.01f, 0.01f)
                 .repeat(level, x, y, z, 1);
     }
 
     public static void spawnSoulParticles(Level level, double x, double y, double z, Color color, Color endColor) {
+        spawnSoulParticles(level, x, y,z, 1, Vec3.ZERO, color, endColor);
+    }
+    public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
-                .setAlpha(0.13f, 0.04f)
-                .setLifetime(10 + rand.nextInt(5))
+        RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
+                .setAlpha(0.25f*alphaMultiplier, 0.04f*alphaMultiplier)
+                .setLifetime(8 + rand.nextInt(5))
                 .setScale(0.3f + rand.nextFloat() * 0.2f, 1)
                 .setColor(color, endColor)
                 .randomOffset(0.05f)
                 .enableNoClip()
+                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
                 .randomVelocity(0.01f, 0.01f)
                 .repeat(level, x, y, z, 1);
 
         RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.1f, 0f)
+                .setAlpha(0.1f*alphaMultiplier, 0f)
                 .setLifetime(20 + rand.nextInt(10))
                 .setSpin(nextFloat(rand, 0.05f, 0.4f))
                 .setScale(0.2f + rand.nextFloat() * 0.1f, 0.1f)
                 .setColor(color, endColor)
                 .randomOffset(0.1f)
                 .enableNoClip()
+                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
                 .randomVelocity(0.04f, 0.04f)
                 .repeat(level, x, y, z, 1);
 
         RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.19f, 0f)
+                .setAlpha(0.19f*alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(5))
                 .setSpin(nextFloat(rand, 0.05f, 0.4f))
                 .setScale(0.15f + rand.nextFloat() * 0.1f, 0.1f)
                 .setColor(color, endColor)
                 .enableNoClip()
+                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
                 .randomVelocity(0.03f, 0.03f)
                 .repeat(level, x, y, z, 1);
     }

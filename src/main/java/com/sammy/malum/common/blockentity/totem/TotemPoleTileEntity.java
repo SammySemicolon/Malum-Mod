@@ -148,12 +148,12 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
         Color color = type.color;
         Color endColor = type.endColor;
         RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.04f, 0f)
+                .setAlpha(0.06f, 0f)
                 .setLifetime(5)
                 .setSpin(0.2f)
                 .setScale(0.4f, 0)
                 .setColor(color, endColor)
-                .setColorCurveMultiplier(0.5f)
+                .setColorCurveMultiplier(2f)
                 .addVelocity(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
@@ -161,12 +161,12 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
                 .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
         RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.04f, 0f)
+                .setAlpha(0.06f, 0f)
                 .setLifetime(10)
                 .setSpin(0.1f)
                 .setScale(0.6f, 0)
                 .setColor(color, endColor)
-                .setColorCurveMultiplier(0.5f)
+                .setColorCurveMultiplier(2f)
                 .addVelocity(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
                 .randomOffset(0.2f)
                 .enableNoClip()

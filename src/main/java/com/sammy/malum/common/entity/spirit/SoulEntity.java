@@ -1,11 +1,11 @@
 package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingEntity;
+import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.registry.AttributeRegistry;
 import com.sammy.malum.core.registry.EntityRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -25,6 +25,7 @@ public class SoulEntity extends FloatingEntity {
     public UUID thiefUUID;
     public MalumEntitySpiritData spiritData = EMPTY;
     public LivingEntity thief;
+    public float erraticMovementCooldown;
 
     public SoulEntity(Level level) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
@@ -70,7 +71,14 @@ public class SoulEntity extends FloatingEntity {
 
     @Override
     public void spawnParticles(double x, double y, double z) {
-        SpiritHelper.spawnSoulParticles(level, x, y, z, color, endColor);
+        Vec3 motion = getDeltaMovement();
+        Vec3 norm = motion.normalize().scale(0.025f);
+        for (int i = 0; i < 8; i ++) {
+            double lerpX = Mth.lerp(i / 8.0f, x-motion.x, x);
+            double lerpY = Mth.lerp(i / 8.0f, y-motion.y, y);
+            double lerpZ = Mth.lerp(i / 8.0f, z-motion.z, z);
+            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.125f, norm, color, endColor);
+        }
     }
 
     @Override
@@ -102,12 +110,13 @@ public class SoulEntity extends FloatingEntity {
         if (distance < range) {
             moveTime++;
             Vec3 desiredMotion = position().subtract(desiredLocation).normalize().multiply(velocity, velocity, velocity).add(0, 0.075f, 0);
-            float easing = 0.08f;
+            float easing = 0.2f;
             float xMotion = (float) Mth.lerp(easing, getDeltaMovement().x, desiredMotion.x);
             float yMotion = (float) Mth.lerp(easing, getDeltaMovement().y, desiredMotion.y);
             float zMotion = (float) Mth.lerp(easing, getDeltaMovement().z, desiredMotion.z);
             Vec3 resultingMotion = new Vec3(xMotion, yMotion, zMotion);
             setDeltaMovement(resultingMotion);
+            return;
         }
         else {
             boolean above = !level.noCollision(getBoundingBox().move(0, 1.5f, 0));
@@ -117,11 +126,17 @@ public class SoulEntity extends FloatingEntity {
                 return;
             }
             if (below) {
-                setDeltaMovement(getDeltaMovement().add(0, 0.002f, 0));
+                setDeltaMovement(getDeltaMovement().add(0, 0.003f, 0));
             }
-            if (above) {
-                setDeltaMovement(getDeltaMovement().add(0, -0.002f, 0));
+            if (above || !below) {
+                setDeltaMovement(getDeltaMovement().add(0, -0.0015f, 0));
             }
+        }
+        erraticMovementCooldown--;
+        if (erraticMovementCooldown <= 0)
+        {
+            erraticMovementCooldown = 10 + random.nextFloat(30);
+            setDeltaMovement(Mth.nextFloat(random, -0.06f, 0.06f), Mth.nextFloat(random, -0.02f, 0.04f), Mth.nextFloat(random, -0.06f, 0.06f));
         }
     }
 
@@ -135,6 +150,7 @@ public class SoulEntity extends FloatingEntity {
         if (thiefUUID != null) {
             compound.putUUID("thiefUUID", thiefUUID);
         }
+        compound.putFloat("erraticMovementCooldown", erraticMovementCooldown);
     }
 
     @Override
@@ -144,5 +160,6 @@ public class SoulEntity extends FloatingEntity {
         if (compound.contains("thiefUUID")) {
             setThief(compound.getUUID("thiefUUID"));
         }
+        erraticMovementCooldown = compound.getFloat("erraticMovementCooldown");
     }
 }

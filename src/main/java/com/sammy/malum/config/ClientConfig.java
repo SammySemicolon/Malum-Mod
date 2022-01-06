@@ -9,7 +9,7 @@ public class ClientConfig {
 
     public ClientConfig(ForgeConfigSpec.Builder builder) {
         builder.comment("Graphics settings").push("graphics");
-        BETTER_LAYERING = builder.comment("Enable better particle/effect layering. Fixes particles and effects rendering behind clouds and weather. NOTE: Does NOT work with fabulous graphics mode.")
+        BETTER_LAYERING = builder.comment("Should particles render on the delayed buffer? This means they will properly render after clouds do, but could cause issues with mods like sodium.")
                 .define("betterLayering", true);
         builder.pop();
     }

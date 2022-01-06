@@ -26,6 +26,5 @@ void main() {
     uv = uv*rot(time+gameTime);
     uv = uv*rot(sin(time*XFrequency));
     uv = uv*rot(cos(time*XFrequency));
-    vec4 color = vertexColor - toCenter*2.;
-    fragColor = color * texture(Sampler0, uv) * ColorModulator;
+    fragColor = vertexColor * texture(Sampler0, uv) * ColorModulator - toCenter*2.;
 }

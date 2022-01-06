@@ -45,7 +45,7 @@ public class SoulItemEntityRenderer extends EntityRenderer<SoulEntity>
 
         ShaderInstance instance = Shaders.radialScatterNoise.getInstance().get();
         instance.safeGetUniform("Speed").set(-1500f);
-        instance.safeGetUniform("ScatterPower").set(-15f);
+        instance.safeGetUniform("ScatterPower").set(-20f);
         instance.safeGetUniform("Intensity").set(55f);
     });
     private static final ResourceLocation TRINARY_SOUL_NOISE = prefix("textures/vfx/soul_noise_trinary.png");
@@ -53,7 +53,7 @@ public class SoulItemEntityRenderer extends EntityRenderer<SoulEntity>
 
         ShaderInstance instance = Shaders.radialScatterNoise.getInstance().get();
         instance.safeGetUniform("Speed").set(-2000f);
-        instance.safeGetUniform("ScatterPower").set(20f);
+        instance.safeGetUniform("ScatterPower").set(30f);
         instance.safeGetUniform("Intensity").set(75f);
     });
 
@@ -83,11 +83,11 @@ public class SoulItemEntityRenderer extends EntityRenderer<SoulEntity>
         VertexConsumer secondarySoulNoise = DELAYED_RENDER.getBuffer(SECONDARY_SOUL_NOISE_TYPE);
         VertexConsumer trinarySoulNoise = DELAYED_RENDER.getBuffer(TRINARY_SOUL_NOISE_TYPE);
         float scale = 0.75f;
-        renderQuad(soulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 220, 0,0, 1, 1);
+        renderQuad(soulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 240, 0,0, 1, 1);
         color = color.brighter();
         scale = 0.85f;
-        renderQuad(secondarySoulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 180, 0,0, 1, 1);
+        renderQuad(secondarySoulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 190, 0,0, 1, 1);
         scale = 1.15f;
-        renderQuad(trinarySoulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 140, 0,0, 1, 1);
+        renderQuad(trinarySoulNoise, poseStack, scale, scale, color.getRed(), color.getGreen(), color.getBlue(), 150, 0,0, 1, 1);
     }
 }
