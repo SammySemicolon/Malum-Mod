@@ -7,11 +7,14 @@ import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.packets.SyncPlayerCapabilityDataPacket;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.systems.rendering.Shaders;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.registry.AttributeRegistry;
+import com.sammy.malum.core.registry.DamageSourceRegistry;
 import com.sammy.malum.core.registry.SoundRegistry;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.registry.item.ItemRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.systems.rendering.Shaders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -20,6 +23,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -64,12 +69,17 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
             PlayerDataCapability.getCapability(player).ifPresent(c -> {
                 if (c.soulWard > 0)
                 {
-                    float multiplier = event.getSource().isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get() : CommonConfig.SOUL_WARD_PHYSICAL.get();
-                    float result = event.getAmount() * multiplier;
-                    float absorbed = event.getAmount() - result;
+                    DamageSource source = event.getSource();
+                    float amount = event.getAmount();
+                    float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get() : CommonConfig.SOUL_WARD_PHYSICAL.get();
+                    float result = amount * multiplier;
+                    float absorbed = amount - result;
                     double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH);
                     if (strength != 0) {
                         c.soulWard -= absorbed / strength;
+                    }
+                    else {
+                        c.soulWard = 0;
                     }
                     c.soulWardProgress = (float) (getSoulWardCooldown(player)*player.getAttributeValue(AttributeRegistry.SOUL_WARD_DAMAGE_PENALTY));
                     if (player instanceof ServerPlayer serverPlayer) {
@@ -77,6 +87,16 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                     }
                     player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT, SoundSource.PLAYERS,1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                     event.setAmount(result);
+                    if (source.getEntity() != null) {
+                        if (ItemHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
+                            if (source instanceof EntityDamageSource entityDamageSource) {
+                                if (entityDamageSource.isThorns()) {
+                                    return;
+                                }
+                            }
+                            source.getEntity().hurt(DamageSourceRegistry.causeMagebaneDamage(player), absorbed+2);
+                        }
+                    }
                 }
             });
         }

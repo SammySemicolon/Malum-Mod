@@ -1,0 +1,13 @@
+{
+  "registry_name": "minecraft:iron_golem",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 3
+    },
+    {
+      "spirit": "earthen",
+      "count": 5
+    }
+  ]
+}

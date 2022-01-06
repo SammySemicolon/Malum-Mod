@@ -1,4 +1,4 @@
-package com.sammy.malum.common.item.tools;
+package com.sammy.malum.common.item.spirit;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.core.helper.ItemHelper;

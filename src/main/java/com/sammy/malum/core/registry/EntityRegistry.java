@@ -4,7 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.entity.FloatingItemEntityRenderer;
 import com.sammy.malum.client.renderer.entity.MalumBoatRenderer;
 import com.sammy.malum.client.renderer.entity.ScytheBoomerangEntityRenderer;
-import com.sammy.malum.client.renderer.entity.SoulItemEntityRenderer;
+import com.sammy.malum.client.renderer.entity.SoulEntityRenderer;
 import com.sammy.malum.common.entity.MalumBoatEntity;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
@@ -51,7 +51,7 @@ public class EntityRegistry
         @SubscribeEvent
         public static void bindEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
             EntityRenderers.register(EntityRegistry.NATURAL_SPIRIT.get(), FloatingItemEntityRenderer::new);
-            EntityRenderers.register(EntityRegistry.NATURAL_SOUL.get(), SoulItemEntityRenderer::new);
+            EntityRenderers.register(EntityRegistry.NATURAL_SOUL.get(), SoulEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.SCYTHE_BOOMERANG.get(), ScytheBoomerangEntityRenderer::new);
             EntityRenderers.register(EntityRegistry.RUNEWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "runewood"));
             EntityRenderers.register(EntityRegistry.SOULWOOD_BOAT.get(), (manager) -> new MalumBoatRenderer(manager, "soulwood"));

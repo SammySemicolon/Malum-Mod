@@ -1,5 +1,6 @@
-package com.sammy.malum.common.item.tools;
+package com.sammy.malum.common.item.spirit;
 
+import com.sammy.malum.common.item.tools.ModSwordItem;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.DamageSourceRegistry;

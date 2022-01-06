@@ -22,13 +22,13 @@ public class AttributeRegistry {
 
     public static final Attribute HEART_OF_STONE_STRENGTH = register("heart_of_stone_strength", new RangedAttribute("attribute.name.malum.heart_of_stone_strength", 2D, 0.0D, 2048.0D).setSyncable(true));
     public static final Attribute HEART_OF_STONE_RECOVERY_SPEED = register("heart_of_stone_recovery_speed", new RangedAttribute("attribute.name.malum.heart_of_stone_recovery_speed", 0D, 0.0D, 2048.0D).setSyncable(true));
-    public static final Attribute HEART_OF_STONE_COST = register("heart_of_stone_cost", new RangedAttribute("attribute.name.malum.heart_of_stone_cost", 0D, 0.0D, 2048.0D).setSyncable(true));
-    public static final Attribute HEART_OF_STONE_CAP = register("heart_of_stone_cap", new RangedAttribute("attribute.name.malum.heart_of_stone_cap", 0D, 0.0D, 2048.0D).setSyncable(true));
+    public static final Attribute HEART_OF_STONE_COST = register("heart_of_stone_hunger_cost", new RangedAttribute("attribute.name.malum.heart_of_stone_hunger_cost", 0D, 0.0D, 2048.0D).setSyncable(true));
+    public static final Attribute HEART_OF_STONE_CAP = register("heart_of_stone_capacity", new RangedAttribute("attribute.name.malum.heart_of_stone_capacity", 0D, 0.0D, 2048.0D).setSyncable(true));
 
-    public static final Attribute SOUL_WARD_STRENGTH = register("soul_ward_strength", new RangedAttribute("attribute.name.malum.soul_ward_strength", 2D, 0.0D, 2048.0D).setSyncable(true));
+    public static final Attribute SOUL_WARD_STRENGTH = register("soul_ward_strength", new RangedAttribute("attribute.name.malum.soul_ward_strength", 1.5D, 0.0D, 2048.0D).setSyncable(true));
     public static final Attribute SOUL_WARD_RECOVERY_SPEED = register("soul_ward_recovery_speed", new RangedAttribute("attribute.name.malum.soul_ward_recovery_speed", 0D, 0.0D, 2048.0D).setSyncable(true));
     public static final Attribute SOUL_WARD_DAMAGE_PENALTY = register("soul_ward_damage_penalty", new RangedAttribute("attribute.name.malum.soul_ward_damage_penalty", 3D, 0.0D, 2048.0D).setSyncable(true));
-    public static final Attribute SOUL_WARD_CAP = register("soul_ward_cap", new RangedAttribute("attribute.name.malum.soul_ward_cap", 0D, 0.0D, 2048.0D).setSyncable(true));
+    public static final Attribute SOUL_WARD_CAP = register("soul_ward_capacity", new RangedAttribute("attribute.name.malum.soul_ward_capacity", 0D, 0.0D, 2048.0D).setSyncable(true));
 
     public static Attribute register(String name, Attribute attribute) {
         ATTRIBUTES.register(name, () -> attribute);

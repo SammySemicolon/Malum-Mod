@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -25,7 +26,8 @@ public class RenderManager {
         DELAYED_RENDER = MultiBufferSource.immediateWithBuffers(BUFFERS, new BufferBuilder(256));
     }
 
-    @SubscribeEvent
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRenderLast(RenderLevelLastEvent event) {
         event.getPoseStack().pushPose();
         if (ClientConfig.BETTER_LAYERING.get()) {

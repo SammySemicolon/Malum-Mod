@@ -22,11 +22,11 @@ import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.systems.rendering.RenderManager.DELAYED_RENDER;
 import static com.sammy.malum.core.systems.rendering.RenderUtilities.renderQuad;
 
-public class SoulItemEntityRenderer extends EntityRenderer<SoulEntity>
+public class SoulEntityRenderer extends EntityRenderer<SoulEntity>
 {
     public final ItemRenderer itemRenderer;
 
-    public SoulItemEntityRenderer(EntityRendererProvider.Context context)
+    public SoulEntityRenderer(EntityRendererProvider.Context context)
     {
         super(context);
         this.itemRenderer = context.getItemRenderer();

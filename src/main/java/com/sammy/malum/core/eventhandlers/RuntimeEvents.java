@@ -4,7 +4,8 @@ import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
-import com.sammy.malum.common.item.tools.ScytheItem;
+import com.sammy.malum.common.item.spirit.ScytheItem;
+import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.core.helper.ItemHelper;
@@ -47,6 +48,7 @@ public class RuntimeEvents {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         ArcaneAffinity.recoverSoulWard(event);
         EarthenAffinity.recoverHeartOfStone(event);
+        SoulStaveItem.playerTick(event);
     }
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
