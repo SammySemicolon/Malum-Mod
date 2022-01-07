@@ -2,11 +2,11 @@
   "registry_name": "minecraft:drowned",
   "spirits": [
     {
-      "spirit": "wicked",
+      "spirit": "aqueous",
       "count": 1
     },
     {
-      "spirit": "aqueous",
+      "spirit": "wicked",
       "count": 1
     }
   ]

@@ -87,7 +87,7 @@ public class SpiritHelper {
                         position.y,
                         position.z,
                         nextFloat(MalumMod.RANDOM, -speed, speed),
-                        nextFloat(MalumMod.RANDOM, 0.05f, 0.05f),
+                        nextFloat(MalumMod.RANDOM, 0.015f, 0.05f),
                         nextFloat(MalumMod.RANDOM, -speed, speed));
                 level.addFreshEntity(entity);
             }
@@ -200,7 +200,7 @@ public class SpiritHelper {
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
         RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
-                .setAlpha(0.25f*alphaMultiplier, 0.04f*alphaMultiplier)
+                .setAlpha(0.25f*alphaMultiplier, 0)
                 .setLifetime(8 + rand.nextInt(5))
                 .setScale(0.3f + rand.nextFloat() * 0.2f, 1)
                 .setColor(color, endColor)

@@ -2,12 +2,12 @@
   "registry_name": "minecraft:blaze",
   "spirits": [
     {
-      "spirit": "arcane",
-      "count": 1
-    },
-    {
       "spirit": "infernal",
       "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
     }
   ]
 }

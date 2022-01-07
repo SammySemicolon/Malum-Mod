@@ -36,11 +36,17 @@ public class SoulEntity extends FloatingEntity {
     public SoulEntity(Level level, MalumEntitySpiritData spiritData, UUID ownerUUID, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         this.spiritData = spiritData;
+        if (!spiritData.data.isEmpty()) {
+            this.color = spiritData.data.get(0).type.color;
+            getEntityData().set(DATA_COLOR, color.getRGB());
+            this.endColor = spiritData.data.get(0).type.endColor;
+            getEntityData().set(DATA_END_COLOR, endColor.getRGB());
+        }
         range = 8;
         setThief(ownerUUID);
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
-        maxAge = 200;
+        maxAge = 600;
     }
 
 

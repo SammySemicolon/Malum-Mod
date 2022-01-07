@@ -2,11 +2,11 @@
   "registry_name": "minecraft:cow",
   "spirits": [
     {
-      "spirit": "sacred",
+      "spirit": "earthen",
       "count": 1
     },
     {
-      "spirit": "earthen",
+      "spirit": "sacred",
       "count": 1
     }
   ]

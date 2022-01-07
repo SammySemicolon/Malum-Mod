@@ -31,7 +31,7 @@ public class EntityRegistry
                     .build(DataHelper.prefix("natural_spirit").toString()));
 
     public static final RegistryObject<EntityType<SoulEntity>> NATURAL_SOUL = ENTITY_TYPES.register("natural_soul",
-            () -> EntityType.Builder.<SoulEntity>of((e, w)->new SoulEntity(w), MobCategory.MISC).sized(0.5F, 0.75F).clientTrackingRange(10)
+            () -> EntityType.Builder.<SoulEntity>of((e, w)->new SoulEntity(w), MobCategory.MISC).sized(1.5F, 1.5F).clientTrackingRange(10)
                     .build(DataHelper.prefix("natural_soul").toString()));
     
     public static final RegistryObject<EntityType<ScytheBoomerangEntity>> SCYTHE_BOOMERANG = ENTITY_TYPES.register("scythe_boomerang",

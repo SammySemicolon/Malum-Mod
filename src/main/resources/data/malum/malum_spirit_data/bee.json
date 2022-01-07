@@ -2,12 +2,12 @@
   "registry_name": "minecraft:bee",
   "spirits": [
     {
-      "spirit": "sacred",
-      "count": 1
-    },
-    {
       "spirit": "aerial",
       "count": 2
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
     }
   ]
 }

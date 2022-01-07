@@ -20,8 +20,9 @@ public class SoulVialItem extends Item implements ISoulContainerItem {
         {
             ItemStack stack = pPlayer.getItemInHand(pHand);
             soul.spiritData.saveTo(stack.getOrCreateTag());
+            soul.discard();
+            return InteractionResult.SUCCESS;
         }
-        soul.discard();
         return null;
     }
 }

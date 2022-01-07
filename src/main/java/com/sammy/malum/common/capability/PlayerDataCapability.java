@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -27,7 +26,6 @@ public class PlayerDataCapability implements SimpleCapability {
 
     public UUID targetedSoulUUID;
     public int targetedSoulId;
-    public Vec3 targetedSoulPosition;
     public int soulFetchCooldown;
 
     public boolean firstTimeJoin;
@@ -64,12 +62,6 @@ public class PlayerDataCapability implements SimpleCapability {
             tag.putUUID("targetedSoulUUID", targetedSoulUUID);
         }
         tag.putInt("targetedSoulId", targetedSoulId);
-        if (targetedSoulPosition != null)
-        {
-            tag.putDouble("targetedSoulPositionX", targetedSoulPosition.x);
-            tag.putDouble("targetedSoulPositionY", targetedSoulPosition.y);
-            tag.putDouble("targetedSoulPositionZ", targetedSoulPosition.z);
-        }
         tag.putInt("soulFetchCooldown", soulFetchCooldown);
 
         tag.putBoolean("firstTimeJoin", firstTimeJoin);
@@ -94,10 +86,6 @@ public class PlayerDataCapability implements SimpleCapability {
             targetedSoulUUID = tag.getUUID("targetedSoulUUID");
         }
         targetedSoulId = tag.getInt("targetedSoulId");
-        if (tag.contains("targetedSoulPositionX"))
-        {
-            targetedSoulPosition = new Vec3(tag.getDouble("targetedSoulPositionX"),tag.getDouble("targetedSoulPositionY"),tag.getDouble("targetedSoulPositionZ"));
-        }
         soulFetchCooldown = tag.getInt("soulFetchCooldown");
 
         firstTimeJoin = tag.getBoolean("firstTimeJoin");

@@ -2,11 +2,11 @@
   "registry_name": "neapolitan:chimpanzee",
   "spirits": [
     {
-      "spirit": "sacred",
+      "spirit": "earthen",
       "count": 1
     },
     {
-      "spirit": "earthen",
+      "spirit": "sacred",
       "count": 1
     }
   ]

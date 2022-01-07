@@ -2,11 +2,11 @@
   "registry_name": "minecraft:creeper",
   "spirits": [
     {
-      "spirit": "wicked",
+      "spirit": "infernal",
       "count": 1
     },
     {
-      "spirit": "infernal",
+      "spirit": "wicked",
       "count": 1
     }
   ]

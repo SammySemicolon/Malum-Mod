@@ -2,11 +2,11 @@
   "registry_name": "minecraft:cave_spider",
   "spirits": [
     {
-      "spirit": "wicked",
+      "spirit": "aerial",
       "count": 1
     },
     {
-      "spirit": "aerial",
+      "spirit": "wicked",
       "count": 1
     }
   ]

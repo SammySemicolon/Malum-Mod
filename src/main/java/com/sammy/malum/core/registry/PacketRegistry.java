@@ -1,6 +1,7 @@
 package com.sammy.malum.core.registry;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
 import com.sammy.malum.common.packets.SyncPlayerCapabilityDataPacket;
 import com.sammy.malum.common.packets.TotemOfUndyingEffectPacket;
 import com.sammy.malum.common.packets.particle.*;
@@ -35,6 +36,7 @@ public class PacketRegistry
         TotemParticlePacket.register(INSTANCE, index++);
         TotemOfUndyingEffectPacket.register(INSTANCE, index++);
         SyncPlayerCapabilityDataPacket.register(INSTANCE, index++);
+        SyncLivingCapabilityDataPacket.register(INSTANCE, index++);
 
     }
 }
