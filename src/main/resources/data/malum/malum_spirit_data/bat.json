@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:bat",
+  "primary_type": "aerial",
   "spirits": [
     {
       "spirit": "aerial",

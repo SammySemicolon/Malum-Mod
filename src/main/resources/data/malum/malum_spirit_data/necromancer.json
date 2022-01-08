@@ -1,5 +1,6 @@
 {
   "registry_name": "eidolon:necromancer",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "wicked",

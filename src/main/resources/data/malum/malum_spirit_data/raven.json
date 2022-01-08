@@ -1,5 +1,6 @@
 {
   "registry_name": "eidolon:raven",
+  "primary_type": "wicked",
   "spirits": [
     {
       "spirit": "wicked",

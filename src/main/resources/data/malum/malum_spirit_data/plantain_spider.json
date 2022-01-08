@@ -1,5 +1,6 @@
 {
   "registry_name": "neapolitan:plantain_spider",
+  "primary_type": "wicked",
   "spirits": [
     {
       "spirit": "wicked",

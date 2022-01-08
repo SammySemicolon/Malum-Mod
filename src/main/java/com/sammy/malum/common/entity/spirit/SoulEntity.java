@@ -25,7 +25,7 @@ public class SoulEntity extends FloatingEntity {
     public UUID thiefUUID;
     public MalumEntitySpiritData spiritData = EMPTY;
     public LivingEntity thief;
-    public float erraticMovementCooldown;
+    public float erraticMovementCooldown = 30;
 
     public SoulEntity(Level level) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
@@ -36,10 +36,10 @@ public class SoulEntity extends FloatingEntity {
     public SoulEntity(Level level, MalumEntitySpiritData spiritData, UUID ownerUUID, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         this.spiritData = spiritData;
-        if (!spiritData.data.isEmpty()) {
-            this.color = spiritData.data.get(0).type.color;
+        if (!spiritData.dataEntries.isEmpty()) {
+            this.color = spiritData.primaryType.color;
             getEntityData().set(DATA_COLOR, color.getRGB());
-            this.endColor = spiritData.data.get(0).type.endColor;
+            this.endColor = spiritData.primaryType.endColor;
             getEntityData().set(DATA_END_COLOR, endColor.getRGB());
         }
         range = 8;
@@ -91,7 +91,7 @@ public class SoulEntity extends FloatingEntity {
     public void remove(RemovalReason pReason) {
         if (pReason.equals(RemovalReason.KILLED))
         {
-            SpiritHelper.createSpiritEntities(spiritData, level, position(), thief);
+            SpiritHelper.createSpiritsFromSoul(spiritData, level, position(), thief);
         }
         super.remove(pReason);
     }

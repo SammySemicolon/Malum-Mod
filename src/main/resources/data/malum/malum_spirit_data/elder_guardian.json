@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:elder_guardian",
+  "primary_type": "eldritch",
   "spirits": [
     {
       "spirit": "aqueous",

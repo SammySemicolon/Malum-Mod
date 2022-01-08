@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:rabbit",
+  "primary_type": "sacred",
   "spirits": [
     {
       "spirit": "sacred",

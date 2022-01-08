@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:drowned",
+  "primary_type": "aqueous",
   "spirits": [
     {
       "spirit": "aqueous",

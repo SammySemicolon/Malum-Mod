@@ -1,5 +1,6 @@
 {
   "registry_name": "upgrade_aquatic:lionfish",
+  "primary_type": "wicked",
   "spirits": [
     {
       "spirit": "wicked",

@@ -1,8 +1,9 @@
 {
   "registry_name": "upgrade_aquatic:goose",
+  "primary_type": "wicked",
   "spirits": [
     {
-      "spirit": "sacred",
+      "spirit": "wicked",
       "count": 1
     },
     {

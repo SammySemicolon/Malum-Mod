@@ -12,6 +12,7 @@ import com.sammy.malum.core.systems.container.ItemInventory;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData.DataEntry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
@@ -35,24 +36,12 @@ import static net.minecraft.world.entity.EquipmentSlot.MAINHAND;
 
 public class SpiritHelper {
 
-    public static void playerSummonSpirits(LivingEntity target, LivingEntity attacker, ItemStack harvestStack) {
-        if (target instanceof Player) {
-            return;
-        }
-        ArrayList<ItemStack> spirits = getSpiritItemStacks(target);
-        if (spirits.isEmpty()) {
-            return;
-        }
-        int spiritSpoils = (int) attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS);
-        int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
-
-        for (int i = 0; i < spiritSpoils+spiritPlunder; i++) {
-            int random = attacker.level.random.nextInt(spirits.size());
-            spirits.get(random).grow(1);
-        }
-        if (spiritPlunder > 0) {
-            harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
-        }
+    public static void createSpiritsFromSoul(MalumEntitySpiritData data, Level level, Vec3 position, LivingEntity attacker) {
+        ArrayList<ItemStack> spirits = getSpiritItemStacks(data, attacker, ItemStack.EMPTY, 2);
+        createSpiritEntities(spirits, data.totalCount, level, position, attacker);
+    }
+    public static void createSpiritsFromWeapon(LivingEntity target, LivingEntity attacker, ItemStack harvestStack) {
+        ArrayList<ItemStack> spirits = getSpiritItemStacks(target, attacker, harvestStack, 1);
         createSpiritEntities(spirits, target, attacker);
     }
 
@@ -64,6 +53,9 @@ public class SpiritHelper {
     }
 
     public static void createSpiritEntities(ArrayList<ItemStack> spirits, LivingEntity target, LivingEntity attacker) {
+        if (spirits.isEmpty()) {
+            return;
+        }
         createSpiritEntities(spirits, spirits.stream().mapToInt(ItemStack::getCount).sum(), target.level, target.position().add(0, target.getEyeHeight()/2f, 0), attacker);
    }
 
@@ -128,28 +120,47 @@ public class SpiritHelper {
         return type.get();
     }
 
-    public static MalumEntitySpiritData getEntitySpirits(LivingEntity entity) {
+    public static MalumEntitySpiritData getEntitySpiritData(LivingEntity entity) {
         return SpiritTypeRegistry.SPIRIT_DATA.get(entity.getType().getRegistryName());
     }
 
     public static int getEntitySpiritCount(LivingEntity entity) {
-        MalumEntitySpiritData bundle = getEntitySpirits(entity);
+        MalumEntitySpiritData bundle = getEntitySpiritData(entity);
         if (bundle == null) {
             return 0;
         }
         return bundle.totalCount;
     }
 
-    public static ArrayList<ItemStack> getSpiritItemStacks(LivingEntity entity) {
-        return getSpiritItemStacks(getEntitySpirits(entity));
+    public static ArrayList<ItemStack> getSpiritItemStacks(LivingEntity entity, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {
+        return getSpiritItemStacks(getEntitySpiritData(entity), attacker, harvestStack, spoilsMultiplier);
     }
-    public static ArrayList<ItemStack> getSpiritItemStacks(MalumEntitySpiritData bundle) {
+    public static ArrayList<ItemStack> getSpiritItemStacks(MalumEntitySpiritData data, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {
+        ArrayList<ItemStack> spirits = getSpiritItemStacks(data);
+        int spiritSpoils = (int) attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS);
+        if (!harvestStack.isEmpty()) {
+            int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
+            if (spiritPlunder > 0) {
+                harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
+            }
+            spiritSpoils+= spiritPlunder;
+        }
+        for (int i = 0; i < spiritSpoils*spoilsMultiplier; i++) {
+            int random = attacker.level.random.nextInt(spirits.size());
+            spirits.get(random).grow(1);
+        }
+        return spirits;
+    }
+    public static ArrayList<ItemStack> getSpiritItemStacks(LivingEntity entity) {
+        return getSpiritItemStacks(getEntitySpiritData(entity));
+    }
+    public static ArrayList<ItemStack> getSpiritItemStacks(MalumEntitySpiritData data) {
         ArrayList<ItemStack> spirits = new ArrayList<>();
-        if (bundle == null) {
+        if (data == null) {
             return spirits;
         }
-        for (MalumEntitySpiritData.DataEntry data : bundle.data) {
-            spirits.add(new ItemStack(data.type.getSplinterItem(), data.count));
+        for (DataEntry dataEntry : data.dataEntries) {
+            spirits.add(new ItemStack(dataEntry.type.getSplinterItem(), dataEntry.count));
         }
         return spirits;
     }
@@ -199,10 +210,10 @@ public class SpiritHelper {
     }
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
+        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.25f*alphaMultiplier, 0)
                 .setLifetime(8 + rand.nextInt(5))
-                .setScale(0.3f + rand.nextFloat() * 0.2f, 1)
+                .setScale(0.3f + rand.nextFloat() * 0.2f, 0)
                 .setColor(color, endColor)
                 .randomOffset(0.05f)
                 .enableNoClip()
@@ -219,18 +230,18 @@ public class SpiritHelper {
                 .randomOffset(0.1f)
                 .enableNoClip()
                 .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .randomVelocity(0.04f, 0.04f)
+                .randomVelocity(0.06f, 0.06f)
                 .repeat(level, x, y, z, 1);
 
         RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.19f*alphaMultiplier, 0f)
+                .setAlpha(0.2f*alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(5))
                 .setSpin(nextFloat(rand, 0.05f, 0.4f))
                 .setScale(0.15f + rand.nextFloat() * 0.1f, 0.1f)
                 .setColor(color, endColor)
                 .enableNoClip()
                 .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .randomVelocity(0.03f, 0.03f)
+                .randomVelocity(0.04f, 0.04f)
                 .repeat(level, x, y, z, 1);
     }
 }

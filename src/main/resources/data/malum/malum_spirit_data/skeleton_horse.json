@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:skeleton_horse",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "wicked",

@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:bee",
+  "primary_type": "aerial",
   "spirits": [
     {
       "spirit": "aerial",

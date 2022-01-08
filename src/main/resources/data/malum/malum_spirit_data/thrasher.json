@@ -1,5 +1,6 @@
 {
   "registry_name": "upgrade_aquatic:thrasher",
+  "primary_type": "aqueous",
   "spirits": [
     {
       "spirit": "wicked",

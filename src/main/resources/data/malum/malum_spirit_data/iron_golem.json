@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:iron_golem",
+  "primary_type": "earthen",
   "spirits": [
     {
       "spirit": "sacred",

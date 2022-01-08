@@ -1,5 +1,6 @@
 {
   "registry_name": "endergetic:puff_bug",
+  "primary_type": "aerial",
   "spirits": [
     {
       "spirit": "eldritch",

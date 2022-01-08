@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:ghast",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "arcane",

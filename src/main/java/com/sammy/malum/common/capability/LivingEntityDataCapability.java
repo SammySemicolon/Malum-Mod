@@ -4,6 +4,7 @@ import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.capability.SimpleCapability;
 import com.sammy.malum.core.systems.capability.SimpleCapabilityProvider;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,6 +24,8 @@ public class LivingEntityDataCapability implements SimpleCapability {
     public static Capability<LivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
+
+    public MalumEntitySpiritData spiritData;
 
     public float soulHarvestProgress;
     public float exposedSoul;
@@ -83,5 +86,8 @@ public class LivingEntityDataCapability implements SimpleCapability {
     }
     public static boolean isSoulless(LivingEntity entity) {
         return entity.getCapability(CAPABILITY).orElse(new LivingEntityDataCapability()).soulless;
+    }
+    public static boolean hasSpiritData(LivingEntity entity) {
+        return entity.getCapability(CAPABILITY).orElse(new LivingEntityDataCapability()).spiritData != null;
     }
 }

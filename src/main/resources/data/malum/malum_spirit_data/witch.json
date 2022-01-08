@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:witch",
+  "primary_type": "wicked",
   "spirits": [
     {
       "spirit": "wicked",

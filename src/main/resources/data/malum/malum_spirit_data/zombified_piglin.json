@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:zombified_piglin",
+  "primary_type": "wicked",
   "spirits": [
     {
       "spirit": "wicked",

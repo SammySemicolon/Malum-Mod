@@ -123,7 +123,7 @@ public class RuntimeEvents {
             LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
                 if (e.exposedSoul > 0 && !e.soulless)
                 {
-                    SpiritHelper.playerSummonSpirits(target, attacker, finalStack);
+                    SpiritHelper.createSpiritsFromWeapon(target, attacker, finalStack);
                     e.soulless = true;
                 }
             });

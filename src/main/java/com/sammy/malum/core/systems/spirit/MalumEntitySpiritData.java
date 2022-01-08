@@ -1,6 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import net.minecraft.nbt.CompoundTag;
 
 import java.util.ArrayList;
@@ -8,14 +9,16 @@ import java.util.ArrayList;
 public class MalumEntitySpiritData
 {
     public static final String NBT = "spirit_data";
-    public static final MalumEntitySpiritData EMPTY = new MalumEntitySpiritData(new ArrayList<>());
+    public static final MalumEntitySpiritData EMPTY = new MalumEntitySpiritData(SpiritTypeRegistry.SACRED_SPIRIT, new ArrayList<>());
+    public final MalumSpiritType primaryType;
     public final int totalCount;
-    public final ArrayList<DataEntry> data;
+    public final ArrayList<DataEntry> dataEntries;
 
-    public MalumEntitySpiritData(ArrayList<DataEntry> data)
+    public MalumEntitySpiritData(MalumSpiritType primaryType, ArrayList<DataEntry> dataEntries)
     {
-        this.totalCount = data.stream().mapToInt(d -> d.count).sum();
-        this.data = data;
+        this.primaryType = primaryType;
+        this.totalCount = dataEntries.stream().mapToInt(d -> d.count).sum();
+        this.dataEntries = dataEntries;
     }
 
     public void saveTo(CompoundTag tag)
@@ -24,9 +27,10 @@ public class MalumEntitySpiritData
     }
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("dataAmount", data.size());
-        for (int i = 0; i < data.size(); i++) {
-            CompoundTag dataTag = data.get(i).save(new CompoundTag());
+        tag.putString("primaryType", primaryType.identifier);
+        tag.putInt("dataAmount", dataEntries.size());
+        for (int i = 0; i < dataEntries.size(); i++) {
+            CompoundTag dataTag = dataEntries.get(i).save(new CompoundTag());
             dataTag.put("dataEntry"+i, dataTag);
         }
         return tag;
@@ -35,6 +39,7 @@ public class MalumEntitySpiritData
     public static MalumEntitySpiritData load(CompoundTag tag) {
         CompoundTag nbt = tag.getCompound(NBT);
 
+        String type = nbt.getString("primaryType");
         int dataAmount = nbt.getInt("dataAmount");
         if (dataAmount == 0)
         {
@@ -44,7 +49,7 @@ public class MalumEntitySpiritData
         for (int i = 0; i < dataAmount; i++) {
             data.add(DataEntry.load(nbt.getCompound("dataEntry"+i)));
         }
-        return new MalumEntitySpiritData(data);
+        return new MalumEntitySpiritData(SpiritHelper.getSpiritType(type), data);
     }
     public static class DataEntry
     {
