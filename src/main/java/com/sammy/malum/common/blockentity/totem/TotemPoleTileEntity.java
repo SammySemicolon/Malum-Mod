@@ -3,13 +3,13 @@ package com.sammy.malum.common.blockentity.totem;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.packets.particle.BlockParticlePacket;
 import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.registry.ParticleRegistry;
 import com.sammy.malum.core.registry.SoundRegistry;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -106,7 +106,8 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     }
 
     public void create(MalumSpiritType type) {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE, SoundSource.BLOCKS, 1, 1);
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
+        level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.type = type;
         this.currentColor = 10;
@@ -114,7 +115,7 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     }
 
     public void riteStarting(int height) {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 1 + 0.2f * height);
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.9f + 0.2f * height);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.desiredColor = 10;
         this.baseLevel = worldPosition.getY() - height;

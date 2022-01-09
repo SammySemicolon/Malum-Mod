@@ -177,7 +177,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     }
 
     public void completeRite(MalumRiteType rite) {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGED, SoundSource.BLOCKS, 1, 1);
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED, SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
         poles.forEach(p -> {
             if (level.getBlockEntity(p) instanceof TotemPoleTileEntity pole) {
@@ -201,7 +201,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
 
     public void endRite() {
         if (height > 1) {
-            level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
+            level.playSound(null, worldPosition, SoundRegistry.TOTEM_CANCELLED, SoundSource.BLOCKS, 1, 1);
             INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
         }
         resetRite();

@@ -58,7 +58,8 @@ public class SoundRegistry
     public static final SoundEvent SPIRIT_HARVEST = create(new SoundEvent(DataHelper.prefix("spirit_harvest")));
 
     public static final SoundEvent TOTEM_CHARGE = create(new SoundEvent(DataHelper.prefix("totem_charge")));
-    public static final SoundEvent TOTEM_CHARGED = create(new SoundEvent(DataHelper.prefix("totem_charged")));
+    public static final SoundEvent TOTEM_ACTIVATED = create(new SoundEvent(DataHelper.prefix("totem_activated")));
+    public static final SoundEvent TOTEM_CANCELLED = create(new SoundEvent(DataHelper.prefix("totem_cancelled")));
     public static final SoundEvent TOTEM_ENGRAVE = create(new SoundEvent(DataHelper.prefix("totem_engrave")));
 
     public static final SoundEvent ALTAR_CRAFT = create(new SoundEvent(DataHelper.prefix("altar_craft")));

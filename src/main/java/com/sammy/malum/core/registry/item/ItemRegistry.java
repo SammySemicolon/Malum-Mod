@@ -405,7 +405,7 @@ public class ItemRegistry {
 
     //region contents
     public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_VIAL = ITEMS.register("soul_vial", () -> new SoulVialItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_LOCKET = ITEMS.register("soul_locket", () -> new SoulLocketItem(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(Tiers.IRON, 0, 0.1f, 0, GEAR_PROPERTIES().durability(350)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new ScytheItem(SOUL_STAINED_STEEL, 0.5f, 0.1f, 2, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_STAVE = ITEMS.register("soulwood_stave", () -> new SoulStaveItem(GEAR_PROPERTIES()));

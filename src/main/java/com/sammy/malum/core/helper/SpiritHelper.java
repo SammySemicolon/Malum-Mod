@@ -137,6 +137,10 @@ public class SpiritHelper {
     }
     public static ArrayList<ItemStack> getSpiritItemStacks(MalumEntitySpiritData data, LivingEntity attacker, ItemStack harvestStack, float spoilsMultiplier) {
         ArrayList<ItemStack> spirits = getSpiritItemStacks(data);
+        if (spirits.isEmpty())
+        {
+            return spirits;
+        }
         int spiritSpoils = (int) attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS);
         if (!harvestStack.isEmpty()) {
             int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);

@@ -42,27 +42,27 @@ import static com.sammy.malum.MalumMod.MODID;
 
 public class BlockEntityRegistry
 {
-    public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
 
-    public static final RegistryObject<BlockEntityType<MalumSignTileEntity>> SIGN_BLOCK_ENTITY = TILE_ENTITIES.register("sign_tile_entity", () -> BlockEntityType.Builder.of(MalumSignTileEntity::new, getBlocks(SignBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<MalumSignTileEntity>> SIGN_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("sign", () -> BlockEntityType.Builder.of(MalumSignTileEntity::new, getBlocks(SignBlock.class)).build(null));
 
-    public static final RegistryObject<BlockEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR = TILE_ENTITIES.register("spirit_altar", () -> BlockEntityType.Builder.of(SpiritAltarTileEntity::new, getBlocks(SpiritAltarBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<SpiritJarTileEntity>> SPIRIT_JAR = TILE_ENTITIES.register("spirit_jar_tile_entity", () -> BlockEntityType.Builder.of(SpiritJarTileEntity::new, getBlocks(SpiritJarBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<SpiritAltarTileEntity>> SPIRIT_ALTAR = BLOCK_ENTITY_TYPES.register("spirit_altar", () -> BlockEntityType.Builder.of(SpiritAltarTileEntity::new, getBlocks(SpiritAltarBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<SpiritJarTileEntity>> SPIRIT_JAR = BLOCK_ENTITY_TYPES.register("spirit_jar_tile_entity", () -> BlockEntityType.Builder.of(SpiritJarTileEntity::new, getBlocks(SpiritJarBlock.class)).build(null));
 
-    public static final RegistryObject<BlockEntityType<SpiritCrucibleCoreBlockEntity>> SPIRIT_CRUCIBLE = TILE_ENTITIES.register("spirit_crucible", () -> BlockEntityType.Builder.of(SpiritCrucibleCoreBlockEntity::new, getBlocks(SpiritCrucibleCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<ObeliskCoreBlockEntity>> OBELISK = TILE_ENTITIES.register("obelisk", () -> BlockEntityType.Builder.of(ObeliskCoreBlockEntity::new, getBlocks(ObeliskCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<PlinthCoreBlockEntity>> PLINTH = TILE_ENTITIES.register("plinth", () -> BlockEntityType.Builder.of(PlinthCoreBlockEntity::new, getBlocks(PlinthCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<FusionPlateBlockEntity>> FUSION_PLATE = TILE_ENTITIES.register("fusion_plate", () -> BlockEntityType.Builder.of(FusionPlateBlockEntity::new, getBlocks(FusionPlateCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<MultiBlockComponentEntity>> MULTIBLOCK_COMPONENT = TILE_ENTITIES.register("multiblock_component", () -> BlockEntityType.Builder.of(MultiBlockComponentEntity::new, getBlocks(ComponentBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<SpiritCrucibleCoreBlockEntity>> SPIRIT_CRUCIBLE = BLOCK_ENTITY_TYPES.register("spirit_crucible", () -> BlockEntityType.Builder.of(SpiritCrucibleCoreBlockEntity::new, getBlocks(SpiritCrucibleCoreBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<ObeliskCoreBlockEntity>> OBELISK = BLOCK_ENTITY_TYPES.register("obelisk", () -> BlockEntityType.Builder.of(ObeliskCoreBlockEntity::new, getBlocks(ObeliskCoreBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<PlinthCoreBlockEntity>> PLINTH = BLOCK_ENTITY_TYPES.register("plinth", () -> BlockEntityType.Builder.of(PlinthCoreBlockEntity::new, getBlocks(PlinthCoreBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<FusionPlateBlockEntity>> FUSION_PLATE = BLOCK_ENTITY_TYPES.register("fusion_plate", () -> BlockEntityType.Builder.of(FusionPlateBlockEntity::new, getBlocks(FusionPlateCoreBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<MultiBlockComponentEntity>> MULTIBLOCK_COMPONENT = BLOCK_ENTITY_TYPES.register("multiblock_component", () -> BlockEntityType.Builder.of(MultiBlockComponentEntity::new, getBlocks(ComponentBlock.class)).build(null));
 
 
-    public static final RegistryObject<BlockEntityType<EtherTileEntity>> ETHER = TILE_ENTITIES.register("ether", () -> BlockEntityType.Builder.of(EtherTileEntity::new, getBlocks(EtherBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<EtherTileEntity>> ETHER = BLOCK_ENTITY_TYPES.register("ether", () -> BlockEntityType.Builder.of(EtherTileEntity::new, getBlocks(EtherBlock.class)).build(null));
 
-    public static final RegistryObject<BlockEntityType<ItemStandTileEntity>> ITEM_STAND = TILE_ENTITIES.register("item_stand", () -> BlockEntityType.Builder.of(ItemStandTileEntity::new, getBlocks(ItemStandBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<ItemPedestalTileEntity>> ITEM_PEDESTAL = TILE_ENTITIES.register("item_pedestal", () -> BlockEntityType.Builder.of(ItemPedestalTileEntity::new, getBlocks(ItemPedestalBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<ItemStandTileEntity>> ITEM_STAND = BLOCK_ENTITY_TYPES.register("item_stand", () -> BlockEntityType.Builder.of(ItemStandTileEntity::new, getBlocks(ItemStandBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<ItemPedestalTileEntity>> ITEM_PEDESTAL = BLOCK_ENTITY_TYPES.register("item_pedestal", () -> BlockEntityType.Builder.of(ItemPedestalTileEntity::new, getBlocks(ItemPedestalBlock.class)).build(null));
 
-    public static final RegistryObject<BlockEntityType<TotemBaseTileEntity>> TOTEM_BASE = TILE_ENTITIES.register("totem_base", () -> BlockEntityType.Builder.of(TotemBaseTileEntity::new, getBlocks(TotemBaseBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<TotemPoleTileEntity>> TOTEM_POLE = TILE_ENTITIES.register("totem_pole", () -> BlockEntityType.Builder.of(TotemPoleTileEntity::new, getBlocks(TotemPoleBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<TotemBaseTileEntity>> TOTEM_BASE = BLOCK_ENTITY_TYPES.register("totem_base", () -> BlockEntityType.Builder.of(TotemBaseTileEntity::new, getBlocks(TotemBaseBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<TotemPoleTileEntity>> TOTEM_POLE = BLOCK_ENTITY_TYPES.register("totem_pole", () -> BlockEntityType.Builder.of(TotemPoleTileEntity::new, getBlocks(TotemPoleBlock.class)).build(null));
 
 
     public static Block[] getBlocks(Class<?>... blockClasses) {
