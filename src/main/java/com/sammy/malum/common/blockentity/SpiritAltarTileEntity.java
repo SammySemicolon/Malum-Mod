@@ -64,6 +64,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public SimpleBlockEntityInventory inventory;
     public SimpleBlockEntityInventory extrasInventory;
     public SimpleBlockEntityInventory spiritInventory;
+    public ArrayList<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
     public SpiritAltarTileEntity(BlockPos pos, BlockState state) {
@@ -185,10 +186,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         }
         if (updateRecipe)
         {
-            recipe = SpiritInfusionRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
+            ItemStack stack = inventory.getStackInSlot(0);
+            possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.getNonEmptyItemStacks())));
+            recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
             updateRecipe = false;
         }
-        if (recipe != null) {
+        if (!possibleRecipes.isEmpty()) {
             if (soundCooldown > 0) {
                 soundCooldown--;
             } else {
@@ -249,7 +252,20 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 if (level.getBlockEntity(pos) instanceof IAltarProvider blockEntity) {
                     ItemStack providedStack = blockEntity.providedInventory().getStackInSlot(0);
                     IngredientWithCount requestedItem = recipe.extraItems.get(extras);
-                    if (requestedItem.matches(providedStack)) {
+                    boolean matches = requestedItem.matches(providedStack);
+                    if (!matches) {
+                        for (SpiritInfusionRecipe recipe : possibleRecipes)
+                        {
+                            if (extras < recipe.extraItems.size() && recipe.extraItems.get(extras).matches(providedStack))
+                            {
+                                this.recipe = recipe;
+                                break;
+                            }
+                        }
+                    }
+                    requestedItem = recipe.extraItems.get(extras);
+                    matches = requestedItem.matches(providedStack);
+                    if (matches) {
                         level.playSound(null, pos, SoundRegistry.ALTAR_CONSUME, SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                         Vec3 providedItemPos = blockEntity.providedItemPos();
                         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.getSpirits(), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
@@ -285,7 +301,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
         progress = 0;
         extrasInventory.clear();
-        recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.nonEmptyStacks);
+        updateRecipe = true;
         level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT, SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         inventory.updateData();
@@ -324,7 +340,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 double y = getBlockPos().getY() + offset.y();
                 double z = getBlockPos().getZ() + offset.z();
                 SpiritHelper.spawnSpiritParticles(level, x, y, z, color, endColor);
-                if (recipe != null) {
+                if (!possibleRecipes.isEmpty()) {
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
                     float alpha = 0.07f / spiritInventory.nonEmptyItemAmount;
                     for (IAltarAccelerator accelerator : accelerators) {
