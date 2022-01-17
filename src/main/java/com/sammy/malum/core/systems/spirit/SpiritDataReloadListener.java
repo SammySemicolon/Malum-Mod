@@ -13,11 +13,11 @@ import java.util.Map;
 
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.SPIRIT_DATA;
 
-public class SpiritReloadListener extends SimpleJsonResourceReloadListener
+public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
 {
     private static final Gson GSON = (new GsonBuilder()).create();
 
-    public SpiritReloadListener()
+    public SpiritDataReloadListener()
     {
         super(GSON, "malum_spirit_data");
     }

@@ -30,6 +30,7 @@ public class PacketRegistry
         INSTANCE.registerMessage(index++, SpiritAltarConsumeParticlePacket.class, SpiritAltarConsumeParticlePacket::encode, SpiritAltarConsumeParticlePacket::decode, SpiritAltarConsumeParticlePacket::whenThisPacketIsReceived);
 
         MagicParticlePacket.register(INSTANCE, index++);
+        SoulPurgeParticlePacket.register(INSTANCE, index++);
         BlockParticlePacket.register(INSTANCE, index++);
         BlockMistParticlePacket.register(INSTANCE, index++);
         BlockSparkleParticlePacket.register(INSTANCE, index++);

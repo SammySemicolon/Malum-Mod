@@ -2,8 +2,8 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import com.sammy.malum.common.blockentity.item_storage.ItemStandBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.blockentity.item_storage.ItemStandTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -16,14 +16,14 @@ import net.minecraft.world.level.Level;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
-public class ItemStandRenderer implements BlockEntityRenderer<ItemStandTileEntity>
+public class ItemStandRenderer implements BlockEntityRenderer<ItemStandBlockEntity>
 {
     public ItemStandRenderer(BlockEntityRendererProvider.Context context)
     {
     }
 
     @Override
-    public void render(ItemStandTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
+    public void render(ItemStandBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
@@ -31,7 +31,7 @@ public class ItemStandRenderer implements BlockEntityRenderer<ItemStandTileEntit
         if (!stack.isEmpty())
         {
             poseStack.pushPose();
-            Vector3f offset = new Vector3f(ItemStandTileEntity.itemOffset(blockEntityIn));
+            Vector3f offset = new Vector3f(ItemStandBlockEntity.itemOffset(blockEntityIn));
             if (stack.getItem() instanceof MalumSpiritItem)
             {
                 double y = Math.sin(((level.getGameTime() + partialTicks) % 360) / 20f) * 0.05f;

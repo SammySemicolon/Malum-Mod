@@ -16,11 +16,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.awt.*;
 
-public class EtherTileEntity extends SimpleBlockEntity {
+public class EtherBlockEntity extends SimpleBlockEntity {
     public Color firstColor;
     public Color secondColor;
 
-    public EtherTileEntity(BlockPos pos, BlockState state) {
+    public EtherBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.ETHER.get(), pos, state);
     }
 

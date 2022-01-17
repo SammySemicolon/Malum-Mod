@@ -346,6 +346,7 @@ public class ItemRegistry {
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(BlockRegistry.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_VIAL = ITEMS.register("soul_vial", () -> new SoulVialItem(BlockRegistry.SOUL_VIAL.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = ITEMS.register("runewood_obelisk", () -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), DEFAULT_PROPERTIES(), ObeliskCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = ITEMS.register("spirit_crucible", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), DEFAULT_PROPERTIES(), SpiritCrucibleCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
@@ -405,7 +406,6 @@ public class ItemRegistry {
 
     //region contents
     public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_LOCKET = ITEMS.register("soul_locket", () -> new SoulLocketItem(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new ScytheItem(Tiers.IRON, 0, 0.1f, 0, GEAR_PROPERTIES().durability(350)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new ScytheItem(SOUL_STAINED_STEEL, 0.5f, 0.1f, 2, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_STAVE = ITEMS.register("soulwood_stave", () -> new SoulStaveItem(GEAR_PROPERTIES()));

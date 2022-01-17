@@ -18,8 +18,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ItemPedestalTileEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
-    public ItemPedestalTileEntity(BlockPos pos, BlockState state) {
+public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
+    public ItemPedestalBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.ITEM_PEDESTAL.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64) {
             @Override

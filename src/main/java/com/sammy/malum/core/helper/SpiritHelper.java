@@ -90,6 +90,12 @@ public class SpiritHelper {
 
     public static void pickupSpirit(ItemStack stack, LivingEntity collector) {
         if (collector instanceof Player playerEntity) {
+            ItemHelper.eventResponders(collector).forEach(s -> {
+                if (s.getItem() instanceof IEventResponderItem eventItem)
+                {
+                    eventItem.pickupSpirit(collector, stack, true);
+                }
+            });
             for (NonNullList<ItemStack> playerInventory : playerEntity.getInventory().compartments) {
                 for (ItemStack item : playerInventory) {
                     if (item.getItem() instanceof SpiritPouchItem) {
@@ -98,16 +104,11 @@ public class SpiritHelper {
                         if (result.isEmpty()) {
                             Level level = playerEntity.level;
                             level.playSound(null, playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                            return;
                         }
                     }
                 }
             }
-            ItemHelper.eventResponders(collector).forEach(s -> {
-                if (s.getItem() instanceof IEventResponderItem eventItem)
-                {
-                    eventItem.pickupSpirit(collector, stack, true);
-                }
-            });
         }
         ItemHelper.giveItemToEntity(stack, collector);
     }

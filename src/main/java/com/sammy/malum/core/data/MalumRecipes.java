@@ -46,7 +46,7 @@ public class MalumRecipes extends RecipeProvider
         ShapelessRecipeBuilder.shapeless(ItemRegistry.ENCYCLOPEDIA_ARCANA.get()).requires(Items.BOOK).requires(ItemRegistry.PROCESSED_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.PROCESSED_SOULSTONE.get())).save(consumer);
         shapeless(ItemRegistry.COAL_FRAGMENT.get(),8).requires(Items.COAL).unlockedBy("has_coal", has(Items.COAL)).save(consumer);
 
-        shaped(Items.COPPER_INGOT).define('#', ItemRegistry.COPPER_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_copper", has(Items.COPPER_INGOT)).save(consumer);
+        shaped(Items.COPPER_INGOT).define('#', ItemRegistry.COPPER_NUGGET.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_copper", has(Items.COPPER_INGOT)).save(consumer, prefix("copper_ingot"));
 
         smelting(Ingredient.of(ItemRegistry.BLAZING_QUARTZ_ORE.get()), ItemRegistry.BLAZING_QUARTZ.get(),0.25f,200).unlockedBy("has_blaze_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer);
         blasting(Ingredient.of(ItemRegistry.BLAZING_QUARTZ_ORE.get()), ItemRegistry.BLAZING_QUARTZ.get(),0.25f,100).unlockedBy("has_blaze_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, prefix("blazing_quartz_from_blasting"));

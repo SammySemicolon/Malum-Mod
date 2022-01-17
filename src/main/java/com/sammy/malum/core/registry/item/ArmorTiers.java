@@ -14,7 +14,7 @@ public class ArmorTiers
 {
     public enum ArmorTierEnum implements ArmorMaterial
     {
-        SPIRIT_HUNTER("malum:spirit_hunter", 16, new int[]{2, 5, 6, 2}, 15, () -> SoundEvents.ARMOR_EQUIP_LEATHER, ItemRegistry.SPIRIT_FABRIC, 0),
+        SPIRIT_HUNTER("malum:spirit_hunter", 16, new int[]{2, 4, 5, 1}, 15, () -> SoundEvents.ARMOR_EQUIP_LEATHER, ItemRegistry.SPIRIT_FABRIC, 0),
         SOUL_STAINED_STEEL("malum:soul_stained_steel", 22, new int[]{2, 6, 7, 3}, 11, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_INGOT, 2),
         SOUL_STAINED_STRONGHOLD("malum:soul_stained_stronghold", 36, new int[]{4, 7, 9, 5}, 13, () -> SoundEvents.ARMOR_EQUIP_IRON, ItemRegistry.SOUL_STAINED_STEEL_INGOT, 5);
         private final String name;

@@ -30,7 +30,7 @@ public class RenderManager {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRenderLast(RenderLevelLastEvent event) {
         event.getPoseStack().pushPose();
-        if (ClientConfig.BETTER_LAYERING.get()) {
+        if (ClientConfig.DELAYED_PARTICLE_RENDERING.get()) {
             RenderSystem.getModelViewStack().pushPose();
             RenderSystem.getModelViewStack().setIdentity();
             if (PARTICLE_MATRIX != null) RenderSystem.getModelViewStack().mulPoseMatrix(PARTICLE_MATRIX);

@@ -8,11 +8,10 @@ import com.sammy.malum.common.capability.LivingEntityDataCapability;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
+import com.sammy.malum.common.packets.particle.SoulPurgeParticlePacket;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.registry.ParticleRegistry;
 import com.sammy.malum.core.systems.rendering.RenderTypes;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.rendering.Shaders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
@@ -36,11 +35,13 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
+import static com.sammy.malum.core.registry.PacketRegistry.INSTANCE;
 import static com.sammy.malum.core.systems.rendering.RenderManager.DELAYED_RENDER;
 import static com.sammy.malum.core.systems.rendering.RenderUtilities.renderQuad;
 import static net.minecraft.util.Mth.nextFloat;
@@ -129,53 +130,34 @@ public class SoulHarvestHandler {
                 if (isUsingStave) {
                     //harvest soul
                     ItemStack stack = player.getUseItem();
-                    if (c.targetedSoulUUID != null) {
-                        Entity entity = player.level.getEntity(c.targetedSoulId);
-                        if (entity instanceof LivingEntity livingEntity) {
-                            LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
-                                if (ec.getHarvestProgress() >= 150)
-                                {
-                                    Vec3 position = entity.position().add(0, entity.getEyeHeight() / 2f, 0);
-                                    if (player.level instanceof ServerLevel) {
+                    if (player.level instanceof ServerLevel) {
+                        if (c.targetedSoulUUID != null) {
+                            Entity entity = player.level.getEntity(c.targetedSoulId);
+                            if (entity instanceof LivingEntity livingEntity) {
+                                LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
+                                    if (ec.getHarvestProgress() >= 150) {
+                                        Vec3 position = entity.position().add(0, entity.getEyeHeight() / 2f, 0);
                                         SoulEntity soulEntity = new SoulEntity(entity.level, SpiritHelper.getEntitySpiritData(livingEntity), player.getUUID(),
                                                 position.x,
                                                 position.y,
                                                 position.z,
                                                 nextFloat(MalumMod.RANDOM, -0.1f, 0.1f),
-                                                0.05f+nextFloat(MalumMod.RANDOM, 0.05f, 0.15f),
+                                                0.05f + nextFloat(MalumMod.RANDOM, 0.05f, 0.15f),
                                                 nextFloat(MalumMod.RANDOM, -0.1f, 0.1f));
                                         player.level.addFreshEntity(soulEntity);
+                                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SoulPurgeParticlePacket(ec.spiritData.primaryType.color, ec.spiritData.primaryType.endColor, position.x, position.y, position.z));
+                                        if (livingEntity instanceof Mob mob) {
+                                            removeSentience(mob);
+                                        }
+                                        ec.soulless = true;
+                                        ec.ownerUUID = player.getUUID();
+                                        player.swing(player.getUsedItemHand(), true);
+                                        player.getCooldowns().addCooldown(stack.getItem(), 100);
+                                        player.stopUsingItem();
+                                        LivingEntityDataCapability.sync(livingEntity);
                                     }
-                                    else {
-                                        RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
-                                                .setAlpha(1.0f, 0).setScale(0.4f, 0).setLifetime(20)
-                                                .randomOffset(0.5, 0).randomVelocity(0, 0.125f)
-                                                .addVelocity(0, 0.28f, 0)
-                                                .setColor(ec.spiritData.primaryType.color,ec.spiritData.primaryType.endColor)
-                                                .setSpin(0.4f)
-                                                .enableGravity()
-                                                .repeat(livingEntity.level, position.x, position.y - 0.2f, position.z, 40);
-
-                                        RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
-                                                .setAlpha(0.75f, 0).setScale(0.2f, 0).setLifetime(40)
-                                                .randomOffset(0.5, 0.5).randomVelocity(0.125f, 0.05)
-                                                .addVelocity(0, 0.15f, 0)
-                                                .setColor(ec.spiritData.primaryType.color,ec.spiritData.primaryType.endColor)
-                                                .setSpin(0.3f)
-                                                .enableGravity()
-                                                .repeat(livingEntity.level, position.x, position.y - 0.2f, position.z, 30);
-                                    }
-                                    if (livingEntity instanceof Mob mob)
-                                    {
-                                        removeSentience(mob);
-                                    }
-                                    ec.soulless = true;
-                                    ec.ownerUUID = player.getUUID();
-                                    player.swing(player.getUsedItemHand());
-                                    player.getCooldowns().addCooldown(stack.getItem(), 100);
-                                    player.stopUsingItem();
-                                }
-                            });
+                                });
+                            }
                         }
                     }
                 } else {
@@ -222,7 +204,7 @@ public class SoulHarvestHandler {
     }
     public static void removeSentience(Mob mob)
     {
-        mob.goalSelector.getAvailableGoals().removeIf(g -> g.getGoal() instanceof LookAtPlayerGoal || g.getGoal() instanceof MeleeAttackGoal || g.getGoal() instanceof SwellGoal || g.getGoal() instanceof RandomLookAroundGoal || g.getGoal() instanceof AvoidEntityGoal);
+        mob.goalSelector.getAvailableGoals().removeIf(g -> g.getGoal() instanceof LookAtPlayerGoal || g.getGoal() instanceof MeleeAttackGoal || g.getGoal() instanceof SwellGoal || g.getGoal() instanceof PanicGoal || g.getGoal() instanceof RandomLookAroundGoal || g.getGoal() instanceof AvoidEntityGoal);
     }
     public static class ClientOnly {
         private static final ResourceLocation HARVEST_NOISE = prefix("textures/vfx/soul_noise_secondary.png");

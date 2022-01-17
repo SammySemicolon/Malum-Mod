@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.ether;
 
-import com.sammy.malum.common.blockentity.EtherTileEntity;
+import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.registry.block.BlockEntityRegistry;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class EtherBlock extends WaterLoggedBlock<EtherTileEntity> {
+public class EtherBlock extends WaterLoggedBlock<EtherBlockEntity> {
     public static final VoxelShape SHAPE = Block.box(6, 6, 6, 10, 10, 10);
 
     public EtherBlock(Properties properties) {
@@ -28,7 +28,7 @@ public class EtherBlock extends WaterLoggedBlock<EtherTileEntity> {
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if (level.getBlockEntity(pos) instanceof EtherTileEntity blockEntity) {
+        if (level.getBlockEntity(pos) instanceof EtherBlockEntity blockEntity) {
             AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
             blockEntity.firstColor = ColorHelper.getColor(item.getFirstColor(stack));
             blockEntity.secondColor = ColorHelper.getColor(item.getSecondColor(stack));
@@ -40,7 +40,7 @@ public class EtherBlock extends WaterLoggedBlock<EtherTileEntity> {
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         ItemStack stack = asItem().getDefaultInstance();
-        if (level.getBlockEntity(pos) instanceof EtherTileEntity blockEntity) {
+        if (level.getBlockEntity(pos) instanceof EtherBlockEntity blockEntity) {
             AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
             if (blockEntity.firstColor != null) {
                 etherItem.setFirstColor(stack, blockEntity.firstColor.getRGB());

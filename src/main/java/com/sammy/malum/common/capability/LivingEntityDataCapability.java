@@ -34,7 +34,7 @@ public class LivingEntityDataCapability implements SimpleCapability {
 
     public float getPreviewProgress()
     {
-        return Math.min(10, soulHarvestProgress);
+        return soulless ? 10 : Math.min(10, soulHarvestProgress);
     }
     public float getHarvestProgress()
     {
@@ -76,7 +76,7 @@ public class LivingEntityDataCapability implements SimpleCapability {
 
     public static void sync(LivingEntity entity)
     {
-        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), getCapability(entity).orElse(new LivingEntityDataCapability()).serializeNBT()));
+        getCapability(entity).ifPresent(c -> INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
     }
     public static LazyOptional<LivingEntityDataCapability> getCapability(LivingEntity entity) {
         return entity.getCapability(CAPABILITY);

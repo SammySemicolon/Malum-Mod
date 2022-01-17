@@ -20,9 +20,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 
 
-public class ItemStandTileEntity extends SimpleInventoryBlockEntity implements IAltarProvider
+public class ItemStandBlockEntity extends SimpleInventoryBlockEntity implements IAltarProvider
 {
-    public ItemStandTileEntity(BlockPos pos, BlockState state)
+    public ItemStandBlockEntity(BlockPos pos, BlockState state)
     {
         super(BlockEntityRegistry.ITEM_STAND.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64)

@@ -23,7 +23,7 @@ import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.blockentity.EtherTileEntity;
+import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.item.ItemRegistry;
@@ -114,15 +114,19 @@ public class BlockRegistry {
     }
 
     public static SimpleBlockProperties HALLOWED_GOLD_PROPERTIES() {
-        return new SimpleBlockProperties(Material.METAL, MaterialColor.COLOR_YELLOW).needsPickaxe().sound(SoundRegistry.HALLOWED_GOLD).noOcclusion().strength(2F, 16.0F);
+        return new SimpleBlockProperties(Material.METAL, MaterialColor.COLOR_YELLOW).requiresCorrectToolForDrops().needsPickaxe().sound(SoundRegistry.HALLOWED_GOLD).noOcclusion().strength(2F, 16.0F);
     }
 
     public static SimpleBlockProperties SOUL_STAINED_STEEL_BLOCK_PROPERTIES() {
-        return new SimpleBlockProperties(Material.METAL, MaterialColor.COLOR_BLUE).needsPickaxe().sound(SoundRegistry.SOUL_STAINED_STEEL).strength(5f, 3600f);
+        return new SimpleBlockProperties(Material.METAL, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().needsPickaxe().sound(SoundRegistry.SOUL_STAINED_STEEL).strength(5f, 64.0f);
     }
 
     public static SimpleBlockProperties SPIRIT_JAR_PROPERTIES() {
-        return new SimpleBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).needsPickaxe().sound(SoundRegistry.HALLOWED_GOLD).noOcclusion();
+        return new SimpleBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).strength(0.5f, 64f).sound(SoundRegistry.HALLOWED_GOLD).noOcclusion();
+    }
+
+    public static SimpleBlockProperties SOUL_VIAL_PROPERTIES() {
+        return new SimpleBlockProperties(Material.GLASS, MaterialColor.COLOR_BLUE).strength(0.75f, 64f).sound(SoundRegistry.SOUL_STAINED_STEEL).noOcclusion();
     }
 
     public static SimpleBlockProperties STONE_PROPERTIES() {
@@ -134,7 +138,8 @@ public class BlockRegistry {
     }
     //region useful blocks
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
-    public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(HALLOWED_GOLD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
+    public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
+    public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock(SOUL_VIAL_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
 
     public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new ObeliskCoreBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> RUNEWOOD_OBELISK_COMPONENT = BLOCKS.register("runewood_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(RUNEWOOD_OBELISK).noOcclusion(), ItemRegistry.RUNEWOOD_OBELISK));
@@ -401,9 +406,9 @@ public class BlockRegistry {
 
             DataHelper.getAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
                 BlockEntity blockEntity = l.getBlockEntity(p);
-                if (blockEntity instanceof EtherTileEntity etherTileEntity) {
-                    if (etherTileEntity.firstColor != null) {
-                        return c == 0 ? etherTileEntity.firstColor.getRGB() : -1;
+                if (blockEntity instanceof EtherBlockEntity etherBlockEntity) {
+                    if (etherBlockEntity.firstColor != null) {
+                        return c == 0 ? etherBlockEntity.firstColor.getRGB() : -1;
                     }
                 }
                 return -1;
@@ -435,6 +440,7 @@ public class BlockRegistry {
             DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(ClientOnly::setCutout);
             DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(ClientOnly::setCutout);
             DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock).forEach(ClientOnly::setCutout);
+            DataHelper.takeAll(blocks, b -> b.get() instanceof SoulVialBlock).forEach(ClientOnly::setCutout);
             DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritAltarBlock).forEach(ClientOnly::setCutout);
             setCutout(BlockRegistry.BLAZING_QUARTZ_ORE);
             setCutout(BlockRegistry.BRILLIANT_STONE);

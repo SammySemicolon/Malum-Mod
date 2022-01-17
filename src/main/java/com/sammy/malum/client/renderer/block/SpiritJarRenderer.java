@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.item_storage.SpiritJarTileEntity;
+import com.sammy.malum.common.blockentity.item_storage.SpiritJarBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -14,14 +14,14 @@ import net.minecraft.world.level.Level;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
-public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarTileEntity>
+public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarBlockEntity>
 {
     public SpiritJarRenderer(BlockEntityRendererProvider.Context context)
     {
     }
     
     @Override
-    public void render(SpiritJarTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
+    public void render(SpiritJarBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();

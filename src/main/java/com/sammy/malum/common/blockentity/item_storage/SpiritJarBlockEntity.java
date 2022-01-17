@@ -21,8 +21,8 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.awt.*;
 
-public class SpiritJarTileEntity extends SimpleBlockEntity {
-    public SpiritJarTileEntity(BlockPos pos, BlockState state) {
+public class SpiritJarBlockEntity extends SimpleBlockEntity {
+    public SpiritJarBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SPIRIT_JAR.get(), pos, state);
     }
 

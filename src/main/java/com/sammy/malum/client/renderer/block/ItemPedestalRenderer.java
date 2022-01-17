@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.blockentity.item_storage.ItemPedestalTileEntity;
+import com.sammy.malum.common.blockentity.item_storage.ItemPedestalBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -16,14 +16,14 @@ import net.minecraft.world.level.Level;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
-public class  ItemPedestalRenderer implements BlockEntityRenderer<ItemPedestalTileEntity>
+public class  ItemPedestalRenderer implements BlockEntityRenderer<ItemPedestalBlockEntity>
 {
     public ItemPedestalRenderer(BlockEntityRendererProvider.Context context)
     {
     }
 
     @Override
-    public void render(ItemPedestalTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
+    public void render(ItemPedestalBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
@@ -31,7 +31,7 @@ public class  ItemPedestalRenderer implements BlockEntityRenderer<ItemPedestalTi
         if (!stack.isEmpty())
         {
             poseStack.pushPose();
-            Vector3f offset = new Vector3f(ItemPedestalTileEntity.itemOffset());
+            Vector3f offset = new Vector3f(ItemPedestalBlockEntity.itemOffset());
             if (stack.getItem() instanceof MalumSpiritItem)
             {
                 double y = Math.sin(((level.getGameTime() + partialTicks) % 360) / 20f) * 0.1f;

@@ -64,6 +64,6 @@ public abstract class GenericParticle extends TextureSheetParticle {
     }
     @Override
     public void render(VertexConsumer consumer, Camera camera, float partialTicks) {
-        super.render(ClientConfig.BETTER_LAYERING.get() ? RenderManager.DELAYED_RENDER.getBuffer(RenderTypes.ADDITIVE_PARTICLE) : consumer, camera, partialTicks);
+        super.render(ClientConfig.DELAYED_PARTICLE_RENDERING.get() ? RenderManager.DELAYED_RENDER.getBuffer(RenderTypes.ADDITIVE_PARTICLE) : consumer, camera, partialTicks);
     }
 }

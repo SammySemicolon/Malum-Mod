@@ -1,6 +1,6 @@
 {
   "registry_name": "minecraft:zombie",
-  "primary_type": "earthen",
+  "primary_type": "wicked",
   "spirits": [
     {
       "spirit": "wicked",
