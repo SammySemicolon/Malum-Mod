@@ -7,6 +7,33 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_name",
+              "source": "block_entity"
+            },
+            {
+              "function": "minecraft:copy_nbt",
+              "source": "block_entity",
+              "ops": [
+                {
+                  "source": "Level_key",
+                  "target": "BlockEntityTag.Level_key",
+                  "op": "replace"
+                },
+                {
+                  "source": "spirit",
+                  "target": "spirit",
+                  "op": "replace"
+                },
+                {
+                  "source": "count",
+                  "target": "count",
+                  "op": "replace"
+                }
+              ]
+            }
+          ],
           "name": "malum:spirit_jar"
         }
       ],

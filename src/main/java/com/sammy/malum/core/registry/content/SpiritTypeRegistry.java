@@ -31,11 +31,11 @@ public class SpiritTypeRegistry
     public static final Color WICKED_SPIRIT_COLOR = new Color(178, 29, 232);
     public static MalumSpiritType WICKED_SPIRIT = create("wicked", WICKED_SPIRIT_COLOR, ItemRegistry.WICKED_SPIRIT);
 
-    public static final Color ARCANE_SPIRIT_COLOR = new Color(231, 68, 196);
+    public static final Color ARCANE_SPIRIT_COLOR = new Color(201, 85, 245);
     public static MalumSpiritType ARCANE_SPIRIT = create("arcane", ARCANE_SPIRIT_COLOR, ItemRegistry.ARCANE_SPIRIT);
 
-    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(142, 62, 234, 255);
-    public static MalumSpiritType ELDRITCH_SPIRIT = create("eldritch", ELDRITCH_SPIRIT_COLOR, ItemRegistry.ELDRITCH_SPIRIT);
+    public static final Color ELDRITCH_SPIRIT_COLOR = new Color(102, 70, 241);
+    public static MalumSpiritType ELDRITCH_SPIRIT = create("eldritch", ELDRITCH_SPIRIT_COLOR, new Color(68, 32, 232), ItemRegistry.ELDRITCH_SPIRIT);
 
     public static final Color AERIAL_SPIRIT_COLOR = new Color(51, 229, 155);
     public static MalumSpiritType AERIAL_SPIRIT = create("aerial", AERIAL_SPIRIT_COLOR, ItemRegistry.AERIAL_SPIRIT);
@@ -52,6 +52,12 @@ public class SpiritTypeRegistry
     public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)
     {
         MalumSpiritType spiritType = new MalumSpiritType(identifier, color, splinterItem);
+        SPIRITS.add(spiritType);
+        return spiritType;
+    }
+    public static MalumSpiritType create(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem)
+    {
+        MalumSpiritType spiritType = new MalumSpiritType(identifier, color, endColor, splinterItem);
         SPIRITS.add(spiritType);
         return spiritType;
     }

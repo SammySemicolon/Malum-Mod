@@ -27,7 +27,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
@@ -129,7 +128,6 @@ public class SoulHarvestHandler {
                 }
                 if (isUsingStave) {
                     //harvest soul
-                    ItemStack stack = player.getUseItem();
                     if (player.level instanceof ServerLevel) {
                         if (c.targetedSoulUUID != null) {
                             Entity entity = player.level.getEntity(c.targetedSoulId);
@@ -152,8 +150,7 @@ public class SoulHarvestHandler {
                                         ec.soulless = true;
                                         ec.ownerUUID = player.getUUID();
                                         player.swing(player.getUsedItemHand(), true);
-                                        player.getCooldowns().addCooldown(stack.getItem(), 100);
-                                        player.stopUsingItem();
+                                        player.releaseUsingItem();
                                         LivingEntityDataCapability.sync(livingEntity);
                                     }
                                 });

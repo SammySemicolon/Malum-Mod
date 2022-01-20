@@ -34,11 +34,11 @@ public class  ItemPedestalRenderer implements BlockEntityRenderer<ItemPedestalBl
             Vector3f offset = new Vector3f(ItemPedestalBlockEntity.itemOffset());
             if (stack.getItem() instanceof MalumSpiritItem)
             {
-                double y = Math.sin(((level.getGameTime() + partialTicks) % 360) / 20f) * 0.1f;
+                double y = Math.sin(((level.getGameTime() + partialTicks) ) / 20f) * 0.1f;
                 poseStack.translate(0, y, 0);
             }
             poseStack.translate(offset.x(), offset.y(), offset.z());
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() % 360)* 3 + partialTicks));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() )* 3 + partialTicks));
             poseStack.scale(0.6f, 0.6f, 0.6f);
             itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

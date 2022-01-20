@@ -32,6 +32,14 @@ public class MalumSpiritType
         this.splinterItem = splinterItem;
     }
 
+    public MalumSpiritType(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem)
+    {
+        this.identifier = identifier;
+        this.color = color;
+        this.endColor = endColor;
+        this.splinterItem = splinterItem;
+    }
+
     public Color createEndColor(Color color) {
         return new Color(color.getGreen(), color.getBlue(), color.getRed());
     }

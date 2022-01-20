@@ -15,7 +15,7 @@ public interface ISoulContainerItem {
 
     public default InteractionResultHolder<ItemStack> fetchSoul(Player player, InteractionHand pHand)
     {
-        ArrayList<SoulEntity> entities = new ArrayList<>(player.level.getEntitiesOfClass(SoulEntity.class, player.getBoundingBox().inflate(player.getAttributeValue(ForgeMod.REACH_DISTANCE.get()))));
+        ArrayList<SoulEntity> entities = new ArrayList<>(player.level.getEntitiesOfClass(SoulEntity.class, player.getBoundingBox().inflate(player.getAttributeValue(ForgeMod.REACH_DISTANCE.get())*0.4f)));
         double biggestAngle = 0;
         SoulEntity chosenEntity = null;
         for (SoulEntity entity : entities) {

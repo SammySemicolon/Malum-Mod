@@ -54,7 +54,7 @@ public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implemen
             if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem item) {
                 Vec3 pos = itemPos(this);
                 double x = pos.x;
-                double y = pos.y + Math.sin((level.getGameTime() % 360) / 20f) * 0.1f;
+                double y = pos.y + Math.sin((level.getGameTime() ) / 20f) * 0.1f;
                 double z = pos.z;
                 SpiritHelper.spawnSpiritParticles(level, x, y, z, item.type.color, item.type.endColor);
             }

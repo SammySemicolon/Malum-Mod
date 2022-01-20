@@ -49,8 +49,7 @@ public class ObeliskCoreBlockEntity extends MultiBlockCoreEntity implements IAlt
                 .setScale(0.2f+level.random.nextFloat()*0.1f, 0)
                 .randomOffset(0.02f)
                 .randomVelocity(0.01f, 0.01f)
-                .setColor(endColor, color)
-                .setColorCurveMultiplier(0.5f)
+                .setColor(color, endColor)
                 .setSpin(0.1f + level.random.nextFloat()*0.2f)
                 .randomVelocity(0.0025f, 0.0025f)
                 .enableNoClip()
@@ -63,7 +62,6 @@ public class ObeliskCoreBlockEntity extends MultiBlockCoreEntity implements IAlt
                 .randomOffset(0.1, 0.1)
                 .randomVelocity(0.02f, 0.02f)
                 .setColor(color, endColor)
-                .setColorCurveMultiplier(0.75f)
                 .randomVelocity(0.0025f, 0.0025f)
                 .enableNoClip()
                 .repeat(level, startPos.x, startPos.y, startPos.z, 2);

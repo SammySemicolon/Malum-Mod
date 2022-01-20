@@ -31,7 +31,7 @@ public class SoulVialBlock extends WaterLoggedBlock<SoulVialBlockEntity>
         shape = Shapes.join(shape, Shapes.box(0.21875, 0.03125, 0.21875, 0.78125, 0.78125, 0.78125), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.28125, 0.84375, 0.28125, 0.71875, 0.96875, 0.71875), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.34375, 0.78125, 0.34375, 0.65625, 0.84375, 0.65625), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.34375, 0, 0.34375, 0.65625, 0.0625, 0.65625), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.34375, -0.03125, 0.34375, 0.65625, 0.03125, 0.65625), BooleanOp.OR);
 
         return shape;
     }

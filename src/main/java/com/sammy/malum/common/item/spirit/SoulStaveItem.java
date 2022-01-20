@@ -37,7 +37,7 @@ public class SoulStaveItem extends Item implements ISoulContainerItem {
         if (otherStack.getItem() instanceof ISoulContainerItem) {
             return InteractionResultHolder.fail(stack);
         }
-        if (!soul.spiritData.equals(MalumEntitySpiritData.EMPTY) && (!stack.hasTag() || (stack.hasTag() && !stack.getOrCreateTag().contains(MalumEntitySpiritData.NBT)))) {
+        if (!soul.spiritData.equals(MalumEntitySpiritData.EMPTY) && (!stack.getOrCreateTag().contains(MalumEntitySpiritData.NBT))) {
             soul.spiritData.saveTo(stack.getOrCreateTag());
             soul.discard();
             pPlayer.swing(pHand, true);

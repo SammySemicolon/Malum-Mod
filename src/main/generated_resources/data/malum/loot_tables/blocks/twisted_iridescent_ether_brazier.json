@@ -1,16 +1,13 @@
 {
   "type": "minecraft:block",
-  "pools":
-  [
+  "pools": [
     {
-      "rolls": 1,
-      "entries":
-      [
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:iridescent_ether",
-          "functions":
-          [
+          "functions": [
             {
               "function": "minecraft:copy_name",
               "source": "block_entity"
@@ -18,8 +15,7 @@
             {
               "function": "minecraft:copy_nbt",
               "source": "block_entity",
-              "ops":
-              [
+              "ops": [
                 {
                   "source": "Level_key",
                   "target": "BlockEntityTag.Level_key",
@@ -37,7 +33,13 @@
                 }
               ]
             }
-          ]
+          ],
+          "name": "malum:twisted_iridescent_ether_brazier"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }

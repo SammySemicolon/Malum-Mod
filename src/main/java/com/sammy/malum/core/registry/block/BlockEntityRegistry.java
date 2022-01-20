@@ -92,6 +92,7 @@ public class BlockEntityRegistry
             event.registerBlockEntityRenderer(ITEM_STAND.get(), ItemStandRenderer::new);
             event.registerBlockEntityRenderer(ITEM_PEDESTAL.get(), ItemPedestalRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_JAR.get(), SpiritJarRenderer::new);
+            event.registerBlockEntityRenderer(SOUL_VIAL.get(), SoulVialRenderer::new);
             event.registerBlockEntityRenderer(SIGN_BLOCK_ENTITY.get(), SignRenderer::new);
         }
     }

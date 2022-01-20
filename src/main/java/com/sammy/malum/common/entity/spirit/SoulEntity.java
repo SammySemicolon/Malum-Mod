@@ -69,7 +69,7 @@ public class SoulEntity extends FloatingEntity {
             double lerpX = Mth.lerp(i / 8.0f, x-motion.x, x);
             double lerpY = Mth.lerp(i / 8.0f, y-motion.y, y);
             double lerpZ = Mth.lerp(i / 8.0f, z-motion.z, z);
-            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.125f, norm, color, endColor);
+            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.125f, 1, norm, color, endColor);
         }
     }
 
