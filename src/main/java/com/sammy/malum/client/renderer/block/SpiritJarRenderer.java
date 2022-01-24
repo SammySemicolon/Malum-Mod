@@ -28,7 +28,7 @@ public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarBlockEnti
         if (blockEntityIn.type != null)
         {
             poseStack.pushPose();
-            double y =  0.5f + Math.sin(blockEntityIn.getLevel().getGameTime() / 20f) * 0.2f;
+            double y =  0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f;
             poseStack.translate(0.5f,y,0.5f);
             poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() ) + partialTicks) * 3));
             poseStack.scale(0.6f, 0.6f, 0.6f);

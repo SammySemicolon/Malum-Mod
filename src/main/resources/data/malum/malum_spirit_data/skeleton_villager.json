@@ -3,11 +3,11 @@
   "primary_type": "arcane",
   "spirits": [
     {
-      "spirit": "wicked",
+      "spirit": "arcane",
       "count": 1
     },
     {
-      "spirit": "arcane",
+      "spirit": "wicked",
       "count": 1
     }
   ]

@@ -3,12 +3,14 @@ package com.sammy.malum.core.systems.spirit;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class MalumEntitySpiritData
 {
-    public static final String NBT = "spirit_data";
+    public static final String NBT = "soul_data";
     public static final MalumEntitySpiritData EMPTY = new MalumEntitySpiritData(SpiritTypeRegistry.SACRED_SPIRIT, new ArrayList<>());
     public final MalumSpiritType primaryType;
     public final int totalCount;
@@ -21,6 +23,10 @@ public class MalumEntitySpiritData
         this.dataEntries = dataEntries;
     }
 
+    public ArrayList<Component> createTooltip()
+    {
+        return dataEntries.stream().map(DataEntry::getComponent).collect(Collectors.toCollection(ArrayList::new));
+    }
     public void saveTo(CompoundTag tag)
     {
         tag.put(NBT, save());
@@ -31,7 +37,7 @@ public class MalumEntitySpiritData
         tag.putInt("dataAmount", dataEntries.size());
         for (int i = 0; i < dataEntries.size(); i++) {
             CompoundTag dataTag = dataEntries.get(i).save(new CompoundTag());
-            dataTag.put("dataEntry"+i, dataTag);
+            tag.put("dataEntry"+i, dataTag);
         }
         return tag;
     }
@@ -61,7 +67,10 @@ public class MalumEntitySpiritData
             this.type = type;
             this.count = count;
         }
-
+        public Component getComponent()
+        {
+            return type.getComponent(count);
+        }
         public CompoundTag save(CompoundTag tag)
         {
             tag.putString("type", type.identifier);

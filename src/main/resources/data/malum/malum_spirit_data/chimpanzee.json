@@ -3,11 +3,11 @@
   "primary_type": "earthen",
   "spirits": [
     {
-      "spirit": "earthen",
+      "spirit": "sacred",
       "count": 1
     },
     {
-      "spirit": "sacred",
+      "spirit": "earthen",
       "count": 1
     }
   ]

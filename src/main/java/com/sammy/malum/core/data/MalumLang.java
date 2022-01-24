@@ -4,9 +4,13 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
+import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -25,13 +29,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
 import static com.sammy.malum.core.registry.AttributeRegistry.ATTRIBUTES;
 import static com.sammy.malum.core.registry.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.registry.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.registry.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends LanguageProvider
 {
@@ -53,21 +57,26 @@ public class MalumLang extends LanguageProvider
         Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
         ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.entries;
         ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
-        DataHelper.takeAll(items, i -> i.get() instanceof BlockItem);
+        ArrayList<MalumSpiritType> spirits = SpiritTypeRegistry.SPIRITS;
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallEtherTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
         blocks.forEach(b ->
         {
             String name = b.get().getDescriptionId().replaceFirst("block.malum.", "");
-            name = DataHelper.toTitleCase(specialBlockNameChanges(name), "_");
+            name = DataHelper.toTitleCase(correctBlockItemName(name), "_");
             add(b.get().getDescriptionId(), name);
         });
-
+        DataHelper.getAll(items, i -> i.get() instanceof ISoulContainerItem || i.get() instanceof SpiritJarItem).forEach(i -> {
+            String name = i.get().getDescriptionId().replaceFirst("item.malum.", "").replaceFirst("block.malum.", "");
+            String filled = "filled_" + name;
+            add("item.malum." + filled, DataHelper.toTitleCase(filled, "_"));
+        });
+        DataHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         items.forEach(i ->
         {
             String name = i.get().getDescriptionId().replaceFirst("item.malum.", "");
-            name = DataHelper.toTitleCase(specialBlockNameChanges(name), "_");
+            name = DataHelper.toTitleCase(correctBlockItemName(name), "_");
             add(i.get().getDescriptionId(), name);
         });
 
@@ -96,6 +105,8 @@ public class MalumLang extends LanguageProvider
         });
 
         rites.forEach(r -> add(r.translationIdentifier(), DataHelper.toTitleCase(r.identifier, "_")));
+
+        spirits.forEach(s -> add(s.getDescription(), DataHelper.toTitleCase(s.identifier+"_spirit", "_")));
 
         coolerBookEntries.forEach(b -> add(b.translationKey(), DataHelper.toTitleCase(b.identifier, "_")));
 
@@ -369,6 +380,9 @@ public class MalumLang extends LanguageProvider
         addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
         addPage("3000_dollars_for_a_brewing_stand", "hey apple");
 
+        add("malum.spirit.description.stored_spirit", "Contains: ");
+        add("malum.spirit.description.stored_soul", "Stores Soul With: ");
+
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_focusing", "Spirit Focusing");
         add("malum.jei.spirit_rite", "Spirit Rite");
@@ -381,7 +395,7 @@ public class MalumLang extends LanguageProvider
 
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
-        add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits dropped from shattering souls.");
+        add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
     }
 
     @Override
@@ -407,7 +421,7 @@ public class MalumLang extends LanguageProvider
         add("malum.tooltip." + identifier, tooltip);
     }
 
-    public String specialBlockNameChanges(String name)
+    public String correctBlockItemName(String name)
     {
         if ((!name.endsWith("_bricks")))
         {

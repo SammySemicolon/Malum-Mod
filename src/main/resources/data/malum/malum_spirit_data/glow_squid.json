@@ -5,6 +5,10 @@
     {
       "spirit": "aqueous",
       "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
     }
   ]
 }

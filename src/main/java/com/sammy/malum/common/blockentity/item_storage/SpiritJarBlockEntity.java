@@ -114,13 +114,14 @@ public class SpiritJarBlockEntity extends SimpleBlockEntity {
     public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
         Color color = type.color;
         RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.4f, 0f)
+                .setAlpha(0.15f, 0f)
                 .setLifetime(20)
                 .setScale(0.3f, 0)
                 .setSpin(0.2f)
+                .randomVelocity(0.02f)
                 .randomOffset(0.1f, 0.1f)
                 .setColor(color, color.darker())
                 .enableNoClip()
-                .repeat(level, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, 10);
+                .repeat(level, pos.getX()+0.5f, pos.getY()+0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f, pos.getZ()+0.5f, 10);
     }
 }

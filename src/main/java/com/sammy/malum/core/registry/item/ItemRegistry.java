@@ -14,7 +14,6 @@ import com.sammy.malum.common.item.BrillianceChunkItem;
 import com.sammy.malum.common.item.EncyclopediaArcanaItem;
 import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
-import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SpiritHunterArmorItem;
 import com.sammy.malum.common.item.equipment.armor.vanity.DripArmorItem;
@@ -28,16 +27,17 @@ import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.misc.MalumBoatItem;
 import com.sammy.malum.common.item.misc.MalumFuelBlockItem;
 import com.sammy.malum.common.item.misc.MalumFuelItem;
+import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.*;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.registry.EntityRegistry;
 import com.sammy.malum.core.registry.block.BlockRegistry;
 import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
 import com.sammy.malum.core.registry.item.tabs.MalumBuildingTab;
 import com.sammy.malum.core.registry.item.tabs.MalumCreativeTab;
 import com.sammy.malum.core.registry.item.tabs.MalumNatureTab;
 import com.sammy.malum.core.registry.item.tabs.MalumSplinterTab;
-import com.sammy.malum.core.registry.EntityRegistry;
 import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -60,7 +60,6 @@ import java.util.Set;
 
 import static com.sammy.malum.MalumMod.MODID;
 import static com.sammy.malum.core.helper.ColorHelper.brighter;
-import static com.sammy.malum.core.helper.ColorHelper.darker;
 import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.registry.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
@@ -345,7 +344,7 @@ public class ItemRegistry {
 
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new BlockItem(BlockRegistry.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new SpiritJarItem(BlockRegistry.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_VIAL = ITEMS.register("soul_vial", () -> new SoulVialItem(BlockRegistry.SOUL_VIAL.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = ITEMS.register("runewood_obelisk", () -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), DEFAULT_PROPERTIES(), ObeliskCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = ITEMS.register("spirit_crucible", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), DEFAULT_PROPERTIES(), SpiritCrucibleCoreBlockEntity.STRUCTURE));
@@ -532,7 +531,7 @@ public class ItemRegistry {
             registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
             registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
             registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));
-            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, darker(ELDRITCH_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, ELDRITCH_SPIRIT_COLOR);
             registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR, 1));
             registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(AQUEOUS_SPIRIT_COLOR, 1));
             registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR, 1));
