@@ -31,15 +31,15 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
             if (playerEntity.getUUID().equals(UUID.fromString(CurioTokenOfGratitude.SAMMY)))
             {
                 poseStack.pushPose();
-                double curSpeed = playerEntity.getDeltaMovement().length();
-                if (curSpeed != 0.0)
+                double wagSpeed = playerEntity.getDeltaMovement().length();
+                if (wagSpeed != 0.0)
                 {
-                    Vec3 A = new Vec3(playerEntity.getDeltaMovement().x, 0.0, playerEntity.getDeltaMovement().z);
+                    Vec3 horizontalPlayerVelocity = new Vec3(playerEntity.getDeltaMovement().x, 0.0, playerEntity.getDeltaMovement().z);
                     Vec3 yawLook = Vec3.directionFromRotation(0.0f, playerEntity.getYRot());
                     Vec3 look = new Vec3(yawLook.x, 0.0, yawLook.z);
                     Vec3 desiredDirection = look.yRot((float) Math.toRadians(90)).normalize();
-                    Vec3 sidewaysVelocity = desiredDirection.scale(A.dot(desiredDirection));
-                    double speedAndDirection = (sidewaysVelocity.length() * -Math.signum(desiredDirection.dot(sidewaysVelocity))) / curSpeed;
+                    Vec3 sidewaysVelocity = desiredDirection.scale(horizontalPlayerVelocity.dot(desiredDirection));
+                    double speedAndDirection = (sidewaysVelocity.length() * -Math.signum(desiredDirection.dot(sidewaysVelocity))) / wagSpeed;
                     double rotation = speedAndDirection * 55;
                     poseStack.mulPose(Vector3f.YP.rotationDegrees((float) rotation));
                 }

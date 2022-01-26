@@ -354,7 +354,7 @@ public class MalumLang extends LanguageProvider
         addDescription("aerial_rite", "Light Arcana");
         addPage("aerial_rite", "The aerial rite provides one of many auras. Nearby players will receive a boost to movement speed.");
         addPage("corrupted_aerial_rite", "The effect of the rite is altered, horizontal mobility turns into vertical agility.");
-        addPage("eldritch_aerial_rite", "The rite is twisted into something greater, nearby blocks will start to experience gravity.");
+        addPage("eldritch_aerial_rite", "The rite is twisted into something greater, blocks below will start to experience gravity.");
         addPage("corrupted_eldritch_aerial_rite", "Have you ever wondered what the clouds feel like?");
 
         addDescription("aqueous_rite", "Loyalty");

@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "malum:tainted_rock_wall",
+    "malum:tainted_rock_bricks_wall",
+    "malum:small_tainted_rock_bricks_wall",
+    "malum:cracked_tainted_rock_bricks_wall",
+    "malum:tainted_rock_tiles_wall",
+    "malum:cracked_small_tainted_rock_bricks_wall",
+    "malum:cracked_tainted_rock_tiles_wall",
+    "malum:twisted_rock_wall",
+    "malum:twisted_rock_bricks_wall",
+    "malum:small_twisted_rock_bricks_wall",
+    "malum:cracked_twisted_rock_bricks_wall",
+    "malum:twisted_rock_tiles_wall",
+    "malum:cracked_small_twisted_rock_bricks_wall",
+    "malum:cracked_twisted_rock_tiles_wall"
+  ]
+}

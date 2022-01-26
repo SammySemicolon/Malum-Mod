@@ -7,8 +7,8 @@ public class CommonConfig {
 
     //worldgen
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_RUNEWOOD_TREES;
-    public static ForgeConfigSpec.ConfigValue<Float> COMMON_RUNEWOOD_CHANCE;
-    public static ForgeConfigSpec.ConfigValue<Float> RARE_RUNEWOOD_CHANCE;
+    public static ForgeConfigSpec.DoubleValue COMMON_RUNEWOOD_CHANCE;
+    public static ForgeConfigSpec.DoubleValue RARE_RUNEWOOD_CHANCE;
 
     public static ForgeConfigSpec.ConfigValue<Boolean> GENERATE_BLAZE_QUARTZ;
     public static ForgeConfigSpec.ConfigValue<Integer> BLAZE_QUARTZ_SIZE;
@@ -36,12 +36,12 @@ public class CommonConfig {
     public static ForgeConfigSpec.ConfigValue<Boolean> ULTIMATE_REBOUND;
 
     //affinity
-    public static ForgeConfigSpec.ConfigValue<Float> SOUL_WARD_PHYSICAL;
-    public static ForgeConfigSpec.ConfigValue<Float> SOUL_WARD_MAGIC;
+    public static ForgeConfigSpec.DoubleValue SOUL_WARD_PHYSICAL;
+    public static ForgeConfigSpec.DoubleValue SOUL_WARD_MAGIC;
     public static ForgeConfigSpec.ConfigValue<Integer> SOUL_WARD_RATE;
 
-    public static ForgeConfigSpec.ConfigValue<Float> HEART_OF_STONE_COST;
-    public static ForgeConfigSpec.ConfigValue<Float> HEART_OF_STONE_RATE;
+    public static ForgeConfigSpec.DoubleValue HEART_OF_STONE_COST;
+    public static ForgeConfigSpec.ConfigValue<Integer> HEART_OF_STONE_RATE;
 
 
 
@@ -52,9 +52,9 @@ public class CommonConfig {
         GENERATE_RUNEWOOD_TREES = builder.comment("Should runewood trees naturally generate?")
                 .define("generateRunewood", true);
         COMMON_RUNEWOOD_CHANCE = builder.comment("Chance for runewood trees to generate in open biomes such as plains.")
-                .define("runewoodCommonChance", 0.02f);
+                .defineInRange("runewoodCommonChance", 0.02d, 0, 1);
         RARE_RUNEWOOD_CHANCE = builder.comment("Chance for runewood trees to generate in forest biomes.")
-                .define("runewoodRareChance", 0.01f);
+                .defineInRange("runewoodRareChance", 0.01d, 0, 1);
         builder.pop();
 
         builder.comment("Blaze Quartz Config").push("blaze_quartz");
@@ -118,10 +118,10 @@ public class CommonConfig {
 
         builder.comment("Soul Ward").push("soul_ward");
         SOUL_WARD_PHYSICAL = builder.comment("Multiplier for physical damage taken while soul ward is active.")
-                .define("soulWardPhysical", 0.7f);
+                .defineInRange("soulWardPhysical", 0.7f, 0, 1);
 
         SOUL_WARD_MAGIC = builder.comment("Multiplier for magic damage taken while soul ward is active.")
-                .define("soulWardMagic", 0.1f);
+                .defineInRange("soulWardMagic", 0.1f, 0, 1);
 
         SOUL_WARD_RATE = builder.comment("Base time in ticks it takes for one point of soul ward to recover.")
                 .define("soulWardRate", 60);
@@ -129,10 +129,10 @@ public class CommonConfig {
 
         builder.comment("Heart of Stone").push("heart_of_stone");
         HEART_OF_STONE_COST = builder.comment("Amount of hunger consumed when recovering a point of heart of stone. Do note that this will only matter if the player has the earthen affinity.")
-                .define("heartOfStoneCost", 0.2f);
+                .defineInRange("heartOfStoneCost", 0.2d, 0, 1);
 
         HEART_OF_STONE_RATE = builder.comment("Base time in ticks it takes for one point of heart of stone to recover.")
-                .define("heartOfStoneRate", 40f);
+                .define("heartOfStoneRate", 40);
         builder.pop();
 
         builder.pop();
