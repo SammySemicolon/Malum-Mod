@@ -8,6 +8,7 @@ import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.item.spirit.ScytheItem;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
+import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.registry.AttributeRegistry;
@@ -15,10 +16,12 @@ import com.sammy.malum.core.registry.DamageSourceRegistry;
 import com.sammy.malum.core.registry.item.ItemTagRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SoulHarvestHandler;
+import com.sammy.malum.core.systems.spirit.SpiritDataReloadListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -29,6 +32,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class RuntimeEvents {
+
     @SubscribeEvent
     public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event) {
         PlayerDataCapability.attachPlayerCapability(event);
@@ -73,6 +77,10 @@ public class RuntimeEvents {
         EarthenAffinity.recoverHeartOfStone(event);
         SoulHarvestHandler.playerTick(event);
     }
+    @SubscribeEvent
+    public static void registerListeners(AddReloadListenerEvent event) {
+        SpiritDataReloadListener.register(event);
+    }
 
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
@@ -107,10 +115,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
-    public static void triggerEventResponses(LivingDeathEvent event) {
-        if (event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId())) {
-            return;
-        }
+    public static void onDeath(LivingDeathEvent event) {
         if (event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER.getMsgId())) {
             SpiritHelper.createSpiritEntities(event.getEntityLiving());
             return;
@@ -123,12 +128,14 @@ public class RuntimeEvents {
                 stack = scytheBoomerang.scythe;
             }
             ItemStack finalStack = stack;
-            LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
-                if (e.exposedSoul > 0 && !e.soulless) {
-                    SpiritHelper.createSpiritsFromWeapon(target, attacker, finalStack);
-                    e.soulless = true;
-                }
-            });
+            if (!event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId())) {
+                LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
+                    if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
+                        SpiritHelper.createSpiritsFromWeapon(target, attacker, finalStack);
+                        e.soulless = true;
+                    }
+                });
+            }
 
             ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem) s.getItem()).killEvent(event, attacker, target, s));
         }

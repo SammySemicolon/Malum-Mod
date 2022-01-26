@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraftforge.event.AddReloadListenerEvent;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -20,6 +21,10 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
     public SpiritDataReloadListener()
     {
         super(GSON, "malum_spirit_data");
+    }
+
+    public static void register(AddReloadListenerEvent event) {
+        event.addListener(new SpiritDataReloadListener());
     }
 
     @Override
