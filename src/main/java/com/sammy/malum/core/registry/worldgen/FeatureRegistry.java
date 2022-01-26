@@ -49,9 +49,9 @@ public class FeatureRegistry {
     public static void register(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             RUNEWOOD_TREE_FEATURE = registerPlacedFeature("common_runewood", RUNEWOOD_TREE.get().configured(INSTANCE),
-                    InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, PlacementUtils.countExtra(0, CommonConfig.COMMON_RUNEWOOD_CHANCE.get(), 3));
+                    InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, PlacementUtils.countExtra(0, CommonConfig.COMMON_RUNEWOOD_CHANCE.get().floatValue(), 3));
             RARE_RUNEWOOD_TREE_FEATURE = registerPlacedFeature("rare_runewood", RUNEWOOD_TREE.get().configured(INSTANCE),
-                    InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, PlacementUtils.countExtra(0, CommonConfig.RARE_RUNEWOOD_CHANCE.get(), 2));
+                    InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, PlacementUtils.countExtra(0, CommonConfig.RARE_RUNEWOOD_CHANCE.get().floatValue(), 2));
 
             BLAZING_QUARTZ_FEATURE = registerPlacedFeature("blazing_quartz", Feature.ORE.configured(
                             new OreConfiguration(IN_NETHERRACK, BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState(),

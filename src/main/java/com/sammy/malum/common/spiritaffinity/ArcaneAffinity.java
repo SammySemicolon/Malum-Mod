@@ -71,8 +71,8 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                 {
                     DamageSource source = event.getSource();
                     float amount = event.getAmount();
-                    double multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get() : CommonConfig.SOUL_WARD_PHYSICAL.get();
-                    float result = (float) (amount * multiplier);
+                    float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.get().floatValue();
+                    float result = amount * multiplier;
                     float absorbed = amount - result;
                     double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH);
                     if (strength != 0) {
