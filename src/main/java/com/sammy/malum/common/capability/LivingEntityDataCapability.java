@@ -30,6 +30,7 @@ public class LivingEntityDataCapability implements SimpleCapability {
     public float soulHarvestProgress;
     public float exposedSoul;
     public boolean soulless;
+    public boolean spawnerSpawned;
     public UUID ownerUUID;
 
     public float getPreviewProgress()
@@ -58,6 +59,7 @@ public class LivingEntityDataCapability implements SimpleCapability {
         tag.putFloat("soulHarvestProgress", soulHarvestProgress);
         tag.putFloat("exposedSoul", exposedSoul);
         tag.putBoolean("soulless", soulless);
+        tag.putBoolean("spawnerSpawned", spawnerSpawned);
         if (ownerUUID != null) {
             tag.putUUID("ownerUUID", ownerUUID);
         }
@@ -69,6 +71,7 @@ public class LivingEntityDataCapability implements SimpleCapability {
         soulHarvestProgress = tag.getFloat("soulHarvestProgress");
         exposedSoul = tag.getFloat("exposedSoul");
         soulless = tag.getBoolean("soulless");
+        spawnerSpawned = tag.getBoolean("spawnerSpawned");
         if (tag.contains("ownerUUID")) {
             ownerUUID = tag.getUUID("ownerUUID");
         }

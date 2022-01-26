@@ -35,6 +35,9 @@ public class CommonConfig {
     //item
     public static ForgeConfigSpec.ConfigValue<Boolean> ULTIMATE_REBOUND;
 
+    //spirit
+    public static ForgeConfigSpec.ConfigValue<Boolean> SOULLESS_SPAWNERS;
+
     //affinity
     public static ForgeConfigSpec.DoubleValue SOUL_WARD_PHYSICAL;
     public static ForgeConfigSpec.DoubleValue SOUL_WARD_MAGIC;
@@ -112,6 +115,15 @@ public class CommonConfig {
         builder.comment("Scythe Settings").push("scythe");
         ULTIMATE_REBOUND = builder.comment("If set to true, you may put rebound on any weapon in the game.")
                 .define("enableUltimateRebound", false);
+        builder.pop();
+
+        builder.pop();
+
+        builder.comment("Spirit Settings").push("spirit");
+
+        SOULLESS_SPAWNERS = builder.comment("If set to true, mob spawners will create soulless mobs instead.")
+                .define("lameSpawners", false);
+
         builder.pop();
 
         builder.comment("Spirit Affinity Settings").push("spirit_affinity");

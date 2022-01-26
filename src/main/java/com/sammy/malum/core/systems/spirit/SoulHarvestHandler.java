@@ -25,6 +25,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
@@ -33,6 +34,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.network.PacketDistributor;
 
@@ -54,6 +56,16 @@ public class SoulHarvestHandler {
         }
     }
 
+    public static void specialSpawn(LivingSpawnEvent.SpecialSpawn event)
+    {
+        if (event.getEntity() instanceof LivingEntity livingEntity) {
+            LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
+                if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
+                    ec.spawnerSpawned = true;
+                }
+            });
+        }
+    }
     public static void addEntity(EntityJoinWorldEvent event)
     {
         if (event.getEntity() instanceof LivingEntity livingEntity) {

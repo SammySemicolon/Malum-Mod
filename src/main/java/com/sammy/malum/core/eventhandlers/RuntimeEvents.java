@@ -22,10 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -46,9 +43,15 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
+    public static void onEntityJoin(LivingSpawnEvent.SpecialSpawn event) {
+        SoulHarvestHandler.specialSpawn(event);
+    }
+
+    @SubscribeEvent
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
         CorruptedAerialAura.onEntityJump(event);
     }
+
     @SubscribeEvent
     public static void onLivingTarget(LivingSetAttackTargetEvent event) {
         SoulHarvestHandler.entityTarget(event);
@@ -121,8 +124,7 @@ public class RuntimeEvents {
             }
             ItemStack finalStack = stack;
             LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
-                if (e.exposedSoul > 0 && !e.soulless)
-                {
+                if (e.exposedSoul > 0 && !e.soulless) {
                     SpiritHelper.createSpiritsFromWeapon(target, attacker, finalStack);
                     e.soulless = true;
                 }
