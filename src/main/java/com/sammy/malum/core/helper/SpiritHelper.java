@@ -45,6 +45,13 @@ public class SpiritHelper {
         createSpiritEntities(spirits, target, attacker);
     }
 
+    public static void createSpiritEntities(LivingEntity target, LivingEntity attacker) {
+        ArrayList<ItemStack> spirits = getSpiritItemStacks(target);
+        if (!spirits.isEmpty()) {
+            createSpiritEntities(spirits, target, attacker);
+        }
+    }
+
     public static void createSpiritEntities(LivingEntity target) {
         ArrayList<ItemStack> spirits = getSpiritItemStacks(target);
         if (!spirits.isEmpty()) {

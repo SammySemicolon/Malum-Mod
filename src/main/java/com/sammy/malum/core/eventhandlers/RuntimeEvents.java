@@ -120,8 +120,18 @@ public class RuntimeEvents {
             SpiritHelper.createSpiritEntities(event.getEntityLiving());
             return;
         }
-        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-            LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntityLiving();
+        LivingEntity attacker = null;
+        if (event.getSource().getEntity() instanceof LivingEntity directAttacker)
+        {
+            attacker = directAttacker;
+        }
+        if (attacker == null)
+        {
+            attacker = target.getLastHurtByMob();
+        }
+        if (attacker != null) {
+            LivingEntity finalAttacker = attacker;
             ItemStack stack = attacker.getMainHandItem();
             DamageSource source = event.getSource();
             if (source.getDirectEntity() instanceof ScytheBoomerangEntity scytheBoomerang) {
@@ -131,13 +141,13 @@ public class RuntimeEvents {
             if (!event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId())) {
                 LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
                     if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
-                        SpiritHelper.createSpiritsFromWeapon(target, attacker, finalStack);
+                        SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
                         e.soulless = true;
                     }
                 });
             }
 
-            ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem) s.getItem()).killEvent(event, attacker, target, s));
+            ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem) s.getItem()).killEvent(event, finalAttacker, target, s));
         }
     }
 }

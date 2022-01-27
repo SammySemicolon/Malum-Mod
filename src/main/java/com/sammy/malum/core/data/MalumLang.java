@@ -164,7 +164,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("hex_ash", "Hex Ash");
         addPage("hex_ash", "Hex ash is a simple magical powder used in various infusions as a minor component. The ash can animate inanimate things, even bring them to life in some extreme cases.");
 
-        addDescription("simple_spirits", "Primal Arcana");
+        addDescription("simple_spirits", "Primary Arcana");
         addHeadline("sacred_spirit", "Sacred Spirit");
         addPage("sacred_spirit_a", "Sacred spirit derives from two concepts, the pure and the holy. Sacred arcana is generally focused on various forms of healing and other curative effects.");
         addPage("sacred_spirit_b", "The sacred spirit is found mainly within passive, relaxed souls. Easy targets really.");
@@ -284,7 +284,7 @@ public class MalumLang extends LanguageProvider
 
         addDescription("warded_belt", "Immovable");
         addHeadline("warded_belt", "Warded Belt");
-        addPage("warded_belt", "By taking the already armored design of a gilded belt and imbuing it with earthen arcana and a tained rock reinforcement we can create a powerful belt which serves as a great defense.");
+        addPage("warded_belt", "By taking the already armored design of a gilded belt and imbuing it with earthen arcana and a tainted rock reinforcement we can create a powerful belt which serves as a great protective piece of gear.");
 
         addDescription("ring_of_curative_talent", "Arcane Vigor");
         addHeadline("ring_of_curative_talent", "Ring of Curative Talent");
