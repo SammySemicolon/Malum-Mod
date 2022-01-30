@@ -26,7 +26,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
 
     @Override
     public int interval(boolean corrupted) {
-        return corrupted ? defaultInterval() : defaultInterval() * 5;
+        return corrupted ? defaultInterval() : defaultInterval() * 3;
     }
 
     @Override

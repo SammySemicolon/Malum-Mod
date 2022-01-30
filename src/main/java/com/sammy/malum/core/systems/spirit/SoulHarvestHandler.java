@@ -35,7 +35,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
@@ -48,13 +47,6 @@ import static com.sammy.malum.core.systems.rendering.RenderUtilities.renderQuad;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {
-    public static void onStartTracking(PlayerEvent.StartTracking event) {
-        if (event.getTarget() instanceof LivingEntity livingEntity) {
-            if (livingEntity.level instanceof ServerLevel) {
-                LivingEntityDataCapability.sync(livingEntity);
-            }
-        }
-    }
 
     public static void specialSpawn(LivingSpawnEvent.SpecialSpawn event)
     {

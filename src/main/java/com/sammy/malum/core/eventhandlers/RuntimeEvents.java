@@ -68,7 +68,8 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onStartTracking(PlayerEvent.StartTracking event) {
-        SoulHarvestHandler.onStartTracking(event);
+        LivingEntityDataCapability.syncEntityCapability(event);
+        PlayerDataCapability.syncPlayerCapability(event);
     }
 
     @SubscribeEvent

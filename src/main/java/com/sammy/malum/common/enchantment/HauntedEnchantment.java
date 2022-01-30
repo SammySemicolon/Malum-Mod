@@ -21,7 +21,7 @@ public class HauntedEnchantment extends Enchantment
         {
             if (entity.isAlive()) {
                 entity.invulnerableTime = 0;
-                entity.hurt(DamageSourceRegistry.causeNoShatterVoodooDamage(user), level + 1);
+                entity.hurt(DamageSourceRegistry.causeVoodooDamage(user), level + 1);
             }
         }
         super.doPostAttack(user, target, level);

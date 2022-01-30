@@ -6,6 +6,7 @@ import com.sammy.malum.core.systems.capability.SimpleCapability;
 import com.sammy.malum.core.systems.capability.SimpleCapabilityProvider;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.capabilities.Capability;
@@ -13,6 +14,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.UUID;
@@ -52,6 +54,13 @@ public class LivingEntityDataCapability implements SimpleCapability {
         }
     }
 
+    public static void syncEntityCapability(PlayerEvent.StartTracking event) {
+        if (event.getTarget() instanceof LivingEntity livingEntity) {
+            if (livingEntity.level instanceof ServerLevel) {
+                LivingEntityDataCapability.sync(livingEntity);
+            }
+        }
+    }
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();

@@ -41,7 +41,7 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem
 
             if (target.isAlive()) {
                 target.invulnerableTime = 0;
-                target.hurt(DamageSourceRegistry.causeNoShatterVoodooDamage(attacker), spiritCount);
+                target.hurt(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount);
             }
             attacker.level.playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH, SoundSource.PLAYERS, 1, 1f + target.level.random.nextFloat() * 0.25f);
             INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MagicParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));

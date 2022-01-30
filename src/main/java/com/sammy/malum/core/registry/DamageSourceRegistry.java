@@ -13,9 +13,6 @@ public class DamageSourceRegistry {
     public static DamageSource causeVoodooDamage(Entity attacker) {
         return new EntityDamageSource("voodoo", attacker).setMagic();
     }
-    public static DamageSource causeNoShatterVoodooDamage(Entity attacker) {
-        return new EntityDamageSource("no_shatter_voodoo", attacker).setMagic();
-    }
     public static DamageSource causeMagebaneDamage(Entity attacker) {
         return new EntityDamageSource("magebane", attacker).setThorns().setMagic();
     }
