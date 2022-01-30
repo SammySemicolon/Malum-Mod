@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.objects;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.EntryScreen;
 import com.sammy.malum.client.screen.codex.BookEntry;
+import com.sammy.malum.client.screen.codex.EntryScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.TranslatableComponent;

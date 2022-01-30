@@ -60,7 +60,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         float absorbed = Math.min(event.getAmount(), c.heartOfStone);
                         double strength = player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_STRENGTH);
                         if (strength != 0) {
-                            c.heartOfStone -= (absorbed / strength)*3;
+                            c.heartOfStone = (float) Math.max(0,c.heartOfStone - (absorbed / strength));
                         } else {
                             c.heartOfStone = 0;
                         }
@@ -103,6 +103,9 @@ public class EarthenAffinity extends MalumSpiritAffinity {
 
 
                     poseStack.pushPose();
+                    RenderSystem.depthMask(false);
+                    RenderSystem.enableBlend();
+                    RenderSystem.defaultBlendFunc();
                     RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                     RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                     ShaderInstance shaderInstance = Shaders.distortedTexture.getInstance().get();
@@ -122,6 +125,8 @@ public class EarthenAffinity extends MalumSpiritAffinity {
 
                         RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset / 256f, 1 / 256f, 13 / 256f, 13 / 256f);
                     }
+                    RenderSystem.depthMask(true);
+                    RenderSystem.disableBlend();
                     poseStack.popPose();
                 });
             }
