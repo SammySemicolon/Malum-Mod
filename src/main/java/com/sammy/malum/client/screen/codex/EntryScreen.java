@@ -118,7 +118,7 @@ public class EntryScreen extends Screen
             }
             else
             {
-                ProgressionBookScreen.openScreen(true);
+                onClose();
             }
             return true;
         }

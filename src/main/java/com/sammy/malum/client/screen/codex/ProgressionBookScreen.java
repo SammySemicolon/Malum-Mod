@@ -758,6 +758,9 @@ public class ProgressionBookScreen extends Screen
         {
             screen = new ProgressionBookScreen();
         }
+        setupEntries();
+        screen.setupObjects();
+
         return screen;
     }
     public static class SetupMalumCodexEntriesEvent extends Event
