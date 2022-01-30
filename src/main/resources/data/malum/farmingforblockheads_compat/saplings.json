@@ -5,7 +5,7 @@
         "item": "malum:runewood_sapling"
       },
       "payment": {
-        "item": "malum:soulstone"
+        "item": "malum:processed_soulstone"
       },
       "category": "saplings"
     }
