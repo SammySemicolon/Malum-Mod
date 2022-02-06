@@ -1,8 +1,9 @@
 {
-  "registry_name": "upgrade_aquatic:goose",
+  "registry_name": "quark:stoneling",
+  "primary_type": "earthen",
   "spirits": [
     {
-      "spirit": "sacred",
+      "spirit": "arcane",
       "count": 1
     },
     {

@@ -1,8 +1,9 @@
 {
-  "registry_name": "eidolon:raven",
+  "registry_name": "habitat:passerine",
+  "primary_type": "aerial",
   "spirits": [
     {
-      "spirit": "wicked",
+      "spirit": "sacred",
       "count": 1
     },
     {

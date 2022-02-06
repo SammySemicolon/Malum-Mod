@@ -1,12 +1,13 @@
 {
-  "registry_name": "savageandravage:creepie",
+  "registry_name": "eidolon:raven",
+  "primary_type": "aerial",
   "spirits": [
     {
       "spirit": "wicked",
       "count": 1
     },
     {
-      "spirit": "infernal",
+      "spirit": "aerial",
       "count": 1
     }
   ]
