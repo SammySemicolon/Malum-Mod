@@ -1,0 +1,14 @@
+{
+  "registry_name": "undergarden:mog",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 3
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}
