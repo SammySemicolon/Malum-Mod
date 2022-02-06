@@ -1,0 +1,14 @@
+{
+  "registry_name": "undergarden:nargoyle",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

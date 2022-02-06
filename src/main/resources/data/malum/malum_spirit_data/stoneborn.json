@@ -1,0 +1,14 @@
+{
+  "registry_name": "undergarden:stoneborn",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 2
+    }
+    {
+      "spirit": "earthen",
+      "count": 3
+    }
+  ]
+}
