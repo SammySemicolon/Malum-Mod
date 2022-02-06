@@ -1,0 +1,14 @@
+{
+  "registry_name": "habitat:pooka",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 2
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
+    }
+  ]
+}

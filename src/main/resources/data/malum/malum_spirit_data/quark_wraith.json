@@ -1,5 +1,6 @@
 {
-  "registry_name": "eidolon:wraith",
+  "registry_name": "quark:wraith",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "arcane",

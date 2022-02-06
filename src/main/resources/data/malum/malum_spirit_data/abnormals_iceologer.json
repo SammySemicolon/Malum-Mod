@@ -1,5 +1,6 @@
 {
-  "registry_name": "eidolon:necromancer",
+  "registry_name": "savageandravage:iceologer",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "wicked",

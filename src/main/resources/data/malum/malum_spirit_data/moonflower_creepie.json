@@ -1,0 +1,13 @@
+{
+  "registry_name": "tolerable_creepers:creepie",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    }
+  ]
+}

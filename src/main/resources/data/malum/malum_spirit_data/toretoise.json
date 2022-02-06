@@ -1,0 +1,10 @@
+{
+  "registry_name": "quark:toretoise",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 3
+    }
+  ]
+}

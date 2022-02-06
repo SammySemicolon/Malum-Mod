@@ -1,0 +1,14 @@
+{
+  "registry_name": "supplementaries:red_merchant",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 {
-  "registry_name": "environmental:yak",
+  "registry_name": "environmental:duck",
+  "primary_type": "earthen",
   "spirits": [
     {
       "spirit": "sacred",

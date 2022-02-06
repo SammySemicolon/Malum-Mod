@@ -1,0 +1,17 @@
+{
+  "registry_name": "quark:foxhound",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}
