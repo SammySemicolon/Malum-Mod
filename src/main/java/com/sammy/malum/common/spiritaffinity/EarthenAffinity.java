@@ -123,7 +123,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 1 / 256f, 12 / 256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i * 250f);
 
-                        RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset / 256f, 1 / 256f, 13 / 256f, 13 / 256f);
+                        RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 1, xTextureOffset, 16, 256f);
                     }
                     RenderSystem.depthMask(true);
                     RenderSystem.disableBlend();

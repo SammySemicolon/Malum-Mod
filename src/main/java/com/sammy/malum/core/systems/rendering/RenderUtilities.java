@@ -28,11 +28,11 @@ public class RenderUtilities {
         innerBlit(poseStack, shader, x, y, w, h, u / xCanvasSize, v / xCanvasSize, uw / yCanvasSize, vh / yCanvasSize);
     }
 
-    public static void innerBlit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float canvasSize) {
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float canvasSize) {
         innerBlit(poseStack, shader, x, y, w, h, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
     }
 
-    public static void innerBlit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
         innerBlit(poseStack, shader, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
     }
 

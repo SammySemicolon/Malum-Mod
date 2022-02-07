@@ -48,10 +48,10 @@
   "totem_cancelled": { "sounds":["malum:totem/totem_cancel"], "subtitle": "malum.subtitle.totem_cancel" },
   "totem_engrave": { "sounds":["malum:totem/totem_engrave1","malum:totem/totem_engrave2","malum:totem/totem_engrave3"], "subtitle": "malum.subtitle.totem_engrave" },
 
-  "altar_craft": { "sounds":["malum:altar/craft1","malum:altar/craft2"], "subtitle": "malum.subtitle.altar_craft" },
-  "altar_loop": { "sounds":["malum:altar/loop"], "subtitle": "malum.subtitle.altar_loop" },
-  "altar_speed_up": { "sounds":["malum:altar/speed_up"], "subtitle": "malum.subtitle.altar_speed_up" },
-  "altar_consume": { "sounds":["malum:altar/consume"], "subtitle": "malum.subtitle.altar_consume" },
+  "altar_craft": { "sounds":["malum:altar/altar_craft1","malum:altar/altar_craft2"], "subtitle": "malum.subtitle.altar_craft" },
+  "altar_loop": { "sounds":["malum:altar/altar_loop"], "subtitle": "malum.subtitle.altar_loop" },
+  "altar_speed_up": { "sounds":["malum:altar/altar_speedup1","malum:altar/altar_speedup2"], "subtitle": "malum.subtitle.altar_speed_up" },
+  "altar_consume": { "sounds":["malum:altar/altar_consume1", "malum:altar/altar_consume2"], "subtitle": "malum.subtitle.altar_consume" },
 
   "crucible_craft": { "sounds":["malum:crucible/craft1", "malum:crucible/craft2"], "subtitle": "malum.subtitle.crucible_craft" },
   "crucible_loop": { "sounds":["malum:crucible/loop"], "subtitle": "malum.subtitle.crucible_loop" },
