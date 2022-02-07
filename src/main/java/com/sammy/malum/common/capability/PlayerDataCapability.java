@@ -2,8 +2,8 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.common.packets.SyncPlayerCapabilityDataPacket;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.PacketRegistry;
-import com.sammy.malum.core.registry.content.SpiritAffinityRegistry;
+import com.sammy.malum.core.setup.PacketRegistry;
+import com.sammy.malum.core.setup.content.SpiritAffinityRegistry;
 import com.sammy.malum.core.systems.capability.SimpleCapability;
 import com.sammy.malum.core.systems.capability.SimpleCapabilityProvider;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
@@ -67,7 +67,12 @@ public class PlayerDataCapability implements SimpleCapability {
             }
         }
     }
-
+    public static void playerClone(PlayerEvent.Clone event)
+    {
+        PlayerDataCapability originalCapability = PlayerDataCapability.getCapability(event.getOriginal()).orElse(new PlayerDataCapability());
+        PlayerDataCapability capability = PlayerDataCapability.getCapability(event.getPlayer()).orElse(new PlayerDataCapability());
+        capability.deserializeNBT(originalCapability.serializeNBT());
+    }
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();

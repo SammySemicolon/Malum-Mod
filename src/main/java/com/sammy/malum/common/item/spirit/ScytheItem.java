@@ -2,10 +2,10 @@ package com.sammy.malum.common.item.spirit;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.registry.item.ItemRegistry;
-import com.sammy.malum.core.registry.AttributeRegistry;
-import com.sammy.malum.core.registry.ParticleRegistry;
-import com.sammy.malum.core.registry.SoundRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.AttributeRegistry;
+import com.sammy.malum.core.setup.ParticleRegistry;
+import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.item.ModCombatItem;
 import net.minecraft.core.particles.SimpleParticleType;

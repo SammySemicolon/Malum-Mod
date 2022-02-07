@@ -2,8 +2,8 @@ package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.registry.AttributeRegistry;
-import com.sammy.malum.core.registry.EntityRegistry;
+import com.sammy.malum.core.setup.AttributeRegistry;
+import com.sammy.malum.core.setup.EntityRegistry;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;

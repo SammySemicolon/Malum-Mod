@@ -5,8 +5,8 @@ import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.item_storage.SoulVialBlock;
 import com.sammy.malum.common.block.item_storage.SpiritJarBlock;
-import com.sammy.malum.core.registry.block.BlockRegistry;
-import com.sammy.malum.core.registry.item.ItemRegistry;
+import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
@@ -47,7 +47,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.sammy.malum.core.helper.DataHelper.takeAll;
-import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
 
 public class MalumBlockLootTables extends LootTableProvider {
 

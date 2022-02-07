@@ -12,7 +12,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.SPIRIT_DATA;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.SPIRIT_DATA;
 
 public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
 {

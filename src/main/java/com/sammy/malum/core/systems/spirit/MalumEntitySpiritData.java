@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 

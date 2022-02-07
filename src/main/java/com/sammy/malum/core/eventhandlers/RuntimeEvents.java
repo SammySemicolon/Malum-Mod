@@ -11,9 +11,9 @@ import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.registry.AttributeRegistry;
-import com.sammy.malum.core.registry.DamageSourceRegistry;
-import com.sammy.malum.core.registry.item.ItemTagRegistry;
+import com.sammy.malum.core.setup.AttributeRegistry;
+import com.sammy.malum.core.setup.DamageSourceRegistry;
+import com.sammy.malum.core.setup.item.ItemTagRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.spirit.SoulHarvestHandler;
 import com.sammy.malum.core.systems.spirit.SpiritDataReloadListener;
@@ -73,11 +73,17 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
+    public static void playerClone(PlayerEvent.Clone event) {
+        PlayerDataCapability.playerClone(event);
+    }
+
+    @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         ArcaneAffinity.recoverSoulWard(event);
         EarthenAffinity.recoverHeartOfStone(event);
         SoulHarvestHandler.playerTick(event);
     }
+
     @SubscribeEvent
     public static void registerListeners(AddReloadListenerEvent event) {
         SpiritDataReloadListener.register(event);
@@ -123,12 +129,10 @@ public class RuntimeEvents {
         }
         LivingEntity target = event.getEntityLiving();
         LivingEntity attacker = null;
-        if (event.getSource().getEntity() instanceof LivingEntity directAttacker)
-        {
+        if (event.getSource().getEntity() instanceof LivingEntity directAttacker) {
             attacker = directAttacker;
         }
-        if (attacker == null)
-        {
+        if (attacker == null) {
             attacker = target.getLastHurtByMob();
         }
         if (attacker != null) {

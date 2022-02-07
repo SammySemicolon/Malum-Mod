@@ -1,8 +1,8 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.core.data.builder.NBTCarryRecipeBuilder;
-import com.sammy.malum.core.registry.item.ItemRegistry;
-import com.sammy.malum.core.registry.item.ItemTagRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.item.ItemTagRegistry;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;

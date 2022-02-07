@@ -6,6 +6,7 @@ import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleType;
@@ -19,16 +20,59 @@ import java.util.Random;
 
 public class RenderUtilities {
 
-    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, double x, double y, double w, double h, float u, float v, float uw, float vh) {
-        Matrix4f last = poseStack.last().pose();
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
+        innerBlit(poseStack, shader, x, y, w, h, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
+    }
 
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
+        innerBlit(poseStack, shader, x, y, w, h, u / xCanvasSize, v / xCanvasSize, uw / yCanvasSize, vh / yCanvasSize);
+    }
+
+    public static void innerBlit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float canvasSize) {
+        innerBlit(poseStack, shader, x, y, w, h, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
+    }
+
+    public static void innerBlit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
+        innerBlit(poseStack, shader, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
+    }
+
+    public static void innerBlit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh) {
+        Matrix4f last = poseStack.last().pose();
         RenderSystem.setShader(shader.getInstance());
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferbuilder.vertex(last, (float)x, (float)y + (float)h, 0).color(1,1,1,1).uv(u, v + vh).endVertex();
-        bufferbuilder.vertex(last, (float)x + (float)w, (float)y + (float)h, 0).color(1,1,1,1).uv(u + uw, v + vh).endVertex();
-        bufferbuilder.vertex(last, (float)x + (float)w, (float)y, 0).color(1,1,1,1).uv(u + uw, v).endVertex();
-        bufferbuilder.vertex(last, (float)x, (float)y, 0).color(1,1,1,1).uv(u, v).endVertex();
+        bufferbuilder.vertex(last, (float) x, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float) x + (float) w, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u + uw, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float) x + (float) w, (float) y, 0).color(1, 1, 1, 1).uv(u + uw, v).endVertex();
+        bufferbuilder.vertex(last, (float) x, (float) y, 0).color(1, 1, 1, 1).uv(u, v).endVertex();
+        bufferbuilder.end();
+        BufferUploader.end(bufferbuilder);
+    }
+    public static void blit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
+        innerBlit(poseStack, x, y, w, h, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
+        innerBlit(poseStack, x, y, w, h, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float canvasSize) {
+        innerBlit(poseStack, x, y, w, h, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
+        innerBlit(poseStack, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
+    }
+
+    public static void innerBlit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float uw, float vh) {
+        Matrix4f last = poseStack.last().pose();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferbuilder.vertex(last, (float) x, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float) x + (float) w, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u + uw, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float) x + (float) w, (float) y, 0).color(1, 1, 1, 1).uv(u + uw, v).endVertex();
+        bufferbuilder.vertex(last, (float) x, (float) y, 0).color(1, 1, 1, 1).uv(u, v).endVertex();
         bufferbuilder.end();
         BufferUploader.end(bufferbuilder);
     }

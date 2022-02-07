@@ -4,9 +4,9 @@ import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.packets.particle.BlockParticlePacket;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.registry.ParticleRegistry;
-import com.sammy.malum.core.registry.SoundRegistry;
-import com.sammy.malum.core.registry.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.ParticleRegistry;
+import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -28,7 +28,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
 
-import static com.sammy.malum.core.registry.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
 public class TotemPoleTileEntity extends SimpleBlockEntity {
 

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.common.blockentity.item_storage.SpiritJarBlockEntity;
-import com.sammy.malum.core.registry.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

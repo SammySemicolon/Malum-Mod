@@ -1,7 +1,7 @@
 package com.sammy.malum.common.effect;
 
 import com.sammy.malum.core.helper.ColorHelper;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;

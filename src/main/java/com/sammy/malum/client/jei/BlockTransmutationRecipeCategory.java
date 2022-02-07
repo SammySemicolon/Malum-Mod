@@ -3,7 +3,7 @@ package com.sammy.malum.client.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
-import com.sammy.malum.core.registry.item.ItemRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;

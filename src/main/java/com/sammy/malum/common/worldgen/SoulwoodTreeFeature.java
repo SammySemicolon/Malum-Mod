@@ -4,7 +4,7 @@ import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.block.BlockRegistry;
+import com.sammy.malum.core.setup.block.BlockRegistry;
 import com.sammy.malum.core.systems.worldgen.MalumFiller;
 import com.sammy.malum.core.systems.worldgen.MalumFiller.BlockStateEntry;
 import net.minecraft.core.BlockPos;

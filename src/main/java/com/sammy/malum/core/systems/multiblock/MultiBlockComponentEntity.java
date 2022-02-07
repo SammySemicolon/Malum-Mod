@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.multiblock;
 
 import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.registry.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -29,7 +29,7 @@ import java.util.Set;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.helper.DataHelper.takeAll;
-import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.setup.item.ItemRegistry.ITEMS;
 
 public class MalumItemModels extends net.minecraftforge.client.model.generators.ItemModelProvider
 {

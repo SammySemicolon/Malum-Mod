@@ -19,7 +19,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.registry.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
 public class CeaselessImpetusItem extends ImpetusItem implements IEventResponderItem {
     public CeaselessImpetusItem(Properties p_41383_) {

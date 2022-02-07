@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
-import static com.sammy.malum.core.registry.block.BlockRegistry.*;
+import static com.sammy.malum.core.setup.block.BlockRegistry.*;
 
 public class MalumBlockTransmutationRecipes extends RecipeProvider
 {

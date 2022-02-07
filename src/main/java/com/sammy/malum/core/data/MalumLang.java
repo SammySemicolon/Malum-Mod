@@ -6,8 +6,8 @@ import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -29,13 +29,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.registry.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.core.registry.EffectRegistry.EFFECTS;
-import static com.sammy.malum.core.registry.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.core.registry.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.setup.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.setup.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.setup.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.core.setup.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.setup.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends LanguageProvider
 {

@@ -3,7 +3,7 @@ package com.sammy.malum.client.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
-import com.sammy.malum.core.registry.item.ItemRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import mezz.jei.api.constants.VanillaTypes;

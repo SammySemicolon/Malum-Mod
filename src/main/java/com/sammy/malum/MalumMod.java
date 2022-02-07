@@ -15,18 +15,18 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
-import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.registry.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
-import static com.sammy.malum.core.registry.content.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
-import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.core.registry.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.core.registry.ContainerRegistry.CONTAINERS;
-import static com.sammy.malum.core.registry.EffectRegistry.EFFECTS;
-import static com.sammy.malum.core.registry.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.core.registry.ParticleRegistry.PARTICLES;
-import static com.sammy.malum.core.registry.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
+import static com.sammy.malum.core.setup.content.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
+import static com.sammy.malum.core.setup.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.setup.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.setup.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.setup.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.core.setup.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.setup.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.core.setup.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.core.setup.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.setup.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)

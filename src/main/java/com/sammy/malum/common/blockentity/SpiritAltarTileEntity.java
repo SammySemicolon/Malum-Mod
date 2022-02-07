@@ -8,9 +8,9 @@ import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePac
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.block.BlockEntityRegistry;
-import com.sammy.malum.core.registry.ParticleRegistry;
-import com.sammy.malum.core.registry.SoundRegistry;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.ParticleRegistry;
+import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
@@ -41,7 +41,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.core.registry.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
 public class SpiritAltarTileEntity extends SimpleBlockEntity {
 

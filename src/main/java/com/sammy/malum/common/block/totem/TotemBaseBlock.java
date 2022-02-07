@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
-import com.sammy.malum.core.registry.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 
 public class TotemBaseBlock extends SimpleBlock<TotemBaseTileEntity>

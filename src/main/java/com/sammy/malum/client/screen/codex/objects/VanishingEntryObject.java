@@ -1,7 +1,7 @@
 package com.sammy.malum.client.screen.codex.objects;
 
 import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.core.registry.SoundRegistry;
+import com.sammy.malum.core.setup.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;

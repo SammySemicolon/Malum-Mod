@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
-import com.sammy.malum.core.registry.item.ItemRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.systems.multiblock.ComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;

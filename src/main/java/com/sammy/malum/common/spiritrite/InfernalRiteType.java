@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
-import com.sammy.malum.core.registry.EffectRegistry;
+import com.sammy.malum.core.setup.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,8 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.registry.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
 public class InfernalRiteType extends MalumRiteType {
     public InfernalRiteType() {

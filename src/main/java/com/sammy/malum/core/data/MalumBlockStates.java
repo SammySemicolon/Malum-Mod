@@ -12,7 +12,7 @@ import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.Direction;
@@ -36,7 +36,7 @@ import java.util.function.Function;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.helper.DataHelper.takeAll;
-import static com.sammy.malum.core.registry.block.BlockRegistry.*;
+import static com.sammy.malum.core.setup.block.BlockRegistry.*;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
 

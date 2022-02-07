@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.misc;
 
-import com.sammy.malum.core.registry.item.ItemRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity;
 
-import com.sammy.malum.core.registry.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure.StructurePiece;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.function.Supplier;
 
 import static com.sammy.malum.common.block.fusion_plate.FusionPlateComponentBlock.CORNER;
-import static com.sammy.malum.core.registry.block.BlockRegistry.SOULWOOD_FUSION_PLATE_COMPONENT;
+import static com.sammy.malum.core.setup.block.BlockRegistry.SOULWOOD_FUSION_PLATE_COMPONENT;
 import static net.minecraft.core.Direction.*;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
