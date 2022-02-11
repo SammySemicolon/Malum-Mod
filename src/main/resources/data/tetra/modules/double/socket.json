@@ -1,10 +1,4 @@
 {
-  "replace": false,
-  "type": "tetra:basic_module",
-  "slots": [
-    "double/binding"
-  ],
-  "renderLayer": "higher",
   "variants": [
     {
       "key": "double_socket/processed_soulstone",

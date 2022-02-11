@@ -20,7 +20,7 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
 
     public SpiritDataReloadListener()
     {
-        super(GSON, "malum_spirit_data");
+        super(GSON, "spirit_data");
     }
 
     public static void register(AddReloadListenerEvent event) {
