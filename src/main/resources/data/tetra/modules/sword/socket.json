@@ -2,7 +2,7 @@
   "replace": false,
   "variants": [
     {
-      "key": "single_socket/processed_soulstone",
+      "key": "sword_socket/processed_soulstone",
       "category": "gem",
       "durability": 20,
       "integrity": -1,

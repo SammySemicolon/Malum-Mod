@@ -1,0 +1,29 @@
+{
+  "key": "soul_stained_steel",
+  "category": "metal",
+  "primary": "5.5",
+  "secondary": "4.3",
+  "tertiary": "3.5",
+  "durability": "1250",
+  "integrityCost": "2",
+  "integrityGain": "5",
+  "magicCapacity": "100",
+  "toolLevel": "minecraft:diamond",
+  "toolEfficiency": "7.5",
+  "tints": {
+    "glyph": "ce7cee",
+    "texture": "ce7cee"
+  },
+  "textures": [
+    "metal",
+    "default"
+  ],
+  "material": {
+    "items": [
+      "malum:soul_stained_steel_ingot"
+    ]
+  },
+  "requiredTools": {
+    "hammer_dig": "minecraft:gold"
+  }
+}

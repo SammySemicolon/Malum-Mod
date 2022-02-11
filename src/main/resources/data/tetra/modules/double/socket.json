@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "variants": [
     {
       "key": "double_socket/processed_soulstone",

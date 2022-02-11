@@ -5,9 +5,9 @@
       "material": {
         "items": [ "malum:processed_soulstone" ]
       },
-      "experienceCost": 3,
-      "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/processed_soulstone"
+      "experienceCost": 2,
+      "moduleKey": "sword/socket",
+      "moduleVariant": "sword_socket/processed_soulstone"
     }
   ]
 }

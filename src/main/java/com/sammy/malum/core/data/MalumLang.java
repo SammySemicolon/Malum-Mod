@@ -396,6 +396,16 @@ public class MalumLang extends LanguageProvider
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
         add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
+
+        addTetraMaterial("soul_stained_steel", "Soul Stained Steel");
+        addTetraMaterial("hallowed_gold", "Hallowed Gold");
+        addTetraMaterial("runewood", "Runewood");
+        addTetraMaterial("soulwood", "Soulwood");
+        addTetraMaterial("tainted_rock", "Tainted Rock");
+        addTetraMaterial("twisted_rock", "Twisted Rock");
+        addTetraMaterial("spirit_fabric", "Spirit Fabric");
+
+        addTetraSocket("processed_soulstone", "[\u00a75Soulstone\u00a77]", "A gem", "The gem is cursed and aches when touched, allowing the tool to strike the soul.");
     }
 
     @Override
@@ -404,6 +414,22 @@ public class MalumLang extends LanguageProvider
         return "Malum Lang Entries";
     }
 
+    public void addTetraMaterial(String identifier, String name)
+    {
+        add("tetra.material."+identifier, name);
+        add("tetra.material."+identifier+".prefix", name);
+    }
+    public void addTetraSocket(String identifier, String socket, String start, String end)
+    {
+        add("tetra.variant.double_socket/"+identifier, "Socket " + socket);
+        add("tetra.variant.double_socket/"+identifier+".description", start + ", fitted onto the side of the tool head. " + end);
+
+        add("tetra.variant.single_socket/"+identifier, "Socket " + socket);
+        add("tetra.variant.single_socket/"+identifier+".description", start + ", attached where the head meets the handle. " + end);
+
+        add("tetra.variant.sword_socket/"+identifier, "Socket " + socket);
+        add("tetra.variant.sword_socket/"+identifier+".description", start + ", fitted onto the sword where the blade meets the hilt." + end);
+    }
     public void addPage(String identifier, String tooltip)
     {
         add("malum.gui.book.entry.page.text." + identifier, tooltip);
