@@ -34,7 +34,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
     public static void recoverHeartOfStone(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         PlayerDataCapability.getCapability(player).ifPresent(c -> {
-            double cap = player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_CAP);
+            double cap = player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_CAP.get());
             if (c.heartOfStone < cap && c.heartOfStoneProgress <= 0) {
                 float hungerCost = getHeartOfStoneHungerCost(player);
                 FoodData data = player.getFoodData();
@@ -58,7 +58,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
                     if (c.heartOfStone > 0) {
                         float absorbed = Math.min(event.getAmount(), c.heartOfStone);
-                        double strength = player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_STRENGTH);
+                        double strength = player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_STRENGTH.get());
                         if (strength != 0) {
                             c.heartOfStone = (float) Math.max(0,c.heartOfStone - (absorbed / strength));
                         } else {
@@ -75,11 +75,11 @@ public class EarthenAffinity extends MalumSpiritAffinity {
     }
 
     public static int getHeartOfStoneHungerCost(Player player) {
-        return (int) (CommonConfig.HEART_OF_STONE_COST.get() * player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_COST));
+        return (int) (CommonConfig.HEART_OF_STONE_COST.get() * player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_COST.get()));
     }
 
     public static int getHeartOfStoneCooldown(Player player) {
-        return (int) (CommonConfig.HEART_OF_STONE_RATE.get() * Math.exp(-0.2 * player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_RECOVERY_SPEED)));
+        return (int) (CommonConfig.HEART_OF_STONE_RATE.get() * Math.exp(-0.2 * player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_RECOVERY_SPEED.get())));
     }
 
     public static class ClientOnly {
@@ -123,7 +123,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 1 / 256f, 12 / 256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i * 250f);
 
-                        RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 1, xTextureOffset, 16, 256f);
+                        RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset, 1, 256f);
                     }
                     RenderSystem.depthMask(true);
                     RenderSystem.disableBlend();

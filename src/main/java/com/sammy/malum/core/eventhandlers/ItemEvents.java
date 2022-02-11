@@ -49,7 +49,7 @@ public class ItemEvents {
                     entity.setData((float) damage, player.getUUID(), slot, stack);
                     entity.getEntityData().set(ScytheBoomerangEntity.SCYTHE, stack);
 
-                    entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, (float) (1.5F + player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY) * 0.125f), 0F);
+                    entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, (float) (1.5F + player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()) * 0.125f), 0F);
                     level.addFreshEntity(entity);
                 }
                 player.awardStat(Stats.ITEM_USED.get(stack.getItem()));

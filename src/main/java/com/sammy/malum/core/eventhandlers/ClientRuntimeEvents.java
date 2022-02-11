@@ -1,5 +1,6 @@
 package com.sammy.malum.core.eventhandlers;
 
+import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.core.systems.item.ModCombatItem;
@@ -25,14 +26,14 @@ public class ClientRuntimeEvents {
         ArcaneAffinity.ClientOnly.renderSoulWard(event);
         EarthenAffinity.ClientOnly.renderHeartOfStone(event);
     }
+
     @SubscribeEvent
     public static void fixItemTooltip(ItemTooltipEvent event) { //TODO: make this not absolutely awful, probably with mixins
         ItemStack stack = event.getItemStack();
         Item item = stack.getItem();
-        if (item instanceof ModCombatItem) {
+        if (item instanceof ModCombatItem || item instanceof MagicAxeItem || item instanceof MagicSwordItem || item instanceof MagicPickaxeItem || item instanceof MagicShovelItem  || item instanceof MagicHoeItem) {
             List<Component> tooltip = event.getToolTip();
             ArrayList<Component> clone = new ArrayList<>(tooltip);
-
             for (int i = 0; i < clone.size(); i++) {
                 Component component = clone.get(i);
                 if (component instanceof TranslatableComponent textComponent) {
@@ -49,5 +50,4 @@ public class ClientRuntimeEvents {
             }
         }
     }
-
 }

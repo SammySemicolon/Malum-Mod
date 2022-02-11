@@ -23,7 +23,7 @@ public abstract class FloatingEntity extends ThrowableProjectile
     public int maxAge;
     public int age;
     public int moveTime;
-    public int range = 3;
+    public int speed = 3;
     public float windUp;
     public final float hoverStart;
 
@@ -46,7 +46,7 @@ public abstract class FloatingEntity extends ThrowableProjectile
         super.addAdditionalSaveData(compound);
         compound.putInt("age", age);
         compound.putInt("moveTime", moveTime);
-        compound.putInt("range", range);
+        compound.putInt("range", speed);
         compound.putFloat("windUp", windUp);
         compound.putInt("red", color.getRed());
         compound.putInt("green", color.getGreen());
@@ -65,7 +65,7 @@ public abstract class FloatingEntity extends ThrowableProjectile
         int range = compound.getInt("range");
         if (range > 0)
         {
-            this.range = range;
+            this.speed = range;
         }
         windUp = compound.getFloat("windUp");
         color = new Color(compound.getInt("red"),compound.getInt("green"),compound.getInt("blue"));

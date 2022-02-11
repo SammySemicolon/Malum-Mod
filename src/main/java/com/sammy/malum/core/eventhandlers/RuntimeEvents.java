@@ -5,7 +5,7 @@ import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
-import com.sammy.malum.common.item.spirit.ScytheItem;
+import com.sammy.malum.common.item.tools.ModScytheItem;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.config.CommonConfig;
@@ -93,6 +93,7 @@ public class RuntimeEvents {
     public static void onHurt(LivingHurtEvent event) {
         ArcaneAffinity.consumeSoulWard(event);
         EarthenAffinity.consumeHeartOfStone(event);
+        float amount = event.getAmount();
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             LivingEntity target = event.getEntityLiving();
 
@@ -103,22 +104,32 @@ public class RuntimeEvents {
             if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity) {
                 stack = ((ScytheBoomerangEntity) event.getSource().getDirectEntity()).scythe;
             }
+            if (!event.getSource().isMagic()) {
+                float damage = (float) attacker.getAttributeValue(AttributeRegistry.MAGIC_DAMAGE.get());
+                if (damage > 0 && target.isAlive()) {
+                    target.invulnerableTime = 0;
+                    target.hurt(DamageSourceRegistry.causeVoodooDamage(attacker), damage);
+                }
+            }
             if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(stack.getItem())) {
                 LivingEntityDataCapability.getCapability(target).ifPresent(e -> e.exposedSoul = 200);
             }
-            float amount = event.getAmount();
-            if (event.getSource().isMagic()) {
-                float resistance = (float) target.getAttributeValue(AttributeRegistry.MAGIC_RESISTANCE);
-                float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.MAGIC_PROFICIENCY);
-
-                float multiplier = (float) (1 * Math.exp(-0.15f * resistance) * Math.exp(0.075f * proficiency));
-                event.setAmount(amount * multiplier);
-            }
-            if (stack.getItem() instanceof ScytheItem) {
-                float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY);
-                event.setAmount(amount + proficiency * 0.5f);
+            if (stack.getItem() instanceof ModScytheItem) {
+                float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get());
+                amount += proficiency * 0.5f;
             }
         }
+        if (event.getSource().isMagic()) {
+            LivingEntity target = event.getEntityLiving();
+            if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+                float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.MAGIC_PROFICIENCY.get());
+                amount *= 1 * Math.exp(0.075f * proficiency);
+            }
+            float resistance = (float) target.getAttributeValue(AttributeRegistry.MAGIC_RESISTANCE.get());
+            amount *= 1 * Math.exp(-0.15f * resistance);
+        }
+
+        event.setAmount(amount);
     }
 
     @SubscribeEvent

@@ -24,7 +24,7 @@ public class CurioArcaneSpoilRing extends MalumCurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.SPIRIT_SPOILS, new AttributeModifier(ATTRIBUTE_UUID, "Curio spirit spoils", 1f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SPIRIT_SPOILS.get(), new AttributeModifier(ATTRIBUTE_UUID, "Curio spirit spoils", 1f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 }

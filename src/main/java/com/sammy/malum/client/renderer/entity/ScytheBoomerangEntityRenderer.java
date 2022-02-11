@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.common.item.spirit.ScytheItem;
+import com.sammy.malum.common.item.tools.ModScytheItem;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -36,7 +36,7 @@ public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomeran
         poseStack.mulPose(Vector3f.XP.rotationDegrees(90F));
         poseStack.scale(2f, 2f, 2f);
         poseStack.mulPose(Vector3f.ZP.rotation((entityIn.age + partialTicks) * 0.9f));
-        itemRenderer.render(itemstack, itemstack.getItem() instanceof ScytheItem ? ItemTransforms.TransformType.NONE : ItemTransforms.TransformType.FIXED, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
+        itemRenderer.render(itemstack, itemstack.getItem() instanceof ModScytheItem ? ItemTransforms.TransformType.NONE : ItemTransforms.TransformType.FIXED, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
     
         poseStack.popPose();
     

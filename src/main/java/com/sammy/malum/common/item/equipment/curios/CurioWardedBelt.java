@@ -29,7 +29,7 @@ public class CurioWardedBelt extends MalumCurioItem
         map.put(Attributes.ARMOR, new AttributeModifier(ARMOR, "Curio armor boost", 2, AttributeModifier.Operation.ADDITION));
         map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR_TOUGHNESS, "Curio armor toughness boost", 1, AttributeModifier.Operation.ADDITION));
         map.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(KNOCKBACK_RESISTANCE, "Curio knockback resistance", 0.2f, AttributeModifier.Operation.ADDITION));
-        map.put(AttributeRegistry.MAGIC_RESISTANCE, new AttributeModifier(MAGIC_RESISTANCE, "Curio magic resistance", 1f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(MAGIC_RESISTANCE, "Curio magic resistance", 1f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 

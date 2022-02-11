@@ -7,7 +7,7 @@ import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.item.spirit.ScytheItem;
+import com.sammy.malum.common.item.tools.ModScytheItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.item.ModCombatItem;
@@ -43,7 +43,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-        takeAll(items, i -> i.get() instanceof ScytheItem);
+        takeAll(items, i -> i.get() instanceof ModScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof ImpetusItem).forEach(this::impetusItem);
         takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);

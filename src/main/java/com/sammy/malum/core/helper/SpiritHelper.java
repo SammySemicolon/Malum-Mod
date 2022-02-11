@@ -149,7 +149,7 @@ public class SpiritHelper {
         {
             return spirits;
         }
-        int spiritSpoils = (int) attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS);
+        int spiritSpoils = (int) attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS.get());
         if (!harvestStack.isEmpty()) {
             int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
             if (spiritPlunder > 0) {

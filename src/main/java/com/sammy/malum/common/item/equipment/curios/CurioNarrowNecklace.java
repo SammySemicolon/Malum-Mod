@@ -21,7 +21,7 @@ public class CurioNarrowNecklace extends MalumCurioItem
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.SCYTHE_PROFICIENCY, new AttributeModifier(ATTRIBUTE_UUID, "Curio scythe proficiency", 4f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(ATTRIBUTE_UUID, "Curio scythe proficiency", 4f, AttributeModifier.Operation.ADDITION));
         return map;
     }
     @Override

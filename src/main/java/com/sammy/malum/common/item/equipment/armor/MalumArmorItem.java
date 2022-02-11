@@ -3,7 +3,6 @@ package com.sammy.malum.common.item.equipment.armor;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -13,19 +12,24 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 public class MalumArmorItem extends ArmorItem implements IEventResponderItem {
-    protected LazyLoadedValue<Object> model;
-    private final Multimap<Attribute, AttributeModifier> attributes;
+    private Multimap<Attribute, AttributeModifier> attributes;
 
-    public MalumArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder, ImmutableMultimap.Builder<Attribute, AttributeModifier> extraAttributes) {
+    public MalumArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder) {
         super(materialIn, slot, builder);
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = new ImmutableMultimap.Builder<>();
-        attributeBuilder.putAll(defaultModifiers);
-        attributeBuilder.putAll(extraAttributes.build());
-        attributes = attributeBuilder.build();
+    }
+
+    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
+        return new ImmutableMultimap.Builder<>();
     }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+        if (attributes == null) {
+            ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = new ImmutableMultimap.Builder<>();
+            attributeBuilder.putAll(defaultModifiers);
+            attributeBuilder.putAll(createExtraAttributes(slot).build());
+            attributes = attributeBuilder.build();
+        }
         return equipmentSlot == this.slot ? this.attributes : ImmutableMultimap.of();
     }
 

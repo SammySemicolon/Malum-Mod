@@ -22,13 +22,14 @@ import static com.sammy.malum.core.setup.item.ArmorTiers.ArmorTierEnum.SPIRIT_HU
 
 public class SpiritHunterArmorItem extends MalumArmorItem {
     public SpiritHunterArmorItem(EquipmentSlot slot, Properties builder) {
-        super(SPIRIT_HUNTER, slot, builder, createExtraAttributes(slot));
+        super(SPIRIT_HUNTER, slot, builder);
     }
-    public static ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
+    @Override
+    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-        builder.put(AttributeRegistry.MAGIC_PROFICIENCY, new AttributeModifier(uuid, "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.SCYTHE_PROFICIENCY, new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
     public String getTexture() {

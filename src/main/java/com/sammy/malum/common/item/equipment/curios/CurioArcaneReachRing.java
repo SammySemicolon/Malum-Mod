@@ -27,7 +27,7 @@ public class CurioArcaneReachRing extends MalumCurioItem
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.SPIRIT_REACH, new AttributeModifier(ATTRIBUTE_UUID, "Curio spirit reach", 8f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SPIRIT_REACH.get(), new AttributeModifier(ATTRIBUTE_UUID, "Curio spirit reach", 8f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 }

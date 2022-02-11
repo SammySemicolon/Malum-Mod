@@ -38,7 +38,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         PlayerDataCapability.getCapability(player).ifPresent(c -> {
-            double cap = player.getAttributeValue(AttributeRegistry.SOUL_WARD_CAP);
+            double cap = player.getAttributeValue(AttributeRegistry.SOUL_WARD_CAP.get());
             if (c.soulWard < cap && c.soulWardProgress <= 0) {
                 c.soulWard++;
                 if (player.level.isClientSide && !player.isCreative()) {
@@ -64,13 +64,13 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                         float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.get().floatValue();
                         float result = amount * multiplier;
                         float absorbed = amount - result;
-                        double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH);
+                        double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
                         if (strength != 0) {
                             c.soulWard = (float) Math.max(0, c.soulWard-(absorbed / strength));
                         } else {
                             c.soulWard = 0;
                         }
-                        c.soulWardProgress = (float) (getSoulWardCooldown(player) * player.getAttributeValue(AttributeRegistry.SOUL_WARD_DAMAGE_PENALTY));
+                        c.soulWardProgress = (float) (getSoulWardCooldown(player) * player.getAttributeValue(AttributeRegistry.SOUL_WARD_DAMAGE_PENALTY.get()));
 
                         player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT, SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                         event.setAmount(result);
@@ -93,7 +93,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     }
 
     public static int getSoulWardCooldown(Player player) {
-        return (int) (CommonConfig.SOUL_WARD_RATE.get() * Math.exp(-0.15 * player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED)));
+        return (int) (CommonConfig.SOUL_WARD_RATE.get() * Math.exp(-0.15 * player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get())));
     }
 
     public static class ClientOnly {

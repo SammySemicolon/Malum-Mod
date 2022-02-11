@@ -17,19 +17,33 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.common.ToolActions;
 
 public class ModCombatItem extends TieredItem {
     private final float attackDamage;
-    private final Multimap<Attribute, AttributeModifier> attributes;
+    private final float attackSpeed;
+    private Multimap<Attribute, AttributeModifier> attributes;
 
-    public ModCombatItem(Tier tier, float attackDamage, float attackSpeed, Properties builderIn, ImmutableMultimap.Builder<Attribute, AttributeModifier> extraAttributes) {
+    public ModCombatItem(Tier tier, float attackDamage, float attackSpeed, Properties builderIn) {
         super(tier, builderIn);
         this.attackDamage = attackDamage + tier.getAttackDamageBonus();
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
-        builder.putAll(extraAttributes.build());
-        this.attributes = builder.build();
+        this.attackSpeed = attackSpeed;
+    }
+
+    @Override
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+        if (attributes == null) {
+            ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = new ImmutableMultimap.Builder<>();
+            attributeBuilder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", attackDamage, AttributeModifier.Operation.ADDITION));
+            attributeBuilder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
+            attributeBuilder.putAll(createExtraAttributes().build());
+            attributes = attributeBuilder.build();
+        }
+        return equipmentSlot == EquipmentSlot.MAINHAND ? this.attributes : super.getDefaultAttributeModifiers(equipmentSlot);
+    }
+
+    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes() {
+        return new ImmutableMultimap.Builder<>();
     }
 
     public float getDamage() {
@@ -70,12 +84,8 @@ public class ModCombatItem extends TieredItem {
         return p_43298_.is(Blocks.COBWEB);
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot p_43274_) {
-        return p_43274_ == EquipmentSlot.MAINHAND ? this.attributes : super.getDefaultAttributeModifiers(p_43274_);
-    }
-
     @Override
     public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-        return net.minecraftforge.common.ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
+        return toolAction.equals(ToolActions.SWORD_DIG);
     }
 }

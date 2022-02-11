@@ -1,11 +1,9 @@
-package com.sammy.malum.common.item.spirit;
+package com.sammy.malum.common.item.tools;
 
-import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.setup.item.ItemRegistry;
-import com.sammy.malum.core.setup.AttributeRegistry;
 import com.sammy.malum.core.setup.ParticleRegistry;
 import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.item.ModCombatItem;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -15,28 +13,16 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
-import java.util.UUID;
+public class ModScytheItem extends ModCombatItem implements IEventResponderItem {
 
-public class ScytheItem extends ModCombatItem implements IEventResponderItem {
-
-    public ScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, float magicDamageBoost, Properties builderIn) {
-        super(tier, attackDamageIn+3, attackSpeedIn-3.2f, builderIn, createExtraAttributes(magicDamageBoost));
-    }
-
-    public static ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(float magicDamageBoost) {
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        if (magicDamageBoost != 0) {
-            builder.put(AttributeRegistry.MAGIC_PROFICIENCY, new AttributeModifier(UUID.fromString("d1d17de1-c944-4cdb-971e-f9c4ce260cfe"), "Weapon magic proficiency", magicDamageBoost, AttributeModifier.Operation.ADDITION));
-        }
-        return builder;
+    public ModScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn) {
+        super(tier, attackDamageIn + 3, attackSpeedIn - 3.2f, builderIn);
     }
 
     @Override
@@ -61,9 +47,8 @@ public class ScytheItem extends ModCombatItem implements IEventResponderItem {
         if (ItemHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE)) {
             return;
         }
-        float damage = event.getAmount() * (0.5f+EnchantmentHelper.getSweepingDamageRatio(attacker));
-        target.level.getEntities(attacker, target.getBoundingBox().inflate(1)).forEach(e ->
-        {
+        float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
+        target.level.getEntities(attacker, target.getBoundingBox().inflate(1)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
                     livingEntity.hurt(DamageSource.mobAttack(attacker), damage);
