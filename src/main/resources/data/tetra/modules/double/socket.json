@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "type": "tetra:basic_module",
+  "slots": [
+    "double/binding"
+  ],
+  "renderLayer": "higher",
+  "variants": [
+    {
+      "key": "double_socket/processed_soulstone",
+      "category": "gem",
+      "durability": 20,
+      "integrity": -1,
+      "glyph": {
+        "tint": "744d78",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/default",
+          "tint": "744d78"
+        }
+      ]
+    }
+  ]
+}

@@ -16,3 +16,9 @@ mandatory=true
 versionRange="[FORGE-1.18.1,)"
 ordering="AFTER"
 side="BOTH"
+[[dependencies.malum]]
+modId="tetra"
+mandatory=false
+versionRange="[FORGE-1.18.1,)"
+ordering="AFTER"
+side="BOTH"

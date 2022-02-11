@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "slots": [
+    "single/binding"
+  ],
+  "materialSlotCount": 1,
+  "displayType": "minor",
+  "glyph": {
+    "textureX": 80,
+    "textureY": 16
+  },
+  "outcomes": [
+    {
+      "material": {
+        "items": [ "malum:processed_soulstone" ]
+      },
+      "experienceCost": 2,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/processed_soulstone"
+    }
+  ]
+}
