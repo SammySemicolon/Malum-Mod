@@ -2,7 +2,7 @@
   "key": "tainted_rock",
   "category": "stone",
   "primary": 4.4,
-  "secondary": 4.4,
+  "secondary": 5.8,
   "tertiary": 0,
   "durability": 400,
   "integrityCost": 1,
@@ -25,7 +25,7 @@
     ]
   },
   "effects": {
-    "workable": 1
+    "workable": 20
   },
   "requiredTools": {
     "hammer_dig": "minecraft:stone"

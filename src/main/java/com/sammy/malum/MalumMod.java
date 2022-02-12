@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
@@ -55,6 +56,9 @@ public class MalumMod
         ATTRIBUTES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
+
+        TetraCompat.init();
+
         modBus.addListener(this::gatherData);
     }
 

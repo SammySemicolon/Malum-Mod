@@ -23,6 +23,9 @@
       "malum:soul_stained_steel_ingot"
     ]
   },
+  "improvements": {
+    "malum.soul_strike": 1
+  },
   "requiredTools": {
     "hammer_dig": "minecraft:gold"
   }

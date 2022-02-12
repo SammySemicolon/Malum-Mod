@@ -2,7 +2,7 @@
   "key": "twisted_rock",
   "category": "stone",
   "primary": 4.4,
-  "secondary": 4.3,
+  "secondary": 5.3,
   "tertiary": 0,
   "durability": 300,
   "integrityCost": 1,
@@ -23,6 +23,9 @@
     "items": [
       "malum:twisted_rock"
     ]
+  },
+  "effects": {
+    "unbreaking": 1
   },
   "requiredTools": {
     "hammer_dig": "minecraft:stone"

@@ -3,11 +3,14 @@ package com.sammy.malum.core.eventhandlers;
 import com.sammy.malum.common.capability.LivingEntityDataCapability;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.effect.CorruptedAerialAura;
+import com.sammy.malum.common.enchantment.ReboundEnchantment;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.item.tools.ModScytheItem;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
+import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
@@ -20,6 +23,7 @@ import com.sammy.malum.core.systems.spirit.SpiritDataReloadListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -27,6 +31,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -90,16 +95,27 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent
+    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        ReboundEnchantment.onRightClickItem(event);
+    }
+    @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
         ArcaneAffinity.consumeSoulWard(event);
         EarthenAffinity.consumeHeartOfStone(event);
-        float amount = event.getAmount();
-        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+
+        if (event.getSource().isMagic()) {
+            float amount = event.getAmount();
             LivingEntity target = event.getEntityLiving();
-
-            ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem) s.getItem()).hurtEvent(event, attacker, target, s));
-            ItemHelper.eventResponders(target).forEach(s -> ((IEventResponderItem) s.getItem()).takeDamageEvent(event, target, attacker, s));
-
+            if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+                float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.MAGIC_PROFICIENCY.get());
+                amount *= 1 * Math.exp(0.075f * proficiency);
+            }
+            float resistance = (float) target.getAttributeValue(AttributeRegistry.MAGIC_RESISTANCE.get());
+            event.setAmount((float) (amount * 1 * Math.exp(-0.15f * resistance)));
+        }
+        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+            float amount = event.getAmount();
+            LivingEntity target = event.getEntityLiving();
             ItemStack stack = attacker.getMainHandItem();
             if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity) {
                 stack = ((ScytheBoomerangEntity) event.getSource().getDirectEntity()).scythe;
@@ -111,29 +127,26 @@ public class RuntimeEvents {
                     target.hurt(DamageSourceRegistry.causeVoodooDamage(attacker), damage);
                 }
             }
-            if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(stack.getItem())) {
+            if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(stack.getItem()) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
                 LivingEntityDataCapability.getCapability(target).ifPresent(e -> e.exposedSoul = 200);
             }
             if (stack.getItem() instanceof ModScytheItem) {
                 float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get());
-                amount += proficiency * 0.5f;
+                event.setAmount(amount + proficiency * 0.5f);
             }
+            ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem) s.getItem()).hurtEvent(event, attacker, target, s));
+            ItemHelper.eventResponders(target).forEach(s -> ((IEventResponderItem) s.getItem()).takeDamageEvent(event, target, attacker, s));
         }
-        if (event.getSource().isMagic()) {
-            LivingEntity target = event.getEntityLiving();
-            if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-                float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.MAGIC_PROFICIENCY.get());
-                amount *= 1 * Math.exp(0.075f * proficiency);
-            }
-            float resistance = (float) target.getAttributeValue(AttributeRegistry.MAGIC_RESISTANCE.get());
-            amount *= 1 * Math.exp(-0.15f * resistance);
-        }
-
-        event.setAmount(amount);
     }
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
+        if (event.getEntityLiving() instanceof Player player) {
+            if (CeaselessImpetusItem.checkTotemDeathProtection(player, event.getSource())) {
+                event.setCanceled(true);
+                return;
+            }
+        }
         if (event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER.getMsgId())) {
             SpiritHelper.createSpiritEntities(event.getEntityLiving());
             return;
@@ -153,14 +166,16 @@ public class RuntimeEvents {
             if (source.getDirectEntity() instanceof ScytheBoomerangEntity scytheBoomerang) {
                 stack = scytheBoomerang.scythe;
             }
-            ItemStack finalStack = stack;
-            if (!event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId())) {
-                LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
-                    if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
-                        SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
-                        e.soulless = true;
-                    }
-                });
+            if (!(target instanceof Player)) {
+                ItemStack finalStack = stack;
+                if (!event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId())) {
+                    LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
+                        if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
+                            SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
+                            e.soulless = true;
+                        }
+                    });
+                }
             }
 
             ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem) s.getItem()).killEvent(event, finalAttacker, target, s));

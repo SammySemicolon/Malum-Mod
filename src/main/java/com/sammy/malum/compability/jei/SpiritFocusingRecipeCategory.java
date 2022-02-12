@@ -1,4 +1,4 @@
-package com.sammy.malum.client.jei;
+package com.sammy.malum.compability.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;

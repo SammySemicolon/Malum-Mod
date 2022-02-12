@@ -11,6 +11,9 @@
         "textureX": 80,
         "textureY": 16
       },
+      "effects": {
+        "malum.shatters_souls": 1
+      },
       "models": [
         {
           "location": "tetra:items/module/single/binding/socket/default",

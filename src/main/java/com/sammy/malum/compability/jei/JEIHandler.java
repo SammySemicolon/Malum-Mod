@@ -1,4 +1,4 @@
-package com.sammy.malum.client.jei;
+package com.sammy.malum.compability.jei;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;

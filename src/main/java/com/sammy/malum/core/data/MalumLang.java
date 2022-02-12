@@ -419,6 +419,11 @@ public class MalumLang extends LanguageProvider
         add("tetra.material."+identifier, name);
         add("tetra.material."+identifier+".prefix", name);
     }
+    public void addTetraEffect(String identifier, String name, String shortTooltip, String longTooltip)
+    {
+        add("tetra.stats."+identifier, name);
+        add("tetra.stats."+identifier+".tooltip_short", name);
+    }
     public void addTetraSocket(String identifier, String socket, String start, String end)
     {
         add("tetra.variant.double_socket/"+identifier, "Socket " + socket);
