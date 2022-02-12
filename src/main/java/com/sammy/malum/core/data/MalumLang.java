@@ -405,7 +405,8 @@ public class MalumLang extends LanguageProvider
         addTetraMaterial("twisted_rock", "Twisted Rock");
         addTetraMaterial("spirit_fabric", "Spirit Fabric");
 
-        addTetraSocket("processed_soulstone", "[\u00a75Soulstone\u00a77]", "A gem", "The gem is cursed and aches when touched, allowing the tool to strike the soul.");
+        addTetraImprovement("malum.soul_strike", "Soul Strike", "Allows your item to shatter souls.");
+//        addTetraSocket("processed_soulstone", "[\u00a75Soulstone\u00a77]", "A gem", "The gem is cursed and aches when touched, allowing the tool to strike the soul.");
     }
 
     @Override
@@ -419,10 +420,10 @@ public class MalumLang extends LanguageProvider
         add("tetra.material."+identifier, name);
         add("tetra.material."+identifier+".prefix", name);
     }
-    public void addTetraEffect(String identifier, String name, String shortTooltip, String longTooltip)
+    public void addTetraImprovement(String identifier, String name, String description)
     {
-        add("tetra.stats."+identifier, name);
-        add("tetra.stats."+identifier+".tooltip_short", name);
+        add("tetra.improvement."+identifier+".name", name);
+        add("tetra.improvement."+identifier+".description", description);
     }
     public void addTetraSocket(String identifier, String socket, String start, String end)
     {

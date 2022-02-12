@@ -49,6 +49,10 @@ public class RuntimeEvents {
         PlayerDataCapability.playerJoin(event);
         CurioTokenOfGratitude.giveItem(event);
         SoulHarvestHandler.addEntity(event);
+        if (TetraCompat.LOADED)
+        {
+            TetraCompat.LoadedOnly.fireArrow(event);
+        }
     }
 
     @SubscribeEvent
@@ -103,9 +107,9 @@ public class RuntimeEvents {
         ArcaneAffinity.consumeSoulWard(event);
         EarthenAffinity.consumeHeartOfStone(event);
 
+        LivingEntity target = event.getEntityLiving();
         if (event.getSource().isMagic()) {
             float amount = event.getAmount();
-            LivingEntity target = event.getEntityLiving();
             if (event.getSource().getEntity() instanceof LivingEntity attacker) {
                 float proficiency = (float) attacker.getAttributeValue(AttributeRegistry.MAGIC_PROFICIENCY.get());
                 amount *= 1 * Math.exp(0.075f * proficiency);
@@ -115,7 +119,6 @@ public class RuntimeEvents {
         }
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             float amount = event.getAmount();
-            LivingEntity target = event.getEntityLiving();
             ItemStack stack = attacker.getMainHandItem();
             if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity) {
                 stack = ((ScytheBoomerangEntity) event.getSource().getDirectEntity()).scythe;
@@ -136,6 +139,9 @@ public class RuntimeEvents {
             }
             ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem) s.getItem()).hurtEvent(event, attacker, target, s));
             ItemHelper.eventResponders(target).forEach(s -> ((IEventResponderItem) s.getItem()).takeDamageEvent(event, target, attacker, s));
+        }
+        if (event.getSource().getDirectEntity() != null && event.getSource().getDirectEntity().getTags().contains("malum:soul_arrow")) {
+            LivingEntityDataCapability.getCapability(target).ifPresent(e -> e.exposedSoul = 200);
         }
     }
 

@@ -656,6 +656,8 @@
   "malum.subtitle.totem_charge": "Totem Charge",
   "malum.subtitle.totem_engrave": "Totem Engrave",
   "malum.subtitle.void_slash": "Void Slash",
+  "tetra.improvement.malum.soul_strike.description": "Allows your item to shatter souls.",
+  "tetra.improvement.malum.soul_strike.name": "Soul Strike",
   "tetra.material.hallowed_gold": "Hallowed Gold",
   "tetra.material.hallowed_gold.prefix": "Hallowed Gold",
   "tetra.material.runewood": "Runewood",
@@ -669,11 +671,5 @@
   "tetra.material.tainted_rock": "Tainted Rock",
   "tetra.material.tainted_rock.prefix": "Tainted Rock",
   "tetra.material.twisted_rock": "Twisted Rock",
-  "tetra.material.twisted_rock.prefix": "Twisted Rock",
-  "tetra.variant.double_socket/processed_soulstone": "Socket [\u00A75Soulstone\u00A77]",
-  "tetra.variant.double_socket/processed_soulstone.description": "A gem, fitted onto the side of the tool head. The gem is cursed and aches when touched, allowing the tool to strike the soul.",
-  "tetra.variant.single_socket/processed_soulstone": "Socket [\u00A75Soulstone\u00A77]",
-  "tetra.variant.single_socket/processed_soulstone.description": "A gem, attached where the head meets the handle. The gem is cursed and aches when touched, allowing the tool to strike the soul.",
-  "tetra.variant.sword_socket/processed_soulstone": "Socket [\u00A75Soulstone\u00A77]",
-  "tetra.variant.sword_socket/processed_soulstone.description": "A gem, fitted onto the sword where the blade meets the hilt.The gem is cursed and aches when touched, allowing the tool to strike the soul."
+  "tetra.material.twisted_rock.prefix": "Twisted Rock"
 }
