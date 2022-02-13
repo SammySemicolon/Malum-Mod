@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.WallTorchBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 
@@ -31,6 +32,9 @@ public class EtherBlockEntity extends SimpleBlockEntity {
     public float zOffset;
     public int lifetimeOffset;
     public float scaleMultiplier;
+    public EtherBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+    }
     public EtherBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.ETHER.get(), pos, state);
     }

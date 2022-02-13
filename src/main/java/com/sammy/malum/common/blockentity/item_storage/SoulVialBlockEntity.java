@@ -14,12 +14,18 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class SoulVialBlockEntity extends SimpleBlockEntity {
 
     public MalumEntitySpiritData data;
+
+    public SoulVialBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+    }
+
     public SoulVialBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SOUL_VIAL.get(), pos, state);
     }

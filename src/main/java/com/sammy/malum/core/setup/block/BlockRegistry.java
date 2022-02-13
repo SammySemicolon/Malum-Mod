@@ -16,8 +16,9 @@ import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.block.misc.MalumLogBlock;
 import com.sammy.malum.common.block.misc.sign.MalumStandingSignBlock;
 import com.sammy.malum.common.block.misc.sign.MalumWallSignBlock;
-import com.sammy.malum.common.block.spirit_altar.ObeliskComponentBlock;
-import com.sammy.malum.common.block.spirit_altar.ObeliskCoreBlock;
+import com.sammy.malum.common.block.obelisk.BrillianceObeliskCoreBlock;
+import com.sammy.malum.common.block.obelisk.ObeliskComponentBlock;
+import com.sammy.malum.common.block.obelisk.RunewoodObeliskCoreBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock;
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
@@ -25,9 +26,9 @@ import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.item.ItemRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.setup.worldgen.FeatureRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.client.color.block.BlockColors;
@@ -141,8 +142,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock(SOUL_VIAL_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
 
-    public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new ObeliskCoreBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
+    public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new RunewoodObeliskCoreBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> RUNEWOOD_OBELISK_COMPONENT = BLOCKS.register("runewood_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(RUNEWOOD_OBELISK).noOcclusion(), ItemRegistry.RUNEWOOD_OBELISK));
+
+    public static final RegistryObject<Block> BRILLIANT_OBELISK = BLOCKS.register("brilliant_obelisk", () -> new BrillianceObeliskCoreBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
+    public static final RegistryObject<Block> BRILLIANT_OBELISK_COMPONENT = BLOCKS.register("brilliant_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(BRILLIANT_OBELISK).noOcclusion(), ItemRegistry.BRILLIANT_OBELISK));
 
     public static final RegistryObject<Block> SPIRIT_CRUCIBLE = BLOCKS.register("spirit_crucible", () -> new SpiritCrucibleCoreBlock(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> SPIRIT_CRUCIBLE_COMPONENT = BLOCKS.register("spirit_crucible_component", () -> new SpiritCrucibleComponentBlock(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().lootFrom(SPIRIT_CRUCIBLE).noOcclusion()));

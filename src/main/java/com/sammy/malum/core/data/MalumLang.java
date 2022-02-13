@@ -138,7 +138,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("holy_sap", "Holy Sap");
         addPage("holy_sap_a", "Within the runewood trees a special type of sap is born. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of wood, and then bottle up as much as you can get.");
         addPage("holy_sap_b", "Holy extract can be used for quite a few things. Firstly, by combining it with a slimeball you'll obtain sapballs. Since sapballs are equal to slimeballs the crafting process results in triple the slime.");
-        addPage("holy_sap_c", "Secondly, you can create holy syrup by heating up your sap. Drinking this rejuvenating substance will replenish plenty of hunger and even cure you of some negative effects. Additionally if you drink it during day time some of your health will also be restored and you'll gain a regenerative effect.");
+        addPage("holy_sap_c", "Secondly, you can create holy syrup by heating up your sap. Drinking this rejuvenating substance will replenish plenty of hunger and even grant you a rejuvenating effect.");
         addPage("holy_sap_d", "Try your best to not think about reverting sapballs into slimeballs using a certain thermal-series centrifugal separator.");
 
         addDescription("scythes", "Primitive Soul Shattering");
@@ -197,7 +197,7 @@ public class MalumLang extends LanguageProvider
         addPage("eldritch_spirit_a", "While raw arcana functions as an amplifier, eldritch arcana works much like a catalyst. It is much more potent but incredibly rare.");
         addPage("eldritch_spirit_b", "There are many otherworldly things within this realm, for uncertain reasons powerful enough souls born in these alternate twisted dimensions are granted eldritch spirit within them. ");
 
-        addDescription("arcane_rock", "Perfect for a Wizard Tower");
+        addDescription("arcane_rock", "Perfect for a Crypt");
         addHeadline("tainted_rock", "Tainted Rock");
         addPage("tainted_rock", "By infusing cobblestone with sacred and raw arcana a new stone with plenty of building options is created. Tainted rock is a simple magical building block with quite a few neat usages, it can also be shaped into item pedestals and stands.");
         addHeadline("twisted_rock", "Twisted Rock");
@@ -263,8 +263,9 @@ public class MalumLang extends LanguageProvider
         addHeadline("soul_stained_scythe", "Soul Stained Scythe");
         addPage("soul_stained_scythe", "After some time using the crude scythe you may start wishing for an upgrade or a stronger version, just like the one made from soul stained steel. It is a direct upgrade with slightly increased physical damage and a bonus to magic damage triggered by the scythe.");
         addHeadline("soul_stained_armor", "Soul Stained Armor");
-        addPage("soul_stained_armor_a", "Just like with the crude scythe, you're able to reinforce iron armor with soul stained steel. In addition to providing near diamond levels of protection the armor also shields you from magic damage. On top of that collecting spirits while wearing the armor set will reward you with a brief resistance effect.");
-        addPage("soul_stained_armor_b", "Wearing an armor set made out of soul stained steel could be compared to wearing one made out of active uranium, you would most certainly die a slow death. To prevent this unfortunate scenario, the armor is built with a protective twisted rock layer underneath the dangerous steel.");
+        addPage("soul_stained_armor_a", "Just like with the crude scythe, you're able to reinforce iron armor with soul stained steel. In addition to providing near diamond levels of protection the armor also shields you from magic damage. On top of that, the armor grants you a protective barrier known as soul ward.");
+        addPage("soul_stained_armor_b", "Soul ward is a potent arcane shield designed for magic attacks. It will recover over time, and absorb 90% of magic damage taken as well as 30% in case of physical attacks. It's commonly used, and utilized by many trinkets.");
+        addPage("soul_stained_armor_c", "Wearing an armor set made out of soul stained steel could be compared to wearing one made out of active uranium, you would most certainly die a slow death. To prevent this unfortunate scenario, the armor is built with a protective twisted rock layer underneath the dangerous steel.");
 
         addDescription("spirit_trinkets", "Forging");
         addHeadline("spirit_trinkets", "Spirit Trinkets");
@@ -309,6 +310,12 @@ public class MalumLang extends LanguageProvider
         addDescription("voodoo_magic", "Forbidden Arts");
         addHeadline("voodoo_magic", "Voodoo magic");
         addPage("voodoo_magic", "Coming soon!");
+
+        addDescription("altar_acceleration", "Obelisks");
+        addHeadline("runewood_obelisk", "Runewood Obelisk");
+        addPage("runewood_obelisk", "If you've ever wished for a means of speeding up your spirit infusion, the runewood obelisk is perfect for your needs. It functions as a booster pillar of sorts, the spirit arcana imbued within allow it to accelerate the infusion process.");
+        addHeadline("brilliant_obelisk", "Brilliant Obelisk");
+        addPage("brilliant_obelisk", "If we replace the spirit resonator with a set of brilliance, the result instead becomes a brilliant obelisk. Each one of these boosts the power of a nearby enchantment table, reaching full efficiency with just three obelisks.");
 
         addDescription("totem_magic", "Spirit Rites");
         addHeadline("totem_magic", "Totem Magic");
@@ -374,7 +381,7 @@ public class MalumLang extends LanguageProvider
 
         addDescription("magebane_belt", "Retaliation");
         addHeadline("magebane_belt", "Magebane Belt");
-        addPage("magebane_belt", "By twisting a warded belt into it's rather sinister alter ego we may create the magebane belt. This alteration exchanges defense for offense, providing greater magic resistance. Additionally, any incoming magic damage will be redirected at the inflicter.");
+        addPage("magebane_belt", "By twisting a warded belt into it's rather sinister alter ego we may create the magebane belt. This alteration exchanges defense for offense, providing greater magic resistance and extra soul ward. Additionally, any damage absorbed by soul ward will make it's way to the inflicter.");
 
         addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
         addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");

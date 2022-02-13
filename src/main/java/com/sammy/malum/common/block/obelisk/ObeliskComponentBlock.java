@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.spirit_altar;
+package com.sammy.malum.common.block.obelisk;
 
 import com.sammy.malum.core.systems.multiblock.ComponentBlock;
 import net.minecraft.core.BlockPos;

@@ -2,13 +2,11 @@ package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
-import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.setup.AttributeRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -34,11 +32,6 @@ public class SoulStainedSteelArmorItem extends MalumArmorItem {
         builder.put(AttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(uuid, "Magic Resistance", 1f, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return builder;
-    }
-
-    @Override
-    public void pickupSpirit(LivingEntity attacker, ItemStack stack, boolean isNatural) {
-        ItemHelper.giveStackingEffect(MobEffects.DAMAGE_RESISTANCE, attacker, 50, 0);
     }
 
     public String getTexture() {

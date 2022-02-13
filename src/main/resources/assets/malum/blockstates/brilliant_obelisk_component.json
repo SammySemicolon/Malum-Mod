@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "malum:block/brilliant_obelisk_component"
+      },
+      {
+        "model": "malum:block/brilliant_obelisk_component",
+        "y": 90
+      },
+      {
+        "model": "malum:block/brilliant_obelisk_component",
+        "y": 180
+      },
+      {
+        "model": "malum:block/brilliant_obelisk_component",
+        "y": 270
+      }
+    ]
+  }
+}

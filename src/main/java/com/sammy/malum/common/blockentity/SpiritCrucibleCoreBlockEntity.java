@@ -52,7 +52,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
     public float progress;
 
     public SpiritCrucibleCoreBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.SPIRIT_CRUCIBLE.get(), pos, state);
+        super(BlockEntityRegistry.SPIRIT_CRUCIBLE.get(), STRUCTURE.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
@@ -94,10 +94,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
         super.load(compound);
     }
 
-    @Override
-    public MultiBlockStructure getStructure() {
-        return STRUCTURE.get();
-    }
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (level.isClientSide) {

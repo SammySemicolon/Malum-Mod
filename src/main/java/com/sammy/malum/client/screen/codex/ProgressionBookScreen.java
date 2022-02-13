@@ -3,7 +3,6 @@ package com.sammy.malum.client.screen.codex;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.objects.BookObject;
-import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
 import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
 import com.sammy.malum.client.screen.codex.pages.*;
@@ -295,6 +294,7 @@ public class ProgressionBookScreen extends Screen
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_SCYTHE.get()))
                 .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor_a"))
                 .addPage(new TextPage("soul_stained_armor_b"))
+                .addPage(new TextPage("soul_stained_armor_c"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_HELMET.get()))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_CHESTPLATE.get()))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_LEGGINGS.get()))
@@ -368,6 +368,14 @@ public class ProgressionBookScreen extends Screen
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic"))
                 .addPage(SpiritInfusionPage.fromOutput(POPPET.get()))
+        );
+
+        entries.add(new BookEntry(
+                "altar_acceleration", RUNEWOOD_OBELISK.get(), -1, 8)
+                .addPage(new HeadlineTextPage("runewood_obelisk", "runewood_obelisk"))
+                .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_OBELISK.get()))
+                .addPage(new HeadlineTextPage("brilliant_obelisk", "brilliant_obelisk"))
+                .addPage(SpiritInfusionPage.fromOutput(BRILLIANT_OBELISK.get()))
         );
 
         entries.add(new BookEntry(
@@ -543,26 +551,13 @@ public class ProgressionBookScreen extends Screen
         {
             return super.mouseReleased(mouseX, mouseY, button);
         }
-        BookObject heyApple = null;
         for (BookObject object : objects)
         {
             if (object.isHovering(xOffset, yOffset, mouseX, mouseY))
             {
                 object.click(xOffset, yOffset, mouseX, mouseY);
-                if (object instanceof EntryObject)
-                {
-                    EntryObject entryBookObject = ((EntryObject) object);
-                    if (entryBookObject.entry.iconStack.getItem().equals(APPLE))
-                    {
-                        heyApple = entryBookObject;
-                    }
-                }
                 break;
             }
-        }
-        if (heyApple != null)
-        {
-            objects.remove(heyApple);
         }
         return super.mouseReleased(mouseX, mouseY, button);
     }
@@ -758,9 +753,6 @@ public class ProgressionBookScreen extends Screen
         {
             screen = new ProgressionBookScreen();
         }
-        setupEntries();
-        screen.setupObjects();
-
         return screen;
     }
     public static class SetupMalumCodexEntriesEvent extends Event

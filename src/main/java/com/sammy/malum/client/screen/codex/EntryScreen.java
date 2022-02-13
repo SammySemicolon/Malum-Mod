@@ -118,7 +118,7 @@ public class EntryScreen extends Screen
             }
             else
             {
-                onClose();
+                close(true);
             }
             return true;
         }
@@ -144,17 +144,20 @@ public class EntryScreen extends Screen
     {
         if (keyCode == GLFW.GLFW_KEY_E)
         {
-            onClose();
+            close(false);
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     @Override
     public void onClose()
     {
-        ProgressionBookScreen.openScreen(false);
+        close(false);
+    }
+    public void close(boolean ignoreNextInput)
+    {
+        ProgressionBookScreen.openScreen(ignoreNextInput);
         openObject.exit();
     }
-
     public void playSound()
     {
         Player playerEntity = Minecraft.getInstance().player;

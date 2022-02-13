@@ -1,12 +1,11 @@
-package com.sammy.malum.common.blockentity;
+package com.sammy.malum.common.blockentity.obelisk;
 
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.spirit_altar.IAltarAccelerator;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.setup.ParticleRegistry;
 import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.block.BlockRegistry;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import net.minecraft.core.BlockPos;
@@ -16,17 +15,12 @@ import net.minecraft.world.phys.Vec3;
 import java.awt.*;
 import java.util.function.Supplier;
 
-public class ObeliskCoreBlockEntity extends MultiBlockCoreEntity implements IAltarAccelerator {
+public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implements IAltarAccelerator {
     public static final AcceleratorType OBELISK = new AcceleratorType(4, "obelisk");
     public static final Supplier<MultiBlockStructure> STRUCTURE = () -> (MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.RUNEWOOD_OBELISK_COMPONENT.get().defaultBlockState())));
 
-    public ObeliskCoreBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.OBELISK.get(), pos, state);
-    }
-
-    @Override
-    public MultiBlockStructure getStructure() {
-        return STRUCTURE.get();
+    public RunewoodObeliskBlockEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistry.RUNEWOOD_OBELISK.get(), STRUCTURE.get(), pos, state);
     }
 
     @Override
@@ -46,11 +40,11 @@ public class ObeliskCoreBlockEntity extends MultiBlockCoreEntity implements IAlt
         RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(alpha, 0f)
                 .setLifetime(35)
-                .setScale(0.2f+level.random.nextFloat()*0.1f, 0)
+                .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
                 .randomOffset(0.02f)
                 .randomVelocity(0.01f, 0.01f)
                 .setColor(color, endColor)
-                .setSpin(0.1f + level.random.nextFloat()*0.2f)
+                .setSpin(0.1f + level.random.nextFloat() * 0.2f)
                 .randomVelocity(0.0025f, 0.0025f)
                 .enableNoClip()
                 .repeat(level, startPos.x, startPos.y, startPos.z, 1);
@@ -67,5 +61,4 @@ public class ObeliskCoreBlockEntity extends MultiBlockCoreEntity implements IAlt
                 .repeat(level, startPos.x, startPos.y, startPos.z, 2);
 
     }
-
 }

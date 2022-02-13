@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
@@ -38,6 +39,10 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     public boolean corrupted;
     public Direction direction;
 
+    public TotemBaseTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+        this.corrupted = ((TotemBaseBlock) state.getBlock()).corrupted;
+    }
     public TotemBaseTileEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.TOTEM_BASE.get(), pos, state);
         this.corrupted = ((TotemBaseBlock) state.getBlock()).corrupted;

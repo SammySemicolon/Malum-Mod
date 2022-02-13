@@ -10,6 +10,7 @@ import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
@@ -19,6 +20,10 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 
 public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
+
+    public ItemPedestalBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+    }
     public ItemPedestalBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.ITEM_PEDESTAL.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64) {

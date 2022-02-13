@@ -19,6 +19,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
@@ -34,8 +35,12 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
     public SimpleBlockEntityInventory inventory;
     public MalumEntitySpiritData data;
 
+    public PlinthCoreBlockEntity(BlockEntityType<?> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
+        super(type, structure, pos, state);
+    }
+
     public PlinthCoreBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.PLINTH.get(), pos, state);
+        super(BlockEntityRegistry.PLINTH.get(), STRUCTURE.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64, (s)->data == null) {
             @Override
             public void onContentsChanged(int slot) {
