@@ -1,6 +1,10 @@
 {
   "registry_name": "buzzier_bees:moobloom",
+<<<<<<< HEAD:src/main/resources/data/malum/spirit_data/abnormals_moobloom.json
   "primary_type": "earthen",
+=======
+  "primary_type": "sacred",
+>>>>>>> test-chamber:src/main/resources/data/malum/spirit_data/moobloom.json
   "spirits": [
     {
       "spirit": "sacred",

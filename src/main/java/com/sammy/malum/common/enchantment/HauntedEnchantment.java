@@ -1,7 +1,7 @@
 package com.sammy.malum.common.enchantment;
 
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
+import com.sammy.malum.core.setup.enchantment.MalumEnchantments;
+import com.sammy.malum.core.setup.DamageSourceRegistry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +21,7 @@ public class HauntedEnchantment extends Enchantment
         {
             if (entity.isAlive()) {
                 entity.invulnerableTime = 0;
-                entity.hurt(DamageSourceRegistry.causeNoShatterVoodooDamage(user), level + 1);
+                entity.hurt(DamageSourceRegistry.causeVoodooDamage(user), level + 1);
             }
         }
         super.doPostAttack(user, target, level);

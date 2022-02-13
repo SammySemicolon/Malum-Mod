@@ -1,10 +1,10 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.blockentity.TotemBaseTileEntity;
-import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
+import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
+import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.setup.ParticleRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -19,10 +19,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.registry.block.BlockRegistry.SOULWOOD_TOTEM_BASE;
-import static com.sammy.malum.core.registry.block.BlockRegistry.SOULWOOD_TOTEM_POLE;
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.ARCANE_SPIRIT_COLOR;
+import static com.sammy.malum.core.setup.block.BlockRegistry.SOULWOOD_TOTEM_BASE;
+import static com.sammy.malum.core.setup.block.BlockRegistry.SOULWOOD_TOTEM_POLE;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT_COLOR;
 
 public class ArcaneRiteType extends MalumRiteType
 {

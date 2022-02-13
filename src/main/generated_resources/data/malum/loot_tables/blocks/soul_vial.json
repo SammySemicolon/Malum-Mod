@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_name",
+              "source": "block_entity"
+            },
+            {
+              "function": "minecraft:copy_nbt",
+              "source": "block_entity",
+              "ops": [
+                {
+                  "source": "Level_key",
+                  "target": "BlockEntityTag.Level_key",
+                  "op": "replace"
+                },
+                {
+                  "source": "spirit_data",
+                  "target": "spirit_data",
+                  "op": "replace"
+                }
+              ]
+            }
+          ],
+          "name": "malum:soul_vial"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

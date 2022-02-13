@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.common.block.misc.MalumLogBlock;
-import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

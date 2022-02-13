@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:fox",
+  "primary_type": "earthen",
   "spirits": [
     {
       "spirit": "sacred",

@@ -1,8 +1,8 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
-import com.sammy.malum.core.registry.item.ItemRegistry;
-import com.sammy.malum.core.registry.item.ItemTagRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -13,7 +13,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 
 public class MalumSpiritInfusionRecipes extends RecipeProvider
 {
@@ -65,7 +65,21 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_LOG.get(), 1, ItemRegistry.RUNEWOOD_TOTEM_BASE.get(), 4)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_PLANKS.get(), 2, ItemRegistry.RUNEWOOD_OBELISK.get(), 1)
+                .addExtraItem(ItemRegistry.HALLOWED_SPIRIT_RESONATOR.get(), 1)
+                .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
+                .addSpirit(AERIAL_SPIRIT, 8)
+                .addSpirit(SACRED_SPIRIT, 4)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_PLANKS.get(), 2, ItemRegistry.BRILLIANT_OBELISK.get(), 1)
+                .addExtraItem(ItemRegistry.BRILLIANCE_CLUSTER.get(), 2)
+                .addExtraItem(ItemRegistry.HEX_ASH.get(), 1)
+                .addSpirit(AERIAL_SPIRIT, 6)
+                .addSpirit(AQUEOUS_SPIRIT, 3)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RUNEWOOD_LOG.get(), 4, ItemRegistry.RUNEWOOD_TOTEM_BASE.get(), 4)
                 .addExtraItem(ItemRegistry.RUNEWOOD_PLANKS.get(), 6)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
                 .addSpirit(AERIAL_SPIRIT, 2)
@@ -75,7 +89,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
                 .addSpirit(ELDRITCH_SPIRIT, 1)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_LOG.get(), 1, ItemRegistry.SOULWOOD_TOTEM_BASE.get(), 4)
+        new SpiritInfusionRecipeBuilder(ItemRegistry.SOULWOOD_LOG.get(), 4, ItemRegistry.SOULWOOD_TOTEM_BASE.get(), 4)
                 .addExtraItem(ItemRegistry.SOULWOOD_PLANKS.get(), 6)
                 .addExtraItem(ItemRegistry.HEX_ASH.get(), 2)
                 .addSpirit(AERIAL_SPIRIT, 2)

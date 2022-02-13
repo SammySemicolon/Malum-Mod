@@ -6,10 +6,12 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.common.item.tools.ScytheItem;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.item.tools.ModScytheItem;
+import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.item.ModCombatItem;
+import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -27,7 +29,7 @@ import java.util.Set;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.helper.DataHelper.takeAll;
-import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.setup.item.ItemRegistry.ITEMS;
 
 public class MalumItemModels extends net.minecraftforge.client.model.generators.ItemModelProvider
 {
@@ -41,7 +43,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-        takeAll(items, i -> i.get() instanceof ScytheItem);
+        takeAll(items, i -> i.get() instanceof ModScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof ImpetusItem).forEach(this::impetusItem);
         takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
@@ -62,6 +64,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
 
         takeAll(items, i -> i.get() instanceof BlockItem).forEach(this::blockItem);
         takeAll(items, i -> i.get() instanceof DiggerItem).forEach(this::handheldItem);
+        takeAll(items, i -> i.get() instanceof SoulStaveItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof ModCombatItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof SwordItem).forEach(this::handheldItem);
         takeAll(items, i -> i.get() instanceof BowItem).forEach(this::handheldItem);
@@ -71,10 +74,14 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
     private static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
 
-    private void multiBlockItem(RegistryObject<Item> i)
-    {
+    private void multiBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));
+        IMultiBlockCore multiBlockCore = ((IMultiBlockCore) ((BlockItem)i.get()).getBlock());
+        if (multiBlockCore.isComplex()) {
+            cubeAll(name, prefix("item/" + name));
+        } else {
+            getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));
+        }
     }
     private void impetusItem(RegistryObject<Item> i)
     {

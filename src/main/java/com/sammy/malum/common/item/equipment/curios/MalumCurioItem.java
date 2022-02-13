@@ -1,13 +1,11 @@
 package com.sammy.malum.common.item.equipment.curios;
 
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.setup.SoundRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.sounds.SoundSource;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class MalumCurioItem extends Item implements ICurioItem {
     public MalumCurioItem(Properties properties) {

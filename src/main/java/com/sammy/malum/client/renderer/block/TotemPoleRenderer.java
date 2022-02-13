@@ -4,8 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -24,6 +24,9 @@ import java.util.HashMap;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
+    public static final Color SOULWOOD = new Color(15, 7, 17);
+    public static final Color RUNEWOOD = new Color(12, 8, 7);
+
     public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
@@ -42,7 +45,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
     }
 
     public Color color(TotemPoleTileEntity totemPoleTileEntity) {
-        Color color1 = new Color(12, 8, 7);
+        Color color1 = totemPoleTileEntity.corrupted ? SOULWOOD : RUNEWOOD;
         Color color2 = totemPoleTileEntity.type.color;
         int red = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getRed(), color2.getRed());
         int green = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getGreen(), color2.getGreen());

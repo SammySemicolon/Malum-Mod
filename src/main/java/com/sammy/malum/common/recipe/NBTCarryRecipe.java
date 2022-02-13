@@ -4,8 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.registry.content.RecipeSerializerRegistry;
+import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,14 +25,6 @@ import java.util.Set;
 public class NBTCarryRecipe extends CustomRecipe implements IShapedRecipe<CraftingContainer>
 {
     public static final String NAME = "nbt_carry";
-    public static class Type implements RecipeType<NBTCarryRecipe> {
-        @Override
-        public String toString () {
-            return MalumMod.MODID + ":" + NAME;
-        }
-
-        public static final NBTCarryRecipe.Type INSTANCE = new NBTCarryRecipe.Type();
-    }
     static int MAX_WIDTH = 3;
     static int MAX_HEIGHT = 3;
 

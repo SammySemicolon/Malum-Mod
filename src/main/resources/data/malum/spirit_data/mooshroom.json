@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:mooshroom",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "arcane",

@@ -1,11 +1,12 @@
 package com.sammy.malum.core.systems.rendering;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleType;
@@ -18,6 +19,63 @@ import java.awt.*;
 import java.util.Random;
 
 public class RenderUtilities {
+
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
+        innerBlit(poseStack, shader, x, y, w, h, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
+        innerBlit(poseStack, shader, x, y, w, h, u / xCanvasSize, v / xCanvasSize, uw / yCanvasSize, vh / yCanvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float canvasSize) {
+        innerBlit(poseStack, shader, x, y, w, h, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
+        innerBlit(poseStack, shader, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
+    }
+
+    public static void innerBlit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh) {
+        Matrix4f last = poseStack.last().pose();
+        RenderSystem.setShader(shader.getInstance());
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+        bufferbuilder.vertex(last, (float) x, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float) x + (float) w, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u + uw, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float) x + (float) w, (float) y, 0).color(1, 1, 1, 1).uv(u + uw, v).endVertex();
+        bufferbuilder.vertex(last, (float) x, (float) y, 0).color(1, 1, 1, 1).uv(u, v).endVertex();
+        bufferbuilder.end();
+        BufferUploader.end(bufferbuilder);
+    }
+    public static void blit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
+        innerBlit(poseStack, x, y, w, h, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
+        innerBlit(poseStack, x, y, w, h, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float canvasSize) {
+        innerBlit(poseStack, x, y, w, h, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
+    }
+
+    public static void blit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
+        innerBlit(poseStack, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
+    }
+
+    public static void innerBlit(PoseStack poseStack, int x, int y, double w, double h, float u, float v, float uw, float vh) {
+        Matrix4f last = poseStack.last().pose();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferbuilder.vertex(last, (float) x, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float) x + (float) w, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u + uw, v + vh).endVertex();
+        bufferbuilder.vertex(last, (float) x + (float) w, (float) y, 0).color(1, 1, 1, 1).uv(u + uw, v).endVertex();
+        bufferbuilder.vertex(last, (float) x, (float) y, 0).color(1, 1, 1, 1).uv(u, v).endVertex();
+        bufferbuilder.end();
+        BufferUploader.end(bufferbuilder);
+    }
 
     public static void renderTriangle(VertexConsumer vertexConsumer, PoseStack stack, float width, float height) {
         renderTriangle(vertexConsumer, stack, width, height, 255,255,255,255);
@@ -56,19 +114,37 @@ public class RenderUtilities {
     }
 
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height) {
-        renderQuad(vertexConsumer, stack, width, height, 255,255,255,255);
+        Matrix4f last = stack.last().pose();
+
+        vertex(vertexConsumer, last, -width, -height, 0);
+        vertex(vertexConsumer, last, width, -height, 0);
+        vertex(vertexConsumer, last, width, height, 0);
+        vertex(vertexConsumer, last, -width, height, 0);
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a) {
-        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880);
-    }
-    public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, int light) {
-        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, light, 0, 0, 1, 1, 0,0,0);
+        Matrix4f last = stack.last().pose();
+
+        vertex(vertexConsumer, last, -width, -height, 0, r,g,b,a);
+        vertex(vertexConsumer, last, width, -height, 0, r,g,b,a);
+        vertex(vertexConsumer, last, width, height, 0, r,g,b,a);
+        vertex(vertexConsumer, last, -width, height, 0, r,g,b,a);
+
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, float u0, float v0, float u1, float v1) {
-        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880, u0, v0, u1, v1,0,0,0);
+        Matrix4f last = stack.last().pose();
+
+        vertex(vertexConsumer, last, -width, -height, 0, r,g,b,a, u0, v1);
+        vertex(vertexConsumer, last, width, -height, 0, r,g,b,a, u1, v1);
+        vertex(vertexConsumer, last, width, height, 0, r,g,b,a, u1, v0);
+        vertex(vertexConsumer, last, -width, height, 0, r,g,b,a, u0, v0);
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, float u0, float v0, float u1, float v1, float normalX, float normalY, float normalZ) {
-        renderQuad(vertexConsumer, stack, width, height, r, g, b, a, 15728880, u0, v0, u1, v1, normalX, normalY, normalZ);
+        Matrix4f last = stack.last().pose();
+
+        vertex(vertexConsumer, last, -width, -height, 0, r,g,b,a, u0, v1, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, width, -height, 0, r,g,b,a, u1, v1, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, width, height, 0, r,g,b,a, u1, v0, normalX, normalY, normalZ);
+        vertex(vertexConsumer, last, -width, height, 0, r,g,b,a, u0, v0, normalX, normalY, normalZ);
     }
     public static void renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height, int r, int g, int b, int a, int light, float u0, float v0, float u1, float v1, float normalX, float normalY, float normalZ) {
         Matrix4f last = stack.last().pose();
@@ -477,53 +553,4 @@ public class RenderUtilities {
             return this;
         }
     }
-
-    /*GLOWING = RenderType.create(
-            EsotericaMod.MOD_ID + ":glowing",
-            DefaultVertexFormat.POSITION_COLOR,
-            GL11.GL_QUADS, 256,
-            RenderType.CompositeState.builder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .build(false)
-    ), DELAYED_PARTICLE = RenderType.create(
-            EsotericaMod.MOD_ID + ":delayed_particle",
-            DefaultVertexFormat.PARTICLE,
-            GL11.GL_QUADS, 256,
-            RenderType.CompositeState.builder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(NORMAL_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_PARTICLES_TEXTURE, false, false))
-                    .build(false)
-    ), GLOWING_PARTICLE = RenderType.create(
-            EsotericaMod.MOD_ID + ":glowing_particle",
-            DefaultVertexFormat.PARTICLE,
-            GL11.GL_QUADS, 256,
-            RenderType.CompositeState.builder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_PARTICLES_TEXTURE, false, false))
-                    .build(false)
-    ), GLOWING_BLOCK_PARTICLE = RenderType.create(
-            EsotericaMod.MOD_ID + ":glowing_particle",
-            DefaultVertexFormat.PARTICLE,
-            GL11.GL_QUADS, 256,
-            RenderType.CompositeState.builder()
-                    .shadeModel(new RenderState.ShadeModelState(true))
-                    .writeMask(new RenderState.WriteMaskState(true, false))
-                    .lightmap(new RenderState.LightmapState(false))
-                    .diffuseLighting(new RenderState.DiffuseLightingState(false))
-                    .transparency(ADDITIVE_TRANSPARENCY)
-                    .texture(new RenderState.TextureState(TextureAtlas.LOCATION_BLOCKS_TEXTURE, false, false))
-                    .build(false)
-    );*/
 }

@@ -14,12 +14,9 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Random;
-
 public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity>
 {
     public final ItemRenderer itemRenderer;
-    public final Random random = new Random();
 
     public FloatingItemEntityRenderer(EntityRendererProvider.Context context)
     {

@@ -1,0 +1,10 @@
+{
+  "registry_name": "minecraft:goat",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

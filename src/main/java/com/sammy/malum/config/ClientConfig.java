@@ -5,12 +5,12 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class ClientConfig {
 
-    public static ForgeConfigSpec.ConfigValue<Boolean> BETTER_LAYERING;
+    public static ForgeConfigSpec.ConfigValue<Boolean> DELAYED_PARTICLE_RENDERING;
 
     public ClientConfig(ForgeConfigSpec.Builder builder) {
         builder.comment("Graphics settings").push("graphics");
-        BETTER_LAYERING = builder.comment("Enable better particle/effect layering. Fixes particles and effects rendering behind clouds and weather. NOTE: Does NOT work with fabulous graphics mode.")
-                .define("betterLayering", true);
+        DELAYED_PARTICLE_RENDERING = builder.comment("Should particles render on the delayed buffer? This means they will properly render after clouds do, but could cause issues with mods like sodium.")
+                .define("buffer_particles", true);
         builder.pop();
     }
 

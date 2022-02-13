@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.data.*;
@@ -15,18 +16,18 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
-import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.registry.block.BlockEntityRegistry.TILE_ENTITIES;
-import static com.sammy.malum.core.registry.content.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
-import static com.sammy.malum.core.registry.enchantment.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.core.registry.misc.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.core.registry.misc.ContainerRegistry.CONTAINERS;
-import static com.sammy.malum.core.registry.misc.EffectRegistry.EFFECTS;
-import static com.sammy.malum.core.registry.misc.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.core.registry.misc.ParticleRegistry.PARTICLES;
-import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.registry.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.block.BlockEntityRegistry.BLOCK_ENTITY_TYPES;
+import static com.sammy.malum.core.setup.content.RecipeSerializerRegistry.RECIPE_SERIALIZERS;
+import static com.sammy.malum.core.setup.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.setup.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.setup.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.setup.ContainerRegistry.CONTAINERS;
+import static com.sammy.malum.core.setup.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.setup.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.core.setup.ParticleRegistry.PARTICLES;
+import static com.sammy.malum.core.setup.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.setup.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)
@@ -45,7 +46,7 @@ public class MalumMod
 
         ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
-        TILE_ENTITIES.register(modBus);
+        BLOCK_ENTITY_TYPES.register(modBus);
         ITEMS.register(modBus);
         ENTITY_TYPES.register(modBus);
         EFFECTS.register(modBus);
@@ -55,6 +56,9 @@ public class MalumMod
         ATTRIBUTES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
+
+        TetraCompat.init();
+
         modBus.addListener(this::gatherData);
     }
 

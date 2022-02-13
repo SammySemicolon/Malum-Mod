@@ -22,14 +22,20 @@ public class SimpleBlockProperties extends BlockBehaviour.Properties {
     public boolean needsIron;
     public boolean needsDiamond;
 
-    public boolean ignoreDataGen;
+    public boolean ignoreLootDatagen;
+    public boolean ignoreBlockStateDatagen;
 
     public SimpleBlockProperties(Material p_60905_, MaterialColor p_60906_) {
         super(p_60905_, (p_60952_) -> p_60906_);
     }
-    public SimpleBlockProperties ignoreDataGen()
+    public SimpleBlockProperties ignoreLootDatagen()
     {
-        ignoreDataGen = true;
+        ignoreLootDatagen = true;
+        return this;
+    }
+    public SimpleBlockProperties ignoreBlockStateDatagen()
+    {
+        ignoreBlockStateDatagen = true;
         return this;
     }
     public SimpleBlockProperties needsPickaxe()
@@ -141,7 +147,7 @@ public class SimpleBlockProperties extends BlockBehaviour.Properties {
 
     @Override
     public SimpleBlockProperties lootFrom(Supplier<? extends Block> blockIn) {
-        ignoreDataGen();
+        ignoreLootDatagen();
         return (SimpleBlockProperties) super.lootFrom(blockIn);
     }
 

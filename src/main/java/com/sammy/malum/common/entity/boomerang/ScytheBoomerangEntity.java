@@ -1,9 +1,9 @@
 package com.sammy.malum.common.entity.boomerang;
 
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.misc.EntityRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.setup.enchantment.MalumEnchantments;
+import com.sammy.malum.core.setup.EntityRegistry;
+import com.sammy.malum.core.setup.SoundRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.sammy.malum.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "refmap": "malum.refmap.json",
+  "mixins": [
+    "ItemStackMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8.4"
+}

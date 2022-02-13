@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:chicken",
+  "primary_type": "sacred",
   "spirits": [
     {
       "spirit": "sacred",

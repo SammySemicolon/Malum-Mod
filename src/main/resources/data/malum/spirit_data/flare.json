@@ -1,5 +1,6 @@
 {
   "registry_name": "upgrade_aquatic:flare",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "arcane",

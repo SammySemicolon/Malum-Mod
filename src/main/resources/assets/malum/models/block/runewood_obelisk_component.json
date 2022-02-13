@@ -1,0 +1,30 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "malum:block/runewood_obelisk",
+		"particle": "malum:block/runewood_planks"
+	},
+	"elements": [
+		{
+			"from": [3, 0, 3],
+			"to": [13, 9, 13],
+			"faces": {
+				"north": {"uv": [0, 5, 5, 9.5], "texture": "#0"},
+				"east": {"uv": [0, 5, 5, 9.5], "texture": "#0"},
+				"south": {"uv": [0, 5, 5, 9.5], "texture": "#0"},
+				"west": {"uv": [0, 5, 5, 9.5], "texture": "#0"},
+				"up": {"uv": [0, 0, 5, 5], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "top",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"children": [0]
+		}
+	]
+}

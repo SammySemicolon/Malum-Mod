@@ -1,6 +1,10 @@
 {
   "registry_name": "eidolon:raven",
+<<<<<<< HEAD:src/main/resources/data/malum/spirit_data/eidolon_raven.json
   "primary_type": "aerial",
+=======
+  "primary_type": "wicked",
+>>>>>>> test-chamber:src/main/resources/data/malum/spirit_data/raven.json
   "spirits": [
     {
       "spirit": "wicked",

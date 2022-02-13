@@ -12,8 +12,11 @@ public abstract class MultiBlockCoreEntity extends SimpleBlockEntity {
 
     ArrayList<BlockPos> componentPositions = new ArrayList<>();
 
-    public MultiBlockCoreEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public final MultiBlockStructure structure;
+
+    public MultiBlockCoreEntity(BlockEntityType<?> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        this.structure = structure;
         getStructure().structurePieces.forEach(p -> {
             Vec3i offset = p.offset;
             componentPositions.add(pos.offset(offset));
@@ -21,7 +24,7 @@ public abstract class MultiBlockCoreEntity extends SimpleBlockEntity {
     }
 
     public MultiBlockStructure getStructure() {
-        return null;
+        return structure;
     }
 
     @Override
@@ -31,8 +34,7 @@ public abstract class MultiBlockCoreEntity extends SimpleBlockEntity {
                 level.destroyBlock(p, false);
             }
         });
-        if (level.getBlockEntity(worldPosition) instanceof MultiBlockCoreEntity)
-        {
+        if (level.getBlockEntity(worldPosition) instanceof MultiBlockCoreEntity) {
             level.destroyBlock(worldPosition, true);
         }
     }

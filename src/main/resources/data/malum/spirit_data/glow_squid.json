@@ -1,9 +1,14 @@
 {
   "registry_name": "minecraft:glow_squid",
+  "primary_type": "aqueous",
   "spirits": [
     {
       "spirit": "aqueous",
       "count": 2
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
     }
   ]
 }

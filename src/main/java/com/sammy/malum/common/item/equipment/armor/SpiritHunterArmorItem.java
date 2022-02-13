@@ -2,8 +2,8 @@ package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SpiritHunterArmorModel;
-import com.sammy.malum.core.registry.item.ItemRegistry;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.AttributeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -18,17 +18,18 @@ import net.minecraftforge.client.IItemRenderProperties;
 
 import java.util.UUID;
 
-import static com.sammy.malum.core.registry.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
+import static com.sammy.malum.core.setup.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
 public class SpiritHunterArmorItem extends MalumArmorItem {
     public SpiritHunterArmorItem(EquipmentSlot slot, Properties builder) {
-        super(SPIRIT_HUNTER, slot, builder, createExtraAttributes(slot));
+        super(SPIRIT_HUNTER, slot, builder);
     }
-    public static ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
+    @Override
+    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-        builder.put(AttributeRegistry.MAGIC_PROFICIENCY, new AttributeModifier(uuid, "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.SCYTHE_PROFICIENCY, new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
     public String getTexture() {

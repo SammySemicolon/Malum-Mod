@@ -1,5 +1,6 @@
 {
   "registry_name": "upgrade_aquatic:perch",
+  "primary_type": "aqueous",
   "spirits": [
     {
       "spirit": "aqueous",

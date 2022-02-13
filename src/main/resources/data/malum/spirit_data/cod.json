@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:cod",
+  "primary_type": "aqueous",
   "spirits": [
     {
       "spirit": "aqueous",

@@ -1,15 +1,21 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath 'org.parchmentmc:librarian:1.+'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = "${project.minecraftVersion}-${project.modVersion}"
 group = 'com.sammy.malum'
@@ -19,8 +25,13 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 sourceSets {
     main.resources.srcDirs += 'src/main/generated_resources'
 }
+
+mixin {
+    add sourceSets.main, "${project.modId}.refmap.json"
+}
+
 minecraft {
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'parchment', version: '2021.12.19-1.18.1'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -29,6 +40,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
             mods {
                 self {
@@ -42,6 +54,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
             mods {
                 self {
@@ -81,17 +94,30 @@ repositories {
         name = "CTM Maven"
         url = "https://maven.tterrag.com/"
     }
+    maven {
+        name = "Curse Maven"
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 dependencies {
     minecraft "net.minecraftforge:forge:${project.minecraftVersion}-${project.forgeVersion}"
 
+    if (System.getProperty("idea.sync.active") != "true") {
+        annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
+    }
+
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4")
 
-    compileOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46')
+    compileOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46')
 
-//    runtimeOnly fg.deobf("team.chisel.ctm:CTM:MC1.16.1-1.1.1.5")
+    implementation fg.deobf("curse.maven:mutil-351914:3640643")
+    implementation fg.deobf("curse.maven:tetra-289712:3640654")
+
 }
 
 jar {

@@ -2,7 +2,7 @@
   "type": "malum:spirit_infusion",
   "input": {
     "item": "malum:soulwood_log",
-    "count": 1
+    "count": 4
   },
   "output": {
     "item": "malum:soulwood_totem_base",

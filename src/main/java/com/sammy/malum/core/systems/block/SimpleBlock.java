@@ -4,7 +4,9 @@ import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -15,6 +17,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -44,6 +48,32 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return (BlockEntityTicker<T>) ticker;
+    }
+
+    @Override
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
+        if (hasTileEntity(pState)) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+                simpleBlockEntity.onPlace(pPlacer, pStack);
+            }
+        }
+        super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+        if (hasTileEntity(state)) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+                ItemStack stack = simpleBlockEntity.onClone(state, target, world, pos, player);
+                if (!stack.isEmpty())
+                {
+                    return stack;
+                }
+            }
+        }
+        return super.getCloneItemStack(state, target, world, pos, player);
     }
 
     @Override

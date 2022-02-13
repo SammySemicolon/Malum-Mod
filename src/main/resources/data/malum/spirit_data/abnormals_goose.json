@@ -1,9 +1,13 @@
 {
   "registry_name": "upgrade_aquatic:goose",
+<<<<<<< HEAD:src/main/resources/data/malum/spirit_data/abnormals_goose.json
   "primary_type": "earthen",
+=======
+  "primary_type": "wicked",
+>>>>>>> test-chamber:src/main/resources/data/malum/spirit_data/goose.json
   "spirits": [
     {
-      "spirit": "sacred",
+      "spirit": "wicked",
       "count": 1
     },
     {

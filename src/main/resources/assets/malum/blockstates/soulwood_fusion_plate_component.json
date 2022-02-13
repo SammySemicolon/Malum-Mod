@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=west,corner=false": [
+      {
+        "model": "malum:block/soulwood_fusion_plate_side_component",
+        "y": 270
+      }
+    ],
+    "facing=south,corner=false": [
+      {
+        "model": "malum:block/soulwood_fusion_plate_side_component",
+        "y": 180
+      }
+    ],
+    "facing=east,corner=false": [
+      {
+        "model": "malum:block/soulwood_fusion_plate_side_component",
+        "y": 90
+      }
+    ],
+    "facing=north,corner=false": [
+      {
+        "model": "malum:block/soulwood_fusion_plate_side_component"
+      }
+    ],
+    "facing=west,corner=true": [
+      {
+        "model": "malum:block/soulwood_fusion_plate_corner_component",
+        "y": 270
+      }
+    ],
+    "facing=south,corner=true": [
+      {
+        "model": "malum:block/soulwood_fusion_plate_corner_component",
+        "y": 180
+      }
+    ],
+    "facing=east,corner=true": [
+      {
+        "model": "malum:block/soulwood_fusion_plate_corner_component",
+        "y": 90
+      }
+    ],
+    "facing=north,corner=true": [
+      {
+        "model": "malum:block/soulwood_fusion_plate_corner_component"
+      }
+    ]
+  }
+}

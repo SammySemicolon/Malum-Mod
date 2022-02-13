@@ -1,6 +1,10 @@
 {
   "registry_name": "savageandravage:iceologer",
+<<<<<<< HEAD:src/main/resources/data/malum/spirit_data/abnormals_iceologer.json
   "primary_type": "arcane",
+=======
+  "primary_type": "wicked",
+>>>>>>> test-chamber:src/main/resources/data/malum/spirit_data/iceologer.json
   "spirits": [
     {
       "spirit": "wicked",

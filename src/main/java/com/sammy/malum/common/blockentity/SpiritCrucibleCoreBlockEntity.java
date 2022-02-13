@@ -1,21 +1,21 @@
 package com.sammy.malum.common.blockentity;
 
 import com.sammy.malum.common.item.ImpetusItem;
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.block.BlockEntityRegistry;
-import com.sammy.malum.core.registry.block.BlockRegistry;
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.core.setup.ParticleRegistry;
+import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
-import com.sammy.malum.core.systems.spirit.SpiritHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.function.Supplier;
 
-import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
 public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
     public static final Supplier<MultiBlockStructure> STRUCTURE = ()->(MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SPIRIT_CRUCIBLE_COMPONENT.get().defaultBlockState())));
@@ -52,7 +52,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
     public float progress;
 
     public SpiritCrucibleCoreBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.SPIRIT_CRUCIBLE.get(), pos, state);
+        super(BlockEntityRegistry.SPIRIT_CRUCIBLE.get(), STRUCTURE.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
@@ -94,10 +94,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
         super.load(compound);
     }
 
-    @Override
-    public MultiBlockStructure getStructure() {
-        return STRUCTURE.get();
-    }
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (level.isClientSide) {
@@ -207,10 +203,11 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
             if (item.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
                 Vec3 offset = spiritOffset(this, i);
                 Color color = spiritSplinterItem.type.color;
+                Color endColor = spiritSplinterItem.type.endColor;
                 double x = getBlockPos().getX() + offset.x();
                 double y = getBlockPos().getY() + offset.y();
                 double z = getBlockPos().getZ() + offset.z();
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, color);
+                SpiritHelper.spawnSpiritParticles(level, x, y, z, color, endColor);
                 if (recipe != null) {
                     Vec3 velocity = new Vec3(x, y, z).subtract(itemPos).normalize().scale(-0.03f);
                     RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
@@ -219,7 +216,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
                             .setScale(0.2f, 0)
                             .randomOffset(0.02f)
                             .randomVelocity(0.01f, 0.01f)
-                            .setColor(color, color.darker())
+                            .setColor(color, endColor)
+                            .setColorCurveMultiplier(0.75f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .addVelocity(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
@@ -232,7 +230,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
                             .setScale(0.5f, 0)
                             .randomOffset(0.1, 0.1)
                             .randomVelocity(0.02f, 0.02f)
-                            .setColor(color, color.darker())
+                            .setColor(color, endColor)
+                            .setColorCurveMultiplier(0.75f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .enableNoClip()
                             .repeat(level, itemPos.x, itemPos.y, itemPos.z, 2);

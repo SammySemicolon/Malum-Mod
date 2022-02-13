@@ -12,8 +12,8 @@ import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.multiblock.ComponentBlock;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -35,7 +35,8 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
-import static com.sammy.malum.core.registry.block.BlockRegistry.*;
+import static com.sammy.malum.core.helper.DataHelper.takeAll;
+import static com.sammy.malum.core.setup.block.BlockRegistry.*;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
 
@@ -57,17 +58,11 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     protected void registerStatesAndModels()
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        blocks.remove(BLAZING_QUARTZ_ORE);
         glowingBlock(BLAZING_QUARTZ_ORE);
-        blocks.remove(BRILLIANT_STONE);
         glowingBlock(BRILLIANT_STONE);
+        glowingBlock(BRILLIANT_DEEPSLATE);
 
-        blocks.remove(SPIRIT_ALTAR);
-        blocks.remove(SPIRIT_JAR);
-        blocks.remove(SPIRIT_CRUCIBLE);
-
-
-        DataHelper.takeAll(blocks, b -> b.get() instanceof ComponentBlock);
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).ignoreBlockStateDatagen);
 
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
@@ -113,14 +108,14 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String particleName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_wall", "").replaceFirst("_sign", "") + "_planks";
 
-        ModelFile sign = models().withExistingParent(name, prefix("block/template_sign")).texture("particle", prefix("block/" + particleName));
+        ModelFile sign = models().withExistingParent(name, prefix("block/templates/template_sign")).texture("particle", prefix("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sign).build());
     }
     public void glowingBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String glow = name + "_glow";
-        ModelFile glowModel = models().withExistingParent(name, prefix("block/template_glowing_block")).texture("all", prefix("block/" + name)).texture("particle", prefix("block/" + name)).texture("glow", prefix("block/" + glow));
+        ModelFile glowModel = models().withExistingParent(name, prefix("block/templates/template_glowing_block")).texture("all", prefix("block/" + name)).texture("particle", prefix("block/" + name)).texture("glow", prefix("block/" + glow));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(glowModel).build());
     }
     public void rotatedBlock(RegistryObject<Block> blockRegistryObject)
@@ -144,14 +139,14 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void etherTorchBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay"));
+        ModelFile torch = models().withExistingParent(name, prefix("block/templates/template_ether_torch")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay"));
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(torch).build());
     }
     public void wallEtherTorchBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile torch = models().withExistingParent(name, prefix("block/template_ether_torch_wall")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay"));
+        ModelFile torch = models().withExistingParent(name, prefix("block/templates/template_ether_torch_wall")).texture("torch", prefix("block/ether_torch")).texture("colored", prefix("block/ether_torch_overlay"));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(WallTorchBlock.FACING, Direction.NORTH)
@@ -193,7 +188,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         {
             particleName += "_planks";
         }
-        ModelFile stand = models().withExistingParent(name, prefix("block/template_item_stand")).texture("stand", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
+        ModelFile stand = models().withExistingParent(name, prefix("block/templates/template_item_stand")).texture("stand", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.FACING, Direction.NORTH)
@@ -213,26 +208,20 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String particleName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_item_pedestal", "");
-        String modelLocation = "block/template_rock_item_pedestal";
+        String modelLocation = "block/templates/template_rock_item_pedestal";
         if (!particleName.endsWith("_rock"))
         {
             particleName += "_planks";
-            modelLocation = "block/template_wood_item_pedestal";
+            modelLocation = "block/templates/template_wood_item_pedestal";
         }
         ModelFile pedestal = models().withExistingParent(name, prefix(modelLocation)).texture("pedestal", prefix("block/" + name)).texture("particle", prefix("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(pedestal).build());
-    }
-    public void wildFarmlandBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile farmland = models().withExistingParent(name, prefix("block/template_farmland")).texture("side", prefix("block/sun_kissed_grass_block_side")).texture("top", prefix("block/wild_farmland")).texture("dirt", new ResourceLocation("block/dirt"));
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(farmland).build());
     }
     
     public void cutBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        String baseName = "smooth_" + name.substring(4);
+        String baseName = "polished_" + name.substring(4);
         simpleBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + baseName), prefix("block/" + baseName)));
     }
     
@@ -264,7 +253,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         ResourceLocation top = prefix("block/" + woodName+"_log_top");
         ResourceLocation planks = prefix("block/" + woodName+"_planks");
         ResourceLocation panel = prefix("block/" + woodName+"_panel");
-        ModelFile base = models().withExistingParent(name, prefix("block/template_totem_base")).texture("side", side).texture("top", top).texture("planks", planks).texture("panel", panel);
+        ModelFile base = models().withExistingParent(name, prefix("block/templates/template_totem_base")).texture("side", side).texture("top", top).texture("planks", planks).texture("panel", panel);
 
         simpleBlock(blockRegistryObject.get(), base);
     }
@@ -277,7 +266,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> {
             int type = s.getValue(TotemPoleBlock.SPIRIT_TYPE);
             MalumSpiritType spiritType = SpiritTypeRegistry.SPIRITS.get(type);
-            ModelFile pole = models().withExistingParent(name + "_" + spiritType.identifier, prefix("block/template_totem_pole")).texture("side", side).texture("top", top).texture("front", prefix("block/totem/" + spiritType.identifier + "_" + woodName + "_cutout"));
+            ModelFile pole = models().withExistingParent(name + "_" + spiritType.identifier, prefix("block/templates/template_totem_pole")).texture("side", side).texture("top", top).texture("front", prefix("block/totem/" + spiritType.identifier + "_" + woodName + "_cutout"));
             return ConfiguredModel.builder().modelFile(pole).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();
         });
     }
@@ -350,8 +339,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String textureName = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath().replaceFirst("_iridescent", "");
         String particleName = textureName.replaceFirst("_ether_brazier", "") + "_rock";
-        ModelFile brazier = models().withExistingParent(name, prefix("block/template_ether_brazier")).texture("brazier", prefix("block/" + textureName)).texture("particle", prefix("block/" + particleName));
-        ModelFile brazier_hanging = models().withExistingParent(name + "_hanging", prefix("block/template_ether_brazier_hanging")).texture("brazier", prefix("block/" + textureName)).texture("particle", prefix("block/" + particleName));
+        ModelFile brazier = models().withExistingParent(name, prefix("block/templates/template_ether_brazier")).texture("brazier", prefix("block/" + textureName)).texture("particle", prefix("block/" + particleName));
+        ModelFile brazier_hanging = models().withExistingParent(name + "_hanging", prefix("block/templates/template_ether_brazier_hanging")).texture("brazier", prefix("block/" + textureName)).texture("particle", prefix("block/" + particleName));
 
         getVariantBuilder(blockRegistryObject.get())
                 .partialState().with(EtherBrazierBlock.HANGING, false).modelForState().modelFile(brazier).addModel()
@@ -361,8 +350,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void lanternBlock(RegistryObject<Block> blockRegistryObject)
     {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile lantern = models().withExistingParent(name, new ResourceLocation("block/template_lantern")).texture("lantern", prefix("block/" + name));
-        ModelFile hangingLantern = models().withExistingParent(name + "_hanging", new ResourceLocation("block/template_hanging_lantern")).texture("lantern", prefix("block/" + name));
+        ModelFile lantern = models().withExistingParent(name, new ResourceLocation("block/templates/template_lantern")).texture("lantern", prefix("block/" + name));
+        ModelFile hangingLantern = models().withExistingParent(name + "_hanging", new ResourceLocation("block/templates/template_hanging_lantern")).texture("lantern", prefix("block/" + name));
         
         getVariantBuilder(blockRegistryObject.get()).partialState().with(LanternBlock.HANGING, true).modelForState().modelFile(hangingLantern).addModel().partialState().with(LanternBlock.HANGING, false).modelForState().modelFile(lantern).addModel();
     }

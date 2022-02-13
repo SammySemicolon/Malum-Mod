@@ -1,15 +1,15 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
-import com.sammy.malum.core.registry.misc.DamageSourceRegistry;
+import com.sammy.malum.core.setup.DamageSourceRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
 public class WickedRiteType extends MalumRiteType
 {

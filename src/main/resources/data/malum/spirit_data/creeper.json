@@ -1,12 +1,17 @@
 {
   "registry_name": "minecraft:creeper",
+  "primary_type": "infernal",
   "spirits": [
     {
-      "spirit": "wicked",
+      "spirit": "infernal",
       "count": 1
     },
     {
-      "spirit": "infernal",
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
       "count": 1
     }
   ]

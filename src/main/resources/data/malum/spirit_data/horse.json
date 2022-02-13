@@ -1,17 +1,18 @@
 {
   "registry_name": "minecraft:horse",
+  "primary_type": "earthen",
   "spirits": [
     {
       "spirit": "sacred",
       "count": 1
     },
     {
-      "spirit": "aerial",
-      "count": 2
-    },
-    {
       "spirit": "earthen",
       "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 2
     }
   ]
 }

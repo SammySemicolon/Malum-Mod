@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:wither_skeleton",
+  "primary_type": "infernal",
   "spirits": [
     {
       "spirit": "wicked",

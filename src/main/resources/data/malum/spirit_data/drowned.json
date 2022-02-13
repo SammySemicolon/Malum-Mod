@@ -1,12 +1,13 @@
 {
   "registry_name": "minecraft:drowned",
+  "primary_type": "aqueous",
   "spirits": [
     {
-      "spirit": "wicked",
+      "spirit": "aqueous",
       "count": 1
     },
     {
-      "spirit": "aqueous",
+      "spirit": "wicked",
       "count": 1
     }
   ]

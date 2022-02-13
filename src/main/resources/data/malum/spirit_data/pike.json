@@ -1,12 +1,13 @@
 {
   "registry_name": "upgrade_aquatic:pike",
+  "primary_type": "wicked",
   "spirits": [
     {
       "spirit": "aqueous",
       "count": 1
     },
     {
-      "spirit": "aerial",
+      "spirit": "wicked",
       "count": 1
     }
   ]

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.core.registry.misc.ParticleRegistry;
+import com.sammy.malum.core.setup.ParticleRegistry;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.registry.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 
 public class EldritchEarthenRiteType extends MalumRiteType {
     public EldritchEarthenRiteType() {
@@ -22,7 +22,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
 
     @Override
     public int interval(boolean corrupted) {
-        return corrupted ? defaultInterval() : defaultInterval() * 5;
+        return corrupted ? defaultInterval() : defaultInterval() * 3;
     }
 
     @Override

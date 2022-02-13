@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block.totem;
 
-import com.sammy.malum.common.blockentity.TotemPoleTileEntity;
-import com.sammy.malum.core.registry.block.BlockEntityRegistry;
-import com.sammy.malum.core.registry.content.SpiritTypeRegistry;
+import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

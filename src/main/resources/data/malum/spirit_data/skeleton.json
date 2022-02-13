@@ -1,13 +1,14 @@
 {
   "registry_name": "minecraft:skeleton",
+  "primary_type": "arcane",
   "spirits": [
-    {
-      "spirit": "wicked",
-      "count": 1
-    },
     {
       "spirit": "arcane",
       "count": 2
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
     }
   ]
 }

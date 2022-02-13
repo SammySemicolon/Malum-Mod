@@ -1,6 +1,11 @@
 package com.sammy.malum.core.systems.rendering.particle;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.core.systems.rendering.RenderManager;
+import com.sammy.malum.core.systems.rendering.RenderTypes;
 import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
+import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.util.FastColor;
@@ -57,9 +62,8 @@ public abstract class GenericParticle extends TextureSheetParticle {
         updateTraits();
         super.tick();
     }
-
-//    @Override
-//    public void render(VertexConsumer consumer, Camera camera, float partialTicks) {
-//        super.render(ClientConfig.BETTER_LAYERING.get() ? RenderManager.DELAYED_RENDER.getBuffer(RenderTypes.ADDITIVE_PARTICLE) : consumer, camera, partialTicks);
-//    }
+    @Override
+    public void render(VertexConsumer consumer, Camera camera, float partialTicks) {
+        super.render(ClientConfig.DELAYED_PARTICLE_RENDERING.get() ? RenderManager.DELAYED_RENDER.getBuffer(RenderTypes.ADDITIVE_PARTICLE) : consumer, camera, partialTicks);
+    }
 }

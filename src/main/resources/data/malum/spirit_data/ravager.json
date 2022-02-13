@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:ravager",
+  "primary_type": "eldritch",
   "spirits": [
     {
       "spirit": "wicked",
@@ -11,7 +12,7 @@
     },
     {
       "spirit": "eldritch",
-      "count": 1
+      "count": 2
     }
   ]
 }

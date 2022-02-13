@@ -1,5 +1,5 @@
 {
-  "parent": "malum:block/template_ether_torch",
+  "parent": "malum:block/templates/template_ether_torch",
   "textures": {
     "torch": "malum:block/ether_torch",
     "colored": "malum:block/ether_torch_overlay"

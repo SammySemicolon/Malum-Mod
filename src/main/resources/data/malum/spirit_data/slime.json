@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:slime",
+  "primary_type": "arcane",
   "spirits": [
     {
       "spirit": "arcane",

@@ -1,6 +1,10 @@
 {
   "registry_name": "environmental:yak",
+<<<<<<< HEAD:src/main/resources/data/malum/spirit_data/abnormals_yak.json
   "primary_type": "sacred",
+=======
+  "primary_type": "earthen",
+>>>>>>> test-chamber:src/main/resources/data/malum/spirit_data/yak.json
   "spirits": [
     {
       "spirit": "sacred",

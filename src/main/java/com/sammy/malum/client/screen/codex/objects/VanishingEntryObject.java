@@ -1,8 +1,9 @@
 package com.sammy.malum.client.screen.codex.objects;
 
 import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.core.registry.misc.SoundRegistry;
+import com.sammy.malum.core.setup.SoundRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.objects;
@@ -16,7 +17,7 @@ public class VanishingEntryObject extends EntryObject
     @Override
     public void exit() {
         Player playerEntity = Minecraft.getInstance().player;
-        playerEntity.playSound(SoundRegistry.SUSPICIOUS_SOUND, 1.0f, 1.0f);
+        playerEntity.playNotifySound(SoundRegistry.SUSPICIOUS_SOUND, SoundSource.PLAYERS, 1.0f, 1.0f);
         objects.remove(this);
     }
 }

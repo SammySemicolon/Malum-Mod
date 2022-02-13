@@ -2,8 +2,8 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.item.misc.MalumSpiritItem;
-import com.sammy.malum.common.blockentity.ItemStandTileEntity;
+import com.sammy.malum.common.blockentity.item_storage.ItemStandBlockEntity;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -16,14 +16,14 @@ import net.minecraft.world.level.Level;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
-public class ItemStandRenderer implements BlockEntityRenderer<ItemStandTileEntity>
+public class ItemStandRenderer implements BlockEntityRenderer<ItemStandBlockEntity>
 {
     public ItemStandRenderer(BlockEntityRendererProvider.Context context)
     {
     }
 
     @Override
-    public void render(ItemStandTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
+    public void render(ItemStandBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
     {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
@@ -31,14 +31,14 @@ public class ItemStandRenderer implements BlockEntityRenderer<ItemStandTileEntit
         if (!stack.isEmpty())
         {
             poseStack.pushPose();
-            Vector3f offset = new Vector3f(ItemStandTileEntity.itemOffset(blockEntityIn));
+            Vector3f offset = new Vector3f(ItemStandBlockEntity.itemOffset(blockEntityIn));
             if (stack.getItem() instanceof MalumSpiritItem)
             {
-                double y = Math.sin(((level.getGameTime() + partialTicks) % 360) / 20f) * 0.05f;
+                double y = Math.sin(((level.getGameTime() + partialTicks) ) / 20f) * 0.05f;
                 poseStack.translate(0, y, 0);
             }
             poseStack.translate(offset.x(), offset.y(), offset.z());
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() % 360)* 3 + partialTicks));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() )* 3 + partialTicks));
             poseStack.scale(0.6f, 0.6f, 0.6f);
             itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

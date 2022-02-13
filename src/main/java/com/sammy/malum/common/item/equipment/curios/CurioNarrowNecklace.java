@@ -2,16 +2,12 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
+import com.sammy.malum.core.setup.AttributeRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class CurioNarrowNecklace extends MalumCurioItem
 {
@@ -25,7 +21,7 @@ public class CurioNarrowNecklace extends MalumCurioItem
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.SCYTHE_PROFICIENCY, new AttributeModifier(ATTRIBUTE_UUID, "Curio scythe proficiency", 4f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(ATTRIBUTE_UUID, "Curio scythe proficiency", 4f, AttributeModifier.Operation.ADDITION));
         return map;
     }
     @Override

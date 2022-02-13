@@ -4,9 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.common.container.SpiritPouchContainer;
 import com.sammy.malum.core.helper.DataHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -32,14 +30,8 @@ public class SpiritPouchContainerScreen extends AbstractContainerScreen<SpiritPo
 
     @Override
     protected void renderTooltip(@Nonnull PoseStack poseStack, int mouseX, int mouseY) {
-        Minecraft mc = this.minecraft;
-        if (mc != null) {
-            LocalPlayer clientPlayer = mc.player;
-            if (clientPlayer != null && clientPlayer.getInventory().getSelected().isEmpty()) {
-                if (this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
-                    this.renderTooltip(poseStack, this.hoveredSlot.getItem(), mouseX, mouseY);
-                }
-            }
+        if (this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
+            this.renderTooltip(poseStack, this.hoveredSlot.getItem(), mouseX, mouseY);
         }
     }
 

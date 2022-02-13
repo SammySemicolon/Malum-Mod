@@ -1,21 +1,15 @@
 package com.sammy.malum.core.eventhandlers;
 
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.registry.worldgen.FeatureRegistry;
-import com.sammy.malum.core.systems.spirit.SpiritReloadListener;
+import com.sammy.malum.core.setup.worldgen.FeatureRegistry;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class WorldgenEvents {
-    @SubscribeEvent
-    public static void registerListeners(AddReloadListenerEvent event) {
-        event.addListener(new SpiritReloadListener());
-    }
 
     @SubscribeEvent
     public static void addFeatures(BiomeLoadingEvent event) {

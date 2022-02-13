@@ -1,5 +1,6 @@
 {
   "registry_name": "minecraft:guardian",
+  "primary_type": "aqueous",
   "spirits": [
     {
       "spirit": "aqueous",

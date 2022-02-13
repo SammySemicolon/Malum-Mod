@@ -4,15 +4,17 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.registry.content.SpiritRiteRegistry;
-import com.sammy.malum.core.registry.enchantment.MalumEnchantments;
-import com.sammy.malum.core.registry.misc.AttributeRegistry;
-import com.sammy.malum.core.registry.misc.EffectRegistry;
+import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
+import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -27,9 +29,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.registry.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.registry.item.ItemRegistry.ITEMS;
-import static com.sammy.malum.core.registry.misc.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.setup.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.setup.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.setup.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.core.setup.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.setup.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends LanguageProvider
 {
@@ -45,26 +51,32 @@ public class MalumLang extends LanguageProvider
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
         Set<RegistryObject<SoundEvent>> sounds = new HashSet<>(SOUNDS.getEntries());
-        Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(MalumEnchantments.ENCHANTMENTS.getEntries());
-        Set<RegistryObject<MobEffect>> effects = new HashSet<>(EffectRegistry.EFFECTS.getEntries());
-        Set<RegistryObject<Attribute>> attributes = new HashSet<>(AttributeRegistry.ATTRIBUTES.getEntries());
+        Set<RegistryObject<Enchantment>> enchantments = new HashSet<>(ENCHANTMENTS.getEntries());
+        Set<RegistryObject<MobEffect>> effects = new HashSet<>(EFFECTS.getEntries());
+        Set<RegistryObject<Attribute>> attributes = new HashSet<>(ATTRIBUTES.getEntries());
+        Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
         ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.entries;
         ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
-        DataHelper.takeAll(items, i -> i.get() instanceof BlockItem);
+        ArrayList<MalumSpiritType> spirits = SpiritTypeRegistry.SPIRITS;
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallEtherTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
         blocks.forEach(b ->
         {
             String name = b.get().getDescriptionId().replaceFirst("block.malum.", "");
-            name = DataHelper.toTitleCase(specialBlockNameChanges(name), "_");
+            name = DataHelper.toTitleCase(correctBlockItemName(name), "_");
             add(b.get().getDescriptionId(), name);
         });
-
+        DataHelper.getAll(items, i -> i.get() instanceof ISoulContainerItem || i.get() instanceof SpiritJarItem).forEach(i -> {
+            String name = i.get().getDescriptionId().replaceFirst("item.malum.", "").replaceFirst("block.malum.", "");
+            String filled = "filled_" + name;
+            add("item.malum." + filled, DataHelper.toTitleCase(filled, "_"));
+        });
+        DataHelper.takeAll(items, i -> i.get() instanceof BlockItem);
         items.forEach(i ->
         {
             String name = i.get().getDescriptionId().replaceFirst("item.malum.", "");
-            name = DataHelper.toTitleCase(specialBlockNameChanges(name), "_");
+            name = DataHelper.toTitleCase(correctBlockItemName(name), "_");
             add(i.get().getDescriptionId(), name);
         });
 
@@ -87,7 +99,14 @@ public class MalumLang extends LanguageProvider
             add("attribute.name.malum." + a.get().getRegistryName().getPath(), name);
         });
 
+        entities.forEach(e -> {
+            String name = DataHelper.toTitleCase(e.getId().getPath(), "_");
+            add("entity.malum." + e.get().getRegistryName().getPath(), name);
+        });
+
         rites.forEach(r -> add(r.translationIdentifier(), DataHelper.toTitleCase(r.identifier, "_")));
+
+        spirits.forEach(s -> add(s.getDescription(), DataHelper.toTitleCase(s.identifier+"_spirit", "_")));
 
         coolerBookEntries.forEach(b -> add(b.translationKey(), DataHelper.toTitleCase(b.identifier, "_")));
 
@@ -119,7 +138,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("holy_sap", "Holy Sap");
         addPage("holy_sap_a", "Within the runewood trees a special type of sap is born. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of wood, and then bottle up as much as you can get.");
         addPage("holy_sap_b", "Holy extract can be used for quite a few things. Firstly, by combining it with a slimeball you'll obtain sapballs. Since sapballs are equal to slimeballs the crafting process results in triple the slime.");
-        addPage("holy_sap_c", "Secondly, you can create holy syrup by heating up your sap. Drinking this rejuvenating substance will replenish plenty of hunger and even cure you of some negative effects. Additionally if you drink it during day time some of your health will also be restored and you'll gain a regenerative effect.");
+        addPage("holy_sap_c", "Secondly, you can create holy syrup by heating up your sap. Drinking this rejuvenating substance will replenish plenty of hunger and even grant you a rejuvenating effect.");
         addPage("holy_sap_d", "Try your best to not think about reverting sapballs into slimeballs using a certain thermal-series centrifugal separator.");
 
         addDescription("scythes", "Primitive Soul Shattering");
@@ -145,7 +164,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("hex_ash", "Hex Ash");
         addPage("hex_ash", "Hex ash is a simple magical powder used in various infusions as a minor component. The ash can animate inanimate things, even bring them to life in some extreme cases.");
 
-        addDescription("simple_spirits", "Primal Arcana");
+        addDescription("simple_spirits", "Primary Arcana");
         addHeadline("sacred_spirit", "Sacred Spirit");
         addPage("sacred_spirit_a", "Sacred spirit derives from two concepts, the pure and the holy. Sacred arcana is generally focused on various forms of healing and other curative effects.");
         addPage("sacred_spirit_b", "The sacred spirit is found mainly within passive, relaxed souls. Easy targets really.");
@@ -178,7 +197,7 @@ public class MalumLang extends LanguageProvider
         addPage("eldritch_spirit_a", "While raw arcana functions as an amplifier, eldritch arcana works much like a catalyst. It is much more potent but incredibly rare.");
         addPage("eldritch_spirit_b", "There are many otherworldly things within this realm, for uncertain reasons powerful enough souls born in these alternate twisted dimensions are granted eldritch spirit within them. ");
 
-        addDescription("arcane_rock", "Perfect for a Wizard Tower");
+        addDescription("arcane_rock", "Perfect for a Crypt");
         addHeadline("tainted_rock", "Tainted Rock");
         addPage("tainted_rock", "By infusing cobblestone with sacred and raw arcana a new stone with plenty of building options is created. Tainted rock is a simple magical building block with quite a few neat usages, it can also be shaped into item pedestals and stands.");
         addHeadline("twisted_rock", "Twisted Rock");
@@ -244,8 +263,9 @@ public class MalumLang extends LanguageProvider
         addHeadline("soul_stained_scythe", "Soul Stained Scythe");
         addPage("soul_stained_scythe", "After some time using the crude scythe you may start wishing for an upgrade or a stronger version, just like the one made from soul stained steel. It is a direct upgrade with slightly increased physical damage and a bonus to magic damage triggered by the scythe.");
         addHeadline("soul_stained_armor", "Soul Stained Armor");
-        addPage("soul_stained_armor_a", "Just like with the crude scythe, you're able to reinforce iron armor with soul stained steel. In addition to providing near diamond levels of protection the armor also shields you from magic damage. On top of that collecting spirits while wearing the armor set will reward you with a brief resistance effect.");
-        addPage("soul_stained_armor_b", "Wearing an armor set made out of soul stained steel could be compared to wearing one made out of active uranium, you would most certainly die a slow death. To prevent this unfortunate scenario, the armor is built with a protective twisted rock layer underneath the dangerous steel.");
+        addPage("soul_stained_armor_a", "Just like with the crude scythe, you're able to reinforce iron armor with soul stained steel. In addition to providing near diamond levels of protection the armor also shields you from magic damage. On top of that, the armor grants you a protective barrier known as soul ward.");
+        addPage("soul_stained_armor_b", "Soul ward is a potent arcane shield designed for magic attacks. It will recover over time, and absorb 90% of magic damage taken as well as 30% in case of physical attacks. It's commonly used, and utilized by many trinkets.");
+        addPage("soul_stained_armor_c", "Wearing an armor set made out of soul stained steel could be compared to wearing one made out of active uranium, you would most certainly die a slow death. To prevent this unfortunate scenario, the armor is built with a protective twisted rock layer underneath the dangerous steel.");
 
         addDescription("spirit_trinkets", "Forging");
         addHeadline("spirit_trinkets", "Spirit Trinkets");
@@ -265,7 +285,7 @@ public class MalumLang extends LanguageProvider
 
         addDescription("warded_belt", "Immovable");
         addHeadline("warded_belt", "Warded Belt");
-        addPage("warded_belt", "By taking the already armored design of a gilded belt and imbuing it with earthen arcana and a tained rock reinforcement we can create a powerful belt which serves as a great defense.");
+        addPage("warded_belt", "By taking the already armored design of a gilded belt and imbuing it with earthen arcana and a tainted rock reinforcement we can create a powerful belt which serves as a great protective piece of gear.");
 
         addDescription("ring_of_curative_talent", "Arcane Vigor");
         addHeadline("ring_of_curative_talent", "Ring of Curative Talent");
@@ -290,6 +310,12 @@ public class MalumLang extends LanguageProvider
         addDescription("voodoo_magic", "Forbidden Arts");
         addHeadline("voodoo_magic", "Voodoo magic");
         addPage("voodoo_magic", "Coming soon!");
+
+        addDescription("altar_acceleration", "Obelisks");
+        addHeadline("runewood_obelisk", "Runewood Obelisk");
+        addPage("runewood_obelisk", "If you've ever wished for a means of speeding up your spirit infusion, the runewood obelisk is perfect for your needs. It functions as a booster pillar of sorts, the spirit arcana imbued within allow it to accelerate the infusion process.");
+        addHeadline("brilliant_obelisk", "Brilliant Obelisk");
+        addPage("brilliant_obelisk", "If we replace the spirit resonator with a set of brilliance, the result instead becomes a brilliant obelisk. Each one of these boosts the power of a nearby enchantment table, reaching full efficiency with just three obelisks.");
 
         addDescription("totem_magic", "Spirit Rites");
         addHeadline("totem_magic", "Totem Magic");
@@ -335,7 +361,7 @@ public class MalumLang extends LanguageProvider
         addDescription("aerial_rite", "Light Arcana");
         addPage("aerial_rite", "The aerial rite provides one of many auras. Nearby players will receive a boost to movement speed.");
         addPage("corrupted_aerial_rite", "The effect of the rite is altered, horizontal mobility turns into vertical agility.");
-        addPage("eldritch_aerial_rite", "The rite is twisted into something greater, nearby blocks will start to experience gravity.");
+        addPage("eldritch_aerial_rite", "The rite is twisted into something greater, blocks below will start to experience gravity.");
         addPage("corrupted_eldritch_aerial_rite", "Have you ever wondered what the clouds feel like?");
 
         addDescription("aqueous_rite", "Loyalty");
@@ -355,11 +381,14 @@ public class MalumLang extends LanguageProvider
 
         addDescription("magebane_belt", "Retaliation");
         addHeadline("magebane_belt", "Magebane Belt");
-        addPage("magebane_belt", "By twisting a warded belt into it's rather sinister alter ego we may create the magebane belt. This alteration exchanges defense for offense, providing greater magic resistance. Additionally, any incoming magic damage will be redirected at the inflicter.");
+        addPage("magebane_belt", "By twisting a warded belt into it's rather sinister alter ego we may create the magebane belt. This alteration exchanges defense for offense, providing greater magic resistance and extra soul ward. Additionally, any damage absorbed by soul ward will make it's way to the inflicter.");
 
         addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
         addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
         addPage("3000_dollars_for_a_brewing_stand", "hey apple");
+
+        add("malum.spirit.description.stored_spirit", "Contains: ");
+        add("malum.spirit.description.stored_soul", "Stores Soul With: ");
 
         add("malum.jei.spirit_infusion", "Spirit Infusion");
         add("malum.jei.spirit_focusing", "Spirit Focusing");
@@ -373,7 +402,18 @@ public class MalumLang extends LanguageProvider
 
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
-        add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits dropped from shattering souls.");
+        add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
+
+        addTetraMaterial("soul_stained_steel", "Soul Stained Steel");
+        addTetraMaterial("hallowed_gold", "Hallowed Gold");
+        addTetraMaterial("runewood", "Runewood");
+        addTetraMaterial("soulwood", "Soulwood");
+        addTetraMaterial("tainted_rock", "Tainted Rock");
+        addTetraMaterial("twisted_rock", "Twisted Rock");
+        addTetraMaterial("spirit_fabric", "Spirit Fabric");
+
+        addTetraImprovement("malum.soul_strike", "Soul Strike", "Allows your item to shatter souls.");
+//        addTetraSocket("processed_soulstone", "[\u00a75Soulstone\u00a77]", "A gem", "The gem is cursed and aches when touched, allowing the tool to strike the soul.");
     }
 
     @Override
@@ -382,6 +422,27 @@ public class MalumLang extends LanguageProvider
         return "Malum Lang Entries";
     }
 
+    public void addTetraMaterial(String identifier, String name)
+    {
+        add("tetra.material."+identifier, name);
+        add("tetra.material."+identifier+".prefix", name);
+    }
+    public void addTetraImprovement(String identifier, String name, String description)
+    {
+        add("tetra.improvement."+identifier+".name", name);
+        add("tetra.improvement."+identifier+".description", description);
+    }
+    public void addTetraSocket(String identifier, String socket, String start, String end)
+    {
+        add("tetra.variant.double_socket/"+identifier, "Socket " + socket);
+        add("tetra.variant.double_socket/"+identifier+".description", start + ", fitted onto the side of the tool head. " + end);
+
+        add("tetra.variant.single_socket/"+identifier, "Socket " + socket);
+        add("tetra.variant.single_socket/"+identifier+".description", start + ", attached where the head meets the handle. " + end);
+
+        add("tetra.variant.sword_socket/"+identifier, "Socket " + socket);
+        add("tetra.variant.sword_socket/"+identifier+".description", start + ", fitted onto the sword where the blade meets the hilt." + end);
+    }
     public void addPage(String identifier, String tooltip)
     {
         add("malum.gui.book.entry.page.text." + identifier, tooltip);
@@ -399,7 +460,7 @@ public class MalumLang extends LanguageProvider
         add("malum.tooltip." + identifier, tooltip);
     }
 
-    public String specialBlockNameChanges(String name)
+    public String correctBlockItemName(String name)
     {
         if ((!name.endsWith("_bricks")))
         {

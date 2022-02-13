@@ -1,6 +1,5 @@
 package com.sammy.malum.common.item.equipment;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.packets.TotemOfUndyingEffectPacket;
 import com.sammy.malum.core.helper.ItemHelper;
@@ -16,21 +15,18 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.registry.misc.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
 public class CeaselessImpetusItem extends ImpetusItem implements IEventResponderItem {
     public CeaselessImpetusItem(Properties p_41383_) {
         super(p_41383_);
     }
 
-    private static boolean checkTotemDeathProtection(Player player, DamageSource p_21263_) {
+    public static boolean checkTotemDeathProtection(Player player, DamageSource p_21263_) {
         if (p_21263_.isBypassInvul()) {
             return false;
         } else {
@@ -52,6 +48,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IEventResponder
                 if (player instanceof ServerPlayer serverplayer) {
                     serverplayer.awardStat(Stats.ITEM_USED.get(itemstack.getItem()), 1);
                     CriteriaTriggers.USED_TOTEM.trigger(serverplayer, itemstack);
+                    INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverplayer), new TotemOfUndyingEffectPacket(player, itemstack));
                 }
 
                 player.setHealth(2.0F);
@@ -68,24 +65,9 @@ public class CeaselessImpetusItem extends ImpetusItem implements IEventResponder
                 player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400, 0));
 
-                INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), new TotemOfUndyingEffectPacket(player, itemstack));
             }
 
             return itemstack != null;
-        }
-    }
-    @Mod.EventBusSubscriber(modid = MalumMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-    public static class DeathEvent
-    {
-        @SubscribeEvent
-        public static void triggerCeaselessImpetus(LivingDeathEvent event)
-        {
-            if (event.getEntityLiving() instanceof Player player) {
-                if (CeaselessImpetusItem.checkTotemDeathProtection(player, event.getSource()))
-                {
-                    event.setCanceled(true);
-                }
-            }
         }
     }
 }
