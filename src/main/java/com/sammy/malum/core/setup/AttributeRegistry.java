@@ -32,11 +32,6 @@ public class AttributeRegistry {
     public static final RegistryObject<Attribute> SOUL_WARD_DAMAGE_PENALTY = ATTRIBUTES.register("soul_ward_damage_penalty", () -> new RangedAttribute("attribute.name.malum.soul_ward_damage_penalty", 3D, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> SOUL_WARD_CAP = ATTRIBUTES.register("soul_ward_capacity", () -> new RangedAttribute("attribute.name.malum.soul_ward_capacity", 0D, 0.0D, 2048.0D).setSyncable(true));
 
-    public static Attribute register(String name, Attribute attribute) {
-        ATTRIBUTES.register(name, () -> attribute);
-        return attribute;
-    }
-
     @SubscribeEvent
     public static void modifyEntityAttributes(EntityAttributeModificationEvent event) {
         event.getTypes().forEach(e -> {

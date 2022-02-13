@@ -42,7 +42,11 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
                 MalumMod.LOGGER.info("entity with " + name + " already has spirit data associated with it. Skipping file");
                 continue;
             }
-
+            if (!object.has("primary_type"))
+            {
+                MalumMod.LOGGER.info("entity with " + name + " is missing a primary type. Skipping file");
+                continue;
+            }
             String primaryType = object.getAsJsonPrimitive("primary_type").getAsString();
             JsonArray array = object.getAsJsonArray("spirits");
 
