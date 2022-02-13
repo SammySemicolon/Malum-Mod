@@ -3,6 +3,7 @@ package com.sammy.malum.core.systems.spirit;
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.helper.SpiritHelper;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -37,14 +38,19 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
             JsonObject object = objectIn.get(location).getAsJsonObject();
             String name = object.getAsJsonPrimitive("registry_name").getAsString();
             ResourceLocation resourceLocation = new ResourceLocation(name);
+            if (!Registry.ENTITY_TYPE.containsKey(resourceLocation))
+            {
+                MalumMod.LOGGER.info("entity with registry name: " + name + " doesn't exist. Skipping file");
+                continue;
+            }
             if (SPIRIT_DATA.containsKey(resourceLocation))
             {
-                MalumMod.LOGGER.info("entity with " + name + " already has spirit data associated with it. Skipping file");
+                MalumMod.LOGGER.info("entity with registry name: " + name + " already has spirit data associated with it. Skipping file");
                 continue;
             }
             if (!object.has("primary_type"))
             {
-                MalumMod.LOGGER.info("entity with " + name + " is missing a primary type. Skipping file");
+                MalumMod.LOGGER.info("entity with registry name: " + name + " is missing a primary type. Skipping file");
                 continue;
             }
             String primaryType = object.getAsJsonPrimitive("primary_type").getAsString();

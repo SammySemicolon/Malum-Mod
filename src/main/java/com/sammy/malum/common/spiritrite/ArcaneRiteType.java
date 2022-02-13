@@ -86,8 +86,7 @@ public class ArcaneRiteType extends MalumRiteType
         positions.forEach(p -> {
             BlockState state = level.getBlockState(p);
             BlockTransmutationRecipe recipe = BlockTransmutationRecipe.getRecipe(level, state.getBlock());
-            if (recipe != null)
-            {
+            if (recipe != null) {
                 if (!level.isClientSide) {
                     Block block = recipe.output;
                     BlockEntity entity = level.getBlockEntity(p);
@@ -103,9 +102,7 @@ public class ArcaneRiteType extends MalumRiteType
                             }
                         }
                     }
-                }
-                else
-                {
+                } else {
                     particles(level, p);
                 }
             }
