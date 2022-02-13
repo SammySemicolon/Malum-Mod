@@ -1,10 +1,6 @@
 {
   "registry_name": "upgrade_aquatic:lionfish",
-<<<<<<< HEAD:src/main/resources/data/malum/spirit_data/abnormals_lionfish.json
   "primary_type": "aqueous",
-=======
-  "primary_type": "wicked",
->>>>>>> test-chamber:src/main/resources/data/malum/spirit_data/lionfish.json
   "spirits": [
     {
       "spirit": "wicked",
