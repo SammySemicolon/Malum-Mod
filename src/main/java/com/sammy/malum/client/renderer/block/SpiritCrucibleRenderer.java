@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

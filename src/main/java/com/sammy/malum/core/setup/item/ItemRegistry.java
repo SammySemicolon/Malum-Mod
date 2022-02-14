@@ -7,7 +7,8 @@ import com.sammy.malum.client.model.SpiritHunterArmorModel;
 import com.sammy.malum.client.model.TailModel;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
-import com.sammy.malum.common.blockentity.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.blockentity.item_storage.PlinthCoreBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
@@ -350,6 +351,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = ITEMS.register("runewood_obelisk", () -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), DEFAULT_PROPERTIES(), RunewoodObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> BRILLIANT_OBELISK = ITEMS.register("brilliant_obelisk", () -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), DEFAULT_PROPERTIES(), BrilliantObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = ITEMS.register("spirit_crucible", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), DEFAULT_PROPERTIES(), SpiritCrucibleCoreBlockEntity.STRUCTURE));
+    public static final RegistryObject<Item> SPIRIT_CATALYZER = ITEMS.register("spirit_catalyzer", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CATALYZER.get(), DEFAULT_PROPERTIES(), SpiritCatalyzerCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_TOTEM_BASE = ITEMS.register("soulwood_totem_base", () -> new BlockItem(BlockRegistry.SOULWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_PLINTH = ITEMS.register("soulwood_plinth", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_PLINTH.get(), DEFAULT_PROPERTIES(), PlinthCoreBlockEntity.STRUCTURE));

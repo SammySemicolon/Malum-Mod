@@ -41,7 +41,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
                 .setAlpha(alpha, 0f)
                 .setLifetime(35)
                 .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
-                .randomOffset(0.02f)
+                .randomOffset(0.1f)
                 .randomVelocity(0.01f, 0.01f)
                 .setColor(color, endColor)
                 .setSpin(0.1f + level.random.nextFloat() * 0.2f)

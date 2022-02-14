@@ -3,6 +3,8 @@
   "values": [
     "malum:spirit_crucible",
     "malum:spirit_crucible_component",
+    "malum:spirit_catalyzer",
+    "malum:spirit_catalyzer_component",
     "malum:tainted_rock",
     "malum:smooth_tainted_rock",
     "malum:polished_tainted_rock",

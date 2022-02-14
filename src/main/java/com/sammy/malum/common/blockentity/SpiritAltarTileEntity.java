@@ -319,15 +319,15 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         speed = 0f;
         acceleratorPositions.clear();
         Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
-        HashMap<IAltarAccelerator, Integer> entries = new HashMap<>();
+        HashMap<IAltarAccelerator.AcceleratorType, Integer> entries = new HashMap<>();
         for (BlockPos pos : nearbyBlocks) {
             if (level.getBlockEntity(pos) instanceof IAltarAccelerator accelerator) {
                 int max = accelerator.getAcceleratorType().maximumEntries;
-                int amount = entries.computeIfAbsent(accelerator, (a) -> 0);
-                if (amount != max) {
+                int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
+                if (amount < max) {
                     acceleratorPositions.add(pos);
                     speed += accelerator.getAcceleration();
-                    entries.replace(accelerator, amount + 1);
+                    entries.replace(accelerator.getAcceleratorType(), amount + 1);
                 }
             }
         }

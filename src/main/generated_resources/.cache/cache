@@ -175,7 +175,7 @@ eae07e90708b4ad79087ece2f880b20d2dd71862 assets/malum/blockstates/vertical_soulw
 ea2124145fd87d36427a1e743f7865d328403f7b assets/malum/blockstates/vertical_soulwood_planks_slab.json
 d9001ce582022fed3dcfa3c78a5f1497f622a419 assets/malum/blockstates/vertical_soulwood_planks_stairs.json
 1c5a82140570f65af0f2675a889a4887d87d3874 assets/malum/blockstates/wall_ether_torch.json
-0cee04bed5afd179ad181e3c817b0806b088fe34 assets/malum/lang/en_us.json
+f9f718c3e631ead704018c4fb1a0d73b414fc3af assets/malum/lang/en_us.json
 a75ef274d6ea80a594a834a6f1a473a9afa5d32f assets/malum/models/block/blazing_quartz_ore.json
 6aceb4e68013e9ed2fcaf610e0a7dbedb0a0f73f assets/malum/models/block/block_of_arcane_charcoal.json
 67e839edbb58bb90eb53f751bd18905e0180c718 assets/malum/models/block/block_of_blazing_quartz.json
@@ -727,6 +727,7 @@ ee63cd22ce2883cd479f8c9a49b79cc9b696c5a1 assets/malum/models/item/soulwood_tiles
 16fef2267d9c5c8753ee46dfef8ba420fb252481 assets/malum/models/item/soulwood_trapdoor.json
 3c6ef2844b8e18472df50fea9ca03c24fd60fe78 assets/malum/models/item/spectral_lens.json
 6541382b4ee02585af32523ce0deee6d023c1d0e assets/malum/models/item/spirit_altar.json
+15b93f7937d07253daf66e0c98371e40c36ba881 assets/malum/models/item/spirit_catalyzer.json
 86c7d423955b68e9b60cf83eade151df2a4dbf8d assets/malum/models/item/spirit_crucible.json
 90437b4ec6c45a9f1288ba538ca4f27e93be3e4a assets/malum/models/item/spirit_fabric.json
 578b50f731090ec6a5cceeaf29a8fb3633e7bf72 assets/malum/models/item/spirit_jar.json
@@ -1219,6 +1220,7 @@ f8cb32944eda64153b2bece4282d88f9e0db8a3d data/malum/loot_tables/blocks/soulwood_
 1babbd808e8cb523ea12ce82df2a4cd0a0536074 data/malum/loot_tables/blocks/soulwood_trapdoor.json
 453459dc06e1281705ecbf5b6e3616086b46b9ec data/malum/loot_tables/blocks/soulwood_wall_sign.json
 00de05e2b136de95384245df2c64b1a2728cf41f data/malum/loot_tables/blocks/spirit_altar.json
+e1ac4d1c7b3944b886a32b9008c8622410ea201f data/malum/loot_tables/blocks/spirit_catalyzer.json
 b4f4c2ddec5a73eee78128962468c21c364752b7 data/malum/loot_tables/blocks/spirit_crucible.json
 3a15976b0298e4da83a8515d3986066fdcb1df47 data/malum/loot_tables/blocks/spirit_jar.json
 a4a9de88e90ce68e13c01512c41093e9d81a297f data/malum/loot_tables/blocks/stripped_runewood.json
@@ -1677,7 +1679,7 @@ c76cb97e20ea243cadb64d5fde634506fce8cb94 data/minecraft/tags/blocks/leaves.json
 77386b0bde9f18d35a485a7ab8ec2d196c35e95d data/minecraft/tags/blocks/logs.json
 be7a4deb2f53ad048c27d0cd9fef90c6913e0e8c data/minecraft/tags/blocks/mineable/axe.json
 c76cb97e20ea243cadb64d5fde634506fce8cb94 data/minecraft/tags/blocks/mineable/hoe.json
-3706daac7c07599d75263eeeba61d058214db615 data/minecraft/tags/blocks/mineable/pickaxe.json
+b28109ed454888eb4923d78f1213a571e7a48484 data/minecraft/tags/blocks/mineable/pickaxe.json
 ed1badaa5faed1a472ef3df2a0a2bcd08d261864 data/minecraft/tags/blocks/planks.json
 ba125b89721687e009e5b8df66e50c8a98391641 data/minecraft/tags/blocks/pressure_plates.json
 b1d9e35bdb49cfe5ba6245edebdaf3fd24944491 data/minecraft/tags/blocks/saplings.json

@@ -20,6 +20,8 @@ import com.sammy.malum.common.block.obelisk.BrillianceObeliskCoreBlock;
 import com.sammy.malum.common.block.obelisk.ObeliskComponentBlock;
 import com.sammy.malum.common.block.obelisk.RunewoodObeliskCoreBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
+import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerComponentBlock;
+import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerCoreBlock;
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock;
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
@@ -150,6 +152,9 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> SPIRIT_CRUCIBLE = BLOCKS.register("spirit_crucible", () -> new SpiritCrucibleCoreBlock(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> SPIRIT_CRUCIBLE_COMPONENT = BLOCKS.register("spirit_crucible_component", () -> new SpiritCrucibleComponentBlock(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().lootFrom(SPIRIT_CRUCIBLE).noOcclusion()));
+
+    public static final RegistryObject<Block> SPIRIT_CATALYZER = BLOCKS.register("spirit_catalyzer", () -> new SpiritCatalyzerCoreBlock(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
+    public static final RegistryObject<Block> SPIRIT_CATALYZER_COMPONENT = BLOCKS.register("spirit_catalyzer_component", () -> new SpiritCatalyzerComponentBlock(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().lootFrom(SPIRIT_CATALYZER).noOcclusion(), ItemRegistry.SPIRIT_CATALYZER));
 
     public static final RegistryObject<Block> SOULWOOD_PLINTH = BLOCKS.register("soulwood_plinth", () -> new PlinthCoreBlock(SOULWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> SOULWOOD_PLINTH_COMPONENT = BLOCKS.register("soulwood_plinth_component", () -> new PlinthComponentBlock(SOULWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(SOULWOOD_PLINTH).noOcclusion(), ItemRegistry.SOULWOOD_PLINTH));
