@@ -6,6 +6,7 @@ import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.setup.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
@@ -403,6 +404,15 @@ public class MalumLang extends LanguageProvider
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");
         add("enchantment.malum.spirit_plunder.desc", "Increases the amount of spirits created when shattering a soul.");
+
+        add("death.attack."+ DamageSourceRegistry.VOODOO_DAMAGE, "%s had their soul shattered");
+        add("death.attack."+ DamageSourceRegistry.VOODOO_DAMAGE+".player", "%s had their soul shattered by %s");
+        add("death.attack."+ DamageSourceRegistry.FORCED_SHATTER_DAMAGE, "%s had their soul shattered");
+        add("death.attack."+ DamageSourceRegistry.FORCED_SHATTER_DAMAGE+".player", "%s had their soul shattered by %s");
+        add("death.attack."+ DamageSourceRegistry.MAGEBANE_DAMAGE, "%s got too confident with a soul hunter");
+        add("death.attack."+ DamageSourceRegistry.MAGEBANE_DAMAGE+".player", "%s got too confident with %s");
+        add("death.attack."+ DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE, "%s was sliced into two pieces");
+        add("death.attack."+ DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE+".player", "%s was sliced into two pieces by %s");
 
         addTetraMaterial("soul_stained_steel", "Soul Stained Steel");
         addTetraMaterial("hallowed_gold", "Hallowed Gold");

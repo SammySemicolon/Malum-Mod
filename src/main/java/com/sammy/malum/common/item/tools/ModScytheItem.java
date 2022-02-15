@@ -1,6 +1,7 @@
 package com.sammy.malum.common.item.tools;
 
 import com.sammy.malum.core.helper.ItemHelper;
+import com.sammy.malum.core.setup.DamageSourceRegistry;
 import com.sammy.malum.core.setup.ParticleRegistry;
 import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.setup.item.ItemRegistry;
@@ -11,7 +12,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -50,8 +50,8 @@ public class ModScytheItem extends ModCombatItem implements IEventResponderItem 
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
         target.level.getEntities(attacker, target.getBoundingBox().inflate(1)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
-                if (livingEntity.isAlive()) {
-                    livingEntity.hurt(DamageSource.mobAttack(attacker), damage);
+                if (livingEntity.isAlive() && !event.getSource().getMsgId().equals(DamageSourceRegistry.SCYTHE_SWEEP_DAMAGE)) {
+                    livingEntity.hurt(DamageSourceRegistry.scytheSweepDamage(attacker), damage);
                     livingEntity.knockback(0.4F, Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)), (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
                 }
             }

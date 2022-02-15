@@ -49,8 +49,7 @@ public class RuntimeEvents {
         PlayerDataCapability.playerJoin(event);
         CurioTokenOfGratitude.giveItem(event);
         SoulHarvestHandler.addEntity(event);
-        if (TetraCompat.LOADED)
-        {
+        if (TetraCompat.LOADED) {
             TetraCompat.LoadedOnly.fireArrow(event);
         }
     }
@@ -102,6 +101,7 @@ public class RuntimeEvents {
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         ReboundEnchantment.onRightClickItem(event);
     }
+
     @SubscribeEvent
     public static void onHurt(LivingHurtEvent event) {
         ArcaneAffinity.consumeSoulWard(event);
@@ -153,7 +153,7 @@ public class RuntimeEvents {
                 return;
             }
         }
-        if (event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER.getMsgId())) {
+        if (event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER_DAMAGE)) {
             SpiritHelper.createSpiritEntities(event.getEntityLiving());
             return;
         }
@@ -174,14 +174,13 @@ public class RuntimeEvents {
             }
             if (!(target instanceof Player)) {
                 ItemStack finalStack = stack;
-                if (!event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId())) {
-                    LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
-                        if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
-                            SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
-                            e.soulless = true;
-                        }
-                    });
-                }
+                LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
+                    if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
+                        SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
+                        e.soulless = true;
+                    }
+                });
+
             }
 
             ItemHelper.eventResponders(attacker).forEach(s -> ((IEventResponderItem) s.getItem()).killEvent(event, finalAttacker, target, s));
