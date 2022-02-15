@@ -3,6 +3,7 @@ modLoader="javafml"
 loaderVersion="[39,)"
 license="All rights reserved"
 [[mods]]
+logoFile="malum.png"
 modId="malum"
 version="${file.jarVersion}"
 displayName="Malum"
