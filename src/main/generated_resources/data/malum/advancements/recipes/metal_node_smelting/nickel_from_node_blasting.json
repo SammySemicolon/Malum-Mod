@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:nickel_from_node_blasting"
+    ]
+  },
+  "criteria": {
+    "has_impetus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:nickel_impetus"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:nickel_from_node_blasting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_impetus",
+      "has_the_recipe"
+    ]
+  ]
+}

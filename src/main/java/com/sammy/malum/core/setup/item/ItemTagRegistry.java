@@ -19,12 +19,24 @@ public class ItemTagRegistry
     public static Tag.Named<Item> SOULWOOD_LOGS = tag("soulwood_logs");
     public static Tag.Named<Item> SAPBALLS = tag("sapballs");
 
+    public static final Tags.IOptionalNamedTag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
+    public static final Tags.IOptionalNamedTag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
     public static final Tags.IOptionalNamedTag<Item> NUGGETS_LEAD = forgeTag("nuggets/lead");
     public static final Tags.IOptionalNamedTag<Item> INGOTS_LEAD = forgeTag("ingots/lead");
     public static final Tags.IOptionalNamedTag<Item> NUGGETS_SILVER = forgeTag("nuggets/silver");
     public static final Tags.IOptionalNamedTag<Item> INGOTS_SILVER = forgeTag("ingots/silver");
-    public static final Tags.IOptionalNamedTag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
-    public static final Tags.IOptionalNamedTag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
+    public static final Tags.IOptionalNamedTag<Item> NUGGETS_ALUMINUM = forgeTag("nuggets/aluminum");
+    public static final Tags.IOptionalNamedTag<Item> INGOTS_ALUMINUM = forgeTag("ingots/aluminum");
+    public static final Tags.IOptionalNamedTag<Item> NUGGETS_NICKEL = forgeTag("nuggets/nickel");
+    public static final Tags.IOptionalNamedTag<Item> INGOTS_NICKEL = forgeTag("ingots/nickel");
+    public static final Tags.IOptionalNamedTag<Item> NUGGETS_URANIUM = forgeTag("nuggets/uranium");
+    public static final Tags.IOptionalNamedTag<Item> INGOTS_URANIUM = forgeTag("ingots/uranium");
+    public static final Tags.IOptionalNamedTag<Item> NUGGETS_OSMIUM = forgeTag("nuggets/osmium");
+    public static final Tags.IOptionalNamedTag<Item> INGOTS_OSMIUM = forgeTag("ingots/osmium");
+    public static final Tags.IOptionalNamedTag<Item> NUGGETS_ZINC = forgeTag("nuggets/zinc");
+    public static final Tags.IOptionalNamedTag<Item> INGOTS_ZINC = forgeTag("ingots/zinc");
+    public static final Tags.IOptionalNamedTag<Item> NUGGETS_TIN = forgeTag("nuggets/tin");
+    public static final Tags.IOptionalNamedTag<Item> INGOTS_TIN = forgeTag("ingots/tin");
 
     private static Tags.IOptionalNamedTag<Item> forgeTag(String name, @Nullable Set<Supplier<Item>> defaults)
     {

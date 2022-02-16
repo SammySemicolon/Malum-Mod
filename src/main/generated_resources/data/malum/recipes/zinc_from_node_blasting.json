@@ -1,0 +1,12 @@
+{
+  "type": "malum:node_blasting",
+  "ingredient": {
+    "item": "malum:zinc_node"
+  },
+  "result": {
+    "tag": "forge:nuggets/zinc",
+    "count": 6
+  },
+  "experience": 0.25,
+  "cookingtime": 100
+}

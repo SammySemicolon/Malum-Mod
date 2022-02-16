@@ -377,28 +377,42 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = ITEMS.register("block_of_soul_stained_steel", () -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
 
-    public static final RegistryObject<Item> CRACKED_ALCHEMICAL_IMPETUS = ITEMS.register("cracked_alchemical_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> ALCHEMICAL_IMPETUS = ITEMS.register("alchemical_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALCHEMICAL_IMPETUS));
+    public static final RegistryObject<Item> CRACKED_ALCHEMICAL_IMPETUS = ITEMS.register("cracked_alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> ALCHEMICAL_IMPETUS = ITEMS.register("alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALCHEMICAL_IMPETUS));
 
     public static final RegistryObject<Item> CRACKED_IRON_IMPETUS = ITEMS.register("cracked_iron_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
     public static final RegistryObject<Item> IRON_IMPETUS = ITEMS.register("iron_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_IRON_IMPETUS));
     public static final RegistryObject<Item> IRON_NODE = ITEMS.register("iron_node", () -> new NodeItem(NODE_PROPERTIES()));
-
     public static final RegistryObject<Item> CRACKED_COPPER_IMPETUS = ITEMS.register("cracked_copper_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
     public static final RegistryObject<Item> COPPER_IMPETUS = ITEMS.register("copper_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_COPPER_IMPETUS));
     public static final RegistryObject<Item> COPPER_NODE = ITEMS.register("copper_node", () -> new NodeItem(NODE_PROPERTIES()));
-
     public static final RegistryObject<Item> CRACKED_GOLD_IMPETUS = ITEMS.register("cracked_gold_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
     public static final RegistryObject<Item> GOLD_IMPETUS = ITEMS.register("gold_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_GOLD_IMPETUS));
     public static final RegistryObject<Item> GOLD_NODE = ITEMS.register("gold_node", () -> new NodeItem(NODE_PROPERTIES()));
-
     public static final RegistryObject<Item> CRACKED_LEAD_IMPETUS = ITEMS.register("cracked_lead_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
     public static final RegistryObject<Item> LEAD_IMPETUS = ITEMS.register("lead_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_LEAD_IMPETUS));
     public static final RegistryObject<Item> LEAD_NODE = ITEMS.register("lead_node", () -> new NodeItem(NODE_PROPERTIES()));
-
     public static final RegistryObject<Item> CRACKED_SILVER_IMPETUS = ITEMS.register("cracked_silver_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
     public static final RegistryObject<Item> SILVER_IMPETUS = ITEMS.register("silver_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_SILVER_IMPETUS));
     public static final RegistryObject<Item> SILVER_NODE = ITEMS.register("silver_node", () -> new NodeItem(NODE_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_ALUMINUM_IMPETUS = ITEMS.register("cracked_aluminum_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<Item> ALUMINUM_IMPETUS = ITEMS.register("aluminum_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALUMINUM_IMPETUS));
+    public static final RegistryObject<Item> ALUMINUM_NODE = ITEMS.register("aluminum_node", () -> new NodeItem(NODE_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_NICKEL_IMPETUS = ITEMS.register("cracked_nickel_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<Item> NICKEL_IMPETUS = ITEMS.register("nickel_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_NICKEL_IMPETUS));
+    public static final RegistryObject<Item> NICKEL_NODE = ITEMS.register("nickel_node", () -> new NodeItem(NODE_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_URANIUM_IMPETUS = ITEMS.register("cracked_uranium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<Item> URANIUM_IMPETUS = ITEMS.register("uranium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_URANIUM_IMPETUS));
+    public static final RegistryObject<Item> URANIUM_NODE = ITEMS.register("uranium_node", () -> new NodeItem(NODE_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_OSMIUM_IMPETUS = ITEMS.register("cracked_osmium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<Item> OSMIUM_IMPETUS = ITEMS.register("osmium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_OSMIUM_IMPETUS));
+    public static final RegistryObject<Item> OSMIUM_NODE = ITEMS.register("osmium_node", () -> new NodeItem(NODE_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_ZINC_IMPETUS = ITEMS.register("cracked_zinc_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<Item> ZINC_IMPETUS = ITEMS.register("zinc_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ZINC_IMPETUS));
+    public static final RegistryObject<Item> ZINC_NODE = ITEMS.register("zinc_node", () -> new NodeItem(NODE_PROPERTIES()));
+    public static final RegistryObject<Item> CRACKED_TIN_IMPETUS = ITEMS.register("cracked_tin_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<Item> TIN_IMPETUS = ITEMS.register("tin_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_TIN_IMPETUS));
+    public static final RegistryObject<Item> TIN_NODE = ITEMS.register("tin_node", () -> new NodeItem(NODE_PROPERTIES()));
 
     //endregion
 

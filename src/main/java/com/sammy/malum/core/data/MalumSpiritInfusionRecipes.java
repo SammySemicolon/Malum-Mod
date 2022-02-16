@@ -7,9 +7,12 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
@@ -301,40 +304,25 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
                 .addExtraItem(Ingredient.of(Tags.Items.GEMS_EMERALD), 4)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, ItemRegistry.IRON_IMPETUS.get(), 1)
+        metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Tags.Items.INGOTS_IRON);
+        metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Tags.Items.INGOTS_COPPER);
+        metalImpetusRecipe(consumer, ItemRegistry.GOLD_IMPETUS, Tags.Items.INGOTS_GOLD);
+        metalImpetusRecipe(consumer, ItemRegistry.LEAD_IMPETUS, ItemTagRegistry.INGOTS_LEAD);
+        metalImpetusRecipe(consumer, ItemRegistry.SILVER_IMPETUS, ItemTagRegistry.INGOTS_SILVER);
+        metalImpetusRecipe(consumer, ItemRegistry.ALUMINUM_IMPETUS, ItemTagRegistry.INGOTS_ALUMINUM);
+        metalImpetusRecipe(consumer, ItemRegistry.NICKEL_IMPETUS, ItemTagRegistry.INGOTS_NICKEL);
+        metalImpetusRecipe(consumer, ItemRegistry.URANIUM_IMPETUS, ItemTagRegistry.INGOTS_URANIUM);
+        metalImpetusRecipe(consumer, ItemRegistry.OSMIUM_IMPETUS, ItemTagRegistry.INGOTS_OSMIUM);
+        metalImpetusRecipe(consumer, ItemRegistry.ZINC_IMPETUS, ItemTagRegistry.INGOTS_ZINC);
+        metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, ItemTagRegistry.INGOTS_TIN);
+    }
+
+    public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<Item> output, Tag<Item> ingot) {
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(INFERNAL_SPIRIT, 8)
                 .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Ingredient.of(Tags.Items.INGOTS_IRON), 6)
+                .addExtraItem(Ingredient.of(ingot), 6)
                 .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, ItemRegistry.COPPER_IMPETUS.get(), 1)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Ingredient.of(ItemTagRegistry.INGOTS_COPPER), 6)
-                .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, ItemRegistry.GOLD_IMPETUS.get(), 1)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Ingredient.of(Tags.Items.INGOTS_GOLD), 6)
-                .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, ItemRegistry.SILVER_IMPETUS.get(), 1)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Ingredient.of(ItemTagRegistry.INGOTS_SILVER), 6)
-                .build(consumer);
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, ItemRegistry.LEAD_IMPETUS.get(), 1)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Ingredient.of(ItemTagRegistry.INGOTS_LEAD), 6)
-                .build(consumer);
-
     }
 }

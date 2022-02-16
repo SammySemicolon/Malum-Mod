@@ -1,0 +1,12 @@
+{
+  "type": "malum:node_smelting",
+  "ingredient": {
+    "item": "malum:nickel_node"
+  },
+  "result": {
+    "tag": "forge:nuggets/nickel",
+    "count": 6
+  },
+  "experience": 0.25,
+  "cookingtime": 200
+}

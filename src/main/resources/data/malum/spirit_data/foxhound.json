@@ -1,5 +1,6 @@
 {
   "registry_name": "quark:foxhound",
+  "primary_type": "infernal",
   "spirits": [
     {
       "spirit": "arcane",

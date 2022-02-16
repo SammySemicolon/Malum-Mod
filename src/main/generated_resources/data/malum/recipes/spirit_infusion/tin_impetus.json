@@ -1,0 +1,31 @@
+{
+  "type": "malum:spirit_infusion",
+  "input": {
+    "item": "malum:alchemical_impetus",
+    "count": 1
+  },
+  "output": {
+    "item": "malum:tin_impetus",
+    "count": 1
+  },
+  "extra_items": [
+    {
+      "tag": "forge:gunpowder",
+      "count": 4
+    },
+    {
+      "tag": "forge:ingots/tin",
+      "count": 6
+    }
+  ],
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 8
+    },
+    {
+      "item": "malum:infernal_spirit",
+      "count": 8
+    }
+  ]
+}

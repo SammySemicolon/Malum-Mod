@@ -83,9 +83,21 @@ public class MalumItemTags extends ItemTagsProvider {
 
         tag(NUGGETS_COPPER).add(COPPER_NUGGET.get());
         tag(INGOTS_COPPER).add(Items.COPPER_INGOT);
-        tag(NUGGETS_SILVER);
-        tag(INGOTS_SILVER);
         tag(NUGGETS_LEAD);
         tag(INGOTS_LEAD);
+        tag(NUGGETS_SILVER);
+        tag(INGOTS_SILVER);
+        tag(NUGGETS_ALUMINUM);
+        tag(INGOTS_ALUMINUM);
+        tag(NUGGETS_NICKEL);
+        tag(INGOTS_NICKEL);
+        tag(NUGGETS_URANIUM);
+        tag(INGOTS_URANIUM);
+        tag(NUGGETS_OSMIUM);
+        tag(INGOTS_OSMIUM);
+        tag(NUGGETS_ZINC);
+        tag(INGOTS_ZINC);
+        tag(NUGGETS_TIN);
+        tag(INGOTS_TIN);
     }
 }

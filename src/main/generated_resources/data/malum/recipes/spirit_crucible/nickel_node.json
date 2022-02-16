@@ -1,0 +1,21 @@
+{
+  "type": "malum:spirit_focusing",
+  "time": 1200,
+  "durabilityCost": 2,
+  "input": {
+    "item": "malum:nickel_impetus"
+  },
+  "output": {
+    "item": "malum:nickel_node",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 2
+    },
+    {
+      "item": "malum:infernal_spirit"
+    }
+  ]
+}

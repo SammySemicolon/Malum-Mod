@@ -86,6 +86,24 @@ public class MalumRecipes extends RecipeProvider
         smeltingWithTag(Ingredient.of(ItemRegistry.SILVER_NODE.get()), ItemTagRegistry.NUGGETS_SILVER, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.SILVER_IMPETUS.get())).save(consumer, prefix("silver_from_node_smelting"));
         blastingWithTag(Ingredient.of(ItemRegistry.SILVER_NODE.get()), ItemTagRegistry.NUGGETS_SILVER, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.SILVER_IMPETUS.get())).save(consumer, prefix("silver_from_node_blasting"));
 
+        smeltingWithTag(Ingredient.of(ItemRegistry.ALUMINUM_NODE.get()), ItemTagRegistry.NUGGETS_ALUMINUM, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.ALUMINUM_IMPETUS.get())).save(consumer, prefix("aluminum_from_node_smelting"));
+        blastingWithTag(Ingredient.of(ItemRegistry.ALUMINUM_NODE.get()), ItemTagRegistry.NUGGETS_ALUMINUM, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.ALUMINUM_IMPETUS.get())).save(consumer, prefix("aluminum_from_node_blasting"));
+
+        smeltingWithTag(Ingredient.of(ItemRegistry.NICKEL_NODE.get()), ItemTagRegistry.NUGGETS_NICKEL, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.NICKEL_IMPETUS.get())).save(consumer, prefix("nickel_from_node_smelting"));
+        blastingWithTag(Ingredient.of(ItemRegistry.NICKEL_NODE.get()), ItemTagRegistry.NUGGETS_NICKEL, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.NICKEL_IMPETUS.get())).save(consumer, prefix("nickel_from_node_blasting"));
+
+        smeltingWithTag(Ingredient.of(ItemRegistry.URANIUM_NODE.get()), ItemTagRegistry.NUGGETS_URANIUM, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.URANIUM_IMPETUS.get())).save(consumer, prefix("uranium_from_node_smelting"));
+        blastingWithTag(Ingredient.of(ItemRegistry.URANIUM_NODE.get()), ItemTagRegistry.NUGGETS_URANIUM, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.URANIUM_IMPETUS.get())).save(consumer, prefix("uranium_from_node_blasting"));
+
+        smeltingWithTag(Ingredient.of(ItemRegistry.OSMIUM_NODE.get()), ItemTagRegistry.NUGGETS_OSMIUM, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.OSMIUM_IMPETUS.get())).save(consumer, prefix("osmium_from_node_smelting"));
+        blastingWithTag(Ingredient.of(ItemRegistry.OSMIUM_NODE.get()), ItemTagRegistry.NUGGETS_OSMIUM, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.OSMIUM_IMPETUS.get())).save(consumer, prefix("osmium_from_node_blasting"));
+
+        smeltingWithTag(Ingredient.of(ItemRegistry.ZINC_NODE.get()), ItemTagRegistry.NUGGETS_ZINC, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.ZINC_IMPETUS.get())).save(consumer, prefix("zinc_from_node_smelting"));
+        blastingWithTag(Ingredient.of(ItemRegistry.ZINC_NODE.get()), ItemTagRegistry.NUGGETS_ZINC, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.ZINC_IMPETUS.get())).save(consumer, prefix("zinc_from_node_blasting"));
+
+        smeltingWithTag(Ingredient.of(ItemRegistry.TIN_NODE.get()), ItemTagRegistry.NUGGETS_TIN, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.TIN_IMPETUS.get())).save(consumer, prefix("tin_from_node_smelting"));
+        blastingWithTag(Ingredient.of(ItemRegistry.TIN_NODE.get()), ItemTagRegistry.NUGGETS_TIN, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.TIN_IMPETUS.get())).save(consumer, prefix("tin_from_node_blasting"));
+
         //TOOLS
         shaped(ItemRegistry.SOUL_STAINED_STEEL_HOE.get()).define('#', Items.STICK).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
         shaped(ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get()).define('#', Items.STICK).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
