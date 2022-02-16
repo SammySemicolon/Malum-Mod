@@ -1,11 +1,11 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "malum:brilliance_cluster"
+    "item": "malum:deepslate_soulstone_ore"
   },
   "result": {
-    "item": "malum:brilliance_chunk",
-    "count": 4
+    "item": "malum:processed_soulstone",
+    "count": 2
   },
   "experience": 0.25,
   "cookingtime": 200

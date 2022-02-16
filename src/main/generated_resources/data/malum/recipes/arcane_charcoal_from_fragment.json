@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:arcane_charcoal_fragment"
+    },
+    {
+      "item": "malum:arcane_charcoal_fragment"
+    },
+    {
+      "item": "malum:arcane_charcoal_fragment"
+    },
+    {
+      "item": "malum:arcane_charcoal_fragment"
+    },
+    {
+      "item": "malum:arcane_charcoal_fragment"
+    },
+    {
+      "item": "malum:arcane_charcoal_fragment"
+    },
+    {
+      "item": "malum:arcane_charcoal_fragment"
+    },
+    {
+      "item": "malum:arcane_charcoal_fragment"
+    }
+  ],
+  "result": {
+    "item": "malum:arcane_charcoal"
+  }
+}

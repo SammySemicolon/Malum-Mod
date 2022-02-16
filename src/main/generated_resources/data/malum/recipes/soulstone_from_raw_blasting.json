@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "malum:brilliant_stone"
+    "item": "malum:brilliance_cluster"
   },
   "result": {
     "item": "malum:brilliance_chunk",

@@ -244,7 +244,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.GILDED_BELT.get(), 1, ItemRegistry.WARDED_BELT.get(), 1)
                 .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 16)
-                .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 16)
                 .addSpirit(EARTHEN_SPIRIT, 24)
                 .build(consumer);
 

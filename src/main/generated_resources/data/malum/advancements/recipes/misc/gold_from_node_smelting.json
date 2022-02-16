@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:brilliance_chunk"
+      "malum:gold_from_node_smelting"
     ]
   },
   "criteria": {
-    "has_brilliance": {
+    "has_impetus": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:brilliance_cluster"
+              "malum:gold_impetus"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:brilliance_chunk"
+        "recipe": "malum:gold_from_node_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_brilliance",
+      "has_impetus",
       "has_the_recipe"
     ]
   ]

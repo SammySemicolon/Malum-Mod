@@ -1,11 +1,11 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "malum:soulstone_cluster"
+    "item": "malum:copper_node"
   },
   "result": {
-    "item": "malum:processed_soulstone",
-    "count": 2
+    "item": "malum:copper_nugget",
+    "count": 6
   },
   "experience": 0.25,
   "cookingtime": 100

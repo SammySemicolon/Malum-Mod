@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:blazing_quartz"
+      "malum:soulstone_from_smelting"
     ]
   },
   "criteria": {
-    "has_blazing_quartz": {
+    "has_soulstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:blazing_quartz"
+              "malum:raw_soulstone"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:blazing_quartz"
+        "recipe": "malum:soulstone_from_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_blazing_quartz",
+      "has_soulstone",
       "has_the_recipe"
     ]
   ]

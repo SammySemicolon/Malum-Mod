@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:processed_soulstone"
+      "malum:soulstone_from_deepslate_smelting"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:processed_soulstone"
+        "recipe": "malum:soulstone_from_deepslate_smelting"
       }
     }
   },

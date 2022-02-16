@@ -1,9 +1,12 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "malum:deepslate_soulstone_ore"
+    "item": "malum:copper_node"
   },
-  "result": "malum:processed_soulstone",
+  "result": {
+    "item": "malum:copper_nugget",
+    "count": 6
+  },
   "experience": 0.25,
   "cookingtime": 200
 }

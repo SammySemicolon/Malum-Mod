@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "malum:iron_node"
+  },
+  "result": {
+    "item": "minecraft:iron_nugget",
+    "count": 6
+  },
+  "experience": 0.25,
+  "cookingtime": 200
+}

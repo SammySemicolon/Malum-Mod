@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:soulstone_from_deepslate"
+      "malum:gold_from_node_blasting"
     ]
   },
   "criteria": {
-    "has_soulstone": {
+    "has_impetus": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "malum:raw_soulstone"
+              "malum:gold_impetus"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:soulstone_from_deepslate"
+        "recipe": "malum:gold_from_node_blasting"
       }
     }
   },
   "requirements": [
     [
-      "has_soulstone",
+      "has_impetus",
       "has_the_recipe"
     ]
   ]

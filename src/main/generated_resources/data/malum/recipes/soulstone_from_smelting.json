@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:blasting",
+  "type": "minecraft:smelting",
   "ingredient": {
     "item": "malum:soulstone_ore"
   },
@@ -8,5 +8,5 @@
     "count": 2
   },
   "experience": 0.25,
-  "cookingtime": 100
+  "cookingtime": 200
 }

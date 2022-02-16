@@ -1,9 +1,12 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "malum:soulstone_ore"
+    "item": "malum:gold_node"
   },
-  "result": "malum:processed_soulstone",
+  "result": {
+    "item": "minecraft:gold_nugget",
+    "count": 6
+  },
   "experience": 0.25,
   "cookingtime": 200
 }

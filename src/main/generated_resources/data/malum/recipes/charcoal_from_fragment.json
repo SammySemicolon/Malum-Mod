@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:charcoal_fragment"
+    },
+    {
+      "item": "malum:charcoal_fragment"
+    },
+    {
+      "item": "malum:charcoal_fragment"
+    },
+    {
+      "item": "malum:charcoal_fragment"
+    },
+    {
+      "item": "malum:charcoal_fragment"
+    },
+    {
+      "item": "malum:charcoal_fragment"
+    },
+    {
+      "item": "malum:charcoal_fragment"
+    },
+    {
+      "item": "malum:charcoal_fragment"
+    }
+  ],
+  "result": {
+    "item": "minecraft:charcoal"
+  }
+}
