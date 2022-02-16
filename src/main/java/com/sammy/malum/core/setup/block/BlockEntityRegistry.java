@@ -94,6 +94,7 @@ public class BlockEntityRegistry {
         public static void registerRenderer(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_CRUCIBLE.get(), SpiritCrucibleRenderer::new);
+            event.registerBlockEntityRenderer(SPIRIT_CATALYZER.get(), SpiritCatalyzerRenderer::new);
             event.registerBlockEntityRenderer(PLINTH.get(), PlinthRenderer::new);
             event.registerBlockEntityRenderer(TOTEM_POLE.get(), TotemPoleRenderer::new);
             event.registerBlockEntityRenderer(ITEM_STAND.get(), ItemStandRenderer::new);

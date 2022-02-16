@@ -391,15 +391,15 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(ARCANE_CHARCOAL_PROPERTIES()));
 
-    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(BLAZE_QUARTZ_ORE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen(), UniformInt.of(3, 4)));
-    public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES()));
+    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(BLAZE_QUARTZ_ORE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen().lightLevel((b)-> 6), UniformInt.of(4, 7)));
+    public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES().lightLevel((b)-> 14)));
 
-    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(STONE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen(), UniformInt.of(7, 9)));
-    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen(), UniformInt.of(8, 13)));
+    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(STONE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen(), UniformInt.of(14, 18)));
+    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen(), UniformInt.of(16, 26)));
     public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(STONE_PROPERTIES()));
 
-    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new Block(SOULSTONE_PROPERTIES().ignoreLootDatagen()));
-    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new Block(DEEPSLATE_SOULSTONE_PROPERTIES().ignoreLootDatagen().strength(6f, 4f)));
+    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new OreBlock(SOULSTONE_PROPERTIES().ignoreLootDatagen()));
+    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new OreBlock(DEEPSLATE_SOULSTONE_PROPERTIES().ignoreLootDatagen().strength(6f, 4f)));
     public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
 
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
