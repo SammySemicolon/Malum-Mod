@@ -1,7 +1,7 @@
 [
   {
     "key": "malum.soul_strike",
-    "level": 1,
+    "level": 0,
     "effects": {
       "malum.shatters_souls": 1
     }

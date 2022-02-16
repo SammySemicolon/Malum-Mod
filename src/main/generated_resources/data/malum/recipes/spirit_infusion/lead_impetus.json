@@ -10,11 +10,19 @@
   },
   "extra_items": [
     {
+      "tag": "forge:gunpowder",
+      "count": 4
+    },
+    {
       "tag": "forge:ingots/lead",
       "count": 6
     }
   ],
   "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 8
+    },
     {
       "item": "malum:infernal_spirit",
       "count": 8

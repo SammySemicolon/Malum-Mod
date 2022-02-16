@@ -183,7 +183,7 @@ public class MalumLang extends LanguageProvider
         addPage("earthen_spirit_a", "Earthen arcana stands for three things, power, earth and nature. The sorcery is incredibly potent even when used in small amounts.");
         addPage("earthen_spirit_b", "With the strength of the world you can do quite a lot. For one, infusing earthen arcana into items is bound to make them more resistant than most. For two, earthen magic can be used to bring forth basic life. This potent wizardry is rather uncommon, only found within certain passive and sturdy souls.");
         addHeadline("infernal_spirit", "Infernal Spirit");
-        addPage("infernal_spirit_a", "Hellish magic is incredibly dangerous, and by far the most diabolical. PLaying with fire is usually not a good idea, unless you're a soul hunter.");
+        addPage("infernal_spirit_a", "Hellish magic is incredibly dangerous, and by far the most diabolical. Playing with fire is usually not a good idea, unless you're a soul hunter.");
         addPage("infernal_spirit_b", "Infernal arcana is great at many things: light, explosions, fire, the list goes on. The magic isn't more potent than a mere flame however it is overly present in certain places. You definitely know where to hunt.");
         addHeadline("aerial_spirit", "Aerial Spirit");
         addPage("aerial_spirit_a", "Aerial arcana, light and versatile, weak in effect yet full of utility and potential.");

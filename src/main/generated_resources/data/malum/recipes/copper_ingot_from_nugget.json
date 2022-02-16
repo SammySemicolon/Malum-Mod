@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "item": "malum:copper_nugget"
+      "tag": "forge:nuggets/copper"
     }
   },
   "result": {

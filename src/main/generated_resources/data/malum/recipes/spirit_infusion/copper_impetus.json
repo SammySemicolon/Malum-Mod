@@ -10,11 +10,19 @@
   },
   "extra_items": [
     {
-      "item": "minecraft:copper_ingot",
+      "tag": "forge:gunpowder",
+      "count": 4
+    },
+    {
+      "tag": "forge:ingots/copper",
       "count": 6
     }
   ],
   "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 8
+    },
     {
       "item": "malum:infernal_spirit",
       "count": 8

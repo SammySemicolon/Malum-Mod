@@ -2,7 +2,7 @@
   "type": "malum:spirit_infusion",
   "input": {
     "tag": "minecraft:wool",
-    "count": 1
+    "count": 2
   },
   "output": {
     "item": "malum:spirit_fabric",
@@ -20,11 +20,14 @@
   ],
   "spirits": [
     {
+      "item": "malum:wicked_spirit",
+      "count": 2
+    },
+    {
       "item": "malum:earthen_spirit"
     },
     {
-      "item": "malum:wicked_spirit",
-      "count": 2
+      "item": "malum:aerial_spirit"
     }
   ]
 }

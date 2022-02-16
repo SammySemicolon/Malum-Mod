@@ -25,7 +25,11 @@
   "spirits": [
     {
       "item": "malum:arcane_spirit",
-      "count": 6
+      "count": 4
+    },
+    {
+      "item": "malum:infernal_spirit",
+      "count": 12
     }
   ]
 }

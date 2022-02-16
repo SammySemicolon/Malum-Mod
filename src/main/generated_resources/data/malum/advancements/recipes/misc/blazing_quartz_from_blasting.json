@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_blaze_quartz": {
+    "has_blazing_quartz": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_blaze_quartz",
+      "has_blazing_quartz",
       "has_the_recipe"
     ]
   ]

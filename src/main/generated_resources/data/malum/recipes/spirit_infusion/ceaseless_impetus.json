@@ -14,16 +14,12 @@
       "count": 1
     },
     {
-      "item": "malum:hallowed_gold_ingot",
-      "count": 8
+      "item": "minecraft:ghast_tear",
+      "count": 1
     },
     {
       "item": "malum:hallowed_spirit_resonator",
       "count": 2
-    },
-    {
-      "tag": "forge:gems/diamond",
-      "count": 4
     },
     {
       "tag": "forge:gems/emerald",
@@ -33,11 +29,7 @@
   "spirits": [
     {
       "item": "malum:sacred_spirit",
-      "count": 32
-    },
-    {
-      "item": "malum:arcane_spirit",
-      "count": 16
+      "count": 64
     },
     {
       "item": "malum:eldritch_spirit",

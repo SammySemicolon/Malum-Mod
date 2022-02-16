@@ -2,18 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:blazing_quartz"
+      "malum:copper_nugget_from_ingot"
     ]
   },
   "criteria": {
-    "has_blazing_quartz": {
+    "has_copper": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "malum:blazing_quartz"
-            ]
+            "tag": "forge:ingots/copper"
           }
         ]
       }
@@ -21,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:blazing_quartz"
+        "recipe": "malum:copper_nugget_from_ingot"
       }
     }
   },
   "requirements": [
     [
-      "has_blazing_quartz",
+      "has_copper",
       "has_the_recipe"
     ]
   ]

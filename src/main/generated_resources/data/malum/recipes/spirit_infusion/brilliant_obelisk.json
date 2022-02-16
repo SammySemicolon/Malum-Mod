@@ -21,11 +21,11 @@
   "spirits": [
     {
       "item": "malum:aerial_spirit",
-      "count": 6
+      "count": 8
     },
     {
       "item": "malum:aqueous_spirit",
-      "count": 3
+      "count": 4
     }
   ]
 }

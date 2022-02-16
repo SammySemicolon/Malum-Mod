@@ -23,7 +23,7 @@
     },
     {
       "tag": "forge:feathers",
-      "count": 1
+      "count": 2
     }
   ],
   "spirits": [
@@ -33,7 +33,7 @@
     },
     {
       "item": "malum:aerial_spirit",
-      "count": 4
+      "count": 8
     }
   ]
 }

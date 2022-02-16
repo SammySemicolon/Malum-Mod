@@ -12,12 +12,16 @@
     {
       "item": "malum:tainted_rock",
       "count": 16
+    },
+    {
+      "item": "malum:tainted_rock",
+      "count": 16
     }
   ],
   "spirits": [
     {
       "item": "malum:earthen_spirit",
-      "count": 12
+      "count": 24
     }
   ]
 }
