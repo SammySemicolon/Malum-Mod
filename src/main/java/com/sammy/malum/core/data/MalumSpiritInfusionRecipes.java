@@ -15,22 +15,18 @@ import java.util.function.Consumer;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 
-public class MalumSpiritInfusionRecipes extends RecipeProvider
-{
-    public MalumSpiritInfusionRecipes(DataGenerator generatorIn)
-    {
+public class MalumSpiritInfusionRecipes extends RecipeProvider {
+    public MalumSpiritInfusionRecipes(DataGenerator generatorIn) {
         super(generatorIn);
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return "Malum Spirit Infusion Recipe Provider";
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer)
-    {
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         new SpiritInfusionRecipeBuilder(Items.GUNPOWDER, 1, ItemRegistry.HEX_ASH.get(), 1)
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
@@ -358,13 +354,5 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider
         new SpiritInfusionRecipeBuilder(ItemRegistry.CRACKED_LEAD_IMPETUS.get(), 1, ItemRegistry.LEAD_IMPETUS.get(), 1)
                 .addSpirit(INFERNAL_SPIRIT, 2)
                 .build(consumer, "lead_impetus_repair");
-
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, ItemRegistry.VITRIC_IMPETUS.get(), 1)
-                .addSpirit(ARCANE_SPIRIT, 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GEMS_DIAMOND), 2)
-                .build(consumer);
-        new SpiritInfusionRecipeBuilder(ItemRegistry.CRACKED_VITRIC_IMPETUS.get(), 1, ItemRegistry.VITRIC_IMPETUS.get(), 1)
-                .addSpirit(ARCANE_SPIRIT, 2)
-                .build(consumer, "vitric_impetus_repair");
     }
 }

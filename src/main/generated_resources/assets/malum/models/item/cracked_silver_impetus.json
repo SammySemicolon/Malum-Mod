@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "malum:item/impetus_silver_cracked"
+    "layer0": "malum:item/impetus/silver_cracked"
   }
 }

@@ -1,6 +1,7 @@
 package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.setup.AttributeRegistry;
 import com.sammy.malum.core.setup.EntityRegistry;
 import com.sammy.malum.core.helper.SpiritHelper;
@@ -89,7 +90,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
         if (distance < 0.4f) {
             if (isAlive()) {
                 ItemStack stack = getItem();
-                SpiritHelper.pickupSpirit(stack, owner);
+                SpiritHarvestHandler.pickupSpirit(stack, owner);
                 remove(RemovalReason.DISCARDED);
             }
         }

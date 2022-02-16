@@ -396,9 +396,10 @@ public class MalumLang extends LanguageProvider
         add("malum.jei.block_transmutation", "Block Transmutation");
 
         add("itemGroup.malum", "Malum");
-        add("itemGroup.malum_shaped_stones", "Malum Arcane Rocks");
-        add("itemGroup.malum_spirits", "Malum Spirits");
-        add("itemGroup.malum_natural_wonders", "Malum Natural Wonders");
+        add("itemGroup.malum_shaped_stones", "Malum: Arcane Rocks");
+        add("itemGroup.malum_spirits", "Malum: Spirits");
+        add("itemGroup.malum_natural_wonders", "Malum: Natural Wonders");
+        add("itemGroup.malum_impetus", "Malum: Metallurgic Magic");
 
         add("enchantment.malum.haunted.desc", "Deals extra magic damage.");
         add("enchantment.malum.rebound.desc", "Allows the item to be thrown much like a boomerang, cooldown decreases with tier.");

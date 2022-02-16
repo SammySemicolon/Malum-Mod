@@ -7,7 +7,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.ModList;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
-import se.mickelus.tetra.items.modular.impl.bow.ModularBowItem;
 
 public class TetraCompat {
     public static boolean LOADED;
@@ -29,11 +28,8 @@ public class TetraCompat {
         public static void fireArrow(EntityJoinWorldEvent event) {
             if (event.getEntity() instanceof Arrow arrow) {
                 if (arrow.getOwner() instanceof Player player) {
-                    ItemStack bow = player.getUseItem();
-                    if (bow.getItem() instanceof ModularBowItem modularBowItem) {
-                        if (modularBowItem.getEffectLevel(bow, SHATTERS_SOULS) > 0) {
-                            arrow.addTag("malum:soul_arrow");
-                        }
+                    if (hasSoulStrike(player.getUseItem())) {
+                        arrow.addTag("malum:soul_arrow");
                     }
                 }
             }

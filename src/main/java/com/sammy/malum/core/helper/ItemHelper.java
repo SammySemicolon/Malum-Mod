@@ -153,7 +153,7 @@ public class ItemHelper {
         return CuriosApi.getCuriosHelper().findEquippedCurio(curio.get(), entity).isPresent();
     }
 
-    public static ArrayList<ItemStack> eventResponders(LivingEntity attacker)
+    public static ArrayList<ItemStack> getEventResponders(LivingEntity attacker)
     {
         ArrayList<ItemStack> itemStacks = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
         ItemStack stack = attacker.getMainHandItem();

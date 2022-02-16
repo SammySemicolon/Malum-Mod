@@ -19,11 +19,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.awt.*;
@@ -53,11 +53,10 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (!player.level.isClientSide) {
-            if (player.getItemInHand(hand).getItem() instanceof AxeItem) {
-                TotemPoleTileEntity totemPoleTileEntity = (TotemPoleTileEntity) level.getBlockEntity(worldPosition);
-                if (totemPoleTileEntity.type != null) {
+            if (player.getItemInHand(hand).canPerformAction(ToolActions.AXE_STRIP)) {
+                if (type != null) {
                     level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(totemPoleTileEntity.type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
                     level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
                     return InteractionResult.SUCCESS;
                 }

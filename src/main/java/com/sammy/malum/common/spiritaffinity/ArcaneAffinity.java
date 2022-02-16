@@ -55,6 +55,9 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     }
 
     public static void consumeSoulWard(LivingHurtEvent event) {
+        if (event.isCanceled()) {
+            return;
+        }
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {

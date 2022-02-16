@@ -23,7 +23,7 @@ public class CurioMirrorNecklace extends MalumCurioItem implements IEventRespond
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (event.getSource().isMagic())
         {
-            ItemHelper.eventResponders(attacker).forEach(s -> {
+            ItemHelper.getEventResponders(attacker).forEach(s -> {
                 if (s.getItem() instanceof IEventResponderItem eventItem)
                 {
                     eventItem.pickupSpirit(attacker, stack, true);

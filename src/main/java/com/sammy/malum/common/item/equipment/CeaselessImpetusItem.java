@@ -1,8 +1,8 @@
 package com.sammy.malum.common.item.equipment;
 
-import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.packets.TotemOfUndyingEffectPacket;
 import com.sammy.malum.core.helper.ItemHelper;
+import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,16 +14,29 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 
 import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
-public class CeaselessImpetusItem extends ImpetusItem implements IEventResponderItem {
+public class CeaselessImpetusItem extends Item implements IEventResponderItem {
     public CeaselessImpetusItem(Properties p_41383_) {
         super(p_41383_);
+    }
+
+    public static void preventDeath(LivingDeathEvent event) {
+        if (event.isCanceled()) {
+            return;
+        }
+        if (event.getEntityLiving() instanceof Player player) {
+            if (CeaselessImpetusItem.checkTotemDeathProtection(player, event.getSource())) {
+                event.setCanceled(true);
+            }
+        }
     }
 
     public static boolean checkTotemDeathProtection(Player player, DamageSource p_21263_) {
@@ -34,10 +47,10 @@ public class CeaselessImpetusItem extends ImpetusItem implements IEventResponder
 
             for (InteractionHand interactionhand : InteractionHand.values()) {
                 ItemStack inventoryStack = player.getItemInHand(interactionhand);
-                if (inventoryStack.getItem() instanceof CeaselessImpetusItem impetusItem) {
+                if (inventoryStack.getItem() instanceof CeaselessImpetusItem) {
                     boolean broken = inventoryStack.hurt(1, player.level.random, null);
                     if (broken) {
-                        player.setItemInHand(interactionhand, impetusItem.cracked.get().getDefaultInstance());
+                        player.setItemInHand(interactionhand, ItemRegistry.CRACKED_CEASELESS_IMPETUS.get().getDefaultInstance());
                     }
                     itemstack = inventoryStack;
                     break;
@@ -54,8 +67,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IEventResponder
                 player.setHealth(2.0F);
                 ArrayList<MobEffect> toRemove = new ArrayList<>();
                 for (MobEffectInstance activeEffect : player.getActiveEffects()) {
-                    if (activeEffect.getEffect().getCategory().equals(MobEffectCategory.HARMFUL))
-                    {
+                    if (activeEffect.getEffect().getCategory().equals(MobEffectCategory.HARMFUL)) {
                         toRemove.add(activeEffect.getEffect());
                     }
                 }

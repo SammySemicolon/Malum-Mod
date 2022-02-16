@@ -53,6 +53,9 @@ public class EarthenAffinity extends MalumSpiritAffinity {
     }
 
     public static void consumeHeartOfStone(LivingHurtEvent event) {
+        if (event.isCanceled()) {
+            return;
+        }
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
