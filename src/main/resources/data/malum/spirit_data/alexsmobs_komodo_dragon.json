@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:komodo_dragon",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

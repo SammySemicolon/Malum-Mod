@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:cosmic_cod",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

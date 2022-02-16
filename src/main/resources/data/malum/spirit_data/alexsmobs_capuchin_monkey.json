@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:capuchin_monkey",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

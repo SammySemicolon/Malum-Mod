@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:laviathan",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 3
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:alligator_snapping_turtle",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

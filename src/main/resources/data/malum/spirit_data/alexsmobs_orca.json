@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:orca",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 3
+    },
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}

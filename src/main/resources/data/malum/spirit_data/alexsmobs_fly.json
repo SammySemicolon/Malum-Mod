@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:fly",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}

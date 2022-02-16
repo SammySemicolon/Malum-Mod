@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:roadrunner",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

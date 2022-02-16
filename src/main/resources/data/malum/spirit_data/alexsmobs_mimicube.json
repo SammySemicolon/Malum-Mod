@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:mimicube",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 2
+    }
+  ]
+}

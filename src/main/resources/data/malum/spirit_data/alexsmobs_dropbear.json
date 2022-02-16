@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:dropbear",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:snow_leopard",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}

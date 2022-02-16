@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:hammerhead_shark",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 2
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

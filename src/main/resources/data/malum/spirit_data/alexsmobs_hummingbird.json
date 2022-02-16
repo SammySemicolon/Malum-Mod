@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:hummingbird",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}
