@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "malum:deepslate_soulstone_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "malum:raw_soulstone",
+      "count": 2
+    },
+    {
+      "item": "create:experience_nugget",
+      "chance": 0.75
+    },
+    {
+      "item": "minecraft:cobbled_deepslate",
+      "count": 1,
+      "chance": 0.125
+    }
+  ],
+  "processingTime": 300
+}

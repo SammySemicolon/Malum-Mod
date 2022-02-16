@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "malum:soulstone_cluster"
+    "item": "malum:raw_soulstone"
   },
   "result": {
     "item": "malum:processed_soulstone",
