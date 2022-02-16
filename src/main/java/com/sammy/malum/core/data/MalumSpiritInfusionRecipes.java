@@ -317,7 +317,8 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
         metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, ItemTagRegistry.INGOTS_TIN);
     }
 
-    public static void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<Item> output, Tag<Item> ingot) {
+    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<Item> output, Tag<Item> ingot) {
+
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .addSpirit(INFERNAL_SPIRIT, 8)

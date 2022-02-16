@@ -1,0 +1,37 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/lead",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "malum:spirit_focusing",
+        "time": 1200,
+        "durabilityCost": 2,
+        "input": {
+          "item": "malum:lead_impetus"
+        },
+        "output": {
+          "item": "malum:lead_node",
+          "count": 2
+        },
+        "spirits": [
+          {
+            "item": "malum:earthen_spirit",
+            "count": 2
+          },
+          {
+            "item": "malum:infernal_spirit"
+          }
+        ]
+      }
+    }
+  ]
+}
