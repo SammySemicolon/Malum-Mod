@@ -1,4 +1,4 @@
-package com.sammy.malum.core.data.builder;
+package com.sammy.malum.core.data.builder.vanilla;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

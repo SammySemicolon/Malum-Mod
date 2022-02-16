@@ -18,7 +18,6 @@ import java.util.function.Predicate;
 
 import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
-import static net.minecraftforge.common.Tags.Blocks.DIRT;
 
 public class MalumBlockTags extends BlockTagsProvider
 {

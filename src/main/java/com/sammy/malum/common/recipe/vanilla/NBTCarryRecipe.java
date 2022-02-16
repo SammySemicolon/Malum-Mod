@@ -1,4 +1,4 @@
-package com.sammy.malum.common.recipe;
+package com.sammy.malum.common.recipe.vanilla;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
@@ -25,6 +25,7 @@ import java.util.Set;
 public class NBTCarryRecipe extends CustomRecipe implements IShapedRecipe<CraftingContainer>
 {
     public static final String NAME = "nbt_carry";
+
     static int MAX_WIDTH = 3;
     static int MAX_HEIGHT = 3;
 

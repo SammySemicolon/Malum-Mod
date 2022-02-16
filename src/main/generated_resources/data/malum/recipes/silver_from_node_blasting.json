@@ -1,0 +1,12 @@
+{
+  "type": "malum:node_blasting",
+  "ingredient": {
+    "item": "malum:silver_node"
+  },
+  "result": {
+    "tag": "forge:nuggets/silver",
+    "count": 6
+  },
+  "experience": 0.25,
+  "cookingtime": 100
+}

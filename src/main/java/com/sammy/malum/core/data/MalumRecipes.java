@@ -1,12 +1,15 @@
 package com.sammy.malum.core.data;
 
-import com.sammy.malum.core.data.builder.NBTCarryRecipeBuilder;
+import com.sammy.malum.core.data.builder.vanilla.NBTCarryRecipeBuilder;
 import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.setup.item.ItemTagRegistry;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
@@ -20,8 +23,10 @@ import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
-import static com.sammy.malum.core.data.builder.MalumCookingRecipeBuilder.blastingWithCount;
-import static com.sammy.malum.core.data.builder.MalumCookingRecipeBuilder.smeltingWithCount;
+import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBuilder.blastingWithTag;
+import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBuilder.smeltingWithTag;
+import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
+import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
@@ -74,6 +79,12 @@ public class MalumRecipes extends RecipeProvider
 
         smeltingWithCount(Ingredient.of(ItemRegistry.COPPER_NODE.get()), ItemRegistry.COPPER_NUGGET.get(), 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.COPPER_IMPETUS.get())).save(consumer, prefix("copper_from_node_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.COPPER_NODE.get()), ItemRegistry.COPPER_NUGGET.get(), 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.COPPER_IMPETUS.get())).save(consumer, prefix("copper_from_node_blasting"));
+
+        smeltingWithTag(Ingredient.of(ItemRegistry.LEAD_NODE.get()), ItemTagRegistry.NUGGETS_LEAD, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.LEAD_IMPETUS.get())).save(consumer, prefix("lead_from_node_smelting"));
+        blastingWithTag(Ingredient.of(ItemRegistry.LEAD_NODE.get()), ItemTagRegistry.NUGGETS_LEAD, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.LEAD_IMPETUS.get())).save(consumer, prefix("lead_from_node_blasting"));
+
+        smeltingWithTag(Ingredient.of(ItemRegistry.SILVER_NODE.get()), ItemTagRegistry.NUGGETS_SILVER, 6,0.25f,200).unlockedBy("has_impetus", has(ItemRegistry.SILVER_IMPETUS.get())).save(consumer, prefix("silver_from_node_smelting"));
+        blastingWithTag(Ingredient.of(ItemRegistry.SILVER_NODE.get()), ItemTagRegistry.NUGGETS_SILVER, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.SILVER_IMPETUS.get())).save(consumer, prefix("silver_from_node_blasting"));
 
         //TOOLS
         shaped(ItemRegistry.SOUL_STAINED_STEEL_HOE.get()).define('#', Items.STICK).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
