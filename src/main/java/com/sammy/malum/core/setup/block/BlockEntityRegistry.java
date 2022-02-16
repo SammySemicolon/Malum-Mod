@@ -5,6 +5,7 @@ import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateCoreBlock;
 import com.sammy.malum.common.block.item_storage.*;
+import com.sammy.malum.common.block.mirror.EmitterMirrorBlock;
 import com.sammy.malum.common.block.obelisk.BrillianceObeliskCoreBlock;
 import com.sammy.malum.common.block.obelisk.RunewoodObeliskCoreBlock;
 import com.sammy.malum.common.block.spirit_altar.SpiritAltarBlock;
@@ -12,8 +13,12 @@ import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerCoreBlock;
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.blockentity.*;
+import com.sammy.malum.common.blockentity.EtherBlockEntity;
+import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
+import com.sammy.malum.common.blockentity.MalumSignTileEntity;
+import com.sammy.malum.common.blockentity.SpiritAltarTileEntity;
 import com.sammy.malum.common.blockentity.item_storage.*;
+import com.sammy.malum.common.blockentity.mirror.EmitterMirrorBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCatalyzerCoreBlockEntity;
@@ -61,6 +66,8 @@ public class BlockEntityRegistry {
 
     public static final RegistryObject<BlockEntityType<ItemStandBlockEntity>> ITEM_STAND = BLOCK_ENTITY_TYPES.register("item_stand", () -> BlockEntityType.Builder.of(ItemStandBlockEntity::new, getBlocks(ItemStandBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<ItemPedestalBlockEntity>> ITEM_PEDESTAL = BLOCK_ENTITY_TYPES.register("item_pedestal", () -> BlockEntityType.Builder.of(ItemPedestalBlockEntity::new, getBlocks(ItemPedestalBlock.class)).build(null));
+
+    public static final RegistryObject<BlockEntityType<EmitterMirrorBlockEntity>> EMITTER_MIRROR = BLOCK_ENTITY_TYPES.register("emitter_mirror", () -> BlockEntityType.Builder.of(EmitterMirrorBlockEntity::new, getBlocks(EmitterMirrorBlock.class)).build(null));
 
     public static final RegistryObject<BlockEntityType<TotemBaseTileEntity>> TOTEM_BASE = BLOCK_ENTITY_TYPES.register("totem_base", () -> BlockEntityType.Builder.of(TotemBaseTileEntity::new, getBlocks(TotemBaseBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<TotemPoleTileEntity>> TOTEM_POLE = BLOCK_ENTITY_TYPES.register("totem_pole", () -> BlockEntityType.Builder.of(TotemPoleTileEntity::new, getBlocks(TotemPoleBlock.class)).build(null));

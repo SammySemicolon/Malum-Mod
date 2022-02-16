@@ -25,7 +25,6 @@ public class ItemPedestalBlock extends WaterLoggedBlock<ItemPedestalBlockEntity>
     public ItemPedestalBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
         setTile(BlockEntityRegistry.ITEM_PEDESTAL);
     }
 

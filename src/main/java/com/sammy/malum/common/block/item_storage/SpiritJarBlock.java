@@ -16,7 +16,6 @@ public class SpiritJarBlock extends WaterLoggedBlock<SpiritJarBlockEntity> {
 
     public SpiritJarBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
         setTile(BlockEntityRegistry.SPIRIT_JAR);
     }
 

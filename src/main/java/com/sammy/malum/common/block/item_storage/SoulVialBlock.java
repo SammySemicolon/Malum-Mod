@@ -17,7 +17,6 @@ public class SoulVialBlock extends WaterLoggedBlock<SoulVialBlockEntity>
     public SoulVialBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
         setTile(BlockEntityRegistry.SOUL_VIAL);
     }
 

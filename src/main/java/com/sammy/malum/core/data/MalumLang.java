@@ -349,7 +349,7 @@ public class MalumLang extends LanguageProvider
         addDescription("earthen_rite", "Rock and Stone!");
         addPage("earthen_rite", "The earthen rite provides one of many auras. Nearby players will receive increased armor.");
         addPage("corrupted_earthen_rite", "Fortitude turns to strength, nearby players will deal extra damage.");
-        addPage("eldritch_earthen_rite", "This complex earthen rite will break nearby blocks below that match the block directly below the totem base.");
+        addPage("eldritch_earthen_rite", "This complex earthen rite will break nearby blocks below that match the block directly underneath the totem base.");
         addPage("corrupted_eldritch_earthen_rite", "Destruction turns into creation, the earth shifts and cobblestone is fabricated under the rite.");
 
         addDescription("infernal_rite", "Immense warmth");
@@ -361,7 +361,7 @@ public class MalumLang extends LanguageProvider
         addDescription("aerial_rite", "Light Arcana");
         addPage("aerial_rite", "The aerial rite provides one of many auras. Nearby players will receive a boost to movement speed.");
         addPage("corrupted_aerial_rite", "The effect of the rite is altered, horizontal mobility turns into vertical agility.");
-        addPage("eldritch_aerial_rite", "The rite is twisted into something greater, blocks below will start to experience gravity.");
+        addPage("eldritch_aerial_rite", "The rite is twisted into something greater, blocks beneath the rite will start to experience gravity.");
         addPage("corrupted_eldritch_aerial_rite", "Have you ever wondered what the clouds feel like?");
 
         addDescription("aqueous_rite", "Loyalty");
