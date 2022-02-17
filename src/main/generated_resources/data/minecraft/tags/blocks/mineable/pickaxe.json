@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "malum:emitter_mirror",
     "malum:spirit_crucible",
     "malum:spirit_crucible_component",
     "malum:spirit_catalyzer",

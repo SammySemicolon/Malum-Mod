@@ -11,6 +11,7 @@ import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateComponentBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateCoreBlock;
 import com.sammy.malum.common.block.item_storage.*;
+import com.sammy.malum.common.block.mirror.EmitterMirrorBlock;
 import com.sammy.malum.common.block.misc.MalumDirectionalBlock;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.block.misc.MalumLogBlock;
@@ -143,6 +144,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock(SOUL_VIAL_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
+    public static final RegistryObject<Block> EMITTER_MIRROR = BLOCKS.register("emitter_mirror", () -> new EmitterMirrorBlock(HALLOWED_GOLD_PROPERTIES().noOcclusion()));
 
     public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new RunewoodObeliskCoreBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
     public static final RegistryObject<Block> RUNEWOOD_OBELISK_COMPONENT = BLOCKS.register("runewood_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(RUNEWOOD_OBELISK).noOcclusion(), ItemRegistry.RUNEWOOD_OBELISK));
@@ -413,6 +415,7 @@ public class BlockRegistry {
             BlockColors blockColors = event.getBlockColors();
             Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
+            DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock);
             DataHelper.getAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
                 BlockEntity blockEntity = l.getBlockEntity(p);
                 if (blockEntity instanceof EtherBlockEntity etherBlockEntity) {

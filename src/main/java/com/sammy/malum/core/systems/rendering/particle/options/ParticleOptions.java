@@ -4,6 +4,7 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.sammy.malum.core.helper.ColorHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,46 +15,54 @@ public class ParticleOptions implements net.minecraft.core.particles.ParticleOpt
     public float r1 = 1, g1 = 1, b1 = 1, a1 = 1, r2 = 1, g2 = 1, b2 = 1, a2 = 0;
     public float scale1 = 1, scale2 = 0;
     public int lifetime = 20;
+    public float startingSpin = 0;
     public float spin = 0;
+    public float activeMotionMultiplier = 1;
+    public float activeSpinMultiplier = 1;
     public boolean gravity = false;
     public boolean noClip = false;
     public float colorCurveMultiplier = 1f;
+    public float alphaCurveMultiplier = 1f;
 
     public static Codec<ParticleOptions> codecFor(ParticleType<?> type) {
         return RecordCodecBuilder.create(instance -> instance.group(
-                Codec.FLOAT.fieldOf("r1").forGetter(d -> d.r1),
-                Codec.FLOAT.fieldOf("g1").forGetter(d -> d.g1),
-                Codec.FLOAT.fieldOf("b1").forGetter(d -> d.b1),
-                Codec.FLOAT.fieldOf("a1").forGetter(d -> d.a1),
-                Codec.FLOAT.fieldOf("r2").forGetter(d -> d.r2),
-                Codec.FLOAT.fieldOf("g2").forGetter(d -> d.g2),
-                Codec.FLOAT.fieldOf("b2").forGetter(d -> d.b2),
-                Codec.FLOAT.fieldOf("a2").forGetter(d -> d.a2),
+                Codec.INT.fieldOf("rgba1").forGetter(d -> ColorHelper.getColor(d.r1, d.g1, d.b1, d.a1)),
+                Codec.INT.fieldOf("rgba2").forGetter(d -> ColorHelper.getColor(d.r2, d.g2, d.b2, d.a2)),
                 Codec.FLOAT.fieldOf("scale1").forGetter(d -> d.scale1),
                 Codec.FLOAT.fieldOf("scale2").forGetter(d -> d.scale2),
                 Codec.INT.fieldOf("lifetime").forGetter(d -> d.lifetime),
+                Codec.FLOAT.fieldOf("startingSpin").forGetter(d -> d.startingSpin),
                 Codec.FLOAT.fieldOf("spin").forGetter(d -> d.spin),
+                Codec.FLOAT.fieldOf("activeMotionMultiplier").forGetter(d -> d.activeMotionMultiplier),
+                Codec.FLOAT.fieldOf("activeSpinMultiplier").forGetter(d -> d.activeSpinMultiplier),
                 Codec.BOOL.fieldOf("gravity").forGetter(d -> d.gravity),
                 Codec.BOOL.fieldOf("noClip").forGetter(d -> d.noClip),
-                Codec.FLOAT.fieldOf("colorCurveMultiplier").forGetter(d -> d.colorCurveMultiplier)
-        ).apply(instance, (r1, g1, b1, a1, r2, g2, b2, a2, scale1, scale2,
-                           lifetime, spin, gravity, noClip, colorCurveMultiplier) -> {
+                Codec.FLOAT.fieldOf("colorCurveMultiplier").forGetter(d -> d.colorCurveMultiplier),
+                Codec.FLOAT.fieldOf("alphaCurveMultiplier").forGetter(d -> d.alphaCurveMultiplier)
+        ).apply(instance, (rgba1,rgba2, scale1, scale2,
+                           lifetime, spin, activeMotionMultiplier, activeSpinMultiplier, startingSpin, gravity, noClip, colorCurveMultiplier, alphaCurveMultiplier) -> {
             ParticleOptions data = new ParticleOptions(type);
-            data.r1 = r1;
-            data.g1 = g1;
-            data.b1 = b1;
-            data.a1 = a1;
-            data.r2 = r2;
-            data.g2 = g2;
-            data.b2 = b2;
-            data.a2 = a2;
+            Color color1 = ColorHelper.getColor(rgba1);
+            data.r1 = color1.getRed()/255f;
+            data.g1 = color1.getGreen()/255f;
+            data.b1 = color1.getBlue()/255f;
+            data.a1 = color1.getAlpha()/255f;
+            Color color2 = ColorHelper.getColor(rgba1);
+            data.r2 = color2.getRed()/255f;
+            data.g2 = color2.getGreen()/255f;
+            data.b2 = color2.getBlue()/255f;
+            data.a2 = color2.getAlpha()/255f;
             data.scale1 = scale1;
             data.scale2 = scale2;
             data.lifetime = lifetime;
+            data.startingSpin = startingSpin;
+            data.activeMotionMultiplier = activeMotionMultiplier;
+            data.activeSpinMultiplier = activeSpinMultiplier;
             data.spin = spin;
             data.gravity = gravity;
             data.noClip = noClip;
             data.colorCurveMultiplier = colorCurveMultiplier;
+            data.alphaCurveMultiplier = alphaCurveMultiplier;
             return data;
         }));
     }
@@ -71,54 +80,26 @@ public class ParticleOptions implements net.minecraft.core.particles.ParticleOpt
 
     @Override
     public void writeToNetwork(FriendlyByteBuf buffer) {
-
         buffer.writeFloat(r1).writeFloat(g1).writeFloat(b1).writeFloat(a1);
         buffer.writeFloat(r2).writeFloat(g2).writeFloat(b2).writeFloat(a2);
         buffer.writeFloat(scale1).writeFloat(scale2);
         buffer.writeInt(lifetime);
+        buffer.writeFloat(startingSpin);
         buffer.writeFloat(spin);
+        buffer.writeFloat(activeMotionMultiplier);
+        buffer.writeFloat(activeSpinMultiplier);
         buffer.writeBoolean(gravity);
         buffer.writeBoolean(noClip);
         buffer.writeFloat(colorCurveMultiplier);
+        buffer.writeFloat(alphaCurveMultiplier);
     }
 
     @Override
     public String writeToString() {
-        String result = " " + r1 + " " + g1;
-        return Registry.PARTICLE_TYPE.getKey(this.getType()) + " " + r1 + " " + g1 + " " + b1 + " " + a1 + " " + r2 + " " + g2 + " " + b2 + " " + a2 + " " + scale1 + " " + scale2 + " " + lifetime + " " + spin + " " + gravity + " " + noClip + " " + colorCurveMultiplier;
-    }
-
-    public void setColor(float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2) {
-        this.r1 = r1;
-        this.g1 = g1;
-        this.b1 = b1;
-        this.a1 = a1;
-        this.r2 = r2;
-        this.g2 = g2;
-        this.b2 = b2;
-        this.a2 = a2;
-    }
-
-    public void setColor(float r1, float g1, float b1, float r2, float g2, float b2) {
-        this.r1 = r1;
-        this.g1 = g1;
-        this.b1 = b1;
-        this.r2 = r2;
-        this.g2 = g2;
-        this.b2 = b2;
-    }
-
-    public void setColor(Color color1, Color color2) {
-        this.r1 = color1.getRed() / 255f;
-        this.g1 = color1.getBlue() / 255f;
-        this.b1 = color1.getBlue() / 255f;
-        this.r2 = color2.getRed() / 255f;
-        this.g2 = color2.getBlue() / 255f;
-        this.b2 = color2.getBlue() / 255f;
+        return Registry.PARTICLE_TYPE.getKey(this.getType()) + " " + r1 + " " + g1 + " " + b1 + " " + a1 + " " + r2 + " " + g2 + " " + b2 + " " + a2 + " " + scale1 + " " + scale2 + " " + lifetime + " " + startingSpin + " " + spin + " " + activeMotionMultiplier + " " + activeSpinMultiplier + " " + gravity + " " + noClip + " " + colorCurveMultiplier;
     }
 
     public static final Deserializer<ParticleOptions> DESERIALIZER = new Deserializer<>() {
-
         @Override
         public ParticleOptions fromCommand(ParticleType<ParticleOptions> type, StringReader reader) throws CommandSyntaxException {
             reader.expect(' ');
@@ -144,13 +125,21 @@ public class ParticleOptions implements net.minecraft.core.particles.ParticleOpt
             reader.expect(' ');
             int lifetime = reader.readInt();
             reader.expect(' ');
+            float startingSpin = reader.readFloat();
+            reader.expect(' ');
             float spin = reader.readFloat();
+            reader.expect(' ');
+            float activeMotionMultiplier = reader.readFloat();
+            reader.expect(' ');
+            float activeSpinMultiplier = reader.readFloat();
             reader.expect(' ');
             boolean gravity = reader.readBoolean();
             reader.expect(' ');
             boolean noClip = reader.readBoolean();
             reader.expect(' ');
             float colorCurveMultiplier = reader.readFloat();
+            reader.expect(' ');
+            float alphaCurveMultiplier = reader.readFloat();
             ParticleOptions data = new ParticleOptions(type);
             data.r1 = r1;
             data.g1 = g1;
@@ -163,10 +152,14 @@ public class ParticleOptions implements net.minecraft.core.particles.ParticleOpt
             data.scale1 = scale1;
             data.scale2 = scale2;
             data.lifetime = lifetime;
+            data.startingSpin = startingSpin;
             data.spin = spin;
+            data.activeMotionMultiplier = activeMotionMultiplier;
+            data.activeSpinMultiplier = activeSpinMultiplier;
             data.gravity = gravity;
             data.noClip = noClip;
             data.colorCurveMultiplier = colorCurveMultiplier;
+            data.alphaCurveMultiplier = alphaCurveMultiplier;
             return data;
         }
 
@@ -183,10 +176,14 @@ public class ParticleOptions implements net.minecraft.core.particles.ParticleOpt
             float scale1 = buf.readFloat();
             float scale2 = buf.readFloat();
             int lifetime = buf.readInt();
+            float startingSpin = buf.readFloat();
             float spin = buf.readFloat();
+            float activeMotionMultiplier = buf.readFloat();
+            float activeSpinMultiplier = buf.readFloat();
             boolean gravity = buf.readBoolean();
             boolean noClip = buf.readBoolean();
             float colorCurveMultiplier = buf.readFloat();
+            float alphaCurveMultiplier = buf.readFloat();
             ParticleOptions data = new ParticleOptions(type);
             data.r1 = r1;
             data.g1 = g1;
@@ -199,10 +196,14 @@ public class ParticleOptions implements net.minecraft.core.particles.ParticleOpt
             data.scale1 = scale1;
             data.scale2 = scale2;
             data.lifetime = lifetime;
+            data.startingSpin = startingSpin;
             data.spin = spin;
+            data.activeMotionMultiplier = activeMotionMultiplier;
+            data.activeSpinMultiplier = activeSpinMultiplier;
             data.gravity = gravity;
             data.noClip = noClip;
             data.colorCurveMultiplier = colorCurveMultiplier;
+            data.alphaCurveMultiplier = alphaCurveMultiplier;
             return data;
         }
     };

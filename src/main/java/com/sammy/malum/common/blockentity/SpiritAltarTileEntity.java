@@ -359,7 +359,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             .randomOffset(0.02f)
                             .randomVelocity(0.01f, 0.01f)
                             .setColor(color, endColor)
-                            .setColorCurveMultiplier(0.5f)
+                            .setColorCurveMultiplier(1.25f)
                             .setSpin(0.1f + level.random.nextFloat()*0.1f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .addVelocity(velocity.x, velocity.y, velocity.z)
@@ -373,7 +373,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             .randomOffset(0.1, 0.1)
                             .randomVelocity(0.02f, 0.02f)
                             .setColor(color, endColor)
-                            .setColorCurveMultiplier(0.75f)
+                            .setColorCurveMultiplier(1.5f)
                             .randomVelocity(0.0025f, 0.0025f)
                             .enableNoClip()
                             .repeat(level, itemPos.x, itemPos.y, itemPos.z, 2);

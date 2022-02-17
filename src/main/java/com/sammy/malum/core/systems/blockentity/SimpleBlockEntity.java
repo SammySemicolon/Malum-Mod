@@ -26,6 +26,9 @@ public class SimpleBlockEntity extends BlockEntity {
     public void onPlace(LivingEntity placer, ItemStack stack) {
     }
 
+    public void onNeighborUpdate(BlockState state, BlockPos pos, BlockPos neighbor) {
+    }
+
     public ItemStack onClone(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         return ItemStack.EMPTY;
     }
@@ -47,7 +50,7 @@ public class SimpleBlockEntity extends BlockEntity {
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this); // (this.worldPosition, 3, this.getUpdateTag());
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override

@@ -98,6 +98,18 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
     }
 
     @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        if (hasTileEntity(pState)) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+                simpleBlockEntity.onNeighborUpdate(pState, pPos, pFromPos);
+            }
+        }
+
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
         if (hasTileEntity(state)) {
             BlockEntity blockEntity = level.getBlockEntity(pos);

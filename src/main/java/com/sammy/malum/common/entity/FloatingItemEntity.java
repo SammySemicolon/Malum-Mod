@@ -11,6 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.awt.*;
+
 public class FloatingItemEntity extends FloatingEntity {
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(FloatingItemEntity.class, EntityDataSerializers.ITEM_STACK);
 
@@ -22,16 +24,18 @@ public class FloatingItemEntity extends FloatingEntity {
 
     public void setItem(ItemStack pStack) {
         if (pStack.getItem() instanceof IFloatingGlowItem glow) {
-            color = glow.getColor();
-            getEntityData().set(DATA_COLOR, color.getRGB());
-            endColor = glow.getEndColor();
-            getEntityData().set(DATA_END_COLOR, endColor.getRGB());
+            setColor(glow.getColor(), glow.getEndColor());
         }
         if (!pStack.is(this.getDefaultItem()) || pStack.hasTag()) {
             this.getEntityData().set(DATA_ITEM_STACK, pStack);
         }
     }
-
+    public void setColor(Color color, Color endColor) {
+        this.color = color;
+        getEntityData().set(DATA_COLOR, color.getRGB());
+        this.endColor = endColor;
+        getEntityData().set(DATA_END_COLOR, endColor.getRGB());
+    }
     @Override
     protected void defineSynchedData() {
         this.getEntityData().define(DATA_ITEM_STACK, ItemStack.EMPTY);

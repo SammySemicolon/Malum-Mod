@@ -61,6 +61,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
+                    c.soulWardProgress = (float) (CommonConfig.SOUL_WARD_RATE.get() * 6 * Math.exp(-0.15 * player.getAttributeValue(AttributeRegistry.SOUL_WARD_DOWNTIME_RECOVERY_SPEED.get())));
                     if (c.soulWard > 0) {
                         DamageSource source = event.getSource();
                         float amount = event.getAmount();
@@ -73,7 +74,6 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                         } else {
                             c.soulWard = 0;
                         }
-                        c.soulWardProgress = (float) (getSoulWardCooldown(player) * player.getAttributeValue(AttributeRegistry.SOUL_WARD_DAMAGE_PENALTY.get()));
 
                         player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT, SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                         event.setAmount(result);
@@ -89,7 +89,6 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                         }
                         PlayerDataCapability.syncTrackingAndSelf(player);
                     }
-
                 });
             }
         }

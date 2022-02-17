@@ -1,5 +1,5 @@
 {
-  "parent": "malum:block/templates/template_sign",
+  "parent": "minecraft:block/air",
   "textures": {
     "particle": "malum:block/soulwood_planks"
   }

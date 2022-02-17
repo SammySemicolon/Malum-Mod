@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
-	"ambientocclusion": false,
 	"textures": {
+		"side": "blank",
 		"particle": "#side"
 	},
 	"elements": [

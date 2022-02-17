@@ -60,7 +60,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
 
     @Override
     public void move() {
-        setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.95f, 0.95f));
+        setDeltaMovement(getDeltaMovement().multiply(0.9f, 0.9f, 0.9f));
         float range = getRange();
         if (owner == null || !owner.isAlive()) {
             if (level.getGameTime() % 40L == 0)

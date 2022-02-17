@@ -26,17 +26,34 @@ import java.awt.*;
 public class EtherBlockEntity extends SimpleBlockEntity {
     public Color firstColor;
     public Color secondColor;
-    public boolean updateData = true;
     public float xOffset;
     public float yOffset;
     public float zOffset;
-    public int lifetimeOffset;
+    public float lifetimeMultiplier = 1f;
     public float scaleMultiplier;
+
     public EtherBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
+
     public EtherBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.ETHER.get(), pos, state);
+        if (state.getBlock() instanceof WallEtherTorchBlock) {
+            Direction direction = state.getValue(WallTorchBlock.FACING);
+            xOffset = direction.getNormal().getX() * -0.28f;
+            yOffset = 0.2f;
+            zOffset = direction.getNormal().getZ() * -0.28f;
+            lifetimeMultiplier = 0.5f;
+        }
+
+        if (state.getBlock() instanceof EtherTorchBlock) {
+            lifetimeMultiplier = 0.5f;
+        }
+        if (state.getBlock() instanceof EtherBrazierBlock) {
+            yOffset = -0.2f;
+            lifetimeMultiplier = -2;
+            scaleMultiplier = 1.3f;
+        }
     }
 
     @Override
@@ -89,53 +106,49 @@ public class EtherBlockEntity extends SimpleBlockEntity {
             if (firstColor == null || secondColor == null) {
                 return;
             }
-            if (updateData)
-            {
-                updateData = false;
-                if (getBlockState().getBlock() instanceof WallEtherTorchBlock) {
-                    Direction direction = getBlockState().getValue(WallTorchBlock.FACING);
-                    xOffset = direction.getNormal().getX() * -0.28f;
-                    yOffset = 0.2f;
-                    zOffset = direction.getNormal().getZ() * -0.28f;
-                    lifetimeOffset = -6;
-                }
-
-                if (getBlockState().getBlock() instanceof EtherTorchBlock) {
-                    lifetimeOffset = -4;
-                }
-                if (getBlockState().getBlock() instanceof EtherBrazierBlock) {
-                    yOffset = -0.2f;
-                    lifetimeOffset = -2;
-                    scaleMultiplier = 1.25f;
-                }
-            }
             Color firstColor = ColorHelper.darker(this.firstColor, 1);
             Color secondColor = ColorHelper.brighter(this.secondColor, 1);
 
-            double x = worldPosition.getX() + 0.5 + xOffset;
-            double y = worldPosition.getY() + 0.6 + yOffset;
-            double z = worldPosition.getZ() + 0.5 + zOffset;
-            int lifeTime = 14 + level.random.nextInt(4) - lifetimeOffset;
-            float scale = 0.17f + level.random.nextFloat() * 0.03f * scaleMultiplier;
+            double x = worldPosition.getX() + 0.5;
+            double y = worldPosition.getY() + 0.6;
+            double z = worldPosition.getZ() + 0.5;
+            int lifeTime = 14 + level.random.nextInt(4);
+            float scale = 0.17f + level.random.nextFloat() * 0.03f;
             float velocity = 0.04f + level.random.nextFloat() * 0.02f;
+            if (getBlockState().getBlock() instanceof WallEtherTorchBlock) {
+                Direction direction = getBlockState().getValue(WallTorchBlock.FACING);
+                x += direction.getNormal().getX() * -0.28f;
+                y += 0.2f;
+                z += direction.getNormal().getZ() * -0.28f;
+                lifeTime -= 6;
+            }
+
+            if (getBlockState().getBlock() instanceof EtherTorchBlock) {
+                lifeTime -= 4;
+            }
+            if (getBlockState().getBlock() instanceof EtherBrazierBlock) {
+                y -= 0.2f;
+                lifeTime -= 2;
+                scale *= 1.25f;
+            }
             RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setScale(scale * 2, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
                     .setColor(firstColor, secondColor)
                     .setColorCurveMultiplier(1.5f)
+                    .setAlphaCurveMultiplier(1.5f)
                     .spawn(level, x, y, z);
-
             RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.9f, 0.5f)
                     .setColor(firstColor, secondColor)
                     .setColorCurveMultiplier(2f)
+                    .setAlphaCurveMultiplier(2f)
                     .addVelocity(0, velocity, 0)
                     .setSpin(level.random.nextFloat() * 0.5f)
                     .spawn(level, x, y, z);
-
             if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f) {
                 y += 0.15f;
                 RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
@@ -145,7 +158,6 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                         .randomOffset(0.1f, 0.15f)
                         .addVelocity(0, 0.03f, 0)
                         .spawn(level, x, y, z);
-
                 RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)

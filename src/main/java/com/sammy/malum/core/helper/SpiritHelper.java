@@ -156,10 +156,11 @@ public class SpiritHelper {
     public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
         RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
-                .setAlpha(0.18f * alphaMultiplier, 0f)
+                .setAlpha(0.21f * alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(4))
                 .setScale(0.3f + rand.nextFloat() * 0.1f, 0)
                 .setColor(color, endColor)
+                .setColorCurveMultiplier(2f)
                 .randomOffset(0.05f)
                 .enableNoClip()
                 .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
@@ -172,6 +173,7 @@ public class SpiritHelper {
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.2f + rand.nextFloat() * 0.05f, 0)
                 .setColor(color, endColor)
+                .setColorCurveMultiplier(1.25f)
                 .randomOffset(0.1f)
                 .enableNoClip()
                 .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)

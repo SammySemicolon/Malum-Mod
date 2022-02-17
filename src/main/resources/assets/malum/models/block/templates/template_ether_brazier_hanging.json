@@ -1,8 +1,7 @@
 {
-	"credit": "Made with Blockbench",
+	"parent": "block/block",
 	"textures": {
-		"brazier": "malum:block/ether_brazier",
-		"particle": "malum:item/ether"
+		"brazier": "blank"
 	},
 	"elements": [
 		{
