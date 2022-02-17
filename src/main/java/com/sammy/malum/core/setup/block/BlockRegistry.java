@@ -415,7 +415,6 @@ public class BlockRegistry {
             BlockColors blockColors = event.getBlockColors();
             Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-            DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock);
             DataHelper.getAll(blocks, b -> b.get() instanceof EtherBlock).forEach(b -> blockColors.register((s, l, p, c) -> {
                 BlockEntity blockEntity = l.getBlockEntity(p);
                 if (blockEntity instanceof EtherBlockEntity etherBlockEntity) {

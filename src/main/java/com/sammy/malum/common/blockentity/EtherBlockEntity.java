@@ -26,11 +26,6 @@ import java.awt.*;
 public class EtherBlockEntity extends SimpleBlockEntity {
     public Color firstColor;
     public Color secondColor;
-    public float xOffset;
-    public float yOffset;
-    public float zOffset;
-    public float lifetimeMultiplier = 1f;
-    public float scaleMultiplier;
 
     public EtherBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -38,22 +33,6 @@ public class EtherBlockEntity extends SimpleBlockEntity {
 
     public EtherBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.ETHER.get(), pos, state);
-        if (state.getBlock() instanceof WallEtherTorchBlock) {
-            Direction direction = state.getValue(WallTorchBlock.FACING);
-            xOffset = direction.getNormal().getX() * -0.28f;
-            yOffset = 0.2f;
-            zOffset = direction.getNormal().getZ() * -0.28f;
-            lifetimeMultiplier = 0.5f;
-        }
-
-        if (state.getBlock() instanceof EtherTorchBlock) {
-            lifetimeMultiplier = 0.5f;
-        }
-        if (state.getBlock() instanceof EtherBrazierBlock) {
-            yOffset = -0.2f;
-            lifetimeMultiplier = -2;
-            scaleMultiplier = 1.3f;
-        }
     }
 
     @Override
@@ -155,6 +134,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
+                        .setAlphaCurveMultiplier(3f)
                         .randomOffset(0.1f, 0.15f)
                         .addVelocity(0, 0.03f, 0)
                         .spawn(level, x, y, z);
@@ -162,6 +142,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
+                        .setAlphaCurveMultiplier(3f)
                         .randomOffset(0.1f, 0.15f)
                         .addVelocity(0, velocity, 0)
                         .spawn(level, x, y, z);
