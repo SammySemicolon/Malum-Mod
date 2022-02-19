@@ -222,27 +222,19 @@ public class MalumLang extends LanguageProvider
         addHeadline("soul_hunter_armor", "Soul Hunter Armor");
         addPage("soul_hunter_armor", "The soul hunter set is an offense focused piece of equipment made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage dealt by the user.");
 
-        addDescription("spirit_alchemy", "Focusing with Spirits");
-        addHeadline("spirit_alchemy", "Spirit Alchemy");
-        addPage("spirit_alchemy_a", "The spirit crucible is a wondrous device shaped specifically for an alchemical process named spirit focusing. It revolves around a single key catalyst and it's interaction with spirits. One of the more common catalysts found in this interaction are alchemical impetus'.");
-        addPage("spirit_alchemy_b", "An impetus is a clay-made reagent specifically tuned to spirit focusing, it is ever changing. By utilizing spirits in the crucible you may shape some of the impetus' mass into something greater. This however takes a toll on the impetus, eventually requiring repair.");
+        addDescription("spirit_focusing", "Focusing with Spirits");
+        addHeadline("spirit_focusing", "Spirit Alchemy");
+        addPage("spirit_focusing_a", "The spirit crucible is a wondrous device shaped specifically for an alchemical process named spirit focusing. It revolves around a single key catalyst and it's interaction with spirit arcana. One of the more common catalysts found in this magical process is an alchemical impetus.");
+        addPage("spirit_focusing_b", "An impetus is a clay-made reagent specifically created for spirit focusing, it's very easy to model it's clay based material into new resources. By utilizing spirits in the crucible you may shape some of the impetus' mass into something new at the cost of a slight toll on the clay artifact.");
 
-        addDescription("crystalline_spirit_focusing", "Crystal Expertise");
-        addHeadline("crystalline_spirit_focusing", "Crystalline Spirit Focusing");
-        addPage("crystalline_spirit_focusing", "One of the more common things you may focus an impetus into are gems, lots of em. To do this you will require a vitric impetus, it is limiting in it's possibilities but it excels at everything it's got available.");
+        addDescription("working_with_ashes", "Spirits to ashes, ashes to soot");
+        addHeadline("working_with_ashes", "Working with Ashes");
+        addPage("working_with_ashes", "With primitive spirit focusing you may successfully create simple powders often needed in all sorts of studies of arcana.");
 
-        addDescription("complexities_with_spirits", "Advanced Conjuration");
-        addHeadline("complexities_with_spirits", "Complexities with Spirits");
-        addPage("complexities_with_spirits", "Taking a heavy toll on your impetus with a heavy spirit cost, you may focus the catalyst into some rather exquisite rare materials.");
-
-        addDescription("ashen_spirit_focusing", "Spirits to ashes, ashes to soot");
-        addHeadline("ashen_spirit_focusing", "Ashen Spirit Focusing");
-        addPage("ashen_spirit_focusing", "With primitive spirit focusing you may successfully create simple powders often needed in all sorts of studies of arcana.");
-
-        addDescription("metallurgy_with_spirits", "Focusing into hardware");
-        addHeadline("metallurgy_with_spirits", "Metallurgy with Spirits");
-        addPage("metallurgy_with_spirits_a", "With some clever tricks you may imbue your impetus with a metallic shell, when fed spirits it'll shape a few nuggets of the desired metal into the world. This takes a large toll on the impetus however, needing frequent repair.");
-        addPage("metallurgy_with_spirits_b", "It is speculated that these catalysts were previously used as some sort of ashen aspects used in an infernal arcana focused alchemical exchange system. It might be possible to replicate the process by studying the history of infernal arcana.");
+        addDescription("metallurgic_magic", "Focusing into hardware");
+        addHeadline("metallurgic_magic", "Metallurgic Magic");
+        addPage("metallurgic_magic_a", "With some clever tricks you may imbue your impetus with a metallic shell, when fed spirits it'll sprout a metallic node of your desired metal. Due to the more rigid material of the impetus, more durability is lost in the process.");
+        addPage("metallurgic_magic_b", "It is speculated that these catalysts were previously used as some sort of ashen aspects in an infernal arcana focused alchemical exchange system. It might be possible to replicate the process by studying the history of infernal arcana.");
 
         addDescription("ceaseless_impetus", "Rebirth");
         addHeadline("ceaseless_impetus", "Ceaseless Impetus");

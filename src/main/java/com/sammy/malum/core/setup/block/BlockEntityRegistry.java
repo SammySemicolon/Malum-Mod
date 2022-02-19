@@ -16,7 +16,7 @@ import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.MalumSignTileEntity;
-import com.sammy.malum.common.blockentity.SpiritAltarTileEntity;
+import com.sammy.malum.common.blockentity.altar.SpiritAltarTileEntity;
 import com.sammy.malum.common.blockentity.item_storage.*;
 import com.sammy.malum.common.blockentity.mirror.EmitterMirrorBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;

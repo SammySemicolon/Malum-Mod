@@ -37,11 +37,6 @@ public class SpiritInfusionPage extends BookPage
         this.recipe = recipe;
     }
 
-    @Override
-    public boolean isValid() {
-        return recipe != null;
-    }
-
     public static SpiritInfusionPage fromInput(Item inputItem)
     {
         return new SpiritInfusionPage(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
@@ -50,9 +45,10 @@ public class SpiritInfusionPage extends BookPage
     {
         return new SpiritInfusionPage(s -> s.doesOutputMatch(outputItem.getDefaultInstance()));
     }
-    public static SpiritInfusionPage fromImpetus(Item impetus, Item crackedImpetus)
-    {
-        return new SpiritInfusionPage(s -> s.doesOutputMatch(impetus.getDefaultInstance()) && !s.doesInputMatch(crackedImpetus.getDefaultInstance()));
+
+    @Override
+    public boolean isValid() {
+        return recipe != null;
     }
 
     @Override
@@ -89,6 +85,7 @@ public class SpiritInfusionPage extends BookPage
     public void renderIngredients(PoseStack poseStack, int left, int top, int mouseX, int mouseY, List<IngredientWithCount> ingredients)
     {
         ArrayList<ItemWithCount> items = (ArrayList<ItemWithCount>) ingredients.stream().map(ItemWithCount::fromIngredient).collect(Collectors.toList());
+
         renderItems(poseStack, left, top, mouseX, mouseY, items);
     }
     public void renderItems(PoseStack poseStack, int left, int top, int mouseX, int mouseY, List<ItemWithCount> items)

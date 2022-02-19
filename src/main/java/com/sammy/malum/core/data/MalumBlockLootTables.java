@@ -94,8 +94,8 @@ public class MalumBlockLootTables extends LootTableProvider {
         add(BlockRegistry.RUNEWOOD_LEAVES.get(), (b)->createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         add(BlockRegistry.SOULWOOD_LEAVES.get(), (b)->createLeavesDrops(b, BlockRegistry.SOULWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
-        add(BlockRegistry.BRILLIANT_STONE.get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.BRILLIANCE_CLUSTER.get()));
-        add(BlockRegistry.BRILLIANT_DEEPSLATE.get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.BRILLIANCE_CLUSTER.get()));
+        add(BlockRegistry.BRILLIANT_STONE.get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
+        add(BlockRegistry.BRILLIANT_DEEPSLATE.get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
         add(BlockRegistry.SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
         add(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
         add(BlockRegistry.BLAZING_QUARTZ_ORE.get(), createOreDrop(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));

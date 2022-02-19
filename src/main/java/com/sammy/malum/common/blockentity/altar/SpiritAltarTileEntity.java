@@ -1,7 +1,5 @@
-package com.sammy.malum.common.blockentity;
+package com.sammy.malum.common.blockentity.altar;
 
-import com.sammy.malum.common.block.spirit_altar.IAltarAccelerator;
-import com.sammy.malum.common.block.spirit_altar.IAltarProvider;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
@@ -55,13 +53,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public int spinUp;
 
     public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
-    public boolean updateAccelerators;
     public ArrayList<IAltarAccelerator> accelerators = new ArrayList<>();
+    public boolean updateAccelerators;
     public float spiritAmount;
     public float spiritSpin;
 
     public boolean updateRecipe;
-
     public SimpleBlockEntityInventory inventory;
     public SimpleBlockEntityInventory extrasInventory;
     public SimpleBlockEntityInventory spiritInventory;
@@ -111,6 +108,10 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         if (speed != 0) {
             compound.putFloat("speed", speed);
         }
+        if (spiritAmount != 0) {
+            compound.putFloat("spiritAmount", spiritAmount);
+        }
+
         if (!acceleratorPositions.isEmpty())
         {
             compound.putInt("acceleratorAmount", acceleratorPositions.size());
@@ -119,9 +120,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 BlockHelper.saveBlockPos(compound, acceleratorPositions.get(i), "" + i);
             }
         }
-        if (spiritAmount != 0) {
-            compound.putFloat("spiritAmount", spiritAmount);
-        }
+
         inventory.save(compound);
         spiritInventory.save(compound, "spiritInventory");
         extrasInventory.save(compound, "extrasInventory");
@@ -163,7 +162,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
-            recalibrateSpeed();
+            recalibrateAccelerators();
 
             if (!(heldStack.getItem() instanceof MalumSpiritItem)) {
                 ItemStack stack = inventory.interact(level, player, hand);
@@ -183,10 +182,11 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-        if (updateAccelerators && level.isClientSide)
+        if (updateAccelerators)
         {
             accelerators.clear();
             accelerators.addAll(acceleratorPositions.stream().map(p -> (IAltarAccelerator)level.getBlockEntity(p)).collect(Collectors.toList()));
+            updateAccelerators = false;
         }
         if (updateRecipe)
         {
@@ -195,10 +195,11 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
             updateRecipe = false;
         }
+        if (soundCooldown > 0) {
+            soundCooldown--;
+        }
         if (!possibleRecipes.isEmpty()) {
-            if (soundCooldown > 0) {
-                soundCooldown--;
-            } else {
+            if (soundCooldown == 0){
                 level.playSound(null, worldPosition, SoundRegistry.ALTAR_LOOP, SoundSource.BLOCKS, 1, 1f);
                 soundCooldown = 180;
             }
@@ -207,6 +208,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             }
             if (!level.isClientSide) {
                 progress++;
+                if (level.getGameTime() % 20L == 0) {
+                    boolean canAccelerate = accelerators.stream().allMatch(IAltarAccelerator::canAccelerate);
+                    if (!canAccelerate) {
+                        recalibrateAccelerators();
+                    }
+                }
                 int progressCap = (int) (300*Math.exp(-0.15*speed));
                 if (progress >= progressCap) {
                     boolean success = consume();
@@ -250,7 +257,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         extrasInventory.updateData();
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < recipe.extraItems.size()) {
-            progress *= 0.5f;
+            progress *= 0.75f;
             Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (BlockPos pos : nearbyBlocks) {
                 if (level.getBlockEntity(pos) instanceof IAltarProvider blockEntity) {
@@ -311,31 +318,39 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         inventory.updateData();
         spiritInventory.updateData();
         extrasInventory.updateData();
-        recalibrateSpeed();
+        recalibrateAccelerators();
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 
-    public void recalibrateSpeed() {
+    public void recalibrateAccelerators() {
         speed = 0f;
         acceleratorPositions.clear();
         Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
-        HashMap<IAltarAccelerator.AcceleratorType, Integer> entries = new HashMap<>();
+        HashMap<IAltarAccelerator.AltarAcceleratorType, Integer> entries = new HashMap<>();
         for (BlockPos pos : nearbyBlocks) {
             if (level.getBlockEntity(pos) instanceof IAltarAccelerator accelerator) {
-                int max = accelerator.getAcceleratorType().maximumEntries;
-                int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
-                if (amount < max) {
-                    acceleratorPositions.add(pos);
-                    speed += accelerator.getAcceleration();
-                    entries.replace(accelerator.getAcceleratorType(), amount + 1);
+                if (accelerator.canAccelerate()) {
+                    int max = accelerator.getAcceleratorType().maximumEntries;
+                    int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
+                    if (amount < max) {
+                        acceleratorPositions.add(pos);
+                        speed += accelerator.getAcceleration();
+                        entries.replace(accelerator.getAcceleratorType(), amount + 1);
+                    }
                 }
             }
         }
+        updateAccelerators = true;
     }
     public void passiveParticles() {
         Vec3 itemPos = itemPos(this);
         for (int i = 0; i < spiritInventory.slotCount; i++) {
             ItemStack item = spiritInventory.getStackInSlot(i);
+            for (IAltarAccelerator accelerator : accelerators) {
+                if (accelerator != null) {
+                    accelerator.addParticles(worldPosition, itemPos);
+                }
+            }
             if (item.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
                 Vec3 offset = spiritOffset(this, i);
                 Color color = spiritSplinterItem.type.color;
@@ -349,7 +364,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                     float alpha = 0.07f / spiritInventory.nonEmptyItemAmount;
                     for (IAltarAccelerator accelerator : accelerators) {
                         if (accelerator != null) {
-                            accelerator.addParticles(color, alpha, worldPosition, itemPos);
+                            accelerator.addParticles(color, endColor, alpha, worldPosition, itemPos);
                         }
                     }
                     RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)

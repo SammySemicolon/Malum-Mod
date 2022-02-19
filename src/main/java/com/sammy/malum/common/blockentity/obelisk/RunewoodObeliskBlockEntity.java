@@ -1,7 +1,6 @@
 package com.sammy.malum.common.blockentity.obelisk;
 
-import com.sammy.malum.common.block.ether.EtherBlock;
-import com.sammy.malum.common.block.spirit_altar.IAltarAccelerator;
+import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.ParticleRegistry;
 import com.sammy.malum.core.setup.block.BlockEntityRegistry;
@@ -16,7 +15,7 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implements IAltarAccelerator {
-    public static final AcceleratorType OBELISK = new AcceleratorType(4, "obelisk");
+    public static final AltarAcceleratorType OBELISK = new AltarAcceleratorType(4, "obelisk");
     public static final Supplier<MultiBlockStructure> STRUCTURE = () -> (MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.RUNEWOOD_OBELISK_COMPONENT.get().defaultBlockState())));
 
     public RunewoodObeliskBlockEntity(BlockPos pos, BlockState state) {
@@ -24,18 +23,17 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
     }
 
     @Override
-    public IAltarAccelerator.AcceleratorType getAcceleratorType() {
+    public AltarAcceleratorType getAcceleratorType() {
         return OBELISK;
     }
 
     @Override
     public float getAcceleration() {
-        return level.getBlockState(worldPosition.above(2)).getBlock() instanceof EtherBlock ? 1f : 0.75f;
+        return 1f;
     }
 
     @Override
-    public void addParticles(Color color, float alpha, BlockPos altarPos, Vec3 altarItemPos) {
-        Color endColor = new Color(color.getGreen(), color.getBlue(), color.getRed());
+    public void addParticles(Color color, Color endColor, float alpha, BlockPos altarPos, Vec3 altarItemPos) {
         Vec3 startPos = DataHelper.fromBlockPos(worldPosition).add(0.5f, 2.15f, 0.5f);
         RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(alpha, 0f)

@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.spirit_altar;
+package com.sammy.malum.common.blockentity.altar;
 
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import net.minecraft.world.phys.Vec3;

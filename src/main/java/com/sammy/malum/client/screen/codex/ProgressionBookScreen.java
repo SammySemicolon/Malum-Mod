@@ -212,61 +212,62 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "spirit_alchemy", ALCHEMICAL_IMPETUS.get(),7,6)
-                .addPage(new HeadlineTextPage("spirit_alchemy", "spirit_alchemy_a"))
-                .addPage(new TextPage("spirit_alchemy_b"))
+                "spirit_focusing", SPIRIT_CRUCIBLE.get(),7,6)
+                .addPage(new HeadlineTextPage("spirit_focusing", "spirit_focusing_a"))
+                .addPage(new TextPage("spirit_focusing_b"))
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CRUCIBLE.get()))
-                .addPage(SpiritInfusionPage.fromImpetus(ALCHEMICAL_IMPETUS.get(), CRACKED_ALCHEMICAL_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(ALCHEMICAL_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(
-                "ashen_spirit_focusing", GUNPOWDER,8,7)
-                .addPage(new HeadlineTextPage("ashen_spirit_focusing", "ashen_spirit_focusing"))
+                "working_with_ashes", GUNPOWDER,6,5)
+                .addPage(new HeadlineTextPage("working_with_ashes", "working_with_ashes"))
                 .addPage(SpiritCruciblePage.fromOutput(GUNPOWDER))
                 .addPage(SpiritCruciblePage.fromOutput(GLOWSTONE_DUST))
                 .addPage(SpiritCruciblePage.fromOutput(REDSTONE))
         );
 
         entries.add(new BookEntry(
-                "metallurgy_with_spirits", IRON_INGOT,7,8)
-                .addPage(new HeadlineTextPage("metallurgy_with_spirits", "metallurgy_with_spirits_a"))
-                .addPage(new TextPage("metallurgy_with_spirits_b"))
-                .addPage(SpiritInfusionPage.fromImpetus(IRON_IMPETUS.get(), CRACKED_IRON_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromInput(IRON_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromImpetus(GOLD_IMPETUS.get(), CRACKED_GOLD_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromInput(GOLD_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromImpetus(COPPER_IMPETUS.get(), CRACKED_COPPER_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromInput(COPPER_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromImpetus(LEAD_IMPETUS.get(), CRACKED_LEAD_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromInput(LEAD_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromImpetus(SILVER_IMPETUS.get(), CRACKED_SILVER_IMPETUS.get()))
-                .addPage(SpiritCruciblePage.fromInput(SILVER_IMPETUS.get()))
+                "metallurgic_magic", IRON_NODE.get(),8,7)
+                .addPage(new HeadlineTextPage("metallurgic_magic", "metallurgic_magic_a"))
+                .addPage(new TextPage("metallurgic_magic_b"))
+                .addPage(SpiritInfusionPage.fromOutput(IRON_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(IRON_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(GOLD_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(GOLD_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(COPPER_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(COPPER_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(LEAD_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(LEAD_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(SILVER_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(SILVER_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(ALUMINUM_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(ALUMINUM_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(NICKEL_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(NICKEL_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(URANIUM_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(URANIUM_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(OSMIUM_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(OSMIUM_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(ZINC_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(ZINC_NODE.get()))
+                .addPage(SpiritInfusionPage.fromOutput(TIN_IMPETUS.get()))
+                .addPage(SpiritCruciblePage.fromOutput(TIN_NODE.get()))
         );
 
         entries.add(new BookEntry(
-                "crystalline_spirit_focusing", QUARTZ,6,5)
-                .addPage(new HeadlineTextPage("crystalline_spirit_focusing", "crystalline_spirit_focusing"))
-                .addPage(SpiritCruciblePage.fromOutput(QUARTZ))
-                .addPage(SpiritCruciblePage.fromOutput(BLAZING_QUARTZ.get()))
-                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_SHARD))
-                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_CRYSTALS))
-        );
-
-        entries.add(new BookEntry(
-                "complexities_with_spirits", ENDER_PEARL,7,4)
-                .addPage(new HeadlineTextPage("complexities_with_spirits", "complexities_with_spirits"))
-                .addPage(SpiritCruciblePage.fromOutput(ENDER_PEARL))
-                .addPage(SpiritCruciblePage.fromOutput(GHAST_TEAR))
-                .addPage(SpiritCruciblePage.fromOutput(RABBIT_FOOT))
+                "crucible_acceleration", SPIRIT_CATALYZER.get(),7,4)
+                .addPage(new HeadlineTextPage("crucible_acceleration", "crucible_acceleration_a"))
+                .addPage(new TextPage("crucible_acceleration_b"))
+                .addPage(new TextPage("crucible_acceleration_c"))
+                .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CATALYZER.get()))
         );
 
         entries.add(new BookEntry(
                 "ceaseless_impetus", CEASELESS_IMPETUS.get(),9,5)
                 .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
                 .addPage(new TextPage("ceaseless_impetus_b"))
-                .addPage(SpiritInfusionPage.fromImpetus(CEASELESS_IMPETUS.get(), CRACKED_CEASELESS_IMPETUS.get()))
-                .addPage(SpiritInfusionPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
+                .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(

@@ -24,12 +24,12 @@
   ],
   "spirits": [
     {
-      "item": "malum:earthen_spirit",
-      "count": 2
-    },
-    {
       "item": "malum:aerial_spirit",
       "count": 8
+    },
+    {
+      "item": "malum:earthen_spirit",
+      "count": 2
     }
   ]
 }

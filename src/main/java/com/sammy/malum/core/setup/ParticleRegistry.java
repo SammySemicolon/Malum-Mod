@@ -23,6 +23,7 @@ public class ParticleRegistry {
     public static RegistryObject<WispParticleType> SMOKE_PARTICLE = PARTICLES.register("smoke_particle", WispParticleType::new);
     public static RegistryObject<WispParticleType> SPARKLE_PARTICLE = PARTICLES.register("sparkle_particle", WispParticleType::new);
     public static RegistryObject<WispParticleType> TWINKLE_PARTICLE = PARTICLES.register("twinkle_particle", WispParticleType::new);
+    public static RegistryObject<WispParticleType> STAR_PARTICLE = PARTICLES.register("star_particle", WispParticleType::new);
 
     public static RegistryObject<SpiritFlameParticleType> SPIRIT_FLAME_PARTICLE = PARTICLES.register("spirit_flame_particle", SpiritFlameParticleType::new);
 
@@ -35,6 +36,7 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(SMOKE_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(SPARKLE_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(TWINKLE_PARTICLE.get(), WispParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(STAR_PARTICLE.get(), WispParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(SCYTHE_CUT_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);
