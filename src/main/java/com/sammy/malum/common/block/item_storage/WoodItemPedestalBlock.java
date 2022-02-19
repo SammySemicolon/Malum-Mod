@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.item_storage;
 
+import com.sammy.malum.common.blockentity.item_storage.ItemPedestalBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -11,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.stream.Stream;
 
-public class WoodItemPedestalBlock extends ItemPedestalBlock
+public class WoodItemPedestalBlock<T extends ItemPedestalBlockEntity> extends ItemPedestalBlock<T>
 {
     public static final VoxelShape SHAPE = Stream.of(
             Block.box(4, 0, 4, 12, 3, 12),

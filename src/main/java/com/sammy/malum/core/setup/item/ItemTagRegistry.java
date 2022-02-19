@@ -11,13 +11,15 @@ import javax.annotation.Nullable;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class ItemTagRegistry
-{
+public class ItemTagRegistry {
     public static Tag.Named<Item> SOUL_HUNTER_WEAPON = tag("soul_hunter_weapon");
     public static Tag.Named<Item> SCYTHE = tag("scythe");
     public static Tag.Named<Item> RUNEWOOD_LOGS = tag("runewood_logs");
     public static Tag.Named<Item> SOULWOOD_LOGS = tag("soulwood_logs");
     public static Tag.Named<Item> SAPBALLS = tag("sapballs");
+
+    public static final Tag.Named<Item> KNIVES_FD = modTag("farmersdelight:tools/knives");
+    public static final Tags.IOptionalNamedTag<Item> KNIVES = forgeTag("tools/knives");
 
     public static final Tags.IOptionalNamedTag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
     public static final Tags.IOptionalNamedTag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
@@ -38,22 +40,27 @@ public class ItemTagRegistry
     public static final Tags.IOptionalNamedTag<Item> NUGGETS_TIN = forgeTag("nuggets/tin");
     public static final Tags.IOptionalNamedTag<Item> INGOTS_TIN = forgeTag("ingots/tin");
 
-    private static Tags.IOptionalNamedTag<Item> forgeTag(String name, @Nullable Set<Supplier<Item>> defaults)
-    {
+    private static Tags.IOptionalNamedTag<Item> forgeTag(String name, @Nullable Set<Supplier<Item>> defaults) {
         return ItemTags.createOptional(new ResourceLocation("forge", name), defaults);
     }
 
-    private static Tags.IOptionalNamedTag<Item> forgeTag(String name)
-    {
+    private static Tags.IOptionalNamedTag<Item> forgeTag(String name) {
         return forgeTag(name, null);
     }
-    private static Tag.Named<Item> tag(String name, @Nullable Set<Supplier<Item>> defaults)
-    {
+
+    private static Tag.Named<Item> tag(String name, @Nullable Set<Supplier<Item>> defaults) {
         return ItemTags.createOptional(DataHelper.prefix(name), defaults);
     }
 
-    private static Tag.Named<Item> tag(String name)
-    {
+    private static Tag.Named<Item> tag(String name) {
         return tag(name, null);
+    }
+
+    private static Tag.Named<Item> modTag(String name, @Nullable Set<Supplier<Item>> defaults) {
+        return ItemTags.createOptional(new ResourceLocation(name), defaults);
+    }
+
+    private static Tag.Named<Item> modTag(String name) {
+        return modTag(name, null);
     }
 }

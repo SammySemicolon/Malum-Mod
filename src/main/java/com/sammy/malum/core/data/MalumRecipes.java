@@ -1,6 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.core.data.builder.vanilla.NBTCarryRecipeBuilder;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.setup.item.ItemTagRegistry;
 import net.minecraft.advancements.critereon.*;
@@ -20,6 +21,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 
 import java.util.function.Consumer;
 
@@ -30,8 +33,7 @@ import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecip
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
-import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.blasting;
-import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.smelting;
+import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
 import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
 
 public class MalumRecipes extends RecipeProvider
@@ -52,7 +54,7 @@ public class MalumRecipes extends RecipeProvider
     {
         //KEY ITEMS
         shapeless(ItemRegistry.ENCYCLOPEDIA_ARCANA.get()).requires(Items.BOOK).requires(ItemRegistry.PROCESSED_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.PROCESSED_SOULSTONE.get())).save(consumer);
-        shaped(ItemRegistry.CRUDE_SCYTHE.get()).define('#', Items.STICK).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).define('X', Tags.Items.INGOTS_IRON).pattern("XXY").pattern(" #X").pattern("#  ").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer);
+        shaped(ItemRegistry.CRUDE_SCYTHE.get()).define('#', Tags.Items.RODS_WOODEN).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).define('X', Tags.Items.INGOTS_IRON).pattern("XXY").pattern(" #X").pattern("#  ").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer);
         shaped(ItemRegistry.SPIRIT_ALTAR.get()).define('Z', Tags.Items.INGOTS_GOLD).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).define('X', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern(" Y ").pattern("ZXZ").pattern("XXX").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer);
         shaped(ItemRegistry.SPIRIT_JAR.get()).define('Z', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('Y', Tags.Items.GLASS_PANES).pattern("YZY").pattern("Y Y").pattern("YYY").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shaped(ItemRegistry.SPIRIT_POUCH.get()).define('X', Tags.Items.STRING).define('Y', ItemRegistry.SPIRIT_FABRIC.get()).define('Z', ItemTags.SOUL_FIRE_BASE_BLOCKS).pattern(" X ").pattern("YZY").pattern(" Y ").unlockedBy("has_spirit_fabric", has(ItemRegistry.SPIRIT_FABRIC.get())).save(consumer);
@@ -105,12 +107,15 @@ public class MalumRecipes extends RecipeProvider
         blastingWithTag(Ingredient.of(ItemRegistry.TIN_NODE.get()), ItemTagRegistry.NUGGETS_TIN, 6,0.25f,100).unlockedBy("has_impetus", has(ItemRegistry.TIN_IMPETUS.get())).save(consumer, prefix("tin_from_node_blasting"));
 
         //TOOLS
-        shaped(ItemRegistry.SOUL_STAINED_STEEL_HOE.get()).define('#', Items.STICK).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
-        shaped(ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get()).define('#', Items.STICK).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
-        shaped(ItemRegistry.SOUL_STAINED_STEEL_AXE.get()).define('#', Items.STICK).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX ").pattern("X# ").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
-        shaped(ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get()).define('#', Items.STICK).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("X").pattern("#").pattern("#").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
-        shaped(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get()).define('#', Items.STICK).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("X").pattern("X").pattern("#").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
-
+        shaped(ItemRegistry.SOUL_STAINED_STEEL_HOE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+        shaped(ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+        shaped(ItemRegistry.SOUL_STAINED_STEEL_AXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX ").pattern("X# ").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+        shaped(ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("X").pattern("#").pattern("#").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+        shaped(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("X").pattern("X").pattern("#").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
+        ConditionalRecipe.builder().addCondition(new ModLoadedCondition("farmersdelight")).addRecipe(shaped(ItemRegistry.SOUL_STAINED_STEEL_KNIFE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern(" X").pattern("# ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()))::save)
+                .generateAdvancement()
+                .build(consumer, DataHelper.prefix("soul_stained_steel_knife"));
+        
         //TRINKETS
         shaped(ItemRegistry.GILDED_BELT.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', Tags.Items.LEATHER).define('Y', ItemRegistry.PROCESSED_SOULSTONE.get()).pattern("XXX").pattern("#Y#").pattern(" # ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
         shaped(ItemRegistry.GILDED_RING.get()).define('#', ItemRegistry.HALLOWED_GOLD_INGOT.get()).define('X', Tags.Items.LEATHER).pattern(" X#").pattern("X X").pattern(" X ").unlockedBy("has_hallowed_gold", has(ItemRegistry.HALLOWED_GOLD_INGOT.get())).save(consumer);
@@ -163,13 +168,15 @@ public class MalumRecipes extends RecipeProvider
         shapeless(Items.EXPERIENCE_BOTTLE).requires(ItemRegistry.BRILLIANCE_CHUNK.get()).requires(Items.GLASS_BOTTLE).unlockedBy("has_brilliance", has(ItemRegistry.BRILLIANCE_CHUNK.get())).save(consumer, prefix("experience_bottle_from_brilliance"));
 
         //SAP & ARCANE CHARCOAL
-        smelting(Ingredient.of(ItemTagRegistry.RUNEWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(),0.25f,200).unlockedBy("has_runewood_planks", has(ItemTagRegistry.RUNEWOOD_LOGS)).save(consumer);
-        shapeless(ItemRegistry.HOLY_SAPBALL.get(), 3).requires(ItemRegistry.HOLY_SAP.get()).requires(Items.SLIME_BALL).unlockedBy("has_holy_extract", has(ItemRegistry.HOLY_SAP.get())).save(consumer);
-        smelting(Ingredient.of(ItemRegistry.HOLY_SAP.get()), ItemRegistry.HOLY_SYRUP.get(),0.1f,200).unlockedBy("has_holy_extract", has(ItemRegistry.HOLY_SAP.get())).save(consumer);
+        smelting(Ingredient.of(ItemTagRegistry.RUNEWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(),0.25f,200).unlockedBy("has_runewood_planks", has(ItemTagRegistry.RUNEWOOD_LOGS)).save(consumer, prefix("arcane_charcoal_from_runewood"));
+        shapeless(ItemRegistry.HOLY_SAPBALL.get(), 3).requires(ItemRegistry.HOLY_SAP.get()).requires(Items.SLIME_BALL).unlockedBy("has_holy_sap", has(ItemRegistry.HOLY_SAP.get())).save(consumer);
+        smelting(Ingredient.of(ItemRegistry.HOLY_SAP.get()), ItemRegistry.HOLY_SYRUP.get(),0.1f,200).unlockedBy("has_holy_sap", has(ItemRegistry.HOLY_SAP.get())).save(consumer, prefix("holy_sap_from_smelting"));
+        smoking(Ingredient.of(ItemRegistry.HOLY_SAP.get()), ItemRegistry.HOLY_SYRUP.get(),0.1f,100).unlockedBy("has_holy_sap", has(ItemRegistry.HOLY_SAP.get())).save(consumer, prefix("holy_sap_from_smoking"));
 
         smelting(Ingredient.of(ItemTagRegistry.SOULWOOD_LOGS), ItemRegistry.ARCANE_CHARCOAL.get(),0.25f,200).unlockedBy("has_soulwood_planks", has(ItemTagRegistry.SOULWOOD_LOGS)).save(consumer, prefix("arcane_charcoal_from_soulwood"));
-        shapeless(ItemRegistry.UNHOLY_SAPBALL.get(), 3).requires(ItemRegistry.UNHOLY_SAP.get()).requires(Items.SLIME_BALL).unlockedBy("has_unholy_extract", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer);
-        smelting(Ingredient.of(ItemRegistry.UNHOLY_SAP.get()), ItemRegistry.UNHOLY_SYRUP.get(),0.1f,200).unlockedBy("has_unholy_extract", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer);
+        shapeless(ItemRegistry.UNHOLY_SAPBALL.get(), 3).requires(ItemRegistry.UNHOLY_SAP.get()).requires(Items.SLIME_BALL).unlockedBy("has_unholy_sap", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer);
+        smelting(Ingredient.of(ItemRegistry.UNHOLY_SAP.get()), ItemRegistry.UNHOLY_SYRUP.get(),0.1f,200).unlockedBy("has_unholy_sap", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer, prefix("unholy_sap_from_smelting"));
+        smoking(Ingredient.of(ItemRegistry.UNHOLY_SAP.get()), ItemRegistry.UNHOLY_SYRUP.get(),0.1f,100).unlockedBy("has_unholy_sap", has(ItemRegistry.UNHOLY_SAP.get())).save(consumer, prefix("unholy_sap_from_smoking"));
 
         shapeless(Items.MAGMA_CREAM).requires(Items.BLAZE_POWDER).requires(ItemTagRegistry.SAPBALLS).unlockedBy("has_sapball", has(ItemTagRegistry.SAPBALLS)).save(consumer, prefix("magma_cream_from_sapballs"));
         shaped(Blocks.STICKY_PISTON).define('P', Blocks.PISTON).define('S', ItemTagRegistry.SAPBALLS).pattern("S").pattern("P").unlockedBy("has_sapball", has(ItemTagRegistry.SAPBALLS)).save(consumer, prefix("sticky_piston_from_sapballs"));
@@ -450,11 +457,11 @@ public class MalumRecipes extends RecipeProvider
     }
     private static void etherBrazier(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike rock, ItemLike ether)
     {
-        NBTCarryRecipeBuilder.shapedRecipe(output,2,Ingredient.of(ether)).key('#', rock).key('S', Items.STICK).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath());
+        NBTCarryRecipeBuilder.shapedRecipe(output,2,Ingredient.of(ether)).key('#', rock).key('S', Tags.Items.RODS_WOODEN).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath());
     }
     private static void etherTorch(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike ether)
     {
-        NBTCarryRecipeBuilder.shapedRecipe(output, 4,Ingredient.of(ether)).key('#', Items.STICK).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
+        NBTCarryRecipeBuilder.shapedRecipe(output, 4,Ingredient.of(ether)).key('#', Tags.Items.RODS_WOODEN).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
     }
     private static void shapelessPlanks(Consumer<FinishedRecipe> recipeConsumer, ItemLike planks, Tag<Item> input)
     {
@@ -474,11 +481,11 @@ public class MalumRecipes extends RecipeProvider
     }
     private static void shapedFence(Consumer<FinishedRecipe> recipeConsumer, ItemLike fence, ItemLike input)
     {
-        shaped(fence, 3).define('#', Items.STICK).define('W', input).pattern("W#W").pattern("W#W").unlockedBy("has_input", has(input)).save(recipeConsumer);
+        shaped(fence, 3).define('#', Tags.Items.RODS_WOODEN).define('W', input).pattern("W#W").pattern("W#W").unlockedBy("has_input", has(input)).save(recipeConsumer);
     }
     private static void shapedFenceGate(Consumer<FinishedRecipe> recipeConsumer, ItemLike fenceGate, ItemLike input)
     {
-        shaped(fenceGate).define('#', Items.STICK).define('W', input).pattern("#W#").pattern("#W#").unlockedBy("has_input", has(input)).save(recipeConsumer);
+        shaped(fenceGate).define('#', Tags.Items.RODS_WOODEN).define('W', input).pattern("#W#").pattern("#W#").unlockedBy("has_input", has(input)).save(recipeConsumer);
     }
     private static void shapedPressurePlate(Consumer<FinishedRecipe> recipeConsumer, ItemLike pressurePlate, ItemLike input)
     {
@@ -503,7 +510,7 @@ public class MalumRecipes extends RecipeProvider
     private static void shapedSign(Consumer<FinishedRecipe> recipeConsumer, ItemLike sign, ItemLike input)
     {
         String s = Registry.ITEM.getKey(input.asItem()).getPath();
-        shaped(sign, 3).group("sign").define('#', input).define('X', Items.STICK).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_" + s, has(input)).save(recipeConsumer);
+        shaped(sign, 3).group("sign").define('#', input).define('X', Tags.Items.RODS_WOODEN).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_" + s, has(input)).save(recipeConsumer);
     }
     private static void netheriteSmithing(Consumer<FinishedRecipe> p_240469_0_, Item p_240469_1_, Item p_240469_2_) {
         UpgradeRecipeBuilder.smithing(Ingredient.of(p_240469_1_), Ingredient.of(Items.NETHERITE_INGOT), p_240469_2_).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(p_240469_0_, Registry.ITEM.getKey(p_240469_2_.asItem()).getPath() + "_smithing");
@@ -534,11 +541,11 @@ public class MalumRecipes extends RecipeProvider
     }
 
     private static void woodenFence(Consumer<FinishedRecipe> p_240476_0_, ItemLike p_240476_1_, ItemLike p_240476_2_) {
-        shaped(p_240476_1_, 3).define('#', Items.STICK).define('W', p_240476_2_).pattern("W#W").pattern("W#W").group("wooden_fence").unlockedBy("has_planks", has(p_240476_2_)).save(p_240476_0_);
+        shaped(p_240476_1_, 3).define('#', Tags.Items.RODS_WOODEN).define('W', p_240476_2_).pattern("W#W").pattern("W#W").group("wooden_fence").unlockedBy("has_planks", has(p_240476_2_)).save(p_240476_0_);
     }
 
     private static void woodenFenceGate(Consumer<FinishedRecipe> p_240477_0_, ItemLike p_240477_1_, ItemLike p_240477_2_) {
-        shaped(p_240477_1_).define('#', Items.STICK).define('W', p_240477_2_).pattern("#W#").pattern("#W#").group("wooden_fence_gate").unlockedBy("has_planks", has(p_240477_2_)).save(p_240477_0_);
+        shaped(p_240477_1_).define('#', Tags.Items.RODS_WOODEN).define('W', p_240477_2_).pattern("#W#").pattern("#W#").group("wooden_fence_gate").unlockedBy("has_planks", has(p_240477_2_)).save(p_240477_0_);
     }
 
     private static void woodenPressurePlate(Consumer<FinishedRecipe> p_240478_0_, ItemLike p_240478_1_, ItemLike p_240478_2_) {
@@ -559,7 +566,7 @@ public class MalumRecipes extends RecipeProvider
 
     private static void woodenSign(Consumer<FinishedRecipe> p_240482_0_, ItemLike p_240482_1_, ItemLike p_240482_2_) {
         String s = Registry.ITEM.getKey(p_240482_2_.asItem()).getPath();
-        shaped(p_240482_1_, 3).group("sign").define('#', p_240482_2_).define('X', Items.STICK).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_" + s, has(p_240482_2_)).save(p_240482_0_);
+        shaped(p_240482_1_, 3).group("sign").define('#', p_240482_2_).define('X', Tags.Items.RODS_WOODEN).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_" + s, has(p_240482_2_)).save(p_240482_0_);
     }
 
     private static void coloredWoolFromWhiteWoolAndDye(Consumer<FinishedRecipe> p_240483_0_, ItemLike p_240483_1_, ItemLike p_240483_2_) {
@@ -589,7 +596,7 @@ public class MalumRecipes extends RecipeProvider
 
     private static void banner(Consumer<FinishedRecipe> p_240488_0_, ItemLike p_240488_1_, ItemLike p_240488_2_) {
         String s = Registry.ITEM.getKey(p_240488_2_.asItem()).getPath();
-        shaped(p_240488_1_).define('#', p_240488_2_).define('|', Items.STICK).pattern("###").pattern("###").pattern(" | ").group("banner").unlockedBy("has_" + s, has(p_240488_2_)).save(p_240488_0_);
+        shaped(p_240488_1_).define('#', p_240488_2_).define('|', Tags.Items.RODS_WOODEN).pattern("###").pattern("###").pattern(" | ").group("banner").unlockedBy("has_" + s, has(p_240488_2_)).save(p_240488_0_);
     }
 
     private static void stainedGlassFromGlassAndDye(Consumer<FinishedRecipe> p_240489_0_, ItemLike p_240489_1_, ItemLike p_240489_2_) {

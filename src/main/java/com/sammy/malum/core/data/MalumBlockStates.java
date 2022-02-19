@@ -5,7 +5,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.item_storage.ItemStandBlock;
 import com.sammy.malum.common.block.mirror.WallMirrorBlock;
@@ -89,7 +89,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         DataHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(this::lanternBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof MalumLeavesBlock).forEach(this::malumLeavesBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBrazierBlock).forEach(this::brazierBlock);
-        DataHelper.takeAll(blocks, b -> b.get() instanceof WallEtherTorchBlock).forEach(this::wallEtherTorchBlock);
+        DataHelper.takeAll(blocks, b -> b.get() instanceof EtherWallTorchBlock).forEach(this::wallEtherTorchBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof EtherTorchBlock).forEach(this::etherTorchBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(this::etherBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof WallMirrorBlock).forEach(this::wallMirrorBlock);

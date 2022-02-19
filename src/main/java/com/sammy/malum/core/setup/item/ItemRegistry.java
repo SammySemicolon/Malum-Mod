@@ -29,6 +29,8 @@ import com.sammy.malum.common.item.misc.MalumFuelBlockItem;
 import com.sammy.malum.common.item.misc.MalumFuelItem;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.magic.*;
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.compability.farmersdelight.MagicMalumKnifeItem;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.EntityRegistry;
@@ -440,7 +442,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_PICKAXE = ITEMS.register("soul_stained_steel_pickaxe", () -> new MagicPickaxeItem(SOUL_STAINED_STEEL, -2, 0, 2, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_AXE = ITEMS.register("soul_stained_steel_axe", () -> new MagicAxeItem(SOUL_STAINED_STEEL, -3f, 0, 4, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SHOVEL = ITEMS.register("soul_stained_steel_shovel", () -> new MagicShovelItem(SOUL_STAINED_STEEL, -2, 0, 2, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_HOE = ITEMS.register("soul_stained_steel_hoe", () -> new MagicHoeItem(SOUL_STAINED_STEEL, 0, 0, 2, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_HOE = ITEMS.register("soul_stained_steel_hoe", () -> new MagicHoeItem(SOUL_STAINED_STEEL, 0, -1.5f, 1, GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_KNIFE = ITEMS.register("soul_stained_steel_knife", () -> FarmersDelightCompat.LOADED ? new MagicMalumKnifeItem(SOUL_STAINED_STEEL, -1.5f, 0, 2, GEAR_PROPERTIES()) : new Item(HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_HELMET = ITEMS.register("soul_stained_steel_helmet", () -> new SoulStainedSteelArmorItem(EquipmentSlot.HEAD, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_CHESTPLATE = ITEMS.register("soul_stained_steel_chestplate", () -> new SoulStainedSteelArmorItem(EquipmentSlot.CHEST, GEAR_PROPERTIES()));

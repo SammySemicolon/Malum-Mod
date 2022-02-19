@@ -22,7 +22,7 @@ public abstract class MirrorBlockEntity extends SimpleBlockEntity {
     public LazyOptional<IItemHandler> attachedInventory;
     public boolean updateAttached = false;
     public int cooldown;
-    public MirrorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public MirrorBlockEntity(BlockEntityType<? extends MirrorBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.direction = state.getValue(BlockStateProperties.FACING);
     }

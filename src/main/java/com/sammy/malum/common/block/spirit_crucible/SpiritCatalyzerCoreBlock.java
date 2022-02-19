@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
 import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCatalyzerCoreBlockEntity;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import net.minecraft.core.BlockPos;
@@ -9,7 +8,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -17,22 +15,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.function.Supplier;
-
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritCatalyzerCoreBlock extends WaterLoggedBlock<SpiritCatalyzerCoreBlockEntity> implements IMultiBlockCore {
+public class SpiritCatalyzerCoreBlock<T extends SpiritCatalyzerCoreBlockEntity> extends WaterLoggedBlock<T> implements IMultiBlockCore {
     public static final VoxelShape NORTH_SOUTH_SHAPE = makeNorthSouthShape();
     public static final VoxelShape WEST_EAST_SHAPE = makeWestEastShape();
 
-    public SpiritCatalyzerCoreBlock(Properties properties, Supplier<BlockEntityType<SpiritCatalyzerCoreBlockEntity>> type) {
-        super(properties);
-        setTile(type);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
-    }
-
     public SpiritCatalyzerCoreBlock(Properties properties) {
-        this(properties, BlockEntityRegistry.SPIRIT_CATALYZER);
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
     }
 
     @Override

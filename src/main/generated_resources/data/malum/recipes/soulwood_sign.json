@@ -11,7 +11,7 @@
       "item": "malum:soulwood_planks"
     },
     "X": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     }
   },
   "result": {

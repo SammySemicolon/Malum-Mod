@@ -6,7 +6,7 @@ license="All rights reserved"
 modId="malum"
 version="${file.jarVersion}"
 displayName="Malum"
-authors="Sammy; Lily;"
+authors="Sammy;"
 description='''
 A dark magic mod focused on soul and spirit magic.
 '''

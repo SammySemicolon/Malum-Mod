@@ -2,16 +2,18 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:arcane_charcoal"
+      "malum:unholy_sap_from_smoking"
     ]
   },
   "criteria": {
-    "has_runewood_planks": {
+    "has_unholy_sap": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "malum:runewood_logs"
+            "items": [
+              "malum:unholy_sap"
+            ]
           }
         ]
       }
@@ -19,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:arcane_charcoal"
+        "recipe": "malum:unholy_sap_from_smoking"
       }
     }
   },
   "requirements": [
     [
-      "has_runewood_planks",
+      "has_unholy_sap",
       "has_the_recipe"
     ]
   ]

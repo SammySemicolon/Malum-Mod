@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "malum:holy_sap"
+  },
+  "result": "malum:holy_syrup",
+  "experience": 0.1,
+  "cookingtime": 100
+}

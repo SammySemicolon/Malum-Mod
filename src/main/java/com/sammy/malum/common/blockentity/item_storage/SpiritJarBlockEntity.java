@@ -25,12 +25,12 @@ import java.awt.*;
 
 public class SpiritJarBlockEntity extends SimpleBlockEntity {
 
-    public SpiritJarBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public SpiritJarBlockEntity(BlockEntityType<? extends SpiritJarBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
     public SpiritJarBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.SPIRIT_JAR.get(), pos, state);
+        this(BlockEntityRegistry.SPIRIT_JAR.get(), pos, state);
     }
 
     public MalumSpiritType type;

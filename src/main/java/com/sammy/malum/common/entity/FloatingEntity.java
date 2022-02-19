@@ -136,6 +136,7 @@ public abstract class FloatingEntity extends Projectile {
         double d1 = this.getZ() + vec3.z;
         this.updateRotation();
 
+        this.setDeltaMovement(vec3.scale(1f)); //this is apparently important, don't remove it
         this.setPos(d2, d0, d1);
     }
     public void spawnParticles(double x, double y, double z) {

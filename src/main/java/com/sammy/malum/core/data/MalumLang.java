@@ -3,7 +3,7 @@ package com.sammy.malum.core.data;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
@@ -59,7 +59,7 @@ public class MalumLang extends LanguageProvider
         ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
         ArrayList<MalumSpiritType> spirits = SpiritTypeRegistry.SPIRITS;
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
-        DataHelper.takeAll(blocks, i -> i.get() instanceof WallEtherTorchBlock);
+        DataHelper.takeAll(blocks, i -> i.get() instanceof EtherWallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
         blocks.forEach(b ->
         {
@@ -242,7 +242,7 @@ public class MalumLang extends LanguageProvider
         addDescription("metallurgy_with_spirits", "Focusing into hardware");
         addHeadline("metallurgy_with_spirits", "Metallurgy with Spirits");
         addPage("metallurgy_with_spirits_a", "With some clever tricks you may imbue your impetus with a metallic shell, when fed spirits it'll shape a few nuggets of the desired metal into the world. This takes a large toll on the impetus however, needing frequent repair.");
-        addPage("metallurgy_with_spirits_b", "It is speculated that these catalysts were previously used as some sort of ashen aspectus, used in a infernal arcana focused infusion system. It might be difficult to replicate that without more advanced studies on infernal arcana.");
+        addPage("metallurgy_with_spirits_b", "It is speculated that these catalysts were previously used as some sort of ashen aspects used in an infernal arcana focused alchemical exchange system. It might be possible to replicate the process by studying the history of infernal arcana.");
 
         addDescription("ceaseless_impetus", "Rebirth");
         addHeadline("ceaseless_impetus", "Ceaseless Impetus");
@@ -257,7 +257,7 @@ public class MalumLang extends LanguageProvider
         addPage("spirit_jar", "The spirit jar is a simple craft. It's a placeable jar block that can store a really really large amount of a single spirit, very convenient to have next to a spirit altar. You can input and output spirits by right clicking, sneaking will take out an entire stack.");
         addHeadline("soul_stained_steel", "Soul Stained Steel");
         addPage("soul_stained_steel_a", "The sacred origins of hallowed gold make it nearly impossible to use for harm. Soul stained steel is nothing like that, it's a tough metal twisted evil beyond recognition. It excels at heartless crimes, perfect for various gear and trinkets.");
-        addPage("soul_stained_steel_b", "Any piece of gear made from soul stained steel is capable of shattering souls. Both metals can also be used to create a type of magic transmitter. A spirit resonator, a more complex crafting component meant for manipulating in-world spirits.");
+        addPage("soul_stained_steel_b", "Any piece of gear made from soul stained steel is capable of shattering souls and deals both magic and physical damage. Both metals can also be used to create a type of magic transmitter. A spirit resonator, a more complex crafting component meant for manipulating in-world spirits.");
 
         addDescription("soul_stained_gear", "Tinkering");
         addHeadline("soul_stained_scythe", "Soul Stained Scythe");

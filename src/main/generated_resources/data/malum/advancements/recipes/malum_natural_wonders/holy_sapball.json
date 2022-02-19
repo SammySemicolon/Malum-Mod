@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_holy_extract": {
+    "has_holy_sap": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_holy_extract",
+      "has_holy_sap",
       "has_the_recipe"
     ]
   ]

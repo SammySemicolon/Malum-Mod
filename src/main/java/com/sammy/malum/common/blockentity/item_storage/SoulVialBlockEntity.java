@@ -22,12 +22,12 @@ public class SoulVialBlockEntity extends SimpleBlockEntity {
 
     public MalumEntitySpiritData data;
 
-    public SoulVialBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public SoulVialBlockEntity(BlockEntityType<? extends SoulVialBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
     public SoulVialBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.SOUL_VIAL.get(), pos, state);
+        this(BlockEntityRegistry.SOUL_VIAL.get(), pos, state);
     }
 
     @Override

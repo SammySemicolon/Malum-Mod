@@ -69,7 +69,7 @@ public class SpiritHelper {
         if (attacker == null) {
             attacker = level.getNearestPlayer(position.x, position.y, position.z, 8, e -> true);
         }
-        float speed = 0.125f + 0.4f / (totalCount + 1);
+        float speed = 0.1f + 0.2f / (totalCount + 1);
         for (ItemStack stack : spirits) {
             int count = stack.getCount();
             if (count == 0) {

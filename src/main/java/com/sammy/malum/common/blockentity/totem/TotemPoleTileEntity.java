@@ -40,10 +40,10 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     public Block logBlock;
     public Direction direction;
 
-    public TotemPoleTileEntity(BlockEntityType<TotemPoleTileEntity> type, BlockPos pos, BlockState state) {
+    public TotemPoleTileEntity(BlockEntityType<? extends TotemPoleTileEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        this.corrupted = ((TotemPoleBlock) state.getBlock()).corrupted;
-        this.logBlock = ((TotemPoleBlock) state.getBlock()).logBlock.get();
+        this.corrupted = ((TotemPoleBlock<?>) state.getBlock()).corrupted;
+        this.logBlock = ((TotemPoleBlock<?>) state.getBlock()).logBlock.get();
         this.direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
     }
     public TotemPoleTileEntity(BlockPos pos, BlockState state) {

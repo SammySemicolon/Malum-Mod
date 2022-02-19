@@ -2,11 +2,11 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:unholy_syrup"
+      "malum:unholy_sap_from_smelting"
     ]
   },
   "criteria": {
-    "has_unholy_extract": {
+    "has_unholy_sap": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:unholy_syrup"
+        "recipe": "malum:unholy_sap_from_smelting"
       }
     }
   },
   "requirements": [
     [
-      "has_unholy_extract",
+      "has_unholy_sap",
       "has_the_recipe"
     ]
   ]

@@ -2,18 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "malum:holy_syrup"
+      "malum:arcane_charcoal_from_runewood"
     ]
   },
   "criteria": {
-    "has_holy_extract": {
+    "has_runewood_planks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "malum:holy_sap"
-            ]
+            "tag": "malum:runewood_logs"
           }
         ]
       }
@@ -21,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "malum:holy_syrup"
+        "recipe": "malum:arcane_charcoal_from_runewood"
       }
     }
   },
   "requirements": [
     [
-      "has_holy_extract",
+      "has_runewood_planks",
       "has_the_recipe"
     ]
   ]

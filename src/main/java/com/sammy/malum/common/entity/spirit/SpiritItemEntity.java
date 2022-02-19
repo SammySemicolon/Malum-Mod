@@ -60,7 +60,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
 
     @Override
     public void move() {
-        setDeltaMovement(getDeltaMovement().multiply(0.9f, 0.9f, 0.9f));
+        setDeltaMovement(getDeltaMovement().multiply(0.94f, 0.94f, 0.94f));
         float range = getRange();
         if (owner == null || !owner.isAlive()) {
             if (level.getGameTime() % 40L == 0)
@@ -73,13 +73,13 @@ public class SpiritItemEntity extends FloatingItemEntity {
             }
             return;
         }
-        Vec3 desiredLocation = owner.position().add(0, owner.getBbHeight() / 4, 0);
+        Vec3 desiredLocation = owner.position().add(0, owner.getBbHeight() / 3, 0);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = Mth.lerp(Math.min(moveTime, 20)/20f, 0.1f, 0.2f+(range*0.2f));
+        float velocity = Mth.lerp(Math.min(moveTime, 10)/10f, 0.05f, 0.4f+(range*0.075f));
         if (moveTime != 0 || distance < range) {
             moveTime++;
             Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity);
-            float easing = 0.02f;
+            float easing = 0.01f;
             float xMotion = (float) Mth.lerp(easing, getDeltaMovement().x, desiredMotion.x);
             float yMotion = (float) Mth.lerp(easing, getDeltaMovement().y, desiredMotion.y);
             float zMotion = (float) Mth.lerp(easing, getDeltaMovement().z, desiredMotion.z);

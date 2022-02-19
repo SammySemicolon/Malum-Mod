@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.item.ItemRegistry;
 import mezz.jei.api.IModPlugin;
@@ -38,6 +39,10 @@ public class JEIHandler implements IModPlugin
         registry.addRecipes(SpiritRiteRegistry.RITES, SpiritRiteRecipeCategory.UID);
         registry.addRecipes(BlockTransmutationRecipe.getRecipes(Minecraft.getInstance().level), BlockTransmutationRecipeCategory.UID);
         registry.addRecipes(SpiritFocusingRecipe.getRecipes(Minecraft.getInstance().level), SpiritFocusingRecipeCategory.UID);
+        if (FarmersDelightCompat.LOADED)
+        {
+            FarmersDelightCompat.LoadedOnly.addInfo(registry);
+        }
     }
     
     @Override

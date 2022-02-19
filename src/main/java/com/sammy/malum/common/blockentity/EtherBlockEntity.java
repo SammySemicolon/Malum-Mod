@@ -2,7 +2,7 @@ package com.sammy.malum.common.blockentity;
 
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.block.ether.WallEtherTorchBlock;
+import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.setup.ParticleRegistry;
@@ -27,7 +27,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
     public Color firstColor;
     public Color secondColor;
 
-    public EtherBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public EtherBlockEntity(BlockEntityType<? extends EtherBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
@@ -94,7 +94,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
             int lifeTime = 14 + level.random.nextInt(4);
             float scale = 0.17f + level.random.nextFloat() * 0.03f;
             float velocity = 0.04f + level.random.nextFloat() * 0.02f;
-            if (getBlockState().getBlock() instanceof WallEtherTorchBlock) {
+            if (getBlockState().getBlock() instanceof EtherWallTorchBlock) {
                 Direction direction = getBlockState().getValue(WallTorchBlock.FACING);
                 x += direction.getNormal().getX() * -0.28f;
                 y += 0.2f;
@@ -117,6 +117,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                     .setColor(firstColor, secondColor)
                     .setColorCurveMultiplier(1.5f)
                     .setAlphaCurveMultiplier(1.5f)
+                    .enableNoClip()
                     .spawn(level, x, y, z);
             RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
@@ -127,6 +128,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                     .setAlphaCurveMultiplier(2f)
                     .addVelocity(0, velocity, 0)
                     .setSpin(level.random.nextFloat() * 0.5f)
+                    .enableNoClip()
                     .spawn(level, x, y, z);
             if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f) {
                 y += 0.15f;
@@ -137,6 +139,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                         .setAlphaCurveMultiplier(3f)
                         .randomOffset(0.1f, 0.15f)
                         .addVelocity(0, 0.03f, 0)
+                        .enableNoClip()
                         .spawn(level, x, y, z);
                 RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.5f, 0)
@@ -145,6 +148,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                         .setAlphaCurveMultiplier(3f)
                         .randomOffset(0.1f, 0.15f)
                         .addVelocity(0, velocity, 0)
+                        .enableNoClip()
                         .spawn(level, x, y, z);
             }
         }

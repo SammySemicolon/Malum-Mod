@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.common.blockentity.item_storage.PlinthCoreBlockEntity;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import net.minecraft.core.BlockPos;
@@ -12,11 +11,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PlinthCoreBlock extends WaterLoggedBlock<PlinthCoreBlockEntity> implements IMultiBlockCore {
+public class PlinthCoreBlock<T extends PlinthCoreBlockEntity> extends WaterLoggedBlock<T> implements IMultiBlockCore {
     public static final VoxelShape SHAPE = makeShape();
     public PlinthCoreBlock(Properties properties) {
         super(properties);
-        setTile(BlockEntityRegistry.PLINTH);
     }
 
     @Override

@@ -26,6 +26,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
@@ -51,8 +52,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
     public int soundCooldown;
     public float progress;
 
-    public SpiritCrucibleCoreBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.SPIRIT_CRUCIBLE.get(), STRUCTURE.get(), pos, state);
+    public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
+        super(type, structure, pos, state);
         inventory = new SimpleBlockEntityInventory(1, 1, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
@@ -70,6 +71,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
+    }
+    public SpiritCrucibleCoreBlockEntity(BlockPos pos, BlockState state) {
+        this(BlockEntityRegistry.SPIRIT_CRUCIBLE.get(), STRUCTURE.get(), pos, state);
     }
 
     @Override

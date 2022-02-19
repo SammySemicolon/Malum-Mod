@@ -68,7 +68,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public ArrayList<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
-    public SpiritAltarTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public SpiritAltarTileEntity(BlockEntityType<? extends SpiritAltarTileEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
     public SpiritAltarTileEntity(BlockPos pos, BlockState state) {

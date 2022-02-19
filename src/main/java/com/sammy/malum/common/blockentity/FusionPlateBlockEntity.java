@@ -26,10 +26,10 @@ public class FusionPlateBlockEntity extends MultiBlockCoreEntity {
             new StructurePiece(1, 0, -1, SOULWOOD_FUSION_PLATE_COMPONENT.get().defaultBlockState().setValue(HORIZONTAL_FACING, NORTH).setValue(CORNER, true)),
             new StructurePiece(-1, 0, 1, SOULWOOD_FUSION_PLATE_COMPONENT.get().defaultBlockState().setValue(HORIZONTAL_FACING, SOUTH).setValue(CORNER, true))));
 
-    public FusionPlateBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, STRUCTURE.get(), pos, state);
+    public FusionPlateBlockEntity(BlockEntityType<? extends FusionPlateBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
+        super(type, structure, pos, state);
     }
     public FusionPlateBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.FUSION_PLATE.get(), STRUCTURE.get(), pos, state);
+        this(BlockEntityRegistry.FUSION_PLATE.get(), STRUCTURE.get(), pos, state);
     }
 }

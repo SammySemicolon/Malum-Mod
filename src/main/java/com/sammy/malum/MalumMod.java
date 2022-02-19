@@ -1,5 +1,6 @@
 package com.sammy.malum;
 
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
@@ -58,6 +59,7 @@ public class MalumMod
         FEATURE_TYPES.register(modBus);
 
         TetraCompat.init();
+        FarmersDelightCompat.init();
 
         modBus.addListener(this::gatherData);
     }

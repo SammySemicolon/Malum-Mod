@@ -9,7 +9,7 @@
       "item": "malum:tainted_rock"
     },
     "S": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     },
     "X": {
       "item": "malum:ether"

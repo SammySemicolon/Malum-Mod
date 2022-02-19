@@ -35,12 +35,12 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
     public SimpleBlockEntityInventory inventory;
     public MalumEntitySpiritData data;
 
-    public PlinthCoreBlockEntity(BlockEntityType<?> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
+    public PlinthCoreBlockEntity(BlockEntityType<? extends PlinthCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
     }
 
     public PlinthCoreBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.PLINTH.get(), STRUCTURE.get(), pos, state);
+        this(BlockEntityRegistry.PLINTH.get(), STRUCTURE.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64, (s)->data == null) {
             @Override
             public void onContentsChanged(int slot) {

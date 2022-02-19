@@ -31,12 +31,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity {
     public SimpleBlockEntityInventory inventory;
     public int burnTicks;
 
-    public SpiritCatalyzerCoreBlockEntity(BlockEntityType<?> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
+    public SpiritCatalyzerCoreBlockEntity(BlockEntityType<? extends SpiritCatalyzerCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
-    }
-
-    public SpiritCatalyzerCoreBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.SPIRIT_CATALYZER.get(), STRUCTURE.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
@@ -44,6 +40,10 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
+    }
+
+    public SpiritCatalyzerCoreBlockEntity(BlockPos pos, BlockState state) {
+        this(BlockEntityRegistry.SPIRIT_CATALYZER.get(), STRUCTURE.get(), pos, state);
     }
 
     @Override

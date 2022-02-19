@@ -3,13 +3,13 @@ package com.sammy.malum.common.blockentity.totem;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.packets.particle.TotemParticlePacket;
 import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -39,13 +39,12 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     public boolean corrupted;
     public Direction direction;
 
-    public TotemBaseTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public TotemBaseTileEntity(BlockEntityType<? extends TotemBaseTileEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        this.corrupted = ((TotemBaseBlock) state.getBlock()).corrupted;
+        this.corrupted = ((TotemBaseBlock<?>) state.getBlock()).corrupted;
     }
     public TotemBaseTileEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.TOTEM_BASE.get(), pos, state);
-        this.corrupted = ((TotemBaseBlock) state.getBlock()).corrupted;
+        this(BlockEntityRegistry.TOTEM_BASE.get(), pos, state);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.sammy.malum.core.events;
 import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
+import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.core.systems.item.ModCombatItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -31,7 +32,7 @@ public class ClientRuntimeEvents {
     public static void fixItemTooltip(ItemTooltipEvent event) { //TODO: make this not absolutely awful, probably with mixins
         ItemStack stack = event.getItemStack();
         Item item = stack.getItem();
-        if (item instanceof ModCombatItem || item instanceof MagicAxeItem || item instanceof MagicSwordItem || item instanceof MagicPickaxeItem || item instanceof MagicShovelItem  || item instanceof MagicHoeItem) {
+        if (item instanceof ModCombatItem || item instanceof MagicAxeItem || item instanceof MagicSwordItem || item instanceof MagicPickaxeItem || item instanceof MagicShovelItem  || item instanceof MagicHoeItem || (FarmersDelightCompat.LOADED && FarmersDelightCompat.LoadedOnly.isMagicKnife(item))) {
             List<Component> tooltip = event.getToolTip();
             ArrayList<Component> clone = new ArrayList<>(tooltip);
             for (int i = 0; i < clone.size(); i++) {

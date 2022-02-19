@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.item_storage;
 
 import com.sammy.malum.common.blockentity.item_storage.SoulVialBlockEntity;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -11,13 +10,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SoulVialBlock extends WaterLoggedBlock<SoulVialBlockEntity>
+public class SoulVialBlock<T extends SoulVialBlockEntity> extends WaterLoggedBlock<T>
 {
     public static final VoxelShape SHAPE = makeShape();
     public SoulVialBlock(Properties properties)
     {
         super(properties);
-        setTile(BlockEntityRegistry.SOUL_VIAL);
     }
 
     @Override

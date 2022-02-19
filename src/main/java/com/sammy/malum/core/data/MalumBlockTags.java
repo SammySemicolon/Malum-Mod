@@ -1,7 +1,9 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.core.setup.block.BlockTagRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.world.level.block.*;
 import net.minecraft.data.DataGenerator;
@@ -54,6 +56,11 @@ public class MalumBlockTags extends BlockTagsProvider
         tag(WOODEN_TRAPDOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_trapdoor") && b.getRegistryName().getPath().contains("wood")));
         tag(WOODEN_PRESSURE_PLATES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_pressure_plate") && b.getRegistryName().getPath().contains("wood")));
 
+
+        tag(BlockTagRegistry.HEAT_SOURCES).add(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get());
+        for (Block block : getModBlocks(b -> b instanceof EtherBlock)) {
+            tag(BlockTagRegistry.TRAY_HEAT_SOURCES).add(block);
+        }
         for (Block block : getModBlocks(b -> b.properties instanceof SimpleBlockProperties)) {
             SimpleBlockProperties properties = (SimpleBlockProperties) block.properties;
             if (properties.needsPickaxe) {

@@ -21,11 +21,11 @@ import javax.annotation.Nonnull;
 
 public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
 
-    public ItemPedestalBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public ItemPedestalBlockEntity(BlockEntityType<? extends ItemPedestalBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
     public ItemPedestalBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.ITEM_PEDESTAL.get(), pos, state);
+        this(BlockEntityRegistry.ITEM_PEDESTAL.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64) {
             @Override
             public void onContentsChanged(int slot) {
