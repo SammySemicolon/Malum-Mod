@@ -377,7 +377,7 @@ public class MalumLang extends LanguageProvider
 
         addDescription("tyrving", "Ancient Relic");
         addHeadline("tyrving", "Tyrving");
-        addPage("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon, not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.");
+        addPage("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit. In exchange for this power the tyrving cannot perform sweep attacks.");
 
         addDescription("magebane_belt", "Retaliation");
         addHeadline("magebane_belt", "Magebane Belt");
