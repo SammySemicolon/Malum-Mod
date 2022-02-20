@@ -472,9 +472,10 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "3000_dollars_for_a_brewing_stand", APPLE,0,-10)
+                "huh", THE_DEVICE.get(),0,-10)
                 .setObjectSupplier(VanishingEntryObject::new)
-                .addPage(new HeadlineTextPage("3000_dollars_for_a_brewing_stand","3000_dollars_for_a_brewing_stand"))
+                .addPage(new HeadlineTextPage("the_device","the_device"))
+                .addPage(new CraftingBookPage(TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get()))
         );
     }
     public void setupObjects()

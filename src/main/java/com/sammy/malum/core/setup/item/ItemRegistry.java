@@ -481,6 +481,7 @@ public class ItemRegistry {
     //endregion
 
     //region hidden items
+    public static final RegistryObject<Item> THE_DEVICE = ITEMS.register("the_device", () -> new BlockItem(BlockRegistry.THE_DEVICE.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> CREATIVE_SCYTHE = ITEMS.register("creative_scythe", () -> new MagicScytheItem(Tiers.IRON, 9993, 9.1f, 999f, HIDDEN_PROPERTIES().durability(-1)));
     public static final RegistryObject<Item> TOKEN_OF_GRATITUDE = ITEMS.register("token_of_gratitude", () -> new CurioTokenOfGratitude(HIDDEN_PROPERTIES()));
     //endregion

@@ -223,7 +223,7 @@ public class MalumLang extends LanguageProvider
         addPage("soul_hunter_armor", "The soul hunter set is an offense focused piece of equipment made from spirit fabric. At the cost of below average protection the armor set boosts magic and scythe damage dealt by the user.");
 
         addDescription("spirit_focusing", "Focusing with Spirits");
-        addHeadline("spirit_focusing", "Spirit Alchemy");
+        addHeadline("spirit_focusing", "Spirit Focusing");
         addPage("spirit_focusing_a", "The spirit crucible is a wondrous device shaped specifically for an alchemical process named spirit focusing. It revolves around a single key catalyst and it's interaction with spirit arcana. One of the more common catalysts found in this magical process is an alchemical impetus.");
         addPage("spirit_focusing_b", "An impetus is a clay-made reagent specifically created for spirit focusing, it's very easy to model it's clay based material into new resources. By utilizing spirits in the crucible you may shape some of the impetus' mass into something new at the cost of a slight toll on the clay artifact.");
 
@@ -369,15 +369,15 @@ public class MalumLang extends LanguageProvider
 
         addDescription("tyrving", "Ancient Relic");
         addHeadline("tyrving", "Tyrving");
-        addPage("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit. In exchange for this power the tyrving cannot perform sweep attacks.");
+        addPage("tyrving", "The Tyrving is a rather esoteric blade. It's strange design makes it appear as a weak weapon not suited for combat. However, it's hex ash lining and twisted rock form cause it to deal extra magic damage to the soul, the greater the soul the more benefit.");
 
         addDescription("magebane_belt", "Retaliation");
         addHeadline("magebane_belt", "Magebane Belt");
         addPage("magebane_belt", "By twisting a warded belt into it's rather sinister alter ego we may create the magebane belt. This alteration exchanges defense for offense, providing greater magic resistance and extra soul ward. Additionally, any damage absorbed by soul ward will make it's way to the inflicter.");
 
-        addDescription("3000_dollars_for_a_brewing_stand", "microwave to recharge");
-        addHeadline("3000_dollars_for_a_brewing_stand", "even works while bended");
-        addPage("3000_dollars_for_a_brewing_stand", "hey apple");
+        addDescription("the_device", "microwave to recharge");
+        addHeadline("the_device", "The Device.");
+        addPage("the_device", "even works while bended");
 
         add("malum.spirit.description.stored_spirit", "Contains: ");
         add("malum.spirit.description.stored_soul", "Stores Soul With: ");

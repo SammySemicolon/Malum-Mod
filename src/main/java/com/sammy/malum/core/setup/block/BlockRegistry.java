@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.common.block.RunewoodLogBlock;
 import com.sammy.malum.common.block.SapFilledLogBlock;
+import com.sammy.malum.common.block.TheDevice;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
@@ -407,6 +408,8 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
     public static final RegistryObject<Block> BLOCK_OF_SOUL_STAINED_STEEL = BLOCKS.register("block_of_soul_stained_steel", () -> new Block(SOUL_STAINED_STEEL_BLOCK_PROPERTIES()));
+
+    public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(TAINTED_ROCK_PROPERTIES()));
 
 
     @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)

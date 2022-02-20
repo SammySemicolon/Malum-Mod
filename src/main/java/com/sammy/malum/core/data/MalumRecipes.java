@@ -1,6 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.core.data.builder.vanilla.NBTCarryRecipeBuilder;
+import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.item.ItemRegistry;
 import com.sammy.malum.core.setup.item.ItemTagRegistry;
@@ -458,6 +459,9 @@ public class MalumRecipes extends RecipeProvider
         etherTorch(consumer, ItemRegistry.IRIDESCENT_ETHER_TORCH.get(), ItemRegistry.IRIDESCENT_ETHER.get());
         etherBrazier(consumer, ItemRegistry.TAINTED_IRIDESCENT_ETHER_BRAZIER.get(), ItemRegistry.TAINTED_ROCK.get(), ItemRegistry.IRIDESCENT_ETHER.get());
         etherBrazier(consumer, ItemRegistry.TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), ItemRegistry.TWISTED_ROCK.get(), ItemRegistry.IRIDESCENT_ETHER.get());
+
+        //THE DEVICE
+        TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
     }
     private static void etherBrazier(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike rock, ItemLike ether)
     {

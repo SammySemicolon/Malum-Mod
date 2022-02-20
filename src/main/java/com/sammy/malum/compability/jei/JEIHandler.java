@@ -12,6 +12,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -53,6 +54,12 @@ public class JEIHandler implements IModPlugin
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), BlockTransmutationRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()), SpiritFocusingRecipeCategory.UID);
     }
+
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+//        jeiRuntime.getRecipeManager().hideRecipe(jeiRuntime.getRecipeManager().getRecipes(jeiRuntime.getRecipeManager().getRecipeCategory(VanillaRecipeCategoryUid.CRAFTING, true), null, true), VanillaRecipeCategoryUid.CRAFTING);
+    }
+
     @Nonnull
     @Override
     public ResourceLocation getPluginUid()
