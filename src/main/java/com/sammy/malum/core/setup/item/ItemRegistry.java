@@ -344,6 +344,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOULSTONE_ORE = ITEMS.register("soulstone_ore", () -> new BlockItem(BlockRegistry.SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DEEPSLATE_SOULSTONE_ORE = ITEMS.register("deepslate_soulstone_ore", () -> new BlockItem(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RAW_SOULSTONE = ITEMS.register("raw_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> RAW_SOULSTONE_BLOCK = ITEMS.register("raw_soulstone_block", () -> new BlockItem(BlockRegistry.RAW_SOULSTONE_BLOCK.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> PROCESSED_SOULSTONE = ITEMS.register("processed_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_SOULSTONE = ITEMS.register("block_of_soulstone", () -> new BlockItem(BlockRegistry.BLOCK_OF_SOULSTONE.get(), DEFAULT_PROPERTIES()));
     //endregion

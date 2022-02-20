@@ -153,13 +153,17 @@ public class MalumRecipes extends RecipeProvider
         smeltingWithCount(Ingredient.of(ItemRegistry.RAW_SOULSTONE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2,0.25f,200).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("brilliance_from_raw_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.RAW_SOULSTONE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2,0.25f,100).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("brilliance_from_raw_blasting"));
 
+        //RAW ORE BLOCKS
+        shaped(ItemRegistry.RAW_SOULSTONE_BLOCK.get()).define('#', ItemRegistry.RAW_SOULSTONE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("raw_soulstone_block"));
+        shapeless(ItemRegistry.RAW_SOULSTONE.get(), 9).requires(ItemRegistry.RAW_SOULSTONE_BLOCK.get()).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("raw_soulstone_from_block"));
+
         //ORE BLOCKS
         shaped(ItemRegistry.BLOCK_OF_BLAZING_QUARTZ.get()).define('#', ItemRegistry.BLAZING_QUARTZ.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, prefix("block_of_blazing_quartz"));
         shapeless(ItemRegistry.BLAZING_QUARTZ.get(), 9).requires(ItemRegistry.BLOCK_OF_BLAZING_QUARTZ.get()).unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, prefix("blazing_quartz_from_block"));
         shaped(ItemRegistry.BLOCK_OF_ARCANE_CHARCOAL.get()).define('#', ItemRegistry.ARCANE_CHARCOAL.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_arcane_charcoal", has(ItemRegistry.ARCANE_CHARCOAL.get())).save(consumer, prefix("block_of_arcane_charcoal"));
         shapeless(ItemRegistry.ARCANE_CHARCOAL.get(), 9).requires(ItemRegistry.BLOCK_OF_ARCANE_CHARCOAL.get()).unlockedBy("has_arcane_charcoal", has(ItemRegistry.ARCANE_CHARCOAL.get())).save(consumer, prefix("arcane_charcoal_from_block"));
-        shaped(ItemRegistry.BLOCK_OF_BRILLIANCE.get()).define('#', ItemRegistry.CHUNK_OF_BRILLIANCE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, prefix("block_of_brilliance"));
-        shapeless(ItemRegistry.CHUNK_OF_BRILLIANCE.get(), 9).requires(ItemRegistry.BLOCK_OF_BRILLIANCE.get()).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, prefix("brilliance_from_block"));
+        shaped(ItemRegistry.BLOCK_OF_BRILLIANCE.get()).define('#', ItemRegistry.CLUSTER_OF_BRILLIANCE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, prefix("block_of_brilliance"));
+        shapeless(ItemRegistry.CLUSTER_OF_BRILLIANCE.get(), 9).requires(ItemRegistry.BLOCK_OF_BRILLIANCE.get()).unlockedBy("has_brilliance", has(ItemRegistry.CLUSTER_OF_BRILLIANCE.get())).save(consumer, prefix("brilliance_from_block"));
         shaped(ItemRegistry.BLOCK_OF_SOULSTONE.get()).define('#', ItemRegistry.PROCESSED_SOULSTONE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("block_of_soulstone"));
         shapeless(ItemRegistry.PROCESSED_SOULSTONE.get(), 9).requires(ItemRegistry.BLOCK_OF_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("soulstone_from_block"));
 

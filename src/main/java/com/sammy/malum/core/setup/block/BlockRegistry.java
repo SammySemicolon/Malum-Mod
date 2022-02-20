@@ -402,6 +402,7 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new OreBlock(SOULSTONE_PROPERTIES().ignoreLootDatagen()));
     public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new OreBlock(DEEPSLATE_SOULSTONE_PROPERTIES().ignoreLootDatagen().strength(6f, 4f)));
+    public static final RegistryObject<Block> RAW_SOULSTONE_BLOCK = BLOCKS.register("raw_soulstone_block", () -> new Block(SOULSTONE_PROPERTIES()));
     public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
 
     public static final RegistryObject<Block> BLOCK_OF_HALLOWED_GOLD = BLOCKS.register("block_of_hallowed_gold", () -> new Block(HALLOWED_GOLD_PROPERTIES()));
