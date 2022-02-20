@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.item_storage;
 
-import com.sammy.malum.common.blockentity.item_storage.SoulVialBlockEntity;
+import com.sammy.malum.common.blockentity.storage.SoulVialBlockEntity;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

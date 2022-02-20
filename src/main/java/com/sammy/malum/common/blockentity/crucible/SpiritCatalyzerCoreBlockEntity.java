@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blockentity.spirit_crucible;
+package com.sammy.malum.common.blockentity.crucible;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.BlockHelper;

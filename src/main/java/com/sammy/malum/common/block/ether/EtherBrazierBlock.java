@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.ether;
 
+import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -19,7 +20,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class EtherBrazierBlock extends EtherBlock
+public class EtherBrazierBlock<T extends EtherBlockEntity> extends EtherBlock<T>
 {
     public static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
     public static final BooleanProperty ROTATED = BooleanProperty.create("rotated");

@@ -155,8 +155,8 @@ public class MalumRecipes extends RecipeProvider
         blastingWithCount(Ingredient.of(ItemRegistry.RAW_SOULSTONE.get()), ItemRegistry.PROCESSED_SOULSTONE.get(), 2,0.25f,100).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("brilliance_from_raw_blasting"));
 
         //RAW ORE BLOCKS
-        shaped(ItemRegistry.RAW_SOULSTONE_BLOCK.get()).define('#', ItemRegistry.RAW_SOULSTONE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("raw_soulstone_block"));
-        shapeless(ItemRegistry.RAW_SOULSTONE.get(), 9).requires(ItemRegistry.RAW_SOULSTONE_BLOCK.get()).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("raw_soulstone_from_block"));
+        shaped(ItemRegistry.BLOCK_OF_RAW_SOULSTONE.get()).define('#', ItemRegistry.RAW_SOULSTONE.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("raw_soulstone_block"));
+        shapeless(ItemRegistry.RAW_SOULSTONE.get(), 9).requires(ItemRegistry.BLOCK_OF_RAW_SOULSTONE.get()).unlockedBy("has_soulstone", has(ItemRegistry.RAW_SOULSTONE.get())).save(consumer, prefix("raw_soulstone_from_block"));
 
         //ORE BLOCKS
         shaped(ItemRegistry.BLOCK_OF_BLAZING_QUARTZ.get()).define('#', ItemRegistry.BLAZING_QUARTZ.get()).pattern("###").pattern("###").pattern("###").unlockedBy("has_blazing_quartz", has(ItemRegistry.BLAZING_QUARTZ.get())).save(consumer, prefix("block_of_blazing_quartz"));

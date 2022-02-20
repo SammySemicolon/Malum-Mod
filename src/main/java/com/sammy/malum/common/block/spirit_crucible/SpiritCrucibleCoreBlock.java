@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
-import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import net.minecraft.core.BlockPos;

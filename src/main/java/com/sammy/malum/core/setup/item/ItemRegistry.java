@@ -7,11 +7,11 @@ import com.sammy.malum.client.model.SpiritHunterArmorModel;
 import com.sammy.malum.client.model.TailModel;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
-import com.sammy.malum.common.blockentity.item_storage.PlinthCoreBlockEntity;
+import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
-import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCatalyzerCoreBlockEntity;
-import com.sammy.malum.common.blockentity.spirit_crucible.SpiritCrucibleCoreBlockEntity;
+import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
+import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
@@ -30,7 +30,6 @@ import com.sammy.malum.common.item.misc.MalumFuelItem;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
-import com.sammy.malum.compability.farmersdelight.MagicMalumKnifeItem;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.EntityRegistry;
@@ -344,7 +343,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOULSTONE_ORE = ITEMS.register("soulstone_ore", () -> new BlockItem(BlockRegistry.SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DEEPSLATE_SOULSTONE_ORE = ITEMS.register("deepslate_soulstone_ore", () -> new BlockItem(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RAW_SOULSTONE = ITEMS.register("raw_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> RAW_SOULSTONE_BLOCK = ITEMS.register("raw_soulstone_block", () -> new BlockItem(BlockRegistry.RAW_SOULSTONE_BLOCK.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> BLOCK_OF_RAW_SOULSTONE = ITEMS.register("block_of_raw_soulstone", () -> new BlockItem(BlockRegistry.BLOCK_OF_RAW_SOULSTONE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> PROCESSED_SOULSTONE = ITEMS.register("processed_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_SOULSTONE = ITEMS.register("block_of_soulstone", () -> new BlockItem(BlockRegistry.BLOCK_OF_SOULSTONE.get(), DEFAULT_PROPERTIES()));
     //endregion
@@ -444,7 +443,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_AXE = ITEMS.register("soul_stained_steel_axe", () -> new MagicAxeItem(SOUL_STAINED_STEEL, -3f, 0, 4, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SHOVEL = ITEMS.register("soul_stained_steel_shovel", () -> new MagicShovelItem(SOUL_STAINED_STEEL, -2, 0, 2, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_HOE = ITEMS.register("soul_stained_steel_hoe", () -> new MagicHoeItem(SOUL_STAINED_STEEL, 0, -1.5f, 1, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_STAINED_STEEL_KNIFE = ITEMS.register("soul_stained_steel_knife", () -> FarmersDelightCompat.LOADED ? new MagicMalumKnifeItem(SOUL_STAINED_STEEL, -1.5f, 0, 2, GEAR_PROPERTIES()) : new Item(HIDDEN_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_STAINED_STEEL_KNIFE = ITEMS.register("soul_stained_steel_knife", () -> FarmersDelightCompat.LOADED ? FarmersDelightCompat.LoadedOnly.makeMagicKnife() : new Item(HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_HELMET = ITEMS.register("soul_stained_steel_helmet", () -> new SoulStainedSteelArmorItem(EquipmentSlot.HEAD, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_CHESTPLATE = ITEMS.register("soul_stained_steel_chestplate", () -> new SoulStainedSteelArmorItem(EquipmentSlot.CHEST, GEAR_PROPERTIES()));

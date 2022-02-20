@@ -23,6 +23,7 @@ public class SimpleBlockEntity extends BlockEntity {
     public void onBreak() {
         invalidateCaps();
     }
+
     public void onPlace(LivingEntity placer, ItemStack stack) {
     }
 
@@ -32,6 +33,7 @@ public class SimpleBlockEntity extends BlockEntity {
     public ItemStack onClone(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         return ItemStack.EMPTY;
     }
+
     public InteractionResult onUse(Player player, InteractionHand hand) {
         return InteractionResult.PASS;
     }
@@ -59,8 +61,7 @@ public class SimpleBlockEntity extends BlockEntity {
         handleUpdateTag(getUpdatePacket().getTag());
     }
 
-    public void tick()
-    {
+    public void tick() {
 
     }
 }

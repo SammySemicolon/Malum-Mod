@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blockentity.spirit_crucible;
+package com.sammy.malum.common.blockentity.crucible;
 
 import com.sammy.malum.common.item.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
@@ -183,6 +183,13 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
         if (updateRecipe) {
             recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
+            if (level.isClientSide)
+            {
+                if (level.isClientSide)
+                {
+                    CrucibleSoundInstance.playSound(this);
+                }
+            }
             updateRecipe = false;
         }
         if (level.isClientSide) {

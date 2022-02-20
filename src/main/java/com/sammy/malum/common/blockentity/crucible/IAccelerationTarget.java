@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blockentity.spirit_crucible;
+package com.sammy.malum.common.blockentity.crucible;
 
 public interface IAccelerationTarget {
 

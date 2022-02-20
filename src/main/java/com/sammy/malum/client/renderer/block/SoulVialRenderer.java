@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.renderer.entity.SoulEntityRenderer;
-import com.sammy.malum.common.blockentity.item_storage.SoulVialBlockEntity;
+import com.sammy.malum.common.blockentity.storage.SoulVialBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

@@ -47,7 +47,6 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     private static final int HORIZONTAL_RANGE = 4;
     private static final int VERTICAL_RANGE = 2;
 
-    public int soundCooldown;
     public float speed;
     public int progress;
     public int spinUp;
@@ -190,16 +189,13 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             ItemStack stack = inventory.getStackInSlot(0);
             possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.getNonEmptyItemStacks())));
             recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
+            if (level.isClientSide)
+            {
+                AltarSoundInstance.playSound(this);
+            }
             updateRecipe = false;
         }
-        if (soundCooldown > 0) {
-            soundCooldown--;
-        }
         if (!possibleRecipes.isEmpty()) {
-            if (soundCooldown == 0){
-                level.playSound(null, worldPosition, SoundRegistry.ALTAR_LOOP, SoundSource.BLOCKS, 1, 1f);
-                soundCooldown = 180;
-            }
             if (spinUp < 10) {
                 spinUp++;
             }

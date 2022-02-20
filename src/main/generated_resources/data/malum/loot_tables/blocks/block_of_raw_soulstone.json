@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:raw_soulstone_block"
+          "name": "malum:block_of_raw_soulstone"
         }
       ],
       "conditions": [
