@@ -26,6 +26,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -37,15 +38,13 @@ import net.minecraftforge.network.PacketDistributor;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
-public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
-    private static final int HORIZONTAL_RANGE = 4;
+public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements IAccelerationTarget {
+    private static final int HORIZONTAL_RANGE = 3;
     private static final int VERTICAL_RANGE = 2;
 
     public static final Supplier<MultiBlockStructure> STRUCTURE = () -> (MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SPIRIT_CRUCIBLE_COMPONENT.get().defaultBlockState())));
@@ -64,7 +63,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
 
     public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
     public ArrayList<ICrucibleAccelerator> accelerators = new ArrayList<>();
-    public boolean updateAccelerators;
 
     public SpiritCrucibleCoreBlockEntity(BlockEntityType<? extends SpiritCrucibleCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
@@ -133,11 +131,16 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
         spiritInventory.load(compound, "spiritInventory");
 
         acceleratorPositions.clear();
+        accelerators.clear();
         int amount = compound.getInt("acceleratorAmount");
         for (int i = 0; i < amount; i++) {
-            acceleratorPositions.add(BlockHelper.loadBlockPos(compound, "" + i));
+            BlockPos pos = BlockHelper.loadBlockPos(compound, "" + i);
+            if (level != null && level.getBlockEntity(pos) instanceof ICrucibleAccelerator accelerator)
+            {
+                acceleratorPositions.add(pos);
+                accelerators.add(accelerator);
+            }
         }
-        updateAccelerators = true;
         super.load(compound);
     }
 
@@ -171,19 +174,19 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
     }
 
     @Override
+    public boolean isValid() {
+        return recipe != null;
+    }
+
+    @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-        if (updateAccelerators) {
-            accelerators.clear();
-            accelerators.addAll(acceleratorPositions.stream().map(p -> (ICrucibleAccelerator) level.getBlockEntity(p)).collect(Collectors.toList()));
-            updateAccelerators = false;
-        }
         if (updateRecipe) {
             recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
             updateRecipe = false;
         }
         if (level.isClientSide) {
-            spiritSpin += 1 + Math.cos(Math.sin(level.getGameTime() * 0.05f));
+            spiritSpin += (1 + Math.cos(Math.sin(level.getGameTime() * 0.1f))) * (1 + speed * 0.1f);
             passiveParticles();
         } else {
             if (soundCooldown > 0) {
@@ -195,13 +198,21 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
                     soundCooldown = 220;
                 }
                 progress += 1 + speed;
-                boolean canAccelerate = accelerators.stream().allMatch(ICrucibleAccelerator::canAccelerate);
-                if (!canAccelerate) {
-                    recalibrateAccelerators();
+                if (!accelerators.isEmpty()) {
+                    boolean canAccelerate = accelerators.stream().allMatch(ICrucibleAccelerator::canAccelerate);
+                    if (!canAccelerate) {
+                        recalibrateAccelerators();
+                        BlockHelper.updateAndNotifyState(level, worldPosition);
+                    }
                 }
                 if (progress >= recipe.time) {
                     craft();
                 }
+            } else if (speed > 0) {
+                speed = 0f;
+                damageChance = 0f;
+                maxDamage = 0;
+                BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         }
     }
@@ -251,19 +262,19 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
         speed = 0f;
         damageChance = 0f;
         maxDamage = 0;
+        accelerators.clear();
         acceleratorPositions.clear();
-        Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+        ArrayList<ICrucibleAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(ICrucibleAccelerator.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
         HashMap<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> entries = new HashMap<>();
-        for (BlockPos pos : nearbyBlocks) {
-            if (level.getBlockEntity(pos) instanceof ICrucibleAccelerator accelerator) {
-                accelerator.setCrucible(this);
-                if (accelerator.canAccelerate()) {
-                    int max = accelerator.getAcceleratorType().maximumEntries;
-                    int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
-                    if (amount < max) {
-                        acceleratorPositions.add(pos);
-                        entries.replace(accelerator.getAcceleratorType(), amount + 1);
-                    }
+        for (ICrucibleAccelerator accelerator : nearbyAccelerators) {
+            if (accelerator.canAccelerate() && (accelerator.getTarget() == null || accelerator.getTarget() == this)) {
+                accelerator.setTarget(this);
+                int max = accelerator.getAcceleratorType().maximumEntries;
+                int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
+                if (amount < max) {
+                    accelerators.add(accelerator);
+                    acceleratorPositions.add(((BlockEntity) accelerator).getBlockPos());
+                    entries.replace(accelerator.getAcceleratorType(), amount + 1);
                 }
             }
         }
@@ -272,7 +283,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity {
             damageChance = Math.min(damageChance + e.getDamageChance(c), 1);
             maxDamage += e.getMaximumDamage(c);
         });
-        updateAccelerators = true;
     }
 
     public static Vec3 itemPos(SpiritCrucibleCoreBlockEntity blockEntity) {

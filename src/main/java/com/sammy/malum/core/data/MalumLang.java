@@ -231,6 +231,12 @@ public class MalumLang extends LanguageProvider
         addHeadline("working_with_ashes", "Working with Ashes");
         addPage("working_with_ashes", "With primitive spirit focusing you may successfully create simple powders often needed in all sorts of studies of arcana.");
 
+        addDescription("crucible_acceleration", "Heating Up");
+        addHeadline("crucible_acceleration", "Crucible Acceleration");
+        addPage("crucible_acceleration_a", "The crucible is a rather heavy and slow piece of spirit engineering, and that is not without a reason. For you see; the impetus can be really easily damaged, the process of spirit focusing heavily realised on a slow and constant input of arcana.");
+        addPage("crucible_acceleration_b", "Increasing the rate at which arcana is streamed into the impetus would yield a faster result but it could lead to your catalyst getting damaged more than necessary. With that in mind the spirit catalyzer is a heavily augmented pedestal designed specifically for utilizing solid fuel to accelerate a nearby machination.");
+        addPage("crucible_acceleration_c", "Each nearby spirit catalyzer will amplify the speed of the crucible at the cost of greater risk of catalyst instability, you may observe exponentially higher results with each new catalyzer; reaching the limit at 8.");
+
         addDescription("metallurgic_magic", "Focusing into hardware");
         addHeadline("metallurgic_magic", "Metallurgic Magic");
         addPage("metallurgic_magic_a", "With some clever tricks you may imbue your impetus with a metallic shell, when fed spirits it'll sprout a metallic node of your desired metal. Due to the more rigid material of the impetus, more durability is lost in the process.");
@@ -375,7 +381,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("magebane_belt", "Magebane Belt");
         addPage("magebane_belt", "By twisting a warded belt into it's rather sinister alter ego we may create the magebane belt. This alteration exchanges defense for offense, providing greater magic resistance and extra soul ward. Additionally, any damage absorbed by soul ward will make it's way to the inflicter.");
 
-        addDescription("the_device", "microwave to recharge");
+        addDescription("huh", "microwave to recharge");
         addHeadline("the_device", "The Device.");
         addPage("the_device", "even works while bended");
 

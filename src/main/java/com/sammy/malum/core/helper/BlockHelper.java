@@ -3,10 +3,14 @@ package com.sammy.malum.core.helper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class BlockHelper {
@@ -50,6 +54,46 @@ public class BlockHelper {
 
     public static BlockPos loadBlockPos(CompoundTag tag, String extra) {
         return new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z"));
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int range, Predicate<T> predicate) {
+        return getBlockEntities(type, level, pos, range, range, range, predicate);
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int y, int z, Predicate<T> predicate) {
+        ArrayList<T> blockEntities = getBlockEntities(type, level, pos, x, y, z);
+        blockEntities.removeIf(b -> !predicate.test(b));
+        return blockEntities;
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int range) {
+        return getBlockEntities(type, level, pos, range, range, range);
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int y, int z) {
+        return getBlockEntities(type, level, pos, -x, -y, -z, x, y, z);
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x1, int y1, int z1, int x2, int y2, int z2) {
+        return getBlockEntities(type, level, new AABB(pos.getX() + x1, pos.getY() + y1, pos.getZ() + z1, pos.getX() + x2, pos.getY() + y2, pos.getZ() + z2));
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level world, AABB bb) {
+        ArrayList<T> tileList = new ArrayList<>();
+        for (int i = (int) Math.floor(bb.minX); i < (int) Math.ceil(bb.maxX) + 16; i += 16) {
+            for (int j = (int) Math.floor(bb.minZ); j < (int) Math.ceil(bb.maxZ) + 16; j += 16) {
+                ChunkAccess c = world.getChunk(new BlockPos(i, 0, j));
+                Set<BlockPos> tiles = c.getBlockEntitiesPos();
+                for (BlockPos p : tiles)
+                    if (bb.contains(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5)) {
+                        BlockEntity t = world.getBlockEntity(p);
+                        if (type.isInstance(t)) {
+                            tileList.add((T) t);
+                        }
+                    }
+            }
+        }
+        return tileList;
     }
 
     public static ArrayList<BlockPos> getBlocks(BlockPos pos, int range, Predicate<BlockPos> predicate) {
@@ -96,7 +140,7 @@ public class BlockHelper {
         ArrayList<BlockPos> positions = new ArrayList<>();
         for (int x = x1; x <= x2; x++) {
             for (int z = z1; z <= z2; z++) {
-                positions.add(new BlockPos(pos.getX()+x, pos.getY(), pos.getZ()+z));
+                positions.add(new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z));
             }
         }
         return positions;

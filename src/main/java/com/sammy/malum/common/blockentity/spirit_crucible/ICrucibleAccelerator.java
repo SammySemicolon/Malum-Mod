@@ -12,25 +12,14 @@ public interface ICrucibleAccelerator {
         return true;
     }
 
-    public default void setCrucible(SpiritCrucibleCoreBlockEntity crucible) {
+    IAccelerationTarget getTarget();
 
-    }
-    default float getDamageChance(int entries) {
-        return getAcceleratorType().getAcceleration(entries);
-    }
-
-    default int getMaximumDamage(int entries) {
-        return getAcceleratorType().getMaximumDamage(entries);
-    }
-
-    default float getAcceleration(int entries) {
-        return getAcceleratorType().getAcceleration(entries);
-    }
+    void setTarget(IAccelerationTarget target);
 
     default void addParticles(BlockPos altarPos, Vec3 crucibleItemPos) {
     }
 
-    default void addParticles(Color color, Color endColor, float alpha, BlockPos altarPos, Vec3 crucibleItemPos) {
+    default void addParticles(Color color, Color endColor, float alpha, BlockPos cruciblePos, Vec3 crucibleItemPos) {
 
     }
 

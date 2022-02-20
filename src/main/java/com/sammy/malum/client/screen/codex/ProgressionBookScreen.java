@@ -475,7 +475,7 @@ public class ProgressionBookScreen extends Screen
                 "huh", THE_DEVICE.get(),0,-10)
                 .setObjectSupplier(VanishingEntryObject::new)
                 .addPage(new HeadlineTextPage("the_device","the_device"))
-                .addPage(new CraftingBookPage(TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get()))
+                .addPage(new CraftingBookPage(THE_DEVICE.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get()))
         );
     }
     public void setupObjects()

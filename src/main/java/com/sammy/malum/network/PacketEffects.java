@@ -78,10 +78,10 @@ public class PacketEffects
                     .setScale(0.15f, 0)
                     .setColor(color, endColor)
                     .randomOffset(0.1f)
-                    .addVelocity(0, 0.21f, 0)
+                    .addVelocity(0, 0.26f, 0)
                     .randomVelocity(0.03f, 0.04f)
                     .enableGravity()
-                    .repeat(level, posX, posY, posZ, 24);
+                    .repeat(level, posX, posY, posZ, 32);
 
             RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.2f, 0f)

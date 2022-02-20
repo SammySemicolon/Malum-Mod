@@ -9,6 +9,8 @@ import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.item.ItemRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -16,8 +18,11 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 import javax.annotation.Nonnull;
+
+import static com.sammy.malum.core.helper.DataHelper.prefix;
 
 @JeiPlugin
 public class JEIHandler implements IModPlugin
@@ -57,7 +62,10 @@ public class JEIHandler implements IModPlugin
 
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-//        jeiRuntime.getRecipeManager().hideRecipe(jeiRuntime.getRecipeManager().getRecipes(jeiRuntime.getRecipeManager().getRecipeCategory(VanillaRecipeCategoryUid.CRAFTING, true), null, true), VanillaRecipeCategoryUid.CRAFTING);
+        IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
+        RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
+        recipeManager.byKey(prefix("the_device"))
+                .ifPresent(r -> recipeRegistry.hideRecipe(r, VanillaRecipeCategoryUid.CRAFTING));
     }
 
     @Nonnull

@@ -35,11 +35,11 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     public static final ICrucibleAccelerator.CrucibleAcceleratorType CATALYZER = new ICrucibleAccelerator.ArrayCrucibleAcceleratorType("catalyzer",
             new float[]{0.2f, 0.25f, 0.3f, 0.4f, 0.45f, 0.5f, 0.6f, 0.8f},
             new int[]{1, 1, 1, 2, 2, 3, 3, 5},
-            new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 3f, 7.5f});
+            new float[]{0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 3f, 8f});
 
     public SimpleBlockEntityInventory inventory;
-    public SpiritCrucibleCoreBlockEntity crucible;
     public int burnTicks;
+    IAccelerationTarget target;
 
     public SpiritCatalyzerCoreBlockEntity(BlockEntityType<? extends SpiritCatalyzerCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
@@ -47,7 +47,6 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                updateBurnTicks();
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
@@ -79,6 +78,16 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     }
 
     @Override
+    public IAccelerationTarget getTarget() {
+        return target;
+    }
+
+    @Override
+    public void setTarget(IAccelerationTarget target) {
+        this.target = target;
+    }
+
+    @Override
     public boolean canAccelerate() {
         updateBurnTicks();
         return burnTicks > 0;
@@ -86,61 +95,74 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public void tick() {
-        if (crucible != null && crucible.recipe != null) {
+        if (target != null && !target.isValid()) {
+            setTarget(null);
+        } else if (target != null) {
             if (burnTicks > 0) {
                 burnTicks--;
             }
         }
     }
 
-    @Override
-    public void setCrucible(SpiritCrucibleCoreBlockEntity crucible) {
-        this.crucible = crucible;
-    }
-
-    public void updateBurnTicks()
-    {
+    public void updateBurnTicks() {
         if (burnTicks == 0) {
             ItemStack stack = inventory.getStackInSlot(0);
             if (!stack.isEmpty()) {
-                burnTicks = stack.getBurnTime(RecipeType.SMELTING);
+                burnTicks = stack.getBurnTime(RecipeType.SMELTING) / 2;
                 stack.shrink(1);
+                BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         }
     }
 
     @Override
-    public void addParticles(Color color, Color endColor, float alpha, BlockPos altarPos, Vec3 crucibleItemPos) {
+    public void addParticles(Color color, Color endColor, float alpha, BlockPos cruciblePos, Vec3 crucibleItemPos) {
         if (burnTicks > 0) {
             Vec3 startPos = itemPos(this);
+            float random = level.random.nextFloat() * 0.04f;
+            Vec3 velocity = startPos.subtract(crucibleItemPos.add(random, random, random)).normalize().scale(-0.08f);
+
+            RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+                    .setAlpha(alpha * 5f, 0f)
+                    .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.2 * level.getGameTime()) % 6.28f)))
+                    .setScale(0.25f + level.random.nextFloat() * 0.1f, 0)
+                    .randomOffset(0.05)
+                    .setStartingSpin((0.075f * level.getGameTime() % 6.28f))
+                    .setSpin(0.1f + level.random.nextFloat() * 0.05f)
+                    .setColor(color.brighter(), endColor)
+                    .setAlphaCurveMultiplier(0.5f)
+                    .setColorCurveMultiplier(0.75f)
+                    .setVelocity(velocity.x, velocity.y, velocity.z)
+                    .enableNoClip()
+                    .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
             RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(alpha*1.5f, 0f)
+                    .setAlpha(alpha * 1.5f, 0f)
                     .setLifetime(25)
                     .setScale(0.05f + level.random.nextFloat() * 0.1f, 0)
                     .randomOffset(0.1)
-                    .setStartingSpin((0.2f * level.getGameTime() % 6.28f))
+                    .setStartingSpin((0.225f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)
                     .randomVelocity(0.005f, 0.005f)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
             RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(alpha*1.5f, 0f)
+                    .setAlpha(alpha * 1.5f, 0f)
                     .setLifetime(25)
                     .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
                     .randomOffset(0.05)
-                    .setStartingSpin((0.075f * level.getGameTime() % 6.28f))
+                    .setStartingSpin((0.15f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
             RenderUtilities.create(ParticleRegistry.STAR_PARTICLE)
-                    .setAlpha(alpha*2, 0f)
+                    .setAlpha(alpha * 2, 0f)
                     .setLifetime(25)
                     .setScale(0.45f + level.random.nextFloat() * 0.1f, 0)
                     .randomOffset(0.05)
-                    .setStartingSpin((0.075f * level.getGameTime() % 6.28f))
+                    .setStartingSpin((0.075f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);

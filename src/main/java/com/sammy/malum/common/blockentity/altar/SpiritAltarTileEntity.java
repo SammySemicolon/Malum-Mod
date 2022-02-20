@@ -6,15 +6,15 @@ import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePac
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.ParticleRegistry;
 import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
-import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -25,6 +25,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -38,7 +39,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
 
@@ -54,7 +54,6 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
 
     public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
     public ArrayList<IAltarAccelerator> accelerators = new ArrayList<>();
-    public boolean updateAccelerators;
     public float spiritAmount;
     public float spiritSpin;
 
@@ -133,11 +132,15 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         speed = compound.getFloat("speed");
 
         acceleratorPositions.clear();
+        accelerators.clear();
         int amount = compound.getInt("acceleratorAmount");
         for (int i = 0; i < amount; i++) {
-            acceleratorPositions.add(BlockHelper.loadBlockPos(compound, "" + i));
+            BlockPos pos = BlockHelper.loadBlockPos(compound, "" + i);
+            if (level != null && level.getBlockEntity(pos) instanceof IAltarAccelerator accelerator) {
+                acceleratorPositions.add(pos);
+                accelerators.add(accelerator);
+            }
         }
-        updateAccelerators = true;
 
         spiritAmount = compound.getFloat("spiritAmount");
         updateRecipe = true;
@@ -182,12 +185,6 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-        if (updateAccelerators)
-        {
-            accelerators.clear();
-            accelerators.addAll(acceleratorPositions.stream().map(p -> (IAltarAccelerator)level.getBlockEntity(p)).collect(Collectors.toList()));
-            updateAccelerators = false;
-        }
         if (updateRecipe)
         {
             ItemStack stack = inventory.getStackInSlot(0);
@@ -324,23 +321,22 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
 
     public void recalibrateAccelerators() {
         speed = 0f;
+        accelerators.clear();
         acceleratorPositions.clear();
-        Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+        ArrayList<IAltarAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(IAltarAccelerator.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
         HashMap<IAltarAccelerator.AltarAcceleratorType, Integer> entries = new HashMap<>();
-        for (BlockPos pos : nearbyBlocks) {
-            if (level.getBlockEntity(pos) instanceof IAltarAccelerator accelerator) {
-                if (accelerator.canAccelerate()) {
-                    int max = accelerator.getAcceleratorType().maximumEntries;
-                    int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
-                    if (amount < max) {
-                        acceleratorPositions.add(pos);
-                        speed += accelerator.getAcceleration();
-                        entries.replace(accelerator.getAcceleratorType(), amount + 1);
-                    }
+        for (IAltarAccelerator accelerator : nearbyAccelerators) {
+            if (accelerator.canAccelerate()) {
+                int max = accelerator.getAcceleratorType().maximumEntries;
+                int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
+                if (amount < max) {
+                    accelerators.add(accelerator);
+                    acceleratorPositions.add(((BlockEntity)accelerator).getBlockPos());
+                    speed += accelerator.getAcceleration();
+                    entries.replace(accelerator.getAcceleratorType(), amount + 1);
                 }
             }
         }
-        updateAccelerators = true;
     }
     public void passiveParticles() {
         Vec3 itemPos = itemPos(this);
