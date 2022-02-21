@@ -135,14 +135,14 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
     public void tick() {
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem item) {
-                Vec3 pos = itemPos(this);
+                Vec3 pos = itemPos();
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime() ) / 20f) * 0.05f;
                 double z = pos.z;
                 SpiritHelper.spawnSpiritParticles(level, x, y, z, item.type.color, item.type.endColor);
             }
             if (data != null) {
-                Vec3 pos = itemPos(this);
+                Vec3 pos = itemPos();
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime() ) / 20f) * 0.08f;
                 double z = pos.z;
@@ -150,8 +150,8 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
             }
         }
     }
-    public static Vec3 itemPos(PlinthCoreBlockEntity blockEntity) {
-        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
+    public Vec3 itemPos() {
+        return DataHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
     public Vec3 itemOffset() {

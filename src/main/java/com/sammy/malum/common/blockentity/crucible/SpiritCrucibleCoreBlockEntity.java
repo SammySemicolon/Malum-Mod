@@ -55,7 +55,6 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public boolean updateRecipe;
     public float spiritAmount;
     public float spiritSpin;
-    public int soundCooldown;
     public float speed;
     public float damageChance;
     public int maxDamage;
@@ -183,12 +182,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
         if (updateRecipe) {
             recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
-            if (level.isClientSide)
-            {
-                if (level.isClientSide)
-                {
-                    CrucibleSoundInstance.playSound(this);
-                }
+            if (level.isClientSide) {
+                CrucibleSoundInstance.playSound(this);
             }
             updateRecipe = false;
         }
@@ -196,14 +191,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             spiritSpin += (1 + Math.cos(Math.sin(level.getGameTime() * 0.1f))) * (1 + speed * 0.1f);
             passiveParticles();
         } else {
-            if (soundCooldown > 0) {
-                soundCooldown--;
-            }
             if (recipe != null) {
-                if (soundCooldown == 0) {
-                    level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_LOOP, SoundSource.BLOCKS, 1, 1f);
-                    soundCooldown = 220;
-                }
                 progress += 1 + speed;
                 if (!accelerators.isEmpty()) {
                     boolean canAccelerate = accelerators.stream().allMatch(ICrucibleAccelerator::canAccelerate);
@@ -258,9 +246,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT, SoundSource.BLOCKS, 1, 1f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         progress = 0;
-        recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
         inventory.updateData();
         spiritInventory.updateData();
+        recipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
         recalibrateAccelerators();
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }

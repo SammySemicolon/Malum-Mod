@@ -5,6 +5,6 @@ import net.minecraft.world.phys.Vec3;
 
 public interface IAltarProvider
 {
-    public SimpleBlockEntityInventory providedInventory();
-    public Vec3 providedItemPos();
+    public SimpleBlockEntityInventory getInventoryForAltar();
+    public Vec3 getItemPosForAltar();
 }

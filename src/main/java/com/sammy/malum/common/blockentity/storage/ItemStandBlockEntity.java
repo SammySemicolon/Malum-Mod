@@ -4,10 +4,10 @@ import com.sammy.malum.common.blockentity.altar.IAltarProvider;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
-import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,10 +25,6 @@ public class ItemStandBlockEntity extends SimpleInventoryBlockEntity implements 
 
     public ItemStandBlockEntity(BlockEntityType<? extends ItemStandBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-    }
-
-    public ItemStandBlockEntity(BlockPos pos, BlockState state) {
-        this(BlockEntityRegistry.ITEM_STAND.get(), pos, state);
         inventory = new SimpleBlockEntityInventory(1, 64) {
             @Override
             public void onContentsChanged(int slot) {
@@ -38,32 +34,35 @@ public class ItemStandBlockEntity extends SimpleInventoryBlockEntity implements 
         };
     }
 
+    public ItemStandBlockEntity(BlockPos pos, BlockState state) {
+        this(BlockEntityRegistry.ITEM_STAND.get(), pos, state);
+    }
+
     @Override
-    public SimpleBlockEntityInventory providedInventory() {
+    public SimpleBlockEntityInventory getInventoryForAltar() {
         return inventory;
     }
 
     @Override
-    public Vec3 providedItemPos() {
-        return itemPos(this);
+    public Vec3 getItemPosForAltar() {
+        return itemPos();
     }
 
-    public static Vec3 itemPos(SimpleInventoryBlockEntity blockEntity) {
-        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(itemOffset(blockEntity));
+    public Vec3 itemPos() {
+        return DataHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
-    public static Vec3 itemOffset(SimpleInventoryBlockEntity blockEntity) {
-        Direction direction = blockEntity.getBlockState().getValue(BlockStateProperties.FACING);
-        Vec3 directionVector = new Vec3(direction.getStepX(), 0.5f, direction.getStepZ());
-        return new Vec3(0.5f - directionVector.x() * 0.25f, directionVector.y(), 0.5f - directionVector.z() * 0.25f);
+    public Vec3 itemOffset() {
+        Direction direction = getBlockState().getValue(BlockStateProperties.FACING);
+        Vec3 directionVector = new Vec3(direction.getStepX(), direction.getStepY(), direction.getStepZ());
+        return new Vec3(0.5f - directionVector.x() * 0.25f, 0.5f - directionVector.y() * 0.1f, 0.5f - directionVector.z() * 0.25f);
     }
-
 
     @Override
     public void tick() {
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem item) {
-                Vec3 pos = itemPos(this);
+                Vec3 pos = itemPos();
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime()) / 20f) * 0.05f;
                 double z = pos.z;

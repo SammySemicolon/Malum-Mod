@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.item_storage;
+package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
 import com.sammy.malum.core.setup.block.BlockEntityRegistry;

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "malum:block/spirit_catalyzer_component"
+    },
+    "facing=south": {
+      "model": "malum:block/spirit_catalyzer_component"
+    },
+    "facing=west": {
+      "model": "malum:block/spirit_catalyzer_component"
+    },
+    "facing=east": {
+      "model": "malum:block/spirit_catalyzer_component"
+    }
+  }
+}

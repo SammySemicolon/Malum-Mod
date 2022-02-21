@@ -122,10 +122,10 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             float random = level.random.nextFloat() * 0.04f;
             Vec3 velocity = startPos.subtract(crucibleItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
-            RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 5f, 0f)
                     .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.2 * level.getGameTime()) % 6.28f)))
-                    .setScale(0.25f + level.random.nextFloat() * 0.1f, 0)
+                    .setScale(0.15f + level.random.nextFloat() * 0.1f, 0)
                     .randomOffset(0.05)
                     .setStartingSpin((0.075f * level.getGameTime() % 6.28f))
                     .setSpin(0.1f + level.random.nextFloat() * 0.05f)

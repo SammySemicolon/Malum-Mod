@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "malum:emitter_mirror",
+    "malum:corrupt_well",
     "malum:spirit_crucible",
     "malum:spirit_crucible_component",
     "malum:spirit_catalyzer",

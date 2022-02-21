@@ -3,7 +3,7 @@
 	"parent": "block/block",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "malum:block/smooth_tainted_rock",
+		"smooth": "malum:block/smooth_tainted_rock",
 		"crucible": "malum:block/spirit_crucible",
 		"particle": "malum:block/smooth_tainted_rock"
 	},
@@ -17,7 +17,7 @@
 				"south": {"uv": [0, 8, 8, 14], "texture": "#crucible", "cullface": "south"},
 				"west": {"uv": [0, 8, 8, 14], "texture": "#crucible", "cullface": "west"},
 				"up": {"uv": [0, 0, 8, 8], "texture": "#crucible"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#1", "cullface": "down"}
+				"down": {"uv": [0, 0, 16, 16], "texture": "#smooth", "cullface": "down"}
 			}
 		},
 		{

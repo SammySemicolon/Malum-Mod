@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north,waterlogged=false": {
+      "model": "malum:block/spirit_catalyzer"
+    },
+    "facing=south,waterlogged=false": {
+      "model": "malum:block/spirit_catalyzer"
+    },
+    "facing=west,waterlogged=false": {
+      "model": "malum:block/spirit_catalyzer"
+    },
+    "facing=east,waterlogged=false": {
+      "model": "malum:block/spirit_catalyzer"
+    },
+    "facing=north,waterlogged=true": {
+      "model": "malum:block/spirit_catalyzer"
+    },
+    "facing=south,waterlogged=true": {
+      "model": "malum:block/spirit_catalyzer"
+    },
+    "facing=west,waterlogged=true": {
+      "model": "malum:block/spirit_catalyzer"
+    },
+    "facing=east,waterlogged=true": {
+      "model": "malum:block/spirit_catalyzer"
+    }
+  }
+}

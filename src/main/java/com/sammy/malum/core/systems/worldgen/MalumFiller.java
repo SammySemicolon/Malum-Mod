@@ -50,7 +50,7 @@ public class MalumFiller {
         }
 
         public void place(WorldGenLevel level) {
-            level.setBlock(pos, state, 3);
+            level.setBlock(pos, state, 19);
             if (level instanceof Level) {
                 BlockHelper.updateState((Level) level, pos);
             }

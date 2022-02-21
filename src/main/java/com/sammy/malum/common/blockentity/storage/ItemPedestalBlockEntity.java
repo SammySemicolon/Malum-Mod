@@ -36,20 +36,20 @@ public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implemen
     }
 
     @Override
-    public SimpleBlockEntityInventory providedInventory() {
+    public SimpleBlockEntityInventory getInventoryForAltar() {
         return inventory;
     }
 
     @Override
-    public Vec3 providedItemPos() {
-        return itemPos(this);
+    public Vec3 getItemPosForAltar() {
+        return itemPos();
     }
 
-    public static Vec3 itemPos(SimpleInventoryBlockEntity blockEntity) {
-        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(itemOffset());
+    public Vec3 itemPos() {
+        return DataHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
-    public static Vec3 itemOffset() {
+    public Vec3 itemOffset() {
         return new Vec3(0.5f, 1.1f, 0.5f);
     }
 
@@ -57,7 +57,7 @@ public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implemen
     public void tick() {
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem item) {
-                Vec3 pos = itemPos(this);
+                Vec3 pos = itemPos();
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime() ) / 20f) * 0.1f;
                 double z = pos.z;

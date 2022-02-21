@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "malum:block/corrupt_well",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "malum:block/corrupt_well"
+    },
+    "facing=north": {
+      "model": "malum:block/corrupt_well",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "malum:block/corrupt_well",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "malum:block/corrupt_well",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "malum:block/corrupt_well",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

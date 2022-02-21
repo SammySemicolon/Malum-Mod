@@ -22,20 +22,26 @@ public class SimpleBlockProperties extends BlockBehaviour.Properties {
     public boolean needsIron;
     public boolean needsDiamond;
 
+    public boolean cutout;
+
     public boolean ignoreLootDatagen;
-    public boolean ignoreBlockStateDatagen;
+
+    public enum StateType {
+        predefined, automatic, customBlock, glowingBlock
+    }
+    public StateType type = StateType.automatic;
 
     public SimpleBlockProperties(Material p_60905_, MaterialColor p_60906_) {
         super(p_60905_, (p_60952_) -> p_60906_);
     }
-    public SimpleBlockProperties ignoreLootDatagen()
+    public SimpleBlockProperties customLoot()
     {
         ignoreLootDatagen = true;
         return this;
     }
-    public SimpleBlockProperties ignoreBlockStateDatagen()
+    public SimpleBlockProperties blockStateDefinition(StateType type)
     {
-        ignoreBlockStateDatagen = true;
+        this.type = type;
         return this;
     }
     public SimpleBlockProperties needsPickaxe()
@@ -72,6 +78,12 @@ public class SimpleBlockProperties extends BlockBehaviour.Properties {
     public SimpleBlockProperties needsDiamond()
     {
         needsDiamond = true;
+        return this;
+    }
+
+    public SimpleBlockProperties isCutout()
+    {
+        cutout = true;
         return this;
     }
 
@@ -147,7 +159,7 @@ public class SimpleBlockProperties extends BlockBehaviour.Properties {
 
     @Override
     public SimpleBlockProperties lootFrom(Supplier<? extends Block> blockIn) {
-        ignoreLootDatagen();
+        customLoot();
         return (SimpleBlockProperties) super.lootFrom(blockIn);
     }
 

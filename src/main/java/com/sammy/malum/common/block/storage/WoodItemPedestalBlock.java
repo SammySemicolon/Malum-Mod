@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.item_storage;
+package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.ItemPedestalBlockEntity;
 import net.minecraft.core.BlockPos;

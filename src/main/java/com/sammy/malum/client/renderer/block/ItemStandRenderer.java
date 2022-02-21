@@ -31,7 +31,7 @@ public class ItemStandRenderer implements BlockEntityRenderer<ItemStandBlockEnti
         if (!stack.isEmpty())
         {
             poseStack.pushPose();
-            Vector3f offset = new Vector3f(ItemStandBlockEntity.itemOffset(blockEntityIn));
+            Vector3f offset = new Vector3f(blockEntityIn.itemOffset());
             if (stack.getItem() instanceof MalumSpiritItem)
             {
                 double y = Math.sin(((level.getGameTime() + partialTicks) ) / 20f) * 0.05f;

@@ -355,6 +355,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = ITEMS.register("runewood_obelisk", () -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), DEFAULT_PROPERTIES(), RunewoodObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> BRILLIANT_OBELISK = ITEMS.register("brilliant_obelisk", () -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), DEFAULT_PROPERTIES(), BrilliantObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = ITEMS.register("spirit_crucible", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), DEFAULT_PROPERTIES(), SpiritCrucibleCoreBlockEntity.STRUCTURE));
+    public static final RegistryObject<Item> CORRUPT_WELL = ITEMS.register("corrupt_well", () -> new BlockItem(BlockRegistry.CORRUPT_WELL.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_CATALYZER = ITEMS.register("spirit_catalyzer", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CATALYZER.get(), DEFAULT_PROPERTIES(), SpiritCatalyzerCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> EMITTER_MIRROR = ITEMS.register("emitter_mirror", () -> new BlockItem(BlockRegistry.EMITTER_MIRROR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));

@@ -6,8 +6,8 @@ import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
-import com.sammy.malum.common.block.item_storage.ItemPedestalBlock;
-import com.sammy.malum.common.block.item_storage.ItemStandBlock;
+import com.sammy.malum.common.block.storage.ItemPedestalBlock;
+import com.sammy.malum.common.block.storage.ItemStandBlock;
 import com.sammy.malum.common.block.mirror.WallMirrorBlock;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
@@ -59,16 +59,14 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     protected void registerStatesAndModels()
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-        glowingBlock(BLAZING_QUARTZ_ORE);
-        glowingBlock(BRILLIANT_STONE);
-        glowingBlock(BRILLIANT_DEEPSLATE);
 
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).ignoreBlockStateDatagen);
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type == SimpleBlockProperties.StateType.predefined);
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type == SimpleBlockProperties.StateType.customBlock).forEach(this::customBlock);
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type == SimpleBlockProperties.StateType.glowingBlock).forEach(this::glowingBlock);
 
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         DataHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
-
         DataHelper.takeAll(blocks, b -> b.get() instanceof SignBlock).forEach(this::signBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
@@ -112,6 +110,12 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
         ModelFile sign = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", prefix("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sign).build());
+    }
+    public void customBlock(RegistryObject<Block> blockRegistryObject)
+    {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile model = models().withExistingParent(name, prefix("block/"+name));
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(model).build());
     }
     public void glowingBlock(RegistryObject<Block> blockRegistryObject)
     {

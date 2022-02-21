@@ -11,7 +11,7 @@ import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateComponentBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateCoreBlock;
-import com.sammy.malum.common.block.item_storage.*;
+import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.block.mirror.EmitterMirrorBlock;
 import com.sammy.malum.common.block.misc.MalumDirectionalBlock;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
@@ -28,6 +28,7 @@ import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.common.block.well.CorruptWellBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.SoundRegistry;
@@ -58,6 +59,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.MalumMod.MODID;
+import static com.sammy.malum.core.systems.block.SimpleBlockProperties.StateType.*;
 import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.EVERYTHING;
 import static net.minecraft.world.level.block.PressurePlateBlock.Sensitivity.MOBS;
 
@@ -141,29 +143,32 @@ public class BlockRegistry {
     public static SimpleBlockProperties DEEPSLATE_PROPERTIES() {
         return new SimpleBlockProperties(Material.STONE, MaterialColor.DEEPSLATE).needsPickaxe().requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
     }
+
     //region useful blocks
-    public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock<>(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()).setTile(BlockEntityRegistry.SPIRIT_ALTAR));
-    public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
-    public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock<>(SOUL_VIAL_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()).setTile(BlockEntityRegistry.SOUL_VIAL));
-    public static final RegistryObject<Block> EMITTER_MIRROR = BLOCKS.register("emitter_mirror", () -> new EmitterMirrorBlock<>(HALLOWED_GOLD_PROPERTIES().noOcclusion()).setTile(BlockEntityRegistry.EMITTER_MIRROR));
+    public static final RegistryObject<Block> SPIRIT_ALTAR = BLOCKS.register("spirit_altar", () -> new SpiritAltarBlock<>(RUNEWOOD_PROPERTIES().blockStateDefinition(predefined).isCutout().noOcclusion()).setTile(BlockEntityRegistry.SPIRIT_ALTAR));
+    public static final RegistryObject<Block> SPIRIT_JAR = BLOCKS.register("spirit_jar", () -> new SpiritJarBlock(SPIRIT_JAR_PROPERTIES().blockStateDefinition(predefined).isCutout().noOcclusion()));
+    public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock<>(SOUL_VIAL_PROPERTIES().blockStateDefinition(predefined).isCutout().noOcclusion()).setTile(BlockEntityRegistry.SOUL_VIAL));
+    public static final RegistryObject<Block> EMITTER_MIRROR = BLOCKS.register("emitter_mirror", () -> new EmitterMirrorBlock<>(HALLOWED_GOLD_PROPERTIES().isCutout().noOcclusion()).setTile(BlockEntityRegistry.EMITTER_MIRROR));
 
-    public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new RunewoodObeliskCoreBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
-    public static final RegistryObject<Block> RUNEWOOD_OBELISK_COMPONENT = BLOCKS.register("runewood_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(RUNEWOOD_OBELISK).noOcclusion(), ItemRegistry.RUNEWOOD_OBELISK));
+    public static final RegistryObject<Block> CORRUPT_WELL = BLOCKS.register("corrupt_well", () -> new CorruptWellBlock<>(TAINTED_ROCK_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()).setTile(BlockEntityRegistry.CORRUPT_WELL));
 
-    public static final RegistryObject<Block> BRILLIANT_OBELISK = BLOCKS.register("brilliant_obelisk", () -> new BrillianceObeliskCoreBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
-    public static final RegistryObject<Block> BRILLIANT_OBELISK_COMPONENT = BLOCKS.register("brilliant_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(BRILLIANT_OBELISK).noOcclusion(), ItemRegistry.BRILLIANT_OBELISK));
+    public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new RunewoodObeliskCoreBlock(RUNEWOOD_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()));
+    public static final RegistryObject<Block> RUNEWOOD_OBELISK_COMPONENT = BLOCKS.register("runewood_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().isCutout().blockStateDefinition(predefined).lootFrom(RUNEWOOD_OBELISK).noOcclusion(), ItemRegistry.RUNEWOOD_OBELISK));
 
-    public static final RegistryObject<Block> SPIRIT_CRUCIBLE = BLOCKS.register("spirit_crucible", () -> new SpiritCrucibleCoreBlock<>(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()).setTile(BlockEntityRegistry.SPIRIT_CRUCIBLE));
-    public static final RegistryObject<Block> SPIRIT_CRUCIBLE_COMPONENT = BLOCKS.register("spirit_crucible_component", () -> new SpiritCrucibleComponentBlock(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().lootFrom(SPIRIT_CRUCIBLE).noOcclusion()));
+    public static final RegistryObject<Block> BRILLIANT_OBELISK = BLOCKS.register("brilliant_obelisk", () -> new BrillianceObeliskCoreBlock(RUNEWOOD_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()));
+    public static final RegistryObject<Block> BRILLIANT_OBELISK_COMPONENT = BLOCKS.register("brilliant_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().isCutout().blockStateDefinition(predefined).lootFrom(BRILLIANT_OBELISK).noOcclusion(), ItemRegistry.BRILLIANT_OBELISK));
 
-    public static final RegistryObject<Block> SPIRIT_CATALYZER = BLOCKS.register("spirit_catalyzer", () -> new SpiritCatalyzerCoreBlock<>(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()).setTile(BlockEntityRegistry.SPIRIT_CATALYZER));
-    public static final RegistryObject<Block> SPIRIT_CATALYZER_COMPONENT = BLOCKS.register("spirit_catalyzer_component", () -> new SpiritCatalyzerComponentBlock(TAINTED_ROCK_PROPERTIES().ignoreBlockStateDatagen().lootFrom(SPIRIT_CATALYZER).noOcclusion(), ItemRegistry.SPIRIT_CATALYZER));
+    public static final RegistryObject<Block> SPIRIT_CRUCIBLE = BLOCKS.register("spirit_crucible", () -> new SpiritCrucibleCoreBlock<>(TAINTED_ROCK_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()).setTile(BlockEntityRegistry.SPIRIT_CRUCIBLE));
+    public static final RegistryObject<Block> SPIRIT_CRUCIBLE_COMPONENT = BLOCKS.register("spirit_crucible_component", () -> new SpiritCrucibleComponentBlock(TAINTED_ROCK_PROPERTIES().isCutout().blockStateDefinition(predefined).lootFrom(SPIRIT_CRUCIBLE).noOcclusion()));
 
-    public static final RegistryObject<Block> SOULWOOD_PLINTH = BLOCKS.register("soulwood_plinth", () -> new PlinthCoreBlock<>(SOULWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()).setTile(BlockEntityRegistry.PLINTH));
-    public static final RegistryObject<Block> SOULWOOD_PLINTH_COMPONENT = BLOCKS.register("soulwood_plinth_component", () -> new PlinthComponentBlock(SOULWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(SOULWOOD_PLINTH).noOcclusion(), ItemRegistry.SOULWOOD_PLINTH));
+    public static final RegistryObject<Block> SPIRIT_CATALYZER = BLOCKS.register("spirit_catalyzer", () -> new SpiritCatalyzerCoreBlock<>(TAINTED_ROCK_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()).setTile(BlockEntityRegistry.SPIRIT_CATALYZER));
+    public static final RegistryObject<Block> SPIRIT_CATALYZER_COMPONENT = BLOCKS.register("spirit_catalyzer_component", () -> new SpiritCatalyzerComponentBlock(TAINTED_ROCK_PROPERTIES().isCutout().blockStateDefinition(predefined).lootFrom(SPIRIT_CATALYZER).noOcclusion(), ItemRegistry.SPIRIT_CATALYZER));
 
-    public static final RegistryObject<Block> SOULWOOD_FUSION_PLATE = BLOCKS.register("soulwood_fusion_plate", () -> new FusionPlateCoreBlock(SOULWOOD_PROPERTIES().ignoreBlockStateDatagen().noOcclusion()));
-    public static final RegistryObject<Block> SOULWOOD_FUSION_PLATE_COMPONENT = BLOCKS.register("soulwood_fusion_plate_component", () -> new FusionPlateComponentBlock(SOULWOOD_PROPERTIES().ignoreBlockStateDatagen().lootFrom(SOULWOOD_FUSION_PLATE).noOcclusion(), ItemRegistry.SOULWOOD_FUSION_PLATE));
+    public static final RegistryObject<Block> SOULWOOD_PLINTH = BLOCKS.register("soulwood_plinth", () -> new PlinthCoreBlock<>(SOULWOOD_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()).setTile(BlockEntityRegistry.PLINTH));
+    public static final RegistryObject<Block> SOULWOOD_PLINTH_COMPONENT = BLOCKS.register("soulwood_plinth_component", () -> new PlinthComponentBlock(SOULWOOD_PROPERTIES().isCutout().blockStateDefinition(predefined).lootFrom(SOULWOOD_PLINTH).noOcclusion(), ItemRegistry.SOULWOOD_PLINTH));
+
+    public static final RegistryObject<Block> SOULWOOD_FUSION_PLATE = BLOCKS.register("soulwood_fusion_plate", () -> new FusionPlateCoreBlock(SOULWOOD_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()));
+    public static final RegistryObject<Block> SOULWOOD_FUSION_PLATE_COMPONENT = BLOCKS.register("soulwood_fusion_plate_component", () -> new FusionPlateComponentBlock(SOULWOOD_PROPERTIES().isCutout().blockStateDefinition(predefined).lootFrom(SOULWOOD_FUSION_PLATE).noOcclusion(), ItemRegistry.SOULWOOD_FUSION_PLATE));
 
     public static final RegistryObject<Block> RUNEWOOD_TOTEM_BASE = BLOCKS.register("runewood_totem_base", () -> new TotemBaseBlock<>(RUNEWOOD_PROPERTIES().noOcclusion(), false).setTile(BlockEntityRegistry.TOTEM_BASE));
     public static final RegistryObject<Block> RUNEWOOD_TOTEM_POLE = BLOCKS.register("runewood_totem_pole", () -> new TotemPoleBlock<>(RUNEWOOD_PROPERTIES().noOcclusion(), BlockRegistry.RUNEWOOD_LOG, false).setTile(BlockEntityRegistry.TOTEM_POLE));
@@ -284,7 +289,7 @@ public class BlockRegistry {
 
     //region runewood
     public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new MalumSaplingBlock(RUNEWOOD_PLANTS_PROPERTIES().randomTicks(), FeatureRegistry.RUNEWOOD_TREE));
-    public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().ignoreLootDatagen(), new Color(175, 65, 48), new Color(251, 193, 76)));
+    public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().customLoot(), new Color(175, 65, 48), new Color(251, 193, 76)));
 
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD_LOG = BLOCKS.register("runewood_log", () -> new RunewoodLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG, false));
@@ -332,7 +337,7 @@ public class BlockRegistry {
 
     //region soulwood
     public static final RegistryObject<Block> SOULWOOD_SAPLING = BLOCKS.register("soulwood_sapling", () -> new MalumSaplingBlock(SOULWOOD_PLANTS_PROPERTIES().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
-    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().ignoreLootDatagen(), new Color(152, 6, 45), new Color(224, 30, 214)));
+    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().customLoot(), new Color(152, 6, 45), new Color(224, 30, 214)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(SOULWOOD_PROPERTIES()));
     public static final RegistryObject<Block> SOULWOOD_LOG = BLOCKS.register("soulwood_log", () -> new RunewoodLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD_LOG, true));
@@ -379,30 +384,30 @@ public class BlockRegistry {
     //endregion
 
     //region ether
-    public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock<>(RUNEWOOD_PROPERTIES().noCollission().instabreak().lightLevel((b) -> 14)).setTile(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> WALL_ETHER_TORCH = BLOCKS.register("wall_ether_torch", () -> new EtherWallTorchBlock<>(RUNEWOOD_PROPERTIES().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(ETHER_TORCH)).setTile(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> ETHER = BLOCKS.register("ether", () -> new EtherBlock<>(ETHER_BLOCK_PROPERTIES()).setTile(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> TAINTED_ETHER_BRAZIER = BLOCKS.register("tainted_ether_brazier", () -> new EtherBrazierBlock<>(TAINTED_ROCK_PROPERTIES().lightLevel((b) -> 14).noOcclusion()).setTile(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> TWISTED_ETHER_BRAZIER = BLOCKS.register("twisted_ether_brazier", () -> new EtherBrazierBlock<>(TWISTED_ROCK_PROPERTIES().lightLevel((b) -> 14).noOcclusion()).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock<>(RUNEWOOD_PROPERTIES().isCutout().noCollission().instabreak().lightLevel((b) -> 14)).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> WALL_ETHER_TORCH = BLOCKS.register("wall_ether_torch", () -> new EtherWallTorchBlock<>(RUNEWOOD_PROPERTIES().isCutout().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(ETHER_TORCH)).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> ETHER = BLOCKS.register("ether", () -> new EtherBlock<>(ETHER_BLOCK_PROPERTIES().isCutout()).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> TAINTED_ETHER_BRAZIER = BLOCKS.register("tainted_ether_brazier", () -> new EtherBrazierBlock<>(TAINTED_ROCK_PROPERTIES().isCutout().lightLevel((b) -> 14).noOcclusion()).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> TWISTED_ETHER_BRAZIER = BLOCKS.register("twisted_ether_brazier", () -> new EtherBrazierBlock<>(TWISTED_ROCK_PROPERTIES().isCutout().lightLevel((b) -> 14).noOcclusion()).setTile(BlockEntityRegistry.ETHER));
 
-    public static final RegistryObject<Block> IRIDESCENT_ETHER_TORCH = BLOCKS.register("iridescent_ether_torch", () -> new EtherTorchBlock<>(RUNEWOOD_PROPERTIES().noCollission().instabreak().lightLevel((b) -> 14)).setTile(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_TORCH = BLOCKS.register("iridescent_wall_ether_torch", () -> new EtherWallTorchBlock<>(RUNEWOOD_PROPERTIES().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(IRIDESCENT_ETHER_TORCH)).setTile(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> IRIDESCENT_ETHER = BLOCKS.register("iridescent_ether", () -> new EtherBlock<>(ETHER_BLOCK_PROPERTIES()).setTile(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> TAINTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(TAINTED_ROCK_PROPERTIES().lightLevel((b) -> 14).noOcclusion()).setTile(BlockEntityRegistry.ETHER));
-    public static final RegistryObject<Block> TWISTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(TWISTED_ROCK_PROPERTIES().lightLevel((b) -> 14).noOcclusion()).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> IRIDESCENT_ETHER_TORCH = BLOCKS.register("iridescent_ether_torch", () -> new EtherTorchBlock<>(RUNEWOOD_PROPERTIES().isCutout().noCollission().instabreak().lightLevel((b) -> 14)).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> IRIDESCENT_WALL_ETHER_TORCH = BLOCKS.register("iridescent_wall_ether_torch", () -> new EtherWallTorchBlock<>(RUNEWOOD_PROPERTIES().isCutout().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(IRIDESCENT_ETHER_TORCH)).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> IRIDESCENT_ETHER = BLOCKS.register("iridescent_ether", () -> new EtherBlock<>(ETHER_BLOCK_PROPERTIES().isCutout()).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> TAINTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("tainted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(TAINTED_ROCK_PROPERTIES().isCutout().lightLevel((b) -> 14).noOcclusion()).setTile(BlockEntityRegistry.ETHER));
+    public static final RegistryObject<Block> TWISTED_IRIDESCENT_ETHER_BRAZIER = BLOCKS.register("twisted_iridescent_ether_brazier", () -> new EtherBrazierBlock<>(TWISTED_ROCK_PROPERTIES().isCutout().lightLevel((b) -> 14).noOcclusion()).setTile(BlockEntityRegistry.ETHER));
     //endregion
 
     public static final RegistryObject<Block> BLOCK_OF_ARCANE_CHARCOAL = BLOCKS.register("block_of_arcane_charcoal", () -> new Block(ARCANE_CHARCOAL_PROPERTIES()));
 
-    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(BLAZE_QUARTZ_ORE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen().lightLevel((b)-> 6), UniformInt.of(4, 7)));
-    public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES().lightLevel((b)-> 14)));
+    public static final RegistryObject<Block> BLAZING_QUARTZ_ORE = BLOCKS.register("blazing_quartz_ore", () -> new OreBlock(BLAZE_QUARTZ_ORE_PROPERTIES().blockStateDefinition(glowingBlock).isCutout().customLoot().lightLevel((b) -> 6), UniformInt.of(4, 7)));
+    public static final RegistryObject<Block> BLOCK_OF_BLAZING_QUARTZ = BLOCKS.register("block_of_blazing_quartz", () -> new Block(BLAZE_QUARTZ_PROPERTIES().lightLevel((b) -> 14)));
 
-    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(STONE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen(), UniformInt.of(14, 18)));
-    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_PROPERTIES().ignoreBlockStateDatagen().ignoreLootDatagen(), UniformInt.of(16, 26)));
+    public static final RegistryObject<Block> BRILLIANT_STONE = BLOCKS.register("brilliant_stone", () -> new OreBlock(STONE_PROPERTIES().blockStateDefinition(glowingBlock).isCutout().customLoot(), UniformInt.of(14, 18)));
+    public static final RegistryObject<Block> BRILLIANT_DEEPSLATE = BLOCKS.register("brilliant_deepslate", () -> new OreBlock(DEEPSLATE_PROPERTIES().blockStateDefinition(glowingBlock).isCutout().customLoot(), UniformInt.of(16, 26)));
     public static final RegistryObject<Block> BLOCK_OF_BRILLIANCE = BLOCKS.register("block_of_brilliance", () -> new Block(STONE_PROPERTIES()));
 
-    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new OreBlock(SOULSTONE_PROPERTIES().ignoreLootDatagen()));
-    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new OreBlock(DEEPSLATE_SOULSTONE_PROPERTIES().ignoreLootDatagen().strength(6f, 4f)));
+    public static final RegistryObject<Block> SOULSTONE_ORE = BLOCKS.register("soulstone_ore", () -> new OreBlock(SOULSTONE_PROPERTIES().customLoot()));
+    public static final RegistryObject<Block> DEEPSLATE_SOULSTONE_ORE = BLOCKS.register("deepslate_soulstone_ore", () -> new OreBlock(DEEPSLATE_SOULSTONE_PROPERTIES().customLoot().strength(6f, 4f)));
     public static final RegistryObject<Block> BLOCK_OF_RAW_SOULSTONE = BLOCKS.register("block_of_raw_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
     public static final RegistryObject<Block> BLOCK_OF_SOULSTONE = BLOCKS.register("block_of_soulstone", () -> new Block(SOULSTONE_PROPERTIES()));
 
@@ -412,7 +417,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> THE_DEVICE = BLOCKS.register("the_device", () -> new TheDevice(TAINTED_ROCK_PROPERTIES()));
 
 
-    @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MalumMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
         @SubscribeEvent
         public static void setBlockColors(ColorHandlerEvent.Block event) {
@@ -451,23 +456,7 @@ public class BlockRegistry {
         @SubscribeEvent
         public static void setRenderLayers(FMLClientSetupEvent event) {
             Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
-            DataHelper.takeAll(blocks, b -> b.get() instanceof EtherBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof TrapDoorBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof DoorBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof LeavesBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof BushBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof LanternBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof ItemStandBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof ItemPedestalBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritJarBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof SoulVialBlock).forEach(ClientOnly::setCutout);
-            DataHelper.takeAll(blocks, b -> b.get() instanceof SpiritAltarBlock).forEach(ClientOnly::setCutout);
-            setCutout(BlockRegistry.BLAZING_QUARTZ_ORE);
-            setCutout(BlockRegistry.BRILLIANT_STONE);
-            setCutout(BlockRegistry.BRILLIANT_DEEPSLATE);
+            DataHelper.getAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).cutout).forEach(ClientOnly::setCutout);
         }
 
         public static void setCutout(RegistryObject<Block> b) {

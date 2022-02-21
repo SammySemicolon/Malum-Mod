@@ -254,7 +254,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
             for (BlockPos pos : nearbyBlocks) {
                 if (level.getBlockEntity(pos) instanceof IAltarProvider blockEntity) {
-                    ItemStack providedStack = blockEntity.providedInventory().getStackInSlot(0);
+                    ItemStack providedStack = blockEntity.getInventoryForAltar().getStackInSlot(0);
                     IngredientWithCount requestedItem = recipe.extraItems.get(extras);
                     boolean matches = requestedItem.matches(providedStack);
                     if (!matches) {
@@ -271,7 +271,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                     matches = requestedItem.matches(providedStack);
                     if (matches) {
                         level.playSound(null, pos, SoundRegistry.ALTAR_CONSUME, SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                        Vec3 providedItemPos = blockEntity.providedItemPos();
+                        Vec3 providedItemPos = blockEntity.getItemPosForAltar();
                         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.getSpirits(), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                         extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
                         BlockHelper.updateAndNotifyState(level, pos);
