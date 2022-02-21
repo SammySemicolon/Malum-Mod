@@ -5,6 +5,7 @@ import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -47,10 +48,14 @@ public class EldritchEarthenRiteType extends MalumRiteType {
             return !filter.isAir() && !filter.is(state.getBlock());
         });
         positions.forEach(p -> {
-            if (!level.isClientSide) {
-                level.destroyBlock(p, true);
-            } else {
-                particles(level, p);
+            BlockState state = level.getBlockState(p);
+            boolean canBreak = state.is(BlockTags.NEEDS_STONE_TOOL) || state.is(BlockTags.NEEDS_IRON_TOOL) || state.is(BlockTags.NEEDS_DIAMOND_TOOL);
+            if (canBreak) {
+                if (!level.isClientSide) {
+                    level.destroyBlock(p, true);
+                } else {
+                    particles(level, p);
+                }
             }
         });
     }
