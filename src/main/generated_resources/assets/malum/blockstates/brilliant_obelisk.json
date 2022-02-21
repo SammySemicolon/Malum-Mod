@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "malum:block/brilliant_obelisk_child"
+    },
+    "waterlogged=true": {
+      "model": "malum:block/brilliant_obelisk_child"
+    }
+  }
+}

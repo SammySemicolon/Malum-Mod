@@ -40,11 +40,11 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
             ResourceLocation resourceLocation = new ResourceLocation(name);
             if (!Registry.ENTITY_TYPE.containsKey(resourceLocation))
             {
-                MalumMod.LOGGER.info("entity with registry name: " + name + " doesn't exist. Skipping file.");
                 continue;
             }
             if (!object.has("primary_type"))
             {
+                MalumMod.LOGGER.info("entity with registry name: " + name + " lacks a primary type. Skipping file.");
                 continue;
             }
             if (SPIRIT_DATA.containsKey(resourceLocation))

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "malum:block/soulwood_fusion_plate_child"
+    },
+    "waterlogged=true": {
+      "model": "malum:block/soulwood_fusion_plate_child"
+    }
+  }
+}

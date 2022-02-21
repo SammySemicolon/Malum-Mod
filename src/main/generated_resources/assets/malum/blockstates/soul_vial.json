@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "malum:block/soul_vial_child"
+    },
+    "waterlogged=true": {
+      "model": "malum:block/soul_vial_child"
+    }
+  }
+}

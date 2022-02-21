@@ -27,7 +27,7 @@ public class SimpleBlockProperties extends BlockBehaviour.Properties {
     public boolean ignoreLootDatagen;
 
     public enum StateType {
-        predefined, automatic, glowing
+        predefined, automatic, custom, layered
     }
     public StateType type = StateType.automatic;
 
