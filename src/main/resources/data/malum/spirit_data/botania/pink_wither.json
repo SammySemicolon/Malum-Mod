@@ -1,0 +1,18 @@
+{
+  "registry_name": "minecraft:wither",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 3
+    },
+    {
+      "spirit": "arcane",
+      "count": 3
+    },
+    {
+      "spirit": "infernal",
+      "count": 3
+    }
+  ]
+}
