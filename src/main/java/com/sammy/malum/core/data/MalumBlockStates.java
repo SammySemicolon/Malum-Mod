@@ -60,9 +60,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type == SimpleBlockProperties.StateType.predefined);
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type == SimpleBlockProperties.StateType.customBlock).forEach(this::customBlock);
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type == SimpleBlockProperties.StateType.glowingBlock).forEach(this::glowingBlock);
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.predefined));
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.glowing)).forEach(this::glowingBlock);
 
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
@@ -110,12 +109,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
         ModelFile sign = models().withExistingParent(name, new ResourceLocation("block/air")).texture("particle", prefix("block/" + particleName));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(sign).build());
-    }
-    public void customBlock(RegistryObject<Block> blockRegistryObject)
-    {
-        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile model = models().withExistingParent(name, prefix("block/"+name));
-        getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(model).build());
     }
     public void glowingBlock(RegistryObject<Block> blockRegistryObject)
     {
