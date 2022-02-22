@@ -87,11 +87,11 @@ public class EntryScreen extends Screen {
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         if (isHovering(mouseX, mouseY, guiLeft - 13, guiTop + 150, 28, 18)) {
-            nextPage();
+            previousPage(true);
             return true;
         }
         if (isHovering(mouseX, mouseY, guiLeft + bookWidth - 15, guiTop + 150, 28, 18)) {
-            previousPage(true);
+            nextPage();
             return true;
         }
         return false;
