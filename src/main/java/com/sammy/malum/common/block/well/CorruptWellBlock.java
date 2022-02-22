@@ -1,5 +1,6 @@
 package com.sammy.malum.common.block.well;
 
+import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock;
 import com.sammy.malum.common.blockentity.well.CorruptWellBlockEntity;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
@@ -62,8 +63,12 @@ public class CorruptWellBlock<T extends CorruptWellBlockEntity> extends WaterLog
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext p_152803_) {
-        return super.getStateForPlacement(p_152803_).setValue(FACING, p_152803_.getClickedFace());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        if (context.getLevel().getBlockState(context.getClickedPos().relative(context.getClickedFace().getOpposite())).getBlock() instanceof SpiritCrucibleComponentBlock)
+        {
+            return super.getStateForPlacement(context).setValue(FACING, context.getClickedFace().getOpposite());
+        }
+        return super.getStateForPlacement(context).setValue(FACING, context.getClickedFace());
     }
 
     public static VoxelShape makeUpShape(){
