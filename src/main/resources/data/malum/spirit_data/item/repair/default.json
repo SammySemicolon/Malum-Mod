@@ -1,0 +1,13 @@
+{
+  "durability_percentage": 0.35,
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 8
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}

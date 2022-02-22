@@ -13,7 +13,7 @@ import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerCoreBlock;
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.block.well.CorruptWellBlock;
+import com.sammy.malum.common.block.well.TwistedTabletBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.MalumSignTileEntity;
@@ -26,7 +26,7 @@ import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntit
 import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
-import com.sammy.malum.common.blockentity.well.CorruptWellBlockEntity;
+import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
 import com.sammy.malum.core.systems.multiblock.ComponentBlock;
 import com.sammy.malum.core.systems.multiblock.MultiBlockComponentEntity;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
@@ -58,7 +58,7 @@ public class BlockEntityRegistry {
 
     public static final RegistryObject<BlockEntityType<SpiritCrucibleCoreBlockEntity>> SPIRIT_CRUCIBLE = BLOCK_ENTITY_TYPES.register("spirit_crucible", () -> BlockEntityType.Builder.of(SpiritCrucibleCoreBlockEntity::new, getBlocks(SpiritCrucibleCoreBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<SpiritCatalyzerCoreBlockEntity>> SPIRIT_CATALYZER = BLOCK_ENTITY_TYPES.register("spirit_catalyzer", () -> BlockEntityType.Builder.of(SpiritCatalyzerCoreBlockEntity::new, getBlocks(SpiritCatalyzerCoreBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<CorruptWellBlockEntity>> CORRUPT_WELL = BLOCK_ENTITY_TYPES.register("corrupt_well", () -> BlockEntityType.Builder.of(CorruptWellBlockEntity::new, getBlocks(CorruptWellBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<TwistedTabletBlockEntity>> TWISTED_TABLET = BLOCK_ENTITY_TYPES.register("twisted_tablet", () -> BlockEntityType.Builder.of(TwistedTabletBlockEntity::new, getBlocks(TwistedTabletBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<RunewoodObeliskBlockEntity>> RUNEWOOD_OBELISK = BLOCK_ENTITY_TYPES.register("runewood_obelisk", () -> BlockEntityType.Builder.of(RunewoodObeliskBlockEntity::new, getBlocks(RunewoodObeliskCoreBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<BrilliantObeliskBlockEntity>> BRILLIANT_OBELISK = BLOCK_ENTITY_TYPES.register("brilliant_obelisk", () -> BlockEntityType.Builder.of(BrilliantObeliskBlockEntity::new, getBlocks(BrillianceObeliskCoreBlock.class)).build(null));
     public static final RegistryObject<BlockEntityType<PlinthCoreBlockEntity>> PLINTH = BLOCK_ENTITY_TYPES.register("plinth", () -> BlockEntityType.Builder.of(PlinthCoreBlockEntity::new, getBlocks(PlinthCoreBlock.class)).build(null));
@@ -105,7 +105,7 @@ public class BlockEntityRegistry {
             event.registerBlockEntityRenderer(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_CRUCIBLE.get(), SpiritCrucibleRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_CATALYZER.get(), SpiritCatalyzerRenderer::new);
-            event.registerBlockEntityRenderer(CORRUPT_WELL.get(), ItemStandRenderer::new);
+            event.registerBlockEntityRenderer(TWISTED_TABLET.get(), ItemStandRenderer::new);
             event.registerBlockEntityRenderer(PLINTH.get(), PlinthRenderer::new);
             event.registerBlockEntityRenderer(TOTEM_POLE.get(), TotemPoleRenderer::new);
             event.registerBlockEntityRenderer(ITEM_STAND.get(), ItemStandRenderer::new);

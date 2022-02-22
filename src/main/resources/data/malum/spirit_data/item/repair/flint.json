@@ -1,0 +1,18 @@
+{
+  "durability_percentage": 0.5,
+  "repair_ingredient": {
+    "item": "minecraft:flint"
+  },
+  "target_items": [
+    {
+      "item": "farmersdelight:flint_knife",
+      "repair_item_count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 4
+    }
+  ]
+}

@@ -38,6 +38,8 @@ public class CommonConfig {
     //spirit
     public static ForgeConfigSpec.ConfigValue<Boolean> SOULLESS_SPAWNERS;
 
+    public static ForgeConfigSpec.ConfigValue<Boolean> ENABLE_AUTOMATIC_REPAIR_REGISTRY;
+
     //affinity
     public static ForgeConfigSpec.DoubleValue SOUL_WARD_PHYSICAL;
     public static ForgeConfigSpec.DoubleValue SOUL_WARD_MAGIC;
@@ -123,6 +125,13 @@ public class CommonConfig {
 
         SOULLESS_SPAWNERS = builder.comment("If set to true, mob spawners will create soulless mobs instead.")
                 .define("lameSpawners", false);
+
+        builder.comment("Spirit Repair").push("repair");
+
+        ENABLE_AUTOMATIC_REPAIR_REGISTRY = builder.comment("If set to true, malum will provide a default recipe for repairing using spirit focusing.")
+                .define("worldwideSpiritRepair", true);
+
+        builder.pop();
 
         builder.pop();
 

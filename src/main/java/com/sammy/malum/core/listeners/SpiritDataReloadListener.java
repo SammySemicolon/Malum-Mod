@@ -1,8 +1,9 @@
-package com.sammy.malum.core.systems.spirit;
+package com.sammy.malum.core.listeners;
 
 import com.google.gson.*;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -11,17 +12,17 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.event.AddReloadListenerEvent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
-
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.SPIRIT_DATA;
 
 public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
 {
+    public static Map<ResourceLocation, MalumEntitySpiritData> SPIRIT_DATA = new HashMap<>();
     private static final Gson GSON = (new GsonBuilder()).create();
 
     public SpiritDataReloadListener()
     {
-        super(GSON, "spirit_data");
+        super(GSON, "spirit_data/entity");
     }
 
     public static void register(AddReloadListenerEvent event) {
@@ -53,17 +54,19 @@ public class SpiritDataReloadListener extends SimpleJsonResourceReloadListener
             }
             String primaryType = object.getAsJsonPrimitive("primary_type").getAsString();
             JsonArray array = object.getAsJsonArray("spirits");
-
-            ArrayList<MalumEntitySpiritData.DataEntry> spiritData = new ArrayList<>();
-            for (JsonElement spiritElement : array)
-            {
-                JsonObject spiritObject = spiritElement.getAsJsonObject();
-                String spiritName = spiritObject.getAsJsonPrimitive("spirit").getAsString();
-                int count = spiritObject.getAsJsonPrimitive("count").getAsInt();
-                spiritData.add(new MalumEntitySpiritData.DataEntry(SpiritHelper.getSpiritType(spiritName), count));
-            }
-
-            SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHelper.getSpiritType(primaryType), spiritData));
+            SPIRIT_DATA.put(resourceLocation, new MalumEntitySpiritData(SpiritHelper.getSpiritType(primaryType), getSpiritData(array)));
         }
+    }
+    public static ArrayList<MalumEntitySpiritData.SpiritDataEntry> getSpiritData(JsonArray array)
+    {
+        ArrayList<MalumEntitySpiritData.SpiritDataEntry> spiritData = new ArrayList<>();
+        for (JsonElement spiritElement : array)
+        {
+            JsonObject spiritObject = spiritElement.getAsJsonObject();
+            String spiritName = spiritObject.getAsJsonPrimitive("spirit").getAsString();
+            int count = spiritObject.getAsJsonPrimitive("count").getAsInt();
+            spiritData.add(new MalumEntitySpiritData.SpiritDataEntry(SpiritHelper.getSpiritType(spiritName), count));
+        }
+        return spiritData;
     }
 }

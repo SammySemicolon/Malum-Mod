@@ -1,0 +1,38 @@
+{
+  "durability_percentage": 0.5,
+  "repair_ingredient": {
+    "tag": "minecraft:stone_tool_materials"
+  },
+  "target_items": [
+    {
+      "item": "minecraft:stone_axe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "minecraft:stone_sword",
+      "repair_item_count": 2
+    },
+    {
+      "item": "minecraft:stone_pickaxe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "minecraft:stone_shovel",
+      "repair_item_count": 2
+    },
+    {
+      "item": "minecraft:stone_hoe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "farmersdelight:stone_knife",
+      "repair_item_count": 2
+    }
+  ],
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 4
+    }
+  ]
+}

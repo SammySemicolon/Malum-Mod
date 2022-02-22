@@ -2,6 +2,7 @@ package com.sammy.malum.core.helper;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import com.sammy.malum.core.setup.AttributeRegistry;
 import com.sammy.malum.core.setup.ParticleRegistry;
 import com.sammy.malum.core.setup.SoundRegistry;
@@ -9,7 +10,7 @@ import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.enchantment.MalumEnchantments;
 import com.sammy.malum.core.systems.rendering.RenderUtilities;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData.DataEntry;
+import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData.SpiritDataEntry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -99,7 +100,7 @@ public class SpiritHelper {
     }
 
     public static MalumEntitySpiritData getEntitySpiritData(LivingEntity entity) {
-        return SpiritTypeRegistry.SPIRIT_DATA.get(entity.getType().getRegistryName());
+        return SpiritDataReloadListener.SPIRIT_DATA.get(entity.getType().getRegistryName());
     }
 
     public static int getEntitySpiritCount(LivingEntity entity) {
@@ -143,8 +144,8 @@ public class SpiritHelper {
         if (data == null) {
             return spirits;
         }
-        for (DataEntry dataEntry : data.dataEntries) {
-            spirits.add(new ItemStack(dataEntry.type.getSplinterItem(), dataEntry.count));
+        for (SpiritDataEntry spiritDataEntry : data.dataEntries) {
+            spirits.add(new ItemStack(spiritDataEntry.type.getSplinterItem(), spiritDataEntry.count));
         }
         return spirits;
     }

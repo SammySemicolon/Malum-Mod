@@ -22,7 +22,6 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry
 {
-    public static Map<ResourceLocation, MalumEntitySpiritData> SPIRIT_DATA = new HashMap<>();
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
 
     public static final Color SACRED_SPIRIT_COLOR = new Color(243, 65, 107);

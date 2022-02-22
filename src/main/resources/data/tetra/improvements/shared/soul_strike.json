@@ -5,5 +5,12 @@
     "effects": {
       "malum.shatters_souls": 1
     }
+  },
+  {
+    "key": "malum.soul_strike",
+    "level": 1,
+    "effects": {
+      "malum.shatters_souls": 1
+    }
   }
 ]

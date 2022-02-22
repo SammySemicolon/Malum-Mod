@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "malum:corrupt_well"
+          "name": "malum:twisted_tablet"
         }
       ],
       "conditions": [

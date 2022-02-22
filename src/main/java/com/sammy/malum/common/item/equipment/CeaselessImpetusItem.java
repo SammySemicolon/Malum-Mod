@@ -28,6 +28,11 @@ public class CeaselessImpetusItem extends Item implements IEventResponderItem {
         super(p_41383_);
     }
 
+    @Override
+    public boolean isEnchantable(ItemStack pStack) {
+        return false;
+    }
+
     public static void preventDeath(LivingDeathEvent event) {
         if (event.isCanceled()) {
             return;

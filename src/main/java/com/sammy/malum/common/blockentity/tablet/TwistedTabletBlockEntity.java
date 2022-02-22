@@ -1,4 +1,4 @@
-package com.sammy.malum.common.blockentity.well;
+package com.sammy.malum.common.blockentity.tablet;
 
 import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
 import com.sammy.malum.core.setup.block.BlockEntityRegistry;
@@ -8,9 +8,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class CorruptWellBlockEntity extends ItemStandBlockEntity {
-    public CorruptWellBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.CORRUPT_WELL.get(), pos, state);
+public class TwistedTabletBlockEntity extends ItemStandBlockEntity {
+    public TwistedTabletBlockEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistry.TWISTED_TABLET.get(), pos, state);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class SoulVialBlockEntity extends SimpleBlockEntity {
 
     @Override
     public void load(CompoundTag pTag) {
-        if (pTag.contains(MalumEntitySpiritData.NBT)) {
+        if (pTag.contains(MalumEntitySpiritData.SOUL_DATA)) {
             data = MalumEntitySpiritData.load(pTag);
         }
         else
@@ -57,21 +57,21 @@ public class SoulVialBlockEntity extends SimpleBlockEntity {
         ItemStack stack = player.getItemInHand(hand);
         if (stack.getItem() instanceof ISoulContainerItem) {
             if (data == null) {
-                if (stack.hasTag() && stack.getTag().contains(MalumEntitySpiritData.NBT)) {
+                if (stack.hasTag() && stack.getTag().contains(MalumEntitySpiritData.SOUL_DATA)) {
                     data = MalumEntitySpiritData.load(stack.getTag());
                     if (stack.getCount() > 1) {
                         ItemStack split = stack.split(1);
-                        split.getOrCreateTag().remove(MalumEntitySpiritData.NBT);
+                        split.getOrCreateTag().remove(MalumEntitySpiritData.SOUL_DATA);
                         ItemHelper.giveItemToEntity(split, player);
                     }
                     else
                     {
-                        stack.getOrCreateTag().remove(MalumEntitySpiritData.NBT);
+                        stack.getOrCreateTag().remove(MalumEntitySpiritData.SOUL_DATA);
                     }
                 }
             }
             else {
-                if (!stack.getOrCreateTag().contains(MalumEntitySpiritData.NBT)) {
+                if (!stack.getOrCreateTag().contains(MalumEntitySpiritData.SOUL_DATA)) {
                     if (stack.getCount() > 1) {
                         ItemStack split = stack.split(1);
                         data.saveTo(split.getOrCreateTag());

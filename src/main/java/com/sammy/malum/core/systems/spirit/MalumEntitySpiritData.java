@@ -9,24 +9,24 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class MalumEntitySpiritData {
-    public static final String NBT = "soul_data";
+    public static final String SOUL_DATA = "soul_data";
     public static final MalumEntitySpiritData EMPTY = new MalumEntitySpiritData(SpiritTypeRegistry.SACRED_SPIRIT, new ArrayList<>());
     public final MalumSpiritType primaryType;
     public final int totalCount;
-    public final ArrayList<DataEntry> dataEntries;
+    public final ArrayList<SpiritDataEntry> dataEntries;
 
-    public MalumEntitySpiritData(MalumSpiritType primaryType, ArrayList<DataEntry> dataEntries) {
+    public MalumEntitySpiritData(MalumSpiritType primaryType, ArrayList<SpiritDataEntry> dataEntries) {
         this.primaryType = primaryType;
         this.totalCount = dataEntries.stream().mapToInt(d -> d.count).sum();
         this.dataEntries = dataEntries;
     }
 
     public ArrayList<Component> createTooltip() {
-        return dataEntries.stream().map(DataEntry::getComponent).collect(Collectors.toCollection(ArrayList::new));
+        return dataEntries.stream().map(SpiritDataEntry::getComponent).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void saveTo(CompoundTag tag) {
-        tag.put(NBT, save());
+        tag.put(SOUL_DATA, save());
     }
 
     public CompoundTag save() {
@@ -41,7 +41,7 @@ public class MalumEntitySpiritData {
     }
 
     public static MalumEntitySpiritData load(CompoundTag tag) {
-        CompoundTag nbt = tag.getCompound(NBT);
+        CompoundTag nbt = tag.getCompound(SOUL_DATA);
 
 
         String type = nbt.getString("primaryType");
@@ -49,18 +49,18 @@ public class MalumEntitySpiritData {
         if (dataAmount == 0) {
             return EMPTY;
         }
-        ArrayList<DataEntry> data = new ArrayList<>();
+        ArrayList<SpiritDataEntry> data = new ArrayList<>();
         for (int i = 0; i < dataAmount; i++) {
-            data.add(DataEntry.load(nbt.getCompound("dataEntry" + i)));
+            data.add(SpiritDataEntry.load(nbt.getCompound("dataEntry" + i)));
         }
         return new MalumEntitySpiritData(SpiritHelper.getSpiritType(type), data);
     }
 
-    public static class DataEntry {
+    public static class SpiritDataEntry {
         public final MalumSpiritType type;
         public final int count;
 
-        public DataEntry(MalumSpiritType type, int count) {
+        public SpiritDataEntry(MalumSpiritType type, int count) {
             this.type = type;
             this.count = count;
         }
@@ -75,10 +75,10 @@ public class MalumEntitySpiritData {
             return tag;
         }
 
-        public static DataEntry load(CompoundTag tag) {
+        public static SpiritDataEntry load(CompoundTag tag) {
             MalumSpiritType type = SpiritHelper.getSpiritType(tag.getString("type"));
             int count = tag.getInt("count");
-            return new DataEntry(type, count);
+            return new SpiritDataEntry(type, count);
         }
     }
 }

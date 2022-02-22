@@ -36,7 +36,7 @@ public class SoulVialItem extends BlockItem implements ISoulContainerItem {
 
     @Override
     public String getDescriptionId(ItemStack pStack) {
-        if (pStack.hasTag() && pStack.getTag().contains(MalumEntitySpiritData.NBT)) {
+        if (pStack.hasTag() && pStack.getTag().contains(MalumEntitySpiritData.SOUL_DATA)) {
             return "item.malum.filled_soul_vial";
         }
         return super.getDescriptionId(pStack);
@@ -46,7 +46,7 @@ public class SoulVialItem extends BlockItem implements ISoulContainerItem {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (pStack.hasTag()) {
             CompoundTag tag = pStack.getTag();
-            if (tag.contains(MalumEntitySpiritData.NBT)) {
+            if (tag.contains(MalumEntitySpiritData.SOUL_DATA)) {
                 MalumEntitySpiritData data = MalumEntitySpiritData.load(tag);
                 pTooltipComponents.add(new TranslatableComponent("malum.spirit.description.stored_soul").withStyle(ChatFormatting.GRAY));
                 pTooltipComponents.addAll(data.createTooltip());
@@ -87,7 +87,7 @@ public class SoulVialItem extends BlockItem implements ISoulContainerItem {
     @Override
     public InteractionResultHolder<ItemStack> interactWithSoul(Player pPlayer, InteractionHand pHand, SoulEntity soul) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
-        if (!soul.spiritData.equals(MalumEntitySpiritData.EMPTY) && (!stack.hasTag() || (stack.hasTag() && !stack.getOrCreateTag().contains(MalumEntitySpiritData.NBT)))) {
+        if (!soul.spiritData.equals(MalumEntitySpiritData.EMPTY) && (!stack.hasTag() || (stack.hasTag() && !stack.getOrCreateTag().contains(MalumEntitySpiritData.SOUL_DATA)))) {
             ItemStack split = stack.split(1);
             soul.spiritData.saveTo(split.getOrCreateTag());
             soul.discard();

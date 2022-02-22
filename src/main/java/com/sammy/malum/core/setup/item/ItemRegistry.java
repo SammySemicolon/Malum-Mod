@@ -355,7 +355,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = ITEMS.register("runewood_obelisk", () -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), DEFAULT_PROPERTIES(), RunewoodObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> BRILLIANT_OBELISK = ITEMS.register("brilliant_obelisk", () -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), DEFAULT_PROPERTIES(), BrilliantObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = ITEMS.register("spirit_crucible", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), DEFAULT_PROPERTIES(), SpiritCrucibleCoreBlockEntity.STRUCTURE));
-    public static final RegistryObject<Item> CORRUPT_WELL = ITEMS.register("corrupt_well", () -> new BlockItem(BlockRegistry.CORRUPT_WELL.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> TWISTED_TABLET = ITEMS.register("twisted_tablet", () -> new BlockItem(BlockRegistry.TWISTED_TABLET.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_CATALYZER = ITEMS.register("spirit_catalyzer", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CATALYZER.get(), DEFAULT_PROPERTIES(), SpiritCatalyzerCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> EMITTER_MIRROR = ITEMS.register("emitter_mirror", () -> new BlockItem(BlockRegistry.EMITTER_MIRROR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
@@ -542,24 +542,20 @@ public class ItemRegistry {
                 itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
                 registerItemColor(itemColors, item, malumLeavesBlock.minColor);
             });
-            DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> {
-                itemColors.register((s, c) -> {
-                    AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
-                    if (c == 2) {
-                        return etherItem.getSecondColor(s);
-                    }
-                    return c == 0 ? etherItem.getFirstColor(s) : -1;
-                }, i.get());
-            });
-            DataHelper.takeAll(items, i -> i.get() instanceof EtherItem).forEach(i -> {
-                itemColors.register((s, c) -> {
-                    AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
-                    if (c == 1) {
-                        return etherItem.getSecondColor(s);
-                    }
-                    return c == 0 ? etherItem.getFirstColor(s) : -1;
-                }, i.get());
-            });
+            DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> itemColors.register((s, c) -> {
+                AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+                if (c == 2) {
+                    return etherItem.getSecondColor(s);
+                }
+                return c == 0 ? etherItem.getFirstColor(s) : -1;
+            }, i.get()));
+            DataHelper.takeAll(items, i -> i.get() instanceof EtherItem).forEach(i -> itemColors.register((s, c) -> {
+                AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();
+                if (c == 1) {
+                    return etherItem.getSecondColor(s);
+                }
+                return c == 0 ? etherItem.getFirstColor(s) : -1;
+            }, i.get()));
             registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
             registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
             registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));

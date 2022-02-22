@@ -160,7 +160,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (level.isClientSide) {
-            return InteractionResult.SUCCESS;
+            return InteractionResult.FAIL;
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
@@ -176,6 +176,10 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             spiritInventory.interact(level, player, hand);
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
+            }
+            else
+            {
+                return InteractionResult.FAIL;
             }
         }
         return super.onUse(player, hand);

@@ -28,7 +28,7 @@ import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.block.well.CorruptWellBlock;
+import com.sammy.malum.common.block.well.TwistedTabletBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.SoundRegistry;
@@ -150,7 +150,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SOUL_VIAL = BLOCKS.register("soul_vial", () -> new SoulVialBlock<>(SOUL_VIAL_PROPERTIES().blockStateDefinition(custom).isCutout().noOcclusion()).setTile(BlockEntityRegistry.SOUL_VIAL));
     public static final RegistryObject<Block> EMITTER_MIRROR = BLOCKS.register("emitter_mirror", () -> new EmitterMirrorBlock<>(HALLOWED_GOLD_PROPERTIES().isCutout().noOcclusion()).setTile(BlockEntityRegistry.EMITTER_MIRROR));
 
-    public static final RegistryObject<Block> CORRUPT_WELL = BLOCKS.register("corrupt_well", () -> new CorruptWellBlock<>(TAINTED_ROCK_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()).setTile(BlockEntityRegistry.CORRUPT_WELL));
+    public static final RegistryObject<Block> TWISTED_TABLET = BLOCKS.register("twisted_tablet", () -> new TwistedTabletBlock<>(TAINTED_ROCK_PROPERTIES().isCutout().blockStateDefinition(predefined).noOcclusion()).setTile(BlockEntityRegistry.TWISTED_TABLET));
 
     public static final RegistryObject<Block> RUNEWOOD_OBELISK = BLOCKS.register("runewood_obelisk", () -> new RunewoodObeliskCoreBlock(RUNEWOOD_PROPERTIES().isCutout().blockStateDefinition(custom).noOcclusion()));
     public static final RegistryObject<Block> RUNEWOOD_OBELISK_COMPONENT = BLOCKS.register("runewood_obelisk_component", () -> new ObeliskComponentBlock(RUNEWOOD_PROPERTIES().isCutout().blockStateDefinition(custom).lootFrom(RUNEWOOD_OBELISK).noOcclusion(), ItemRegistry.RUNEWOOD_OBELISK));

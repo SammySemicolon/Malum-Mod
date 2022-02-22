@@ -1,0 +1,58 @@
+{
+  "durability_percentage": 0.5,
+  "repair_ingredient": {
+    "tag": "forge:ingots/iron"
+  },
+  "target_items": [
+    {
+      "item": "minecraft:iron_axe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "minecraft:iron_sword",
+      "repair_item_count": 2
+    },
+    {
+      "item": "minecraft:iron_pickaxe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "minecraft:iron_shovel",
+      "repair_item_count": 2
+    },
+    {
+      "item": "minecraft:iron_hoe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "farmersdelight:iron_knife",
+      "repair_item_count": 2
+    },
+    {
+      "item": "malum:crude_scythe",
+      "repair_item_count": 3
+    },
+    {
+      "item": "minecraft:iron_helmet",
+      "repair_item_count": 3
+    },
+    {
+      "item": "minecraft:iron_chestplate",
+      "repair_item_count": 3
+    },
+    {
+      "item": "minecraft:iron_leggings",
+      "repair_item_count": 3
+    },
+    {
+      "item": "minecraft:iron_boots",
+      "repair_item_count": 3
+    }
+  ],
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 8
+    }
+  ]
+}

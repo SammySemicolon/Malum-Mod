@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.well;
 
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock;
-import com.sammy.malum.common.blockentity.well.CorruptWellBlockEntity;
+import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
-public class CorruptWellBlock<T extends CorruptWellBlockEntity> extends WaterLoggedBlock<T> {
+public class TwistedTabletBlock<T extends TwistedTabletBlockEntity> extends WaterLoggedBlock<T> {
     public static final VoxelShape UP = makeUpShape();
     public static final VoxelShape DOWN = makeDownShape();
     public static final VoxelShape SOUTH = makeSouthShape();
@@ -25,7 +25,7 @@ public class CorruptWellBlock<T extends CorruptWellBlockEntity> extends WaterLog
     public static final VoxelShape WEST = makeWestShape();
     public static final VoxelShape EAST = makeEastShape();
 
-    public CorruptWellBlock(Properties properties) {
+    public TwistedTabletBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }

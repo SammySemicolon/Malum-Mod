@@ -1,0 +1,62 @@
+{
+  "durability_percentage": 0.75,
+  "repair_ingredient": {
+    "item": "malum:soul_stained_steel_ingot"
+  },
+  "target_items": [
+    {
+      "item": "malum:soul_stained_steel_axe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "malum:soul_stained_steel_sword",
+      "repair_item_count": 2
+    },
+    {
+      "item": "malum:soul_stained_steel_pickaxe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "malum:soul_stained_steel_shovel",
+      "repair_item_count": 2
+    },
+    {
+      "item": "malum:soul_stained_steel_hoe",
+      "repair_item_count": 2
+    },
+    {
+      "item": "malum:soul_stained_steel_knife",
+      "repair_item_count": 2
+    },
+    {
+      "item": "malum:soul_stained_steel_scythe",
+      "repair_item_count": 4
+    },
+    {
+      "item": "malum:soul_stained_steel_helmet",
+      "repair_item_count": 4
+    },
+    {
+      "item": "malum:soul_stained_steel_chestplate",
+      "repair_item_count": 4
+    },
+    {
+      "item": "malum:soul_stained_steel_leggings",
+      "repair_item_count": 4
+    },
+    {
+      "item": "malum:soul_stained_steel_boots",
+      "repair_item_count": 4
+    }
+  ],
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 16
+    },
+    {
+      "spirit": "earthen",
+      "count": 8
+    }
+  ]
+}
