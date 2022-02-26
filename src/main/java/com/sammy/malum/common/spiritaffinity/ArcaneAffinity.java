@@ -42,7 +42,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
             if (c.soulWard < cap && c.soulWardProgress <= 0) {
                 c.soulWard++;
                 if (player.level.isClientSide && !player.isCreative()) {
-                    player.playSound(c.soulWard >= cap ? SoundRegistry.SOUL_WARD_CHARGE : SoundRegistry.SOUL_WARD_GROW, 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
+                    player.playSound(c.soulWard >= cap ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get(), 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
                 }
                 c.soulWardProgress = getSoulWardCooldown(player);
             } else {
@@ -75,7 +75,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             c.soulWard = 0;
                         }
 
-                        player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT, SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                        player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                         event.setAmount(result);
                         if (source.getEntity() != null) {
                             if (ItemHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {

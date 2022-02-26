@@ -248,7 +248,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         }
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
-        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT, SoundSource.BLOCKS, 1, 1f);
+        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 1f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         progress = 0;
         inventory.updateData();

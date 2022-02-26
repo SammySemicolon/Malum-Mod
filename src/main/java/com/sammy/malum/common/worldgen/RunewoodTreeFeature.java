@@ -51,8 +51,8 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration>
         }
         BlockState defaultLog = BlockRegistry.RUNEWOOD_LOG.get().defaultBlockState();
 
-        MalumFiller treeFiller = new MalumFiller();
-        MalumFiller leavesFiller = new MalumFiller();
+        MalumFiller treeFiller = new MalumFiller(false);
+        MalumFiller leavesFiller = new MalumFiller(true);
 
         int trunkHeight = minimumTrunkHeight + rand.nextInt(extraTrunkHeight + 1);
         BlockPos trunkTop = pos.above(trunkHeight);
@@ -129,8 +129,8 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration>
             BlockState newState = BlockHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState());
             treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
         }
-        treeFiller.fill(level, false);
-        leavesFiller.fill(level, true);
+        treeFiller.fill(level);
+        leavesFiller.fill(level);
         return true;
     }
 

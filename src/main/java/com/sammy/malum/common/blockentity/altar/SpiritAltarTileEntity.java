@@ -274,7 +274,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                     requestedItem = recipe.extraItems.get(extras);
                     matches = requestedItem.matches(providedStack);
                     if (matches) {
-                        level.playSound(null, pos, SoundRegistry.ALTAR_CONSUME, SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+                        level.playSound(null, pos, SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                         Vec3 providedItemPos = blockEntity.getItemPosForAltar();
                         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.getSpirits(), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                         extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
@@ -310,7 +310,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         progress = 0;
         extrasInventory.clear();
         updateRecipe = true;
-        level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT, SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+        level.playSound(null, worldPosition, SoundRegistry.ALTAR_CRAFT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         inventory.updateData();
         spiritInventory.updateData();

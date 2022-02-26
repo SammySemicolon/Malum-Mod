@@ -33,10 +33,15 @@ public class CurioTokenOfGratitude extends MalumCurioItem {
             }
         }
     }
+
     @Override
-    public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
-        livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SINISTER_EQUIP, SoundSource.NEUTRAL, 1.0f, 1.0f);
-        livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HOLY_EQUIP, SoundSource.NEUTRAL, 1.0f, 1.0f);
+    public boolean isOrnate() {
+        return true;
+    }
+
+    @Override
+    public boolean isGilded() {
+        return true;
     }
 
     @Nonnull

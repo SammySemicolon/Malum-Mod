@@ -60,9 +60,9 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.predefined));
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.custom)).forEach(this::customBlock);
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.layered)).forEach(this::glowingBlock);
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.PREDEFINED));
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.CUSTOM)).forEach(this::customBlock);
+        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.LAYERED)).forEach(this::glowingBlock);
 
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);

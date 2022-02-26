@@ -35,6 +35,6 @@ public class TheDevice extends Block {
     }
     public void playSound(Level level, BlockPos pos)
     {
-        level.playSound(null, pos, SoundRegistry.SUSPICIOUS_SOUND, SoundSource.BLOCKS, 1, 1 );
+        level.playSound(null, pos, SoundRegistry.SUSPICIOUS_SOUND.get(), SoundSource.BLOCKS, 1, 1 );
     }
 }

@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 
 public class AltarSoundInstance extends SimpleBlockEntitySoundInstance<SpiritAltarTileEntity> {
     public AltarSoundInstance(SpiritAltarTileEntity blockEntity, float volume, float pitch) {
-        super(blockEntity, SoundRegistry.ALTAR_LOOP, volume, pitch);
+        super(blockEntity, SoundRegistry.ALTAR_LOOP.get(), volume, pitch);
         this.x = blockEntity.getBlockPos().getX()+0.5f;
         this.y = blockEntity.getBlockPos().getY()+0.5f;
         this.z = blockEntity.getBlockPos().getZ()+0.5f;

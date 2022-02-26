@@ -1,4 +1,4 @@
-package com.sammy.malum.compability.jei;
+package com.sammy.malum.compability.jei.categories;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
@@ -28,7 +28,6 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
 {
     public static final ResourceLocation UID = prefix("spirit_rite");
     private final IDrawable background;
-    private final String localizedName;
     private final IDrawable overlay;
     private final IDrawable icon;
     private final Font font;
@@ -36,7 +35,6 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
     public SpiritRiteRecipeCategory(IGuiHelper guiHelper)
     {
         background = guiHelper.createBlankDrawable(142, 185);
-        localizedName = I18n.get("malum.jei.spirit_rite");
         overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_rite_jei.png"), 0, 0, 140, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()));
         font = Minecraft.getInstance().font;

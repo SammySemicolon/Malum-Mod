@@ -1,4 +1,4 @@
-package com.sammy.malum.compability.jei;
+package com.sammy.malum.compability.jei.categories;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
@@ -86,7 +86,7 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTr
         iRecipeLayout.getItemStacks().init(index+1, true, 27,26);
         iRecipeLayout.getItemStacks().set(index+1, recipe.input.asItem().getDefaultInstance());
 
-        iRecipeLayout.getItemStacks().init(index+2, true, 93,26);
+        iRecipeLayout.getItemStacks().init(index+2, true, 92,25);
         iRecipeLayout.getItemStacks().set(index+2, recipe.output.asItem().getDefaultInstance());
     }
 }

@@ -31,7 +31,7 @@ public class ModScytheItem extends ModCombatItem implements IEventResponderItem 
             SoundEvent sound;
             if (ItemHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE)) {
                 spawnSweepParticles((Player) attacker, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
-                sound = SoundRegistry.SCYTHE_CUT;
+                sound = SoundRegistry.SCYTHE_CUT.get();
             } else {
                 spawnSweepParticles((Player) attacker, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
                 sound = SoundEvents.PLAYER_ATTACK_SWEEP;

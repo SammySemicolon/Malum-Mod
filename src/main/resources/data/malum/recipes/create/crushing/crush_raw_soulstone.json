@@ -1,0 +1,25 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "malum:raw_soulstone"
+    }
+  ],
+  "results": [
+    {
+      "item": "malum:crushed_soulstone",
+      "count": 1
+    },
+    {
+      "item": "create:experience_nugget",
+      "chance": 0.75
+    }
+  ],
+  "processingTime": 300
+}

@@ -1,0 +1,62 @@
+{
+  "durability_percentage": 0.75,
+  "repair_ingredient": {
+    "tag": "forge:ingots/netherite"
+  },
+  "target_items": [
+    {
+      "item": "minecraft:netherite_axe",
+      "repair_item_count": 1
+    },
+    {
+      "item": "minecraft:netherite_sword",
+      "repair_item_count": 1
+    },
+    {
+      "item": "minecraft:netherite_pickaxe",
+      "repair_item_count": 1
+    },
+    {
+      "item": "minecraft:netherite_shovel",
+      "repair_item_count": 1
+    },
+    {
+      "item": "minecraft:netherite_hoe",
+      "repair_item_count": 1
+    },
+    {
+      "item": "farmersdelight:netherite_knife",
+      "repair_item_count": 1
+    },
+    {
+      "item": "minecraft:netherite_helmet",
+      "repair_item_count": 1
+    },
+    {
+      "item": "minecraft:netherite_chestplate",
+      "repair_item_count": 1
+    },
+    {
+      "item": "minecraft:netherite_leggings",
+      "repair_item_count": 1
+    },
+    {
+      "item": "minecraft:netherite_boots",
+      "repair_item_count": 1
+    }
+  ],
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 16
+    },
+    {
+      "spirit": "earthen",
+      "count": 16
+    },
+    {
+      "spirit": "arcane",
+      "count": 8
+    }
+  ]
+}

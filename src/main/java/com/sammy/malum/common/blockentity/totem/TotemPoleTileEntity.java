@@ -105,7 +105,7 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     }
 
     public void create(MalumSpiritType type) {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.type = type;
@@ -114,7 +114,7 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     }
 
     public void riteStarting(int height) {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.9f + 0.2f * height);
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.9f + 0.2f * height);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.desiredColor = 10;
         this.baseLevel = worldPosition.getY() - height;

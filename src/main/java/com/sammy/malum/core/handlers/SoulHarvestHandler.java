@@ -48,8 +48,7 @@ import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {
 
-    public static void specialSpawn(LivingSpawnEvent.SpecialSpawn event)
-    {
+    public static void specialSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
                 if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
@@ -58,8 +57,8 @@ public class SoulHarvestHandler {
             });
         }
     }
-    public static void addEntity(EntityJoinWorldEvent event)
-    {
+
+    public static void addEntity(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
                 ec.spiritData = SpiritHelper.getEntitySpiritData(livingEntity);
@@ -71,8 +70,8 @@ public class SoulHarvestHandler {
             });
         }
     }
-    public static void entityTarget(LivingSetAttackTargetEvent event)
-    {
+
+    public static void entityTarget(LivingSetAttackTargetEvent event) {
         if (event.getEntityLiving() instanceof Mob mob) {
             LivingEntityDataCapability.getCapability(mob).ifPresent(ec -> {
                 if (ec.soulless) {
@@ -81,23 +80,19 @@ public class SoulHarvestHandler {
             });
         }
     }
-    public static void entityTick(LivingEvent.LivingUpdateEvent event)
-    {
+
+    public static void entityTick(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
         LivingEntityDataCapability.getCapability(entity).ifPresent(ec -> {
-            if (ec.exposedSoul > 0)
-            {
+            if (ec.exposedSoul > 0) {
                 ec.exposedSoul--;
             }
-            if (ec.ownerUUID != null && ec.soulHarvestProgress > 0)
-            {
+            if (ec.ownerUUID != null && ec.soulHarvestProgress > 0) {
                 Player player = entity.level.getPlayerByUUID(ec.ownerUUID);
-                if (player != null)
-                {
+                if (player != null) {
                     PlayerDataCapability.getCapability(player).ifPresent(c -> {
-                        if (!player.isUsingItem() && ec.soulHarvestProgress > 10)
-                        {
-                            ec.soulHarvestProgress -=2f;
+                        if (!player.isUsingItem() && ec.soulHarvestProgress > 10) {
+                            ec.soulHarvestProgress -= 2f;
                         }
                         if (ec.soulHarvestProgress <= 10 && !ec.soulless) {
                             if (c.targetedSoulUUID == null || !entity.getUUID().equals(c.targetedSoulUUID)) {
@@ -195,18 +190,17 @@ public class SoulHarvestHandler {
                         }
                     }
                 }
-            }
-            else if (c.targetedSoulUUID != null)
-            {
+            } else if (c.targetedSoulUUID != null) {
                 c.targetedSoulUUID = null;
                 c.targetedSoulId = -1;
             }
         });
     }
-    public static void removeSentience(Mob mob)
-    {
+
+    public static void removeSentience(Mob mob) {
         mob.goalSelector.getAvailableGoals().removeIf(g -> g.getGoal() instanceof LookAtPlayerGoal || g.getGoal() instanceof MeleeAttackGoal || g.getGoal() instanceof SwellGoal || g.getGoal() instanceof PanicGoal || g.getGoal() instanceof RandomLookAroundGoal || g.getGoal() instanceof AvoidEntityGoal);
     }
+
     public static class ClientOnly {
         private static final ResourceLocation HARVEST_NOISE = prefix("textures/vfx/soul_noise_secondary.png");
         private static final RenderType HARVEST_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialScatterNoiseQuadRenderType(HARVEST_NOISE), () -> {
@@ -266,8 +260,7 @@ public class SoulHarvestHandler {
                                 renderQuad(soulNoise, poseStack, scale, scale, soulColor.getRed(), soulColor.getGreen(), soulColor.getBlue(), (int) (255 * previewProgress), 0, 0, 1, 1);
                                 scale += 0.3f * previewProgress;
                                 renderQuad(previewNoise, poseStack, scale, scale, previewColor.getRed(), previewColor.getGreen(), previewColor.getBlue(), (int) (255 * previewProgress), 0, 0, 1, 1);
-                                if (harvestProgress > 0f)
-                                {
+                                if (harvestProgress > 0f) {
                                     VertexConsumer harvestNoise = DELAYED_RENDER.getBuffer(HARVEST_NOISE_TYPE);
                                     scale = harvestProgress * 0.9f;
                                     renderQuad(harvestNoise, poseStack, scale, scale, harvestColor.getRed(), harvestColor.getGreen(), harvestColor.getBlue(), (int) Math.min(255, 255 * harvestProgress), 0, 0, 1, 1);

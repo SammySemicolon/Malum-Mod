@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 
 public class CrucibleSoundInstance extends SimpleBlockEntitySoundInstance<SpiritCrucibleCoreBlockEntity> {
     public CrucibleSoundInstance(SpiritCrucibleCoreBlockEntity blockEntity, float volume, float pitch) {
-        super(blockEntity, SoundRegistry.CRUCIBLE_LOOP, volume, pitch);
+        super(blockEntity, SoundRegistry.CRUCIBLE_LOOP.get(), volume, pitch);
         this.x = blockEntity.getBlockPos().getX()+0.5f;
         this.y = blockEntity.getBlockPos().getY()+0.5f;
         this.z = blockEntity.getBlockPos().getZ()+0.5f;

@@ -27,9 +27,9 @@ public class SimpleBlockProperties extends BlockBehaviour.Properties {
     public boolean ignoreLootDatagen;
 
     public enum StateType {
-        predefined, automatic, custom, layered
+        PREDEFINED, AUTOMATIC, CUSTOM, LAYERED
     }
-    public StateType type = StateType.automatic;
+    public StateType type = StateType.AUTOMATIC;
 
     public SimpleBlockProperties(Material p_60905_, MaterialColor p_60906_) {
         super(p_60905_, (p_60952_) -> p_60906_);

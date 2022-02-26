@@ -87,7 +87,7 @@ public class SpiritHelper {
                 level.addFreshEntity(entity);
             }
         }
-        level.playSound(null, position.x, position.y, position.z, SoundRegistry.SPIRIT_HARVEST, SoundSource.PLAYERS, 1.0F, 0.7f + level.random.nextFloat() * 0.4f);
+        level.playSound(null, position.x, position.y, position.z, SoundRegistry.SPIRIT_HARVEST.get(), SoundSource.PLAYERS, 1.0F, 0.7f + level.random.nextFloat() * 0.4f);
     }
 
 

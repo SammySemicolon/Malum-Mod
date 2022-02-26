@@ -43,7 +43,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                     c.heartOfStone++;
                     c.heartOfStoneProgress = getHeartOfStoneCooldown(player);
                     if (player.level.isClientSide && !player.isCreative()) {
-                        player.playSound(SoundRegistry.HEART_OF_STONE_GROW, 1, Mth.nextFloat(player.getRandom(), 0.4f, 1.2f));
+                        player.playSound(SoundRegistry.HEART_OF_STONE_GROW.get(), 1, Mth.nextFloat(player.getRandom(), 0.4f, 1.2f));
                     }
                 }
             } else {
@@ -68,7 +68,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                             c.heartOfStone = 0;
                         }
                         c.heartOfStoneProgress = (float) (getHeartOfStoneCooldown(player) * 2);
-                        player.level.playSound(null, player.blockPosition(), SoundRegistry.HEART_OF_STONE_HIT, SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                        player.level.playSound(null, player.blockPosition(), SoundRegistry.HEART_OF_STONE_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                         event.setAmount(event.getAmount() - absorbed);
                         PlayerDataCapability.syncTrackingAndSelf(player);
                     }

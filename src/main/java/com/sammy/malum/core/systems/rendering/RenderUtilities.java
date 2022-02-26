@@ -21,6 +21,61 @@ import java.util.Random;
 
 public class RenderUtilities {
 
+    public static void blit(Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
+        innerBlit( shader, x, y, w, h, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
+    }
+
+    public static void blit(Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
+        innerBlit( shader, x, y, w, h, u / xCanvasSize, v / xCanvasSize, uw / yCanvasSize, vh / yCanvasSize);
+    }
+
+    public static void blit(Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float canvasSize) {
+        innerBlit( shader, x, y, w, h, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
+    }
+
+    public static void blit(Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
+        innerBlit( shader, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
+    }
+
+    public static void innerBlit(Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh) {
+        RenderSystem.setShader(shader.getInstance());
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+        bufferbuilder.vertex((float) x, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u, v + vh).endVertex();
+        bufferbuilder.vertex((float) x + (float) w, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u + uw, v + vh).endVertex();
+        bufferbuilder.vertex((float) x + (float) w, (float) y, 0).color(1, 1, 1, 1).uv(u + uw, v).endVertex();
+        bufferbuilder.vertex((float) x, (float) y, 0).color(1, 1, 1, 1).uv(u, v).endVertex();
+        bufferbuilder.end();
+        BufferUploader.end(bufferbuilder);
+    }
+    public static void blit(int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
+        innerBlit( x, y, w, h, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
+    }
+
+    public static void blit(int x, int y, double w, double h, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
+        innerBlit( x, y, w, h, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
+    }
+
+    public static void blit(int x, int y, double w, double h, float u, float v, float canvasSize) {
+        innerBlit( x, y, w, h, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
+    }
+
+    public static void blit(int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
+        innerBlit( x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
+    }
+
+    public static void innerBlit(int x, int y, double w, double h, float u, float v, float uw, float vh) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferbuilder.vertex((float) x, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u, v + vh).endVertex();
+        bufferbuilder.vertex((float) x + (float) w, (float) y + (float) h, 0).color(1, 1, 1, 1).uv(u + uw, v + vh).endVertex();
+        bufferbuilder.vertex((float) x + (float) w, (float) y, 0).color(1, 1, 1, 1).uv(u + uw, v).endVertex();
+        bufferbuilder.vertex((float) x, (float) y, 0).color(1, 1, 1, 1).uv(u, v).endVertex();
+        bufferbuilder.end();
+        BufferUploader.end(bufferbuilder);
+    }
+
     public static void blit(PoseStack poseStack, Shaders.ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
         innerBlit(poseStack, shader, x, y, w, h, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
     }

@@ -10,14 +10,15 @@ import java.util.ArrayList;
 
 public class MalumFiller {
     public ArrayList<BlockStateEntry> entries = new ArrayList<>();
+    public final boolean careful;
 
-    public MalumFiller() {
-
+    public MalumFiller(boolean careful) {
+        this.careful = careful;
     }
 
-    public void fill(WorldGenLevel level, boolean safetyCheck) {
+    public void fill(WorldGenLevel level) {
         for (BlockStateEntry entry : entries) {
-            if (safetyCheck && !entry.canPlace(level)) {
+            if (careful && !entry.canPlace(level)) {
                 continue;
             }
             entry.place(level);

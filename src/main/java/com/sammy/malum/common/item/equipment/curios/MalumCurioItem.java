@@ -23,10 +23,10 @@ public class MalumCurioItem extends Item implements ICurioItem {
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
         if (isGilded()) {
-            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HOLY_EQUIP, SoundSource.PLAYERS, 1.0f, 1.0f);
+            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.HOLY_EQUIP.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
         }
         if (isOrnate()) {
-            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SINISTER_EQUIP, SoundSource.PLAYERS, 1.0f, 1.0f);
+            livingEntity.level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SINISTER_EQUIP.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
         }
     }
 
