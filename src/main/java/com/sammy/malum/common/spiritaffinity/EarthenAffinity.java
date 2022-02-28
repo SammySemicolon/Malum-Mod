@@ -5,7 +5,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.core.events.ClientRuntimeEvents;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.helper.ParticleHelper;
+import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
@@ -126,7 +129,8 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 1 / 256f, 12 / 256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i * 250f);
 
-                        RenderHelper.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset, 1, 256f);
+                        RenderHelper.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 1, 256f);
+
                     }
                     RenderSystem.depthMask(true);
                     RenderSystem.disableBlend();

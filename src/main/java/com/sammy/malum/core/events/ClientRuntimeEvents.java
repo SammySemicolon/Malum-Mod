@@ -26,6 +26,9 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientRuntimeEvents {
+
+    public static boolean canSpawnParticles;
+
     @SubscribeEvent
     public static void clientTick(TickEvent.ClientTickEvent event) {
         if (event.phase.equals(TickEvent.Phase.END)) {
@@ -35,14 +38,18 @@ public class ClientRuntimeEvents {
                     return;
                 }
                 ScreenParticleHandler.clientTick(event);
+                canSpawnParticles = true;
             }
         }
     }
     @SubscribeEvent
     public static void renderOverlay(RenderGameOverlayEvent.Post event) {
-        ArcaneAffinity.ClientOnly.renderSoulWard(event);
-        EarthenAffinity.ClientOnly.renderHeartOfStone(event);
         ScreenParticleHandler.renderParticles(event);
+        EarthenAffinity.ClientOnly.renderHeartOfStone(event);
+        ArcaneAffinity.ClientOnly.renderSoulWard(event);
+        if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+            canSpawnParticles = false;
+        }
     }
 
     @SubscribeEvent

@@ -12,6 +12,7 @@ import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.item.tools.ModScytheItem;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ModCombatItem;
 import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
@@ -104,10 +105,13 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         String alteredName = String.join("_", split);
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/impetus/" + alteredName));
     }
-    private void spiritSplinterItem(RegistryObject<Item> i)
-    {
+    private void spiritSplinterItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        withExistingParent(name, GENERATED).texture("layer0", prefix("item/spirit_splinter_base"));
+        if (i.equals(ItemRegistry.EARTHEN_SPIRIT) || i.equals(ItemRegistry.INFERNAL_SPIRIT) || i.equals(ItemRegistry.AERIAL_SPIRIT) || i.equals(ItemRegistry.AQUEOUS_SPIRIT)) {
+            withExistingParent(name, GENERATED).texture("layer0", prefix("item/elemental_spirit"));
+        } else {
+            generatedItem(i);
+        }
     }
     private void etherBrazierItem(RegistryObject<Item> i)
     {
