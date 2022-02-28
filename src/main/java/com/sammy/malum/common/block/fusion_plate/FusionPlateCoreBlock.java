@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.fusion_plate;
 
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import net.minecraft.core.BlockPos;

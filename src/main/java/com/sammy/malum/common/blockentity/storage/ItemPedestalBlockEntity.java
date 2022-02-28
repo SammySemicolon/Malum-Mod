@@ -4,7 +4,7 @@ import com.sammy.malum.common.blockentity.altar.IAltarProvider;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
 import com.sammy.malum.core.helper.SpiritHelper;

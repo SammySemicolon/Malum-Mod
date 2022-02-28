@@ -1,7 +1,7 @@
 package com.sammy.malum.network;
 
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.client.Minecraft;
@@ -27,7 +27,7 @@ public class PacketEffects
         {
             Color color = type.color;
             Color endColor = type.endColor;
-            RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+            RenderHelper.create(ParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(alpha*2, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
@@ -37,7 +37,7 @@ public class PacketEffects
                     .enableNoClip()
                     .repeat(level, posX, posY, posZ, 12);
 
-            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)
@@ -48,7 +48,7 @@ public class PacketEffects
                     .repeat(level, posX, posY, posZ, 8);
 
             Vec3 velocity = new Vec3(posX, posY, posZ).subtract(altarPosX, altarPosY, altarPosZ).normalize().scale(-0.05f);
-            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha, 0f)
                     .setLifetime(40)
                     .setScale(0.3f, 0)
@@ -72,7 +72,7 @@ public class PacketEffects
         {
             Color color = type.color;
             Color endColor = type.endColor;
-            RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+            RenderHelper.create(ParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(0.6f, 0f)
                     .setLifetime(80)
                     .setScale(0.15f, 0)
@@ -83,7 +83,7 @@ public class PacketEffects
                     .enableGravity()
                     .repeat(level, posX, posY, posZ, 32);
 
-            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.2f, 0f)
                     .setLifetime(60)
                     .setScale(0.4f, 0)
@@ -93,7 +93,7 @@ public class PacketEffects
                     .enableNoClip()
                     .repeat(level, posX, posY, posZ, 12);
 
-            RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
+            RenderHelper.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setAlpha(0.05f, 0f)
                     .setLifetime(30)
                     .setScale(0.2f, 0)

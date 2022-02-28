@@ -1,11 +1,9 @@
 package com.sammy.malum.core.setup.content;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.item.ItemRegistry;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -15,8 +13,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings("unchecked")
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)

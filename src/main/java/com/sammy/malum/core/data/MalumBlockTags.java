@@ -2,8 +2,8 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
-import com.sammy.malum.core.setup.block.BlockRegistry;
-import com.sammy.malum.core.setup.block.BlockTagRegistry;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.world.level.block.*;
 import net.minecraft.data.DataGenerator;
@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
 
 public class MalumBlockTags extends BlockTagsProvider

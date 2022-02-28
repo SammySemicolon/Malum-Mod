@@ -1,7 +1,7 @@
 package com.sammy.malum.core.events;
 
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.setup.worldgen.FeatureRegistry;
+import com.sammy.malum.core.setup.content.worldgen.FeatureRegistry;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.event.world.BiomeLoadingEvent;

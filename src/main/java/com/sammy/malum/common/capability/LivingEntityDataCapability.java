@@ -19,7 +19,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.UUID;
 
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class LivingEntityDataCapability implements SimpleCapability {
 

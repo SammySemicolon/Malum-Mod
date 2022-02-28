@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -77,7 +77,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
 
     public void particles(Level level, BlockPos pos) {
         Color color = EARTHEN_SPIRIT_COLOR;
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
                 .setLifetime(20)
                 .setSpin(0.2f)
@@ -87,7 +87,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                 .randomOffset(0.1f, 0.1f)
                 .randomVelocity(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-        RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
+        RenderHelper.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)

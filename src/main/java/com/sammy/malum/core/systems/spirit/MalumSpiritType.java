@@ -3,7 +3,7 @@ package com.sammy.malum.core.systems.spirit;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

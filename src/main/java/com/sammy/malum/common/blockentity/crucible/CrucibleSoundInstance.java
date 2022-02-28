@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity.crucible;
 
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.systems.sound.SimpleBlockEntitySoundInstance;
 import net.minecraft.client.Minecraft;
 

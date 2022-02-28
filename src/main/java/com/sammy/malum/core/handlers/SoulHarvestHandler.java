@@ -41,9 +41,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 import static com.sammy.malum.core.systems.rendering.RenderManager.DELAYED_RENDER;
-import static com.sammy.malum.core.systems.rendering.RenderUtilities.renderQuad;
+import static com.sammy.malum.core.helper.RenderHelper.renderQuad;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {

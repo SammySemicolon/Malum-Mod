@@ -20,7 +20,7 @@ import java.awt.*;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.systems.rendering.RenderManager.DELAYED_RENDER;
-import static com.sammy.malum.core.systems.rendering.RenderUtilities.renderQuad;
+import static com.sammy.malum.core.helper.RenderHelper.renderQuad;
 
 public class SoulEntityRenderer extends EntityRenderer<SoulEntity>
 {

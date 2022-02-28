@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.tools.magic;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.common.item.tools.ModShovelItem;
-import com.sammy.malum.core.setup.AttributeRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Tier;

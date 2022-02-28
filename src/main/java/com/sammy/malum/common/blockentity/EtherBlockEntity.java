@@ -5,10 +5,10 @@ import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.core.helper.ColorHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.helper.RenderHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -110,7 +110,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                 lifeTime -= 2;
                 scale *= 1.25f;
             }
-            RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
+            RenderHelper.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setScale(scale * 2, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
@@ -119,7 +119,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                     .setAlphaCurveMultiplier(1.5f)
                     .enableNoClip()
                     .spawn(level, x, y, z);
-            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.9f, 0.5f)
@@ -132,21 +132,21 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                     .spawn(level, x, y, z);
             if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f) {
                 y += 0.15f;
-                RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                RenderHelper.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
-                        .setColorCurveMultiplier(3f)
+                        .setColorCurveMultiplier(2f)
                         .setAlphaCurveMultiplier(3f)
-                        .randomOffset(0.1f, 0.15f)
+                        .randomOffset(0.15f, 0.2f)
                         .addVelocity(0, 0.03f, 0)
                         .enableNoClip()
                         .spawn(level, x, y, z);
-                RenderUtilities.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                RenderHelper.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
                         .setAlphaCurveMultiplier(3f)
-                        .randomOffset(0.1f, 0.15f)
+                        .randomOffset(0.15f, 0.2f)
                         .addVelocity(0, velocity, 0)
                         .enableNoClip()
                         .spawn(level, x, y, z);

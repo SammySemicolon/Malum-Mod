@@ -7,15 +7,15 @@ import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
-import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.helper.RenderHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements IAccelerationTarget {
     private static final int HORIZONTAL_RANGE = 3;
@@ -59,6 +59,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public float damageChance;
     public int maxDamage;
     public float progress;
+
+    public int queuedCracks;
+    public int crackTimer;
 
     public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
     public ArrayList<ICrucibleAccelerator> accelerators = new ArrayList<>();
@@ -105,6 +108,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (maxDamage != 0) {
             compound.putInt("maxDamage", maxDamage);
         }
+        if (queuedCracks != 0) {
+            compound.putInt("queuedCracks", queuedCracks);
+        }
 
         inventory.save(compound);
         spiritInventory.save(compound, "spiritInventory");
@@ -124,6 +130,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         speed = compound.getFloat("speed");
         damageChance = compound.getFloat("damageChance");
         maxDamage = compound.getInt("maxDamage");
+        queuedCracks = compound.getInt("queuedCracks");
 
         updateRecipe = true;
         inventory.load(compound);
@@ -185,11 +192,25 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
+        if (queuedCracks > 0)
+        {
+            crackTimer++;
+            if (crackTimer % 7 == 0)
+            {
+                float pitch = 0.95f + (crackTimer-8) * 0.015f+level.random.nextFloat()*0.05f;
+                level.playSound(null, worldPosition, SoundRegistry.IMPETUS_CRACK.get(), SoundSource.BLOCKS, 0.7f, pitch);
+                queuedCracks--;
+                if (queuedCracks == 0)
+                {
+                    crackTimer = 0;
+                }
+            }
+        }
         if (updateRecipe) {
-            recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
-            if (level.isClientSide) {
+            if (level.isClientSide && recipe == null) {
                 CrucibleSoundInstance.playSound(this);
             }
+            recipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
             updateRecipe = false;
         }
         if (level.isClientSide) {
@@ -232,6 +253,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                     break;
                 }
             }
+            queuedCracks = durabilityCost;
             boolean success = stack.hurt(durabilityCost, level.random, null);
             if (success && stack.getItem() instanceof ImpetusItem impetusItem) {
                 inventory.setStackInSlot(0, impetusItem.cracked.get().getDefaultInstance());
@@ -248,7 +270,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         }
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
-        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 1f);
+        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f+level.random.nextFloat()*0.5f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         progress = 0;
         inventory.updateData();
@@ -324,7 +346,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                             accelerator.addParticles(color, endColor, alpha, worldPosition, itemPos);
                         }
                     }
-                    RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+                    RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.30f, 0f)
                             .setLifetime(40)
                             .setScale(0.2f, 0)
@@ -337,7 +359,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                             .enableNoClip()
                             .repeat(level, x, y, z, 1);
 
-                    RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+                    RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.12f / spiritInventory.nonEmptyItemAmount, 0f)
                             .setLifetime(25)
                             .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
@@ -347,7 +369,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                             .enableNoClip()
                             .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
 
-                    RenderUtilities.create(ParticleRegistry.STAR_PARTICLE)
+                    RenderHelper.create(ParticleRegistry.STAR_PARTICLE)
                             .setAlpha(0.16f / spiritInventory.nonEmptyItemAmount, 0f)
                             .setLifetime(25)
                             .setScale(0.45f + level.random.nextFloat() * 0.1f, 0)

@@ -3,8 +3,8 @@ package com.sammy.malum.common.item.spirit;
 import com.sammy.malum.common.item.tools.ModSwordItem;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.setup.DamageSourceRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.server.level.ServerLevel;
@@ -17,7 +17,7 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.network.PacketDistributor;
 
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class TyrvingItem extends ModSwordItem implements IEventResponderItem {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {

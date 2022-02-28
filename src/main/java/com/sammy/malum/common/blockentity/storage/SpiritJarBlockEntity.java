@@ -3,10 +3,10 @@ package com.sammy.malum.common.blockentity.storage;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -119,7 +119,7 @@ public class SpiritJarBlockEntity extends SimpleBlockEntity {
 
     public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
         Color color = type.color;
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.15f, 0f)
                 .setLifetime(20)
                 .setScale(0.3f, 0)

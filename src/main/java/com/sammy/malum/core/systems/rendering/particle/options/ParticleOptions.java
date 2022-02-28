@@ -11,18 +11,7 @@ import net.minecraft.network.FriendlyByteBuf;
 
 import java.awt.*;
 
-public class ParticleOptions implements net.minecraft.core.particles.ParticleOptions {
-    public float r1 = 1, g1 = 1, b1 = 1, a1 = 1, r2 = 1, g2 = 1, b2 = 1, a2 = 0;
-    public float scale1 = 1, scale2 = 0;
-    public int lifetime = 20;
-    public float startingSpin = 0;
-    public float spin = 0;
-    public float activeMotionMultiplier = 1;
-    public float activeSpinMultiplier = 1;
-    public boolean gravity = false;
-    public boolean noClip = false;
-    public float colorCurveMultiplier = 1f;
-    public float alphaCurveMultiplier = 1f;
+public class ParticleOptions extends ParticleOptionsBase implements net.minecraft.core.particles.ParticleOptions {
 
     public static Codec<ParticleOptions> codecFor(ParticleType<?> type) {
         return RecordCodecBuilder.create(instance -> instance.group(
@@ -39,19 +28,19 @@ public class ParticleOptions implements net.minecraft.core.particles.ParticleOpt
                 Codec.BOOL.fieldOf("noClip").forGetter(d -> d.noClip),
                 Codec.FLOAT.fieldOf("colorCurveMultiplier").forGetter(d -> d.colorCurveMultiplier),
                 Codec.FLOAT.fieldOf("alphaCurveMultiplier").forGetter(d -> d.alphaCurveMultiplier)
-        ).apply(instance, (rgba1,rgba2, scale1, scale2,
+        ).apply(instance, (rgba1, rgba2, scale1, scale2,
                            lifetime, spin, activeMotionMultiplier, activeSpinMultiplier, startingSpin, gravity, noClip, colorCurveMultiplier, alphaCurveMultiplier) -> {
             ParticleOptions data = new ParticleOptions(type);
             Color color1 = ColorHelper.getColor(rgba1);
-            data.r1 = color1.getRed()/255f;
-            data.g1 = color1.getGreen()/255f;
-            data.b1 = color1.getBlue()/255f;
-            data.a1 = color1.getAlpha()/255f;
+            data.r1 = color1.getRed() / 255f;
+            data.g1 = color1.getGreen() / 255f;
+            data.b1 = color1.getBlue() / 255f;
+            data.a1 = color1.getAlpha() / 255f;
             Color color2 = ColorHelper.getColor(rgba1);
-            data.r2 = color2.getRed()/255f;
-            data.g2 = color2.getGreen()/255f;
-            data.b2 = color2.getBlue()/255f;
-            data.a2 = color2.getAlpha()/255f;
+            data.r2 = color2.getRed() / 255f;
+            data.g2 = color2.getGreen() / 255f;
+            data.b2 = color2.getBlue() / 255f;
+            data.a2 = color2.getAlpha() / 255f;
             data.scale1 = scale1;
             data.scale2 = scale2;
             data.lifetime = lifetime;

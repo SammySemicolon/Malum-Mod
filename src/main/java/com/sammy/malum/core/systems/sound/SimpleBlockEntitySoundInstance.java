@@ -15,6 +15,7 @@ public class SimpleBlockEntitySoundInstance<T extends SimpleBlockEntity> extends
         this.volume = volume;
         this.pitch = pitch;
         this.delay = 0;
+        this.looping = true;
     }
 
     @Override

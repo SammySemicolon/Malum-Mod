@@ -2,7 +2,7 @@ package com.sammy.malum.common.capability;
 
 import com.sammy.malum.common.packets.SyncPlayerCapabilityDataPacket;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.PacketRegistry;
+import com.sammy.malum.core.setup.server.PacketRegistry;
 import com.sammy.malum.core.setup.content.SpiritAffinityRegistry;
 import com.sammy.malum.core.systems.capability.SimpleCapability;
 import com.sammy.malum.core.systems.capability.SimpleCapabilityProvider;

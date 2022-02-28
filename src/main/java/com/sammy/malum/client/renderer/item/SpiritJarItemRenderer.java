@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;

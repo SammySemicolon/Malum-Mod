@@ -4,8 +4,8 @@ import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.setup.block.BlockRegistry.SOULWOOD_TOTEM_BASE;
-import static com.sammy.malum.core.setup.block.BlockRegistry.SOULWOOD_TOTEM_POLE;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TOTEM_BASE;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TOTEM_POLE;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT_COLOR;
 
@@ -111,7 +111,7 @@ public class ArcaneRiteType extends MalumRiteType
 
     public void particles(Level level, BlockPos pos) {
         Color color = ARCANE_SPIRIT_COLOR;
-        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+        RenderHelper.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.4f, 0f)
                 .setLifetime(20)
                 .setSpin(0.3f)
@@ -121,7 +121,7 @@ public class ArcaneRiteType extends MalumRiteType
                 .randomOffset(0.1f, 0.1f)
                 .randomVelocity(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)

@@ -7,14 +7,14 @@ import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.helper.RenderHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class SpiritAltarTileEntity extends SimpleBlockEntity {
 
@@ -190,13 +190,12 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
         if (updateRecipe)
         {
+            if (level.isClientSide && possibleRecipes.isEmpty()) {
+                AltarSoundInstance.playSound(this);
+            }
             ItemStack stack = inventory.getStackInSlot(0);
             possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.getNonEmptyItemStacks())));
             recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
-            if (level.isClientSide)
-            {
-                AltarSoundInstance.playSound(this);
-            }
             updateRecipe = false;
         }
         if (!possibleRecipes.isEmpty()) {
@@ -363,7 +362,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             accelerator.addParticles(color, endColor, alpha, worldPosition, itemPos);
                         }
                     }
-                    RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+                    RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.125f, 0f)
                             .setLifetime(45)
                             .setScale(0.2f, 0)
@@ -377,7 +376,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             .enableNoClip()
                             .repeat(level, x, y, z, 2);
 
-                    RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
+                    RenderHelper.create(ParticleRegistry.SPARKLE_PARTICLE)
                             .setAlpha(alpha, 0f)
                             .setLifetime(25)
                             .setScale(0.5f, 0)

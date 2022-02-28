@@ -1,9 +1,9 @@
 package com.sammy.malum.common.item.tools;
 
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
-import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import com.sammy.malum.core.systems.item.ModCombatItem;
 import net.minecraft.core.particles.SimpleParticleType;

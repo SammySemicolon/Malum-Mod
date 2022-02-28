@@ -2,8 +2,8 @@ package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.tools.ModScytheItem;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;

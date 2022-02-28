@@ -1,7 +1,7 @@
 package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 

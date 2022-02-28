@@ -29,13 +29,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.setup.AttributeRegistry.ATTRIBUTES;
-import static com.sammy.malum.core.setup.EffectRegistry.EFFECTS;
-import static com.sammy.malum.core.setup.EntityRegistry.ENTITY_TYPES;
-import static com.sammy.malum.core.setup.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.setup.enchantment.MalumEnchantments.ENCHANTMENTS;
-import static com.sammy.malum.core.setup.item.ItemRegistry.ITEMS;
+import static com.sammy.malum.core.setup.content.AttributeRegistry.ATTRIBUTES;
+import static com.sammy.malum.core.setup.content.potion.EffectRegistry.EFFECTS;
+import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TYPES;
+import static com.sammy.malum.core.setup.content.SoundRegistry.SOUNDS;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.content.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends LanguageProvider
 {

@@ -10,7 +10,7 @@ import com.sammy.malum.compability.jei.categories.SpiritFocusingRecipeCategory;
 import com.sammy.malum.compability.jei.categories.SpiritInfusionRecipeCategory;
 import com.sammy.malum.compability.jei.categories.SpiritRiteRecipeCategory;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;

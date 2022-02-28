@@ -3,7 +3,7 @@ package com.sammy.malum.common.blockentity.storage;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;

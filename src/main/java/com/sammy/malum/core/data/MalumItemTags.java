@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.item.ItemTagRegistry;
+import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -10,8 +10,8 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static com.sammy.malum.core.setup.item.ItemRegistry.*;
-import static com.sammy.malum.core.setup.item.ItemTagRegistry.*;
+import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
+import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.*;
 
 public class MalumItemTags extends ItemTagsProvider {
     public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {

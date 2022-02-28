@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block;
 
 import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -51,7 +51,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock
             }
             if (level.isClientSide)
             {
-                RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+                RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                         .setAlpha(0.16f, 0f)
                         .setLifetime(20)
                         .setSpin(0.2f)
@@ -62,7 +62,7 @@ public class SapFilledLogBlock extends RotatedPillarBlock
                         .randomVelocity(0.001f, 0.001f)
                         .evenlyRepeatEdges(level, pos, 8, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
-                RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
+                RenderHelper.create(ParticleRegistry.SMOKE_PARTICLE)
                         .setAlpha(0.08f, 0f)
                         .setLifetime(40)
                         .setSpin(0.1f)

@@ -37,7 +37,7 @@ import java.util.function.Function;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.helper.DataHelper.takeAll;
-import static com.sammy.malum.core.setup.block.BlockRegistry.*;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.*;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
 

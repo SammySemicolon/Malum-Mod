@@ -6,10 +6,10 @@ import com.mojang.math.Vector4f;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.rendering.Shaders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
@@ -126,7 +126,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 1 / 256f, 12 / 256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i * 250f);
 
-                        RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset, 1, 256f);
+                        RenderHelper.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset, 1, 256f);
                     }
                     RenderSystem.depthMask(true);
                     RenderSystem.disableBlend();

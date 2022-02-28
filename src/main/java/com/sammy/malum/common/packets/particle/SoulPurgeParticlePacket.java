@@ -1,7 +1,7 @@
 package com.sammy.malum.common.packets.particle;
 
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -66,7 +66,7 @@ public class SoulPurgeParticlePacket {
     public static class ClientOnly {
         public static void addParticles(Vec3 pos, Color color, Color endColor) {
             Level level = Minecraft.getInstance().level;
-            RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
+            RenderHelper.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setAlpha(1.0f, 0).setScale(0.4f, 0).setLifetime(20)
                     .randomOffset(0.5, 0).randomVelocity(0, 0.125f)
                     .addVelocity(0, 0.28f, 0)
@@ -75,7 +75,7 @@ public class SoulPurgeParticlePacket {
                     .enableGravity()
                     .repeat(level, pos.x, pos.y - 0.2f, pos.z, 40);
 
-            RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
+            RenderHelper.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setAlpha(0.75f, 0).setScale(0.2f, 0).setLifetime(40)
                     .randomOffset(0.5, 0.5).randomVelocity(0.125f, 0.05)
                     .addVelocity(0, 0.15f, 0)

@@ -3,14 +3,14 @@ package com.sammy.malum.common.blockentity.crucible;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
-import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.multiblock.HorizontalDirectionStructure;
 import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.helper.RenderHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -122,10 +122,10 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             float random = level.random.nextFloat() * 0.04f;
             Vec3 velocity = startPos.subtract(crucibleItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
-            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 5f, 0f)
                     .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.2 * level.getGameTime()) % 6.28f)))
-                    .setScale(0.15f + level.random.nextFloat() * 0.1f, 0)
+                    .setScale(0.15f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
                     .setStartingSpin((0.075f * level.getGameTime() % 6.28f))
                     .setSpin(0.1f + level.random.nextFloat() * 0.05f)
@@ -136,10 +136,10 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
+            RenderHelper.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(alpha * 1.5f, 0f)
                     .setLifetime(25)
-                    .setScale(0.05f + level.random.nextFloat() * 0.1f, 0)
+                    .setScale(0.05f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.1)
                     .setStartingSpin((0.225f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)
@@ -147,20 +147,20 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 1.5f, 0f)
                     .setLifetime(25)
-                    .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
+                    .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
                     .setStartingSpin((0.15f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            RenderUtilities.create(ParticleRegistry.STAR_PARTICLE)
+            RenderHelper.create(ParticleRegistry.STAR_PARTICLE)
                     .setAlpha(alpha * 2, 0f)
                     .setLifetime(25)
-                    .setScale(0.45f + level.random.nextFloat() * 0.1f, 0)
+                    .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
                     .setStartingSpin((0.075f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)

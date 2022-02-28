@@ -2,7 +2,7 @@ package com.sammy.malum.common.container;
 
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.setup.ContainerRegistry;
+import com.sammy.malum.core.setup.content.ContainerRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;

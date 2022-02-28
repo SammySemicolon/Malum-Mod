@@ -7,12 +7,14 @@ import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.DamageSourceRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.helper.ParticleHelper;
+import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.setup.item.ItemRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.rendering.Shaders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
@@ -142,7 +144,19 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 16 / 256f, 28 / 256f));
                             shaderInstance.safeGetUniform("TimeOffset").set(i * 150f);
 
-                            RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset, 16, 256f);
+                            RenderHelper.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset, 16, 256f);
+
+                            ParticleHelper.create(ScreenParticleRegistry.WISP)
+                                    .setLifetime(20)
+                                    .setColor(SpiritTypeRegistry.ARCANE_SPIRIT_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.endColor)
+                                    .setAlphaCurveMultiplier(0.75f)
+                                    .setScale(0.5f, 0f)
+                                    .setAlpha(0.25f, 0)
+                                    .setSpin(Minecraft.getInstance().level.random.nextFloat()*6.28f)
+                                    .setStartingSpin(Minecraft.getInstance().level.random.nextFloat()*6.28f)
+                                    .randomOffset(4)
+                                    .randomVelocity(1, 1)
+                                    .repeat(x+4, y+4, 1);
                         }
                         RenderSystem.depthMask(true);
                         RenderSystem.disableBlend();

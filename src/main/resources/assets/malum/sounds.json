@@ -56,8 +56,9 @@
   "altar_speed_up": { "sounds":["malum:altar/altar_speedup1","malum:altar/altar_speedup2"], "subtitle": "malum.subtitle.altar_speed_up" },
   "altar_consume": { "sounds":["malum:altar/altar_consume1", "malum:altar/altar_consume2"], "subtitle": "malum.subtitle.altar_consume" },
 
-  "crucible_craft": { "sounds":["malum:crucible/craft1", "malum:crucible/craft2"], "subtitle": "malum.subtitle.crucible_craft" },
-  "crucible_loop": { "sounds":["malum:crucible/loop"], "subtitle": "malum.subtitle.crucible_loop" },
+  "crucible_craft": { "sounds":["malum:crucible/crucible_craft1", "malum:crucible/crucible_craft2", "malum:crucible/crucible_craft3"], "subtitle": "malum.subtitle.crucible_craft" },
+  "crucible_loop": { "sounds":["malum:crucible/crucible_loop"], "subtitle": "malum.subtitle.crucible_loop" },
+  "impetus_crack": { "sounds":["malum:crucible/impetus_crack1", "malum:crucible/impetus_crack2", "malum:crucible/impetus_crack3"], "subtitle": "malum.subtitle.impetus_crack" },
 
   "void_slash": { "sounds":["malum:void_slash"], "subtitle": "malum.subtitle.void_slash" },
 

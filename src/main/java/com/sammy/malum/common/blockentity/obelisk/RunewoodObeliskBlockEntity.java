@@ -2,11 +2,11 @@ package com.sammy.malum.common.blockentity.obelisk;
 
 import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
-import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.helper.RenderHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -35,7 +35,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
     @Override
     public void addParticles(Color color, Color endColor, float alpha, BlockPos altarPos, Vec3 altarItemPos) {
         Vec3 startPos = DataHelper.fromBlockPos(worldPosition).add(0.5f, 2.15f, 0.5f);
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(alpha, 0f)
                 .setLifetime(35)
                 .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
@@ -47,7 +47,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
                 .enableNoClip()
                 .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-        RenderUtilities.create(ParticleRegistry.SPARKLE_PARTICLE)
+        RenderHelper.create(ParticleRegistry.SPARKLE_PARTICLE)
                 .setAlpha(alpha, 0f)
                 .setLifetime(25)
                 .setScale(0.5f, 0)

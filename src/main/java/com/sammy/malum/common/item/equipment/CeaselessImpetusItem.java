@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.equipment;
 
 import com.sammy.malum.common.packets.TotemOfUndyingEffectPacket;
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IEventResponderItem;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,7 +21,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class CeaselessImpetusItem extends Item implements IEventResponderItem {
     public CeaselessImpetusItem(Properties p_41383_) {

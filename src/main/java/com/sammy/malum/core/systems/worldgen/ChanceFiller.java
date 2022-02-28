@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.worldgen;
 
 import com.mojang.serialization.Codec;
-import com.sammy.malum.core.setup.worldgen.PlacementModifierTypeRegistry;
+import com.sammy.malum.core.setup.content.worldgen.PlacementModifierTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;

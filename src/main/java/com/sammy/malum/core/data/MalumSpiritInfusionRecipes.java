@@ -1,8 +1,8 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
-import com.sammy.malum.core.setup.item.ItemRegistry;
-import com.sammy.malum.core.setup.item.ItemTagRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;

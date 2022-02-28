@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity.altar;
 
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.systems.sound.SimpleBlockEntitySoundInstance;
 import net.minecraft.client.Minecraft;
 
@@ -10,6 +10,7 @@ public class AltarSoundInstance extends SimpleBlockEntitySoundInstance<SpiritAlt
         this.x = blockEntity.getBlockPos().getX()+0.5f;
         this.y = blockEntity.getBlockPos().getY()+0.5f;
         this.z = blockEntity.getBlockPos().getZ()+0.5f;
+        this.pitch = 0.8f;
     }
 
     @Override

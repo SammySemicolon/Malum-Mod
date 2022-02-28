@@ -1,8 +1,8 @@
 package com.sammy.malum.common.enchantment;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.enchantment.MalumEnchantments;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.enchantment.MalumEnchantments;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;

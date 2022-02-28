@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.equipment.curios;
 
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

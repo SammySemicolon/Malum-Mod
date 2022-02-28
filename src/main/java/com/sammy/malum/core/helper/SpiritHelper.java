@@ -3,12 +3,11 @@ package com.sammy.malum.core.helper;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.setup.enchantment.MalumEnchantments;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.content.enchantment.MalumEnchantments;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData.SpiritDataEntry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -156,7 +155,7 @@ public class SpiritHelper {
 
     public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+        RenderHelper.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.21f * alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(4))
                 .setScale(0.3f + rand.nextFloat() * 0.1f, 0)
@@ -168,7 +167,7 @@ public class SpiritHelper {
                 .randomVelocity(0.02f, 0.02f)
                 .repeat(level, x, y, z, 1);
 
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f * alphaMultiplier, 0f)
                 .setLifetime(20 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
@@ -194,7 +193,7 @@ public class SpiritHelper {
 
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, float scaleMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.25f * alphaMultiplier, 0)
                 .setLifetime(8 + rand.nextInt(5))
                 .setScale((0.3f + rand.nextFloat() * 0.2f) * scaleMultiplier, 0)
@@ -205,7 +204,7 @@ public class SpiritHelper {
                 .randomVelocity(0.01f * scaleMultiplier, 0.01f * scaleMultiplier)
                 .repeat(level, x, y, z, 1);
 
-        RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
+        RenderHelper.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f * alphaMultiplier, 0f)
                 .setLifetime(20 + rand.nextInt(10))
                 .setSpin(nextFloat(rand, 0.05f, 0.4f))
