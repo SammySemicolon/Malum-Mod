@@ -61,7 +61,9 @@ public class EtherBlockEntity extends SimpleBlockEntity {
     public void onPlace(LivingEntity placer, ItemStack stack) {
         AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
         firstColor = ColorHelper.getColor(item.getFirstColor(stack));
-        secondColor = ColorHelper.getColor(item.getSecondColor(stack));
+        if (item.iridescent) {
+            secondColor = ColorHelper.getColor(item.getSecondColor(stack));
+        }
         setChanged();
     }
 
@@ -82,11 +84,11 @@ public class EtherBlockEntity extends SimpleBlockEntity {
     @Override
     public void tick() {
         if (level.isClientSide) {
-            if (firstColor == null || secondColor == null) {
+            if (firstColor == null) {
                 return;
             }
             Color firstColor = ColorHelper.darker(this.firstColor, 1);
-            Color secondColor = ColorHelper.brighter(this.secondColor, 1);
+            Color secondColor = this.secondColor == null ? firstColor : ColorHelper.brighter(this.secondColor, 1);
 
             double x = worldPosition.getX() + 0.5;
             double y = worldPosition.getY() + 0.6;
