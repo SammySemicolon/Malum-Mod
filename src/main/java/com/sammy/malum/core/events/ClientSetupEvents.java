@@ -1,7 +1,8 @@
 package com.sammy.malum.core.events;
 
-import com.sammy.malum.core.systems.rendering.RenderManager;
+import com.sammy.malum.core.handlers.RenderHandler;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -19,7 +20,8 @@ public class ClientSetupEvents {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        RenderManager.onClientSetup(event);
+        RenderHandler.onClientSetup(event);
+        ItemRegistry.ClientOnly.registerParticleEmitters(event);
     }
 
     @SuppressWarnings("all")

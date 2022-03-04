@@ -1,4 +1,4 @@
-package com.sammy.malum.core.systems.rendering;
+package com.sammy.malum.core.setup.client;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.sammy.malum.MalumMod;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MalumMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class Shaders {
+public class ShaderRegistry {
 
     public static ExtendedShaderInstance additiveTexture = new ExtendedShaderInstance();
     public static ExtendedShaderInstance additiveParticle = new ExtendedShaderInstance();

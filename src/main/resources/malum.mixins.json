@@ -7,6 +7,9 @@
     "ItemStackMixin"
   ],
   "client": [
+    "AbstractContainerScreenMixin",
+    "ItemRendererMixin",
+    "ScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

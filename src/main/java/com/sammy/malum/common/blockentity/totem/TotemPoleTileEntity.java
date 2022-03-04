@@ -9,6 +9,7 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -147,30 +148,30 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     public void passiveParticles() {
         Color color = type.color;
         Color endColor = type.endColor;
-        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.06f, 0f)
                 .setLifetime(5)
                 .setSpin(0.2f)
                 .setScale(0.4f, 0)
                 .setColor(color, endColor)
                 .setColorCurveMultiplier(2f)
-                .addVelocity(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
+                .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
-                .randomVelocity(0.01f, 0.01f)
+                .randomMotion(0.01f, 0.01f)
                 .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-        RenderHelper.create(ParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.06f, 0f)
                 .setLifetime(10)
                 .setSpin(0.1f)
                 .setScale(0.6f, 0)
                 .setColor(color, endColor)
                 .setColorCurveMultiplier(2f)
-                .addVelocity(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
+                .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
                 .randomOffset(0.2f)
                 .enableNoClip()
-                .randomVelocity(0.01f, 0.01f)
+                .randomMotion(0.01f, 0.01f)
                 .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
     }
 }

@@ -1,21 +1,17 @@
 package com.sammy.malum.client.particles.spiritflame;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sammy.malum.core.systems.rendering.particle.GenericAnimatedParticle;
-import com.sammy.malum.core.systems.rendering.particle.options.ParticleOptions;
-import com.sammy.malum.core.systems.rendering.particle.rendertypes.AdditiveParticleRenderType;
-import net.minecraft.client.Camera;
+import com.sammy.malum.core.systems.rendering.particle.world.FrameSetParticle;
+import com.sammy.malum.core.systems.rendering.particle.world.WorldParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.ParticleEngine;
 
-public class SpiritFlameParticle extends GenericAnimatedParticle {
-    protected SpiritFlameParticle(ClientLevel level, ParticleOptions data, double xSpeed, double ySpeed, double zSpeed, double x, double y, double z, SpriteSet spriteSet) {
-        super(level, data, xSpeed, ySpeed, zSpeed, x, y, z, spriteSet);
+public class SpiritFlameParticle extends FrameSetParticle {
+
+    public SpiritFlameParticle(ClientLevel world, WorldParticleOptions data, ParticleEngine.MutableSpriteSet spriteSet, double x, double y, double z, double xd, double yd, double zd) {
+        super(world, data, spriteSet, x, y, z, xd, yd, zd);
         addFrames(0, 37);
         addLoop(38, 77, 2);
-        setLifetime(ageToFrame.size());
-        hasPhysics = false;
+        setLifetime(frameSet.size());
     }
 
     @Override
@@ -31,17 +27,7 @@ public class SpiritFlameParticle extends GenericAnimatedParticle {
     }
 
     @Override
-    public void render(VertexConsumer consumer, Camera camera, float partialTicks) {
-        super.render(consumer, camera, partialTicks);
-    }
-
-    @Override
     protected int getLightColor(float partialTicks) {
         return 0xF000F0;
-    }
-
-    @Override
-    public ParticleRenderType getRenderType() {
-        return AdditiveParticleRenderType.INSTANCE;
     }
 }

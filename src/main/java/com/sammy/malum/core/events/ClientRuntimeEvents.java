@@ -27,7 +27,6 @@ import java.util.List;
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientRuntimeEvents {
 
-    public static boolean canSpawnParticles;
 
     @SubscribeEvent
     public static void clientTick(TickEvent.ClientTickEvent event) {
@@ -38,25 +37,26 @@ public class ClientRuntimeEvents {
                     return;
                 }
                 ScreenParticleHandler.clientTick(event);
-                canSpawnParticles = true;
             }
         }
     }
+
     @SubscribeEvent
     public static void renderOverlay(RenderGameOverlayEvent.Post event) {
-        ScreenParticleHandler.renderParticles(event);
         EarthenAffinity.ClientOnly.renderHeartOfStone(event);
         ArcaneAffinity.ClientOnly.renderSoulWard(event);
-        if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-            canSpawnParticles = false;
-        }
+    }
+
+    @SubscribeEvent
+    public static void renderTick(TickEvent.RenderTickEvent event) {
+        ScreenParticleHandler.renderParticles(event);
     }
 
     @SubscribeEvent
     public static void fixItemTooltip(ItemTooltipEvent event) { //TODO: make this not absolutely awful, probably with mixins
         ItemStack stack = event.getItemStack();
         Item item = stack.getItem();
-        if (item instanceof ModCombatItem || item instanceof MagicAxeItem || item instanceof MagicSwordItem || item instanceof MagicPickaxeItem || item instanceof MagicShovelItem  || item instanceof MagicHoeItem || (FarmersDelightCompat.LOADED && FarmersDelightCompat.LoadedOnly.isMagicKnife(item))) {
+        if (item instanceof ModCombatItem || item instanceof MagicAxeItem || item instanceof MagicSwordItem || item instanceof MagicPickaxeItem || item instanceof MagicShovelItem || item instanceof MagicHoeItem || (FarmersDelightCompat.LOADED && FarmersDelightCompat.LoadedOnly.isMagicKnife(item))) {
             List<Component> tooltip = event.getToolTip();
             ArrayList<Component> clone = new ArrayList<>(tooltip);
             for (int i = 0; i < clone.size(); i++) {

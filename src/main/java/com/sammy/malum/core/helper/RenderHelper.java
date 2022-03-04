@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.core.systems.rendering.Shaders.ExtendedShaderInstance;
+import com.sammy.malum.core.setup.client.ShaderRegistry.ExtendedShaderInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.particles.ParticleType;
@@ -24,27 +24,29 @@ public class RenderHelper {
     }
 
     public static void blit(PoseStack stack, ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float canvasSize) {
-        innerBlit(stack, shader, x, y, w, h, u / canvasSize, v / canvasSize, (float) (x+w) / canvasSize, (float) (y+h) / canvasSize);
+        innerBlit(stack, shader, x, y, w, h, u / canvasSize, v / canvasSize, (float) (x + w) / canvasSize, (float) (y + h) / canvasSize);
     }
 
     public static void blit(PoseStack stack, ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
         innerBlit(stack, shader, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
     }
+
     public static void blit(PoseStack stack, ExtendedShaderInstance shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float xCanvasSize, float yCanvasSize) {
         innerBlit(stack, shader, x, y, w, h, r, g, b, a, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
     }
 
     public static void blit(PoseStack stack, ExtendedShaderInstance shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
-        innerBlit(stack, shader, x, y, w, h,r, g, b, a, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
+        innerBlit(stack, shader, x, y, w, h, r, g, b, a, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
     }
 
     public static void blit(PoseStack stack, ExtendedShaderInstance shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float canvasSize) {
-        innerBlit(stack, shader, x, y, w, h, r, g, b, a,u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
+        innerBlit(stack, shader, x, y, w, h, r, g, b, a, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
     }
 
     public static void blit(PoseStack stack, ExtendedShaderInstance shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh, float canvasSize) {
-        innerBlit(stack, shader, x, y, w, h,r, g, b, a, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
+        innerBlit(stack, shader, x, y, w, h, r, g, b, a, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
     }
+
     public static void innerBlit(PoseStack stack, ExtendedShaderInstance shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh) {
         Matrix4f last = stack.last().pose();
         RenderSystem.setShader(shader.getInstance());
@@ -57,6 +59,7 @@ public class RenderHelper {
         bufferbuilder.end();
         BufferUploader.end(bufferbuilder);
     }
+
     public static void innerBlit(PoseStack stack, ExtendedShaderInstance shader, int x, int y, double w, double h, float u, float v, float uw, float vh) {
         Matrix4f last = stack.last().pose();
         RenderSystem.setShader(shader.getInstance());
@@ -85,21 +88,23 @@ public class RenderHelper {
     public static void blit(PoseStack stack, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
         innerBlit(stack, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
     }
+
     public static void blit(PoseStack stack, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float xCanvasSize, float yCanvasSize) {
         innerBlit(stack, x, y, w, h, r, g, b, a, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
     }
 
     public static void blit(PoseStack stack, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
-        innerBlit(stack, x, y, w, h,r, g, b, a, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
+        innerBlit(stack, x, y, w, h, r, g, b, a, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
     }
 
     public static void blit(PoseStack stack, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float canvasSize) {
-        innerBlit(stack, x, y, w, h, r, g, b, a,u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
+        innerBlit(stack, x, y, w, h, r, g, b, a, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
     }
 
     public static void blit(PoseStack stack, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh, float canvasSize) {
-        innerBlit(stack, x, y, w, h,r, g, b, a, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
+        innerBlit(stack, x, y, w, h, r, g, b, a, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
     }
+
     public static void innerBlit(PoseStack stack, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh) {
         Matrix4f last = stack.last().pose();
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
@@ -112,6 +117,7 @@ public class RenderHelper {
         bufferbuilder.end();
         BufferUploader.end(bufferbuilder);
     }
+
     public static void innerBlit(PoseStack stack, int x, int y, double w, double h, float u, float v, float uw, float vh) {
         Matrix4f last = stack.last().pose();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -284,13 +290,4 @@ public class RenderHelper {
     public static Vector3f parametricSphere(float u, float v, float r) {
         return new Vector3f(Mth.cos(u) * Mth.sin(v) * r, Mth.cos(v) * r, Mth.sin(u) * Mth.sin(v) * r);
     }
-
-    public static ParticleHelper.ParticleBuilder create(ParticleType<?> type) {
-        return new ParticleHelper.ParticleBuilder(type);
-    }
-
-    public static ParticleHelper.ParticleBuilder create(RegistryObject<?> type) {
-        return new ParticleHelper.ParticleBuilder((ParticleType<?>) type.get());
-    }
-
 }

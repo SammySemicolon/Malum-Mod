@@ -2,6 +2,7 @@ package com.sammy.malum.common.packets.particle;
 
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
@@ -60,7 +61,7 @@ public class MagicParticlePacket {
     public static class ClientOnly {
         public static void addParticles(Vec3 pos, Color color) {
             Level level = Minecraft.getInstance().level;
-            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.1f, 0f)
                     .setLifetime(10)
                     .setSpin(0.4f)
@@ -68,10 +69,10 @@ public class MagicParticlePacket {
                     .setColor(color, color.darker())
                     .enableNoClip()
                     .randomOffset(0.2f, 0.2f)
-                    .randomVelocity(0.01f, 0.01f)
+                    .randomMotion(0.01f, 0.01f)
                     .repeat(level, pos.x, pos.y, pos.z, 12);
 
-            RenderHelper.create(ParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.05f, 0f)
                     .setLifetime(20)
                     .setSpin(0.1f)
@@ -79,7 +80,7 @@ public class MagicParticlePacket {
                     .setColor(color, color.darker())
                     .randomOffset(0.4f)
                     .enableNoClip()
-                    .randomVelocity(0.025f, 0.025f)
+                    .randomMotion(0.025f, 0.025f)
                     .repeat(level, pos.x, pos.y, pos.z, 20);
         }
     }

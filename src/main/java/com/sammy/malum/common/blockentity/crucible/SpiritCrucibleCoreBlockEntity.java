@@ -16,6 +16,7 @@ import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -346,35 +347,35 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                             accelerator.addParticles(color, endColor, alpha, worldPosition, itemPos);
                         }
                     }
-                    RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+                    ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.30f, 0f)
                             .setLifetime(40)
                             .setScale(0.2f, 0)
                             .randomOffset(0.02f)
-                            .randomVelocity(0.01f, 0.01f)
+                            .randomMotion(0.01f, 0.01f)
                             .setColor(color, endColor)
                             .setColorCurveMultiplier(0.75f)
-                            .randomVelocity(0.0025f, 0.0025f)
-                            .addVelocity(velocity.x, velocity.y, velocity.z)
+                            .randomMotion(0.0025f, 0.0025f)
+                            .addMotion(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
                             .repeat(level, x, y, z, 1);
 
-                    RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+                    ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.12f / spiritInventory.nonEmptyItemAmount, 0f)
                             .setLifetime(25)
                             .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
                             .randomOffset(0.05)
-                            .setStartingSpin((0.075f * level.getGameTime() % 6.28f))
+                            .setSpinOffset((0.075f * level.getGameTime() % 6.28f))
                             .setColor(color, endColor)
                             .enableNoClip()
                             .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
 
-                    RenderHelper.create(ParticleRegistry.STAR_PARTICLE)
+                    ParticleBuilders.create(ParticleRegistry.STAR_PARTICLE)
                             .setAlpha(0.16f / spiritInventory.nonEmptyItemAmount, 0f)
                             .setLifetime(25)
                             .setScale(0.45f + level.random.nextFloat() * 0.1f, 0)
                             .randomOffset(0.05)
-                            .setStartingSpin((0.075f * level.getGameTime() % 6.28f))
+                            .setSpinOffset((0.075f * level.getGameTime() % 6.28f))
                             .setColor(color, endColor)
                             .enableNoClip()
                             .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);

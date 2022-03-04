@@ -11,6 +11,7 @@ import com.sammy.malum.core.systems.multiblock.HorizontalDirectionStructure;
 import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -122,47 +123,47 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             float random = level.random.nextFloat() * 0.04f;
             Vec3 velocity = startPos.subtract(crucibleItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
-            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 5f, 0f)
                     .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.2 * level.getGameTime()) % 6.28f)))
                     .setScale(0.15f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
-                    .setStartingSpin((0.075f * level.getGameTime() % 6.28f))
+                    .setSpinOffset((0.075f * level.getGameTime() % 6.28f))
                     .setSpin(0.1f + level.random.nextFloat() * 0.05f)
                     .setColor(color.brighter(), endColor)
                     .setAlphaCurveMultiplier(0.5f)
                     .setColorCurveMultiplier(0.75f)
-                    .setVelocity(velocity.x, velocity.y, velocity.z)
+                    .setMotion(velocity.x, velocity.y, velocity.z)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            RenderHelper.create(ParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(alpha * 1.5f, 0f)
                     .setLifetime(25)
                     .setScale(0.05f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.1)
-                    .setStartingSpin((0.225f * level.getGameTime()) % 6.28f)
+                    .setSpinOffset((0.225f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)
-                    .randomVelocity(0.005f, 0.005f)
+                    .randomMotion(0.005f, 0.005f)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 1.5f, 0f)
                     .setLifetime(25)
                     .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
-                    .setStartingSpin((0.15f * level.getGameTime()) % 6.28f)
+                    .setSpinOffset((0.15f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            RenderHelper.create(ParticleRegistry.STAR_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.STAR_PARTICLE)
                     .setAlpha(alpha * 2, 0f)
                     .setLifetime(25)
                     .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
-                    .setStartingSpin((0.075f * level.getGameTime()) % 6.28f)
+                    .setSpinOffset((0.075f * level.getGameTime()) % 6.28f)
                     .setColor(color, endColor)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);

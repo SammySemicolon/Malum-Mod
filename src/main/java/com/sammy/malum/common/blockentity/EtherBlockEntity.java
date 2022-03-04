@@ -9,6 +9,7 @@ import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -112,7 +113,16 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                 lifeTime -= 2;
                 scale *= 1.25f;
             }
-            RenderHelper.create(ParticleRegistry.SPARKLE_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+                    .setScale(scale, 0)
+                    .setLifetime(lifeTime)
+                    .setAlpha(0.9f, 0.5f)
+                    .setColor(firstColor, secondColor)
+                    .setColorCurveMultiplier(2f)
+                    .addMotion(0, velocity, 0)
+                    .enableNoClip()
+                    .spawn(level, x, y, z);
+            ParticleBuilders.create(ParticleRegistry.SPARKLE_PARTICLE)
                     .setScale(scale * 2, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
@@ -121,35 +131,24 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                     .setAlphaCurveMultiplier(1.5f)
                     .enableNoClip()
                     .spawn(level, x, y, z);
-            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
-                    .setScale(scale, 0)
-                    .setLifetime(lifeTime)
-                    .setAlpha(0.9f, 0.5f)
-                    .setColor(firstColor, secondColor)
-                    .setColorCurveMultiplier(2f)
-                    .setAlphaCurveMultiplier(2f)
-                    .addVelocity(0, velocity, 0)
-                    .setSpin(level.random.nextFloat() * 0.5f)
-                    .enableNoClip()
-                    .spawn(level, x, y, z);
             if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f) {
                 y += 0.15f;
-                RenderHelper.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(2f)
                         .setAlphaCurveMultiplier(3f)
                         .randomOffset(0.15f, 0.2f)
-                        .addVelocity(0, 0.03f, 0)
+                        .addMotion(0, 0.03f, 0)
                         .enableNoClip()
                         .spawn(level, x, y, z);
-                RenderHelper.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
                         .setColorCurveMultiplier(3f)
                         .setAlphaCurveMultiplier(3f)
                         .randomOffset(0.15f, 0.2f)
-                        .addVelocity(0, velocity, 0)
+                        .addMotion(0, velocity, 0)
                         .enableNoClip()
                         .spawn(level, x, y, z);
             }

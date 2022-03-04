@@ -32,11 +32,18 @@ import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.malum.core.systems.rendering.particle.ParticleRenderTypes;
+import com.sammy.malum.core.systems.rendering.particle.SimpleParticleOptions;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
@@ -47,6 +54,7 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -54,9 +62,11 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import static com.sammy.malum.MalumMod.MODID;
+import static com.sammy.malum.core.handlers.ScreenParticleHandler.registerItemParticleEmitter;
 import static com.sammy.malum.core.helper.ColorHelper.brighter;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.setup.content.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
@@ -89,6 +99,7 @@ public class ItemRegistry {
     public static Item.Properties IMPETUS_PROPERTIES() {
         return new Item.Properties().tab(MalumImpetusTab.INSTANCE).stacksTo(1);
     }
+
     public static Item.Properties NODE_PROPERTIES() {
         return new Item.Properties().tab(MalumImpetusTab.INSTANCE);
     }
@@ -507,6 +518,7 @@ public class ItemRegistry {
             ComposterBlock.COMPOSTABLES.put(item.get(), chance);
         }
     }
+
     @Mod.EventBusSubscriber(modid = MalumMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
 
@@ -529,6 +541,12 @@ public class ItemRegistry {
             SPIRIT_HUNTER_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.LAYER));
             SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
+        }
+
+        public static void registerParticleEmitters(FMLClientSetupEvent event) {
+            for (MalumSpiritType spirit : SPIRITS) {
+                SpiritHelper.registerSpiritParticleEmitter(spirit);
+            }
         }
 
         @SubscribeEvent
@@ -566,8 +584,7 @@ public class ItemRegistry {
             registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR, 1));
         }
 
-        public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color)
-        {
+        public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color) {
             int r = color.getRed();
             int g = color.getGreen();
             int b = color.getBlue();

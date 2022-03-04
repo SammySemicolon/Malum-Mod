@@ -6,9 +6,9 @@ import com.mojang.math.Vector4f;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.events.ClientRuntimeEvents;
+import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.helper.ParticleHelper;
 import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
@@ -16,7 +16,9 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.systems.rendering.Shaders;
+import com.sammy.malum.core.setup.client.ShaderRegistry;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -130,7 +132,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                         RenderSystem.defaultBlendFunc();
                         RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                        ShaderInstance shaderInstance = Shaders.distortedTexture.getInstance().get();
+                        ShaderInstance shaderInstance = ShaderRegistry.distortedTexture.getInstance().get();
                         shaderInstance.safeGetUniform("YFrequency").set(15f);
                         shaderInstance.safeGetUniform("XFrequency").set(15f);
                         shaderInstance.safeGetUniform("Speed").set(550f);
@@ -145,19 +147,20 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 16 / 256f, 28 / 256f));
                             shaderInstance.safeGetUniform("TimeOffset").set(i * 150f);
 
-                            RenderHelper.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 16, 256f);
+                            RenderHelper.blit(poseStack, ShaderRegistry.distortedTexture, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 16, 256f);
 
-                            if (ClientRuntimeEvents.canSpawnParticles) {
-                                ParticleHelper.create(ScreenParticleRegistry.WISP)
+                            if (ScreenParticleHandler.canSpawnParticles) {
+                                ParticleBuilders.create(ScreenParticleRegistry.WISP)
                                         .setLifetime(20)
                                         .setColor(SpiritTypeRegistry.ARCANE_SPIRIT_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.endColor)
                                         .setAlphaCurveMultiplier(0.75f)
                                         .setScale(0.2f*progress, 0f)
-                                        .setAlpha(0.2f, 0)
+                                        .setAlpha(0.05f, 0)
                                         .setSpin(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
-                                        .setStartingSpin(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
+                                        .setSpinOffset(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
                                         .randomOffset(2)
-                                        .randomVelocity(0.5f, 0.5f)
+                                        .randomMotion(0.5f, 0.5f)
+                                        .overwriteRenderOrder(ScreenParticle.RenderOrder.BEFORE_UI)
                                         .repeat(x + 5, y + 5, 1);
                             }
                         }

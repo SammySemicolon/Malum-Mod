@@ -2,15 +2,20 @@ package com.sammy.malum.core.helper;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
+import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.enchantment.MalumEnchantments;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData.SpiritDataEntry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
+import static com.sammy.malum.core.handlers.ScreenParticleHandler.registerItemParticleEmitter;
 import static net.minecraft.util.Mth.nextFloat;
 import static net.minecraft.world.entity.EquipmentSlot.MAINHAND;
 
@@ -155,7 +161,7 @@ public class SpiritHelper {
 
     public static void spawnSpiritParticles(Level level, double x, double y, double z, float alphaMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        RenderHelper.create(ParticleRegistry.TWINKLE_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.21f * alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(4))
                 .setScale(0.3f + rand.nextFloat() * 0.1f, 0)
@@ -163,11 +169,11 @@ public class SpiritHelper {
                 .setColorCurveMultiplier(2f)
                 .randomOffset(0.05f)
                 .enableNoClip()
-                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .randomVelocity(0.02f, 0.02f)
+                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
+                .randomMotion(0.02f, 0.02f)
                 .repeat(level, x, y, z, 1);
 
-        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f * alphaMultiplier, 0f)
                 .setLifetime(20 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
@@ -176,14 +182,14 @@ public class SpiritHelper {
                 .setColorCurveMultiplier(1.25f)
                 .randomOffset(0.1f)
                 .enableNoClip()
-                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .randomVelocity(0.02f, 0.02f)
+                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
+                .randomMotion(0.02f, 0.02f)
                 .repeat(level, x, y, z, 1)
                 .setAlpha(0.2f * alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(2))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
                 .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
-                .randomVelocity(0.01f, 0.01f)
+                .randomMotion(0.01f, 0.01f)
                 .repeat(level, x, y, z, 1);
     }
 
@@ -193,18 +199,18 @@ public class SpiritHelper {
 
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, float scaleMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
-        RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.25f * alphaMultiplier, 0)
                 .setLifetime(8 + rand.nextInt(5))
                 .setScale((0.3f + rand.nextFloat() * 0.2f) * scaleMultiplier, 0)
                 .setColor(color, endColor)
                 .randomOffset(0.05f)
                 .enableNoClip()
-                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .randomVelocity(0.01f * scaleMultiplier, 0.01f * scaleMultiplier)
+                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
+                .randomMotion(0.01f * scaleMultiplier, 0.01f * scaleMultiplier)
                 .repeat(level, x, y, z, 1);
 
-        RenderHelper.create(ParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f * alphaMultiplier, 0f)
                 .setLifetime(20 + rand.nextInt(10))
                 .setSpin(nextFloat(rand, 0.05f, 0.4f))
@@ -212,14 +218,49 @@ public class SpiritHelper {
                 .setColor(color, endColor)
                 .randomOffset(0.1f)
                 .enableNoClip()
-                .addVelocity(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .randomVelocity(0.04f * scaleMultiplier, 0.04f * scaleMultiplier)
+                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
+                .randomMotion(0.04f * scaleMultiplier, 0.04f * scaleMultiplier)
                 .repeat(level, x, y, z, 1)
                 .setAlpha(0.12f * alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(5))
                 .setSpin(nextFloat(rand, 0.1f, 0.5f))
                 .setScale((0.15f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier)
-                .randomVelocity(0.03f * scaleMultiplier, 0.03f * scaleMultiplier)
+                .randomMotion(0.03f * scaleMultiplier, 0.03f * scaleMultiplier)
                 .repeat(level, x, y, z, 1);
+    }
+
+    public static void registerSpiritParticleEmitter(MalumSpiritType type) {
+        registerItemParticleEmitter((s, x, y, order) -> spawnSpiritScreenParticles(type.color, type.endColor, x, y, order), type.getSplinterItem());
+    }
+
+    public static void spawnSpiritScreenParticles(Color color, Color endColor, float pXPosition, float pYPosition, ScreenParticle.RenderOrder renderOrder) {
+        Random rand = Minecraft.getInstance().level.getRandom();
+        ParticleBuilders.create(ScreenParticleRegistry.TWINKLE)
+                .setAlpha(0.07f, 0f)
+                .setLifetime(10 + rand.nextInt(8))
+                .setScale(0.5f + rand.nextFloat() * 0.5f, 0)
+                .setColor(color, endColor)
+                .setColorCurveMultiplier(2f)
+                .randomOffset(0.05f)
+                .randomMotion(0.02f, 0.02f)
+                .overwriteRenderOrder(renderOrder)
+                .repeat(pXPosition, pYPosition, 1);
+
+        ParticleBuilders.create(ScreenParticleRegistry.WISP)
+                .setAlpha(0.04f, 0f)
+                .setLifetime(20 + rand.nextInt(8))
+                .setSpin(nextFloat(rand, 0.2f, 0.4f))
+                .setScale(0.5f + rand.nextFloat() * 0.2f, 0)
+                .setColor(color, endColor)
+                .setColorCurveMultiplier(1.25f)
+                .randomOffset(0.1f)
+                .randomMotion(0.02f, 0.02f)
+                .overwriteRenderOrder(renderOrder)
+                .repeat(pXPosition, pYPosition, 1)
+                .setLifetime(10 + rand.nextInt(2))
+                .setSpin(nextFloat(rand, 0.05f, 0.1f))
+                .setScale(0.4f + rand.nextFloat() * 0.05f, 0f)
+                .randomMotion(0.01f, 0.01f)
+                .repeat(pXPosition, pYPosition, 1);
     }
 }

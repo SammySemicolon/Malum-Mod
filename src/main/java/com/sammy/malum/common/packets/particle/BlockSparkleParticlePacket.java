@@ -2,6 +2,7 @@ package com.sammy.malum.common.packets.particle;
 
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.Direction;
@@ -64,7 +65,7 @@ public class BlockSparkleParticlePacket
     public static class ClientOnly {
         public static void addParticles(BlockPos pos, Color color) {
             Level level = Minecraft.getInstance().level;
-            RenderHelper.create(ParticleRegistry.TWINKLE_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.TWINKLE_PARTICLE)
                     .setAlpha(0.4f, 0f)
                     .setLifetime(20)
                     .setSpin(0.3f)
@@ -72,9 +73,9 @@ public class BlockSparkleParticlePacket
                     .setColor(color, color)
                     .enableNoClip()
                     .randomOffset(0.1f, 0.1f)
-                    .randomVelocity(0.001f, 0.001f)
+                    .randomMotion(0.001f, 0.001f)
                     .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-            RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.1f, 0f)
                     .setLifetime(40)
                     .setSpin(0.1f)
@@ -82,7 +83,7 @@ public class BlockSparkleParticlePacket
                     .setColor(color, color)
                     .randomOffset(0.2f)
                     .enableNoClip()
-                    .randomVelocity(0.001f, 0.001f)
+                    .randomMotion(0.001f, 0.001f)
                     .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
         }
     }

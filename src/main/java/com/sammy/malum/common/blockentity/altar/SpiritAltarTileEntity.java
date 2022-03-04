@@ -15,6 +15,7 @@ import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -362,29 +363,29 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             accelerator.addParticles(color, endColor, alpha, worldPosition, itemPos);
                         }
                     }
-                    RenderHelper.create(ParticleRegistry.WISP_PARTICLE)
+                    ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                             .setAlpha(0.125f, 0f)
                             .setLifetime(45)
                             .setScale(0.2f, 0)
                             .randomOffset(0.02f)
-                            .randomVelocity(0.01f, 0.01f)
+                            .randomMotion(0.01f, 0.01f)
                             .setColor(color, endColor)
                             .setColorCurveMultiplier(1.25f)
                             .setSpin(0.1f + level.random.nextFloat()*0.1f)
-                            .randomVelocity(0.0025f, 0.0025f)
-                            .addVelocity(velocity.x, velocity.y, velocity.z)
+                            .randomMotion(0.0025f, 0.0025f)
+                            .addMotion(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()
                             .repeat(level, x, y, z, 2);
 
-                    RenderHelper.create(ParticleRegistry.SPARKLE_PARTICLE)
+                    ParticleBuilders.create(ParticleRegistry.SPARKLE_PARTICLE)
                             .setAlpha(alpha, 0f)
                             .setLifetime(25)
                             .setScale(0.5f, 0)
                             .randomOffset(0.1, 0.1)
-                            .randomVelocity(0.02f, 0.02f)
+                            .randomMotion(0.02f, 0.02f)
                             .setColor(color, endColor)
                             .setColorCurveMultiplier(1.5f)
-                            .randomVelocity(0.0025f, 0.0025f)
+                            .randomMotion(0.0025f, 0.0025f)
                             .enableNoClip()
                             .repeat(level, itemPos.x, itemPos.y, itemPos.z, 2);
                 }

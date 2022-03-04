@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.core.systems.rendering.RenderTypes;
-import com.sammy.malum.core.systems.rendering.Shaders;
+import com.sammy.malum.core.setup.client.ShaderRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -19,7 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.awt.*;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
-import static com.sammy.malum.core.systems.rendering.RenderManager.DELAYED_RENDER;
+import static com.sammy.malum.core.handlers.RenderHandler.DELAYED_RENDER;
 import static com.sammy.malum.core.helper.RenderHelper.renderQuad;
 
 public class SoulEntityRenderer extends EntityRenderer<SoulEntity>
@@ -36,14 +36,14 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity>
 
     private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/soul_noise.png");
     public static final RenderType SOUL_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialNoiseQuadRenderType(SOUL_NOISE), ()->{
-        ShaderInstance instance = Shaders.radialNoise.getInstance().get();
+        ShaderInstance instance = ShaderRegistry.radialNoise.getInstance().get();
         instance.safeGetUniform("Speed").set(2500f);
         instance.safeGetUniform("Intensity").set(45f);
     });
     private static final ResourceLocation SECONDARY_SOUL_NOISE = prefix("textures/vfx/soul_noise_secondary.png");
     public static final RenderType SECONDARY_SOUL_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialScatterNoiseQuadRenderType(SECONDARY_SOUL_NOISE), ()->{
 
-        ShaderInstance instance = Shaders.radialScatterNoise.getInstance().get();
+        ShaderInstance instance = ShaderRegistry.radialScatterNoise.getInstance().get();
         instance.safeGetUniform("Speed").set(-1500f);
         instance.safeGetUniform("ScatterPower").set(-20f);
         instance.safeGetUniform("Intensity").set(55f);
@@ -51,7 +51,7 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity>
     private static final ResourceLocation TRINARY_SOUL_NOISE = prefix("textures/vfx/soul_noise_trinary.png");
     public static final RenderType TRINARY_SOUL_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialScatterNoiseQuadRenderType(TRINARY_SOUL_NOISE), ()->{
 
-        ShaderInstance instance = Shaders.radialScatterNoise.getInstance().get();
+        ShaderInstance instance = ShaderRegistry.radialScatterNoise.getInstance().get();
         instance.safeGetUniform("Speed").set(-2000f);
         instance.safeGetUniform("ScatterPower").set(30f);
         instance.safeGetUniform("Intensity").set(75f);

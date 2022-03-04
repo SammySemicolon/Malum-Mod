@@ -1,9 +1,11 @@
-package com.sammy.malum.core.systems.rendering;
+package com.sammy.malum.core.handlers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.math.Matrix4f;
 import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.core.systems.rendering.RenderTypeShaderHandler;
+import com.sammy.malum.core.systems.rendering.RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,7 +18,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import java.util.HashMap;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class RenderManager {
+public class RenderHandler {
     public static HashMap<RenderType, BufferBuilder> BUFFERS = new HashMap<>();
     public static HashMap<RenderType, RenderTypeShaderHandler> HANDLERS = new HashMap<>();
     public static MultiBufferSource.BufferSource DELAYED_RENDER;

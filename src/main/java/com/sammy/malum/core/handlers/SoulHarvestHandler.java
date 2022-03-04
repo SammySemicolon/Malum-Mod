@@ -12,7 +12,7 @@ import com.sammy.malum.common.packets.particle.SoulPurgeParticlePacket;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.rendering.RenderTypes;
-import com.sammy.malum.core.systems.rendering.Shaders;
+import com.sammy.malum.core.setup.client.ShaderRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -42,7 +42,7 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
-import static com.sammy.malum.core.systems.rendering.RenderManager.DELAYED_RENDER;
+import static com.sammy.malum.core.handlers.RenderHandler.DELAYED_RENDER;
 import static com.sammy.malum.core.helper.RenderHelper.renderQuad;
 import static net.minecraft.util.Mth.nextFloat;
 
@@ -205,21 +205,21 @@ public class SoulHarvestHandler {
         private static final ResourceLocation HARVEST_NOISE = prefix("textures/vfx/soul_noise_secondary.png");
         private static final RenderType HARVEST_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialScatterNoiseQuadRenderType(HARVEST_NOISE), () -> {
 
-            ShaderInstance instance = Shaders.radialScatterNoise.getInstance().get();
+            ShaderInstance instance = ShaderRegistry.radialScatterNoise.getInstance().get();
             instance.safeGetUniform("Speed").set(-5500f);
             instance.safeGetUniform("ScatterPower").set(40f);
             instance.safeGetUniform("Intensity").set(55f);
         });
         private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/soul_noise.png");
         private static final RenderType SOUL_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialNoiseQuadRenderType(SOUL_NOISE), () -> {
-            ShaderInstance instance = Shaders.radialNoise.getInstance().get();
+            ShaderInstance instance = ShaderRegistry.radialNoise.getInstance().get();
             instance.safeGetUniform("Speed").set(4500f);
             instance.safeGetUniform("Intensity").set(45f);
         });
         private static final ResourceLocation PREVIEW_NOISE = prefix("textures/vfx/harvest_noise.png");
         private static final RenderType PREVIEW_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialScatterNoiseQuadRenderType(PREVIEW_NOISE), () -> {
 
-            ShaderInstance instance = Shaders.radialScatterNoise.getInstance().get();
+            ShaderInstance instance = ShaderRegistry.radialScatterNoise.getInstance().get();
             instance.safeGetUniform("Speed").set(-3500f);
             instance.safeGetUniform("ScatterPower").set(-60f);
             instance.safeGetUniform("Intensity").set(55f);

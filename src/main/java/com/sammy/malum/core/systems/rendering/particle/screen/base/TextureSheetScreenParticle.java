@@ -1,4 +1,4 @@
-package com.sammy.malum.core.systems.rendering.screenparticle;
+package com.sammy.malum.core.systems.rendering.particle.screen.base;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SpriteSet;

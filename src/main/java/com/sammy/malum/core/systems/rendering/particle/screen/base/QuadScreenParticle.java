@@ -1,14 +1,13 @@
-package com.sammy.malum.core.systems.rendering.screenparticle;
+package com.sammy.malum.core.systems.rendering.particle.screen.base;
 
 import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
 
@@ -25,8 +24,8 @@ public abstract class QuadScreenParticle extends ScreenParticle {
    }
 
    @Override
-   public void render(BufferBuilder bufferBuilder, RenderGameOverlayEvent.Post event) {
-      float partialTicks = event.getPartialTicks();
+   public void render(BufferBuilder bufferBuilder) {
+      float partialTicks = Minecraft.getInstance().timer.partialTick;
       float size = getQuadSize(partialTicks) * 10;
       float u0 = getU0();
       float u1 = getU1();
@@ -41,10 +40,11 @@ public abstract class QuadScreenParticle extends ScreenParticle {
          vector3f.mul(size);
          vector3f.add((float) x, (float) y, 0);
       }
-      bufferBuilder.vertex(vectors[0].x(), vectors[0].y(), 0).uv(u1, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
-      bufferBuilder.vertex(vectors[1].x(), vectors[1].y(), 0).uv(u1, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
-      bufferBuilder.vertex(vectors[2].x(), vectors[2].y(), 0).uv(u0, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
-      bufferBuilder.vertex(vectors[3].x(), vectors[3].y(), 0).uv(u0, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
+
+      bufferBuilder.vertex(vectors[0].x(), vectors[0].y(), 800).uv(u1, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
+      bufferBuilder.vertex(vectors[1].x(), vectors[1].y(), 800).uv(u1, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
+      bufferBuilder.vertex(vectors[2].x(), vectors[2].y(), 800).uv(u0, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
+      bufferBuilder.vertex(vectors[3].x(), vectors[3].y(), 800).uv(u0, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
    }
 
    public float getQuadSize(float partialTicks) {
