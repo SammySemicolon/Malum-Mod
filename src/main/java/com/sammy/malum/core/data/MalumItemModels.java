@@ -107,11 +107,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     }
     private void spiritSplinterItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        if (i.equals(ItemRegistry.EARTHEN_SPIRIT) || i.equals(ItemRegistry.INFERNAL_SPIRIT) || i.equals(ItemRegistry.AERIAL_SPIRIT) || i.equals(ItemRegistry.AQUEOUS_SPIRIT)) {
-            withExistingParent(name, GENERATED).texture("layer0", prefix("item/elemental_spirit"));
-        } else {
-            generatedItem(i);
-        }
+        withExistingParent(name, GENERATED).texture("layer0", prefix("item/spirit_shard"));
     }
     private void etherBrazierItem(RegistryObject<Item> i)
     {

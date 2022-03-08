@@ -3,6 +3,7 @@ package com.sammy.malum.client.screen.codex;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,6 +16,7 @@ import org.lwjgl.glfw.GLFW;
 
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.isHovering;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
+import static com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.*;
 
 public class EntryScreen extends Screen {
     public static final ResourceLocation BOOK_TEXTURE = DataHelper.prefix("textures/gui/book/entry.png");
@@ -80,6 +82,7 @@ public class EntryScreen extends Screen {
                 }
             }
         }
+        ScreenParticleHandler.renderParticles(BEFORE_UI, BEFORE_TOOLTIPS, AFTER_EVERYTHING);
     }
 
     @Override
