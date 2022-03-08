@@ -109,11 +109,17 @@ dependencies {
         annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     }
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4")
+    // 1.18.2
+    //    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3:api")
+    //    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3")
+    //    compileOnly fg.deobf('mezz.jei:jei-1.18.2-9.4.3.122:api')
+    //    runtimeOnly fg.deobf('mezz.jei:jei-1.18.2-9.4.3.122')
 
-    compileOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46:api')
-    runtimeOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46')
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3")
+
+    compileOnly fg.deobf('mezz.jei:jei-1.18.2:9.5.0.125:api')
+    runtimeOnly fg.deobf('mezz.jei:jei-1.18.2:9.5.0.125')
 
     implementation fg.deobf("curse.maven:mutil-351914:3640643")
     implementation fg.deobf("curse.maven:tetra-289712:3640654")
