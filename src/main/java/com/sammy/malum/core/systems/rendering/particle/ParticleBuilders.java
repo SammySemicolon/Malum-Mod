@@ -7,11 +7,13 @@ import com.sammy.malum.core.systems.easing.Easing;
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleOptions;
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleType;
 import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
+import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ParticleEmitter;
 import com.sammy.malum.core.systems.rendering.particle.world.WorldParticleOptions;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -413,6 +415,10 @@ public class ParticleBuilders {
         }
         public ScreenParticleBuilder overwriteRenderOrder(ScreenParticle.RenderOrder renderOrder) {
             data.renderOrder = renderOrder;
+            return this;
+        }
+        public ScreenParticleBuilder setStack(ItemStack stack) {
+            data.stack = stack;
             return this;
         }
         public ScreenParticleBuilder setColorEasing(Easing easing) {

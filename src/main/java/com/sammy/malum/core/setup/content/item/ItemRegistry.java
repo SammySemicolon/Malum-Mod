@@ -30,6 +30,7 @@ import com.sammy.malum.common.item.misc.MalumFuelItem;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
@@ -42,6 +43,7 @@ import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
 import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rendering.particle.ParticleRenderTypes;
 import com.sammy.malum.core.systems.rendering.particle.SimpleParticleOptions;
+import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
@@ -544,9 +546,12 @@ public class ItemRegistry {
         }
 
         public static void registerParticleEmitters(FMLClientSetupEvent event) {
-            for (MalumSpiritType spirit : SPIRITS) {
-                SpiritHelper.registerSpiritParticleEmitter(spirit);
-            }
+            Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+            DataHelper.takeAll(items, i -> i.get() instanceof ItemParticleEmitter).forEach(i -> {
+                        ItemParticleEmitter emitter = (ItemParticleEmitter) i.get();
+                        ScreenParticleHandler.registerItemParticleEmitter(i.get(), emitter::particleTick);
+                    }
+            );
         }
 
         @SubscribeEvent

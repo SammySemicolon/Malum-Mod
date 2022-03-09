@@ -82,7 +82,7 @@ public class EntryScreen extends Screen {
                 }
             }
         }
-        ScreenParticleHandler.renderParticles(BEFORE_UI, BEFORE_TOOLTIPS, AFTER_EVERYTHING);
+        ScreenParticleHandler.renderParticles(BEFORE_TOOLTIPS);
     }
 
     @Override

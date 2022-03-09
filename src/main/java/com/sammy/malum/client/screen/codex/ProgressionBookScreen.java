@@ -520,6 +520,7 @@ public class ProgressionBookScreen extends Screen
         cut();
 
         renderEntries(poseStack, mouseX, mouseY, partialTicks);
+        ScreenParticleHandler.renderParticles(BEFORE_TOOLTIPS);
         GL11.glDisable(GL_SCISSOR_TEST);
 
         renderTransparentTexture(FADE_TEXTURE, poseStack, guiLeft, guiTop, 1, 1, bookWidth, bookHeight, 512, 512);

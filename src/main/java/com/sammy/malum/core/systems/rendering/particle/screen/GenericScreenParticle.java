@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 import java.awt.*;
 
 public class GenericScreenParticle extends TextureSheetScreenParticle {
-    protected ScreenParticleOptions data;
+    public ScreenParticleOptions data;
     private final ParticleRenderType renderType;
     protected final ParticleEngine.MutableSpriteSet spriteSet;
     float[] hsv1 = new float[3], hsv2 = new float[3];

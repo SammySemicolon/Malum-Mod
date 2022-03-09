@@ -6,6 +6,7 @@ import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.systems.item.ModCombatItem;
+import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -26,7 +27,6 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientRuntimeEvents {
-
 
     @SubscribeEvent
     public static void clientTick(TickEvent.ClientTickEvent event) {
