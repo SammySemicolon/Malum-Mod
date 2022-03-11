@@ -183,8 +183,8 @@ public class ProgressionBookScreen extends Screen
         entries.add(new BookEntry(
                 "ether", ETHER.get(), 5,6)
                 .addPage(new HeadlineTextPage("ether", "ether_a"))
-                .addPage(new TextPage("ether_b"))
                 .addPage(SpiritInfusionPage.fromOutput(ETHER.get()))
+                .addPage(new TextPage("ether_b"))
                 .addPage(new CraftingBookPage(ETHER_TORCH.get(), EMPTY, EMPTY, EMPTY, EMPTY, ETHER.get(), EMPTY, EMPTY, STICK, EMPTY))
                 .addPage(new CraftingBookPage(TAINTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TAINTED_ROCK.get(), ETHER.get(), TAINTED_ROCK.get(), STICK, TAINTED_ROCK.get(), STICK))
                 .addPage(new CraftingBookPage(TWISTED_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))

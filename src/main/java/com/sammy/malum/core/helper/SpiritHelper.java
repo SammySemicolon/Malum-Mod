@@ -240,7 +240,7 @@ public class SpiritHelper {
                 .randomOffset(0.05f)
                 .randomMotion(0.05f, 0.05f)
                 .overwriteRenderOrder(renderOrder)
-                .setStack(stack)
+                .centerOnStack(stack)
                 .repeat(pXPosition, pYPosition, 1);
 
         ParticleBuilders.create(ScreenParticleRegistry.WISP)
@@ -253,7 +253,7 @@ public class SpiritHelper {
                 .randomOffset(0.1f)
                 .randomMotion(0.4f, 0.4f)
                 .overwriteRenderOrder(renderOrder)
-                .setStack(stack)
+                .centerOnStack(stack)
                 .repeat(pXPosition, pYPosition, 1)
                 .setLifetime(10 + rand.nextInt(2))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))

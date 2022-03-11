@@ -23,8 +23,8 @@ public class ParticleEmitter {
             for (ScreenParticle particle : particles) {
                 if (particle instanceof GenericScreenParticle screenParticle) {
                     if (stack.equals(screenParticle.data.stack)) {
-                        screenParticle.x = x+screenParticle.xMoved;
-                        screenParticle.y = y+screenParticle.yMoved;
+                        screenParticle.x = x+screenParticle.data.xOffset+screenParticle.xMoved;
+                        screenParticle.y = y+screenParticle.data.yOffset+screenParticle.yMoved;
                     }
                 }
             }

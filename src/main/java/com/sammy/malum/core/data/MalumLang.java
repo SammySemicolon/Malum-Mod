@@ -233,7 +233,7 @@ public class MalumLang extends LanguageProvider
 
         addDescription("crucible_acceleration", "Heating Up");
         addHeadline("crucible_acceleration", "Crucible Acceleration");
-        addPage("crucible_acceleration_a", "The crucible is a rather heavy and slow piece of spirit engineering, and that is not without a reason. For you see; the impetus can be really easily damaged, the process of spirit focusing heavily realised on a slow and constant input of arcana.");
+        addPage("crucible_acceleration_a", "The crucible is a rather heavy and slow piece of spirit engineering, and that is not without a reason. For you see; the impetus can be really easily damaged, the process of spirit focusing heavily relies on a slow and constant input of arcana.");
         addPage("crucible_acceleration_b", "Increasing the rate at which arcana is streamed into the impetus would yield a faster result but it could lead to your catalyst getting damaged more than necessary. With that in mind the spirit catalyzer is a heavily augmented pedestal designed specifically for utilizing solid fuel to accelerate a nearby machination.");
         addPage("crucible_acceleration_c", "Each nearby spirit catalyzer will amplify the speed of the crucible at the cost of greater risk of catalyst instability, you may observe exponentially higher results with each new catalyzer; reaching the limit at 8.");
 

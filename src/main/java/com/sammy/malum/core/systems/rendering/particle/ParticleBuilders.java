@@ -417,8 +417,14 @@ public class ParticleBuilders {
             data.renderOrder = renderOrder;
             return this;
         }
-        public ScreenParticleBuilder setStack(ItemStack stack) {
+        public ScreenParticleBuilder centerOnStack(ItemStack stack) {
             data.stack = stack;
+            return this;
+        }
+        public ScreenParticleBuilder centerOnStack(ItemStack stack, float xOffset, float yOffset) {
+            data.stack = stack;
+            data.xOffset = xOffset;
+            data.yOffset = yOffset;
             return this;
         }
         public ScreenParticleBuilder setColorEasing(Easing easing) {
