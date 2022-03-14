@@ -32,10 +32,10 @@ public class ParticleEmitter {
     }
 
     public void tick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
-        supplier.tick(stack, x, y, renderOrder, this);
+        supplier.tick(stack, x, y, renderOrder);
     }
 
     public interface EmitterSupplier {
-        void tick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder, ParticleEmitter emitter);
+        void tick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder);
     }
 }

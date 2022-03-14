@@ -22,7 +22,7 @@ import static com.sammy.malum.core.systems.rendering.particle.screen.base.Screen
 
 public class ScreenParticleHandler {
 
-    public static Map<ParticleRenderType, ArrayList<ScreenParticle>> PARTICLES;
+    public static Map<ParticleRenderType, ArrayList<ScreenParticle>> PARTICLES = new HashMap<>();
     public static Map<Item, ParticleEmitter> EMITTERS = new HashMap<>();
     public static final Tesselator TESSELATOR = new Tesselator();
     public static boolean canSpawnParticles;

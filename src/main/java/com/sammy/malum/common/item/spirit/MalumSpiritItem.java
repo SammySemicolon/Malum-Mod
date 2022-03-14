@@ -31,7 +31,7 @@ public class MalumSpiritItem extends Item implements IFloatingGlowItem, ItemPart
     }
 
     @Override
-    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder, ParticleEmitter emitter) {
-        spawnSpiritScreenParticles(type.color, type.endColor, stack, x, y, renderOrder, emitter);
+    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
+        spawnSpiritScreenParticles(type.color, type.endColor, stack, x, y, renderOrder);
     }
 }

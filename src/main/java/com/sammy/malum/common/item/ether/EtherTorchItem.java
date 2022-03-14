@@ -63,7 +63,7 @@ public class EtherTorchItem extends AbstractEtherItem {
     }
 
     @Override
-    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder, ParticleEmitter emitter) {
+    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
         Level level = Minecraft.getInstance().level;
         float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
         AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();

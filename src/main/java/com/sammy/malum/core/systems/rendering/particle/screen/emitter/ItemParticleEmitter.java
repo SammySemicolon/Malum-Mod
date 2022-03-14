@@ -4,5 +4,5 @@ import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticl
 import net.minecraft.world.item.ItemStack;
 
 public interface ItemParticleEmitter {
-    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder, ParticleEmitter emitter);
+    public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder);
 }

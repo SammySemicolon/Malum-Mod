@@ -229,7 +229,7 @@ public class SpiritHelper {
                 .repeat(level, x, y, z, 1);
     }
 
-    public static void spawnSpiritScreenParticles(Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition, ScreenParticle.RenderOrder renderOrder, ParticleEmitter emitter) {
+    public static void spawnSpiritScreenParticles(Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition, ScreenParticle.RenderOrder renderOrder) {
         Random rand = Minecraft.getInstance().level.getRandom();
         ParticleBuilders.create(ScreenParticleRegistry.TWINKLE)
                 .setAlpha(0.07f, 0f)

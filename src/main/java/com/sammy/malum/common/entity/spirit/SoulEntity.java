@@ -32,7 +32,7 @@ public class SoulEntity extends FloatingEntity {
     public SoulEntity(Level level, MalumEntitySpiritData spiritData, UUID ownerUUID, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         this.spiritData = spiritData;
-        if (!spiritData.dataEntries.isEmpty()) {
+        if (!spiritData.equals(EMPTY)) {
             this.color = spiritData.primaryType.color;
             getEntityData().set(DATA_COLOR, color.getRGB());
             this.endColor = spiritData.primaryType.endColor;

@@ -8,6 +8,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.common.Mod;
 
 import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
 
@@ -40,7 +41,6 @@ public abstract class QuadScreenParticle extends ScreenParticle {
          vector3f.mul(size);
          vector3f.add((float) x, (float) y, 0);
       }
-
       bufferBuilder.vertex(vectors[0].x(), vectors[0].y(), 800).uv(u1, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
       bufferBuilder.vertex(vectors[1].x(), vectors[1].y(), 800).uv(u1, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
       bufferBuilder.vertex(vectors[2].x(), vectors[2].y(), 800).uv(u0, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
