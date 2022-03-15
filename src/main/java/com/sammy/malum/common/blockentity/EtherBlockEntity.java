@@ -9,6 +9,7 @@ import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.easing.Easing;
 import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 
 import java.awt.*;
+import java.util.Random;
 
 public class EtherBlockEntity extends SimpleBlockEntity {
     public Color firstColor;
@@ -90,7 +92,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
             }
             Color firstColor = ColorHelper.darker(this.firstColor, 1);
             Color secondColor = this.secondColor == null ? firstColor : ColorHelper.brighter(this.secondColor, 1);
-
+            Random random = level.random;
             double x = worldPosition.getX() + 0.5;
             double y = worldPosition.getY() + 0.6;
             double z = worldPosition.getZ() + 0.5;
@@ -116,9 +118,13 @@ public class EtherBlockEntity extends SimpleBlockEntity {
             ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
-                    .setAlpha(0.9f, 0.5f)
+                    .setAlpha(0.8f, 0.5f)
                     .setColor(firstColor, secondColor)
-                    .setColorCurveMultiplier(2f)
+                    .setColorCurveMultiplier(0.8f)
+                    .setColorEasing(Easing.CIRC_OUT)
+                    .setSpinOffset((level.getGameTime()*0.2f)%6.28f)
+                    .setSpin(0, 0.4f)
+                    .setSpinEasing(Easing.QUARTIC_IN)
                     .addMotion(0, velocity, 0)
                     .enableNoClip()
                     .spawn(level, x, y, z);
@@ -129,6 +135,8 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                     .setColor(firstColor, secondColor)
                     .setColorCurveMultiplier(1.5f)
                     .setAlphaCurveMultiplier(1.5f)
+                    .setSpin(0, 2)
+                    .setSpinEasing(Easing.QUARTIC_IN)
                     .enableNoClip()
                     .spawn(level, x, y, z);
             if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f) {
