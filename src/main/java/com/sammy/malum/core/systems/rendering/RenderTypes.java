@@ -1,14 +1,19 @@
 package com.sammy.malum.core.systems.rendering;
 
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.handlers.RenderHandler;
 import com.sammy.malum.core.setup.client.ShaderRegistry;
+import net.mehvahdjukaar.selene.util.DispenserHelper;
+import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.function.Function;
 
 import static com.mojang.blaze3d.vertex.DefaultVertexFormat.*;
 
@@ -18,6 +23,12 @@ public class RenderTypes extends RenderStateShard{
     }
     public static final RenderType ADDITIVE_PARTICLE = createGenericRenderType("additive_particle", PARTICLE, VertexFormat.Mode.QUADS, ShaderRegistry.additiveParticle.shard, StateShards.ADDITIVE_TRANSPARENCY, TextureAtlas.LOCATION_PARTICLES);
     public static final RenderType ADDITIVE_BLOCK_PARTICLE = createGenericRenderType("additive_block_particle", PARTICLE, VertexFormat.Mode.QUADS, ShaderRegistry.additiveParticle.shard, StateShards.ADDITIVE_TRANSPARENCY, TextureAtlas.LOCATION_BLOCKS);
+
+    public static final Function<ResourceLocation, RenderType> ADDITIVE_TEXTURE = Util.memoize((resourceLocation) -> createGenericRenderType("additive_texture", POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, ShaderRegistry.additiveTexture.shard, StateShards.ADDITIVE_TRANSPARENCY, resourceLocation));
+    public static final Function<ResourceLocation, RenderType> RADIAL_NOISE = Util.memoize((resourceLocation) -> createGenericRenderType("radial_noise_quad", POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, ShaderRegistry.radialNoise.shard, StateShards.ADDITIVE_TRANSPARENCY, resourceLocation));
+    public static final Function<ResourceLocation, RenderType> RADIAL_SCATTER_NOISE = Util.memoize((resourceLocation) -> createGenericRenderType("additive_texture", POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, ShaderRegistry.radialScatterNoise.shard, StateShards.ADDITIVE_TRANSPARENCY, resourceLocation));
+    public static final Function<ResourceLocation, RenderType> ADDITIVE_TEXTURE_TRAIL = Util.memoize((resourceLocation) -> createGenericRenderType("additive_texture", POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, ShaderRegistry.movingTrail.shard, StateShards.ADDITIVE_TRANSPARENCY, resourceLocation));
+    public static final Function<ResourceLocation, RenderType> SCROLLING_ADDITIVE_TEXTURE_TRAIL = Util.memoize((resourceLocation) -> createGenericRenderType("additive_texture", POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, ShaderRegistry.movingBootlegTriangle.shard, StateShards.ADDITIVE_TRANSPARENCY, resourceLocation));
 
     public static RenderType createAdditiveQuadRenderType(ResourceLocation resourceLocation) {
         return createGenericRenderType("additive_quad", POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, ShaderRegistry.additiveTexture.shard, StateShards.ADDITIVE_TRANSPARENCY, resourceLocation);

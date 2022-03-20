@@ -1,10 +1,7 @@
 package com.sammy.malum.core.setup.content.item;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.model.DripArmorModel;
-import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
-import com.sammy.malum.client.model.SpiritHunterArmorModel;
-import com.sammy.malum.client.model.TailModel;
+import com.sammy.malum.client.model.*;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
@@ -33,20 +30,14 @@ import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
-import com.sammy.malum.core.systems.rendering.particle.ParticleRenderTypes;
-import com.sammy.malum.core.systems.rendering.particle.SimpleParticleOptions;
 import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
@@ -64,7 +55,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 import static com.sammy.malum.MalumMod.MODID;
@@ -528,6 +518,7 @@ public class ItemRegistry {
         public static SpiritHunterArmorModel SPIRIT_HUNTER_ARMOR;
         public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
         public static TailModel TAIL_MODEL;
+        public static HeadOverlayModel HEAD_OVERLAY_MODEL;
 
         @SubscribeEvent
         public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -535,6 +526,7 @@ public class ItemRegistry {
             event.registerLayerDefinition(SpiritHunterArmorModel.LAYER, SpiritHunterArmorModel::createBodyLayer);
             event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
             event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
+            event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -543,6 +535,7 @@ public class ItemRegistry {
             SPIRIT_HUNTER_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.LAYER));
             SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
+            HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
         }
 
         public static void registerParticleEmitters(FMLClientSetupEvent event) {
