@@ -15,7 +15,6 @@ import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
-import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -290,7 +289,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         ArrayList<ICrucibleAccelerator> nearbyAccelerators = BlockHelper.getBlockEntities(ICrucibleAccelerator.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
         HashMap<ICrucibleAccelerator.CrucibleAcceleratorType, Integer> entries = new HashMap<>();
         for (ICrucibleAccelerator accelerator : nearbyAccelerators) {
-            if (accelerator.canAccelerate() && (accelerator.getTarget() == null || accelerator.getTarget() == this)) {
+            if (accelerator.canStartAccelerating() && (accelerator.getTarget() == null || accelerator.getTarget() == this)) {
                 accelerator.setTarget(this);
                 int max = accelerator.getAcceleratorType().maximumEntries;
                 int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);

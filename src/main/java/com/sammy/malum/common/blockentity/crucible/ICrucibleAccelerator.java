@@ -8,10 +8,12 @@ import java.awt.*;
 public interface ICrucibleAccelerator {
     CrucibleAcceleratorType getAcceleratorType();
 
+    default boolean canStartAccelerating() {
+        return true;
+    }
     default boolean canAccelerate() {
         return true;
     }
-
     IAccelerationTarget getTarget();
 
     void setTarget(IAccelerationTarget target);
