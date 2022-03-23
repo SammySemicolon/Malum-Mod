@@ -5,7 +5,7 @@
     "dstrgb": "1-srcalpha"
   },
   "vertex": "malum:generic",
-  "fragment": "malum:vfx/moving_bootleg_triangle",
+  "fragment": "malum:vfx/scrolling_texture",
   "attributes": [
     "Position",
     "Color",

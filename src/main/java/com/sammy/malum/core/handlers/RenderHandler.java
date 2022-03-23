@@ -4,10 +4,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.math.Matrix4f;
 import com.sammy.malum.config.ClientConfig;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.setup.client.ShaderRegistry;
 import com.sammy.malum.core.systems.rendering.RenderTypeShaderHandler;
 import com.sammy.malum.core.systems.rendering.RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -16,6 +19,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.HashMap;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RenderHandler {
@@ -27,7 +32,6 @@ public class RenderHandler {
     public static void onClientSetup(FMLClientSetupEvent event) {
         DELAYED_RENDER = MultiBufferSource.immediateWithBuffers(BUFFERS, new BufferBuilder(256));
     }
-
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRenderLast(RenderLevelLastEvent event) {
@@ -43,12 +47,15 @@ public class RenderHandler {
             RenderSystem.applyModelViewMatrix();
         }
         for (RenderType type : BUFFERS.keySet()) {
-            if (HANDLERS.containsKey(type))
-            {
+            ShaderInstance instance = RenderHelper.getShader(type);
+            if (HANDLERS.containsKey(type)) {
                 RenderTypeShaderHandler handler = HANDLERS.get(type);
-                handler.updateShaderData();
+                handler.updateShaderData(instance);
             }
             DELAYED_RENDER.endBatch(type);
+            if (instance instanceof ShaderRegistry.ExtendedShaderInstance extendedShaderInstance)
+            {
+            }
         }
         DELAYED_RENDER.endBatch();
         event.getPoseStack().popPose();

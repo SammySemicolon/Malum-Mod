@@ -18,7 +18,7 @@ import static top.theillusivec4.curios.api.type.capability.ICurio.DropRule.ALWAY
 public class CurioTokenOfGratitude extends MalumCurioItem {
     public static final ArrayList<UUID> GRADITUDE_CERTIFIED = new ArrayList<>();
     public static final UUID SAMMY = getUuid("0ca54301-6170-4c44-b3e0-b8afa6b81ed2");
-    public static final UUID OWL_PERSON = getUuid("0ca54301-6170-4c44-b3e0-b8afa6b81ed2");
+    public static final UUID OWL_PERSON = getUuid("309b2cf6-caa1-4c9a-912d-7b4be827dc8c");
 
     public CurioTokenOfGratitude(Properties builder) {
         super(builder);

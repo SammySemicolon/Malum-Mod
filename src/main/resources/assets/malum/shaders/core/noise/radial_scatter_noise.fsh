@@ -8,11 +8,13 @@ uniform float YFrequency;
 uniform float Intensity;
 uniform float ScatterPower;
 uniform float ScatterFrequency;
+uniform float DistanceFalloff;
 
 uniform vec4 ColorModulator;
 
 in vec4 vertexColor;
 in vec2 texCoord0;
+in vec2 texCoord2;
 
 out vec4 fragColor;
 
@@ -41,9 +43,9 @@ void main() {
     float gameTime = GameTime * Speed;
     vec2 uv = texCoord0;
     float toCenter = distance(vec2(0.5), uv);
-    float time = Intensity*sin(toCenter);
+    float time = Intensity*toCenter;
     uv = uv*rot(time+gameTime+scatter(uv, ScatterFrequency));
     uv = uv*rot(sin(time*XFrequency));
     uv = uv*rot(cos(time*XFrequency));
-    fragColor = vertexColor * texture(Sampler0, uv) * ColorModulator - toCenter*2.;
+    fragColor = vertexColor * texture(Sampler0, uv) * ColorModulator - toCenter*DistanceFalloff;
 }

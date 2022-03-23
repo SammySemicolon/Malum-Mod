@@ -92,7 +92,6 @@ public class EtherBlockEntity extends SimpleBlockEntity {
             }
             Color firstColor = ColorHelper.darker(this.firstColor, 1);
             Color secondColor = this.secondColor == null ? firstColor : ColorHelper.brighter(this.secondColor, 1);
-            Random random = level.random;
             double x = worldPosition.getX() + 0.5;
             double y = worldPosition.getY() + 0.6;
             double z = worldPosition.getZ() + 0.5;

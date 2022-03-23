@@ -5,7 +5,7 @@
     "dstrgb": "1-srcalpha"
   },
   "vertex": "malum:generic",
-  "fragment": "malum:vfx/bootleg_triangle",
+  "fragment": "malum:vfx/triangle_texture",
   "attributes": [
     "Position",
     "Color",

@@ -22,6 +22,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import java.awt.*;
 import java.util.HashMap;
 
+import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
+
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
     public static final Color SOULWOOD = new Color(15, 7, 17);
@@ -41,7 +43,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(overlayHashmap.get(blockEntityIn.type), color(blockEntityIn), combinedLightIn, direction, poseStack, bufferIn);
+        renderQuad(overlayHashmap.get(blockEntityIn.type), color(blockEntityIn), direction, poseStack, bufferIn);
     }
 
     public Color color(TotemPoleTileEntity totemPoleTileEntity) {
@@ -53,18 +55,18 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         return new Color(red, green, blue);
     }
 
-    public void renderQuad(Material material, Color color, int light, Direction direction, PoseStack poseStack, MultiBufferSource bufferIn) {
-        poseStack.pushPose();
+    public void renderQuad(Material material, Color color, Direction direction, PoseStack poseStack, MultiBufferSource bufferIn) {
         TextureAtlasSprite sprite = material.sprite();
-        VertexConsumer builder = material.buffer(bufferIn, r -> RenderType.cutout());
+        VertexConsumer consumer = material.buffer(bufferIn, r -> RenderType.cutout());
+        poseStack.pushPose();
         poseStack.translate(0.5, 0, 0.5);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation(direction)));
         poseStack.translate(-0.5, 0, -0.5);
-        Matrix4f last = poseStack.last().pose();
-        RenderHelper.vertex(builder, last, 1.0001f, 1, 1,color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha(),sprite.getU0(), sprite.getV0(), 15728880, 1, 0,0);
-        RenderHelper.vertex(builder, last, 1.0001f, 0, 1,color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha(),sprite.getU0(), sprite.getV1(), 15728880, 1, 0,0);
-        RenderHelper.vertex(builder, last, 1.0001f, 0, 0,color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha(),sprite.getU1(), sprite.getV1(), 15728880, 1, 0,0);
-        RenderHelper.vertex(builder, last, 1.0001f, 1, 0,color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha(),sprite.getU1(), sprite.getV0(), 15728880, 1, 0,0);
+        RenderHelper.create()
+                .setColor(color)
+                .setLight(FULL_BRIGHT)
+                .setUV(sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1())
+                .renderQuad(consumer, poseStack, 1);
 
         poseStack.popPose();
     }

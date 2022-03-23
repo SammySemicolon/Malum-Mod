@@ -21,8 +21,6 @@ import net.minecraft.world.phys.Vec3;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
-import java.util.UUID;
-
 public class TokenOfGratitudeRenderer implements ICurioRenderer {
     private static final ResourceLocation SAMMY = DataHelper.prefix("textures/other/sammy_texture.png");
     private static final ResourceLocation OWL_PERSON = DataHelper.prefix("textures/other/owl_person_texture.png");
@@ -32,21 +30,22 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
         if (slotContext.entity() instanceof AbstractClientPlayer playerEntity) {
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.SAMMY)) {
                 poseStack.pushPose();
+                Vec3 movement = new Vec3(playerEntity.getDeltaMovement().x, 0, playerEntity.getDeltaMovement().z);
                 double wagSpeed = playerEntity.getDeltaMovement().length();
-                if (wagSpeed != 0.0) {
-                    Vec3 horizontalPlayerVelocity = new Vec3(playerEntity.getDeltaMovement().x, 0.0, playerEntity.getDeltaMovement().z);
+                if (wagSpeed != 0) {
+                    double factor = 55;
                     Vec3 yawLook = Vec3.directionFromRotation(0.0f, playerEntity.getYRot());
                     Vec3 look = new Vec3(yawLook.x, 0.0, yawLook.z);
                     Vec3 desiredDirection = look.yRot((float) Math.toRadians(90)).normalize();
-                    Vec3 sidewaysVelocity = desiredDirection.scale(horizontalPlayerVelocity.dot(desiredDirection));
+                    Vec3 sidewaysVelocity = desiredDirection.scale(movement.dot(desiredDirection));
                     double speedAndDirection = (sidewaysVelocity.length() * -Math.signum(desiredDirection.dot(sidewaysVelocity))) / wagSpeed;
-                    double rotation = speedAndDirection * 55;
-                    poseStack.mulPose(Vector3f.YP.rotationDegrees((float) rotation));
+                    poseStack.mulPose(Vector3f.YP.rotationDegrees((float) (speedAndDirection * factor)));
                 }
-                if (!playerEntity.isShiftKeyDown()) {
-                    double xRotation = Math.sin(playerEntity.level.getGameTime() / 18f) * 6;
-                    poseStack.mulPose(Vector3f.XP.rotationDegrees((float) xRotation));
-                }
+                float ambientFactor = playerEntity.isShiftKeyDown() ? 2 : 6;
+                double ambientXRotation = Math.sin(playerEntity.level.getGameTime() / 18f) * ambientFactor;
+                poseStack.mulPose(Vector3f.XP.rotationDegrees((float) ambientXRotation));
+                double ambientYRotation = Math.cos(playerEntity.level.getGameTime() / 24f) * -ambientFactor;
+                poseStack.mulPose(Vector3f.YP.rotationDegrees((float) ambientYRotation));
                 VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, RenderType.armorCutoutNoCull(SAMMY), false, stack.hasFoil());
                 ItemRegistry.ClientOnly.TAIL_MODEL.setupAnim(playerEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
                 ItemRegistry.ClientOnly.TAIL_MODEL.prepareMobModel(playerEntity, limbSwing, limbSwingAmount, partialTicks);
