@@ -4,6 +4,7 @@ import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.core.handlers.RenderHandler;
 import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.systems.item.ModCombatItem;
 import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
@@ -17,8 +18,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -47,13 +50,17 @@ public class ClientRuntimeEvents {
         ArcaneAffinity.ClientOnly.renderSoulWard(event);
     }
 
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void renderLast(RenderLevelLastEvent event) {
+        RenderHandler.onRenderLast(event);
+    }
     @SubscribeEvent
     public static void renderTick(TickEvent.RenderTickEvent event) {
         ScreenParticleHandler.renderParticles(event);
     }
 
     @SubscribeEvent
-    public static void fixItemTooltip(ItemTooltipEvent event) { //TODO: make this not absolutely awful, probably with mixins
+    public static void fixItemTooltip(ItemTooltipEvent event) { //TODO: make this not absolutely awful, change to a mixin
         ItemStack stack = event.getItemStack();
         Item item = stack.getItem();
         if (item instanceof ModCombatItem || item instanceof MagicAxeItem || item instanceof MagicSwordItem || item instanceof MagicPickaxeItem || item instanceof MagicShovelItem || item instanceof MagicHoeItem || (FarmersDelightCompat.LOADED && FarmersDelightCompat.LoadedOnly.isMagicKnife(item))) {

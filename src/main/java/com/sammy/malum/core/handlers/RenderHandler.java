@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RenderHandler {
     public static HashMap<RenderType, BufferBuilder> BUFFERS = new HashMap<>();
     public static HashMap<RenderType, RenderTypeShaderHandler> HANDLERS = new HashMap<>();
@@ -33,7 +32,6 @@ public class RenderHandler {
         DELAYED_RENDER = MultiBufferSource.immediateWithBuffers(BUFFERS, new BufferBuilder(256));
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRenderLast(RenderLevelLastEvent event) {
         event.getPoseStack().pushPose();
         if (ClientConfig.DELAYED_PARTICLE_RENDERING.get()) {
@@ -53,8 +51,9 @@ public class RenderHandler {
                 handler.updateShaderData(instance);
             }
             DELAYED_RENDER.endBatch(type);
-            if (instance instanceof ShaderRegistry.ExtendedShaderInstance extendedShaderInstance)
-            {
+
+            if (instance instanceof ShaderRegistry.ExtendedShaderInstance extendedShaderInstance) {
+                extendedShaderInstance.setUniformDefaults();
             }
         }
         DELAYED_RENDER.endBatch();

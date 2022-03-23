@@ -16,8 +16,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("unchecked")
 @Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
-public class SpiritTypeRegistry
-{
+public class SpiritTypeRegistry {
     public static ArrayList<MalumSpiritType> SPIRITS = new ArrayList<>();
 
     public static final Color SACRED_SPIRIT_COLOR = new Color(243, 65, 107);
@@ -44,18 +43,18 @@ public class SpiritTypeRegistry
     public static final Color EARTHEN_SPIRIT_COLOR = new Color(73, 234, 27);
     public static MalumSpiritType EARTHEN_SPIRIT = create("earthen", EARTHEN_SPIRIT_COLOR, ItemRegistry.EARTHEN_SPIRIT);
 
-    public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem)
-    {
+    public static MalumSpiritType create(String identifier, Color color, RegistryObject<Item> splinterItem) {
         MalumSpiritType spiritType = new MalumSpiritType(identifier, color, splinterItem);
         SPIRITS.add(spiritType);
         return spiritType;
     }
-    public static MalumSpiritType create(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem)
-    {
+
+    public static MalumSpiritType create(String identifier, Color color, Color endColor, RegistryObject<Item> splinterItem) {
         MalumSpiritType spiritType = new MalumSpiritType(identifier, color, endColor, splinterItem);
         SPIRITS.add(spiritType);
         return spiritType;
     }
+
     @SubscribeEvent
     public static void stitchTextures(TextureStitchEvent.Pre event) {
         if (!event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {

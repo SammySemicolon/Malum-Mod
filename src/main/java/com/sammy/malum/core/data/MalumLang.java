@@ -114,14 +114,14 @@ public class MalumLang extends LanguageProvider
         addHeadline("introduction", "Introduction");
         addPage("introduction_a", "Within this world, every living body has a soul. The body is a physical vessel that the soul occupies. The soul is one's consciousness and what animates the body. Both represent who you are, one physically, the other magically.");
         addPage("introduction_b", "The encyclopedia arcana is a book that documents all that is known about arcane presence within this world. It focuses on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
-        addPage("introduction_c", "In order to properly harness the unspoken power of soul magics, you'll have to the very center of it. At the very core of every soul rests untapped potential in form of what's known as a spirit - a fragment of potential.");
-        addPage("introduction_d", "The magical presence of a soul derives almost entirely from the spirits found within it. They may be dormant, but they are there. Each different soul is one and only, made up of different quantities of different spirits.");
+        addPage("introduction_c", "In order to properly harness the unspoken power of soul magics, you'll have to dive into the very center of it all. At the very core of every soul rests lots of various untapped power in form of what's known as spirits - fragments of potential.");
+        addPage("introduction_d", "The magical presence of a soul derives almost entirely from the spirits found within it. They may be dormant, but they are there. Each different soul is one and only, made up of different quantities of unique spirits.");
 
         addDescription("spirit_magics", "Spirit Splinters");
         addHeadline("spirit_magics", "Spirit Basics");
         addPage("spirit_magics_a", "\"How do I get my greedy little hands on a spirit?\" You might ask yourself. To start, you'll need to prepare yourself a trusty yet wicked weapon for your job. On top of that, it's important to know which souls you're gonna want to hunt down.");
-        addPage("spirit_magics_b", "Each soul contains a specific set of spirits, different souls contain different combinations. When you set out on a hunt you'll have to carefully think about which of your prey will have exactly what you need.");
-        addPage("spirit_magics_c", "When hunting spirits it is important to not leave any of them behind. Uncollected spirits will slowly dissolve into the nearby area and alter it into a new twisted one. Uncontrolled soul magic is extremely volatile.");
+        addPage("spirit_magics_b", "Depending on which spirits you need you'll be hunting for different creatures. When you set out on a hunt you'll have to carefully think about which of your prey will have exactly what you need.");
+        addPage("spirit_magics_c", "When hunting for souls it is important to not leave any of them behind. Uncollected spirits will slowly decay into the nearby area, leaving their power wasted. Uncontrolled soul magic can be extremely dangerous, often creating brand new anomalies you may have found within your world.");
 
         addDescription("soulstone", "Altered Minerals");
         addHeadline("soulstone", "Soulstone");

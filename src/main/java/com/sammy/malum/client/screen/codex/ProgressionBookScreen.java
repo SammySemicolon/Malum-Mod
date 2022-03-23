@@ -266,13 +266,6 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "ceaseless_impetus", CEASELESS_IMPETUS.get(),9,5)
-                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
-                .addPage(new TextPage("ceaseless_impetus_b"))
-                .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
-        );
-
-        entries.add(new BookEntry(
                 "spirit_metallurgy", SOUL_STAINED_STEEL_INGOT.get(),-3,6)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a"))
                 .addPage(new TextPage("hallowed_gold_b"))
@@ -471,6 +464,13 @@ public class ProgressionBookScreen extends Screen
                 "tyrving", TYRVING.get(), -1, 15)
                 .addPage(new HeadlineTextPage("tyrving", "tyrving"))
                 .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
+        );
+
+        entries.add(new BookEntry(
+                "ceaseless_impetus", CEASELESS_IMPETUS.get(),0,16)
+                .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
+                .addPage(new TextPage("ceaseless_impetus_b"))
+                .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(

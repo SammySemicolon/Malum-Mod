@@ -2,6 +2,8 @@ package com.sammy.malum.core.events;
 
 import com.sammy.malum.core.handlers.RenderHandler;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
+import com.sammy.malum.core.setup.client.ShaderRegistry;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
