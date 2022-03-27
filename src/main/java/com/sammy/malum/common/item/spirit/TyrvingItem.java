@@ -22,6 +22,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.network.PacketDistributor;
@@ -60,6 +62,8 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem, It
         return toolAction.equals(ToolActions.SWORD_DIG);
     }
 
+
+    @OnlyIn(value = Dist.CLIENT)
     @Override
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
         Level level = Minecraft.getInstance().level;

@@ -7,6 +7,8 @@ import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ParticleEm
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.*;
 
@@ -30,6 +32,7 @@ public class MalumSpiritItem extends Item implements IFloatingGlowItem, ItemPart
         return type.endColor;
     }
 
+    @OnlyIn(value = Dist.CLIENT)
     @Override
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
         spawnSpiritScreenParticles(type.color, type.endColor, stack, x, y, renderOrder);

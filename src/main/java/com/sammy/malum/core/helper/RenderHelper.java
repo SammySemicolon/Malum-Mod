@@ -4,16 +4,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.core.setup.client.ShaderRegistry;
-import com.sammy.malum.core.setup.client.ShaderRegistry.ExtendedShaderInstance;
+import com.sammy.malum.core.systems.rendering.ShaderHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
 import java.util.Optional;
@@ -32,39 +29,39 @@ public class RenderHelper {
         return null;
     }
 
-    public static void blit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
+    public static void blit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float u, float v, float xCanvasSize, float yCanvasSize) {
         innerBlit(stack, shader, x, y, w, h, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
     }
 
-    public static void blit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
+    public static void blit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
         innerBlit(stack, shader, x, y, w, h, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
     }
 
-    public static void blit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float u, float v, float canvasSize) {
+    public static void blit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float u, float v, float canvasSize) {
         innerBlit(stack, shader, x, y, w, h, u / canvasSize, v / canvasSize, (float) (x + w) / canvasSize, (float) (y + h) / canvasSize);
     }
 
-    public static void blit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
+    public static void blit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float u, float v, float uw, float vh, float canvasSize) {
         innerBlit(stack, shader, x, y, w, h, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
     }
 
-    public static void blit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float xCanvasSize, float yCanvasSize) {
+    public static void blit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float xCanvasSize, float yCanvasSize) {
         innerBlit(stack, shader, x, y, w, h, r, g, b, a, u / xCanvasSize, v / yCanvasSize, (float) w / xCanvasSize, (float) h / yCanvasSize);
     }
 
-    public static void blit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
+    public static void blit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh, float xCanvasSize, float yCanvasSize) {
         innerBlit(stack, shader, x, y, w, h, r, g, b, a, u / xCanvasSize, v / yCanvasSize, uw / xCanvasSize, vh / yCanvasSize);
     }
 
-    public static void blit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float canvasSize) {
+    public static void blit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float canvasSize) {
         innerBlit(stack, shader, x, y, w, h, r, g, b, a, u / canvasSize, v / canvasSize, (float) w / canvasSize, (float) h / canvasSize);
     }
 
-    public static void blit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh, float canvasSize) {
+    public static void blit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh, float canvasSize) {
         innerBlit(stack, shader, x, y, w, h, r, g, b, a, u / canvasSize, v / canvasSize, uw / canvasSize, vh / canvasSize);
     }
 
-    public static void innerBlit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh) {
+    public static void innerBlit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float r, float g, float b, float a, float u, float v, float uw, float vh) {
         Matrix4f last = stack.last().pose();
         RenderSystem.setShader(shader.getInstance());
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
@@ -77,7 +74,7 @@ public class RenderHelper {
         BufferUploader.end(bufferbuilder);
     }
 
-    public static void innerBlit(PoseStack stack, ShaderRegistry.ShaderHolder shader, int x, int y, double w, double h, float u, float v, float uw, float vh) {
+    public static void innerBlit(PoseStack stack, ShaderHolder shader, int x, int y, double w, double h, float u, float v, float uw, float vh) {
         Matrix4f last = stack.last().pose();
         RenderSystem.setShader(shader.getInstance());
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();

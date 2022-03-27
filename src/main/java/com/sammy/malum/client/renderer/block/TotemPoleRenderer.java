@@ -5,8 +5,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
+import com.sammy.malum.core.handlers.RenderHandler;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.RenderTypes;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -43,7 +45,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(overlayHashmap.get(blockEntityIn.type), color(blockEntityIn), direction, poseStack, bufferIn);
+        renderQuad(overlayHashmap.get(blockEntityIn.type), color(blockEntityIn), direction, poseStack);
     }
 
     public Color color(TotemPoleTileEntity totemPoleTileEntity) {
@@ -55,18 +57,22 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         return new Color(red, green, blue);
     }
 
-    public void renderQuad(Material material, Color color, Direction direction, PoseStack poseStack, MultiBufferSource bufferIn) {
+    public void renderQuad(Material material, Color color, Direction direction, PoseStack poseStack) {
         TextureAtlasSprite sprite = material.sprite();
-        VertexConsumer consumer = material.buffer(bufferIn, r -> RenderType.cutout());
+        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(RenderTypes.ADDITIVE_BLOCK);
         poseStack.pushPose();
+        //TODO: THIS SUCKS. FIX THIS.
         poseStack.translate(0.5, 0, 0.5);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation(direction)));
         poseStack.translate(-0.5, 0, -0.5);
+        poseStack.mulPose(Vector3f.ZP.rotationDegrees(180));
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(180));
+        poseStack.translate(-0.5, 0.5f, 0.01f);
         RenderHelper.create()
                 .setColor(color)
                 .setLight(FULL_BRIGHT)
                 .setUV(sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1())
-                .renderQuad(consumer, poseStack, 1);
+                .renderQuad(consumer, poseStack, 0.5f);
 
         poseStack.popPose();
     }
@@ -75,6 +81,6 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         if (direction == Direction.NORTH || direction == Direction.SOUTH) {
             direction = direction.getOpposite();
         }
-        return 90 + direction.toYRot();
+        return direction.toYRot();
     }
 }

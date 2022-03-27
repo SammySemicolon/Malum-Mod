@@ -20,7 +20,7 @@ import java.awt.*;
 import static com.sammy.malum.core.handlers.RenderHandler.DELAYED_RENDER;
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
-import static com.sammy.malum.core.systems.rendering.RenderTypes.bufferUniformChanges;
+import static com.sammy.malum.core.systems.rendering.RenderTypes.queueUniformChanges;
 
 public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
     public final ItemRenderer itemRenderer;
@@ -57,19 +57,19 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
         poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
         poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
 
-        VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(bufferUniformChanges(SOUL_NOISE_TYPE,
+        VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(SOUL_NOISE_TYPE,
                 (instance) -> {
                     instance.safeGetUniform("Speed").set(2500f);
                     instance.safeGetUniform("Intensity").set(45f);
                 }));
 
-        VertexConsumer secondarySoulNoise = DELAYED_RENDER.getBuffer(bufferUniformChanges(SECONDARY_SOUL_NOISE_TYPE,
+        VertexConsumer secondarySoulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(SECONDARY_SOUL_NOISE_TYPE,
                 (instance -> {
                     instance.safeGetUniform("Speed").set(-1500f);
                     instance.safeGetUniform("ScatterPower").set(-20f);
                     instance.safeGetUniform("Intensity").set(55f);
                 })));
-        VertexConsumer trinarySoulNoise = DELAYED_RENDER.getBuffer(bufferUniformChanges(TRINARY_SOUL_NOISE_TYPE,
+        VertexConsumer trinarySoulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(TRINARY_SOUL_NOISE_TYPE,
                 (instance -> {
                     instance.safeGetUniform("Speed").set(-2000f);
                     instance.safeGetUniform("ScatterPower").set(30f);
@@ -83,7 +83,7 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
                 .renderQuad(soulNoise, poseStack, 0.8f)
                 .setColor(color.brighter(), 0.75f)
                 .renderQuad(secondarySoulNoise, poseStack, 0.9f)
-                .setColor(color.brighter(), 0.6f)
+                .setAlpha(0.6f)
                 .renderQuad(trinarySoulNoise, poseStack, 1.2f);
     }
 }

@@ -2,11 +2,17 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import net.minecraft.client.gui.screens.social.PlayerEntry;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import javax.annotation.Nonnull;
@@ -24,12 +30,25 @@ public class CurioTokenOfGratitude extends MalumCurioItem {
         super(builder);
     }
 
-    public static UUID getUuid(String uuid)
-    {
+    public static UUID getUuid(String uuid) {
         UUID id = UUID.fromString(uuid);
         GRADITUDE_CERTIFIED.add(id);
         return id;
     }
+
+    @Override
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        if (slotContext.entity() instanceof Player player) {
+            if (player.getUUID().equals(SAMMY)) {
+                int interval = player.isCrouching() ? 10 : 4000;
+                if (player.getLevel().getGameTime() % interval == 0) {
+                    SoundEvent soundEvent = player.getRandom().nextInt(8) == 0 ? SoundEvents.CAT_PURREOW : SoundEvents.CAT_PURR;
+                    player.level.playSound(player, player.blockPosition(), soundEvent, SoundSource.PLAYERS, 1, 1);
+                }
+            }
+        }
+    }
+
     public static void giveItem(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof Player playerEntity) {
             if (!playerEntity.level.isClientSide) {

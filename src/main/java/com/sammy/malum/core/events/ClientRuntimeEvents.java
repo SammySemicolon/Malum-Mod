@@ -7,9 +7,7 @@ import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.core.handlers.RenderHandler;
 import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.systems.item.ModCombatItem;
-import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -52,7 +50,7 @@ public class ClientRuntimeEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void renderLast(RenderLevelLastEvent event) {
-        RenderHandler.onRenderLast(event);
+        RenderHandler.renderLast(event);
     }
     @SubscribeEvent
     public static void renderTick(TickEvent.RenderTickEvent event) {

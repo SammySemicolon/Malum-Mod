@@ -5,26 +5,20 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.math.Matrix4f;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.setup.client.ShaderRegistry;
-import com.sammy.malum.core.systems.rendering.RenderTypeShaderHandler;
+import com.sammy.malum.core.systems.rendering.ExtendedShaderInstance;
+import com.sammy.malum.core.systems.rendering.ShaderUniformHandler;
 import com.sammy.malum.core.systems.rendering.RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.HashMap;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 public class RenderHandler {
     public static HashMap<RenderType, BufferBuilder> BUFFERS = new HashMap<>();
-    public static HashMap<RenderType, RenderTypeShaderHandler> HANDLERS = new HashMap<>();
+    public static HashMap<RenderType, ShaderUniformHandler> HANDLERS = new HashMap<>();
     public static MultiBufferSource.BufferSource DELAYED_RENDER;
     public static Matrix4f PARTICLE_MATRIX = null;
 
@@ -32,7 +26,7 @@ public class RenderHandler {
         DELAYED_RENDER = MultiBufferSource.immediateWithBuffers(BUFFERS, new BufferBuilder(256));
     }
 
-    public static void onRenderLast(RenderLevelLastEvent event) {
+    public static void renderLast(RenderLevelLastEvent event) {
         event.getPoseStack().pushPose();
         if (ClientConfig.DELAYED_PARTICLE_RENDERING.get()) {
             RenderSystem.getModelViewStack().pushPose();
@@ -47,12 +41,12 @@ public class RenderHandler {
         for (RenderType type : BUFFERS.keySet()) {
             ShaderInstance instance = RenderHelper.getShader(type);
             if (HANDLERS.containsKey(type)) {
-                RenderTypeShaderHandler handler = HANDLERS.get(type);
+                ShaderUniformHandler handler = HANDLERS.get(type);
                 handler.updateShaderData(instance);
             }
             DELAYED_RENDER.endBatch(type);
 
-            if (instance instanceof ShaderRegistry.ExtendedShaderInstance extendedShaderInstance) {
+            if (instance instanceof ExtendedShaderInstance extendedShaderInstance) {
                 extendedShaderInstance.setUniformDefaults();
             }
         }

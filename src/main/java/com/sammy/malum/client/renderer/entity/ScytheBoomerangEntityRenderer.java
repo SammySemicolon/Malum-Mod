@@ -32,11 +32,11 @@ public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomeran
     {
         poseStack.pushPose();
         ItemStack itemstack = entityIn.getItem();
-        BakedModel ibakedmodel = this.itemRenderer.getModel(itemstack, entityIn.level, null, 1);
+        BakedModel model = this.itemRenderer.getModel(itemstack, entityIn.level, null, 1);
         poseStack.mulPose(Vector3f.XP.rotationDegrees(90F));
         poseStack.scale(2f, 2f, 2f);
         poseStack.mulPose(Vector3f.ZP.rotation((entityIn.age + partialTicks) * 0.9f));
-        itemRenderer.render(itemstack, itemstack.getItem() instanceof ModScytheItem ? ItemTransforms.TransformType.NONE : ItemTransforms.TransformType.FIXED, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
+        itemRenderer.render(itemstack, itemstack.getItem() instanceof ModScytheItem ? ItemTransforms.TransformType.NONE : ItemTransforms.TransformType.FIXED, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
     
         poseStack.popPose();
     

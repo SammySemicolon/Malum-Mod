@@ -129,11 +129,12 @@ jar {
         attributes([
             "Specification-Title": "malum",
             "Specification-Vendor": "sammy",
-            "Specification-Version": "1", // We are version 1 of ourselves
+            "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"sammy",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs" :"${project.modId}.mixins.json"
         ])
     }
 }

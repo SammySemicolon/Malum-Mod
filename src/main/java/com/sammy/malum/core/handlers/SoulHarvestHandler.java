@@ -43,7 +43,7 @@ import static com.sammy.malum.core.helper.DataHelper.prefix;
 import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 import static com.sammy.malum.core.handlers.RenderHandler.DELAYED_RENDER;
-import static com.sammy.malum.core.systems.rendering.RenderTypes.bufferUniformChanges;
+import static com.sammy.malum.core.systems.rendering.RenderTypes.queueUniformChanges;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {
@@ -238,20 +238,20 @@ public class SoulHarvestHandler {
                 Vec3 entityPosition = new Vec3(target.xo, target.yo, target.zo).lerp(target.position(), partialTicks);
                 Vec3 toPlayer = playerPosition.subtract(entityPosition).normalize().multiply(boundingBox.getXsize() * 0.5f, 0, boundingBox.getZsize() * 0.5f);
 
-                VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(bufferUniformChanges(SOUL_NOISE_TYPE,
+                VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(SOUL_NOISE_TYPE,
                         (instance) -> {
                             instance.safeGetUniform("Speed").set(4500f);
                             instance.safeGetUniform("Intensity").set(45f);
                         }));
 
-                VertexConsumer previewNoise = DELAYED_RENDER.getBuffer(bufferUniformChanges(PREVIEW_NOISE_TYPE,
+                VertexConsumer previewNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(PREVIEW_NOISE_TYPE,
                         (instance -> {
                             instance.safeGetUniform("Speed").set(-3500f);
                             instance.safeGetUniform("ScatterPower").set(-60f);
                             instance.safeGetUniform("ScatterFrequency").set(-0.2f);
                             instance.safeGetUniform("Intensity").set(55f);
                         })));
-                VertexConsumer harvestNoise = DELAYED_RENDER.getBuffer(bufferUniformChanges(HARVEST_NOISE_TYPE,
+                VertexConsumer harvestNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(HARVEST_NOISE_TYPE,
                         (instance -> {
                             instance.safeGetUniform("Speed").set(-2500f);
                             instance.safeGetUniform("Intensity").set(45f);
