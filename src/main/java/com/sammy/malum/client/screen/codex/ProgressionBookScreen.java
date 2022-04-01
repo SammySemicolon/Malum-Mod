@@ -6,6 +6,7 @@ import com.sammy.malum.client.screen.codex.objects.BookObject;
 import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
 import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
 import com.sammy.malum.client.screen.codex.pages.*;
+import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
@@ -13,6 +14,7 @@ import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -25,7 +27,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.Event;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -38,8 +39,7 @@ import static net.minecraft.util.FastColor.ARGB32.color;
 import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
-public class ProgressionBookScreen extends Screen
-{
+public class ProgressionBookScreen extends Screen {
     public static final ResourceLocation FRAME_TEXTURE = DataHelper.prefix("textures/gui/book/frame.png");
     public static final ResourceLocation FADE_TEXTURE = DataHelper.prefix("textures/gui/book/fade.png");
 
@@ -62,37 +62,36 @@ public class ProgressionBookScreen extends Screen
     public static ArrayList<BookEntry> entries;
     public static ArrayList<BookObject> objects;
 
-    protected ProgressionBookScreen()
-    {
+    protected ProgressionBookScreen() {
         super(new TranslatableComponent("malum.gui.book.title"));
         minecraft = Minecraft.getInstance();
         setupEntries();
         MinecraftForge.EVENT_BUS.post(new SetupMalumCodexEntriesEvent());
         setupObjects();
     }
-    public static void setupEntries()
-    {
+
+    public static void setupEntries() {
         entries = new ArrayList<>();
         Item EMPTY = ItemStack.EMPTY.getItem();
 
         entries.add(new BookEntry(
-                "introduction", ENCYCLOPEDIA_ARCANA.get(),0,0)
+                "introduction", ENCYCLOPEDIA_ARCANA.get(), 0, 0)
                 .setObjectSupplier(ImportantEntryObject::new)
-                .addPage(new HeadlineTextPage("introduction","introduction_a"))
+                .addPage(new HeadlineTextPage("introduction", "introduction_a"))
                 .addPage(new TextPage("introduction_b"))
                 .addPage(new TextPage("introduction_c"))
                 .addPage(new TextPage("introduction_d"))
         );
 
         entries.add(new BookEntry(
-                "spirit_magics", SOUL_SAND,0,1)
+                "spirit_magics", SOUL_SAND, 0, 1)
                 .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a"))
                 .addPage(new TextPage("spirit_magics_b"))
                 .addPage(new TextPage("spirit_magics_c"))
         );
 
         entries.add(new BookEntry(
-                "runewood", RUNEWOOD_SAPLING.get(),1,2)
+                "runewood", RUNEWOOD_SAPLING.get(), 1, 2)
                 .addPage(new HeadlineTextPage("runewood", "runewood_a"))
                 .addPage(new TextPage("runewood_b"))
                 .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
@@ -109,7 +108,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "soulstone", PROCESSED_SOULSTONE.get(),-1,2)
+                "soulstone", PROCESSED_SOULSTONE.get(), -1, 2)
                 .addPage(new HeadlineTextPage("soulstone", "soulstone_a"))
                 .addPage(new TextPage("soulstone_b"))
                 .addPage(new TextPage("soulstone_c"))
@@ -117,7 +116,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "scythes", CRUDE_SCYTHE.get(),0,3)
+                "scythes", CRUDE_SCYTHE.get(), 0, 3)
                 .addPage(new HeadlineTextPage("scythes", "scythes_a"))
                 .addPage(new TextPage("scythes_b"))
                 .addPage(new TextPage("scythes_c"))
@@ -128,7 +127,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "spirit_infusion", SPIRIT_ALTAR.get(),0,5)
+                "spirit_infusion", SPIRIT_ALTAR.get(), 0, 5)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
                 .addPage(new TextPage("spirit_infusion_b"))
@@ -141,7 +140,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "simple_spirits", ARCANE_SPIRIT.get(),-2,4)
+                "simple_spirits", ARCANE_SPIRIT.get(), -2, 4)
                 .addPage(new SpiritTextPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("sacred_spirit_b"))
                 .addPage(new SpiritTextPage("wicked_spirit", "wicked_spirit_a", WICKED_SPIRIT.get()))
@@ -152,7 +151,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "elemental_spirits", EARTHEN_SPIRIT.get(),2,4)
+                "elemental_spirits", EARTHEN_SPIRIT.get(), 2, 4)
                 .addPage(new SpiritTextPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
                 .addPage(new TextPage("earthen_spirit_b"))
                 .addPage(new SpiritTextPage("infernal_spirit", "infernal_spirit_a", INFERNAL_SPIRIT.get()))
@@ -164,13 +163,13 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "eldritch_spirit", ELDRITCH_SPIRIT.get(),0,7)
+                "eldritch_spirit", ELDRITCH_SPIRIT.get(), 0, 7)
                 .addPage(new SpiritTextPage("eldritch_spirit", "eldritch_spirit_a", ELDRITCH_SPIRIT.get()))
                 .addPage(new TextPage("eldritch_spirit_b"))
         );
 
         entries.add(new BookEntry(
-                "arcane_rock", TAINTED_ROCK.get(),3,6)
+                "arcane_rock", TAINTED_ROCK.get(), 3, 6)
                 .addPage(new HeadlineTextPage("tainted_rock", "tainted_rock"))
                 .addPage(SpiritInfusionPage.fromOutput(TAINTED_ROCK.get()))
                 .addPage(CraftingBookPage.itemPedestalPage(TAINTED_ROCK_ITEM_PEDESTAL.get(), TAINTED_ROCK.get(), TAINTED_ROCK_SLAB.get()))
@@ -181,7 +180,7 @@ public class ProgressionBookScreen extends Screen
                 .addPage(CraftingBookPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
         );
         entries.add(new BookEntry(
-                "ether", ETHER.get(), 5,6)
+                "ether", ETHER.get(), 5, 6)
                 .addPage(new HeadlineTextPage("ether", "ether_a"))
                 .addPage(SpiritInfusionPage.fromOutput(ETHER.get()))
                 .addPage(new TextPage("ether_b"))
@@ -197,7 +196,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "spirit_fabric", SPIRIT_FABRIC.get(),4,5)
+                "spirit_fabric", SPIRIT_FABRIC.get(), 4, 5)
                 .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric"))
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_FABRIC.get()))
                 .addPage(new HeadlineTextPage("spirit_pouch", "spirit_pouch"))
@@ -205,7 +204,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "soul_hunter_gear", SOUL_HUNTER_CLOAK.get(),4,7)
+                "soul_hunter_gear", SOUL_HUNTER_CLOAK.get(), 4, 7)
                 .addPage(new HeadlineTextPage("soul_hunter_armor", "soul_hunter_armor"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_ROBE.get()))
@@ -214,7 +213,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "spirit_focusing", SPIRIT_CRUCIBLE.get(),7,6)
+                "spirit_focusing", SPIRIT_CRUCIBLE.get(), 7, 6)
                 .addPage(new HeadlineTextPage("spirit_focusing", "spirit_focusing_a"))
                 .addPage(new TextPage("spirit_focusing_b"))
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CRUCIBLE.get()))
@@ -222,7 +221,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "working_with_ashes", GUNPOWDER,6,5)
+                "working_with_ashes", GUNPOWDER, 6, 5)
                 .addPage(new HeadlineTextPage("working_with_ashes", "working_with_ashes"))
                 .addPage(SpiritCruciblePage.fromOutput(GUNPOWDER))
                 .addPage(SpiritCruciblePage.fromOutput(GLOWSTONE_DUST))
@@ -230,7 +229,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "metallurgic_magic", IRON_NODE.get(),8,7)
+                "metallurgic_magic", IRON_NODE.get(), 8, 7)
                 .addPage(new HeadlineTextPage("metallurgic_magic", "metallurgic_magic_a"))
                 .addPage(new TextPage("metallurgic_magic_b"))
                 .addPage(SpiritInfusionPage.fromOutput(IRON_IMPETUS.get()))
@@ -258,7 +257,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "crucible_acceleration", SPIRIT_CATALYZER.get(),7,4)
+                "crucible_acceleration", SPIRIT_CATALYZER.get(), 7, 4)
                 .addPage(new HeadlineTextPage("crucible_acceleration", "crucible_acceleration_a"))
                 .addPage(new TextPage("crucible_acceleration_b"))
                 .addPage(new TextPage("crucible_acceleration_c"))
@@ -266,7 +265,7 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "spirit_metallurgy", SOUL_STAINED_STEEL_INGOT.get(),-3,6)
+                "spirit_metallurgy", SOUL_STAINED_STEEL_INGOT.get(), -3, 6)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a"))
                 .addPage(new TextPage("hallowed_gold_b"))
                 .addPage(SpiritInfusionPage.fromOutput(HALLOWED_GOLD_INGOT.get()))
@@ -302,9 +301,9 @@ public class ProgressionBookScreen extends Screen
                 "spirit_trinkets", ORNATE_RING.get(), -4, 7)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
-                .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER,HALLOWED_GOLD_INGOT.get()))
+                .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER, HALLOWED_GOLD_INGOT.get()))
                 .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), PROCESSED_SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
-                .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER,SOUL_STAINED_STEEL_INGOT.get()))
+                .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER, SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
         );
 
@@ -467,21 +466,21 @@ public class ProgressionBookScreen extends Screen
         );
 
         entries.add(new BookEntry(
-                "ceaseless_impetus", CEASELESS_IMPETUS.get(),0,16)
+                "ceaseless_impetus", CEASELESS_IMPETUS.get(), 0, 16)
                 .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
                 .addPage(new TextPage("ceaseless_impetus_b"))
                 .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(
-                "huh", THE_DEVICE.get(),0,-10)
+                "huh", THE_DEVICE.get(), 0, -10)
                 .setObjectSupplier(VanishingEntryObject::new)
-                .addPage(new HeadlineTextPage("the_device","the_device"))
+                .addPage(new HeadlineTextPage("the_device", "the_device"))
                 .addPage(new CraftingBookPage(THE_DEVICE.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get(), TAINTED_ROCK.get(), TWISTED_ROCK.get()))
         );
     }
-    public void setupObjects()
-    {
+
+    public void setupObjects() {
         objects = new ArrayList<>();
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
@@ -491,25 +490,23 @@ public class ProgressionBookScreen extends Screen
         int coreY = guiTop + bookInsideHeight;
         int width = 40;
         int height = 48;
-        for (BookEntry entry : entries)
-        {
-            objects.add(entry.objectSupplier.getBookObject(entry, coreX+entry.xOffset*width, coreY-entry.yOffset*height));
+        for (BookEntry entry : entries) {
+            objects.add(entry.objectSupplier.getBookObject(entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height));
         }
         faceObject(objects.get(0));
     }
-    public void faceObject(BookObject object)
-    {
+
+    public void faceObject(BookObject object) {
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
-        xOffset = -object.posX+guiLeft + bookInsideWidth;
-        yOffset = -object.posY+guiTop + bookInsideHeight;
+        xOffset = -object.posX + guiLeft + bookInsideWidth;
+        yOffset = -object.posY + guiTop + bookInsideHeight;
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks)
-    {
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTicks);
         int guiLeft = (width - bookWidth) / 2;
@@ -530,37 +527,30 @@ public class ProgressionBookScreen extends Screen
 
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY)
-    {
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         xOffset += dragX;
         yOffset += dragY;
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button)
-    {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         cachedXOffset = xOffset;
         cachedYOffset = yOffset;
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button)
-    {
-        if (ignoreNextMouseInput)
-        {
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (ignoreNextMouseInput) {
             ignoreNextMouseInput = false;
             return super.mouseReleased(mouseX, mouseY, button);
         }
-        if (xOffset != cachedXOffset || yOffset != cachedYOffset)
-        {
+        if (xOffset != cachedXOffset || yOffset != cachedYOffset) {
             return super.mouseReleased(mouseX, mouseY, button);
         }
-        for (BookObject object : objects)
-        {
-            if (object.isHovering(xOffset, yOffset, mouseX, mouseY))
-            {
+        for (BookObject object : objects) {
+            if (object.isHovering(xOffset, yOffset, mouseX, mouseY)) {
                 object.click(xOffset, yOffset, mouseX, mouseY);
                 break;
             }
@@ -569,25 +559,21 @@ public class ProgressionBookScreen extends Screen
     }
 
     @Override
-    public boolean isPauseScreen()
-    {
+    public boolean isPauseScreen() {
         return false;
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers)
-    {
-        if (keyCode == GLFW.GLFW_KEY_E)
-        {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (Minecraft.getInstance().options.keyInventory.matches(keyCode, scanCode)) {
             onClose();
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    public void renderEntries(PoseStack stack, int mouseX, int mouseY, float partialTicks)
-    {
-        for (int i = objects.size()-1; i >= 0; i--) {
+    public void renderEntries(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+        for (int i = objects.size() - 1; i >= 0; i--) {
             BookObject object = objects.get(i);
             boolean isHovering = object.isHovering(xOffset, yOffset, mouseX, mouseY);
             object.isHovering = isHovering;
@@ -595,134 +581,116 @@ public class ProgressionBookScreen extends Screen
             object.render(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }
-    public void lateEntryRender(PoseStack stack, int mouseX, int mouseY, float partialTicks)
-    {
-        for (int i = objects.size()-1; i >= 0; i--)
-        {
+
+    public void lateEntryRender(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+        for (int i = objects.size() - 1; i >= 0; i--) {
             BookObject object = objects.get(i);
             object.lateRender(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }
 
-    public static boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height)
-    {
-        if (!isInView(mouseX, mouseY))
-        {
+    public static boolean isHovering(double mouseX, double mouseY, int posX, int posY, int width, int height) {
+        if (!isInView(mouseX, mouseY)) {
             return false;
         }
         return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
     }
-    public static boolean isInView(double mouseX, double mouseY)
-    {
+
+    public static boolean isInView(double mouseX, double mouseY) {
         int guiLeft = (screen.width - screen.bookWidth) / 2;
         int guiTop = (screen.height - screen.bookHeight) / 2;
         return !(mouseX < guiLeft + 17) && !(mouseY < guiTop + 14) && !(mouseX > guiLeft + (screen.bookWidth - 17)) && !(mouseY > (guiTop + screen.bookHeight - 14));
     }
-    public void renderBackground(ResourceLocation texture, PoseStack poseStack, float xModifier, float yModifier)
-    {
+
+    public void renderBackground(ResourceLocation texture, PoseStack poseStack, float xModifier, float yModifier) {
         int guiLeft = (width - bookWidth) / 2; //TODO: literally just redo this entire garbage method, please
         int guiTop = (height - bookHeight) / 2;
         int insideLeft = guiLeft + 17;
         int insideTop = guiTop + 14;
-        float uOffset = (parallax_width-xOffset) * xModifier;
-        float vOffset = Math.min(parallax_height-bookInsideHeight,(parallax_height-bookInsideHeight-yOffset*yModifier));
-        if (vOffset <= parallax_height/2f)
-        {
-            vOffset = parallax_height/2f;
+        float uOffset = (parallax_width - xOffset) * xModifier;
+        float vOffset = Math.min(parallax_height - bookInsideHeight, (parallax_height - bookInsideHeight - yOffset * yModifier));
+        if (vOffset <= parallax_height / 2f) {
+            vOffset = parallax_height / 2f;
         }
-        if (uOffset <= 0)
-        {
+        if (uOffset <= 0) {
             uOffset = 0;
         }
-        if (uOffset > (bookInsideWidth-8)/2f)
-        {
-            uOffset = (bookInsideWidth-8)/2f;
+        if (uOffset > (bookInsideWidth - 8) / 2f) {
+            uOffset = (bookInsideWidth - 8) / 2f;
         }
-        renderTexture(texture, poseStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, parallax_width/2, parallax_height/2);
+        renderTexture(texture, poseStack, insideLeft, insideTop, uOffset, vOffset, bookInsideWidth, bookInsideHeight, parallax_width / 2, parallax_height / 2);
     }
 
-    public void cut()
-    {
+    public void cut() {
         int scale = (int) getMinecraft().getWindow().getGuiScale();
         int guiLeft = (width - bookWidth) / 2;
         int guiTop = (height - bookHeight) / 2;
         int insideLeft = guiLeft + 17;
         int insideTop = guiTop + 18;
-        GL11.glScissor(insideLeft*scale, insideTop*scale, bookInsideWidth * scale, (bookInsideHeight+1) * scale); // do not ask why the 1 is needed please
+        GL11.glScissor(insideLeft * scale, insideTop * scale, bookInsideWidth * scale, (bookInsideHeight + 1) * scale); // do not ask why the 1 is needed please
     }
 
-    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)
-    {
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
         blit(poseStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
     }
 
-    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight)
-    {
+    public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight) {
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
         renderTexture(texture, poseStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
     }
-    public static void renderItem(PoseStack poseStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY)
-    {
+
+    public static void renderItem(PoseStack poseStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY) {
         Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
         Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
-        if (isHovering(mouseX, mouseY, posX, posY, 16,16))
-        {
+        if (isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
             screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
         }
     }
 
-    public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w)
-    {
+    public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w) {
         Font font = Minecraft.getInstance().font;
         text = new TranslatableComponent(text).getString();
         List<String> lines = new ArrayList<>();
         String[] words = text.split(" ");
         String line = "";
-        for (String s : words)
-        {
-            if (font.width(line) + font.width(s) > w)
-            {
+        for (String s : words) {
+            if (font.width(line) + font.width(s) > w) {
                 lines.add(line);
                 line = s + " ";
-            }
-            else line += s + " ";
+            } else line += s + " ";
         }
         if (!line.isEmpty()) lines.add(line);
-        for (int i = 0; i < lines.size(); i++)
-        {
+        for (int i = 0; i < lines.size(); i++) {
             String currentLine = lines.get(i);
-            renderRawText(mStack, currentLine, x,y + i * (font.lineHeight + 1), glow(i/4f));
+            renderRawText(mStack, currentLine, x, y + i * (font.lineHeight + 1), glow(i / 4f));
         }
     }
 
-    public static void renderText(PoseStack stack, String text, int x, int y)
-    {
-        renderText(stack, new TranslatableComponent(text), x,y, glow(0));
+    public static void renderText(PoseStack stack, String text, int x, int y) {
+        renderText(stack, new TranslatableComponent(text), x, y, glow(0));
     }
 
-    public static void renderText(PoseStack stack, Component component, int x, int y)
-    {
+    public static void renderText(PoseStack stack, Component component, int x, int y) {
         String text = component.getString();
-        renderRawText(stack, text, x,y, glow(0));
-    }
-    public static void renderText(PoseStack stack, String text, int x, int y, float glow)
-    {
-        renderText(stack, new TranslatableComponent(text), x,y, glow);
+        renderRawText(stack, text, x, y, glow(0));
     }
 
-    public static void renderText(PoseStack stack, Component component, int x, int y, float glow)
-    {
-        String text = component.getString();
-        renderRawText(stack, text, x,y, glow);
+    public static void renderText(PoseStack stack, String text, int x, int y, float glow) {
+        renderText(stack, new TranslatableComponent(text), x, y, glow);
     }
-    private static void renderRawText(PoseStack stack, String text, int x, int y, float glow)
-    {
+
+    public static void renderText(PoseStack stack, Component component, int x, int y, float glow) {
+        String text = component.getString();
+        renderRawText(stack, text, x, y, glow);
+    }
+
+    private static void renderRawText(PoseStack stack, String text, int x, int y, float glow) {
         Font font = Minecraft.getInstance().font;
         //182, 61, 183   227, 39, 228
         int r = (int) Mth.lerp(glow, 182, 227);
@@ -736,39 +704,27 @@ public class ProgressionBookScreen extends Screen
 
         font.draw(stack, text, x, y, color(255, r, g, b));
     }
-    public static float glow(float offset)
-    {
-        return Mth.sin(offset+Minecraft.getInstance().player.level.getGameTime() / 40f)/2f + 0.5f;
+
+    public static float glow(float offset) {
+        return Mth.sin(offset + Minecraft.getInstance().player.level.getGameTime() / 40f) / 2f + 0.5f;
     }
-    public void playSound()
-    {
+
+    public void playSound() {
         Player playerEntity = Minecraft.getInstance().player;
         playerEntity.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0f, 1.0f);
     }
 
-    public static void openScreen(boolean ignoreNextMouseClick)
-    {
+    public static void openScreen(boolean ignoreNextMouseClick) {
         Minecraft.getInstance().setScreen(getInstance());
         screen.playSound();
         screen.ignoreNextMouseInput = ignoreNextMouseClick;
     }
 
-    public static ProgressionBookScreen getInstance()
-    {
-        if (screen == null)
-        {
+    public static ProgressionBookScreen getInstance() {
+        if (screen == null) {
             screen = new ProgressionBookScreen();
         }
         return screen;
     }
-    public static class SetupMalumCodexEntriesEvent extends Event
-    {
-        public SetupMalumCodexEntriesEvent() {
-        }
 
-        @Override
-        public boolean isCancelable() {
-            return false;
-        }
-    }
 }

@@ -117,7 +117,7 @@ public class EntryScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_E) {
+        if (Minecraft.getInstance().options.keyInventory.matches(keyCode, scanCode)) {
             close(false);
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
