@@ -309,7 +309,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String baseName = name.substring(0, name.length() - 11);
         String pillarName = name.substring(0, name.length() - 4) + "_top";
-        directionalBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/smooth_" + baseName), prefix("block/" + pillarName)));
+        directionalBlock(blockRegistryObject.get(), models().cubeBottomTop(name, prefix("block/" + name), prefix("block/" + pillarName), prefix("block/smooth_" + baseName)));
     }
     
     public void trapdoorBlock(RegistryObject<Block> blockRegistryObject)

@@ -45,7 +45,7 @@ import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implements IAccelerationTarget {
     private static final int HORIZONTAL_RANGE = 3;
-    private static final int VERTICAL_RANGE = 2;
+    private static final int VERTICAL_RANGE = 4;
 
     public static final Supplier<MultiBlockStructure> STRUCTURE = () -> (MultiBlockStructure.of(new MultiBlockStructure.StructurePiece(0, 1, 0, BlockRegistry.SPIRIT_CRUCIBLE_COMPONENT.get().defaultBlockState())));
 
@@ -220,7 +220,14 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             if (recipe != null) {
                 progress += 1 + speed;
                 if (!accelerators.isEmpty()) {
-                    boolean canAccelerate = accelerators.stream().allMatch(ICrucibleAccelerator::canAccelerate);
+                    boolean canAccelerate = true;
+                    for (ICrucibleAccelerator accelerator : accelerators) {
+                        boolean canAcceleratorAccelerate = accelerator.canAccelerate();
+                        if (!canAcceleratorAccelerate)
+                        {
+                            canAccelerate = false;
+                        }
+                    }
                     if (!canAccelerate) {
                         recalibrateAccelerators();
                         BlockHelper.updateAndNotifyState(level, worldPosition);
