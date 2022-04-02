@@ -202,6 +202,7 @@ public class MalumRecipes extends RecipeProvider
         shapedStairs(consumer, ItemRegistry.RUNEWOOD_PLANKS_STAIRS.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
         shapedTrapdoor(consumer, ItemRegistry.RUNEWOOD_TRAPDOOR.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
         shapelessSolidTrapdoor(consumer, ItemRegistry.SOLID_RUNEWOOD_TRAPDOOR.get(), ItemRegistry.RUNEWOOD_TRAPDOOR.get());
+        shapelessSolidTrapdoor(consumer, ItemRegistry.RUNEWOOD_TRAPDOOR.get(), ItemRegistry.SOLID_RUNEWOOD_TRAPDOOR.get(), "runewood_trapdoor_from_solid");
         shapedSign(consumer, ItemRegistry.RUNEWOOD_SIGN.get(), ItemRegistry.RUNEWOOD_PLANKS.get());
         shaped(ItemRegistry.RUNEWOOD_BOAT.get()).define('#', ItemRegistry.RUNEWOOD_PLANKS.get()).pattern("# #").pattern("###").unlockedBy("has_runewood_planks", has(ItemRegistry.RUNEWOOD_PLANKS.get())).save(consumer);
 
@@ -236,6 +237,7 @@ public class MalumRecipes extends RecipeProvider
         shapedStairs(consumer, ItemRegistry.SOULWOOD_PLANKS_STAIRS.get(), ItemRegistry.SOULWOOD_PLANKS.get());
         shapedTrapdoor(consumer, ItemRegistry.SOULWOOD_TRAPDOOR.get(), ItemRegistry.SOULWOOD_PLANKS.get());
         shapelessSolidTrapdoor(consumer, ItemRegistry.SOLID_SOULWOOD_TRAPDOOR.get(), ItemRegistry.SOULWOOD_TRAPDOOR.get());
+        shapelessSolidTrapdoor(consumer, ItemRegistry.SOULWOOD_TRAPDOOR.get(), ItemRegistry.SOLID_SOULWOOD_TRAPDOOR.get(), "soulwood_trapdoor_from_solid");
         shapedSign(consumer, ItemRegistry.SOULWOOD_SIGN.get(), ItemRegistry.SOULWOOD_PLANKS.get());
         shaped(ItemRegistry.SOULWOOD_BOAT.get()).define('#', ItemRegistry.SOULWOOD_PLANKS.get()).pattern("# #").pattern("###").unlockedBy("has_soulwood_planks", has(ItemRegistry.SOULWOOD_PLANKS.get())).save(consumer);
 
@@ -515,6 +517,10 @@ public class MalumRecipes extends RecipeProvider
     private static void shapelessSolidTrapdoor(Consumer<FinishedRecipe> recipeConsumer, ItemLike solid, ItemLike normal)
     {
         shapeless(solid).requires(normal).unlockedBy("has_input", has(normal)).save(recipeConsumer);
+    }
+    private static void shapelessSolidTrapdoor(Consumer<FinishedRecipe> recipeConsumer, ItemLike solid, ItemLike normal, String path)
+    {
+        shapeless(solid).requires(normal).unlockedBy("has_input", has(normal)).save(recipeConsumer, prefix(path));
     }
     private static void shapedTrapdoor(Consumer<FinishedRecipe> recipeConsumer, ItemLike trapdoor, ItemLike input)
     {
