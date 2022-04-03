@@ -1,17 +1,17 @@
 package com.sammy.malum.config;
 
+import com.sammy.malum.core.systems.config.SimpleConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class ClientConfig {
+public class ClientConfig extends SimpleConfig {
 
-    public static ForgeConfigSpec.ConfigValue<Boolean> DELAYED_PARTICLE_RENDERING;
+    public static ConfigValueHolder<Boolean> DELAYED_PARTICLE_RENDERING = new ConfigValueHolder<>("client/graphics/particle", builder ->
+            builder.comment("Should particles render on the delayed buffer? This means they will properly render after clouds do, but could cause issues with mods like sodium.")
+                    .define("buffer_particles", true));
 
     public ClientConfig(ForgeConfigSpec.Builder builder) {
-        builder.comment("Graphics settings").push("graphics");
-        DELAYED_PARTICLE_RENDERING = builder.comment("Should particles render on the delayed buffer? This means they will properly render after clouds do, but could cause issues with mods like sodium.")
-                .define("buffer_particles", true);
-        builder.pop();
+        super("client", builder);
     }
 
     public static final ClientConfig INSTANCE;

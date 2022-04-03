@@ -3,6 +3,8 @@
   "repair_ingredient": {
     "item": "minecraft:flint"
   },
+  "lookup_repair_item_count": 2,
+  "lookup_name": "flint",
   "target_items": [
     {
       "item": "farmersdelight:flint_knife",

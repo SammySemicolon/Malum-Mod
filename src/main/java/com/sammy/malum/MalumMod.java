@@ -44,7 +44,7 @@ public class MalumMod
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
-
+        
         ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
         BLOCK_ENTITY_TYPES.register(modBus);

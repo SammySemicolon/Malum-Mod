@@ -3,6 +3,8 @@
   "repair_ingredient": {
     "tag": "forge:gems/diamond"
   },
+  "lookup_repair_item_count": 2,
+  "lookup_name": "diamond",
   "target_items": [
     {
       "item": "minecraft:diamond_axe",

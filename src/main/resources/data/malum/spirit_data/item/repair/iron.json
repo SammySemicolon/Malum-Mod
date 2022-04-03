@@ -3,6 +3,8 @@
   "repair_ingredient": {
     "tag": "forge:ingots/iron"
   },
+  "lookup_repair_item_count": 2,
+  "lookup_name": "iron",
   "target_items": [
     {
       "item": "minecraft:iron_axe",

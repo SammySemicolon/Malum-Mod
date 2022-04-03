@@ -555,7 +555,6 @@ public class ItemRegistry {
             {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
                 itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
-                registerItemColor(itemColors, item, malumLeavesBlock.minColor);
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> itemColors.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();

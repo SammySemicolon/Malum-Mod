@@ -3,6 +3,8 @@
   "repair_ingredient": {
     "tag": "minecraft:planks"
   },
+  "lookup_repair_item_count": 2,
+  "lookup_name": "wooden",
   "target_items": [
     {
       "item": "minecraft:wooden_axe",

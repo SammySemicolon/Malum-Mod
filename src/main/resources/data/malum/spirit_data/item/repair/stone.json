@@ -3,6 +3,8 @@
   "repair_ingredient": {
     "tag": "minecraft:stone_tool_materials"
   },
+  "lookup_repair_item_count": 2,
+  "lookup_name": "stone",
   "target_items": [
     {
       "item": "minecraft:stone_axe",

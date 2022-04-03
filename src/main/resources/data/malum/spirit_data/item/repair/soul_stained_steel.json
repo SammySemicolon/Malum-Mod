@@ -3,6 +3,8 @@
   "repair_ingredient": {
     "item": "malum:soul_stained_steel_ingot"
   },
+  "lookup_repair_item_count": 2,
+  "lookup_name": "soul_stained_steel",
   "target_items": [
     {
       "item": "malum:soul_stained_steel_axe",

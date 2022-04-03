@@ -3,6 +3,8 @@
   "repair_ingredient": {
     "tag": "forge:ingots/netherite"
   },
+  "lookup_repair_item_count": 1,
+  "lookup_name": "netherite",
   "target_items": [
     {
       "item": "minecraft:netherite_axe",
