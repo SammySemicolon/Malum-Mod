@@ -9,11 +9,11 @@ import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.enchantment.MalumEnchantments;
+import com.sammy.malum.core.systems.easing.Easing;
 import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ParticleEmitter;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
-import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData.SpiritDataEntry;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
@@ -149,8 +149,8 @@ public class SpiritHelper {
         if (data == null) {
             return spirits;
         }
-        for (SpiritDataEntry spiritDataEntry : data.dataEntries) {
-            spirits.add(new ItemStack(spiritDataEntry.type.getSplinterItem(), spiritDataEntry.count));
+        for (SpiritWithCount spiritWithCount : data.dataEntries) {
+            spirits.add(new ItemStack(spiritWithCount.type.getSplinterItem(), spiritWithCount.count));
         }
         return spirits;
     }
@@ -200,9 +200,10 @@ public class SpiritHelper {
     public static void spawnSoulParticles(Level level, double x, double y, double z, float alphaMultiplier, float scaleMultiplier, Vec3 extraVelocity, Color color, Color endColor) {
         Random rand = level.getRandom();
         ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.25f * alphaMultiplier, 0)
+                .setAlpha(0.1f * alphaMultiplier, 0)
                 .setLifetime(8 + rand.nextInt(5))
-                .setScale((0.3f + rand.nextFloat() * 0.2f) * scaleMultiplier, 0)
+                .setScale((0.2f + rand.nextFloat() * 0.2f) * scaleMultiplier, 0)
+                .setScaleEasing(Easing.QUINTIC_IN)
                 .setColor(color, endColor)
                 .randomOffset(0.05f)
                 .enableNoClip()
@@ -211,21 +212,42 @@ public class SpiritHelper {
                 .repeat(level, x, y, z, 1);
 
         ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
-                .setAlpha(0.1f * alphaMultiplier, 0f)
-                .setLifetime(20 + rand.nextInt(10))
-                .setSpin(nextFloat(rand, 0.05f, 0.4f))
+                .setAlpha(0, 0.05f * alphaMultiplier, 0f)
+                .setAlphaEasing(Easing.CUBIC_IN, Easing.CUBIC_OUT)
+                .setLifetime(80 + rand.nextInt(10))
+                .setSpin(0, nextFloat(rand, 0.05f, 0.4f))
+                .setSpinOffset(0.05f * level.getGameTime() % 6.28f)
+                .setSpinEasing(Easing.CUBIC_OUT)
                 .setScale((0.2f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier)
+                .setScaleEasing(Easing.QUINTIC_IN)
                 .setColor(color, endColor)
                 .randomOffset(0.1f)
                 .enableNoClip()
                 .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .randomMotion(0.04f * scaleMultiplier, 0.04f * scaleMultiplier)
+                .randomMotion(0.01f * scaleMultiplier, 0.01f * scaleMultiplier)
                 .repeat(level, x, y, z, 1)
                 .setAlpha(0.12f * alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(5))
-                .setSpin(nextFloat(rand, 0.1f, 0.5f))
+                .setSpin(0, nextFloat(rand, 0.1f, 0.5f))
                 .setScale((0.15f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier)
                 .randomMotion(0.03f * scaleMultiplier, 0.03f * scaleMultiplier)
+                .repeat(level, x, y, z, 2);
+
+        ParticleBuilders.create(ParticleRegistry.STAR_PARTICLE)
+                .setAlpha((rand.nextFloat() * 0.1f + 0.1f) * alphaMultiplier, 0f)
+                .setLifetime(20 + rand.nextInt(10))
+                .setSpinOffset(0.025f * level.getGameTime() % 6.28f)
+                .setSpin(0, nextFloat(rand, 0.05f, 0.4f))
+                .setScale((0.7f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier)
+                .setColor(color, endColor)
+                .randomOffset(0.01f)
+                .enableNoClip()
+                .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
+                .repeat(level, x, y, z, 1)
+                .setLifetime(10 + rand.nextInt(5))
+                .setAlpha((rand.nextFloat() * 0.05f + 0.05f) * alphaMultiplier, 0f)
+                .setSpin(0, nextFloat(rand, 0.1f, 0.5f))
+                .setScale((0.5f + rand.nextFloat() * 0.1f) * scaleMultiplier, 0.1f * scaleMultiplier)
                 .repeat(level, x, y, z, 1);
     }
 

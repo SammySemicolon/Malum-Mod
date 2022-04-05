@@ -49,12 +49,14 @@ import static net.minecraft.util.Mth.nextFloat;
 public class SoulHarvestHandler {
 
     public static void specialSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getEntity() instanceof LivingEntity livingEntity) {
-            LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
-                if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
-                    ec.spawnerSpawned = true;
-                }
-            });
+        if (event.getSpawnReason() != null) {
+            if (event.getEntity() instanceof LivingEntity livingEntity) {
+                LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
+                    if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
+                        ec.spawnerSpawned = true;
+                    }
+                });
+            }
         }
     }
 

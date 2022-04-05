@@ -1,12 +1,12 @@
 package com.sammy.malum.common.recipe;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
-import com.sammy.malum.core.systems.recipe.IRecipeComponent;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -19,48 +19,44 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-public class SpiritFocusingRecipe extends IMalumRecipe {
-    public static final String NAME = "spirit_focusing";
+public class SpiritRepairRecipe extends IMalumRecipe {
+    public static final String NAME = "spirit_repair";
 
-    public static class Type implements RecipeType<SpiritFocusingRecipe> {
+    public static class Type implements RecipeType<SpiritRepairRecipe> {
         @Override
         public String toString() {
             return MalumMod.MODID + ":" + NAME;
         }
 
-        public static final SpiritFocusingRecipe.Type INSTANCE = new SpiritFocusingRecipe.Type();
+        public static final SpiritRepairRecipe.Type INSTANCE = new SpiritRepairRecipe.Type();
     }
 
     private final ResourceLocation id;
 
-    public final int time;
-    public final int durabilityCost;
-
-    public final Ingredient input;
-    public final IngredientWithCount output;
+    public final float durabilityPercentage;
+    public final ArrayList<Item> inputs;
+    public final IngredientWithCount repairMaterial;
     public final ArrayList<ItemWithCount> spirits;
 
-    public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, ArrayList<ItemWithCount> spirits) {
+    public SpiritRepairRecipe(ResourceLocation id, float durabilityPercentage, ArrayList<Item> inputs, IngredientWithCount repairMaterial, ArrayList<ItemWithCount> spirits) {
         this.id = id;
-        this.time = time;
-        this.durabilityCost = durabilityCost;
-        this.input = input;
-        this.output = output;
+        this.durabilityPercentage = durabilityPercentage;
+        this.repairMaterial = repairMaterial;
+        this.inputs = inputs;
         this.spirits = spirits;
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.FOCUSING_RECIPE_SERIALIZER.get();
+        return RecipeSerializerRegistry.REPAIR_RECIPE_SERIALIZER.get();
     }
 
     @Override
@@ -117,20 +113,21 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
     }
 
     public boolean doesInputMatch(ItemStack input) {
-        return this.input.test(input);
+        return this.inputs.stream().anyMatch(i -> i.equals(input.getItem()));
     }
 
-    public boolean doesOutputMatch(ItemStack output) {
-        return this.output.matches(output);
+    public boolean doesRepairIngredientMatch(ItemStack repair) {
+        return this.repairMaterial.matches(repair);
     }
 
-    public static SpiritFocusingRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
+
+    public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
         return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
     }
 
-    public static SpiritFocusingRecipe getRecipe(Level level, Predicate<SpiritFocusingRecipe> predicate) {
-        List<SpiritFocusingRecipe> recipes = getRecipes(level);
-        for (SpiritFocusingRecipe recipe : recipes) {
+    public static SpiritRepairRecipe getRecipe(Level level, Predicate<SpiritRepairRecipe> predicate) {
+        List<SpiritRepairRecipe> recipes = getRecipes(level);
+        for (SpiritRepairRecipe recipe : recipes) {
             if (predicate.test(recipe)) {
                 return recipe;
             }
@@ -138,26 +135,30 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
         return null;
     }
 
-    public static List<SpiritFocusingRecipe> getRecipes(Level level) {
+    public static List<SpiritRepairRecipe> getRecipes(Level level) {
         return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritFocusingRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritRepairRecipe> {
 
         @Override
-        public SpiritFocusingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            int time = json.getAsJsonPrimitive("time").getAsInt();
-            int durabilityCost = json.getAsJsonPrimitive("durabilityCost").getAsInt();
+        public SpiritRepairRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            float durabilityPercentage = json.getAsJsonPrimitive("durabilityPercentage").getAsFloat();
+            String inputLookup = json.has("inputLookup") ? json.get("inputLookup").getAsString() : "none";
 
-            JsonObject inputObject = json.getAsJsonObject("input");
-            Ingredient input = Ingredient.fromJson(inputObject);
-            if (input.test(Items.BARRIER.getDefaultInstance())) {
-                return null;
+            JsonArray inputsArray = json.getAsJsonArray("inputs");
+            ArrayList<Item> inputs = new ArrayList<>();
+            for (JsonElement jsonElement : inputsArray) {
+                Item input = ForgeRegistries.ITEMS.getValue(new ResourceLocation(jsonElement.getAsString()));
+                if (input == null) {
+                    return null;
+                }
+                inputs.add(input);
             }
 
-            JsonObject outputObject = json.getAsJsonObject("output");
-            IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
-            if (!output.isValid()) {
+            JsonObject repairObject = json.getAsJsonObject("repairMaterial");
+            IngredientWithCount repair = IngredientWithCount.deserialize(repairObject);
+            if (!repair.isValid()) {
                 return null;
             }
 
@@ -167,36 +168,41 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(ItemWithCount.deserialize(spiritObject));
             }
-            if (spirits.isEmpty()) {
-                return null;
-            }
             if (spirits.stream().anyMatch(c -> !c.isValid())) {
                 return null;
             }
-            return new SpiritFocusingRecipe(recipeId, time, durabilityCost, input, output, spirits);
+            if (spirits.isEmpty()) {
+                return null;
+            }
+            return new SpiritRepairRecipe(recipeId, durabilityPercentage, inputs, repair, spirits);
         }
 
         @Nullable
         @Override
-        public SpiritFocusingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            int time = buffer.readInt();
-            int durabilityCost = buffer.readInt();
-            Ingredient input = Ingredient.fromNetwork(buffer);
-            IngredientWithCount output = IngredientWithCount.read(buffer);
+        public SpiritRepairRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            float durabilityPercentage = buffer.readFloat();
+            int inputCount = buffer.readInt();
+            ArrayList<Item> inputs = new ArrayList<>();
+            for (int i = 0; i < inputCount; i++) {
+                inputs.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(buffer.readUtf())));
+            }
+            IngredientWithCount repair = IngredientWithCount.read(buffer);
             int spiritCount = buffer.readInt();
             ArrayList<ItemWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new ItemWithCount(buffer.readItem()));
             }
-            return new SpiritFocusingRecipe(recipeId, time, durabilityCost, input, output, spirits);
+            return new SpiritRepairRecipe(recipeId, durabilityPercentage, inputs, repair, spirits);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, SpiritFocusingRecipe recipe) {
-            buffer.writeInt(recipe.time);
-            buffer.writeInt(recipe.durabilityCost);
-            recipe.input.toNetwork(buffer);
-            recipe.output.write(buffer);
+        public void toNetwork(FriendlyByteBuf buffer, SpiritRepairRecipe recipe) {
+            buffer.writeFloat(recipe.durabilityPercentage);
+            buffer.writeInt(recipe.inputs.size());
+            for (Item item : recipe.inputs) {
+                buffer.writeUtf(item.toString());
+            }
+            recipe.repairMaterial.write(buffer);
             buffer.writeInt(recipe.spirits.size());
             for (ItemWithCount item : recipe.spirits) {
                 buffer.writeItem(item.getStack());

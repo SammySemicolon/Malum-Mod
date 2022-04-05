@@ -1,36 +1,31 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.EntryScreen;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
+import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.List;
 import java.util.function.Predicate;
 
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
-
 @SuppressWarnings("all")
-public class SpiritCruciblePage extends BookPage {
-    private final SpiritFocusingRecipe recipe;
+public class SpiritCrucibleRepairPage extends BookPage {
+    private final SpiritRepairRecipe recipe;
 
-    public SpiritCruciblePage(Predicate<SpiritFocusingRecipe> predicate) {
-        super(DataHelper.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
+    public SpiritCrucibleRepairPage(Predicate<SpiritRepairRecipe> predicate) {
+        super(DataHelper.prefix("textures/gui/book/pages/spirit_repair_page.png"));
         if (Minecraft.getInstance() == null) //this is null during datagen
         {
             this.recipe = null;
             return;
         }
-        this.recipe = SpiritFocusingRecipe.getRecipe(Minecraft.getInstance().level, predicate);
+        this.recipe = SpiritRepairRecipe.getRecipe(Minecraft.getInstance().level, predicate);
     }
 
-    public SpiritCruciblePage(SpiritFocusingRecipe recipe) {
-        super(DataHelper.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
+    public SpiritCrucibleRepairPage(SpiritRepairRecipe recipe) {
+        super(DataHelper.prefix("textures/gui/book/pages/spirit_repair_page.png"));
         this.recipe = recipe;
     }
 
@@ -39,20 +34,16 @@ public class SpiritCruciblePage extends BookPage {
         return recipe != null;
     }
 
-    public static SpiritCruciblePage fromInput(Item inputItem) {
-        return new SpiritCruciblePage(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
-    }
-
-    public static SpiritCruciblePage fromOutput(Item outputItem) {
-        return new SpiritCruciblePage(s -> s.doesOutputMatch(outputItem.getDefaultInstance()));
+    public static SpiritCrucibleRepairPage fromInput(Item inputItem) {
+        return new SpiritCrucibleRepairPage(s -> s.doesInputMatch(inputItem.getDefaultInstance()));
     }
 
     @Override
     public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ItemStack inputStack = recipe.input.getItems()[0];
-        ItemStack outputStack = recipe.output.getStack();
+        ItemStack inputStack = recipe.inputs.get(0).getDefaultInstance();
+        ItemStack outputStack = inputStack.copy();
         ProgressionBookScreen.renderItem(poseStack, inputStack, guiLeft + 67, guiTop + 59, mouseX, mouseY);
         ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft + 67, guiTop + 126, mouseX, mouseY);
         ProgressionBookScreen.renderComponents(poseStack, guiLeft + 65, guiTop + 16, mouseX, mouseY, false, recipe.spirits);
@@ -62,8 +53,8 @@ public class SpiritCruciblePage extends BookPage {
     public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ItemStack inputStack = recipe.input.getItems()[0];
-        ItemStack outputStack = recipe.output.getStack();
+        ItemStack inputStack = recipe.inputs.get(0).getDefaultInstance();
+        ItemStack outputStack = inputStack.copy();
         ProgressionBookScreen.renderItem(poseStack, inputStack, guiLeft + 209, guiTop + 59, mouseX, mouseY);
         ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft + 209, guiTop + 126, mouseX, mouseY);
         ProgressionBookScreen.renderComponents(poseStack, guiLeft + 207, guiTop + 16, mouseX, mouseY, false, recipe.spirits);

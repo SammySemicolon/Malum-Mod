@@ -68,7 +68,7 @@ public class SpiritInfusionRecipeBuilder
     }
     public void build(Consumer<FinishedRecipe> consumerIn)
     {
-        build(consumerIn, output.stack().getItem().getRegistryName().getPath());
+        build(consumerIn, output.getStack().getItem().getRegistryName().getPath());
     }
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
     {

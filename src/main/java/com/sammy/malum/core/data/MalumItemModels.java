@@ -4,15 +4,14 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
-import com.sammy.malum.common.item.CrackedCeaselessImpetusItem;
-import com.sammy.malum.common.item.ImpetusItem;
+import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.NodeItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.item.tools.ModScytheItem;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.ModCombatItem;
 import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
@@ -49,8 +48,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
         takeAll(items, i -> i.get() instanceof ModScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof NodeItem).forEach(this::nodeItem);
-        takeAll(items, i -> i.get() instanceof ImpetusItem).forEach(this::impetusItem);
-        takeAll(items, i -> i.get() instanceof CrackedCeaselessImpetusItem).forEach(this::crackedCeaselessImpetusItem);
+        takeAll(items, i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).forEach(this::impetusItem);
         takeAll(items, i -> i.get() instanceof MultiBlockItem).forEach(this::multiBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof WallBlock).forEach(this::wallBlockItem);
         takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof FenceBlock).forEach(this::fenceBlockItem);
@@ -92,10 +90,6 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/impetus/" + name));
-    }
-    private void crackedCeaselessImpetusItem(RegistryObject<Item> i)
-    {
-        withExistingParent(Registry.ITEM.getKey(i.get()).getPath(), GENERATED).texture("layer0", prefix("item/ceaseless_impetus_cracked"));
     }
     private void impetusItem(RegistryObject<Item> i)
     {

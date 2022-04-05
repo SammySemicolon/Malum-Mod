@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity.crucible;
 
-import com.sammy.malum.common.item.ImpetusItem;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
@@ -141,8 +141,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         int amount = compound.getInt("acceleratorAmount");
         for (int i = 0; i < amount; i++) {
             BlockPos pos = BlockHelper.loadBlockPos(compound, "" + i);
-            if (level != null && level.getBlockEntity(pos) instanceof ICrucibleAccelerator accelerator)
-            {
+            if (level != null && level.getBlockEntity(pos) instanceof ICrucibleAccelerator accelerator) {
                 acceleratorPositions.add(pos);
                 accelerators.add(accelerator);
             }
@@ -167,9 +166,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             spiritInventory.interact(level, player, hand);
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
-            }
-            else
-            {
+            } else {
                 return InteractionResult.FAIL;
             }
         }
@@ -192,16 +189,13 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-        if (queuedCracks > 0)
-        {
+        if (queuedCracks > 0) {
             crackTimer++;
-            if (crackTimer % 7 == 0)
-            {
-                float pitch = 0.95f + (crackTimer-8) * 0.015f+level.random.nextFloat()*0.05f;
+            if (crackTimer % 7 == 0) {
+                float pitch = 0.95f + (crackTimer - 8) * 0.015f + level.random.nextFloat() * 0.05f;
                 level.playSound(null, worldPosition, SoundRegistry.IMPETUS_CRACK.get(), SoundSource.BLOCKS, 0.7f, pitch);
                 queuedCracks--;
-                if (queuedCracks == 0)
-                {
+                if (queuedCracks == 0) {
                     crackTimer = 0;
                 }
             }
@@ -223,8 +217,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                     boolean canAccelerate = true;
                     for (ICrucibleAccelerator accelerator : accelerators) {
                         boolean canAcceleratorAccelerate = accelerator.canAccelerate();
-                        if (!canAcceleratorAccelerate)
-                        {
+                        if (!canAcceleratorAccelerate) {
                             canAccelerate = false;
                         }
                     }
@@ -248,7 +241,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public void craft() {
         ItemStack stack = inventory.getStackInSlot(0);
         Vec3 itemPos = itemPos(this);
-        ItemStack outputStack = recipe.output.stack();
+        ItemStack outputStack = recipe.output.getStack();
         if (recipe.durabilityCost != 0 && stack.isDamageableItem()) {
             int durabilityCost = recipe.durabilityCost;
             float chance = damageChance;
@@ -277,7 +270,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         }
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
-        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f+level.random.nextFloat()*0.5f);
+        level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + level.random.nextFloat() * 0.5f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         progress = 0;
         inventory.updateData();

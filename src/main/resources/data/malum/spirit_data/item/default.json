@@ -1,4 +1,6 @@
 {
+  "minimum_durability": "0",
+  "recovery_percentage": "0.8",
   "spirits": [
     {
       "spirit": "sacred",

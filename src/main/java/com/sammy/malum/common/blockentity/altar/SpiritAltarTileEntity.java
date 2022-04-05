@@ -291,7 +291,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public void craft() {
         ItemStack stack = inventory.getStackInSlot(0);
         Vec3 itemPos = itemPos(this);
-        ItemStack outputStack = recipe.output.stack();
+        ItemStack outputStack = recipe.output.getStack();
         if (inventory.getStackInSlot(0).hasTag()) {
             outputStack.setTag(stack.getTag());
         }

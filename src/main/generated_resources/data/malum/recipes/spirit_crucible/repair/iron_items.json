@@ -1,0 +1,22 @@
+{
+  "type": "malum:spirit_repair",
+  "inputLookup": "iron_",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+    "crude_scythe"
+  ],
+  "repairMaterial": {
+    "tag": "forge:ingots/iron",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 8
+    },
+    {
+      "item": "malum:sacred_spirit",
+      "count": 4
+    }
+  ]
+}

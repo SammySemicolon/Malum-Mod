@@ -1,0 +1,18 @@
+{
+  "minimum_durability": "1000",
+  "recovery_percentage": "0.6",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 16
+    },
+    {
+      "spirit": "earthen",
+      "count": 8
+    },
+    {
+      "spirit": "arcane",
+      "count": 4
+    }
+  ]
+}

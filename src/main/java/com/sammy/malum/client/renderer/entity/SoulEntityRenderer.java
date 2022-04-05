@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
+import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.rendering.RenderTypes;
 import net.minecraft.client.Minecraft;
@@ -60,30 +61,29 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
         VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(SOUL_NOISE_TYPE,
                 (instance) -> {
                     instance.safeGetUniform("Speed").set(2500f);
-                    instance.safeGetUniform("Intensity").set(45f);
+                    instance.safeGetUniform("Intensity").set(25f);
                 }));
 
         VertexConsumer secondarySoulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(SECONDARY_SOUL_NOISE_TYPE,
                 (instance -> {
                     instance.safeGetUniform("Speed").set(-1500f);
                     instance.safeGetUniform("ScatterPower").set(-20f);
-                    instance.safeGetUniform("Intensity").set(55f);
+                    instance.safeGetUniform("Intensity").set(35f);
                 })));
         VertexConsumer trinarySoulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(TRINARY_SOUL_NOISE_TYPE,
                 (instance -> {
                     instance.safeGetUniform("Speed").set(-2000f);
                     instance.safeGetUniform("ScatterPower").set(30f);
-                    instance.safeGetUniform("Intensity").set(75f);
+                    instance.safeGetUniform("Intensity").set(55f);
                 })));
 
         RenderHelper.create()
-                .setColor(color)
-                .setAlpha(0.9f)
+                .setColor(color.brighter())
+                .setAlpha(1)
                 .setLight(FULL_BRIGHT)
-                .renderQuad(soulNoise, poseStack, 0.8f)
-                .setColor(color.brighter(), 0.75f)
-                .renderQuad(secondarySoulNoise, poseStack, 0.9f)
-                .setAlpha(0.6f)
-                .renderQuad(trinarySoulNoise, poseStack, 1.2f);
+                .renderQuad(soulNoise, poseStack, 0.6f)
+                .setColor(ColorHelper.brighter(color, 2))
+                .renderQuad(secondarySoulNoise, poseStack, 0.7f)
+                .renderQuad(trinarySoulNoise, poseStack, 0.8f);
     }
 }

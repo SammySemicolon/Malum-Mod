@@ -11,10 +11,12 @@ import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.systems.recipe.IRecipeComponent;
+import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import mezz.jei.api.gui.IRecipeLayout;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.controls.KeyBindsList;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -27,11 +29,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
 import static com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.*;
@@ -262,6 +264,16 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new TextPage("crucible_acceleration_b"))
                 .addPage(new TextPage("crucible_acceleration_c"))
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CATALYZER.get()))
+        );
+
+        entries.add(new BookEntry(
+                "impetus_restoration", CRACKED_ALCHEMICAL_IMPETUS.get(), 9, 3)
+                .addPage(new HeadlineTextPage("impetus_restoration", "impetus_restoration_a"))
+                .addPage(new TextPage("impetus_restoration_b"))
+                .addPage(new TextPage("impetus_restoration_c"))
+                .addPage(SpiritInfusionPage.fromOutput(TWISTED_TABLET.get()))
+                .addPage(new HeadlineTextPage("expanded_focusing", "expanded_focusing_a"))
+                .addPage(new TextPage("expanded_focusing_b"))
         );
 
         entries.add(new BookEntry(
@@ -652,6 +664,91 @@ public class ProgressionBookScreen extends Screen {
             screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
         }
     }
+    public static int addItemsToJei(IRecipeLayout iRecipeLayout, int left, int top, boolean vertical, ArrayList<? extends IRecipeComponent> components, int baseIndex) {
+        int slots = components.size();
+        if (vertical) {
+            top -= 10 * (slots - 1);
+        } else {
+            left -= 10 * (slots - 1);
+        }
+        for (int i = 0; i < slots; i++) {
+            int offset = i * 20;
+            int oLeft = left + 1 + (vertical ? 0 : offset);
+            int oTop = top + 1 + (vertical ? offset : 0);
+            ItemStack stack = components.get(i).getStack();
+            iRecipeLayout.getItemStacks().init(baseIndex + i, true, oLeft, oTop);
+            iRecipeLayout.getItemStacks().set(baseIndex + i, stack);
+        }
+        return baseIndex + components.size() + 1;
+    }
+
+    public static void renderComponents(PoseStack poseStack, int left, int top, int mouseX, int mouseY, boolean vertical, ArrayList<? extends IRecipeComponent> components) {
+        ArrayList<ItemStack> items = (ArrayList<ItemStack>) components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
+        ProgressionBookScreen.renderItems(poseStack, left, top, mouseX, mouseY, vertical, items);
+    }
+    public static void renderItems(PoseStack poseStack, int left, int top, int mouseX, int mouseY, boolean vertical, ArrayList<ItemStack> items) {
+        int slots = items.size();
+        renderItemFrames(poseStack, left, top, vertical, slots);
+        if (vertical) {
+            top -= 10 * (slots - 1);
+        } else {
+            left -= 10 * (slots - 1);
+        }
+        for (int i = 0; i < slots; i++) {
+            ItemStack stack = items.get(i);
+            int offset = i * 20;
+            int oLeft = left + 2 + (vertical ? 0 : offset);
+            int oTop = top + 2 + (vertical ? offset : 0);
+            ProgressionBookScreen.renderItem(poseStack, stack, oLeft, oTop, mouseX, mouseY);
+        }
+    }
+    public static void renderItemFrames(PoseStack poseStack, int left, int top, boolean vertical, int slots) {
+        if (vertical) {
+            top -= 10 * (slots - 1);
+        } else {
+            left -= 10 * (slots - 1);
+        }
+        //item slot
+        for (int i = 0; i < slots; i++) {
+            int offset = i * 20;
+            int oLeft = left + (vertical ? 0 : offset);
+            int oTop = top + (vertical ? offset : 0);
+            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, oLeft, oTop, 75, 192, 20, 20, 512, 512);
+
+            if (vertical) {
+                //bottom fade
+                if (slots > 1 && i != slots - 1) {
+                    renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left + 1, oTop + 19, 75, 213, 18, 2, 512, 512);
+                }
+                //bottommost fade
+                if (i == slots - 1) {
+                    renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, oLeft + 1, oTop + 19, 75, 216, 18, 2, 512, 512);
+                }
+            } else {
+                //bottom fade
+                renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, oLeft + 1, top + 19, 75, 216, 18, 2, 512, 512);
+                if (slots > 1 && i != slots - 1) {
+                    //side fade
+                    renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, oLeft + 19, top, 96, 192, 2, 20, 512, 512);
+                }
+            }
+        }
+
+        //crown
+        int crownLeft = left + 5 + (vertical ? 0 : 10 * (slots - 1));
+        renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, crownLeft, top - 5, 128, 192, 10, 6, 512, 512);
+
+        //side bars
+        if (vertical) {
+            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left - 4, top - 4, 99, 200, 28, 7, 512, 512);
+            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left - 4, top + 17 + 20 * (slots - 1), 99, 192, 28, 7, 512, 512);
+        }
+        // top bars
+        else {
+            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left - 4, top - 4, 59, 192, 7, 28, 512, 512);
+            renderTexture(EntryScreen.BOOK_TEXTURE, poseStack, left + 17 + 20 * (slots - 1), top - 4, 67, 192, 7, 28, 512, 512);
+        }
+    }
 
     public static void renderWrappingText(PoseStack mStack, String text, int x, int y, int w) {
         Font font = Minecraft.getInstance().font;
@@ -668,17 +765,17 @@ public class ProgressionBookScreen extends Screen {
         if (!line.isEmpty()) lines.add(line);
         for (int i = 0; i < lines.size(); i++) {
             String currentLine = lines.get(i);
-            renderRawText(mStack, currentLine, x, y + i * (font.lineHeight + 1), glow(i / 4f));
+            renderRawText(mStack, currentLine, x, y + i * (font.lineHeight + 1), getTextGlow(i / 4f));
         }
     }
 
     public static void renderText(PoseStack stack, String text, int x, int y) {
-        renderText(stack, new TranslatableComponent(text), x, y, glow(0));
+        renderText(stack, new TranslatableComponent(text), x, y, getTextGlow(0));
     }
 
     public static void renderText(PoseStack stack, Component component, int x, int y) {
         String text = component.getString();
-        renderRawText(stack, text, x, y, glow(0));
+        renderRawText(stack, text, x, y, getTextGlow(0));
     }
 
     public static void renderText(PoseStack stack, String text, int x, int y, float glow) {
@@ -692,7 +789,7 @@ public class ProgressionBookScreen extends Screen {
 
     private static void renderRawText(PoseStack stack, String text, int x, int y, float glow) {
         Font font = Minecraft.getInstance().font;
-        //182, 61, 183   227, 39, 228
+        //182, 61, 183  227, 39, 228
         int r = (int) Mth.lerp(glow, 182, 227);
         int g = (int) Mth.lerp(glow, 61, 39);
         int b = (int) Mth.lerp(glow, 183, 228);
@@ -705,7 +802,7 @@ public class ProgressionBookScreen extends Screen {
         font.draw(stack, text, x, y, color(255, r, g, b));
     }
 
-    public static float glow(float offset) {
+    public static float getTextGlow(float offset) {
         return Mth.sin(offset + Minecraft.getInstance().player.level.getGameTime() / 40f) / 2f + 0.5f;
     }
 
@@ -726,5 +823,4 @@ public class ProgressionBookScreen extends Screen {
         }
         return screen;
     }
-
 }

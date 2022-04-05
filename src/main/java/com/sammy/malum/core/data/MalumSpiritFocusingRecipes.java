@@ -1,14 +1,17 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
+import com.sammy.malum.core.data.builder.SpiritRepairRecipeBuilder;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
@@ -30,9 +33,34 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        int longDuration = 600;
         int metalDuration = 1200;
         int shortDuration = 300;
+
+        new SpiritRepairRecipeBuilder("wooden_", 1f, Ingredient.of(ItemTags.PLANKS), 4)
+                .addSpirit(EARTHEN_SPIRIT, 2)
+                .build(consumer, "wooden_items");
+
+        new SpiritRepairRecipeBuilder("stone_", 1f, Ingredient.of(ItemTags.STONE_TOOL_MATERIALS), 2)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .build(consumer, "stone_items");
+
+        new SpiritRepairRecipeBuilder("iron_", 0.5f, Ingredient.of(Tags.Items.INGOTS_IRON), 2)
+                .addItem(ItemRegistry.CRUDE_SCYTHE.get())
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(SACRED_SPIRIT, 4)
+                .build(consumer, "iron_items");
+
+        new SpiritRepairRecipeBuilder( 0.75f, Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()), 4)
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_SCYTHE.get())
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_HELMET.get())
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get())
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get())
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get())
+                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(WICKED_SPIRIT, 2)
+                .build(consumer, "special_soul_stained_steel_items");
+
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GUNPOWDER), 8)
                 .addSpirit(EARTHEN_SPIRIT, 1)
                 .build(consumer);

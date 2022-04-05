@@ -3,6 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
+import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.core.handlers.RenderHandler;
@@ -20,6 +21,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -28,9 +30,6 @@ import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
-    public static final Color SOULWOOD = new Color(15, 7, 17);
-    public static final Color RUNEWOOD = new Color(12, 8, 7);
-
     public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
@@ -45,35 +44,24 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(overlayHashmap.get(blockEntityIn.type), color(blockEntityIn), direction, poseStack);
+        renderQuad(overlayHashmap.get(blockEntityIn.type), blockEntityIn.type.color, blockEntityIn.currentColor/20f, direction, poseStack);
     }
 
-    public Color color(TotemPoleTileEntity totemPoleTileEntity) {
-        Color color1 = totemPoleTileEntity.corrupted ? SOULWOOD : RUNEWOOD;
-        Color color2 = totemPoleTileEntity.type.color;
-        int red = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getRed(), color2.getRed());
-        int green = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getGreen(), color2.getGreen());
-        int blue = (int) Mth.lerp(totemPoleTileEntity.currentColor / 20f, color1.getBlue(), color2.getBlue());
-        return new Color(red, green, blue);
-    }
-
-    public void renderQuad(Material material, Color color, Direction direction, PoseStack poseStack) {
+    public void renderQuad(Material material, Color color, float alpha, Direction direction, PoseStack poseStack) {
         TextureAtlasSprite sprite = material.sprite();
         VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(RenderTypes.ADDITIVE_BLOCK);
+
+        Vector3f[] positions = new Vector3f[]{new Vector3f(0, 0, 2.01f), new Vector3f(2, 0, 2.01f), new Vector3f(2, 2, 2.01f), new Vector3f(0, 2, 2.01f)};
+
         poseStack.pushPose();
-        //TODO: THIS SUCKS. FIX THIS.
-        poseStack.translate(0.5, 0, 0.5);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation(direction)));
-        poseStack.translate(-0.5, 0, -0.5);
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(180));
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(180));
-        poseStack.translate(-0.5, 0.5f, 0.01f);
+        poseStack.translate(0.5f, 0.5f, 0.5f);
+        poseStack.mulPose(Vector3f.YN.rotationDegrees(direction.toYRot()));
+        poseStack.translate(-0.5f, -0.5f, -0.5f);
         RenderHelper.create()
-                .setColor(color)
+                .setColor(color, alpha)
                 .setLight(FULL_BRIGHT)
                 .setUV(sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1())
-                .renderQuad(consumer, poseStack, 0.5f);
-
+                .renderQuad(consumer, poseStack, positions, 0.5f);
         poseStack.popPose();
     }
 

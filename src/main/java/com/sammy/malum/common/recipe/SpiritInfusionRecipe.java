@@ -27,61 +27,55 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class SpiritInfusionRecipe extends IMalumRecipe
-{
+public class SpiritInfusionRecipe extends IMalumRecipe {
     public static final String NAME = "spirit_infusion";
+
     public static class Type implements RecipeType<SpiritInfusionRecipe> {
         @Override
-        public String toString () {
+        public String toString() {
             return MalumMod.MODID + ":" + NAME;
         }
 
         public static final SpiritInfusionRecipe.Type INSTANCE = new SpiritInfusionRecipe.Type();
     }
+
     private final ResourceLocation id;
 
     public final IngredientWithCount input;
 
     public final IngredientWithCount output;
 
-    public final List<ItemWithCount> spirits;
-    public final List<IngredientWithCount> extraItems;
+    public final ArrayList<ItemWithCount> spirits;
+    public final ArrayList<IngredientWithCount> extraItems;
 
-    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
-    {
+    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, ArrayList<ItemWithCount> spirits, ArrayList<IngredientWithCount> extraItems) {
         this.id = id;
         this.input = input;
         this.output = output;
         this.spirits = spirits;
         this.extraItems = extraItems;
     }
+
     @Override
-    public RecipeSerializer<?> getSerializer()
-    {
+    public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.INFUSION_RECIPE_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType()
-    {
+    public RecipeType<?> getType() {
         return Type.INSTANCE;
     }
 
     @Override
-    public ResourceLocation getId()
-    {
+    public ResourceLocation getId() {
         return id;
     }
 
-    public ArrayList<ItemStack> getSortedStacks(ArrayList<ItemStack> stacks)
-    {
+    public ArrayList<ItemStack> getSortedStacks(ArrayList<ItemStack> stacks) {
         ArrayList<ItemStack> sortedStacks = new ArrayList<>();
-        for (ItemWithCount item : spirits)
-        {
-            for (ItemStack stack : stacks)
-            {
-                if (item.matches(stack))
-                {
+        for (ItemWithCount item : spirits) {
+            for (ItemStack stack : stacks) {
+                if (item.matches(stack)) {
                     sortedStacks.add(stack);
                     break;
                 }
@@ -89,50 +83,43 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return sortedStacks;
     }
-    public ArrayList<MalumSpiritType> getSpirits()
-    {
+
+    public ArrayList<MalumSpiritType> getSpirits() {
         ArrayList<MalumSpiritType> spirits = new ArrayList<>();
-        for (ItemWithCount item : this.spirits)
-        {
+        for (ItemWithCount item : this.spirits) {
             MalumSpiritItem spiritItem = (MalumSpiritItem) item.item;
             spirits.add(spiritItem.type);
         }
         return spirits;
     }
-    public boolean doSpiritsMatch(ArrayList<ItemStack> spirits)
-    {
-        if (this.spirits.size() == 0)
-        {
+
+    public boolean doSpiritsMatch(ArrayList<ItemStack> spirits) {
+        if (this.spirits.size() == 0) {
             return true;
         }
-        if (this.spirits.size() != spirits.size())
-        {
+        if (this.spirits.size() != spirits.size()) {
             return false;
         }
         ArrayList<ItemStack> sortedStacks = getSortedStacks(spirits);
-        if (sortedStacks.size() < this.spirits.size())
-        {
+        if (sortedStacks.size() < this.spirits.size()) {
             return false;
         }
-        for (int i = 0; i < this.spirits.size(); i++)
-        {
+        for (int i = 0; i < this.spirits.size(); i++) {
             ItemWithCount item = this.spirits.get(i);
             ItemStack stack = sortedStacks.get(i);
-            if (!item.matches(stack))
-            {
+            if (!item.matches(stack)) {
                 return false;
             }
         }
         return true;
     }
-    public boolean doesInputMatch(ItemStack input)
-    {
+
+    public boolean doesInputMatch(ItemStack input) {
         return this.input.matches(input);
     }
 
-    public boolean doesOutputMatch(ItemStack output)
-    {
-        return this.output.ingredient.test(output);
+    public boolean doesOutputMatch(ItemStack output) {
+        return this.output.matches(output);
     }
 
     public static SpiritInfusionRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
@@ -148,103 +135,78 @@ public class SpiritInfusionRecipe extends IMalumRecipe
         }
         return null;
     }
-    public static List<SpiritInfusionRecipe> getRecipes(Level level)
-    {
+
+    public static List<SpiritInfusionRecipe> getRecipes(Level level) {
         return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
+
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritInfusionRecipe> {
-        public boolean isValid(ResourceLocation recipeId, Ingredient ingredient) {
-            return Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).noneMatch(s -> s.equals(Items.BARRIER));
-        }
-        public boolean isValid(ResourceLocation recipeId, Stream<Item> item) {
-            return item.noneMatch(i -> i.equals(Items.BARRIER));
-        }
-        public boolean isValid(ResourceLocation recipeId, Item item) {
-            return !item.equals(Items.BARRIER);
-        }
         @Override
-        public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json)
-        {
+        public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject inputObject = json.getAsJsonObject("input");
             IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
-            if (!isValid(recipeId, input.ingredient))
-            {
+            if (!input.isValid()) {
                 return null;
             }
 
             JsonObject outputObject = json.getAsJsonObject("output");
             IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
-            if (!isValid(recipeId, output.ingredient))
-            {
+            if (!output.isValid()) {
                 return null;
             }
             JsonArray extraItemsArray = json.getAsJsonArray("extra_items");
             ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
-            for (int i = 0; i < extraItemsArray.size(); i++)
-            {
+            for (int i = 0; i < extraItemsArray.size(); i++) {
                 JsonObject extraItemObject = extraItemsArray.get(i).getAsJsonObject();
                 extraItems.add(IngredientWithCount.deserialize(extraItemObject));
             }
-            for (IngredientWithCount extraItem : extraItems) {
-                if (!isValid(recipeId, extraItem.ingredient))
-                {
-                    return null;
-                }
+            if (extraItems.stream().anyMatch(c -> !c.isValid())) {
+                return null;
             }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
             ArrayList<ItemWithCount> spirits = new ArrayList<>();
-            for (int i = 0; i < spiritsArray.size(); i++)
-            {
+            for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(ItemWithCount.deserialize(spiritObject));
             }
-            if (!isValid(recipeId, spirits.stream().map(ItemWithCount::getItem)))
-            {
+            if (spirits.isEmpty()) {
                 return null;
             }
-            if (spirits.isEmpty())
-            {
-                MalumMod.LOGGER.info("Found a recipe with no spirits, skipping spirit infusion recipe with id: " + recipeId);
+            if (spirits.stream().anyMatch(c -> !c.isValid())) {
                 return null;
             }
-            return new SpiritInfusionRecipe(recipeId, input, output,spirits,extraItems);
+            return new SpiritInfusionRecipe(recipeId, input, output, spirits, extraItems);
         }
 
         @Nullable
         @Override
-        public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer)
-        {
+        public SpiritInfusionRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             IngredientWithCount input = IngredientWithCount.read(buffer);
             IngredientWithCount output = IngredientWithCount.read(buffer);
             int extraItemCount = buffer.readInt();
             ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
-            for (int i = 0; i < extraItemCount;i++)
-            {
+            for (int i = 0; i < extraItemCount; i++) {
                 extraItems.add(IngredientWithCount.read(buffer));
             }
             int spiritCount = buffer.readInt();
             ArrayList<ItemWithCount> spirits = new ArrayList<>();
-            for (int i = 0; i < spiritCount;i++)
-            {
+            for (int i = 0; i < spiritCount; i++) {
                 spirits.add(new ItemWithCount(buffer.readItem()));
             }
             return new SpiritInfusionRecipe(recipeId, input, output, spirits, extraItems);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, SpiritInfusionRecipe recipe)
-        {
+        public void toNetwork(FriendlyByteBuf buffer, SpiritInfusionRecipe recipe) {
             recipe.input.write(buffer);
             recipe.output.write(buffer);
             buffer.writeInt(recipe.extraItems.size());
-            for (IngredientWithCount item : recipe.extraItems)
-            {
+            for (IngredientWithCount item : recipe.extraItems) {
                 item.write(buffer);
             }
             buffer.writeInt(recipe.spirits.size());
-            for (ItemWithCount item : recipe.spirits)
-            {
+            for (ItemWithCount item : recipe.spirits) {
                 buffer.writeItem(item.getStack());
             }
         }

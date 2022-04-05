@@ -121,7 +121,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("spirit_magics", "Spirit Basics");
         addPage("spirit_magics_a", "\"How do I get my greedy little hands on a spirit?\" You might ask yourself. To start, you'll need to prepare yourself a trusty yet wicked weapon for your job. On top of that, it's important to know which souls you're gonna want to hunt down.");
         addPage("spirit_magics_b", "Depending on which spirits you need you'll be hunting for different creatures. When you set out on a hunt you'll have to carefully think about which of your prey will have exactly what you need.");
-        addPage("spirit_magics_c", "When hunting for souls it is important to not leave any of them behind. Uncollected spirits will slowly decay into the nearby area, leaving their power wasted. Uncontrolled soul magic can be extremely dangerous, often creating brand new anomalies you may have found within your world.");
+        addPage("spirit_magics_c", "When hunting for spirits it is important to not leave any behind. Uncollected spirits will slowly decay into the nearby area, leaving their power wasted. Uncontrolled soul magic can be extremely dangerous, often creating brand new anomalies you may have found within your world.");
 
         addDescription("soulstone", "Altered Minerals");
         addHeadline("soulstone", "Soulstone");

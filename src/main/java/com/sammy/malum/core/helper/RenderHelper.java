@@ -233,13 +233,22 @@ public class RenderHelper {
             return renderQuad(vertexConsumer, stack, size, size);
         }
         public VertexBuilder renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height) {
+            Vector3f[] positions = new Vector3f[]{new Vector3f(-width, -height, 0), new Vector3f(width, -height, 0), new Vector3f(width, height, 0), new Vector3f(-width, height, 0)};
+            return renderQuad(vertexConsumer, stack, positions, width, height);
+        }
+        public VertexBuilder renderQuad(VertexConsumer vertexConsumer, PoseStack stack, Vector3f[] positions, float size) {
+            return renderQuad(vertexConsumer, stack, positions, size, size);
+        }
+        public VertexBuilder renderQuad(VertexConsumer vertexConsumer, PoseStack stack, Vector3f[] positions, float width, float height) {
             Matrix4f last = stack.last().pose();
             stack.translate(xOffset, yOffset, zOffset);
-            Vec3[] positions = new Vec3[]{new Vec3(-width, -height, 0), new Vec3(width, -height, 0), new Vec3(width, height, 0), new Vec3(-width, height, 0)};
-            vertexPosColorUVLight(vertexConsumer, last, (float) positions[0].x, (float) positions[0].y, (float) positions[0].z, r, g, b, a, u0, v1, light);
-            vertexPosColorUVLight(vertexConsumer, last, (float) positions[1].x, (float) positions[1].y, (float) positions[1].z, r, g, b, a, u1, v1, light);
-            vertexPosColorUVLight(vertexConsumer, last, (float) positions[2].x, (float) positions[2].y, (float) positions[2].z, r, g, b, a, u1, v0, light);
-            vertexPosColorUVLight(vertexConsumer, last, (float) positions[3].x, (float) positions[3].y, (float) positions[3].z, r, g, b, a, u0, v0, light);
+            for (Vector3f position : positions) {
+                position.mul(width, height, width);
+            }
+            vertexPosColorUVLight(vertexConsumer, last, (float) positions[0].x(), (float) positions[0].y(), (float) positions[0].z(), r, g, b, a, u0, v1, light);
+            vertexPosColorUVLight(vertexConsumer, last, (float) positions[1].x(), (float) positions[1].y(), (float) positions[1].z(), r, g, b, a, u1, v1, light);
+            vertexPosColorUVLight(vertexConsumer, last, (float) positions[2].x(), (float) positions[2].y(), (float) positions[2].z(), r, g, b, a, u1, v0, light);
+            vertexPosColorUVLight(vertexConsumer, last, (float) positions[3].x(), (float) positions[3].y(), (float) positions[3].z(), r, g, b, a, u0, v0, light);
             stack.translate(-xOffset, -yOffset, -zOffset);
             return this;
         }
