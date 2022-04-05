@@ -121,7 +121,7 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
     }
 
     public boolean doesOutputMatch(ItemStack output) {
-        return this.output.matches(output);
+        return this.output.ingredient.test(output);
     }
 
     public static SpiritFocusingRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {

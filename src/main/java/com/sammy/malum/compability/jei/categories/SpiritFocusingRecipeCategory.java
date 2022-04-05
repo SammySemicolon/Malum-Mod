@@ -42,7 +42,7 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     public void draw(SpiritFocusingRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
         if (recipe.spirits.size() > 0) {
-            ProgressionBookScreen.renderItemFrames(poseStack, 54, 12, false, recipe.spirits.size());
+            ProgressionBookScreen.renderItemFrames(poseStack, 60, 12, false, recipe.spirits.size());
         }
     }
 
@@ -87,7 +87,7 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritFocusingRecipe recipe, IIngredients iIngredients) {
         int index = 0;
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 54, 12, false, recipe.spirits, index);
+        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 60, 12, false, recipe.spirits, index);
 
         iRecipeLayout.getItemStacks().init(index + 1, true, 61, 56);
         iRecipeLayout.getItemStacks().set(index + 1, Arrays.asList(recipe.input.getItems()));

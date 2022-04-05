@@ -1,12 +1,28 @@
 {
-  "type": "malum:node_blasting",
-  "ingredient": {
-    "item": "malum:osmium_node"
-  },
-  "result": {
-    "tag": "forge:nuggets/osmium",
-    "count": 6
-  },
-  "experience": 0.25,
-  "cookingtime": 100
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/osmium",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "malum:node_blasting",
+        "ingredient": {
+          "item": "malum:osmium_node"
+        },
+        "result": {
+          "tag": "forge:nuggets/osmium",
+          "count": 6
+        },
+        "experience": 0.25,
+        "cookingtime": 100
+      }
+    }
+  ]
 }

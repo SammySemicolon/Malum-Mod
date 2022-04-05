@@ -26,7 +26,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(LivingEntity.class, level, pos, false).forEach(e -> {
                 if (!(e instanceof Player)) {
@@ -37,7 +37,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             ArrayList<Animal> entities = getNearbyEntities(Animal.class, level, pos, true);
             if (entities.size() < 30) {

@@ -35,12 +35,11 @@ public class EldritchAqueousRiteType extends MalumRiteType {
 
     @Override
     public int range(boolean corrupted) {
-
-        return defaultRange() / (corrupted ? 4 : 2);
+        return corrupted ? defaultRange() / 4 : defaultRange();
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         ArrayList<BlockPos> positions = getNearbyBlocks(PointedDripstoneBlock.class, level, pos, false);
         positions.removeIf(p -> !PointedDripstoneBlock.isStalactiteStartPos(level.getBlockState(p), level, p));
         positions.forEach(p -> {
@@ -55,7 +54,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || level.getBlockState(p).getFluidState().isEmpty());
         positions.forEach(p -> {

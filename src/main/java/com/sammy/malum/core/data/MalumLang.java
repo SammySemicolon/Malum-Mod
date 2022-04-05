@@ -110,43 +110,45 @@ public class MalumLang extends LanguageProvider
 
         coolerBookEntries.forEach(b -> add(b.translationKey(), DataHelper.toTitleCase(b.identifier, "_")));
 
-        addDescription("introduction", "Welcome to evil");
+        addDescription("introduction", "Welcome, we've been waiting");
         addHeadline("introduction", "Introduction");
-        addPage("introduction_a", "Within this world, every living body has a soul. The body is a physical vessel that the soul occupies. The soul is one's consciousness and what animates the body. Both represent who you are, one physically, the other magically.");
-        addPage("introduction_b", "The encyclopedia arcana is a book that documents all that is known about arcane presence within this world. It focuses on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
-        addPage("introduction_c", "In order to properly harness the unspoken power of soul magics, you'll have to dive into the very center of it all. At the very core of every soul rests lots of various untapped power in form of what's known as spirits - fragments of potential.");
-        addPage("introduction_d", "The magical presence of a soul derives almost entirely from the spirits found within it. They may be dormant, but they are there. Each different soul is one and only, made up of different quantities of unique spirits.");
+        addPage("introduction_a", "Within this world, every living body has a soul. The soul is one's consciousness and what animates the body, a physical vessel for the arcane presence of a soul. Both represent who you are, one is an arcane image, the other a physical fortress.");
+        addPage("introduction_b", "The encyclopedia arcana is a book that documents all that is known about the soul, to be more precise it focuses on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
+        addPage("introduction_c", "In order to properly harness the unspoken power of soul magics, you'll have to start with the basics. At the very core of every soul rests an untapped source of power in form of what's known as spirit arcana - fragments of potential.");
+        addPage("introduction_d", "The power of a specific soul derives almost entirely from the spirits found within it's core. These spirits serve as the basis for the very existence of the arcane presence of a soul. Each different soul is one and only, powered by different combinations of eight known types of spirit.");
 
         addDescription("spirit_magics", "Spirit Splinters");
         addHeadline("spirit_magics", "Spirit Basics");
-        addPage("spirit_magics_a", "\"How do I get my greedy little hands on a spirit?\" You might ask yourself. To start, you'll need to prepare yourself a trusty yet wicked weapon for your job. On top of that, it's important to know which souls you're gonna want to hunt down.");
-        addPage("spirit_magics_b", "Depending on which spirits you need you'll be hunting for different creatures. When you set out on a hunt you'll have to carefully think about which of your prey will have exactly what you need.");
-        addPage("spirit_magics_c", "When hunting for spirits it is important to not leave any behind. Uncollected spirits will slowly decay into the nearby area, leaving their power wasted. Uncontrolled soul magic can be extremely dangerous, often creating brand new anomalies you may have found within your world.");
+        addPage("spirit_magics_a", "\"How do I get my greedy little hands on a spirit?\" You might ponder. To start, you'll need to prepare yourself a trusty yet wicked weapon for your job. One capable of damaging the soul of your target.");
+        addPage("spirit_magics_b", "On top of that, it's important to know which souls you're gonna want to hunt down. Depending on which spirits you need you'll be hunting for different creature, It's important to carefully think about which of your prey will have the spirits you're seeking out.");
+        addPage("spirit_magics_c", "When hunting for spirits it is important to not leave any behind. Uncollected spirits will slowly decay into the nearby area, leaving their precious power wasted. Uncontrolled soul magic can be extremely dangerous, often creating brand new anomalies which are now present within your world.");
 
         addDescription("soulstone", "Altered Minerals");
         addHeadline("soulstone", "Soulstone");
-        addPage("soulstone_a", "The soulstone is a strange ore found both on the surface and in the deepslate layer of your world. The ore itself is created when wicked spirit is infused into carbon based minerals such as coal or diamond.");
-        addPage("soulstone_b", "Sadly this process takes an unbelievably long time, it's nearly impossible to replicate. At the end of it, a soul-reactive material was brought into this world. Due to it's origins, soulstone is a great catalyst for soul magics and other diabolical fields.");
-        addPage("soulstone_c", "To be more specific, wicked spirit found within the soulstone is so concentrated  that when brought close to an arcane presence it can be easily damaged. Furthermore, any piece of gear made from soulstone will be able to damage souls.");
+        addPage("soulstone_a", "The soulstone is a strange mineral found both nearby the surface and in the deepslate layer of your world. The ore itself is created when wicked spirit is infused into carbon based minerals such as coal or diamond.");
+        addPage("soulstone_b", "Sadly this process takes an unbelievably long time and furthermore it's nearly impossible to safely replicate in a reasonable amount of time, you'll have to find the mere leftovers of uncontrolled soul magic. Due to it's arcane origins, soulstone is a great catalyst for soul magics and other diabolical fields.");
+        addPage("soulstone_c", "To be exact, wicked spirit is known for being especially capable of harming the soul, furthermore due to the high concentration of wicked arcana within the soulstone, any piece of gear augmented with the gem will be able to harm the soul.");
 
         addDescription("runewood", "Arcane oak");
         addHeadline("runewood", "Runewood");
-        addPage("runewood_a", "Similarly to soulstone, the runewood tree is yet another result of uncontrolled spirit infusion. This time however the result is rather unexpected from soul magics. Apart from being a good conductor for arcana, the tree doesn't pose much of a threat at all. How boring.");
-        addPage("runewood_b", "Runewood trees are created with arcane and sacred spirit, hence their tame nature. Unlike the soulstone, this process is rather quick in comparison and can easily be replicated.");
+        addPage("runewood_a", "Similarly to soulstone, the runewood tree is yet another result of uncontrolled soul magic. This time however the nature of the result is much less grim. These trees are known for their life giving sap and for their wood; a fine arcana conductor.");
+        addPage("runewood_b", "Runewood trees are created with arcane and sacred spirit, hence their tame nature. Unlike the soulstone, this process is rather quick in comparison and can easily be replicated with a good understanding of soul magic.");
         addHeadline("arcane_charcoal", "Arcane Charcoal");
-        addPage("arcane_charcoal", "Due to the magic origins of the arcane oak, charcoal created from runewood is extra efficient and can smelt many more items. Additionally, charcoal, coal, blazing quartz and arcane charcoal can be turned into tiny fragments which smelt just one or two items.");
+        addPage("arcane_charcoal", "Due to the esoteric origins of the arcane oak, charcoal created from runewood is extra efficient and can burn for twice as long. You may also turn it into several smaller pieces, much like with other fuels you're more accustomed to.");
         addHeadline("holy_sap", "Holy Sap");
-        addPage("holy_sap_a", "Within the runewood trees a special type of sap is born. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of wood, and then bottle up as much as you can get.");
-        addPage("holy_sap_b", "Holy extract can be used for quite a few things. Firstly, by combining it with a slimeball you'll obtain sapballs. Since sapballs are equal to slimeballs the crafting process results in triple the slime.");
-        addPage("holy_sap_c", "Secondly, you can create holy syrup by heating up your sap. Drinking this rejuvenating substance will replenish plenty of hunger and even grant you a rejuvenating effect.");
-        addPage("holy_sap_d", "Try your best to not think about reverting sapballs into slimeballs using a certain thermal-series centrifugal separator.");
+        addPage("holy_sap_a", "Within the runewood trees a special type of sap is created. To get your hands on this holy extract you'll need an axe. Start by stripping off the bark of an exposed piece of runewood, and then collect it all with a glass bottle.");
+        addPage("holy_sap_b", "Holy sap can be used for quite a few things. Firstly, by combining it with a slimeball you'll obtain several sapballs, which serve the same purpose.");
+        addPage("holy_sap_c", "Secondly, you can create holy syrup by heating up your sap. Drinking this rejuvenating substance will replenish plenty of hunger and even provide you with a healing effect.");
+        addPage("holy_sap_d", "Try your best to not think about reverting sapballs into their slimy precursor using a certain thermal-series centrifugal separator.");
 
-        addDescription("scythes", "Primitive Soul Shattering");
+        addDescription("scythes", "Shatter the Soul");
         addHeadline("scythes", "Scythes");
-        addPage("scythes_a", "The scythe is a very popular tool amongst soul hunters. To start, it provides a strong sweeping attack, even more powerful than the sword. Perfect for clearing through hordes of prey. Additionally, and most importantly it damages the soul and body with each attack.");
-        addPage("scythes_b", "When you damage a living body you destroy the vessel of a soul. However if you damage both the body and the soul you'll be able to completely eradicate your enemy, this way of mercilessly executing your enemy is known as shattering their soul and serves as the basic way of obtaining spirits.");
-        addPage("scythes_c", "The most primitive scythe available is the crude one, made from iron and a single soulstone.");
+        addPage("scythes_a", "The scythe is a very popular tool amid soul hunters. For one, it provides a strong sweeping attack even more powerful than that of the sword. Secondly, due to the soulstone augmented into the scythe it's capable of damaging both the soul and body with each attack.");
+        addPage("scythes_b", "When you damage a living body you destroy the vessel of a soul, letting it fade away peacefully into the afterlife. However when you slay a soul, you will shatter it alongside the death of the vessel. This merciless execution denies the soul eternal peace and is your key to obtaining your very first batch of spirit arcana.");
+        addPage("scythes_c", "The most primitive scythe available is a crude one, made from iron and a single soulstone.");
 
+        //FINISHED JUST ABOVE
+        
         addHeadline("haunted", "Haunted");
         addPage("haunted", "When a soulstone is brought close to a soul it radiates a small amount of arcana. The haunted enchantment converts that magic energy into extra magic damage to anyone you strike. Higher tiers hit with even stronger magic.");
 

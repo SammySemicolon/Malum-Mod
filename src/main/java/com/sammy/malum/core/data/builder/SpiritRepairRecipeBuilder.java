@@ -80,7 +80,7 @@ public class SpiritRepairRecipeBuilder {
         public void serializeRecipeData(JsonObject json) {
             JsonArray inputs = new JsonArray();
             for (Item item : this.input) {
-                inputs.add(item.toString());
+                inputs.add(item.getRegistryName().toString());
             }
             JsonArray spirits = new JsonArray();
             for (ItemWithCount spirit : this.spirits) {

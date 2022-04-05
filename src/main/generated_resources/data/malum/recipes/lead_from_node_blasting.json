@@ -1,12 +1,28 @@
 {
-  "type": "malum:node_blasting",
-  "ingredient": {
-    "item": "malum:lead_node"
-  },
-  "result": {
-    "tag": "forge:nuggets/lead",
-    "count": 6
-  },
-  "experience": 0.25,
-  "cookingtime": 100
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/lead",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "malum:node_blasting",
+        "ingredient": {
+          "item": "malum:lead_node"
+        },
+        "result": {
+          "tag": "forge:nuggets/lead",
+          "count": 6
+        },
+        "experience": 0.25,
+        "cookingtime": 100
+      }
+    }
+  ]
 }

@@ -18,7 +18,7 @@ public class AerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.AERIAL_AURA.get()) == null) {
@@ -30,7 +30,7 @@ public class AerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {

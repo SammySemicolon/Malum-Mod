@@ -3,15 +3,15 @@
   "inputLookup": "none",
   "durabilityPercentage": 0.75,
   "inputs": [
-    "malum:soul_stained_steel_scythe",
-    "malum:soul_stained_steel_helmet",
-    "malum:soul_stained_steel_chestplate",
-    "malum:soul_stained_steel_leggings",
-    "malum:soul_stained_steel_boots"
+    "malum:soul_stained_steel_sword",
+    "malum:soul_stained_steel_axe",
+    "malum:soul_stained_steel_pickaxe",
+    "malum:soul_stained_steel_shovel",
+    "malum:soul_stained_steel_hoe"
   ],
   "repairMaterial": {
     "item": "malum:soul_stained_steel_ingot",
-    "count": 4
+    "count": 2
   },
   "spirits": [
     {

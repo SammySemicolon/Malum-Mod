@@ -43,7 +43,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     public void draw(SpiritRepairRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
         if (recipe.spirits.size() > 0) {
-            ProgressionBookScreen.renderItemFrames(poseStack, 54, 12, false, recipe.spirits.size());
+            ProgressionBookScreen.renderItemFrames(poseStack, 60, 12, false, recipe.spirits.size());
         }
     }
 
@@ -88,29 +88,22 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritRepairRecipe recipe, IIngredients iIngredients) {
         int index = 0;
         ArrayList<ItemWithCount> spirits = recipe.spirits;
-        ArrayList<ItemStack> input = (ArrayList<ItemStack>) recipe.inputs.stream().map(Item::getDefaultInstance).collect(Collectors.toList());
+        ArrayList<ItemStack> repaired = (ArrayList<ItemStack>) recipe.inputs.stream().map(Item::getDefaultInstance).collect(Collectors.toList());
         ArrayList<ItemStack> repairIngredient = recipe.repairMaterial.getStacks();
-        ArrayList<ItemStack> output = new ArrayList<>(input);
 
-//        ArrayList<ItemStack> repairedItems = damagedItems.stream()
-//                .map(ItemStack::copy)
-//                .map(i -> {
-//                    if (i.getItem() instanceof SpiritRepairRecipe.SpecialSpiritRepair specialSpiritRepair && !specialSpiritRepair.overrideRepairStack().isEmpty()) {
-//                        return specialSpiritRepair.overrideRepairStack();
-//                    }
-//                    return i;
-//                })
-//                .collect(Collectors.toCollection(ArrayList::new));
-//        for (ItemStack targetItem : damagedItems) {
-//            targetItem.setDamageValue((int) (targetItem.getMaxDamage() * recipe.durabilityPercentage));
-//        }
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 54, 12, false, spirits, index);
+        ArrayList<ItemStack> damaged = repaired.stream()
+                .map(ItemStack::copy)
+                .collect(Collectors.toCollection(ArrayList::new));
+        for (ItemStack targetItem : damaged) {
+            targetItem.setDamageValue((int) (targetItem.getMaxDamage() * recipe.durabilityPercentage));
+        }
+        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 60, 12, false, spirits, index);
 
         iRecipeLayout.getItemStacks().init(index + 1, true, 61, 56);
-        iRecipeLayout.getItemStacks().set(index + 1, input);
+        iRecipeLayout.getItemStacks().set(index + 1, damaged);
 
         iRecipeLayout.getItemStacks().init(index + 2, true, 61, 123);
-        iRecipeLayout.getItemStacks().set(index + 2, output);
+        iRecipeLayout.getItemStacks().set(index + 2, repaired);
 
         iRecipeLayout.getItemStacks().init(index + 3, true, 27, 56);
         iRecipeLayout.getItemStacks().set(index + 3, repairIngredient);

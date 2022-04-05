@@ -50,7 +50,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(SACRED_SPIRIT, 4)
                 .build(consumer, "iron_items");
 
-        new SpiritRepairRecipeBuilder( 0.75f, Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()), 4)
+        new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()), 4)
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_SCYTHE.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_HELMET.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get())
@@ -60,6 +60,17 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .addSpirit(WICKED_SPIRIT, 2)
                 .build(consumer, "special_soul_stained_steel_items");
+
+        new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()), 2)
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_SWORD.get())
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_AXE.get())
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get())
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_SHOVEL.get())
+                .addItem(ItemRegistry.SOUL_STAINED_STEEL_HOE.get())
+                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .addSpirit(WICKED_SPIRIT, 2)
+                .build(consumer, "soul_stained_steel_items");
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GUNPOWDER), 8)
                 .addSpirit(EARTHEN_SPIRIT, 1)
@@ -102,6 +113,6 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                                 ::build
                 )
                 .generateAdvancement()
-                .build(consumer, DataHelper.prefix("conditional_node_" + tag.replace("forge:nuggets", "")));
+                .build(consumer, DataHelper.prefix("conditional_node" + tag.replace("forge:nuggets", "")));
     }
 }

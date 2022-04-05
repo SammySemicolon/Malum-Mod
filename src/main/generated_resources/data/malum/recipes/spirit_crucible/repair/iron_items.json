@@ -3,7 +3,7 @@
   "inputLookup": "iron_",
   "durabilityPercentage": 0.5,
   "inputs": [
-    "crude_scythe"
+    "malum:crude_scythe"
   ],
   "repairMaterial": {
     "tag": "forge:ingots/iron",

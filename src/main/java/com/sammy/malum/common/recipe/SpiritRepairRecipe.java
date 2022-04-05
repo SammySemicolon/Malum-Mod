@@ -120,7 +120,6 @@ public class SpiritRepairRecipe extends IMalumRecipe {
         return this.repairMaterial.matches(repair);
     }
 
-
     public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
         return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
     }
@@ -154,6 +153,13 @@ public class SpiritRepairRecipe extends IMalumRecipe {
                     return null;
                 }
                 inputs.add(input);
+            }
+            for (Item item : ForgeRegistries.ITEMS) {
+                if (item.canBeDepleted() && item.getRegistryName().getPath().contains(inputLookup)) {
+                    if (!inputs.contains(item)) {
+                        inputs.add(item);
+                    }
+                }
             }
 
             JsonObject repairObject = json.getAsJsonObject("repairMaterial");

@@ -2,6 +2,8 @@ package com.sammy.malum.core.data.builder.vanilla;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -18,9 +20,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
+
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.EARTHEN_SPIRIT;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.INFERNAL_SPIRIT;
 
 public class MetalNodeCookingRecipeBuilder implements RecipeBuilder {
    private final Tag<Item> result;
@@ -67,6 +77,7 @@ public class MetalNodeCookingRecipeBuilder implements RecipeBuilder {
    public Item getResult() {
       return result.getValues().get(0);
    }
+
 
    public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
       this.ensureValid(pRecipeId);

@@ -35,7 +35,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             BlockState filter = level.getBlockState(pos.below());
             ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
@@ -62,7 +62,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {

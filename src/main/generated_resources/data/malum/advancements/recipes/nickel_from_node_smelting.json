@@ -1,0 +1,49 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/nickel",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "malum:nickel_from_node_smelting"
+          ]
+        },
+        "criteria": {
+          "has_impetus": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "malum:nickel_impetus"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "malum:nickel_from_node_smelting"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_impetus",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

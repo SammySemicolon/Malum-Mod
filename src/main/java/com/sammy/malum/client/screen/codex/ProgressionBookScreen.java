@@ -267,7 +267,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "impetus_restoration", CRACKED_ALCHEMICAL_IMPETUS.get(), 9, 3)
+                "impetus_restoration", CRACKED_ALCHEMICAL_IMPETUS.get(), 9, 5)
                 .addPage(new HeadlineTextPage("impetus_restoration", "impetus_restoration_a"))
                 .addPage(new TextPage("impetus_restoration_b"))
                 .addPage(new TextPage("impetus_restoration_c"))

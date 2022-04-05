@@ -38,7 +38,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         BlockState filter = level.getBlockState(pos.below());
         Optional<SmeltingRecipe> fillerOptional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(filter.getBlock().asItem(), 1)), level);
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
@@ -70,7 +70,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !level.getBlockState(p).is(Blocks.STONE));
         positions.forEach(p -> {
