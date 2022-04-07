@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "osmium_",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+  ],
+  "repairMaterial": {
+    "item": "mekanism:osmium_ingot",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen",
+      "count": 16
+    }
+  ]
+}

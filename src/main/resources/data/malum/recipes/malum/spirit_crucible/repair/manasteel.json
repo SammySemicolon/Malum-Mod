@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "manasteel_",
+  "durabilityPercentage": 1,
+  "inputs": [
+    "botania:ender_dagger"
+  ],
+  "repairMaterial": {
+    "item": "botania:manasteel_ingot",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:arcane",
+      "count": 16
+    }
+  ]
+}

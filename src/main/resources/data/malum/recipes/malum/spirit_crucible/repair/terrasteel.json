@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "terra_",
+  "durabilityPercentage": 1,
+  "inputs": [
+  ],
+  "repairMaterial": {
+    "item": "botania:terrasteel_ingot",
+    "count": 1
+  },
+  "spirits": [
+    {
+      "item": "malum:arcane",
+      "count": 32
+    }
+  ]
+}

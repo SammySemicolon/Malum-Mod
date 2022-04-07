@@ -40,15 +40,45 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer, "wooden_items");
 
+        new SpiritRepairRecipeBuilder("flint_", 1f, Ingredient.of(Items.FLINT), 2)
+                .addSpirit(EARTHEN_SPIRIT, 4)
+                .build(consumer, "flint_items");
+
         new SpiritRepairRecipeBuilder("stone_", 1f, Ingredient.of(ItemTags.STONE_TOOL_MATERIALS), 2)
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .build(consumer, "stone_items");
 
+        new SpiritRepairRecipeBuilder("copper_", 0.5f, Ingredient.of(Tags.Items.INGOTS_COPPER), 2)
+                .addSpirit(EARTHEN_SPIRIT, 6)
+                .build(consumer, "copper_items");
+
         new SpiritRepairRecipeBuilder("iron_", 0.5f, Ingredient.of(Tags.Items.INGOTS_IRON), 2)
                 .addItem(ItemRegistry.CRUDE_SCYTHE.get())
                 .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(SACRED_SPIRIT, 4)
                 .build(consumer, "iron_items");
+
+        new SpiritRepairRecipeBuilder("gold_", 1f, Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
+                .addSpirit(ARCANE_SPIRIT, 8)
+                .build(consumer, "gold_items");
+
+        new SpiritRepairRecipeBuilder("diamond_", 0.5f, Ingredient.of(Tags.Items.GEMS_DIAMOND), 2)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .build(consumer, "diamond_items");
+
+        new SpiritRepairRecipeBuilder("netherite_", 0.5f, Ingredient.of(Tags.Items.INGOTS_NETHERITE), 1)
+                .addSpirit(INFERNAL_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(ELDRITCH_SPIRIT, 1)
+                .build(consumer, "netherite_items");
+
+        new SpiritRepairRecipeBuilder("none", 0.6f, Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), 8)
+                .addSpirit(WICKED_SPIRIT, 16)
+                .addSpirit(ARCANE_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(ELDRITCH_SPIRIT, 2)
+                .build(consumer, "tyrving");
 
         new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()), 4)
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_SCYTHE.get())
@@ -56,9 +86,9 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_CHESTPLATE.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_LEGGINGS.get())
                 .addItem(ItemRegistry.SOUL_STAINED_STEEL_BOOTS.get())
-                .addSpirit(ARCANE_SPIRIT, 8)
-                .addSpirit(EARTHEN_SPIRIT, 4)
-                .addSpirit(WICKED_SPIRIT, 2)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(WICKED_SPIRIT, 4)
                 .build(consumer, "special_soul_stained_steel_items");
 
         new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()), 2)

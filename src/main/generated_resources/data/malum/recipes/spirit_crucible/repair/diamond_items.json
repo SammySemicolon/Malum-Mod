@@ -1,15 +1,17 @@
 {
   "type": "malum:spirit_repair",
-  "inputLookup": "iron_",
+  "inputLookup": "diamond_",
   "durabilityPercentage": 0.5,
-  "inputs": [
-    "malum:crude_scythe"
-  ],
+  "inputs": [],
   "repairMaterial": {
-    "tag": "forge:ingots/iron",
+    "tag": "forge:gems/diamond",
     "count": 2
   },
   "spirits": [
+    {
+      "item": "malum:arcane_spirit",
+      "count": 16
+    },
     {
       "item": "malum:earthen_spirit",
       "count": 8

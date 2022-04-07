@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "scuba_gear"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "none",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+    "scuba_gear:"
+  ],
+  "repairMaterial": {
+    "item": "minecraft:",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen",
+      "count": 16
+    }
+  ]
+}

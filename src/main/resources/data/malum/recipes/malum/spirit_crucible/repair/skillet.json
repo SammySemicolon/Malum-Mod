@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "none",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+  ],
+  "repairMaterial": {
+    "item": "minecraft:iron_ingot",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen",
+      "count": 8
+    }
+  ]
+}

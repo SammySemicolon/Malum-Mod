@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
@@ -150,12 +151,15 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             for (JsonElement jsonElement : inputsArray) {
                 Item input = ForgeRegistries.ITEMS.getValue(new ResourceLocation(jsonElement.getAsString()));
                 if (input == null) {
-                    return null;
+                    continue;
                 }
                 inputs.add(input);
             }
             for (Item item : ForgeRegistries.ITEMS) {
                 if (item.canBeDepleted() && item.getRegistryName().getPath().contains(inputLookup)) {
+                    if (item instanceof ImpetusItem) {
+                        continue;
+                    }
                     if (!inputs.contains(item)) {
                         inputs.add(item);
                     }

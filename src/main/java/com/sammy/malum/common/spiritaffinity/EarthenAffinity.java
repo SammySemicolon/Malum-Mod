@@ -53,7 +53,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
     }
 
     public static void consumeHeartOfStone(LivingHurtEvent event) {
-        if (event.isCanceled()) {
+        if (event.isCanceled() || event.getAmount() == 0) {
             return;
         }
         if (event.getEntityLiving() instanceof Player player) {
@@ -91,7 +91,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
         public static void renderHeartOfStone(RenderGameOverlayEvent.Post event) {
             Minecraft minecraft = Minecraft.getInstance();
             LocalPlayer player = minecraft.player;
-            if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && !player.isCreative()) {
+            if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && !player.isCreative() && !player.isSpectator()) {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
                     PoseStack poseStack = event.getMatrixStack();
 

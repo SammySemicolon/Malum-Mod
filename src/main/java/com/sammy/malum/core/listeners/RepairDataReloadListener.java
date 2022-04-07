@@ -1,16 +1,12 @@
 package com.sammy.malum.core.listeners;
 
 import com.google.gson.*;
-import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
@@ -35,6 +31,8 @@ public class RepairDataReloadListener extends SimpleJsonResourceReloadListener {
             JsonObject object = objectIn.get(location).getAsJsonObject();
             int minimum = object.getAsJsonPrimitive("minimum_durability").getAsInt();
             float percentage = object.getAsJsonPrimitive("recovery_percentage").getAsFloat();
+            ArrayList<SpiritWithCount> data = getSpiritData(object.getAsJsonArray("spirits"));
+
         }
     }
 }

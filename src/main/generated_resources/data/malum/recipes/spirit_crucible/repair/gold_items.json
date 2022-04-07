@@ -1,0 +1,16 @@
+{
+  "type": "malum:spirit_repair",
+  "inputLookup": "gold_",
+  "durabilityPercentage": 1.0,
+  "inputs": [],
+  "repairMaterial": {
+    "tag": "forge:ingots/gold",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:arcane_spirit",
+      "count": 8
+    }
+  ]
+}

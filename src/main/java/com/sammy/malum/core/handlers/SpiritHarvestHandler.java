@@ -25,7 +25,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 public class SpiritHarvestHandler {
 
     public static void exposeSoul(LivingHurtEvent event) {
-        if (event.isCanceled()) {
+        if (event.isCanceled() || event.getAmount() == 0) {
             return;
         }
         LivingEntity target = event.getEntityLiving();

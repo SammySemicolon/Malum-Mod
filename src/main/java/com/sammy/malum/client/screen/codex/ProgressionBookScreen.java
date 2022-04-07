@@ -96,6 +96,8 @@ public class ProgressionBookScreen extends Screen {
                 "runewood", RUNEWOOD_SAPLING.get(), 1, 2)
                 .addPage(new HeadlineTextPage("runewood", "runewood_a"))
                 .addPage(new TextPage("runewood_b"))
+                .addPage(new TextPage("runewood_c"))
+                .addPage(new TextPage("runewood_d"))
                 .addPage(CraftingBookPage.itemPedestalPage(RUNEWOOD_ITEM_PEDESTAL.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(RUNEWOOD_ITEM_STAND.get(), RUNEWOOD_PLANKS.get(), RUNEWOOD_PLANKS_SLAB.get()))
                 .addPage(new HeadlineTextPage("arcane_charcoal", "arcane_charcoal"))
@@ -142,7 +144,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "simple_spirits", ARCANE_SPIRIT.get(), -2, 4)
+                "primary_arcana", ARCANE_SPIRIT.get(), -2, 4)
                 .addPage(new SpiritTextPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("sacred_spirit_b"))
                 .addPage(new SpiritTextPage("wicked_spirit", "wicked_spirit_a", WICKED_SPIRIT.get()))
@@ -153,7 +155,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "elemental_spirits", EARTHEN_SPIRIT.get(), 2, 4)
+                "elemental_arcana", EARTHEN_SPIRIT.get(), 2, 4)
                 .addPage(new SpiritTextPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
                 .addPage(new TextPage("earthen_spirit_b"))
                 .addPage(new SpiritTextPage("infernal_spirit", "infernal_spirit_a", INFERNAL_SPIRIT.get()))
@@ -165,7 +167,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "eldritch_spirit", ELDRITCH_SPIRIT.get(), 0, 7)
+                "eldritch_arcana", ELDRITCH_SPIRIT.get(), 0, 7)
                 .addPage(new SpiritTextPage("eldritch_spirit", "eldritch_spirit_a", ELDRITCH_SPIRIT.get()))
                 .addPage(new TextPage("eldritch_spirit_b"))
         );
@@ -277,7 +279,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "spirit_metallurgy", SOUL_STAINED_STEEL_INGOT.get(), -3, 6)
+                "spirit_metals", SOUL_STAINED_STEEL_INGOT.get(), -3, 6)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a"))
                 .addPage(new TextPage("hallowed_gold_b"))
                 .addPage(SpiritInfusionPage.fromOutput(HALLOWED_GOLD_INGOT.get()))
@@ -297,9 +299,13 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "soul_stained_gear", SOUL_STAINED_STEEL_SCYTHE.get(), -4, 5)
+                "soul_stained_scythe", SOUL_STAINED_STEEL_SCYTHE.get(), -4, 5)
                 .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_SCYTHE.get()))
+        );
+
+        entries.add(new BookEntry(
+                "soul_stained_armor", SOUL_STAINED_STEEL_HELMET.get(), -4, 7)
                 .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor_a"))
                 .addPage(new TextPage("soul_stained_armor_b"))
                 .addPage(new TextPage("soul_stained_armor_c"))
@@ -310,17 +316,14 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "spirit_trinkets", ORNATE_RING.get(), -4, 7)
+                "spirit_trinkets", ORNATE_RING.get(), -5, 6)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
                 .addPage(CraftingBookPage.ringPage(GILDED_RING.get(), LEATHER, HALLOWED_GOLD_INGOT.get()))
                 .addPage(new CraftingBookPage(GILDED_BELT.get(), LEATHER, LEATHER, LEATHER, HALLOWED_GOLD_INGOT.get(), PROCESSED_SOULSTONE.get(), HALLOWED_GOLD_INGOT.get(), EMPTY, HALLOWED_GOLD_INGOT.get(), EMPTY))
                 .addPage(CraftingBookPage.ringPage(ORNATE_RING.get(), LEATHER, SOUL_STAINED_STEEL_INGOT.get()))
                 .addPage(new CraftingBookPage(ORNATE_NECKLACE.get(), EMPTY, STRING, EMPTY, STRING, EMPTY, STRING, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY))
-        );
 
-        entries.add(new BookEntry(
-                "soul_hunter_trinkets", RING_OF_ARCANE_REACH.get(), -5, 6)
                 .addPage(new HeadlineTextPage("arcane_reach", "arcane_reach"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_REACH.get()))
                 .addPage(new HeadlineTextPage("arcane_spoil", "arcane_spoil"))

@@ -16,15 +16,15 @@
   "spirits": [
     {
       "item": "malum:arcane_spirit",
-      "count": 8
+      "count": 16
     },
     {
       "item": "malum:earthen_spirit",
-      "count": 4
+      "count": 8
     },
     {
       "item": "malum:wicked_spirit",
-      "count": 2
+      "count": 4
     }
   ]
 }

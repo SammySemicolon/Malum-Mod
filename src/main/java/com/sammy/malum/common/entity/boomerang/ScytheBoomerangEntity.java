@@ -1,5 +1,6 @@
 package com.sammy.malum.common.entity.boomerang;
 
+import com.sammy.malum.common.item.tools.ModScytheItem;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.setup.content.enchantment.MalumEnchantments;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
@@ -31,6 +32,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import java.util.Random;
 import java.util.UUID;
 
 public class ScytheBoomerangEntity extends ThrowableItemProjectile {
@@ -115,9 +117,17 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         super.tick();
         age++;
         if (level.isClientSide) {
-            if (!isInWater()) {
+            if (!isInWaterRainOrBubble()) {
                 if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0) {
-                    level.addParticle(ParticleTypes.FLAME, getRandomX(1), getRandomY(), getRandomZ(1), 0, 0, 0);
+                    Vec3 vector = new Vec3(getRandomX(0.7), getRandomY(), getRandomZ(0.7));
+                    if (scythe.getItem() instanceof ModScytheItem) {
+                        Random random = new Random();
+                        float rotation = random.nextFloat();
+                        vector = new Vec3(Math.cos(this.age) * 0.8f + this.getX(), getY(0.1), Math.sin(this.age) * 0.8f + this.getZ());
+                        level.addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
+                        level.addParticle(ParticleTypes.FLAME, Math.cos(this.age + rotation * 2 - 1) * 0.8f + this.getX(), vector.y, Math.sin(this.age + rotation * 2 - 1) * 0.8f + this.getZ(), 0, 0, 0);
+                    }
+                    level.addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
                 }
             }
         }
@@ -157,7 +167,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                 if (distance < 3f) {
                     if (isAlive()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, scythe, slot);
-                        if (!playerEntity.getAbilities().instabuild) {
+                        if (!playerEntity.isCreative()) {
                             int cooldown = 100 - 25 * (EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.REBOUND.get(), scythe) - 1);
                             playerEntity.getCooldowns().addCooldown(scythe.getItem(), cooldown);
                         }

@@ -263,21 +263,18 @@ public class SoulHarvestHandler {
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
                 RenderHelper.VertexBuilder builder = RenderHelper.create()
                         .setColor(color.brighter())
-                        .setAlpha(alphaAndScale*0.6f)
+                        .setAlpha(alphaAndScale * 0.6f)
                         .setLight(FULL_BRIGHT)
-                        .renderQuad(soulNoise, poseStack, alphaAndScale*0.9f)
+                        .renderQuad(soulNoise, poseStack, alphaAndScale * 0.9f)
                         .setColor(color.darker())
                         .renderQuad(previewNoise, poseStack, Math.min(1, alphaAndScale * 1.3f));
-                if (harvestProgress > 0)
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        if (harvestProgress < i*33)
-                        {
+                if (harvestProgress > 0) {
+                    for (int i = 0; i < 3; i++) {
+                        if (harvestProgress < i * 33) {
                             break;
                         }
-                        float scale = 0.6f+i*0.4f;
-                        builder.setColor(ColorHelper.brighter(color, 2), Math.min(1, harvestProgress*3/200-i)+i/6f)
+                        float scale = 0.6f + i * 0.4f;
+                        builder.setColor(ColorHelper.brighter(color, 2), Math.min(1, harvestProgress * 3 / 200 - i) + i / 6f)
                                 .renderQuad(harvestNoise, poseStack, scale);
                     }
                 }
