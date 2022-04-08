@@ -193,7 +193,7 @@ public class MalumLang extends LanguageProvider
         addPage("aerial_spirit_b", "Many would love to explore the sky, it's an incredible fantasy. When studying the nimble phantom soul you may derive two things. For one, vexation at the night predator. For two, aerial magic can easily utilized in flight and other means of traversal. Any swift soul is bound to contain aerial spirits within for you to steal.");
         addHeadline("aqueous_spirit", "Aqueous Spirit");
         addPage("aqueous_spirit_a", "Similar to the earthen arcana, aqueous magics are immensely powerful.");
-        addPage("aqueous_spirit_b", "For reasons unknown, aqueous magic is quite abundant within your seas. They're are filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned born from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery can be extremely potent, however it's use cases are quite specific.");
+        addPage("aqueous_spirit_b", "For reasons unknown, the seas in your world are overflowing with aqueous arcana. They're are filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned born from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery is extremely potent, but normally hard to come by");
 
         addDescription("eldritch_arcana", "Abstract Arcana");
         addHeadline("eldritch_spirit", "Eldritch Spirit");
@@ -204,7 +204,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("tainted_rock", "Tainted Rock");
         addPage("tainted_rock", "By infusing the earth with sacred and raw arcana a new stone with plenty of building options is created. Tainted rock is a simple magical building block with quite a few neat usages, it can also be shaped into item pedestals and stands.");
         addHeadline("twisted_rock", "Twisted Rock");
-        addPage("twisted_rock", "If we are to replace sacred arcana with it's opposite the result will become a much grimmer one. Twisted rock is indifferent from it's holy variant apart from the darker tone.");
+        addPage("twisted_rock", "If we are to replace sacred arcana with it's opposite the result will become a much grimmer one. Twisted rock is indifferent from it's holy variant apart from the darker tone, however it is capable of suppressing magic.");
 
         addDescription("ether", "The Sunset can't Compare");
         addHeadline("ether", "Ether");

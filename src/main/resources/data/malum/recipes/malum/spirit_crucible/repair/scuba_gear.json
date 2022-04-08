@@ -9,16 +9,23 @@
   "inputLookup": "none",
   "durabilityPercentage": 0.5,
   "inputs": [
-    "scuba_gear:"
+    "scuba_gear:scuba_helmet",
+    "scuba_gear:scuba_chestplate",
+    "scuba_gear:scuba_leggings",
+    "scuba_gear:scuba_boots"
   ],
   "repairMaterial": {
-    "item": "minecraft:",
+    "item": "minecraft:iron_ingot",
     "count": 2
   },
   "spirits": [
     {
-      "item": "malum:earthen",
-      "count": 16
+      "item": "malum:earthen_spirit",
+      "count": 8
+    },
+    {
+      "item": "malum:aqueous_spirit",
+      "count": 8
     }
   ]
 }

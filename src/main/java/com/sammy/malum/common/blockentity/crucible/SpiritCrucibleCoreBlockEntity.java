@@ -2,7 +2,8 @@ package com.sammy.malum.common.blockentity.crucible;
 
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
+import com.sammy.malum.common.packets.particle.altar.AltarConsumeParticlePacket;
+import com.sammy.malum.common.packets.particle.altar.AltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
@@ -40,6 +41,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
@@ -269,7 +271,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 }
             }
         }
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.getSpirits().stream().map(s -> s.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
         level.playSound(null, worldPosition, SoundRegistry.CRUCIBLE_CRAFT.get(), SoundSource.BLOCKS, 1, 0.75f + level.random.nextFloat() * 0.5f);
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         progress = 0;

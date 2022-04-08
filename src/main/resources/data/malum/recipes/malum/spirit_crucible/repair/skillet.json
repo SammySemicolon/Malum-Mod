@@ -16,8 +16,12 @@
   },
   "spirits": [
     {
-      "item": "malum:earthen",
+      "item": "malum:earthen_spirit",
       "count": 8
+    },
+    {
+      "item": "malum:infernal_spirit",
+      "count": 2
     }
   ]
 }

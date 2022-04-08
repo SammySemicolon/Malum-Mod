@@ -15,8 +15,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -70,7 +68,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
         return id;
     }
 
-    public ArrayList<ItemStack> getSortedStacks(ArrayList<ItemStack> stacks) {
+    public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
         ArrayList<ItemStack> sortedStacks = new ArrayList<>();
         for (ItemWithCount item : spirits) {
             for (ItemStack stack : stacks) {
@@ -83,15 +81,6 @@ public class SpiritRepairRecipe extends IMalumRecipe {
         return sortedStacks;
     }
 
-    public ArrayList<MalumSpiritType> getSpirits() {
-        ArrayList<MalumSpiritType> spirits = new ArrayList<>();
-        for (ItemWithCount item : this.spirits) {
-            MalumSpiritItem spiritItem = (MalumSpiritItem) item.item;
-            spirits.add(spiritItem.type);
-        }
-        return spirits;
-    }
-
     public boolean doSpiritsMatch(ArrayList<ItemStack> spirits) {
         if (this.spirits.size() == 0) {
             return true;
@@ -99,7 +88,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
         if (this.spirits.size() != spirits.size()) {
             return false;
         }
-        ArrayList<ItemStack> sortedStacks = getSortedStacks(spirits);
+        ArrayList<ItemStack> sortedStacks = getSortedSpirits(spirits);
         if (sortedStacks.size() < this.spirits.size()) {
             return false;
         }
@@ -115,10 +104,6 @@ public class SpiritRepairRecipe extends IMalumRecipe {
 
     public boolean doesInputMatch(ItemStack input) {
         return this.inputs.stream().anyMatch(i -> i.equals(input.getItem()));
-    }
-
-    public boolean doesRepairIngredientMatch(ItemStack repair) {
-        return this.repairMaterial.matches(repair);
     }
 
     public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
@@ -165,7 +150,9 @@ public class SpiritRepairRecipe extends IMalumRecipe {
                     }
                 }
             }
-
+            if (inputs.isEmpty()) {
+                return null;
+            }
             JsonObject repairObject = json.getAsJsonObject("repairMaterial");
             IngredientWithCount repair = IngredientWithCount.deserialize(repairObject);
             if (!repair.isValid()) {

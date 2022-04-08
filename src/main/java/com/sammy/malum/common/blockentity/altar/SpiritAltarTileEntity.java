@@ -1,8 +1,8 @@
 package com.sammy.malum.common.blockentity.altar;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.common.packets.particle.altar.SpiritAltarConsumeParticlePacket;
-import com.sammy.malum.common.packets.particle.altar.SpiritAltarCraftParticlePacket;
+import com.sammy.malum.common.packets.particle.altar.AltarConsumeParticlePacket;
+import com.sammy.malum.common.packets.particle.altar.AltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
@@ -14,7 +14,6 @@ import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
-import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,6 +39,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
@@ -276,7 +276,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                     if (matches) {
                         level.playSound(null, pos, SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                         Vec3 providedItemPos = blockEntity.getItemPosForAltar();
-                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), SpiritAltarConsumeParticlePacket.fromSpirits(providedStack, recipe.getSpirits(), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AltarConsumeParticlePacket(providedStack, recipe.getSpirits().stream().map(s -> s.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                         extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
                         BlockHelper.updateAndNotifyState(level, pos);
                         break;
@@ -306,7 +306,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             }
         }
 
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), SpiritAltarCraftParticlePacket.fromSpirits(recipe.getSpirits(), itemPos.x, itemPos.y, itemPos.z));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.getSpirits().stream().map(s -> s.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
         progress = 0;
         extrasInventory.clear();
         updateRecipe = true;

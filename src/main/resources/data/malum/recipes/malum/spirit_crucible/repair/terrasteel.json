@@ -16,7 +16,7 @@
   },
   "spirits": [
     {
-      "item": "malum:arcane",
+      "item": "malum:arcane_spirit",
       "count": 32
     }
   ]

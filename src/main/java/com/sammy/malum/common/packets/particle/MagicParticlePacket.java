@@ -28,6 +28,10 @@ public class MagicParticlePacket {
         this.posZ = posZ;
     }
 
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, MagicParticlePacket.class, MagicParticlePacket::encode, MagicParticlePacket::decode, MagicParticlePacket::execute);
+    }
+
     public static MagicParticlePacket decode(FriendlyByteBuf buf) {
         Color color = new Color(buf.readInt(), buf.readInt(), buf.readInt());
         double posX = buf.readDouble();
@@ -52,10 +56,6 @@ public class MagicParticlePacket {
             }
         });
         context.get().setPacketHandled(true);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, MagicParticlePacket.class, MagicParticlePacket::encode, MagicParticlePacket::decode, MagicParticlePacket::execute);
     }
 
     public static class ClientOnly {

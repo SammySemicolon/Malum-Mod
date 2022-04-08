@@ -79,7 +79,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     @Override
     public void setIngredients(SpiritRepairRecipe recipe, IIngredients iIngredients) {
         ArrayList<ItemStack> items = (ArrayList<ItemStack>) recipe.inputs.stream().map(Item::getDefaultInstance).collect(Collectors.toList());
-        recipe.getSpirits().forEach(d -> items.add(d.getSplinterItem().getDefaultInstance()));
+        recipe.spirits.forEach(i -> items.add(i.getStack()));
         items.addAll(recipe.repairMaterial.getStacks());
         iIngredients.setInputs(VanillaTypes.ITEM, items);
     }

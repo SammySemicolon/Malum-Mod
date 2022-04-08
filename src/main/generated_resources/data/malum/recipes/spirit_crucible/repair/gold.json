@@ -1,6 +1,6 @@
 {
   "type": "malum:spirit_repair",
-  "inputLookup": "gold_",
+  "inputLookup": "golden_",
   "durabilityPercentage": 1.0,
   "inputs": [],
   "repairMaterial": {

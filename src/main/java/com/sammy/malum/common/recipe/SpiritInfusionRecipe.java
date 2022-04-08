@@ -71,7 +71,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
         return id;
     }
 
-    public ArrayList<ItemStack> getSortedStacks(ArrayList<ItemStack> stacks) {
+    public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
         ArrayList<ItemStack> sortedStacks = new ArrayList<>();
         for (ItemWithCount item : spirits) {
             for (ItemStack stack : stacks) {
@@ -100,7 +100,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
         if (this.spirits.size() != spirits.size()) {
             return false;
         }
-        ArrayList<ItemStack> sortedStacks = getSortedStacks(spirits);
+        ArrayList<ItemStack> sortedStacks = getSortedSpirits(spirits);
         if (sortedStacks.size() < this.spirits.size()) {
             return false;
         }

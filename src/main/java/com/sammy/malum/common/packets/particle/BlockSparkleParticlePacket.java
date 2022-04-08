@@ -30,6 +30,10 @@ public class BlockSparkleParticlePacket
         this.posZ = posZ;
     }
 
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, BlockSparkleParticlePacket.class, BlockSparkleParticlePacket::encode, BlockSparkleParticlePacket::decode, BlockSparkleParticlePacket::execute);
+    }
+
     public static BlockSparkleParticlePacket decode(FriendlyByteBuf buf)
     {
         Color color = new Color(buf.readInt(), buf.readInt(), buf.readInt());
@@ -56,10 +60,6 @@ public class BlockSparkleParticlePacket
             }
         });
         context.get().setPacketHandled(true);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, BlockSparkleParticlePacket.class, BlockSparkleParticlePacket::encode, BlockSparkleParticlePacket::decode, BlockSparkleParticlePacket::execute);
     }
 
     public static class ClientOnly {

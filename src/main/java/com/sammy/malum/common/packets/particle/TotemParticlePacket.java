@@ -24,6 +24,10 @@ public class TotemParticlePacket {
         this.posZ = posZ;
     }
 
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, TotemParticlePacket.class, TotemParticlePacket::encode, TotemParticlePacket::decode, TotemParticlePacket::execute);
+    }
+
     public static TotemParticlePacket decode(FriendlyByteBuf buf) {
         ArrayList<Color> colors = new ArrayList<>();
         int colorCount = buf.readInt();
@@ -56,10 +60,6 @@ public class TotemParticlePacket {
             }
         });
         context.get().setPacketHandled(true);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, TotemParticlePacket.class, TotemParticlePacket::encode, TotemParticlePacket::decode, TotemParticlePacket::execute);
     }
 
     public static class ClientOnly {
