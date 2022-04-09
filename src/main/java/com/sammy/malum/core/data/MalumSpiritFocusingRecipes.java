@@ -147,7 +147,6 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
     }
 
     public void metalNodeRecipe(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<Item> impetus, RegistryObject<Item> node, String tag) {
-
         ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag))).addRecipe(
                         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 2)
                                 .addSpirit(EARTHEN_SPIRIT, 2)

@@ -82,21 +82,21 @@ public class MalumRecipes extends RecipeProvider {
         smeltingWithCount(Ingredient.of(ItemRegistry.COPPER_NODE.get()), ItemRegistry.COPPER_NUGGET.get(), 6, 0.25f, 200).unlockedBy("has_impetus", has(ItemRegistry.COPPER_IMPETUS.get())).save(consumer, prefix("copper_from_node_smelting"));
         blastingWithCount(Ingredient.of(ItemRegistry.COPPER_NODE.get()), ItemRegistry.COPPER_NUGGET.get(), 6, 0.25f, 100).unlockedBy("has_impetus", has(ItemRegistry.COPPER_IMPETUS.get())).save(consumer, prefix("copper_from_node_blasting"));
 
-        nodeSmelting(consumer, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE,ItemTagRegistry.NUGGETS_LEAD);
+        nodeSmelting(consumer, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE, ItemTagRegistry.NUGGETS_LEAD);
 
-        nodeSmelting(consumer, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE,ItemTagRegistry.NUGGETS_SILVER);
+        nodeSmelting(consumer, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE, ItemTagRegistry.NUGGETS_SILVER);
 
-        nodeSmelting(consumer, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE,ItemTagRegistry.NUGGETS_ALUMINUM);
+        nodeSmelting(consumer, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE, ItemTagRegistry.NUGGETS_ALUMINUM);
 
-        nodeSmelting(consumer, ItemRegistry.NICKEL_IMPETUS, ItemRegistry.NICKEL_NODE,ItemTagRegistry.NUGGETS_NICKEL);
+        nodeSmelting(consumer, ItemRegistry.NICKEL_IMPETUS, ItemRegistry.NICKEL_NODE, ItemTagRegistry.NUGGETS_NICKEL);
 
-        nodeSmelting(consumer, ItemRegistry.URANIUM_IMPETUS, ItemRegistry.URANIUM_NODE,ItemTagRegistry.NUGGETS_URANIUM);
+        nodeSmelting(consumer, ItemRegistry.URANIUM_IMPETUS, ItemRegistry.URANIUM_NODE, ItemTagRegistry.NUGGETS_URANIUM);
 
-        nodeSmelting(consumer, ItemRegistry.OSMIUM_IMPETUS, ItemRegistry.OSMIUM_NODE,ItemTagRegistry.NUGGETS_OSMIUM);
+        nodeSmelting(consumer, ItemRegistry.OSMIUM_IMPETUS, ItemRegistry.OSMIUM_NODE, ItemTagRegistry.NUGGETS_OSMIUM);
 
-        nodeSmelting(consumer, ItemRegistry.ZINC_IMPETUS, ItemRegistry.ZINC_NODE,ItemTagRegistry.NUGGETS_ZINC);
+        nodeSmelting(consumer, ItemRegistry.ZINC_IMPETUS, ItemRegistry.ZINC_NODE, ItemTagRegistry.NUGGETS_ZINC);
 
-        nodeSmelting(consumer, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE,ItemTagRegistry.NUGGETS_TIN);
+        nodeSmelting(consumer, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, ItemTagRegistry.NUGGETS_TIN);
         //TOOLS
         shaped(ItemRegistry.SOUL_STAINED_STEEL_HOE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
         shaped(ItemRegistry.SOUL_STAINED_STEEL_PICKAXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
@@ -471,13 +471,13 @@ public class MalumRecipes extends RecipeProvider {
 
         String name = node.get().getRegistryName().getPath().replaceFirst("_node", "");
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.getName()))).addRecipe(
-                        (c)->smeltingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 200).unlockedBy("has_impetus", has(impetus.get())).save(c, DataHelper.prefix(name + "_from_node_smelting")))
+                        (c) -> smeltingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 200).unlockedBy("has_impetus", has(impetus.get())).save(c, DataHelper.prefix(name + "_from_node_smelting")))
                 .generateAdvancement()
                 .build(recipeConsumer, DataHelper.prefix(name + "_from_node_smelting"));
 
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.getName())))
                 .addRecipe(
-                        (c)->blastingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 100).unlockedBy("has_impetus", has(impetus.get())).save(c, DataHelper.prefix(name + "_from_node_blasting")))
+                        (c) -> blastingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 100).unlockedBy("has_impetus", has(impetus.get())).save(c, DataHelper.prefix(name + "_from_node_blasting")))
                 .generateAdvancement()
                 .build(recipeConsumer, DataHelper.prefix(name + "_from_node_blasting"));
 

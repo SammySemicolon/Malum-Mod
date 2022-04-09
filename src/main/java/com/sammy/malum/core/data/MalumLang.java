@@ -113,8 +113,8 @@ public class MalumLang extends LanguageProvider
 
         addDescription("introduction", "Welcome to Malum");
         addHeadline("introduction", "Introduction");
-        addPage("introduction_a", "Within this world, every living body has a soul. The soul is one's consciousness and what animates the body, a physical vessel for the arcane presence of a soul. Both represent who you are, one is an arcane image, the other a physical fortress.");
-        addPage("introduction_b", "The encyclopedia arcana is a book that documents all that is known about the soul, to be more precise it focuses on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
+        addPage("introduction_a", "Within our world, every living body has a soul. The soul is one's consciousness and what animates the body, a physical vessel for the arcane presence of a soul. Both represent who we are, one is an arcane image, while the other a physical fortress.");
+        addPage("introduction_b", "The Encyclopedia Arcana is a book containing all my gathered research on everything that is known about the soul. To be more exact, this codex focuses on a rather wicked form of arcane arts known as soul magic. It is a very cruel, inhumane and generally frowned upon study of arcana.");
         addPage("introduction_c", "In order to properly harness the unspoken power of soul magics, you'll have to start with the basics. At the very core of every soul rests an untapped source of power in form of what's known as spirit arcana - fragments of potential.");
         addPage("introduction_d", "The power of a specific soul derives almost entirely from the spirits found within it's core. These spirits serve as the basis for the very existence of the arcane presence of a soul. Each different soul is one and only, powered by different combinations of eight known types of spirit.");
 
@@ -122,11 +122,11 @@ public class MalumLang extends LanguageProvider
         addHeadline("spirit_magics", "Spirit Basics");
         addPage("spirit_magics_a", "\"How do I get my greedy little hands on a spirit?\" You might ponder. To start, you'll need to prepare yourself a trusty yet wicked weapon for your job. One capable of damaging the soul of your target.");
         addPage("spirit_magics_b", "On top of that, it's important to know which souls you're gonna want to hunt down. Depending on which spirits you need you'll be hunting for different creature, It's important to carefully think about which of your prey will have the spirits you're seeking out.");
-        addPage("spirit_magics_c", "When hunting for spirits it is important to not leave any behind. Uncollected spirits will slowly decay into the nearby area, leaving their precious power wasted. Uncontrolled soul magic can be extremely dangerous, often creating brand new anomalies which are now present within your world.");
+        addPage("spirit_magics_c", "When hunting for spirits it is important to not leave any behind. Uncollected spirits will slowly decay into the nearby area, leaving their precious power wasted. Uncontrolled soul magic can be extremely dangerous, it is responsible for bringing forth various anomalies which are now present within our world.");
 
         addDescription("soulstone", "Altered Minerals");
         addHeadline("soulstone", "Soulstone");
-        addPage("soulstone_a", "The soulstone is a strange mineral found both nearby the surface and in the deepslate layer of your world. The ore itself is created when wicked spirit is infused into carbon based minerals such as coal or diamond.");
+        addPage("soulstone_a", "The soulstone is a strange mineral found both nearby the surface and in the deepslate layer of our world. The ore itself is created when wicked spirit is infused into carbon based minerals such as coal or diamond.");
         addPage("soulstone_b", "Sadly this process takes an unbelievably long time and furthermore it's nearly impossible to safely replicate in a reasonable amount of time, you'll have to find the mere leftovers of uncontrolled soul magic. Due to it's arcane origins, soulstone is a great catalyst for soul magics and other diabolical fields.");
         addPage("soulstone_c", "To be exact, wicked spirit is known for being especially capable of harming the soul, furthermore due to the high concentration of wicked arcana within the soulstone, any piece of gear augmented with the gem will be able to harm the soul.");
 
@@ -193,12 +193,12 @@ public class MalumLang extends LanguageProvider
         addPage("aerial_spirit_b", "Many would love to explore the sky, it's an incredible fantasy. When studying the nimble phantom soul you may derive two things. For one, vexation at the night predator. For two, aerial magic can easily utilized in flight and other means of traversal. Any swift soul is bound to contain aerial spirits within for you to steal.");
         addHeadline("aqueous_spirit", "Aqueous Spirit");
         addPage("aqueous_spirit_a", "Similar to the earthen arcana, aqueous magics are immensely powerful.");
-        addPage("aqueous_spirit_b", "For reasons unknown, the seas in your world are overflowing with aqueous arcana. They're are filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned born from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery is extremely potent, but normally hard to come by");
+        addPage("aqueous_spirit_b", "For reasons unknown, the seas in our world are full of mysteries. They're filled with plenty of inexplicable things of unknown origin, automaton-like guardians, drowned risen from the undead, various ruins and monuments, there's too much we don't know. Aqueous sorcery is extremely potent, but usually hard to come by");
 
         addDescription("eldritch_arcana", "Abstract Arcana");
         addHeadline("eldritch_spirit", "Eldritch Spirit");
         addPage("eldritch_spirit_a", "While raw arcana functions as an amplifier, eldritch arcana works much like a strong catalyst. It is much more potent but incredibly rare.");
-        addPage("eldritch_spirit_b", "There are many otherworldly things within your realms, for uncertain reasons powerful enough souls born in these alternate twisted dimensions have eldritch origin");
+        addPage("eldritch_spirit_b", "There are many otherworldly things within realms known to us, for uncertain reasons powerful enough souls born in these alternate twisted dimensions have eldritch origin");
 
         addDescription("arcane_rock", "Perfect for a Crypt");
         addHeadline("tainted_rock", "Tainted Rock");

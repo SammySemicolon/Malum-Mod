@@ -26,7 +26,7 @@ import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTe
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 
 public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocusingRecipe> {
-    public static final ResourceLocation BACKGROUND_TEXTURE = prefix("textures/gui/book/pages/spirit_crucible_page.png");
+
     public static final ResourceLocation UID = prefix("spirit_focusing");
     private final IDrawable background;
     private final IDrawable overlay;
@@ -34,7 +34,7 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
 
     public SpiritFocusingRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_focusing_jei.png"), 0, 0, 140, 183);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_focusing_jei.png"), 0, 0, 142, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()));
     }
 
@@ -42,7 +42,7 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     public void draw(SpiritFocusingRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
         if (recipe.spirits.size() > 0) {
-            ProgressionBookScreen.renderItemFrames(poseStack, 60, 12, false, recipe.spirits.size());
+            ProgressionBookScreen.renderItemFrames(poseStack, 61, 12, false, recipe.spirits.size());
         }
     }
 
@@ -87,12 +87,12 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritFocusingRecipe recipe, IIngredients iIngredients) {
         int index = 0;
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 60, 12, false, recipe.spirits, index);
+        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 61, 12, false, recipe.spirits, index);
 
-        iRecipeLayout.getItemStacks().init(index + 1, true, 61, 56);
+        iRecipeLayout.getItemStacks().init(index + 1, true, 62, 56);
         iRecipeLayout.getItemStacks().set(index + 1, Arrays.asList(recipe.input.getItems()));
 
-        iRecipeLayout.getItemStacks().init(index + 2, true, 61, 123);
+        iRecipeLayout.getItemStacks().init(index + 2, true, 62, 123);
         iRecipeLayout.getItemStacks().set(index + 2, recipe.output.getStacks());
     }
 }

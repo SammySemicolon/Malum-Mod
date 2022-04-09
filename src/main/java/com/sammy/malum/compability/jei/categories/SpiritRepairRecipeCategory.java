@@ -27,7 +27,6 @@ import static com.sammy.malum.core.helper.DataHelper.prefix;
 
 public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairRecipe> {
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = prefix("textures/gui/book/pages/spirit_repair_page.png");
     public static final ResourceLocation UID = prefix("spirit_repair");
     private final IDrawable background;
     private final IDrawable overlay;
@@ -35,7 +34,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
 
     public SpiritRepairRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_repair_jei.png"), 0, 0, 140, 183);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_repair_jei.png"), 0, 0, 142, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()));
     }
 
@@ -43,7 +42,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     public void draw(SpiritRepairRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
         if (recipe.spirits.size() > 0) {
-            ProgressionBookScreen.renderItemFrames(poseStack, 60, 12, false, recipe.spirits.size());
+            ProgressionBookScreen.renderItemFrames(poseStack, 61, 12, false, recipe.spirits.size());
         }
     }
 
@@ -97,15 +96,15 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
         for (ItemStack targetItem : damaged) {
             targetItem.setDamageValue((int) (targetItem.getMaxDamage() * recipe.durabilityPercentage));
         }
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 60, 12, false, spirits, index);
+        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 61, 12, false, spirits, index);
 
-        iRecipeLayout.getItemStacks().init(index + 1, true, 61, 56);
+        iRecipeLayout.getItemStacks().init(index + 1, true, 81, 56);
         iRecipeLayout.getItemStacks().set(index + 1, damaged);
 
-        iRecipeLayout.getItemStacks().init(index + 2, true, 61, 123);
+        iRecipeLayout.getItemStacks().init(index + 2, true, 62, 123);
         iRecipeLayout.getItemStacks().set(index + 2, repaired);
 
-        iRecipeLayout.getItemStacks().init(index + 3, true, 27, 56);
+        iRecipeLayout.getItemStacks().init(index + 3, true, 43, 56);
         iRecipeLayout.getItemStacks().set(index + 3, repairIngredient);
     }
 }

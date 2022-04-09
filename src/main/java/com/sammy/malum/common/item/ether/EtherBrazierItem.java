@@ -44,7 +44,7 @@ public class EtherBrazierItem extends AbstractEtherItem {
                 .setSpinEasing(Easing.EXPO_IN_OUT)
                 .setAlphaEasing(Easing.QUINTIC_IN)
                 .overwriteRenderOrder(renderOrder)
-                .centerOnStack(stack, -1, -2)
+                .centerOnStack(stack, -0.5f, -2)
                 .repeat(x, y, 1)
                 .setScale((float) (1.2f - Math.sin(gameTime * 0.075f) * 0.125f), 0)
                 .setColor(secondColor, firstColor)

@@ -4,6 +4,7 @@ import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
+import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
@@ -27,7 +28,9 @@ import java.awt.*;
 import java.util.Random;
 
 public class EtherBlockEntity extends SimpleBlockEntity {
+    public int firstColorRGB;
     public Color firstColor;
+    public int secondColorRGB;
     public Color secondColor;
 
     public EtherBlockEntity(BlockEntityType<? extends EtherBlockEntity> type, BlockPos pos, BlockState state) {
@@ -38,24 +41,40 @@ public class EtherBlockEntity extends SimpleBlockEntity {
         super(BlockEntityRegistry.ETHER.get(), pos, state);
     }
 
+    public void setFirstColor(int rgb) {
+        firstColorRGB = rgb;
+        firstColor = new Color(rgb);
+    }
+    public void setSecondColor(int rgb) {
+        secondColorRGB = rgb;
+        secondColor = new Color(rgb);
+    }
     @Override
     public void load(CompoundTag compound) {
         if (compound.contains("firstColor")) {
-            firstColor = ColorHelper.getColor(compound.getInt("firstColor"));
+            setFirstColor(compound.getInt("firstColor"));
+        } else {
+            setFirstColor(EtherItem.defaultFirstColor);
         }
-        if (compound.contains("secondColor")) {
-            secondColor = ColorHelper.getColor(compound.getInt("secondColor"));
+        if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
+            if (compound.contains("secondColor")) {
+                setSecondColor(compound.getInt("secondColor"));
+            } else {
+                setSecondColor(EtherItem.defaultSecondColor);
+            }
         }
         super.load(compound);
     }
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
-        if (firstColor != null) {
-            compound.putInt("firstColor", firstColor.getRGB());
+        if (firstColor != null && firstColorRGB != EtherItem.defaultFirstColor) {
+            compound.putInt("firstColor", firstColorRGB);
         }
-        if (secondColor != null) {
-            compound.putInt("secondColor", secondColor.getRGB());
+        if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
+            if (secondColor != null && secondColorRGB != EtherItem.defaultSecondColor) {
+                compound.putInt("secondColor", secondColorRGB);
+            }
         }
         super.saveAdditional(compound);
     }
@@ -63,9 +82,9 @@ public class EtherBlockEntity extends SimpleBlockEntity {
     @Override
     public void onPlace(LivingEntity placer, ItemStack stack) {
         AbstractEtherItem item = (AbstractEtherItem) stack.getItem();
-        firstColor = ColorHelper.getColor(item.getFirstColor(stack));
+        setFirstColor(item.getFirstColor(stack));
         if (item.iridescent) {
-            secondColor = ColorHelper.getColor(item.getSecondColor(stack));
+            setSecondColor(item.getSecondColor(stack));
         }
         setChanged();
     }
@@ -75,10 +94,10 @@ public class EtherBlockEntity extends SimpleBlockEntity {
         ItemStack stack = state.getBlock().asItem().getDefaultInstance();
         AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
         if (firstColor != null) {
-            etherItem.setFirstColor(stack, firstColor.getRGB());
+            etherItem.setFirstColor(stack, firstColorRGB);
         }
         if (secondColor != null) {
-            etherItem.setSecondColor(stack, secondColor.getRGB());
+            etherItem.setSecondColor(stack, secondColorRGB);
         }
         setChanged();
         return super.onClone(state, target, level, pos, player);
@@ -121,7 +140,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                     .setColor(firstColor, secondColor)
                     .setColorCurveMultiplier(0.8f)
                     .setColorEasing(Easing.CIRC_OUT)
-                    .setSpinOffset((level.getGameTime()*0.2f)%6.28f)
+                    .setSpinOffset((level.getGameTime() * 0.2f) % 6.28f)
                     .setSpin(0, 0.4f)
                     .setSpinEasing(Easing.QUARTIC_IN)
                     .addMotion(0, velocity, 0)

@@ -8,13 +8,15 @@ import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleOpti
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleType;
 import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
 import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ParticleEmitter;
+import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 
 import java.util.*;
@@ -58,8 +60,11 @@ public class ScreenParticleHandler {
                     float y = last.m13;
                     if (canSpawnParticles) {
                         ScreenParticle.RenderOrder renderOrder = AFTER_EVERYTHING;
-                        if (minecraft.screen != null) {
-                            renderOrder = BEFORE_TOOLTIPS;
+                        Screen screen = minecraft.screen;
+                        if (screen != null) {
+                            if (!(screen instanceof IRecipesGui)) {
+                                renderOrder = BEFORE_TOOLTIPS;
+                            }
                             if (renderingHotbar) {
                                 renderOrder = BEFORE_UI;
                             }
@@ -74,7 +79,11 @@ public class ScreenParticleHandler {
 
     public static void renderParticles(TickEvent.RenderTickEvent event) {
         if (event.phase.equals(TickEvent.Phase.END)) {
-            if (Minecraft.getInstance().screen == null) {
+            Screen screen = Minecraft.getInstance().screen;
+            if (screen instanceof IRecipesGui) {
+                renderParticles(AFTER_EVERYTHING);
+            }
+            if (screen == null || screen instanceof ChatScreen || screen instanceof GameModeSwitcherScreen) {
                 renderParticles(AFTER_EVERYTHING, BEFORE_UI);
             }
             canSpawnParticles = false;

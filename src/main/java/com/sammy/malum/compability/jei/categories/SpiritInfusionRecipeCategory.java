@@ -29,6 +29,7 @@ import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTe
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 
 public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfusionRecipe> {
+
     public static final ResourceLocation UID = prefix("spirit_infusion");
     private final IDrawable background;
     private final IDrawable overlay;
@@ -36,16 +37,16 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
 
     public SpiritInfusionRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_infusion_jei.png"), 0, 0, 140, 183);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_infusion_jei.png"), 0, 0, 142, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()));
     }
 
     @Override
     public void draw(SpiritInfusionRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
-        ProgressionBookScreen.renderItemFrames(poseStack, 18, 48, true, recipe.spirits.size());
+        ProgressionBookScreen.renderItemFrames(poseStack, 19, 48, true, recipe.spirits.size());
         if (!recipe.extraItems.isEmpty()) {
-            ProgressionBookScreen.renderItemFrames(poseStack, 102, 48, true, recipe.extraItems.size());
+            ProgressionBookScreen.renderItemFrames(poseStack, 103, 48, true, recipe.extraItems.size());
         }
     }
 
@@ -91,15 +92,15 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritInfusionRecipe recipe, IIngredients iIngredients) {
         int index = 0;
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 18, 48, true, recipe.spirits, index);
+        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 19, 48, true, recipe.spirits, index);
         if (!recipe.extraItems.isEmpty()) {
-            index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 102, 48, true, recipe.extraItems, index);
+            index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 103, 48, true, recipe.extraItems, index);
         }
 
-        iRecipeLayout.getItemStacks().init(index + 1, true, 61, 56);
+        iRecipeLayout.getItemStacks().init(index + 1, true, 62, 56);
         iRecipeLayout.getItemStacks().set(index + 1, recipe.input.getStacks());
 
-        iRecipeLayout.getItemStacks().init(index + 2, true, 61, 123);
+        iRecipeLayout.getItemStacks().init(index + 2, true, 62, 123);
         iRecipeLayout.getItemStacks().set(index + 2, recipe.output.getStack());
     }
 }
