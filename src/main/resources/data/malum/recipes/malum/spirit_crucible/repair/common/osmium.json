@@ -21,6 +21,10 @@
     {
       "item": "malum:earthen_spirit",
       "count": 16
+    },
+    {
+      "item": "malum:aqueous_spirit",
+      "count": 8
     }
   ]
 }

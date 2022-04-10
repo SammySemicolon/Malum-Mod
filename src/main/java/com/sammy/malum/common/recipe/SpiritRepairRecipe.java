@@ -5,16 +5,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -24,7 +24,9 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SpiritRepairRecipe extends IMalumRecipe {
     public static final String NAME = "spirit_repair";
@@ -124,13 +126,33 @@ public class SpiritRepairRecipe extends IMalumRecipe {
         return level.getRecipeManager().getAllRecipesFor(Type.INSTANCE);
     }
 
+    public static ItemStack getRepairRecipeOutput(ItemStack input) {
+        return input.getItem() instanceof IRepairOutputOverride ? ((IRepairOutputOverride) input.getItem()).overrideRepairResult().getDefaultInstance() : input;
+    }
+    public interface IRepairOutputOverride {
+        public default Item overrideRepairResult() {
+            return Items.AIR;
+        }
+
+        public default boolean ignoreDuringLookup() {
+            return false;
+        }
+    }
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritRepairRecipe> {
+
+        public static List<Item> REPAIRABLE;
 
         @Override
         public SpiritRepairRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            if (REPAIRABLE == null) {
+                REPAIRABLE = ForgeRegistries.ITEMS.getEntries().stream().map(Map.Entry::getValue).filter(Item::canBeDepleted).collect(Collectors.toList());
+            }
             float durabilityPercentage = json.getAsJsonPrimitive("durabilityPercentage").getAsFloat();
             String inputLookup = json.has("inputLookup") ? json.get("inputLookup").getAsString() : "none";
-
+            String modName = null;
+            if (inputLookup.contains(":")) {
+                modName = inputLookup.substring(inputLookup.indexOf(":"));
+            }
             JsonArray inputsArray = json.getAsJsonArray("inputs");
             ArrayList<Item> inputs = new ArrayList<>();
             for (JsonElement jsonElement : inputsArray) {
@@ -140,9 +162,12 @@ public class SpiritRepairRecipe extends IMalumRecipe {
                 }
                 inputs.add(input);
             }
-            for (Item item : ForgeRegistries.ITEMS) {
-                if (item.canBeDepleted() && item.getRegistryName().getPath().contains(inputLookup)) {
-                    if (item instanceof ImpetusItem) {
+            for (Item item : REPAIRABLE) {
+                if (item.getRegistryName().getPath().contains(inputLookup)) {
+                    if (modName != null && !item.getRegistryName().getNamespace().equals(modName)) {
+                        continue;
+                    }
+                    if (item instanceof IRepairOutputOverride repairOutputOverride && repairOutputOverride.ignoreDuringLookup()) {
                         continue;
                     }
                     if (!inputs.contains(item)) {
@@ -165,10 +190,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(ItemWithCount.deserialize(spiritObject));
             }
-            if (spirits.stream().anyMatch(c -> !c.isValid())) {
-                return null;
-            }
-            if (spirits.isEmpty()) {
+            if (!spirits.isEmpty() && spirits.stream().anyMatch(c -> !c.isValid())) {
                 return null;
             }
             return new SpiritRepairRecipe(recipeId, durabilityPercentage, inputs, repair, spirits);

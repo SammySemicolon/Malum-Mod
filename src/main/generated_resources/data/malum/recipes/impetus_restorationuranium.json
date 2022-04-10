@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/uranium",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "malum:spirit_repair",
+        "inputLookup": "none",
+        "durabilityPercentage": 1.0,
+        "inputs": [
+          "malum:cracked_uranium_impetus"
+        ],
+        "repairMaterial": {
+          "item": "malum:sacred_spirit",
+          "count": 8
+        },
+        "spirits": []
+      }
+    }
+  ]
+}

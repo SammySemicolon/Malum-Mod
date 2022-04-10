@@ -1,5 +1,6 @@
 package com.sammy.malum.core.data;
 
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.core.data.builder.SpiritRepairRecipeBuilder;
 import com.sammy.malum.core.helper.DataHelper;
@@ -114,6 +115,10 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(WICKED_SPIRIT, 4)
                 .build(consumer, "soul_hunter_armor");
 
+        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.SACRED_SPIRIT.get()), 8)
+                .addItem(ItemRegistry.ALCHEMICAL_IMPETUS.get().getCrackedVariant())
+                .build(consumer);
+
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GUNPOWDER), 8)
                 .addSpirit(EARTHEN_SPIRIT, 1)
                 .build(consumer);
@@ -126,34 +131,44 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
 
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.IRON_IMPETUS, ItemRegistry.IRON_NODE);
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.GOLD_IMPETUS, ItemRegistry.GOLD_NODE);
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.COPPER_IMPETUS, ItemRegistry.COPPER_NODE);
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE, "forge:nuggets/lead");
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE, "forge:nuggets/silver");
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE, "forge:nuggets/aluminum");
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.NICKEL_IMPETUS, ItemRegistry.NICKEL_NODE, "forge:nuggets/nickel");
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.URANIUM_IMPETUS, ItemRegistry.URANIUM_NODE, "forge:nuggets/uranium");
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.OSMIUM_IMPETUS, ItemRegistry.OSMIUM_NODE, "forge:nuggets/osmium");
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.ZINC_IMPETUS, ItemRegistry.ZINC_NODE, "forge:nuggets/zinc");
-        metalNodeRecipe(consumer, metalDuration, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, "forge:nuggets/tin");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.IRON_IMPETUS, ItemRegistry.IRON_NODE);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.GOLD_IMPETUS, ItemRegistry.GOLD_NODE);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.COPPER_IMPETUS, ItemRegistry.COPPER_NODE);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE, "lead");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE, "silver");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE, "aluminum");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.NICKEL_IMPETUS, ItemRegistry.NICKEL_NODE, "nickel");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.URANIUM_IMPETUS, ItemRegistry.URANIUM_NODE, "uranium");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.OSMIUM_IMPETUS, ItemRegistry.OSMIUM_NODE, "osmium");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.ZINC_IMPETUS, ItemRegistry.ZINC_NODE, "zinc");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, "tin");
     }
 
-    public void metalNodeRecipe(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<Item> impetus, RegistryObject<Item> node) {
+    public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 2)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 1)
                 .build(consumer);
+        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.SACRED_SPIRIT.get()), 8)
+                .addItem(impetus.get().getCrackedVariant())
+                .build(consumer);
     }
 
-    public void metalNodeRecipe(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<Item> impetus, RegistryObject<Item> node, String tag) {
-        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag))).addRecipe(
+    public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, String tag) {
+
+        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition("forge:nuggets/" + tag))).addRecipe(
                         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 2)
                                 .addSpirit(EARTHEN_SPIRIT, 2)
                                 .addSpirit(INFERNAL_SPIRIT, 1)
                                 ::build
                 )
                 .generateAdvancement()
-                .build(consumer, DataHelper.prefix("conditional_node" + tag.replace("forge:nuggets", "")));
+                .build(consumer, DataHelper.prefix("node_smelting" + tag));
+
+        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition("forge:ingots/" + tag))).addRecipe(
+                        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.SACRED_SPIRIT.get()), 8)
+                                .addItem(impetus.get().getCrackedVariant())::build)
+                .generateAdvancement()
+                .build(consumer, DataHelper.prefix("impetus_restoration" + tag));
     }
 }

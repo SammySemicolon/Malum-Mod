@@ -1,5 +1,6 @@
 package com.sammy.malum.core.data;
 
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.data.builder.vanilla.NBTCarryRecipeBuilder;
 import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.helper.DataHelper;
@@ -467,7 +468,7 @@ public class MalumRecipes extends RecipeProvider {
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
     }
 
-    private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<Item> impetus, RegistryObject<Item> node, Tags.IOptionalNamedTag<Item> tag) {
+    private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, Tags.IOptionalNamedTag<Item> tag) {
 
         String name = node.get().getRegistryName().getPath().replaceFirst("_node", "");
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.getName()))).addRecipe(

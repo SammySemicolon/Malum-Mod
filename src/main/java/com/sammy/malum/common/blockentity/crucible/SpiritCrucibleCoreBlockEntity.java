@@ -258,7 +258,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             queuedCracks = durabilityCost;
             boolean success = stack.hurt(durabilityCost, level.random, null);
             if (success && stack.getItem() instanceof ImpetusItem impetusItem) {
-                inventory.setStackInSlot(0, impetusItem.cracked.get().getDefaultInstance());
+                inventory.setStackInSlot(0, impetusItem.getCrackedVariant().getDefaultInstance());
                 updateRecipe = true;
             }
         }

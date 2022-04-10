@@ -87,22 +87,21 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritRepairRecipe recipe, IIngredients iIngredients) {
         int index = 0;
         ArrayList<ItemWithCount> spirits = recipe.spirits;
-        ArrayList<ItemStack> repaired = (ArrayList<ItemStack>) recipe.inputs.stream().map(Item::getDefaultInstance).collect(Collectors.toList());
+        List<ItemStack> repaired = recipe.inputs.stream().map(Item::getDefaultInstance).collect(Collectors.toList());
         ArrayList<ItemStack> repairIngredient = recipe.repairMaterial.getStacks();
 
         ArrayList<ItemStack> damaged = repaired.stream()
                 .map(ItemStack::copy)
+                .peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage)))
                 .collect(Collectors.toCollection(ArrayList::new));
-        for (ItemStack targetItem : damaged) {
-            targetItem.setDamageValue((int) (targetItem.getMaxDamage() * recipe.durabilityPercentage));
-        }
+
         index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 61, 12, false, spirits, index);
 
         iRecipeLayout.getItemStacks().init(index + 1, true, 81, 56);
         iRecipeLayout.getItemStacks().set(index + 1, damaged);
 
         iRecipeLayout.getItemStacks().init(index + 2, true, 62, 123);
-        iRecipeLayout.getItemStacks().set(index + 2, repaired);
+        iRecipeLayout.getItemStacks().set(index + 2, repaired.stream().map(SpiritRepairRecipe::getRepairRecipeOutput).collect(Collectors.toList()));
 
         iRecipeLayout.getItemStacks().init(index + 3, true, 43, 56);
         iRecipeLayout.getItemStacks().set(index + 3, repairIngredient);

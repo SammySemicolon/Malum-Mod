@@ -1,5 +1,6 @@
 package com.sammy.malum.core.data;
 
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
@@ -169,7 +170,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_HELMET, 1, ItemRegistry.SOUL_HUNTER_CLOAK.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
                 .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 2)
@@ -177,7 +178,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_CHESTPLATE, 1, ItemRegistry.SOUL_HUNTER_ROBE.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 2)
@@ -185,7 +186,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_LEGGINGS, 1, ItemRegistry.SOUL_HUNTER_LEGGINGS.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 2)
@@ -326,7 +327,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
         metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, ItemTagRegistry.INGOTS_TIN);
     }
 
-    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<Item> output, Tag<Item> ingot) {
+    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, Tag<Item> ingot) {
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
                 .addSpirit(EARTHEN_SPIRIT, 8)

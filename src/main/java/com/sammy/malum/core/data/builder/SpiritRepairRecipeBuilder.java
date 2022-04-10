@@ -57,6 +57,11 @@ public class SpiritRepairRecipeBuilder {
         consumerIn.accept(new SpiritRepairRecipeBuilder.Result(id, inputLookup, durabilityPercentage, inputs, repairMaterial, spirits));
     }
 
+    public void build(Consumer<FinishedRecipe> consumerIn)
+    {
+        build(consumerIn, inputs.get(0).getRegistryName().getPath());
+    }
+
     public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
 

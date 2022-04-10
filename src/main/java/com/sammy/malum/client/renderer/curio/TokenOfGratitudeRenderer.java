@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.rendering.RenderTypes;
 import net.minecraft.client.model.EntityModel;
@@ -56,15 +57,15 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
             }
             if (playerEntity.getUUID().equals(CurioTokenOfGratitude.OWL_PERSON)) {
                 poseStack.pushPose();
-                renderGlowingEyes(playerEntity, OWL_PERSON, poseStack, renderTypeBuffer, light);
+                renderGlowingEyes(playerEntity, OWL_PERSON, poseStack, renderTypeBuffer);
                 poseStack.popPose();
             }
         }
     }
 
-    public static void renderGlowingEyes(AbstractClientPlayer playerEntity, ResourceLocation texture, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int light) {
-        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(RenderTypes.ADDITIVE_TEXTURE.apply(texture));
+    public static void renderGlowingEyes(AbstractClientPlayer playerEntity, ResourceLocation texture, PoseStack poseStack, MultiBufferSource renderTypeBuffer) {
+        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(RenderTypes.SOLID_TEXTURE.apply(texture));
         ICurioRenderer.followHeadRotations(playerEntity, ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.overlay);
-        ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, RenderHelper.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }
 }

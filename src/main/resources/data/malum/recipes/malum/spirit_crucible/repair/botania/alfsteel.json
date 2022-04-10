@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mysticbotany"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "alfsteel_",
+  "durabilityPercentage": 1,
+  "inputs": [
+  ],
+  "repairMaterial": {
+    "item": "mysticbotany:alfsteel_ingot",
+    "count": 1
+  },
+  "spirits": [
+    {
+      "item": "malum:arcane_spirit",
+      "count": 64
+    }
+  ]
+}
