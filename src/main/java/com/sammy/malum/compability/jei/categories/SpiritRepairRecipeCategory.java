@@ -86,7 +86,6 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritRepairRecipe recipe, IIngredients iIngredients) {
         int index = 0;
-        ArrayList<ItemWithCount> spirits = recipe.spirits;
         List<ItemStack> repaired = recipe.inputs.stream().map(Item::getDefaultInstance).collect(Collectors.toList());
         ArrayList<ItemStack> repairIngredient = recipe.repairMaterial.getStacks();
 
@@ -95,7 +94,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
                 .peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage)))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 61, 12, false, spirits, index);
+        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 61, 12, false, recipe.spirits, index);
 
         iRecipeLayout.getItemStacks().init(index + 1, true, 81, 56);
         iRecipeLayout.getItemStacks().set(index + 1, damaged);

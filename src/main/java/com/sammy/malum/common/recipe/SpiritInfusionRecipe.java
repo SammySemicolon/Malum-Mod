@@ -8,6 +8,7 @@ import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -45,10 +46,10 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
 
     public final IngredientWithCount output;
 
-    public final ArrayList<ItemWithCount> spirits;
+    public final ArrayList<SpiritWithCount> spirits;
     public final ArrayList<IngredientWithCount> extraItems;
 
-    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, ArrayList<ItemWithCount> spirits, ArrayList<IngredientWithCount> extraItems) {
+    public SpiritInfusionRecipe(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, ArrayList<SpiritWithCount> spirits, ArrayList<IngredientWithCount> extraItems) {
         this.id = id;
         this.input = input;
         this.output = output;
@@ -73,7 +74,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
 
     public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
         ArrayList<ItemStack> sortedStacks = new ArrayList<>();
-        for (ItemWithCount item : spirits) {
+        for (SpiritWithCount item : spirits) {
             for (ItemStack stack : stacks) {
                 if (item.matches(stack)) {
                     sortedStacks.add(stack);
@@ -82,15 +83,6 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
             }
         }
         return sortedStacks;
-    }
-
-    public ArrayList<MalumSpiritType> getSpirits() {
-        ArrayList<MalumSpiritType> spirits = new ArrayList<>();
-        for (ItemWithCount item : this.spirits) {
-            MalumSpiritItem spiritItem = (MalumSpiritItem) item.item;
-            spirits.add(spiritItem.type);
-        }
-        return spirits;
     }
 
     public boolean doSpiritsMatch(ArrayList<ItemStack> spirits) {
@@ -105,7 +97,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
             return false;
         }
         for (int i = 0; i < this.spirits.size(); i++) {
-            ItemWithCount item = this.spirits.get(i);
+            SpiritWithCount item = this.spirits.get(i);
             ItemStack stack = sortedStacks.get(i);
             if (!item.matches(stack)) {
                 return false;
@@ -165,10 +157,10 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
             }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
-            ArrayList<ItemWithCount> spirits = new ArrayList<>();
+            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
-                spirits.add(ItemWithCount.deserialize(spiritObject));
+                spirits.add(SpiritWithCount.deserialize(spiritObject));
             }
             if (spirits.isEmpty()) {
                 return null;
@@ -190,9 +182,9 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
                 extraItems.add(IngredientWithCount.read(buffer));
             }
             int spiritCount = buffer.readInt();
-            ArrayList<ItemWithCount> spirits = new ArrayList<>();
+            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount; i++) {
-                spirits.add(new ItemWithCount(buffer.readItem()));
+                spirits.add(new SpiritWithCount(buffer.readItem()));
             }
             return new SpiritInfusionRecipe(recipeId, input, output, spirits, extraItems);
         }
@@ -206,7 +198,7 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
                 item.write(buffer);
             }
             buffer.writeInt(recipe.spirits.size());
-            for (ItemWithCount item : recipe.spirits) {
+            for (SpiritWithCount item : recipe.spirits) {
                 buffer.writeItem(item.getStack());
             }
         }

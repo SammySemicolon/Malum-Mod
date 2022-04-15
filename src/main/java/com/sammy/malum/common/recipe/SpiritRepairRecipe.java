@@ -5,10 +5,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -45,9 +48,9 @@ public class SpiritRepairRecipe extends IMalumRecipe {
     public final float durabilityPercentage;
     public final ArrayList<Item> inputs;
     public final IngredientWithCount repairMaterial;
-    public final ArrayList<ItemWithCount> spirits;
+    public final ArrayList<SpiritWithCount> spirits;
 
-    public SpiritRepairRecipe(ResourceLocation id, float durabilityPercentage, ArrayList<Item> inputs, IngredientWithCount repairMaterial, ArrayList<ItemWithCount> spirits) {
+    public SpiritRepairRecipe(ResourceLocation id, float durabilityPercentage, ArrayList<Item> inputs, IngredientWithCount repairMaterial, ArrayList<SpiritWithCount> spirits) {
         this.id = id;
         this.durabilityPercentage = durabilityPercentage;
         this.repairMaterial = repairMaterial;
@@ -72,7 +75,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
 
     public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
         ArrayList<ItemStack> sortedStacks = new ArrayList<>();
-        for (ItemWithCount item : spirits) {
+        for (SpiritWithCount item : spirits) {
             for (ItemStack stack : stacks) {
                 if (item.matches(stack)) {
                     sortedStacks.add(stack);
@@ -95,7 +98,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             return false;
         }
         for (int i = 0; i < this.spirits.size(); i++) {
-            ItemWithCount item = this.spirits.get(i);
+            SpiritWithCount item = this.spirits.get(i);
             ItemStack stack = sortedStacks.get(i);
             if (!item.matches(stack)) {
                 return false;
@@ -108,8 +111,12 @@ public class SpiritRepairRecipe extends IMalumRecipe {
         return this.inputs.stream().anyMatch(i -> i.equals(input.getItem()));
     }
 
-    public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ArrayList<ItemStack> spirits) {
-        return getRecipe(level, c -> c.doesInputMatch(stack) && c.doSpiritsMatch(spirits));
+    public boolean doesRepairMatch(ItemStack input) {
+        return this.repairMaterial.matches(input);
+    }
+
+    public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ItemStack repairStack, ArrayList<ItemStack> spirits) {
+        return getRecipe(level, c -> c.doesInputMatch(stack) && c.doesRepairMatch(repairStack) && c.doSpiritsMatch(spirits));
     }
 
     public static SpiritRepairRecipe getRecipe(Level level, Predicate<SpiritRepairRecipe> predicate) {
@@ -127,17 +134,19 @@ public class SpiritRepairRecipe extends IMalumRecipe {
     }
 
     public static ItemStack getRepairRecipeOutput(ItemStack input) {
-        return input.getItem() instanceof IRepairOutputOverride ? ((IRepairOutputOverride) input.getItem()).overrideRepairResult().getDefaultInstance() : input;
+        return input.getItem() instanceof IRepairOutputOverride ? new ItemStack(((IRepairOutputOverride) input.getItem()).overrideRepairResult(), input.getCount(), input.getTag()) : input;
     }
+
     public interface IRepairOutputOverride {
-        public default Item overrideRepairResult() {
+        default Item overrideRepairResult() {
             return Items.AIR;
         }
 
-        public default boolean ignoreDuringLookup() {
+        default boolean ignoreDuringLookup() {
             return false;
         }
     }
+
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritRepairRecipe> {
 
         public static List<Item> REPAIRABLE;
@@ -185,10 +194,10 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
-            ArrayList<ItemWithCount> spirits = new ArrayList<>();
+            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
-                spirits.add(ItemWithCount.deserialize(spiritObject));
+                spirits.add(SpiritWithCount.deserialize(spiritObject));
             }
             if (!spirits.isEmpty() && spirits.stream().anyMatch(c -> !c.isValid())) {
                 return null;
@@ -207,9 +216,9 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             }
             IngredientWithCount repair = IngredientWithCount.read(buffer);
             int spiritCount = buffer.readInt();
-            ArrayList<ItemWithCount> spirits = new ArrayList<>();
+            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount; i++) {
-                spirits.add(new ItemWithCount(buffer.readItem()));
+                spirits.add(new SpiritWithCount(buffer.readItem()));
             }
             return new SpiritRepairRecipe(recipeId, durabilityPercentage, inputs, repair, spirits);
         }
@@ -223,7 +232,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             }
             recipe.repairMaterial.write(buffer);
             buffer.writeInt(recipe.spirits.size());
-            for (ItemWithCount item : recipe.spirits) {
+            for (SpiritWithCount item : recipe.spirits) {
                 buffer.writeItem(item.getStack());
             }
         }

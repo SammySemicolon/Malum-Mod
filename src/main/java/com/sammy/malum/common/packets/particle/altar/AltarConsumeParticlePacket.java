@@ -27,7 +27,6 @@ public class AltarConsumeParticlePacket {
     private final double altarPosY;
     private final double altarPosZ;
 
-
     public static void register(SimpleChannel instance, int index) {
         instance.registerMessage(index, AltarConsumeParticlePacket.class, AltarConsumeParticlePacket::encode, AltarConsumeParticlePacket::decode, AltarConsumeParticlePacket::execute);
     }

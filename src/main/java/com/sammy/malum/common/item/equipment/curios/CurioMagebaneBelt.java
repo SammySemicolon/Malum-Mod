@@ -23,8 +23,6 @@ import java.awt.*;
 import java.util.UUID;
 
 public class CurioMagebaneBelt extends MalumCurioItem implements IEventResponderItem, ItemParticleEmitter {
-    private static final UUID MAGIC_RESISTANCE = UUID.fromString("8ad20be5-cc3b-4786-bf53-1dbd969e6477");
-    private static final UUID SOUL_WARD_CAP = UUID.fromString("8ad20be5-cc3b-4786-bf53-1dbd969e6477");
 
     public CurioMagebaneBelt(Properties builder) {
         super(builder);
@@ -33,8 +31,8 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IEventResponder
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(MAGIC_RESISTANCE, "Curio magic resistance", 2f, AttributeModifier.Operation.ADDITION));
-        map.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(SOUL_WARD_CAP, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(UUID.randomUUID(), "Curio magic resistance", 2f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(UUID.randomUUID(), "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 

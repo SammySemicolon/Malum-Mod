@@ -2,18 +2,25 @@ package com.sammy.malum.core.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import com.mojang.math.Vector4f;
 import com.sammy.malum.core.systems.rendering.ShaderHolder;
+import com.sammy.malum.core.systems.rendering.TrailPoint;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class RenderHelper {
@@ -159,6 +166,7 @@ public class RenderHelper {
         public VertexBuilder setColor(Color color) {
             return setColor(color.getRed(), color.getGreen(), color.getBlue());
         }
+
         public VertexBuilder setColor(Color color, float a) {
             return setColor(color).setAlpha(a);
         }
@@ -168,9 +176,9 @@ public class RenderHelper {
         }
 
         public VertexBuilder setColor(float r, float g, float b) {
-            this.r = r/255f;
-            this.g = g/255f;
-            this.b = b/255f;
+            this.r = r / 255f;
+            this.g = g / 255f;
+            this.b = b / 255f;
             return this;
         }
 
@@ -202,12 +210,55 @@ public class RenderHelper {
         public VertexBuilder renderTriangle(VertexConsumer vertexConsumer, PoseStack stack, float size) {
             return renderTriangle(vertexConsumer, stack, size, size);
         }
+
         public VertexBuilder renderTriangle(VertexConsumer vertexConsumer, PoseStack stack, float width, float height) {
             Matrix4f last = stack.last().pose();
 
             vertexPosColorUVLight(vertexConsumer, last, -width, -height, 0, r, g, b, a, 0, 1, light);
             vertexPosColorUVLight(vertexConsumer, last, width, -height, 0, r, g, b, a, 1, 1, light);
             vertexPosColorUVLight(vertexConsumer, last, 0, height, 0, r, g, b, a, 0.5f, 0, light);
+            return this;
+        }
+
+
+        public VertexBuilder renderTrail(VertexConsumer vertexConsumer, PoseStack stack, List<Vector4f> trailSegments, Function<Float, Float> widthFunc) {
+            return renderTrail(vertexConsumer, stack.last().pose(), trailSegments, widthFunc);
+        }
+        public VertexBuilder renderTrail(VertexConsumer vertexConsumer, Matrix4f pose, List<Vector4f> trailSegments, Function<Float, Float> widthFunc) {
+            if (trailSegments.size() < 3) {
+                return this;
+            }
+            for (Vector4f pos : trailSegments) {
+                pos.add(xOffset, yOffset, zOffset, 0);
+                pos.transform(pose);
+            }
+
+            int count = trailSegments.size() - 1;
+            float increment = 1.0F / (count - 1);
+            ArrayList<TrailPoint> points = new ArrayList<>();
+            for (int i = 0; i < count; i++) {
+                float width = widthFunc.apply(increment * i);
+                Vector4f start = trailSegments.get(i);
+                Vector4f end = trailSegments.get(i + 1);
+                Vector4f mid = midpoint(start, end);
+                Vec2 offset = corners(start, end, width);
+                Vector4f positions = new Vector4f(mid.x() + offset.x, mid.x() - offset.x, mid.y() + offset.y, mid.y() - offset.y);
+                points.add(new TrailPoint(positions.x(), positions.y(), positions.z(), positions.w(), mid.z()));
+            }
+            return renderPoints(vertexConsumer, points, u0, v0, u1, v1);
+        }
+
+        public VertexBuilder renderPoints(VertexConsumer vertexConsumer, List<TrailPoint> trailPoints, float u0, float v0, float u1, float v1) {
+            int count = trailPoints.size();
+            float increment = 1.0F / count;
+            for (int i = 1; i < count; i++) {
+                float current = Mth.lerp(i * increment, v0, v1);
+                float next = Mth.lerp((i + 1) * increment, v0, v1);
+                TrailPoint previousPoint = trailPoints.get(i - 1);
+                TrailPoint point = trailPoints.get(i);
+                previousPoint.renderStart(vertexConsumer, light, r, g, b, a, u0, current, u1, next);
+                point.renderEnd(vertexConsumer, light, r, g, b, a, u0, current, u1, next);
+            }
             return this;
         }
 
@@ -232,23 +283,26 @@ public class RenderHelper {
         public VertexBuilder renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float size) {
             return renderQuad(vertexConsumer, stack, size, size);
         }
+
         public VertexBuilder renderQuad(VertexConsumer vertexConsumer, PoseStack stack, float width, float height) {
             Vector3f[] positions = new Vector3f[]{new Vector3f(-width, -height, 0), new Vector3f(width, -height, 0), new Vector3f(width, height, 0), new Vector3f(-width, height, 0)};
             return renderQuad(vertexConsumer, stack, positions, width, height);
         }
+
         public VertexBuilder renderQuad(VertexConsumer vertexConsumer, PoseStack stack, Vector3f[] positions, float size) {
             return renderQuad(vertexConsumer, stack, positions, size, size);
         }
+
         public VertexBuilder renderQuad(VertexConsumer vertexConsumer, PoseStack stack, Vector3f[] positions, float width, float height) {
             Matrix4f last = stack.last().pose();
             stack.translate(xOffset, yOffset, zOffset);
             for (Vector3f position : positions) {
                 position.mul(width, height, width);
             }
-            vertexPosColorUVLight(vertexConsumer, last, (float) positions[0].x(), (float) positions[0].y(), (float) positions[0].z(), r, g, b, a, u0, v1, light);
-            vertexPosColorUVLight(vertexConsumer, last, (float) positions[1].x(), (float) positions[1].y(), (float) positions[1].z(), r, g, b, a, u1, v1, light);
-            vertexPosColorUVLight(vertexConsumer, last, (float) positions[2].x(), (float) positions[2].y(), (float) positions[2].z(), r, g, b, a, u1, v0, light);
-            vertexPosColorUVLight(vertexConsumer, last, (float) positions[3].x(), (float) positions[3].y(), (float) positions[3].z(), r, g, b, a, u0, v0, light);
+            vertexPosColorUVLight(vertexConsumer, last, positions[0].x(), positions[0].y(), positions[0].z(), r, g, b, a, u0, v1, light);
+            vertexPosColorUVLight(vertexConsumer, last, positions[1].x(), positions[1].y(), positions[1].z(), r, g, b, a, u1, v1, light);
+            vertexPosColorUVLight(vertexConsumer, last, positions[2].x(), positions[2].y(), positions[2].z(), r, g, b, a, u1, v0, light);
+            vertexPosColorUVLight(vertexConsumer, last, positions[3].x(), positions[3].y(), positions[3].z(), r, g, b, a, u0, v0, light);
             stack.translate(-xOffset, -yOffset, -zOffset);
             return this;
         }
@@ -317,5 +371,34 @@ public class RenderHelper {
 
     public static Vector3f parametricSphere(float u, float v, float r) {
         return new Vector3f(Mth.cos(u) * Mth.sin(v) * r, Mth.cos(v) * r, Mth.sin(u) * Mth.sin(v) * r);
+    }
+
+    public static Vec2 corners(Vector4f start, Vector4f end, float width) {
+        float x = -start.x();
+        float y = -start.y();
+        float z = Math.abs(start.z());
+        if (z <= 0) {
+            x += end.x();
+            y += end.y();
+        } else if (z > 0) {
+            float ratio = end.z() / start.z();
+            x = end.x() + x * ratio;
+            y = end.y() + y * ratio;
+        }
+        if (start.z() > 0) {
+            x = -x;
+            y = -y;
+        }
+        float distance = DataHelper.distance(x, y);
+        if (distance > 0F) {
+            float normalize = width * 0.5F / (float) Math.sqrt(distance);
+            x *= normalize;
+            y *= normalize;
+        }
+        return new Vec2(-y, x);
+    }
+
+    public static Vector4f midpoint(Vector4f a, Vector4f b) {
+        return new Vector4f((a.x() + b.x()) * 0.5F, (a.y() + b.y()) * 0.5F, (a.z() + b.z()) * 0.5F, (a.w() + b.w()) * 0.5F);
     }
 }

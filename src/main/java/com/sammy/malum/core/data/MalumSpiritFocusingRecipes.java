@@ -115,9 +115,27 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(WICKED_SPIRIT, 4)
                 .build(consumer, "soul_hunter_armor");
 
-        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.SACRED_SPIRIT.get()), 8)
+        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.ARCANE_SPIRIT.get()), 8)
                 .addItem(ItemRegistry.ALCHEMICAL_IMPETUS.get().getCrackedVariant())
-                .build(consumer);
+                .build(consumer, "alchemical_impetus_restoration");
+
+        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.INFERNAL_SPIRIT.get()), 8)
+                .addItem(ItemRegistry.CRACKED_IRON_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_GOLD_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_COPPER_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_LEAD_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_SILVER_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_ALUMINUM_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_NICKEL_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_URANIUM_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_OSMIUM_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_ZINC_IMPETUS.get())
+                .addItem(ItemRegistry.CRACKED_TIN_IMPETUS.get())
+                .build(consumer, "metal_impetus_restoration");
+
+        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.SACRED_SPIRIT.get()), 32)
+                .addItem(ItemRegistry.CRACKED_CEASELESS_IMPETUS.get())
+                .build(consumer, "ceaseless_impetus_restoration");
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.GUNPOWDER), 8)
                 .addSpirit(EARTHEN_SPIRIT, 1)
@@ -131,9 +149,9 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(ARCANE_SPIRIT, 1)
                 .build(consumer);
 
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.IRON_IMPETUS, ItemRegistry.IRON_NODE);
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.GOLD_IMPETUS, ItemRegistry.GOLD_NODE);
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.COPPER_IMPETUS, ItemRegistry.COPPER_NODE);
+        addNodeSmeltingRecipes(consumer, metalDuration, ItemRegistry.IRON_IMPETUS, ItemRegistry.IRON_NODE);
+        addNodeSmeltingRecipes(consumer, metalDuration, ItemRegistry.GOLD_IMPETUS, ItemRegistry.GOLD_NODE);
+        addNodeSmeltingRecipes(consumer, metalDuration, ItemRegistry.COPPER_IMPETUS, ItemRegistry.COPPER_NODE);
         addImpetusRecipes(consumer, metalDuration, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE, "lead");
         addImpetusRecipes(consumer, metalDuration, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE, "silver");
         addImpetusRecipes(consumer, metalDuration, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE, "aluminum");
@@ -144,13 +162,10 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
         addImpetusRecipes(consumer, metalDuration, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, "tin");
     }
 
-    public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
+    public void addNodeSmeltingRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 2)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 1)
-                .build(consumer);
-        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.SACRED_SPIRIT.get()), 8)
-                .addItem(impetus.get().getCrackedVariant())
                 .build(consumer);
     }
 
@@ -164,11 +179,5 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 )
                 .generateAdvancement()
                 .build(consumer, DataHelper.prefix("node_smelting" + tag));
-
-        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition("forge:ingots/" + tag))).addRecipe(
-                        new SpiritRepairRecipeBuilder("none", 1f, Ingredient.of(ItemRegistry.SACRED_SPIRIT.get()), 8)
-                                .addItem(impetus.get().getCrackedVariant())::build)
-                .generateAdvancement()
-                .build(consumer, DataHelper.prefix("impetus_restoration" + tag));
     }
 }

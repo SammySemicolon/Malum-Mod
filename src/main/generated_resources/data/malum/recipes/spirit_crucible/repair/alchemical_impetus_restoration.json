@@ -3,10 +3,10 @@
   "inputLookup": "none",
   "durabilityPercentage": 1.0,
   "inputs": [
-    "malum:cracked_iron_impetus"
+    "malum:cracked_alchemical_impetus"
   ],
   "repairMaterial": {
-    "item": "malum:sacred_spirit",
+    "item": "malum:arcane_spirit",
     "count": 8
   },
   "spirits": []

@@ -18,10 +18,10 @@ public interface ICrucibleAccelerator {
 
     void setTarget(IAccelerationTarget target);
 
-    default void addParticles(BlockPos altarPos, Vec3 crucibleItemPos) {
+    default void addParticles(BlockPos targetPos, Vec3 targetItemPos) {
     }
 
-    default void addParticles(Color color, Color endColor, float alpha, BlockPos cruciblePos, Vec3 crucibleItemPos) {
+    default void addParticles(Color color, Color endColor, float alpha, BlockPos targetPos, Vec3 targetItemPos) {
 
     }
 

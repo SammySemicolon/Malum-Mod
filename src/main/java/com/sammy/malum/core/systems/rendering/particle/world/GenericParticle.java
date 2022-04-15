@@ -41,14 +41,16 @@ public class GenericParticle extends TextureSheetParticle {
         this.friction = 1;
         Color.RGBtoHSB((int) (255 * Math.min(1.0f, data.r1)), (int) (255 * Math.min(1.0f, data.g1)), (int) (255 * Math.min(1.0f, data.b1)), hsv1);
         Color.RGBtoHSB((int) (255 * Math.min(1.0f, data.r2)), (int) (255 * Math.min(1.0f, data.g2)), (int) (255 * Math.min(1.0f, data.b2)), hsv2);
-        if (getAnimator().equals(SimpleParticleOptions.Animator.RANDOM_SPRITE)) {
-            pickSprite(spriteSet);
-        }
-        if (getAnimator().equals(SimpleParticleOptions.Animator.FIRST_INDEX) || getAnimator().equals(SimpleParticleOptions.Animator.WITH_AGE)) {
-            pickSprite(0);
-        }
-        if (getAnimator().equals(SimpleParticleOptions.Animator.LAST_INDEX)) {
-            pickSprite(spriteSet.sprites.size() - 1);
+        if (spriteSet != null) {
+            if (getAnimator().equals(SimpleParticleOptions.Animator.RANDOM_SPRITE)) {
+                pickSprite(spriteSet);
+            }
+            if (getAnimator().equals(SimpleParticleOptions.Animator.FIRST_INDEX) || getAnimator().equals(SimpleParticleOptions.Animator.WITH_AGE)) {
+                pickSprite(0);
+            }
+            if (getAnimator().equals(SimpleParticleOptions.Animator.LAST_INDEX)) {
+                pickSprite(spriteSet.sprites.size() - 1);
+            }
         }
         updateTraits();
     }
@@ -117,8 +119,10 @@ public class GenericParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         updateTraits();
-        if (data.animator.equals(SimpleParticleOptions.Animator.WITH_AGE)) {
-            setSpriteFromAge(spriteSet);
+        if (spriteSet != null) {
+            if (data.animator.equals(SimpleParticleOptions.Animator.WITH_AGE)) {
+                setSpriteFromAge(spriteSet);
+            }
         }
         super.tick();
     }

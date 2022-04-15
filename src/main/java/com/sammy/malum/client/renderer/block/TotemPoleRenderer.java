@@ -33,8 +33,8 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
     public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
-        SpiritTypeRegistry.SPIRITS.forEach(s ->
-                overlayHashmap.put(s, new Material(TextureAtlas.LOCATION_BLOCKS, s.getOverlayTexture()))
+        SpiritTypeRegistry.SPIRITS.forEach((s, t) ->
+                overlayHashmap.put(t, new Material(TextureAtlas.LOCATION_BLOCKS, t.getOverlayTexture()))
         );
     }
 

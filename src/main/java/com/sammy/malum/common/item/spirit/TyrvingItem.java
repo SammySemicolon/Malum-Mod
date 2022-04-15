@@ -1,6 +1,5 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.tools.ModSwordItem;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.helper.ColorHelper;
@@ -72,8 +71,8 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem, It
         Color secondColor = ColorHelper.darker(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, 2);
         ParticleBuilders.create(ScreenParticleRegistry.STAR)
                 .setAlpha(0.035f, 0f)
-                .setLifetime(7)
-                .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
+                .setLifetime(8)
+                .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.15f), 0)
                 .setColor(firstColor, secondColor)
                 .setColorCurveMultiplier(1.25f)
                 .randomOffset(0.05f)
@@ -93,7 +92,8 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem, It
                 .setSpinOffset(0.8f - 0.01f * gameTime % 6.28f)
                 .repeat(x, y, 1);
 
-        ParticleBuilders.create(ScreenParticleRegistry.WISP)
+        gameTime += 31.4f;
+        ParticleBuilders.create(ScreenParticleRegistry.SPARKLE)
                 .setAlpha(0.035f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0)

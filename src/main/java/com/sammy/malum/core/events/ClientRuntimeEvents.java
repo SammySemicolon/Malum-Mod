@@ -52,32 +52,9 @@ public class ClientRuntimeEvents {
     public static void renderLast(RenderLevelLastEvent event) {
         RenderHandler.renderLast(event);
     }
+
     @SubscribeEvent
     public static void renderTick(TickEvent.RenderTickEvent event) {
         ScreenParticleHandler.renderParticles(event);
-    }
-
-    @SubscribeEvent
-    public static void fixItemTooltip(ItemTooltipEvent event) { //TODO: make this not absolutely awful, change to a mixin
-        ItemStack stack = event.getItemStack();
-        Item item = stack.getItem();
-        if (item instanceof ModCombatItem || item instanceof MagicAxeItem || item instanceof MagicSwordItem || item instanceof MagicPickaxeItem || item instanceof MagicShovelItem || item instanceof MagicHoeItem || (FarmersDelightCompat.LOADED && FarmersDelightCompat.LoadedOnly.isMagicKnife(item))) {
-            List<Component> tooltip = event.getToolTip();
-            ArrayList<Component> clone = new ArrayList<>(tooltip);
-            for (int i = 0; i < clone.size(); i++) {
-                Component component = clone.get(i);
-                if (component instanceof TranslatableComponent textComponent) {
-                    String rawText = textComponent.getString();
-                    if (rawText.contains("+") || rawText.contains("-")) {
-                        if (textComponent.decomposedParts.size() > 3) {
-                            String amount = textComponent.decomposedParts.get(1).getString();
-                            String text = textComponent.decomposedParts.get(3).getString();
-                            component = new TextComponent(" " + amount + " " + text).withStyle(ChatFormatting.DARK_GREEN);
-                            tooltip.set(i, component);
-                        }
-                    }
-                }
-            }
-        }
     }
 }

@@ -16,7 +16,6 @@ import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -25,7 +24,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -281,7 +279,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         ResourceLocation top = prefix("block/" + woodName + "_log_top");
 
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> {
-            int type = s.getValue(TotemPoleBlock.SPIRIT_TYPE);
+            String type = s.getValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY);
             MalumSpiritType spiritType = SpiritTypeRegistry.SPIRITS.get(type);
             ModelFile pole = models().withExistingParent(name + "_" + spiritType.identifier, prefix("block/templates/template_totem_pole")).texture("side", side).texture("top", top).texture("front", prefix("block/totem/" + spiritType.identifier + "_" + woodName + "_cutout"));
             return ConfiguredModel.builder().modelFile(pole).rotationY(((int) s.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360).build();

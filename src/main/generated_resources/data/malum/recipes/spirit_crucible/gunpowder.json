@@ -11,7 +11,7 @@
   },
   "spirits": [
     {
-      "item": "malum:earthen_spirit"
+      "type": "earthen"
     }
   ]
 }

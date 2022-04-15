@@ -11,10 +11,10 @@
   "extra_items": [],
   "spirits": [
     {
-      "item": "malum:sacred_spirit"
+      "type": "sacred"
     },
     {
-      "item": "malum:arcane_spirit"
+      "type": "arcane"
     }
   ]
 }

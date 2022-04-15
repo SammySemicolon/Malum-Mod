@@ -16,6 +16,7 @@ import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -97,11 +98,8 @@ public class SpiritHelper {
 
 
     public static MalumSpiritType getSpiritType(String spirit) {
-        Optional<MalumSpiritType> type = SpiritTypeRegistry.SPIRITS.stream().filter(s -> s.identifier.equals(spirit)).findFirst();
-        if (type.isEmpty()) {
-            return SpiritTypeRegistry.ELDRITCH_SPIRIT;
-        }
-        return type.get();
+        MalumSpiritType type = SpiritTypeRegistry.SPIRITS.get(spirit);
+        return type == null ? SpiritTypeRegistry.SACRED_SPIRIT : type;
     }
 
     public static MalumEntitySpiritData getEntitySpiritData(LivingEntity entity) {
@@ -125,15 +123,19 @@ public class SpiritHelper {
         if (spirits.isEmpty()) {
             return spirits;
         }
-        int spiritSpoils = (int) attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS.get());
+        int spiritBonus = 0;
+        if (attacker.getAttribute(AttributeRegistry.SPIRIT_SPOILS.get()) != null)
+        {
+            spiritBonus += attacker.getAttributeValue(AttributeRegistry.SPIRIT_SPOILS.get());
+        }
         if (!harvestStack.isEmpty()) {
             int spiritPlunder = EnchantmentHelper.getItemEnchantmentLevel(MalumEnchantments.SPIRIT_PLUNDER.get(), harvestStack);
             if (spiritPlunder > 0) {
                 harvestStack.hurtAndBreak(spiritPlunder, attacker, (e) -> e.broadcastBreakEvent(MAINHAND));
             }
-            spiritSpoils += spiritPlunder;
+            spiritBonus += spiritPlunder;
         }
-        for (int i = 0; i < spiritSpoils * spoilsMultiplier; i++) {
+        for (int i = 0; i < spiritBonus * spoilsMultiplier; i++) {
             int random = attacker.level.random.nextInt(spirits.size());
             spirits.get(random).grow(1);
         }

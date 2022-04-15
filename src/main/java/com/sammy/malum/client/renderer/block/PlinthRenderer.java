@@ -25,11 +25,10 @@ public class PlinthRenderer implements BlockEntityRenderer<PlinthCoreBlockEntity
     @Override
     public void render(PlinthCoreBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Level level = Minecraft.getInstance().level;
-        if (blockEntityIn.data != null)
-        {
+        if (blockEntityIn.data != null) {
             poseStack.pushPose();
             Vec3 offset = blockEntityIn.itemOffset();
-            double y = offset.y + Math.sin(((level.getGameTime() + partialTicks) ) / 20f) * 0.08f;
+            double y = offset.y + Math.sin((level.getGameTime() + partialTicks) / 20f) * 0.08f;
             poseStack.translate(offset.x, y, offset.z);
             SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.color.darker());
             poseStack.popPose();
@@ -41,12 +40,11 @@ public class PlinthRenderer implements BlockEntityRenderer<PlinthCoreBlockEntity
             poseStack.pushPose();
             Vec3 offset = blockEntityIn.itemOffset();
             poseStack.translate(offset.x, offset.y, offset.z);
-            if (stack.getItem() instanceof MalumSpiritItem)
-            {
-                double y = Math.sin(((level.getGameTime() + partialTicks) ) / 20f) * 0.05f;
+            if (stack.getItem() instanceof MalumSpiritItem) {
+                double y = Math.sin((level.getGameTime() + partialTicks) / 20f) * 0.05f;
                 poseStack.translate(0, y, 0);
             }
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() ) * 3 + partialTicks));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
             poseStack.scale(0.45f, 0.45f, 0.45f);
             itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

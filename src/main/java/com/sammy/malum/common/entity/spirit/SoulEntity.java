@@ -25,7 +25,7 @@ public class SoulEntity extends FloatingEntity {
     public SoulEntity(Level level) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         maxAge = 2000;
-        speed = 8;
+        range = 8;
     }
 
     public SoulEntity(Level level, MalumEntitySpiritData spiritData, UUID ownerUUID, double posX, double posY, double posZ, double velX, double velY, double velZ) {
@@ -37,7 +37,7 @@ public class SoulEntity extends FloatingEntity {
             this.endColor = spiritData.primaryType.endColor;
             getEntityData().set(DATA_END_COLOR, endColor.getRGB());
         }
-        speed = 8;
+        range = 8;
         setThief(ownerUUID);
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
@@ -54,7 +54,7 @@ public class SoulEntity extends FloatingEntity {
         if (!level.isClientSide) {
             thief = (LivingEntity) ((ServerLevel) level).getEntity(thiefUUID);
             if (thief != null) {
-                speed = (int) thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH.get());
+                range = (int) thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH.get());
             }
         }
     }
@@ -84,7 +84,7 @@ public class SoulEntity extends FloatingEntity {
         setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.97f, 0.95f));
         if (thief == null || !thief.isAlive()) {
             if (level.getGameTime() % 40L == 0) {
-                Player playerEntity = level.getNearestPlayer(this, speed * 5f);
+                Player playerEntity = level.getNearestPlayer(this, range * 5f);
                 if (playerEntity != null) {
                     setThief(playerEntity.getUUID());
                 }
@@ -94,7 +94,7 @@ public class SoulEntity extends FloatingEntity {
         float sine = Mth.sin(level.getGameTime()*0.05f)*0.2f;
         Vec3 desiredLocation = thief.position().add(0, thief.getBbHeight() / 4, 0).add(-sine, sine, -sine);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.1f, 0.05f + (speed * 0.025f));
+        float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.1f, 0.05f + (range * 0.025f));
         if (distance > 2) {
             moveTime++;
             Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity).add(0, 0.075f, 0);

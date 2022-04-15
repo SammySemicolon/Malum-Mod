@@ -15,7 +15,7 @@ public class CorruptedAerialAura extends MobEffect
 {
     public CorruptedAerialAura()
     {
-        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.AERIAL_SPIRIT_COLOR));
+        super(MobEffectCategory.BENEFICIAL, ColorHelper.getDecimal(SpiritTypeRegistry.AERIAL_SPIRIT_COLOR));
         addAttributeModifier(ForgeMod.ENTITY_GRAVITY.get(), "e2306a3e-4ffc-45dc-b9c6-30acb18efab3", -0.40f, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {

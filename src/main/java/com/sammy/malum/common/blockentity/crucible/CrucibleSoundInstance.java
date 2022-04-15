@@ -14,7 +14,7 @@ public class CrucibleSoundInstance extends SimpleBlockEntitySoundInstance<Spirit
 
     @Override
     public void tick() {
-        if (blockEntity.recipe == null)
+        if (blockEntity.focusingRecipe == null)
         {
             stop();
         }

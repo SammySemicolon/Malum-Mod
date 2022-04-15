@@ -38,16 +38,13 @@ import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
 import static com.sammy.malum.core.setup.content.enchantment.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
 
-public class MalumLang extends LanguageProvider
-{
-    public MalumLang(DataGenerator gen)
-    {
+public class MalumLang extends LanguageProvider {
+    public MalumLang(DataGenerator gen) {
         super(gen, MalumMod.MODID, "en_us");
     }
 
     @Override
-    protected void addTranslations()
-    {
+    protected void addTranslations() {
         ProgressionBookScreen.setupEntries();
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
@@ -58,7 +55,7 @@ public class MalumLang extends LanguageProvider
         Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
         ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.entries;
         ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
-        ArrayList<MalumSpiritType> spirits = SpiritTypeRegistry.SPIRITS;
+        ArrayList<MalumSpiritType> spirits = new ArrayList<>(SpiritTypeRegistry.SPIRITS.values());
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof EtherWallTorchBlock);
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallSignBlock);
@@ -107,7 +104,7 @@ public class MalumLang extends LanguageProvider
 
         rites.forEach(r -> add(r.translationIdentifier(), DataHelper.toTitleCase(r.identifier, "_")));
 
-        spirits.forEach(s -> add(s.getDescription(), DataHelper.toTitleCase(s.identifier+"_spirit", "_")));
+        spirits.forEach(s -> add(s.getDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
 
         coolerBookEntries.forEach(b -> add(b.translationKey(), DataHelper.toTitleCase(b.identifier, "_")));
 
@@ -167,7 +164,7 @@ public class MalumLang extends LanguageProvider
         addHeadline("hex_ash", "Hex Ash");
         addPage("hex_ash", "Hex ash is a simple magical powder used in various infusions as a minor component. The ash is known for it's ability to animate objects, even bring some to life in some extreme cases.");
 
-        addDescription("primary_arcana", "Primary Arcana");
+        addDescription("primary_arcana", "Basic Spellforms");
         addHeadline("sacred_spirit", "Sacred Spirit");
         addPage("sacred_spirit_a", "Sacred spirit represents two main concepts, pure beings and holy origins. Sacred arcana is generally focused on various forms of healing and other curative effects.");
         addPage("sacred_spirit_b", "The sacred spirit is found mainly within passive, relaxed souls. Easy targets really.");
@@ -420,62 +417,55 @@ public class MalumLang extends LanguageProvider
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return "Malum Lang Entries";
     }
 
-    public void addTetraMaterial(String identifier, String name)
-    {
-        add("tetra.material."+identifier, name);
-        add("tetra.material."+identifier+".prefix", name);
+    public void addTetraMaterial(String identifier, String name) {
+        add("tetra.material." + identifier, name);
+        add("tetra.material." + identifier + ".prefix", name);
     }
-    public void addTetraImprovement(String identifier, String name, String description)
-    {
-        add("tetra.improvement."+identifier+".name", name);
-        add("tetra.improvement."+identifier+".description", description);
-    }
-    public void addTetraSocket(String identifier, String socket, String start, String end)
-    {
-        add("tetra.variant.double_socket/"+identifier, "Socket " + socket);
-        add("tetra.variant.double_socket/"+identifier+".description", start + ", fitted onto the side of the tool head. " + end);
 
-        add("tetra.variant.single_socket/"+identifier, "Socket " + socket);
-        add("tetra.variant.single_socket/"+identifier+".description", start + ", attached where the head meets the handle. " + end);
-
-        add("tetra.variant.sword_socket/"+identifier, "Socket " + socket);
-        add("tetra.variant.sword_socket/"+identifier+".description", start + ", fitted onto the sword where the blade meets the hilt." + end);
+    public void addTetraImprovement(String identifier, String name, String description) {
+        add("tetra.improvement." + identifier + ".name", name);
+        add("tetra.improvement." + identifier + ".description", description);
     }
-    public void addPage(String identifier, String tooltip)
-    {
+
+    public void addTetraSocket(String identifier, String socket, String start, String end) {
+        add("tetra.variant.double_socket/" + identifier, "Socket " + socket);
+        add("tetra.variant.double_socket/" + identifier + ".description", start + ", fitted onto the side of the tool head. " + end);
+
+        add("tetra.variant.single_socket/" + identifier, "Socket " + socket);
+        add("tetra.variant.single_socket/" + identifier + ".description", start + ", attached where the head meets the handle. " + end);
+
+        add("tetra.variant.sword_socket/" + identifier, "Socket " + socket);
+        add("tetra.variant.sword_socket/" + identifier + ".description", start + ", fitted onto the sword where the blade meets the hilt." + end);
+    }
+
+    public void addPage(String identifier, String tooltip) {
         add("malum.gui.book.entry.page.text." + identifier, tooltip);
     }
-    public void addDescription(String identifier, String tooltip)
-    {
+
+    public void addDescription(String identifier, String tooltip) {
         add("malum.gui.book.entry." + identifier + ".description", tooltip);
     }
-    public void addHeadline(String identifier, String tooltip)
-    {
+
+    public void addHeadline(String identifier, String tooltip) {
         add("malum.gui.book.entry.page.headline." + identifier, tooltip);
     }
-    public void addTooltip(String identifier, String tooltip)
-    {
+
+    public void addTooltip(String identifier, String tooltip) {
         add("malum.tooltip." + identifier, tooltip);
     }
 
-    public String correctBlockItemName(String name)
-    {
-        if ((!name.endsWith("_bricks")))
-        {
-            if (name.contains("bricks"))
-            {
+    public String correctBlockItemName(String name) {
+        if ((!name.endsWith("_bricks"))) {
+            if (name.contains("bricks")) {
                 name = name.replaceFirst("bricks", "brick");
             }
         }
-        if (name.contains("_fence") || name.contains("_button"))
-        {
-            if (name.contains("planks"))
-            {
+        if (name.contains("_fence") || name.contains("_button")) {
+            if (name.contains("planks")) {
                 name = name.replaceFirst("_planks", "");
             }
         }

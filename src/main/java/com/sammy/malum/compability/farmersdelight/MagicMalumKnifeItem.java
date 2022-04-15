@@ -19,7 +19,7 @@ public class MagicMalumKnifeItem extends MalumKnifeItem {
     @Override
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes() {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        builder.put(AttributeRegistry.MAGIC_DAMAGE.get(), new AttributeModifier(UUID.fromString("d1d17de1-c944-4cdb-971e-f9c4ce260cfe"), "Weapon magic damage", magicDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.MAGIC_DAMAGE.get(), new AttributeModifier(AttributeRegistry.UUIDS.get(AttributeRegistry.MAGIC_DAMAGE), "Weapon magic damage", magicDamage, AttributeModifier.Operation.ADDITION));
         return builder;
     }
 }

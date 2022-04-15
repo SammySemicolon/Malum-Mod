@@ -20,7 +20,7 @@
   ],
   "spirits": [
     {
-      "item": "malum:aqueous_spirit",
+      "type": "aqueous",
       "count": 4
     }
   ]

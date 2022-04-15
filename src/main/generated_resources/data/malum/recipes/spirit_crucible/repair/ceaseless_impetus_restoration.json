@@ -3,11 +3,11 @@
   "inputLookup": "none",
   "durabilityPercentage": 1.0,
   "inputs": [
-    "malum:cracked_gold_impetus"
+    "malum:cracked_ceaseless_impetus"
   ],
   "repairMaterial": {
     "item": "malum:sacred_spirit",
-    "count": 8
+    "count": 32
   },
   "spirits": []
 }

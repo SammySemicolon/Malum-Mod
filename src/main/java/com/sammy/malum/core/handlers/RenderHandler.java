@@ -2,6 +2,7 @@ package com.sammy.malum.core.handlers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Matrix4f;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.core.helper.RenderHelper;

@@ -7,6 +7,7 @@ import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +26,7 @@ public class SpiritRepairRecipeBuilder {
     public final float durabilityPercentage;
     public final ArrayList<Item> inputs = new ArrayList<>();
     public final IngredientWithCount repairMaterial;
-    public final ArrayList<ItemWithCount> spirits = new ArrayList<>();
+    public final ArrayList<SpiritWithCount> spirits = new ArrayList<>();
 
     public SpiritRepairRecipeBuilder(String inputLookup, float durabilityPercentage, Ingredient repairMaterial, int repairMaterialCount) {
         this.inputLookup = inputLookup;
@@ -45,7 +46,7 @@ public class SpiritRepairRecipeBuilder {
     }
 
     public SpiritRepairRecipeBuilder addSpirit(MalumSpiritType type, int count) {
-        spirits.add(new ItemWithCount(type.getSplinterItem(), count));
+        spirits.add(new SpiritWithCount(type, count));
         return this;
     }
 
@@ -57,8 +58,7 @@ public class SpiritRepairRecipeBuilder {
         consumerIn.accept(new SpiritRepairRecipeBuilder.Result(id, inputLookup, durabilityPercentage, inputs, repairMaterial, spirits));
     }
 
-    public void build(Consumer<FinishedRecipe> consumerIn)
-    {
+    public void build(Consumer<FinishedRecipe> consumerIn) {
         build(consumerIn, inputs.get(0).getRegistryName().getPath());
     }
 
@@ -69,10 +69,10 @@ public class SpiritRepairRecipeBuilder {
         public final float durabilityPercentage;
         public final ArrayList<Item> input;
         public final IngredientWithCount repairMaterial;
-        public final ArrayList<ItemWithCount> spirits;
+        public final ArrayList<SpiritWithCount> spirits;
 
 
-        public Result(ResourceLocation id, String inputLookup, float durabilityPercentage, ArrayList<Item> input, IngredientWithCount repairMaterial, ArrayList<ItemWithCount> spirits) {
+        public Result(ResourceLocation id, String inputLookup, float durabilityPercentage, ArrayList<Item> input, IngredientWithCount repairMaterial, ArrayList<SpiritWithCount> spirits) {
             this.id = id;
             this.inputLookup = inputLookup;
             this.durabilityPercentage = durabilityPercentage;
@@ -88,7 +88,7 @@ public class SpiritRepairRecipeBuilder {
                 inputs.add(item.getRegistryName().toString());
             }
             JsonArray spirits = new JsonArray();
-            for (ItemWithCount spirit : this.spirits) {
+            for (SpiritWithCount spirit : this.spirits) {
                 spirits.add(spirit.serialize());
             }
 

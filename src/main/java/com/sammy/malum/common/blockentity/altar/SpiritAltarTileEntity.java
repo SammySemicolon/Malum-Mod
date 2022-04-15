@@ -14,6 +14,7 @@ import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -67,6 +68,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public SpiritAltarTileEntity(BlockEntityType<? extends SpiritAltarTileEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
+
     public SpiritAltarTileEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SPIRIT_ALTAR.get(), pos, state);
 
@@ -90,7 +92,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 updateRecipe = true;
-                spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount+1));
+                spiritAmount = Math.max(1, Mth.lerp(0.15f, spiritAmount, nonEmptyItemAmount + 1));
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
@@ -111,11 +113,9 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             compound.putFloat("spiritAmount", spiritAmount);
         }
 
-        if (!acceleratorPositions.isEmpty())
-        {
+        if (!acceleratorPositions.isEmpty()) {
             compound.putInt("acceleratorAmount", acceleratorPositions.size());
-            for (int i = 0; i < acceleratorPositions.size(); i++)
-            {
+            for (int i = 0; i < acceleratorPositions.size(); i++) {
                 BlockHelper.saveBlockPos(compound, acceleratorPositions.get(i), "" + i);
             }
         }
@@ -169,17 +169,14 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
 
             if (!(heldStack.getItem() instanceof MalumSpiritItem)) {
                 ItemStack stack = inventory.interact(level, player, hand);
-                if (!stack.isEmpty())
-                {
+                if (!stack.isEmpty()) {
                     return InteractionResult.SUCCESS;
                 }
             }
             spiritInventory.interact(level, player, hand);
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
-            }
-            else
-            {
+            } else {
                 return InteractionResult.FAIL;
             }
         }
@@ -189,14 +186,13 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     @Override
     public void tick() {
         spiritAmount = Math.max(1, Mth.lerp(0.1f, spiritAmount, spiritInventory.nonEmptyItemAmount));
-        if (updateRecipe)
-        {
-            if (level.isClientSide && possibleRecipes.isEmpty()) {
-                AltarSoundInstance.playSound(this);
-            }
+        if (updateRecipe) {
             ItemStack stack = inventory.getStackInSlot(0);
             possibleRecipes = new ArrayList<>(DataHelper.getAll(SpiritInfusionRecipe.getRecipes(level), r -> r.doesInputMatch(stack) && r.doSpiritsMatch(spiritInventory.getNonEmptyItemStacks())));
             recipe = SpiritInfusionRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
+            if (level.isClientSide && !possibleRecipes.isEmpty()) {
+                AltarSoundInstance.playSound(this);
+            }
             updateRecipe = false;
         }
         if (!possibleRecipes.isEmpty()) {
@@ -211,7 +207,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                         recalibrateAccelerators();
                     }
                 }
-                int progressCap = (int) (300*Math.exp(-0.15*speed));
+                int progressCap = (int) (300 * Math.exp(-0.15 * speed));
                 if (progress >= progressCap) {
                     boolean success = consume();
                     if (success) {
@@ -231,7 +227,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         }
     }
 
-    public static Vec3 itemPos(SpiritAltarTileEntity blockEntity) {
+    public static Vec3 getItemPos(SpiritAltarTileEntity blockEntity) {
         return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 
@@ -239,48 +235,44 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
         return new Vec3(0.5f, 1.25f, 0.5f);
     }
 
-    public static Vec3 spiritOffset(SpiritAltarTileEntity blockEntity, int slot) {
-        float distance = 1 - Math.min(0.25f, blockEntity.spinUp / 40f) + (float) Math.sin(blockEntity.spiritSpin / 20f) * 0.025f;
+    public static Vec3 spiritOffset(SpiritAltarTileEntity blockEntity, int slot, float partialTicks) {
+        float distance = 1 - Math.min(0.25f, blockEntity.spinUp / 40f) + (float) Math.sin((blockEntity.spiritSpin + partialTicks) / 20f) * 0.025f;
         float height = 0.75f + Math.min(0.5f, blockEntity.spinUp / 20f);
-        return DataHelper.rotatedCirclePosition(new Vec3(0.5f, height, 0.5f), distance, slot, blockEntity.spiritAmount, (long) blockEntity.spiritSpin, 360);
+        return DataHelper.rotatingCircleOffset(new Vec3(0.5f, height, 0.5f), distance, slot, blockEntity.spiritAmount, (long) (blockEntity.spiritSpin + partialTicks), 360);
     }
 
     public boolean consume() {
-        Vec3 itemPos = itemPos(this);
-        if (recipe.extraItems.isEmpty())
-        {
+        Vec3 itemPos = getItemPos(this);
+        if (recipe.extraItems.isEmpty()) {
             return true;
         }
         extrasInventory.updateData();
         int extras = extrasInventory.nonEmptyItemAmount;
         if (extras < recipe.extraItems.size()) {
             progress *= 0.75f;
-            Collection<BlockPos> nearbyBlocks = BlockHelper.getBlocks(worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
-            for (BlockPos pos : nearbyBlocks) {
-                if (level.getBlockEntity(pos) instanceof IAltarProvider blockEntity) {
-                    ItemStack providedStack = blockEntity.getInventoryForAltar().getStackInSlot(0);
-                    IngredientWithCount requestedItem = recipe.extraItems.get(extras);
-                    boolean matches = requestedItem.matches(providedStack);
-                    if (!matches) {
-                        for (SpiritInfusionRecipe recipe : possibleRecipes)
-                        {
-                            if (extras < recipe.extraItems.size() && recipe.extraItems.get(extras).matches(providedStack))
-                            {
-                                this.recipe = recipe;
-                                break;
-                            }
+
+            ArrayList<IAltarProvider> altarProviders = BlockHelper.getBlockEntities(IAltarProvider.class, level, worldPosition, HORIZONTAL_RANGE, VERTICAL_RANGE, HORIZONTAL_RANGE);
+            for (IAltarProvider provider : altarProviders) {
+                ItemStack providedStack = provider.getInventoryForAltar().getStackInSlot(0);
+                IngredientWithCount requestedItem = recipe.extraItems.get(extras);
+                boolean matches = requestedItem.matches(providedStack);
+                if (!matches) {
+                    for (SpiritInfusionRecipe recipe : possibleRecipes) {
+                        if (extras < recipe.extraItems.size() && recipe.extraItems.get(extras).matches(providedStack)) {
+                            this.recipe = recipe;
+                            break;
                         }
                     }
-                    requestedItem = recipe.extraItems.get(extras);
-                    matches = requestedItem.matches(providedStack);
-                    if (matches) {
-                        level.playSound(null, pos, SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                        Vec3 providedItemPos = blockEntity.getItemPosForAltar();
-                        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AltarConsumeParticlePacket(providedStack, recipe.getSpirits().stream().map(s -> s.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
-                        extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
-                        BlockHelper.updateAndNotifyState(level, pos);
-                        break;
-                    }
+                }
+                requestedItem = recipe.extraItems.get(extras);
+                matches = requestedItem.matches(providedStack);
+                if (matches) {
+                    level.playSound(null, provider.getBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+                    Vec3 providedItemPos = provider.getItemPosForAltar();
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPos())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                    extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
+                    BlockHelper.updateAndNotifyState(level, provider.getBlockPos());
+                    break;
                 }
             }
             return false;
@@ -290,13 +282,13 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
 
     public void craft() {
         ItemStack stack = inventory.getStackInSlot(0);
-        Vec3 itemPos = itemPos(this);
+        Vec3 itemPos = getItemPos(this);
         ItemStack outputStack = recipe.output.getStack();
         if (inventory.getStackInSlot(0).hasTag()) {
             outputStack.setTag(stack.getTag());
         }
         stack.shrink(recipe.input.count);
-        for (ItemWithCount spirit : recipe.spirits) {
+        for (SpiritWithCount spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
                 if (spirit.matches(spiritStack)) {
@@ -305,8 +297,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 }
             }
         }
-
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.getSpirits().stream().map(s -> s.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
         progress = 0;
         extrasInventory.clear();
         updateRecipe = true;
@@ -331,15 +322,16 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
                 if (amount < max) {
                     accelerators.add(accelerator);
-                    acceleratorPositions.add(((BlockEntity)accelerator).getBlockPos());
+                    acceleratorPositions.add(((BlockEntity) accelerator).getBlockPos());
                     speed += accelerator.getAcceleration();
                     entries.replace(accelerator.getAcceleratorType(), amount + 1);
                 }
             }
         }
     }
+
     public void passiveParticles() {
-        Vec3 itemPos = itemPos(this);
+        Vec3 itemPos = getItemPos(this);
         for (int i = 0; i < spiritInventory.slotCount; i++) {
             ItemStack item = spiritInventory.getStackInSlot(i);
             for (IAltarAccelerator accelerator : accelerators) {
@@ -348,7 +340,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 }
             }
             if (item.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
-                Vec3 offset = spiritOffset(this, i);
+                Vec3 offset = spiritOffset(this, i, 0);
                 Color color = spiritSplinterItem.type.color;
                 Color endColor = spiritSplinterItem.type.endColor;
                 double x = getBlockPos().getX() + offset.x();
@@ -371,7 +363,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             .randomMotion(0.01f, 0.01f)
                             .setColor(color, endColor)
                             .setColorCurveMultiplier(1.25f)
-                            .setSpin(0.1f + level.random.nextFloat()*0.1f)
+                            .setSpin(0.1f + level.random.nextFloat() * 0.1f)
                             .randomMotion(0.0025f, 0.0025f)
                             .addMotion(velocity.x, velocity.y, velocity.z)
                             .enableNoClip()

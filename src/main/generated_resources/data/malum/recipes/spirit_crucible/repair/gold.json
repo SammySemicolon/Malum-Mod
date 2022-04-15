@@ -9,7 +9,7 @@
   },
   "spirits": [
     {
-      "item": "malum:arcane_spirit",
+      "type": "arcane",
       "count": 8
     }
   ]

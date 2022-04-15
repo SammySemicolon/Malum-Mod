@@ -14,15 +14,15 @@
   },
   "spirits": [
     {
-      "item": "malum:arcane_spirit",
+      "type": "arcane",
       "count": 16
     },
     {
-      "item": "malum:aerial_spirit",
+      "type": "aerial",
       "count": 8
     },
     {
-      "item": "malum:wicked_spirit",
+      "type": "wicked",
       "count": 4
     }
   ]

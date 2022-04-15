@@ -17,6 +17,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
@@ -204,13 +206,17 @@ public class SoulHarvestHandler {
     }
 
     public static class ClientOnly {
-        private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/soul_noise.png");
+        private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/noise/soul_noise.png");
         private static final RenderType SOUL_NOISE_TYPE = RenderTypes.RADIAL_NOISE.apply(SOUL_NOISE);
-        private static final ResourceLocation PREVIEW_NOISE = prefix("textures/vfx/harvest_noise.png");
+        private static final ResourceLocation PREVIEW_NOISE = prefix("textures/vfx/noise/harvest_noise.png");
         private static final RenderType PREVIEW_NOISE_TYPE = RenderTypes.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
-        private static final ResourceLocation HARVEST_NOISE = prefix("textures/vfx/soul_noise_secondary.png");
-        private static final RenderType HARVEST_NOISE_TYPE = RenderTypes.RADIAL_NOISE.apply(HARVEST_NOISE);
 
+        @SuppressWarnings("all")
+        public static void addRenderLayer(EntityRenderer<?> render) {
+            if (render instanceof LivingEntityRenderer livingRenderer) {
+                livingRenderer.addLayer(new SoulHarvestHandler.ClientOnly.HarvestRenderLayer<>(livingRenderer));
+            }
+        }
         public static class HarvestRenderLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
             public HarvestRenderLayer(RenderLayerParent<T, M> parent) {
@@ -253,31 +259,16 @@ public class SoulHarvestHandler {
                             instance.safeGetUniform("ScatterFrequency").set(-0.2f);
                             instance.safeGetUniform("Intensity").set(55f);
                         })));
-                VertexConsumer harvestNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(HARVEST_NOISE_TYPE,
-                        (instance -> {
-                            instance.safeGetUniform("Speed").set(-2500f);
-                            instance.safeGetUniform("Intensity").set(45f);
-                        })));
                 poseStack.translate(toPlayer.x, toPlayer.y + target.getBbHeight() / 2f, toPlayer.z);
                 poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
-                RenderHelper.VertexBuilder builder = RenderHelper.create()
+                RenderHelper.create()
                         .setColor(color.brighter())
                         .setAlpha(alphaAndScale * 0.6f)
                         .setLight(FULL_BRIGHT)
                         .renderQuad(soulNoise, poseStack, alphaAndScale * 0.9f)
                         .setColor(color.darker())
                         .renderQuad(previewNoise, poseStack, Math.min(1, alphaAndScale * 1.3f));
-                if (harvestProgress > 0) {
-                    for (int i = 0; i < 3; i++) {
-                        if (harvestProgress < i * 33) {
-                            break;
-                        }
-                        float scale = 0.6f + i * 0.4f;
-                        builder.setColor(ColorHelper.brighter(color, 2), Math.min(1, harvestProgress * 3 / 200 - i) + i / 6f)
-                                .renderQuad(harvestNoise, poseStack, scale);
-                    }
-                }
                 poseStack.popPose();
             }
         }

@@ -103,7 +103,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public void tick() {
-        if (target != null && !target.isValid()) {
+        if (target != null && !target.canBeAccelerated()) {
             setTarget(null);
         } else if (target != null) {
             if (burnTicks > 0) {
@@ -124,11 +124,11 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     }
 
     @Override
-    public void addParticles(Color color, Color endColor, float alpha, BlockPos cruciblePos, Vec3 crucibleItemPos) {
+    public void addParticles(Color color, Color endColor, float alpha, BlockPos targetPos, Vec3 targetItemPos) {
         if (burnTicks > 0) {
-            Vec3 startPos = itemPos(this);
+            Vec3 startPos = getItemPos(this);
             float random = level.random.nextFloat() * 0.04f;
-            Vec3 velocity = startPos.subtract(crucibleItemPos.add(random, random, random)).normalize().scale(-0.08f);
+            Vec3 velocity = startPos.subtract(targetItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
             ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 5f, 0f)
@@ -190,7 +190,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         super.onBreak();
     }
 
-    public static Vec3 itemPos(SpiritCatalyzerCoreBlockEntity blockEntity) {
+    public static Vec3 getItemPos(SpiritCatalyzerCoreBlockEntity blockEntity) {
         return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 

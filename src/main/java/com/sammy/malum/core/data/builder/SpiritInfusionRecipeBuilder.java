@@ -7,6 +7,7 @@ import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
 import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -18,77 +19,73 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class SpiritInfusionRecipeBuilder
-{
+public class SpiritInfusionRecipeBuilder {
     private final IngredientWithCount input;
 
     private final IngredientWithCount output;
 
-    private final List<ItemWithCount> spirits = Lists.newArrayList();
+    private final List<SpiritWithCount> spirits = Lists.newArrayList();
     private final List<IngredientWithCount> extraItems = Lists.newArrayList();
 
-    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, Ingredient output, int outputCount)
-    {
+    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, Ingredient output, int outputCount) {
         this.input = new IngredientWithCount(input, inputCount);
         this.output = new IngredientWithCount(output, outputCount);
     }
-    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, Item output, int outputCount)
-    {
+
+    public SpiritInfusionRecipeBuilder(Ingredient input, int inputCount, Item output, int outputCount) {
         this.input = new IngredientWithCount(input, inputCount);
         this.output = new IngredientWithCount(Ingredient.of(output), outputCount);
     }
-    public SpiritInfusionRecipeBuilder(Item input, int inputCount, Ingredient output, int outputCount)
-    {
+
+    public SpiritInfusionRecipeBuilder(Item input, int inputCount, Ingredient output, int outputCount) {
         this.input = new IngredientWithCount(Ingredient.of(input), inputCount);
         this.output = new IngredientWithCount(output, outputCount);
     }
-    public SpiritInfusionRecipeBuilder(Item input, int inputCount, Item output, int outputCount)
-    {
+
+    public SpiritInfusionRecipeBuilder(Item input, int inputCount, Item output, int outputCount) {
         this.input = new IngredientWithCount(Ingredient.of(input), inputCount);
         this.output = new IngredientWithCount(Ingredient.of(output), outputCount);
     }
-    public SpiritInfusionRecipeBuilder addExtraItem(Ingredient ingredient, int count)
-    {
+
+    public SpiritInfusionRecipeBuilder addExtraItem(Ingredient ingredient, int count) {
         extraItems.add(new IngredientWithCount(ingredient, count));
         return this;
     }
-    public SpiritInfusionRecipeBuilder addExtraItem(Item input, int count)
-    {
+
+    public SpiritInfusionRecipeBuilder addExtraItem(Item input, int count) {
         extraItems.add(new IngredientWithCount(Ingredient.of(input), count));
         return this;
     }
-    public SpiritInfusionRecipeBuilder addSpirit(MalumSpiritType type, int count)
-    {
-        spirits.add(new ItemWithCount(type.getSplinterItem(), count));
+
+    public SpiritInfusionRecipeBuilder addSpirit(MalumSpiritType type, int count) {
+        spirits.add(new SpiritWithCount(type, count));
         return this;
     }
-    public void build(Consumer<FinishedRecipe> consumerIn, String recipeName)
-    {
+
+    public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
         build(consumerIn, DataHelper.prefix("spirit_infusion/" + recipeName));
     }
-    public void build(Consumer<FinishedRecipe> consumerIn)
-    {
+
+    public void build(Consumer<FinishedRecipe> consumerIn) {
         build(consumerIn, output.getStack().getItem().getRegistryName().getPath());
     }
-    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id)
-    {
+
+    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
         consumerIn.accept(new SpiritInfusionRecipeBuilder.Result(id, input, output, spirits, extraItems));
     }
 
-    public static class Result implements FinishedRecipe
-    {
+    public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
 
         private final IngredientWithCount input;
 
         private final IngredientWithCount output;
 
-        private final List<ItemWithCount> spirits;
+        private final List<SpiritWithCount> spirits;
         private final List<IngredientWithCount> extraItems;
 
 
-        public Result(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, List<ItemWithCount> spirits, List<IngredientWithCount> extraItems)
-        {
+        public Result(ResourceLocation id, IngredientWithCount input, IngredientWithCount output, List<SpiritWithCount> spirits, List<IngredientWithCount> extraItems) {
             this.id = id;
             this.input = input;
             this.output = output;
@@ -105,7 +102,7 @@ public class SpiritInfusionRecipeBuilder
                 extraItems.add(extraItem.serialize());
             }
             JsonArray spirits = new JsonArray();
-            for (ItemWithCount spirit : this.spirits) {
+            for (SpiritWithCount spirit : this.spirits) {
                 spirits.add(spirit.serialize());
             }
             json.add("input", inputObject);
@@ -115,28 +112,24 @@ public class SpiritInfusionRecipeBuilder
         }
 
         @Override
-        public ResourceLocation getId()
-        {
+        public ResourceLocation getId() {
             return id;
         }
 
         @Override
-        public RecipeSerializer<?> getType()
-        {
+        public RecipeSerializer<?> getType() {
             return RecipeSerializerRegistry.INFUSION_RECIPE_SERIALIZER.get();
         }
 
         @Nullable
         @Override
-        public JsonObject serializeAdvancement()
-        {
+        public JsonObject serializeAdvancement() {
             return null;
         }
 
         @Nullable
         @Override
-        public ResourceLocation getAdvancementId()
-        {
+        public ResourceLocation getAdvancementId() {
             return null;
         }
     }

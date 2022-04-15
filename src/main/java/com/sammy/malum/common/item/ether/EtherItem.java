@@ -30,8 +30,8 @@ public class EtherItem extends AbstractEtherItem {
         Level level = Minecraft.getInstance().level;
         float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
         AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
-        Color firstColor = ColorHelper.getColor(etherItem.getFirstColor(stack));
-        Color secondColor = ColorHelper.getColor(etherItem.getSecondColor(stack));
+        Color firstColor = new Color(etherItem.getFirstColor(stack));
+        Color secondColor = new Color(etherItem.getSecondColor(stack));
         float alphaMultiplier = etherItem.iridescent ? 1.5f : 1;
         ParticleBuilders.create(ScreenParticleRegistry.STAR)
                 .setAlpha(0.05f*alphaMultiplier, 0f)

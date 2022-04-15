@@ -13,9 +13,8 @@ import java.util.ArrayList;
 public interface ISoulContainerItem {
     public InteractionResultHolder<ItemStack> interactWithSoul(Player pPlayer, InteractionHand pHand, SoulEntity soul);
 
-    public default InteractionResultHolder<ItemStack> fetchSoul(Player player, InteractionHand pHand)
-    {
-        ArrayList<SoulEntity> entities = new ArrayList<>(player.level.getEntitiesOfClass(SoulEntity.class, player.getBoundingBox().inflate(player.getAttributeValue(ForgeMod.REACH_DISTANCE.get())*0.4f)));
+    public default InteractionResultHolder<ItemStack> fetchSoul(Player player, InteractionHand pHand) {
+        ArrayList<SoulEntity> entities = new ArrayList<>(player.level.getEntitiesOfClass(SoulEntity.class, player.getBoundingBox().inflate(player.getAttributeValue(ForgeMod.REACH_DISTANCE.get()) * 0.5f)));
         double biggestAngle = 0;
         SoulEntity chosenEntity = null;
         for (SoulEntity entity : entities) {
@@ -27,8 +26,7 @@ public interface ISoulContainerItem {
                 chosenEntity = entity;
             }
         }
-        if (chosenEntity != null)
-        {
+        if (chosenEntity != null) {
             return interactWithSoul(player, pHand, chosenEntity);
         }
         return InteractionResultHolder.pass(player.getItemInHand(pHand));

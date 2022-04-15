@@ -31,9 +31,7 @@ public class ClientSetupEvents {
     public static void addRenderLayers(EntityRenderersEvent.AddLayers event) {
         for (Map.Entry<EntityType<?>, EntityRenderer<?>> entry : Minecraft.getInstance().getEntityRenderDispatcher().renderers.entrySet()) {
             EntityRenderer render = entry.getValue();
-            if (render instanceof LivingEntityRenderer livingRenderer) {
-                livingRenderer.addLayer(new SoulHarvestHandler.ClientOnly.HarvestRenderLayer<>(livingRenderer));
-            }
+            SoulHarvestHandler.ClientOnly.addRenderLayer(render);
         }
     }
 }

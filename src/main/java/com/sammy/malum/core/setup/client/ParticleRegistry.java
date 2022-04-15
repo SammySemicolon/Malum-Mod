@@ -33,6 +33,7 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(SPARKLE_PARTICLE.get(), SimpleMalumParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(TWINKLE_PARTICLE.get(), SimpleMalumParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(STAR_PARTICLE.get(), SimpleMalumParticleType.Factory::new);
+
         Minecraft.getInstance().particleEngine.register(SPIRIT_FLAME_PARTICLE.get(), SpiritFlameParticleType.Factory::new);
 
         Minecraft.getInstance().particleEngine.register(SCYTHE_CUT_ATTACK_PARTICLE.get(), ScytheAttackParticle.Factory::new);

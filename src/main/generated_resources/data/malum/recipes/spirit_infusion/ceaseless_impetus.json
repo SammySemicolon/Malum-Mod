@@ -28,11 +28,11 @@
   ],
   "spirits": [
     {
-      "item": "malum:sacred_spirit",
+      "type": "sacred",
       "count": 64
     },
     {
-      "item": "malum:eldritch_spirit",
+      "type": "eldritch",
       "count": 4
     }
   ]
