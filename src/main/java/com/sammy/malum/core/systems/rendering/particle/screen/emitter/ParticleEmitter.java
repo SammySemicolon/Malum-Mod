@@ -18,19 +18,6 @@ public class ParticleEmitter {
         this.supplier = supplier;
     }
 
-    public void render(ItemStack stack, float x, float y) {
-        PARTICLES.forEach((type, particles) -> {
-            for (ScreenParticle particle : particles) {
-                if (particle instanceof GenericScreenParticle screenParticle) {
-                    if (stack.equals(screenParticle.data.stack)) {
-                        screenParticle.x = x+screenParticle.data.xOffset+screenParticle.xMoved;
-                        screenParticle.y = y+screenParticle.data.yOffset+screenParticle.yMoved;
-                    }
-                }
-            }
-        });
-    }
-
     public void tick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
         supplier.tick(stack, x, y, renderOrder);
     }

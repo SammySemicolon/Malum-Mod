@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.math.Matrix4f;
+import com.sammy.malum.core.systems.rendering.particle.screen.GenericScreenParticle;
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleOptions;
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleType;
 import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
@@ -11,7 +12,6 @@ import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ParticleEm
 import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
 import net.minecraft.client.particle.ParticleRenderType;
@@ -71,10 +71,23 @@ public class ScreenParticleHandler {
                         }
                         emitter.tick(stack, x, y, renderOrder);
                     }
-                    emitter.render(stack, x, y);
+                    trackItems(stack, x, y);
                 }
             }
         }
+    }
+
+    public static void trackItems(ItemStack stack, float x, float y) {
+        PARTICLES.forEach((type, particles) -> {
+            for (ScreenParticle particle : particles) {
+                if (particle instanceof GenericScreenParticle screenParticle) {
+                    if (stack.equals(screenParticle.data.stack)) {
+                        screenParticle.x = x + screenParticle.data.xOffset + screenParticle.xMoved;
+                        screenParticle.y = y + screenParticle.data.yOffset + screenParticle.yMoved;
+                    }
+                }
+            }
+        });
     }
 
     public static void renderParticles(TickEvent.RenderTickEvent event) {
