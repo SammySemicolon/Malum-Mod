@@ -144,20 +144,9 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(alpha * 1.5f, 0f)
-                    .setLifetime(25)
-                    .setScale(0.05f + level.random.nextFloat() * 0.15f, 0)
-                    .randomOffset(0.1)
-                    .setSpinOffset((0.225f * level.getGameTime()) % 6.28f)
-                    .setColor(color, endColor)
-                    .randomMotion(0.005f, 0.005f)
-                    .enableNoClip()
-                    .repeat(level, startPos.x, startPos.y, startPos.z, 1);
-
             ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(alpha * 1.5f, 0f)
-                    .setLifetime(25)
+                    .setAlpha(alpha * 3, 0f)
+                    .setLifetime(15)
                     .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
                     .setSpinOffset((0.15f * level.getGameTime()) % 6.28f)
@@ -166,8 +155,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
             ParticleBuilders.create(ParticleRegistry.STAR_PARTICLE)
-                    .setAlpha(alpha * 2, 0f)
-                    .setLifetime(25)
+                    .setAlpha(alpha * 3, 0f)
+                    .setLifetime(15)
                     .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
                     .setSpinOffset((0.075f * level.getGameTime()) % 6.28f)

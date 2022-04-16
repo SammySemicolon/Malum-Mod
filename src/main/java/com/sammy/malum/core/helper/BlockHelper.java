@@ -58,6 +58,12 @@ public class BlockHelper {
         return getBlockEntities(type, level, pos, range, range, range, predicate);
     }
 
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int z, Predicate<T> predicate) {
+        ArrayList<T> blockEntities = getBlockEntities(type, level, pos, x, z);
+        blockEntities.removeIf(b -> !predicate.test(b));
+        return blockEntities;
+    }
+
     public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int y, int z, Predicate<T> predicate) {
         ArrayList<T> blockEntities = getBlockEntities(type, level, pos, x, y, z);
         blockEntities.removeIf(b -> !predicate.test(b));
@@ -66,6 +72,10 @@ public class BlockHelper {
 
     public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int range) {
         return getBlockEntities(type, level, pos, range, range, range);
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int z) {
+        return getBlockEntities(type, level, new AABB(pos.getX() - x, pos.getY(), pos.getZ() - z, pos.getX() + x, pos.getY()+1, pos.getZ() + z));
     }
 
     public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int y, int z) {
