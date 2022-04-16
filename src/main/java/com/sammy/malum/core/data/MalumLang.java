@@ -62,7 +62,7 @@ public class MalumLang extends LanguageProvider {
         blocks.forEach(b ->
         {
             String name = b.get().getDescriptionId().replaceFirst("block.malum.", "");
-            name = DataHelper.toTitleCase(correctBlockItemName(name), "_");
+            name = DataHelper.toTitleCase(correctBlockItemName(name), "_").replaceAll("Of", "of");
             add(b.get().getDescriptionId(), name);
         });
         DataHelper.getAll(items, i -> i.get() instanceof ISoulContainerItem || i.get() instanceof SpiritJarItem).forEach(i -> {
@@ -74,7 +74,7 @@ public class MalumLang extends LanguageProvider {
         items.forEach(i ->
         {
             String name = i.get().getDescriptionId().replaceFirst("item.malum.", "");
-            name = DataHelper.toTitleCase(correctBlockItemName(name), "_");
+            name = DataHelper.toTitleCase(correctBlockItemName(name), "_").replaceAll("Of", "of");
             add(i.get().getDescriptionId(), name);
         });
 

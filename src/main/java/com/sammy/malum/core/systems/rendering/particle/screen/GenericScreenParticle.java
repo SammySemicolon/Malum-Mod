@@ -117,6 +117,7 @@ public class GenericScreenParticle extends TextureSheetScreenParticle {
 
     public void trackStack() {
         for (ScreenParticleHandler.StackTracker renderedStack : ScreenParticleHandler.RENDERED_STACKS) {
+            //&& renderedStack.xOrigin() == data.xOrigin && renderedStack.yOrigin() == data.yOrigin
             if (renderedStack.stack().equals(data.stack) && renderedStack.order().equals(data.renderOrder)) {
                 x = renderedStack.xOrigin() + data.xOffset + xMoved;
                 y = renderedStack.yOrigin() + data.yOffset + yMoved;
