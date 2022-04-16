@@ -652,6 +652,8 @@ public class ParticleBuilders {
             double yaw2 = random.nextFloat() * Math.PI * 2, pitch2 = random.nextFloat() * Math.PI - Math.PI / 2, xDist = random.nextFloat() * maxXDist, yDist = random.nextFloat() * maxYDist;
             this.dx = Math.sin(yaw2) * Math.cos(pitch2) * xDist;
             this.dy = Math.sin(pitch2) * yDist;
+            data.xOrigin = (float) x;
+            data.yOrigin = (float) y;
             ScreenParticleHandler.addParticle(data, x + dx + dx2, y + dy + dz2, vx, ySpeed);
             return this;
         }
@@ -663,7 +665,8 @@ public class ParticleBuilders {
             double yaw2 = random.nextFloat() * Math.PI * 2, pitch2 = random.nextFloat() * Math.PI - Math.PI / 2, xDist = random.nextFloat() * maxXDist, yDist = random.nextFloat() * maxYDist;
             this.dx = Math.sin(yaw2) * Math.cos(pitch2) * xDist;
             this.dy = Math.sin(pitch2) * yDist;
-
+            data.xOrigin = (float) x;
+            data.yOrigin = (float) y;
             ScreenParticleHandler.addParticle(data, x + dx, y + dy, vx, vy);
             return this;
         }

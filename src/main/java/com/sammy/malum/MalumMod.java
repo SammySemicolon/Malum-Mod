@@ -1,6 +1,7 @@
 package com.sammy.malum;
 
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.compability.jei.JeiCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
@@ -58,6 +59,7 @@ public class MalumMod
         RECIPE_SERIALIZERS.register(modBus);
         FEATURE_TYPES.register(modBus);
 
+        JeiCompat.init();
         TetraCompat.init();
         FarmersDelightCompat.init();
 

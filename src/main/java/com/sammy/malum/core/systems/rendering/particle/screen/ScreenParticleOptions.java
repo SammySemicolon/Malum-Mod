@@ -11,6 +11,8 @@ public class ScreenParticleOptions extends SimpleParticleOptions {
     public final ScreenParticleType<?> type;
     public ScreenParticle.RenderOrder renderOrder;
     public ItemStack stack;
+    public float xOrigin;
+    public float yOrigin;
     public float xOffset;
     public float yOffset;
     public ScreenParticleOptions(ScreenParticleType<?> type) {

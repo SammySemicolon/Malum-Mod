@@ -28,38 +28,33 @@ import javax.annotation.Nonnull;
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 
 @JeiPlugin
-public class JEIHandler implements IModPlugin
-{
+public class JEIHandler implements IModPlugin {
     private static final ResourceLocation ID = new ResourceLocation(MalumMod.MODID, "main");
-    
+
     @Override
-    public void registerCategories(IRecipeCategoryRegistration registry)
-    {
+    public void registerCategories(IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(new SpiritInfusionRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new BlockTransmutationRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new SpiritFocusingRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new SpiritRiteRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new SpiritRepairRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
-    
+
     @Override
-    public void registerRecipes(@Nonnull IRecipeRegistration registry)
-    {
+    public void registerRecipes(@Nonnull IRecipeRegistration registry) {
         ClientLevel level = Minecraft.getInstance().level;
         registry.addRecipes(SpiritInfusionRecipe.getRecipes(level), SpiritInfusionRecipeCategory.UID);
         registry.addRecipes(BlockTransmutationRecipe.getRecipes(level), BlockTransmutationRecipeCategory.UID);
         registry.addRecipes(SpiritFocusingRecipe.getRecipes(level), SpiritFocusingRecipeCategory.UID);
         registry.addRecipes(SpiritRiteRegistry.RITES, SpiritRiteRecipeCategory.UID);
         registry.addRecipes(SpiritRepairRecipe.getRecipes(level), SpiritRepairRecipeCategory.UID);
-        if (FarmersDelightCompat.LOADED)
-        {
+        if (FarmersDelightCompat.LOADED) {
             FarmersDelightCompat.LoadedOnly.addInfo(registry);
         }
     }
-    
+
     @Override
-    public void registerRecipeCatalysts(IRecipeCatalystRegistration registry)
-    {
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()), SpiritInfusionRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()), SpiritRiteRecipeCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()), BlockTransmutationRecipeCategory.UID);
@@ -77,8 +72,7 @@ public class JEIHandler implements IModPlugin
 
     @Nonnull
     @Override
-    public ResourceLocation getPluginUid()
-    {
+    public ResourceLocation getPluginUid() {
         return ID;
     }
 }

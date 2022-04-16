@@ -41,7 +41,10 @@ public abstract class QuadScreenParticle extends ScreenParticle {
          vector3f.mul(size);
          vector3f.add((float) x, (float) y, 0);
       }
-      int z = 300;
+      /*TODO: JEI tooltips render at 400 z, while the held by mouse item stack renders at around 380, we need a value between to be above the stack, but below JEI tooltips.
+         There is definitely a better way of doing this.
+       */
+      int z = 390;
       bufferBuilder.vertex(vectors[0].x(), vectors[0].y(), z).uv(u1, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
       bufferBuilder.vertex(vectors[1].x(), vectors[1].y(), z).uv(u1, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();
       bufferBuilder.vertex(vectors[2].x(), vectors[2].y(), z).uv(u0, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(FULL_BRIGHT).endVertex();

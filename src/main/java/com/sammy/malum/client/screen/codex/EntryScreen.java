@@ -146,6 +146,7 @@ public class EntryScreen extends Screen {
 
     public void close(boolean ignoreNextInput) {
         ProgressionBookScreen.openScreen(ignoreNextInput);
+        ScreenParticleHandler.wipeParticles();
         openObject.exit();
     }
 
@@ -156,6 +157,7 @@ public class EntryScreen extends Screen {
 
     public static void openScreen(EntryObject newObject) {
         Minecraft.getInstance().setScreen(getInstance(newObject));
+        ScreenParticleHandler.wipeParticles();
         screen.playSound();
     }
 

@@ -1,5 +1,7 @@
 package com.sammy.malum.core.systems.rendering.particle.screen;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.systems.rendering.particle.SimpleParticleOptions;
 import com.sammy.malum.core.systems.rendering.particle.screen.base.TextureSheetScreenParticle;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -40,7 +42,7 @@ public class GenericScreenParticle extends TextureSheetScreenParticle {
             pickSprite(0);
         }
         if (getAnimator().equals(SimpleParticleOptions.Animator.LAST_INDEX)) {
-            pickSprite(spriteSet.sprites.size()-1);
+            pickSprite(spriteSet.sprites.size() - 1);
         }
         updateTraits();
     }
@@ -67,7 +69,7 @@ public class GenericScreenParticle extends TextureSheetScreenParticle {
     }
 
     public float getCurve(float multiplier) {
-        return Mth.clamp((age * multiplier) / (float)lifetime, 0, 1);
+        return Mth.clamp((age * multiplier) / (float) lifetime, 0, 1);
     }
 
     protected void updateTraits() {
@@ -111,6 +113,16 @@ public class GenericScreenParticle extends TextureSheetScreenParticle {
             setSpriteFromAge(spriteSet);
         }
         super.tick();
+    }
+
+    public void trackStack() {
+        for (ScreenParticleHandler.StackTracker renderedStack : ScreenParticleHandler.RENDERED_STACKS) {
+            if (renderedStack.stack().equals(data.stack) && renderedStack.order().equals(data.renderOrder)) {
+                x = renderedStack.xOrigin() + data.xOffset + xMoved;
+                y = renderedStack.yOrigin() + data.yOffset + yMoved;
+                break;
+            }
+        }
     }
 
     @Override
