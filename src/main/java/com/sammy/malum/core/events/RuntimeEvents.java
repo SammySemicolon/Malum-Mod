@@ -54,6 +54,10 @@ public class RuntimeEvents {
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
         CorruptedAerialAura.onEntityJump(event);
     }
+    @SubscribeEvent
+    public static void onEntityFall(LivingFallEvent event) {
+        CorruptedAerialAura.onEntityFall(event);
+    }
 
     @SubscribeEvent
     public static void onLivingTarget(LivingSetAttackTargetEvent event) {

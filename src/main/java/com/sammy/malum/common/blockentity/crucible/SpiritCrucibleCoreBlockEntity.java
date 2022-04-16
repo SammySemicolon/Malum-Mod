@@ -225,9 +225,9 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         }
         if (updateRecipe) {
-            focusingRecipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
+            focusingRecipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
             if (focusingRecipe == null && getTablet() != null) {
-                repairRecipe = SpiritRepairRecipe.getRecipe(level, inventory.getStackInSlot(0), getTablet().inventory.getStackInSlot(0), spiritInventory.getNonEmptyItemStacks());
+                repairRecipe = SpiritRepairRecipe.getRecipe(level, inventory.getStackInSlot(0), getTablet().inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
             }
             if (level.isClientSide && (focusingRecipe != null || repairRecipe != null)) {
                 CrucibleSoundInstance.playSound(this);
@@ -297,7 +297,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (!repairRecipe.spirits.isEmpty()) {
             INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(repairRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
         }
-        repairRecipe = SpiritRepairRecipe.getRecipe(level, damagedItem, repairMaterial, spiritInventory.getNonEmptyItemStacks());
+        repairRecipe = SpiritRepairRecipe.getRecipe(level, damagedItem, repairMaterial, spiritInventory.nonEmptyStacks);
         finishRecipe();
     }
 
@@ -334,7 +334,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         }
         level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, outputStack));
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new AltarCraftParticlePacket(focusingRecipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), itemPos.x, itemPos.y, itemPos.z));
-        focusingRecipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.getNonEmptyItemStacks());
+        focusingRecipe = SpiritFocusingRecipe.getRecipe(level, stack, spiritInventory.nonEmptyStacks);
         finishRecipe();
     }
 
