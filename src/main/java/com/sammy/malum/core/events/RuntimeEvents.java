@@ -13,7 +13,6 @@ import com.sammy.malum.core.handlers.AttributeEventHandler;
 import com.sammy.malum.core.handlers.ItemEventHandler;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
-import com.sammy.malum.core.listeners.RepairDataReloadListener;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -90,7 +89,6 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void registerListeners(AddReloadListenerEvent event) {
         SpiritDataReloadListener.register(event);
-        RepairDataReloadListener.register(event);
     }
 
     @SubscribeEvent

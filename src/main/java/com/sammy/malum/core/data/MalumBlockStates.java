@@ -30,9 +30,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
@@ -56,12 +54,20 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     protected void registerStatesAndModels() {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.PREDEFINED));
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.CUSTOM)).forEach(this::customBlock);
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).type.equals(SimpleBlockProperties.StateType.LAYERED)).forEach(this::glowingBlock);
+        ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+        ArrayList<RegistryObject<Block>> predefinedModels = new ArrayList<>(List.of(
+                SOULWOOD_FUSION_PLATE, SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
+                RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, SOULWOOD_PLINTH, SOULWOOD_PLINTH_COMPONENT));
+        ArrayList<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_STONE, BLAZING_QUARTZ_ORE));
+
+        takeAll(blocks, customModels::contains);
+        takeAll(blocks, predefinedModels::contains).forEach(this::customBlock);
+        takeAll(blocks, layeredModels::contains).forEach(this::layeredBlock);
+
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_") && b.get().getRegistryName().getPath().endsWith("_planks")).forEach(this::cutPlanksBlock);
         DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
         DataHelper.takeAll(blocks, b -> b.get().getDescriptionId().endsWith("_cap")).forEach(this::pillarCapBlock);
+
         DataHelper.takeAll(blocks, b -> b.get() instanceof SignBlock).forEach(this::signBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof TotemBaseBlock).forEach(this::totemBaseBlock);
         DataHelper.takeAll(blocks, b -> b.get() instanceof TotemPoleBlock).forEach(this::totemPoleBlock);
@@ -107,11 +113,11 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void customBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
-        ModelFile model = models().withExistingParent(name + "_child", prefix("block/" + name));
+        ModelFile model = models().getExistingFile(prefix("block/" + name));
         getVariantBuilder(blockRegistryObject.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(model).build());
     }
 
-    public void glowingBlock(RegistryObject<Block> blockRegistryObject) {
+    public void layeredBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String glow = name + "_glow";
         ModelFile glowModel = models().withExistingParent(name, prefix("block/templates/template_glowing_block")).texture("all", prefix("block/" + name)).texture("particle", prefix("block/" + name)).texture("glow", prefix("block/" + glow));

@@ -61,7 +61,6 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem, It
         return toolAction.equals(ToolActions.SWORD_DIG);
     }
 
-
     @OnlyIn(value = Dist.CLIENT)
     @Override
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
@@ -70,7 +69,7 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem, It
         Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR;
         Color secondColor = ColorHelper.darker(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, 2);
         ParticleBuilders.create(ScreenParticleRegistry.STAR)
-                .setAlpha(0.035f, 0f)
+                .setAlpha(0.03f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.15f), 0)
                 .setColor(firstColor, secondColor)
@@ -93,8 +92,8 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem, It
                 .repeat(x, y, 1);
 
         gameTime += 31.4f;
-        ParticleBuilders.create(ScreenParticleRegistry.SPARKLE)
-                .setAlpha(0.035f, 0f)
+        ParticleBuilders.create(ScreenParticleRegistry.STAR)
+                .setAlpha(0.028f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)

@@ -6,7 +6,7 @@ import com.sammy.malum.common.worldgen.SoulwoodTreeFeature;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.malum.core.systems.worldgen.ChanceFiller;
+import com.sammy.malum.core.systems.worldgen.ChancePlacementFilter;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
@@ -50,9 +50,9 @@ public class FeatureRegistry {
     public static void register(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             RUNEWOOD_TREE_FEATURE = registerPlacedFeature("common_runewood", RUNEWOOD_TREE.get().configured(INSTANCE),
-                    InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, new ChanceFiller(CommonConfig.COMMON_RUNEWOOD_CHANCE.get().floatValue()), CountPlacement.of(3));
+                    InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, new ChancePlacementFilter(CommonConfig.COMMON_RUNEWOOD_CHANCE.get().floatValue()), CountPlacement.of(3));
             RARE_RUNEWOOD_TREE_FEATURE = registerPlacedFeature("rare_runewood", RUNEWOOD_TREE.get().configured(INSTANCE),
-                    InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, new ChanceFiller(CommonConfig.RARE_RUNEWOOD_CHANCE.get().floatValue()), CountPlacement.of(3));
+                    InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, new ChancePlacementFilter(CommonConfig.RARE_RUNEWOOD_CHANCE.get().floatValue()), CountPlacement.of(3));
 
             BLAZING_QUARTZ_FEATURE = registerPlacedFeature("blazing_quartz", Feature.ORE.configured(
                             new OreConfiguration(IN_NETHERRACK, BlockRegistry.BLAZING_QUARTZ_ORE.get().defaultBlockState(),

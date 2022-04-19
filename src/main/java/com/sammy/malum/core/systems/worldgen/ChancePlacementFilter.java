@@ -10,11 +10,11 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 
 import java.util.Random;
 
-public class ChanceFiller extends PlacementFilter {
-   public static final Codec<ChanceFiller> CODEC = ExtraCodecs.POSITIVE_FLOAT.fieldOf("chance").xmap(ChanceFiller::new, (p_191907_) -> p_191907_.chance).codec();
+public class ChancePlacementFilter extends PlacementFilter {
+   public static final Codec<ChancePlacementFilter> CODEC = ExtraCodecs.POSITIVE_FLOAT.fieldOf("chance").xmap(ChancePlacementFilter::new, (p_191907_) -> p_191907_.chance).codec();
    private final float chance;
 
-   public ChanceFiller(float chance) {
+   public ChancePlacementFilter(float chance) {
       this.chance = chance;
    }
 

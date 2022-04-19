@@ -1,10 +1,10 @@
 {
   "variants": {
     "waterlogged=false": {
-      "model": "malum:block/soulwood_plinth_child"
+      "model": "malum:block/soulwood_plinth"
     },
     "waterlogged=true": {
-      "model": "malum:block/soulwood_plinth_child"
+      "model": "malum:block/soulwood_plinth"
     }
   }
 }

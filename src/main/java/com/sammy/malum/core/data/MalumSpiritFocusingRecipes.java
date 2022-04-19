@@ -37,15 +37,15 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
         int metalDuration = 1200;
         int shortDuration = 300;
 
-        new SpiritRepairRecipeBuilder("wooden_", 1f, Ingredient.of(ItemTags.PLANKS), 4)
+        new SpiritRepairRecipeBuilder("wooden_", 0.5f, Ingredient.of(ItemTags.PLANKS), 4)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .build(consumer, "wooden");
 
-        new SpiritRepairRecipeBuilder("flint_", 1f, Ingredient.of(Items.FLINT), 2)
+        new SpiritRepairRecipeBuilder("flint_", 0.5f, Ingredient.of(Items.FLINT), 2)
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .build(consumer, "flint");
 
-        new SpiritRepairRecipeBuilder("stone_", 1f, Ingredient.of(ItemTags.STONE_TOOL_MATERIALS), 2)
+        new SpiritRepairRecipeBuilder("stone_", 0.5f, Ingredient.of(ItemTags.STONE_TOOL_MATERIALS), 2)
                 .addSpirit(EARTHEN_SPIRIT, 4)
                 .build(consumer, "stone");
 
@@ -58,7 +58,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(EARTHEN_SPIRIT, 8)
                 .build(consumer, "iron");
 
-        new SpiritRepairRecipeBuilder("golden_", 1f, Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
+        new SpiritRepairRecipeBuilder("golden_", 0.5f, Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
                 .addSpirit(ARCANE_SPIRIT, 8)
                 .build(consumer, "gold");
 
@@ -74,7 +74,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(ELDRITCH_SPIRIT, 1)
                 .build(consumer, "netherite");
 
-        new SpiritRepairRecipeBuilder(0.6f, Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), 8)
+        new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.TWISTED_ROCK.get()), 8)
                 .addItem(ItemRegistry.TYRVING.get())
                 .addSpirit(WICKED_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 8)
@@ -105,7 +105,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .addSpirit(WICKED_SPIRIT, 2)
                 .build(consumer, "soul_stained_steel");
 
-        new SpiritRepairRecipeBuilder(0.5f, Ingredient.of(ItemRegistry.SPIRIT_FABRIC.get()), 4)
+        new SpiritRepairRecipeBuilder(0.75f, Ingredient.of(ItemRegistry.SPIRIT_FABRIC.get()), 4)
                 .addItem(ItemRegistry.SOUL_HUNTER_CLOAK.get())
                 .addItem(ItemRegistry.SOUL_HUNTER_ROBE.get())
                 .addItem(ItemRegistry.SOUL_HUNTER_LEGGINGS.get())
@@ -147,6 +147,26 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
 
         new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.REDSTONE), 8)
                 .addSpirit(ARCANE_SPIRIT, 1)
+                .build(consumer);
+
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.QUARTZ), 4)
+                .addSpirit(EARTHEN_SPIRIT, 2)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .build(consumer);
+
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(ItemRegistry.BLAZING_QUARTZ.get()), 4)
+                .addSpirit(INFERNAL_SPIRIT, 2)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .build(consumer);
+
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.PRISMARINE_CRYSTALS), 4)
+                .addSpirit(AQUEOUS_SPIRIT, 2)
+                .addSpirit(ARCANE_SPIRIT, 2)
+                .build(consumer);
+
+        new SpiritFocusingRecipeBuilder(shortDuration, 1, Ingredient.of(ItemRegistry.ALCHEMICAL_IMPETUS.get()), Ingredient.of(Items.AMETHYST_SHARD), 4)
+                .addSpirit(AERIAL_SPIRIT, 2)
+                .addSpirit(ARCANE_SPIRIT, 2)
                 .build(consumer);
 
         addNodeSmeltingRecipes(consumer, metalDuration, ItemRegistry.IRON_IMPETUS, ItemRegistry.IRON_NODE);

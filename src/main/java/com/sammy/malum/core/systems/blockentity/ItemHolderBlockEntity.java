@@ -15,11 +15,10 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 
-public abstract class SimpleInventoryBlockEntity extends SimpleBlockEntity
-{
+public abstract class ItemHolderBlockEntity extends SimpleBlockEntity {
     public SimpleBlockEntityInventory inventory;
 
-    public SimpleInventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public ItemHolderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
@@ -31,7 +30,7 @@ public abstract class SimpleInventoryBlockEntity extends SimpleBlockEntity
 
     @Override
     public void onBreak() {
-        inventory.dumpItems(level, DataHelper.fromBlockPos(worldPosition).add(0.5f,0.5f,0.5f));
+        inventory.dumpItems(level, DataHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
     }
 
     @Override
@@ -48,21 +47,17 @@ public abstract class SimpleInventoryBlockEntity extends SimpleBlockEntity
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap)
-    {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-        {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return inventory.inventoryOptional.cast();
         }
         return super.getCapability(cap);
     }
-    
+
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side)
-    {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-        {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return inventory.inventoryOptional.cast();
         }
         return super.getCapability(cap, side);

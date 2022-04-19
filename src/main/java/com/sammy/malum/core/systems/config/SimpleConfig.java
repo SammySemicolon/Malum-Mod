@@ -28,10 +28,10 @@ public abstract class SimpleConfig {
         private final BuilderSupplier<T> valueSupplier;
         private ForgeConfigSpec.ConfigValue<T> value;
 
-        public ConfigValueHolder(String path, BuilderSupplier<T> valueSupplier) {
+        public ConfigValueHolder(String modId, String path, BuilderSupplier<T> valueSupplier) {
             this.valueSupplier = valueSupplier;
             ArrayList<String> entirePath = new ArrayList<>(List.of(path.split("/")));
-            String config = entirePath.remove(0);
+            String config = modId + "/" + entirePath.remove(0);
             String[] newPath = entirePath.toArray(new String[]{});
             VALUE_HOLDERS.computeIfAbsent(Pair.of(config, newPath), (p) -> new ArrayList<>()).add(this);
         }

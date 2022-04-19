@@ -1,17 +1,20 @@
 package com.sammy.malum.config;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.systems.config.SimpleConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
+import static com.sammy.malum.MalumMod.MODID;
+
 public class ClientConfig extends SimpleConfig {
 
-    public static ConfigValueHolder<Boolean> DELAYED_PARTICLE_RENDERING = new ConfigValueHolder<>("client/graphics/particle", builder ->
+    public static ConfigValueHolder<Boolean> DELAYED_PARTICLE_RENDERING = new ConfigValueHolder<>(MODID,"client/graphics/particle", builder ->
             builder.comment("Should particles render on the delayed buffer? This means they will properly render after clouds do, but could cause issues with mods like sodium.")
                     .define("buffer_particles", true));
 
     public ClientConfig(ForgeConfigSpec.Builder builder) {
-        super("client", builder);
+        super("malum/client", builder);
     }
 
     public static final ClientConfig INSTANCE;

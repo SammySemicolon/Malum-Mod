@@ -54,27 +54,23 @@ public class SpiritInfusionPage extends BookPage {
     public void renderLeft(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ItemStack inputStack = recipe.input.getStack();
-        ItemStack outputStack = recipe.output.getStack();
         if (!recipe.extraItems.isEmpty()) {
-            ProgressionBookScreen.renderComponents(poseStack, guiLeft + 107, guiTop + 59, mouseX, mouseY, true, recipe.extraItems);
+            ProgressionBookScreen.renderComponents(poseStack, recipe.extraItems, guiLeft + 107, guiTop + 59, mouseX, mouseY, true);
         }
-        ProgressionBookScreen.renderItem(poseStack, inputStack, guiLeft + 67, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft + 67, guiTop + 126, mouseX, mouseY);
-        ProgressionBookScreen.renderComponents(poseStack, guiLeft + 23, guiTop + 59, mouseX, mouseY, true, recipe.spirits);
+        ProgressionBookScreen.renderComponent(poseStack, recipe.input, guiLeft + 67, guiTop + 59, mouseX, mouseY);
+        ProgressionBookScreen.renderComponent(poseStack, recipe.output, guiLeft + 67, guiTop + 126, mouseX, mouseY);
+        ProgressionBookScreen.renderComponents(poseStack, recipe.spirits, guiLeft + 23, guiTop + 59, mouseX, mouseY, true);
     }
 
     @Override
     public void renderRight(Minecraft minecraft, PoseStack poseStack, float xOffset, float yOffset, int mouseX, int mouseY, float partialTicks) {
         int guiLeft = guiLeft();
         int guiTop = guiTop();
-        ItemStack inputStack = recipe.input.getStack();
-        ItemStack outputStack = recipe.output.getStack();
         if (!recipe.extraItems.isEmpty()) {
-            ProgressionBookScreen.renderComponents(poseStack, guiLeft + 249, guiTop + 59, mouseX, mouseY, true, recipe.extraItems);
+            ProgressionBookScreen.renderComponents(poseStack, recipe.extraItems, guiLeft + 249, guiTop + 59, mouseX, mouseY, true);
         }
-        ProgressionBookScreen.renderItem(poseStack, inputStack, guiLeft + 209, guiTop + 59, mouseX, mouseY);
-        ProgressionBookScreen.renderItem(poseStack, outputStack, guiLeft + 209, guiTop + 126, mouseX, mouseY);
-        ProgressionBookScreen.renderComponents(poseStack, guiLeft + 165, guiTop + 59, mouseX, mouseY, true, recipe.spirits);
+        ProgressionBookScreen.renderComponent(poseStack, recipe.input, guiLeft + 209, guiTop + 59, mouseX, mouseY);
+        ProgressionBookScreen.renderComponent(poseStack, recipe.output, guiLeft + 209, guiTop + 126, mouseX, mouseY);
+        ProgressionBookScreen.renderComponents(poseStack, recipe.spirits, guiLeft + 165, guiTop + 59, mouseX, mouseY, true);
     }
 }

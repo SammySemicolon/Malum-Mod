@@ -7,7 +7,7 @@ import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
-import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
+import com.sammy.malum.core.systems.blockentity.ItemHolderBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,7 +21,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 
 
-public class ItemStandBlockEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
+public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAltarProvider {
 
     public ItemStandBlockEntity(BlockEntityType<? extends ItemStandBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);

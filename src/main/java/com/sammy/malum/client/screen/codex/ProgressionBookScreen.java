@@ -9,10 +9,11 @@ import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.setup.client.ShaderRegistry;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.recipe.IRecipeComponent;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import mezz.jei.api.gui.IRecipeLayout;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
 
@@ -61,8 +63,8 @@ public class ProgressionBookScreen extends Screen {
     public float cachedYOffset;
     public boolean ignoreNextMouseInput;
 
-    public static ArrayList<BookEntry> entries;
-    public static ArrayList<BookObject> objects;
+    public static ArrayList<BookEntry> entries = new ArrayList<>();
+    public static ArrayList<BookObject> objects = new ArrayList<>();
 
     protected ProgressionBookScreen() {
         super(new TranslatableComponent("malum.gui.book.title"));
@@ -73,7 +75,7 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public static void setupEntries() {
-        entries = new ArrayList<>();
+        entries.clear();
         Item EMPTY = ItemStack.EMPTY.getItem();
 
         entries.add(new BookEntry(
@@ -269,13 +271,34 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "impetus_restoration", CRACKED_ALCHEMICAL_IMPETUS.get(), 9, 5)
+                "impetus_restoration", TWISTED_TABLET.get(), 7, 8)
                 .addPage(new HeadlineTextPage("impetus_restoration", "impetus_restoration_a"))
                 .addPage(new TextPage("impetus_restoration_b"))
                 .addPage(new TextPage("impetus_restoration_c"))
                 .addPage(SpiritInfusionPage.fromOutput(TWISTED_TABLET.get()))
+                .addPage(SpiritRepairPage.fromInput(CRACKED_ALCHEMICAL_IMPETUS.get()))
+                .addPage(SpiritRepairPage.fromInput(CRACKED_COPPER_IMPETUS.get()))
                 .addPage(new HeadlineTextPage("expanded_focusing", "expanded_focusing_a"))
                 .addPage(new TextPage("expanded_focusing_b"))
+                .addPage(SpiritRepairPage.fromInput(WOODEN_PICKAXE))
+                .addPage(SpiritRepairPage.fromInput(STONE_PICKAXE))
+                .addPage(SpiritRepairPage.fromInput(IRON_PICKAXE))
+                .addPage(SpiritRepairPage.fromInput(DIAMOND_PICKAXE))
+                .addPage(SpiritRepairPage.fromInput(GOLDEN_PICKAXE))
+                .addPage(SpiritRepairPage.fromInput(NETHERITE_PICKAXE))
+                .addPage(new TextPage("expanded_focusing_c"))
+                .addPage(SpiritRepairPage.fromInput(SOUL_STAINED_STEEL_PICKAXE.get()))
+                .addPage(SpiritRepairPage.fromInput(SOUL_STAINED_STEEL_SCYTHE.get()))
+                .addPage(SpiritRepairPage.fromInput(SOUL_HUNTER_BOOTS.get()))
+        );
+
+        entries.add(new BookEntry(
+                "crystal_creation", QUARTZ, 9, 5)
+                .addPage(new HeadlineTextPage("crystal_creation", "crystal_creation"))
+                .addPage(SpiritCruciblePage.fromOutput(QUARTZ))
+                .addPage(SpiritCruciblePage.fromOutput(AMETHYST_SHARD))
+                .addPage(SpiritCruciblePage.fromOutput(BLAZING_QUARTZ.get()))
+                .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_CRYSTALS))
         );
 
         entries.add(new BookEntry(
@@ -496,7 +519,7 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public void setupObjects() {
-        objects = new ArrayList<>();
+        objects.clear();
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
         int guiLeft = (width - bookWidth) / 2;
@@ -646,10 +669,8 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
-        blit(poseStack, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
+        RenderHelper.blit(poseStack, x, y, width, height, uOffset, vOffset, textureWidth, textureHeight);
     }
 
     public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight) {
@@ -660,14 +681,7 @@ public class ProgressionBookScreen extends Screen {
         RenderSystem.disableBlend();
     }
 
-    public static void renderItem(PoseStack poseStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY) {
-        Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
-        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
-        if (isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
-            screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
-        }
-    }
-    public static int addItemsToJei(IRecipeLayout iRecipeLayout, int left, int top, boolean vertical, ArrayList<? extends IRecipeComponent> components, int baseIndex) {
+    public static int addItemsToJei(IRecipeLayout iRecipeLayout, int left, int top, boolean vertical, List<? extends IRecipeComponent> components, int baseIndex) {
         int slots = components.size();
         if (vertical) {
             top -= 10 * (slots - 1);
@@ -684,12 +698,49 @@ public class ProgressionBookScreen extends Screen {
         }
         return baseIndex + components.size() + 1;
     }
-
-    public static void renderComponents(PoseStack poseStack, int left, int top, int mouseX, int mouseY, boolean vertical, ArrayList<? extends IRecipeComponent> components) {
-        ArrayList<ItemStack> items = (ArrayList<ItemStack>) components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
-        ProgressionBookScreen.renderItems(poseStack, left, top, mouseX, mouseY, vertical, items);
+    public static void renderComponents(PoseStack poseStack, List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
+        List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
+        ProgressionBookScreen.renderItemList(poseStack, items, left, top, mouseX, mouseY, vertical);
     }
-    public static void renderItems(PoseStack poseStack, int left, int top, int mouseX, int mouseY, boolean vertical, ArrayList<ItemStack> items) {
+
+    public static void renderComponent(PoseStack poseStack, IRecipeComponent component, int posX, int posY, int mouseX, int mouseY) {
+        if (component.getStacks().size() == 1) {
+            renderItem(poseStack, component.getStack(), posX, posY, mouseX, mouseY);
+            return;
+        }
+        int index = (int) (Minecraft.getInstance().level.getGameTime() % (20L * component.getStacks().size()) / 20);
+        ItemStack stack = component.getStacks().get(index);
+        Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
+        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
+        if (isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
+            screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
+        }
+    }
+
+    public static void renderItem(PoseStack poseStack, Ingredient ingredient, int posX, int posY, int mouseX, int mouseY) {
+        renderItem(poseStack, List.of(ingredient.getItems()), posX, posY, mouseX, mouseY);
+    }
+    public static void renderItem(PoseStack poseStack, List<ItemStack> stacks, int posX, int posY, int mouseX, int mouseY) {
+        if (stacks.size() == 1) {
+            renderItem(poseStack, stacks.get(0), posX, posY, mouseX, mouseY);
+            return;
+        }
+        int index = (int) (Minecraft.getInstance().level.getGameTime() % (20L * stacks.size()) / 20);
+        ItemStack stack = stacks.get(index);
+        Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
+        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
+        if (isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
+            screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
+        }
+    }
+    public static void renderItem(PoseStack poseStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY) {
+        Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
+        Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
+        if (isHovering(mouseX, mouseY, posX, posY, 16, 16)) {
+            screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
+        }
+    }
+    public static void renderItemList(PoseStack poseStack, List<ItemStack> items, int left, int top, int mouseX, int mouseY, boolean vertical) {
         int slots = items.size();
         renderItemFrames(poseStack, left, top, vertical, slots);
         if (vertical) {

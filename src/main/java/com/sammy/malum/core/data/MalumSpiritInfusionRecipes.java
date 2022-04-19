@@ -309,9 +309,16 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
                 .addSpirit(INFERNAL_SPIRIT, 16)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
-                .addExtraItem(ItemRegistry.BLAZING_QUARTZ.get(), 4)
+                .addExtraItem(ItemRegistry.ETHER.get(), 2)
                 .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 8)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.TAINTED_ROCK_ITEM_STAND.get(), 1, ItemRegistry.TWISTED_TABLET.get(), 1)
+                .addSpirit(AERIAL_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 4)
+                .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 4)
                 .build(consumer);
 
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Tags.Items.INGOTS_IRON);
