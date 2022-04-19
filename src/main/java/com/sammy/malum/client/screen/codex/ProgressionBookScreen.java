@@ -508,6 +508,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
                 .addPage(new TextPage("ceaseless_impetus_b"))
                 .addPage(SpiritInfusionPage.fromOutput(CEASELESS_IMPETUS.get()))
+                .addPage(SpiritRepairPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
         );
 
         entries.add(new BookEntry(
