@@ -499,8 +499,10 @@ public class ProgressionBookScreen extends Screen {
 
         entries.add(new BookEntry(
                 "tyrving", TYRVING.get(), -1, 15)
-                .addPage(new HeadlineTextPage("tyrving", "tyrving"))
+                .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
                 .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
+                .addPage(new TextPage("tyrving_b"))
+                .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
         );
 
         entries.add(new BookEntry(

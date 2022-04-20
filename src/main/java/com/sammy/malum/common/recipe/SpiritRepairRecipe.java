@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import com.sammy.malum.core.systems.recipe.IMalumRecipe;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
@@ -108,9 +109,6 @@ public class SpiritRepairRecipe extends IMalumRecipe {
     }
 
     public boolean doesInputMatch(ItemStack input) {
-        if (input.isRepairable() && !input.isDamaged()) {
-            return false;
-        }
         return this.inputs.stream().anyMatch(i -> i.equals(input.getItem()));
     }
 
@@ -119,6 +117,9 @@ public class SpiritRepairRecipe extends IMalumRecipe {
     }
 
     public static SpiritRepairRecipe getRecipe(Level level, ItemStack stack, ItemStack repairStack, ArrayList<ItemStack> spirits) {
+        if (stack.isRepairable() && !stack.isDamaged()) {
+            return null;
+        }
         return getRecipe(level, c -> c.doesInputMatch(stack) && c.doesRepairMatch(repairStack) && c.doSpiritsMatch(spirits));
     }
 
@@ -215,7 +216,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             int inputCount = buffer.readInt();
             ArrayList<Item> inputs = new ArrayList<>();
             for (int i = 0; i < inputCount; i++) {
-                inputs.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(buffer.readUtf())));
+                inputs.add(buffer.readItem().getItem());
             }
             IngredientWithCount repair = IngredientWithCount.read(buffer);
             int spiritCount = buffer.readInt();
@@ -231,7 +232,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             buffer.writeFloat(recipe.durabilityPercentage);
             buffer.writeInt(recipe.inputs.size());
             for (Item item : recipe.inputs) {
-                buffer.writeUtf(item.toString());
+                buffer.writeItem(item.getDefaultInstance());
             }
             recipe.repairMaterial.write(buffer);
             buffer.writeInt(recipe.spirits.size());
