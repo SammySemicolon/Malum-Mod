@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
-import com.sammy.malum.core.setup.EffectRegistry;
+import com.sammy.malum.core.setup.content.potion.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class SacredRiteType extends MalumRiteType {
     public SacredRiteType() {
@@ -19,7 +19,7 @@ public class SacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.SACRED_AURA.get()) == null) {
@@ -31,7 +31,7 @@ public class SacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Animal.class, level, pos, true).forEach(e -> {
                 if (level.random.nextFloat() <= 0.04f) {

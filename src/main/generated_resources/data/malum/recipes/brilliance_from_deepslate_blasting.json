@@ -3,7 +3,10 @@
   "ingredient": {
     "item": "malum:brilliant_deepslate"
   },
-  "result": "malum:brilliance_chunk",
-  "experience": 0.25,
+  "result": {
+    "item": "malum:chunk_of_brilliance",
+    "count": 4
+  },
+  "experience": 1.0,
   "cookingtime": 100
 }

@@ -3,13 +3,13 @@ package com.sammy.malum.common.blockentity.totem;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.packets.particle.TotemParticlePacket;
 import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class TotemBaseTileEntity extends SimpleBlockEntity {
@@ -39,13 +39,12 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     public boolean corrupted;
     public Direction direction;
 
-    public TotemBaseTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public TotemBaseTileEntity(BlockEntityType<? extends TotemBaseTileEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        this.corrupted = ((TotemBaseBlock) state.getBlock()).corrupted;
+        this.corrupted = ((TotemBaseBlock<?>) state.getBlock()).corrupted;
     }
     public TotemBaseTileEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.TOTEM_BASE.get(), pos, state);
-        this.corrupted = ((TotemBaseBlock) state.getBlock()).corrupted;
+        this(BlockEntityRegistry.TOTEM_BASE.get(), pos, state);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
         if (rite != null) {
             progress++;
             if (progress >= rite.interval(corrupted)) {
-                rite.executeRite(level, worldPosition, corrupted);
+                rite.executeRite(level, worldPosition, height, corrupted);
                 progress = 0;
                 if (!level.isClientSide) {
                     BlockHelper.updateAndNotifyState(level, worldPosition);
@@ -92,7 +91,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
                 }
             });
             if (height > 1) {
-                level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE, SoundSource.BLOCKS, 1, 0.5f);
+                level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.5f);
                 INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
             }
         }
@@ -182,7 +181,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
     }
 
     public void completeRite(MalumRiteType rite) {
-        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED, SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
+        level.playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED.get(), SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
         poles.forEach(p -> {
             if (level.getBlockEntity(p) instanceof TotemPoleTileEntity pole) {
@@ -190,7 +189,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
             }
         });
         progress = 0;
-        rite.executeRite(level, worldPosition, corrupted);
+        rite.executeRite(level, worldPosition, height, corrupted);
         if (rite.isInstant(corrupted)) {
             resetRite();
             return;
@@ -206,7 +205,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
 
     public void endRite() {
         if (height > 1) {
-            level.playSound(null, worldPosition, SoundRegistry.TOTEM_CANCELLED, SoundSource.BLOCKS, 1, 1);
+            level.playSound(null, worldPosition, SoundRegistry.TOTEM_CANCELLED.get(), SoundSource.BLOCKS, 1, 1);
             INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(s -> s.color).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
         }
         resetRite();

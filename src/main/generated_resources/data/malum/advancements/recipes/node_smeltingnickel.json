@@ -1,0 +1,15 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/nickel",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ]
+    }
+  ]
+}

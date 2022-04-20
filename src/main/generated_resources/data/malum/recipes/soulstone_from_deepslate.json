@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "malum:deepslate_soulstone_ore"
-  },
-  "result": "malum:processed_soulstone",
-  "experience": 0.25,
-  "cookingtime": 200
-}

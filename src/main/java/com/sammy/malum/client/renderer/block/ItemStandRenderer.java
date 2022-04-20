@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.item_storage.ItemStandBlockEntity;
+import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,7 +31,7 @@ public class ItemStandRenderer implements BlockEntityRenderer<ItemStandBlockEnti
         if (!stack.isEmpty())
         {
             poseStack.pushPose();
-            Vector3f offset = new Vector3f(ItemStandBlockEntity.itemOffset(blockEntityIn));
+            Vector3f offset = new Vector3f(blockEntityIn.itemOffset());
             if (stack.getItem() instanceof MalumSpiritItem)
             {
                 double y = Math.sin(((level.getGameTime() + partialTicks) ) / 20f) * 0.05f;

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "malum:twisted_rock"
-  },
-  "result": "malum:twisted_rock_pillar_cap",
-  "count": 1
-}

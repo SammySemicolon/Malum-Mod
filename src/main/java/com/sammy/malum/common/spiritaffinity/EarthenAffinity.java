@@ -6,11 +6,11 @@ import com.mojang.math.Vector4f;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
-import com.sammy.malum.core.systems.rendering.Shaders;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.setup.client.ShaderRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
@@ -34,40 +35,50 @@ public class EarthenAffinity extends MalumSpiritAffinity {
     public static void recoverHeartOfStone(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         PlayerDataCapability.getCapability(player).ifPresent(c -> {
-            double cap = player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_CAP.get());
-            if (c.heartOfStone < cap && c.heartOfStoneProgress <= 0) {
-                float hungerCost = getHeartOfStoneHungerCost(player);
-                FoodData data = player.getFoodData();
-                if (data.getFoodLevel() > hungerCost) {
-                    data.addExhaustion(hungerCost);
-                    c.heartOfStone++;
-                    c.heartOfStoneProgress = getHeartOfStoneCooldown(player);
-                    if (player.level.isClientSide && !player.isCreative()) {
-                        player.playSound(SoundRegistry.HEART_OF_STONE_GROW, 1, Mth.nextFloat(player.getRandom(), 0.4f, 1.2f));
+            AttributeInstance cap = player.getAttribute(AttributeRegistry.HEART_OF_STONE_CAP.get());
+            if (cap != null) {
+                if (c.heartOfStone < cap.getValue() && c.heartOfStoneProgress <= 0) {
+                    float hungerCost = getHeartOfStoneHungerCost(player);
+                    FoodData data = player.getFoodData();
+                    if (data.getFoodLevel() > hungerCost) {
+                        data.addExhaustion(hungerCost);
+                        c.heartOfStone++;
+                        c.heartOfStoneProgress = getHeartOfStoneCooldown(player);
+                        if (player.level.isClientSide && !player.isCreative()) {
+                            player.playSound(SoundRegistry.HEART_OF_STONE_GROW.get(), 1, Mth.nextFloat(player.getRandom(), 0.4f, 1.2f));
+                        }
                     }
+                } else {
+                    c.heartOfStoneProgress--;
                 }
-            } else {
-                c.heartOfStoneProgress--;
+                if (c.heartOfStone > cap.getValue()) {
+                    c.heartOfStone = (float) cap.getValue();
+                }
             }
         });
     }
 
     public static void consumeHeartOfStone(LivingHurtEvent event) {
+        if (event.isCanceled() || event.getAmount() <= 0) {
+            return;
+        }
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
                     if (c.heartOfStone > 0) {
                         float absorbed = Math.min(event.getAmount(), c.heartOfStone);
-                        double strength = player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_STRENGTH.get());
-                        if (strength != 0) {
-                            c.heartOfStone = (float) Math.max(0,c.heartOfStone - (absorbed / strength));
-                        } else {
-                            c.heartOfStone = 0;
+                        AttributeInstance strength = player.getAttribute(AttributeRegistry.HEART_OF_STONE_STRENGTH.get());
+                        if (strength != null) {
+                            if (strength.getValue() != 0) {
+                                c.heartOfStone = (float) Math.max(0, c.heartOfStone - (absorbed / strength.getValue()));
+                            } else {
+                                c.heartOfStone = 0;
+                            }
+                            c.heartOfStoneProgress = (float) (getHeartOfStoneCooldown(player) * 2);
+                            player.level.playSound(null, player.blockPosition(), SoundRegistry.HEART_OF_STONE_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                            event.setAmount(event.getAmount() - absorbed);
+                            PlayerDataCapability.syncTrackingAndSelf(player);
                         }
-                        c.heartOfStoneProgress = (float) (getHeartOfStoneCooldown(player) * 2);
-                        player.level.playSound(null, player.blockPosition(), SoundRegistry.HEART_OF_STONE_HIT, SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
-                        event.setAmount(event.getAmount() - absorbed);
-                        PlayerDataCapability.syncTrackingAndSelf(player);
                     }
                 });
             }
@@ -88,7 +99,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
         public static void renderHeartOfStone(RenderGameOverlayEvent.Post event) {
             Minecraft minecraft = Minecraft.getInstance();
             LocalPlayer player = minecraft.player;
-            if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && !player.isCreative()) {
+            if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && !player.isCreative() && !player.isSpectator()) {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
                     PoseStack poseStack = event.getMatrixStack();
 
@@ -108,7 +119,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                     RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                    ShaderInstance shaderInstance = Shaders.distortedTexture.getInstance().get();
+                    ShaderInstance shaderInstance = ShaderRegistry.distortedTexture.getInstance().get();
                     shaderInstance.safeGetUniform("YFrequency").set(35f);
                     shaderInstance.safeGetUniform("XFrequency").set(25f);
                     shaderInstance.safeGetUniform("Speed").set(1000f);
@@ -123,7 +134,8 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 1 / 256f, 12 / 256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i * 250f);
 
-                        RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset, 1, 256f);
+                        RenderHelper.blit(poseStack, ShaderRegistry.distortedTexture, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 1, 256f);
+
                     }
                     RenderSystem.depthMask(true);
                     RenderSystem.disableBlend();

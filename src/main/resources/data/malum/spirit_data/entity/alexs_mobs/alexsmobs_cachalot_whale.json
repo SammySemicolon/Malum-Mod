@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:cachalot_whale",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 2
+    },
+    {
+      "spirit": "sacred",
+      "count": 4
+    }
+  ]
+}

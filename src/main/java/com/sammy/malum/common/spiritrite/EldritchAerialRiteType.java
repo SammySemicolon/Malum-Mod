@@ -2,7 +2,7 @@ package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.packets.particle.BlockSparkleParticlePacket;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
-import com.sammy.malum.core.setup.EffectRegistry;
+import com.sammy.malum.core.setup.content.potion.EffectRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -17,7 +17,7 @@ import net.minecraftforge.network.PacketDistributor;
 import java.util.ArrayList;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
-import static com.sammy.malum.core.setup.PacketRegistry.INSTANCE;
+import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class EldritchAerialRiteType extends MalumRiteType {
     public EldritchAerialRiteType() {
@@ -35,7 +35,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             BlockState filter = level.getBlockState(pos.below());
             ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
@@ -62,7 +62,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {

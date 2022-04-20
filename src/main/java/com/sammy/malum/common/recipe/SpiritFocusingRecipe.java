@@ -5,9 +5,7 @@ import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.malum.core.systems.recipe.IMalumRecipe;
-import com.sammy.malum.core.systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -46,9 +44,9 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
 
     public final Ingredient input;
     public final IngredientWithCount output;
-    public final List<ItemWithCount> spirits;
+    public final ArrayList<SpiritWithCount> spirits;
 
-    public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, List<ItemWithCount> spirits) {
+    public SpiritFocusingRecipe(ResourceLocation id, int time, int durabilityCost, Ingredient input, IngredientWithCount output, ArrayList<SpiritWithCount> spirits) {
         this.id = id;
         this.time = time;
         this.durabilityCost = durabilityCost;
@@ -72,9 +70,9 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
         return id;
     }
 
-    public ArrayList<ItemStack> getSortedStacks(ArrayList<ItemStack> stacks) {
+    public ArrayList<ItemStack> getSortedSpirits(ArrayList<ItemStack> stacks) {
         ArrayList<ItemStack> sortedStacks = new ArrayList<>();
-        for (ItemWithCount item : spirits) {
+        for (SpiritWithCount item : spirits) {
             for (ItemStack stack : stacks) {
                 if (item.matches(stack)) {
                     sortedStacks.add(stack);
@@ -85,15 +83,6 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
         return sortedStacks;
     }
 
-    public ArrayList<MalumSpiritType> getSpirits() {
-        ArrayList<MalumSpiritType> spirits = new ArrayList<>();
-        for (ItemWithCount item : this.spirits) {
-            MalumSpiritItem spiritItem = (MalumSpiritItem) item.item;
-            spirits.add(spiritItem.type);
-        }
-        return spirits;
-    }
-
     public boolean doSpiritsMatch(ArrayList<ItemStack> spirits) {
         if (this.spirits.size() == 0) {
             return true;
@@ -101,12 +90,12 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
         if (this.spirits.size() != spirits.size()) {
             return false;
         }
-        ArrayList<ItemStack> sortedStacks = getSortedStacks(spirits);
+        ArrayList<ItemStack> sortedStacks = getSortedSpirits(spirits);
         if (sortedStacks.size() < this.spirits.size()) {
             return false;
         }
         for (int i = 0; i < this.spirits.size(); i++) {
-            ItemWithCount item = this.spirits.get(i);
+            SpiritWithCount item = this.spirits.get(i);
             ItemStack stack = sortedStacks.get(i);
             if (!item.matches(stack)) {
                 return false;
@@ -142,15 +131,7 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritFocusingRecipe> {
-        public boolean isValid(Ingredient ingredient) {
-            return Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).noneMatch(s -> s.equals(Items.BARRIER));
-        }
-        public boolean isValid(Stream<Item> item) {
-            return item.noneMatch(i -> i.equals(Items.BARRIER));
-        }
-        public boolean isValid(Item item) {
-            return !item.equals(Items.BARRIER);
-        }
+
         @Override
         public SpiritFocusingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             int time = json.getAsJsonPrimitive("time").getAsInt();
@@ -158,30 +139,26 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
 
             JsonObject inputObject = json.getAsJsonObject("input");
             Ingredient input = Ingredient.fromJson(inputObject);
-            if (!isValid(input))
-            {
+            if (input.test(Items.BARRIER.getDefaultInstance())) {
                 return null;
             }
 
             JsonObject outputObject = json.getAsJsonObject("output");
             IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
-            if (!isValid(output.ingredient))
-            {
+            if (!output.isValid()) {
                 return null;
             }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
-            ArrayList<ItemWithCount> spirits = new ArrayList<>();
+            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
-                spirits.add(ItemWithCount.deserialize(spiritObject));
+                spirits.add(SpiritWithCount.deserialize(spiritObject));
             }
-            if (!isValid(spirits.stream().map(ItemWithCount::getItem)))
-            {
+            if (spirits.isEmpty()) {
                 return null;
             }
-            if (spirits.isEmpty())
-            {
+            if (spirits.stream().anyMatch(c -> !c.isValid())) {
                 return null;
             }
             return new SpiritFocusingRecipe(recipeId, time, durabilityCost, input, output, spirits);
@@ -195,9 +172,9 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
             Ingredient input = Ingredient.fromNetwork(buffer);
             IngredientWithCount output = IngredientWithCount.read(buffer);
             int spiritCount = buffer.readInt();
-            ArrayList<ItemWithCount> spirits = new ArrayList<>();
+            ArrayList<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritCount; i++) {
-                spirits.add(new ItemWithCount(buffer.readItem()));
+                spirits.add(new SpiritWithCount(buffer.readItem()));
             }
             return new SpiritFocusingRecipe(recipeId, time, durabilityCost, input, output, spirits);
         }
@@ -209,7 +186,7 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
             recipe.input.toNetwork(buffer);
             recipe.output.write(buffer);
             buffer.writeInt(recipe.spirits.size());
-            for (ItemWithCount item : recipe.spirits) {
+            for (SpiritWithCount item : recipe.spirits) {
                 buffer.writeItem(item.getStack());
             }
         }

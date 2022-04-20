@@ -1,0 +1,14 @@
+{
+  "registry_name": "undergarden:forgotten_guardian",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 3
+    },
+    {
+      "spirit": "eldritch",
+      "count": 5
+    }
+  ]
+}

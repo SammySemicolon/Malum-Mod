@@ -22,18 +22,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class SimpleBlock <T extends BlockEntity> extends Block implements EntityBlock {
+public class SimpleBlock <T extends SimpleBlockEntity> extends Block implements EntityBlock {
+
     protected Supplier<BlockEntityType<T>> blockEntityType = null;
     protected BlockEntityTicker<T> ticker = null;
+
     public SimpleBlock(Properties properties) {
         super(properties);
     }
 
     public SimpleBlock<T> setTile(Supplier<BlockEntityType<T>> type) {
         this.blockEntityType = type;
-        this.ticker = (l, p, s, t) -> ((SimpleBlockEntity)t).tick();
+        this.ticker = (l, p, s, t) -> t.tick();
         return this;
     }
+
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
@@ -53,8 +56,7 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
     @Override
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
         if (hasTileEntity(pState)) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+            if (pLevel.getBlockEntity(pPos) instanceof SimpleBlockEntity simpleBlockEntity) {
                 simpleBlockEntity.onPlace(pPlacer, pStack);
             }
         }
@@ -64,11 +66,9 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         if (hasTileEntity(state)) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+            if (world.getBlockEntity(pos) instanceof SimpleBlockEntity simpleBlockEntity) {
                 ItemStack stack = simpleBlockEntity.onClone(state, target, world, pos, player);
-                if (!stack.isEmpty())
-                {
+                if (!stack.isEmpty()) {
                     return stack;
                 }
             }
@@ -90,18 +90,27 @@ public class SimpleBlock <T extends BlockEntity> extends Block implements Entity
 
     public void onBlockBroken(BlockState state, BlockGetter level, BlockPos pos) {
         if (hasTileEntity(state)) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+            if (level.getBlockEntity(pos) instanceof SimpleBlockEntity simpleBlockEntity) {
                 simpleBlockEntity.onBreak();
             }
         }
     }
 
     @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        if (hasTileEntity(pState)) {
+            if (pLevel.getBlockEntity(pPos) instanceof SimpleBlockEntity simpleBlockEntity) {
+                simpleBlockEntity.onNeighborUpdate(pState, pPos, pFromPos);
+            }
+        }
+
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
         if (hasTileEntity(state)) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof SimpleBlockEntity simpleBlockEntity) {
+            if (level.getBlockEntity(pos) instanceof SimpleBlockEntity simpleBlockEntity) {
                 return simpleBlockEntity.onUse(player, hand);
             }
         }

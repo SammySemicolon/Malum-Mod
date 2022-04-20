@@ -2,8 +2,8 @@ package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.EntityRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -21,24 +21,23 @@ public class SoulEntity extends FloatingEntity {
     public UUID thiefUUID;
     public MalumEntitySpiritData spiritData = EMPTY;
     public LivingEntity thief;
-    public float erraticMovementCooldown = 30;
 
     public SoulEntity(Level level) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         maxAge = 2000;
-        speed = 8;
+        range = 8;
     }
 
     public SoulEntity(Level level, MalumEntitySpiritData spiritData, UUID ownerUUID, double posX, double posY, double posZ, double velX, double velY, double velZ) {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         this.spiritData = spiritData;
-        if (!spiritData.dataEntries.isEmpty()) {
+        if (!spiritData.equals(EMPTY)) {
             this.color = spiritData.primaryType.color;
             getEntityData().set(DATA_COLOR, color.getRGB());
             this.endColor = spiritData.primaryType.endColor;
             getEntityData().set(DATA_END_COLOR, endColor.getRGB());
         }
-        speed = 8;
+        range = 8;
         setThief(ownerUUID);
         setPos(posX, posY, posZ);
         setDeltaMovement(velX, velY, velZ);
@@ -50,13 +49,12 @@ public class SoulEntity extends FloatingEntity {
         this.thiefUUID = ownerUUID;
         updateThief();
     }
-    public void updateThief()
-    {
+
+    public void updateThief() {
         if (!level.isClientSide) {
             thief = (LivingEntity) ((ServerLevel) level).getEntity(thiefUUID);
-            if (thief != null)
-            {
-                speed = (int) thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH.get());
+            if (thief != null) {
+                range = (int) thief.getAttributeValue(AttributeRegistry.SPIRIT_REACH.get());
             }
         }
     }
@@ -65,18 +63,17 @@ public class SoulEntity extends FloatingEntity {
     public void spawnParticles(double x, double y, double z) {
         Vec3 motion = getDeltaMovement();
         Vec3 norm = motion.normalize().scale(0.025f);
-        for (int i = 0; i < 8; i ++) {
-            double lerpX = Mth.lerp(i / 8.0f, x-motion.x, x);
-            double lerpY = Mth.lerp(i / 8.0f, y-motion.y, y);
-            double lerpZ = Mth.lerp(i / 8.0f, z-motion.z, z);
-            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.125f, 1, norm, color, endColor);
+        for (int i = 0; i < 4; i++) {
+            double lerpX = Mth.lerp(i / 4.0f, x - motion.x, x);
+            double lerpY = Mth.lerp(i / 4.0f, y - motion.y, y);
+            double lerpZ = Mth.lerp(i / 4.0f, z - motion.z, z);
+            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.25f, 1, norm, color, endColor);
         }
     }
 
     @Override
     public void remove(RemovalReason pReason) {
-        if (pReason.equals(RemovalReason.KILLED))
-        {
+        if (pReason.equals(RemovalReason.KILLED)) {
             SpiritHelper.createSpiritsFromSoul(spiritData, level, position(), thief);
         }
         super.remove(pReason);
@@ -87,16 +84,17 @@ public class SoulEntity extends FloatingEntity {
         setDeltaMovement(getDeltaMovement().multiply(0.95f, 0.97f, 0.95f));
         if (thief == null || !thief.isAlive()) {
             if (level.getGameTime() % 40L == 0) {
-                Player playerEntity = level.getNearestPlayer(this, speed * 5f);
+                Player playerEntity = level.getNearestPlayer(this, range * 5f);
                 if (playerEntity != null) {
                     setThief(playerEntity.getUUID());
                 }
             }
             return;
         }
-        Vec3 desiredLocation = thief.position().add(0, thief.getBbHeight() / 4, 0);
+        float sine = Mth.sin(level.getGameTime()*0.05f)*0.2f;
+        Vec3 desiredLocation = thief.position().add(0, thief.getBbHeight() / 4, 0).add(-sine, sine, -sine);
         float distance = (float) distanceToSqr(desiredLocation);
-        float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.1f, 0.05f + (speed * 0.025f));
+        float velocity = Mth.lerp(Math.min(moveTime, 20) / 20f, 0.1f, 0.05f + (range * 0.025f));
         if (distance > 2) {
             moveTime++;
             Vec3 desiredMotion = desiredLocation.subtract(position()).normalize().multiply(velocity, velocity, velocity).add(0, 0.075f, 0);
@@ -121,25 +119,17 @@ public class SoulEntity extends FloatingEntity {
         if (above || !below) {
             setDeltaMovement(getDeltaMovement().add(0, -0.0015f, 0));
         }
-
-        erraticMovementCooldown--;
-        if (erraticMovementCooldown <= 0) {
-            erraticMovementCooldown = 5 + random.nextFloat(20);
-            setDeltaMovement(Mth.nextFloat(random, -0.06f, 0.06f), getDeltaMovement().y + Mth.nextFloat(random, -0.02f, 0.04f), Mth.nextFloat(random, -0.06f, 0.06f));
-        }
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        if (!spiritData.equals(EMPTY))
-        {
+        if (!spiritData.equals(EMPTY)) {
             spiritData.saveTo(compound);
         }
         if (thiefUUID != null) {
             compound.putUUID("thiefUUID", thiefUUID);
         }
-        compound.putFloat("erraticMovementCooldown", erraticMovementCooldown);
     }
 
     @Override
@@ -149,6 +139,5 @@ public class SoulEntity extends FloatingEntity {
         if (compound.contains("thiefUUID")) {
             setThief(compound.getUUID("thiefUUID"));
         }
-        erraticMovementCooldown = compound.getFloat("erraticMovementCooldown");
     }
 }

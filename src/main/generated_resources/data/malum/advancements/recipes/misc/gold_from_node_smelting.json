@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:gold_from_node_smelting"
+    ]
+  },
+  "criteria": {
+    "has_impetus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "malum:gold_impetus"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:gold_from_node_smelting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_impetus",
+      "has_the_recipe"
+    ]
+  ]
+}

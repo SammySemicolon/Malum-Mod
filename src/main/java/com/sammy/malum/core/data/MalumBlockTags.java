@@ -1,7 +1,9 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.block.BlockRegistry;
+import com.sammy.malum.common.block.ether.EtherBlock;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.world.level.block.*;
 import net.minecraft.data.DataGenerator;
@@ -16,17 +18,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
-import static net.minecraftforge.common.Tags.Blocks.DIRT;
 
-public class MalumBlockTags extends BlockTagsProvider
-{
-    public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper)
-    {
+public class MalumBlockTags extends BlockTagsProvider {
+    public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
         super(generatorIn, MalumMod.MODID, existingFileHelper);
     }
-    
+
     @Override
     protected void addTags() {
         tag(Tags.Blocks.ORES).add(BlockRegistry.SOULSTONE_ORE.get(), BlockRegistry.BLAZING_QUARTZ_ORE.get(), BlockRegistry.BRILLIANT_STONE.get());
@@ -55,6 +54,11 @@ public class MalumBlockTags extends BlockTagsProvider
         tag(WOODEN_TRAPDOORS).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_trapdoor") && b.getRegistryName().getPath().contains("wood")));
         tag(WOODEN_PRESSURE_PLATES).add(getModBlocks(b -> b.getRegistryName().getPath().endsWith("_pressure_plate") && b.getRegistryName().getPath().contains("wood")));
 
+
+        tag(BlockTagRegistry.HEAT_SOURCES).add(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get());
+        for (Block block : getModBlocks(b -> b instanceof EtherBlock)) {
+            tag(BlockTagRegistry.TRAY_HEAT_SOURCES).add(block);
+        }
         for (Block block : getModBlocks(b -> b.properties instanceof SimpleBlockProperties)) {
             SimpleBlockProperties properties = (SimpleBlockProperties) block.properties;
             if (properties.needsPickaxe) {
@@ -80,16 +84,14 @@ public class MalumBlockTags extends BlockTagsProvider
             }
         }
     }
-    
+
     @Override
-    public String getName()
-    {
+    public String getName() {
         return "Malum Block Tags";
     }
 
     @Nonnull
-    private Block[] getModBlocks(Predicate<Block> predicate)
-    {
+    private Block[] getModBlocks(Predicate<Block> predicate) {
         List<Block> ret = new ArrayList<>(Collections.emptyList());
         BLOCKS.getEntries().stream()
                 .filter(b -> predicate.test(b.get())).forEach(b -> ret.add(b.get()));

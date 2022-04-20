@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:bunfungus",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 2
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

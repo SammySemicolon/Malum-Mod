@@ -1,9 +1,16 @@
 package com.sammy.malum.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
+import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.FloatingItemEntity;
+import com.sammy.malum.core.helper.ColorHelper;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.easing.Easing;
+import com.sammy.malum.core.systems.rendering.RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -12,40 +19,65 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
-public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity>
-{
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static com.sammy.malum.core.handlers.RenderHandler.DELAYED_RENDER;
+import static com.sammy.malum.core.helper.DataHelper.prefix;
+import static com.sammy.malum.core.systems.rendering.RenderTypes.copy;
+import static com.sammy.malum.core.systems.rendering.RenderTypes.queueUniformChanges;
+
+public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntity> {
     public final ItemRenderer itemRenderer;
 
-    public FloatingItemEntityRenderer(EntityRendererProvider.Context context)
-    {
+    public FloatingItemEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
         this.itemRenderer = context.getItemRenderer();
         this.shadowRadius = 0;
         this.shadowStrength = 0;
     }
-    
-    
+
+    private static final ResourceLocation LIGHT_TRAIL = prefix("textures/vfx/light_trail.png");
+    private static final RenderType LIGHT_TYPE = RenderTypes.ADDITIVE_TEXTURE.apply(LIGHT_TRAIL);
+
     @Override
-    public void render(FloatingItemEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn)
-    {
+    public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
-        ItemStack itemstack = entityIn.getItem();
-        BakedModel ibakedmodel = this.itemRenderer.getModel(itemstack, entityIn.level, null, entityIn.getItem().getCount());
-        float f1 = entityIn.getYOffset(partialTicks);
-        float f2 = ibakedmodel.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
-        float f3 = entityIn.getRotation(partialTicks);
-        poseStack.translate(0.0D, (f1 + 0.25F * f2), 0.0D);
-        poseStack.mulPose(Vector3f.YP.rotation(f3));
-        this.itemRenderer.render(itemstack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
+//        ArrayList<Vec3> positions = new ArrayList<>(entity.pastPositions);
+//        RenderHelper.VertexBuilder builder = RenderHelper.create();
+//
+//        int amount = 3;
+//        for (int i = 0; i < amount; i++) {
+//            float index = (amount - 1) - i;
+//            float size = index * 0.15f + (float) Math.exp(index * 0.3f);
+//            float alpha = 0.1f * (float) Math.exp(i * 0.3f);
+//            Color color = entity.color;
+//            builder.setColor(color).setOffset((float) -entity.getX(), (float) -entity.getY(), (float) -entity.getZ())
+//                    .setAlpha(alpha)
+//                    .renderTrail(DELAYED_RENDER.getBuffer(LIGHT_TYPE), poseStack, positions.stream().map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList()), f -> f * size)
+//                    .renderTrail(DELAYED_RENDER.getBuffer(LIGHT_TYPE), poseStack, positions.stream().map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList()), f -> Easing.QUARTIC_IN_OUT.ease(f, 0, size, 1));
+//        }
+
+        ItemStack itemStack = entity.getItem();
+        BakedModel model = this.itemRenderer.getModel(itemStack, entity.level, null, entity.getItem().getCount());
+        float yOffset = entity.getYOffset(partialTicks);
+        float scale = model.getTransforms().getTransform(ItemTransforms.TransformType.GROUND).scale.y();
+        float rotation = entity.getRotation(partialTicks);
+        poseStack.translate(0.0D, (yOffset + 0.25F * scale), 0.0D);
+        poseStack.mulPose(Vector3f.YP.rotation(rotation));
+        this.itemRenderer.render(itemStack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
         poseStack.popPose();
-        super.render(entityIn, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
+
+        super.render(entity, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(FloatingItemEntity entity)
-    {
+    public ResourceLocation getTextureLocation(FloatingItemEntity entity) {
         return TextureAtlas.LOCATION_BLOCKS;
     }
 }

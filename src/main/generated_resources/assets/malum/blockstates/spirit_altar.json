@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "malum:block/spirit_altar"
+    },
+    "waterlogged=true": {
+      "model": "malum:block/spirit_altar"
+    }
+  }
+}

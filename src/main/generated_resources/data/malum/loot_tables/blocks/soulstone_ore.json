@@ -39,7 +39,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "malum:soulstone_cluster"
+              "name": "malum:raw_soulstone"
             }
           ]
         }

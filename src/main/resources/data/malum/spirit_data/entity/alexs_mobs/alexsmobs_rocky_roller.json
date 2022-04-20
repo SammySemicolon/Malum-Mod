@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:rocky_roller",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}

@@ -14,7 +14,6 @@ import net.minecraft.world.item.Item.Properties;
 
 public class CurioOrnateRing extends MalumCurioItem
 {
-    private static final UUID ARMOR = UUID.fromString("335abd8a-0e66-4b11-aa33-4aee88f0f614");
     public CurioOrnateRing(Properties builder)
     {
         super(builder);
@@ -24,7 +23,7 @@ public class CurioOrnateRing extends MalumCurioItem
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR, "Curio armor toughness", 2f, AttributeModifier.Operation.ADDITION));
+        map.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "Curio armor toughness", 2f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 

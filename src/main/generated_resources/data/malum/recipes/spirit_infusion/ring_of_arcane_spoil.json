@@ -15,13 +15,13 @@
     },
     {
       "item": "malum:processed_soulstone",
-      "count": 4
+      "count": 6
     }
   ],
   "spirits": [
     {
-      "item": "malum:wicked_spirit",
-      "count": 8
+      "type": "wicked",
+      "count": 12
     }
   ]
 }

@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.item_storage.SpiritJarBlockEntity;
+import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -28,9 +28,9 @@ public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarBlockEnti
         if (blockEntityIn.type != null)
         {
             poseStack.pushPose();
-            double y =  0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f;
+            double y =  0.5f + Math.sin((level.getGameTime() + partialTicks) / 20f) * 0.2f;
             poseStack.translate(0.5f,y,0.5f);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(((level.getGameTime() ) + partialTicks) * 3));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
             poseStack.scale(0.6f, 0.6f, 0.6f);
             itemRenderer.renderStatic(blockEntityIn.type.getSplinterItem().getDefaultInstance(), ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

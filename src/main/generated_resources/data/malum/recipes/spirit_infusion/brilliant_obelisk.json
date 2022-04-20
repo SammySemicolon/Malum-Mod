@@ -10,7 +10,7 @@
   },
   "extra_items": [
     {
-      "item": "malum:brilliance_cluster",
+      "item": "malum:cluster_of_brilliance",
       "count": 2
     },
     {
@@ -20,12 +20,12 @@
   ],
   "spirits": [
     {
-      "item": "malum:aerial_spirit",
-      "count": 6
+      "type": "aerial",
+      "count": 8
     },
     {
-      "item": "malum:aqueous_spirit",
-      "count": 3
+      "type": "aqueous",
+      "count": 4
     }
   ]
 }

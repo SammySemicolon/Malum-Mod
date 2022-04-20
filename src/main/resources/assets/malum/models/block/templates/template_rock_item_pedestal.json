@@ -1,6 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
+	"textures": {
+		"pedestal": "blank"
+	},
 	"elements": [
 		{
 			"from": [4, 0, 4],

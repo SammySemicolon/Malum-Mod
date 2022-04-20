@@ -3,10 +3,10 @@ package com.sammy.malum.core.data;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.sammy.malum.common.block.ether.EtherBlock;
-import com.sammy.malum.common.block.item_storage.SoulVialBlock;
-import com.sammy.malum.common.block.item_storage.SpiritJarBlock;
-import com.sammy.malum.core.setup.block.BlockRegistry;
-import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.common.block.storage.SoulVialBlock;
+import com.sammy.malum.common.block.storage.SpiritJarBlock;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
@@ -47,7 +47,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.sammy.malum.core.helper.DataHelper.takeAll;
-import static com.sammy.malum.core.setup.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
 
 public class MalumBlockLootTables extends LootTableProvider {
 
@@ -94,10 +94,10 @@ public class MalumBlockLootTables extends LootTableProvider {
         add(BlockRegistry.RUNEWOOD_LEAVES.get(), (b)->createLeavesDrops(b, BlockRegistry.RUNEWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         add(BlockRegistry.SOULWOOD_LEAVES.get(), (b)->createLeavesDrops(b, BlockRegistry.SOULWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
-        add(BlockRegistry.BRILLIANT_STONE.get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.BRILLIANCE_CLUSTER.get()));
-        add(BlockRegistry.BRILLIANT_DEEPSLATE.get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.BRILLIANCE_CLUSTER.get()));
-        add(BlockRegistry.SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.SOULSTONE_CLUSTER.get()));
-        add(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), ItemRegistry.SOULSTONE_CLUSTER.get()));
+        add(BlockRegistry.BRILLIANT_STONE.get(), createOreDrop(BlockRegistry.BRILLIANT_STONE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
+        add(BlockRegistry.BRILLIANT_DEEPSLATE.get(), createOreDrop(BlockRegistry.BRILLIANT_DEEPSLATE.get(), ItemRegistry.CLUSTER_OF_BRILLIANCE.get()));
+        add(BlockRegistry.SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
+        add(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), createOreDrop(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), ItemRegistry.RAW_SOULSTONE.get()));
         add(BlockRegistry.BLAZING_QUARTZ_ORE.get(), createOreDrop(BlockRegistry.BLAZING_QUARTZ_ORE.get(), ItemRegistry.BLAZING_QUARTZ.get()));
         return tables;
     }
@@ -115,15 +115,15 @@ public class MalumBlockLootTables extends LootTableProvider {
     }
 
     protected static LootTable.Builder createEtherDrop(Block block) {
-        return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Level_key", "BlockEntityTag.Level_key").copy("firstColor", "display.firstColor").copy("secondColor", "display.secondColor")))));
+        return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("firstColor", "display.firstColor").copy("secondColor", "display.secondColor")))));
     }
 
     protected static LootTable.Builder createJarDrop(Block block) {
-        return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Level_key", "BlockEntityTag.Level_key").copy("spirit", "spirit").copy("count", "count")))));
+        return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("spirit", "spirit").copy("count", "count")))));
     }
 
     protected static LootTable.Builder createVialDrop(Block block) {
-        return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Level_key", "BlockEntityTag.Level_key").copy("spirit_data", "spirit_data")))));
+        return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("spirit_data", "spirit_data")))));
     }
 
     protected static LootTable.Builder createSingleItemTable(ItemLike p_124127_) {

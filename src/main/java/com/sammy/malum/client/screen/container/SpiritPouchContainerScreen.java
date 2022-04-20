@@ -29,13 +29,6 @@ public class SpiritPouchContainerScreen extends AbstractContainerScreen<SpiritPo
     }
 
     @Override
-    protected void renderTooltip(@Nonnull PoseStack poseStack, int mouseX, int mouseY) {
-        if (this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
-            this.renderTooltip(poseStack, this.hoveredSlot.getItem(), mouseX, mouseY);
-        }
-    }
-
-    @Override
     protected void renderLabels(@Nonnull PoseStack poseStack, int mouseX, int mouseY) {
         if (this.minecraft != null && this.minecraft.player != null) {
 //            Color color = textColor;

@@ -32,15 +32,16 @@
   ],
   "spirits": [
     {
-      "item": "malum:wicked_spirit",
-      "count": 3
+      "type": "earthen",
+      "count": 8
     },
     {
-      "item": "malum:arcane_spirit"
+      "type": "wicked",
+      "count": 4
     },
     {
-      "item": "malum:earthen_spirit",
-      "count": 5
+      "type": "arcane",
+      "count": 2
     }
   ]
 }

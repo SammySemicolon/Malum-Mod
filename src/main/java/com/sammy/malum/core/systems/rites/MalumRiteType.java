@@ -19,13 +19,14 @@ public class MalumRiteType {
         this.spirits = new ArrayList<>(Arrays.asList(spirits));
     }
 
-    public String translationIdentifier()
-    {
+    public String translationIdentifier() {
         return "malum.gui.rite." + identifier;
     }
+
     public boolean isInstant(boolean corrupted) {
         return false;
     }
+
     public int defaultRange() {
         return 8;
     }
@@ -42,32 +43,36 @@ public class MalumRiteType {
         return defaultInterval();
     }
 
-    public void executeRite(Level level, BlockPos pos, boolean corrupted) {
+    public void executeRite(Level level, BlockPos pos, int height, boolean corrupted) {
         if (corrupted) {
-            corruptedRiteEffect(level, pos);
+            corruptedRiteEffect(level, pos, height);
         } else {
-            riteEffect(level, pos);
+            riteEffect(level, pos, height);
         }
     }
 
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
 
     }
 
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
 
     }
 
-    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, Level level, BlockPos pos, boolean corrupted)
-    {
+    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, Level level, BlockPos pos, boolean corrupted) {
         return (ArrayList<T>) level.getEntitiesOfClass(clazz, new AABB(pos).inflate(range(corrupted)));
     }
-    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level level, BlockPos pos, boolean corrupted)
-    {
+
+    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level level, BlockPos pos, boolean corrupted) {
         return BlockHelper.getBlocks(pos, range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
     }
-    public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, Level level, BlockPos pos, boolean corrupted)
-    {
+
+    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level level, BlockPos pos, int height, boolean corrupted) {
+        int range = range(corrupted);
+        return BlockHelper.getBlocks(pos, range, height, range, p -> clazz.isInstance(level.getBlockState(p).getBlock()));
+    }
+
+    public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, Level level, BlockPos pos, boolean corrupted) {
         return BlockHelper.getPlaneOfBlocks(pos.below(), range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
     }
 }

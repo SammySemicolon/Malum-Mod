@@ -1,6 +1,6 @@
 {
   "type": "malum:spirit_focusing",
-  "time": 400,
+  "time": 300,
   "durabilityCost": 1,
   "input": {
     "item": "malum:alchemical_impetus"
@@ -11,7 +11,7 @@
   },
   "spirits": [
     {
-      "item": "malum:arcane_spirit"
+      "type": "arcane"
     }
   ]
 }

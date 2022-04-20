@@ -49,36 +49,12 @@ public class SimpleBlockEntityInventory extends ItemStackHandler {
         super(slotCount);
         this.slotCount = slotCount;
         this.slotSize = slotSize;
+        updateData();
     }
 
     @Override
     public void onContentsChanged(int slot) {
         updateData();
-    }
-
-    public void updateData() {
-        items = getItems();
-        nonEmptyStacks = getNonEmptyItemStacks();
-        emptyItemAmount = getEmptyItemCount();
-        nonEmptyItemAmount = getNonEmptyItemCount();
-        firstEmptyItemIndex = getFirstEmptyItemIndex();
-    }
-
-    public void load(CompoundTag compound) {
-        load(compound, "inventory");
-    }
-
-    public void load(CompoundTag compound, String name) {
-        deserializeNBT(compound.getCompound(name));
-        updateData();
-    }
-
-    public void save(CompoundTag compound) {
-        save(compound, "inventory");
-    }
-
-    public void save(CompoundTag compound, String name) {
-        compound.put(name, serializeNBT());
     }
 
     @Override
@@ -112,6 +88,37 @@ public class SimpleBlockEntityInventory extends ItemStackHandler {
         return super.extractItem(slot, amount, simulate);
     }
 
+    public void updateData() {
+        items = getItems();
+        nonEmptyStacks = getNonEmptyItemStacks();
+        emptyItemAmount = getEmptyItemCount();
+        nonEmptyItemAmount = getNonEmptyItemCount();
+        firstEmptyItemIndex = getFirstEmptyItemIndex();
+    }
+
+    public void load(CompoundTag compound) {
+        load(compound, "inventory");
+    }
+
+    public void load(CompoundTag compound, String name) {
+        deserializeNBT(compound.getCompound(name));
+        if (stacks.size() != slotCount) {
+            int missing = slotCount -stacks.size();
+            for (int i = 0; i < missing; i++) {
+                stacks.add(ItemStack.EMPTY);
+            }
+        }
+        updateData();
+    }
+
+    public void save(CompoundTag compound) {
+        save(compound, "inventory");
+    }
+
+    public void save(CompoundTag compound, String name) {
+        compound.put(name, serializeNBT());
+    }
+
     public int getFirstEmptyItemIndex() {
         for (int i = 0; i < slotCount; i++) {
             if (getStackInSlot(i).isEmpty()) {
@@ -125,29 +132,32 @@ public class SimpleBlockEntityInventory extends ItemStackHandler {
         return stacks;
     }
 
-    public int getNonEmptyItemCount() {
+    public boolean isEmpty() {
+        return nonEmptyItemAmount == 0;
+    }
+
+    protected int getNonEmptyItemCount() {
         return (int) getStacks().stream().filter(s -> !s.isEmpty()).count();
     }
 
-    public int getEmptyItemCount() {
+    protected int getEmptyItemCount() {
         return (int) getStacks().stream().filter(ItemStack::isEmpty).count();
     }
 
-    public ArrayList<ItemStack> getNonEmptyItemStacks() {
+    protected ArrayList<ItemStack> getNonEmptyItemStacks() {
         return getStacks().stream().filter(s -> !s.isEmpty()).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Item> getItems() {
+    protected ArrayList<Item> getItems() {
         return getStacks().stream().map(ItemStack::getItem).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Item> getNonEmptyItemAmount() {
+    protected ArrayList<Item> getNonEmptyItems() {
         return getNonEmptyItemStacks().stream().map(ItemStack::getItem).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void clear() {
-        for (int i = 0; i < slotCount; i++)
-        {
+        for (int i = 0; i < slotCount; i++) {
             setStackInSlot(i, ItemStack.EMPTY);
         }
     }
@@ -172,7 +182,7 @@ public class SimpleBlockEntityInventory extends ItemStackHandler {
         if ((held.isEmpty() || firstEmptyItemIndex == -1) && size != -1) {
             ItemStack takeOutStack = nonEmptyStacks.get(size);
             if (takeOutStack.getItem().equals(held.getItem())) {
-                    return insertItem(level, held);
+                return insertItem(level, held);
             }
             ItemStack extractedStack = extractItem(level, held, player);
             boolean success = !extractedStack.isEmpty();

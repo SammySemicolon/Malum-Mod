@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:mimic_octopus",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

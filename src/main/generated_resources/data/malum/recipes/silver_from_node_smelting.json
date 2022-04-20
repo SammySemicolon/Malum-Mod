@@ -1,0 +1,28 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/silver",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "malum:node_smelting",
+        "ingredient": {
+          "item": "malum:silver_node"
+        },
+        "result": {
+          "tag": "forge:nuggets/silver",
+          "count": 6
+        },
+        "experience": 0.25,
+        "cookingtime": 200
+      }
+    }
+  ]
+}

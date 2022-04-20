@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "malum:brilliant_stone"
+  },
+  "result": {
+    "item": "malum:chunk_of_brilliance",
+    "count": 4
+  },
+  "experience": 1.0,
+  "cookingtime": 200
+}

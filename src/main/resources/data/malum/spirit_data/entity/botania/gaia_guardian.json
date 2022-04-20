@@ -1,0 +1,22 @@
+{
+  "registry_name": "botania:doppleganger",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 3
+    },
+    {
+      "spirit": "eldritch",
+      "count": 3
+    },
+    {
+      "spirit": "wicked",
+      "count": 2
+    },
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

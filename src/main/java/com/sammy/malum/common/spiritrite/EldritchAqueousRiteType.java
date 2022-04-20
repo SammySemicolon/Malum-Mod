@@ -1,7 +1,8 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,12 +35,11 @@ public class EldritchAqueousRiteType extends MalumRiteType {
 
     @Override
     public int range(boolean corrupted) {
-
-        return defaultRange() / (corrupted ? 4 : 2);
+        return corrupted ? defaultRange() / 4 : defaultRange();
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         ArrayList<BlockPos> positions = getNearbyBlocks(PointedDripstoneBlock.class, level, pos, false);
         positions.removeIf(p -> !PointedDripstoneBlock.isStalactiteStartPos(level.getBlockState(p), level, p));
         positions.forEach(p -> {
@@ -54,7 +54,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || level.getBlockState(p).getFluidState().isEmpty());
         positions.forEach(p -> {
@@ -83,7 +83,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
 
     public void particles(Level level, BlockPos pos) {
         Color color = AQUEOUS_SPIRIT_COLOR;
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
                 .setLifetime(20)
                 .setSpin(0.2f)
@@ -91,9 +91,9 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                 .setColor(color, color)
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
-                .randomVelocity(0.001f, 0.001f)
+                .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 6, Direction.UP);
-        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -101,7 +101,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                 .setColor(color, color)
                 .randomOffset(0.2f)
                 .enableNoClip()
-                .randomVelocity(0.001f, 0.001f)
+                .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 8, Direction.UP);
     }
 }

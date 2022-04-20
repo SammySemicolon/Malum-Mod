@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.block.SimpleBlock;
 import net.minecraft.core.BlockPos;
@@ -13,25 +12,22 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.HitResult;
 
 import java.util.function.Supplier;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class TotemPoleBlock extends SimpleBlock<TotemPoleTileEntity>
-{
-    public static IntegerProperty SPIRIT_TYPE = IntegerProperty.create("spirit_type", 0, SpiritTypeRegistry.SPIRITS.size()-1);
+public class TotemPoleBlock<T extends TotemPoleTileEntity> extends SimpleBlock<T> {
+
     public final Supplier<? extends Block> logBlock;
     public final boolean corrupted;
-    public TotemPoleBlock(Properties properties, Supplier<? extends Block> logBlock, boolean corrupted)
-    {
+
+    public TotemPoleBlock(Properties properties, Supplier<? extends Block> logBlock, boolean corrupted) {
         super(properties.lootFrom(logBlock));
         this.logBlock = logBlock;
         this.corrupted = corrupted;
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
-        setTile(BlockEntityRegistry.TOTEM_POLE);
     }
 
     @Override
@@ -41,13 +37,12 @@ public class TotemPoleBlock extends SimpleBlock<TotemPoleTileEntity>
 
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, SPIRIT_TYPE);
+        builder.add(HORIZONTAL_FACING, SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY);
     }
 }

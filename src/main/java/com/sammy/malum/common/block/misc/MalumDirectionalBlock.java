@@ -9,18 +9,14 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
-public class MalumDirectionalBlock extends DirectionalBlock
-{
-    public MalumDirectionalBlock(Properties builder)
-    {
+public class MalumDirectionalBlock extends DirectionalBlock {
+    public MalumDirectionalBlock(Properties builder) {
         super(builder);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        if (context.getPlayer().isShiftKeyDown())
-        {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        if (context.getPlayer().isShiftKeyDown()) {
             return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection());
         }
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
@@ -29,6 +25,7 @@ public class MalumDirectionalBlock extends DirectionalBlock
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
+
     public BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }

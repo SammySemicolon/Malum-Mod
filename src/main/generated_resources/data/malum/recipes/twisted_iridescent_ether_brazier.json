@@ -9,7 +9,7 @@
       "item": "malum:twisted_rock"
     },
     "S": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     },
     "X": {
       "item": "malum:iridescent_ether"

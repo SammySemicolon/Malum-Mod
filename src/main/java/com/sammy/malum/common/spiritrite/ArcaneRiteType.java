@@ -4,8 +4,9 @@ import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
@@ -19,15 +20,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.setup.block.BlockRegistry.SOULWOOD_TOTEM_BASE;
-import static com.sammy.malum.core.setup.block.BlockRegistry.SOULWOOD_TOTEM_POLE;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TOTEM_BASE;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TOTEM_POLE;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT_COLOR;
 
-public class ArcaneRiteType extends MalumRiteType
-{
-    public ArcaneRiteType()
-    {
+public class ArcaneRiteType extends MalumRiteType {
+    public ArcaneRiteType() {
         super("arcane_rite", ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
     }
 
@@ -45,18 +44,17 @@ public class ArcaneRiteType extends MalumRiteType
     public int range(boolean corrupted) {
         return defaultRange() / 4;
     }
+
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
-        if (level.isClientSide)
-        {
+    public void riteEffect(Level level, BlockPos pos, int height) {
+        if (level.isClientSide) {
             return;
         }
         for (int i = 1; i <= 5; i++) {
             BlockPos totemPos = pos.above(i);
-            if (level.getBlockEntity(totemPos) instanceof TotemPoleTileEntity totemPoleTile)
-            {
+            if (level.getBlockEntity(totemPos) instanceof TotemPoleTileEntity totemPoleTile) {
                 MalumSpiritType type = totemPoleTile.type;
-                BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, totemPos, SOULWOOD_TOTEM_POLE.get().defaultBlockState(),3);
+                BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, totemPos, SOULWOOD_TOTEM_POLE.get().defaultBlockState(), 3);
                 TotemPoleTileEntity newTileEntity = new TotemPoleTileEntity(totemPos, state);
                 newTileEntity.setLevel(level);
                 newTileEntity.create(type);
@@ -65,16 +63,16 @@ public class ArcaneRiteType extends MalumRiteType
                 level.levelEvent(2001, totemPos, Block.getId(state));
             }
         }
-        BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, pos, SOULWOOD_TOTEM_BASE.get().defaultBlockState(),3);
+        BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, pos, SOULWOOD_TOTEM_BASE.get().defaultBlockState(), 3);
         level.setBlockEntity(new TotemBaseTileEntity(pos, state));
         level.levelEvent(2001, pos, Block.getId(state));
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         BlockState filter = level.getBlockState(pos.below());
         BlockTransmutationRecipe fillerRecipe = BlockTransmutationRecipe.getRecipe(level, filter.getBlock());
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
+        ArrayList<BlockPos> positions = getNearbyBlocks(Block.class, level, pos.above(2), 3, false);
         positions.removeIf(p -> {
             if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
                 return true;
@@ -111,7 +109,7 @@ public class ArcaneRiteType extends MalumRiteType
 
     public void particles(Level level, BlockPos pos) {
         Color color = ARCANE_SPIRIT_COLOR;
-        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.4f, 0f)
                 .setLifetime(20)
                 .setSpin(0.3f)
@@ -119,9 +117,9 @@ public class ArcaneRiteType extends MalumRiteType
                 .setColor(color, color)
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
-                .randomVelocity(0.001f, 0.001f)
+                .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -129,7 +127,7 @@ public class ArcaneRiteType extends MalumRiteType
                 .setColor(color, color)
                 .randomOffset(0.2f)
                 .enableNoClip()
-                .randomVelocity(0.001f, 0.001f)
+                .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
     }
 }

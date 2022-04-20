@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class ObeliskCoreBlockEntity extends MultiBlockCoreEntity {
-    public ObeliskCoreBlockEntity(BlockEntityType<?> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
+    public ObeliskCoreBlockEntity(BlockEntityType<? extends ObeliskCoreBlockEntity> type, MultiBlockStructure structure, BlockPos pos, BlockState state) {
         super(type, structure, pos, state);
     }
 }

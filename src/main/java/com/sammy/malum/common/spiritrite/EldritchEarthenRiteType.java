@@ -1,10 +1,12 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -31,7 +33,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         BlockState filter = level.getBlockState(pos.below());
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p ->{
@@ -47,16 +49,20 @@ public class EldritchEarthenRiteType extends MalumRiteType {
             return !filter.isAir() && !filter.is(state.getBlock());
         });
         positions.forEach(p -> {
-            if (!level.isClientSide) {
-                level.destroyBlock(p, true);
-            } else {
-                particles(level, p);
+            BlockState state = level.getBlockState(p);
+            boolean canBreak = state.is(BlockTags.NEEDS_STONE_TOOL) || state.is(BlockTags.NEEDS_IRON_TOOL) || state.is(BlockTags.NEEDS_DIAMOND_TOOL);
+            if (canBreak) {
+                if (!level.isClientSide) {
+                    level.destroyBlock(p, true);
+                } else {
+                    particles(level, p);
+                }
             }
         });
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !level.getBlockState(p).isAir());
         positions.forEach(p -> {
@@ -72,7 +78,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
 
     public void particles(Level level, BlockPos pos) {
         Color color = EARTHEN_SPIRIT_COLOR;
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
                 .setLifetime(20)
                 .setSpin(0.2f)
@@ -80,9 +86,9 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                 .setColor(color, color)
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
-                .randomVelocity(0.001f, 0.001f)
+                .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-        RenderUtilities.create(ParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -90,7 +96,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
                 .setColor(color, color)
                 .randomOffset(0.2f)
                 .enableNoClip()
-                .randomVelocity(0.001f, 0.001f)
+                .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
     }
 }

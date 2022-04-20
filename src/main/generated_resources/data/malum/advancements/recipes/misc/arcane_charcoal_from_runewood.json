@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "malum:arcane_charcoal_from_runewood"
+    ]
+  },
+  "criteria": {
+    "has_runewood_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "malum:runewood_logs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "malum:arcane_charcoal_from_runewood"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_runewood_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

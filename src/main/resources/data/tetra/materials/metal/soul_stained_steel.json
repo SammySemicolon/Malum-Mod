@@ -24,7 +24,7 @@
     ]
   },
   "improvements": {
-    "malum.soul_strike": 1
+    "malum.soul_strike": 0
   },
   "requiredTools": {
     "hammer_dig": "minecraft:gold"

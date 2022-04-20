@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.equipment.armor.vanity;
 
 import com.sammy.malum.client.model.DripArmorModel;
 import com.sammy.malum.common.item.equipment.armor.SpiritHunterArmorItem;
-import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;

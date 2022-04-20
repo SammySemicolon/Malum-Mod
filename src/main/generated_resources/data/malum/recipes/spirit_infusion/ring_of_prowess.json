@@ -10,7 +10,7 @@
   },
   "extra_items": [
     {
-      "item": "malum:brilliance_cluster",
+      "item": "malum:cluster_of_brilliance",
       "count": 2
     },
     {
@@ -24,7 +24,7 @@
   ],
   "spirits": [
     {
-      "item": "malum:arcane_spirit",
+      "type": "arcane",
       "count": 24
     }
   ]

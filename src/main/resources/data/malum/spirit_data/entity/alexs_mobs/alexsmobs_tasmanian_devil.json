@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:tasmanian_devil",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    }
+  ]
+}

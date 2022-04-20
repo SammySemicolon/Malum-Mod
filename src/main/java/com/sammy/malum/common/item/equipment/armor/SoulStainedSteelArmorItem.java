@@ -2,8 +2,8 @@ package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -18,7 +18,7 @@ import net.minecraftforge.client.IItemRenderProperties;
 
 import java.util.UUID;
 
-import static com.sammy.malum.core.setup.item.ArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
+import static com.sammy.malum.core.setup.content.item.ArmorTiers.ArmorTierEnum.SOUL_STAINED_STEEL;
 
 public class SoulStainedSteelArmorItem extends MalumArmorItem {
     public SoulStainedSteelArmorItem(EquipmentSlot slot, Properties builder) {

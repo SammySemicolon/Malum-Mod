@@ -5,15 +5,19 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
+import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.setup.AttributeRegistry;
-import com.sammy.malum.core.setup.DamageSourceRegistry;
-import com.sammy.malum.core.setup.SoundRegistry;
+import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.setup.item.ItemRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
-import com.sammy.malum.core.systems.rendering.Shaders;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.setup.client.ShaderRegistry;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -23,6 +27,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -38,55 +43,63 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         PlayerDataCapability.getCapability(player).ifPresent(c -> {
-            double cap = player.getAttributeValue(AttributeRegistry.SOUL_WARD_CAP.get());
-            if (c.soulWard < cap && c.soulWardProgress <= 0) {
-                c.soulWard++;
-                if (player.level.isClientSide && !player.isCreative()) {
-                    player.playSound(c.soulWard >= cap ? SoundRegistry.SOUL_WARD_CHARGE : SoundRegistry.SOUL_WARD_GROW, 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
+            AttributeInstance cap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
+            if (cap != null) {
+                if (c.soulWard < cap.getValue() && c.soulWardProgress <= 0) {
+                    c.soulWard++;
+                    if (player.level.isClientSide && !player.isCreative()) {
+                        player.playSound(c.soulWard >= cap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get(), 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
+                    }
+                    c.soulWardProgress = getSoulWardCooldown(player);
+                } else {
+                    c.soulWardProgress--;
                 }
-                c.soulWardProgress = getSoulWardCooldown(player);
-            } else {
-                c.soulWardProgress--;
-            }
-            if (c.soulWard > cap) {
-                c.soulWard = (float) cap;
+                if (c.soulWard > cap.getValue()) {
+                    c.soulWard = (float) cap.getValue();
+                }
             }
         });
     }
 
     public static void consumeSoulWard(LivingHurtEvent event) {
+        if (event.isCanceled() || event.getAmount() <= 0) {
+            return;
+        }
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
-                    if (c.soulWard > 0) {
-                        DamageSource source = event.getSource();
-                        float amount = event.getAmount();
-                        float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.get().floatValue();
-                        float result = amount * multiplier;
-                        float absorbed = amount - result;
-                        double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
-                        if (strength != 0) {
-                            c.soulWard = (float) Math.max(0, c.soulWard-(absorbed / strength));
-                        } else {
-                            c.soulWard = 0;
-                        }
-                        c.soulWardProgress = (float) (getSoulWardCooldown(player) * player.getAttributeValue(AttributeRegistry.SOUL_WARD_DAMAGE_PENALTY.get()));
+                    AttributeInstance instance = player.getAttribute(AttributeRegistry.SOUL_WARD_SHATTER_COOLDOWN.get());
+                    if (instance != null) {
+                        c.soulWardProgress = (float) (CommonConfig.SOUL_WARD_RATE.get() * 6 * Math.exp(-0.15 * instance.getValue()));
+                        if (c.soulWard > 0) {
+                            DamageSource source = event.getSource();
 
-                        player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT, SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
-                        event.setAmount(result);
-                        if (source.getEntity() != null) {
-                            if (ItemHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
-                                if (source instanceof EntityDamageSource entityDamageSource) {
-                                    if (entityDamageSource.isThorns()) {
-                                        return;
-                                    }
-                                }
-                                source.getEntity().hurt(DamageSourceRegistry.causeMagebaneDamage(player), absorbed + 2);
+                            float amount = event.getAmount();
+                            float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.get().floatValue();
+                            float result = amount * multiplier;
+                            float absorbed = amount - result;
+                            double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
+                            if (strength != 0) {
+                                c.soulWard = (float) Math.max(0, c.soulWard - (absorbed / strength));
+                            } else {
+                                c.soulWard = 0;
                             }
-                        }
-                        PlayerDataCapability.syncTrackingAndSelf(player);
-                    }
 
+                            player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                            event.setAmount(result);
+                            if (source.getEntity() != null) {
+                                if (ItemHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
+                                    if (source instanceof EntityDamageSource entityDamageSource) {
+                                        if (entityDamageSource.isThorns()) {
+                                            return;
+                                        }
+                                    }
+                                    source.getEntity().hurt(DamageSourceRegistry.causeMagebaneDamage(player), absorbed + 2);
+                                }
+                            }
+                            PlayerDataCapability.syncTrackingAndSelf(player);
+                        }
+                    }
                 });
             }
         }
@@ -125,7 +138,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                         RenderSystem.defaultBlendFunc();
                         RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                        ShaderInstance shaderInstance = Shaders.distortedTexture.getInstance().get();
+                        ShaderInstance shaderInstance = ShaderRegistry.distortedTexture.getInstance().get();
                         shaderInstance.safeGetUniform("YFrequency").set(15f);
                         shaderInstance.safeGetUniform("XFrequency").set(15f);
                         shaderInstance.safeGetUniform("Speed").set(550f);
@@ -140,7 +153,22 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 16 / 256f, 28 / 256f));
                             shaderInstance.safeGetUniform("TimeOffset").set(i * 150f);
 
-                            RenderUtilities.blit(poseStack, Shaders.distortedTexture, x - 2, y - 2, 13, 13, xTextureOffset, 16, 256f);
+                            RenderHelper.blit(poseStack, ShaderRegistry.distortedTexture, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 16, 256f);
+
+                            if (ScreenParticleHandler.canSpawnParticles) {
+                                ParticleBuilders.create(ScreenParticleRegistry.WISP)
+                                        .setLifetime(20)
+                                        .setColor(SpiritTypeRegistry.ARCANE_SPIRIT_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.endColor)
+                                        .setAlphaCurveMultiplier(0.75f)
+                                        .setScale(0.2f*progress, 0f)
+                                        .setAlpha(0.05f, 0)
+                                        .setSpin(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
+                                        .setSpinOffset(Minecraft.getInstance().level.random.nextFloat() * 6.28f)
+                                        .randomOffset(2)
+                                        .randomMotion(0.5f, 0.5f)
+                                        .overwriteRenderOrder(ScreenParticle.RenderOrder.BEFORE_UI)
+                                        .repeat(x + 5, y + 5, 1);
+                            }
                         }
                         RenderSystem.depthMask(true);
                         RenderSystem.disableBlend();

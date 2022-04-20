@@ -1,0 +1,28 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:nuggets/tin",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "malum:node_smelting",
+        "ingredient": {
+          "item": "malum:tin_node"
+        },
+        "result": {
+          "tag": "forge:nuggets/tin",
+          "count": 6
+        },
+        "experience": 0.25,
+        "cookingtime": 200
+      }
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.spirit_altar;
 
-import com.sammy.malum.common.blockentity.SpiritAltarTileEntity;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.common.blockentity.altar.SpiritAltarTileEntity;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -11,14 +10,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SpiritAltarBlock extends WaterLoggedBlock<SpiritAltarTileEntity>
+public class SpiritAltarBlock<T extends SpiritAltarTileEntity> extends WaterLoggedBlock<T>
 {
     public static final VoxelShape SHAPE = makeShape();
     public static final VoxelShape RENDER_SHAPE = makeRenderShape();
     public SpiritAltarBlock(Properties properties)
     {
         super(properties);
-        setTile(BlockEntityRegistry.SPIRIT_ALTAR);
     }
 
     @Override

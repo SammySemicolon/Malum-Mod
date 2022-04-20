@@ -16,8 +16,8 @@
   ],
   "spirits": [
     {
-      "item": "malum:earthen_spirit",
-      "count": 12
+      "type": "earthen",
+      "count": 24
     }
   ]
 }

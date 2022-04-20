@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "malum:raw_soulstone"
+  },
+  "result": {
+    "item": "malum:processed_soulstone",
+    "count": 2
+  },
+  "experience": 0.25,
+  "cookingtime": 100
+}

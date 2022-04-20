@@ -40,7 +40,7 @@ public class SoulStaveItem extends Item implements ISoulContainerItem {
 
     @Override
     public String getDescriptionId(ItemStack pStack) {
-        if (pStack.hasTag() && pStack.getTag().contains(MalumEntitySpiritData.NBT))
+        if (pStack.hasTag() && pStack.getTag().contains(MalumEntitySpiritData.SOUL_DATA))
         {
             return "item.malum.filled_soulwood_stave";
         }
@@ -51,7 +51,7 @@ public class SoulStaveItem extends Item implements ISoulContainerItem {
         if (pStack.hasTag())
         {
             CompoundTag tag = pStack.getTag();
-            if (tag.contains(MalumEntitySpiritData.NBT))
+            if (tag.contains(MalumEntitySpiritData.SOUL_DATA))
             {
                 MalumEntitySpiritData data = MalumEntitySpiritData.load(tag);
                 pTooltipComponents.add(new TranslatableComponent("malum.spirit.description.stored_soul").withStyle(ChatFormatting.GRAY));
@@ -68,7 +68,7 @@ public class SoulStaveItem extends Item implements ISoulContainerItem {
         if (otherStack.getItem() instanceof ISoulContainerItem) {
             return InteractionResultHolder.fail(stack);
         }
-        if (!soul.spiritData.equals(MalumEntitySpiritData.EMPTY) && (!stack.getOrCreateTag().contains(MalumEntitySpiritData.NBT))) {
+        if (!soul.spiritData.equals(MalumEntitySpiritData.EMPTY) && (!stack.getOrCreateTag().contains(MalumEntitySpiritData.SOUL_DATA))) {
             soul.spiritData.saveTo(stack.getOrCreateTag());
             soul.discard();
             pPlayer.swing(pHand, true);

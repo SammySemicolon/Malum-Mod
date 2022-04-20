@@ -1,9 +1,9 @@
 {
   "type": "malum:spirit_focusing",
-  "time": 400,
-  "durabilityCost": 2,
+  "time": 300,
+  "durabilityCost": 1,
   "input": {
-    "item": "malum:vitric_impetus"
+    "item": "malum:alchemical_impetus"
   },
   "output": {
     "item": "malum:blazing_quartz",
@@ -11,10 +11,12 @@
   },
   "spirits": [
     {
-      "item": "malum:earthen_spirit"
+      "type": "infernal",
+      "count": 2
     },
     {
-      "item": "malum:infernal_spirit"
+      "type": "arcane",
+      "count": 2
     }
   ]
 }

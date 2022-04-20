@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:spectre",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 4
+    }
+  ]
+}

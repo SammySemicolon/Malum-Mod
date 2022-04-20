@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:endergrade",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 1
+    },
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

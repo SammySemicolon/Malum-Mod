@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.function.Supplier;
 
 public class MultiBlockItem extends BlockItem {
-    public final Supplier<MultiBlockStructure> structure;
-    public MultiBlockItem(Block block, Properties properties, Supplier<MultiBlockStructure> structure) {
+    public final Supplier<? extends MultiBlockStructure> structure;
+    public MultiBlockItem(Block block, Properties properties, Supplier<? extends MultiBlockStructure> structure) {
         super(block, properties);
         this.structure = structure;
     }
@@ -25,7 +25,7 @@ public class MultiBlockItem extends BlockItem {
 
     @Override
     protected boolean placeBlock(BlockPlaceContext context, BlockState state) {
-        structure.get().place(context.getClickedPos(), context.getLevel());
+        structure.get().place(context);
         return super.placeBlock(context, state);
     }
 }

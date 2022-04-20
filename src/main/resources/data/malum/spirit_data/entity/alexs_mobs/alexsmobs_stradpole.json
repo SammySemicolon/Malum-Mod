@@ -1,0 +1,10 @@
+{
+  "registry_name": "alexsmobs:stradpole",
+  "primary_type": "infernal",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}

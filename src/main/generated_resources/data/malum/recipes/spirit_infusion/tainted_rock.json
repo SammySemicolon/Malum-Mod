@@ -1,7 +1,7 @@
 {
   "type": "malum:spirit_infusion",
   "input": {
-    "item": "minecraft:cobblestone",
+    "tag": "minecraft:stone_tool_materials",
     "count": 16
   },
   "output": {
@@ -11,10 +11,10 @@
   "extra_items": [],
   "spirits": [
     {
-      "item": "malum:sacred_spirit"
+      "type": "sacred"
     },
     {
-      "item": "malum:arcane_spirit"
+      "type": "arcane"
     }
   ]
 }

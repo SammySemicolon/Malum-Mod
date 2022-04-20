@@ -1,7 +1,6 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
-import com.sammy.malum.common.blockentity.SpiritCrucibleCoreBlockEntity;
-import com.sammy.malum.core.setup.block.BlockEntityRegistry;
+import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
 import com.sammy.malum.core.systems.block.WaterLoggedBlock;
 import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
 import net.minecraft.core.BlockPos;
@@ -12,11 +11,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SpiritCrucibleCoreBlock extends WaterLoggedBlock<SpiritCrucibleCoreBlockEntity> implements IMultiBlockCore {
+public class SpiritCrucibleCoreBlock<T extends SpiritCrucibleCoreBlockEntity> extends WaterLoggedBlock<T> implements IMultiBlockCore {
     public static final VoxelShape SHAPE = makeShape();
     public SpiritCrucibleCoreBlock(Properties properties) {
         super(properties);
-        setTile(BlockEntityRegistry.SPIRIT_CRUCIBLE);
     }
 
     @Override

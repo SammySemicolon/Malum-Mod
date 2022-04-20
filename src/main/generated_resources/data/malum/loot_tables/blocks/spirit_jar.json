@@ -17,11 +17,6 @@
               "source": "block_entity",
               "ops": [
                 {
-                  "source": "Level_key",
-                  "target": "BlockEntityTag.Level_key",
-                  "op": "replace"
-                },
-                {
                   "source": "spirit",
                   "target": "spirit",
                   "op": "replace"

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.entity;
 
-import com.sammy.malum.core.setup.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -11,10 +11,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.awt.*;
+
 public class FloatingItemEntity extends FloatingEntity {
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(FloatingItemEntity.class, EntityDataSerializers.ITEM_STACK);
 
-    public ItemStack stack = ItemStack.EMPTY;
+    public ItemStack itemStack = ItemStack.EMPTY;
 
     public FloatingItemEntity(EntityType<? extends FloatingEntity> type, Level level) {
         super(type, level);
@@ -22,16 +24,19 @@ public class FloatingItemEntity extends FloatingEntity {
 
     public void setItem(ItemStack pStack) {
         if (pStack.getItem() instanceof IFloatingGlowItem glow) {
-            color = glow.getColor();
-            getEntityData().set(DATA_COLOR, color.getRGB());
-            endColor = glow.getEndColor();
-            getEntityData().set(DATA_END_COLOR, endColor.getRGB());
+            setColor(glow.getColor(), glow.getEndColor());
         }
         if (!pStack.is(this.getDefaultItem()) || pStack.hasTag()) {
             this.getEntityData().set(DATA_ITEM_STACK, pStack);
         }
     }
 
+    public void setColor(Color color, Color endColor) {
+        this.color = color;
+        getEntityData().set(DATA_COLOR, color.getRGB());
+        this.endColor = endColor;
+        getEntityData().set(DATA_END_COLOR, endColor.getRGB());
+    }
     @Override
     protected void defineSynchedData() {
         this.getEntityData().define(DATA_ITEM_STACK, ItemStack.EMPTY);
@@ -41,7 +46,7 @@ public class FloatingItemEntity extends FloatingEntity {
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
         if (DATA_ITEM_STACK.equals(pKey)) {
-            stack = getEntityData().get(DATA_ITEM_STACK);
+            itemStack = getEntityData().get(DATA_ITEM_STACK);
         }
         super.onSyncedDataUpdated(pKey);
     }

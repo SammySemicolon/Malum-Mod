@@ -94,6 +94,7 @@ repositories {
         name = "CTM Maven"
         url = "https://maven.tterrag.com/"
     }
+    maven { url = 'https://maven.blamejared.com/' }
     maven {
         name = "Curse Maven"
         url "https://cursemaven.com"
@@ -115,9 +116,11 @@ dependencies {
     compileOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46')
 
-    implementation fg.deobf("curse.maven:mutil-351914:3640643")
-    implementation fg.deobf("curse.maven:tetra-289712:3640654")
-
+    implementation fg.deobf("se.mickelus.mutil:mutil:1.18.1-4.4.0")
+    implementation fg.deobf("se.mickelus.tetra:tetra:1.18.1-4.8.0")
+    implementation fg.deobf("curse.maven:farmers_delight-398521:3615366")
+    implementation fg.deobf("curse.maven:selene-499980:3652852")
+    implementation fg.deobf("curse.maven:supplementaries-412082:3652869")
 }
 
 jar {
@@ -125,11 +128,12 @@ jar {
         attributes([
             "Specification-Title": "malum",
             "Specification-Vendor": "sammy",
-            "Specification-Version": "1", // We are version 1 of ourselves
+            "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"sammy",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs" :"${project.modId}.mixins.json"
         ])
     }
 }

@@ -23,17 +23,17 @@
     },
     {
       "tag": "forge:feathers",
-      "count": 1
+      "count": 2
     }
   ],
   "spirits": [
     {
-      "item": "malum:earthen_spirit",
-      "count": 2
+      "type": "aerial",
+      "count": 8
     },
     {
-      "item": "malum:aerial_spirit",
-      "count": 4
+      "type": "earthen",
+      "count": 2
     }
   ]
 }

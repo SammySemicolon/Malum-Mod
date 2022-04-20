@@ -23,6 +23,10 @@ public class BrillianceChunkItem extends Item {
         return super.finishUsingItem(stack, level, entityLiving);
     }
 
+    public int getUseDuration(ItemStack pStack) {
+        return 5;
+    }
+
     @Override
     public boolean isFoil(ItemStack p_41453_) {
         return true;

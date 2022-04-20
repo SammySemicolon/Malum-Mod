@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_unholy_extract": {
+    "has_unholy_sap": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_unholy_extract",
+      "has_unholy_sap",
       "has_the_recipe"
     ]
   ]

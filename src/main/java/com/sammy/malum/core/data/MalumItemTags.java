@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.setup.item.ItemTagRegistry;
+import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -10,8 +10,8 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static com.sammy.malum.core.setup.item.ItemRegistry.*;
-import static com.sammy.malum.core.setup.item.ItemTagRegistry.*;
+import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
+import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.*;
 
 public class MalumItemTags extends ItemTagsProvider {
     public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
@@ -77,15 +77,30 @@ public class MalumItemTags extends ItemTagsProvider {
         tag(SCYTHE).add(CRUDE_SCYTHE.get(), SOUL_STAINED_STEEL_SCYTHE.get(), CREATIVE_SCYTHE.get());
 
         tag(SOUL_HUNTER_WEAPON).add(TYRVING.get(), CRUDE_SCYTHE.get(), SOUL_STAINED_STEEL_SCYTHE.get(), CREATIVE_SCYTHE.get());
-        tag(SOUL_HUNTER_WEAPON).add(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_HOE.get());
+        tag(SOUL_HUNTER_WEAPON).add(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_KNIFE.get());
 
         tag(Tags.Items.NUGGETS).add(COPPER_NUGGET.get(), HALLOWED_GOLD_NUGGET.get(), SOUL_STAINED_STEEL_NUGGET.get());
 
+        tag(KNIVES).add(SOUL_STAINED_STEEL_KNIFE.get());
+        tag(KNIVES_FD).add(SOUL_STAINED_STEEL_KNIFE.get());
+
         tag(NUGGETS_COPPER).add(COPPER_NUGGET.get());
         tag(INGOTS_COPPER).add(Items.COPPER_INGOT);
-        tag(NUGGETS_SILVER);
-        tag(INGOTS_SILVER);
         tag(NUGGETS_LEAD);
         tag(INGOTS_LEAD);
+        tag(NUGGETS_SILVER);
+        tag(INGOTS_SILVER);
+        tag(NUGGETS_ALUMINUM);
+        tag(INGOTS_ALUMINUM);
+        tag(NUGGETS_NICKEL);
+        tag(INGOTS_NICKEL);
+        tag(NUGGETS_URANIUM);
+        tag(INGOTS_URANIUM);
+        tag(NUGGETS_OSMIUM);
+        tag(INGOTS_OSMIUM);
+        tag(NUGGETS_ZINC);
+        tag(INGOTS_ZINC);
+        tag(NUGGETS_TIN);
+        tag(INGOTS_TIN);
     }
 }

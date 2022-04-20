@@ -3,7 +3,10 @@
   "ingredient": {
     "item": "malum:soulstone_ore"
   },
-  "result": "malum:processed_soulstone",
+  "result": {
+    "item": "malum:processed_soulstone",
+    "count": 2
+  },
   "experience": 0.25,
   "cookingtime": 100
 }

@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:sunbird",
+  "primary_type": "sacred",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 4
+    },
+    {
+      "spirit": "infernal",
+      "count": 2
+    }
+  ]
+}

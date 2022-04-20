@@ -22,6 +22,10 @@ public class SyncPlayerCapabilityDataPacket {
         this.tag = tag;
     }
 
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, SyncPlayerCapabilityDataPacket.class, SyncPlayerCapabilityDataPacket::encode, SyncPlayerCapabilityDataPacket::decode, SyncPlayerCapabilityDataPacket::execute);
+    }
+
     public static SyncPlayerCapabilityDataPacket decode(FriendlyByteBuf buf) {
         return new SyncPlayerCapabilityDataPacket(buf.readUUID(), buf.readNbt());
     }
@@ -38,10 +42,6 @@ public class SyncPlayerCapabilityDataPacket {
             }
         });
         context.get().setPacketHandled(true);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SyncPlayerCapabilityDataPacket.class, SyncPlayerCapabilityDataPacket::encode, SyncPlayerCapabilityDataPacket::decode, SyncPlayerCapabilityDataPacket::execute);
     }
 
     public static class ClientOnly {

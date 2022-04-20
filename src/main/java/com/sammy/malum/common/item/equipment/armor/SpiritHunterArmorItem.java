@@ -2,8 +2,8 @@ package com.sammy.malum.common.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SpiritHunterArmorModel;
-import com.sammy.malum.core.setup.item.ItemRegistry;
-import com.sammy.malum.core.setup.AttributeRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.AttributeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -18,7 +18,7 @@ import net.minecraftforge.client.IItemRenderProperties;
 
 import java.util.UUID;
 
-import static com.sammy.malum.core.setup.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
+import static com.sammy.malum.core.setup.content.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
 public class SpiritHunterArmorItem extends MalumArmorItem {
     public SpiritHunterArmorItem(EquipmentSlot slot, Properties builder) {

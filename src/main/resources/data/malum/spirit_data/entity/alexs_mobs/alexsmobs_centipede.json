@@ -1,0 +1,14 @@
+{
+  "registry_name": "alexsmobs:centipede_head",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 2
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}

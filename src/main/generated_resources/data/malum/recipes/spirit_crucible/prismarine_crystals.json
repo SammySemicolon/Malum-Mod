@@ -1,20 +1,22 @@
 {
   "type": "malum:spirit_focusing",
-  "time": 400,
-  "durabilityCost": 2,
+  "time": 300,
+  "durabilityCost": 1,
   "input": {
-    "item": "malum:vitric_impetus"
+    "item": "malum:alchemical_impetus"
   },
   "output": {
     "item": "minecraft:prismarine_crystals",
-    "count": 6
+    "count": 4
   },
   "spirits": [
     {
-      "item": "malum:aqueous_spirit"
+      "type": "aqueous",
+      "count": 2
     },
     {
-      "item": "malum:arcane_spirit"
+      "type": "arcane",
+      "count": 2
     }
   ]
 }

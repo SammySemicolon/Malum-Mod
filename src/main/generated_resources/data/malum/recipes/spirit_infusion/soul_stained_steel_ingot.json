@@ -20,10 +20,14 @@
   ],
   "spirits": [
     {
-      "item": "malum:wicked_spirit"
+      "type": "wicked",
+      "count": 3
     },
     {
-      "item": "malum:arcane_spirit"
+      "type": "earthen"
+    },
+    {
+      "type": "arcane"
     }
   ]
 }

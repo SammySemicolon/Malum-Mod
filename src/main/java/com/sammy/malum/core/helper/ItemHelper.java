@@ -33,6 +33,15 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class ItemHelper {
+    public static ArrayList<ItemStack> copyWithNewCount(List<ItemStack> stacks, int newCount) {
+        ArrayList<ItemStack> newStacks = new ArrayList<>();
+        for (ItemStack stack : stacks) {
+            ItemStack copy = stack.copy();
+            copy.setCount(newCount);
+            newStacks.add(copy);
+        }
+        return newStacks;
+    }
     public static ItemStack copyWithNewCount(ItemStack stack, int newCount) {
         ItemStack newStack = stack.copy();
         newStack.setCount(newCount);
@@ -153,7 +162,7 @@ public class ItemHelper {
         return CuriosApi.getCuriosHelper().findEquippedCurio(curio.get(), entity).isPresent();
     }
 
-    public static ArrayList<ItemStack> eventResponders(LivingEntity attacker)
+    public static ArrayList<ItemStack> getEventResponders(LivingEntity attacker)
     {
         ArrayList<ItemStack> itemStacks = ItemHelper.equippedCurios(attacker, p -> p.getItem() instanceof IEventResponderItem);
         ItemStack stack = attacker.getMainHandItem();

@@ -24,12 +24,12 @@
   ],
   "spirits": [
     {
-      "item": "malum:eldritch_spirit",
-      "count": 4
+      "type": "wicked",
+      "count": 16
     },
     {
-      "item": "malum:wicked_spirit",
-      "count": 16
+      "type": "eldritch",
+      "count": 4
     }
   ]
 }

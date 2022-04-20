@@ -1,7 +1,8 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.core.setup.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.RenderUtilities;
+import com.sammy.malum.core.setup.client.ParticleRegistry;
+import com.sammy.malum.core.helper.RenderHelper;
+import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,7 +38,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         BlockState filter = level.getBlockState(pos.below());
         Optional<SmeltingRecipe> fillerOptional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(filter.getBlock().asItem(), 1)), level);
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
@@ -69,7 +70,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
         positions.removeIf(p -> p.getX() == pos.getX() && p.getZ() == pos.getZ() || !level.getBlockState(p).is(Blocks.STONE));
         positions.forEach(p -> {
@@ -85,7 +86,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
 
     public void particles(Level level, BlockPos pos) {
         Color color = INFERNAL_SPIRIT_COLOR;
-        RenderUtilities.create(ParticleRegistry.TWINKLE_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.4f, 0f)
                 .setLifetime(20)
                 .setSpin(0.3f)
@@ -93,9 +94,9 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 .setColor(color, color)
                 .enableNoClip()
                 .randomOffset(0.1f, 0.1f)
-                .randomVelocity(0.001f, 0.001f)
+                .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-        RenderUtilities.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)
@@ -103,7 +104,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 .setColor(color, color)
                 .randomOffset(0.2f)
                 .enableNoClip()
-                .randomVelocity(0.001f, 0.001f)
+                .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 6, Direction.UP, Direction.DOWN);
     }
 }
