@@ -68,7 +68,7 @@ public class SpiritHarvestHandler {
             }
             if (!(target instanceof Player)) {
                 ItemStack finalStack = stack;
-                if (!event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId())) {
+                if (!event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER_DAMAGE)) {
                     LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
                         if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
                             SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
