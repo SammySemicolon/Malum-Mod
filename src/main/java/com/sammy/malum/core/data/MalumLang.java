@@ -242,14 +242,15 @@ public class MalumLang extends LanguageProvider {
         addPage("metallurgic_magic_a", "With some clever tricks you may imbue your impetus with a metallic shell, when fed spirits it'll sprout a metallic node of your desired metal which you may then smelt directly into nuggets. Due to the more rigid material of the impetus, more durability is lost in the process.");
         addPage("metallurgic_magic_b", "It is speculated that these catalysts were previously used as some sort of ashen aspects in an infernal arcana focused alchemical exchange system. It might be possible to replicate the process by studying the history of infernal arcana.");
 
-        addDescription("impetus_restoration", "");
+        addDescription("impetus_restoration", "Mending sorceries");
         addHeadline("impetus_restoration", "Impetus Restoration");
-        addPage("impetus_restoration_a", "Ok so honest to god I do not feel like writing this at all I've been putting it off all day honestly like, just: you take this thing called the twisted tablet, it's an augmented item stand, you put repair material in it and bam.");
-        addPage("impetus_restoration_b", "You can utilize the spirit crucible to repair items!!! wow! so cool!!! the main purpose of this is fixing your cracked (crack?) impetus and allowing further use.");
-        addPage("impetus_restoration_c", "Blah Blah Blah I dunno what to put here moving on");
-        addPage("expanded_focusing_a", "Wow turns out you can also use spirit repair for OTHER ITEMS???????????????????????????? By putting your cool block destroyer 9000 in the spirit crucible and a valid repair material in the twisted thing you can repair your awesome sauce sword or anything really");
-        addPage("expanded_focusing_b", "btw this system is json based so I encourage you to like, go into my discord and tell me 'hey samuel semicolon please add combability for XYZ mod k thanks' ");
-        addPage("expanded_focusing_c", "Oh yeah u can like, repair the malum gear rlly efficiently ");
+        addPage("impetus_restoration_a", "When an impetus sustains enough damage it will crack, becoming unusable for spirit focusing. To combat this issue, the crucible has a secondary function known to most as arcane restoration. This process expands on spirit focusing and flips it upside down.");
+        addPage("impetus_restoration_b", "Instead of splitting off mass from our catalyst such as the impetus, arcane restoration utilizes spirit arcana to recover the form of your item. While repairing an impetus with the crucible alone is theorized to be possible, there's no reason not to take the easy way out.");
+        addPage("impetus_restoration_c", "The twisted tablet is a simple augmentation of your usual item stand; the difference is that the tablet has the ability to channel spirit arcana without the need for an outside source to draw it out. It must be placed facing the crucible on a matching axis position.");
+        addHeadline("expanded_focusing", "Expanded Restoration");
+        addPage("expanded_focusing_a", "Furthermore, arcane restoration isn't restricted to just repairing your impetus; it extends much further. Using the restoring process you may repair any one of your damaged items.");
+        addPage("expanded_focusing_b", "Each item will require a unique set of spirits that need to be slotted in the crucible as well as a valid repair ingredient aimed at the crucible in the twisted tablet.");
+        addPage("expanded_focusing_c", "Additionally, gear closely connected with spirit arcana can be repaired more efficiently.");
 
         addDescription("crystal_creation", "Focusing into jewelry");
         addHeadline("crystal_creation", "Crystal Creation");
@@ -426,7 +427,6 @@ public class MalumLang extends LanguageProvider {
         addTetraMaterial("spirit_fabric", "Spirit Fabric");
 
         addTetraImprovement("malum.soul_strike", "Soul Strike", "Allows your item to shatter souls.");
-//        addTetraSocket("processed_soulstone", "[\u00a75Soulstone\u00a77]", "A gem", "The gem is cursed and aches when touched, allowing the tool to strike the soul.");
     }
 
     @Override

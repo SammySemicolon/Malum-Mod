@@ -108,6 +108,9 @@ public class SpiritRepairRecipe extends IMalumRecipe {
     }
 
     public boolean doesInputMatch(ItemStack input) {
+        if (input.isRepairable() && !input.isDamaged()) {
+            return false;
+        }
         return this.inputs.stream().anyMatch(i -> i.equals(input.getItem()));
     }
 

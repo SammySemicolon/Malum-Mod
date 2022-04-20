@@ -39,6 +39,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.PacketDistributor;
+import org.checkerframework.checker.units.qual.A;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -71,6 +72,8 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public ArrayList<BlockPos> tabletPositions = new ArrayList<>();
     public ArrayList<TwistedTabletBlockEntity> twistedTablets = new ArrayList<>();
     public TwistedTabletBlockEntity validTablet;
+    public int tabletFetchCooldown;
+
     public ArrayList<BlockPos> acceleratorPositions = new ArrayList<>();
     public ArrayList<ICrucibleAccelerator> accelerators = new ArrayList<>();
 
@@ -190,6 +193,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
         } else {
             repairRecipe = null;
+            validTablet = null;
         }
     }
 
@@ -241,9 +245,10 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             if (level.isClientSide && focusingRecipe == null && repairRecipe == null) {
                 CrucibleSoundInstance.playSound(this);
             }
-            focusingRecipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
             fetchTablets(level, worldPosition.above());
+            focusingRecipe = SpiritFocusingRecipe.getRecipe(level, inventory.getStackInSlot(0), spiritInventory.nonEmptyStacks);
             updateRecipe = false;
+            BlockHelper.updateAndNotifyState(level, worldPosition);
         }
 
         if (level.isClientSide) {
@@ -276,19 +281,30 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                 if (progress >= focusingRecipe.time) {
                     craft();
                 }
+                return;
             } else if (repairRecipe != null && !getTablets().isEmpty()) {
                 ItemStack damagedItem = inventory.getStackInSlot(0);
-                if (damagedItem.isRepairable() && damagedItem.getDamageValue() == 0) {
-                    return;
-                }
+
                 int time = 400 + damagedItem.getDamageValue() * 5;
                 progress++;
+                if (!repairRecipe.repairMaterial.matches(validTablet.inventory.getStackInSlot(0))) {
+                    fetchTablets(level, worldPosition.above());
+                }
                 if (progress >= time) {
                     repair();
                 }
             }
             if (focusingRecipe == null && repairRecipe == null) {
                 progress = 0;
+            }
+
+            if (focusingRecipe == null) {
+                tabletFetchCooldown--;
+                if (tabletFetchCooldown <= 0) {
+                    tabletFetchCooldown = 5;
+                    fetchTablets(level, worldPosition.above());
+                    BlockHelper.updateAndNotifyState(level, getBlockPos());
+                }
             }
         }
     }
@@ -422,14 +438,29 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         //spirit particles shot out from the twisted tablet
         if (repairRecipe != null) {
             TwistedTabletBlockEntity tabletBlockEntity = validTablet;
+
+            ArrayList<Color> colors = new ArrayList<>();
+            ArrayList<Color> endColors = new ArrayList<>();
             if (tabletBlockEntity.inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem spiritItem && repairRecipe.repairMaterial.getItem() instanceof MalumSpiritItem) {
-                Color color = spiritItem.type.color;
-                Color endColor = spiritItem.type.endColor;
+                colors.add(spiritItem.type.color);
+                endColors.add(spiritItem.type.endColor);
+            } else if (!spiritInventory.isEmpty()) {
+                for (int i = 0; i < spiritInventory.slotCount; i++) {
+                    ItemStack item = spiritInventory.getStackInSlot(i);
+                    if (item.getItem() instanceof MalumSpiritItem spiritItem) {
+                        colors.add(spiritItem.type.color);
+                        endColors.add(spiritItem.type.endColor);
+                    }
+                }
+            }
+            for (int i = 0; i < colors.size(); i++) {
+                Color color = colors.get(i);
+                Color endColor = endColors.get(i);
                 Vec3 tabletItemPos = tabletBlockEntity.getItemPos();
                 Vec3 velocity = tabletItemPos.subtract(itemPos).normalize().scale(-0.1f);
 
                 ParticleBuilders.create(ParticleRegistry.STAR_PARTICLE)
-                        .setAlpha(0.24f, 0f)
+                        .setAlpha(0.24f / colors.size(), 0f)
                         .setLifetime(15)
                         .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)
                         .randomOffset(0.05)
@@ -439,7 +470,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                         .repeat(level, itemPos.x, itemPos.y, itemPos.z, 1);
 
                 ParticleBuilders.create(ParticleRegistry.STAR_PARTICLE)
-                        .setAlpha(0.24f, 0f)
+                        .setAlpha(0.24f / colors.size(), 0f)
                         .setLifetime(15)
                         .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)
                         .randomOffset(0.05)
@@ -449,7 +480,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                         .repeat(level, tabletItemPos.x, tabletItemPos.y, tabletItemPos.z, 1);
 
                 ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
-                        .setAlpha(0.4f, 0f)
+                        .setAlpha(0.4f / colors.size(), 0f)
                         .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.5 * level.getGameTime()) % 6.28f)))
                         .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
                         .randomOffset(0.05)
@@ -461,10 +492,10 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
                         .setMotion(velocity.x, velocity.y, velocity.z)
                         .enableNoClip()
                         .repeat(level, tabletItemPos.x, tabletItemPos.y, tabletItemPos.z, 1);
-                return;
             }
+            return;
         }
-        if (focusingRecipe != null || repairRecipe != null) {
+        if (focusingRecipe != null) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack item = spiritInventory.getStackInSlot(i);
                 for (ICrucibleAccelerator accelerator : accelerators) {
