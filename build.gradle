@@ -31,7 +31,7 @@ mixin {
 }
 
 minecraft {
-    mappings channel: 'parchment', version: '2021.12.19-1.18.1'
+    mappings channel: 'parchment', version: '2022.03.13-1.18.2'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -110,17 +110,18 @@ dependencies {
         annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     }
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4")
+//    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4:api")
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4")
 
-    compileOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46:api')
-    runtimeOnly fg.deobf('mezz.jei:jei-1.18.1:9.1.0.46')
+    compileOnly fg.deobf('mezz.jei:jei-1.18.2-forge-api:10.0.0.191')
+    runtimeOnly fg.deobf('mezz.jei:jei-1.18.2-forge:10.0.0.191')
 
-    implementation fg.deobf("se.mickelus.mutil:mutil:1.18.1-4.4.0")
-    implementation fg.deobf("se.mickelus.tetra:tetra:1.18.1-4.8.0")
-    implementation fg.deobf("curse.maven:farmers_delight-398521:3615366")
-    implementation fg.deobf("curse.maven:selene-499980:3652852")
-    implementation fg.deobf("curse.maven:supplementaries-412082:3652869")
+//    implementation fg.deobf("se.mickelus.mutil:mutil:1.18.1-4.4.0")
+//    implementation fg.deobf("se.mickelus.tetra:tetra:1.18.1-4.8.0")
+    implementation fg.deobf("curse.maven:curios-309927:3748873")
+    implementation fg.deobf("curse.maven:farmers_delight-398521:3739914")
+    implementation fg.deobf("curse.maven:selene-499980:3742343")
+    implementation fg.deobf("curse.maven:supplementaries-412082:3749228")
 }
 
 jar {

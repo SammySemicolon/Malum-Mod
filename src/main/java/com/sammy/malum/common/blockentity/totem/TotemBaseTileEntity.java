@@ -171,11 +171,6 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
         for (TotemBaseTileEntity blockEntity : totemBases) {
             if (rite.equals(blockEntity.rite)) {
                 blockEntity.endRite();
-            } else if (blockEntity.rite != null) {
-                int otherRange = blockEntity.rite.range(blockEntity.corrupted);
-                if (blockEntity.worldPosition.distSqr(worldPosition, false) <= (range * range) / 2f || worldPosition.distSqr(blockEntity.worldPosition, false) <= (otherRange * otherRange) / 2f) {
-                    blockEntity.endRite();
-                }
             }
         }
     }

@@ -34,7 +34,8 @@ public class SpiritHarvestHandler {
             if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity) {
                 stack = ((ScytheBoomerangEntity) event.getSource().getDirectEntity()).scythe;
             }
-            if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(stack.getItem()) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
+
+            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
                 LivingEntityDataCapability.getCapability(target).ifPresent(e -> e.exposedSoul = 200);
             }
         }

@@ -15,6 +15,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -468,15 +469,15 @@ public class MalumRecipes extends RecipeProvider {
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
     }
 
-    private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, Tags.IOptionalNamedTag<Item> tag) {
+    private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
 
         String name = node.get().getRegistryName().getPath().replaceFirst("_node", "");
-        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.getName()))).addRecipe(
+        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location()))).addRecipe(
                         (c) -> smeltingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 200).unlockedBy("has_impetus", has(impetus.get())).save(c, DataHelper.prefix(name + "_from_node_smelting")))
                 .generateAdvancement()
                 .build(recipeConsumer, DataHelper.prefix(name + "_from_node_smelting"));
 
-        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.getName())))
+        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location())))
                 .addRecipe(
                         (c) -> blastingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 100).unlockedBy("has_impetus", has(impetus.get())).save(c, DataHelper.prefix(name + "_from_node_blasting")))
                 .generateAdvancement()
@@ -485,14 +486,14 @@ public class MalumRecipes extends RecipeProvider {
     }
 
     private static void etherBrazier(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike rock, ItemLike ether) {
-        NBTCarryRecipeBuilder.shapedRecipe(output, 2, Ingredient.of(ether)).key('#', rock).key('S', Tags.Items.RODS_WOODEN).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath());
+        NBTCarryRecipeBuilder.shapedRecipe(output, 2, Ingredient.of(ether)).key('#', rock).key('S', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("#X#").patternLine("S#S").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath());
     }
 
     private static void etherTorch(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike ether) {
-        NBTCarryRecipeBuilder.shapedRecipe(output, 4, Ingredient.of(ether)).key('#', Tags.Items.RODS_WOODEN).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
+        NBTCarryRecipeBuilder.shapedRecipe(output, 4, Ingredient.of(ether)).key('#', Ingredient.of(Tags.Items.RODS_WOODEN)).key('X', ether).patternLine("X").patternLine("#").addCriterion("has_ether", has(ItemRegistry.ETHER.get())).build(recipeConsumer, output.asItem().getRegistryName().getPath() + "_alternative");
     }
 
-    private static void shapelessPlanks(Consumer<FinishedRecipe> recipeConsumer, ItemLike planks, Tag<Item> input) {
+    private static void shapelessPlanks(Consumer<FinishedRecipe> recipeConsumer, ItemLike planks, TagKey<Item> input) {
         shapeless(planks, 4).requires(input).group("planks").unlockedBy("has_logs", has(input)).save(recipeConsumer);
     }
 
@@ -545,19 +546,23 @@ public class MalumRecipes extends RecipeProvider {
         shaped(sign, 3).group("sign").define('#', input).define('X', Tags.Items.RODS_WOODEN).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_" + s, has(input)).save(recipeConsumer);
     }
 
-    protected static EnterBlockTrigger.TriggerInstance insideOf(Block p_200407_0_) {
-        return new EnterBlockTrigger.TriggerInstance(EntityPredicate.Composite.ANY, p_200407_0_, StatePropertiesPredicate.ANY);
+    protected static EnterBlockTrigger.TriggerInstance insideOf(Block pBlock) {
+        return new EnterBlockTrigger.TriggerInstance(EntityPredicate.Composite.ANY, pBlock, StatePropertiesPredicate.ANY);
     }
 
-    protected static InventoryChangeTrigger.TriggerInstance has(ItemLike p_200403_0_) {
-        return inventoryTrigger(ItemPredicate.Builder.item().of(p_200403_0_).build());
+    protected static InventoryChangeTrigger.TriggerInstance has(MinMaxBounds.Ints pCount, ItemLike pItem) {
+        return inventoryTrigger(ItemPredicate.Builder.item().of(pItem).withCount(pCount).build());
     }
 
-    protected static InventoryChangeTrigger.TriggerInstance has(Tag<Item> p_200409_0_) {
-        return inventoryTrigger(ItemPredicate.Builder.item().of(p_200409_0_).build());
+    protected static InventoryChangeTrigger.TriggerInstance has(ItemLike pItemLike) {
+        return inventoryTrigger(ItemPredicate.Builder.item().of(pItemLike).build());
     }
 
-    protected static InventoryChangeTrigger.TriggerInstance inventoryTrigger(ItemPredicate... p_200405_0_) {
-        return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, p_200405_0_);
+    protected static InventoryChangeTrigger.TriggerInstance has(TagKey<Item> pTag) {
+        return inventoryTrigger(ItemPredicate.Builder.item().of(pTag).build());
+    }
+
+    protected static InventoryChangeTrigger.TriggerInstance inventoryTrigger(ItemPredicate... pPredicates) {
+        return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, pPredicates);
     }
 }

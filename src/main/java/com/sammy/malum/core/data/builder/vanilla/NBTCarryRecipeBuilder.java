@@ -16,6 +16,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -54,7 +55,7 @@ public class NBTCarryRecipeBuilder
         return new NBTCarryRecipeBuilder(resultIn, countIn, nbtCarry);
     }
 
-    public NBTCarryRecipeBuilder key(Character symbol, Tag<Item> tagIn)
+    public NBTCarryRecipeBuilder key(Character symbol, TagKey<Item> tagIn)
     {
         return this.key(symbol, Ingredient.of(tagIn));
     }
