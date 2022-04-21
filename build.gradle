@@ -113,8 +113,8 @@ dependencies {
 //    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4:api")
 //    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.4")
 
-    compileOnly fg.deobf('mezz.jei:jei-1.18.2-forge-api:10.0.0.191')
-    runtimeOnly fg.deobf('mezz.jei:jei-1.18.2-forge:10.0.0.191')
+    compileOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193:api')
+    runtimeOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193')
 
 //    implementation fg.deobf("se.mickelus.mutil:mutil:1.18.1-4.4.0")
 //    implementation fg.deobf("se.mickelus.tetra:tetra:1.18.1-4.8.0")
