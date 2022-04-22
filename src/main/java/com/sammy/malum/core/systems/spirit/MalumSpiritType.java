@@ -1,6 +1,5 @@
 package com.sammy.malum.core.systems.spirit;
 
-import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
@@ -63,6 +62,6 @@ public class MalumSpiritType {
 
     public BlockState getBlockState(boolean isCorrupt, BlockHitResult hit) {
         Block base = isCorrupt ? BlockRegistry.SOULWOOD_TOTEM_POLE.get() : BlockRegistry.RUNEWOOD_TOTEM_POLE.get();
-        return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(TotemPoleBlock.SPIRIT_TYPE, SpiritTypeRegistry.SPIRITS.indexOf(this));
+        return base.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, hit.getDirection()).setValue(SpiritTypeRegistry.SPIRIT_TYPE_PROPERTY, identifier);
     }
 }

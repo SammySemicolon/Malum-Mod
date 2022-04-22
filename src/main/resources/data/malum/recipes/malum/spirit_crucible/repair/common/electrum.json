@@ -1,0 +1,34 @@
+{
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/electrum",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "electrum_",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+  ],
+  "repairMaterial": {
+    "tag": "forge:ingots/electrum",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 16
+    },
+    {
+      "item": "malum:infernal_spirit",
+      "count": 4
+    },
+    {
+      "item": "malum:aerial_spirit",
+      "count": 4
+    }
+  ]
+}

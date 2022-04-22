@@ -23,40 +23,35 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
 
-public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
-{
+public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> {
     public static final ResourceLocation UID = prefix("spirit_rite");
     private final IDrawable background;
     private final IDrawable overlay;
     private final IDrawable icon;
     private final Font font;
 
-    public SpiritRiteRecipeCategory(IGuiHelper guiHelper)
-    {
+    public SpiritRiteRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_rite_jei.png"), 0, 0, 140, 183);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_rite_jei.png"), 0, 0, 142, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()));
         font = Minecraft.getInstance().font;
     }
 
     @Override
-    public void draw(MalumRiteType rite, PoseStack poseStack, double mouseX, double mouseY)
-    {
+    public void draw(MalumRiteType rite, PoseStack poseStack, double mouseX, double mouseY) {
         overlay.draw(poseStack);
-        ProgressionBookScreen.renderText(poseStack, new TranslatableComponent(rite.translationIdentifier()), 105-font.width(rite.translationIdentifier())/2,160);
+        ProgressionBookScreen.renderText(poseStack, new TranslatableComponent(rite.translationIdentifier()), 106 - font.width(rite.translationIdentifier()) / 2, 160);
     }
 
     @Nonnull
     @Override
-    public ResourceLocation getUid()
-    {
+    public ResourceLocation getUid() {
         return UID;
     }
 
     @Nonnull
     @Override
-    public Class<? extends MalumRiteType> getRecipeClass()
-    {
+    public Class<? extends MalumRiteType> getRecipeClass() {
         return MalumRiteType.class;
     }
 
@@ -67,32 +62,27 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType>
 
     @Nonnull
     @Override
-    public IDrawable getBackground()
-    {
+    public IDrawable getBackground() {
         return background;
     }
 
     @Nonnull
     @Override
-    public IDrawable getIcon()
-    {
+    public IDrawable getIcon() {
         return icon;
     }
 
     @Override
-    public void setIngredients(MalumRiteType rite, IIngredients iIngredients)
-    {
+    public void setIngredients(MalumRiteType rite, IIngredients iIngredients) {
         ArrayList<ItemStack> items = new ArrayList<>();
         rite.spirits.forEach(spirit -> items.add(spirit.getSplinterItem().getDefaultInstance()));
         iIngredients.setInputs(VanillaTypes.ITEM, items);
     }
 
     @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, MalumRiteType rite, IIngredients iIngredients)
-    {
-        for (int i = 0; i < rite.spirits.size(); i++)
-        {
-            iRecipeLayout.getItemStacks().init(i, true, 61,120-19*i);
+    public void setRecipe(IRecipeLayout iRecipeLayout, MalumRiteType rite, IIngredients iIngredients) {
+        for (int i = 0; i < rite.spirits.size(); i++) {
+            iRecipeLayout.getItemStacks().init(i, true, 62, 120 - 20 * i);
             iRecipeLayout.getItemStacks().set(i, rite.spirits.get(i).getSplinterItem().getDefaultInstance());
         }
     }

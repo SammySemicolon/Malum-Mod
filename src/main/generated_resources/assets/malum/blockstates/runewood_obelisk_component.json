@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "malum:block/runewood_obelisk_component_child"
+      "model": "malum:block/runewood_obelisk_component"
     }
   }
 }

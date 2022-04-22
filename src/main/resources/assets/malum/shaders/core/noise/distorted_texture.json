@@ -4,12 +4,13 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "malum:noise/distorted_texture",
+  "vertex": "malum:generic",
   "fragment": "malum:noise/distorted_texture",
   "attributes": [
     "Position",
     "Color",
-    "UV0"
+    "UV0",
+    "UV2"
   ],
   "samplers": [
     { "name": "Sampler0" }

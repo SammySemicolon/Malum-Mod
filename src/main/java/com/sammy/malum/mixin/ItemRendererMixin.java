@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ItemRendererMixin {
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/RenderBuffers;bufferSource()Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;"), method = "renderGuiItem(Lnet/minecraft/world/item/ItemStack;IILnet/minecraft/client/resources/model/BakedModel;)V")
-    private void fundamentalForcesItemParticleEmitter(ItemStack pStack, int pX, int pY, BakedModel pBakedmodel, CallbackInfo ci) {
+    private void malumItemParticleEmitter(ItemStack pStack, int pX, int pY, BakedModel pBakedmodel, CallbackInfo ci) {
         ScreenParticleHandler.renderItem(pStack);
     }
 }

@@ -1,10 +1,10 @@
 {
   "variants": {
     "waterlogged=false": {
-      "model": "malum:block/spirit_crucible_child"
+      "model": "malum:block/spirit_crucible"
     },
     "waterlogged=true": {
-      "model": "malum:block/spirit_crucible_child"
+      "model": "malum:block/spirit_crucible"
     }
   }
 }

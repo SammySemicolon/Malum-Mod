@@ -52,7 +52,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
         if (rite != null) {
             progress++;
             if (progress >= rite.interval(corrupted)) {
-                rite.executeRite(level, worldPosition, corrupted);
+                rite.executeRite(level, worldPosition, height, corrupted);
                 progress = 0;
                 if (!level.isClientSide) {
                     BlockHelper.updateAndNotifyState(level, worldPosition);
@@ -171,11 +171,6 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
         for (TotemBaseTileEntity blockEntity : totemBases) {
             if (rite.equals(blockEntity.rite)) {
                 blockEntity.endRite();
-            } else if (blockEntity.rite != null) {
-                int otherRange = blockEntity.rite.range(blockEntity.corrupted);
-                if (blockEntity.worldPosition.distSqr(worldPosition, false) <= (range * range) / 2f || worldPosition.distSqr(blockEntity.worldPosition, false) <= (otherRange * otherRange) / 2f) {
-                    blockEntity.endRite();
-                }
             }
         }
     }
@@ -189,7 +184,7 @@ public class TotemBaseTileEntity extends SimpleBlockEntity {
             }
         });
         progress = 0;
-        rite.executeRite(level, worldPosition, corrupted);
+        rite.executeRite(level, worldPosition, height, corrupted);
         if (rite.isInstant(corrupted)) {
             resetRite();
             return;

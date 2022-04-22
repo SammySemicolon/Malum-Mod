@@ -10,8 +10,8 @@
   },
   "extra_items": [
     {
-      "item": "malum:blazing_quartz",
-      "count": 4
+      "item": "malum:ether",
+      "count": 2
     },
     {
       "item": "malum:tainted_rock",
@@ -24,15 +24,15 @@
   ],
   "spirits": [
     {
-      "item": "malum:infernal_spirit",
+      "type": "infernal",
       "count": 16
     },
     {
-      "item": "malum:aerial_spirit",
+      "type": "aerial",
       "count": 8
     },
     {
-      "item": "malum:eldritch_spirit"
+      "type": "eldritch"
     }
   ]
 }

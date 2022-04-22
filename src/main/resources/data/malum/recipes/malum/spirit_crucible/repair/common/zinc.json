@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/zinc",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "zinc_",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+  ],
+  "repairMaterial": {
+    "tag": "forge:ingots/zinc",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "item": "malum:earthen_spirit",
+      "count": 8
+    },
+    {
+      "item": "malum:aerial_spirit",
+      "count": 4
+    }
+  ]
+}

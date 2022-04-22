@@ -30,6 +30,10 @@ public class SoulPurgeParticlePacket {
         this.posZ = posZ;
     }
 
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, SoulPurgeParticlePacket.class, SoulPurgeParticlePacket::encode, SoulPurgeParticlePacket::decode, SoulPurgeParticlePacket::execute);
+    }
+
     public static SoulPurgeParticlePacket decode(FriendlyByteBuf buf) {
         Color color = new Color(buf.readInt(), buf.readInt(), buf.readInt());
         Color endColor = new Color(buf.readInt(), buf.readInt(), buf.readInt());
@@ -58,10 +62,6 @@ public class SoulPurgeParticlePacket {
             }
         });
         context.get().setPacketHandled(true);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SoulPurgeParticlePacket.class, SoulPurgeParticlePacket::encode, SoulPurgeParticlePacket::decode, SoulPurgeParticlePacket::execute);
     }
 
     public static class ClientOnly {

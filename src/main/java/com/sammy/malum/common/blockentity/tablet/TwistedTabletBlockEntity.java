@@ -19,5 +19,4 @@ public class TwistedTabletBlockEntity extends ItemStandBlockEntity {
         Vec3 directionVector = new Vec3(direction.getStepX(), direction.getStepY(), direction.getStepZ());
         return new Vec3(0.5f + directionVector.x() * 0.25f, 0.5f + directionVector.y() * 0.4f, 0.5f + directionVector.z() * 0.25f);
     }
-
 }

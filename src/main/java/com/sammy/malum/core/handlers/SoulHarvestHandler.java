@@ -10,14 +10,15 @@ import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.packets.particle.SoulPurgeParticlePacket;
 import com.sammy.malum.core.helper.ColorHelper;
+import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.systems.rendering.RenderTypes;
-import com.sammy.malum.core.setup.client.ShaderRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
@@ -41,20 +42,23 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static com.sammy.malum.core.helper.DataHelper.prefix;
+import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 import static com.sammy.malum.core.handlers.RenderHandler.DELAYED_RENDER;
-import static com.sammy.malum.core.helper.RenderHelper.renderQuad;
+import static com.sammy.malum.core.systems.rendering.RenderTypes.queueUniformChanges;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {
 
     public static void specialSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getEntity() instanceof LivingEntity livingEntity) {
-            LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
-                if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
-                    ec.spawnerSpawned = true;
-                }
-            });
+        if (event.getSpawnReason() != null) {
+            if (event.getEntity() instanceof LivingEntity livingEntity) {
+                LivingEntityDataCapability.getCapability(livingEntity).ifPresent(ec -> {
+                    if (event.getSpawnReason().equals(MobSpawnType.SPAWNER)) {
+                        ec.spawnerSpawned = true;
+                    }
+                });
+            }
         }
     }
 
@@ -202,29 +206,17 @@ public class SoulHarvestHandler {
     }
 
     public static class ClientOnly {
-        private static final ResourceLocation HARVEST_NOISE = prefix("textures/vfx/soul_noise_secondary.png");
-        private static final RenderType HARVEST_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialScatterNoiseQuadRenderType(HARVEST_NOISE), () -> {
+        private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/noise/soul_noise.png");
+        private static final RenderType SOUL_NOISE_TYPE = RenderTypes.RADIAL_NOISE.apply(SOUL_NOISE);
+        private static final ResourceLocation PREVIEW_NOISE = prefix("textures/vfx/noise/harvest_noise.png");
+        private static final RenderType PREVIEW_NOISE_TYPE = RenderTypes.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
 
-            ShaderInstance instance = ShaderRegistry.radialScatterNoise.getInstance().get();
-            instance.safeGetUniform("Speed").set(-5500f);
-            instance.safeGetUniform("ScatterPower").set(40f);
-            instance.safeGetUniform("Intensity").set(55f);
-        });
-        private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/soul_noise.png");
-        private static final RenderType SOUL_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialNoiseQuadRenderType(SOUL_NOISE), () -> {
-            ShaderInstance instance = ShaderRegistry.radialNoise.getInstance().get();
-            instance.safeGetUniform("Speed").set(4500f);
-            instance.safeGetUniform("Intensity").set(45f);
-        });
-        private static final ResourceLocation PREVIEW_NOISE = prefix("textures/vfx/harvest_noise.png");
-        private static final RenderType PREVIEW_NOISE_TYPE = RenderTypes.withShaderHandler(RenderTypes.createRadialScatterNoiseQuadRenderType(PREVIEW_NOISE), () -> {
-
-            ShaderInstance instance = ShaderRegistry.radialScatterNoise.getInstance().get();
-            instance.safeGetUniform("Speed").set(-3500f);
-            instance.safeGetUniform("ScatterPower").set(-60f);
-            instance.safeGetUniform("Intensity").set(55f);
-        });
-
+        @SuppressWarnings("all")
+        public static void addRenderLayer(EntityRenderer<?> render) {
+            if (render instanceof LivingEntityRenderer livingRenderer) {
+                livingRenderer.addLayer(new SoulHarvestHandler.ClientOnly.HarvestRenderLayer<>(livingRenderer));
+            }
+        }
         public static class HarvestRenderLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
             public HarvestRenderLayer(RenderLayerParent<T, M> parent) {
@@ -238,39 +230,46 @@ public class SoulHarvestHandler {
                         Player player = pLivingEntity.level.getPlayerByUUID(c.ownerUUID);
                         if (player != null && player.isAlive() && pLivingEntity.isAlive()) {
                             poseStack.popPose();
-                            float previewProgress = c.getPreviewProgress() / 10f;
-                            float harvestProgress = c.getHarvestProgress() / 100f;
-                            if (previewProgress > 0f) {
-                                poseStack.pushPose();
-                                AABB boundingBox = pLivingEntity.getBoundingBox();
-                                Vec3 playerPosition = new Vec3(player.xo, player.yo, player.zo).lerp(player.position(), partialTicks);
-                                Vec3 entityPosition = new Vec3(pLivingEntity.xo, pLivingEntity.yo, pLivingEntity.zo).lerp(pLivingEntity.position(), partialTicks);
-                                Vec3 toPlayer = playerPosition.subtract(entityPosition).normalize().multiply(boundingBox.getXsize() * 0.5f, 0, boundingBox.getZsize() * 0.5f);
-
-                                poseStack.translate(toPlayer.x, toPlayer.y + pLivingEntity.getBbHeight() / 2f, toPlayer.z);
-                                poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
-                                poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
-
-                                Color soulColor = c.spiritData.primaryType.color;
-                                Color previewColor = ColorHelper.darker(c.spiritData.primaryType.color, 2);
-                                Color harvestColor = ColorHelper.brighter(c.spiritData.primaryType.color, 2);
-                                VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(SOUL_NOISE_TYPE);
-                                VertexConsumer previewNoise = DELAYED_RENDER.getBuffer(PREVIEW_NOISE_TYPE);
-                                float scale = previewProgress;
-                                renderQuad(soulNoise, poseStack, scale, scale, soulColor.getRed(), soulColor.getGreen(), soulColor.getBlue(), (int) (255 * previewProgress), 0, 0, 1, 1);
-                                scale += 0.3f * previewProgress;
-                                renderQuad(previewNoise, poseStack, scale, scale, previewColor.getRed(), previewColor.getGreen(), previewColor.getBlue(), (int) (255 * previewProgress), 0, 0, 1, 1);
-                                if (harvestProgress > 0f) {
-                                    VertexConsumer harvestNoise = DELAYED_RENDER.getBuffer(HARVEST_NOISE_TYPE);
-                                    scale = harvestProgress * 0.9f;
-                                    renderQuad(harvestNoise, poseStack, scale, scale, harvestColor.getRed(), harvestColor.getGreen(), harvestColor.getBlue(), (int) Math.min(255, 255 * harvestProgress), 0, 0, 1, 1);
-                                }
-                                poseStack.popPose();
-                            }
+                            renderSoulHarvestEffects(poseStack, pLivingEntity, player, c.spiritData.primaryType.color, c.getPreviewProgress() / 10f, c.getHarvestProgress(), partialTicks);
                             poseStack.pushPose();
                         }
                     }
                 });
+            }
+        }
+
+        public static void renderSoulHarvestEffects(PoseStack poseStack, LivingEntity target, Player player, Color color, float alphaAndScale, float harvestProgress, float partialTicks) {
+            if (alphaAndScale > 0f) {
+                poseStack.pushPose();
+                AABB boundingBox = target.getBoundingBox();
+                Vec3 playerPosition = new Vec3(player.xo, player.yo, player.zo).lerp(player.position(), partialTicks);
+                Vec3 entityPosition = new Vec3(target.xo, target.yo, target.zo).lerp(target.position(), partialTicks);
+                Vec3 toPlayer = playerPosition.subtract(entityPosition).normalize().multiply(boundingBox.getXsize() * 0.5f, 0, boundingBox.getZsize() * 0.5f);
+
+                VertexConsumer soulNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(SOUL_NOISE_TYPE,
+                        (instance) -> {
+                            instance.safeGetUniform("Speed").set(4500f);
+                            instance.safeGetUniform("Intensity").set(45f);
+                        }));
+
+                VertexConsumer previewNoise = DELAYED_RENDER.getBuffer(queueUniformChanges(PREVIEW_NOISE_TYPE,
+                        (instance -> {
+                            instance.safeGetUniform("Speed").set(-3500f);
+                            instance.safeGetUniform("ScatterPower").set(-60f);
+                            instance.safeGetUniform("ScatterFrequency").set(-0.2f);
+                            instance.safeGetUniform("Intensity").set(55f);
+                        })));
+                poseStack.translate(toPlayer.x, toPlayer.y + target.getBbHeight() / 2f, toPlayer.z);
+                poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
+                RenderHelper.create()
+                        .setColor(color.brighter())
+                        .setAlpha(alphaAndScale * 0.6f)
+                        .setLight(FULL_BRIGHT)
+                        .renderQuad(soulNoise, poseStack, alphaAndScale * 0.9f)
+                        .setColor(color.darker())
+                        .renderQuad(previewNoise, poseStack, Math.min(1, alphaAndScale * 1.3f));
+                poseStack.popPose();
             }
         }
     }

@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.common.recipe.SpiritRepairRecipe;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeBlastingRecipe;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeRecipeSerializer;
 import com.sammy.malum.common.recipe.vanilla.MetalNodeSmeltingRecipe;
@@ -23,5 +24,6 @@ public class RecipeSerializerRegistry {
 
     public static final RegistryObject<RecipeSerializer<SpiritInfusionRecipe>> INFUSION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritInfusionRecipe.NAME, SpiritInfusionRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<SpiritFocusingRecipe>> FOCUSING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritFocusingRecipe.NAME, SpiritFocusingRecipe.Serializer::new);
+    public static final RegistryObject<RecipeSerializer<SpiritRepairRecipe>> REPAIR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SpiritRepairRecipe.NAME, SpiritRepairRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<BlockTransmutationRecipe>> BLOCK_TRANSMUTATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(BlockTransmutationRecipe.NAME, BlockTransmutationRecipe.Serializer::new);
 }

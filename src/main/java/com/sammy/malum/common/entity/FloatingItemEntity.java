@@ -16,7 +16,7 @@ import java.awt.*;
 public class FloatingItemEntity extends FloatingEntity {
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(FloatingItemEntity.class, EntityDataSerializers.ITEM_STACK);
 
-    public ItemStack stack = ItemStack.EMPTY;
+    public ItemStack itemStack = ItemStack.EMPTY;
 
     public FloatingItemEntity(EntityType<? extends FloatingEntity> type, Level level) {
         super(type, level);
@@ -30,6 +30,7 @@ public class FloatingItemEntity extends FloatingEntity {
             this.getEntityData().set(DATA_ITEM_STACK, pStack);
         }
     }
+
     public void setColor(Color color, Color endColor) {
         this.color = color;
         getEntityData().set(DATA_COLOR, color.getRGB());
@@ -45,7 +46,7 @@ public class FloatingItemEntity extends FloatingEntity {
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
         if (DATA_ITEM_STACK.equals(pKey)) {
-            stack = getEntityData().get(DATA_ITEM_STACK);
+            itemStack = getEntityData().get(DATA_ITEM_STACK);
         }
         super.onSyncedDataUpdated(pKey);
     }

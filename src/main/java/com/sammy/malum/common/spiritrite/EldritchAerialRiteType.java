@@ -35,7 +35,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             BlockState filter = level.getBlockState(pos.below());
             ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
@@ -53,8 +53,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
                 BlockState stateBelow = level.getBlockState(p.below());
                 if (!stateBelow.canOcclude() || stateBelow.is(BlockTags.SLABS)) {
                     BlockState state = level.getBlockState(p);
-                    FallingBlockEntity fallingblockentity = new FallingBlockEntity(level, (double) p.getX() + 0.5D, p.getY(), (double) p.getZ() + 0.5D, state);
-                    level.addFreshEntity(fallingblockentity);
+                    FallingBlockEntity.fall(level, p, state);
                     INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockSparkleParticlePacket(AERIAL_SPIRIT_COLOR, p.getX(), p.getY(), p.getZ()));
                 }
             });
@@ -62,7 +61,7 @@ public class EldritchAerialRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.CORRUPTED_AERIAL_AURA.get()) == null) {

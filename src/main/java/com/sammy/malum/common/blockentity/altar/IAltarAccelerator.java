@@ -13,7 +13,7 @@ public interface IAltarAccelerator {
     }
     public float getAcceleration();
 
-    default void addParticles(BlockPos altarPos, Vec3 altarItemPos) {
+    default void addParticles(BlockPos altarPos, Vec3 altarentity) {
 
     }
     public default void addParticles(Color color, Color endColor, float alpha, BlockPos altarPos, Vec3 altarItemPos)

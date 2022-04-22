@@ -10,7 +10,6 @@ import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.multiblock.HorizontalDirectionStructure;
 import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
 import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
-import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,6 +22,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -89,6 +89,13 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     }
 
     @Override
+    public boolean canStartAccelerating() {
+        boolean ticks = burnTicks > 0;
+        boolean stack = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) > 0;
+        return ticks || stack;
+    }
+
+    @Override
     public boolean canAccelerate() {
         updateBurnTicks();
         return burnTicks > 0;
@@ -96,7 +103,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public void tick() {
-        if (target != null && !target.isValid()) {
+        if (target != null && !target.canBeAccelerated()) {
             setTarget(null);
         } else if (target != null) {
             if (burnTicks > 0) {
@@ -109,7 +116,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         if (burnTicks == 0) {
             ItemStack stack = inventory.getStackInSlot(0);
             if (!stack.isEmpty()) {
-                burnTicks = stack.getBurnTime(RecipeType.SMELTING) / 2;
+                burnTicks = ForgeHooks.getBurnTime(inventory.getStackInSlot(0), RecipeType.SMELTING) / 2;
                 stack.shrink(1);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
@@ -117,11 +124,11 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     }
 
     @Override
-    public void addParticles(Color color, Color endColor, float alpha, BlockPos cruciblePos, Vec3 crucibleItemPos) {
+    public void addParticles(Color color, Color endColor, float alpha, BlockPos targetPos, Vec3 targetItemPos) {
         if (burnTicks > 0) {
-            Vec3 startPos = itemPos(this);
+            Vec3 startPos = getItemPos(this);
             float random = level.random.nextFloat() * 0.04f;
-            Vec3 velocity = startPos.subtract(crucibleItemPos.add(random, random, random)).normalize().scale(-0.08f);
+            Vec3 velocity = startPos.subtract(targetItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
             ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 5f, 0f)
@@ -137,20 +144,9 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
-                    .setAlpha(alpha * 1.5f, 0f)
-                    .setLifetime(25)
-                    .setScale(0.05f + level.random.nextFloat() * 0.15f, 0)
-                    .randomOffset(0.1)
-                    .setSpinOffset((0.225f * level.getGameTime()) % 6.28f)
-                    .setColor(color, endColor)
-                    .randomMotion(0.005f, 0.005f)
-                    .enableNoClip()
-                    .repeat(level, startPos.x, startPos.y, startPos.z, 1);
-
             ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
-                    .setAlpha(alpha * 1.5f, 0f)
-                    .setLifetime(25)
+                    .setAlpha(alpha * 3, 0f)
+                    .setLifetime(15)
                     .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
                     .setSpinOffset((0.15f * level.getGameTime()) % 6.28f)
@@ -159,8 +155,8 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
             ParticleBuilders.create(ParticleRegistry.STAR_PARTICLE)
-                    .setAlpha(alpha * 2, 0f)
-                    .setLifetime(25)
+                    .setAlpha(alpha * 3, 0f)
+                    .setLifetime(15)
                     .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)
                     .randomOffset(0.05)
                     .setSpinOffset((0.075f * level.getGameTime()) % 6.28f)
@@ -183,7 +179,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
         super.onBreak();
     }
 
-    public static Vec3 itemPos(SpiritCatalyzerCoreBlockEntity blockEntity) {
+    public static Vec3 getItemPos(SpiritCatalyzerCoreBlockEntity blockEntity) {
         return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 

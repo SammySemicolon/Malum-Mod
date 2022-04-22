@@ -4,6 +4,9 @@
     "level": 0,
     "effects": {
       "malum.shatters_souls": 1
+    },
+    "aspects": {
+      "soulStained": 2
     }
   },
   {
@@ -11,6 +14,9 @@
     "level": 1,
     "effects": {
       "malum.shatters_souls": 1
+    },
+    "aspects": {
+      "soulStained": 2
     }
   }
 ]

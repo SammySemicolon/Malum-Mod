@@ -11,16 +11,13 @@ import net.minecraftforge.network.PacketDistributor;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
-public class WickedRiteType extends MalumRiteType
-{
-    public WickedRiteType()
-    {
+public class WickedRiteType extends MalumRiteType {
+    public WickedRiteType() {
         super("wicked_rite", ARCANE_SPIRIT, WICKED_SPIRIT, WICKED_SPIRIT);
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos)
-    {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(LivingEntity.class, level, pos, false).forEach(e -> {
                 if (e.getHealth() > 2.5f) {
@@ -31,7 +28,7 @@ public class WickedRiteType extends MalumRiteType
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(LivingEntity.class, level, pos, true).forEach(e -> {
                 if (e.getHealth() <= 2.5f) {

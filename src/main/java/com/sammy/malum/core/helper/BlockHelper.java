@@ -41,7 +41,6 @@ public class BlockHelper {
         compoundNBT.putInt("Y", pos.getY());
         compoundNBT.putInt("Z", pos.getZ());
     }
-
     public static void saveBlockPos(CompoundTag compoundNBT, BlockPos pos, String extra) {
         compoundNBT.putInt(extra + "X", pos.getX());
         compoundNBT.putInt(extra + "Y", pos.getY());
@@ -49,15 +48,20 @@ public class BlockHelper {
     }
 
     public static BlockPos loadBlockPos(CompoundTag tag) {
-        return new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
+        return tag.contains("X") ? new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z")) : null;
     }
-
     public static BlockPos loadBlockPos(CompoundTag tag, String extra) {
-        return new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z"));
+        return tag.contains(extra + "X") ? new BlockPos(tag.getInt(extra + "X"), tag.getInt(extra + "Y"), tag.getInt(extra + "Z")) : null;
     }
 
     public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int range, Predicate<T> predicate) {
         return getBlockEntities(type, level, pos, range, range, range, predicate);
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int z, Predicate<T> predicate) {
+        ArrayList<T> blockEntities = getBlockEntities(type, level, pos, x, z);
+        blockEntities.removeIf(b -> !predicate.test(b));
+        return blockEntities;
     }
 
     public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int y, int z, Predicate<T> predicate) {
@@ -68,6 +72,10 @@ public class BlockHelper {
 
     public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int range) {
         return getBlockEntities(type, level, pos, range, range, range);
+    }
+
+    public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int z) {
+        return getBlockEntities(type, level, new AABB(pos.getX() - x, pos.getY(), pos.getZ() - z, pos.getX() + x, pos.getY()+1, pos.getZ() + z));
     }
 
     public static <T> ArrayList<T> getBlockEntities(Class<T> type, Level level, BlockPos pos, int x, int y, int z) {

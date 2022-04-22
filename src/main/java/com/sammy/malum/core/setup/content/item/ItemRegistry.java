@@ -1,10 +1,7 @@
 package com.sammy.malum.core.setup.content.item;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.model.DripArmorModel;
-import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
-import com.sammy.malum.client.model.SpiritHunterArmorModel;
-import com.sammy.malum.client.model.TailModel;
+import com.sammy.malum.client.model.*;
 import com.sammy.malum.common.block.misc.MalumLeavesBlock;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
@@ -24,26 +21,23 @@ import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.common.item.ether.EtherTorchItem;
 import com.sammy.malum.common.item.food.HolySyrupItem;
 import com.sammy.malum.common.item.food.UnholySyrupItem;
+import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.misc.MalumBoatItem;
 import com.sammy.malum.common.item.misc.MalumFuelBlockItem;
 import com.sammy.malum.common.item.misc.MalumFuelItem;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
-import com.sammy.malum.core.systems.rendering.particle.ParticleRenderTypes;
-import com.sammy.malum.core.systems.rendering.particle.SimpleParticleOptions;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import net.minecraft.client.Minecraft;
+import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
@@ -62,7 +56,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 import static com.sammy.malum.MalumMod.MODID;
@@ -95,7 +88,6 @@ public class ItemRegistry {
     public static Item.Properties GEAR_PROPERTIES() {
         return new Item.Properties().tab(MalumCreativeTab.INSTANCE).stacksTo(1);
     }
-
     public static Item.Properties IMPETUS_PROPERTIES() {
         return new Item.Properties().tab(MalumImpetusTab.INSTANCE).stacksTo(1);
     }
@@ -121,14 +113,13 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SMALL_TAINTED_ROCK_BRICKS = ITEMS.register("small_tainted_rock_bricks", () -> new BlockItem(BlockRegistry.SMALL_TAINTED_ROCK_BRICKS.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> CRACKED_SMALL_TAINTED_ROCK_BRICKS = ITEMS.register("cracked_small_tainted_rock_bricks", () -> new BlockItem(BlockRegistry.CRACKED_SMALL_TAINTED_ROCK_BRICKS.get(), BUILDING_PROPERTIES()));
 
-    public static final RegistryObject<Item> TAINTED_ROCK_PILLAR = ITEMS.register("tainted_rock_pillar", () -> new BlockItem(BlockRegistry.TAINTED_ROCK_PILLAR.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TAINTED_ROCK_PILLAR_CAP = ITEMS.register("tainted_rock_pillar_cap", () -> new BlockItem(BlockRegistry.TAINTED_ROCK_PILLAR_CAP.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_ROCK_COLUMN = ITEMS.register("tainted_rock_column", () -> new BlockItem(BlockRegistry.TAINTED_ROCK_COLUMN.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_ROCK_COLUMN_CAP = ITEMS.register("tainted_rock_column_cap", () -> new BlockItem(BlockRegistry.TAINTED_ROCK_COLUMN_CAP.get(), BUILDING_PROPERTIES()));
 
     public static final RegistryObject<Item> CUT_TAINTED_ROCK = ITEMS.register("cut_tainted_rock", () -> new BlockItem(BlockRegistry.CUT_TAINTED_ROCK.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> CHISELED_TAINTED_ROCK = ITEMS.register("chiseled_tainted_rock", () -> new BlockItem(BlockRegistry.CHISELED_TAINTED_ROCK.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_ROCK_PRESSURE_PLATE = ITEMS.register("tainted_rock_pressure_plate", () -> new BlockItem(BlockRegistry.TAINTED_ROCK_PRESSURE_PLATE.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> TAINTED_ROCK_BUTTON = ITEMS.register("tainted_rock_button", () -> new BlockItem(BlockRegistry.TAINTED_ROCK_BUTTON.get(), BUILDING_PROPERTIES()));
 
     public static final RegistryObject<Item> TAINTED_ROCK_WALL = ITEMS.register("tainted_rock_wall", () -> new BlockItem(BlockRegistry.TAINTED_ROCK_WALL.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TAINTED_ROCK_BRICKS_WALL = ITEMS.register("tainted_rock_bricks_wall", () -> new BlockItem(BlockRegistry.TAINTED_ROCK_BRICKS_WALL.get(), BUILDING_PROPERTIES()));
@@ -174,14 +165,13 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SMALL_TWISTED_ROCK_BRICKS = ITEMS.register("small_twisted_rock_bricks", () -> new BlockItem(BlockRegistry.SMALL_TWISTED_ROCK_BRICKS.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> CRACKED_SMALL_TWISTED_ROCK_BRICKS = ITEMS.register("cracked_small_twisted_rock_bricks", () -> new BlockItem(BlockRegistry.CRACKED_SMALL_TWISTED_ROCK_BRICKS.get(), BUILDING_PROPERTIES()));
 
-    public static final RegistryObject<Item> TWISTED_ROCK_PILLAR = ITEMS.register("twisted_rock_pillar", () -> new BlockItem(BlockRegistry.TWISTED_ROCK_PILLAR.get(), BUILDING_PROPERTIES()));
-    public static final RegistryObject<Item> TWISTED_ROCK_PILLAR_CAP = ITEMS.register("twisted_rock_pillar_cap", () -> new BlockItem(BlockRegistry.TWISTED_ROCK_PILLAR_CAP.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TWISTED_ROCK_COLUMN = ITEMS.register("twisted_rock_column", () -> new BlockItem(BlockRegistry.TWISTED_ROCK_COLUMN.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TWISTED_ROCK_COLUMN_CAP = ITEMS.register("twisted_rock_column_cap", () -> new BlockItem(BlockRegistry.TWISTED_ROCK_COLUMN_CAP.get(), BUILDING_PROPERTIES()));
 
     public static final RegistryObject<Item> CUT_TWISTED_ROCK = ITEMS.register("cut_twisted_rock", () -> new BlockItem(BlockRegistry.CUT_TWISTED_ROCK.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> CHISELED_TWISTED_ROCK = ITEMS.register("chiseled_twisted_rock", () -> new BlockItem(BlockRegistry.CHISELED_TWISTED_ROCK.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TWISTED_ROCK_PRESSURE_PLATE = ITEMS.register("twisted_rock_pressure_plate", () -> new BlockItem(BlockRegistry.TWISTED_ROCK_PRESSURE_PLATE.get(), BUILDING_PROPERTIES()));
+    public static final RegistryObject<Item> TWISTED_ROCK_BUTTON = ITEMS.register("twisted_rock_button", () -> new BlockItem(BlockRegistry.TWISTED_ROCK_BUTTON.get(), BUILDING_PROPERTIES()));
 
     public static final RegistryObject<Item> TWISTED_ROCK_WALL = ITEMS.register("twisted_rock_wall", () -> new BlockItem(BlockRegistry.TWISTED_ROCK_WALL.get(), BUILDING_PROPERTIES()));
     public static final RegistryObject<Item> TWISTED_ROCK_BRICKS_WALL = ITEMS.register("twisted_rock_bricks_wall", () -> new BlockItem(BlockRegistry.TWISTED_ROCK_BRICKS_WALL.get(), BUILDING_PROPERTIES()));
@@ -354,6 +344,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOULSTONE_ORE = ITEMS.register("soulstone_ore", () -> new BlockItem(BlockRegistry.SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> DEEPSLATE_SOULSTONE_ORE = ITEMS.register("deepslate_soulstone_ore", () -> new BlockItem(BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> RAW_SOULSTONE = ITEMS.register("raw_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> CRUSHED_SOULSTONE = ITEMS.register("crushed_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_RAW_SOULSTONE = ITEMS.register("block_of_raw_soulstone", () -> new BlockItem(BlockRegistry.BLOCK_OF_RAW_SOULSTONE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> PROCESSED_SOULSTONE = ITEMS.register("processed_soulstone", () -> new Item(DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> BLOCK_OF_SOULSTONE = ITEMS.register("block_of_soulstone", () -> new BlockItem(BlockRegistry.BLOCK_OF_SOULSTONE.get(), DEFAULT_PROPERTIES()));
@@ -362,17 +353,17 @@ public class ItemRegistry {
     //region crafting blocks
     public static final RegistryObject<Item> SPIRIT_ALTAR = ITEMS.register("spirit_altar", () -> new BlockItem(BlockRegistry.SPIRIT_ALTAR.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_JAR = ITEMS.register("spirit_jar", () -> new SpiritJarItem(BlockRegistry.SPIRIT_JAR.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOUL_VIAL = ITEMS.register("soul_vial", () -> new SoulVialItem(BlockRegistry.SOUL_VIAL.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> SOUL_VIAL = ITEMS.register("soul_vial", () -> new SoulVialItem(BlockRegistry.SOUL_VIAL.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_OBELISK = ITEMS.register("runewood_obelisk", () -> new MultiBlockItem(BlockRegistry.RUNEWOOD_OBELISK.get(), DEFAULT_PROPERTIES(), RunewoodObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> BRILLIANT_OBELISK = ITEMS.register("brilliant_obelisk", () -> new MultiBlockItem(BlockRegistry.BRILLIANT_OBELISK.get(), DEFAULT_PROPERTIES(), BrilliantObeliskBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> SPIRIT_CRUCIBLE = ITEMS.register("spirit_crucible", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CRUCIBLE.get(), DEFAULT_PROPERTIES(), SpiritCrucibleCoreBlockEntity.STRUCTURE));
     public static final RegistryObject<Item> TWISTED_TABLET = ITEMS.register("twisted_tablet", () -> new BlockItem(BlockRegistry.TWISTED_TABLET.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SPIRIT_CATALYZER = ITEMS.register("spirit_catalyzer", () -> new MultiBlockItem(BlockRegistry.SPIRIT_CATALYZER.get(), DEFAULT_PROPERTIES(), SpiritCatalyzerCoreBlockEntity.STRUCTURE));
-    public static final RegistryObject<Item> EMITTER_MIRROR = ITEMS.register("emitter_mirror", () -> new BlockItem(BlockRegistry.EMITTER_MIRROR.get(), DEFAULT_PROPERTIES()));
+    public static final RegistryObject<Item> EMITTER_MIRROR = ITEMS.register("emitter_mirror", () -> new BlockItem(BlockRegistry.EMITTER_MIRROR.get(), HIDDEN_PROPERTIES()));
     public static final RegistryObject<Item> RUNEWOOD_TOTEM_BASE = ITEMS.register("runewood_totem_base", () -> new BlockItem(BlockRegistry.RUNEWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_TOTEM_BASE = ITEMS.register("soulwood_totem_base", () -> new BlockItem(BlockRegistry.SOULWOOD_TOTEM_BASE.get(), DEFAULT_PROPERTIES()));
-    public static final RegistryObject<Item> SOULWOOD_PLINTH = ITEMS.register("soulwood_plinth", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_PLINTH.get(), DEFAULT_PROPERTIES(), PlinthCoreBlockEntity.STRUCTURE));
-    public static final RegistryObject<Item> SOULWOOD_FUSION_PLATE = ITEMS.register("soulwood_fusion_plate", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_FUSION_PLATE.get(), DEFAULT_PROPERTIES(), FusionPlateBlockEntity.STRUCTURE));
+    public static final RegistryObject<Item> SOULWOOD_PLINTH = ITEMS.register("soulwood_plinth", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_PLINTH.get(), HIDDEN_PROPERTIES(), PlinthCoreBlockEntity.STRUCTURE));
+    public static final RegistryObject<Item> SOULWOOD_FUSION_PLATE = ITEMS.register("soulwood_fusion_plate", () -> new MultiBlockItem(BlockRegistry.SOULWOOD_FUSION_PLATE.get(), HIDDEN_PROPERTIES(), FusionPlateBlockEntity.STRUCTURE));
     //endregion
 
     //region materials
@@ -392,42 +383,42 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLOCK_OF_SOUL_STAINED_STEEL = ITEMS.register("block_of_soul_stained_steel", () -> new BlockItem(BlockRegistry.BLOCK_OF_SOUL_STAINED_STEEL.get(), DEFAULT_PROPERTIES()));
     public static final RegistryObject<Item> STAINED_SPIRIT_RESONATOR = ITEMS.register("stained_spirit_resonator", () -> new Item(DEFAULT_PROPERTIES()));
 
-    public static final RegistryObject<Item> CRACKED_ALCHEMICAL_IMPETUS = ITEMS.register("cracked_alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> ALCHEMICAL_IMPETUS = ITEMS.register("alchemical_impetus", () -> new ImpetusItem(GEAR_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALCHEMICAL_IMPETUS));
-
-    public static final RegistryObject<Item> CRACKED_IRON_IMPETUS = ITEMS.register("cracked_iron_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> IRON_IMPETUS = ITEMS.register("iron_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_IRON_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_IRON_IMPETUS = ITEMS.register("cracked_iron_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> IRON_IMPETUS = ITEMS.register("iron_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_IRON_IMPETUS));
     public static final RegistryObject<Item> IRON_NODE = ITEMS.register("iron_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_COPPER_IMPETUS = ITEMS.register("cracked_copper_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> COPPER_IMPETUS = ITEMS.register("copper_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_COPPER_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_COPPER_IMPETUS = ITEMS.register("cracked_copper_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> COPPER_IMPETUS = ITEMS.register("copper_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_COPPER_IMPETUS));
     public static final RegistryObject<Item> COPPER_NODE = ITEMS.register("copper_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_GOLD_IMPETUS = ITEMS.register("cracked_gold_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> GOLD_IMPETUS = ITEMS.register("gold_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_GOLD_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_GOLD_IMPETUS = ITEMS.register("cracked_gold_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> GOLD_IMPETUS = ITEMS.register("gold_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_GOLD_IMPETUS));
     public static final RegistryObject<Item> GOLD_NODE = ITEMS.register("gold_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_LEAD_IMPETUS = ITEMS.register("cracked_lead_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> LEAD_IMPETUS = ITEMS.register("lead_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_LEAD_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_LEAD_IMPETUS = ITEMS.register("cracked_lead_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> LEAD_IMPETUS = ITEMS.register("lead_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_LEAD_IMPETUS));
     public static final RegistryObject<Item> LEAD_NODE = ITEMS.register("lead_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_SILVER_IMPETUS = ITEMS.register("cracked_silver_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> SILVER_IMPETUS = ITEMS.register("silver_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_SILVER_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_SILVER_IMPETUS = ITEMS.register("cracked_silver_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> SILVER_IMPETUS = ITEMS.register("silver_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_SILVER_IMPETUS));
     public static final RegistryObject<Item> SILVER_NODE = ITEMS.register("silver_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_ALUMINUM_IMPETUS = ITEMS.register("cracked_aluminum_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> ALUMINUM_IMPETUS = ITEMS.register("aluminum_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALUMINUM_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_ALUMINUM_IMPETUS = ITEMS.register("cracked_aluminum_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> ALUMINUM_IMPETUS = ITEMS.register("aluminum_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALUMINUM_IMPETUS));
     public static final RegistryObject<Item> ALUMINUM_NODE = ITEMS.register("aluminum_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_NICKEL_IMPETUS = ITEMS.register("cracked_nickel_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> NICKEL_IMPETUS = ITEMS.register("nickel_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_NICKEL_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_NICKEL_IMPETUS = ITEMS.register("cracked_nickel_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> NICKEL_IMPETUS = ITEMS.register("nickel_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_NICKEL_IMPETUS));
     public static final RegistryObject<Item> NICKEL_NODE = ITEMS.register("nickel_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_URANIUM_IMPETUS = ITEMS.register("cracked_uranium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> URANIUM_IMPETUS = ITEMS.register("uranium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_URANIUM_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_URANIUM_IMPETUS = ITEMS.register("cracked_uranium_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> URANIUM_IMPETUS = ITEMS.register("uranium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_URANIUM_IMPETUS));
     public static final RegistryObject<Item> URANIUM_NODE = ITEMS.register("uranium_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_OSMIUM_IMPETUS = ITEMS.register("cracked_osmium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> OSMIUM_IMPETUS = ITEMS.register("osmium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_OSMIUM_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_OSMIUM_IMPETUS = ITEMS.register("cracked_osmium_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> OSMIUM_IMPETUS = ITEMS.register("osmium_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_OSMIUM_IMPETUS));
     public static final RegistryObject<Item> OSMIUM_NODE = ITEMS.register("osmium_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_ZINC_IMPETUS = ITEMS.register("cracked_zinc_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> ZINC_IMPETUS = ITEMS.register("zinc_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ZINC_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_ZINC_IMPETUS = ITEMS.register("cracked_zinc_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> ZINC_IMPETUS = ITEMS.register("zinc_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ZINC_IMPETUS));
     public static final RegistryObject<Item> ZINC_NODE = ITEMS.register("zinc_node", () -> new NodeItem(NODE_PROPERTIES()));
-    public static final RegistryObject<Item> CRACKED_TIN_IMPETUS = ITEMS.register("cracked_tin_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES()));
-    public static final RegistryObject<Item> TIN_IMPETUS = ITEMS.register("tin_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_TIN_IMPETUS));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_TIN_IMPETUS = ITEMS.register("cracked_tin_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> TIN_IMPETUS = ITEMS.register("tin_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_TIN_IMPETUS));
     public static final RegistryObject<Item> TIN_NODE = ITEMS.register("tin_node", () -> new NodeItem(NODE_PROPERTIES()));
+
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_ALCHEMICAL_IMPETUS = ITEMS.register("cracked_alchemical_impetus", () -> new CrackedImpetusItem(IMPETUS_PROPERTIES()));
+    public static final RegistryObject<ImpetusItem> ALCHEMICAL_IMPETUS = ITEMS.register("alchemical_impetus", () -> new ImpetusItem(IMPETUS_PROPERTIES().durability(100)).setCrackedVariant(CRACKED_ALCHEMICAL_IMPETUS));
 
     //endregion
 
@@ -448,7 +439,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new MagicScytheItem(Tiers.IRON, 0, 0.1f, 0, GEAR_PROPERTIES().durability(350)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new MagicScytheItem(SOUL_STAINED_STEEL, -2.5f, 0.1f, 4, GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> SOULWOOD_STAVE = ITEMS.register("soulwood_stave", () -> new SoulStaveItem(GEAR_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_STAVE = ITEMS.register("soulwood_stave", () -> new SoulStaveItem(HIDDEN_PROPERTIES()));
 
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SWORD = ITEMS.register("soul_stained_steel_sword", () -> new MagicSwordItem(SOUL_STAINED_STEEL, -3, 0, 3, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_PICKAXE = ITEMS.register("soul_stained_steel_pickaxe", () -> new MagicPickaxeItem(SOUL_STAINED_STEEL, -2, 0, 2, GEAR_PROPERTIES()));
@@ -486,8 +477,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> WARDED_BELT = ITEMS.register("warded_belt", () -> new CurioWardedBelt(GEAR_PROPERTIES()));
     public static final RegistryObject<Item> MAGEBANE_BELT = ITEMS.register("magebane_belt", () -> new CurioMagebaneBelt(GEAR_PROPERTIES()));
 
-    public static final RegistryObject<Item> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new CrackedCeaselessImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().durability(2).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<CrackedImpetusItem> CRACKED_CEASELESS_IMPETUS = ITEMS.register("cracked_ceaseless_impetus", () -> new CrackedImpetusItem(GEAR_PROPERTIES().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> CEASELESS_IMPETUS = ITEMS.register("ceaseless_impetus", () -> new CeaselessImpetusItem(GEAR_PROPERTIES().durability(2).rarity(Rarity.UNCOMMON)).setCrackedVariant(CRACKED_CEASELESS_IMPETUS::get));
 
     //endregion
 
@@ -526,6 +517,7 @@ public class ItemRegistry {
         public static SpiritHunterArmorModel SPIRIT_HUNTER_ARMOR;
         public static SoulStainedSteelArmorModel SOUL_STAINED_ARMOR;
         public static TailModel TAIL_MODEL;
+        public static HeadOverlayModel HEAD_OVERLAY_MODEL;
 
         @SubscribeEvent
         public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -533,6 +525,7 @@ public class ItemRegistry {
             event.registerLayerDefinition(SpiritHunterArmorModel.LAYER, SpiritHunterArmorModel::createBodyLayer);
             event.registerLayerDefinition(SoulStainedSteelArmorModel.LAYER, SoulStainedSteelArmorModel::createBodyLayer);
             event.registerLayerDefinition(TailModel.LAYER, TailModel::createBodyLayer);
+            event.registerLayerDefinition(HeadOverlayModel.LAYER, HeadOverlayModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -541,12 +534,16 @@ public class ItemRegistry {
             SPIRIT_HUNTER_ARMOR = new SpiritHunterArmorModel(event.getEntityModels().bakeLayer(SpiritHunterArmorModel.LAYER));
             SOUL_STAINED_ARMOR = new SoulStainedSteelArmorModel(event.getEntityModels().bakeLayer(SoulStainedSteelArmorModel.LAYER));
             TAIL_MODEL = new TailModel(event.getEntityModels().bakeLayer(TailModel.LAYER));
+            HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
         }
 
         public static void registerParticleEmitters(FMLClientSetupEvent event) {
-            for (MalumSpiritType spirit : SPIRITS) {
-                SpiritHelper.registerSpiritParticleEmitter(spirit);
-            }
+            Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+            DataHelper.takeAll(items, i -> i.get() instanceof ItemParticleEmitter).forEach(i -> {
+                        ItemParticleEmitter emitter = (ItemParticleEmitter) i.get();
+                        ScreenParticleHandler.registerItemParticleEmitter(i.get(), emitter::particleTick);
+                    }
+            );
         }
 
         @SubscribeEvent
@@ -557,8 +554,7 @@ public class ItemRegistry {
             DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof MalumLeavesBlock).forEach(item ->
             {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
-                registerItemColor(itemColors, item, malumLeavesBlock.minColor);
+                itemColors.register((s, c) -> ColorHelper.getDecimal(malumLeavesBlock.minColor), item.get());
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> itemColors.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();

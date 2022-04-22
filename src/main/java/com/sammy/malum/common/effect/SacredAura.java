@@ -10,7 +10,7 @@ public class SacredAura extends MobEffect
 {
     public SacredAura()
     {
-        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.SACRED_SPIRIT_COLOR));
+        super(MobEffectCategory.BENEFICIAL, ColorHelper.getDecimal(SpiritTypeRegistry.SACRED_SPIRIT_COLOR));
     }
 
     @Override

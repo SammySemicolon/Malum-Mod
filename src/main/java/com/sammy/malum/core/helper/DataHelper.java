@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.MalumMod.MODID;
+import static net.minecraft.util.Mth.sqrt;
 
 public class DataHelper {
     public static Vec3 fromBlockPos(BlockPos pos) {
@@ -114,7 +115,7 @@ public class DataHelper {
         return src.stream().filter(pred).collect(Collectors.toList());
     }
 
-    public static Vec3 circlePosition(Vec3 pos, float distance, float current, float total) {
+    public static Vec3 circle(Vec3 pos, float distance, float current, float total) {
         double angle = current / total * (Math.PI * 2);
         double dx2 = (distance * Math.cos(angle));
         double dz2 = (distance * Math.sin(angle));
@@ -125,11 +126,49 @@ public class DataHelper {
         return pos.add(new Vec3(x, 0, z));
     }
 
-    public static Vec3 rotatedCirclePosition(Vec3 pos, float distance, float current, float total, long gameTime, float time) {
-        return rotatedCirclePosition(pos, distance, distance, current, total, gameTime, time);
+    public static ArrayList<Vec3> halfCircle(Vec3 pos, float distance, float total, float angleOffset) {
+        return halfCircle(pos, distance, distance, total, angleOffset);
     }
 
-    public static Vec3 rotatedCirclePosition(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time) {
+    public static ArrayList<Vec3> halfCircle(Vec3 pos, float distanceX, float distanceZ, float total, float angleOffset) {
+        ArrayList<Vec3> positions = new ArrayList<>();
+        for (int i = 0; i <= total/2f; i++) {
+            double angle = i / total * (Math.PI * 2);
+            angle += angleOffset;
+            double dx2 = (distanceX * Math.cos(angle));
+            double dz2 = (distanceZ * Math.sin(angle));
+
+            Vec3 vector2f = new Vec3(dx2, 0, dz2);
+            double x = vector2f.x * distanceX;
+            double z = vector2f.z * distanceZ;
+            positions.add(pos.add(x, 0, z));
+        }
+        return positions;
+    }
+    public static ArrayList<Vec3> rotatingCircle(Vec3 pos, float distance, float total, long gameTime, float time) {
+        return rotatingCircle(pos, distance, distance, total, gameTime, time);
+    }
+
+    public static ArrayList<Vec3> rotatingCircle(Vec3 pos, float distanceX, float distanceZ, float total, long gameTime, float time) {
+        ArrayList<Vec3> positions = new ArrayList<>();
+        for (int i = 0; i <= total; i++) {
+            double angle = i / total * (Math.PI * 2);
+            angle += ((gameTime % time) / time) * (Math.PI * 2);
+            double dx2 = (distanceX * Math.cos(angle));
+            double dz2 = (distanceZ * Math.sin(angle));
+
+            Vec3 vector2f = new Vec3(dx2, 0, dz2);
+            double x = vector2f.x * distanceX;
+            double z = vector2f.z * distanceZ;
+            positions.add(pos.add(x, 0, z));
+        }
+        return positions;
+    }
+    public static Vec3 rotatingCircleOffset(Vec3 pos, float distance, float current, float total, long gameTime, float time) {
+        return rotatingCircleOffset(pos, distance, distance, current, total, gameTime, time);
+    }
+
+    public static Vec3 rotatingCircleOffset(Vec3 pos, float distanceX, float distanceZ, float current, float total, long gameTime, float time) {
         double angle = current / total * (Math.PI * 2);
         angle += ((gameTime % time) / time) * (Math.PI * 2);
         double dx2 = (distanceX * Math.cos(angle));
@@ -156,5 +195,17 @@ public class DataHelper {
             }
         }
         return arrayList;
+    }
+
+    public static float distSqr(float... a) {
+        float d = 0.0F;
+        for (float f : a) {
+            d += f * f;
+        }
+        return d;
+    }
+
+    public static float distance(float... a) {
+        return sqrt(distSqr(a));
     }
 }

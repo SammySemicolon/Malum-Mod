@@ -20,7 +20,7 @@ public class EarthenRiteType extends MalumRiteType
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.EARTHEN_AURA.get()) == null) {
@@ -32,7 +32,7 @@ public class EarthenRiteType extends MalumRiteType
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.CORRUPTED_EARTHEN_AURA.get()) == null) {

@@ -15,27 +15,29 @@ public abstract class ScreenParticle {
       BEFORE_UI, BEFORE_TOOLTIPS, AFTER_EVERYTHING
    }
 
-   protected final ClientLevel level;
-   protected double xOld;
-   protected double yOld;
-   protected double x;
-   protected double y;
-   protected double xMotion;
-   protected double yMotion;
-   protected boolean removed;
-   protected final Random random = new Random();
-   protected int age;
-   protected int lifetime;
-   protected float gravity;
-   protected float size = 1;
-   protected float rCol = 1.0F;
-   protected float gCol = 1.0F;
-   protected float bCol = 1.0F;
-   protected float alpha = 1.0F;
-   protected float roll;
-   protected float oRoll;
-   protected float friction = 0.98F;
-   protected RenderOrder renderOrder = RenderOrder.AFTER_EVERYTHING;
+   public final ClientLevel level;
+   public double xOld;
+   public double yOld;
+   public double x;
+   public double y;
+   public double xMotion;
+   public double yMotion;
+   public double xMoved;
+   public double yMoved;
+   public boolean removed;
+   public final Random random = new Random();
+   public int age;
+   public int lifetime;
+   public float gravity;
+   public float size = 1;
+   public float rCol = 1.0F;
+   public float gCol = 1.0F;
+   public float bCol = 1.0F;
+   public float alpha = 1.0F;
+   public float roll;
+   public float oRoll;
+   public float friction = 0.98F;
+   public RenderOrder renderOrder = RenderOrder.AFTER_EVERYTHING;
 
    protected ScreenParticle(ClientLevel pLevel, double pX, double pY) {
       this.level = pLevel;
@@ -104,6 +106,8 @@ public abstract class ScreenParticle {
          this.yMotion *= this.friction;
          this.x += xMotion;
          this.y += yMotion;
+         this.xMoved += xMotion;
+         this.yMoved += yMotion;
       }
    }
 

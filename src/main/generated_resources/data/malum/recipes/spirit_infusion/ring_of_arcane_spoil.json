@@ -20,7 +20,7 @@
   ],
   "spirits": [
     {
-      "item": "malum:wicked_spirit",
+      "type": "wicked",
       "count": 12
     }
   ]

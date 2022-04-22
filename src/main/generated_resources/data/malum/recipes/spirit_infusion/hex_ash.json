@@ -11,7 +11,7 @@
   "extra_items": [],
   "spirits": [
     {
-      "item": "malum:arcane_spirit"
+      "type": "arcane"
     }
   ]
 }

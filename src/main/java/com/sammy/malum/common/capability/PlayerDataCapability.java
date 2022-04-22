@@ -60,6 +60,7 @@ public class PlayerDataCapability implements SimpleCapability {
             }
         }
     }
+
     public static void syncPlayerCapability(PlayerEvent.StartTracking event) {
         if (event.getTarget() instanceof Player player) {
             if (player.level instanceof ServerLevel) {
@@ -67,12 +68,13 @@ public class PlayerDataCapability implements SimpleCapability {
             }
         }
     }
-    public static void playerClone(PlayerEvent.Clone event)
-    {
+
+    public static void playerClone(PlayerEvent.Clone event) {
         PlayerDataCapability originalCapability = PlayerDataCapability.getCapability(event.getOriginal()).orElse(new PlayerDataCapability());
         PlayerDataCapability capability = PlayerDataCapability.getCapability(event.getPlayer()).orElse(new PlayerDataCapability());
         capability.deserializeNBT(originalCapability.serializeNBT());
     }
+
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
@@ -115,17 +117,20 @@ public class PlayerDataCapability implements SimpleCapability {
         heartOfStone = tag.getFloat("heartOfStone");
         heartOfStoneProgress = tag.getInt("heartOfStoneProgress");
     }
+
     public static void syncSelf(ServerPlayer player) {
         sync(player, PacketDistributor.PLAYER.with(() -> player));
     }
+
     public static void syncTrackingAndSelf(Player player) {
         sync(player, PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player));
     }
+
     public static void syncTracking(Player player) {
         sync(player, PacketDistributor.TRACKING_ENTITY.with(() -> player));
     }
-    public static void sync(Player player, PacketDistributor.PacketTarget target)
-    {
+
+    public static void sync(Player player, PacketDistributor.PacketTarget target) {
         getCapability(player).ifPresent(c -> PacketRegistry.INSTANCE.send(target, new SyncPlayerCapabilityDataPacket(player.getUUID(), c.serializeNBT())));
     }
 

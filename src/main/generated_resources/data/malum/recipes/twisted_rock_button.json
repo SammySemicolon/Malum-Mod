@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "malum:twisted_rock"
+    }
+  ],
+  "result": {
+    "item": "malum:twisted_rock_button"
+  }
+}

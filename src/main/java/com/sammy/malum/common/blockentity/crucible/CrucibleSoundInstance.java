@@ -7,21 +7,21 @@ import net.minecraft.client.Minecraft;
 public class CrucibleSoundInstance extends SimpleBlockEntitySoundInstance<SpiritCrucibleCoreBlockEntity> {
     public CrucibleSoundInstance(SpiritCrucibleCoreBlockEntity blockEntity, float volume, float pitch) {
         super(blockEntity, SoundRegistry.CRUCIBLE_LOOP.get(), volume, pitch);
-        this.x = blockEntity.getBlockPos().getX()+0.5f;
-        this.y = blockEntity.getBlockPos().getY()+0.5f;
-        this.z = blockEntity.getBlockPos().getZ()+0.5f;
+        this.x = blockEntity.getBlockPos().getX() + 0.5f;
+        this.y = blockEntity.getBlockPos().getY() + 0.5f;
+        this.z = blockEntity.getBlockPos().getZ() + 0.5f;
     }
 
     @Override
     public void tick() {
-        if (blockEntity.recipe == null)
-        {
-            stop();
+        if (blockEntity.focusingRecipe != null || blockEntity.repairRecipe != null) {
+            super.tick();
+            return;
         }
-        super.tick();
+        stop();
     }
-    public static void playSound(SpiritCrucibleCoreBlockEntity tileEntity)
-    {
-        Minecraft.getInstance().getSoundManager().queueTickingSound(new CrucibleSoundInstance(tileEntity, 1,1));
+
+    public static void playSound(SpiritCrucibleCoreBlockEntity tileEntity) {
+        Minecraft.getInstance().getSoundManager().queueTickingSound(new CrucibleSoundInstance(tileEntity, 1, 1));
     }
 }

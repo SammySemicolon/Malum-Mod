@@ -11,7 +11,7 @@
   },
   "spirits": [
     {
-      "item": "malum:infernal_spirit"
+      "type": "infernal"
     }
   ]
 }

@@ -25,7 +25,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 public class SpiritHarvestHandler {
 
     public static void exposeSoul(LivingHurtEvent event) {
-        if (event.isCanceled()) {
+        if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
         LivingEntity target = event.getEntityLiving();
@@ -34,7 +34,8 @@ public class SpiritHarvestHandler {
             if (event.getSource().getDirectEntity() instanceof ScytheBoomerangEntity) {
                 stack = ((ScytheBoomerangEntity) event.getSource().getDirectEntity()).scythe;
             }
-            if (ItemTagRegistry.SOUL_HUNTER_WEAPON.getValues().contains(stack.getItem()) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
+
+            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
                 LivingEntityDataCapability.getCapability(target).ifPresent(e -> e.exposedSoul = 200);
             }
         }
@@ -68,7 +69,7 @@ public class SpiritHarvestHandler {
             }
             if (!(target instanceof Player)) {
                 ItemStack finalStack = stack;
-                if (!event.getSource().getMsgId().equals(DamageSourceRegistry.VOODOO_NO_SHATTER.getMsgId())) {
+                if (!event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER_DAMAGE)) {
                     LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
                         if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
                             SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);

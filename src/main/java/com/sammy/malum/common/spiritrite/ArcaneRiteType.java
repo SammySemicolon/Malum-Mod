@@ -25,10 +25,8 @@ import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TO
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT_COLOR;
 
-public class ArcaneRiteType extends MalumRiteType
-{
-    public ArcaneRiteType()
-    {
+public class ArcaneRiteType extends MalumRiteType {
+    public ArcaneRiteType() {
         super("arcane_rite", ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
     }
 
@@ -46,18 +44,17 @@ public class ArcaneRiteType extends MalumRiteType
     public int range(boolean corrupted) {
         return defaultRange() / 4;
     }
+
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
-        if (level.isClientSide)
-        {
+    public void riteEffect(Level level, BlockPos pos, int height) {
+        if (level.isClientSide) {
             return;
         }
         for (int i = 1; i <= 5; i++) {
             BlockPos totemPos = pos.above(i);
-            if (level.getBlockEntity(totemPos) instanceof TotemPoleTileEntity totemPoleTile)
-            {
+            if (level.getBlockEntity(totemPos) instanceof TotemPoleTileEntity totemPoleTile) {
                 MalumSpiritType type = totemPoleTile.type;
-                BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, totemPos, SOULWOOD_TOTEM_POLE.get().defaultBlockState(),3);
+                BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, totemPos, SOULWOOD_TOTEM_POLE.get().defaultBlockState(), 3);
                 TotemPoleTileEntity newTileEntity = new TotemPoleTileEntity(totemPos, state);
                 newTileEntity.setLevel(level);
                 newTileEntity.create(type);
@@ -66,16 +63,16 @@ public class ArcaneRiteType extends MalumRiteType
                 level.levelEvent(2001, totemPos, Block.getId(state));
             }
         }
-        BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, pos, SOULWOOD_TOTEM_BASE.get().defaultBlockState(),3);
+        BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, pos, SOULWOOD_TOTEM_BASE.get().defaultBlockState(), 3);
         level.setBlockEntity(new TotemBaseTileEntity(pos, state));
         level.levelEvent(2001, pos, Block.getId(state));
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         BlockState filter = level.getBlockState(pos.below());
         BlockTransmutationRecipe fillerRecipe = BlockTransmutationRecipe.getRecipe(level, filter.getBlock());
-        ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
+        ArrayList<BlockPos> positions = getNearbyBlocks(Block.class, level, pos.above(2), 3, false);
         positions.removeIf(p -> {
             if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
                 return true;

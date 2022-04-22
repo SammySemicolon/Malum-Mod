@@ -7,11 +7,13 @@ import com.sammy.malum.core.systems.easing.Easing;
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleOptions;
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleType;
 import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
+import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ParticleEmitter;
 import com.sammy.malum.core.systems.rendering.particle.world.WorldParticleOptions;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -415,6 +417,16 @@ public class ParticleBuilders {
             data.renderOrder = renderOrder;
             return this;
         }
+        public ScreenParticleBuilder centerOnStack(ItemStack stack) {
+            data.stack = stack;
+            return this;
+        }
+        public ScreenParticleBuilder centerOnStack(ItemStack stack, float xOffset, float yOffset) {
+            data.stack = stack;
+            data.xOffset = xOffset;
+            data.yOffset = yOffset;
+            return this;
+        }
         public ScreenParticleBuilder setColorEasing(Easing easing) {
             data.colorCurveEasing = easing;
             return this;
@@ -640,6 +652,8 @@ public class ParticleBuilders {
             double yaw2 = random.nextFloat() * Math.PI * 2, pitch2 = random.nextFloat() * Math.PI - Math.PI / 2, xDist = random.nextFloat() * maxXDist, yDist = random.nextFloat() * maxYDist;
             this.dx = Math.sin(yaw2) * Math.cos(pitch2) * xDist;
             this.dy = Math.sin(pitch2) * yDist;
+            data.xOrigin = (float) x;
+            data.yOrigin = (float) y;
             ScreenParticleHandler.addParticle(data, x + dx + dx2, y + dy + dz2, vx, ySpeed);
             return this;
         }
@@ -651,7 +665,8 @@ public class ParticleBuilders {
             double yaw2 = random.nextFloat() * Math.PI * 2, pitch2 = random.nextFloat() * Math.PI - Math.PI / 2, xDist = random.nextFloat() * maxXDist, yDist = random.nextFloat() * maxYDist;
             this.dx = Math.sin(yaw2) * Math.cos(pitch2) * xDist;
             this.dy = Math.sin(pitch2) * yDist;
-
+            data.xOrigin = (float) x;
+            data.yOrigin = (float) y;
             ScreenParticleHandler.addParticle(data, x + dx, y + dy, vx, vy);
             return this;
         }

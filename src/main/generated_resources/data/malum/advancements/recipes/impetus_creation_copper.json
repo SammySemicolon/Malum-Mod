@@ -1,0 +1,15 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/copper",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ]
+    }
+  ]
+}

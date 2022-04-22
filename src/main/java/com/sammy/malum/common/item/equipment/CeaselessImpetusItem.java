@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item.equipment;
 
+import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.packets.TotemOfUndyingEffectPacket;
 import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
@@ -14,7 +15,6 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.network.PacketDistributor;
@@ -23,14 +23,9 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
-public class CeaselessImpetusItem extends Item implements IEventResponderItem {
+public class CeaselessImpetusItem extends ImpetusItem implements IEventResponderItem {
     public CeaselessImpetusItem(Properties p_41383_) {
         super(p_41383_);
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack pStack) {
-        return false;
     }
 
     public static void preventDeath(LivingDeathEvent event) {

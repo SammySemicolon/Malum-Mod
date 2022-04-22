@@ -20,23 +20,23 @@
   ],
   "spirits": [
     {
-      "item": "malum:aerial_spirit",
+      "type": "aerial",
       "count": 4
     },
     {
-      "item": "malum:aqueous_spirit",
+      "type": "aqueous",
       "count": 4
     },
     {
-      "item": "malum:earthen_spirit",
+      "type": "earthen",
       "count": 4
     },
     {
-      "item": "malum:infernal_spirit",
+      "type": "infernal",
       "count": 4
     },
     {
-      "item": "malum:eldritch_spirit"
+      "type": "eldritch"
     }
   ]
 }

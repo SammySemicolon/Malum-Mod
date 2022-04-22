@@ -13,6 +13,7 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -45,7 +46,7 @@ public class TheDeviceRecipeBuilder implements RecipeBuilder {
         return new TheDeviceRecipeBuilder(pResult, pCount);
     }
 
-    public TheDeviceRecipeBuilder define(Character pSymbol, Tag<Item> pTag) {
+    public TheDeviceRecipeBuilder define(Character pSymbol, TagKey<Item> pTag) {
         return this.define(pSymbol, Ingredient.of(pTag));
     }
 

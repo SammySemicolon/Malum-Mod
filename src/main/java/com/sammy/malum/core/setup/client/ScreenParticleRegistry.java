@@ -1,32 +1,24 @@
 package com.sammy.malum.core.setup.client;
 
-import com.google.common.collect.Maps;
 import com.sammy.malum.client.particles.SimpleScreenParticleType;
-import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleOptions;
 import com.sammy.malum.core.systems.rendering.particle.screen.ScreenParticleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class ScreenParticleRegistry {
-    public static final ArrayList<ScreenParticleType<?>> PARTICLE_TYPES = new ArrayList<>();
 
+    public static final ArrayList<ScreenParticleType<?>> PARTICLE_TYPES = new ArrayList<>();
     public static final ScreenParticleType<ScreenParticleOptions> WISP = registerType(new SimpleScreenParticleType());
     public static final ScreenParticleType<ScreenParticleOptions> SMOKE = registerType(new SimpleScreenParticleType());
     public static final ScreenParticleType<ScreenParticleOptions> SPARKLE = registerType(new SimpleScreenParticleType());
     public static final ScreenParticleType<ScreenParticleOptions> TWINKLE = registerType(new SimpleScreenParticleType());
     public static final ScreenParticleType<ScreenParticleOptions> STAR = registerType(new SimpleScreenParticleType());
-
-    static {
-        ScreenParticleHandler.PARTICLES = Maps.newTreeMap(Comparator.comparingInt(PARTICLE_TYPES::indexOf));
-    }
 
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event) {
         registerProvider(WISP, new SimpleScreenParticleType.Factory(getSpriteSet(DataHelper.prefix("wisp"))));

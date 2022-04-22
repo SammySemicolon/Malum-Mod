@@ -21,13 +21,11 @@ import java.util.function.Predicate;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
 import static net.minecraft.tags.BlockTags.*;
 
-public class MalumBlockTags extends BlockTagsProvider
-{
-    public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper)
-    {
+public class MalumBlockTags extends BlockTagsProvider {
+    public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
         super(generatorIn, MalumMod.MODID, existingFileHelper);
     }
-    
+
     @Override
     protected void addTags() {
         tag(Tags.Blocks.ORES).add(BlockRegistry.SOULSTONE_ORE.get(), BlockRegistry.BLAZING_QUARTZ_ORE.get(), BlockRegistry.BRILLIANT_STONE.get());
@@ -86,16 +84,14 @@ public class MalumBlockTags extends BlockTagsProvider
             }
         }
     }
-    
+
     @Override
-    public String getName()
-    {
+    public String getName() {
         return "Malum Block Tags";
     }
 
     @Nonnull
-    private Block[] getModBlocks(Predicate<Block> predicate)
-    {
+    private Block[] getModBlocks(Predicate<Block> predicate) {
         List<Block> ret = new ArrayList<>(Collections.emptyList());
         BLOCKS.getEntries().stream()
                 .filter(b -> predicate.test(b.get())).forEach(b -> ret.add(b.get()));

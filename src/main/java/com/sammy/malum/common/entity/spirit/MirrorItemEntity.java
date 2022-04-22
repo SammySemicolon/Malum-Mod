@@ -19,7 +19,7 @@ public class MirrorItemEntity extends FloatingItemEntity {
     public Direction cachedDirection;
     public Direction direction;
     public BlockPos cachedBlockPos;
-    public float desiredMoveTime=1f;
+    public float desiredMoveTime = 1f;
 
     public MirrorItemEntity(Level level) {
         super(EntityRegistry.MIRROR_ITEM.get(), level);
@@ -54,13 +54,11 @@ public class MirrorItemEntity extends FloatingItemEntity {
 
     @Override
     public void move() {
-        if (moveTime < desiredMoveTime)
-        {
-            moveTime+=0.1f;
+        if (moveTime < desiredMoveTime) {
+            moveTime += 0.1f;
         }
-        if (moveTime > desiredMoveTime)
-        {
-            moveTime-=0.1f;
+        if (moveTime > desiredMoveTime) {
+            moveTime -= 0.1f;
         }
         if (cachedBlockPos != blockPosition() || level.getGameTime() % 10L == 0) {
             cachedBlockPos = blockPosition();

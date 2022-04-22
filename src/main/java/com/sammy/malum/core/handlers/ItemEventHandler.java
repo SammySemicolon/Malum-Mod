@@ -27,7 +27,7 @@ public class ItemEventHandler {
     }
 
     public static void respondToHurt(LivingHurtEvent event) {
-        if (event.isCanceled()) {
+        if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
         LivingEntity target = event.getEntityLiving();

@@ -6,7 +6,7 @@ import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
-import com.sammy.malum.core.systems.blockentity.SimpleInventoryBlockEntity;
+import com.sammy.malum.core.systems.blockentity.ItemHolderBlockEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +19,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implements IAltarProvider {
+public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IAltarProvider {
 
     public ItemPedestalBlockEntity(BlockEntityType<? extends ItemPedestalBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -42,10 +42,10 @@ public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implemen
 
     @Override
     public Vec3 getItemPosForAltar() {
-        return itemPos();
+        return getItemPos();
     }
 
-    public Vec3 itemPos() {
+    public Vec3 getItemPos() {
         return DataHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
@@ -57,7 +57,7 @@ public class ItemPedestalBlockEntity extends SimpleInventoryBlockEntity implemen
     public void tick() {
         if (level.isClientSide) {
             if (inventory.getStackInSlot(0).getItem() instanceof MalumSpiritItem item) {
-                Vec3 pos = itemPos();
+                Vec3 pos = getItemPos();
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime() ) / 20f) * 0.1f;
                 double z = pos.z;

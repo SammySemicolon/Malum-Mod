@@ -22,6 +22,10 @@ public class SyncLivingCapabilityDataPacket {
         this.tag = tag;
     }
 
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, SyncLivingCapabilityDataPacket.class, SyncLivingCapabilityDataPacket::encode, SyncLivingCapabilityDataPacket::decode, SyncLivingCapabilityDataPacket::execute);
+    }
+
     public static SyncLivingCapabilityDataPacket decode(FriendlyByteBuf buf) {
         return new SyncLivingCapabilityDataPacket(buf.readInt(), buf.readNbt());
     }
@@ -38,10 +42,6 @@ public class SyncLivingCapabilityDataPacket {
             }
         });
         context.get().setPacketHandled(true);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SyncLivingCapabilityDataPacket.class, SyncLivingCapabilityDataPacket::encode, SyncLivingCapabilityDataPacket::decode, SyncLivingCapabilityDataPacket::execute);
     }
 
     public static class ClientOnly {

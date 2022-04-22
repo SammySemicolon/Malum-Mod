@@ -6,30 +6,24 @@ import net.minecraft.util.Mth;
 import java.awt.*;
 
 public class ColorHelper {
-    public static Color getColor(int decimal) {
-        int red = FastColor.ARGB32.red(decimal);
-        int green = FastColor.ARGB32.green(decimal);
-        int blue = FastColor.ARGB32.blue(decimal);
-        return new Color(red, green, blue);
-    }
 
     public static void RGBToHSV(Color color, float[] hsv) {
         Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), hsv);
     }
 
-    public static int getColor(Color color) {
+    public static int getDecimal(Color color) {
         return FastColor.ARGB32.color(color.getAlpha(), color.getRed(), color.getGreen(), color.getBlue());
     }
 
-    public static int getColor(int r, int g, int b) {
+    public static int getDecimal(int r, int g, int b) {
         return FastColor.ARGB32.color(255, r, g, b);
     }
 
-    public static int getColor(int r, int g, int b, int a) {
+    public static int getDecimal(int r, int g, int b, int a) {
         return FastColor.ARGB32.color(a, r, g, b);
     }
 
-    public static int getColor(float r, float g, float b, float a) {
+    public static int getDecimal(float r, float g, float b, float a) {
         return FastColor.ARGB32.color((int) (a * 255f), (int) (r * 255f), (int) (g * 255f), (int) (b * 255f));
     }
 

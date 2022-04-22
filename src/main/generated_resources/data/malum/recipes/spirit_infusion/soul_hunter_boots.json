@@ -28,11 +28,11 @@
   ],
   "spirits": [
     {
-      "item": "malum:aerial_spirit",
+      "type": "aerial",
       "count": 8
     },
     {
-      "item": "malum:earthen_spirit",
+      "type": "earthen",
       "count": 2
     }
   ]

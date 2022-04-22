@@ -17,7 +17,6 @@ public class MalumEnchantments
 {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, MalumMod.MODID);
 
-
     public static final EnchantmentCategory SOUL_HUNTER_WEAPON = EnchantmentCategory.create(MalumMod.MODID + ":soul_hunter_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SOUL_HUNTER_WEAPON));
     public static final EnchantmentCategory SCYTHE = EnchantmentCategory.create(MalumMod.MODID + ":scythe_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE));
     public static final EnchantmentCategory REBOUND_SCYTHE = EnchantmentCategory.create(MalumMod.MODID + ":rebound_scythe_only", i -> i.getDefaultInstance().is(ItemTagRegistry.SCYTHE) || (CommonConfig.ULTIMATE_REBOUND.get() && i instanceof TieredItem));

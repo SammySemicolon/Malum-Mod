@@ -1,6 +1,9 @@
 package com.sammy.malum.core.data;
 
+import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
@@ -8,17 +11,21 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 
-public class MalumSpiritInfusionRecipes extends RecipeProvider {
+public class MalumSpiritInfusionRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumSpiritInfusionRecipes(DataGenerator generatorIn) {
         super(generatorIn);
     }
@@ -169,7 +176,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_HELMET, 1, ItemRegistry.SOUL_HUNTER_CLOAK.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
                 .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 2)
@@ -177,7 +184,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_CHESTPLATE, 1, ItemRegistry.SOUL_HUNTER_ROBE.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 2)
@@ -185,7 +192,7 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
 
         new SpiritInfusionRecipeBuilder(Items.LEATHER_LEGGINGS, 1, ItemRegistry.SOUL_HUNTER_LEGGINGS.get(), 1)
                 .addExtraItem(ItemRegistry.SPIRIT_FABRIC.get(), 4)
-                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 1)
+                .addExtraItem(ItemRegistry.PROCESSED_SOULSTONE.get(), 2)
                 .addExtraItem(Ingredient.of(Tags.Items.LEATHER), 1)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(EARTHEN_SPIRIT, 2)
@@ -308,9 +315,16 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
                 .addSpirit(INFERNAL_SPIRIT, 16)
                 .addSpirit(AERIAL_SPIRIT, 8)
                 .addSpirit(ELDRITCH_SPIRIT, 1)
-                .addExtraItem(ItemRegistry.BLAZING_QUARTZ.get(), 4)
+                .addExtraItem(ItemRegistry.ETHER.get(), 2)
                 .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 8)
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 8)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.TAINTED_ROCK_ITEM_STAND.get(), 1, ItemRegistry.TWISTED_TABLET.get(), 1)
+                .addSpirit(AERIAL_SPIRIT, 8)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addExtraItem(ItemRegistry.TAINTED_ROCK.get(), 4)
+                .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 4)
                 .build(consumer);
 
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Tags.Items.INGOTS_IRON);
@@ -326,13 +340,16 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
         metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, ItemTagRegistry.INGOTS_TIN);
     }
 
-    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<Item> output, Tag<Item> ingot) {
+    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Ingredient.of(ingot), 6)
-                .build(consumer);
+        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(ingot.location().toString()))).addRecipe(
+                        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
+                                .addSpirit(EARTHEN_SPIRIT, 8)
+                                .addSpirit(INFERNAL_SPIRIT, 8)
+                                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
+                                .addExtraItem(Ingredient.of(ingot), 6)
+                                ::build)
+                .generateAdvancement()
+                .build(consumer, DataHelper.prefix("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
     }
 }

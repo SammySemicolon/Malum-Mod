@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.events.ClientRuntimeEvents;
 import com.sammy.malum.core.handlers.ScreenParticleHandler;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.ItemHelper;
@@ -28,6 +27,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -43,56 +43,62 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         PlayerDataCapability.getCapability(player).ifPresent(c -> {
-            double cap = player.getAttributeValue(AttributeRegistry.SOUL_WARD_CAP.get());
-            if (c.soulWard < cap && c.soulWardProgress <= 0) {
-                c.soulWard++;
-                if (player.level.isClientSide && !player.isCreative()) {
-                    player.playSound(c.soulWard >= cap ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get(), 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
+            AttributeInstance cap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
+            if (cap != null) {
+                if (c.soulWard < cap.getValue() && c.soulWardProgress <= 0) {
+                    c.soulWard++;
+                    if (player.level.isClientSide && !player.isCreative()) {
+                        player.playSound(c.soulWard >= cap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get(), 1, Mth.nextFloat(player.getRandom(), 0.6f, 1.4f));
+                    }
+                    c.soulWardProgress = getSoulWardCooldown(player);
+                } else {
+                    c.soulWardProgress--;
                 }
-                c.soulWardProgress = getSoulWardCooldown(player);
-            } else {
-                c.soulWardProgress--;
-            }
-            if (c.soulWard > cap) {
-                c.soulWard = (float) cap;
+                if (c.soulWard > cap.getValue()) {
+                    c.soulWard = (float) cap.getValue();
+                }
             }
         });
     }
 
     public static void consumeSoulWard(LivingHurtEvent event) {
-        if (event.isCanceled()) {
+        if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
         if (event.getEntityLiving() instanceof Player player) {
             if (!player.level.isClientSide) {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
-                    c.soulWardProgress = (float) (CommonConfig.SOUL_WARD_RATE.get() * 6 * Math.exp(-0.15 * player.getAttributeValue(AttributeRegistry.SOUL_WARD_DOWNTIME_RECOVERY_SPEED.get())));
-                    if (c.soulWard > 0) {
-                        DamageSource source = event.getSource();
-                        float amount = event.getAmount();
-                        float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.get().floatValue();
-                        float result = amount * multiplier;
-                        float absorbed = amount - result;
-                        double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
-                        if (strength != 0) {
-                            c.soulWard = (float) Math.max(0, c.soulWard - (absorbed / strength));
-                        } else {
-                            c.soulWard = 0;
-                        }
+                    AttributeInstance instance = player.getAttribute(AttributeRegistry.SOUL_WARD_SHATTER_COOLDOWN.get());
+                    if (instance != null) {
+                        c.soulWardProgress = (float) (CommonConfig.SOUL_WARD_RATE.get() * 6 * Math.exp(-0.15 * instance.getValue()));
+                        if (c.soulWard > 0) {
+                            DamageSource source = event.getSource();
 
-                        player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
-                        event.setAmount(result);
-                        if (source.getEntity() != null) {
-                            if (ItemHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
-                                if (source instanceof EntityDamageSource entityDamageSource) {
-                                    if (entityDamageSource.isThorns()) {
-                                        return;
-                                    }
-                                }
-                                source.getEntity().hurt(DamageSourceRegistry.causeMagebaneDamage(player), absorbed + 2);
+                            float amount = event.getAmount();
+                            float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.get().floatValue();
+                            float result = amount * multiplier;
+                            float absorbed = amount - result;
+                            double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
+                            if (strength != 0) {
+                                c.soulWard = (float) Math.max(0, c.soulWard - (absorbed / strength));
+                            } else {
+                                c.soulWard = 0;
                             }
+
+                            player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
+                            event.setAmount(result);
+                            if (source.getEntity() != null) {
+                                if (ItemHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
+                                    if (source instanceof EntityDamageSource entityDamageSource) {
+                                        if (entityDamageSource.isThorns()) {
+                                            return;
+                                        }
+                                    }
+                                    source.getEntity().hurt(DamageSourceRegistry.causeMagebaneDamage(player), absorbed + 2);
+                                }
+                            }
+                            PlayerDataCapability.syncTrackingAndSelf(player);
                         }
-                        PlayerDataCapability.syncTrackingAndSelf(player);
                     }
                 });
             }

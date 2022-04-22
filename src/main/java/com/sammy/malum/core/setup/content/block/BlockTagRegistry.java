@@ -1,9 +1,13 @@
 package com.sammy.malum.core.setup.content.block;
 
 import com.sammy.malum.core.helper.DataHelper;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 
@@ -13,31 +17,19 @@ import java.util.function.Supplier;
 
 public class BlockTagRegistry {
 
-    public static final Tag.Named<Block> TRAY_HEAT_SOURCES = modTag("farmersdelight:tray_heat_sources");
-    public static final Tag.Named<Block> HEAT_SOURCES = modTag("farmersdelight:heat_sources");
+    public static final TagKey<Block> TRAY_HEAT_SOURCES = modTag("farmersdelight:tray_heat_sources");
+    public static final TagKey<Block> HEAT_SOURCES = modTag("farmersdelight:heat_sources");
 
 
-    private static Tags.IOptionalNamedTag<Block> forgeTag(String name, @Nullable Set<Supplier<Block>> defaults) {
-        return BlockTags.createOptional(new ResourceLocation("forge", name), defaults);
+    private static TagKey<Block> modTag(String path) {
+        return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(path));
     }
 
-    private static Tags.IOptionalNamedTag<Block> forgeTag(String name) {
-        return forgeTag(name, null);
+    private static TagKey<Block> malumTag(String path) {
+        return TagKey.create(Registry.BLOCK_REGISTRY, DataHelper.prefix(path));
     }
 
-    private static Tag.Named<Block> tag(String name, @Nullable Set<Supplier<Block>> defaults) {
-        return BlockTags.createOptional(DataHelper.prefix(name), defaults);
-    }
-
-    private static Tag.Named<Block> tag(String name) {
-        return tag(name, null);
-    }
-
-    private static Tag.Named<Block> modTag(String name, @Nullable Set<Supplier<Block>> defaults) {
-        return BlockTags.createOptional(new ResourceLocation(name), defaults);
-    }
-
-    private static Tag.Named<Block> modTag(String name) {
-        return modTag(name, null);
+    private static TagKey<Block> forgeTag(String name) {
+        return BlockTags.create(new ResourceLocation("forge", name));
     }
 }

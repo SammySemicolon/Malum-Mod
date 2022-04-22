@@ -27,6 +27,10 @@ public class TotemOfUndyingEffectPacket {
         this.stack = stack;
     }
 
+    public static void register(SimpleChannel instance, int index) {
+        instance.registerMessage(index, TotemOfUndyingEffectPacket.class, TotemOfUndyingEffectPacket::encode, TotemOfUndyingEffectPacket::decode, TotemOfUndyingEffectPacket::execute);
+    }
+
     public static TotemOfUndyingEffectPacket decode(FriendlyByteBuf buf) {
         return new TotemOfUndyingEffectPacket(buf.readInt(), buf.readItem());
     }
@@ -43,10 +47,6 @@ public class TotemOfUndyingEffectPacket {
             }
         });
         context.get().setPacketHandled(true);
-    }
-
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, TotemOfUndyingEffectPacket.class, TotemOfUndyingEffectPacket::encode, TotemOfUndyingEffectPacket::decode, TotemOfUndyingEffectPacket::execute);
     }
 
     public static class ClientOnly {

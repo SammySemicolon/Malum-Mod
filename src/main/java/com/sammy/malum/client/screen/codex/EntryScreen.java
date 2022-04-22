@@ -82,7 +82,7 @@ public class EntryScreen extends Screen {
                 }
             }
         }
-        ScreenParticleHandler.renderParticles(BEFORE_UI, BEFORE_TOOLTIPS, AFTER_EVERYTHING);
+        ScreenParticleHandler.renderParticles(BEFORE_TOOLTIPS);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class EntryScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_E) {
+        if (Minecraft.getInstance().options.keyInventory.matches(keyCode, scanCode)) {
             close(false);
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -146,6 +146,7 @@ public class EntryScreen extends Screen {
 
     public void close(boolean ignoreNextInput) {
         ProgressionBookScreen.openScreen(ignoreNextInput);
+        ScreenParticleHandler.wipeParticles();
         openObject.exit();
     }
 
@@ -156,6 +157,7 @@ public class EntryScreen extends Screen {
 
     public static void openScreen(EntryObject newObject) {
         Minecraft.getInstance().setScreen(getInstance(newObject));
+        ScreenParticleHandler.wipeParticles();
         screen.playSound();
     }
 

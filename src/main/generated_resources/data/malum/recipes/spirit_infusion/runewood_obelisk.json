@@ -20,11 +20,11 @@
   ],
   "spirits": [
     {
-      "item": "malum:aerial_spirit",
+      "type": "aerial",
       "count": 8
     },
     {
-      "item": "malum:sacred_spirit",
+      "type": "sacred",
       "count": 4
     }
   ]

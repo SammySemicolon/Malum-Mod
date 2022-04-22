@@ -13,8 +13,8 @@ import static com.sammy.malum.core.systems.rendering.particle.screen.base.Screen
 
 @Mixin(AbstractContainerScreen.class)
 public class AbstractContainerScreenMixin {
-    @Inject(at = @At("HEAD"), method = "renderTooltip")
-    private void fundamentalForcesBeforeTooltipParticleMixin(PoseStack pPoseStack, int pX, int pY, CallbackInfo ci) {
+    @Inject(at = @At("RETURN"), method = "render")
+    private void malumBeforeTooltipParticleMixin(PoseStack i1, int slot, int k, float l1, CallbackInfo ci) {
         ScreenParticleHandler.renderParticles(BEFORE_TOOLTIPS);
     }
 }

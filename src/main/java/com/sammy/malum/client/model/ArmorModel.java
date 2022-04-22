@@ -50,7 +50,6 @@ public class ArmorModel extends HumanoidModel<LivingEntity> {
         root.addOrReplaceChild("right_foot", new CubeListBuilder(), PartPose.ZERO);
         root.addOrReplaceChild("left_arm", new CubeListBuilder(), PartPose.ZERO);
         root.addOrReplaceChild("right_arm", new CubeListBuilder(), PartPose.ZERO);
-
         return root;
     }
 

@@ -32,7 +32,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos) {
+    public void riteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             getNearbyBlocks(BonemealableBlock.class, level, pos, false).forEach(p -> {
                 if (level.random.nextFloat() <= 0.06f) {
@@ -48,7 +48,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos) {
+    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
         if (!level.isClientSide) {
             ArrayList<Animal> entities = getNearbyEntities(Animal.class, level, pos, true);
             entities.removeIf(e -> e.getAge() < 0);

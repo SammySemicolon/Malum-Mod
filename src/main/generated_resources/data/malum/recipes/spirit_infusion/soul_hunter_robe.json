@@ -15,7 +15,7 @@
     },
     {
       "item": "malum:processed_soulstone",
-      "count": 1
+      "count": 2
     },
     {
       "tag": "forge:leather",
@@ -24,11 +24,11 @@
   ],
   "spirits": [
     {
-      "item": "malum:aerial_spirit",
+      "type": "aerial",
       "count": 8
     },
     {
-      "item": "malum:earthen_spirit",
+      "type": "earthen",
       "count": 2
     }
   ]

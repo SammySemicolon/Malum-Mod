@@ -1,6 +1,7 @@
 package com.sammy.malum;
 
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
+import com.sammy.malum.compability.jei.JeiCompat;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.ClientConfig;
 import com.sammy.malum.config.CommonConfig;
@@ -28,7 +29,7 @@ import static com.sammy.malum.core.setup.content.potion.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.setup.client.ParticleRegistry.PARTICLES;
 import static com.sammy.malum.core.setup.content.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATURE_TYPES;
+import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATURES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)
@@ -44,7 +45,7 @@ public class MalumMod
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
-
+        
         ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
         BLOCK_ENTITY_TYPES.register(modBus);
@@ -56,8 +57,9 @@ public class MalumMod
         CONTAINERS.register(modBus);
         ATTRIBUTES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
-        FEATURE_TYPES.register(modBus);
+        FEATURES.register(modBus);
 
+        JeiCompat.init();
         TetraCompat.init();
         FarmersDelightCompat.init();
 

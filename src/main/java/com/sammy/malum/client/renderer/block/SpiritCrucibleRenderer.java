@@ -26,16 +26,18 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         SimpleBlockEntityInventory inventory = blockEntityIn.spiritInventory;
-        for (int i = 0; i < inventory.slotCount; i++) {
-            ItemStack item = inventory.getStackInSlot(i);
-            if (!item.isEmpty()) {
-                poseStack.pushPose();
-                Vector3f offset = new Vector3f(SpiritCrucibleCoreBlockEntity.spiritOffset(blockEntityIn, i));
-                poseStack.translate(offset.x(), offset.y(), offset.z());
-                poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() ) * 3 + partialTicks));
-                poseStack.scale(0.5f, 0.5f, 0.5f);
-                itemRenderer.renderStatic(item, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
-                poseStack.popPose();
+        if (!inventory.isEmpty()) {
+            for (int i = 0; i < inventory.slotCount; i++) {
+                ItemStack item = inventory.getStackInSlot(i);
+                if (!item.isEmpty()) {
+                    poseStack.pushPose();
+                    Vector3f offset = new Vector3f(SpiritCrucibleCoreBlockEntity.spiritOffset(blockEntityIn, i));
+                    poseStack.translate(offset.x(), offset.y(), offset.z());
+                    poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
+                    poseStack.scale(0.5f, 0.5f, 0.5f);
+                    itemRenderer.renderStatic(item, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
+                    poseStack.popPose();
+                }
             }
         }
         ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);
@@ -43,7 +45,7 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
             poseStack.pushPose();
             Vec3 offset = blockEntityIn.itemOffset();
             poseStack.translate(offset.x, offset.y, offset.z);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() ) * 3 + partialTicks));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
             poseStack.scale(0.45f, 0.45f, 0.45f);
             itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

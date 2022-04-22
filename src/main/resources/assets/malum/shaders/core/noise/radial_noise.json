@@ -4,12 +4,13 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "malum:noise/radial_noise",
+  "vertex": "malum:generic",
   "fragment": "malum:noise/radial_noise",
   "attributes": [
     "Position",
     "Color",
-    "UV0"
+    "UV0",
+    "UV2"
   ],
   "samplers": [
     { "name": "Sampler0" }
@@ -22,6 +23,7 @@
     { "name": "Speed", "type": "float", "count": 1, "values": [ 2000 ] },
     { "name": "XFrequency", "type": "float", "count": 1, "values": [ 0.4 ] },
     { "name": "YFrequency", "type": "float", "count": 1, "values": [ 0.2 ] },
-    { "name": "Intensity", "type": "float", "count": 1, "values": [ 40 ] }
+    { "name": "Intensity", "type": "float", "count": 1, "values": [ 40 ] },
+    { "name": "DistanceFalloff", "type": "float", "count": 1, "values": [ 2 ] }
   ]
 }
