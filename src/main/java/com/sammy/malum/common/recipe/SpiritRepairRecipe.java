@@ -162,10 +162,8 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             }
             float durabilityPercentage = json.getAsJsonPrimitive("durabilityPercentage").getAsFloat();
             String inputLookup = json.has("inputLookup") ? json.get("inputLookup").getAsString() : "none";
-            String modName = null;
-            if (inputLookup.contains(":")) {
-                modName = inputLookup.substring(inputLookup.indexOf(":"));
-            }
+            String itemName = inputLookup.contains(":") ? inputLookup.substring(inputLookup.indexOf(":")) : inputLookup;
+            String modName = inputLookup.contains(":") ? inputLookup.substring(0, inputLookup.indexOf(":") - 1) : null;
             JsonArray inputsArray = json.getAsJsonArray("inputs");
             ArrayList<Item> inputs = new ArrayList<>();
             for (JsonElement jsonElement : inputsArray) {
@@ -176,7 +174,7 @@ public class SpiritRepairRecipe extends IMalumRecipe {
                 inputs.add(input);
             }
             for (Item item : REPAIRABLE) {
-                if (item.getRegistryName().getPath().contains(inputLookup)) {
+                if (item.getRegistryName().getPath().contains(itemName)) {
                     if (modName != null && !item.getRegistryName().getNamespace().equals(modName)) {
                         continue;
                     }
@@ -193,18 +191,12 @@ public class SpiritRepairRecipe extends IMalumRecipe {
             }
             JsonObject repairObject = json.getAsJsonObject("repairMaterial");
             IngredientWithCount repair = IngredientWithCount.deserialize(repairObject);
-            if (!repair.isValid()) {
-                return null;
-            }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
             ArrayList<SpiritWithCount> spirits = new ArrayList<>();
             for (int i = 0; i < spiritsArray.size(); i++) {
                 JsonObject spiritObject = spiritsArray.get(i).getAsJsonObject();
                 spirits.add(SpiritWithCount.deserialize(spiritObject));
-            }
-            if (!spirits.isEmpty() && spirits.stream().anyMatch(c -> !c.isValid())) {
-                return null;
             }
             return new SpiritRepairRecipe(recipeId, durabilityPercentage, inputs, repair, spirits);
         }

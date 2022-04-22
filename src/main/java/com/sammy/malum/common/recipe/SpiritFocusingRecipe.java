@@ -139,15 +139,9 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
 
             JsonObject inputObject = json.getAsJsonObject("input");
             Ingredient input = Ingredient.fromJson(inputObject);
-            if (input.test(Items.BARRIER.getDefaultInstance())) {
-                return null;
-            }
 
             JsonObject outputObject = json.getAsJsonObject("output");
             IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
-            if (!output.isValid()) {
-                return null;
-            }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
             ArrayList<SpiritWithCount> spirits = new ArrayList<>();
@@ -156,9 +150,6 @@ public class SpiritFocusingRecipe extends IMalumRecipe {
                 spirits.add(SpiritWithCount.deserialize(spiritObject));
             }
             if (spirits.isEmpty()) {
-                return null;
-            }
-            if (spirits.stream().anyMatch(c -> !c.isValid())) {
                 return null;
             }
             return new SpiritFocusingRecipe(recipeId, time, durabilityCost, input, output, spirits);

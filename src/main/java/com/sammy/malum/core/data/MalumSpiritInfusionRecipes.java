@@ -1,7 +1,9 @@
 package com.sammy.malum.core.data;
 
 import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
+import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
@@ -14,13 +16,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 
-public class MalumSpiritInfusionRecipes extends RecipeProvider {
+public class MalumSpiritInfusionRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumSpiritInfusionRecipes(DataGenerator generatorIn) {
         super(generatorIn);
     }
@@ -337,11 +342,14 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider {
 
     public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
-                .addSpirit(EARTHEN_SPIRIT, 8)
-                .addSpirit(INFERNAL_SPIRIT, 8)
-                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
-                .addExtraItem(Ingredient.of(ingot), 6)
-                .build(consumer);
+        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(ingot.location().toString()))).addRecipe(
+                        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
+                                .addSpirit(EARTHEN_SPIRIT, 8)
+                                .addSpirit(INFERNAL_SPIRIT, 8)
+                                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
+                                .addExtraItem(Ingredient.of(ingot), 6)
+                                ::build)
+                .generateAdvancement()
+                .build(consumer, DataHelper.prefix("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
     }
 }

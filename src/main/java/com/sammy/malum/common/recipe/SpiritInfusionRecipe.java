@@ -15,9 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -137,23 +135,14 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
         public SpiritInfusionRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject inputObject = json.getAsJsonObject("input");
             IngredientWithCount input = IngredientWithCount.deserialize(inputObject);
-            if (!input.isValid()) {
-                return null;
-            }
 
             JsonObject outputObject = json.getAsJsonObject("output");
             IngredientWithCount output = IngredientWithCount.deserialize(outputObject);
-            if (!output.isValid()) {
-                return null;
-            }
             JsonArray extraItemsArray = json.getAsJsonArray("extra_items");
             ArrayList<IngredientWithCount> extraItems = new ArrayList<>();
             for (int i = 0; i < extraItemsArray.size(); i++) {
                 JsonObject extraItemObject = extraItemsArray.get(i).getAsJsonObject();
                 extraItems.add(IngredientWithCount.deserialize(extraItemObject));
-            }
-            if (extraItems.stream().anyMatch(c -> !c.isValid())) {
-                return null;
             }
 
             JsonArray spiritsArray = json.getAsJsonArray("spirits");
@@ -163,9 +152,6 @@ public class SpiritInfusionRecipe extends IMalumRecipe {
                 spirits.add(SpiritWithCount.deserialize(spiritObject));
             }
             if (spirits.isEmpty()) {
-                return null;
-            }
-            if (spirits.stream().anyMatch(c -> !c.isValid())) {
                 return null;
             }
             return new SpiritInfusionRecipe(recipeId, input, output, spirits, extraItems);

@@ -186,7 +186,7 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 2)
                 .addSpirit(EARTHEN_SPIRIT, 2)
                 .addSpirit(INFERNAL_SPIRIT, 1)
-                .build(consumer);
+                .build(consumer, DataHelper.prefix("node_focusing_" + node.get().getRegistryName().getPath().replace("_node", "")));
     }
 
     public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, String tag) {
@@ -198,6 +198,6 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                                 ::build
                 )
                 .generateAdvancement()
-                .build(consumer, DataHelper.prefix("node_smelting" + tag));
+                .build(consumer, DataHelper.prefix("node_focusing_" + tag));
     }
 }
