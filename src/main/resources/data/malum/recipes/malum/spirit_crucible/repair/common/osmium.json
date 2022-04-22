@@ -19,11 +19,11 @@
   },
   "spirits": [
     {
-      "item": "malum:earthen_spirit",
+      "type": "earthen",
       "count": 16
     },
     {
-      "item": "malum:aqueous_spirit",
+      "type": "aqueous",
       "count": 8
     }
   ]

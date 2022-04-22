@@ -19,12 +19,12 @@
   },
   "spirits": [
     {
-      "item": "malum:earthen_spirit",
+      "type": "earthen",
       "count": 16
     },
     {
-      "item": "malum:arcane_spirit",
-      "count": 8
+      "type": "arcane",
+      "count": 16
     }
   ]
 }

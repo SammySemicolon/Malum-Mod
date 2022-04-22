@@ -5,10 +5,12 @@ import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.core.data.builder.SpiritRepairRecipeBuilder;
 import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -172,14 +174,14 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
         addNodeSmeltingRecipes(consumer, metalDuration, ItemRegistry.IRON_IMPETUS, ItemRegistry.IRON_NODE);
         addNodeSmeltingRecipes(consumer, metalDuration, ItemRegistry.GOLD_IMPETUS, ItemRegistry.GOLD_NODE);
         addNodeSmeltingRecipes(consumer, metalDuration, ItemRegistry.COPPER_IMPETUS, ItemRegistry.COPPER_NODE);
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE, "lead");
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE, "silver");
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE, "aluminum");
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.NICKEL_IMPETUS, ItemRegistry.NICKEL_NODE, "nickel");
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.URANIUM_IMPETUS, ItemRegistry.URANIUM_NODE, "uranium");
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.OSMIUM_IMPETUS, ItemRegistry.OSMIUM_NODE, "osmium");
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.ZINC_IMPETUS, ItemRegistry.ZINC_NODE, "zinc");
-        addImpetusRecipes(consumer, metalDuration, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, "tin");
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE, ItemTagRegistry.NUGGETS_LEAD);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE, ItemTagRegistry.NUGGETS_SILVER);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE, ItemTagRegistry.NUGGETS_ALUMINUM);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.NICKEL_IMPETUS, ItemRegistry.NICKEL_NODE, ItemTagRegistry.NUGGETS_NICKEL);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.URANIUM_IMPETUS, ItemRegistry.URANIUM_NODE, ItemTagRegistry.NUGGETS_URANIUM);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.OSMIUM_IMPETUS, ItemRegistry.OSMIUM_NODE, ItemTagRegistry.NUGGETS_OSMIUM);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.ZINC_IMPETUS, ItemRegistry.ZINC_NODE, ItemTagRegistry.NUGGETS_ZINC);
+        addImpetusRecipes(consumer, metalDuration, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, ItemTagRegistry.NUGGETS_TIN);
     }
 
     public void addNodeSmeltingRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node) {
@@ -189,15 +191,15 @@ public class MalumSpiritFocusingRecipes extends RecipeProvider implements ICondi
                 .build(consumer, DataHelper.prefix("node_focusing_" + node.get().getRegistryName().getPath().replace("_node", "")));
     }
 
-    public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, String tag) {
+    public void addImpetusRecipes(Consumer<FinishedRecipe> consumer, int duration, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> nugget) {
 
-        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition("forge:nuggets/" + tag))).addRecipe(
+        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(nugget.location()))).addRecipe(
                         new SpiritFocusingRecipeBuilder(duration, 2, Ingredient.of(impetus.get()), Ingredient.of(node.get()), 2)
                                 .addSpirit(EARTHEN_SPIRIT, 2)
                                 .addSpirit(INFERNAL_SPIRIT, 1)
                                 ::build
                 )
                 .generateAdvancement()
-                .build(consumer, DataHelper.prefix("node_focusing_" + tag));
+                .build(consumer, DataHelper.prefix("node_focusing_" + nugget.location().getPath().replace("nuggets/", "")));
     }
 }
