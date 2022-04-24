@@ -28,7 +28,7 @@ public class CommonConfig extends SimpleConfig {
                     .define("blazeQuartzSize", 14)));
     public static ConfigValueHolder<Integer> BLAZE_QUARTZ_AMOUNT = new ConfigValueHolder<>(MODID,"common/worldgen/blazing_quartz", (builder ->
             builder.comment("Amount of blaze quartz ore veins.")
-                    .define("blazeQuartzSize", 16)));
+                    .define("blazeQuartzAmount", 16)));
 
     public static ConfigValueHolder<Boolean> GENERATE_BRILLIANT_STONE = new ConfigValueHolder<>(MODID,"common/worldgen/brilliance", (builder ->
             builder.comment("Should brilliant stone generate?")
@@ -38,7 +38,7 @@ public class CommonConfig extends SimpleConfig {
                     .define("brilliantStoneSize", 2)));
     public static ConfigValueHolder<Integer> BRILLIANT_STONE_AMOUNT = new ConfigValueHolder<>(MODID,"common/worldgen/brilliance", (builder ->
             builder.comment("Amount of brilliant stone veins.")
-                    .define("brilliantStoneSize", 4)));
+                    .define("brilliantStoneAmount", 8)));
     public static ConfigValueHolder<Integer> BRILLIANT_STONE_MIN_Y = new ConfigValueHolder<>(MODID,"common/worldgen/brilliance", (builder ->
             builder.comment("Minimum height at which brilliant stone can spawn.")
                     .define("brilliantStoneMinY", -64)));
@@ -52,15 +52,15 @@ public class CommonConfig extends SimpleConfig {
     public static ConfigValueHolder<Integer> SOULSTONE_SIZE = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
             builder.comment("Size of soulstone ore veins underground.")
                     .define("soulstoneSize", 12)));
+    public static ConfigValueHolder<Integer> SOULSTONE_AMOUNT = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
+            builder.comment("Amount of soulstone ore veins.")
+                    .define("soulstoneAmount", 8)));
     public static ConfigValueHolder<Integer> SOULSTONE_MIN_Y = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
             builder.comment("Minimum height at which soulstone ore can spawn.")
                     .define("soulstoneMinY", -64)));
     public static ConfigValueHolder<Integer> SOULSTONE_MAX_Y = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
             builder.comment("Maximum height at which soulstone ore can spawn.")
                     .define("soulstoneMaxY", 30)));
-    public static ConfigValueHolder<Integer> SOULSTONE_AMOUNT = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
-            builder.comment("Amount of soulstone ore veins.")
-                    .define("soulstoneAmount", 8)));
 
     public static ConfigValueHolder<Boolean> GENERATE_SURFACE_SOULSTONE = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
             builder.comment("Should soulstone ore generate on the surface?")
@@ -68,15 +68,15 @@ public class CommonConfig extends SimpleConfig {
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_SIZE = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
             builder.comment("Size of soulstone ore veins on the surface.")
                     .define("surfaceSoulstoneSize", 6)));
+    public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_AMOUNT = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
+            builder.comment("Amount of soulstone ore veins on the surface.")
+                    .define("surfaceSoulstoneAmount", 5)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_MIN_Y = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
             builder.comment("Minimum height at which surface soulstone ore can spawn.")
                     .define("surfaceSoulstoneMinY", 60)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_MAX_Y = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
             builder.comment("Maximum height at which surface soulstone ore can spawn.")
                     .define("surfaceSoulstoneMaxY", 100)));
-    public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_AMOUNT = new ConfigValueHolder<>(MODID,"common/worldgen/soulstone", (builder ->
-            builder.comment("Amount of soulstone ore veins on the surface.")
-                    .define("surfaceSoulstoneAmount", 5)));
 
     public static ConfigValueHolder<Boolean> ULTIMATE_REBOUND = new ConfigValueHolder<>(MODID,"common/item/rebound", (builder ->
             builder.comment("If set to true, you may put rebound on any weapon in the game.")

@@ -51,6 +51,9 @@ public class FeatureRegistry {
         public static final List<OreConfiguration.TargetBlockState> SOULSTONE_TARGET_LIST = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLES, BlockRegistry.SOULSTONE_ORE.get().defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, BlockRegistry.DEEPSLATE_SOULSTONE_ORE.get().defaultBlockState()));
         public static final Holder<ConfiguredFeature<OreConfiguration, ?>> SOULSTONE_FEATURE = FeatureUtils.register("soulstone_ore", Feature.ORE,
                 new OreConfiguration(SOULSTONE_TARGET_LIST, CommonConfig.SOULSTONE_SIZE.get()));
+
+        public static final Holder<ConfiguredFeature<OreConfiguration, ?>> SURFACE_SOULSTONE_FEATURE = FeatureUtils.register("surface_soulstone_ore", Feature.ORE,
+                new OreConfiguration(SOULSTONE_TARGET_LIST, CommonConfig.SURFACE_SOULSTONE_SIZE.get()));
     }
 
     public static final class PlacedFeatures {
@@ -61,11 +64,14 @@ public class FeatureRegistry {
 
         public static final Holder<PlacedFeature> BLAZING_QUARTZ_FEATURE = PlacementUtils.register("blazing_quartz_ore", ConfiguredFeatures.BLAZING_QUARTZ_FEATURE,
                 CountPlacement.of(CommonConfig.BLAZE_QUARTZ_AMOUNT.get()), PlacementUtils.RANGE_8_8);
+
         public static final Holder<PlacedFeature> BRILLIANCE_FEATURE = PlacementUtils.register("brilliant_stone", ConfiguredFeatures.BRILLIANCE_FEATURE,
                 CountPlacement.of(CommonConfig.BRILLIANT_STONE_AMOUNT.get()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MIN_Y.get()), VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MAX_Y.get())));
+
         public static final Holder<PlacedFeature> SOULSTONE_FEATURE = PlacementUtils.register("soulstone", ConfiguredFeatures.SOULSTONE_FEATURE,
                 CountPlacement.of(CommonConfig.SOULSTONE_AMOUNT.get()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SOULSTONE_MIN_Y.get()), VerticalAnchor.absolute(CommonConfig.SOULSTONE_MAX_Y.get())));
-        public static final Holder<PlacedFeature> SURFACE_SOULSTONE_FEATURE = PlacementUtils.register("surface_soulstone", ConfiguredFeatures.SOULSTONE_FEATURE,
+
+        public static final Holder<PlacedFeature> SURFACE_SOULSTONE_FEATURE = PlacementUtils.register("surface_soulstone", ConfiguredFeatures.SURFACE_SOULSTONE_FEATURE,
                 CountPlacement.of(CommonConfig.SURFACE_SOULSTONE_AMOUNT.get()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SURFACE_SOULSTONE_MIN_Y.get()), VerticalAnchor.absolute(CommonConfig.SURFACE_SOULSTONE_MAX_Y.get())));
 
     }

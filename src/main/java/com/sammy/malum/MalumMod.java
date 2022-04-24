@@ -33,19 +33,17 @@ import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATUR
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MODID)
-public class MalumMod
-{
+public class MalumMod {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "malum";
     public static final Random RANDOM = new Random();
 
-    public MalumMod()
-    {
+    public MalumMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
-        
+
         ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
         BLOCK_ENTITY_TYPES.register(modBus);
@@ -67,8 +65,7 @@ public class MalumMod
     }
 
 
-    public void gatherData(GatherDataEvent event)
-    {
+    public void gatherData(GatherDataEvent event) {
         BlockTagsProvider provider = new MalumBlockTags(event.getGenerator(), event.getExistingFileHelper());
         event.getGenerator().addProvider(new MalumBlockStates(event.getGenerator(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(new MalumItemModels(event.getGenerator(), event.getExistingFileHelper()));
