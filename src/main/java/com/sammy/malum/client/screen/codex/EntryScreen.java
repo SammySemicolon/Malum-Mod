@@ -1,10 +1,10 @@
 package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.EntryObject;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
-import com.sammy.malum.core.handlers.ScreenParticleHandler;
-import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.ortus.handlers.ScreenParticleHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -12,14 +12,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import org.lwjgl.glfw.GLFW;
 
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.isHovering;
 import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
-import static com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.*;
+import static com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 
 public class EntryScreen extends Screen {
-    public static final ResourceLocation BOOK_TEXTURE = DataHelper.prefix("textures/gui/book/entry.png");
+    public static final ResourceLocation BOOK_TEXTURE = MalumMod.prefix("textures/gui/book/entry.png");
 
     public static EntryScreen screen;
     public static EntryObject openObject;

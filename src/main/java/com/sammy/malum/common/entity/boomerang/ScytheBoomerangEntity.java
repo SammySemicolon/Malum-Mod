@@ -1,10 +1,10 @@
 package com.sammy.malum.common.entity.boomerang;
 
-import com.sammy.malum.common.item.tools.ModScytheItem;
-import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.setup.content.enchantment.MalumEnchantments;
+import com.sammy.malum.common.item.tools.MalumScytheItem;
+import com.sammy.malum.core.setup.content.item.MalumEnchantments;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
+import com.sammy.ortus.helpers.ItemHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -120,7 +120,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
             if (!isInWaterRainOrBubble()) {
                 if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, getItem()) > 0) {
                     Vec3 vector = new Vec3(getRandomX(0.7), getRandomY(), getRandomZ(0.7));
-                    if (scythe.getItem() instanceof ModScytheItem) {
+                    if (scythe.getItem() instanceof MalumScytheItem) {
                         Random random = new Random();
                         float rotation = random.nextFloat();
                         vector = new Vec3(Math.cos(this.age) * 0.8f + this.getX(), getY(0.1), Math.sin(this.age) * 0.8f + this.getZ());

@@ -4,8 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
+import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
+import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.MalumMod.prefix;
 
 public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairRecipe> {
 
@@ -34,7 +35,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
 
     public SpiritRepairRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_repair_jei.png"), 0, 0, 142, 183);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/spirit_repair_jei.png"), 0, 0, 142, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()));
     }
 
@@ -95,7 +96,7 @@ public class SpiritRepairRecipeCategory implements IRecipeCategory<SpiritRepairR
                 .peek(s -> s.setDamageValue((int) (s.getMaxDamage() * recipe.durabilityPercentage)))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 61, 12, false, recipe.spirits, index);
+        index = JEIHandler.addItemsToJei(iRecipeLayout, 61, 12, false, recipe.spirits, index);
 
         iRecipeLayout.getItemStacks().init(index + 1, true, 81, 56);
         iRecipeLayout.getItemStacks().set(index + 1, damaged);

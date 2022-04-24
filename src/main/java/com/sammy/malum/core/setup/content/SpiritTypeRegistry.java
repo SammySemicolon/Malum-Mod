@@ -1,12 +1,10 @@
 package com.sammy.malum.core.setup.content;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.core.systems.spirit.SpiritTypeProperty;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -15,13 +13,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
-
 @SuppressWarnings("unchecked")
-@Mod.EventBusSubscriber(modid= MalumMod.MODID, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid= MalumMod.MALUM, value= Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class SpiritTypeRegistry {
     public static HashMap<String, MalumSpiritType> SPIRITS = new HashMap<>();
 

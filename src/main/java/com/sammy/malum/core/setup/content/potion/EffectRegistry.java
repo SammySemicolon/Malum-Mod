@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class EffectRegistry
 {
-    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MalumMod.MODID);
+    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MalumMod.MALUM);
 
     public static final RegistryObject<MobEffect> SACRED_AURA = EFFECTS.register("sacred_aura", SacredAura::new);
     public static final RegistryObject<MobEffect> EARTHEN_AURA = EFFECTS.register("earthen_aura", EarthenAura::new);

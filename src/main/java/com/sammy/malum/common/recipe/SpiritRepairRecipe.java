@@ -4,17 +4,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.malum.core.systems.recipe.IMalumRecipe;
-import com.sammy.malum.core.systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.systems.recipe.IOrtusRecipe;
+import com.sammy.ortus.systems.recipe.IngredientWithCount;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -32,13 +26,13 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SpiritRepairRecipe extends IMalumRecipe {
+public class SpiritRepairRecipe extends IOrtusRecipe {
     public static final String NAME = "spirit_repair";
 
     public static class Type implements RecipeType<SpiritRepairRecipe> {
         @Override
         public String toString() {
-            return MalumMod.MODID + ":" + NAME;
+            return MalumMod.MALUM + ":" + NAME;
         }
 
         public static final SpiritRepairRecipe.Type INSTANCE = new SpiritRepairRecipe.Type();

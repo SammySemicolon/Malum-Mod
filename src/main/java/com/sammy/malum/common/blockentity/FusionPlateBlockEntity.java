@@ -1,9 +1,10 @@
 package com.sammy.malum.common.blockentity;
 
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.multiblock.MultiBlockCoreEntity;
-import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
-import com.sammy.malum.core.systems.multiblock.MultiBlockStructure.StructurePiece;
+import com.sammy.ortus.systems.multiblock.MultiBlockCoreEntity;
+
+import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
+import com.sammy.ortus.systems.multiblock.MultiBlockStructure.StructurePiece;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;

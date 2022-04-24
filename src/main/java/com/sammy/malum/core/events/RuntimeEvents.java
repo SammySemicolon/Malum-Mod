@@ -9,8 +9,7 @@ import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.common.spiritaffinity.ArcaneAffinity;
 import com.sammy.malum.common.spiritaffinity.EarthenAffinity;
 import com.sammy.malum.compability.tetra.TetraCompat;
-import com.sammy.malum.core.handlers.AttributeEventHandler;
-import com.sammy.malum.core.handlers.ItemEventHandler;
+import com.sammy.malum.core.handlers.MalumAttributeEventHandler;
 import com.sammy.malum.core.handlers.SoulHarvestHandler;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
@@ -53,6 +52,7 @@ public class RuntimeEvents {
     public static void onEntityJump(LivingEvent.LivingJumpEvent event) {
         CorruptedAerialAura.onEntityJump(event);
     }
+
     @SubscribeEvent
     public static void onEntityFall(LivingFallEvent event) {
         CorruptedAerialAura.onEntityFall(event);
@@ -101,14 +101,12 @@ public class RuntimeEvents {
         ArcaneAffinity.consumeSoulWard(event);
         EarthenAffinity.consumeHeartOfStone(event);
         SpiritHarvestHandler.exposeSoul(event);
-        ItemEventHandler.respondToHurt(event);
-        AttributeEventHandler.processAttributes(event);
+        MalumAttributeEventHandler.processAttributes(event);
     }
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
         CeaselessImpetusItem.preventDeath(event);
         SpiritHarvestHandler.shatterSoul(event);
-        ItemEventHandler.respondToDeath(event);
     }
 }

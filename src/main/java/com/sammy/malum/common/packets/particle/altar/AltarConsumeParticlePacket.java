@@ -2,7 +2,8 @@ package com.sammy.malum.common.packets.particle.altar;
 
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
@@ -88,7 +89,7 @@ public class AltarConsumeParticlePacket {
             for (MalumSpiritType type : types) {
                 Color color = type.color;
                 Color endColor = type.endColor;
-                ParticleBuilders.create(ParticleRegistry.TWINKLE_PARTICLE)
+                ParticleBuilders.create(OrtusParticles.TWINKLE_PARTICLE)
                         .setAlpha(alpha * 2, 0f)
                         .setLifetime(60)
                         .setScale(0.4f, 0)
@@ -98,7 +99,7 @@ public class AltarConsumeParticlePacket {
                         .enableNoClip()
                         .repeat(level, posX, posY, posZ, 12);
 
-                ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+                ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
                         .setAlpha(alpha, 0f)
                         .setLifetime(30)
                         .setScale(0.2f, 0)
@@ -109,7 +110,7 @@ public class AltarConsumeParticlePacket {
                         .repeat(level, posX, posY, posZ, 8);
 
                 Vec3 velocity = new Vec3(posX, posY, posZ).subtract(altarPosX, altarPosY, altarPosZ).normalize().scale(-0.05f);
-                ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+                ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
                         .setAlpha(alpha, 0f)
                         .setLifetime(40)
                         .setScale(0.3f, 0)

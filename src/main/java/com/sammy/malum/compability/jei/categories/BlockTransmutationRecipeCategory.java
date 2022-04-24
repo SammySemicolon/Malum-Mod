@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
+import static com.sammy.malum.MalumMod.prefix;
 
 public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTransmutationRecipe> {
     public static final ResourceLocation UID = prefix("block_transmutation");
@@ -27,7 +27,7 @@ public class BlockTransmutationRecipeCategory implements IRecipeCategory<BlockTr
 
     public BlockTransmutationRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 83);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/block_transmutation_jei.png"), 0, 0, 140, 81);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/block_transmutation_jei.png"), 0, 0, 140, 81);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SOULWOOD_TOTEM_BASE.get()));
     }
 

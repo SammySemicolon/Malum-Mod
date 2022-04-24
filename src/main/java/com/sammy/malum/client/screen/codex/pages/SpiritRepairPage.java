@@ -1,12 +1,11 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.recipe.SpiritRepairRecipe;
-import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -16,7 +15,7 @@ public class SpiritRepairPage extends BookPage {
     private final SpiritRepairRecipe recipe;
 
     public SpiritRepairPage(Predicate<SpiritRepairRecipe> predicate) {
-        super(DataHelper.prefix("textures/gui/book/pages/spirit_repair_page.png"));
+        super(MalumMod.prefix("textures/gui/book/pages/spirit_repair_page.png"));
         if (Minecraft.getInstance() == null) //this is null during datagen
         {
             this.recipe = null;
@@ -26,7 +25,7 @@ public class SpiritRepairPage extends BookPage {
     }
 
     public SpiritRepairPage(SpiritRepairRecipe recipe) {
-        super(DataHelper.prefix("textures/gui/book/pages/spirit_repair_page.png"));
+        super(MalumMod.prefix("textures/gui/book/pages/spirit_repair_page.png"));
         this.recipe = recipe;
     }
 

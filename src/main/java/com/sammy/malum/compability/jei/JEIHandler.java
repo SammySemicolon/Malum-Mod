@@ -9,9 +9,11 @@ import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.compability.jei.categories.*;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.ortus.systems.recipe.IRecipeComponent;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -25,11 +27,32 @@ import net.minecraft.world.item.crafting.RecipeManager;
 
 import javax.annotation.Nonnull;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
+import java.util.List;
+
+import static com.sammy.malum.MalumMod.prefix;
+
 
 @JeiPlugin
 public class JEIHandler implements IModPlugin {
-    private static final ResourceLocation ID = new ResourceLocation(MalumMod.MODID, "main");
+    private static final ResourceLocation ID = new ResourceLocation(MalumMod.MALUM, "main");
+
+    public static int addItemsToJei(IRecipeLayout iRecipeLayout, int left, int top, boolean vertical, List<? extends IRecipeComponent> components, int baseIndex) {
+        int slots = components.size();
+        if (vertical) {
+            top -= 10 * (slots - 1);
+        } else {
+            left -= 10 * (slots - 1);
+        }
+        for (int i = 0; i < slots; i++) {
+            int offset = i * 20;
+            int oLeft = left + 1 + (vertical ? 0 : offset);
+            int oTop = top + 1 + (vertical ? offset : 0);
+            ItemStack stack = components.get(i).getStack();
+            iRecipeLayout.getItemStacks().init(baseIndex + i, true, oLeft, oTop);
+            iRecipeLayout.getItemStacks().set(baseIndex + i, stack);
+        }
+        return baseIndex + components.size() + 1;
+    }
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {

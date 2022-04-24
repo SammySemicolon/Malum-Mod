@@ -1,8 +1,8 @@
 package com.sammy.malum.common.packets.particle;
 
 import com.sammy.malum.core.setup.client.ParticleRegistry;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
@@ -61,7 +61,7 @@ public class MagicParticlePacket {
     public static class ClientOnly {
         public static void addParticles(Vec3 pos, Color color) {
             Level level = Minecraft.getInstance().level;
-            ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
                     .setAlpha(0.1f, 0f)
                     .setLifetime(10)
                     .setSpin(0.4f)
@@ -72,7 +72,7 @@ public class MagicParticlePacket {
                     .randomMotion(0.01f, 0.01f)
                     .repeat(level, pos.x, pos.y, pos.z, 12);
 
-            ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
+            ParticleBuilders.create(OrtusParticles.SMOKE_PARTICLE)
                     .setAlpha(0.05f, 0f)
                     .setLifetime(20)
                     .setSpin(0.1f)

@@ -1,6 +1,6 @@
 package com.sammy.malum.common.blockentity.crucible;
 
-import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.ortus.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;

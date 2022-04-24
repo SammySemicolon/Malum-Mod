@@ -2,7 +2,7 @@ package com.sammy.malum.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.MalumMod;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class HeadOverlayModel extends EntityModel<Player> {
 
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(DataHelper.prefix("textures/other/owl_texture"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("textures/other/owl_texture"), "main");
 	public final ModelPart overlay;
 
 	public HeadOverlayModel(ModelPart root) {

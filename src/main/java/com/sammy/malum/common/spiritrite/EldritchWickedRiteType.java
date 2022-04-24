@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
-import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;

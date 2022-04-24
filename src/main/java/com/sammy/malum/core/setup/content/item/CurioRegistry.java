@@ -11,7 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
-@Mod.EventBusSubscriber(modid= MalumMod.MODID, bus= Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid= MalumMod.MALUM, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class CurioRegistry
 {
     @SubscribeEvent
@@ -22,7 +22,7 @@ public class CurioRegistry
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("belt").size(1).cosmetic().build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm").size(1).cosmetic().build());
     }
-    @Mod.EventBusSubscriber(modid= MalumMod.MODID, value = Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid= MalumMod.MALUM, value = Dist.CLIENT, bus= Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly
     {
         @SubscribeEvent

@@ -1,28 +1,24 @@
 package com.sammy.malum.common.item.equipment.curios;
 
-import com.sammy.malum.core.systems.item.IEventResponderItem;
+import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class CurioRingOfProwess extends MalumCurioItem implements IEventResponderItem
-{
-    public CurioRingOfProwess(Properties builder)
-    {
+public class CurioRingOfProwess extends MalumCurioItem implements IMalumEventResponderItem {
+    public CurioRingOfProwess(Properties builder) {
         super(builder);
     }
 
     @Override
-    public boolean isGilded()
-    {
+    public boolean isGilded() {
         return true;
     }
 
     @Override
     public void pickupSpirit(LivingEntity attacker, ItemStack stack, boolean isNatural) {
-        if (isNatural)
-        {
+        if (isNatural) {
             Level level = attacker.level;
             int i = 1 + level.random.nextInt(1) + level.random.nextInt(2);
 

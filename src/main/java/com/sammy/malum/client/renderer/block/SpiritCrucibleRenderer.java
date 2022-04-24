@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -25,7 +25,7 @@ public class SpiritCrucibleRenderer implements BlockEntityRenderer<SpiritCrucibl
     public void render(SpiritCrucibleCoreBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        SimpleBlockEntityInventory inventory = blockEntityIn.spiritInventory;
+        OrtusBlockEntityInventory inventory = blockEntityIn.spiritInventory;
         if (!inventory.isEmpty()) {
             for (int i = 0; i < inventory.slotCount; i++) {
                 ItemStack item = inventory.getStackInSlot(i);

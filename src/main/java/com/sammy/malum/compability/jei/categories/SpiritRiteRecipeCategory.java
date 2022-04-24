@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
+import static com.sammy.malum.MalumMod.prefix;
 
 public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> {
     public static final ResourceLocation UID = prefix("spirit_rite");
@@ -32,7 +32,7 @@ public class SpiritRiteRecipeCategory implements IRecipeCategory<MalumRiteType> 
 
     public SpiritRiteRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_rite_jei.png"), 0, 0, 142, 183);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/spirit_rite_jei.png"), 0, 0, 142, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.RUNEWOOD_TOTEM_BASE.get()));
         font = Minecraft.getInstance().font;
     }

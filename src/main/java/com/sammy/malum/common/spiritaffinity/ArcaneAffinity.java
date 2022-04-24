@@ -3,21 +3,22 @@ package com.sammy.malum.common.spiritaffinity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.handlers.ScreenParticleHandler;
-import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.helper.ItemHelper;
-import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.setup.client.ShaderRegistry;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
-import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
+import com.sammy.ortus.handlers.ScreenParticleHandler;
+import com.sammy.ortus.helpers.CurioHelper;
+import com.sammy.ortus.helpers.RenderHelper;
+import com.sammy.ortus.setup.OrtusScreenParticles;
+import com.sammy.ortus.setup.OrtusShaders;
+import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -70,12 +71,12 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                 PlayerDataCapability.getCapability(player).ifPresent(c -> {
                     AttributeInstance instance = player.getAttribute(AttributeRegistry.SOUL_WARD_SHATTER_COOLDOWN.get());
                     if (instance != null) {
-                        c.soulWardProgress = (float) (CommonConfig.SOUL_WARD_RATE.get() * 6 * Math.exp(-0.15 * instance.getValue()));
+                        c.soulWardProgress = (float) (CommonConfig.SOUL_WARD_RATE.getConfigValue() * 6 * Math.exp(-0.15 * instance.getValue()));
                         if (c.soulWard > 0) {
                             DamageSource source = event.getSource();
 
                             float amount = event.getAmount();
-                            float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.get().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.get().floatValue();
+                            float multiplier = source.isMagic() ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
                             float result = amount * multiplier;
                             float absorbed = amount - result;
                             double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
@@ -88,7 +89,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             player.level.playSound(null, player.blockPosition(), SoundRegistry.SOUL_WARD_HIT.get(), SoundSource.PLAYERS, 1, Mth.nextFloat(player.getRandom(), 1.5f, 2f));
                             event.setAmount(result);
                             if (source.getEntity() != null) {
-                                if (ItemHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
+                                if (CurioHelper.hasCurioEquipped(player, ItemRegistry.MAGEBANE_BELT)) {
                                     if (source instanceof EntityDamageSource entityDamageSource) {
                                         if (entityDamageSource.isThorns()) {
                                             return;
@@ -106,11 +107,11 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
     }
 
     public static int getSoulWardCooldown(Player player) {
-        return (int) (CommonConfig.SOUL_WARD_RATE.get() * Math.exp(-0.15 * player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get())));
+        return (int) (CommonConfig.SOUL_WARD_RATE.getConfigValue() * Math.exp(-0.15 * player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_SPEED.get())));
     }
 
     public static class ClientOnly {
-        private static final ResourceLocation ICONS_TEXTURE = DataHelper.prefix("textures/gui/icons.png");
+        private static final ResourceLocation ICONS_TEXTURE = MalumMod.prefix("textures/gui/icons.png");
 
         public static void renderSoulWard(RenderGameOverlayEvent.Post event) {
             Minecraft minecraft = Minecraft.getInstance();
@@ -138,7 +139,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                         RenderSystem.defaultBlendFunc();
                         RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                        ShaderInstance shaderInstance = ShaderRegistry.distortedTexture.getInstance().get();
+                        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaders.DISTORTED_TEXTURE.getInstance().get();
                         shaderInstance.safeGetUniform("YFrequency").set(15f);
                         shaderInstance.safeGetUniform("XFrequency").set(15f);
                         shaderInstance.safeGetUniform("Speed").set(550f);
@@ -153,10 +154,10 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 16 / 256f, 28 / 256f));
                             shaderInstance.safeGetUniform("TimeOffset").set(i * 150f);
 
-                            RenderHelper.blit(poseStack, ShaderRegistry.distortedTexture, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 16, 256f);
+                            RenderHelper.blit(poseStack, OrtusShaders.DISTORTED_TEXTURE, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 16, 256f);
 
                             if (ScreenParticleHandler.canSpawnParticles) {
-                                ParticleBuilders.create(ScreenParticleRegistry.WISP)
+                                ParticleBuilders.create(OrtusScreenParticles.WISP)
                                         .setLifetime(20)
                                         .setColor(SpiritTypeRegistry.ARCANE_SPIRIT_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.endColor)
                                         .setAlphaCurveMultiplier(0.75f)
@@ -170,6 +171,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                                         .repeat(x + 5, y + 5, 1);
                             }
                         }
+                        shaderInstance.setUniformDefaults();
                         RenderSystem.depthMask(true);
                         RenderSystem.disableBlend();
                         poseStack.popPose();

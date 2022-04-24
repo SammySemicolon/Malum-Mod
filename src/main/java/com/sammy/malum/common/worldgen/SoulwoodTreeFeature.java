@@ -1,12 +1,12 @@
 package com.sammy.malum.common.worldgen;
 
 import com.sammy.malum.common.block.MalumSaplingBlock;
-import com.sammy.malum.common.block.misc.MalumLeavesBlock;
-import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.malum.core.systems.worldgen.MalumFiller;
-import com.sammy.malum.core.systems.worldgen.MalumFiller.BlockStateEntry;
+import com.sammy.ortus.helpers.BlockHelper;
+import com.sammy.ortus.helpers.DataHelper;
+import com.sammy.ortus.systems.worldgen.OrtusBlockFiller;
+import com.sammy.ortus.systems.worldgen.OrtusBlockFiller.BlockStateEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
@@ -19,12 +19,11 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 
 import java.util.Random;
 
-public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
-{
-    public SoulwoodTreeFeature()
-    {
+public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
+    public SoulwoodTreeFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }
+
     private static final int minimumSapBlockCount = 2;
     private static final int extraSapBlockCount = 1;
 
@@ -47,14 +46,13 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
         Random rand = context.random();
-        if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_SAPLING.get().defaultBlockState().canSurvive(level, pos))
-        {
+        if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_SAPLING.get().defaultBlockState().canSurvive(level, pos)) {
             return false;
         }
         BlockState defaultLog = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();
 
-        MalumFiller treeFiller = new MalumFiller(false);
-        MalumFiller leavesFiller = new MalumFiller(true);
+        OrtusBlockFiller treeFiller = new OrtusBlockFiller(false);
+        OrtusBlockFiller leavesFiller = new OrtusBlockFiller(true);
 
         int trunkHeight = minimumTrunkHeight + rand.nextInt(extraTrunkHeight + 1);
         BlockPos trunkTop = pos.above(trunkHeight);
@@ -63,12 +61,9 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
         for (int i = 0; i <= trunkHeight; i++) //trunk placement
         {
             BlockPos trunkPos = pos.above(i);
-            if (canPlace(level, trunkPos))
-            {
+            if (canPlace(level, trunkPos)) {
                 treeFiller.entries.add(new BlockStateEntry(defaultLog, trunkPos));
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
@@ -77,15 +72,11 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
         for (Direction direction : directions) //side trunk placement
         {
             int sideTrunkHeight = minimumSideTrunkHeight + rand.nextInt(extraSideTrunkHeight + 1);
-            for (int i = 0; i < sideTrunkHeight; i++)
-            {
+            for (int i = 0; i < sideTrunkHeight; i++) {
                 BlockPos sideTrunkPos = pos.relative(direction).above(i);
-                if (canPlace(level, sideTrunkPos))
-                {
+                if (canPlace(level, sideTrunkPos)) {
                     treeFiller.entries.add(new BlockStateEntry(defaultLog, sideTrunkPos));
-                }
-                else
-                {
+                } else {
                     return false;
                 }
             }
@@ -99,12 +90,9 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
             for (int i = 0; i < branchOffset; i++) //branch connection placement
             {
                 BlockPos branchConnectionPos = branchStartPos.relative(direction.getOpposite(), i);
-                if (canPlace(level, branchConnectionPos))
-                {
+                if (canPlace(level, branchConnectionPos)) {
                     treeFiller.entries.add(new BlockStateEntry(defaultLog.setValue(RotatedPillarBlock.AXIS, direction.getAxis()), branchConnectionPos));
-                }
-                else
-                {
+                } else {
                     return false;
                 }
             }
@@ -112,21 +100,17 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
             for (int i = 0; i < branchHeight; i++) //branch placement
             {
                 BlockPos branchPos = branchStartPos.above(i);
-                if (canPlace(level, branchPos))
-                {
+                if (canPlace(level, branchPos)) {
                     treeFiller.entries.add(new BlockStateEntry(defaultLog, branchPos));
-                }
-                else
-                {
+                } else {
                     return false;
                 }
             }
             makeLeafBlob(leavesFiller, rand, branchStartPos.above(1));
         }
-        int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount+1);
+        int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
         int[] sapBlockIndexes = DataHelper.nextInts(rand, sapBlockCount, treeFiller.entries.size());
-        for (Integer index : sapBlockIndexes)
-        {
+        for (Integer index : sapBlockIndexes) {
             BlockStateEntry oldEntry = treeFiller.entries.get(index);
             BlockState newState = BlockHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState());
             treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
@@ -136,31 +120,24 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
         return true;
     }
 
-    public static void downwardsTrunk(WorldGenLevel level, MalumFiller filler, BlockPos pos)
-    {
+    public static void downwardsTrunk(WorldGenLevel level, OrtusBlockFiller filler, BlockPos pos) {
         int i = 0;
-        do
-        {
+        do {
             i++;
             BlockPos trunkPos = pos.below(i);
-            if (canPlace(level, trunkPos))
-            {
+            if (canPlace(level, trunkPos)) {
                 filler.entries.add(new BlockStateEntry(BlockRegistry.SOULWOOD_LOG.get().defaultBlockState(), trunkPos));
-            }
-            else
-            {
+            } else {
                 break;
             }
-            if (i > level.getMaxBuildHeight())
-            {
+            if (i > level.getMaxBuildHeight()) {
                 break;
             }
         }
         while (true);
     }
 
-    public static void makeLeafBlob(MalumFiller filler, Random rand, BlockPos pos)
-    {
+    public static void makeLeafBlob(OrtusBlockFiller filler, Random rand, BlockPos pos) {
         makeLeafSlice(filler, pos, 1, 0);
         makeLeafSlice(filler, pos.above(1), 2, 1);
         makeLeafSlice(filler, pos.above(2), 2, 2);
@@ -168,14 +145,10 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
         makeLeafSlice(filler, pos.above(4), 1, 4);
     }
 
-    public static void makeLeafSlice(MalumFiller filler, BlockPos pos, int leavesSize, int leavesColor)
-    {
-        for (int x = -leavesSize; x <= leavesSize; x++)
-        {
-            for (int z = -leavesSize; z <= leavesSize; z++)
-            {
-                if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize)
-                {
+    public static void makeLeafSlice(OrtusBlockFiller filler, BlockPos pos, int leavesSize, int leavesColor) {
+        for (int x = -leavesSize; x <= leavesSize; x++) {
+            for (int z = -leavesSize; z <= leavesSize; z++) {
+                if (Math.abs(x) == leavesSize && Math.abs(z) == leavesSize) {
                     continue;
                 }
                 BlockPos leavesPos = new BlockPos(pos).offset(x, 0, z);
@@ -184,10 +157,8 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration>
         }
     }
 
-    public static boolean canPlace(WorldGenLevel level, BlockPos pos)
-    {
-        if (level.isOutsideBuildHeight(pos))
-        {
+    public static boolean canPlace(WorldGenLevel level, BlockPos pos) {
+        if (level.isOutsideBuildHeight(pos)) {
             return false;
         }
         BlockState state = level.getBlockState(pos);

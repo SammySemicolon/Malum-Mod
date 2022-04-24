@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -16,7 +16,7 @@ public class SpiritTextPage extends BookPage
     private final ItemStack spiritStack;
     public SpiritTextPage(String headlineTranslationKey, String translationKey, ItemStack spiritStack)
     {
-        super(DataHelper.prefix("textures/gui/book/pages/spirit_page.png"));
+        super(MalumMod.prefix("textures/gui/book/pages/spirit_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
         this.spiritStack = spiritStack;

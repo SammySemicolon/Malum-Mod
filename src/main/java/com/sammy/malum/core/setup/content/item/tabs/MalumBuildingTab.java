@@ -12,7 +12,7 @@ public class MalumBuildingTab extends CreativeModeTab
     public static final MalumBuildingTab INSTANCE = new MalumBuildingTab();
     
     public MalumBuildingTab() {
-        super(MalumMod.MODID + "_shaped_stones");
+        super(MalumMod.MALUM + "_shaped_stones");
     }
     
     @Nonnull

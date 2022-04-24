@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.fusion_plate;
 
-import com.sammy.malum.core.systems.multiblock.ComponentBlock;
+import com.sammy.ortus.systems.multiblock.MultiblockComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class FusionPlateComponentBlock extends ComponentBlock {
+public class FusionPlateComponentBlock extends MultiblockComponentBlock {
     public static final VoxelShape SIDE_NORTH_SHAPE = makeNorthSideShape();
     public static final VoxelShape SIDE_SOUTH_SHAPE = makeSouthSideShape();
     public static final VoxelShape SIDE_EAST_SHAPE = makeEastSideShape();

@@ -1,18 +1,18 @@
 package com.sammy.malum.common.item.spirit;
 
-import com.sammy.malum.common.item.tools.ModSwordItem;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
-import com.sammy.malum.core.helper.ColorHelper;
-import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
-import com.sammy.malum.core.systems.easing.Easing;
-import com.sammy.malum.core.systems.item.IEventResponderItem;
+import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.ortus.helpers.ColorHelper;
+import com.sammy.ortus.item.tools.OrtusSwordItem;
+import com.sammy.ortus.setup.OrtusScreenParticles;
+import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
-import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
+import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -31,7 +31,7 @@ import java.awt.*;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
-public class TyrvingItem extends ModSwordItem implements IEventResponderItem, ItemParticleEmitter {
+public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderItem, ItemParticleEmitter {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {
         super(material, attackDamage, attackSpeed, properties);
     }
@@ -68,8 +68,8 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem, It
         float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
         Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR;
         Color secondColor = ColorHelper.darker(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, 2);
-        ParticleBuilders.create(ScreenParticleRegistry.STAR)
-                .setAlpha(0.03f, 0f)
+        ParticleBuilders.create(OrtusScreenParticles.STAR)
+                .setAlpha(0.06f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.15f), 0)
                 .setColor(firstColor, secondColor)
@@ -92,8 +92,8 @@ public class TyrvingItem extends ModSwordItem implements IEventResponderItem, It
                 .repeat(x, y, 1);
 
         gameTime += 31.4f;
-        ParticleBuilders.create(ScreenParticleRegistry.STAR)
-                .setAlpha(0.028f, 0f)
+        ParticleBuilders.create(OrtusScreenParticles.STAR)
+                .setAlpha(0.05f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)

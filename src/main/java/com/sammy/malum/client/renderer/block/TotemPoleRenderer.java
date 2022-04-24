@@ -2,31 +2,26 @@ package com.sammy.malum.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
-import com.sammy.malum.core.handlers.RenderHandler;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.systems.rendering.RenderTypes;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.handlers.RenderHandler;
+import com.sammy.ortus.helpers.RenderHelper;
+import com.sammy.ortus.setup.OrtusRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.Vec3;
 
 import java.awt.*;
 import java.util.HashMap;
 
-import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
+import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
 
 
 public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
@@ -49,7 +44,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
 
     public void renderQuad(Material material, Color color, float alpha, Direction direction, PoseStack poseStack) {
         TextureAtlasSprite sprite = material.sprite();
-        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(RenderTypes.ADDITIVE_BLOCK);
+        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(OrtusRenderTypes.ADDITIVE_BLOCK);
 
         Vector3f[] positions = new Vector3f[]{new Vector3f(0, 0, 2.01f), new Vector3f(2, 0, 2.01f), new Vector3f(2, 2, 2.01f), new Vector3f(0, 2, 2.01f)};
 

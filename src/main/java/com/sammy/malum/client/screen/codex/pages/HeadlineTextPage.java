@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -13,7 +13,7 @@ public class HeadlineTextPage extends BookPage
     private final String translationKey;
     public HeadlineTextPage(String headlineTranslationKey, String translationKey)
     {
-        super(DataHelper.prefix("textures/gui/book/pages/headline_page.png"));
+        super(MalumMod.prefix("textures/gui/book/pages/headline_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
     }

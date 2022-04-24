@@ -9,10 +9,9 @@ import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.packets.particle.SoulPurgeParticlePacket;
-import com.sammy.malum.core.helper.ColorHelper;
-import com.sammy.malum.core.helper.RenderHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.systems.rendering.RenderTypes;
+import com.sammy.ortus.helpers.RenderHelper;
+import com.sammy.ortus.setup.OrtusRenderTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -41,11 +40,11 @@ import net.minecraftforge.network.PacketDistributor;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
-import static com.sammy.malum.core.helper.RenderHelper.FULL_BRIGHT;
+import static com.sammy.malum.MalumMod.prefix;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
-import static com.sammy.malum.core.handlers.RenderHandler.DELAYED_RENDER;
-import static com.sammy.malum.core.systems.rendering.RenderTypes.queueUniformChanges;
+import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
+import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
+import static com.sammy.ortus.setup.OrtusRenderTypes.queueUniformChanges;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {
@@ -207,9 +206,9 @@ public class SoulHarvestHandler {
 
     public static class ClientOnly {
         private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/noise/soul_noise.png");
-        private static final RenderType SOUL_NOISE_TYPE = RenderTypes.RADIAL_NOISE.apply(SOUL_NOISE);
+        private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypes.RADIAL_NOISE.apply(SOUL_NOISE);
         private static final ResourceLocation PREVIEW_NOISE = prefix("textures/vfx/noise/harvest_noise.png");
-        private static final RenderType PREVIEW_NOISE_TYPE = RenderTypes.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
+        private static final RenderType PREVIEW_NOISE_TYPE = OrtusRenderTypes.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
 
         @SuppressWarnings("all")
         public static void addRenderLayer(EntityRenderer<?> render) {

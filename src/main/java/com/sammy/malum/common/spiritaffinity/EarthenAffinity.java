@@ -3,15 +3,16 @@ package com.sammy.malum.common.spiritaffinity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.capability.PlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.setup.client.ShaderRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
+import com.sammy.ortus.helpers.RenderHelper;
+import com.sammy.ortus.setup.OrtusShaders;
+import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -86,15 +87,15 @@ public class EarthenAffinity extends MalumSpiritAffinity {
     }
 
     public static int getHeartOfStoneHungerCost(Player player) {
-        return (int) (CommonConfig.HEART_OF_STONE_COST.get() * player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_COST.get()));
+        return (int) (CommonConfig.HEART_OF_STONE_COST.getConfigValue() * player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_COST.get()));
     }
 
     public static int getHeartOfStoneCooldown(Player player) {
-        return (int) (CommonConfig.HEART_OF_STONE_RATE.get() * Math.exp(-0.2 * player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_RECOVERY_SPEED.get())));
+        return (int) (CommonConfig.HEART_OF_STONE_RATE.getConfigValue() * Math.exp(-0.2 * player.getAttributeValue(AttributeRegistry.HEART_OF_STONE_RECOVERY_SPEED.get())));
     }
 
     public static class ClientOnly {
-        private static final ResourceLocation ICONS_TEXTURE = DataHelper.prefix("textures/gui/icons.png");
+        private static final ResourceLocation ICONS_TEXTURE = MalumMod.prefix("textures/gui/icons.png");
 
         public static void renderHeartOfStone(RenderGameOverlayEvent.Post event) {
             Minecraft minecraft = Minecraft.getInstance();
@@ -119,7 +120,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                     RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                    ShaderInstance shaderInstance = ShaderRegistry.distortedTexture.getInstance().get();
+                    ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaders.DISTORTED_TEXTURE.getInstance().get();
                     shaderInstance.safeGetUniform("YFrequency").set(35f);
                     shaderInstance.safeGetUniform("XFrequency").set(25f);
                     shaderInstance.safeGetUniform("Speed").set(1000f);
@@ -134,9 +135,9 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 1 / 256f, 12 / 256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i * 250f);
 
-                        RenderHelper.blit(poseStack, ShaderRegistry.distortedTexture, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 1, 256f);
-
+                        RenderHelper.blit(poseStack, OrtusShaders.DISTORTED_TEXTURE, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 1, 256f);
                     }
+                    shaderInstance.setUniformDefaults();
                     RenderSystem.depthMask(true);
                     RenderSystem.disableBlend();
                     poseStack.popPose();

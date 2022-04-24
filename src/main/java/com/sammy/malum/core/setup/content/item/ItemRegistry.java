@@ -2,7 +2,7 @@ package com.sammy.malum.core.setup.content.item;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.*;
-import com.sammy.malum.common.block.misc.MalumLeavesBlock;
+import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
@@ -23,21 +23,20 @@ import com.sammy.malum.common.item.food.HolySyrupItem;
 import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.common.item.misc.MalumBoatItem;
-import com.sammy.malum.common.item.misc.MalumFuelBlockItem;
-import com.sammy.malum.common.item.misc.MalumFuelItem;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
-import com.sammy.malum.core.handlers.ScreenParticleHandler;
-import com.sammy.malum.core.helper.ColorHelper;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
-import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
-import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import com.sammy.ortus.helpers.ColorHelper;
+import com.sammy.ortus.helpers.DataHelper;
+import com.sammy.ortus.item.OrtusBoatItem;
+import com.sammy.ortus.item.OrtusFuelBlockItem;
+import com.sammy.ortus.item.OrtusFuelItem;
+import com.sammy.ortus.item.tools.magic.*;
+import com.sammy.ortus.systems.multiblock.MultiBlockItem;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
@@ -48,7 +47,6 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -58,16 +56,15 @@ import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.MalumMod.MODID;
-import static com.sammy.malum.core.handlers.ScreenParticleHandler.registerItemParticleEmitter;
-import static com.sammy.malum.core.helper.ColorHelper.brighter;
+import static com.sammy.malum.MalumMod.MALUM;
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.setup.content.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
+import static com.sammy.ortus.helpers.ColorHelper.brighter;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
 
 @SuppressWarnings("unused")
 public class ItemRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MALUM);
 
     public static Item.Properties DEFAULT_PROPERTIES() {
         return new Item.Properties().tab(MalumCreativeTab.INSTANCE);
@@ -253,7 +250,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_ITEM_PEDESTAL = ITEMS.register("runewood_item_pedestal", () -> new BlockItem(BlockRegistry.RUNEWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> RUNEWOOD_SIGN = ITEMS.register("runewood_sign", () -> new SignItem(NATURE_PROPERTIES().stacksTo(16), BlockRegistry.RUNEWOOD_SIGN.get(), BlockRegistry.RUNEWOOD_WALL_SIGN.get()));
-    public static final RegistryObject<Item> RUNEWOOD_BOAT = ITEMS.register("runewood_boat", () -> new MalumBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.RUNEWOOD_BOAT));
+    public static final RegistryObject<Item> RUNEWOOD_BOAT = ITEMS.register("runewood_boat", () -> new OrtusBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.RUNEWOOD_BOAT));
     //endregion
 
     //region soulwood
@@ -304,7 +301,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOULWOOD_ITEM_PEDESTAL = ITEMS.register("soulwood_item_pedestal", () -> new BlockItem(BlockRegistry.SOULWOOD_ITEM_PEDESTAL.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> SOULWOOD_SIGN = ITEMS.register("soulwood_sign", () -> new SignItem(NATURE_PROPERTIES().stacksTo(16), BlockRegistry.SOULWOOD_SIGN.get(), BlockRegistry.SOULWOOD_WALL_SIGN.get()));
-    public static final RegistryObject<Item> SOULWOOD_BOAT = ITEMS.register("soulwood_boat", () -> new MalumBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.SOULWOOD_BOAT));
+    public static final RegistryObject<Item> SOULWOOD_BOAT = ITEMS.register("soulwood_boat", () -> new OrtusBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.SOULWOOD_BOAT));
 
     //endregion
 
@@ -323,17 +320,17 @@ public class ItemRegistry {
     //region ores
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-    public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new MalumFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
-    public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new MalumFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
+    public static final RegistryObject<Item> COAL_FRAGMENT = ITEMS.register("coal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
+    public static final RegistryObject<Item> CHARCOAL_FRAGMENT = ITEMS.register("charcoal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
 
-    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new MalumFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 3200));
-    public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new MalumFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 400));
-    public static final RegistryObject<Item> BLOCK_OF_ARCANE_CHARCOAL = ITEMS.register("block_of_arcane_charcoal", () -> new MalumFuelBlockItem(BlockRegistry.BLOCK_OF_ARCANE_CHARCOAL.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 28800));
+    public static final RegistryObject<Item> ARCANE_CHARCOAL = ITEMS.register("arcane_charcoal", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 3200));
+    public static final RegistryObject<Item> ARCANE_CHARCOAL_FRAGMENT = ITEMS.register("arcane_charcoal_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 400));
+    public static final RegistryObject<Item> BLOCK_OF_ARCANE_CHARCOAL = ITEMS.register("block_of_arcane_charcoal", () -> new OrtusFuelBlockItem(BlockRegistry.BLOCK_OF_ARCANE_CHARCOAL.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 28800));
 
     public static final RegistryObject<Item> BLAZING_QUARTZ_ORE = ITEMS.register("blazing_quartz_ore", () -> new BlockItem(BlockRegistry.BLAZING_QUARTZ_ORE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
-    public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new MalumFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 1600));
-    public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new MalumFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
-    public static final RegistryObject<Item> BLOCK_OF_BLAZING_QUARTZ = ITEMS.register("block_of_blazing_quartz", () -> new MalumFuelBlockItem(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 14400));
+    public static final RegistryObject<Item> BLAZING_QUARTZ = ITEMS.register("blazing_quartz", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 1600));
+    public static final RegistryObject<Item> BLAZING_QUARTZ_FRAGMENT = ITEMS.register("blazing_quartz_fragment", () -> new OrtusFuelItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC), 200));
+    public static final RegistryObject<Item> BLOCK_OF_BLAZING_QUARTZ = ITEMS.register("block_of_blazing_quartz", () -> new OrtusFuelBlockItem(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS), 14400));
 
     public static final RegistryObject<Item> BRILLIANT_STONE = ITEMS.register("brilliant_stone", () -> new BlockItem(BlockRegistry.BRILLIANT_STONE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
     public static final RegistryObject<Item> BRILLIANT_DEEPSLATE = ITEMS.register("brilliant_deepslate", () -> new BlockItem(BlockRegistry.BRILLIANT_DEEPSLATE.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
@@ -495,7 +492,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> FANCY_BOOTS = ITEMS.register("fancy_boots", () -> new DripArmorItem(EquipmentSlot.FEET, HIDDEN_PROPERTIES()));
     //endregion
 
-    @Mod.EventBusSubscriber(modid = MalumMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MalumMod.MALUM, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class Common {
         @SubscribeEvent
         public static void registerCompost(FMLCommonSetupEvent event) {
@@ -510,7 +507,7 @@ public class ItemRegistry {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = MalumMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MalumMod.MALUM, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientOnly {
 
         public static DripArmorModel DRIP_ARMOR;
@@ -537,15 +534,6 @@ public class ItemRegistry {
             HEAD_OVERLAY_MODEL = new HeadOverlayModel(event.getEntityModels().bakeLayer(HeadOverlayModel.LAYER));
         }
 
-        public static void registerParticleEmitters(FMLClientSetupEvent event) {
-            Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
-            DataHelper.takeAll(items, i -> i.get() instanceof ItemParticleEmitter).forEach(i -> {
-                        ItemParticleEmitter emitter = (ItemParticleEmitter) i.get();
-                        ScreenParticleHandler.registerItemParticleEmitter(i.get(), emitter::particleTick);
-                    }
-            );
-        }
-
         @SubscribeEvent
         public static void setItemColors(ColorHandlerEvent.Item event) {
             ItemColors itemColors = event.getItemColors();
@@ -554,7 +542,7 @@ public class ItemRegistry {
             DataHelper.takeAll(items, i -> i.get() instanceof BlockItem && ((BlockItem) i.get()).getBlock() instanceof MalumLeavesBlock).forEach(item ->
             {
                 MalumLeavesBlock malumLeavesBlock = (MalumLeavesBlock) ((BlockItem) item.get()).getBlock();
-                itemColors.register((s, c) -> ColorHelper.getDecimal(malumLeavesBlock.minColor), item.get());
+                itemColors.register((s, c) -> ColorHelper.getColor(malumLeavesBlock.minColor), item.get());
             });
             DataHelper.takeAll(items, i -> i.get() instanceof EtherTorchItem || i.get() instanceof EtherBrazierItem).forEach(i -> itemColors.register((s, c) -> {
                 AbstractEtherItem etherItem = (AbstractEtherItem) s.getItem();

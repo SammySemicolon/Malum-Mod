@@ -1,10 +1,9 @@
 package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
-import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
-import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ParticleEmitter;
+import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;

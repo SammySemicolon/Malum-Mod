@@ -9,13 +9,12 @@ import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.block.storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.storage.ItemStandBlock;
 import com.sammy.malum.common.block.mirror.WallMirrorBlock;
-import com.sammy.malum.common.block.misc.MalumLeavesBlock;
+import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.block.SimpleBlockProperties;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.helpers.DataHelper;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -33,15 +32,15 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Function;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
-import static com.sammy.malum.core.helper.DataHelper.takeAll;
+import static com.sammy.malum.MalumMod.prefix;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.*;
+import static com.sammy.ortus.helpers.DataHelper.takeAll;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
 
 public class MalumBlockStates extends net.minecraftforge.client.model.generators.BlockStateProvider {
     public MalumBlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, MalumMod.MODID, exFileHelper);
+        super(gen, MalumMod.MALUM, exFileHelper);
     }
 
     @Nonnull

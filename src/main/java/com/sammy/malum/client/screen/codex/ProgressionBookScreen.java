@@ -2,23 +2,21 @@ package com.sammy.malum.client.screen.codex;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.objects.BookObject;
 import com.sammy.malum.client.screen.codex.objects.ImportantEntryObject;
 import com.sammy.malum.client.screen.codex.objects.VanishingEntryObject;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
-import com.sammy.malum.core.handlers.ScreenParticleHandler;
-import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.setup.client.ShaderRegistry;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.systems.recipe.IRecipeComponent;
+import com.sammy.ortus.handlers.ScreenParticleHandler;
+import com.sammy.ortus.helpers.RenderHelper;
+import com.sammy.ortus.systems.recipe.IRecipeComponent;
 import mezz.jei.api.gui.IRecipeLayout;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -38,16 +36,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
-import static com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.*;
+import static com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle.RenderOrder.BEFORE_TOOLTIPS;
 import static net.minecraft.util.FastColor.ARGB32.color;
 import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class ProgressionBookScreen extends Screen {
-    public static final ResourceLocation FRAME_TEXTURE = DataHelper.prefix("textures/gui/book/frame.png");
-    public static final ResourceLocation FADE_TEXTURE = DataHelper.prefix("textures/gui/book/fade.png");
+    public static final ResourceLocation FRAME_TEXTURE = MalumMod.prefix("textures/gui/book/frame.png");
+    public static final ResourceLocation FADE_TEXTURE = MalumMod.prefix("textures/gui/book/fade.png");
 
-    public static final ResourceLocation BACKGROUND_TEXTURE = DataHelper.prefix("textures/gui/book/background.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = MalumMod.prefix("textures/gui/book/background.png");
 
     public int bookWidth = 378;
     public int bookHeight = 250;
@@ -684,23 +682,6 @@ public class ProgressionBookScreen extends Screen {
         RenderSystem.disableBlend();
     }
 
-    public static int addItemsToJei(IRecipeLayout iRecipeLayout, int left, int top, boolean vertical, List<? extends IRecipeComponent> components, int baseIndex) {
-        int slots = components.size();
-        if (vertical) {
-            top -= 10 * (slots - 1);
-        } else {
-            left -= 10 * (slots - 1);
-        }
-        for (int i = 0; i < slots; i++) {
-            int offset = i * 20;
-            int oLeft = left + 1 + (vertical ? 0 : offset);
-            int oTop = top + 1 + (vertical ? offset : 0);
-            ItemStack stack = components.get(i).getStack();
-            iRecipeLayout.getItemStacks().init(baseIndex + i, true, oLeft, oTop);
-            iRecipeLayout.getItemStacks().set(baseIndex + i, stack);
-        }
-        return baseIndex + components.size() + 1;
-    }
     public static void renderComponents(PoseStack poseStack, List<? extends IRecipeComponent> components, int left, int top, int mouseX, int mouseY, boolean vertical) {
         List<ItemStack> items = components.stream().map(IRecipeComponent::getStack).collect(Collectors.toList());
         ProgressionBookScreen.renderItemList(poseStack, items, left, top, mouseX, mouseY, vertical);

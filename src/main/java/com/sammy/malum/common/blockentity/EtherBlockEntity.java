@@ -5,13 +5,13 @@ import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.ether.EtherItem;
-import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.systems.easing.Easing;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.helpers.ColorHelper;
+import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import com.sammy.ortus.systems.easing.Easing;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -25,9 +25,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 
 import java.awt.*;
-import java.util.Random;
 
-public class EtherBlockEntity extends SimpleBlockEntity {
+public class EtherBlockEntity extends OrtusBlockEntity {
     public int firstColorRGB;
     public Color firstColor;
     public int secondColorRGB;
@@ -133,7 +132,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                 lifeTime -= 2;
                 scale *= 1.25f;
             }
-            ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+            ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.8f, 0.5f)
@@ -146,7 +145,7 @@ public class EtherBlockEntity extends SimpleBlockEntity {
                     .addMotion(0, velocity, 0)
                     .enableNoClip()
                     .spawn(level, x, y, z);
-            ParticleBuilders.create(ParticleRegistry.SPARKLE_PARTICLE)
+            ParticleBuilders.create(OrtusParticles.SPARKLE_PARTICLE)
                     .setScale(scale * 2, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)

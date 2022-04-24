@@ -1,7 +1,6 @@
 package com.sammy.malum.common.blockentity.tablet;
 
-import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
-import com.sammy.malum.core.helper.BlockHelper;
+import com.sammy.ortus.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -9,7 +8,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;

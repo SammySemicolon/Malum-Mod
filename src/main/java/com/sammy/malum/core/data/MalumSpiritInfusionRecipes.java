@@ -1,16 +1,15 @@
 package com.sammy.malum.core.data;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
+import com.sammy.ortus.setup.OrtusItemTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -24,6 +23,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Consumer;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
+import static com.sammy.ortus.setup.OrtusItemTags.*;
 
 public class MalumSpiritInfusionRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumSpiritInfusionRecipes(DataGenerator generatorIn) {
@@ -330,14 +330,14 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
         metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Tags.Items.INGOTS_IRON);
         metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Tags.Items.INGOTS_COPPER);
         metalImpetusRecipe(consumer, ItemRegistry.GOLD_IMPETUS, Tags.Items.INGOTS_GOLD);
-        metalImpetusRecipe(consumer, ItemRegistry.LEAD_IMPETUS, ItemTagRegistry.INGOTS_LEAD);
-        metalImpetusRecipe(consumer, ItemRegistry.SILVER_IMPETUS, ItemTagRegistry.INGOTS_SILVER);
-        metalImpetusRecipe(consumer, ItemRegistry.ALUMINUM_IMPETUS, ItemTagRegistry.INGOTS_ALUMINUM);
-        metalImpetusRecipe(consumer, ItemRegistry.NICKEL_IMPETUS, ItemTagRegistry.INGOTS_NICKEL);
-        metalImpetusRecipe(consumer, ItemRegistry.URANIUM_IMPETUS, ItemTagRegistry.INGOTS_URANIUM);
-        metalImpetusRecipe(consumer, ItemRegistry.OSMIUM_IMPETUS, ItemTagRegistry.INGOTS_OSMIUM);
-        metalImpetusRecipe(consumer, ItemRegistry.ZINC_IMPETUS, ItemTagRegistry.INGOTS_ZINC);
-        metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, ItemTagRegistry.INGOTS_TIN);
+        metalImpetusRecipe(consumer, ItemRegistry.LEAD_IMPETUS, INGOTS_LEAD);
+        metalImpetusRecipe(consumer, ItemRegistry.SILVER_IMPETUS, INGOTS_SILVER);
+        metalImpetusRecipe(consumer, ItemRegistry.ALUMINUM_IMPETUS, INGOTS_ALUMINUM);
+        metalImpetusRecipe(consumer, ItemRegistry.NICKEL_IMPETUS, INGOTS_NICKEL);
+        metalImpetusRecipe(consumer, ItemRegistry.URANIUM_IMPETUS, INGOTS_URANIUM);
+        metalImpetusRecipe(consumer, ItemRegistry.OSMIUM_IMPETUS, INGOTS_OSMIUM);
+        metalImpetusRecipe(consumer, ItemRegistry.ZINC_IMPETUS, INGOTS_ZINC);
+        metalImpetusRecipe(consumer, ItemRegistry.TIN_IMPETUS, INGOTS_TIN);
     }
 
     public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, TagKey<Item> ingot) {
@@ -350,6 +350,6 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                                 .addExtraItem(Ingredient.of(ingot), 6)
                                 ::build)
                 .generateAdvancement()
-                .build(consumer, DataHelper.prefix("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
+                .build(consumer, MalumMod.prefix("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
     }
 }

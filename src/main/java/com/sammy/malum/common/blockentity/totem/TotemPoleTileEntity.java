@@ -2,14 +2,14 @@ package com.sammy.malum.common.blockentity.totem;
 
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.packets.particle.BlockParticlePacket;
-import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.helpers.BlockHelper;
+import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +31,7 @@ import java.awt.*;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
-public class TotemPoleTileEntity extends SimpleBlockEntity {
+public class TotemPoleTileEntity extends OrtusBlockEntity {
 
     public MalumSpiritType type;
     public int desiredColor;
@@ -148,7 +148,7 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
     public void passiveParticles() {
         Color color = type.color;
         Color endColor = type.endColor;
-        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
                 .setAlpha(0.06f, 0f)
                 .setLifetime(5)
                 .setSpin(0.2f)
@@ -161,7 +161,7 @@ public class TotemPoleTileEntity extends SimpleBlockEntity {
                 .randomMotion(0.01f, 0.01f)
                 .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-        ParticleBuilders.create(ParticleRegistry.SMOKE_PARTICLE)
+        ParticleBuilders.create(OrtusParticles.SMOKE_PARTICLE)
                 .setAlpha(0.06f, 0f)
                 .setLifetime(10)
                 .setSpin(0.1f)

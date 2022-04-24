@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
-import com.sammy.malum.common.item.tools.ModScytheItem;
+import com.sammy.malum.common.item.tools.MalumScytheItem;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,37 +15,33 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomerangEntity>
-{
+public class ScytheBoomerangEntityRenderer extends EntityRenderer<ScytheBoomerangEntity> {
     public final ItemRenderer itemRenderer;
-    
-    public ScytheBoomerangEntityRenderer(EntityRendererProvider.Context context)
-    {
+
+    public ScytheBoomerangEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
         this.itemRenderer = context.getItemRenderer();
         this.shadowRadius = 2F;
         this.shadowStrength = 0.5F;
     }
-    
+
     @Override
-    public void render(ScytheBoomerangEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn)
-    {
+    public void render(ScytheBoomerangEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
         ItemStack itemstack = entityIn.getItem();
         BakedModel model = this.itemRenderer.getModel(itemstack, entityIn.level, null, 1);
         poseStack.mulPose(Vector3f.XP.rotationDegrees(90F));
         poseStack.scale(2f, 2f, 2f);
         poseStack.mulPose(Vector3f.ZP.rotation((entityIn.age + partialTicks) * 0.9f));
-        itemRenderer.render(itemstack, itemstack.getItem() instanceof ModScytheItem ? ItemTransforms.TransformType.NONE : ItemTransforms.TransformType.FIXED, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
-    
+        itemRenderer.render(itemstack, itemstack.getItem() instanceof MalumScytheItem ? ItemTransforms.TransformType.NONE : ItemTransforms.TransformType.FIXED, false, poseStack, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, model);
+
         poseStack.popPose();
-    
+
         super.render(entityIn, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
     }
-    
+
     @Override
-    public ResourceLocation getTextureLocation(ScytheBoomerangEntity entity)
-    {
+    public ResourceLocation getTextureLocation(ScytheBoomerangEntity entity) {
         return TextureAtlas.LOCATION_BLOCKS;
     }
 }

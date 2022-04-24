@@ -1,12 +1,12 @@
 package com.sammy.malum.common.capability;
 
-import com.sammy.malum.common.packets.SyncPlayerCapabilityDataPacket;
-import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.packets.SyncMalumPlayerCapabilityDataPacket;
 import com.sammy.malum.core.setup.server.PacketRegistry;
 import com.sammy.malum.core.setup.content.SpiritAffinityRegistry;
-import com.sammy.malum.core.systems.capability.SimpleCapability;
-import com.sammy.malum.core.systems.capability.SimpleCapabilityProvider;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
+import com.sammy.ortus.systems.capability.OrtusCapability;
+import com.sammy.ortus.systems.capability.OrtusCapabilityProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,7 +23,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.UUID;
 
-public class PlayerDataCapability implements SimpleCapability {
+public class PlayerDataCapability implements OrtusCapability {
 
     public static Capability<PlayerDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
@@ -31,8 +31,6 @@ public class PlayerDataCapability implements SimpleCapability {
     public UUID targetedSoulUUID;
     public int targetedSoulId;
     public int soulFetchCooldown;
-
-    public boolean firstTimeJoin;
 
     public MalumSpiritAffinity affinity;
 
@@ -48,13 +46,12 @@ public class PlayerDataCapability implements SimpleCapability {
     public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
             final PlayerDataCapability capability = new PlayerDataCapability();
-            event.addCapability(DataHelper.prefix("player_data"), new SimpleCapabilityProvider<>(PlayerDataCapability.CAPABILITY, () -> capability));
+            event.addCapability(MalumMod.prefix("player_data"), new OrtusCapabilityProvider<>(PlayerDataCapability.CAPABILITY, () -> capability));
         }
     }
 
     public static void playerJoin(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof Player player) {
-            PlayerDataCapability.getCapability(player).ifPresent(capability -> capability.firstTimeJoin = true);
             if (player instanceof ServerPlayer serverPlayer) {
                 syncSelf(serverPlayer);
             }
@@ -85,8 +82,6 @@ public class PlayerDataCapability implements SimpleCapability {
         tag.putInt("targetedSoulId", targetedSoulId);
         tag.putInt("soulFetchCooldown", soulFetchCooldown);
 
-        tag.putBoolean("firstTimeJoin", firstTimeJoin);
-
         if (affinity != null) {
             tag.putString("affinity", affinity.identifier);
         }
@@ -109,8 +104,6 @@ public class PlayerDataCapability implements SimpleCapability {
         targetedSoulId = tag.getInt("targetedSoulId");
         soulFetchCooldown = tag.getInt("soulFetchCooldown");
 
-        firstTimeJoin = tag.getBoolean("firstTimeJoin");
-
         soulWard = tag.getFloat("soulWard");
         soulWardProgress = tag.getFloat("soulWardProgress");
 
@@ -131,7 +124,7 @@ public class PlayerDataCapability implements SimpleCapability {
     }
 
     public static void sync(Player player, PacketDistributor.PacketTarget target) {
-        getCapability(player).ifPresent(c -> PacketRegistry.INSTANCE.send(target, new SyncPlayerCapabilityDataPacket(player.getUUID(), c.serializeNBT())));
+        getCapability(player).ifPresent(c -> PacketRegistry.INSTANCE.send(target, new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), c.serializeNBT())));
     }
 
     public static LazyOptional<PlayerDataCapability> getCapability(Player player) {

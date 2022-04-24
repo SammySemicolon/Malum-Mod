@@ -2,9 +2,8 @@ package com.sammy.malum.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.MalumMod;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -13,7 +12,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class TailModel extends EntityModel<Player> {
 
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(DataHelper.prefix("textures/other/sammy_texture"), "main");
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("textures/other/sammy_texture"), "main");
 	private final ModelPart tail;
 
 	public TailModel(ModelPart root) {

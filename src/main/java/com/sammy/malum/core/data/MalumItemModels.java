@@ -10,11 +10,10 @@ import com.sammy.malum.common.item.NodeItem;
 import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
-import com.sammy.malum.common.item.tools.ModScytheItem;
-import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.systems.item.ModCombatItem;
-import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
-import com.sammy.malum.core.systems.multiblock.MultiBlockItem;
+import com.sammy.malum.common.item.tools.MalumScytheItem;
+import com.sammy.ortus.helpers.DataHelper;
+import com.sammy.ortus.systems.item.ModCombatItem;
+import com.sammy.ortus.systems.multiblock.MultiBlockItem;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -29,20 +28,20 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sammy.malum.core.helper.DataHelper.prefix;
-import static com.sammy.malum.core.helper.DataHelper.takeAll;
+import static com.sammy.malum.MalumMod.prefix;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
+import static com.sammy.ortus.helpers.DataHelper.takeAll;
 
 public class MalumItemModels extends net.minecraftforge.client.model.generators.ItemModelProvider {
     public MalumItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, MalumMod.MODID, existingFileHelper);
+        super(generator, MalumMod.MALUM, existingFileHelper);
     }
 
     @Override
     protected void registerModels() {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
 
-        takeAll(items, i -> i.get() instanceof ModScytheItem);
+        takeAll(items, i -> i.get() instanceof MalumScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
         takeAll(items, i -> i.get() instanceof NodeItem).forEach(this::nodeItem);
         takeAll(items, i -> i.get() instanceof ImpetusItem || i.get() instanceof CrackedImpetusItem).forEach(this::impetusItem);
@@ -76,12 +75,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
 
     private void multiBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        IMultiBlockCore multiBlockCore = ((IMultiBlockCore) ((BlockItem) i.get()).getBlock());
-        if (multiBlockCore.isComplex()) {
-            cubeAll(name, prefix("item/" + name));
-        } else {
-            getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));
-        }
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));
     }
 
     private void nodeItem(RegistryObject<Item> i) {
@@ -91,7 +85,7 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
 
     private void impetusItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
-        ArrayList<String> split = DataHelper.reverseOrder(ArrayList::new, Arrays.asList(name.split("_")));
+        ArrayList<String> split = DataHelper.reverseOrder(new ArrayList<>(), Arrays.asList(name.split("_")));
         split.remove(0);
         String alteredName = String.join("_", split);
         withExistingParent(name, GENERATED).texture("layer0", prefix("item/impetus/" + alteredName));

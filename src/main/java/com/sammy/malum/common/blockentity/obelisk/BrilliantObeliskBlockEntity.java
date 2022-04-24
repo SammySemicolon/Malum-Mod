@@ -2,7 +2,7 @@ package com.sammy.malum.common.blockentity.obelisk;
 
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.malum.core.systems.multiblock.MultiBlockStructure;
+import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 

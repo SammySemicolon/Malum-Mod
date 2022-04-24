@@ -12,7 +12,7 @@ public class MalumNatureTab extends CreativeModeTab
     public static final MalumNatureTab INSTANCE = new MalumNatureTab();
 
     public MalumNatureTab() {
-        super(MalumMod.MODID + "_natural_wonders");
+        super(MalumMod.MALUM + "_natural_wonders");
     }
 
     @Nonnull

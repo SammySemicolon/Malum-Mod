@@ -2,12 +2,12 @@ package com.sammy.malum.common.blockentity.totem;
 
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.packets.particle.TotemParticlePacket;
-import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
+import com.sammy.ortus.helpers.BlockHelper;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class TotemBaseTileEntity extends SimpleBlockEntity {
+public class TotemBaseTileEntity extends OrtusBlockEntity {
 
     public MalumRiteType rite;
     public ArrayList<MalumSpiritType> spirits = new ArrayList<>();

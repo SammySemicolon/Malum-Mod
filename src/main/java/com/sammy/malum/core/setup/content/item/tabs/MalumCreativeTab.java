@@ -12,7 +12,7 @@ public class MalumCreativeTab extends CreativeModeTab
     public static final MalumCreativeTab INSTANCE = new MalumCreativeTab();
     
     public MalumCreativeTab() {
-        super(MalumMod.MODID);
+        super(MalumMod.MALUM);
     }
     
     @Nonnull

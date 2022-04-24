@@ -4,15 +4,16 @@ package com.sammy.malum.client.model;
 // Paste this class into your mod and generate all required imports
 
 
-import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.MalumMod;
+import com.sammy.ortus.model.OrtusArmorModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class SoulStainedSteelArmorModel extends ArmorModel {
-	public static ModelLayerLocation LAYER = new ModelLayerLocation(DataHelper.prefix("textures/armor/soul_stained_steel"), "main");
+public class SoulStainedSteelArmorModel extends OrtusArmorModel {
+	public static ModelLayerLocation LAYER = new ModelLayerLocation(MalumMod.prefix("textures/armor/soul_stained_steel"), "main");
 
 	public SoulStainedSteelArmorModel(ModelPart root) {
 		super(root);
