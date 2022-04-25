@@ -57,6 +57,8 @@ public class MalumBlockTags extends BlockTagsProvider {
 
 
         tag(BlockTagRegistry.HEAT_SOURCES).add(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get());
+        tag(BlockTagRegistry.BLIGHTED_BLOCKS).add(BlockRegistry.BLIGHTED_SOIL.get());
+
         for (Block block : getModBlocks(b -> b instanceof EtherBlock)) {
             tag(BlockTagRegistry.TRAY_HEAT_SOURCES).add(block);
         }

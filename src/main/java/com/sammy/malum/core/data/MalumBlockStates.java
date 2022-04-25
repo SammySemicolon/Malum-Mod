@@ -2,18 +2,16 @@ package com.sammy.malum.core.data;
 
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
+import com.sammy.malum.common.block.mirror.WallMirrorBlock;
 import com.sammy.malum.common.block.storage.ItemPedestalBlock;
 import com.sammy.malum.common.block.storage.ItemStandBlock;
-import com.sammy.malum.common.block.mirror.WallMirrorBlock;
-import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
-import com.sammy.malum.common.blockentity.crucible.IAccelerationTarget;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.DataHelper;
@@ -56,6 +54,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
         takeAll(blocks, BLIGHTED_SOIL).forEach(this::rotatedBlock);
+        takeAll(blocks, BLIGHTED_SPIRE).forEach(this::blightedSpireBlock);
 
         ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
@@ -64,8 +63,6 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, SOULWOOD_PLINTH, SOULWOOD_PLINTH_COMPONENT));
 
         ArrayList<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_STONE, BLAZING_QUARTZ_ORE));
-
-        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
 
         takeAll(blocks, customModels::contains);
         takeAll(blocks, predefinedModels::contains).forEach(this::customBlock);
@@ -140,6 +137,17 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 .nextModel().modelFile(file).rotationY(90)
                 .nextModel().modelFile(file).rotationY(180)
                 .nextModel().modelFile(file).rotationY(270)
+                .addModel();
+    }
+
+    public void blightedSpireBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile cross0 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_0"));
+        ModelFile cross1 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_1"));
+
+        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
+                .modelFile(cross0)
+                .nextModel().modelFile(cross1)
                 .addModel();
     }
 

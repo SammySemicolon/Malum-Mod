@@ -11,6 +11,7 @@ import com.sammy.malum.common.item.ether.AbstractEtherItem;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.helpers.DataHelper;
 import com.sammy.ortus.systems.item.ModCombatItem;
 import com.sammy.ortus.systems.multiblock.MultiBlockItem;
@@ -40,6 +41,8 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     @Override
     protected void registerModels() {
         Set<RegistryObject<Item>> items = new HashSet<>(ITEMS.getEntries());
+
+        takeAll(items, ItemRegistry.BLIGHTED_SPIRE).forEach(this::blightedSpireItem);
 
         takeAll(items, i -> i.get() instanceof MalumScytheItem);
         takeAll(items, i -> i.get() instanceof MalumSpiritItem).forEach(this::spiritSplinterItem);
@@ -73,6 +76,10 @@ public class MalumItemModels extends net.minecraftforge.client.model.generators.
     private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
     private static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
 
+    private void blightedSpireItem(RegistryObject<Item> i) {
+        String name = Registry.ITEM.getKey(i.get()).getPath();
+        withExistingParent(name, GENERATED).texture("layer0", prefix("block/" + name+"_0"));
+    }
     private void multiBlockItem(RegistryObject<Item> i) {
         String name = Registry.ITEM.getKey(i.get()).getPath();
         getBuilder(name).parent(new ModelFile.UncheckedModelFile(prefix("item/" + name + "_item")));

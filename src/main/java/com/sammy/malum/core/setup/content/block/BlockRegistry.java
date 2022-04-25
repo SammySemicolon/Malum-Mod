@@ -1,19 +1,17 @@
 package com.sammy.malum.core.setup.content.block;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.MalumSaplingBlock;
-import com.sammy.malum.common.block.RunewoodLogBlock;
-import com.sammy.malum.common.block.SapFilledLogBlock;
-import com.sammy.malum.common.block.TheDevice;
+import com.sammy.malum.common.block.*;
+import com.sammy.malum.common.block.blight.BlightedGrassBlock;
+import com.sammy.malum.common.block.blight.BlightedSoilBlock;
+import com.sammy.malum.common.block.blight.SoulwoodGrowthBlock;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateComponentBlock;
 import com.sammy.malum.common.block.fusion_plate.FusionPlateCoreBlock;
-import com.sammy.malum.common.block.storage.*;
 import com.sammy.malum.common.block.mirror.EmitterMirrorBlock;
-import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.obelisk.BrillianceObeliskCoreBlock;
 import com.sammy.malum.common.block.obelisk.ObeliskComponentBlock;
 import com.sammy.malum.common.block.obelisk.RunewoodObeliskCoreBlock;
@@ -22,9 +20,10 @@ import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerComponentBloc
 import com.sammy.malum.common.block.spirit_crucible.SpiritCatalyzerCoreBlock;
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock;
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleCoreBlock;
+import com.sammy.malum.common.block.storage.*;
+import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
-import com.sammy.malum.common.block.tablet.TwistedTabletBlock;
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
@@ -334,8 +333,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RUNEWOOD_WALL_SIGN = BLOCKS.register("runewood_wall_sign", () -> new OrtusWallSignBlock(RUNEWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.RUNEWOOD));
     //endregion
 
+
+    //region blight
+    public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(BLIGHT_PROPERTIES()));
+    public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> BLIGHTED_SPIRE = BLOCKS.register("blighted_spire", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
+    //endregion
+
     //region soulwood
-    public static final RegistryObject<Block> SOULWOOD_SAPLING = BLOCKS.register("soulwood_sapling", () -> new MalumSaplingBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
+    public static final RegistryObject<Block> SOULWOOD_GROWTH = BLOCKS.register("soulwood_growth", () -> new SoulwoodGrowthBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
     public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().isCutoutLayer().hasCustomLoot(), new Color(152, 6, 45), new Color(224, 30, 214)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(SOULWOOD_PROPERTIES()));
@@ -382,11 +388,6 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SOULWOOD_WALL_SIGN = BLOCKS.register("soulwood_wall_sign", () -> new OrtusWallSignBlock(SOULWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.SOULWOOD));
     //endregion
 
-    //region blight
-    public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new Block(BLIGHT_PROPERTIES()));
-    public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new TallGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
-
-    //endregion
     //region ether
     public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> WALL_ETHER_TORCH = BLOCKS.register("wall_ether_torch", () -> new EtherWallTorchBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(ETHER_TORCH)).setBlockEntity(BlockEntityRegistry.ETHER));

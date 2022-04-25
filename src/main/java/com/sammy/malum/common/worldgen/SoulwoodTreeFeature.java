@@ -46,7 +46,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
         Random rand = context.random();
-        if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_SAPLING.get().defaultBlockState().canSurvive(level, pos)) {
+        if (level.isEmptyBlock(pos.below()) || !BlockRegistry.SOULWOOD_GROWTH.get().defaultBlockState().canSurvive(level, pos)) {
             return false;
         }
         BlockState defaultLog = BlockRegistry.SOULWOOD_LOG.get().defaultBlockState();

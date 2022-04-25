@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "malum:block/blighted_spire"
+      },
+      {
+        "model": "malum:block/blighted_spire"
+      }
+    ]
+  }
+}

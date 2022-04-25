@@ -254,13 +254,19 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RUNEWOOD_BOAT = ITEMS.register("runewood_boat", () -> new OrtusBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.RUNEWOOD_BOAT));
     //endregion
 
+    //endregion
+    public static final RegistryObject<Item> BLIGHTED_SOIL = ITEMS.register("blighted_soil", () -> new BlockItem(BlockRegistry.BLIGHTED_SOIL.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> BLIGHTED_WEED = ITEMS.register("blighted_weed", () -> new BlockItem(BlockRegistry.BLIGHTED_WEED.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> BLIGHTED_SPIRE = ITEMS.register("blighted_spire", () -> new BlockItem(BlockRegistry.BLIGHTED_SPIRE.get(), NATURE_PROPERTIES()));
+    //region blight
+
     //region soulwood
     public static final RegistryObject<Item> UNHOLY_SAP = ITEMS.register("unholy_sap", () -> new Item(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE)));
     public static final RegistryObject<Item> UNHOLY_SAPBALL = ITEMS.register("unholy_sapball", () -> new Item(NATURE_PROPERTIES()));
     public static final RegistryObject<Item> UNHOLY_SYRUP = ITEMS.register("unholy_syrup", () -> new UnholySyrupItem(NATURE_PROPERTIES().craftRemainder(GLASS_BOTTLE).food((new FoodProperties.Builder()).nutrition(8).saturationMod(0.4F).build())));
 
     public static final RegistryObject<Item> SOULWOOD_LEAVES = ITEMS.register("soulwood_leaves", () -> new BlockItem(BlockRegistry.SOULWOOD_LEAVES.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> SOULWOOD_SAPLING = ITEMS.register("soulwood_sapling", () -> new BlockItem(BlockRegistry.SOULWOOD_SAPLING.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> SOULWOOD_GROWTH = ITEMS.register("soulwood_growth", () -> new BlockItem(BlockRegistry.SOULWOOD_GROWTH.get(), NATURE_PROPERTIES()));
 
     public static final RegistryObject<Item> SOULWOOD_LOG = ITEMS.register("soulwood_log", () -> new BlockItem(BlockRegistry.SOULWOOD_LOG.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> STRIPPED_SOULWOOD_LOG = ITEMS.register("stripped_soulwood_log", () -> new BlockItem(BlockRegistry.STRIPPED_SOULWOOD_LOG.get(), NATURE_PROPERTIES()));
@@ -303,14 +309,8 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> SOULWOOD_SIGN = ITEMS.register("soulwood_sign", () -> new SignItem(NATURE_PROPERTIES().stacksTo(16), BlockRegistry.SOULWOOD_SIGN.get(), BlockRegistry.SOULWOOD_WALL_SIGN.get()));
     public static final RegistryObject<Item> SOULWOOD_BOAT = ITEMS.register("soulwood_boat", () -> new OrtusBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.SOULWOOD_BOAT));
-
     //endregion
-    public static final RegistryObject<Item> BLIGHTED_SOIL = ITEMS.register("blighted_soil", () -> new BlockItem(BlockRegistry.BLIGHTED_SOIL.get(), NATURE_PROPERTIES()));
-    public static final RegistryObject<Item> BLIGHTED_WEED = ITEMS.register("blighted_weed", () -> new BlockItem(BlockRegistry.BLIGHTED_WEED.get(), NATURE_PROPERTIES()));
 
-    //region blight
-
-    //endregion
     //region spirits
     public static final RegistryObject<Item> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new MalumSpiritItem(SPLINTER_PROPERTIES(), SpiritTypeRegistry.SACRED_SPIRIT));
     public static final RegistryObject<Item> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new MalumSpiritItem(SPLINTER_PROPERTIES(), SpiritTypeRegistry.WICKED_SPIRIT));
@@ -505,7 +505,7 @@ public class ItemRegistry {
             registerCompostable(RUNEWOOD_LEAVES, 0.3f);
             registerCompostable(SOULWOOD_LEAVES, 0.3f);
             registerCompostable(RUNEWOOD_SAPLING, 0.3f);
-            registerCompostable(SOULWOOD_SAPLING, 0.3f);
+            registerCompostable(SOULWOOD_GROWTH, 0.3f);
         }
 
         public static void registerCompostable(RegistryObject<Item> item, float chance) {

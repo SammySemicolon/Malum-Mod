@@ -13,7 +13,6 @@ import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.handlers.ScreenParticleHandler;
 import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.systems.recipe.IRecipeComponent;
-import mezz.jei.api.gui.IRecipeLayout;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
@@ -478,7 +477,7 @@ public class ProgressionBookScreen extends Screen {
         );
 
         entries.add(new BookEntry(
-                "soulwood", SOULWOOD_SAPLING.get(), 0, 13)
+                "soulwood", SOULWOOD_GROWTH.get(), 0, 13)
                 .addPage(new HeadlineTextPage("soulwood", "soulwood_a"))
                 .addPage(new TextPage("soulwood_b"))
                 .addPage(CraftingBookPage.itemPedestalPage(SOULWOOD_ITEM_PEDESTAL.get(), SOULWOOD_PLANKS.get(), SOULWOOD_PLANKS_SLAB.get()))

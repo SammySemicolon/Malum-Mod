@@ -32,6 +32,10 @@ public class MissingMappingHandler {
             if (mapping.key.equals(MalumMod.prefix("twisted_rock_pillar"))) {
                 mapping.remap(ItemRegistry.TWISTED_ROCK_COLUMN.get());
             }
+
+            if (mapping.key.equals(MalumMod.prefix("soulwood_sapling"))) {
+                mapping.remap(ItemRegistry.SOULWOOD_GROWTH.get());
+            }
         }
     }
 
@@ -48,6 +52,9 @@ public class MissingMappingHandler {
             }
             if (mapping.key.equals(MalumMod.prefix("twisted_rock_pillar"))) {
                 mapping.remap(BlockRegistry.TWISTED_ROCK_COLUMN.get());
+            }
+            if (mapping.key.equals(MalumMod.prefix("soulwood_sapling"))) {
+                mapping.remap(BlockRegistry.SOULWOOD_GROWTH.get());
             }
         }
     }
