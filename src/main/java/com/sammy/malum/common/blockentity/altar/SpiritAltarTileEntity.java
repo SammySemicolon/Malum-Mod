@@ -160,7 +160,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (level.isClientSide) {
-            return InteractionResult.FAIL;
+            return InteractionResult.CONSUME;
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
@@ -176,7 +176,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
             } else {
-                return InteractionResult.FAIL;
+                return InteractionResult.PASS;
             }
         }
         return super.onUse(player, hand);

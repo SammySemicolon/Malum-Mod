@@ -53,14 +53,15 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        if (!player.level.isClientSide) {
-            if (player.getItemInHand(hand).canPerformAction(ToolActions.AXE_STRIP)) {
-                if (type != null) {
-                    level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
-                    level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
-                    return InteractionResult.SUCCESS;
+        if (player.getItemInHand(hand).canPerformAction(ToolActions.AXE_STRIP)) {
+            if (type != null) {
+                if (level.isClientSide) {
+                    return InteractionResult.CONSUME;
                 }
+                level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
+                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+                level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
+                return InteractionResult.SUCCESS;
             }
         }
         return super.onUse(player, hand);

@@ -24,6 +24,7 @@ import com.sammy.malum.common.item.food.UnholySyrupItem;
 import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.*;
+import com.sammy.malum.common.item.tools.MalumScytheItem;
 import com.sammy.malum.common.item.tools.magic.*;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
@@ -434,7 +435,7 @@ public class ItemRegistry {
 
     //region contents
     public static final RegistryObject<Item> SPIRIT_POUCH = ITEMS.register("spirit_pouch", () -> new SpiritPouchItem(GEAR_PROPERTIES()));
-    public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new MagicScytheItem(Tiers.IRON, 0, 0.1f, 0, GEAR_PROPERTIES().durability(350)));
+    public static final RegistryObject<Item> CRUDE_SCYTHE = ITEMS.register("crude_scythe", () -> new MalumScytheItem(Tiers.IRON, 0, 0.1f, GEAR_PROPERTIES().durability(350)));
     public static final RegistryObject<Item> SOUL_STAINED_STEEL_SCYTHE = ITEMS.register("soul_stained_steel_scythe", () -> new MagicScytheItem(SOUL_STAINED_STEEL, -2.5f, 0.1f, 4, GEAR_PROPERTIES()));
     public static final RegistryObject<Item> SOULWOOD_STAVE = ITEMS.register("soulwood_stave", () -> new SoulStaveItem(HIDDEN_PROPERTIES()));
 

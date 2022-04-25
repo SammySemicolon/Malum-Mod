@@ -78,8 +78,8 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
     public InteractionResult onUse(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (stack.getItem() instanceof ISoulContainerItem) {
-            if (player.level.isClientSide) {
-                return InteractionResult.SUCCESS;
+            if (level.isClientSide) {
+                return InteractionResult.CONSUME;
             }
             if (data == null) {
                 if (stack.hasTag() && stack.getTag().contains(MalumEntitySpiritData.SOUL_DATA)) {

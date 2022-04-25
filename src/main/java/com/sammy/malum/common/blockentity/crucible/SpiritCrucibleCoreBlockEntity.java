@@ -151,7 +151,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (level.isClientSide) {
-            return InteractionResult.FAIL;
+            return InteractionResult.CONSUME;
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             fetchTablets(level, worldPosition.above());
