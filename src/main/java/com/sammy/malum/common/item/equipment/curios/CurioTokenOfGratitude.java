@@ -1,13 +1,11 @@
 package com.sammy.malum.common.item.equipment.curios;
 
-import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import net.minecraft.client.gui.screens.social.PlayerEntry;
+import com.sammy.ortus.helpers.CurioHelper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -53,7 +51,7 @@ public class CurioTokenOfGratitude extends MalumCurioItem {
         if (event.getEntity() instanceof Player playerEntity) {
             if (!playerEntity.level.isClientSide) {
                 if (GRADITUDE_CERTIFIED.stream().anyMatch(u -> u.equals(playerEntity.getUUID()))) {
-                    if (ItemHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isEmpty()) {
+                    if (CurioHelper.findCosmeticCurio(s -> s.getItem().equals(ItemRegistry.TOKEN_OF_GRATITUDE.get()), playerEntity).isEmpty()) {
                         ItemHandlerHelper.giveItemToPlayer(playerEntity, ItemRegistry.TOKEN_OF_GRATITUDE.get().getDefaultInstance());
                     }
                 }

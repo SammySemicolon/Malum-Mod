@@ -4,8 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
+import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -20,10 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
-import static com.sammy.malum.core.helper.DataHelper.prefix;
+import static com.sammy.malum.MalumMod.prefix;
 
 public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocusingRecipe> {
 
@@ -34,7 +32,7 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
 
     public SpiritFocusingRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_focusing_jei.png"), 0, 0, 142, 183);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/spirit_focusing_jei.png"), 0, 0, 142, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_CRUCIBLE.get()));
     }
 
@@ -87,7 +85,7 @@ public class SpiritFocusingRecipeCategory implements IRecipeCategory<SpiritFocus
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritFocusingRecipe recipe, IIngredients iIngredients) {
         int index = 0;
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 61, 12, false, recipe.spirits, index);
+        index = JEIHandler.addItemsToJei(iRecipeLayout, 61, 12, false, recipe.spirits, index);
 
         iRecipeLayout.getItemStacks().init(index + 1, true, 62, 56);
         iRecipeLayout.getItemStacks().set(index + 1, Arrays.asList(recipe.input.getItems()));

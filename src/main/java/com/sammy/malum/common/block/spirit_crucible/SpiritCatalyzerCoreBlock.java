@@ -1,8 +1,7 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
 import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
-import com.sammy.malum.core.systems.block.WaterLoggedBlock;
-import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
+import com.sammy.ortus.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,7 +16,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritCatalyzerCoreBlock<T extends SpiritCatalyzerCoreBlockEntity> extends WaterLoggedBlock<T> implements IMultiBlockCore {
+public class SpiritCatalyzerCoreBlock<T extends SpiritCatalyzerCoreBlockEntity> extends WaterLoggedBlock<T> {
     public static final VoxelShape NORTH_SOUTH_SHAPE = makeNorthSouthShape();
     public static final VoxelShape WEST_EAST_SHAPE = makeWestEastShape();
 
@@ -40,15 +39,16 @@ public class SpiritCatalyzerCoreBlock<T extends SpiritCatalyzerCoreBlockEntity> 
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return super.getStateForPlacement(context).setValue(HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
     }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HORIZONTAL_FACING);
         super.createBlockStateDefinition(builder);
     }
+
     public static VoxelShape makeNorthSouthShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.25, 0.3125, 0.1875, 0.75, 1, 0.8125), BooleanOp.OR);
@@ -66,7 +66,8 @@ public class SpiritCatalyzerCoreBlock<T extends SpiritCatalyzerCoreBlockEntity> 
 
         return shape;
     }
-    public static VoxelShape makeWestEastShape(){
+
+    public static VoxelShape makeWestEastShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.1875, 0.3125, 0.25, 0.8125, 1, 0.75), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.625, 0, 0.625, 1, 0.3125, 1), BooleanOp.OR);

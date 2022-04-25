@@ -4,18 +4,18 @@ import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.common.packets.particle.altar.AltarConsumeParticlePacket;
 import com.sammy.malum.common.packets.particle.altar.AltarCraftParticlePacket;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
-import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
-import com.sammy.malum.core.systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
+import com.sammy.ortus.helpers.BlockHelper;
+import com.sammy.ortus.helpers.DataHelper;
+import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import com.sammy.ortus.systems.recipe.IngredientWithCount;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -38,13 +38,12 @@ import net.minecraftforge.network.PacketDistributor;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
-public class SpiritAltarTileEntity extends SimpleBlockEntity {
+public class SpiritAltarTileEntity extends OrtusBlockEntity {
 
     private static final int HORIZONTAL_RANGE = 4;
     private static final int VERTICAL_RANGE = 2;
@@ -59,9 +58,9 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public float spiritSpin;
 
     public boolean updateRecipe;
-    public SimpleBlockEntityInventory inventory;
-    public SimpleBlockEntityInventory extrasInventory;
-    public SimpleBlockEntityInventory spiritInventory;
+    public OrtusBlockEntityInventory inventory;
+    public OrtusBlockEntityInventory extrasInventory;
+    public OrtusBlockEntityInventory spiritInventory;
     public ArrayList<SpiritInfusionRecipe> possibleRecipes = new ArrayList<>();
     public SpiritInfusionRecipe recipe;
 
@@ -72,7 +71,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public SpiritAltarTileEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.SPIRIT_ALTAR.get(), pos, state);
 
-        inventory = new SimpleBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
+        inventory = new OrtusBlockEntityInventory(1, 64, t -> !(t.getItem() instanceof MalumSpiritItem)) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -80,14 +79,14 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        extrasInventory = new SimpleBlockEntityInventory(8, 1) {
+        extrasInventory = new OrtusBlockEntityInventory(8, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
             }
         };
-        spiritInventory = new SimpleBlockEntityInventory(8, 64, t -> t.getItem() instanceof MalumSpiritItem) {
+        spiritInventory = new OrtusBlockEntityInventory(8, 64, t -> t.getItem() instanceof MalumSpiritItem) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -161,7 +160,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         if (level.isClientSide) {
-            return InteractionResult.FAIL;
+            return InteractionResult.CONSUME;
         }
         if (hand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack heldStack = player.getMainHandItem();
@@ -177,7 +176,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
             if (heldStack.isEmpty()) {
                 return InteractionResult.SUCCESS;
             } else {
-                return InteractionResult.FAIL;
+                return InteractionResult.PASS;
             }
         }
         return super.onUse(player, hand);
@@ -238,7 +237,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
     public static Vec3 spiritOffset(SpiritAltarTileEntity blockEntity, int slot, float partialTicks) {
         float distance = 1 - Math.min(0.25f, blockEntity.spinUp / 40f) + (float) Math.sin((blockEntity.spiritSpin + partialTicks) / 20f) * 0.025f;
         float height = 0.75f + Math.min(0.5f, blockEntity.spinUp / 20f);
-        return DataHelper.rotatingCircleOffset(new Vec3(0.5f, height, 0.5f), distance, slot, blockEntity.spiritAmount, (long) (blockEntity.spiritSpin + partialTicks), 360);
+        return DataHelper.rotatingRadialOffset(new Vec3(0.5f, height, 0.5f), distance, slot, blockEntity.spiritAmount, (long) (blockEntity.spiritSpin + partialTicks), 360);
     }
 
     public boolean consume() {
@@ -267,11 +266,11 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 requestedItem = recipe.extraItems.get(extras);
                 matches = requestedItem.matches(providedStack);
                 if (matches) {
-                    level.playSound(null, provider.getBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+                    level.playSound(null, provider.getBlockPosForAltar(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     Vec3 providedItemPos = provider.getItemPosForAltar();
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPos())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
-                    BlockHelper.updateAndNotifyState(level, provider.getBlockPos());
+                    BlockHelper.updateAndNotifyState(level, provider.getBlockPosForAltar());
                     break;
                 }
             }
@@ -355,7 +354,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             accelerator.addParticles(color, endColor, alpha, worldPosition, itemPos);
                         }
                     }
-                    ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+                    ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
                             .setAlpha(0.125f, 0f)
                             .setLifetime(45)
                             .setScale(0.2f, 0)
@@ -369,7 +368,7 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                             .enableNoClip()
                             .repeat(level, x, y, z, 2);
 
-                    ParticleBuilders.create(ParticleRegistry.SPARKLE_PARTICLE)
+                    ParticleBuilders.create(OrtusParticles.SPARKLE_PARTICLE)
                             .setAlpha(alpha, 0f)
                             .setLifetime(25)
                             .setScale(0.5f, 0)

@@ -1,6 +1,7 @@
 package com.sammy.malum.compability.farmersdelight;
 
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.ortus.item.tools.magic.MagicKnifeItem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.world.item.Item;
@@ -19,12 +20,9 @@ public class FarmersDelightCompat {
     }
 
     public static class LoadedOnly {
-        public static boolean isMagicKnife(Item item) {
-            return item instanceof MagicMalumKnifeItem;
-        }
 
         public static Item makeMagicKnife() {
-            return new MagicMalumKnifeItem(SOUL_STAINED_STEEL, -1.5f, 0, 2, GEAR_PROPERTIES());
+            return new MagicKnifeItem(SOUL_STAINED_STEEL, -1.5f, 0, 2, GEAR_PROPERTIES());
         }
 
         public static void addInfo(IRecipeRegistration registration) {

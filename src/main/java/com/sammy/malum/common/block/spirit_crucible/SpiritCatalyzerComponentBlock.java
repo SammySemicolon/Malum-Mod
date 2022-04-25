@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
-import com.sammy.malum.core.systems.multiblock.ComponentBlock;
+import com.sammy.ortus.systems.multiblock.MultiblockComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class SpiritCatalyzerComponentBlock extends ComponentBlock {
+public class SpiritCatalyzerComponentBlock extends MultiblockComponentBlock {
     public static final VoxelShape NORTH_SOUTH_SHAPE = makeNorthSouthShape();
     public static final VoxelShape WEST_EAST_SHAPE = makeWestEastShape();
 

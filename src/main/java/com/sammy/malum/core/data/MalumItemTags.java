@@ -12,10 +12,11 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.*;
 import static com.sammy.malum.core.setup.content.item.ItemTagRegistry.*;
+import static com.sammy.ortus.setup.OrtusItemTags.*;
 
 public class MalumItemTags extends ItemTagsProvider {
     public MalumItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
-        super(dataGenerator, blockTagProvider, MalumMod.MODID, existingFileHelper);
+        super(dataGenerator, blockTagProvider, MalumMod.MALUM, existingFileHelper);
     }
 
     @Override

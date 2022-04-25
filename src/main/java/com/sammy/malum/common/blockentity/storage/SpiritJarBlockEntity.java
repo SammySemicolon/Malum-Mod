@@ -1,13 +1,13 @@
 package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.helpers.BlockHelper;
+import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class SpiritJarBlockEntity extends SimpleBlockEntity {
+public class SpiritJarBlockEntity extends OrtusBlockEntity {
 
     public SpiritJarBlockEntity(BlockEntityType<? extends SpiritJarBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -41,16 +41,13 @@ public class SpiritJarBlockEntity extends SimpleBlockEntity {
     public InteractionResult onUse(Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
         if (heldItem.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
-            if (type == null || type.equals(spiritSplinterItem.type))
-            {
+            if (type == null || type.equals(spiritSplinterItem.type)) {
                 type = spiritSplinterItem.type;
                 count += heldItem.getCount();
                 if (!player.level.isClientSide) {
                     player.setItemInHand(hand, ItemStack.EMPTY);
                     BlockHelper.updateAndNotifyState(level, worldPosition);
-                }
-                else
-                {
+                } else {
                     spawnUseParticles(level, worldPosition, type);
                 }
                 return InteractionResult.SUCCESS;
@@ -65,9 +62,7 @@ public class SpiritJarBlockEntity extends SimpleBlockEntity {
                     type = null;
                 }
                 BlockHelper.updateAndNotifyState(level, worldPosition);
-            }
-            else
-            {
+            } else {
                 spawnUseParticles(level, worldPosition, type);
             }
             return InteractionResult.SUCCESS;
@@ -78,8 +73,7 @@ public class SpiritJarBlockEntity extends SimpleBlockEntity {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onPlace(LivingEntity placer, ItemStack stack) {
-        if (stack.hasTag())
-        {
+        if (stack.hasTag()) {
             load(stack.getTag());
         }
         setChanged();
@@ -97,9 +91,7 @@ public class SpiritJarBlockEntity extends SimpleBlockEntity {
     public void load(@NotNull CompoundTag compound) {
         if (compound.contains("spirit")) {
             type = SpiritHelper.getSpiritType(compound.getString("spirit"));
-        }
-        else
-        {
+        } else {
             type = null;
         }
         count = compound.getInt("count");
@@ -120,7 +112,7 @@ public class SpiritJarBlockEntity extends SimpleBlockEntity {
 
     public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
         Color color = type.color;
-        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
                 .setAlpha(0.15f, 0f)
                 .setLifetime(20)
                 .setScale(0.3f, 0)
@@ -129,6 +121,6 @@ public class SpiritJarBlockEntity extends SimpleBlockEntity {
                 .randomOffset(0.1f, 0.1f)
                 .setColor(color, color.darker())
                 .enableNoClip()
-                .repeat(level, pos.getX()+0.5f, pos.getY()+0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f, pos.getZ()+0.5f, 10);
+                .repeat(level, pos.getX() + 0.5f, pos.getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f, pos.getZ() + 0.5f, 10);
     }
 }

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.spirit_crucible;
 
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.systems.multiblock.ComponentBlock;
+import com.sammy.ortus.systems.multiblock.MultiblockComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SpiritCrucibleComponentBlock extends ComponentBlock {
+public class SpiritCrucibleComponentBlock extends MultiblockComponentBlock {
     public static final VoxelShape SHAPE = makeShape();
     public static final VoxelShape RENDER_SHAPE = makeRenderShape();
     public SpiritCrucibleComponentBlock(Properties properties) {

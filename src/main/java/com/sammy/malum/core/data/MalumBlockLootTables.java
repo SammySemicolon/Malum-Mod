@@ -7,7 +7,7 @@ import com.sammy.malum.common.block.storage.SoulVialBlock;
 import com.sammy.malum.common.block.storage.SpiritJarBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.systems.block.SimpleBlockProperties;
+import com.sammy.ortus.systems.block.OrtusBlockProperties;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -46,8 +46,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static com.sammy.malum.core.helper.DataHelper.takeAll;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
+import static com.sammy.ortus.helpers.DataHelper.takeAll;
 
 public class MalumBlockLootTables extends LootTableProvider {
 
@@ -75,7 +75,7 @@ public class MalumBlockLootTables extends LootTableProvider {
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-        takeAll(blocks, b -> b.get().properties instanceof SimpleBlockProperties && ((SimpleBlockProperties) b.get().properties).ignoreLootDatagen);
+        takeAll(blocks, b -> b.get().properties instanceof OrtusBlockProperties && ((OrtusBlockProperties) b.get().properties).getThrowawayData().hasCustomLoot);
 
         takeAll(blocks, b -> b.get() instanceof SaplingBlock).forEach(b -> add(b.get(), createSingleItemTable(b.get().asItem())));
         takeAll(blocks, b -> b.get() instanceof DoublePlantBlock).forEach(b -> add(b.get(), createSingleItemTableWithSilkTouchOrShears(b.get(), b.get().asItem())));

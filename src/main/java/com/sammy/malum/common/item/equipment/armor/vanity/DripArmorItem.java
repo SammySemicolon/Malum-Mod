@@ -13,16 +13,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
 
-public class DripArmorItem extends SpiritHunterArmorItem
-{
-    public DripArmorItem(EquipmentSlot slot, Properties builder)
-    {
+public class DripArmorItem extends SpiritHunterArmorItem {
+    public DripArmorItem(EquipmentSlot slot, Properties builder) {
         super(slot, builder);
     }
 
     @Override
-    public String getTexture()
-    {
+    public String getTexture() {
         return "drip";
     }
 

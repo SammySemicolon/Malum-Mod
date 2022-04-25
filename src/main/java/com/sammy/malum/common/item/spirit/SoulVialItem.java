@@ -1,9 +1,9 @@
 package com.sammy.malum.common.item.spirit;
 
 import com.sammy.malum.common.entity.spirit.SoulEntity;
-import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.ortus.helpers.ItemHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -77,8 +77,7 @@ public class SoulVialItem extends BlockItem implements ISoulContainerItem {
     @Override
     protected boolean canPlace(BlockPlaceContext pContext, BlockState pState) {
         ItemStack otherStack = pContext.getPlayer().getItemInHand(pContext.getHand().equals(MAIN_HAND) ? OFF_HAND : MAIN_HAND);
-        if (otherStack.getItem() instanceof SoulStaveItem)
-        {
+        if (otherStack.getItem() instanceof SoulStaveItem) {
             return false;
         }
         return super.canPlace(pContext, pState);

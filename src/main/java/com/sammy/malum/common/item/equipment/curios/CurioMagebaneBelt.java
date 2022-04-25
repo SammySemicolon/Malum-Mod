@@ -2,15 +2,16 @@ package com.sammy.malum.common.item.equipment.curios;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.sammy.malum.core.helper.ColorHelper;
-import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.easing.Easing;
-import com.sammy.malum.core.systems.item.IEventResponderItem;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
-import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
+import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.ortus.helpers.ColorHelper;
+import com.sammy.ortus.setup.OrtusAttributes;
+import com.sammy.ortus.setup.OrtusScreenParticles;
+import com.sammy.ortus.systems.easing.Easing;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
+import com.sammy.ortus.systems.rendering.particle.screen.emitter.ItemParticleEmitter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -22,7 +23,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.awt.*;
 import java.util.UUID;
 
-public class CurioMagebaneBelt extends MalumCurioItem implements IEventResponderItem, ItemParticleEmitter {
+public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResponderItem, ItemParticleEmitter {
 
     public CurioMagebaneBelt(Properties builder) {
         super(builder);
@@ -31,7 +32,7 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IEventResponder
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(AttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(UUID.randomUUID(), "Curio magic resistance", 2f, AttributeModifier.Operation.ADDITION));
+        map.put(OrtusAttributes.MAGIC_RESISTANCE.get(), new AttributeModifier(UUID.randomUUID(), "Curio magic resistance", 2f, AttributeModifier.Operation.ADDITION));
         map.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(UUID.randomUUID(), "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return map;
     }
@@ -49,8 +50,8 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IEventResponder
         float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
         Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR;
         Color secondColor = ColorHelper.darker(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, 2);
-        ParticleBuilders.create(ScreenParticleRegistry.STAR)
-                .setAlpha(0.045f, 0f)
+        ParticleBuilders.create(OrtusScreenParticles.STAR)
+                .setAlpha(0.09f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.85f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)

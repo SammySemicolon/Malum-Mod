@@ -3,10 +3,10 @@ package com.sammy.malum.common.spiritrite;
 import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
-import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
-import com.sammy.malum.core.helper.RenderHelper;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.helpers.BlockHelper;
+import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
@@ -109,7 +109,7 @@ public class ArcaneRiteType extends MalumRiteType {
 
     public void particles(Level level, BlockPos pos) {
         Color color = ARCANE_SPIRIT_COLOR;
-        ParticleBuilders.create(ParticleRegistry.TWINKLE_PARTICLE)
+        ParticleBuilders.create(OrtusParticles.TWINKLE_PARTICLE)
                 .setAlpha(0.4f, 0f)
                 .setLifetime(20)
                 .setSpin(0.3f)
@@ -119,7 +119,7 @@ public class ArcaneRiteType extends MalumRiteType {
                 .randomOffset(0.1f, 0.1f)
                 .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-        ParticleBuilders.create(ParticleRegistry.WISP_PARTICLE)
+        ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)

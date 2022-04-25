@@ -4,9 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
+import com.sammy.malum.compability.jei.JEIHandler;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -21,12 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.addItemsToJei;
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.renderTexture;
-import static com.sammy.malum.core.helper.DataHelper.prefix;
+import static com.sammy.malum.MalumMod.prefix;
 
 public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfusionRecipe> {
 
@@ -37,7 +32,7 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
 
     public SpiritInfusionRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(142, 185);
-        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MODID, "textures/gui/spirit_infusion_jei.png"), 0, 0, 142, 183);
+        overlay = guiHelper.createDrawable(new ResourceLocation(MalumMod.MALUM, "textures/gui/spirit_infusion_jei.png"), 0, 0, 142, 183);
         icon = guiHelper.createDrawableIngredient(new ItemStack(ItemRegistry.SPIRIT_ALTAR.get()));
     }
 
@@ -92,9 +87,9 @@ public class SpiritInfusionRecipeCategory implements IRecipeCategory<SpiritInfus
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, SpiritInfusionRecipe recipe, IIngredients iIngredients) {
         int index = 0;
-        index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 19, 48, true, recipe.spirits, index);
+        index = JEIHandler.addItemsToJei(iRecipeLayout, 19, 48, true, recipe.spirits, index);
         if (!recipe.extraItems.isEmpty()) {
-            index = ProgressionBookScreen.addItemsToJei(iRecipeLayout, 103, 48, true, recipe.extraItems, index);
+            index = JEIHandler.addItemsToJei(iRecipeLayout, 103, 48, true, recipe.extraItems, index);
         }
 
         iRecipeLayout.getItemStacks().init(index + 1, true, 62, 56);

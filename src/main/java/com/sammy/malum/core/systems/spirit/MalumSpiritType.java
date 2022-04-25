@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.spirit;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import net.minecraft.network.chat.Component;
@@ -57,7 +57,7 @@ public class MalumSpiritType {
     }
 
     public ResourceLocation getOverlayTexture() {
-        return DataHelper.prefix("block/totem/" + identifier + "_glow");
+        return MalumMod.prefix("block/totem/" + identifier + "_glow");
     }
 
     public BlockState getBlockState(boolean isCorrupt, BlockHitResult hit) {

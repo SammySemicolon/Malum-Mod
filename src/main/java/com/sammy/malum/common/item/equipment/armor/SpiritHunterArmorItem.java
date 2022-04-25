@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SpiritHunterArmorModel;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
+import com.sammy.ortus.item.OrtusArmorItem;
+import com.sammy.ortus.setup.OrtusAttributes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -20,7 +22,7 @@ import java.util.UUID;
 
 import static com.sammy.malum.core.setup.content.item.ArmorTiers.ArmorTierEnum.SPIRIT_HUNTER;
 
-public class SpiritHunterArmorItem extends MalumArmorItem {
+public class SpiritHunterArmorItem extends OrtusArmorItem {
     public SpiritHunterArmorItem(EquipmentSlot slot, Properties builder) {
         super(SPIRIT_HUNTER, slot, builder);
     }
@@ -28,7 +30,7 @@ public class SpiritHunterArmorItem extends MalumArmorItem {
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-        builder.put(AttributeRegistry.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
+        builder.put(OrtusAttributes.MAGIC_PROFICIENCY.get(), new AttributeModifier(uuid, "Magic Proficiency", 1f, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
         return builder;
     }

@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.blockentity.altar.SpiritAltarTileEntity;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -16,7 +16,6 @@ import net.minecraft.world.phys.Vec3;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
-
 public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarTileEntity> {
     public SpiritAltarRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -25,7 +24,7 @@ public class SpiritAltarRenderer implements BlockEntityRenderer<SpiritAltarTileE
     public void render(SpiritAltarTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        SimpleBlockEntityInventory inventory = blockEntityIn.spiritInventory;
+        OrtusBlockEntityInventory inventory = blockEntityIn.spiritInventory;
         for (int i = 0; i < inventory.slotCount; i++) {
             ItemStack item = inventory.getStackInSlot(i);
             if (!item.isEmpty()) {

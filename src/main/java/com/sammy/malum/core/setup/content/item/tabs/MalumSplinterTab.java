@@ -12,7 +12,7 @@ public class MalumSplinterTab extends CreativeModeTab
     public static final MalumSplinterTab INSTANCE = new MalumSplinterTab();
     
     public MalumSplinterTab() {
-        super(MalumMod.MODID + "_spirits");
+        super(MalumMod.MALUM + "_spirits");
     }
     
     @Nonnull

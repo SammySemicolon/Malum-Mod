@@ -1,7 +1,7 @@
 package com.sammy.malum.core.data.builder;
 
 import com.google.gson.JsonObject;
-import com.sammy.malum.core.helper.DataHelper;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +23,7 @@ public class BlockTransmutationRecipeBuilder
     }
     public void build(Consumer<FinishedRecipe> consumerIn, String recipeName)
     {
-        build(consumerIn, DataHelper.prefix("block_transmutation/" + recipeName));
+        build(consumerIn, MalumMod.prefix("block_transmutation/" + recipeName));
     }
     public void build(Consumer<FinishedRecipe> consumerIn)
     {

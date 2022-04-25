@@ -1,11 +1,11 @@
 package com.sammy.malum.common.entity.spirit;
 
 import com.sammy.malum.common.entity.FloatingItemEntity;
-import com.sammy.malum.core.helper.ColorHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IFloatingGlowItem;
+import com.sammy.ortus.helpers.ColorHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

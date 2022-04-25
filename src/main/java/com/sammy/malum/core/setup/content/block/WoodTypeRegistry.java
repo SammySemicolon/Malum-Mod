@@ -1,7 +1,6 @@
 package com.sammy.malum.core.setup.content.block;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 import static net.minecraft.client.renderer.Sheets.SIGN_SHEET;
 
-@Mod.EventBusSubscriber(modid= MalumMod.MODID, bus= Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid= MalumMod.MALUM, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class WoodTypeRegistry {
     public static ArrayList<WoodType> WOOD_TYPES = new ArrayList<>();
     public static final WoodType RUNEWOOD = WoodType.register(new MalumWoodType("runewood"));
@@ -27,7 +26,7 @@ public class WoodTypeRegistry {
     }
 
     public static void addWoodType(WoodType woodType) {
-        Sheets.SIGN_MATERIALS.put(woodType, new Material(SIGN_SHEET, DataHelper.prefix("entity/signs/" + woodType.name())));
+        Sheets.SIGN_MATERIALS.put(woodType, new Material(SIGN_SHEET, MalumMod.prefix("entity/signs/" + woodType.name())));
     }
 
     static class MalumWoodType extends WoodType {

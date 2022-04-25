@@ -1,26 +1,20 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.EntryScreen;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.recipe.SpiritFocusingRecipe;
-import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
-import java.util.List;
 import java.util.function.Predicate;
-
-import static com.sammy.malum.client.screen.codex.ProgressionBookScreen.*;
 
 @SuppressWarnings("all")
 public class SpiritCruciblePage extends BookPage {
     private final SpiritFocusingRecipe recipe;
 
     public SpiritCruciblePage(Predicate<SpiritFocusingRecipe> predicate) {
-        super(DataHelper.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
+        super(MalumMod.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
         if (Minecraft.getInstance() == null) //this is null during datagen
         {
             this.recipe = null;
@@ -30,7 +24,7 @@ public class SpiritCruciblePage extends BookPage {
     }
 
     public SpiritCruciblePage(SpiritFocusingRecipe recipe) {
-        super(DataHelper.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
+        super(MalumMod.prefix("textures/gui/book/pages/spirit_crucible_page.png"));
         this.recipe = recipe;
     }
 

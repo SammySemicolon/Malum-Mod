@@ -1,11 +1,9 @@
 package com.sammy.malum.common.item.ether;
 
-import com.sammy.malum.core.helper.ColorHelper;
-import com.sammy.malum.core.setup.client.ScreenParticleRegistry;
-import com.sammy.malum.core.systems.easing.Easing;
-import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
-import com.sammy.malum.core.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.malum.core.systems.rendering.particle.screen.emitter.ParticleEmitter;
+import com.sammy.ortus.setup.OrtusScreenParticles;
+import com.sammy.ortus.systems.easing.Easing;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
+import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -14,9 +12,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.*;
-import java.util.Random;
-
-import static net.minecraft.util.Mth.nextFloat;
 
 public class EtherBrazierItem extends AbstractEtherItem {
     public EtherBrazierItem(Block blockIn, Properties builder, boolean iridescent) {
@@ -32,8 +27,8 @@ public class EtherBrazierItem extends AbstractEtherItem {
         Color firstColor = new Color(etherItem.getFirstColor(stack));
         Color secondColor = new Color(etherItem.getSecondColor(stack));
         float alphaMultiplier = etherItem.iridescent ? 1.5f : 1;
-        ParticleBuilders.create(ScreenParticleRegistry.STAR)
-                .setAlpha(0.06f*alphaMultiplier, 0f)
+        ParticleBuilders.create(OrtusScreenParticles.STAR)
+                .setAlpha(0.1f*alphaMultiplier, 0f)
                 .setLifetime(6)
                 .setScale((float) (1.3f + Math.sin(gameTime * 0.1f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)

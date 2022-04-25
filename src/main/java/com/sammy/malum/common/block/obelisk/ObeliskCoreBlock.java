@@ -1,8 +1,8 @@
 package com.sammy.malum.common.block.obelisk;
 
 import com.sammy.malum.common.blockentity.obelisk.ObeliskCoreBlockEntity;
-import com.sammy.malum.core.systems.block.WaterLoggedBlock;
-import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
+import com.sammy.ortus.systems.block.WaterLoggedBlock;
+import com.sammy.ortus.systems.multiblock.IMultiBlockCore;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -14,12 +14,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.Supplier;
 
-public class ObeliskCoreBlock<T extends ObeliskCoreBlockEntity> extends WaterLoggedBlock<T> implements IMultiBlockCore {
+public class ObeliskCoreBlock<T extends ObeliskCoreBlockEntity> extends WaterLoggedBlock<T> {
     public static final VoxelShape SHAPE = makeShape();
 
     public ObeliskCoreBlock(Properties properties, Supplier<BlockEntityType<T>> type) {
         super(properties);
-        setTile(type);
+        setBlockEntity(type);
     }
 
     @Override

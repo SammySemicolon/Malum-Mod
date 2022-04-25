@@ -18,15 +18,15 @@
   },
   "spirits": [
     {
-      "item": "malum:arcane_spirit",
+      "type": "arcane",
       "count": 16
     },
     {
-      "item": "malum:aerial_spirit",
+      "type": "aerial",
       "count": 16
     },
     {
-      "item": "malum:eldritch_spirit",
+      "type": "eldritch",
       "count": 2
     }
   ]

@@ -5,13 +5,13 @@ import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.helpers.DataHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -35,12 +35,12 @@ import static com.sammy.malum.core.setup.content.potion.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.setup.content.SoundRegistry.SOUNDS;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
-import static com.sammy.malum.core.setup.content.enchantment.MalumEnchantments.ENCHANTMENTS;
+import static com.sammy.malum.core.setup.content.item.MalumEnchantments.ENCHANTMENTS;
 import static com.sammy.malum.core.setup.content.item.ItemRegistry.ITEMS;
 
 public class MalumLang extends LanguageProvider {
     public MalumLang(DataGenerator gen) {
-        super(gen, MalumMod.MODID, "en_us");
+        super(gen, MalumMod.MALUM, "en_us");
     }
 
     @Override

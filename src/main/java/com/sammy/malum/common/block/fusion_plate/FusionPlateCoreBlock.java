@@ -2,8 +2,7 @@ package com.sammy.malum.common.block.fusion_plate;
 
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.block.WaterLoggedBlock;
-import com.sammy.malum.core.systems.multiblock.IMultiBlockCore;
+import com.sammy.ortus.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,16 +11,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class FusionPlateCoreBlock extends WaterLoggedBlock<FusionPlateBlockEntity> implements IMultiBlockCore {
+public class FusionPlateCoreBlock<T extends FusionPlateBlockEntity> extends WaterLoggedBlock<T> {
     public static final VoxelShape SHAPE = makeShape();
     public FusionPlateCoreBlock(Properties properties) {
         super(properties);
-        setTile(BlockEntityRegistry.FUSION_PLATE);
-    }
-
-    @Override
-    public boolean isComplex() {
-        return true;
     }
 
     @Override

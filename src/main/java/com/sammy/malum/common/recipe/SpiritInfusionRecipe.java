@@ -3,36 +3,29 @@ package com.sammy.malum.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.malum.core.systems.recipe.IMalumRecipe;
-import com.sammy.malum.core.systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.systems.recipe.IOrtusRecipe;
+import com.sammy.ortus.systems.recipe.IngredientWithCount;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-public class SpiritInfusionRecipe extends IMalumRecipe {
+public class SpiritInfusionRecipe extends IOrtusRecipe {
     public static final String NAME = "spirit_infusion";
 
     public static class Type implements RecipeType<SpiritInfusionRecipe> {
         @Override
         public String toString() {
-            return MalumMod.MODID + ":" + NAME;
+            return MalumMod.MALUM + ":" + NAME;
         }
 
         public static final SpiritInfusionRecipe.Type INSTANCE = new SpiritInfusionRecipe.Type();

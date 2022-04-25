@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.pages;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.ProgressionBookScreen;
-import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -15,7 +15,7 @@ public class DoubleHeadlineTextPage extends BookPage
     private final String secondTranslationKey;
     public DoubleHeadlineTextPage(String headlineTranslationKey, String translationKey, String secondHeadlineTranslationKey, String secondTranslationKey)
     {
-        super(DataHelper.prefix("textures/gui/book/pages/spirit_rite_text_page.png"));
+        super(MalumMod.prefix("textures/gui/book/pages/spirit_rite_text_page.png"));
         this.headlineTranslationKey = headlineTranslationKey;
         this.translationKey = translationKey;
         this.secondHeadlineTranslationKey = secondHeadlineTranslationKey;

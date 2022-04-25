@@ -1,10 +1,10 @@
 package com.sammy.malum.common.blockentity.storage;
 
-import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
+import com.sammy.ortus.helpers.BlockHelper;
+import com.sammy.ortus.helpers.ItemHelper;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
 import com.sammy.malum.core.systems.item.ISoulContainerItem;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
 import net.minecraft.core.BlockPos;
@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class SoulVialBlockEntity extends SimpleBlockEntity {
+public class SoulVialBlockEntity extends OrtusBlockEntity {
 
     public MalumEntitySpiritData data;
 
@@ -32,8 +32,7 @@ public class SoulVialBlockEntity extends SimpleBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        if (data != null)
-        {
+        if (data != null) {
             data.saveTo(pTag);
         }
         super.saveAdditional(pTag);
@@ -43,9 +42,7 @@ public class SoulVialBlockEntity extends SimpleBlockEntity {
     public void load(CompoundTag pTag) {
         if (pTag.contains(MalumEntitySpiritData.SOUL_DATA)) {
             data = MalumEntitySpiritData.load(pTag);
-        }
-        else
-        {
+        } else {
             data = null;
         }
         super.load(pTag);
@@ -63,14 +60,11 @@ public class SoulVialBlockEntity extends SimpleBlockEntity {
                         ItemStack split = stack.split(1);
                         split.getOrCreateTag().remove(MalumEntitySpiritData.SOUL_DATA);
                         ItemHelper.giveItemToEntity(split, player);
-                    }
-                    else
-                    {
+                    } else {
                         stack.getOrCreateTag().remove(MalumEntitySpiritData.SOUL_DATA);
                     }
                 }
-            }
-            else {
+            } else {
                 if (!stack.getOrCreateTag().contains(MalumEntitySpiritData.SOUL_DATA)) {
                     if (stack.getCount() > 1) {
                         ItemStack split = stack.split(1);
@@ -93,8 +87,7 @@ public class SoulVialBlockEntity extends SimpleBlockEntity {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onPlace(LivingEntity placer, ItemStack stack) {
-        if (stack.hasTag())
-        {
+        if (stack.hasTag()) {
             load(stack.getTag());
         }
         setChanged();
@@ -102,12 +95,10 @@ public class SoulVialBlockEntity extends SimpleBlockEntity {
 
     @Override
     public void tick() {
-        if (level.isClientSide)
-        {
-            if (data != null)
-            {
+        if (level.isClientSide) {
+            if (data != null) {
                 double y = 0.5f + Math.sin(level.getGameTime() / 20f) * 0.08f;
-                SpiritHelper.spawnSoulParticles(level, worldPosition.getX()+0.5f, worldPosition.getY()+y, worldPosition.getZ()+0.5f, 1, 0.75f, Vec3.ZERO, data.primaryType.color, data.primaryType.endColor);
+                SpiritHelper.spawnSoulParticles(level, worldPosition.getX() + 0.5f, worldPosition.getY() + y, worldPosition.getZ() + 0.5f, 1, 0.75f, Vec3.ZERO, data.primaryType.color, data.primaryType.endColor);
             }
         }
     }

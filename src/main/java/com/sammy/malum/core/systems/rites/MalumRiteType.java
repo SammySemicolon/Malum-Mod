@@ -1,7 +1,7 @@
 package com.sammy.malum.core.systems.rites;
 
-import com.sammy.malum.core.helper.BlockHelper;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;

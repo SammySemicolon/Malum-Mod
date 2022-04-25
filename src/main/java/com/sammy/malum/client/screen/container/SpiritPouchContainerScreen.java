@@ -2,8 +2,8 @@ package com.sammy.malum.client.screen.container;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.container.SpiritPouchContainer;
-import com.sammy.malum.core.helper.DataHelper;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 
 public class SpiritPouchContainerScreen extends AbstractContainerScreen<SpiritPouchContainer> {
-    public static final ResourceLocation BACKGROUND = DataHelper.prefix("textures/gui/spirit_pouch.png");
+    public static final ResourceLocation BACKGROUND = MalumMod.prefix("textures/gui/spirit_pouch.png");
     public static final Color textColor = new Color(49, 35, 41);
 
     public SpiritPouchContainerScreen(SpiritPouchContainer screenContainer, Inventory inv, Component titleIn) {

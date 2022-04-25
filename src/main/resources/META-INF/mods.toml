@@ -12,14 +12,20 @@ description='''
 A dark magic mod focused on soul and spirit magic.
 '''
 [[dependencies.malum]]
+    modId="ortus"
+    mandatory=true
+    versionRange="[FORGE-1.18.2,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.malum]]
     modId="curios"
     mandatory=true
-    versionRange="[FORGE-1.18.1,)"
+    versionRange="[FORGE-1.18.2,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.malum]]
     modId="tetra"
     mandatory=false
-    versionRange="[FORGE-1.18.1,)"
+    versionRange="[FORGE-1.18.2,)"
     ordering="AFTER"
     side="BOTH"

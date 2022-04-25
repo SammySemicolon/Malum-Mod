@@ -5,12 +5,12 @@ import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.compability.tetra.TetraCompat;
 import com.sammy.malum.config.CommonConfig;
-import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.content.damage.DamageSourceRegistry;
+import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
-import com.sammy.malum.core.systems.container.ItemInventory;
-import com.sammy.malum.core.systems.item.IEventResponderItem;
+import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.ortus.helpers.ItemHelper;
+import com.sammy.ortus.systems.container.ItemInventory;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -71,7 +71,7 @@ public class SpiritHarvestHandler {
                 ItemStack finalStack = stack;
                 if (!event.getSource().getMsgId().equals(DamageSourceRegistry.FORCED_SHATTER_DAMAGE)) {
                     LivingEntityDataCapability.getCapability(target).ifPresent(e -> {
-                        if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.get() || (CommonConfig.SOULLESS_SPAWNERS.get() && !e.spawnerSpawned))) {
+                        if (e.exposedSoul > 0 && !e.soulless && (!CommonConfig.SOULLESS_SPAWNERS.getConfigValue() || (CommonConfig.SOULLESS_SPAWNERS.getConfigValue() && !e.spawnerSpawned))) {
                             SpiritHelper.createSpiritsFromWeapon(target, finalAttacker, finalStack);
                             e.soulless = true;
                         }
@@ -84,7 +84,7 @@ public class SpiritHarvestHandler {
     public static void pickupSpirit(ItemStack stack, LivingEntity collector) {
         if (collector instanceof Player playerEntity) {
             ItemHelper.getEventResponders(collector).forEach(s -> {
-                if (s.getItem() instanceof IEventResponderItem eventItem) {
+                if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
                     eventItem.pickupSpirit(collector, stack, true);
                 }
             });

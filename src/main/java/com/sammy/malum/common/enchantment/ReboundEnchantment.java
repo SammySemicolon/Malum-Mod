@@ -2,7 +2,7 @@ package com.sammy.malum.common.enchantment;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.malum.core.setup.content.enchantment.MalumEnchantments;
+import com.sammy.malum.core.setup.content.item.MalumEnchantments;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,16 +14,13 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-public class ReboundEnchantment extends Enchantment
-{
-    public ReboundEnchantment()
-    {
+public class ReboundEnchantment extends Enchantment {
+    public ReboundEnchantment() {
         super(Rarity.UNCOMMON, MalumEnchantments.REBOUND_SCYTHE, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
-    
+
     @Override
-    public int getMaxLevel()
-    {
+    public int getMaxLevel() {
         return 3;
     }
 

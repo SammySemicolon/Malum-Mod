@@ -2,11 +2,11 @@ package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.common.blockentity.altar.IAltarProvider;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.malum.core.helper.BlockHelper;
-import com.sammy.malum.core.helper.DataHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
-import com.sammy.malum.core.systems.blockentity.ItemHolderBlockEntity;
+import com.sammy.ortus.helpers.BlockHelper;
+import com.sammy.ortus.helpers.DataHelper;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
+import com.sammy.ortus.systems.blockentity.ItemHolderBlockEntity;
 import com.sammy.malum.core.helper.SpiritHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,7 +26,7 @@ public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IA
     }
     public ItemPedestalBlockEntity(BlockPos pos, BlockState state) {
         this(BlockEntityRegistry.ITEM_PEDESTAL.get(), pos, state);
-        inventory = new SimpleBlockEntityInventory(1, 64) {
+        inventory = new OrtusBlockEntityInventory(1, 64) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -36,13 +36,18 @@ public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IA
     }
 
     @Override
-    public SimpleBlockEntityInventory getInventoryForAltar() {
+    public OrtusBlockEntityInventory getInventoryForAltar() {
         return inventory;
     }
 
     @Override
     public Vec3 getItemPosForAltar() {
         return getItemPos();
+    }
+
+    @Override
+    public BlockPos getBlockPosForAltar() {
+        return worldPosition;
     }
 
     public Vec3 getItemPos() {

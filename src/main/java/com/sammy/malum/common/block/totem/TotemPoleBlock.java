@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.totem;
 
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.malum.core.systems.block.SimpleBlock;
+import com.sammy.ortus.systems.block.OrtusBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class TotemPoleBlock<T extends TotemPoleTileEntity> extends SimpleBlock<T> {
+public class TotemPoleBlock<T extends TotemPoleTileEntity> extends OrtusBlock<T> {
 
     public final Supplier<? extends Block> logBlock;
     public final boolean corrupted;

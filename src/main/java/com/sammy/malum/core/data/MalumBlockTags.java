@@ -4,7 +4,8 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.block.BlockTagRegistry;
-import com.sammy.malum.core.systems.block.SimpleBlockProperties;
+import com.sammy.ortus.systems.block.OrtusBlockProperties;
+import com.sammy.ortus.systems.block.OrtusThrowawayBlockData;
 import net.minecraft.world.level.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -23,7 +24,7 @@ import static net.minecraft.tags.BlockTags.*;
 
 public class MalumBlockTags extends BlockTagsProvider {
     public MalumBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
-        super(generatorIn, MalumMod.MODID, existingFileHelper);
+        super(generatorIn, MalumMod.MALUM, existingFileHelper);
     }
 
     @Override
@@ -59,27 +60,28 @@ public class MalumBlockTags extends BlockTagsProvider {
         for (Block block : getModBlocks(b -> b instanceof EtherBlock)) {
             tag(BlockTagRegistry.TRAY_HEAT_SOURCES).add(block);
         }
-        for (Block block : getModBlocks(b -> b.properties instanceof SimpleBlockProperties)) {
-            SimpleBlockProperties properties = (SimpleBlockProperties) block.properties;
-            if (properties.needsPickaxe) {
+        for (Block block : getModBlocks(b -> b.properties instanceof OrtusBlockProperties)) {
+            OrtusBlockProperties properties = (OrtusBlockProperties) block.properties;
+            OrtusThrowawayBlockData data = properties.getThrowawayData();
+            if (data.needsPickaxe) {
                 tag(MINEABLE_WITH_PICKAXE).add(block);
             }
-            if (properties.needsShovel) {
+            if (data.needsShovel) {
                 tag(MINEABLE_WITH_SHOVEL).add(block);
             }
-            if (properties.needsAxe) {
+            if (data.needsAxe) {
                 tag(MINEABLE_WITH_AXE).add(block);
             }
-            if (properties.needsHoe) {
+            if (data.needsHoe) {
                 tag(MINEABLE_WITH_HOE).add(block);
             }
-            if (properties.needsStone) {
+            if (data.needsStone) {
                 tag(NEEDS_STONE_TOOL).add(block);
             }
-            if (properties.needsIron) {
+            if (data.needsIron) {
                 tag(NEEDS_IRON_TOOL).add(block);
             }
-            if (properties.needsDiamond) {
+            if (data.needsDiamond) {
                 tag(NEEDS_DIAMOND_TOOL).add(block);
             }
         }

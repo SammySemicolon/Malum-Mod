@@ -3,7 +3,7 @@ package com.sammy.malum.common.recipe;
 import com.google.gson.JsonObject;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
-import com.sammy.malum.core.systems.recipe.IMalumRecipe;
+import com.sammy.ortus.systems.recipe.IOrtusRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -17,13 +17,13 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockTransmutationRecipe extends IMalumRecipe {
+public class BlockTransmutationRecipe extends IOrtusRecipe {
     public static final String NAME = "block_transmutation";
 
     public static class Type implements RecipeType<BlockTransmutationRecipe> {
         @Override
         public String toString() {
-            return MalumMod.MODID + ":" + NAME;
+            return MalumMod.MALUM + ":" + NAME;
         }
 
         public static final BlockTransmutationRecipe.Type INSTANCE = new BlockTransmutationRecipe.Type();

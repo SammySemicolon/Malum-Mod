@@ -1,10 +1,11 @@
 package com.sammy.malum.common.item.equipment;
 
 import com.sammy.malum.common.item.impetus.ImpetusItem;
-import com.sammy.malum.common.packets.TotemOfUndyingEffectPacket;
-import com.sammy.malum.core.helper.ItemHelper;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.systems.item.IEventResponderItem;
+import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
+import com.sammy.ortus.helpers.EntityHelper;
+import com.sammy.ortus.helpers.ItemHelper;
+import com.sammy.ortus.network.TotemOfUndyingEffectPacket;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
-public class CeaselessImpetusItem extends ImpetusItem implements IEventResponderItem {
+public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResponderItem {
     public CeaselessImpetusItem(Properties p_41383_) {
         super(p_41383_);
     }
@@ -73,7 +74,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IEventResponder
                 }
 
                 toRemove.forEach(player::removeEffect);
-                ItemHelper.giveAmplifyingEffect(MobEffects.REGENERATION, player, 400, 0, 3);
+                EntityHelper.giveAmplifyingEffect(MobEffects.REGENERATION, player, 400, 0, 3);
                 player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400, 0));
 

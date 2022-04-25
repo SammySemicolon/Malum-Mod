@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.storage;
 
-import com.sammy.malum.core.systems.multiblock.ComponentBlock;
+import com.sammy.ortus.systems.multiblock.MultiblockComponentBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -15,7 +15,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.Supplier;
 
-public class PlinthComponentBlock extends ComponentBlock {
+public class PlinthComponentBlock extends MultiblockComponentBlock {
     public static final VoxelShape SHAPE = makeShape();
     private final Supplier<Item> cloneStack;
     public PlinthComponentBlock(Properties properties, Supplier<Item> cloneStack) {

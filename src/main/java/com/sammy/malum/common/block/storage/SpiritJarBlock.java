@@ -1,8 +1,9 @@
 package com.sammy.malum.common.block.storage;
 
+import com.sammy.malum.common.blockentity.storage.SoulVialBlockEntity;
 import com.sammy.malum.common.blockentity.storage.SpiritJarBlockEntity;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
-import com.sammy.malum.core.systems.block.WaterLoggedBlock;
+import com.sammy.ortus.systems.block.WaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,12 +12,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SpiritJarBlock extends WaterLoggedBlock<SpiritJarBlockEntity> {
+public class SpiritJarBlock<T extends SpiritJarBlockEntity> extends WaterLoggedBlock<T> {
     public static final VoxelShape SHAPE = makeShape();
 
     public SpiritJarBlock(Properties properties) {
         super(properties);
-        setTile(BlockEntityRegistry.SPIRIT_JAR);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.sammy.malum.common.capability;
 
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
-import com.sammy.malum.core.helper.DataHelper;
-import com.sammy.malum.core.systems.capability.SimpleCapability;
-import com.sammy.malum.core.systems.capability.SimpleCapabilityProvider;
 import com.sammy.malum.core.systems.spirit.MalumEntitySpiritData;
+import com.sammy.ortus.systems.capability.OrtusCapability;
+import com.sammy.ortus.systems.capability.OrtusCapabilityProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -21,7 +21,7 @@ import java.util.UUID;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
-public class LivingEntityDataCapability implements SimpleCapability {
+public class LivingEntityDataCapability implements OrtusCapability {
 
     public static Capability<LivingEntityDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
@@ -50,7 +50,7 @@ public class LivingEntityDataCapability implements SimpleCapability {
     public static void attachEntityCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof LivingEntity) {
             final LivingEntityDataCapability capability = new LivingEntityDataCapability();
-            event.addCapability(DataHelper.prefix("living_data"), new SimpleCapabilityProvider<>(LivingEntityDataCapability.CAPABILITY, () -> capability));
+            event.addCapability(MalumMod.prefix("living_data"), new OrtusCapabilityProvider<>(LivingEntityDataCapability.CAPABILITY, () -> capability));
         }
     }
 
