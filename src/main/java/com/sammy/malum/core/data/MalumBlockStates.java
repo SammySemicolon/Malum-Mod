@@ -12,6 +12,8 @@ import com.sammy.malum.common.block.mirror.WallMirrorBlock;
 import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.block.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
+import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
+import com.sammy.malum.common.blockentity.crucible.IAccelerationTarget;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.DataHelper;
@@ -53,11 +55,17 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     protected void registerStatesAndModels() {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
+        takeAll(blocks, BLIGHTED_SOIL).forEach(this::rotatedBlock);
+
         ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
+
         ArrayList<RegistryObject<Block>> predefinedModels = new ArrayList<>(List.of(
                 SOULWOOD_FUSION_PLATE, SPIRIT_ALTAR, SOUL_VIAL, SPIRIT_JAR, BRILLIANT_OBELISK, BRILLIANT_OBELISK_COMPONENT, RUNEWOOD_OBELISK,
                 RUNEWOOD_OBELISK_COMPONENT, SPIRIT_CRUCIBLE, SPIRIT_CRUCIBLE_COMPONENT, SOULWOOD_PLINTH, SOULWOOD_PLINTH_COMPONENT));
+
         ArrayList<RegistryObject<Block>> layeredModels = new ArrayList<>(List.of(BRILLIANT_STONE, BRILLIANT_STONE, BLAZING_QUARTZ_ORE));
+
+        DataHelper.takeAll(blocks, b -> b.get().getRegistryName().getPath().startsWith("cut_")).forEach(this::cutBlock);
 
         takeAll(blocks, customModels::contains);
         takeAll(blocks, predefinedModels::contains).forEach(this::customBlock);
@@ -138,7 +146,7 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     public void wallMirrorBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         String particleName = "block_of_hallowed_gold";
-        ModelFile stand = models().withExistingParent(name, prefix("block/templates/template_item_stand")).texture("stand", prefix("block/tainted_rock_item_stand")).texture("particle", prefix("block/" + particleName));
+        ModelFile stand = models().withExistingParent(name, prefix("block/templates/template_mirror")).texture("mirror", prefix("block/"+name)).texture("particle", prefix("block/" + particleName));
 
         getVariantBuilder(blockRegistryObject.get()).partialState()
                 .partialState().with(BlockStateProperties.FACING, Direction.NORTH)

@@ -7,10 +7,10 @@ import com.sammy.malum.client.renderer.entity.ScytheBoomerangEntityRenderer;
 import com.sammy.malum.client.renderer.entity.SoulEntityRenderer;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.entity.spirit.MirrorItemEntity;
-import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
+import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.entity.OrtusBoatEntity;
+import com.sammy.ortus.systems.entity.OrtusBoatEntity;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -18,9 +18,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class EntityRegistry
 {

@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.tablet;
 
 import com.sammy.malum.common.block.spirit_crucible.SpiritCrucibleComponentBlock;
 import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedBlock;
+import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
-public class TwistedTabletBlock<T extends TwistedTabletBlockEntity> extends WaterLoggedBlock<T> {
+public class TwistedTabletBlock<T extends TwistedTabletBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape UP = makeUpShape();
     public static final VoxelShape DOWN = makeDownShape();
     public static final VoxelShape SOUTH = makeSouthShape();

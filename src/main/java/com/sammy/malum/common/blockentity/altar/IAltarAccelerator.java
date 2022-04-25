@@ -20,14 +20,7 @@ public interface IAltarAccelerator {
     {
 
     }
-    public static class AltarAcceleratorType
-    {
-        public final int maximumEntries;
-        public final String type;
 
-        public AltarAcceleratorType(int maximumEntries, String type) {
-            this.maximumEntries = maximumEntries;
-            this.type = type;
-        }
+    public record AltarAcceleratorType(int maximumEntries, String type) {
     }
 }

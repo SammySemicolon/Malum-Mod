@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.item.OrtusArmorItem;
 import com.sammy.ortus.setup.OrtusAttributes;
+import com.sammy.ortus.systems.item.OrtusArmorItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -34,6 +34,11 @@ public class SoulStainedSteelArmorItem extends OrtusArmorItem {
         builder.put(OrtusAttributes.MAGIC_RESISTANCE.get(), new AttributeModifier(uuid, "Magic Resistance", 1f, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return builder;
+    }
+
+    @Override
+    public String getTextureLocation() {
+        return "malum:textures/armor/";
     }
 
     public String getTexture() {

@@ -33,10 +33,10 @@ import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.item.OrtusBoatItem;
-import com.sammy.ortus.item.OrtusFuelBlockItem;
-import com.sammy.ortus.item.OrtusFuelItem;
-import com.sammy.ortus.item.tools.magic.*;
+import com.sammy.ortus.systems.item.OrtusBoatItem;
+import com.sammy.ortus.systems.item.OrtusFuelBlockItem;
+import com.sammy.ortus.systems.item.OrtusFuelItem;
+import com.sammy.ortus.systems.item.tools.magic.*;
 import com.sammy.ortus.systems.multiblock.MultiBlockItem;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -305,7 +305,12 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SOULWOOD_BOAT = ITEMS.register("soulwood_boat", () -> new OrtusBoatItem(NATURE_PROPERTIES().stacksTo(1), EntityRegistry.SOULWOOD_BOAT));
 
     //endregion
+    public static final RegistryObject<Item> BLIGHTED_SOIL = ITEMS.register("blighted_soil", () -> new BlockItem(BlockRegistry.BLIGHTED_SOIL.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> BLIGHTED_WEED = ITEMS.register("blighted_weed", () -> new BlockItem(BlockRegistry.BLIGHTED_WEED.get(), NATURE_PROPERTIES()));
 
+    //region blight
+
+    //endregion
     //region spirits
     public static final RegistryObject<Item> SACRED_SPIRIT = ITEMS.register("sacred_spirit", () -> new MalumSpiritItem(SPLINTER_PROPERTIES(), SpiritTypeRegistry.SACRED_SPIRIT));
     public static final RegistryObject<Item> WICKED_SPIRIT = ITEMS.register("wicked_spirit", () -> new MalumSpiritItem(SPLINTER_PROPERTIES(), SpiritTypeRegistry.WICKED_SPIRIT));

@@ -317,7 +317,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
         HashMap<IAltarAccelerator.AltarAcceleratorType, Integer> entries = new HashMap<>();
         for (IAltarAccelerator accelerator : nearbyAccelerators) {
             if (accelerator.canAccelerate()) {
-                int max = accelerator.getAcceleratorType().maximumEntries;
+                int max = accelerator.getAcceleratorType().maximumEntries();
                 int amount = entries.computeIfAbsent(accelerator.getAcceleratorType(), (a) -> 0);
                 if (amount < max) {
                     accelerators.add(accelerator);

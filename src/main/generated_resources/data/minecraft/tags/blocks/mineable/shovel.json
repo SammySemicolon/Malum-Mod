@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "malum:runewood_leaves",
-    "malum:soulwood_leaves",
     "malum:blighted_soil"
   ]
 }

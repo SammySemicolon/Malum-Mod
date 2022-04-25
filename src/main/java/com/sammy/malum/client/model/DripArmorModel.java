@@ -5,7 +5,7 @@ package com.sammy.malum.client.model;
 
 
 import com.sammy.malum.MalumMod;
-import com.sammy.ortus.model.OrtusArmorModel;
+import com.sammy.ortus.systems.model.OrtusArmorModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;

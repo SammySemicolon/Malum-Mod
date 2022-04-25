@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SpiritHunterArmorModel;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
-import com.sammy.ortus.item.OrtusArmorItem;
 import com.sammy.ortus.setup.OrtusAttributes;
+import com.sammy.ortus.systems.item.OrtusArmorItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
@@ -34,6 +34,12 @@ public class SpiritHunterArmorItem extends OrtusArmorItem {
         builder.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
+
+    @Override
+    public String getTextureLocation() {
+        return "malum:textures/armor/";
+    }
+
     public String getTexture() {
         return "spirit_hunter";
     }

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.worldgen;
 
-import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.common.block.MalumLeavesBlock;
+import com.sammy.malum.common.block.MalumSaplingBlock;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.helpers.DataHelper;

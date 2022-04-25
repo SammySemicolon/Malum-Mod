@@ -42,7 +42,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static com.sammy.malum.MalumMod.MALUM;
-import static com.sammy.ortus.setup.OrtusBlockEntities.SIGN;
 
 public class BlockEntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MALUM);
@@ -106,8 +105,6 @@ public class BlockEntityRegistry {
             event.registerBlockEntityRenderer(ITEM_PEDESTAL.get(), ItemPedestalRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_JAR.get(), SpiritJarRenderer::new);
             event.registerBlockEntityRenderer(SOUL_VIAL.get(), SoulVialRenderer::new);
-            event.registerBlockEntityRenderer(SIGN.get(), SignRenderer::new);
-
         }
     }
 }

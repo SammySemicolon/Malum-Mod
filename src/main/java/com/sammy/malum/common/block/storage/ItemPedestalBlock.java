@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.ItemPedestalBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedBlock;
+import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.stream.Stream;
 
-public class ItemPedestalBlock<T extends ItemPedestalBlockEntity> extends WaterLoggedBlock<T>
+public class ItemPedestalBlock<T extends ItemPedestalBlockEntity> extends WaterLoggedEntityBlock<T>
 {
     public static final VoxelShape SHAPE = Stream.of(
             Block.box(4, 0, 4, 12, 4, 12),

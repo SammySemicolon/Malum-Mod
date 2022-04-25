@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.storage;
 
 import com.sammy.malum.common.blockentity.storage.ItemStandBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedBlock;
+import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -14,7 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
-public class ItemStandBlock<T extends ItemStandBlockEntity> extends WaterLoggedBlock<T> {
+public class ItemStandBlock<T extends ItemStandBlockEntity> extends WaterLoggedEntityBlock<T> {
 
     public static final VoxelShape UP = Block.box(4, 0, 4, 12, 2, 12);
     public static final VoxelShape DOWN = Block.box(4, 14, 4, 12, 16, 12);

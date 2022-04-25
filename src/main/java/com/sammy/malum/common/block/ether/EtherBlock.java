@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.ether;
 
 import com.sammy.malum.common.blockentity.EtherBlockEntity;
-import com.sammy.ortus.systems.block.WaterLoggedBlock;
+import com.sammy.ortus.systems.block.WaterLoggedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class EtherBlock<T extends EtherBlockEntity> extends WaterLoggedBlock<T> {
+public class EtherBlock<T extends EtherBlockEntity> extends WaterLoggedEntityBlock<T> {
     public static final VoxelShape SHAPE = Block.box(6, 6, 6, 10, 10, 10);
 
     public EtherBlock(Properties properties) {

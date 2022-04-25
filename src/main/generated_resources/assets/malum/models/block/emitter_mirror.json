@@ -1,7 +1,7 @@
 {
-  "parent": "malum:block/templates/template_item_stand",
+  "parent": "malum:block/templates/template_mirror",
   "textures": {
-    "stand": "malum:block/tainted_rock_item_stand",
+    "mirror": "malum:block/emitter_mirror",
     "particle": "malum:block/block_of_hallowed_gold"
   }
 }

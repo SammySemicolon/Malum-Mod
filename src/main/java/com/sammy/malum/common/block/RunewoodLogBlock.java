@@ -2,7 +2,7 @@ package com.sammy.malum.common.block;
 
 import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
-import com.sammy.ortus.block.OrtusLogBlock;
+import com.sammy.ortus.systems.block.OrtusLogBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

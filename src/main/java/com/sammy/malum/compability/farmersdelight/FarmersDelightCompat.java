@@ -1,7 +1,7 @@
 package com.sammy.malum.compability.farmersdelight;
 
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.item.tools.magic.MagicKnifeItem;
+import com.sammy.ortus.systems.item.tools.magic.MagicKnifeItem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.world.item.Item;

@@ -30,12 +30,12 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.setup.content.worldgen.FeatureRegistry;
-import com.sammy.ortus.block.OrtusDirectionalBlock;
-import com.sammy.ortus.block.OrtusLogBlock;
-import com.sammy.ortus.block.sign.OrtusStandingSignBlock;
-import com.sammy.ortus.block.sign.OrtusWallSignBlock;
 import com.sammy.ortus.helpers.DataHelper;
 import com.sammy.ortus.systems.block.OrtusBlockProperties;
+import com.sammy.ortus.systems.block.OrtusDirectionalBlock;
+import com.sammy.ortus.systems.block.OrtusLogBlock;
+import com.sammy.ortus.systems.block.sign.OrtusStandingSignBlock;
+import com.sammy.ortus.systems.block.sign.OrtusWallSignBlock;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -104,8 +104,12 @@ public class BlockRegistry {
         return new OrtusBlockProperties(Material.WOOD, MaterialColor.COLOR_PURPLE).needsAxe().sound(SoundType.WOOD).strength(1.75F, 4.0F);
     }
 
-    public static OrtusBlockProperties SOULWOOD_PLANTS_PROPERTIES() {
-        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundType.GRASS).instabreak();
+    public static OrtusBlockProperties BLIGHT_PROPERTIES() {
+        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).needsShovel().needsHoe().sound(SoundType.NYLIUM).strength(0.7f);
+    }
+
+    public static OrtusBlockProperties BLIGHT_PLANTS_PROPERTIES() {
+        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundType.NETHER_WART).instabreak();
     }
 
     public static OrtusBlockProperties LEAVES_PROPERTIES() {
@@ -331,7 +335,7 @@ public class BlockRegistry {
     //endregion
 
     //region soulwood
-    public static final RegistryObject<Block> SOULWOOD_SAPLING = BLOCKS.register("soulwood_sapling", () -> new MalumSaplingBlock(SOULWOOD_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
+    public static final RegistryObject<Block> SOULWOOD_SAPLING = BLOCKS.register("soulwood_sapling", () -> new MalumSaplingBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
     public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().isCutoutLayer().hasCustomLoot(), new Color(152, 6, 45), new Color(224, 30, 214)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(SOULWOOD_PROPERTIES()));
@@ -378,6 +382,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SOULWOOD_WALL_SIGN = BLOCKS.register("soulwood_wall_sign", () -> new OrtusWallSignBlock(SOULWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.SOULWOOD));
     //endregion
 
+    //region blight
+    public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new Block(BLIGHT_PROPERTIES()));
+    public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new TallGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
+
+    //endregion
     //region ether
     public static final RegistryObject<Block> ETHER_TORCH = BLOCKS.register("ether_torch", () -> new EtherTorchBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14)).setBlockEntity(BlockEntityRegistry.ETHER));
     public static final RegistryObject<Block> WALL_ETHER_TORCH = BLOCKS.register("wall_ether_torch", () -> new EtherWallTorchBlock<>(RUNEWOOD_PROPERTIES().isCutoutLayer().noCollission().instabreak().lightLevel((b) -> 14).lootFrom(ETHER_TORCH)).setBlockEntity(BlockEntityRegistry.ETHER));

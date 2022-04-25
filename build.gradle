@@ -113,7 +113,7 @@ dependencies {
 
     compileOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193:api')
     runtimeOnly fg.deobf('mezz.jei:jei-1.18.2:9.7.0.193')
-    implementation fg.deobf("com.sammy.ortus:ortus:1.18.2-1.0.30")
+    implementation fg.deobf("com.sammy.ortus:ortus:1.18.2-1.1.31")
 
 //    implementation fg.deobf("se.mickelus.mutil:mutil:1.18.1-4.4.0")
 //    implementation fg.deobf("se.mickelus.tetra:tetra:1.18.1-4.8.0")
