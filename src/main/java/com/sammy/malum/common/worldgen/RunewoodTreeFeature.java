@@ -109,84 +109,12 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
         int[] sapBlockIndexes = DataHelper.nextInts(rand, sapBlockCount, treeFiller.entries.size());
         for (Integer index : sapBlockIndexes) {
-            BlockStateEntry oldEntry = treeFiller.entries.get(index);
-            BlockState newState = BlockHelper.getBlockStateWithExistingProperties(oldEntry.state, BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState());
-            treeFiller.replaceAt(index, new BlockStateEntry(newState, oldEntry.pos));
+            treeFiller.replace(index, e -> e.replaceState(BlockHelper.getBlockStateWithExistingProperties(e.state, BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState())));
         }
         treeFiller.fill(level);
         leavesFiller.fill(level);
         return true;
     }
-
-//    public static void makeHallowedGround(WorldGenLevel level, OrtusBlockFiller groundFiller, OrtusBlockFiller grassFiller, Random rand, BlockPos pos, int size, float tallGrassProbability)
-//    {
-//        for (int x = -size; x <= size; x++)
-//        {
-//            for (int z = -size; z <= size; z++)
-//            {
-//                if (Math.abs(x) == size && Math.abs(z) == size)
-//                {
-//                    continue;
-//                }
-//                BlockPos grassPos = level.getHeight(Heightmap.Type.Level_SURFACE, pos.add(x, 0, z)).down();
-//                do
-//                {
-//                    if (level.getBlockState(grassPos).getBlock() instanceof BushBlock)
-//                    {
-//                        groundFiller.entries.add(new BlockStateEntry(Blocks.AIR.getDefaultState(), grassPos));
-//                        grassPos = grassPos.down();
-//                    }
-//                    else
-//                    {
-//                        break;
-//                    }
-//                }
-//                while (true);
-//                if (level.getBlockState(grassPos).getBlock() instanceof GrassBlock)
-//                {
-//                    groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS_BLOCK.get().getDefaultState(), grassPos));
-//                    if (rand.nextFloat() < 0.25f)
-//                    {
-//                        if (rand.nextFloat() < tallGrassProbability)
-//                        {
-//                            DoublePlantBlock tallGrassBlock;
-//                            if (rand.nextBoolean())
-//                            {
-//                                tallGrassBlock = (DoublePlantBlock) MalumBlocks.TALL_SUN_KISSED_GRASS.get();
-//                            }
-//                            else
-//                            {
-//                                tallGrassBlock = (DoublePlantBlock) MalumBlocks.LAVENDER.get();
-//                            }
-//                            BlockStateEntry tallGrassEntry = new BlockStateEntry(tallGrassBlock.getDefaultState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), grassPos.up())
-//                            {
-//                                @Override
-//                                public boolean canPlace(WorldGenLevel level)
-//                                {
-//                                    return super.canPlace(level) && super.canPlace(level, pos.up());
-//                                }
-//
-//                                @Override
-//                                public void additionalPlacement(WorldGenLevel level)
-//                                {
-//                                    level.setBlockState(pos.up(), state.with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 3);
-//                                    if (level instanceof Level)
-//                                    {
-//                                        MalumHelper.updateState((Level) level, pos.up());
-//                                    }
-//                                }
-//                            };
-//                            grassFiller.entries.add(tallGrassEntry);
-//                        }
-//                        else
-//                        {
-//                            groundFiller.entries.add(new BlockStateEntry(MalumBlocks.SUN_KISSED_GRASS.get().getDefaultState(), grassPos.up()));
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     public static void downwardsTrunk(WorldGenLevel level, OrtusBlockFiller filler, BlockPos pos) {
         int i = 0;

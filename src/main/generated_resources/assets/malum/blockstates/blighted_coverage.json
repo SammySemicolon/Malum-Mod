@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "malum:block/blighted_coverage"
+      },
+      {
+        "model": "malum:block/blighted_coverage",
+        "y": 90
+      },
+      {
+        "model": "malum:block/blighted_coverage",
+        "y": 180
+      },
+      {
+        "model": "malum:block/blighted_coverage",
+        "y": 270
+      }
+    ]
+  }
+}

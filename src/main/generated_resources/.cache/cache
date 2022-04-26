@@ -1,5 +1,7 @@
 e0585c70a1c6b05b18fe9aad2be9d2c2e1a30c43 assets/malum/blockstates/blazing_quartz_ore.json
+5594ac086a9c8d905ad4ff6d24c1e35cee3b17ab assets/malum/blockstates/blighted_coverage.json
 07e50b9ff0c9551fd4c2b9cdd6cf6acfa3328910 assets/malum/blockstates/blighted_soil.json
+417915d8e8bcfb15356f8ae0add5f5137f1e0b7e assets/malum/blockstates/blighted_soulwood.json
 09e954d97d3f4d64796c5b5b3454228131cfcab7 assets/malum/blockstates/blighted_spire.json
 5e556e4817ba9845efe6f26d010f9d1c9ce912b4 assets/malum/blockstates/blighted_weed.json
 891a3809d7f441cbcbac47346a8373b4e9080a0d assets/malum/blockstates/block_of_arcane_charcoal.json
@@ -191,9 +193,11 @@ eae07e90708b4ad79087ece2f880b20d2dd71862 assets/malum/blockstates/vertical_soulw
 ea2124145fd87d36427a1e743f7865d328403f7b assets/malum/blockstates/vertical_soulwood_planks_slab.json
 d9001ce582022fed3dcfa3c78a5f1497f622a419 assets/malum/blockstates/vertical_soulwood_planks_stairs.json
 1c5a82140570f65af0f2675a889a4887d87d3874 assets/malum/blockstates/wall_ether_torch.json
-e937ed636de9088d842819b66556ee9c2db9a056 assets/malum/lang/en_us.json
+591974477ba1425b1ffb77c78d2b33a59fe6b3ac assets/malum/lang/en_us.json
 a75ef274d6ea80a594a834a6f1a473a9afa5d32f assets/malum/models/block/blazing_quartz_ore.json
+2013d43596b37d4dfb09f9b7a02e6887456aadb6 assets/malum/models/block/blighted_coverage.json
 60e234d5b44798639e7c0c3a7ce7e3fbfbe9f887 assets/malum/models/block/blighted_soil.json
+8cdf800f58baf64dea0c9d888490b2a5840cac43 assets/malum/models/block/blighted_soulwood.json
 2500733cc56674ace09eb780e3dfcfeeaf00fab6 assets/malum/models/block/blighted_spire.json
 2d76afcf412476d1d328d2ab8bae14bb6417c03f assets/malum/models/block/blighted_weed.json
 6aceb4e68013e9ed2fcaf610e0a7dbedb0a0f73f assets/malum/models/block/block_of_arcane_charcoal.json
@@ -558,6 +562,7 @@ d4bfd79f8c539cda6c89afa53c8c4c247f62f08e assets/malum/models/block/wall_ether_to
 d44bb0a32aa2a2a2de69e6e722d2d9976d97bcd4 assets/malum/models/item/blazing_quartz.json
 017c9f1fded133ec6bcf277f87766291d1db031a assets/malum/models/item/blazing_quartz_fragment.json
 a12d60f14eac0e88ade6e9edd85a235844f0d70a assets/malum/models/item/blazing_quartz_ore.json
+7752f482b3d3e6fc8dbc7125dea7e980992c562b assets/malum/models/item/blighted_coverage.json
 4f4712f898874c9adc04564d1423a08049a5d0ca assets/malum/models/item/blighted_soil.json
 43b25dd57d1e9a853be796cca6b947fe85c7aaad assets/malum/models/item/blighted_spire.json
 1936ad102a9c7f7f6daf74d716e487d8c83e8aea assets/malum/models/item/blighted_weed.json
@@ -1221,6 +1226,7 @@ ac4b3c13ec5eda48f93f32281f9ec5c1e5200f3f data/malum/advancements/recipes/uranium
 6cac04ed2a2faf0d193bc59a45aa2da1f87509a9 data/malum/advancements/recipes/zinc_from_node_blasting.json
 d6a1ed2813b8b1e6472fc0a4f9f8732eefead12b data/malum/advancements/recipes/zinc_from_node_smelting.json
 e55b89bf73835e139909d23bba48229953f3a51c data/malum/loot_tables/blocks/blazing_quartz_ore.json
+4386b0f5a9eb29262ff5205225a8fcb794a123ce data/malum/loot_tables/blocks/blighted_coverage.json
 0caaecc23e8e6057b6480bc51f9d38a427943693 data/malum/loot_tables/blocks/blighted_soil.json
 6a14ac02e3f417347a775d3a8afdeed0b1423a6c data/malum/loot_tables/blocks/blighted_spire.json
 db8d66bce49477e36aff051f59020357c496614f data/malum/loot_tables/blocks/blighted_weed.json
@@ -1870,9 +1876,9 @@ cd288eb02883648adc32925ceac4c2a9123f9e08 data/minecraft/tags/blocks/buttons.json
 048a1dbdff01177369e6f10c3efd355602ad1afc data/minecraft/tags/blocks/fence_gates.json
 5f9c009fff7f5805f446d202b04551126d9ea90e data/minecraft/tags/blocks/fences.json
 c76cb97e20ea243cadb64d5fde634506fce8cb94 data/minecraft/tags/blocks/leaves.json
-77386b0bde9f18d35a485a7ab8ec2d196c35e95d data/minecraft/tags/blocks/logs.json
-be7a4deb2f53ad048c27d0cd9fef90c6913e0e8c data/minecraft/tags/blocks/mineable/axe.json
-91a6ab3fe862b7f333b0edaea4e07f2f6d24a892 data/minecraft/tags/blocks/mineable/hoe.json
+846cc1a74a86635a56f954ffb04dd485b01ec803 data/minecraft/tags/blocks/logs.json
+90409b4bbb22c59024503a9a3b1b8fe876753003 data/minecraft/tags/blocks/mineable/axe.json
+01d9129756356a8d448a5503abf4248af00174f7 data/minecraft/tags/blocks/mineable/hoe.json
 d174035f133e9c23c865bded431cacbb5a988c94 data/minecraft/tags/blocks/mineable/pickaxe.json
 3bc04388007639a0caefa3b5c45b665e0e888b4d data/minecraft/tags/blocks/mineable/shovel.json
 ed1badaa5faed1a472ef3df2a0a2bcd08d261864 data/minecraft/tags/blocks/planks.json
@@ -1903,7 +1909,7 @@ cd288eb02883648adc32925ceac4c2a9123f9e08 data/minecraft/tags/items/buttons.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/gold_ores.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/jungle_logs.json
 c76cb97e20ea243cadb64d5fde634506fce8cb94 data/minecraft/tags/items/leaves.json
-77386b0bde9f18d35a485a7ab8ec2d196c35e95d data/minecraft/tags/items/logs.json
+846cc1a74a86635a56f954ffb04dd485b01ec803 data/minecraft/tags/items/logs.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/logs_that_burn.json
 74700d556ca80c7a1db5fd4efb09c3ddb26cad66 data/minecraft/tags/items/oak_logs.json
 ed1badaa5faed1a472ef3df2a0a2bcd08d261864 data/minecraft/tags/items/planks.json

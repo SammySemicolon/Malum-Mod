@@ -2,9 +2,7 @@ package com.sammy.malum.core.setup.content.block;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.*;
-import com.sammy.malum.common.block.blight.BlightedGrassBlock;
-import com.sammy.malum.common.block.blight.BlightedSoilBlock;
-import com.sammy.malum.common.block.blight.SoulwoodGrowthBlock;
+import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.ether.EtherBlock;
 import com.sammy.malum.common.block.ether.EtherBrazierBlock;
 import com.sammy.malum.common.block.ether.EtherTorchBlock;
@@ -333,13 +331,6 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RUNEWOOD_WALL_SIGN = BLOCKS.register("runewood_wall_sign", () -> new OrtusWallSignBlock(RUNEWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.RUNEWOOD));
     //endregion
 
-
-    //region blight
-    public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(BLIGHT_PROPERTIES()));
-    public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
-    public static final RegistryObject<Block> BLIGHTED_SPIRE = BLOCKS.register("blighted_spire", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
-    //endregion
-
     //region soulwood
     public static final RegistryObject<Block> SOULWOOD_GROWTH = BLOCKS.register("soulwood_growth", () -> new SoulwoodGrowthBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
     public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().isCutoutLayer().hasCustomLoot(), new Color(152, 6, 45), new Color(224, 30, 214)));
@@ -386,6 +377,14 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> SOULWOOD_SIGN = BLOCKS.register("soulwood_sign", () -> new OrtusStandingSignBlock(SOULWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.SOULWOOD));
     public static final RegistryObject<Block> SOULWOOD_WALL_SIGN = BLOCKS.register("soulwood_wall_sign", () -> new OrtusWallSignBlock(SOULWOOD_PROPERTIES().noOcclusion().noCollission(), WoodTypeRegistry.SOULWOOD));
+    //endregion
+
+    //region blight
+    public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(BLIGHT_PROPERTIES()));
+    public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> BLIGHTED_COVERAGE = BLOCKS.register("blighted_coverage", () -> new BlightedCoverageBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> BLIGHTED_SPIRE = BLOCKS.register("blighted_spire", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
+    public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(SOULWOOD_PROPERTIES().lootFrom(SOULWOOD_LOG)));
     //endregion
 
     //region ether

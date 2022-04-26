@@ -55,6 +55,8 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
         takeAll(blocks, BLIGHTED_SOIL).forEach(this::rotatedBlock);
         takeAll(blocks, BLIGHTED_SPIRE).forEach(this::blightedSpireBlock);
+        takeAll(blocks, BLIGHTED_COVERAGE).forEach(this::blightedCoverageBlock);
+        takeAll(blocks, BLIGHTED_SOULWOOD).forEach(this::blightedSoulwoodBlock);
 
         ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
@@ -140,6 +142,13 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 .addModel();
     }
 
+    public void carpetBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile file = models().carpet(name, prefix("block/" + name));
+
+        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState().modelFile(file).addModel();
+    }
+
     public void blightedSpireBlock(RegistryObject<Block> blockRegistryObject) {
         String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
         ModelFile cross0 = models().withExistingParent(name, new ResourceLocation("block/cross")).texture("cross", prefix("block/" + name + "_0"));
@@ -149,6 +158,22 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
                 .modelFile(cross0)
                 .nextModel().modelFile(cross1)
                 .addModel();
+    }
+
+    public void blightedCoverageBlock(RegistryObject<Block> blockRegistryObject) {
+        String name = Registry.BLOCK.getKey(blockRegistryObject.get()).getPath();
+        ModelFile file = models().carpet(name, prefix("block/" + name));
+
+        getVariantBuilder(blockRegistryObject.get()).partialState().modelForState()
+                .modelFile(file)
+                .nextModel().modelFile(file).rotationY(90)
+                .nextModel().modelFile(file).rotationY(180)
+                .nextModel().modelFile(file).rotationY(270)
+                .addModel();
+    }
+
+    public void blightedSoulwoodBlock(RegistryObject<Block> blockRegistryObject) {
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_soulwood", prefix("block/blighted_soulwood"), prefix("block/blighted_soil"), prefix("block/soulwood_log_top")));
     }
 
     public void wallMirrorBlock(RegistryObject<Block> blockRegistryObject) {

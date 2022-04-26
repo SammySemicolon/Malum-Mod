@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "malum:runewood_leaves",
-    "malum:blighted_soil",
-    "malum:soulwood_leaves"
+    "malum:soulwood_leaves",
+    "malum:blighted_soil"
   ]
 }
