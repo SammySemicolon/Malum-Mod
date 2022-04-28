@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 public class BlockTagRegistry {
 
     public static final TagKey<Block> BLIGHTED_BLOCKS = malumTag("blighted_blocks");
+    public static final TagKey<Block> RUNEWOOD_LOGS = malumTag("runewood_logs");
 
 
     public static final TagKey<Block> TRAY_HEAT_SOURCES = modTag("farmersdelight:tray_heat_sources");

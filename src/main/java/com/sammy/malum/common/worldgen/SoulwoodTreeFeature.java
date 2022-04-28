@@ -53,7 +53,6 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
     private static final int minimumBranchHeight = 3;
     private static final int branchHeightExtra = 2;
 
-
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
@@ -248,10 +247,8 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                 if (Math.abs(x) == size && Math.abs(z) == size) {
                     continue;
                 }
-
                 BlockPos grassPos = level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE_WG, pos.offset(x, 0, z)).below();
-                if (grassPos.getY() < pos.getY()-6)
-                {
+                if (grassPos.getY() < pos.getY() - 6) {
                     continue;
                 }
                 do {
