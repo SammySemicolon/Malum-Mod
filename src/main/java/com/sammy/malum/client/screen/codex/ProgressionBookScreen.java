@@ -60,8 +60,8 @@ public class ProgressionBookScreen extends Screen {
     public float cachedYOffset;
     public boolean ignoreNextMouseInput;
 
-    public static ArrayList<BookEntry> entries = new ArrayList<>();
-    public static ArrayList<BookObject> objects = new ArrayList<>();
+    public static ArrayList<BookEntry> ENTRIES = new ArrayList<>();
+    public static ArrayList<BookObject> OBJECTS = new ArrayList<>();
 
     protected ProgressionBookScreen() {
         super(new TranslatableComponent("malum.gui.book.title"));
@@ -72,10 +72,10 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public static void setupEntries() {
-        entries.clear();
+        ENTRIES.clear();
         Item EMPTY = ItemStack.EMPTY.getItem();
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "introduction", ENCYCLOPEDIA_ARCANA.get(), 0, 0)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("introduction", "introduction_a"))
@@ -84,14 +84,14 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new TextPage("introduction_d"))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "spirit_magics", SOUL_SAND, 0, 1)
                 .addPage(new HeadlineTextPage("spirit_magics", "spirit_magics_a"))
                 .addPage(new TextPage("spirit_magics_b"))
                 .addPage(new TextPage("spirit_magics_c"))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "runewood", RUNEWOOD_SAPLING.get(), 1, 2)
                 .addPage(new HeadlineTextPage("runewood", "runewood_a"))
                 .addPage(new TextPage("runewood_b"))
@@ -110,7 +110,7 @@ public class ProgressionBookScreen extends Screen {
                 .addModCompatPage(new TextPage("holy_sap_d"), "thermal_expansion")
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "soulstone", PROCESSED_SOULSTONE.get(), -1, 2)
                 .addPage(new HeadlineTextPage("soulstone", "soulstone_a"))
                 .addPage(new TextPage("soulstone_b"))
@@ -118,7 +118,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(CraftingBookPage.fullPage(BLOCK_OF_SOULSTONE.get(), PROCESSED_SOULSTONE.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "scythes", CRUDE_SCYTHE.get(), 0, 3)
                 .addPage(new HeadlineTextPage("scythes", "scythes_a"))
                 .addPage(new TextPage("scythes_b"))
@@ -129,7 +129,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new HeadlineTextPage("rebound", "rebound"))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "spirit_infusion", SPIRIT_ALTAR.get(), 0, 5)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("spirit_infusion", "spirit_infusion_a"))
@@ -142,7 +142,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(HEX_ASH.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "primary_arcana", ARCANE_SPIRIT.get(), -2, 4)
                 .addPage(new SpiritTextPage("sacred_spirit", "sacred_spirit_a", SACRED_SPIRIT.get()))
                 .addPage(new TextPage("sacred_spirit_b"))
@@ -153,7 +153,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new TextPage("arcane_spirit_c"))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "elemental_arcana", EARTHEN_SPIRIT.get(), 2, 4)
                 .addPage(new SpiritTextPage("earthen_spirit", "earthen_spirit_a", EARTHEN_SPIRIT.get()))
                 .addPage(new TextPage("earthen_spirit_b"))
@@ -165,13 +165,13 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new TextPage("aqueous_spirit_b"))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "eldritch_arcana", ELDRITCH_SPIRIT.get(), 0, 7)
                 .addPage(new SpiritTextPage("eldritch_spirit", "eldritch_spirit_a", ELDRITCH_SPIRIT.get()))
                 .addPage(new TextPage("eldritch_spirit_b"))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "arcane_rock", TAINTED_ROCK.get(), 3, 6)
                 .addPage(new HeadlineTextPage("tainted_rock", "tainted_rock"))
                 .addPage(SpiritInfusionPage.fromOutput(TAINTED_ROCK.get()))
@@ -182,7 +182,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(CraftingBookPage.itemPedestalPage(TWISTED_ROCK_ITEM_PEDESTAL.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
                 .addPage(CraftingBookPage.itemStandPage(TWISTED_ROCK_ITEM_STAND.get(), TWISTED_ROCK.get(), TWISTED_ROCK_SLAB.get()))
         );
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "ether", ETHER.get(), 5, 6)
                 .addPage(new HeadlineTextPage("ether", "ether_a"))
                 .addPage(SpiritInfusionPage.fromOutput(ETHER.get()))
@@ -198,7 +198,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new CraftingBookPage(TWISTED_IRIDESCENT_ETHER_BRAZIER.get(), EMPTY, EMPTY, EMPTY, TWISTED_ROCK.get(), IRIDESCENT_ETHER.get(), TWISTED_ROCK.get(), STICK, TWISTED_ROCK.get(), STICK))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "spirit_fabric", SPIRIT_FABRIC.get(), 4, 5)
                 .addPage(new HeadlineTextPage("spirit_fabric", "spirit_fabric"))
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_FABRIC.get()))
@@ -206,7 +206,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new CraftingBookPage(SPIRIT_POUCH.get(), EMPTY, STRING, EMPTY, SPIRIT_FABRIC.get(), SOUL_SAND, SPIRIT_FABRIC.get(), EMPTY, SPIRIT_FABRIC.get(), EMPTY))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "soul_hunter_gear", SOUL_HUNTER_CLOAK.get(), 4, 7)
                 .addPage(new HeadlineTextPage("soul_hunter_armor", "soul_hunter_armor"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_CLOAK.get()))
@@ -215,7 +215,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_HUNTER_BOOTS.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "spirit_focusing", SPIRIT_CRUCIBLE.get(), 7, 6)
                 .addPage(new HeadlineTextPage("spirit_focusing", "spirit_focusing_a"))
                 .addPage(new TextPage("spirit_focusing_b"))
@@ -223,7 +223,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(ALCHEMICAL_IMPETUS.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "working_with_ashes", GUNPOWDER, 6, 5)
                 .addPage(new HeadlineTextPage("working_with_ashes", "working_with_ashes"))
                 .addPage(SpiritCruciblePage.fromOutput(GUNPOWDER))
@@ -231,7 +231,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritCruciblePage.fromOutput(REDSTONE))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "metallurgic_magic", IRON_NODE.get(), 8, 7)
                 .addPage(new HeadlineTextPage("metallurgic_magic", "metallurgic_magic_a"))
                 .addPage(new TextPage("metallurgic_magic_b"))
@@ -259,7 +259,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritCruciblePage.fromOutput(TIN_NODE.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "crucible_acceleration", SPIRIT_CATALYZER.get(), 7, 4)
                 .addPage(new HeadlineTextPage("crucible_acceleration", "crucible_acceleration_a"))
                 .addPage(new TextPage("crucible_acceleration_b"))
@@ -267,7 +267,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(SPIRIT_CATALYZER.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "impetus_restoration", TWISTED_TABLET.get(), 7, 8)
                 .addPage(new HeadlineTextPage("impetus_restoration", "impetus_restoration_a"))
                 .addPage(new TextPage("impetus_restoration_b"))
@@ -289,7 +289,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritRepairPage.fromInput(SOUL_HUNTER_BOOTS.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "crystal_creation", QUARTZ, 9, 5)
                 .addPage(new HeadlineTextPage("crystal_creation", "crystal_creation"))
                 .addPage(SpiritCruciblePage.fromOutput(QUARTZ))
@@ -298,7 +298,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritCruciblePage.fromOutput(PRISMARINE_CRYSTALS))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "spirit_metals", SOUL_STAINED_STEEL_INGOT.get(), -3, 6)
                 .addPage(new HeadlineTextPage("hallowed_gold", "hallowed_gold_a"))
                 .addPage(new TextPage("hallowed_gold_b"))
@@ -318,13 +318,13 @@ public class ProgressionBookScreen extends Screen {
                 .addModCompatPage(new CraftingBookPage(SOUL_STAINED_STEEL_KNIFE.get(), EMPTY, EMPTY, EMPTY, EMPTY, SOUL_STAINED_STEEL_INGOT.get(), EMPTY, STICK), "farmersdelight")
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "soul_stained_scythe", SOUL_STAINED_STEEL_SCYTHE.get(), -4, 5)
                 .addPage(new HeadlineTextPage("soul_stained_scythe", "soul_stained_scythe"))
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_SCYTHE.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "soul_stained_armor", SOUL_STAINED_STEEL_HELMET.get(), -4, 7)
                 .addPage(new HeadlineTextPage("soul_stained_armor", "soul_stained_armor_a"))
                 .addPage(new TextPage("soul_stained_armor_b"))
@@ -335,7 +335,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(SOUL_STAINED_STEEL_BOOTS.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "spirit_trinkets", ORNATE_RING.get(), -5, 6)
                 .addPage(new HeadlineTextPage("spirit_trinkets", "spirit_trinkets_a"))
                 .addPage(new TextPage("spirit_trinkets_b"))
@@ -350,58 +350,58 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_ARCANE_SPOIL.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "ring_of_prowess", RING_OF_PROWESS.get(), -7, 6)
                 .addPage(new HeadlineTextPage("ring_of_prowess", "ring_of_prowess_a"))
                 .addPage(new TextPage("ring_of_prowess_b"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_PROWESS.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "ring_of_wicked_intent", RING_OF_WICKED_INTENT.get(), -7, 8)
                 .addPage(new HeadlineTextPage("ring_of_wicked_intent", "ring_of_wicked_intent"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_WICKED_INTENT.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "ring_of_curative_talent", RING_OF_CURATIVE_TALENT.get(), -7, 4)
                 .addPage(new HeadlineTextPage("ring_of_curative_talent", "ring_of_curative_talent"))
                 .addPage(SpiritInfusionPage.fromOutput(RING_OF_CURATIVE_TALENT.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "necklace_of_the_mystic_mirror", NECKLACE_OF_THE_MYSTIC_MIRROR.get(), -6, 5)
                 .addPage(new HeadlineTextPage("necklace_of_the_mystic_mirror", "necklace_of_the_mystic_mirror"))
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_MYSTIC_MIRROR.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "necklace_of_the_narrow_edge", NECKLACE_OF_THE_NARROW_EDGE.get(), -8, 7)
                 .addPage(new HeadlineTextPage("necklace_of_the_narrow_edge", "necklace_of_the_narrow_edge"))
                 .addPage(SpiritInfusionPage.fromOutput(NECKLACE_OF_THE_NARROW_EDGE.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "warded_belt", WARDED_BELT.get(), -9, 5)
                 .addPage(new HeadlineTextPage("warded_belt", "warded_belt"))
                 .addPage(SpiritInfusionPage.fromOutput(WARDED_BELT.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "mirror_magic", SPECTRAL_LENS.get(), -6, 10)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("mirror_magic", "mirror_magic"))
                 .addPage(SpiritInfusionPage.fromOutput(SPECTRAL_LENS.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "voodoo_magic", POPPET.get(), 6, 10)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("voodoo_magic", "voodoo_magic"))
                 .addPage(SpiritInfusionPage.fromOutput(POPPET.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "altar_acceleration", RUNEWOOD_OBELISK.get(), -1, 8)
                 .addPage(new HeadlineTextPage("runewood_obelisk", "runewood_obelisk"))
                 .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_OBELISK.get()))
@@ -409,7 +409,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(BRILLIANT_OBELISK.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "totem_magic", RUNEWOOD_TOTEM_BASE.get(), 0, 9)
                 .setObjectSupplier(ImportantEntryObject::new)
                 .addPage(new HeadlineTextPage("totem_magic", "totem_magic_a"))
@@ -418,7 +418,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(RUNEWOOD_TOTEM_BASE.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "arcane_rite", ARCANE_SPIRIT.get(), 0, 11)
                 .addPage(new HeadlineTextPage("totem_corruption", "totem_corruption_a"))
                 .addPage(new TextPage("totem_corruption_b"))
@@ -428,7 +428,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritInfusionPage.fromOutput(SOULWOOD_TOTEM_BASE.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "sacred_rite", SACRED_SPIRIT.get(), -2, 11)
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "sacred_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.SACRED_RITE))
@@ -436,7 +436,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_SACRED_RITE))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "wicked_rite", WICKED_SPIRIT.get(), 2, 11)
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "wicked_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.WICKED_RITE))
@@ -444,7 +444,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_WICKED_RITE))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "earthen_rite", EARTHEN_SPIRIT.get(), -1, 12)
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "earthen_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.EARTHEN_RITE))
@@ -452,7 +452,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_EARTHEN_RITE))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "infernal_rite", INFERNAL_SPIRIT.get(), 1, 12)
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "infernal_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.INFERNAL_RITE))
@@ -460,7 +460,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_INFERNAL_RITE))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "aerial_rite", AERIAL_SPIRIT.get(), -1, 10)
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "aerial_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.AERIAL_RITE))
@@ -468,7 +468,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_AERIAL_RITE))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "aqueous_rite", AQUEOUS_SPIRIT.get(), 1, 10)
                 .addPage(new DoubleHeadlineTextPage("rite_effect", "aqueous_rite"))
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.AQUEOUS_RITE))
@@ -476,7 +476,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new SpiritRitePage(SpiritRiteRegistry.ELDRITCH_AQUEOUS_RITE))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "soulwood", SOULWOOD_GROWTH.get(), 0, 13)
                 .addPage(new HeadlineTextPage("soulwood", "soulwood_a"))
                 .addPage(new TextPage("soulwood_b"))
@@ -488,13 +488,13 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new SmeltingBookPage(UNHOLY_SAP.get(), UNHOLY_SYRUP.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "magebane_belt", MAGEBANE_BELT.get(), 1, 15)
                 .addPage(new HeadlineTextPage("magebane_belt", "magebane_belt"))
                 .addPage(SpiritInfusionPage.fromOutput(MAGEBANE_BELT.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "tyrving", TYRVING.get(), -1, 15)
                 .addPage(new HeadlineTextPage("tyrving", "tyrving_a"))
                 .addPage(SpiritInfusionPage.fromOutput(TYRVING.get()))
@@ -502,7 +502,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritRepairPage.fromInput(TYRVING.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "ceaseless_impetus", CEASELESS_IMPETUS.get(), 0, 16)
                 .addPage(new HeadlineTextPage("ceaseless_impetus", "ceaseless_impetus_a"))
                 .addPage(new TextPage("ceaseless_impetus_b"))
@@ -510,7 +510,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(SpiritRepairPage.fromInput(CRACKED_CEASELESS_IMPETUS.get()))
         );
 
-        entries.add(new BookEntry(
+        ENTRIES.add(new BookEntry(
                 "huh", THE_DEVICE.get(), 0, -10)
                 .setObjectSupplier(VanishingEntryObject::new)
                 .addPage(new HeadlineTextPage("the_device", "the_device"))
@@ -519,7 +519,7 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public void setupObjects() {
-        objects.clear();
+        OBJECTS.clear();
         this.width = minecraft.getWindow().getGuiScaledWidth();
         this.height = minecraft.getWindow().getGuiScaledHeight();
         int guiLeft = (width - bookWidth) / 2;
@@ -528,10 +528,10 @@ public class ProgressionBookScreen extends Screen {
         int coreY = guiTop + bookInsideHeight;
         int width = 40;
         int height = 48;
-        for (BookEntry entry : entries) {
-            objects.add(entry.objectSupplier.getBookObject(entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height));
+        for (BookEntry entry : ENTRIES) {
+            OBJECTS.add(entry.objectSupplier.getBookObject(entry, coreX + entry.xOffset * width, coreY - entry.yOffset * height));
         }
-        faceObject(objects.get(0));
+        faceObject(OBJECTS.get(0));
     }
 
     public void faceObject(BookObject object) {
@@ -587,7 +587,7 @@ public class ProgressionBookScreen extends Screen {
         if (xOffset != cachedXOffset || yOffset != cachedYOffset) {
             return super.mouseReleased(mouseX, mouseY, button);
         }
-        for (BookObject object : objects) {
+        for (BookObject object : OBJECTS) {
             if (object.isHovering(xOffset, yOffset, mouseX, mouseY)) {
                 object.click(xOffset, yOffset, mouseX, mouseY);
                 break;
@@ -611,8 +611,8 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public void renderEntries(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        for (int i = objects.size() - 1; i >= 0; i--) {
-            BookObject object = objects.get(i);
+        for (int i = OBJECTS.size() - 1; i >= 0; i--) {
+            BookObject object = OBJECTS.get(i);
             boolean isHovering = object.isHovering(xOffset, yOffset, mouseX, mouseY);
             object.isHovering = isHovering;
             object.hover = isHovering ? Math.min(object.hover++, object.hoverCap()) : Math.max(object.hover--, 0);
@@ -621,8 +621,8 @@ public class ProgressionBookScreen extends Screen {
     }
 
     public void lateEntryRender(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        for (int i = objects.size() - 1; i >= 0; i--) {
-            BookObject object = objects.get(i);
+        for (int i = OBJECTS.size() - 1; i >= 0; i--) {
+            BookObject object = OBJECTS.get(i);
             object.lateRender(minecraft, stack, xOffset, yOffset, mouseX, mouseY, partialTicks);
         }
     }

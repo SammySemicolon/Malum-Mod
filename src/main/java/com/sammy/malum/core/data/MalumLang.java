@@ -53,7 +53,7 @@ public class MalumLang extends LanguageProvider {
         Set<RegistryObject<MobEffect>> effects = new HashSet<>(EFFECTS.getEntries());
         Set<RegistryObject<Attribute>> attributes = new HashSet<>(ATTRIBUTES.getEntries());
         Set<RegistryObject<EntityType<?>>> entities = new HashSet<>(ENTITY_TYPES.getEntries());
-        ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.ENTRIES_OLD;
+        ArrayList<BookEntry> coolerBookEntries = ProgressionBookScreen.ENTRIES;
         ArrayList<MalumRiteType> rites = SpiritRiteRegistry.RITES;
         ArrayList<MalumSpiritType> spirits = new ArrayList<>(SpiritTypeRegistry.SPIRITS.values());
         DataHelper.takeAll(blocks, i -> i.get() instanceof WallTorchBlock);
