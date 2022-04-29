@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "hexerei"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "hexerei:witch_",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+  ],
+  "repairMaterial": {
+    "item": "hexerei:infused_fabric",
+    "count": 4
+  },
+  "spirits": [
+    {
+      "type": "arcane",
+      "count": 16
+    },
+    {
+      "type": "wicked",
+      "count": 8
+    },
+    {
+      "type": "eldritch",
+      "count": 1
+    }
+  ]
+}

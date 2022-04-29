@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "scuba_gear"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "none",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+    "scuba_gear:scuba_helmet",
+    "scuba_gear:scuba_chestplate",
+    "scuba_gear:scuba_leggings",
+    "scuba_gear:scuba_boots"
+  ],
+  "repairMaterial": {
+    "item": "minecraft:iron_ingot",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "type": "earthen",
+      "count": 8
+    },
+    {
+      "type": "aqueous",
+      "count": 8
+    }
+  ]
+}

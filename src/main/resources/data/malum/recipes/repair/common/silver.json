@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "value": {
+        "tag": "forge:ingots/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ],
+  "type": "malum:spirit_repair",
+  "inputLookup": "silver_",
+  "durabilityPercentage": 0.5,
+  "inputs": [
+  ],
+  "repairMaterial": {
+    "tag": "forge:ingots/silver",
+    "count": 2
+  },
+  "spirits": [
+    {
+      "type": "sacred",
+      "count": 8
+    },
+    {
+      "type": "arcane",
+      "count": 4
+    }
+  ]
+}
