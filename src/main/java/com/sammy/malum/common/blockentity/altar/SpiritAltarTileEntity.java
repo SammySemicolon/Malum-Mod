@@ -13,7 +13,6 @@ import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntity;
 import com.sammy.malum.core.systems.blockentity.SimpleBlockEntityInventory;
 import com.sammy.malum.core.systems.recipe.IngredientWithCount;
-import com.sammy.malum.core.systems.recipe.ItemWithCount;
 import com.sammy.malum.core.systems.recipe.SpiritWithCount;
 import com.sammy.malum.core.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
@@ -38,7 +37,6 @@ import net.minecraftforge.network.PacketDistributor;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -267,11 +265,11 @@ public class SpiritAltarTileEntity extends SimpleBlockEntity {
                 requestedItem = recipe.extraItems.get(extras);
                 matches = requestedItem.matches(providedStack);
                 if (matches) {
-                    level.playSound(null, provider.getBlockPos(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
+                    level.playSound(null, provider.getBlockPosForAltar(), SoundRegistry.ALTAR_CONSUME.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     Vec3 providedItemPos = provider.getItemPosForAltar();
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPos())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(provider.getBlockPosForAltar())), new AltarConsumeParticlePacket(providedStack, recipe.spirits.stream().map(s -> s.type.identifier).collect(Collectors.toList()), providedItemPos.x, providedItemPos.y, providedItemPos.z, itemPos.x, itemPos.y, itemPos.z));
                     extrasInventory.insertItem(level, providedStack.split(requestedItem.count));
-                    BlockHelper.updateAndNotifyState(level, provider.getBlockPos());
+                    BlockHelper.updateAndNotifyState(level, provider.getBlockPosForAltar());
                     break;
                 }
             }

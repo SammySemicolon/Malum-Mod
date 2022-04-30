@@ -45,6 +45,11 @@ public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IA
         return getItemPos();
     }
 
+    @Override
+    public BlockPos getBlockPosForAltar() {
+        return worldPosition;
+    }
+
     public Vec3 getItemPos() {
         return DataHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }

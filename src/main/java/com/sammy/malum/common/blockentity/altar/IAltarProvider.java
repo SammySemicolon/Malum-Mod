@@ -8,5 +8,5 @@ public interface IAltarProvider
 {
     SimpleBlockEntityInventory getInventoryForAltar();
     Vec3 getItemPosForAltar();
-    BlockPos getBlockPos();
+    BlockPos getBlockPosForAltar();
 }
