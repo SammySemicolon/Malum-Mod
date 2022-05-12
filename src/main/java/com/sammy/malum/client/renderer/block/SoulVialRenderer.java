@@ -19,7 +19,7 @@ public class SoulVialRenderer implements BlockEntityRenderer<SoulVialBlockEntity
             double y = 0.5f + Math.sin((blockEntityIn.getLevel().getGameTime() + partialTicks) / 20f) * 0.08f;
             poseStack.translate(0.5f, y, 0.5f);
             poseStack.scale(0.75f, 0.75f, 0.75f);
-            SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.color.darker());
+            SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.getColor().darker());
             poseStack.popPose();
         }
     }

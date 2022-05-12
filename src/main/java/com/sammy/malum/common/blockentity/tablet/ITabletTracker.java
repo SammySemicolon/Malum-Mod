@@ -54,7 +54,7 @@ public interface ITabletTracker {
             if (!getTabletPositions().isEmpty()) {
                 twistedTabletTag.putInt("amount", tabletPositions.size());
                 for (int i = 0; i < tabletPositions.size(); i++) {
-                    BlockHelper.saveBlockPos(twistedTabletTag, tabletPositions.get(i), "" + i);
+                    BlockHelper.saveBlockPos(twistedTabletTag, tabletPositions.get(i), "tablet_" + i);
                 }
             }
             compound.put("twistedTabletData", twistedTabletTag);
@@ -66,7 +66,7 @@ public interface ITabletTracker {
             CompoundTag twistedTabletTag = compound.getCompound("twistedTabletData");
             int amount = twistedTabletTag.getInt("amount");
             for (int i = 0; i < amount; i++) {
-                BlockPos pos = BlockHelper.loadBlockPos(twistedTabletTag, "" + i);
+                BlockPos pos = BlockHelper.loadBlockPos(twistedTabletTag, "tablet_" + i);
                 if (level != null && level.getBlockEntity(pos) instanceof TwistedTabletBlockEntity tabletBlockEntity) {
                     getTabletPositions().add(pos);
                     getTablets().add(tabletBlockEntity);

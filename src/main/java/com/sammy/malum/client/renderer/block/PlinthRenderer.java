@@ -30,7 +30,7 @@ public class PlinthRenderer implements BlockEntityRenderer<PlinthCoreBlockEntity
             Vec3 offset = blockEntityIn.itemOffset();
             double y = offset.y + Math.sin((level.getGameTime() + partialTicks) / 20f) * 0.08f;
             poseStack.translate(offset.x, y, offset.z);
-            SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.color.darker());
+            SoulEntityRenderer.renderSoul(poseStack, blockEntityIn.data.primaryType.getColor().darker());
             poseStack.popPose();
             return;
         }

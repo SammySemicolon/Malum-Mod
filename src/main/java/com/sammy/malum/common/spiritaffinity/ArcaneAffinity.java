@@ -11,18 +11,17 @@ import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
+import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import com.sammy.ortus.handlers.ScreenParticleHandler;
 import com.sammy.ortus.helpers.CurioHelper;
 import com.sammy.ortus.helpers.RenderHelper;
-import com.sammy.ortus.setup.OrtusScreenParticles;
-import com.sammy.ortus.setup.OrtusShaders;
+import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
+import com.sammy.ortus.setup.OrtusShaderRegistry;
 import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
-import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -139,7 +138,7 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                         RenderSystem.defaultBlendFunc();
                         RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaders.DISTORTED_TEXTURE.getInstance().get();
+                        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
                         shaderInstance.safeGetUniform("YFrequency").set(15f);
                         shaderInstance.safeGetUniform("XFrequency").set(15f);
                         shaderInstance.safeGetUniform("Speed").set(550f);
@@ -154,13 +153,13 @@ public class ArcaneAffinity extends MalumSpiritAffinity {
                             shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 16 / 256f, 28 / 256f));
                             shaderInstance.safeGetUniform("TimeOffset").set(i * 150f);
 
-                            RenderHelper.blit(poseStack, OrtusShaders.DISTORTED_TEXTURE, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 16, 256f);
+                            RenderHelper.blit(poseStack, OrtusShaderRegistry.DISTORTED_TEXTURE, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 16, 256f);
 
                             if (ScreenParticleHandler.canSpawnParticles) {
-                                ParticleBuilders.create(OrtusScreenParticles.WISP)
+                                ParticleBuilders.create(OrtusScreenParticleRegistry.WISP)
                                         .setLifetime(20)
-                                        .setColor(SpiritTypeRegistry.ARCANE_SPIRIT_COLOR, SpiritTypeRegistry.ARCANE_SPIRIT.endColor)
-                                        .setAlphaCurveMultiplier(0.75f)
+                                        .setColor(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor())
+                                        .setAlphaCoefficient(0.75f)
                                         .setScale(0.2f*progress, 0f)
                                         .setAlpha(0.05f, 0)
                                         .setSpin(Minecraft.getInstance().level.random.nextFloat() * 6.28f)

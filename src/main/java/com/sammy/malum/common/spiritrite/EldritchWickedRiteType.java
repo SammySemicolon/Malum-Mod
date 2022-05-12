@@ -47,7 +47,7 @@ public class EldritchWickedRiteType extends MalumRiteType {
             for (Animal entity : entities) {
                 if (!entity.isInLove() && entity.getAge() > 0) {
                     entity.hurt(DamageSourceRegistry.VOODOO, entity.getMaxHealth());
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MagicParticlePacket(WICKED_SPIRIT_COLOR, entity.blockPosition().getX(), entity.blockPosition().getY() + entity.getBbHeight() / 2f, entity.blockPosition().getZ()));
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MagicParticlePacket(WICKED_SPIRIT.getColor(), entity.blockPosition().getX(), entity.blockPosition().getY() + entity.getBbHeight() / 2f, entity.blockPosition().getZ()));
                     maxKills--;
                 }
                 if (maxKills <= 0) {

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.packets.particle;
 
 import com.sammy.malum.core.setup.client.ParticleRegistry;
-import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -62,7 +62,7 @@ public class BlockMistParticlePacket {
     public static class ClientOnly {
         public static void addParticles(BlockPos pos, Color color) {
             Level level = Minecraft.getInstance().level;
-            ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                     .setAlpha(0.4f, 0f)
                     .setLifetime(20)
                     .setSpin(0.2f)
@@ -73,7 +73,7 @@ public class BlockMistParticlePacket {
                     .randomMotion(0.001f, 0.001f)
                     .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
 
-            ParticleBuilders.create(OrtusParticles.SMOKE_PARTICLE)
+            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
                     .setAlpha(0.2f, 0f)
                     .setLifetime(40)
                     .setSpin(0.1f)

@@ -6,7 +6,7 @@ import com.mojang.math.Vector3f;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.helpers.RenderHelper;
-import com.sammy.ortus.setup.OrtusRenderTypes;
+import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -21,7 +21,7 @@ import java.awt.*;
 import static com.sammy.malum.MalumMod.prefix;
 import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
 import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
-import static com.sammy.ortus.setup.OrtusRenderTypes.queueUniformChanges;
+import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
 
 public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
     public final ItemRenderer itemRenderer;
@@ -34,17 +34,17 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
     }
 
     private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/noise/soul_noise.png");
-    private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypes.RADIAL_NOISE.apply(SOUL_NOISE);
+    private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_NOISE.apply(SOUL_NOISE);
     private static final ResourceLocation SECONDARY_SOUL_NOISE = prefix("textures/vfx/noise/soul_noise_secondary.png");
-    private static final RenderType SECONDARY_SOUL_NOISE_TYPE = OrtusRenderTypes.RADIAL_SCATTER_NOISE.apply(SECONDARY_SOUL_NOISE);
+    private static final RenderType SECONDARY_SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(SECONDARY_SOUL_NOISE);
     private static final ResourceLocation TRINARY_SOUL_NOISE = prefix("textures/vfx/noise/soul_noise_trinary.png");
-    private static final RenderType TRINARY_SOUL_NOISE_TYPE = OrtusRenderTypes.RADIAL_SCATTER_NOISE.apply(TRINARY_SOUL_NOISE);
+    private static final RenderType TRINARY_SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(TRINARY_SOUL_NOISE);
 
     @Override
     public void render(SoulEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
         poseStack.translate(0, 0.25 + entityIn.getYOffset(partialTicks), 0);
-        renderSoul(poseStack, entityIn.color.darker());
+        renderSoul(poseStack, entityIn.startColor.darker());
         poseStack.popPose();
         super.render(entityIn, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
     }

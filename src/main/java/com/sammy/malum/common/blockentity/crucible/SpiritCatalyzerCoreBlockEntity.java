@@ -5,7 +5,7 @@ import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import com.sammy.ortus.systems.multiblock.HorizontalDirectionStructure;
 import com.sammy.ortus.systems.multiblock.MultiBlockCoreEntity;
@@ -131,7 +131,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
             float random = level.random.nextFloat() * 0.04f;
             Vec3 velocity = startPos.subtract(targetItemPos.add(random, random, random)).normalize().scale(-0.08f);
 
-            ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 5f, 0f)
                     .setLifetime((int) (10 + level.random.nextInt(8) + Math.sin((0.2 * level.getGameTime()) % 6.28f)))
                     .setScale(0.15f + level.random.nextFloat() * 0.15f, 0)
@@ -139,13 +139,13 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .setSpinOffset((0.075f * level.getGameTime() % 6.28f))
                     .setSpin(0.1f + level.random.nextFloat() * 0.05f)
                     .setColor(color.brighter(), endColor)
-                    .setAlphaCurveMultiplier(0.5f)
-                    .setColorCurveMultiplier(0.75f)
+                    .setAlphaCoefficient(0.5f)
+                    .setColorCoefficient(0.75f)
                     .setMotion(velocity.x, velocity.y, velocity.z)
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                     .setAlpha(alpha * 3, 0f)
                     .setLifetime(15)
                     .setScale(0.2f + level.random.nextFloat() * 0.15f, 0)
@@ -155,7 +155,7 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
                     .enableNoClip()
                     .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-            ParticleBuilders.create(OrtusParticles.STAR_PARTICLE)
+            ParticleBuilders.create(OrtusParticleRegistry.STAR_PARTICLE)
                     .setAlpha(alpha * 3, 0f)
                     .setLifetime(15)
                     .setScale(0.45f + level.random.nextFloat() * 0.15f, 0)

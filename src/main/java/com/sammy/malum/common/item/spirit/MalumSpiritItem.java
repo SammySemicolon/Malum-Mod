@@ -23,17 +23,17 @@ public class MalumSpiritItem extends Item implements IFloatingGlowItem, ItemPart
 
     @Override
     public Color getColor() {
-        return type.color;
+        return type.getColor();
     }
 
     @Override
     public Color getEndColor() {
-        return type.endColor;
+        return type.getEndColor();
     }
 
     @OnlyIn(value = Dist.CLIENT)
     @Override
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
-        spawnSpiritScreenParticles(type.color, type.endColor, stack, x, y, renderOrder);
+        spawnSpiritScreenParticles(type.getColor(), type.getEndColor(), stack, x, y, renderOrder);
     }
 }

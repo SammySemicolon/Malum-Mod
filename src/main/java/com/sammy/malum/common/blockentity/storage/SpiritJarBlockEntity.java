@@ -5,7 +5,7 @@ import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -105,14 +105,14 @@ public class SpiritJarBlockEntity extends OrtusBlockEntity {
                 double x = getBlockPos().getX() + 0.5f;
                 double y = getBlockPos().getY() + 0.5f + Math.sin(level.getGameTime() / 20f) * 0.2f;
                 double z = getBlockPos().getZ() + 0.5f;
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, type.color, type.endColor);
+                SpiritHelper.spawnSpiritParticles(level, x, y, z, type.getColor(), type.getEndColor());
             }
         }
     }
 
     public void spawnUseParticles(Level level, BlockPos pos, MalumSpiritType type) {
-        Color color = type.color;
-        ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+        Color color = type.getColor();
+        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.15f, 0f)
                 .setLifetime(20)
                 .setScale(0.3f, 0)

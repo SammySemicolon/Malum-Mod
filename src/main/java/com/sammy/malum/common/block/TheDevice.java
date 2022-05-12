@@ -3,7 +3,7 @@ package com.sammy.malum.common.block;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.ortus.helpers.DataHelper;
 import com.sammy.ortus.network.screenshake.PositionedScreenshakePacket;
-import com.sammy.ortus.setup.OrtusPackets;
+import com.sammy.ortus.setup.OrtusPacketRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -41,7 +41,7 @@ public class TheDevice extends Block {
 
     public void playSound(Level level, BlockPos pos) {
         if (level instanceof ServerLevel serverLevel) {
-            OrtusPackets.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(DataHelper.fromBlockPos(pos), 4, 6, 0.4f, 0.1f, 10, 0.02f, 0.1f));
+            OrtusPacketRegistry.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> serverLevel.getChunkAt(pos)), new PositionedScreenshakePacket(DataHelper.fromBlockPos(pos), 4, 6, 0.4f, 0.1f, 10, 0.02f, 0.1f));
         }
         level.playSound(null, pos, SoundRegistry.SUSPICIOUS_SOUND.get(), SoundSource.BLOCKS, 1, 1);
     }

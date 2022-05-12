@@ -11,7 +11,7 @@ import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.packets.particle.SoulPurgeParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.ortus.helpers.RenderHelper;
-import com.sammy.ortus.setup.OrtusRenderTypes;
+import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -44,7 +44,7 @@ import static com.sammy.malum.MalumMod.prefix;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 import static com.sammy.ortus.handlers.RenderHandler.DELAYED_RENDER;
 import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
-import static com.sammy.ortus.setup.OrtusRenderTypes.queueUniformChanges;
+import static com.sammy.ortus.setup.OrtusRenderTypeRegistry.queueUniformChanges;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class SoulHarvestHandler {
@@ -145,7 +145,7 @@ public class SoulHarvestHandler {
                                                 0.05f + nextFloat(MalumMod.RANDOM, 0.05f, 0.15f),
                                                 nextFloat(MalumMod.RANDOM, -0.1f, 0.1f));
                                         player.level.addFreshEntity(soulEntity);
-                                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SoulPurgeParticlePacket(ec.spiritData.primaryType.color, ec.spiritData.primaryType.endColor, position.x, position.y, position.z));
+                                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), new SoulPurgeParticlePacket(ec.spiritData.primaryType.getColor(), ec.spiritData.primaryType.getEndColor(), position.x, position.y, position.z));
                                         if (livingEntity instanceof Mob mob) {
                                             removeSentience(mob);
                                         }
@@ -206,9 +206,9 @@ public class SoulHarvestHandler {
 
     public static class ClientOnly {
         private static final ResourceLocation SOUL_NOISE = prefix("textures/vfx/noise/soul_noise.png");
-        private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypes.RADIAL_NOISE.apply(SOUL_NOISE);
+        private static final RenderType SOUL_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_NOISE.apply(SOUL_NOISE);
         private static final ResourceLocation PREVIEW_NOISE = prefix("textures/vfx/noise/harvest_noise.png");
-        private static final RenderType PREVIEW_NOISE_TYPE = OrtusRenderTypes.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
+        private static final RenderType PREVIEW_NOISE_TYPE = OrtusRenderTypeRegistry.RADIAL_SCATTER_NOISE.apply(PREVIEW_NOISE);
 
         @SuppressWarnings("all")
         public static void addRenderLayer(EntityRenderer<?> render) {
@@ -229,7 +229,7 @@ public class SoulHarvestHandler {
                         Player player = pLivingEntity.level.getPlayerByUUID(c.ownerUUID);
                         if (player != null && player.isAlive() && pLivingEntity.isAlive()) {
                             poseStack.popPose();
-                            renderSoulHarvestEffects(poseStack, pLivingEntity, player, c.spiritData.primaryType.color, c.getPreviewProgress() / 10f, c.getHarvestProgress(), partialTicks);
+                            renderSoulHarvestEffects(poseStack, pLivingEntity, player, c.spiritData.primaryType.getColor(), c.getPreviewProgress() / 10f, c.getHarvestProgress(), partialTicks);
                             poseStack.pushPose();
                         }
                     }

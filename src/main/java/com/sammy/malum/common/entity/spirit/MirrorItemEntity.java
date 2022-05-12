@@ -42,14 +42,14 @@ public class MirrorItemEntity extends FloatingItemEntity {
     @Override
     public void setItem(ItemStack pStack) {
         if (!(pStack.getItem() instanceof IFloatingGlowItem)) {
-            setColor(ColorHelper.brighter(SpiritTypeRegistry.ARCANE_SPIRIT_COLOR, 2), SpiritTypeRegistry.ARCANE_SPIRIT.endColor);
+            setColor(ColorHelper.brighter(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), 2), SpiritTypeRegistry.ARCANE_SPIRIT.getEndColor());
         }
         super.setItem(pStack);
     }
 
     @Override
     public void spawnParticles(double x, double y, double z) {
-        SpiritHelper.spawnSpiritParticles(level, x, y, z, 1.5f, Vec3.ZERO, color, endColor);
+        SpiritHelper.spawnSpiritParticles(level, x, y, z, 1.5f, Vec3.ZERO, startColor, endColor);
     }
 
     @Override

@@ -130,14 +130,14 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime()) / 20f) * 0.05f;
                 double z = pos.z;
-                SpiritHelper.spawnSpiritParticles(level, x, y, z, item.type.color, item.type.endColor);
+                SpiritHelper.spawnSpiritParticles(level, x, y, z, item.type.getColor(), item.type.getEndColor());
             }
             if (data != null) {
                 Vec3 pos = getItemPos();
                 double x = pos.x;
                 double y = pos.y + Math.sin((level.getGameTime()) / 20f) * 0.08f;
                 double z = pos.z;
-                SpiritHelper.spawnSoulParticles(level, x, y, z, 1, 1, Vec3.ZERO, data.primaryType.color, data.primaryType.endColor);
+                SpiritHelper.spawnSoulParticles(level, x, y, z, 1, 1, Vec3.ZERO, data.primaryType.getColor(), data.primaryType.getEndColor());
             }
         }
     }

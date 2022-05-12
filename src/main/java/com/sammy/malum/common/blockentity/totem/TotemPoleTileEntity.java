@@ -3,14 +3,13 @@ package com.sammy.malum.common.blockentity.totem;
 import com.sammy.malum.common.block.totem.TotemPoleBlock;
 import com.sammy.malum.common.packets.particle.BlockParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -47,6 +46,7 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
         this.logBlock = ((TotemPoleBlock<?>) state.getBlock()).logBlock.get();
         this.direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
     }
+
     public TotemPoleTileEntity(BlockPos pos, BlockState state) {
         this(BlockEntityRegistry.TOTEM_POLE.get(), pos, state);
     }
@@ -59,7 +59,7 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
                     return InteractionResult.CONSUME;
                 }
                 level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
-                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
                 level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
                 return InteractionResult.SUCCESS;
             }
@@ -109,7 +109,7 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
     public void create(MalumSpiritType type) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.type = type;
         this.currentColor = 10;
         BlockHelper.updateState(level, worldPosition);
@@ -117,7 +117,7 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
 
     public void riteStarting(int height) {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_CHARGE.get(), SoundSource.BLOCKS, 1, 0.9f + 0.2f * height);
-        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.color, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.desiredColor = 10;
         this.baseLevel = worldPosition.getY() - height;
         BlockHelper.updateState(level, worldPosition);
@@ -147,32 +147,34 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
     }
 
     public void passiveParticles() {
-        Color color = type.color;
-        Color endColor = type.endColor;
-        ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
-                .setAlpha(0.06f, 0f)
-                .setLifetime(5)
-                .setSpin(0.2f)
-                .setScale(0.4f, 0)
-                .setColor(color, endColor)
-                .setColorCurveMultiplier(2f)
-                .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
-                .enableNoClip()
-                .randomOffset(0.1f, 0.1f)
-                .randomMotion(0.01f, 0.01f)
-                .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+        if (level.getGameTime() % 4L == 0) {
+            Color color = type.getColor();
+            Color endColor = type.getEndColor();
+            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
+                    .setAlpha(0, 0.06f, 0.12f)
+                    .setLifetime(25)
+                    .setSpin(0.2f)
+                    .setScale(0, 0.4f, 0)
+                    .setColor(color, endColor)
+                    .setColorCoefficient(0.5f)
+                    .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
+                    .enableNoClip()
+                    .randomOffset(0.1f, 0.2f)
+                    .randomMotion(0.01f, 0.02f)
+                    .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
 
-        ParticleBuilders.create(OrtusParticles.SMOKE_PARTICLE)
-                .setAlpha(0.06f, 0f)
-                .setLifetime(10)
-                .setSpin(0.1f)
-                .setScale(0.6f, 0)
-                .setColor(color, endColor)
-                .setColorCurveMultiplier(2f)
-                .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
-                .randomOffset(0.2f)
-                .enableNoClip()
-                .randomMotion(0.01f, 0.01f)
-                .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+            ParticleBuilders.create(OrtusParticleRegistry.SMOKE_PARTICLE)
+                    .setAlpha(0, 0.06f, 0.03f)
+                    .setLifetime(40)
+                    .setSpin(0.1f)
+                    .setScale(0f, 0.55f, 0.3f)
+                    .setColor(color, endColor)
+                    .setColorCoefficient(0.5f)
+                    .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)
+                    .randomOffset(0.1f, 0.2f)
+                    .enableNoClip()
+                    .randomMotion(0.01f, 0.02f)
+                    .evenlyRepeatEdges(level, worldPosition, 1, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH);
+        }
     }
 }

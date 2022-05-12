@@ -1,9 +1,8 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.core.setup.client.ParticleRegistry;
-import com.sammy.ortus.setup.OrtusParticles;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
@@ -85,8 +84,8 @@ public class EldritchInfernalRiteType extends MalumRiteType {
     }
 
     public void particles(Level level, BlockPos pos) {
-        Color color = INFERNAL_SPIRIT_COLOR;
-        ParticleBuilders.create(OrtusParticles.TWINKLE_PARTICLE)
+        Color color = INFERNAL_SPIRIT.getColor();
+        ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.4f, 0f)
                 .setLifetime(20)
                 .setSpin(0.3f)
@@ -96,7 +95,7 @@ public class EldritchInfernalRiteType extends MalumRiteType {
                 .randomOffset(0.1f, 0.1f)
                 .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 4, Direction.UP, Direction.DOWN);
-        ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)

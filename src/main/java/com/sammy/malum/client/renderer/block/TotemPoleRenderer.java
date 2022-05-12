@@ -8,7 +8,7 @@ import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.handlers.RenderHandler;
 import com.sammy.ortus.helpers.RenderHelper;
-import com.sammy.ortus.setup.OrtusRenderTypes;
+import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -39,12 +39,12 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         if (blockEntityIn.type == null) {
             return;
         }
-        renderQuad(overlayHashmap.get(blockEntityIn.type), blockEntityIn.type.color, blockEntityIn.currentColor/20f, direction, poseStack);
+        renderQuad(overlayHashmap.get(blockEntityIn.type), blockEntityIn.type.getColor(), blockEntityIn.currentColor/20f, direction, poseStack);
     }
 
     public void renderQuad(Material material, Color color, float alpha, Direction direction, PoseStack poseStack) {
         TextureAtlasSprite sprite = material.sprite();
-        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(OrtusRenderTypes.ADDITIVE_BLOCK);
+        VertexConsumer consumer = RenderHandler.DELAYED_RENDER.getBuffer(OrtusRenderTypeRegistry.ADDITIVE_BLOCK);
 
         Vector3f[] positions = new Vector3f[]{new Vector3f(0, 0, 2.01f), new Vector3f(2, 0, 2.01f), new Vector3f(2, 2, 2.01f), new Vector3f(0, 2, 2.01f)};
 

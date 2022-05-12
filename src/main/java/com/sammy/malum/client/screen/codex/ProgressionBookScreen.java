@@ -124,6 +124,7 @@ public class ProgressionBookScreen extends Screen {
                 .addPage(new TextPage("scythes_b"))
                 .addPage(new TextPage("scythes_c"))
                 .addPage(CraftingBookPage.scythePage(ItemRegistry.CRUDE_SCYTHE.get(), Items.IRON_INGOT, PROCESSED_SOULSTONE.get()))
+                .addPage(new HeadlineTextPage("scythe_enchanting", "scythe_enchanting"))
                 .addPage(new HeadlineTextPage("haunted", "haunted"))
                 .addPage(new HeadlineTextPage("spirit_plunder", "spirit_plunder"))
                 .addPage(new HeadlineTextPage("rebound", "rebound"))

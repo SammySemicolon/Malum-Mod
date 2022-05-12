@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.ether;
 
-import com.sammy.ortus.setup.OrtusScreenParticles;
+import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
@@ -27,12 +27,12 @@ public class EtherBrazierItem extends AbstractEtherItem {
         Color firstColor = new Color(etherItem.getFirstColor(stack));
         Color secondColor = new Color(etherItem.getSecondColor(stack));
         float alphaMultiplier = etherItem.iridescent ? 1.5f : 1;
-        ParticleBuilders.create(OrtusScreenParticles.STAR)
+        ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
                 .setAlpha(0.1f*alphaMultiplier, 0f)
                 .setLifetime(6)
                 .setScale((float) (1.3f + Math.sin(gameTime * 0.1f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)
-                .setColorCurveMultiplier(1.25f)
+                .setColorCoefficient(1.25f)
                 .randomOffset(0.05f)
                 .setSpinOffset(0.025f * gameTime % 6.28f)
                 .setSpin(0, 1)

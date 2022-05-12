@@ -8,7 +8,7 @@ import com.sammy.malum.common.item.ether.EtherItem;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
@@ -44,10 +44,12 @@ public class EtherBlockEntity extends OrtusBlockEntity {
         firstColorRGB = rgb;
         firstColor = new Color(rgb);
     }
+
     public void setSecondColor(int rgb) {
         secondColorRGB = rgb;
         secondColor = new Color(rgb);
     }
+
     @Override
     public void load(CompoundTag compound) {
         if (compound.contains("firstColor")) {
@@ -132,12 +134,12 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                 lifeTime -= 2;
                 scale *= 1.25f;
             }
-            ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+            ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.8f, 0.5f)
                     .setColor(firstColor, secondColor)
-                    .setColorCurveMultiplier(0.8f)
+                    .setColorCoefficient(0.8f)
                     .setColorEasing(Easing.CIRC_OUT)
                     .setSpinOffset((level.getGameTime() * 0.2f) % 6.28f)
                     .setSpin(0, 0.4f)
@@ -145,13 +147,13 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                     .addMotion(0, velocity, 0)
                     .enableNoClip()
                     .spawn(level, x, y, z);
-            ParticleBuilders.create(OrtusParticles.SPARKLE_PARTICLE)
+            ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
                     .setScale(scale * 2, 0)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
                     .setColor(firstColor, secondColor)
-                    .setColorCurveMultiplier(1.5f)
-                    .setAlphaCurveMultiplier(1.5f)
+                    .setColorCoefficient(1.5f)
+                    .setAlphaCoefficient(1.5f)
                     .setSpin(0, 2)
                     .setSpinEasing(Easing.QUARTIC_IN)
                     .enableNoClip()
@@ -161,8 +163,8 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                 ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.75f, 0)
                         .setColor(firstColor, secondColor)
-                        .setColorCurveMultiplier(2f)
-                        .setAlphaCurveMultiplier(3f)
+                        .setColorCoefficient(2f)
+                        .setAlphaCoefficient(3f)
                         .randomOffset(0.15f, 0.2f)
                         .addMotion(0, 0.03f, 0)
                         .enableNoClip()
@@ -170,10 +172,11 @@ public class EtherBlockEntity extends OrtusBlockEntity {
                 ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
                         .setScale(0.5f, 0)
                         .setColor(firstColor, secondColor)
-                        .setColorCurveMultiplier(3f)
-                        .setAlphaCurveMultiplier(3f)
+                        .setColorCoefficient(3f)
+                        .setAlphaCoefficient(3f)
                         .randomOffset(0.15f, 0.2f)
                         .addMotion(0, velocity, 0)
+
                         .enableNoClip()
                         .spawn(level, x, y, z);
             }

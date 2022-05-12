@@ -1,10 +1,9 @@
 package com.sammy.malum.common.packets.particle.altar;
 
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.malum.core.setup.client.ParticleRegistry;
-import com.sammy.ortus.setup.OrtusParticles;
-import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
+import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -67,9 +66,9 @@ public class AltarCraftParticlePacket {
                 types.add(SpiritHelper.getSpiritType(string));
             }
             for (MalumSpiritType type : types) {
-                Color color = type.color;
-                Color endColor = type.endColor;
-                ParticleBuilders.create(OrtusParticles.TWINKLE_PARTICLE)
+                Color color = type.getColor();
+                Color endColor = type.getEndColor();
+                ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
                         .setAlpha(0.6f, 0f)
                         .setLifetime(80)
                         .setScale(0.15f, 0)
@@ -77,10 +76,10 @@ public class AltarCraftParticlePacket {
                         .randomOffset(0.1f)
                         .addMotion(0, 0.26f, 0)
                         .randomMotion(0.03f, 0.04f)
-                        .enableGravity()
+                        .setGravity(1)
                         .repeat(level, posX, posY, posZ, 32);
 
-                ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+                ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                         .setAlpha(0.2f, 0f)
                         .setLifetime(60)
                         .setScale(0.4f, 0)
@@ -90,7 +89,7 @@ public class AltarCraftParticlePacket {
                         .enableNoClip()
                         .repeat(level, posX, posY, posZ, 12);
 
-                ParticleBuilders.create(OrtusParticles.SPARKLE_PARTICLE)
+                ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
                         .setAlpha(0.05f, 0f)
                         .setLifetime(30)
                         .setScale(0.2f, 0)

@@ -4,12 +4,14 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.model.*;
 import com.sammy.malum.common.block.MalumLeavesBlock;
 import com.sammy.malum.common.blockentity.FusionPlateBlockEntity;
-import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
-import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
-import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
-import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
+import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
+import com.sammy.malum.common.blockentity.storage.PlinthCoreBlockEntity;
+import com.sammy.malum.common.item.BrillianceChunkItem;
+import com.sammy.malum.common.item.EncyclopediaArcanaItem;
+import com.sammy.malum.common.item.NodeItem;
 import com.sammy.malum.common.item.equipment.CeaselessImpetusItem;
 import com.sammy.malum.common.item.equipment.armor.SoulStainedSteelArmorItem;
 import com.sammy.malum.common.item.equipment.armor.SpiritHunterArmorItem;
@@ -25,11 +27,11 @@ import com.sammy.malum.common.item.impetus.CrackedImpetusItem;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.item.tools.MalumScytheItem;
-import com.sammy.malum.common.item.tools.magic.*;
+import com.sammy.malum.common.item.tools.magic.MagicScytheItem;
 import com.sammy.malum.compability.farmersdelight.FarmersDelightCompat;
-import com.sammy.malum.core.setup.content.entity.EntityRegistry;
-import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
+import com.sammy.malum.core.setup.content.block.BlockRegistry;
+import com.sammy.malum.core.setup.content.entity.EntityRegistry;
 import com.sammy.malum.core.setup.content.item.tabs.*;
 import com.sammy.ortus.helpers.ColorHelper;
 import com.sammy.ortus.helpers.DataHelper;
@@ -58,7 +60,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.sammy.malum.MalumMod.MALUM;
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
 import static com.sammy.malum.core.setup.content.item.ItemTiers.ItemTierEnum.SOUL_STAINED_STEEL;
 import static com.sammy.ortus.helpers.ColorHelper.brighter;
 import static net.minecraft.world.item.Items.GLASS_BOTTLE;
@@ -259,6 +260,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLIGHTED_WEED = ITEMS.register("blighted_weed", () -> new BlockItem(BlockRegistry.BLIGHTED_WEED.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_COVERAGE = ITEMS.register("blighted_coverage", () -> new BlockItem(BlockRegistry.BLIGHTED_COVERAGE.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_SPIRE = ITEMS.register("blighted_spire", () -> new BlockItem(BlockRegistry.BLIGHTED_SPIRE.get(), NATURE_PROPERTIES()));
+    public static final RegistryObject<Item> BLIGHTED_SOULWOOD = ITEMS.register("blighted_soulwood", () -> new BlockItem(BlockRegistry.BLIGHTED_SOULWOOD.get(), NATURE_PROPERTIES()));
     //region blight
 
     //region soulwood
@@ -565,14 +567,14 @@ public class ItemRegistry {
                 }
                 return c == 0 ? etherItem.getFirstColor(s) : -1;
             }, i.get()));
-            registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SACRED_SPIRIT_COLOR, 1));
-            registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, WICKED_SPIRIT_COLOR);
-            registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(ARCANE_SPIRIT_COLOR, 1));
-            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, ELDRITCH_SPIRIT_COLOR);
-            registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(AERIAL_SPIRIT_COLOR, 1));
-            registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(AQUEOUS_SPIRIT_COLOR, 1));
-            registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(INFERNAL_SPIRIT_COLOR, 1));
-            registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(EARTHEN_SPIRIT_COLOR, 1));
+            registerItemColor(itemColors, ItemRegistry.SACRED_SPIRIT, brighter(SpiritTypeRegistry.SACRED_SPIRIT.getColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.WICKED_SPIRIT, SpiritTypeRegistry.WICKED_SPIRIT.getColor());
+            registerItemColor(itemColors, ItemRegistry.ARCANE_SPIRIT, brighter(SpiritTypeRegistry.ARCANE_SPIRIT.getColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.ELDRITCH_SPIRIT, SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor());
+            registerItemColor(itemColors, ItemRegistry.AERIAL_SPIRIT, brighter(SpiritTypeRegistry.AERIAL_SPIRIT.getColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.AQUEOUS_SPIRIT, brighter(SpiritTypeRegistry.AQUEOUS_SPIRIT.getColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.INFERNAL_SPIRIT, brighter(SpiritTypeRegistry.INFERNAL_SPIRIT.getColor(), 1));
+            registerItemColor(itemColors, ItemRegistry.EARTHEN_SPIRIT, brighter(SpiritTypeRegistry.EARTHEN_SPIRIT.getColor(), 1));
         }
 
         public static void registerItemColor(ItemColors itemColors, RegistryObject<Item> item, Color color) {

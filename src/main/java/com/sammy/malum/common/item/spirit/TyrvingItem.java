@@ -6,7 +6,7 @@ import com.sammy.malum.core.setup.content.DamageSourceRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusScreenParticles;
+import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.ortus.systems.item.tools.OrtusSwordItem;
@@ -52,7 +52,7 @@ public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderI
                 target.hurt(DamageSourceRegistry.causeVoodooDamage(attacker), spiritCount);
             }
             attacker.level.playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH.get(), SoundSource.PLAYERS, 1, 1f + target.level.random.nextFloat() * 0.25f);
-            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MagicParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
+            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MagicParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
         }
     }
 
@@ -66,14 +66,14 @@ public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderI
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
         Level level = Minecraft.getInstance().level;
         float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
-        Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR;
-        Color secondColor = ColorHelper.darker(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, 2);
-        ParticleBuilders.create(OrtusScreenParticles.STAR)
+        Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor();
+        Color secondColor = ColorHelper.darker(firstColor, 2);
+        ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
                 .setAlpha(0.06f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.15f), 0)
                 .setColor(firstColor, secondColor)
-                .setColorCurveMultiplier(1.25f)
+                .setColorCoefficient(1.25f)
                 .randomOffset(0.05f)
                 .setSpinOffset(0.025f * gameTime % 6.28f)
                 .setSpin(0, 1)
@@ -92,12 +92,12 @@ public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderI
                 .repeat(x, y, 1);
 
         gameTime += 31.4f;
-        ParticleBuilders.create(OrtusScreenParticles.STAR)
+        ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
                 .setAlpha(0.05f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)
-                .setColorCurveMultiplier(1.25f)
+                .setColorCoefficient(1.25f)
                 .randomOffset(0.05f)
                 .setSpinOffset(0.025f * gameTime % 6.28f)
                 .setAlphaEasing(Easing.QUINTIC_IN)

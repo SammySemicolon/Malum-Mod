@@ -23,7 +23,7 @@ public class InfernalRiteType extends MalumRiteType {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
                 if (e.getEffect(EffectRegistry.INFERNAL_AURA.get()) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(INFERNAL_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(INFERNAL_SPIRIT.getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
                 e.addEffect(new MobEffectInstance(EffectRegistry.INFERNAL_AURA.get(), 200, 1));
             });
@@ -35,7 +35,7 @@ public class InfernalRiteType extends MalumRiteType {
         if (!level.isClientSide) {
             getNearbyEntities(Player.class, level, pos, true).forEach(e -> {
                 if (e.getEffect(MobEffects.FIRE_RESISTANCE) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(INFERNAL_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(INFERNAL_SPIRIT.getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                 }
                 e.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 0));
             });

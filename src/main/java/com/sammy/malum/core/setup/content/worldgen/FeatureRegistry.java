@@ -31,10 +31,10 @@ import static net.minecraft.world.level.levelgen.feature.configurations.NoneFeat
 @Mod.EventBusSubscriber(modid= MalumMod.MALUM, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class FeatureRegistry {
 
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, MALUM);
+    public static final DeferredRegister<Feature<?>> FEATURE_TYPES = DeferredRegister.create(ForgeRegistries.FEATURES, MALUM);
 
-    public static final RegistryObject<RunewoodTreeFeature> RUNEWOOD_TREE = FEATURES.register("runewood_tree", RunewoodTreeFeature::new);
-    public static final RegistryObject<SoulwoodTreeFeature> SOULWOOD_TREE = FEATURES.register("soulwood_tree", SoulwoodTreeFeature::new);
+    public static final RegistryObject<RunewoodTreeFeature> RUNEWOOD_TREE = FEATURE_TYPES.register("runewood_tree", RunewoodTreeFeature::new);
+    public static final RegistryObject<SoulwoodTreeFeature> SOULWOOD_TREE = FEATURE_TYPES.register("soulwood_tree", SoulwoodTreeFeature::new);
 
     public static final class ConfiguredFeatures {
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> RUNEWOOD_TREE_FEATURE = FeatureUtils.register("runewood_tree", FeatureRegistry.RUNEWOOD_TREE.get(), INSTANCE);
@@ -61,16 +61,16 @@ public class FeatureRegistry {
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, new ChancePlacementFilter(CommonConfig.RARE_RUNEWOOD_CHANCE.getConfigValue().floatValue()), CountPlacement.of(3));
 
         public static final Holder<PlacedFeature> BLAZING_QUARTZ_FEATURE = PlacementUtils.register("blazing_quartz_ore", ConfiguredFeatures.BLAZING_QUARTZ_FEATURE,
-                CountPlacement.of(CommonConfig.BLAZE_QUARTZ_AMOUNT.getConfigValue()), PlacementUtils.RANGE_8_8);
+                CountPlacement.of(CommonConfig.BLAZE_QUARTZ_AMOUNT.getConfigValue()), InSquarePlacement.spread(), PlacementUtils.RANGE_8_8);
 
         public static final Holder<PlacedFeature> BRILLIANCE_FEATURE = PlacementUtils.register("brilliant_stone", ConfiguredFeatures.BRILLIANCE_FEATURE,
-                CountPlacement.of(CommonConfig.BRILLIANT_STONE_AMOUNT.getConfigValue()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MIN_Y.getConfigValue()), VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MAX_Y.getConfigValue())));
+                CountPlacement.of(CommonConfig.BRILLIANT_STONE_AMOUNT.getConfigValue()), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MIN_Y.getConfigValue()), VerticalAnchor.absolute(CommonConfig.BRILLIANT_STONE_MAX_Y.getConfigValue())));
 
         public static final Holder<PlacedFeature> SOULSTONE_FEATURE = PlacementUtils.register("soulstone", ConfiguredFeatures.SOULSTONE_FEATURE,
-                CountPlacement.of(CommonConfig.SOULSTONE_AMOUNT.getConfigValue()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SOULSTONE_MIN_Y.getConfigValue()), VerticalAnchor.absolute(CommonConfig.SOULSTONE_MAX_Y.getConfigValue())));
+                CountPlacement.of(CommonConfig.SOULSTONE_AMOUNT.getConfigValue()), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SOULSTONE_MIN_Y.getConfigValue()), VerticalAnchor.absolute(CommonConfig.SOULSTONE_MAX_Y.getConfigValue())));
 
         public static final Holder<PlacedFeature> SURFACE_SOULSTONE_FEATURE = PlacementUtils.register("surface_soulstone", ConfiguredFeatures.SURFACE_SOULSTONE_FEATURE,
-                CountPlacement.of(CommonConfig.SURFACE_SOULSTONE_AMOUNT.getConfigValue()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SURFACE_SOULSTONE_MIN_Y.getConfigValue()), VerticalAnchor.absolute(CommonConfig.SURFACE_SOULSTONE_MAX_Y.getConfigValue())));
+                CountPlacement.of(CommonConfig.SURFACE_SOULSTONE_AMOUNT.getConfigValue()), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(CommonConfig.SURFACE_SOULSTONE_MIN_Y.getConfigValue()), VerticalAnchor.absolute(CommonConfig.SURFACE_SOULSTONE_MAX_Y.getConfigValue())));
 
     }
 }

@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.core.setup.client.ParticleRegistry;
-import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import net.minecraft.core.BlockPos;
@@ -82,8 +82,8 @@ public class EldritchAqueousRiteType extends MalumRiteType {
     }
 
     public void particles(Level level, BlockPos pos) {
-        Color color = AQUEOUS_SPIRIT_COLOR;
-        ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+        Color color = AQUEOUS_SPIRIT.getColor();
+        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                 .setAlpha(0.2f, 0f)
                 .setLifetime(20)
                 .setSpin(0.2f)
@@ -93,7 +93,7 @@ public class EldritchAqueousRiteType extends MalumRiteType {
                 .randomOffset(0.1f, 0.1f)
                 .randomMotion(0.001f, 0.001f)
                 .evenlyRepeatEdges(level, pos, 6, Direction.UP);
-        ParticleBuilders.create(OrtusParticles.TWINKLE_PARTICLE)
+        ParticleBuilders.create(OrtusParticleRegistry.TWINKLE_PARTICLE)
                 .setAlpha(0.1f, 0f)
                 .setLifetime(40)
                 .setSpin(0.1f)

@@ -5,9 +5,6 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.ortus.helpers.CurioHelper;
-import com.sammy.ortus.helpers.ItemHelper;
-import com.sammy.ortus.setup.OrtusParticles;
-import com.sammy.ortus.systems.item.IEventResponderItem;
 import com.sammy.ortus.systems.item.ModCombatItem;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
@@ -29,24 +26,18 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof Player) {
+    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+        if (attacker instanceof Player player) {
             SoundEvent sound;
             if (CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE)) {
-                spawnSweepParticles((Player) attacker, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
+                spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_ATTACK_PARTICLE.get());
                 sound = SoundRegistry.SCYTHE_CUT.get();
             } else {
-                spawnSweepParticles((Player) attacker, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
+                spawnSweepParticles(player, ParticleRegistry.SCYTHE_SWEEP_ATTACK_PARTICLE.get());
                 sound = SoundEvents.PLAYER_ATTACK_SWEEP;
             }
             attacker.level.playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
         }
-
-        return super.hurtEnemy(stack, target, attacker);
-    }
-
-    @Override
-    public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE)) {
             return;
         }

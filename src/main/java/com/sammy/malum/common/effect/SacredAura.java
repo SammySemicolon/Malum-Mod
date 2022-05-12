@@ -8,7 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class SacredAura extends MobEffect {
     public SacredAura() {
-        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.SACRED_SPIRIT_COLOR));
+        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.SACRED_SPIRIT.getColor()));
     }
 
     @Override

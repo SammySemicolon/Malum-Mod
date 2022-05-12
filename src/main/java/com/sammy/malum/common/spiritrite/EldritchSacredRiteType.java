@@ -41,7 +41,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
                         state.randomTick((ServerLevel) level, p, level.random);
                     }
                     BlockPos particlePos = state.canOcclude() ? p : p.below();
-                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockMistParticlePacket(SACRED_SPIRIT_COLOR, particlePos.getX(), particlePos.getY(), particlePos.getZ()));
+                    INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new BlockMistParticlePacket(SACRED_SPIRIT.getColor(), particlePos.getX(), particlePos.getY(), particlePos.getZ()));
                 }
             });
         }
@@ -59,7 +59,7 @@ public class EldritchSacredRiteType extends MalumRiteType {
                 if (e.canFallInLove() && e.getAge() == 0) {
                     if (level.random.nextFloat() <= 0.05f) {
                         e.setInLoveTime(600);
-                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY()+e.getBbHeight()/2f, e.blockPosition().getZ()));
+                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT.getColor(), e.blockPosition().getX(), e.blockPosition().getY()+e.getBbHeight()/2f, e.blockPosition().getZ()));
                     }
                 }
             });

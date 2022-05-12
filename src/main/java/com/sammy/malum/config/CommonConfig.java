@@ -34,10 +34,10 @@ public class CommonConfig extends OrtusConfig {
                     .define("generateBrilliantStone", true)));
     public static ConfigValueHolder<Integer> BRILLIANT_STONE_SIZE = new ConfigValueHolder<>(MALUM,"common/worldgen/brilliance", (builder ->
             builder.comment("Size of brilliant stone veins.")
-                    .define("brilliantStoneSize", 2)));
+                    .define("brilliantStoneSize", 5)));
     public static ConfigValueHolder<Integer> BRILLIANT_STONE_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/brilliance", (builder ->
             builder.comment("Amount of brilliant stone veins.")
-                    .define("brilliantStoneAmount", 8)));
+                    .define("brilliantStoneAmount", 9)));
     public static ConfigValueHolder<Integer> BRILLIANT_STONE_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/brilliance", (builder ->
             builder.comment("Minimum height at which brilliant stone can spawn.")
                     .define("brilliantStoneMinY", -64)));
@@ -69,7 +69,7 @@ public class CommonConfig extends OrtusConfig {
                     .define("surfaceSoulstoneSize", 6)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_AMOUNT = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Amount of soulstone ore veins on the surface.")
-                    .define("surfaceSoulstoneAmount", 5)));
+                    .define("surfaceSoulstoneAmount", 8)));
     public static ConfigValueHolder<Integer> SURFACE_SOULSTONE_MIN_Y = new ConfigValueHolder<>(MALUM,"common/worldgen/soulstone", (builder ->
             builder.comment("Minimum height at which surface soulstone ore can spawn.")
                     .define("surfaceSoulstoneMinY", 60)));
@@ -103,7 +103,7 @@ public class CommonConfig extends OrtusConfig {
                     .define("heartOfStoneRate", 40)));
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
-        super("malum/common", builder);
+        super(MALUM, "common", builder);
     }
 
     public static final CommonConfig INSTANCE;

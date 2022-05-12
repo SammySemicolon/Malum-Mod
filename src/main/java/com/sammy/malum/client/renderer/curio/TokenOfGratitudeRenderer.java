@@ -7,7 +7,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.equipment.curios.CurioTokenOfGratitude;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.helpers.RenderHelper;
-import com.sammy.ortus.setup.OrtusRenderTypes;
+import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -64,7 +64,7 @@ public class TokenOfGratitudeRenderer implements ICurioRenderer {
     }
 
     public static void renderGlowingEyes(AbstractClientPlayer playerEntity, ResourceLocation texture, PoseStack poseStack, MultiBufferSource renderTypeBuffer) {
-        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(OrtusRenderTypes.SOLID_TEXTURE.apply(texture));
+        VertexConsumer vertexconsumer = renderTypeBuffer.getBuffer(OrtusRenderTypeRegistry.SOLID_TEXTURE.apply(texture));
         ICurioRenderer.followHeadRotations(playerEntity, ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.overlay);
         ItemRegistry.ClientOnly.HEAD_OVERLAY_MODEL.renderToBuffer(poseStack, vertexconsumer, RenderHelper.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }

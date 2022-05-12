@@ -20,12 +20,12 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 public class MalumSpiritType {
-    public final Color color;
-    public final Color endColor;
+    private final Color color;
 
+    private final Color endColor;
     public final String identifier;
-    protected Supplier<Item> splinterItem;
 
+    protected Supplier<Item> splinterItem;
     public MalumSpiritType(String identifier, Color color, RegistryObject<Item> splinterItem) {
         this.identifier = identifier;
         this.color = color;
@@ -38,6 +38,14 @@ public class MalumSpiritType {
         this.color = color;
         this.endColor = endColor;
         this.splinterItem = splinterItem;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Color getEndColor() {
+        return endColor;
     }
 
     public Component getComponent(int count) {

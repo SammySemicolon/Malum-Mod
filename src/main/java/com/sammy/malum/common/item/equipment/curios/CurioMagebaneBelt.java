@@ -6,8 +6,8 @@ import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.setup.OrtusAttributes;
-import com.sammy.ortus.setup.OrtusScreenParticles;
+import com.sammy.ortus.setup.OrtusAttributeRegistry;
+import com.sammy.ortus.setup.OrtusScreenParticleRegistry;
 import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.ortus.systems.rendering.particle.screen.base.ScreenParticle;
@@ -32,7 +32,7 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(OrtusAttributes.MAGIC_RESISTANCE.get(), new AttributeModifier(UUID.randomUUID(), "Curio magic resistance", 2f, AttributeModifier.Operation.ADDITION));
+        map.put(OrtusAttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(UUID.randomUUID(), "Curio magic resistance", 2f, AttributeModifier.Operation.ADDITION));
         map.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(UUID.randomUUID(), "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return map;
     }
@@ -48,14 +48,14 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     public void particleTick(ItemStack stack, float x, float y, ScreenParticle.RenderOrder renderOrder) {
         Level level = Minecraft.getInstance().level;
         float gameTime = level.getGameTime() + Minecraft.getInstance().timer.partialTick;
-        Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR;
-        Color secondColor = ColorHelper.darker(SpiritTypeRegistry.ELDRITCH_SPIRIT_COLOR, 2);
-        ParticleBuilders.create(OrtusScreenParticles.STAR)
+        Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor();
+        Color secondColor = ColorHelper.darker(firstColor, 2);
+        ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
                 .setAlpha(0.09f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.85f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)
-                .setColorCurveMultiplier(1.25f)
+                .setColorCoefficient(1.25f)
                 .randomOffset(0.05f)
                 .setSpinOffset(0.025f * gameTime % 6.28f)
                 .setSpin(0, 1)

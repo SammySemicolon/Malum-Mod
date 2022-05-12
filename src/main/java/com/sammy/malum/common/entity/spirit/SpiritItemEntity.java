@@ -54,7 +54,7 @@ public class SpiritItemEntity extends FloatingItemEntity {
 
     @Override
     public void spawnParticles(double x, double y, double z) {
-        SpiritHelper.spawnSpiritParticles(level, x, y, z, color, endColor);
+        SpiritHelper.spawnSpiritParticles(level, x, y, z, startColor, endColor);
     }
 
     @Override

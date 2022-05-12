@@ -32,9 +32,9 @@ public class SoulEntity extends FloatingEntity {
         super(EntityRegistry.NATURAL_SOUL.get(), level);
         this.spiritData = spiritData;
         if (!spiritData.equals(EMPTY)) {
-            this.color = spiritData.primaryType.color;
-            getEntityData().set(DATA_COLOR, color.getRGB());
-            this.endColor = spiritData.primaryType.endColor;
+            this.startColor = spiritData.primaryType.getColor();
+            getEntityData().set(DATA_COLOR, startColor.getRGB());
+            this.endColor = spiritData.primaryType.getEndColor();
             getEntityData().set(DATA_END_COLOR, endColor.getRGB());
         }
         range = 8;
@@ -67,7 +67,7 @@ public class SoulEntity extends FloatingEntity {
             double lerpX = Mth.lerp(i / 4.0f, x - motion.x, x);
             double lerpY = Mth.lerp(i / 4.0f, y - motion.y, y);
             double lerpZ = Mth.lerp(i / 4.0f, z - motion.z, z);
-            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.25f, 1, norm, color, endColor);
+            SpiritHelper.spawnSoulParticles(level, lerpX, lerpY, lerpZ, 0.25f, 1, norm, startColor, endColor);
         }
     }
 

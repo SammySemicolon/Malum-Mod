@@ -11,11 +11,10 @@ import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
 import com.sammy.ortus.helpers.RenderHelper;
-import com.sammy.ortus.setup.OrtusShaders;
+import com.sammy.ortus.setup.OrtusShaderRegistry;
 import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -120,7 +119,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
                     RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                    ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaders.DISTORTED_TEXTURE.getInstance().get();
+                    ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
                     shaderInstance.safeGetUniform("YFrequency").set(35f);
                     shaderInstance.safeGetUniform("XFrequency").set(25f);
                     shaderInstance.safeGetUniform("Speed").set(1000f);
@@ -135,7 +134,7 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 1 / 256f, 12 / 256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i * 250f);
 
-                        RenderHelper.blit(poseStack, OrtusShaders.DISTORTED_TEXTURE, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 1, 256f);
+                        RenderHelper.blit(poseStack, OrtusShaderRegistry.DISTORTED_TEXTURE, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 1, 256f);
                     }
                     shaderInstance.setUniformDefaults();
                     RenderSystem.depthMask(true);

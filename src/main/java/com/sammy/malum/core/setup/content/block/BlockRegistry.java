@@ -292,7 +292,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD = BLOCKS.register("stripped_runewood", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new OrtusLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD));
 
-    public static final RegistryObject<Block> REVEALED_RUNEWOOD_LOG = BLOCKS.register("revealed_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG, ItemRegistry.HOLY_SAP, SpiritTypeRegistry.INFERNAL_SPIRIT_COLOR));
+    public static final RegistryObject<Block> REVEALED_RUNEWOOD_LOG = BLOCKS.register("revealed_runewood_log", () -> new SapFilledLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG, ItemRegistry.HOLY_SAP, SpiritTypeRegistry.INFERNAL_SPIRIT.getColor()));
     public static final RegistryObject<Block> EXPOSED_RUNEWOOD_LOG = BLOCKS.register("exposed_runewood_log", () -> new OrtusLogBlock(RUNEWOOD_PROPERTIES(), REVEALED_RUNEWOOD_LOG));
 
     public static final RegistryObject<Block> RUNEWOOD_PLANKS = BLOCKS.register("runewood_planks", () -> new Block(RUNEWOOD_PROPERTIES()));
@@ -384,7 +384,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
     public static final RegistryObject<Block> BLIGHTED_COVERAGE = BLOCKS.register("blighted_coverage", () -> new BlightedCoverageBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
     public static final RegistryObject<Block> BLIGHTED_SPIRE = BLOCKS.register("blighted_spire", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
-    public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(SOULWOOD_PROPERTIES().lootFrom(SOULWOOD_LOG)));
+    public static final RegistryObject<Block> BLIGHTED_SOULWOOD = BLOCKS.register("blighted_soulwood", () -> new BlightedSoulwoodBlock(SOULWOOD_PROPERTIES().hasCustomLoot()));
     //endregion
 
     //region ether

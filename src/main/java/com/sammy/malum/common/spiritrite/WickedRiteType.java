@@ -32,7 +32,7 @@ public class WickedRiteType extends MalumRiteType {
         if (!level.isClientSide) {
             getNearbyEntities(LivingEntity.class, level, pos, true).forEach(e -> {
                 if (e.getHealth() <= 2.5f) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(WICKED_SPIRIT_COLOR, e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
+                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(WICKED_SPIRIT.getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
                     e.hurt(DamageSourceRegistry.FORCED_SHATTER, 10f);
                 }
             });

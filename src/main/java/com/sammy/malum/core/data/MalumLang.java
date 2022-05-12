@@ -144,8 +144,10 @@ public class MalumLang extends LanguageProvider {
         addDescription("scythes", "Shatter the Soul");
         addHeadline("scythes", "Scythes");
         addPage("scythes_a", "The scythe is a very popular tool amid soul hunters. For one, it provides a strong sweeping attack even more powerful than that of the sword. Secondly, due to the soulstone augmented into the scythe it's capable of damaging both the soul and body with each attack.");
-        addPage("scythes_b", "When you damage a living body you destroy the vessel of a soul, letting it fade away peacefully into the afterlife. However when you slay a soul, you will shatter it alongside the death of the vessel. This merciless execution denies the soul eternal peace and is your key to obtaining your very first batch of spirit arcana.");
+        addPage("scythes_b", "When you damage a living body you destroy the vessel of a soul, allowing it to fade away peacefully into the afterlife. However when you slay a soul, you will shatter it alongside the death of the vessel. This merciless execution denies the soul eternal peace and is your key to obtaining your very first batch of spirit arcana.");
         addPage("scythes_c", "The most primitive scythe available is a crude one, made from iron and a single soulstone.");
+        addHeadline("scythe_enchanting", "Scythe Enchanting");
+        addPage("scythe_enchanting", "The scythe is much like any other weapon within your arsenal, it isn't just a tool for harnessing spirit arcana. Furthermore, you may enchant your scythe with several unique enchantments that enhance it's functionality.");
 
         addHeadline("haunted", "Haunted");
         addPage("haunted", "When a soul is hurt some of it's magic is lost. The haunted enchantment converts that magic energy into extra magic damage to anyone you strike. Higher tiers hit with even stronger magic.");

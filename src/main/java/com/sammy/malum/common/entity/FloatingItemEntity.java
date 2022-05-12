@@ -32,7 +32,7 @@ public class FloatingItemEntity extends FloatingEntity {
     }
 
     public void setColor(Color color, Color endColor) {
-        this.color = color;
+        this.startColor = color;
         getEntityData().set(DATA_COLOR, color.getRGB());
         this.endColor = endColor;
         getEntityData().set(DATA_END_COLOR, endColor.getRGB());

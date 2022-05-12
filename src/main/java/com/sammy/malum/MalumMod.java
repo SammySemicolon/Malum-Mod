@@ -28,7 +28,7 @@ import static com.sammy.malum.core.setup.content.ContainerRegistry.CONTAINERS;
 import static com.sammy.malum.core.setup.content.potion.EffectRegistry.EFFECTS;
 import static com.sammy.malum.core.setup.content.entity.EntityRegistry.ENTITY_TYPES;
 import static com.sammy.malum.core.setup.content.SoundRegistry.SOUNDS;
-import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATURES;
+import static com.sammy.malum.core.setup.content.worldgen.FeatureRegistry.FEATURE_TYPES;
 
 @SuppressWarnings("unused")
 @Mod(MalumMod.MALUM)
@@ -54,7 +54,7 @@ public class MalumMod {
         CONTAINERS.register(modBus);
         ATTRIBUTES.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
-        FEATURES.register(modBus);
+        FEATURE_TYPES.register(modBus);
 
         TetraCompat.init();
         FarmersDelightCompat.init();

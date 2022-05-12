@@ -5,7 +5,7 @@ import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
 import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.setup.OrtusParticles;
+import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
@@ -36,7 +36,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
     @Override
     public void addParticles(Color color, Color endColor, float alpha, BlockPos altarPos, Vec3 altarItemPos) {
         Vec3 startPos = DataHelper.fromBlockPos(worldPosition).add(0.5f, 2.15f, 0.5f);
-        ParticleBuilders.create(OrtusParticles.WISP_PARTICLE)
+        ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                 .setAlpha(alpha, 0f)
                 .setLifetime(35)
                 .setScale(0.2f + level.random.nextFloat() * 0.1f, 0)
@@ -48,7 +48,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
                 .enableNoClip()
                 .repeat(level, startPos.x, startPos.y, startPos.z, 1);
 
-        ParticleBuilders.create(OrtusParticles.SPARKLE_PARTICLE)
+        ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
                 .setAlpha(alpha, 0f)
                 .setLifetime(25)
                 .setScale(0.5f, 0)

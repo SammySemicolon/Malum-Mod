@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.sammy.malum.client.model.SoulStainedSteelArmorModel;
 import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.ortus.setup.OrtusAttributes;
+import com.sammy.ortus.setup.OrtusAttributeRegistry;
 import com.sammy.ortus.systems.item.OrtusArmorItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -31,7 +31,7 @@ public class SoulStainedSteelArmorItem extends OrtusArmorItem {
     public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes(EquipmentSlot slot) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-        builder.put(OrtusAttributes.MAGIC_RESISTANCE.get(), new AttributeModifier(uuid, "Magic Resistance", 1f, AttributeModifier.Operation.ADDITION));
+        builder.put(OrtusAttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(uuid, "Magic Resistance", 1f, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuid, "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
