@@ -36,6 +36,10 @@ public class SoulStainedSteelArmorItem extends OrtusArmorItem {
         return builder;
     }
 
+    @Override
+    public String getTextureLocation() {
+        return "malum:textures/armor/";
+    }
     public String getTexture() {
         return "soul_stained_steel";
     }

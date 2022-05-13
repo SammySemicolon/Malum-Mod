@@ -19,6 +19,10 @@ public class DripArmorItem extends SpiritHunterArmorItem {
     }
 
     @Override
+    public String getTextureLocation() {
+        return "malum:textures/armor/";
+    }
+    @Override
     public String getTexture() {
         return "drip";
     }

@@ -34,6 +34,10 @@ public class SpiritHunterArmorItem extends OrtusArmorItem {
         builder.put(AttributeRegistry.SCYTHE_PROFICIENCY.get(), new AttributeModifier(uuid, "Scythe Proficiency", 1f, AttributeModifier.Operation.ADDITION));
         return builder;
     }
+    @Override
+    public String getTextureLocation() {
+        return "malum:textures/armor/";
+    }
     public String getTexture() {
         return "spirit_hunter";
     }
