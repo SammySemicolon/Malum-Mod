@@ -380,6 +380,7 @@ public class BlockRegistry {
     //endregion
 
     //region blight
+    public static final RegistryObject<Block> BLIGHTED_EARTH = BLOCKS.register("blighted_earth", () -> new BlightedEarthBlock(BLIGHT_PROPERTIES()));
     public static final RegistryObject<Block> BLIGHTED_SOIL = BLOCKS.register("blighted_soil", () -> new BlightedSoilBlock(BLIGHT_PROPERTIES()));
     public static final RegistryObject<Block> BLIGHTED_WEED = BLOCKS.register("blighted_weed", () -> new BlightedGrassBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));
     public static final RegistryObject<Block> BLIGHTED_COVERAGE = BLOCKS.register("blighted_coverage", () -> new BlightedCoverageBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer()));

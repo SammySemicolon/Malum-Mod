@@ -34,6 +34,7 @@ import java.util.function.Function;
 
 import static com.sammy.malum.MalumMod.prefix;
 import static com.sammy.malum.core.setup.content.block.BlockRegistry.*;
+import static com.sammy.ortus.helpers.DataHelper.take;
 import static com.sammy.ortus.helpers.DataHelper.takeAll;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER;
 import static net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
@@ -53,10 +54,11 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
     protected void registerStatesAndModels() {
         Set<RegistryObject<Block>> blocks = new HashSet<>(BLOCKS.getEntries());
 
-        takeAll(blocks, BLIGHTED_SOIL).forEach(this::rotatedBlock);
-        takeAll(blocks, BLIGHTED_SPIRE).forEach(this::blightedSpireBlock);
-        takeAll(blocks, BLIGHTED_COVERAGE).forEach(this::blightedCoverageBlock);
-        takeAll(blocks, BLIGHTED_SOULWOOD).forEach(this::blightedSoulwoodBlock);
+        rotatedBlock(take(blocks, BLIGHTED_SOIL));
+        blightedEarthBlock(take(blocks, BLIGHTED_EARTH));
+        blightedSpireBlock(take(blocks, BLIGHTED_SPIRE));
+        blightedCoverageBlock(take(blocks, BLIGHTED_COVERAGE));
+        blightedSoulwoodBlock(take(blocks, BLIGHTED_SOULWOOD));
 
         ArrayList<RegistryObject<Block>> customModels = new ArrayList<>(List.of(TWISTED_TABLET, SOULWOOD_FUSION_PLATE_COMPONENT, SPIRIT_CATALYZER, SPIRIT_CATALYZER_COMPONENT));
 
@@ -174,6 +176,10 @@ public class MalumBlockStates extends net.minecraftforge.client.model.generators
 
     public void blightedSoulwoodBlock(RegistryObject<Block> blockRegistryObject) {
         simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_soulwood", prefix("block/blighted_soulwood"), prefix("block/blighted_soil"), prefix("block/soulwood_log_top")));
+    }
+
+    public void blightedEarthBlock(RegistryObject<Block> blockRegistryObject) {
+        simpleBlock(blockRegistryObject.get(), models().cubeBottomTop("blighted_earth",prefix("block/blighted_earth"),  new ResourceLocation("block/dirt"), prefix("block/blighted_soil")));
     }
 
     public void wallMirrorBlock(RegistryObject<Block> blockRegistryObject) {

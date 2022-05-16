@@ -256,6 +256,7 @@ public class ItemRegistry {
     //endregion
 
     //endregion
+    public static final RegistryObject<Item> BLIGHTED_EARTH = ITEMS.register("blighted_earth", () -> new BlockItem(BlockRegistry.BLIGHTED_EARTH.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_SOIL = ITEMS.register("blighted_soil", () -> new BlockItem(BlockRegistry.BLIGHTED_SOIL.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_WEED = ITEMS.register("blighted_weed", () -> new BlockItem(BlockRegistry.BLIGHTED_WEED.get(), NATURE_PROPERTIES()));
     public static final RegistryObject<Item> BLIGHTED_COVERAGE = ITEMS.register("blighted_coverage", () -> new BlockItem(BlockRegistry.BLIGHTED_COVERAGE.get(), NATURE_PROPERTIES()));

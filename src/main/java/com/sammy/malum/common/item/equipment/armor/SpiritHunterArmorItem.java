@@ -41,7 +41,7 @@ public class SpiritHunterArmorItem extends OrtusArmorItem {
     }
 
     public String getTexture() {
-        return "spirit_hunter";
+        return "spirit_hunter_reforged";
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -109,22 +109,20 @@ public abstract class FloatingEntity extends Entity {
         DataHelper.trackPastPositions(pastPositions, position().add(0, getYOffset(0) + 0.25F, 0), 0.1f);
         int excess = pastPositions.size() - 1;
         ArrayList<Vec3> toRemove = new ArrayList<>();
-        float efficiency = (float) (excess * 0.12f + Math.exp((Math.max(0, excess - 20)) * 0.2f));
-        float ratio = 0.3f;
-        if (efficiency > 0f) {
-            for (int i = 0; i < excess; i++) {
-                float progress = Math.min(1, ratio * (excess - i) * (ratio + efficiency));
-                Vec3 excessPosition = pastPositions.get(i);
-                Vec3 nextExcessPosition = pastPositions.get(i + 1);
-                Vec3 forward = excessPosition.subtract(nextExcessPosition).normalize().multiply(progress, progress, progress);
-                pastPositions.set(i, forward);
-                float excessDistance = (float) excessPosition.distanceTo(nextExcessPosition);
-                if (excessDistance < 0.05f) {
-                    toRemove.add(pastPositions.get(i));
-                }
+        float ratio = 0.01f;
+        for (int i = 0; i < excess; i++) {
+            float progress = (float) Math.min(1, ratio * ((excess - i) * (Math.exp((Math.max(0, excess - 20))))));
+            Vec3 excessPosition = pastPositions.get(i);
+            Vec3 nextExcessPosition = pastPositions.get(i + 1);
+            Vec3 offset = nextExcessPosition.subtract(excessPosition).normalize().multiply(progress,progress,progress);
+            Vec3 newPos = excessPosition.add(offset);
+            pastPositions.set(i, newPos);
+            float excessDistance = (float) excessPosition.distanceTo(nextExcessPosition);
+            if (excessDistance < 0.05f) {
+                toRemove.add(pastPositions.get(i));
             }
-            pastPositions.removeAll(toRemove);
         }
+        pastPositions.removeAll(toRemove);
     }
 
     public void baseTick() {
