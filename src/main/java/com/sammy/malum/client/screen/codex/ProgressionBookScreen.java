@@ -13,7 +13,6 @@ import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.handlers.ScreenParticleHandler;
 import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.systems.recipe.IRecipeComponent;
-import mezz.jei.api.gui.IRecipeLayout;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
@@ -828,16 +827,16 @@ public class ProgressionBookScreen extends Screen {
     private static void renderRawText(PoseStack stack, String text, int x, int y, float glow) {
         Font font = Minecraft.getInstance().font;
         //182, 61, 183  227, 39, 228
-        int r = (int) Mth.lerp(glow, 182, 227);
-        int g = (int) Mth.lerp(glow, 61, 39);
-        int b = (int) Mth.lerp(glow, 183, 228);
+//        int r = (int) Mth.lerp(glow, 182, 227);
+//        int g = (int) Mth.lerp(glow, 61, 39);
+//        int b = (int) Mth.lerp(glow, 183, 228);
 
-        font.draw(stack, text, x - 1, y, color(96, 255, 210, 243));
-        font.draw(stack, text, x + 1, y, color(128, 240, 131, 232));
-        font.draw(stack, text, x, y - 1, color(128, 255, 183, 236));
+        font.draw(stack, text, x - 1, y, color(96, 236, 227, 214));
+        font.draw(stack, text, x + 1, y, color(128, 165, 149, 142));
+        font.draw(stack, text, x, y - 1, color(128, 208, 197, 183));
         font.draw(stack, text, x, y + 1, color(96, 236, 110, 226));
 
-        font.draw(stack, text, x, y, color(255, r, g, b));
+        font.draw(stack, text, x, y, color(255, 111, 97, 105));
     }
 
     public static float getTextGlow(float offset) {
