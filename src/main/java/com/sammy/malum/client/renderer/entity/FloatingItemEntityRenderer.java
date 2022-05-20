@@ -4,9 +4,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
 import com.sammy.malum.common.entity.FloatingItemEntity;
-import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
 import com.sammy.ortus.systems.easing.Easing;
+import com.sammy.ortus.systems.rendering.VFXBuilders;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -44,7 +44,7 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
         ArrayList<Vec3> positions = new ArrayList<>(entity.pastPositions);
-        RenderHelper.VertexBuilder builder = RenderHelper.create();
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld();
 
         int amount = 3;
         for (int i = 0; i < amount; i++) {

@@ -67,7 +67,7 @@ public class EtherTorchItem extends AbstractEtherItem {
         AbstractEtherItem etherItem = (AbstractEtherItem) stack.getItem();
         Color firstColor = new Color(etherItem.getFirstColor(stack));
         Color secondColor = new Color(etherItem.getSecondColor(stack));
-        float alphaMultiplier = etherItem.iridescent ? 1.5f : 1;
+        float alphaMultiplier = etherItem.iridescent ? 0.75f : 0.5f;
         ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
                 .setAlpha(0.11f*alphaMultiplier, 0f)
                 .setLifetime(7)

@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,7 +84,7 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
     }
 
     @Override
-    public void onBreak() {
+    public void onBreak(@Nullable Player player) {
         if (!level.isClientSide) {
             poles.forEach(p -> {
                 if (level.getBlockEntity(p) instanceof TotemPoleTileEntity pole) {
@@ -185,8 +186,7 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
         });
         progress = 0;
         rite.executeRite(level, worldPosition, height, corrupted);
-        if (rite.isInstant(corrupted)) {
-            resetRite();
+        if (rite.oneAndDone(corrupted)) {
             return;
         }
         this.rite = rite;

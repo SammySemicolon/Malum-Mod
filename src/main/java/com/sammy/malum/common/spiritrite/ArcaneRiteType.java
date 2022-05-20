@@ -1,10 +1,9 @@
 package com.sammy.malum.common.spiritrite;
 
-import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
-import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.common.recipe.BlockTransmutationRecipe;
+import com.sammy.malum.common.worldevent.TotemCreatedBlightEvent;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import com.sammy.malum.core.systems.spirit.MalumSpiritType;
+import com.sammy.ortus.handlers.WorldEventHandler;
 import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
@@ -20,17 +19,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
-import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TOTEM_BASE;
-import static com.sammy.malum.core.setup.content.block.BlockRegistry.SOULWOOD_TOTEM_POLE;
 
 public class ArcaneRiteType extends MalumRiteType {
     public ArcaneRiteType() {
         super("arcane_rite", ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT, ARCANE_SPIRIT);
-    }
-
-    @Override
-    public boolean isInstant(boolean corrupted) {
-        return !corrupted;
     }
 
     @Override
@@ -48,22 +40,7 @@ public class ArcaneRiteType extends MalumRiteType {
         if (level.isClientSide) {
             return;
         }
-        for (int i = 1; i <= 5; i++) {
-            BlockPos totemPos = pos.above(i);
-            if (level.getBlockEntity(totemPos) instanceof TotemPoleTileEntity totemPoleTile) {
-                MalumSpiritType type = totemPoleTile.type;
-                BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, totemPos, SOULWOOD_TOTEM_POLE.get().defaultBlockState(), 3);
-                TotemPoleTileEntity newTileEntity = new TotemPoleTileEntity(totemPos, state);
-                newTileEntity.setLevel(level);
-                newTileEntity.create(type);
-                level.setBlockEntity(newTileEntity);
-                level.setBlockAndUpdate(totemPos, state);
-                level.levelEvent(2001, totemPos, Block.getId(state));
-            }
-        }
-        BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, pos, SOULWOOD_TOTEM_BASE.get().defaultBlockState(), 3);
-        level.setBlockEntity(new TotemBaseTileEntity(pos, state));
-        level.levelEvent(2001, pos, Block.getId(state));
+        WorldEventHandler.addWorldEvent(level, new TotemCreatedBlightEvent().setPosition(pos).setBlightData(1, 6, 3));
     }
 
     @Override

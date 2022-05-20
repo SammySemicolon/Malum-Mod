@@ -483,6 +483,15 @@ public class MalumLang extends LanguageProvider {
         add("malum.tooltip." + identifier, tooltip);
     }
 
+    public void addEffectDescription(String identifier, String description) {
+        add("effect.malum." + identifier + ".description", description);
+    }
+
+    public void addDamageTypeDeathDescription(String identifier, String description) {
+        add("death.attack."+ identifier, "%s " + description);
+        add("death.attack."+ identifier+".player", "%s " + description +  " by %s");
+    }
+
     public String correctBlockItemName(String name) {
         if ((!name.endsWith("_bricks"))) {
             if (name.contains("bricks")) {

@@ -9,6 +9,7 @@ import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import com.sammy.ortus.systems.easing.Easing;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.network.PacketDistributor;
 
+import javax.annotation.Nullable;
 import java.awt.*;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
@@ -61,6 +63,9 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
                 level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
                 INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
                 level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
+                if (corrupted) {
+                    level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
+                }
                 return InteractionResult.SUCCESS;
             }
         }
@@ -134,7 +139,7 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
     }
 
     @Override
-    public void onBreak() {
+    public void onBreak(@Nullable Player player) {
         if (level.isClientSide) {
             return;
         }
@@ -155,6 +160,7 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
                     .setLifetime(25)
                     .setSpin(0.2f)
                     .setScale(0, 0.4f, 0)
+                    .setScaleEasing(Easing.LINEAR, Easing.CIRC_IN_OUT)
                     .setColor(color, endColor)
                     .setColorCoefficient(0.5f)
                     .addMotion(0, Mth.nextFloat(level.random, -0.03f, 0.03f), 0)

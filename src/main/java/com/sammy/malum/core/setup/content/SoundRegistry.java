@@ -1,6 +1,7 @@
 package com.sammy.malum.core.setup.content;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.sound.BlightedSoundType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
@@ -55,6 +56,19 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> SOUL_STAINED_STEEL_PLACE = register(new SoundEvent(MalumMod.prefix("soul_stained_steel_place")));
     public static final RegistryObject<SoundEvent> SOUL_STAINED_STEEL_STEP = register(new SoundEvent(MalumMod.prefix("soul_stained_steel_step")));
 
+    public static final RegistryObject<SoundEvent> RUNEWOOD_LEAVES_BREAK = register(new SoundEvent(MalumMod.prefix("runewood_leaves_break")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_LEAVES_HIT = register(new SoundEvent(MalumMod.prefix("runewood_leaves_hit")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_LEAVES_PLACE = register(new SoundEvent(MalumMod.prefix("runewood_leaves_place")));
+    public static final RegistryObject<SoundEvent> RUNEWOOD_LEAVES_STEP = register(new SoundEvent(MalumMod.prefix("runewood_leaves_step")));
+
+    public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_BREAK = register(new SoundEvent(MalumMod.prefix("soulwood_leaves_break")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_HIT = register(new SoundEvent(MalumMod.prefix("soulwood_leaves_hit")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_PLACE = register(new SoundEvent(MalumMod.prefix("soulwood_leaves_place")));
+    public static final RegistryObject<SoundEvent> SOULWOOD_LEAVES_STEP = register(new SoundEvent(MalumMod.prefix("soulwood_leaves_step")));
+
+    public static final RegistryObject<SoundEvent> MAJOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.prefix("blight_motif")));
+    public static final RegistryObject<SoundEvent> MINOR_BLIGHT_MOTIF = register(new SoundEvent(MalumMod.prefix("minor_blight_motif")));
+
     public static final RegistryObject<SoundEvent> ETHER_PLACE = register(new SoundEvent(MalumMod.prefix("ether_place")));
     public static final RegistryObject<SoundEvent> ETHER_BREAK = register(new SoundEvent(MalumMod.prefix("ether_break")));
 
@@ -93,12 +107,22 @@ public class SoundRegistry {
     public static final SoundType DEEPSLATE_SOULSTONE = new ForgeSoundType(1.0F, 1.0F, DEEPSLATE_SOULSTONE_BREAK, DEEPSLATE_SOULSTONE_STEP, DEEPSLATE_SOULSTONE_PLACE, DEEPSLATE_SOULSTONE_HIT, () -> SoundEvents.DEEPSLATE_FALL);
     public static final SoundType BRILLIANCE = new ForgeSoundType(1.0F, 1.0F, BRILLIANCE_BREAK, () -> SoundEvents.STONE_STEP, BRILLIANCE_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final SoundType BLAZING_QUARTZ_ORE = new ForgeSoundType(1.0F, 1.0F, BLAZING_QUARTZ_ORE_BREAK, () -> SoundEvents.NETHER_ORE_STEP, BLAZING_QUARTZ_ORE_PLACE, () -> SoundEvents.NETHER_ORE_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
+
     public static final SoundType BLAZING_QUARTZ_BLOCK = new ForgeSoundType(1.0F, 1.25f, BLAZING_QUARTZ_BLOCK_BREAK, BLAZING_QUARTZ_BLOCK_STEP, BLAZING_QUARTZ_BLOCK_PLACE, BLAZING_QUARTZ_BLOCK_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
     public static final SoundType ARCANE_CHARCOAL_BLOCK = new ForgeSoundType(1.0F, 0.9f, ARCANE_CHARCOAL_BLOCK_BREAK, ARCANE_CHARCOAL_BLOCK_STEP, ARCANE_CHARCOAL_BLOCK_PLACE, ARCANE_CHARCOAL_BLOCK_HIT, () -> SoundEvents.NETHER_GOLD_ORE_FALL);
-    public static final SoundType TAINTED_ROCK = new ForgeSoundType(1.0F, 1.1F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
-    public static final SoundType TWISTED_ROCK = new ForgeSoundType(1.0F, 0.85F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
     public static final SoundType HALLOWED_GOLD = new ForgeSoundType(1.0F, 1.0F, HALLOWED_GOLD_BREAK, HALLOWED_GOLD_STEP, HALLOWED_GOLD_PLACE, HALLOWED_GOLD_HIT, () -> SoundEvents.METAL_FALL);
     public static final SoundType SOUL_STAINED_STEEL = new ForgeSoundType(1.0F, 1.0F, SOUL_STAINED_STEEL_BREAK, SOUL_STAINED_STEEL_STEP, SOUL_STAINED_STEEL_PLACE, SOUL_STAINED_STEEL_HIT, () -> SoundEvents.METAL_FALL);
+
+    public static final SoundType TAINTED_ROCK = new ForgeSoundType(1.0F, 1.1F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
+    public static final SoundType TWISTED_ROCK = new ForgeSoundType(1.0F, 0.85F, TAINTED_ROCK_BREAK, TAINTED_ROCK_STEP, TAINTED_ROCK_PLACE, TAINTED_ROCK_HIT, () -> SoundEvents.BASALT_FALL);
+
+    public static final SoundType RUNEWOOD_LEAVES = new ForgeSoundType(1.0F, 1.1F, RUNEWOOD_LEAVES_BREAK, RUNEWOOD_LEAVES_STEP, RUNEWOOD_LEAVES_PLACE, RUNEWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
+
+    public static final SoundType BLIGHTED_FOLIAGE = new BlightedSoundType(1.0F, 1.0F, ()->SoundEvents.NETHER_WART_BREAK, ()->SoundEvents.STONE_STEP, ()->SoundEvents.NETHER_WART_PLANTED, ()->SoundEvents.STONE_HIT, ()->SoundEvents.STONE_FALL);
+    public static final SoundType BLIGHTED_EARTH = new BlightedSoundType(1.0F, 1.0F, ()->SoundEvents.NYLIUM_BREAK, ()->SoundEvents.NYLIUM_STEP, ()->SoundEvents.NYLIUM_PLACE, ()->SoundEvents.NYLIUM_HIT, ()->SoundEvents.NYLIUM_FALL);
+    public static final SoundType SOULWOOD = new BlightedSoundType(1.0F, 1.0F, () -> SoundEvents.WOOD_BREAK, () -> SoundEvents.WOOD_STEP, () -> SoundEvents.WOOD_PLACE, () -> SoundEvents.WOOD_HIT, () -> SoundEvents.WOOD_FALL);
+    public static final SoundType SOULWOOD_LEAVES = new BlightedSoundType(1.0F, 0.9F, SOULWOOD_LEAVES_BREAK, SOULWOOD_LEAVES_STEP, SOULWOOD_LEAVES_PLACE, SOULWOOD_LEAVES_HIT, () -> SoundEvents.AZALEA_LEAVES_FALL);
+
     public static final SoundType ETHER = new ForgeSoundType(1.0F, 1.0F, ETHER_BREAK, () -> SoundEvents.WOOL_STEP, ETHER_PLACE, () -> SoundEvents.ANCIENT_DEBRIS_HIT, () -> SoundEvents.WOOL_FALL);
 
     public static RegistryObject<SoundEvent> register(SoundEvent soundEvent) {

@@ -15,10 +15,10 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.function.Supplier;
 
-public class RunewoodLogBlock extends OrtusLogBlock {
+public class MalumLogBLock extends OrtusLogBlock {
     private final boolean isCorrupt;
 
-    public RunewoodLogBlock(Properties properties, Supplier<Block> stripped, boolean isCorrupt) {
+    public MalumLogBLock(Properties properties, Supplier<Block> stripped, boolean isCorrupt) {
         super(properties, stripped);
         this.isCorrupt = isCorrupt;
     }
@@ -32,16 +32,21 @@ public class RunewoodLogBlock extends OrtusLogBlock {
             }
         }
         if (stack.getItem() instanceof MalumSpiritItem item) {
-            level.setBlockAndUpdate(pos, item.type.getBlockState(isCorrupt, hit));
-            if (level.getBlockEntity(pos) instanceof TotemPoleTileEntity blockEntity) {
-                blockEntity.create(item.type);
-            }
-            if (!player.isCreative()) {
-                stack.shrink(1);
-            }
-            player.swing(handIn, true);
+            createTotemPole(level, pos, player, handIn, hit, stack, item);
             return InteractionResult.SUCCESS;
         }
         return super.use(state, level, pos, player, handIn, hit);
+    }
+
+    public void createTotemPole(Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit, ItemStack stack, MalumSpiritItem spirit) {
+        level.setBlockAndUpdate(pos, spirit.type.getBlockState(isCorrupt, hit));
+        if (level.getBlockEntity(pos) instanceof TotemPoleTileEntity blockEntity) {
+            blockEntity.create(spirit.type);
+        }
+        if (!player.isCreative()) {
+            stack.shrink(1);
+        }
+        level.levelEvent(2001, pos, Block.getId(level.getBlockState(pos)));
+        player.swing(handIn, true);
     }
 }

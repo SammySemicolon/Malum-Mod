@@ -7,8 +7,8 @@ import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.handlers.RenderHandler;
-import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
+import com.sammy.ortus.systems.rendering.VFXBuilders;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -52,7 +52,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         poseStack.translate(0.5f, 0.5f, 0.5f);
         poseStack.mulPose(Vector3f.YN.rotationDegrees(direction.toYRot()));
         poseStack.translate(-0.5f, -0.5f, -0.5f);
-        RenderHelper.create()
+        VFXBuilders.createWorld()
                 .setColor(color, alpha)
                 .setLight(FULL_BRIGHT)
                 .setUV(sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1())

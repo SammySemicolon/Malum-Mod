@@ -97,20 +97,24 @@ public class BlockRegistry {
         return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_YELLOW).noCollission().noOcclusion().sound(SoundType.GRASS).instabreak();
     }
 
+    public static OrtusBlockProperties RUNEWOOD_LEAVES_PROPERTIES() {
+        return new OrtusBlockProperties(Material.LEAVES, MaterialColor.COLOR_YELLOW).needsHoe().strength(0.2F).randomTicks().noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).sound(SoundRegistry.RUNEWOOD_LEAVES);
+    }
+
     public static OrtusBlockProperties SOULWOOD_PROPERTIES() {
-        return new OrtusBlockProperties(Material.WOOD, MaterialColor.COLOR_PURPLE).needsAxe().sound(SoundType.WOOD).strength(1.75F, 4.0F);
+        return new OrtusBlockProperties(Material.WOOD, MaterialColor.COLOR_PURPLE).needsAxe().sound(SoundRegistry.SOULWOOD).strength(1.75F, 4.0F);
     }
 
     public static OrtusBlockProperties BLIGHT_PROPERTIES() {
-        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).needsShovel().needsHoe().sound(SoundType.NYLIUM).strength(0.7f);
+        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).needsShovel().needsHoe().sound(SoundRegistry.BLIGHTED_EARTH).strength(0.7f);
     }
 
     public static OrtusBlockProperties BLIGHT_PLANTS_PROPERTIES() {
-        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundType.NETHER_WART).instabreak();
+        return new OrtusBlockProperties(Material.PLANT, MaterialColor.COLOR_PURPLE).noCollission().noOcclusion().sound(SoundRegistry.BLIGHTED_FOLIAGE).instabreak();
     }
 
-    public static OrtusBlockProperties LEAVES_PROPERTIES() {
-        return new OrtusBlockProperties(Material.LEAVES, MaterialColor.COLOR_YELLOW).needsHoe().strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
+    public static OrtusBlockProperties SOULWOOD_LEAVES_PROPERTIES() {
+        return new OrtusBlockProperties(Material.LEAVES, MaterialColor.COLOR_PURPLE).needsHoe().strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).sound(SoundRegistry.SOULWOOD_LEAVES);
     }
 
     public static OrtusBlockProperties ETHER_BLOCK_PROPERTIES() {
@@ -285,10 +289,10 @@ public class BlockRegistry {
 
     //region runewood
     public static final RegistryObject<Block> RUNEWOOD_SAPLING = BLOCKS.register("runewood_sapling", () -> new MalumSaplingBlock(RUNEWOOD_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.RUNEWOOD_TREE));
-    public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().isCutoutLayer().hasCustomLoot(), new Color(175, 65, 48), new Color(251, 193, 76)));
+    public static final RegistryObject<Block> RUNEWOOD_LEAVES = BLOCKS.register("runewood_leaves", () -> new MalumLeavesBlock(RUNEWOOD_LEAVES_PROPERTIES().isCutoutLayer().hasCustomLoot(), new Color(175, 65, 48), new Color(251, 193, 76)));
 
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD_LOG = BLOCKS.register("stripped_runewood_log", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
-    public static final RegistryObject<Block> RUNEWOOD_LOG = BLOCKS.register("runewood_log", () -> new RunewoodLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG, false));
+    public static final RegistryObject<Block> RUNEWOOD_LOG = BLOCKS.register("runewood_log", () -> new MalumLogBLock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD_LOG, false));
     public static final RegistryObject<Block> STRIPPED_RUNEWOOD = BLOCKS.register("stripped_runewood", () -> new RotatedPillarBlock(RUNEWOOD_PROPERTIES()));
     public static final RegistryObject<Block> RUNEWOOD = BLOCKS.register("runewood", () -> new OrtusLogBlock(RUNEWOOD_PROPERTIES(), STRIPPED_RUNEWOOD));
 
@@ -333,15 +337,15 @@ public class BlockRegistry {
 
     //region soulwood
     public static final RegistryObject<Block> SOULWOOD_GROWTH = BLOCKS.register("soulwood_growth", () -> new SoulwoodGrowthBlock(BLIGHT_PLANTS_PROPERTIES().isCutoutLayer().randomTicks(), FeatureRegistry.SOULWOOD_TREE));
-    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(LEAVES_PROPERTIES().isCutoutLayer().hasCustomLoot(), new Color(152, 6, 45), new Color(224, 30, 214)));
+    public static final RegistryObject<Block> SOULWOOD_LEAVES = BLOCKS.register("soulwood_leaves", () -> new MalumLeavesBlock(SOULWOOD_LEAVES_PROPERTIES().isCutoutLayer().hasCustomLoot(), new Color(152, 6, 45), new Color(224, 30, 214)));
 
     public static final RegistryObject<Block> STRIPPED_SOULWOOD_LOG = BLOCKS.register("stripped_soulwood_log", () -> new RotatedPillarBlock(SOULWOOD_PROPERTIES()));
-    public static final RegistryObject<Block> SOULWOOD_LOG = BLOCKS.register("soulwood_log", () -> new RunewoodLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD_LOG, true));
+    public static final RegistryObject<Block> SOULWOOD_LOG = BLOCKS.register("soulwood_log", () -> new SoulwoodLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD_LOG, true));
     public static final RegistryObject<Block> STRIPPED_SOULWOOD = BLOCKS.register("stripped_soulwood", () -> new RotatedPillarBlock(SOULWOOD_PROPERTIES()));
-    public static final RegistryObject<Block> SOULWOOD = BLOCKS.register("soulwood", () -> new OrtusLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD));
+    public static final RegistryObject<Block> SOULWOOD = BLOCKS.register("soulwood", () -> new SoulwoodBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD));
 
-    public static final RegistryObject<Block> REVEALED_SOULWOOD_LOG = BLOCKS.register("revealed_soulwood_log", () -> new SapFilledLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD_LOG, ItemRegistry.UNHOLY_SAP, new Color(214, 46, 83)));
-    public static final RegistryObject<Block> EXPOSED_SOULWOOD_LOG = BLOCKS.register("exposed_soulwood_log", () -> new OrtusLogBlock(SOULWOOD_PROPERTIES(), REVEALED_SOULWOOD_LOG));
+    public static final RegistryObject<Block> REVEALED_SOULWOOD_LOG = BLOCKS.register("revealed_soulwood_log", () -> new SapFilledSoulwoodLogBlock(SOULWOOD_PROPERTIES(), STRIPPED_SOULWOOD_LOG, ItemRegistry.UNHOLY_SAP, new Color(214, 46, 83)));
+    public static final RegistryObject<Block> EXPOSED_SOULWOOD_LOG = BLOCKS.register("exposed_soulwood_log", () -> new SoulwoodBlock(SOULWOOD_PROPERTIES(), REVEALED_SOULWOOD_LOG));
 
     public static final RegistryObject<Block> SOULWOOD_PLANKS = BLOCKS.register("soulwood_planks", () -> new Block(SOULWOOD_PROPERTIES()));
     public static final RegistryObject<Block> SOULWOOD_PLANKS_SLAB = BLOCKS.register("soulwood_planks_slab", () -> new SlabBlock(SOULWOOD_PROPERTIES()));

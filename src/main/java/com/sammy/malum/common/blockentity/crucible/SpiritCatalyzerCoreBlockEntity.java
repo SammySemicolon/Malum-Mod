@@ -29,6 +29,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.function.Supplier;
 
@@ -175,9 +176,9 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
     }
 
     @Override
-    public void onBreak() {
+    public void onBreak(@Nullable Player player) {
         inventory.dumpItems(level, DataHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
-        super.onBreak();
+        super.onBreak(player);
     }
 
     public static Vec3 getItemPos(SpiritCatalyzerCoreBlockEntity blockEntity) {

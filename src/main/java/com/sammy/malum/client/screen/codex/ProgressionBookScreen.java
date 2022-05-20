@@ -11,8 +11,9 @@ import com.sammy.malum.common.events.SetupMalumCodexEntriesEvent;
 import com.sammy.malum.core.setup.content.SpiritRiteRegistry;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.ortus.handlers.ScreenParticleHandler;
-import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.systems.recipe.IRecipeComponent;
+import com.sammy.ortus.systems.rendering.VFXBuilders;
+import com.sammy.ortus.systems.rendering.VFXBuilders.ScreenVFXBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
@@ -41,6 +42,12 @@ import static net.minecraft.world.item.Items.*;
 import static org.lwjgl.opengl.GL11C.GL_SCISSOR_TEST;
 
 public class ProgressionBookScreen extends Screen {
+    public enum BookTheme {
+        DEFAULT, EASY_READING
+    }
+
+    public static final ScreenVFXBuilder BUILDER = VFXBuilders.createScreen().setPosTexDefaultFormat();
+
     public static final ResourceLocation FRAME_TEXTURE = MalumMod.prefix("textures/gui/book/frame.png");
     public static final ResourceLocation FADE_TEXTURE = MalumMod.prefix("textures/gui/book/fade.png");
 
@@ -669,9 +676,14 @@ public class ProgressionBookScreen extends Screen {
         GL11.glScissor(insideLeft * scale, insideTop * scale, bookInsideWidth * scale, (bookInsideHeight + 1) * scale); // do not ask why the 1 is needed please
     }
 
-    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight) {
-        RenderSystem.setShaderTexture(0, texture);
-        RenderHelper.blit(poseStack, x, y, width, height, uOffset, vOffset, textureWidth, textureHeight);
+
+    public static void renderTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+        BUILDER.setPositionWithWidth(x, y, width, height)
+                .setShaderTexture(texture)
+                .setUVWithWidth(u, v, width, height, textureWidth, textureHeight)
+                .begin() //TODO: move this begin & end call to start of rendering all textures, and end of rendering all textures in the book
+                .blit(poseStack)
+                .end();
     }
 
     public static void renderTransparentTexture(ResourceLocation texture, PoseStack poseStack, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight) {
@@ -704,6 +716,7 @@ public class ProgressionBookScreen extends Screen {
     public static void renderItem(PoseStack poseStack, Ingredient ingredient, int posX, int posY, int mouseX, int mouseY) {
         renderItem(poseStack, List.of(ingredient.getItems()), posX, posY, mouseX, mouseY);
     }
+
     public static void renderItem(PoseStack poseStack, List<ItemStack> stacks, int posX, int posY, int mouseX, int mouseY) {
         if (stacks.size() == 1) {
             renderItem(poseStack, stacks.get(0), posX, posY, mouseX, mouseY);
@@ -717,6 +730,7 @@ public class ProgressionBookScreen extends Screen {
             screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
         }
     }
+
     public static void renderItem(PoseStack poseStack, ItemStack stack, int posX, int posY, int mouseX, int mouseY) {
         Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(stack, posX, posY);
         Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(Minecraft.getInstance().font, stack, posX, posY, null);
@@ -724,6 +738,7 @@ public class ProgressionBookScreen extends Screen {
             screen.renderTooltip(poseStack, new TranslatableComponent(stack.getDescriptionId()), mouseX, mouseY);
         }
     }
+
     public static void renderItemList(PoseStack poseStack, List<ItemStack> items, int left, int top, int mouseX, int mouseY, boolean vertical) {
         int slots = items.size();
         renderItemFrames(poseStack, left, top, vertical, slots);
@@ -740,6 +755,7 @@ public class ProgressionBookScreen extends Screen {
             ProgressionBookScreen.renderItem(poseStack, stack, oLeft, oTop, mouseX, mouseY);
         }
     }
+
     public static void renderItemFrames(PoseStack poseStack, int left, int top, boolean vertical, int slots) {
         if (vertical) {
             top -= 10 * (slots - 1);

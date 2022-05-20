@@ -35,6 +35,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -150,7 +151,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
 
 
     @Override
-    public void onBreak() {
+    public void onBreak(@Nullable Player player) {
         inventory.dumpItems(level, worldPosition);
         spiritInventory.dumpItems(level, worldPosition);
         extrasInventory.dumpItems(level, worldPosition);

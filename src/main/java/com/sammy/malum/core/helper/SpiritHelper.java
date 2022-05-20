@@ -253,7 +253,7 @@ public class SpiritHelper {
     public static void spawnSpiritScreenParticles(Color color, Color endColor, ItemStack stack, float pXPosition, float pYPosition, ScreenParticle.RenderOrder renderOrder) {
         Random rand = Minecraft.getInstance().level.getRandom();
         ParticleBuilders.create(OrtusScreenParticleRegistry.SPARKLE)
-                .setAlpha(0.08f, 0f)
+                .setAlpha(0.04f, 0f)
                 .setLifetime(10 + rand.nextInt(10))
                 .setScale(0.8f + rand.nextFloat()*0.1f, 0)
                 .setColor(color, endColor)

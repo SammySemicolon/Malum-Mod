@@ -27,6 +27,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
@@ -117,9 +118,9 @@ public class PlinthCoreBlockEntity extends MultiBlockCoreEntity {
     }
 
     @Override
-    public void onBreak() {
+    public void onBreak(@Nullable Player player) {
         inventory.dumpItems(level, worldPosition);
-        super.onBreak();
+        super.onBreak(player);
     }
 
     @Override

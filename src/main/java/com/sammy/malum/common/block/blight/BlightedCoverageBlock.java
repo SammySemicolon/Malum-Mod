@@ -6,4 +6,5 @@ public class BlightedCoverageBlock extends CarpetBlock {
     public BlightedCoverageBlock(Properties p_57318_) {
         super(p_57318_);
     }
+
 }

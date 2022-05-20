@@ -10,6 +10,7 @@ import com.sammy.ortus.systems.worldgen.OrtusBlockFiller.BlockStateEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -236,7 +237,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
-    public static void createBlight(WorldGenLevel level, OrtusBlockFiller filler, RegistryObject<Block> plant, Random rand, BlockPos pos, int size) {
+    public static void createBlight(LevelAccessor level, OrtusBlockFiller filler, RegistryObject<Block> plant, Random rand, BlockPos pos, int size) {
         if (level.getBlockState(pos).is(MOSS_REPLACEABLE)) {
             filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_SOIL.get().defaultBlockState(), pos));
         }

@@ -51,7 +51,7 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
         Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor();
         Color secondColor = ColorHelper.darker(firstColor, 2);
         ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
-                .setAlpha(0.09f, 0f)
+                .setAlpha(0.06f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.85f + Math.sin(gameTime * 0.05f) * 0.125f), 0)
                 .setColor(firstColor, secondColor)

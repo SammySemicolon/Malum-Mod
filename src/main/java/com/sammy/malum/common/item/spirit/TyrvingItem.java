@@ -69,7 +69,7 @@ public class TyrvingItem extends OrtusSwordItem implements IMalumEventResponderI
         Color firstColor = SpiritTypeRegistry.ELDRITCH_SPIRIT.getColor();
         Color secondColor = ColorHelper.darker(firstColor, 2);
         ParticleBuilders.create(OrtusScreenParticleRegistry.STAR)
-                .setAlpha(0.06f, 0f)
+                .setAlpha(0.04f, 0f)
                 .setLifetime(8)
                 .setScale((float) (0.75f + Math.sin(gameTime * 0.05f) * 0.15f), 0)
                 .setColor(firstColor, secondColor)

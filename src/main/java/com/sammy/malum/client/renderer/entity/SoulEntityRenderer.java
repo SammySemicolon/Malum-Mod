@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.ortus.helpers.ColorHelper;
-import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
+import com.sammy.ortus.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -77,7 +77,7 @@ public class SoulEntityRenderer extends EntityRenderer<SoulEntity> {
                     instance.safeGetUniform("Intensity").set(55f);
                 })));
 
-        RenderHelper.create()
+        VFXBuilders.createWorld()
                 .setColor(color.brighter())
                 .setAlpha(1)
                 .setLight(FULL_BRIGHT)

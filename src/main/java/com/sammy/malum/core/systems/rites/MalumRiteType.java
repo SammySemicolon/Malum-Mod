@@ -23,7 +23,7 @@ public class MalumRiteType {
         return "malum.gui.rite." + identifier;
     }
 
-    public boolean isInstant(boolean corrupted) {
+    public boolean oneAndDone(boolean corrupted) {
         return false;
     }
 

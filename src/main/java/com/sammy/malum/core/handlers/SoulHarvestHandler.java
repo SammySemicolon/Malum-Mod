@@ -10,8 +10,8 @@ import com.sammy.malum.common.entity.spirit.SoulEntity;
 import com.sammy.malum.common.item.spirit.SoulStaveItem;
 import com.sammy.malum.common.packets.particle.SoulPurgeParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
-import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.setup.OrtusRenderTypeRegistry;
+import com.sammy.ortus.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -216,6 +216,7 @@ public class SoulHarvestHandler {
                 livingRenderer.addLayer(new SoulHarvestHandler.ClientOnly.HarvestRenderLayer<>(livingRenderer));
             }
         }
+
         public static class HarvestRenderLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
             public HarvestRenderLayer(RenderLayerParent<T, M> parent) {
@@ -258,10 +259,12 @@ public class SoulHarvestHandler {
                             instance.safeGetUniform("ScatterFrequency").set(-0.2f);
                             instance.safeGetUniform("Intensity").set(55f);
                         })));
+
                 poseStack.translate(toPlayer.x, toPlayer.y + target.getBbHeight() / 2f, toPlayer.z);
                 poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180f));
-                RenderHelper.create()
+
+                VFXBuilders.createWorld()
                         .setColor(color.brighter())
                         .setAlpha(alphaAndScale * 0.6f)
                         .setLight(FULL_BRIGHT)

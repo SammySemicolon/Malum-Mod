@@ -40,6 +40,19 @@
   "soul_stained_steel_place": { "sounds":["malum:heavy_metal/break1","malum:heavy_metal/break2","malum:heavy_metal/break3","malum:heavy_metal/break4"], "subtitle": "malum.subtitle.soul_stained_steel_place" },
   "soul_stained_steel_hit": { "sounds":["malum:heavy_metal/hit1","malum:heavy_metal/hit2","malum:heavy_metal/hit3","malum:heavy_metal/hit4"], "subtitle": "malum.subtitle.soul_stained_steel_hit" },
 
+  "runewood_leaves_break": { "sounds":["minecraft:block/azalea_leaves/break1","minecraft:block/azalea_leaves/break2","minecraft:block/azalea_leaves/break3","minecraft:block/azalea_leaves/break4","minecraft:block/azalea_leaves/break5","minecraft:block/azalea_leaves/break6","minecraft:block/azalea_leaves/break7"], "subtitle": "malum.subtitle.runewood_leaves_break" },
+  "runewood_leaves_step": { "sounds":["minecraft:block/azalea_leaves/step1","minecraft:block/azalea_leaves/step2","minecraft:block/azalea_leaves/step3","minecraft:block/azalea_leaves/step4","minecraft:block/azalea_leaves/step5"], "subtitle": "malum.subtitle.runewood_leaves_step" },
+  "runewood_leaves_place": { "sounds":["minecraft:block/azalea_leaves/break1","minecraft:block/azalea_leaves/break2","minecraft:block/azalea_leaves/break3","minecraft:block/azalea_leaves/break4","minecraft:block/azalea_leaves/break5","minecraft:block/azalea_leaves/break6","minecraft:block/azalea_leaves/break7"], "subtitle": "malum.subtitle.runewood_leaves_place" },
+  "runewood_leaves_hit": { "sounds":["minecraft:block/azalea_leaves/step1","minecraft:block/azalea_leaves/step2","minecraft:block/azalea_leaves/step3","minecraft:block/azalea_leaves/step4","minecraft:block/azalea_leaves/step5"], "subtitle": "malum.subtitle.runewood_leaves_step" },
+
+  "soulwood_leaves_break": { "sounds":["minecraft:block/azalea_leaves/break1","minecraft:block/azalea_leaves/break2","minecraft:block/azalea_leaves/break3","minecraft:block/azalea_leaves/break4","minecraft:block/azalea_leaves/break5","minecraft:block/azalea_leaves/break6","minecraft:block/azalea_leaves/break7"], "subtitle": "malum.subtitle.soulwood_leaves_break" },
+  "soulwood_leaves_step": { "sounds":["minecraft:block/azalea_leaves/step1","minecraft:block/azalea_leaves/step2","minecraft:block/azalea_leaves/step3","minecraft:block/azalea_leaves/step4","minecraft:block/azalea_leaves/step5"], "subtitle": "malum.subtitle.soulwood_leaves_step" },
+  "soulwood_leaves_place": { "sounds":["minecraft:block/azalea_leaves/break1","minecraft:block/azalea_leaves/break2","minecraft:block/azalea_leaves/break3","minecraft:block/azalea_leaves/break4","minecraft:block/azalea_leaves/break5","minecraft:block/azalea_leaves/break6","minecraft:block/azalea_leaves/break7"], "subtitle": "malum.subtitle.soulwood_leaves_place" },
+  "soulwood_leaves_hit": { "sounds":["minecraft:block/azalea_leaves/step1","minecraft:block/azalea_leaves/step2","minecraft:block/azalea_leaves/step3","minecraft:block/azalea_leaves/step4","minecraft:block/azalea_leaves/step5"], "subtitle": "malum.subtitle.soulwood_leaves_step" },
+
+  "blight_motif": { "sounds":["malum:blight/blight_motif1","malum:blight/blight_motif2","malum:blight/blight_motif3","malum:blight/blight_motif4","malum:blight/blight_motif5","malum:blight/blight_motif6"], "subtitle": "malum.subtitle.blight_motif" },
+  "minor_blight_motif": { "sounds":["malum:blight/minor_blight_motif1","malum:blight/minor_blight_motif2","malum:blight/minor_blight_motif3","malum:blight/minor_blight_motif4","malum:blight/minor_blight_motif5","malum:blight/minor_blight_motif6"], "subtitle": "malum.subtitle.minor_blight_motif" },
+
   "ether_break": { "sounds":["malum:ether/break1","malum:ether/break2","malum:ether/break3","malum:ether/break4"], "subtitle": "malum.subtitle.ether_break" },
   "ether_place": { "sounds":["malum:ether/break1","malum:ether/break2","malum:ether/break3","malum:ether/break4"], "subtitle": "malum.subtitle.ether_place" },
 

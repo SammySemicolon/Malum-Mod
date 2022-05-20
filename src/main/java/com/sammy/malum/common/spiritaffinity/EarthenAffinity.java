@@ -10,9 +10,9 @@ import com.sammy.malum.core.setup.content.AttributeRegistry;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritAffinity;
-import com.sammy.ortus.helpers.RenderHelper;
 import com.sammy.ortus.setup.OrtusShaderRegistry;
 import com.sammy.ortus.systems.rendering.ExtendedShaderInstance;
+import com.sammy.ortus.systems.rendering.VFXBuilders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -112,18 +112,17 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                     int healthRows = Mth.ceil((maxHealth + absorb) / 2.0F / 10.0F);
                     int rowHeight = Math.max(10 - (healthRows - 2), 3);
 
-
                     poseStack.pushPose();
-                    RenderSystem.depthMask(false);
-                    RenderSystem.enableBlend();
-                    RenderSystem.defaultBlendFunc();
                     RenderSystem.setShaderTexture(0, ICONS_TEXTURE);
-                    RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                     ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) OrtusShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
                     shaderInstance.safeGetUniform("YFrequency").set(35f);
                     shaderInstance.safeGetUniform("XFrequency").set(25f);
                     shaderInstance.safeGetUniform("Speed").set(1000f);
                     shaderInstance.safeGetUniform("Intensity").set(500f);
+                    VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
+                            .setPosColorTexLightmapDefaultFormat()
+                            .setShader(() -> shaderInstance);
+                    int size = 13;
                     for (int i = 0; i < Math.ceil(c.heartOfStone / 3f); i++) {
                         int row = (int) (Math.ceil(i) / 10f);
                         int x = left + i % 10 * 8;
@@ -134,11 +133,11 @@ public class EarthenAffinity extends MalumSpiritAffinity {
                         shaderInstance.safeGetUniform("UVCoordinates").set(new Vector4f(xTextureOffset / 256f, (xTextureOffset + 12) / 256f, 1 / 256f, 12 / 256f));
                         shaderInstance.safeGetUniform("TimeOffset").set(i * 250f);
 
-                        RenderHelper.blit(poseStack, OrtusShaderRegistry.DISTORTED_TEXTURE, x - 2, y - 2, 13, 13, 1, 1, 1, 1, xTextureOffset, 1, 256f);
+                        builder.setPositionWithWidth(x - 2, y - 2, size, size)
+                                .setUVWithWidth(xTextureOffset, 1, size, size, 256f)
+                                .draw(poseStack);
                     }
                     shaderInstance.setUniformDefaults();
-                    RenderSystem.depthMask(true);
-                    RenderSystem.disableBlend();
                     poseStack.popPose();
                 });
             }
