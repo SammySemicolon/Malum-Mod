@@ -16,29 +16,24 @@ import net.minecraft.world.level.Level;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 
-public class ItemStandRenderer implements BlockEntityRenderer<ItemStandBlockEntity>
-{
-    public ItemStandRenderer(BlockEntityRendererProvider.Context context)
-    {
+public class ItemStandRenderer implements BlockEntityRenderer<ItemStandBlockEntity> {
+    public ItemStandRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override
-    public void render(ItemStandBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn)
-    {
+    public void render(ItemStandBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Level level = Minecraft.getInstance().level;
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ItemStack stack = blockEntityIn.inventory.getStackInSlot(0);
-        if (!stack.isEmpty())
-        {
+        if (!stack.isEmpty()) {
             poseStack.pushPose();
             Vector3f offset = new Vector3f(blockEntityIn.itemOffset());
-            if (stack.getItem() instanceof MalumSpiritItem)
-            {
-                double y = Math.sin(((level.getGameTime() + partialTicks) ) / 20f) * 0.05f;
+            if (stack.getItem() instanceof MalumSpiritItem) {
+                double y = Math.sin(((level.getGameTime() + partialTicks)) / 20f) * 0.05f;
                 poseStack.translate(0, y, 0);
             }
             poseStack.translate(offset.x(), offset.y(), offset.z());
-            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() )* 3 + partialTicks));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees((level.getGameTime() + partialTicks) * 3));
             poseStack.scale(0.6f, 0.6f, 0.6f);
             itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, 0);
             poseStack.popPose();

@@ -1,10 +1,9 @@
 package com.sammy.malum.common.blockentity.obelisk;
 
 import com.sammy.malum.common.blockentity.altar.IAltarAccelerator;
-import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.malum.core.setup.content.block.BlockRegistry;
-import com.sammy.ortus.helpers.DataHelper;
+import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.multiblock.MultiBlockStructure;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
@@ -35,7 +34,7 @@ public class RunewoodObeliskBlockEntity extends ObeliskCoreBlockEntity implement
 
     @Override
     public void addParticles(Color color, Color endColor, float alpha, BlockPos altarPos, Vec3 altarItemPos) {
-        Vec3 startPos = DataHelper.fromBlockPos(worldPosition).add(0.5f, 2.15f, 0.5f);
+        Vec3 startPos = BlockHelper.fromBlockPos(worldPosition).add(0.5f, 2.15f, 0.5f);
         ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                 .setAlpha(alpha, 0f)
                 .setLifetime(35)

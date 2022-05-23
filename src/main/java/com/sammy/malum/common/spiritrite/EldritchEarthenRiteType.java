@@ -33,18 +33,7 @@ public class EldritchEarthenRiteType extends MalumRiteType {
 
     @Override
     public void riteEffect(Level level, BlockPos pos, int height) {
-        BlockState filter = level.getBlockState(pos.below());
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
-        positions.removeIf(p -> {
-            if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
-                return true;
-            }
-            BlockState state = level.getBlockState(p);
-            if (state.isAir()) {
-                return true;
-            }
-            return !filter.isAir() && !filter.is(state.getBlock());
-        });
         positions.forEach(p -> {
             BlockState state = level.getBlockState(p);
             boolean canBreak = state.is(BlockTags.NEEDS_STONE_TOOL) || state.is(BlockTags.NEEDS_IRON_TOOL) || state.is(BlockTags.NEEDS_DIAMOND_TOOL);

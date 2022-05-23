@@ -182,7 +182,7 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             blightSize--;
         }
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
-        int[] sapBlockIndexes = DataHelper.nextInts(rand, sapBlockCount, treeFiller.entries.size());
+        int[] sapBlockIndexes = DataHelper.nextInts(sapBlockCount, treeFiller.entries.size());
         for (Integer index : sapBlockIndexes) {
             treeFiller.replace(index, e -> e.replaceState(BlockHelper.getBlockStateWithExistingProperties(e.state, BlockRegistry.EXPOSED_SOULWOOD_LOG.get().defaultBlockState())));
         }
@@ -270,7 +270,9 @@ public class SoulwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
                         filler.entries.add(new BlockStateEntry(BlockRegistry.BLIGHTED_EARTH.get().defaultBlockState(), grassPos.below()));
                     }
                     if (plantCooldown <= 0 && rand.nextFloat() < 0.4f) {
-                        filler.entries.add(new BlockStateEntry(plant.get().defaultBlockState(), grassPos.above()));
+                        if (level.getBlockState(grassPos.above()).isAir()) {
+                            filler.entries.add(new BlockStateEntry(plant.get().defaultBlockState(), grassPos.above()));
+                        }
                         plantCooldown = 2;
                     }
                     plantCooldown--;

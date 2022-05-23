@@ -1,7 +1,7 @@
 package com.sammy.malum.common.entity;
 
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
-import com.sammy.ortus.helpers.DataHelper;
+import com.sammy.ortus.helpers.EntityHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -106,7 +106,7 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public void trackPastPositions() {
-        DataHelper.trackPastPositions(pastPositions, position().add(0, getYOffset(0) + 0.25F, 0), 0.1f);
+        EntityHelper.trackPastPositions(pastPositions, position().add(0, getYOffset(0) + 0.25F, 0), 0.1f);
         int excess = pastPositions.size() - 1;
         ArrayList<Vec3> toRemove = new ArrayList<>();
         float ratio = 0.01f;

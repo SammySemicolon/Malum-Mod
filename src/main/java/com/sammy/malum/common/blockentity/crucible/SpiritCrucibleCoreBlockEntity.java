@@ -404,7 +404,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     public static Vec3 getItemPos(SpiritCrucibleCoreBlockEntity blockEntity) {
-        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
+        return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 
     public Vec3 itemOffset() {

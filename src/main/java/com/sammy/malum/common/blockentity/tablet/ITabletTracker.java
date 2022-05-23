@@ -49,13 +49,12 @@ public interface ITabletTracker {
 
     default void saveTwistedTabletData(CompoundTag compound) {
         CompoundTag twistedTabletTag = new CompoundTag();
+
         ArrayList<BlockPos> tabletPositions = getTabletPositions();
         if (!tabletPositions.isEmpty()) {
-            if (!getTabletPositions().isEmpty()) {
-                twistedTabletTag.putInt("amount", tabletPositions.size());
-                for (int i = 0; i < tabletPositions.size(); i++) {
-                    BlockHelper.saveBlockPos(twistedTabletTag, tabletPositions.get(i), "tablet_" + i);
-                }
+            twistedTabletTag.putInt("amount", tabletPositions.size());
+            for (int i = 0; i < tabletPositions.size(); i++) {
+                BlockHelper.saveBlockPos(twistedTabletTag, tabletPositions.get(i), "tablet_" + i);
             }
             compound.put("twistedTabletData", twistedTabletTag);
         }

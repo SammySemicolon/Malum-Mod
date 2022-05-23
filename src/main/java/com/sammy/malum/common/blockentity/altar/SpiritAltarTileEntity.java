@@ -227,7 +227,7 @@ public class SpiritAltarTileEntity extends OrtusBlockEntity {
     }
 
     public static Vec3 getItemPos(SpiritAltarTileEntity blockEntity) {
-        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
+        return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 
     public Vec3 itemOffset() {

@@ -54,7 +54,7 @@ public class ItemStandBlockEntity extends ItemHolderBlockEntity implements IAlta
     }
 
     public Vec3 getItemPos() {
-        return DataHelper.fromBlockPos(getBlockPos()).add(itemOffset());
+        return BlockHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
     public Vec3 itemOffset() {

@@ -41,13 +41,6 @@ public class EldritchInfernalRiteType extends MalumRiteType {
         BlockState filter = level.getBlockState(pos.below());
         Optional<SmeltingRecipe> fillerOptional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(filter.getBlock().asItem(), 1)), level);
         ArrayList<BlockPos> positions = getNearbyBlocksUnderBase(Block.class, level, pos, false);
-        positions.removeIf(p -> {
-            if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
-                return true;
-            }
-            BlockState state = level.getBlockState(p);
-            return fillerOptional.isPresent() && !filter.isAir() && !filter.is(state.getBlock());
-        });
         positions.forEach(p -> {
             BlockState state = level.getBlockState(p);
             Optional<SmeltingRecipe> optional = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(state.getBlock().asItem(), 1)), level);

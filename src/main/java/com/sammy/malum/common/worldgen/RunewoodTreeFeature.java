@@ -107,7 +107,7 @@ public class RunewoodTreeFeature extends Feature<NoneFeatureConfiguration> {
             makeLeafBlob(leavesFiller, rand, branchStartPos.above(1));
         }
         int sapBlockCount = minimumSapBlockCount + rand.nextInt(extraSapBlockCount + 1);
-        int[] sapBlockIndexes = DataHelper.nextInts(rand, sapBlockCount, treeFiller.entries.size());
+        int[] sapBlockIndexes = DataHelper.nextInts(sapBlockCount, treeFiller.entries.size());
         for (Integer index : sapBlockIndexes) {
             treeFiller.replace(index, e -> e.replaceState(BlockHelper.getBlockStateWithExistingProperties(e.state, BlockRegistry.EXPOSED_RUNEWOOD_LOG.get().defaultBlockState())));
         }

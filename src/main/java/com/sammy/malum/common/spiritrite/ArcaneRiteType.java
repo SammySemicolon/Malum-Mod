@@ -32,7 +32,7 @@ public class ArcaneRiteType extends MalumRiteType {
 
     @Override
     public int range(boolean corrupted) {
-        return defaultRange() / 4;
+        return defaultRange() / 2;
     }
 
     @Override
@@ -45,17 +45,7 @@ public class ArcaneRiteType extends MalumRiteType {
 
     @Override
     public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
-        BlockState filter = level.getBlockState(pos.below());
-        BlockTransmutationRecipe fillerRecipe = BlockTransmutationRecipe.getRecipe(level, filter.getBlock());
-        ArrayList<BlockPos> positions = getNearbyBlocks(Block.class, level, pos.above(2), 3, false);
-        positions.removeIf(p -> {
-            if (p.getX() == pos.getX() && p.getZ() == pos.getZ()) {
-                return true;
-            }
-            BlockState state = level.getBlockState(p);
-            return fillerRecipe != null && !filter.isAir() && !filter.is(state.getBlock());
-        });
-
+        ArrayList<BlockPos> positions = getNearbyBlocks(Block.class, level, pos, 2, false);
         positions.forEach(p -> {
             BlockState state = level.getBlockState(p);
             BlockTransmutationRecipe recipe = BlockTransmutationRecipe.getRecipe(level, state.getBlock());

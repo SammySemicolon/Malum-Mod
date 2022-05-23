@@ -26,11 +26,8 @@ public class TotemCreatedBlightEvent extends ActiveBlightEvent {
             level.playSound(null, sourcePos, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1f, 1.8f);
         }
         totemTakeoverTimer++;
-        if (totemTakeoverTimer % 2 == 0) {
-            if (level.random.nextBoolean()) {
-                totemTakeoverTimer--;
-            }
-            int offset = totemTakeoverTimer / 2;
+        if (totemTakeoverTimer % 4 == 0) {
+            int offset = totemTakeoverTimer / 4;
             BlockPos totemPos = sourcePos.above(offset);
             if (level.getBlockEntity(totemPos) instanceof TotemPoleTileEntity totemPoleTile) {
                 MalumSpiritType type = totemPoleTile.type;
@@ -40,18 +37,16 @@ public class TotemCreatedBlightEvent extends ActiveBlightEvent {
                 newTileEntity.create(type);
                 level.setBlockEntity(newTileEntity);
                 level.setBlockAndUpdate(totemPos, state);
-
                 level.levelEvent(null, 2001, totemPos, Block.getId(state));
                 level.playSound(null, sourcePos, SoundRegistry.MINOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1f, 1.8f);
             }
         }
         super.tick(level);
-
     }
 
     @Override
     public void end(Level level) {
-        if (totemTakeoverTimer >= 12) {
+        if (totemTakeoverTimer >= 24) {
             super.end(level);
         }
     }

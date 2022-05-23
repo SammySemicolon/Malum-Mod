@@ -8,7 +8,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 
-import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.ARCANE_SPIRIT;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.WICKED_SPIRIT;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
 public class WickedRiteType extends MalumRiteType {

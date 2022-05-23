@@ -4,8 +4,6 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
 import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
-import com.sammy.malum.core.setup.content.item.ItemTagRegistry;
-import com.sammy.ortus.setup.OrtusItemTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -327,9 +325,9 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                 .addExtraItem(ItemRegistry.TWISTED_ROCK.get(), 4)
                 .build(consumer);
 
-        metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Tags.Items.INGOTS_IRON);
-        metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Tags.Items.INGOTS_COPPER);
-        metalImpetusRecipe(consumer, ItemRegistry.GOLD_IMPETUS, Tags.Items.INGOTS_GOLD);
+        metalImpetusRecipe(consumer, ItemRegistry.IRON_IMPETUS, Items.IRON_INGOT);
+        metalImpetusRecipe(consumer, ItemRegistry.COPPER_IMPETUS, Items.COPPER_INGOT);
+        metalImpetusRecipe(consumer, ItemRegistry.GOLD_IMPETUS, Items.GOLD_INGOT);
         metalImpetusRecipe(consumer, ItemRegistry.LEAD_IMPETUS, INGOTS_LEAD);
         metalImpetusRecipe(consumer, ItemRegistry.SILVER_IMPETUS, INGOTS_SILVER);
         metalImpetusRecipe(consumer, ItemRegistry.ALUMINUM_IMPETUS, INGOTS_ALUMINUM);
@@ -351,5 +349,13 @@ public class MalumSpiritInfusionRecipes extends RecipeProvider implements ICondi
                                 ::build)
                 .generateAdvancement()
                 .build(consumer, MalumMod.prefix("impetus_creation_" + ingot.location().getPath().replace("ingots/", "")));
+    }
+    public void metalImpetusRecipe(Consumer<FinishedRecipe> consumer, RegistryObject<ImpetusItem> output, Item ingot) {
+        new SpiritInfusionRecipeBuilder(ItemRegistry.ALCHEMICAL_IMPETUS.get(), 1, output.get(), 1)
+                .addSpirit(EARTHEN_SPIRIT, 8)
+                .addSpirit(INFERNAL_SPIRIT, 8)
+                .addExtraItem(Ingredient.of(Tags.Items.GUNPOWDER), 4)
+                .addExtraItem(Ingredient.of(ingot), 6)
+                .build(consumer);
     }
 }

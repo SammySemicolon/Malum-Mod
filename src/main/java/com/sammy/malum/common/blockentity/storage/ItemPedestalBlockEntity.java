@@ -2,12 +2,11 @@ package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.common.blockentity.altar.IAltarProvider;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.ortus.helpers.BlockHelper;
-import com.sammy.ortus.helpers.DataHelper;
-import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import com.sammy.ortus.systems.blockentity.ItemHolderBlockEntity;
-import com.sammy.malum.core.helper.SpiritHelper;
+import com.sammy.ortus.systems.blockentity.OrtusBlockEntityInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -51,7 +50,7 @@ public class ItemPedestalBlockEntity extends ItemHolderBlockEntity implements IA
     }
 
     public Vec3 getItemPos() {
-        return DataHelper.fromBlockPos(getBlockPos()).add(itemOffset());
+        return BlockHelper.fromBlockPos(getBlockPos()).add(itemOffset());
     }
 
     public Vec3 itemOffset() {

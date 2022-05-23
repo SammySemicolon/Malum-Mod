@@ -11,7 +11,7 @@ public class WoodTypeRegistry {
     public static ArrayList<WoodType> WOOD_TYPES = new ArrayList<>();
     public static final WoodType RUNEWOOD = WoodType.register(new MalumWoodType("runewood"));
     public static final WoodType SOULWOOD = WoodType.register(new MalumWoodType("soulwood"));
-    
+
     static class MalumWoodType extends WoodType {
         public MalumWoodType(String nameIn) {
             super("malum:" + nameIn);

@@ -177,12 +177,12 @@ public class SpiritCatalyzerCoreBlockEntity extends MultiBlockCoreEntity impleme
 
     @Override
     public void onBreak(@Nullable Player player) {
-        inventory.dumpItems(level, DataHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
+        inventory.dumpItems(level, BlockHelper.fromBlockPos(worldPosition).add(0.5f, 0.5f, 0.5f));
         super.onBreak(player);
     }
 
     public static Vec3 getItemPos(SpiritCatalyzerCoreBlockEntity blockEntity) {
-        return DataHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
+        return BlockHelper.fromBlockPos(blockEntity.getBlockPos()).add(blockEntity.itemOffset());
     }
 
     public Vec3 itemOffset() {
