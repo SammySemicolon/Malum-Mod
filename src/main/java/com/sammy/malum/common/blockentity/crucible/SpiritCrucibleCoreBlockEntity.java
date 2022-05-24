@@ -43,8 +43,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -69,7 +68,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     public int queuedCracks;
     public int crackTimer;
 
-    public ArrayList<BlockPos> tabletPositions = new ArrayList<>();
+    public Set<BlockPos> tabletPositions = new HashSet<>();
     public ArrayList<TwistedTabletBlockEntity> twistedTablets = new ArrayList<>();
     public TwistedTabletBlockEntity validTablet;
     public int tabletFetchCooldown;
@@ -203,7 +202,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
     }
 
     @Override
-    public ArrayList<BlockPos> getTabletPositions() {
+    public Set<BlockPos> getTabletPositions() {
         return tabletPositions;
     }
 

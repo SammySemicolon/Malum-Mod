@@ -8,6 +8,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -15,7 +18,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 public interface ITabletTracker {
     ArrayList<TwistedTabletBlockEntity> getTablets();
 
-    ArrayList<BlockPos> getTabletPositions();
+    Set<BlockPos> getTabletPositions();
 
     default int getLookupRange() {
         return 4;
@@ -48,15 +51,11 @@ public interface ITabletTracker {
     }
 
     default void saveTwistedTabletData(CompoundTag compound) {
-        CompoundTag twistedTabletTag = new CompoundTag();
-        ArrayList<BlockPos> tabletPositions = getTabletPositions();
-        if (!tabletPositions.isEmpty()) {
-            if (!getTabletPositions().isEmpty()) {
-                twistedTabletTag.putInt("amount", tabletPositions.size());
-                for (int i = 0; i < tabletPositions.size(); i++) {
-                    BlockHelper.saveBlockPos(twistedTabletTag, tabletPositions.get(i), "" + i);
-                }
-            }
+        if (!getTabletPositions().isEmpty()) {
+            CompoundTag twistedTabletTag = new CompoundTag();
+            AtomicInteger tabletNumber = new AtomicInteger(0);
+            twistedTabletTag.putInt("amount", getTabletPositions().size());
+            getTabletPositions().forEach(pos -> BlockHelper.saveBlockPos(twistedTabletTag, pos, "" + tabletNumber.getAndIncrement()));
             compound.put("twistedTabletData", twistedTabletTag);
         }
     }
