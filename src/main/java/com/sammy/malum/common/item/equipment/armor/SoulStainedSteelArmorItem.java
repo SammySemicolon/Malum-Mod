@@ -42,7 +42,7 @@ public class SoulStainedSteelArmorItem extends OrtusArmorItem {
     }
 
     public String getTexture() {
-        return "soul_stained_steel";
+        return "soul_stained_steel_reforged";
     }
 
     @OnlyIn(Dist.CLIENT)
