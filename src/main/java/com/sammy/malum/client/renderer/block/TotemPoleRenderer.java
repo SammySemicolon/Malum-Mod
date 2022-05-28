@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
+import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.core.setup.content.SpiritTypeRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.handlers.RenderHandler;
@@ -24,7 +24,7 @@ import java.util.HashMap;
 import static com.sammy.ortus.helpers.RenderHelper.FULL_BRIGHT;
 
 
-public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntity> {
+public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEntity> {
     public static HashMap<MalumSpiritType, Material> overlayHashmap = new HashMap<>();
 
     public TotemPoleRenderer(BlockEntityRendererProvider.Context context) {
@@ -34,7 +34,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
     }
 
     @Override
-    public void render(TotemPoleTileEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(TotemPoleBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Direction direction = blockEntityIn.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
         if (blockEntityIn.type == null) {
             return;
@@ -53,6 +53,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleTileEntit
         poseStack.mulPose(Vector3f.YN.rotationDegrees(direction.toYRot()));
         poseStack.translate(-0.5f, -0.5f, -0.5f);
         VFXBuilders.createWorld()
+                .setPosColorTexLightmapDefaultFormat()
                 .setColor(color, alpha)
                 .setLight(FULL_BRIGHT)
                 .setUV(sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1())

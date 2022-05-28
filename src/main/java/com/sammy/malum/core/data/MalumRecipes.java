@@ -82,19 +82,12 @@ public class MalumRecipes extends RecipeProvider {
         blastingWithCount(Ingredient.of(ItemRegistry.COPPER_NODE.get()), ItemRegistry.COPPER_NUGGET.get(), 6, 0.25f, 100).unlockedBy("has_impetus", has(ItemRegistry.COPPER_IMPETUS.get())).save(consumer, prefix("copper_from_node_blasting"));
 
         nodeSmelting(consumer, ItemRegistry.LEAD_IMPETUS, ItemRegistry.LEAD_NODE, NUGGETS_LEAD);
-
         nodeSmelting(consumer, ItemRegistry.SILVER_IMPETUS, ItemRegistry.SILVER_NODE, NUGGETS_SILVER);
-
         nodeSmelting(consumer, ItemRegistry.ALUMINUM_IMPETUS, ItemRegistry.ALUMINUM_NODE, NUGGETS_ALUMINUM);
-
         nodeSmelting(consumer, ItemRegistry.NICKEL_IMPETUS, ItemRegistry.NICKEL_NODE, NUGGETS_NICKEL);
-
         nodeSmelting(consumer, ItemRegistry.URANIUM_IMPETUS, ItemRegistry.URANIUM_NODE, NUGGETS_URANIUM);
-
         nodeSmelting(consumer, ItemRegistry.OSMIUM_IMPETUS, ItemRegistry.OSMIUM_NODE, NUGGETS_OSMIUM);
-
         nodeSmelting(consumer, ItemRegistry.ZINC_IMPETUS, ItemRegistry.ZINC_NODE, NUGGETS_ZINC);
-
         nodeSmelting(consumer, ItemRegistry.TIN_IMPETUS, ItemRegistry.TIN_NODE, NUGGETS_TIN);
         //TOOLS
         shaped(ItemRegistry.SOUL_STAINED_STEEL_HOE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', ItemRegistry.SOUL_STAINED_STEEL_INGOT.get()).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_soul_stained_steel", has(ItemRegistry.SOUL_STAINED_STEEL_INGOT.get())).save(consumer);
@@ -473,13 +466,11 @@ public class MalumRecipes extends RecipeProvider {
                         (c) -> smeltingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 200).unlockedBy("has_impetus", has(impetus.get())).save(c, MalumMod.prefix(name + "_from_node_smelting")))
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.prefix(name + "_from_node_smelting"));
-
         ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location())))
                 .addRecipe(
                         (c) -> blastingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 100).unlockedBy("has_impetus", has(impetus.get())).save(c, MalumMod.prefix(name + "_from_node_blasting")))
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.prefix(name + "_from_node_blasting"));
-
     }
 
     private static void etherBrazier(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike rock, ItemLike ether) {

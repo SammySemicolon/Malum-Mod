@@ -40,7 +40,7 @@ public class ArcaneRiteType extends MalumRiteType {
         if (level.isClientSide) {
             return;
         }
-        WorldEventHandler.addWorldEvent(level, new TotemCreatedBlightEvent().setPosition(pos).setBlightData(1, 6, 3));
+        WorldEventHandler.addWorldEvent(level, new TotemCreatedBlightEvent().setPosition(pos).setBlightData(1, 4, 4));
     }
 
     @Override

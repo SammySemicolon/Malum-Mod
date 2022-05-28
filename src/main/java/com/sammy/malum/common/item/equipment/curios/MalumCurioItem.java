@@ -7,7 +7,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.sounds.SoundSource;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class MalumCurioItem extends Item implements ICurioItem {
+
+    public HashMap<Integer, UUID> uuids = new HashMap<>();
     public MalumCurioItem(Properties properties) {
         super(properties);
     }

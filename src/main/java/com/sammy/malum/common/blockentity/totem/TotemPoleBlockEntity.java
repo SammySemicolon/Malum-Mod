@@ -5,6 +5,7 @@ import com.sammy.malum.common.packets.particle.BlockParticlePacket;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.content.SoundRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
+import com.sammy.malum.core.setup.content.item.ItemRegistry;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
@@ -20,6 +21,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,9 +34,10 @@ import java.awt.*;
 
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 
-public class TotemPoleTileEntity extends OrtusBlockEntity {
+public class TotemPoleBlockEntity extends OrtusBlockEntity {
 
     public MalumSpiritType type;
+    public boolean haunted;
     public int desiredColor;
     public int currentColor;
     public int baseLevel;
@@ -42,23 +45,55 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
     public Block logBlock;
     public Direction direction;
 
-    public TotemPoleTileEntity(BlockEntityType<? extends TotemPoleTileEntity> type, BlockPos pos, BlockState state) {
+    public TotemPoleBlockEntity(BlockEntityType<? extends TotemPoleBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.corrupted = ((TotemPoleBlock<?>) state.getBlock()).corrupted;
         this.logBlock = ((TotemPoleBlock<?>) state.getBlock()).logBlock.get();
         this.direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
     }
 
-    public TotemPoleTileEntity(BlockPos pos, BlockState state) {
+    public TotemPoleBlockEntity(BlockPos pos, BlockState state) {
         this(BlockEntityRegistry.TOTEM_POLE.get(), pos, state);
     }
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        if (player.getItemInHand(hand).canPerformAction(ToolActions.AXE_STRIP)) {
+        ItemStack held = player.getItemInHand(hand);
+        if (held.getItem().equals(ItemRegistry.HEX_ASH.get()) && desiredColor < 20) {
+            if (level.isClientSide) {
+                return InteractionResult.SUCCESS;
+            }
+            held.shrink(1);
+            haunted = true;
+            desiredColor += 5;
+            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+            level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
+            if (corrupted) {
+                level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
+            }
+            BlockHelper.updateState(level, worldPosition);
+            return InteractionResult.SUCCESS;
+        }
+        if (held.canPerformAction(ToolActions.AXE_STRIP)) {
+            if (haunted) {
+                if (level.isClientSide) {
+                    return InteractionResult.SUCCESS;
+                }
+                desiredColor -= 5;
+                if (desiredColor == 0) {
+                    haunted = false;
+                }
+                INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+                level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
+                if (corrupted) {
+                    level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
+                }
+                BlockHelper.updateState(level, worldPosition);
+                return InteractionResult.SUCCESS;
+            }
             if (type != null) {
                 if (level.isClientSide) {
-                    return InteractionResult.CONSUME;
+                    return InteractionResult.SUCCESS;
                 }
                 level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
                 INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
@@ -125,6 +160,7 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
         this.desiredColor = 10;
         this.baseLevel = worldPosition.getY() - height;
+        this.haunted = false;
         BlockHelper.updateState(level, worldPosition);
     }
 
@@ -144,7 +180,7 @@ public class TotemPoleTileEntity extends OrtusBlockEntity {
             return;
         }
         BlockPos basePos = new BlockPos(worldPosition.getX(), baseLevel, worldPosition.getZ());
-        if (level.getBlockEntity(basePos) instanceof TotemBaseTileEntity base) {
+        if (level.getBlockEntity(basePos) instanceof TotemBaseBlockEntity base) {
             if (base.active) {
                 base.endRite();
             }

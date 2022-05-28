@@ -23,10 +23,9 @@ import com.sammy.malum.common.blockentity.obelisk.BrilliantObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.obelisk.RunewoodObeliskBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCatalyzerCoreBlockEntity;
 import com.sammy.malum.common.blockentity.crucible.SpiritCrucibleCoreBlockEntity;
-import com.sammy.malum.common.blockentity.totem.TotemBaseTileEntity;
-import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
+import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
+import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.blockentity.tablet.TwistedTabletBlockEntity;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -65,8 +64,8 @@ public class BlockEntityRegistry {
 
     public static final RegistryObject<BlockEntityType<EmitterMirrorBlockEntity>> EMITTER_MIRROR = BLOCK_ENTITY_TYPES.register("emitter_mirror", () -> BlockEntityType.Builder.of(EmitterMirrorBlockEntity::new, getBlocks(EmitterMirrorBlock.class)).build(null));
 
-    public static final RegistryObject<BlockEntityType<TotemBaseTileEntity>> TOTEM_BASE = BLOCK_ENTITY_TYPES.register("totem_base", () -> BlockEntityType.Builder.of(TotemBaseTileEntity::new, getBlocks(TotemBaseBlock.class)).build(null));
-    public static final RegistryObject<BlockEntityType<TotemPoleTileEntity>> TOTEM_POLE = BLOCK_ENTITY_TYPES.register("totem_pole", () -> BlockEntityType.Builder.of(TotemPoleTileEntity::new, getBlocks(TotemPoleBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<TotemBaseBlockEntity>> TOTEM_BASE = BLOCK_ENTITY_TYPES.register("totem_base", () -> BlockEntityType.Builder.of(TotemBaseBlockEntity::new, getBlocks(TotemBaseBlock.class)).build(null));
+    public static final RegistryObject<BlockEntityType<TotemPoleBlockEntity>> TOTEM_POLE = BLOCK_ENTITY_TYPES.register("totem_pole", () -> BlockEntityType.Builder.of(TotemPoleBlockEntity::new, getBlocks(TotemPoleBlock.class)).build(null));
 
 
     public static Block[] getBlocks(Class<?>... blockClasses) {

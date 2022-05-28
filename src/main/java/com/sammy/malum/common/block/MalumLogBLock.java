@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block;
 
-import com.sammy.malum.common.blockentity.totem.TotemPoleTileEntity;
+import com.sammy.malum.common.blockentity.totem.TotemPoleBlockEntity;
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
 import com.sammy.ortus.systems.block.OrtusLogBlock;
 import net.minecraft.core.BlockPos;
@@ -40,7 +40,7 @@ public class MalumLogBLock extends OrtusLogBlock {
 
     public void createTotemPole(Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit, ItemStack stack, MalumSpiritItem spirit) {
         level.setBlockAndUpdate(pos, spirit.type.getBlockState(isCorrupt, hit));
-        if (level.getBlockEntity(pos) instanceof TotemPoleTileEntity blockEntity) {
+        if (level.getBlockEntity(pos) instanceof TotemPoleBlockEntity blockEntity) {
             blockEntity.create(spirit.type);
         }
         if (!player.isCreative()) {

@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -53,6 +54,7 @@ public abstract class FloatingEntity extends Entity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.putInt("age", age);
+        compound.putInt("maxAge", maxAge);
         compound.putFloat("moveTime", moveTime);
         compound.putInt("range", range);
         compound.putFloat("windUp", windUp);
@@ -64,6 +66,7 @@ public abstract class FloatingEntity extends Entity {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         age = compound.getInt("age");
+        maxAge = compound.getInt("maxAge");
         moveTime = compound.getFloat("moveTime");
         int range = compound.getInt("range");
         if (range > 0) {
@@ -95,7 +98,7 @@ public abstract class FloatingEntity extends Entity {
             windUp += 0.02f;
         }
         if (age > maxAge) {
-            remove(RemovalReason.KILLED);
+            discard();
         }
         if (level.isClientSide) {
             double x = getX(), y = getY() + getYOffset(0) + 0.25f, z = getZ();
@@ -148,6 +151,7 @@ public abstract class FloatingEntity extends Entity {
         this.setXRot(lerpRotation(this.xRotO, (float) (Mth.atan2(movement.y, distance) * (double) (180F / (float) Math.PI))));
         this.setYRot(lerpRotation(this.yRotO, (float) (Mth.atan2(movement.x, movement.z) * (double) (180F / (float) Math.PI))));
         this.setPos(nextX, nextY, nextZ);
+        ProjectileUtil.rotateTowardsMovement(this, 0.2F);
     }
 
     protected static float lerpRotation(float p_37274_, float p_37275_) {

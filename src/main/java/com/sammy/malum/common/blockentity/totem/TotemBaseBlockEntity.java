@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 import static com.sammy.malum.core.setup.server.PacketRegistry.INSTANCE;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
-public class TotemBaseTileEntity extends OrtusBlockEntity {
+public class TotemBaseBlockEntity extends OrtusBlockEntity {
 
     public MalumRiteType rite;
     public ArrayList<MalumSpiritType> spirits = new ArrayList<>();
@@ -40,11 +40,11 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
     public boolean corrupted;
     public Direction direction;
 
-    public TotemBaseTileEntity(BlockEntityType<? extends TotemBaseTileEntity> type, BlockPos pos, BlockState state) {
+    public TotemBaseBlockEntity(BlockEntityType<? extends TotemBaseBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.corrupted = ((TotemBaseBlock<?>) state.getBlock()).corrupted;
     }
-    public TotemBaseTileEntity(BlockPos pos, BlockState state) {
+    public TotemBaseBlockEntity(BlockPos pos, BlockState state) {
         this(BlockEntityRegistry.TOTEM_BASE.get(), pos, state);
     }
 
@@ -65,7 +65,7 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
                 if (progress <= 0) {
                     height++;
                     BlockPos polePos = worldPosition.above(height);
-                    if (level.getBlockEntity(polePos) instanceof TotemPoleTileEntity pole) {
+                    if (level.getBlockEntity(polePos) instanceof TotemPoleBlockEntity pole) {
                         addPole(pole);
                     } else {
                         MalumRiteType rite = SpiritRiteRegistry.getRite(spirits);
@@ -87,7 +87,7 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
     public void onBreak(@Nullable Player player) {
         if (!level.isClientSide) {
             poles.forEach(p -> {
-                if (level.getBlockEntity(p) instanceof TotemPoleTileEntity pole) {
+                if (level.getBlockEntity(p) instanceof TotemPoleBlockEntity pole) {
                     pole.riteEnding();
                 }
             });
@@ -152,7 +152,7 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
         super.load(compound);
     }
 
-    public void addPole(TotemPoleTileEntity pole) {
+    public void addPole(TotemPoleBlockEntity pole) {
         Direction direction = pole.getBlockState().getValue(HORIZONTAL_FACING);
         if (poles.isEmpty()) {
             this.direction = direction;
@@ -168,8 +168,8 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
 
     public void disableOtherRites(MalumRiteType rite) {
         int range = rite.range(corrupted);
-        List<TotemBaseTileEntity> totemBases = BlockHelper.getBlocks(worldPosition, range, b -> level.getBlockEntity(b) instanceof TotemBaseTileEntity && !b.equals(worldPosition)).stream().map(b -> (TotemBaseTileEntity) level.getBlockEntity(b)).collect(Collectors.toCollection(ArrayList::new));
-        for (TotemBaseTileEntity blockEntity : totemBases) {
+        List<TotemBaseBlockEntity> totemBases = BlockHelper.getBlocks(worldPosition, range, b -> level.getBlockEntity(b) instanceof TotemBaseBlockEntity && !b.equals(worldPosition)).stream().map(b -> (TotemBaseBlockEntity) level.getBlockEntity(b)).collect(Collectors.toCollection(ArrayList::new));
+        for (TotemBaseBlockEntity blockEntity : totemBases) {
             if (rite.equals(blockEntity.rite)) {
                 blockEntity.endRite();
             }
@@ -180,7 +180,7 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ACTIVATED.get(), SoundSource.BLOCKS, 1, 0.75f + height * 0.1f);
         INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new TotemParticlePacket(spirits.stream().map(MalumSpiritType::getColor).collect(Collectors.toCollection(ArrayList::new)), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ()));
         poles.forEach(p -> {
-            if (level.getBlockEntity(p) instanceof TotemPoleTileEntity pole) {
+            if (level.getBlockEntity(p) instanceof TotemPoleBlockEntity pole) {
                 pole.riteComplete();
             }
         });
@@ -208,7 +208,7 @@ public class TotemBaseTileEntity extends OrtusBlockEntity {
 
     public void resetRite() {
         poles.forEach(p -> {
-            if (level.getBlockEntity(p) instanceof TotemPoleTileEntity pole) {
+            if (level.getBlockEntity(p) instanceof TotemPoleBlockEntity pole) {
                 pole.riteEnding();
             }
         });

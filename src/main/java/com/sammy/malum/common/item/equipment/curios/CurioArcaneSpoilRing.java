@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import java.util.UUID;
 
 public class CurioArcaneSpoilRing extends MalumCurioItem {
+
+
     public CurioArcaneSpoilRing(Properties builder) {
         super(builder);
     }

@@ -32,8 +32,8 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> map = HashMultimap.create();
-        map.put(OrtusAttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(UUID.randomUUID(), "Curio magic resistance", 2f, AttributeModifier.Operation.ADDITION));
-        map.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(UUID.randomUUID(), "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
+        map.put(OrtusAttributeRegistry.MAGIC_RESISTANCE.get(), new AttributeModifier(uuids.computeIfAbsent(0, (i) -> UUID.randomUUID()), "Curio magic resistance", 2f, AttributeModifier.Operation.ADDITION));
+        map.put(AttributeRegistry.SOUL_WARD_CAP.get(), new AttributeModifier(uuids.computeIfAbsent(1, (i) -> UUID.randomUUID()), "Soul Ward Cap", 3f, AttributeModifier.Operation.ADDITION));
         return map;
     }
 

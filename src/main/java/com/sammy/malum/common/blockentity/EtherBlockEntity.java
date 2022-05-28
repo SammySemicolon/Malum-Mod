@@ -137,48 +137,60 @@ public class EtherBlockEntity extends OrtusBlockEntity {
             ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
                     .setScale(scale, 0)
                     .setLifetime(lifeTime)
-                    .setAlpha(0.8f, 0.5f)
+                    .setAlpha(0.75f, 0.25f)
                     .setColor(firstColor, secondColor)
-                    .setColorCoefficient(0.8f)
-                    .setColorEasing(Easing.CIRC_OUT)
+                    .setColorCoefficient(1.4f)
+                    .setColorEasing(Easing.BOUNCE_IN_OUT)
                     .setSpinOffset((level.getGameTime() * 0.2f) % 6.28f)
                     .setSpin(0, 0.4f)
                     .setSpinEasing(Easing.QUARTIC_IN)
                     .addMotion(0, velocity, 0)
                     .enableNoClip()
                     .spawn(level, x, y, z);
+
             ParticleBuilders.create(OrtusParticleRegistry.SPARKLE_PARTICLE)
-                    .setScale(scale * 2, 0)
+                    .setScale(scale * 2, scale * 0.1f)
                     .setLifetime(lifeTime)
                     .setAlpha(0.2f)
                     .setColor(firstColor, secondColor)
-                    .setColorCoefficient(1.5f)
+                    .setColorEasing(Easing.EXPO_OUT)
+                    .setColorCoefficient(1.25f)
                     .setAlphaCoefficient(1.5f)
                     .setSpin(0, 2)
                     .setSpinEasing(Easing.QUARTIC_IN)
                     .enableNoClip()
                     .spawn(level, x, y, z);
-            if (level.getGameTime() % 2L == 0 && level.random.nextFloat() < 0.25f) {
+            if (level.getGameTime() % 2L == 0) {
                 y += 0.15f;
-                ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
-                        .setScale(0.75f, 0)
-                        .setColor(firstColor, secondColor)
-                        .setColorCoefficient(2f)
-                        .setAlphaCoefficient(3f)
-                        .randomOffset(0.15f, 0.2f)
-                        .addMotion(0, 0.03f, 0)
-                        .enableNoClip()
-                        .spawn(level, x, y, z);
-                ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
-                        .setScale(0.5f, 0)
-                        .setColor(firstColor, secondColor)
-                        .setColorCoefficient(3f)
-                        .setAlphaCoefficient(3f)
-                        .randomOffset(0.15f, 0.2f)
-                        .addMotion(0, velocity, 0)
+                if (level.random.nextFloat() < 0.5f) {
+                    ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                            .setScale(0.5f, 0.75f, 0)
+                            .setColor(firstColor, secondColor)
+                            .setColorCoefficient(1.5f)
+                            .setAlpha(0.5f, 1f, 0)
+                            .setAlphaEasing(Easing.SINE_IN, Easing.QUAD_IN)
+                            .setAlphaCoefficient(3.5f)
+                            .randomOffset(0.1f, 0.2f)
+                            .addMotion(0, 0.01f, 0)
+                            .setMotionCoefficient(0.975f)
+                            .enableNoClip()
+                            .spawn(level, x, y, z);
+                }
+                if (level.random.nextFloat() < 0.25f) {
+                    ParticleBuilders.create(ParticleRegistry.SPIRIT_FLAME_PARTICLE)
+                            .setScale(0.3f, 0.5f, 0)
+                            .setColor(firstColor, secondColor)
+                            .setColorCoefficient(2f)
+                            .setAlpha(0.5f, 1f, 0)
+                            .setAlphaEasing(Easing.SINE_IN, Easing.CIRC_IN_OUT)
+                            .setAlphaCoefficient(3.5f)
+                            .randomOffset(0.125f, 0.2f)
+                            .addMotion(0, velocity / 2f, 0)
+                            .setMotionCoefficient(0.97f)
 
-                        .enableNoClip()
-                        .spawn(level, x, y, z);
+                            .enableNoClip()
+                            .spawn(level, x, y, z);
+                }
             }
         }
     }
