@@ -1,0 +1,18 @@
+{
+  "registry_name": "graveyard:skeleton_creeper",
+  "primary_type": "arcane",
+  "spirits": [
+    {
+      "spirit": "infernal",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    }
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}
