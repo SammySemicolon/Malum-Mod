@@ -1,5 +1,5 @@
 {
-  "registry_name": "bosses_of_mass_destruction:gauntlet",
+  "registry_name": "bosses_of_mass_destruction:obsidilith",
   "primary_type": "earthen",
   "spirits": [
     {
@@ -13,10 +13,10 @@
     {
       "spirit": "earthen",
       "count": 7
-    }
+    },
     {
       "spirit": "sacred",
       "count": 1
-    },
+    }
   ]
 }
