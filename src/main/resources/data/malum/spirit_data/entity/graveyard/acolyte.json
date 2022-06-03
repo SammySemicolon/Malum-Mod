@@ -1,11 +1,7 @@
 {
   "registry_name": "graveyard:acolyte",
-  "primary_type": "eldritch",
+  "primary_type": "wicked",
   "spirits": [
-    {
-      "spirit": "eldritch",
-      "count": 1
-    },
     {
       "spirit": "wicked",
       "count": 2
