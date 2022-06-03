@@ -1,0 +1,14 @@
+{
+  "registry_name": "tconstruct:ender_slime",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

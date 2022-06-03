@@ -1,0 +1,14 @@
+{
+  "registry_name": "tconstruct:sky_slime",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    }
+  ]
+}
