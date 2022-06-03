@@ -1,0 +1,14 @@
+{
+  "registry_name": "betterend:end_fish",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    },
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

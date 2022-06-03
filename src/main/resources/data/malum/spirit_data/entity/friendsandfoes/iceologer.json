@@ -1,0 +1,18 @@
+{
+  "registry_name": "friendsandfoes:iceologer",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 1
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "wicked",
+      "count": 2
+    }
+  ]
+}
