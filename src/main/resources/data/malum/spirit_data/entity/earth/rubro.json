@@ -1,0 +1,11 @@
+
+{
+  "registry_name": "earth:rubro",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 4
+    }
+  ]
+}

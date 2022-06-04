@@ -1,0 +1,14 @@
+{
+  "registry_name": "friendsandfoes:mauler",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 4
+    },
+    {
+      "spirit": "wicked",
+      "count": 1
+    }
+  ]
+}

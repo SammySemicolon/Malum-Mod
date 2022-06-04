@@ -1,0 +1,10 @@
+{
+  "registry_name": "betterend:cobozoa",
+  "primary_type": "aqueous",
+  "spirits": [
+    {
+      "spirit": "aqueous",
+      "count": 2
+    }
+  ]
+}

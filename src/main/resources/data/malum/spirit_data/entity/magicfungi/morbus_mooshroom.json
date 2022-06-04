@@ -1,0 +1,14 @@
+{
+  "registry_name": "magicfungi:morbus_mooshroom",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "earthen",
+      "count": 3
+    },
+    {
+      "spirit": "eldritch",
+      "count": 2
+    }
+  ]
+}

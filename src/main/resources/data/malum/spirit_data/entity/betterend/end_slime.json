@@ -1,0 +1,10 @@
+{
+  "registry_name": "betterend:end_slime",
+  "primary_type": "eldritch",
+  "spirits": [
+    {
+      "spirit": "eldritch",
+      "count": 1
+    }
+  ]
+}

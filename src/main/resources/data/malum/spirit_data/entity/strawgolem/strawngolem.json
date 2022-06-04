@@ -1,0 +1,14 @@
+{
+  "registry_name": "strawgolem:strawnggolem",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "sacred",
+      "count": 4
+    },
+    {
+      "spirit": "earthen",
+      "count": 8
+    }
+  ]
+}
