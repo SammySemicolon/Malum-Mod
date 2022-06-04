@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
@@ -44,15 +45,21 @@ public class FloatingItemEntityRenderer extends EntityRenderer<FloatingItemEntit
     public void render(FloatingItemEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
         ArrayList<Vec3> positions = new ArrayList<>(entity.pastPositions);
+        entity.movePastPositions(positions, partialTicks);
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld();
+
+        float x = (float)Mth.lerp(partialTicks, entity.xOld, entity.getX());
+        float y = (float)Mth.lerp(partialTicks, entity.yOld, entity.getY());
+        float z = (float)Mth.lerp(partialTicks, entity.zOld, entity.getZ());
+        positions.add(0, entity.position());
 
         int amount = 3;
         for (int i = 0; i < amount; i++) {
             float index = (amount - 1) - i;
-            float size = index * 0.15f + (float) Math.exp(index * 0.3f);
+            float size = index * 0.2f;
             float alpha = 0.1f * (float) Math.exp(i * 0.3f);
             Color color = entity.startColor;
-            builder.setColor(color).setOffset((float) -entity.getX(), (float) -entity.getY(), (float) -entity.getZ())
+            builder.setColor(color).setOffset(-x, -y, -z)
                     .setAlpha(alpha)
                     .renderTrail(DELAYED_RENDER.getBuffer(LIGHT_TYPE), poseStack, positions.stream().map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList()), f -> f * size)
                     .renderTrail(DELAYED_RENDER.getBuffer(LIGHT_TYPE), poseStack, positions.stream().map(p -> new Vector4f((float) p.x, (float) p.y, (float) p.z, 1)).collect(Collectors.toList()), f -> Easing.QUARTIC_IN_OUT.ease(f, 0, size, 1));

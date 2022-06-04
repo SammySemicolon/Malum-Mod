@@ -109,25 +109,28 @@ public abstract class FloatingEntity extends Entity {
     }
 
     public void trackPastPositions() {
-        EntityHelper.trackPastPositions(pastPositions, position().add(0, getYOffset(0) + 0.25F, 0), 0.1f);
+        EntityHelper.trackPastPositions(pastPositions, position().add(0, getYOffset(0) + 0.25F, 0), 0.01f);
+        movePastPositions(pastPositions, 1f);
+    }
+    public void movePastPositions(ArrayList<Vec3> pastPositions, float coefficient) {
+        //TODO: this algorithm is pretty bad, it's got quite a few design flaws in it. Figure out a better way to manipulate past positions towards the entity
         int excess = pastPositions.size() - 1;
         ArrayList<Vec3> toRemove = new ArrayList<>();
-        float ratio = 0.01f;
         for (int i = 0; i < excess; i++) {
-            float progress = (float) Math.min(1, ratio * ((excess - i) * (Math.exp((Math.max(0, excess - 20))))));
+            float progress = 0.08f + excess * 0.01f;
+            progress *= coefficient;
             Vec3 excessPosition = pastPositions.get(i);
             Vec3 nextExcessPosition = pastPositions.get(i + 1);
-            Vec3 offset = nextExcessPosition.subtract(excessPosition).normalize().multiply(progress,progress,progress);
+            Vec3 offset = nextExcessPosition.subtract(excessPosition).normalize().multiply(progress, progress, progress);
             Vec3 newPos = excessPosition.add(offset);
             pastPositions.set(i, newPos);
             float excessDistance = (float) excessPosition.distanceTo(nextExcessPosition);
-            if (excessDistance < 0.05f) {
+            if (excessDistance < 0.1f || (excess >= 15 && i == 0)) {
                 toRemove.add(pastPositions.get(i));
             }
         }
         pastPositions.removeAll(toRemove);
     }
-
     public void baseTick() {
         BlockHitResult result = level.clip(new ClipContext(position(), position().add(getDeltaMovement()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
         if (result.getType() == HitResult.Type.BLOCK) {

@@ -8,10 +8,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-public class CorruptedEarthenAura extends MobEffect {
-    public CorruptedEarthenAura() {
-        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.EARTHEN_SPIRIT.getColor()));
-        addAttributeModifier(Attributes.ATTACK_DAMAGE, "e2a25284-a8b1-41a5-9472-90cc83793d44", 1, AttributeModifier.Operation.ADDITION);
+public class CorruptedInfernalAura extends MobEffect {
+    public CorruptedInfernalAura() {
+        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.INFERNAL_SPIRIT.getColor()));
     }
 
     @Override

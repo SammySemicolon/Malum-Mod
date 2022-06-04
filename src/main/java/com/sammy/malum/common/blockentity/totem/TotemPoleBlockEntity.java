@@ -59,14 +59,17 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
         ItemStack held = player.getItemInHand(hand);
-        if (held.getItem().equals(ItemRegistry.HEX_ASH.get()) && desiredColor < 20) {
+        if (held.getItem().equals(ItemRegistry.HEX_ASH.get()) && !haunted) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }
-            held.shrink(1);
+            if (!player.isCreative()) {
+                held.shrink(1);
+            }
             haunted = true;
-            desiredColor += 5;
+            desiredColor = 20;
             INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+            level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
             level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
             if (corrupted) {
                 level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
@@ -79,10 +82,8 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
                 if (level.isClientSide) {
                     return InteractionResult.SUCCESS;
                 }
-                desiredColor -= 5;
-                if (desiredColor == 0) {
-                    haunted = false;
-                }
+                desiredColor = 0;
+                haunted = false;
                 INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(worldPosition)), new BlockParticlePacket(type.getColor(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
                 level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, 1);
                 if (corrupted) {
@@ -171,6 +172,7 @@ public class TotemPoleBlockEntity extends OrtusBlockEntity {
 
     public void riteEnding() {
         this.desiredColor = 0;
+        this.haunted = false;
         BlockHelper.updateState(level, worldPosition);
     }
 

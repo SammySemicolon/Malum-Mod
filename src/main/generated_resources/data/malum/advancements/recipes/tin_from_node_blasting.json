@@ -11,38 +11,8 @@
         }
       ],
       "advancement": {
-        "parent": "minecraft:recipes/root",
-        "rewards": {
-          "recipes": [
-            "malum:tin_from_node_blasting"
-          ]
-        },
-        "criteria": {
-          "has_impetus": {
-            "trigger": "minecraft:inventory_changed",
-            "conditions": {
-              "items": [
-                {
-                  "items": [
-                    "malum:tin_impetus"
-                  ]
-                }
-              ]
-            }
-          },
-          "has_the_recipe": {
-            "trigger": "minecraft:recipe_unlocked",
-            "conditions": {
-              "recipe": "malum:tin_from_node_blasting"
-            }
-          }
-        },
-        "requirements": [
-          [
-            "has_impetus",
-            "has_the_recipe"
-          ]
-        ]
+        "criteria": {},
+        "requirements": []
       }
     }
   ]

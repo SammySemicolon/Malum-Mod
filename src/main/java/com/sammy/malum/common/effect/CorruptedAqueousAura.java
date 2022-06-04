@@ -6,12 +6,11 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraftforge.common.ForgeMod;
 
-public class CorruptedEarthenAura extends MobEffect {
-    public CorruptedEarthenAura() {
-        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.EARTHEN_SPIRIT.getColor()));
-        addAttributeModifier(Attributes.ATTACK_DAMAGE, "e2a25284-a8b1-41a5-9472-90cc83793d44", 1, AttributeModifier.Operation.ADDITION);
+public class CorruptedAqueousAura extends MobEffect {
+    public CorruptedAqueousAura() {
+        super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(SpiritTypeRegistry.AQUEOUS_SPIRIT.getColor()));
     }
 
     @Override

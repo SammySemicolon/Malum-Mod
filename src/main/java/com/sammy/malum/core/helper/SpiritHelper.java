@@ -1,5 +1,6 @@
 package com.sammy.malum.core.helper;
 
+import com.mojang.math.Vector3f;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
 import com.sammy.malum.core.listeners.SpiritDataReloadListener;
@@ -173,16 +174,16 @@ public class SpiritHelper {
                 .repeat(level, x, y, z, 1);
 
         ParticleBuilders.create(OrtusParticleRegistry.WISP_PARTICLE)
-                .setAlpha(0.1f * alphaMultiplier, 0f)
+                .setAlpha(0.2f * alphaMultiplier, 0f)
                 .setLifetime(20 + rand.nextInt(4))
                 .setSpin(nextFloat(rand, 0.05f, 0.1f))
-                .setScale(0.2f + rand.nextFloat() * 0.05f, 0)
+                .setScale(0.05f + rand.nextFloat() * 0.025f, 0)
                 .setColor(color, endColor)
                 .setColorCoefficient(1.25f)
-                .randomOffset(0.1f)
+                .randomOffset(0.02f)
                 .enableNoClip()
                 .addMotion(extraVelocity.x, extraVelocity.y, extraVelocity.z)
-                .randomMotion(0.02f, 0.02f)
+                .randomMotion(0.01f, 0.01f)
                 .repeat(level, x, y, z, 1)
                 .setAlpha(0.2f * alphaMultiplier, 0f)
                 .setLifetime(10 + rand.nextInt(2))
@@ -190,6 +191,7 @@ public class SpiritHelper {
                 .setScale(0.15f + rand.nextFloat() * 0.05f, 0f)
                 .randomMotion(0.01f, 0.01f)
                 .repeat(level, x, y, z, 1);
+
     }
 
     public static void spawnSoulParticles(Level level, double x, double y, double z, Color color, Color endColor) {

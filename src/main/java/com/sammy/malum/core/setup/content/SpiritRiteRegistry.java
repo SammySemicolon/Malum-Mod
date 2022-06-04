@@ -1,6 +1,7 @@
 package com.sammy.malum.core.setup.content;
 
 import com.sammy.malum.common.spiritrite.*;
+import com.sammy.malum.common.spiritrite.greater.*;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 

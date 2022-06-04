@@ -1,12 +1,14 @@
 package com.sammy.malum.common.blockentity.storage;
 
 import com.sammy.malum.common.item.spirit.MalumSpiritItem;
+import com.sammy.malum.common.item.spirit.SpiritPouchItem;
 import com.sammy.malum.core.helper.SpiritHelper;
 import com.sammy.malum.core.setup.client.ParticleRegistry;
 import com.sammy.malum.core.setup.content.block.BlockEntityRegistry;
 import com.sammy.ortus.helpers.BlockHelper;
 import com.sammy.ortus.setup.OrtusParticleRegistry;
 import com.sammy.ortus.systems.blockentity.OrtusBlockEntity;
+import com.sammy.ortus.systems.container.ItemInventory;
 import com.sammy.ortus.systems.rendering.particle.ParticleBuilders;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.core.BlockPos;
@@ -15,6 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -39,11 +42,38 @@ public class SpiritJarBlockEntity extends OrtusBlockEntity {
 
     @Override
     public InteractionResult onUse(Player player, InteractionHand hand) {
-        ItemStack heldItem = player.getItemInHand(hand);
-        if (heldItem.getItem() instanceof MalumSpiritItem spiritSplinterItem) {
+        ItemStack heldStack = player.getItemInHand(hand);
+        Item heldItem = heldStack.getItem();
+        if (heldItem instanceof SpiritPouchItem) {
+            if (type != null) {
+                ItemInventory inventory = SpiritPouchItem.getInventory(heldStack);
+                boolean successful = false;
+                for (int i = 0; i < inventory.getContainerSize(); i++) {
+                    ItemStack stack = inventory.getItem(i);
+                    if (stack.getItem() instanceof MalumSpiritItem spiritItem) {
+                        MalumSpiritType type = spiritItem.type;
+                        if (type.identifier.equals(this.type.identifier)) {
+                            inventory.setItem(i, ItemStack.EMPTY);
+                            count += stack.getCount();
+                            successful = true;
+                        }
+                    }
+                }
+                if (successful) {
+                    spawnUseParticles(level, worldPosition, type);
+                    BlockHelper.updateAndNotifyState(level, worldPosition);
+                    return InteractionResult.SUCCESS;
+                }
+                else
+                {
+                    return InteractionResult.PASS;
+                }
+            }
+        }
+        else if (heldItem instanceof MalumSpiritItem spiritSplinterItem) {
             if (type == null || type.equals(spiritSplinterItem.type)) {
                 type = spiritSplinterItem.type;
-                count += heldItem.getCount();
+                count += heldStack.getCount();
                 if (!player.level.isClientSide) {
                     player.setItemInHand(hand, ItemStack.EMPTY);
                     BlockHelper.updateAndNotifyState(level, worldPosition);

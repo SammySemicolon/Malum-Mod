@@ -28,10 +28,12 @@ public class MalumAttributeEventHandler {
                     return;
                 }
             }
-            if (stack.getItem() instanceof MalumScytheItem) {
-                AttributeInstance scytheProficiency = attacker.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
-                if (scytheProficiency != null && scytheProficiency.getValue() > 0) {
-                    event.setAmount((float) (amount + scytheProficiency.getValue() * 0.5f));
+            if (!event.getSource().isMagic()) {
+                if (stack.getItem() instanceof MalumScytheItem) {
+                    AttributeInstance scytheProficiency = attacker.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
+                    if (scytheProficiency != null && scytheProficiency.getValue() > 0) {
+                        event.setAmount((float) (amount + scytheProficiency.getValue() * 0.5f));
+                    }
                 }
             }
         }

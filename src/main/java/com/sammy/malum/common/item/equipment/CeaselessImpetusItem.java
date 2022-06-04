@@ -6,6 +6,7 @@ import com.sammy.malum.core.systems.item.IMalumEventResponderItem;
 import com.sammy.ortus.helpers.EntityHelper;
 import com.sammy.ortus.helpers.ItemHelper;
 import com.sammy.ortus.network.TotemOfUndyingEffectPacket;
+import com.sammy.ortus.setup.OrtusPacketRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -40,8 +41,8 @@ public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResp
         }
     }
 
-    public static boolean checkTotemDeathProtection(Player player, DamageSource p_21263_) {
-        if (p_21263_.isBypassInvul()) {
+    public static boolean checkTotemDeathProtection(Player player, DamageSource damageSource) {
+        if (damageSource.isBypassInvul()) {
             return false;
         } else {
             ItemStack itemstack = null;
@@ -62,7 +63,7 @@ public class CeaselessImpetusItem extends ImpetusItem implements IMalumEventResp
                 if (player instanceof ServerPlayer serverplayer) {
                     serverplayer.awardStat(Stats.ITEM_USED.get(itemstack.getItem()), 1);
                     CriteriaTriggers.USED_TOTEM.trigger(serverplayer, itemstack);
-                    INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverplayer), new TotemOfUndyingEffectPacket(player, itemstack));
+                    OrtusPacketRegistry.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverplayer), new TotemOfUndyingEffectPacket(player, itemstack));
                 }
 
                 player.setHealth(2.0F);

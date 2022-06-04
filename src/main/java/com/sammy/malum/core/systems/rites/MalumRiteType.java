@@ -1,78 +1,58 @@
 package com.sammy.malum.core.systems.rites;
 
+import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
-import com.sammy.ortus.helpers.BlockHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MalumRiteType {
-    public ArrayList<MalumSpiritType> spirits;
-    public String identifier;
+public abstract class MalumRiteType {
+    public final ArrayList<MalumSpiritType> spirits;
+    public final String identifier;
+    public final MalumRiteEffect effect;
+    public final MalumRiteEffect corruptedEffect;
 
     public MalumRiteType(String identifier, MalumSpiritType... spirits) {
         this.identifier = identifier;
         this.spirits = new ArrayList<>(Arrays.asList(spirits));
+        effect = getNaturalRiteEffect();
+        corruptedEffect = getCorruptedEffect();
     }
 
     public String translationIdentifier() {
         return "malum.gui.rite." + identifier;
     }
 
-    public boolean oneAndDone(boolean corrupted) {
-        return false;
+    public MalumSpiritType getSpirit() {
+        return spirits.get(spirits.size() - 1);
     }
 
-    public int defaultRange() {
-        return 8;
+    public boolean isOneAndDone(boolean corrupted) {
+        return getRiteEffect(corrupted).isOneAndDone();
     }
 
-    public int range(boolean corrupted) {
-        return defaultRange();
+    public BlockPos getRiteEffectCenter(TotemBaseBlockEntity totemBase) {
+        return getRiteEffect(totemBase.corrupted).getRiteEffectCenter(totemBase);
     }
 
-    public int defaultInterval() {
-        return 20;
+    public int getRiteRadius(boolean corrupted) {
+        return getRiteEffect(corrupted).getRiteEffectRadius();
     }
 
-    public int interval(boolean corrupted) {
-        return defaultInterval();
+    public int getRiteTickRate(boolean corrupted) {
+        return getRiteEffect(corrupted).getRiteEffectTickRate();
     }
 
-    public void executeRite(Level level, BlockPos pos, int height, boolean corrupted) {
-        if (corrupted) {
-            corruptedRiteEffect(level, pos, height);
-        } else {
-            riteEffect(level, pos, height);
-        }
+    public abstract MalumRiteEffect getNaturalRiteEffect();
+
+    public abstract MalumRiteEffect getCorruptedEffect();
+
+    public final MalumRiteEffect getRiteEffect(boolean corrupted) {
+        return corrupted ? corruptedEffect : effect;
     }
 
-    public void riteEffect(Level level, BlockPos pos, int height) {
-
-    }
-
-    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
-
-    }
-
-    public <T extends LivingEntity> ArrayList<T> getNearbyEntities(Class<T> clazz, Level level, BlockPos pos, boolean corrupted) {
-        return (ArrayList<T>) level.getEntitiesOfClass(clazz, new AABB(pos).inflate(range(corrupted)));
-    }
-
-    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level level, BlockPos pos, boolean corrupted) {
-        return BlockHelper.getBlocks(pos, range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
-    }
-
-    public ArrayList<BlockPos> getNearbyBlocks(Class<?> clazz, Level level, BlockPos pos, int height, boolean corrupted) {
-        int range = range(corrupted);
-        return BlockHelper.getBlocks(pos, range, height, range, p -> clazz.isInstance(level.getBlockState(p).getBlock()));
-    }
-
-    public ArrayList<BlockPos> getNearbyBlocksUnderBase(Class<?> clazz, Level level, BlockPos pos, boolean corrupted) {
-        return BlockHelper.getPlaneOfBlocks(pos.below(), range(corrupted), p -> clazz.isInstance(level.getBlockState(p).getBlock()));
+    public void executeRite(TotemBaseBlockEntity totemBase) {
+        getRiteEffect(totemBase.corrupted).riteEffect(totemBase);
     }
 }

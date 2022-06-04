@@ -1,13 +1,15 @@
 package com.sammy.malum.common.spiritrite;
 
+import com.sammy.malum.common.blockentity.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.setup.content.potion.EffectRegistry;
+import com.sammy.malum.core.systems.rites.EntityAffectingRiteEffect;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.effect.MobEffectInstance;
+import com.sammy.malum.core.systems.rites.PotionRiteEffect;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.animal.Bee;
 import net.minecraftforge.network.PacketDistributor;
 
 import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.*;
@@ -19,33 +21,43 @@ public class SacredRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos, int height) {
-        if (!level.isClientSide) {
-            getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
-                if (e.getEffect(EffectRegistry.SACRED_AURA.get()) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT.getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
-                }
-                e.addEffect(new MobEffectInstance(EffectRegistry.SACRED_AURA.get(), 200, 1));
-            });
-        }
-    }
-
-    @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
-        if (!level.isClientSide) {
-            getNearbyEntities(Animal.class, level, pos, true).forEach(e -> {
-                if (level.random.nextFloat() <= 0.04f) {
-                    if (e.getAge() < 0) {
-                        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(SACRED_SPIRIT.getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
-                        e.ageUp(25);
+    public MalumRiteEffect getNaturalRiteEffect() {
+        return new EntityAffectingRiteEffect() {
+            @Override
+            public void riteEffect(TotemBaseBlockEntity totemBase) {
+                getNearbyEntities(totemBase, Animal.class).forEach(e -> {
+                    if (e.getHealth() < e.getMaxHealth() / 2f) {
+                        e.heal(2);
                     }
-                }
-            });
-        }
+                });
+            }
+        };
     }
 
     @Override
-    public int range(boolean corrupted) {
-        return defaultRange() / 2;
+    public MalumRiteEffect getCorruptedEffect() {
+        return new EntityAffectingRiteEffect() {
+            @SuppressWarnings("ConstantConditions")
+            @Override
+            public void riteEffect(TotemBaseBlockEntity totemBase) {
+                if (totemBase.getLevel().isClientSide()) {
+                    return;
+                }
+                getNearbyEntities(totemBase, Animal.class).forEach(e -> {
+                    if (e.getAge() < 0) {
+                        if (totemBase.getLevel().random.nextFloat() <= 0.04f) {
+                            INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(getSpirit().getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
+                            e.ageUp(25);
+                        }
+                    } else if (e instanceof Bee bee) {
+                        Bee.BeePollinateGoal goal = bee.beePollinateGoal;
+                        if (goal.canBeeUse()) {
+                            bee.beePollinateGoal.successfulPollinatingTicks += 20;
+                            bee.beePollinateGoal.tick();
+                        }
+                    }
+                });
+            }
+        };
     }
 }

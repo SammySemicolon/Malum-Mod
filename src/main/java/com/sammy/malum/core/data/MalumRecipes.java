@@ -2,6 +2,7 @@ package com.sammy.malum.core.data;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.item.impetus.ImpetusItem;
+import com.sammy.malum.core.data.builder.SpiritInfusionRecipeBuilder;
 import com.sammy.malum.core.data.builder.vanilla.NBTCarryRecipeBuilder;
 import com.sammy.malum.core.data.builder.vanilla.TheDeviceRecipeBuilder;
 import com.sammy.malum.core.setup.content.item.ItemRegistry;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
@@ -33,13 +35,15 @@ import static com.sammy.malum.core.data.builder.vanilla.MetalNodeCookingRecipeBu
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.blastingWithCount;
 import static com.sammy.malum.core.data.builder.vanilla.StackedMalumCookingRecipeBuilder.smeltingWithCount;
 import static com.sammy.malum.MalumMod.prefix;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.EARTHEN_SPIRIT;
+import static com.sammy.malum.core.setup.content.SpiritTypeRegistry.INFERNAL_SPIRIT;
 import static com.sammy.ortus.setup.OrtusItemTags.*;
 import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
 import static net.minecraft.data.recipes.ShapelessRecipeBuilder.shapeless;
 import static net.minecraft.data.recipes.SimpleCookingRecipeBuilder.*;
 import static net.minecraft.data.recipes.SingleItemRecipeBuilder.stonecutting;
 
-public class MalumRecipes extends RecipeProvider {
+public class MalumRecipes extends RecipeProvider implements IConditionBuilder {
     public MalumRecipes(DataGenerator generatorIn) {
         super(generatorIn);
     }
@@ -459,18 +463,21 @@ public class MalumRecipes extends RecipeProvider {
         TheDeviceRecipeBuilder.shaped(ItemRegistry.THE_DEVICE.get()).define('X', ItemRegistry.TWISTED_ROCK.get()).define('Y', ItemRegistry.TAINTED_ROCK.get()).pattern("XYX").pattern("YXY").pattern("XYX").unlockedBy("has_bedrock", has(Items.BEDROCK)).save(consumer);
     }
 
-    private static void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
-
+    private void nodeSmelting(Consumer<FinishedRecipe> recipeConsumer, RegistryObject<ImpetusItem> impetus, RegistryObject<Item> node, TagKey<Item> tag) {
         String name = node.get().getRegistryName().getPath().replaceFirst("_node", "");
-        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location()))).addRecipe(
-                        (c) -> smeltingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 200).unlockedBy("has_impetus", has(impetus.get())).save(c, MalumMod.prefix(name + "_from_node_smelting")))
+
+        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag.location().toString()))).addRecipe(
+                        smeltingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 200)
+                                ::build)
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.prefix(name + "_from_node_smelting"));
-        ConditionalRecipe.builder().addCondition(new NotCondition(new TagEmptyCondition(tag.location())))
-                .addRecipe(
-                        (c) -> blastingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 100).unlockedBy("has_impetus", has(impetus.get())).save(c, MalumMod.prefix(name + "_from_node_blasting")))
+
+        ConditionalRecipe.builder().addCondition(not(new TagEmptyCondition(tag.location().toString()))).addRecipe(
+                        blastingWithTag(Ingredient.of(node.get()), tag, 6, 0.25f, 100)
+                                ::build)
                 .generateAdvancement()
                 .build(recipeConsumer, MalumMod.prefix(name + "_from_node_blasting"));
+
     }
 
     private static void etherBrazier(Consumer<FinishedRecipe> recipeConsumer, ItemLike output, ItemLike rock, ItemLike ether) {

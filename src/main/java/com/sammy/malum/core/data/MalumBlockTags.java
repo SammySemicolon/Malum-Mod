@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.sammy.malum.core.setup.content.block.BlockRegistry.BLOCKS;
+import static com.sammy.malum.core.setup.content.block.BlockRegistry.*;
 import static net.minecraft.tags.BlockTags.*;
 
 public class MalumBlockTags extends BlockTagsProvider {
@@ -27,6 +27,7 @@ public class MalumBlockTags extends BlockTagsProvider {
         super(generatorIn, MalumMod.MALUM, existingFileHelper);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void addTags() {
         tag(Tags.Blocks.ORES).add(BlockRegistry.SOULSTONE_ORE.get(), BlockRegistry.BLAZING_QUARTZ_ORE.get(), BlockRegistry.BRILLIANT_STONE.get());
@@ -57,7 +58,22 @@ public class MalumBlockTags extends BlockTagsProvider {
 
 
         tag(BlockTagRegistry.HEAT_SOURCES).add(BlockRegistry.BLOCK_OF_BLAZING_QUARTZ.get());
+        tag(BlockTagRegistry.RUNEWOOD_LOGS).add(BlockRegistry.RUNEWOOD_LOG.get(),BlockRegistry.RUNEWOOD.get(),BlockRegistry.EXPOSED_RUNEWOOD_LOG.get(),BlockRegistry.REVEALED_RUNEWOOD_LOG.get());
+        tag(BlockTagRegistry.SOULWOOD_LOGS).add(BlockRegistry.SOULWOOD_LOG.get(),BlockRegistry.SOULWOOD.get(),BlockRegistry.EXPOSED_SOULWOOD_LOG.get(),BlockRegistry.REVEALED_SOULWOOD_LOG.get());
+
+
         tag(BlockTagRegistry.BLIGHTED_BLOCKS).add(BlockRegistry.BLIGHTED_SOIL.get());
+
+        for (Block block : getModBlocks(b -> b.getRegistryName().getPath().contains("tainted_"))) {
+            tag(BlockTagRegistry.TAINTED_ROCK).add(block);
+        }
+        for (Block block : getModBlocks(b -> b.getRegistryName().getPath().contains("twisted_"))) {
+            tag(BlockTagRegistry.TWISTED_ROCK).add(block);
+        }
+        tag(BlockTagRegistry.RITE_IMMUNE).add(RUNEWOOD_TOTEM_BASE.get(), RUNEWOOD_TOTEM_POLE.get(), SOULWOOD_TOTEM_BASE.get(), SOULWOOD_TOTEM_POLE.get());
+        tag(BlockTagRegistry.RITE_IMMUNE).addTags(BlockTagRegistry.TAINTED_ROCK, BlockTagRegistry.TWISTED_ROCK);
+
+        tag(BlockTagRegistry.ENDLESS_FLAME);
 
         for (Block block : getModBlocks(b -> b instanceof EtherBlock)) {
             tag(BlockTagRegistry.TRAY_HEAT_SOURCES).add(block);

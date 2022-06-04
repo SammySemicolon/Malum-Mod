@@ -2,7 +2,9 @@ package com.sammy.malum.common.spiritrite;
 
 import com.sammy.malum.common.packets.particle.MagicParticlePacket;
 import com.sammy.malum.core.setup.content.potion.EffectRegistry;
+import com.sammy.malum.core.systems.rites.MalumRiteEffect;
 import com.sammy.malum.core.systems.rites.MalumRiteType;
+import com.sammy.malum.core.systems.rites.PotionRiteEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -19,26 +21,12 @@ public class AqueousRiteType extends MalumRiteType {
     }
 
     @Override
-    public void riteEffect(Level level, BlockPos pos, int height) {
-        if (!level.isClientSide) {
-            getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
-                if (e.getEffect(EffectRegistry.AQUEOUS_AURA.get()) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AQUEOUS_SPIRIT.getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
-                }
-                e.addEffect(new MobEffectInstance(EffectRegistry.AQUEOUS_AURA.get(), 200, 1));
-            });
-        }
+    public MalumRiteEffect getNaturalRiteEffect() {
+        return new PotionRiteEffect(Player.class, EffectRegistry.AQUEOUS_AURA, AQUEOUS_SPIRIT);
     }
 
     @Override
-    public void corruptedRiteEffect(Level level, BlockPos pos, int height) {
-        if (!level.isClientSide) {
-            getNearbyEntities(Player.class, level, pos, false).forEach(e -> {
-                if (e.getEffect(MobEffects.WATER_BREATHING) == null) {
-                    INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MagicParticlePacket(AQUEOUS_SPIRIT.getColor(), e.blockPosition().getX(), e.blockPosition().getY() + e.getBbHeight() / 2f, e.blockPosition().getZ()));
-                }
-                e.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200, 0));
-            });
-        }
+    public MalumRiteEffect getCorruptedEffect() {
+        return new PotionRiteEffect(Player.class, EffectRegistry.CORRUPTED_AQUEOUS_AURA, AQUEOUS_SPIRIT);
     }
 }

@@ -2,6 +2,8 @@ package com.sammy.malum.core.data.builder.vanilla;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.sammy.malum.MalumMod;
+import com.sammy.malum.core.data.builder.SpiritFocusingRecipeBuilder;
 import com.sammy.malum.core.setup.content.RecipeSerializerRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -14,16 +16,19 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.function.Consumer;
 
-public class MetalNodeCookingRecipeBuilder implements RecipeBuilder {
+public class MetalNodeCookingRecipeBuilder {
    private final TagKey<Item> result;
    private final int resultCount;
    private final Ingredient ingredient;
@@ -55,31 +60,22 @@ public class MetalNodeCookingRecipeBuilder implements RecipeBuilder {
       return cookingWithCount(pIngredient, pResult, resultCount, pExperience, pCookingTime, RecipeSerializerRegistry.METAL_NODE_SMELTING_SERIALIZER.get());
    }
 
-   public MetalNodeCookingRecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
-      this.advancement.addCriterion(pCriterionName, pCriterionTrigger);
-      return this;
-   }
-
    public MetalNodeCookingRecipeBuilder group(@Nullable String pGroupName) {
       this.group = pGroupName;
       return this;
    }
 
-   public Item getResult() {
-      return Items.AIR;
+
+   public void build(Consumer<FinishedRecipe> consumerIn, String recipeName) {
+      build(consumerIn, MalumMod.prefix("node_processing/" + recipeName));
    }
 
-
-   public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
-      this.ensureValid(pRecipeId);
-      this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId)).rewards(AdvancementRewards.Builder.recipe(pRecipeId)).requirements(RequirementsStrategy.OR);
-      pFinishedRecipeConsumer.accept(new MetalNodeCookingRecipeBuilder.Result(pRecipeId, this.group == null ? "" : this.group, this.ingredient, this.result, this.resultCount, this.experience, this.cookingTime, this.advancement, new ResourceLocation(pRecipeId.getNamespace(), "recipes/metal_node_smelting/" + pRecipeId.getPath()), this.serializer));
+   public void build(Consumer<FinishedRecipe> consumerIn) {
+      build(consumerIn, result.location().getPath());
    }
 
-   private void ensureValid(ResourceLocation pId) {
-      if (this.advancement.getCriteria().isEmpty()) {
-         throw new IllegalStateException("No way of obtaining recipe " + pId);
-      }
+   public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
+      consumerIn.accept(new MetalNodeCookingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.ingredient, this.result, this.resultCount, this.experience, this.cookingTime, this.advancement, new ResourceLocation(id.getNamespace(), "recipes/metal_node_smelting/" + id.getPath()), this.serializer));
    }
 
    public static class Result implements FinishedRecipe {

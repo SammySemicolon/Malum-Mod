@@ -52,8 +52,8 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
     public void tick() {
         if (rite != null) {
             progress++;
-            if (progress >= rite.interval(corrupted)) {
-                rite.executeRite(level, worldPosition, height, corrupted);
+            if (progress >= rite.getRiteTickRate(corrupted)) {
+                rite.executeRite(this);
                 progress = 0;
                 if (!level.isClientSide) {
                     BlockHelper.updateAndNotifyState(level, worldPosition);
@@ -129,6 +129,9 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
         compound.putBoolean("active", active);
         compound.putInt("progress", progress);
         compound.putInt("height", height);
+        if (direction != null) {
+            compound.putString("direction", direction.name());
+        }
         compound.putBoolean("corrupted", corrupted);
         super.saveAdditional(compound);
     }
@@ -144,6 +147,7 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
         active = compound.getBoolean("active");
         progress = compound.getInt("progress");
         height = compound.getInt("height");
+        direction = Direction.byName(compound.getString("direction"));
         corrupted = compound.getBoolean("corrupted");
         poles.clear();
         for (int i = 1; i <= height; i++) {
@@ -167,7 +171,7 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
     }
 
     public void disableOtherRites(MalumRiteType rite) {
-        int range = rite.range(corrupted);
+        int range = rite.getRiteRadius(corrupted);
         List<TotemBaseBlockEntity> totemBases = BlockHelper.getBlocks(worldPosition, range, b -> level.getBlockEntity(b) instanceof TotemBaseBlockEntity && !b.equals(worldPosition)).stream().map(b -> (TotemBaseBlockEntity) level.getBlockEntity(b)).collect(Collectors.toCollection(ArrayList::new));
         for (TotemBaseBlockEntity blockEntity : totemBases) {
             if (rite.equals(blockEntity.rite)) {
@@ -185,8 +189,8 @@ public class TotemBaseBlockEntity extends OrtusBlockEntity {
             }
         });
         progress = 0;
-        rite.executeRite(level, worldPosition, height, corrupted);
-        if (rite.oneAndDone(corrupted)) {
+        rite.executeRite(this);
+        if (rite.isOneAndDone(corrupted)) {
             return;
         }
         this.rite = rite;
