@@ -1,0 +1,14 @@
+{
+  "registry_name": "friendsandfoes:copper_golem",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 2
+    }
+  ]
+}

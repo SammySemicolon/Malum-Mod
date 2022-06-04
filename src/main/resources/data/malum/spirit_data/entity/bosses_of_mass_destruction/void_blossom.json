@@ -1,0 +1,22 @@
+{
+  "registry_name": "bosses_of_mass_destruction:void_blossom",
+  "primary_type": "earthen",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 4
+    },
+    {
+      "spirit": "arcane",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 5
+    },
+    {
+      "spirit": "sacred",
+      "count": 2
+    }
+  ]
+}
