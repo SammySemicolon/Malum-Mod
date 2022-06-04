@@ -2,7 +2,7 @@
   "conditions": [
     {
       "type": "forge:mod_loaded",
-      "modid": "mysticbotany"
+      "modid": "mythicbotany"
     }
   ],
   "type": "malum:spirit_repair",
@@ -11,7 +11,7 @@
   "inputs": [
   ],
   "repairMaterial": {
-    "item": "mysticbotany:alfsteel_ingot",
+    "item": "mythicbotany:alfsteel_ingot",
     "count": 1
   },
   "spirits": [

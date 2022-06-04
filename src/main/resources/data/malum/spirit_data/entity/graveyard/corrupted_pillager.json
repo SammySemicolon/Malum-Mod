@@ -1,0 +1,10 @@
+{
+  "registry_name": "graveyard:corrupted_pillager",
+  "primary_type": "wicked",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 2
+    }
+  ]
+}
