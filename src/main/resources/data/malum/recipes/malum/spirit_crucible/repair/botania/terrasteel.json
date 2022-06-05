@@ -6,9 +6,13 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "terra",
+  "inputLookup": "terra_",
   "durabilityPercentage": 1,
   "inputs": [
+    "botania:terrasteel_helmet",
+    "botania:terrasteel_chestplate",
+    "botania:terrasteel_leggings",
+    "botania:terrasteel_boots"
   ],
   "repairMaterial": {
     "item": "botania:terrasteel_ingot",
