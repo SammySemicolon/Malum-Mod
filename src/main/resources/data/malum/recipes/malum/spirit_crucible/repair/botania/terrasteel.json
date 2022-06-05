@@ -6,10 +6,10 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "terra",
+  "itemIdRegex": "terra.+",
+  "modIdRegex": "botania",
   "durabilityPercentage": 1,
-  "inputs": [
-  ],
+  "inputs": [],
   "repairMaterial": {
     "item": "botania:terrasteel_ingot",
     "count": 1

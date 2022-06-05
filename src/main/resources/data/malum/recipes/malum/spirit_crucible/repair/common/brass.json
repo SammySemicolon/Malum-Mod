@@ -9,7 +9,8 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "brass_",
+  "itemIdRegex": "brass_.+",
+  "modIdRegex": ".+",
   "durabilityPercentage": 0.5,
   "inputs": [
   ],

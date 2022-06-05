@@ -6,10 +6,10 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "hexerei:witch_",
+  "itemIdRegex": "witch_.+",
+  "modIdRegex": "hexerei",
   "durabilityPercentage": 0.5,
-  "inputs": [
-  ],
+  "inputs": [],
   "repairMaterial": {
     "item": "hexerei:infused_fabric",
     "count": 4

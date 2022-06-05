@@ -6,7 +6,8 @@
     }
   ],
   "type": "malum:spirit_repair",
-  "inputLookup": "none",
+  "itemIdRegex": "",
+  "modIdRegex": "",
   "durabilityPercentage": 1,
   "inputs": [
     "occultism:chalk_red"
